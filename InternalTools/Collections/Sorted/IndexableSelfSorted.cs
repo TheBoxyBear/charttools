@@ -1,0 +1,92 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ChartTools.Collections.Sorted
+{
+    /// <summary>
+    /// *Deprecated* Collection where <typeparamref name="TValue"/> items are always sorted based on a <typeparamref name="TKey"/> key
+    /// </summary>
+    internal class IndexableSelfSorted<TKey, TValue> : SelfSorted<TValue> where TKey : IComparable<TKey> where TValue : IComparable<TValue>
+    {
+        /// <summary>
+        /// Method that retrieves the key from an item
+        /// </summary>
+        protected Func<TValue, TKey> GetKey;
+        /// <summary>
+        /// <see langword="true"/> if multiple items can have the same key. Items of the same key are sorted using the default <see cref="IComparable{T}"/> comparison of <typeparamref name="TValue"/>.
+        /// </summary>
+        public bool AllowDuplicates { get; set; } = false;
+        /// <summary>
+        /// Gets the number of unique keys from the items
+        /// </summary>
+        public int KeyCount => this.GroupBy(t => GetKey(t)).Count();
+
+        /// <summary>
+        /// Creates an instance of <see cref="IndexableSelfSorted{TKey, TValue}"/>.
+        /// </summary>
+        public IndexableSelfSorted(Func<TValue, TKey> keyGetter, int capacity = 0) : base(capacity) => GetKey = keyGetter;
+
+        /// <summary>
+        /// Gets the items matching the provided key.
+        /// </summary>
+        private IEnumerable<TValue> GetValues(TKey index) => items.Where(i => GetKey(i).Equals(index));
+
+        /// <inheritdoc/>
+        /// <exception cref="ArgumentException"/>
+        public override void Add(TValue item)
+        {
+            if (AllowDuplicates)
+                base.Add(item);
+            else
+                if (ContainsDuplicate(item))
+                    throw new ArgumentException("Item cannot be added because one of the same index already exists.");
+                else
+                    base.Add(item);
+        }
+        /// <inheritdoc/>
+        /// <exception cref="ArgumentException"/>
+        public override void AddRange(IEnumerable<TValue> items)
+        {
+            foreach (TValue i in items)
+                if (ContainsDuplicate(i))
+                    throw new ArgumentException("One or more items cannot be added because some with the same index already exist.");
+
+            base.AddRange(items);
+        }
+        /// <summary>
+        /// Determines if the collection contains any item of the samne key as the provided item.
+        /// </summary>
+        private bool ContainsDuplicate(TValue item)
+        {
+            foreach (TValue i in items)
+                switch (GetKey(i).CompareTo(GetKey(item)))
+                {
+                    case 0:
+                        return true;
+                    case 1:
+                        return false;
+                }
+
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<TValue> this[TKey index]
+        {
+            get => GetValues(index);
+            set
+            {
+                RemoveAt(index);
+                AddRange(value);
+            }
+        }
+
+        /// <inheritdoc cref="IList{T}.RemoveAt(int)"/>
+        public void RemoveAt(TKey index)
+        {
+            foreach (TValue v in GetValues(index))
+                Remove(v);
+        }
+    }
+}

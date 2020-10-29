@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30223.230
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChartTools", "ChartTools.csproj", "{FB2EEA78-DD96-4522-ACB4-C5A85EF43A20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Debug", "..\Debug\Debug.csproj", "{FDD3865E-7F38-4EDF-9808-0519ACE389CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FB2EEA78-DD96-4522-ACB4-C5A85EF43A20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB2EEA78-DD96-4522-ACB4-C5A85EF43A20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB2EEA78-DD96-4522-ACB4-C5A85EF43A20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB2EEA78-DD96-4522-ACB4-C5A85EF43A20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDD3865E-7F38-4EDF-9808-0519ACE389CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDD3865E-7F38-4EDF-9808-0519ACE389CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDD3865E-7F38-4EDF-9808-0519ACE389CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDD3865E-7F38-4EDF-9808-0519ACE389CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CB90841A-5DC0-4D7B-863F-E3DBCEF253EE}
+	EndGlobalSection
+EndGlobal

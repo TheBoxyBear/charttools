@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="InternalTools\Collections\Base\**" />
+    <Compile Remove="InternalTools\Collections\Indexable\**" />
+    <EmbeddedResource Remove="InternalTools\Collections\Base\**" />
+    <EmbeddedResource Remove="InternalTools\Collections\Indexable\**" />
+    <None Remove="InternalTools\Collections\Base\**" />
+    <None Remove="InternalTools\Collections\Indexable\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ini.net" Version="1.1.0" />
+    <PackageReference Include="Melanchall.DryWetMidi" Version="5.1.1" />
+  </ItemGroup>
+
+</Project>
