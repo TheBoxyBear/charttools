@@ -21,15 +21,12 @@ Each of these elements
 can be read individually from a file using the non-generic version of the right class.
 
 ## Metadata
-Similar to reading a song: metadata can be read like so:
+Similar to reading a song: metadata can be read from one or multiple files:
 ```c#
 Metadata metadata = Metadata.FromFile(filePath);
+Metadata metadata = Metada.FromFiles(filePath1, filePath2, filePath3...);
 ```
-filePath can be a .chart or .ini file. Data from multiple files can be combined in a single Metadata object by creating an instance for each fle and using the Merge method:
-```c#
-Metadata mergedMetadata = Metadata.FromFile(file1);
-mergedMetadata.Merge(Metadata.FromFile(file2, overwriteNonNull);
-```
+Files can be .chart or .ini. When reading from multiple files, the provided files can be a mix of different formats. Each file is read based on its extension.
 
 ## Instruments and tracks
 All instrument currently supported are represented using the generic Insrument class. Notes and other information are stored in a track. Each generic instrument contains one track per difficulty setting. A track can be retrieved from a song like so:

@@ -2,6 +2,8 @@
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Ini;
+using System;
+using System.Linq;
 
 namespace ChartTools
 {
@@ -73,13 +75,41 @@ namespace ChartTools
         public string LoadingText { get; set; }
         #endregion
 
-        /// <inheritdoc cref="ProperyMerger.Merge{T}(T, bool, T[])"/>
-        public void Merge(Metadata newData, bool overwriteNonNull) => ProperyMerger.Merge(this, overwriteNonNull, newData);
-
         /// <summary>
-        /// Gets the metadata from a file.
+        /// Reads the metadata from a file.
         /// </summary>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="FormatException"
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="OutOfMemoryException"/>
         public static Metadata FromFile(string path) => ExtensionHandler.Read(path, (".chart", ChartParser.ReadMetadata), (".ini", IniParser.Read));
+        /// <summary>
+        /// Reads the metadata from multiple files.
+        /// </summary>
+        /// <remarks>Each file has less priority than the preceding.</remarks>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="FormatException"
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="OutOfMemoryException"/>
+        public static Metadata FromFiles(params string[] paths)
+        {
+            //No files provided
+            if (paths is null || paths.Length == 0)
+                throw new ArgumentException("No provided paths");
+
+            Metadata[] data = new Metadata[paths.Length];
+
+            //Read all files
+            for (int i = 0; i < paths.Length; i++)
+                try { data[i] = FromFile(paths[i]); }
+                catch (Exception e) { throw e; }
+
+            data[0].Merge(false, data.Skip(1).ToArray());
+
+            return data[0];
+        }
         /// <inheritdoc cref="IniParser.Write(string, Metadata)"/>
         public void ToFile(string path) => ExtensionHandler.Write(path, this, (".ini", IniParser.Write));
     }
