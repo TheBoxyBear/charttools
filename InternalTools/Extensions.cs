@@ -20,6 +20,9 @@ namespace System
         }
     }
 
+    /// <summary>
+    /// Provides generic vesion of Activator methods
+    /// </summary>
     internal class ActivatorExtensions
     {
         /// <inheritdoc cref="Activator.CreateInstance(Type, bool)"/>

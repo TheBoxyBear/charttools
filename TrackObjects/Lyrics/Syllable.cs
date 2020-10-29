@@ -19,6 +19,7 @@
         /// <remarks>Syllable postion is based on the syntax of <see cref="RawText"/></remarks>
         public bool IsWordEnd
         {
+            //The last character is not - or =
             get => RawText[RawText.Length - 1] != '-' && RawText[RawText.Length - 1] != '=';
             set
             {

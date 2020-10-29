@@ -127,6 +127,7 @@ namespace ChartTools.Collections.Alternating
         /// </summary>
         public void Reset()
         {
+            //Reset endsReached array
             for (int i = 0; i < endsReached.Length; i++)
                 endsReached[i] = false;
         }

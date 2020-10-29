@@ -21,6 +21,7 @@ namespace ChartTools.Lyrics
             foreach (GlobalEvent globalEvent in globalEvents.OrderBy(e => e.Position))
                 switch (globalEvent.EventType)
                 {
+                    //Change active phrase
                     case GlobalEventType.PhraseStart:
                         if (phrase is not null)
                             yield return phrase;
@@ -34,6 +35,7 @@ namespace ChartTools.Lyrics
                             phraselessFirstSyllable = null;
                         }
                         break;
+                    //Add syllable to the active phrase usign the event argument
                     case GlobalEventType.Lyric:
                         Syllable newSyllable = new Syllable(globalEvent.Position) { RawText = globalEvent.Argument };
 
@@ -43,6 +45,7 @@ namespace ChartTools.Lyrics
                         else
                             phrase.Syllables.Add(newSyllable);
                         break;
+                    //Set end position of active phrase
                     case GlobalEventType.PhraseEnd:
                         if (phrase is not null)
                             phrase.EndPosition = globalEvent.Position;
