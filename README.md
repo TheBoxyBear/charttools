@@ -1,5 +1,5 @@
 # ChartTools
-ChartTools is a .NET Standard library with the purpose of modeling song files for the video game Clone Hero. It currently supports reading of chart and ini files, with MIDI support planned after the first proper release.
+ChartTools is a .NET Standard library with the purpose of modeling song files for the video game Clone Hero. It currently supports reading of chart and ini files, with MIDI support planned after the first proper release which should arrive at some point in November.
 
 ## Installation
 ChartTools currently has no proper release and must be imported using the project included in the repository.
