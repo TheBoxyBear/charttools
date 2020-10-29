@@ -6,4 +6,9 @@ ChartTools currently has no proper release and must be imported using the projec
 
 To add ChartTools to your solution, select right-click on Dependeicnes of your project from the solution explorer and select "Add Project References...". Click on "Browse" and select ChartTools.csproj from your clone of the repository.
 
-All the elements of the library are located under the "ChartTools" namespace.
+Namespaces:
+	-ChartTools
+	-ChartTools.Collections
+	-ChartTools.Collections.Alternating
+	-ChartTools.Lyrics
+	-ChartTools.Optimization
