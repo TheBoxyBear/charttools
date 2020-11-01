@@ -6,6 +6,7 @@ What to expext in the next verion
 - Overwriting of individual components
 - Improvements to exception handling
 - Faster reading of metadata
+- Bug fixes
 
 ## Installation
 ChartTools currently has no proper release and must be imported using the project included in the repository.
