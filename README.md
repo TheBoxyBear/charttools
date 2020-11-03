@@ -1,13 +1,6 @@
 # ChartTools
 ChartTools is a .NET Standard library with the purpose of modeling song files for the video game Clone Hero. It currently supports reading of chart and ini files, with MIDI support planned after the first proper release which should arrive at some point in November.
 
-What to expext in the next verion
-- Reading and writing of instrument difficulty
-- Overwriting of individual components
-- Improvements to exception handling
-- Faster reading of metadata
-- Bug fixes
-
 ## Installation
 ChartTools currently has no proper release and must be imported using the project included in the repository.
 
@@ -92,7 +85,7 @@ syncTrack.Tempo.RemoveUneeded();
 syncTrack.TimeSignatures.RemoveUneeded();
 ```
 ## Writing files
-Finally, changes can be saved to a file using the static ToFile method or either Metadata or Song. The format is based on the extension of the file. **NOTE: The file will be completely overwritten.**
+Finally, changes can be saved to a file using the static ToFile method of most components. The format is based on the extension of the file. For instruments and tracks, the existing element will be overwritten or added while keeping the rest of the file if it already exists.
 ```c#
 song.ToFile(filePath); //.chart file only
 metadata.ToFile(filePath) //.chart or .ini - some properties may not be written depending on the output format
