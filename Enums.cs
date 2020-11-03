@@ -22,7 +22,8 @@ namespace ChartTools
     /// <summary>
     /// Guiter Hero Live instruments
     /// </summary>
-    public enum GHLInstrument : byte { Guitar, Bass }
+    /// <remarks>Casting to <see cref="Instruments"/> will match the instrument.</remarks>
+    public enum GHLInstrument : byte { Guitar = 1, Bass }
     /// <summary>
     /// Frets for a <see cref="GHLNote"/>
     /// </summary>
@@ -87,9 +88,14 @@ namespace ChartTools
     /// <summary>
     /// Standard five-fret instruments
     /// </summary>
-    public enum StandardInstrument : byte { LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys }
+    /// <remarks><inheritdoc cref="GHLInstrument"/></remarks>
+    public enum StandardInstrument : byte { LeadGuitar = 3, RhythmGuitar, CoopGuitar, Bass, Keys }
     /// <summary>
     /// Frets for a <see cref="StandardNote"/>
     /// </summary>
     public enum StandardNotes : byte { Open, Green, Red, Yellow, Blue, Orange }
+    /// <summary>
+    /// All instruments
+    /// </summary>
+    public enum Instruments : byte { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys }
 }

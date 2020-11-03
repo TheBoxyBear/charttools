@@ -13,7 +13,7 @@ namespace ChartTools
         /// <summary>
         /// <see cref="Event.EventTypeString"/> value for each <see cref="GlobalEventType"/>
         /// </summary>
-        private static Dictionary<GlobalEventType, string> globalTypesDictionary = new Dictionary<GlobalEventType, string>()
+        private static readonly Dictionary<GlobalEventType, string> globalTypesDictionary = new Dictionary<GlobalEventType, string>()
         {
             { GlobalEventType.PhraseStart, "phrase_start" },
             { GlobalEventType.PhraseEnd, "phrase_end" },

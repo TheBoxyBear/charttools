@@ -20,13 +20,13 @@
         public bool IsWordEnd
         {
             //The last character is not - or =
-            get => RawText[RawText.Length - 1] != '-' && RawText[RawText.Length - 1] != '=';
+            get => RawText[^1] != '-' && RawText[^1] != '=';
             set
             {
                 if (value)
                 {
                     if (IsWordEnd)
-                        RawText = RawText.Substring(0, RawText.Length - 1);
+                        RawText = RawText[..^1];
                 }
                 else if (!IsWordEnd)
                     RawText += '-';

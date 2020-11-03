@@ -67,8 +67,7 @@ namespace ChartTools.Collections
         /// </summary>
         private void RemoveDuplicate(T item)
         {
-            bool returneDefault;
-            T existing = items.FirstOrDefault(i => Comparison(i, item) == 0, default, out returneDefault);
+            T existing = items.FirstOrDefault(i => Comparison(i, item) == 0, default, out bool returneDefault);
 
             if (!returneDefault)
                 items.Remove(existing);

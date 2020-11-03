@@ -22,7 +22,7 @@ namespace ChartTools
         /// </remarks>
         public new void Add(TNote item)
         {
-            if (OpenExclusivity && (item.NoteIndex == 0 || (Count > 0 && this[0].NoteIndex == 0)))
+            if (OpenExclusivity && (item.NoteIndex == 0 || Count > 0 && this[0].NoteIndex == 0))
                 Clear();
 
             base.Add(item);

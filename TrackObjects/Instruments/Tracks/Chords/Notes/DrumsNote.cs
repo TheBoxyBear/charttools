@@ -8,7 +8,7 @@
         /// <summary>
         /// Pad to hit
         /// </summary>
-        public DrumsNotes Note { get => (DrumsNotes)NoteIndex; }
+        public DrumsNotes Note => (DrumsNotes)NoteIndex;
 
         private bool _isCymbal = false;
         /// <summary>

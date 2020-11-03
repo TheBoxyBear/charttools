@@ -1,10 +1,12 @@
-﻿using ChartTools.Collections;
-using ChartTools.IO;
+﻿using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Ini;
 using ChartTools.Lyrics;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 namespace ChartTools
 {
@@ -61,15 +63,58 @@ namespace ChartTools
         public Instrument<StandardChord> Keys { get; set; }
         #endregion
 
+        /// <summary>
+        /// Gets property value for an <see cref="Instrument"/> from a <see cref="Instruments"/> <see langword="enum"/> value.
+        /// </summary>
+        /// <param name="instrument"></param>
+        /// <returns>Instance of <see cref="Instrument"/> from the <see cref="Song"/>.</returns>
+        public Instrument GetInstrument(Instruments instrument) => instrument switch
+        {
+            Instruments.Drums => Drums,
+            Instruments.GHLGuitar => GHLGuitar,
+            Instruments.GHLBass => GHLBass,
+            Instruments.LeadGuitar => LeadGuitar,
+            Instruments.RhythmGuitar => RhythmGuitar,
+            Instruments.CoopGuitar => CoopGuitar,
+            Instruments.Bass => Bass,
+            Instruments.Keys => Keys,
+        };
+        /// <summary>
+        /// Gets property value for an <see cref="Instrument{TChord}"/> from a <see cref="GHLInstrument"/> <see langword="enum"/> value.
+        /// </summary>
+        /// <param name="instrument"></param>
+        /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="GHLChord"/> from the <see cref="Song"/>.</returns>
+        public Instrument<GHLChord> GetInstrument(GHLInstrument instrument) => GetInstrument((Instruments)instrument) as Instrument<GHLChord>;
+        /// <summary>
+        /// Gets property value for an <see cref="Instrument{TChord}"/> from a <see cref="StandardInstrument"/> <see langword="enum"/> value.
+        /// </summary>
+        /// <param name="instrument"></param>
+        /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="StandardChord"/> from the <see cref="Song"/>.</returns>
+        public Instrument<StandardChord> GetInstrument(StandardInstrument instrument) => GetInstrument((Instruments)instrument) as Instrument<StandardChord>;
+
         /// <inheritdoc cref="ChartParser.ReadSong(string)"/>
-        public static Song FromFile(string path) => ExtensionHandler.Read(path, (".chart", ChartParser.ReadSong), (".ini", (p) => new Song { Metadata = IniParser.Read(p) }));
+        public static Song FromFile(string path) => ExtensionHandler.Read(path, (".chart", ChartParser.ReadSong), (".ini", (p) => new Song { Metadata = IniParser.ReadMetadata(p) }));
         /// <inheritdoc cref="ChartParser.WriteSong(string, Song)"/>
         public void ToFile(string path) => ExtensionHandler.Write(path, this, (".chart", ChartParser.WriteSong));
 
         /// <summary>
+        /// Reads the estimated instrument difficulties from a ini file.
+        /// </summary>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="FormatException"/>
+        /// <exception cref="IOException"/>
+        public void ReadDifficulties(string path) => ExtensionHandler.Read(path, (".ini", (p) => IniParser.ReadDifficulties(p, this)));
+        /// <summary>
+        /// Writes the estimated instrument difficulties to a ini file.
+        /// </summary>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="IOException"/>
+        public void WriteDifficulties(string path) => ExtensionHandler.Write<Song>(path, this, (".ini", IniParser.WriteDifficulties));
+
+        /// <summary>
         /// Retrieves the lyrics from the global events.
         /// </summary>
-        public IEnumerable<Phrase> GetLyrics() => GlobalEvents is null ? null : GlobalEvents.GetLyrics();
+        public IEnumerable<Phrase> GetLyrics() => GlobalEvents?.GetLyrics();
         /// <summary>
         /// Replaces phrase and lyric events from <see cref="GlobalEvents"/> with the ones making up a set of <see cref="Phrase"/>.
         /// </summary>

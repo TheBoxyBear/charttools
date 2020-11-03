@@ -11,7 +11,7 @@ namespace ChartTools
         /// <summary>
         /// <see cref="Event.EventTypeString"/> value for each <see cref="LocalEventType"/>
         /// </summary>
-        private static Dictionary<LocalEventType, string> localTypesDictionary = new Dictionary<LocalEventType, string>()
+        private static readonly Dictionary<LocalEventType, string> localTypesDictionary = new Dictionary<LocalEventType, string>()
         {
             { LocalEventType.Solo, "solo" },
             { LocalEventType.SoloEnd, "soloend" },

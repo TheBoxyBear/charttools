@@ -8,7 +8,7 @@
         /// <summary>
         /// Fret to press
         /// </summary>
-        public GHLNotes Note { get => (GHLNotes)NoteIndex; }
+        public GHLNotes Note => (GHLNotes)NoteIndex;
 
         /// <summary>
         /// Creates an instance of <see cref="GHLNote"/>.

@@ -26,7 +26,7 @@ namespace ChartTools.Collections.Alternating
         /// <summary>
         /// State of the enumerators. True where MoveNext previously returned false
         /// </summary>
-        private bool[] endsReached;
+        private readonly bool[] endsReached;
 
         /// <summary>
         /// Creates a new instance of <see cref="OrderedAlternatingEnumerator{T, TKey}"/>.

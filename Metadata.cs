@@ -40,17 +40,17 @@ namespace ChartTools
         /// <summary>
         /// Start time in milliseconds of the preview in the Clone Hero song browser
         /// </summary>
-        public ushort? PreviewStart { get; set; }
+        public uint? PreviewStart { get; set; }
         /// <summary>
         /// End time in milliseconds of the preview in the Clone Hero song browser
         /// </summary>
-        public ushort? PreviewEnd { get; set; }
+        public uint? PreviewEnd { get; set; }
         /// <summary>
-        /// Overall difficulty of the song.
+        /// Overall difficulty of the song
         /// </summary>
-        public sbyte? Difficulty { get; set; }
+        public byte? Difficulty { get; set; }
         /// <summary>
-        /// Type of media the audio track comes from.
+        /// Type of media the audio track comes from
         /// </summary>
         public string MediaType { get; set; }
         /// <summary>
@@ -58,7 +58,7 @@ namespace ChartTools
         /// </summary>
         public ushort Resolution { get; set; }
         /// <summary>
-        /// Offset of the audio track in milliseconds. A higher value makes the audio start sooner.
+        /// Offset of the audio track in milliseconds. A higher value makes the audio start sooner
         /// </summary>
         public float? AudioOffset { get; set; }
         /// <summary>
@@ -66,11 +66,11 @@ namespace ChartTools
         /// </summary>
         public StreamCollection Streams { get; set; } = new StreamCollection();
         /// <summary>
-        /// Offset of the background video in milliseconds. A higher value makes the video start sooner.
+        /// Offset of the background video in milliseconds. A higher value makes the video start sooner
         /// </summary>
         public float? VideoOffset { get; set; }
         /// <summary>
-        /// Text to be displayed on the load screen.
+        /// Text to be displayed on the load screen
         /// </summary>
         public string LoadingText { get; set; }
         #endregion
@@ -83,7 +83,7 @@ namespace ChartTools
         /// <exception cref="FormatException"
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="OutOfMemoryException"/>
-        public static Metadata FromFile(string path) => ExtensionHandler.Read(path, (".chart", ChartParser.ReadMetadata), (".ini", IniParser.Read));
+        public static Metadata FromFile(string path) => ExtensionHandler.Read(path, (".chart", ChartParser.ReadMetadata), (".ini", IniParser.ReadMetadata));
         /// <summary>
         /// Reads the metadata from multiple files.
         /// </summary>
@@ -104,14 +104,14 @@ namespace ChartTools
             //Read all files
             for (int i = 0; i < paths.Length; i++)
                 try { data[i] = FromFile(paths[i]); }
-                catch (Exception e) { throw e; }
+                catch { throw; }
 
             data[0].Merge(false, data.Skip(1).ToArray());
 
             return data[0];
         }
-        /// <inheritdoc cref="IniParser.Write(string, Metadata)"/>
-        public void ToFile(string path) => ExtensionHandler.Write(path, this, (".ini", IniParser.Write));
+        /// <inheritdoc cref="IniParser.WriteMetadata(string, Metadata)"/>
+        public void ToFile(string path) => ExtensionHandler.Write(path, this, (".ini", IniParser.WriteMetadata));
     }
 
     /// <summary>

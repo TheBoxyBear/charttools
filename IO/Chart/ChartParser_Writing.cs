@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Security;
 using System.Threading.Tasks;
 
 namespace ChartTools.IO.Chart
@@ -12,14 +13,14 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Writes a song to a chart file
         /// </summary>
-        ///<exception cref="ArgumentException"/>
-        ///<exception cref="ArgumentNullException"/>
-        ///<exception cref="PathTooLongException"/>
-        ///<exception cref="DirectoryNotFoundException"/>
-        ///<exception cref="IOException"/>
-        ///<exception cref="UnauthorizedAccessException"/>
-        ///<exception cref="NotSupportedException"/>
-        ///<exception cref="System.Security.SecurityException"/>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="PathTooLongException"/>
+        /// <exception cref="DirectoryNotFoundException"/>
+        /// <exception cref="IOException"/>
+        /// <exception cref="UnauthorizedAccessException"/>
+        /// <exception cref="NotSupportedException"/>
+        /// <exception cref="SecurityException"/>
         internal static void WriteSong(string path, Song song)
         {
             //Add threads for metadata, synctrack and global events
@@ -31,77 +32,240 @@ namespace ChartTools.IO.Chart
             };
 
             //Part names of ghl instruments
-            IEnumerable<(Instrument<GHLChord>, string)> ghlInstruments = new (Instrument<GHLChord> instrument, string name)[]
+            IEnumerable<(Instrument<GHLChord>, Instruments)> ghlInstruments = new (Instrument<GHLChord> instrument, Instruments name)[]
             {
-                (song.GHLBass, "GHLBass"),
-                (song.GHLGuitar, "GHLGuitar")
+                (song.GHLBass, Instruments.GHLBass),
+                (song.GHLGuitar, Instruments.GHLGuitar)
             }.Where(i => i.instrument is not null);
             //Part names of standard instruments
-            IEnumerable<(Instrument<StandardChord>, string)> standardInstruments = new (Instrument<StandardChord> instrument, string name)[]
+            IEnumerable<(Instrument<StandardChord>, Instruments)> standardInstruments = new (Instrument<StandardChord> instrument, Instruments name)[]
             {
-                (song.LeadGuitar, "Single"),
-                (song.RhythmGuitar, "Rythm"),
-                (song.CoopGuitar, "Coop"),
-                (song.Bass, "Bass"),
-                (song.Keys, "Keys")
+                (song.LeadGuitar, Instruments.LeadGuitar),
+                (song.RhythmGuitar, Instruments.RhythmGuitar),
+                (song.CoopGuitar, Instruments.CoopGuitar),
+                (song.Bass, Instruments.Bass),
+                (song.Keys, Instruments.Keys)
             }.Where(i => i.instrument is not null);
 
             //Types used to get difficulty tracks using reflection
             Type drumsType = typeof(Instrument<DrumsChord>), ghlType = typeof(Instrument<GHLChord>), standardType = typeof(Instrument<StandardChord>);
 
-            foreach (string difficulty in EnumExtensions.GetValues<Difficulty>().Select(d => d.ToString()))
+            foreach (Difficulty difficulty in EnumExtensions.GetValues<Difficulty>())
             {
                 //Add threads to get the lines for each non-null drums track
                 if (song.Drums is not null)
                     tasks.Add(Task.Run(() =>
                     {
-                        IEnumerable<string> lines = GetTrackLines((Track<DrumsChord>)drumsType.GetProperty(difficulty).GetValue(song.Drums));
+                        IEnumerable<string> lines = GetTrackLines((Track<DrumsChord>)drumsType.GetProperty(difficulty.ToString()).GetValue(song.Drums));
 
-                        if (lines.Count() > 0)
-                            return GetPartLines(difficulty + "Drums", lines);
-
-                        return lines;
+                        return lines.Count() > 0 ? GetPartLines(GetFullPartName(Instruments.Drums, difficulty), lines) : lines;
                     }));
 
                 //Add threads to get the lines for each non-null track of each ghl instrument
-                foreach ((Instrument<GHLChord> instrument, string name) instrumentTuple in ghlInstruments)
+                foreach ((Instrument<GHLChord> instrument, Instruments name) in ghlInstruments)
                     tasks.Add(Task.Run(() =>
                     {
-                        IEnumerable<string> lines = GetTrackLines((Track<GHLChord>)ghlType.GetProperty(difficulty).GetValue(instrumentTuple.instrument));
+                        IEnumerable<string> lines = GetTrackLines((Track<GHLChord>)ghlType.GetProperty(difficulty.ToString()).GetValue(instrument));
 
-                        if (lines.Count() > 0)
-                            return GetPartLines(difficulty + instrumentTuple.name, lines) ;
-
-                        return lines;
+                        return lines.Count() > 0 ? GetPartLines(GetFullPartName(name, difficulty), lines) : lines;
                     }));
                 //Add threads to get the lines for each non-null track of each standard instrument
-                foreach ((Instrument<StandardChord> instrument, string name) instrumentTuple in standardInstruments)
+                foreach ((Instrument<StandardChord> instrument, Instruments name) in standardInstruments)
                     tasks.Add(Task.Run(() =>
                     {
-                        IEnumerable<string> lines = GetTrackLines((Track<StandardChord>)standardType.GetProperty(difficulty).GetValue(instrumentTuple.instrument));
+                        IEnumerable<string> lines = GetTrackLines((Track<StandardChord>)standardType.GetProperty(difficulty.ToString()).GetValue(instrument));
 
-                        if (lines.Count() > 0)
-                            return GetPartLines(difficulty + instrumentTuple.name, lines);
-
-                        return lines;
+                        return lines.Count() > 0 ? GetPartLines(GetFullPartName(name, difficulty), lines) : lines;
                     }));
             }
 
-            ///<exception cref="ArgumentException"/>
-            ///<exception cref="ArgumentNullException"/>
-            ///<exception cref="PathTooLongException"/>
-            ///<exception cref="DirectoryNotFoundException"/>
-            ///<exception cref="IOException"/>
-            ///<exception cref="UnauthorizedAccessException"/>
-            ///<exception cref="NotSupportedException"/>
-            ///<exception cref="System.Security.SecurityException"/>
-
             //Join lines with line breaks and write to file
             try { File.WriteAllText(path, string.Join('\n', tasks.SelectMany(t => t.Result))); }
-            catch (Exception e) { throw e; }
+            catch { throw; }
 
             foreach (Task task in tasks)
                 task.Dispose();
+        }
+
+        /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments)"/>
+        internal static void ReplaceDrums(string path, Instrument<DrumsChord> inst)
+        {
+            try { ReplaceInstrument(path, inst, Instruments.Drums); }
+            catch { throw; }
+        }
+        /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments)"/>
+        internal static void ReplaceInstrument(string path, Instrument<GHLChord> inst, GHLInstrument instrument)
+        {
+            if (!Enum.IsDefined(typeof(GHLInstrument), instrument))
+                throw GetUndefinedInstrumentException();
+
+            try { ReplaceInstrument(path, inst, (Instruments)instrument); }
+            catch { throw; }
+        }
+        /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments)"/>
+        internal static void ReplaceInstrument(string path, Instrument<StandardChord> inst, StandardInstrument instrument)
+        {
+            if (!Enum.IsDefined(typeof(StandardInstrument), instrument))
+                throw GetUndefinedInstrumentException();
+
+            try { ReplaceInstrument(path, inst, (Instruments)instrument); }
+            catch { throw; }
+        }
+        /// <summary>
+        /// Replaces an instrument in a file.
+        /// </summary>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="PathTooLongException"/>
+        /// <exception cref="DirectoryNotFoundException"/>
+        /// <exception cref="IOException"/>
+        /// <exception cref="UnauthorizedAccessException"/>
+        /// <exception cref="NotSupportedException"/>
+        /// <exception cref="SecurityException"/>
+        private static void ReplaceInstrument<TChord>(string path, Instrument<TChord> inst, Instruments instrument) where TChord : Chord
+        {
+            if (inst is null)
+                throw new ArgumentNullException("Instrument is null.");
+
+            List<Task<(IEnumerable<string> lines, string partName)>> tasks = new List<Task<(IEnumerable<string>, string)>>();
+            Type instrumentType = typeof(Instrument<TChord>);
+            IEnumerable<Difficulty> difficulties = EnumExtensions.GetValues<Difficulty>();
+
+            foreach (Difficulty difficulty in difficulties)
+            {
+                object track = instrumentType.GetProperty(difficulty.ToString()).GetValue(inst);
+
+                if (track is not null)
+                {
+                    string partName = GetFullPartName(instrument, difficulty);
+                    tasks.Add(Task.Run(() => (GetPartLines(partName, GetTrackLines(track as Track<TChord>)), partName)));
+                }
+            }
+
+            try { Task.WaitAll(tasks.ToArray()); }
+            catch { throw; }
+
+            try
+            {
+                if (File.Exists(path))
+                    File.WriteAllText(path, string.Join('\n', GetLines(path).ReplaceSections(true, tasks.Select<Task<(IEnumerable<string> lines, string partName)>, (IEnumerable<string>, Predicate<string>, Predicate<string>)>(t => (t.Result.lines, l => l == $"[{t.Result.partName}]", l => l == "}")).ToArray())));
+                else
+                    File.WriteAllText(path, string.Join('\n', tasks.SelectMany(t => t.Result.lines)));
+            }
+            catch { throw; }
+
+            foreach (Task task in tasks)
+                task.Dispose();
+        }
+
+        /// <summary>
+        /// Replaces the metadaa in a file.
+        /// </summary>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="PathTooLongException"/>
+        /// <exception cref="DirectoryNotFoundException"/>
+        /// <exception cref="IOException"/>
+        /// <exception cref="UnauthorizedAccessException"/>
+        /// <exception cref="NotSupportedException"/>
+        /// <exception cref="SecurityException"/>
+        internal static void ReplaceMetadata(string path, Metadata metadata)
+        {
+            try { ReplacePart(path, GetMetadataLines(metadata), "Song"); }
+            catch { throw; }
+        }
+        /// <summary>
+        /// Replaces the global events in a file
+        /// </summary>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="PathTooLongException"/>
+        /// <exception cref="DirectoryNotFoundException"/>
+        /// <exception cref="IOException"/>
+        /// <exception cref="UnauthorizedAccessException"/>
+        /// <exception cref="NotSupportedException"/>
+        /// <exception cref="SecurityException"/>
+        internal static void ReplaceEvents(string path, IEnumerable<GlobalEvent> events)
+        {
+            try { ReplacePart(path, events.Select(e => GetEventLine(e)), "Events"); }
+            catch { throw; }
+        }
+        /// <summary>
+        /// Replaces the sync track in a file.
+        /// </summary>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="PathTooLongException"/>
+        /// <exception cref="DirectoryNotFoundException"/>
+        /// <exception cref="IOException"/>
+        /// <exception cref="UnauthorizedAccessException"/>
+        /// <exception cref="NotSupportedException"/>
+        /// <exception cref="SecurityException"/>
+        internal static void ReplaceSyncTrack(string path, SyncTrack syncTrack)
+        {
+            try { ReplacePart(path, GetSyncTrackLines(syncTrack), "SyncTrack"); }
+            catch { throw; }
+        }
+
+        /// <inheritdoc cref="ReplaceTrack{TChord}(string, Track{TChord}, string)"/>
+        internal static void ReplaceDrumsTrack(string path, Track<DrumsChord> track, Difficulty difficulty)
+        {
+            try { ReplaceTrack(path, track, GetFullPartName(Instruments.Drums, difficulty)); }
+            catch { throw; }
+        }
+        /// <inheritdoc cref="ReplaceTrack{TChord}(string, Track{TChord}, string)"/>
+        internal static void ReplaceTrack(string path, Track<GHLChord> track, GHLInstrument instrument, Difficulty difficulty)
+        {
+            try { ReplaceTrack(path, track, GetFullPartName((Instruments)instrument, difficulty)); }
+            catch { throw; }
+        }
+        /// <inheritdoc cref="ReplaceTrack{TChord}(string, Track{TChord}, string)"/>
+        internal static void ReplaceTrack(string path, Track<StandardChord> track, StandardInstrument instrument, Difficulty difficulty)
+        {
+            try { ReplaceTrack(path, track, GetFullPartName((Instruments)instrument, difficulty)); }
+            catch { throw; }
+        }
+
+        /// <summary>
+        /// Replaces a track in a file.
+        /// </summary>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="PathTooLongException"/>
+        /// <exception cref="DirectoryNotFoundException"/>
+        /// <exception cref="IOException"/>
+        /// <exception cref="UnauthorizedAccessException"/>
+        /// <exception cref="NotSupportedException"/>
+        /// <exception cref="SecurityException"/>
+        private static void ReplaceTrack<TChord>(string path, Track<TChord> track, string partName) where TChord : Chord
+        {
+            try { ReplacePart(path, GetTrackLines(track), partName); }
+            catch { throw; }
+        }
+
+        /// <summary>
+        /// Replaces a part in a file.
+        /// </summary>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="PathTooLongException"/>
+        /// <exception cref="DirectoryNotFoundException"/>
+        /// <exception cref="IOException"/>
+        /// <exception cref="UnauthorizedAccessException"/>
+        /// <exception cref="NotSupportedException"/>
+        /// <exception cref="SecurityException"/>
+        internal static void ReplacePart(string path, IEnumerable<string> partContent, string partName)
+        {
+            IEnumerable<string> part = GetPartLines(partName, partContent);
+
+            try
+            {
+                if (File.Exists(path))
+                    File.WriteAllText(path, string.Join('\n', GetLines(path).ReplaceSection(part, l => l == $"[{partName}]", l => l == "}")));
+                else
+                    File.WriteAllText(path, string.Join('\n', part));
+            }
+            catch { throw; }
         }
 
         /// <summary>
@@ -188,7 +352,7 @@ namespace ChartTools.IO.Chart
                 {
                     TimeSignature signature = trackObject as TimeSignature;
                     byte writtenDenominator = (byte)(signature.Denominator / 4);
-                    
+
                     yield return GetLine(trackObject.Position.ToString(), writtenDenominator == 1 ? $"TS {signature.Numerator}" : $"TS {signature.Numerator} {writtenDenominator}");
                 }
                 else if (trackObject is Tempo)

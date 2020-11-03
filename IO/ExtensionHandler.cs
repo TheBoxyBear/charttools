@@ -10,7 +10,21 @@ namespace ChartTools.IO
     internal static class ExtensionHandler
     {
         /// <summary>
-        /// Reds a file using the method that matches the extension.
+        /// Reads a file using the method that matches the extension.
+        /// </summary>
+        /// <exception cref="ArgumentNullException"/>
+        internal static void Read(string path, params (string extension, Action<string> readMethod)[] readers)
+        {
+            string extension = Path.GetExtension(path);
+            (string extension, Action<string> readMethod) reader = readers.FirstOrDefault(r => r.extension == extension);
+
+            if (reader == default)
+                throw GetException();
+
+            reader.readMethod(path);
+        }
+        /// <summary>
+        /// Reads a file using the method that matches the extension.
         /// </summary>
         /// <exception cref="ArgumentNullException"/>
         internal static T Read<T>(string path, params (string extension, Func<string, T> readMethod)[] readers)
@@ -18,14 +32,11 @@ namespace ChartTools.IO
             string extension = Path.GetExtension(path);
             (string extension, Func<string, T> readMethod) reader = readers.FirstOrDefault(r => r.extension == extension);
 
-            if (reader == default)
-                throw GetException();
-
-            return reader.readMethod(path);
+            return reader == default ? throw GetException() : reader.readMethod(path);
         }
 
         /// <summary>
-        /// Saves an object to a file using the method that matches the extension.
+        /// Writes an object to a file using the method that matches the extension.
         /// </summary>
         /// <exception cref="ArgumentNullException"/>
         internal static void Write<T>(string path, T item, params (string extension, Action<string, T> writeMethod)[] writers)

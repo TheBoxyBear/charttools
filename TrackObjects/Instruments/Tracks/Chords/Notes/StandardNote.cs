@@ -8,7 +8,7 @@
         /// <summary>
         /// Fret to press
         /// </summary>
-        public StandardNotes Note { get => (StandardNotes)NoteIndex; }
+        public StandardNotes Note => (StandardNotes)NoteIndex;
 
         /// <summary>
         /// Creates an instance of <see cref="StandardNote"/>.

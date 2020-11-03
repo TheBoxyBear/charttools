@@ -63,7 +63,7 @@ namespace ChartTools.IO.Chart
                 ChartEntry entry;
 
                 try { entry = new ChartEntry(line); }
-                catch(Exception e) { throw e; }
+                catch{ throw; }
 
                 string[] split = entry.Data.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
 

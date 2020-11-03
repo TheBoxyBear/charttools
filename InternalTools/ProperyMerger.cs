@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Linq;
 
 namespace ChartTools.InternalTools
 {
@@ -15,13 +16,11 @@ namespace ChartTools.InternalTools
         {
             foreach (PropertyInfo i in typeof(T).GetProperties())
                 if (i.GetValue(current) is null || overwriteNonNull)
-                    foreach (T newValue in newValues)
-                    {
-                        object newProperty = i.GetValue(newValues);
-
-                        if (newProperty is not null)
-                            i.SetValue(current, newProperty);
-                    }
+                    foreach (var newProperty in from newValue in newValues
+                                                let newProperty = i.GetValue(newValues)
+                                                where newProperty is not null
+                                                select newProperty)
+                        i.SetValue(current, newProperty);
         }
     }
 }
