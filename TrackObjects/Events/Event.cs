@@ -17,6 +17,9 @@
         /// <summary>
         /// Creates an instance of <see cref="Event"/>.
         /// </summary>
+        /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
+        /// <param name="type">Value of <see cref="EventTypeString"/></param>
+        /// <param name="argument">Value of <see cref="Argument"/></param>
         public Event(uint position, string type, string argument = "") : base(position)
         {
             EventTypeString = type;

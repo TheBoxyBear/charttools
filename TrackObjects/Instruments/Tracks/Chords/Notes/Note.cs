@@ -17,6 +17,7 @@
         /// <summary>
         /// Creates an instance of <see cref="Note"/>.
         /// </summary>
+        /// <param name="noteIndex">Value of <see cref="NoteIndex"/></param>
         protected Note(byte noteIndex) => NoteIndex = noteIndex;
     }
 }

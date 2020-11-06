@@ -78,6 +78,7 @@ namespace ChartTools
         /// <summary>
         /// Reads the metadata from a file.
         /// </summary>
+        /// <param name="path">Path of the file to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FormatException"
@@ -88,6 +89,7 @@ namespace ChartTools
         /// Reads the metadata from multiple files.
         /// </summary>
         /// <remarks>Each file has less priority than the preceding.</remarks>
+        /// <param name="paths">Paths of the files to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FormatException"

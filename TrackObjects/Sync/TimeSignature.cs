@@ -17,6 +17,9 @@
         /// <summary>
         /// Creates an instnace of <see cref="TimeSignature"/>.
         /// </summary>
+        /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
+        /// <param name="numerator">Value of <see cref="Numerator"/></param>
+        /// <param name="denominator">Value of <see cref="Denominator"/></param>
         public TimeSignature(uint position, byte numerator, byte denominator) : base(position)
         {
             Numerator = numerator;

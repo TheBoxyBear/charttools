@@ -12,6 +12,10 @@ namespace ChartTools
         /// </summary>
         public bool OpenExclusivity { get; }
 
+        /// <summary>
+        /// Creates an instance of <see cref="NoteCollection{TNote}"/>.
+        /// </summary>
+        /// <param name="openExclusivity">Value of <see cref="OpenExclusivity"/></param>
         public NoteCollection(bool openExclusivity) : base((a, b) => a.NoteIndex.CompareTo(b.NoteIndex)) => OpenExclusivity = openExclusivity;
 
         /// <summary>
@@ -20,6 +24,7 @@ namespace ChartTools
         /// <remarks>Adding a note that already exists will overwrite the existing note.
         ///     <para>If <see cref="OpenExclusivity"/> is <see langword="true"/>, combining an open note with other notes will remove the current ones.</para>
         /// </remarks>
+        /// <param name="item">Item to add</param>
         public new void Add(TNote item)
         {
             if (OpenExclusivity && (item.NoteIndex == 0 || Count > 0 && this[0].NoteIndex == 0))

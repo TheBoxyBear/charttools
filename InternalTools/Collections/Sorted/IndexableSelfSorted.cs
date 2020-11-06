@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using ChartTools.Collections.Alternating;
+
 namespace ChartTools.Collections.Sorted
 {
     /// <summary>
@@ -25,12 +27,15 @@ namespace ChartTools.Collections.Sorted
         /// <summary>
         /// Creates an instance of <see cref="IndexableSelfSorted{TKey, TValue}"/>.
         /// </summary>
+        /// <param name="keyGetter">Method that retrieves the key from an item</param>
+        /// <param name="capacity">Number of items that the <see cref="IndexableSelfSorted{TKey, TValue}"/> can initially store</param>
         public IndexableSelfSorted(Func<TValue, TKey> keyGetter, int capacity = 0) : base(capacity) => GetKey = keyGetter;
 
         /// <summary>
-        /// Gets the items matching the provided key.
+        /// Gets the items matching a key.
         /// </summary>
-        private IEnumerable<TValue> GetValues(TKey index) => items.Where(i => GetKey(i).Equals(index));
+        /// <param name="key">Key to match the items against</param>
+        private IEnumerable<TValue> GetValues(TKey key) => items.Where(i => GetKey(i).Equals(key));
 
         /// <inheritdoc/>
         /// <exception cref="ArgumentException"/>
@@ -45,6 +50,7 @@ namespace ChartTools.Collections.Sorted
                     base.Add(item);
         }
         /// <inheritdoc/>
+        /// <param name="items">Items to add</param>
         /// <exception cref="ArgumentException"/>
         public override void AddRange(IEnumerable<TValue> items)
         {
@@ -57,6 +63,7 @@ namespace ChartTools.Collections.Sorted
         /// <summary>
         /// Determines if the collection contains any item of the samne key as the provided item.
         /// </summary>
+        /// <param name="item">Item to search for duplicates of</param>
         private bool ContainsDuplicate(TValue item)
         {
             foreach (TValue i in items)
@@ -67,25 +74,29 @@ namespace ChartTools.Collections.Sorted
                     case 1:
                         return false;
                 }
-
             return false;
         }
 
-        /// <inheritdoc/>
-        public IEnumerable<TValue> this[TKey index]
+        /// <summary>
+        /// Gets or replaces the items matching a key.
+        /// </summary>
+        /// <param name="key">Key to match the items against</param>
+        /// <returns></returns>
+        public IEnumerable<TValue> this[TKey key]
         {
-            get => GetValues(index);
+            get => GetValues(key);
             set
             {
-                RemoveAt(index);
+                RemoveAt(key);
                 AddRange(value);
             }
         }
 
-        /// <inheritdoc cref="IList{T}.RemoveAt(int)"/>
-        public void RemoveAt(TKey index)
+        /// <summary>Removes the items matching a key.</summary>
+        /// <param name="key">Key of items to remove</param>
+        public void RemoveAt(TKey key)
         {
-            foreach (TValue v in GetValues(index))
+            foreach (TValue v in GetValues(key))
                 Remove(v);
         }
     }

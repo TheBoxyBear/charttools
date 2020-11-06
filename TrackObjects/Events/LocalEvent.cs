@@ -35,10 +35,16 @@ namespace ChartTools
         /// <summary>
         /// Creates an instance of <see cref="LocalEvent"/>.
         /// </summary>
+        /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
+        /// <param name="type">Value of <see cref="EventType"/></param>
+        /// <param name="argument">Value of <see cref="Event.Argument"/></param>
         public LocalEvent(uint position, LocalEventType type, string argument = "") : base(position, GetEventTypeString(type), argument) { }
         /// <summary>
         /// Creates an instance of <see cref="LocalEvent"/>.
         /// </summary>
+        /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
+        /// <param name="type">Value of <see cref="EventTypeString"/></param>
+        /// <param name="argument">Value of <see cref="Argument"/></param>
         internal LocalEvent(uint position, string type, string argument = "") : base(position, type, argument) { }
 
         /// <inheritdoc cref="GlobalEvent.GetEventTypeString(GlobalEventType)"/>

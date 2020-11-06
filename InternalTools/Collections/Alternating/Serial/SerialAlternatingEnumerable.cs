@@ -15,6 +15,7 @@ namespace ChartTools.Collections.Alternating
         /// <summary>
         /// Creates an instance of <see cref="SerialAlternatingEnumerable{T}"/>
         /// </summary>
+        /// <param name="enumerables">Enumerables to pull items from</param>
         public SerialAlternatingEnumerable(params IEnumerable<T>[] enumerables) => Enumerables = enumerables;
 
         /// <inheritdoc/>

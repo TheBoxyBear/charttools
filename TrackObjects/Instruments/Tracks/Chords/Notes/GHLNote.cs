@@ -17,6 +17,7 @@
         /// <summary>
         /// Creates an instance of <see cref="GHLNote"/>.
         /// </summary>
+        /// <param name="note">Value of <see cref="Note"/></param>
         public GHLNote(GHLNotes note) : base((byte)note) { }
     }
 }

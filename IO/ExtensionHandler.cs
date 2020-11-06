@@ -12,6 +12,8 @@ namespace ChartTools.IO
         /// <summary>
         /// Reads a file using the method that matches the extension.
         /// </summary>
+        /// <param name="path">Path of the file to read</param>
+        /// <param name="readers">Array of tuples representing the supported extensions</param>
         /// <exception cref="ArgumentNullException"/>
         internal static void Read(string path, params (string extension, Action<string> readMethod)[] readers)
         {
@@ -26,6 +28,8 @@ namespace ChartTools.IO
         /// <summary>
         /// Reads a file using the method that matches the extension.
         /// </summary>
+        /// <param name="path">Path of the file to read</param>
+        /// <param name="readers">Array of tuples representing the supported extensions</param>
         /// <exception cref="ArgumentNullException"/>
         internal static T Read<T>(string path, params (string extension, Func<string, T> readMethod)[] readers)
         {
@@ -38,6 +42,9 @@ namespace ChartTools.IO
         /// <summary>
         /// Writes an object to a file using the method that matches the extension.
         /// </summary>
+        /// <param name="path">Path of the file to write</param>
+        /// <param name="item">Item to write</param>
+        /// <param name="writers">Array of tupples representing the supported extensions</param>
         /// <exception cref="ArgumentNullException"/>
         internal static void Write<T>(string path, T item, params (string extension, Action<string, T> writeMethod)[] writers)
         {

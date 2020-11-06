@@ -8,7 +8,7 @@
         /// <summary>
         /// Creates an instance of <see cref="Chord"/>
         /// </summary>
-        /// <param name="position"></param>
+        /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
         public Chord(uint position) : base(position) { }
 
         /// <summary>

@@ -21,8 +21,13 @@ namespace ChartTools.Collections.Sorted
         /// <summary>
         /// Creates an instance of <see cref="SelfSorted{T}"/>.
         /// </summary>
+        /// <param name="capacity">Number of items that the <see cref="IndexableSelfSorted{TKey, TValue}"/> can initially store</param>
         public SelfSorted(int capacity = 0) => items = new List<T>(capacity);
 
+        /// <summary>
+        /// Gets or sets the item at the specified index.
+        /// </summary>
+        /// <param name="index">Index of the item</param>
         public T this[int index]
         {
             get
@@ -42,6 +47,7 @@ namespace ChartTools.Collections.Sorted
         /// <summary>
         /// Adds multiple items to the <see cref="SelfSorted{T}"/>.
         /// </summary>
+        /// <param name="items">Items to add</param>
         public virtual void AddRange(IEnumerable<T> items)
         {
             foreach (T t in items)

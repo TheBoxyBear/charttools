@@ -13,7 +13,7 @@
         /// <summary>
         /// Creates an instance of <see cref="Chord{TNote}"/>.
         /// </summary>
-        /// <param name="position"></param>
+        /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
         public Chord(uint position) : base(position) { }
     }
 }

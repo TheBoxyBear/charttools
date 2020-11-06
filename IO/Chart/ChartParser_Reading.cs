@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,6 +23,7 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Song"/> contianing all song data
         ///     <para><see langword="null"/> if the file contains no song data</para>
         /// </returns>
+        /// <param name="path">Path of the file to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FormatException"/>
@@ -57,7 +59,7 @@ namespace ChartTools.IO.Chart
                 }),
                 Task.Run(() =>
                 {
-                    try {song.Drums = GetInstrument(lines, part => GetDrumsTrack(part), partNames[Instruments.Drums]); }
+                    try { song.Drums = GetInstrument(lines, part => GetDrumsTrack(part), partNames[Instruments.Drums]); }
                     catch { throw; }
                 })
             };
@@ -85,6 +87,8 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Instrument"/> containing all data about the given instrument
         ///     <para><see langword="null"/> if the file contains no data for the given instrument</para>
         /// </returns>
+        /// <param name="path">Path of the file to read</param>
+        /// <param name="instrument">Instrument to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FormatException"/>
@@ -117,6 +121,7 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="DrumsChord"/> containing all drums data
         ///     <para><see langword="null"/> if the file contains no drums data</para>
         /// </returns>
+        /// <param name="path">Path of the file to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FormatException"/>
@@ -149,6 +154,8 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="StandardChord"/> containing all data about the given instrument
         ///     <para><see langword="null"/> if the file contains no data for the given instrument</para>
         /// </returns>
+        /// <param name="path">Path of the file to read</param>
+        /// <param name="instrument">Instrument to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FormatException"/>
@@ -165,6 +172,9 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Instrument{TChord}"/> containing all data about the given instrument
         ///     <para><see langword="null"/> if the file contains no data for the given instrument</para>
         /// </returns>
+        /// <param name="lines">Lines in the file</param>
+        /// <param name="getTrack">Function that retrieves the track from the lines</param>
+        /// <param name="instrumentPartName">Part name of the instrument excluding the difficulty</param>
         /// <exception cref="FormatException"/>
         private static Instrument<TChord> GetInstrument<TChord>(IEnumerable<string> lines, Func<IEnumerable<string>, Track<TChord>> getTrack, string instrumentPartName) where TChord : Chord
         {
@@ -207,6 +217,9 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Track"/> containing all data about the given track
         ///     <para><see langword="null"/> if the file contains no data for the given track</para>
         /// </returns>
+        /// <param name="path">Path of the file to read</param>
+        /// <param name="instrument">Instrument of the track to read</param>
+        /// <param name="difficulty">Difficulty of the track to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FormatException"/>
@@ -239,6 +252,8 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Track{TChord}"/> where TChors is <see cref="DrumsChord"/> containing all drums data for the given difficulty
         ///     <para><see langword="null"/> if the file contians no drums data for the given difficulty</para>
         /// </returns>
+        /// <param name="path">Path of the file to read</param>
+        /// <param name="difficulty">Difficulty of the track to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FormatException"/>
@@ -255,6 +270,8 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Track{TChord}"/> where TChord is <see cref="DrumsChord"/> containing all drums data for the given difficulty
         ///     <para><see langword="null"/> if the lines contain no drums data for the given difficulty</para>
         /// </returns>
+        /// <param name="lines">Lines in the file</param>
+        /// <param name="difficulty">Difficulty of the track</param>
         /// <exception cref="FormatException"/>
         private static Track<DrumsChord> GetDrumsTrack(IEnumerable<string> lines, Difficulty difficulty)
         {
@@ -267,6 +284,7 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Track{TChord}"/> where TChord is <see cref="DrumsChord"/> containing all data in the part
         ///     <para><see langword="null"/> if the part contains no data</para>
         /// </returns>
+        /// <param name="part">Lines of the file belonging to the track</param>
         /// <exception cref="FormatException"/>
         private static Track<DrumsChord> GetDrumsTrack(IEnumerable<string> part)
         {
@@ -321,6 +339,9 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Track{TChord}"/> where TChors is <see cref="GHLChord"/> containing all data for the given instrument and difficulty
         ///     <para><see langword="null"/> if the file contians no data for the given instrument and difficulty</para>
         /// </returns>
+        /// <param name="path">Path of the file to read</param>
+        /// <param name="instrument">Instrument of the track</param>
+        /// <param name="difficulty">Difficulty of the track</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FormatException"/>
@@ -337,6 +358,9 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Track{TChord}"/> where TChord is <see cref="GHLChord"/> containing all data for the given instrument and difficulty
         ///     <para><see langword="null"/> if the lines contain no data for the given instrument and difficulty</para>
         /// </returns>
+        /// <param name="lines">Lines in the file</param>
+        /// <param name="instrument">Instrument of the track</param>
+        /// <param name="difficulty">Difficulty of the track</param>
         /// <exception cref="FormatException"/>
         private static Track<GHLChord> GetGHLTrack(IEnumerable<string> lines, GHLInstrument instrument, Difficulty difficulty)
         {
@@ -349,6 +373,7 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Track{TChord}"/> where TChord is <see cref="GHLChord"/> containing all data in the part
         ///     <para><see langword="null"/> if the part contains no data</para>
         /// </returns>
+        /// <param name="part">Lines in the file belonging to the track</param>
         /// <exception cref="FormatException"/>
         private static Track<GHLChord> GetGHLTrack(IEnumerable<string> part)
         {
@@ -405,6 +430,9 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Track{TChord}"/> where TChors is <see cref="StandardChord"/> containing all drums data for the given instrument and difficulty
         ///     <para><see langword="null"/> if the file contians no data for the given instrument and difficulty</para>
         /// </returns>
+        /// <param name="path">Path of the file to read</param>
+        /// <param name="instrument">Instrumnent of the track</param>
+        /// <param name="difficulty">Difficulty of the track</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FormatException"/>
@@ -421,6 +449,9 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Track{TChord}"/> where TChord is <see cref="StandardChord"/> containing all data for the given instrument and difficulty
         ///     <para><see langword="null"/> if the lines contain no data for the given instrument and difficulty</para>
         /// </returns>
+        /// <param name="lines">Liens in the file</param>
+        /// <param name="instrument">Instrument of the track</param>
+        /// <param name="difficulty">Difficulty of the track</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         private static Track<StandardChord> GetStandardTrack(IEnumerable<string> lines, StandardInstrument instrument, Difficulty difficulty)
@@ -434,6 +465,7 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Track{TChord}"/> where TChord is <see cref="StandardChord"/> containing all data in the part
         ///     <para><see langword="null"/> if the part contains no data</para>
         /// </returns>
+        /// <param name="part">Lines in the file belonging to the track</param>
         /// <exception cref="FormatException"/>
         private static Track<StandardChord> GetStandardTrack(IEnumerable<string> part)
         {
@@ -484,6 +516,8 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Track{TChord}"/> where TChord containing all data in the part
         ///     <para><see langword="null"/> if the part contains no data</para>
         /// </returns>
+        /// <param name="part">Lines in the file belonging to the track</param>
+        /// <param name="noteCase">Function that handles entries containing note data. Must return the same chord received as a parameter.</param>
         /// <exception cref="FormatException"/>
         private static Track<TChord> GetTrack<TChord>(IEnumerable<string> part, Func<Track<TChord>, TChord, TrackObjectEntry, NoteData, bool, TChord> noteCase) where TChord : Chord
         {
@@ -559,11 +593,14 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Splits the data of an entry.
         /// </summary>
+        /// <param name="data">Data portion of a <see cref="TrackObjectEntry"/></param>
         private static string[] GetDataSplit(string data) => data.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
         /// <summary>
         /// Generates an exception to throw when a line cannot be converted.
         /// </summary>
         /// <returns>Instance of <see cref="Exception"/> to throw</returns>
+        /// <param name="line">Line that caused the excpetion</param>
+        /// <param name="innerException">Exception caught when interpreting the line</param>
         private static Exception GetException(string line, Exception innerException) => new FormatException($"Line \"{line}\": {innerException.Message}", innerException);
 
         /// <summary>
@@ -572,6 +609,7 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Metadata"/> containing metadata from the file
         ///     <para>Null if the file contains no metadata</para>
         /// </returns>
+        /// <param name="path">Path of the file to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FormatException"
@@ -588,6 +626,7 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Metadata"/> containing metadata from the file
         ///     <para>Null if the lines contain no metadata</para>
         /// </returns>
+        /// <param name="lines">Lines in the file</param>
         /// <exception cref="FormatException"
         private static Metadata GetMetadata(IEnumerable<string> lines)
         {
@@ -703,8 +742,8 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Reads the lyrics from a chart file.
         /// </summary>
-        /// <returns>
-        /// Enumerable of <see cref="Phrase"/> containing the lyrics from the file</returns>
+        /// <returns>Enumerable of <see cref="Phrase"/> containing the lyrics from the file</returns>
+        /// <param name="path">Path of the file to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FormatException"/>
@@ -725,6 +764,7 @@ namespace ChartTools.IO.Chart
         /// Reads the global events from a chart file.
         /// </summary>
         /// <returns>Enumerable of <see cref="GlobalEvent"/></returns>
+        /// <param name="path">Path of the file the read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FormatException"/>
@@ -738,6 +778,7 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Gets the global events from the contents of a chart file.
         /// </summary>
+        /// <param name="lines">Lines in the file</param>
         /// <returns>Enumerable of <see cref="GlobalEvent"/></returns>
         /// <exception cref="FormatException"/>
         private static IEnumerable<GlobalEvent> GetGlobalEvents(IEnumerable<string> lines)
@@ -759,6 +800,7 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="SyncTrack"/>
         ///     <para><see langword="null"/> if the file contains no sync track</para>
         /// </returns>
+        /// <param name="path">Path of the file to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FormatException"/>
@@ -775,6 +817,7 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="SyncTrack"/>
         ///     <para><see langword="null"/> if the lines contain no sync track</para>
         /// </returns> 
+        /// <param name="lines">Lines in the file</param>
         /// <exception cref="FormatException"/>
         private static SyncTrack GetSyncTrack(IEnumerable<string> lines)
         {
@@ -864,6 +907,7 @@ namespace ChartTools.IO.Chart
         /// Gets the lines from a text file.
         /// </summary>
         /// <returns>Enumerable of all the lines in the file</returns>
+        /// <param name="path">Path of the file to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="IOException"/>
@@ -889,6 +933,8 @@ namespace ChartTools.IO.Chart
         /// Gets a part from the contents of a chart file
         /// </summary>
         /// <returns>Enumesable of all the lines in the part</returns>
+        /// <param name="lines">Lines in the file</param>
+        /// <param name="partName">Name of the part to extract</param>
         /// <exception cref="InvalidDataException"/>
         private static IEnumerable<string> GetPart(IEnumerable<string> lines, string partName)
         {

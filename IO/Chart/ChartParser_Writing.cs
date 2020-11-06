@@ -13,6 +13,8 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Writes a song to a chart file
         /// </summary>
+        /// <param name="path">Path of the file to write</param>
+        /// <param name="song">Song to write</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="PathTooLongException"/>
@@ -114,6 +116,9 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Replaces an instrument in a file.
         /// </summary>
+        /// <param name="path">Path of the file to write</param>
+        /// <param name="inst">Instrument to use as a replacement</param>
+        /// <param name="instrument">Instrument to replace</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="PathTooLongException"/>
@@ -161,6 +166,8 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Replaces the metadaa in a file.
         /// </summary>
+        /// <param name="path">Path of the file to read</param>
+        /// <param name="metadata">Metadata to write</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="PathTooLongException"/>
@@ -177,6 +184,8 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Replaces the global events in a file
         /// </summary>
+        /// <param name="path"^>Path of the file to write</param>
+        /// <param name="events">Events to write</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="PathTooLongException"/>
@@ -193,6 +202,8 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Replaces the sync track in a file.
         /// </summary>
+        /// <param name="path">Path of the file to write</param>
+        /// <param name="syncTrack">Sync track to write</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="PathTooLongException"/>
@@ -207,28 +218,71 @@ namespace ChartTools.IO.Chart
             catch { throw; }
         }
 
+        /// <summary>
         /// <inheritdoc cref="ReplaceTrack{TChord}(string, Track{TChord}, string)"/>
+        /// </summary>
+        /// <param name="path">Difficulty of the track to replace</param>
+        /// <param name="track">Track to use as a replacement</param>
+        /// <param name="difficulty">Difficulty of the track to replace</param>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="PathTooLongException"/>
+        /// <exception cref="DirectoryNotFoundException"/>
+        /// <exception cref="IOException"/>
+        /// <exception cref="UnauthorizedAccessException"/>
+        /// <exception cref="NotSupportedException"/>
+        /// <exception cref="SecurityException"/>
         internal static void ReplaceDrumsTrack(string path, Track<DrumsChord> track, Difficulty difficulty)
         {
             try { ReplaceTrack(path, track, GetFullPartName(Instruments.Drums, difficulty)); }
             catch { throw; }
         }
+        /// <summary>
         /// <inheritdoc cref="ReplaceTrack{TChord}(string, Track{TChord}, string)"/>
+        /// </summary>
+        /// <param name="path">Path of the file to write</param>
+        /// <param name="track">Track to use as a replacement</param>
+        /// <param name="instrument">Instrument of the track to replace</param>
+        /// <param name="difficulty">Difficulty of the track to replace</param>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="PathTooLongException"/>
+        /// <exception cref="DirectoryNotFoundException"/>
+        /// <exception cref="IOException"/>
+        /// <exception cref="UnauthorizedAccessException"/>
+        /// <exception cref="NotSupportedException"/>
+        /// <exception cref="SecurityException"/>
         internal static void ReplaceTrack(string path, Track<GHLChord> track, GHLInstrument instrument, Difficulty difficulty)
         {
             try { ReplaceTrack(path, track, GetFullPartName((Instruments)instrument, difficulty)); }
             catch { throw; }
         }
+        /// <summary>
         /// <inheritdoc cref="ReplaceTrack{TChord}(string, Track{TChord}, string)"/>
+        /// </summary>
+        /// <param name="path">Path of the file to write</param>
+        /// <param name="track">Track to use as a replacement</param>
+        /// <param name="instrument">Instrument of the track to replace</param>
+        /// <param name="difficulty">Difficulty of the track to replace</param>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="PathTooLongException"/>
+        /// <exception cref="DirectoryNotFoundException"/>
+        /// <exception cref="IOException"/>
+        /// <exception cref="UnauthorizedAccessException"/>
+        /// <exception cref="NotSupportedException"/>
+        /// <exception cref="SecurityException"/>
         internal static void ReplaceTrack(string path, Track<StandardChord> track, StandardInstrument instrument, Difficulty difficulty)
         {
             try { ReplaceTrack(path, track, GetFullPartName((Instruments)instrument, difficulty)); }
             catch { throw; }
         }
-
         /// <summary>
         /// Replaces a track in a file.
         /// </summary>
+        /// <param name="path">Path of the file to write</param>
+        /// <param name="track">Track to use as a replacement</param>
+        /// <param name="partName">Name of the part containing the track to replace</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="PathTooLongException"/>
@@ -246,6 +300,9 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Replaces a part in a file.
         /// </summary>
+        /// <param name="path">Path of the file to write</param>
+        /// <param name="partContent">Lines representing the entries in the part to use as a replacement</param>
+        /// <param name="partName">Name of the part to replace</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="PathTooLongException"/>
@@ -272,6 +329,7 @@ namespace ChartTools.IO.Chart
         /// Gets the lines to write for a difficulty track.
         /// </summary>
         /// <returns>Enumerable of all the lines</returns>
+        /// <param name="track">Track to get the lines of</param>
         private static IEnumerable<string> GetTrackLines<TChord>(Track<TChord> track) where TChord : Chord
         {
             if (track is null)
@@ -293,6 +351,7 @@ namespace ChartTools.IO.Chart
         /// Gets the lines to write for metadata.
         /// </summary>
         /// <returns>Enumerable of all the lines</returns>
+        /// <param name="metadata">Metadata to get the lines of</param>
         private static IEnumerable<string> GetMetadataLines(Metadata metadata)
         {
             if (metadata is null)
@@ -335,11 +394,13 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Gets a line to write for an event.
         /// </summary>
+        /// <param name="e">Event to get the line of</param>
         private static string GetEventLine(Event e) => GetLine(e.Position.ToString(), e.Argument == string.Empty ? $"E \"{e.EventTypeString}\"" : $"E \"{e.EventTypeString} {e.Argument}\"");
         /// <summary>
         /// Gets the lines to write for a sync track.
         /// </summary>
         /// <returns>Enumerable of all the lines</returns>
+        /// <param name="syncTrack">Sync track to get the liens of</param>
         private static IEnumerable<string> GetSyncTrackLines(SyncTrack syncTrack)
         {
             if (syncTrack is null)
@@ -369,11 +430,14 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Gets the written value of a float.
         /// </summary>
+        /// <param name="value">Value to get the written equivalent of</param>
         private static string GetWrittenFloat(float value) => ((int)(value * 1000)).ToString().Replace(".", "").Replace(",", "");
         /// <summary>
         /// Gets the lines to write for a part.
         /// </summary>
         /// <returns>Enumerable of all the lines</returns>
+        /// <param name="partName">Name of the part to get the lines of</param>
+        /// <param name="lines">Lines in the file</param>
         private static IEnumerable<string> GetPartLines(string partName, IEnumerable<string> lines)
         {
             yield return $"[{partName}]";
@@ -387,10 +451,14 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Gets a line to write from a header and value.
         /// </summary>
+        /// <param name="header">Part of the line before the equal sign</param>
+        /// <param name="value">Part of the line after the equal sign</param>
         private static string GetLine(string header, string value) => $"  {header} = {value}";
         /// <summary>
         /// Gets the written data for a note.
         /// </summary>
+        /// <param name="index">Value of <see cref="Note.NoteIndex"/></param>
+        /// <param name="sustain">Value of <see cref="Note.SustainLength"/></param>
         internal static string GetNoteData(byte index, uint sustain) => $"N {index} {sustain}";
     }
 }

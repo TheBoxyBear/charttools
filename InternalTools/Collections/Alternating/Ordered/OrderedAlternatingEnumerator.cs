@@ -31,6 +31,8 @@ namespace ChartTools.Collections.Alternating
         /// <summary>
         /// Creates a new instance of <see cref="OrderedAlternatingEnumerator{T, TKey}"/>.
         /// </summary>
+        /// <param name="keyGetter">Method that retrieves the key from an item</param>
+        /// <param name="enumerators">Enumerators to alternate between</param>
         public OrderedAlternatingEnumerator(Func<T, TKey> keyGetter, params IEnumerator<T>[] enumerators)
         {
             Enumerators = enumerators;

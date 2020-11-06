@@ -1,5 +1,4 @@
-﻿using ChartTools;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +14,16 @@ namespace ChartTools.Collections
         /// Source of items
         /// </summary>
         protected List<T> items;
-        /// <inheritdoc cref="Comparison{T}"/>
+        /// <summary>
+        /// Method that defines uniqueness of items
+        /// </summary>
         protected Comparison<T> Comparison { get; }
 
         /// <summary>
         /// Creates an instance of <see cref="UniqueList{T}"/> using a comparison to define the uniqueness of items.
         /// </summary>
+        /// <param name="comparison">Method that defines uniqueness of items</param>
+        /// <param name="capacity">Number of items that the <see cref="UniqueList{T}{TKey, TValue}"/> can initially store</param>
         public UniqueList(Comparison<T> comparison, int capacity = 0, IEnumerable<T> items = null)
         {
             Comparison = comparison;
@@ -41,19 +44,17 @@ namespace ChartTools.Collections
         /// <summary>
         /// Adds an item to the list and overwrites any duplicate.
         /// </summary>
+        /// <param name="item">Item to add</param>
         public void Add(T item)
         {
             RemoveDuplicate(item);
             items.Add(item);
         }
-        /// <summary>
-        /// Adds an item wihout checking for uniqueness.
-        /// </summary>
-        internal void UnsafeAdd(T item) => items.Add(item);
         
         /// <summary>
         /// Adds multiple items to the <see cref="ICollection{T}"/>
         /// </summary>
+        /// <param name="collection">Items to add</param>
         public void AddRange(IEnumerable<T> collection)
         {
             foreach (T item in collection)
@@ -63,8 +64,9 @@ namespace ChartTools.Collections
         }
 
         /// <summary>
-        /// Removes the first item duplicate of a given item.
+        /// Removes the first duplicate of a given item.
         /// </summary>
+        /// <param name="item">Item to remove the duplicate of</param>
         private void RemoveDuplicate(T item)
         {
             T existing = items.FirstOrDefault(i => Comparison(i, item) == 0, default, out bool returneDefault);

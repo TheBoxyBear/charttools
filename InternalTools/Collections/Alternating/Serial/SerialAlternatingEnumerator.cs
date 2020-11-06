@@ -34,6 +34,7 @@ namespace ChartTools.Collections.Alternating
         /// <summary>
         /// Creates an instance of <see cref="SerialAlternatingEnumerator{T}"/>
         /// </summary>
+        /// <param name="enumerators">Enumerators to alternate between</param>
         /// <exception cref="ArgumentException"/>
         public SerialAlternatingEnumerator(params IEnumerator<T>[] enumerators)
         {

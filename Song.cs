@@ -66,8 +66,8 @@ namespace ChartTools
         /// <summary>
         /// Gets property value for an <see cref="Instrument"/> from a <see cref="Instruments"/> <see langword="enum"/> value.
         /// </summary>
-        /// <param name="instrument"></param>
-        /// <returns>Instance of <see cref="Instrument"/> from the <see cref="Song"/>.</returns>
+        /// <returns>Instance of <see cref="Instrument"/> from the <see cref="Song"/></returns>
+        /// <param name="instrument">Instrument to get</param>
         public Instrument GetInstrument(Instruments instrument) => instrument switch
         {
             Instruments.Drums => Drums,
@@ -82,13 +82,13 @@ namespace ChartTools
         /// <summary>
         /// Gets property value for an <see cref="Instrument{TChord}"/> from a <see cref="GHLInstrument"/> <see langword="enum"/> value.
         /// </summary>
-        /// <param name="instrument"></param>
+        /// /// <param name="instrument">Instrument to get</param>
         /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="GHLChord"/> from the <see cref="Song"/>.</returns>
         public Instrument<GHLChord> GetInstrument(GHLInstrument instrument) => GetInstrument((Instruments)instrument) as Instrument<GHLChord>;
         /// <summary>
         /// Gets property value for an <see cref="Instrument{TChord}"/> from a <see cref="StandardInstrument"/> <see langword="enum"/> value.
         /// </summary>
-        /// <param name="instrument"></param>
+        /// <param name="instrument">Instrument to get</param>
         /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="StandardChord"/> from the <see cref="Song"/>.</returns>
         public Instrument<StandardChord> GetInstrument(StandardInstrument instrument) => GetInstrument((Instruments)instrument) as Instrument<StandardChord>;
 
@@ -100,6 +100,7 @@ namespace ChartTools
         /// <summary>
         /// Reads the estimated instrument difficulties from a ini file.
         /// </summary>
+        /// <param name="path">Path of the file to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
@@ -107,6 +108,7 @@ namespace ChartTools
         /// <summary>
         /// Writes the estimated instrument difficulties to a ini file.
         /// </summary>
+        /// <param name="path">Path of the file to write</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="IOException"/>
         public void WriteDifficulties(string path) => ExtensionHandler.Write<Song>(path, this, (".ini", IniParser.WriteDifficulties));
@@ -118,6 +120,7 @@ namespace ChartTools
         /// <summary>
         /// Replaces phrase and lyric events from <see cref="GlobalEvents"/> with the ones making up a set of <see cref="Phrase"/>.
         /// </summary>
+        /// <param name="phrases">Phrases to use as a replacement</param>
         public void SetLyrics(IEnumerable<Phrase> phrases) => GlobalEvents = GlobalEvents.SetLyrics(phrases).ToList();
     }
 }

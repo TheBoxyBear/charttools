@@ -34,6 +34,7 @@
         /// <summary>
         /// Creates an instance of <see cref="DrumsNote"/>.
         /// </summary>
+        /// <param name="note">Value of <see cref="Note"/></param>
         public DrumsNote(DrumsNotes note) : base((byte)note) { }
     }
 }

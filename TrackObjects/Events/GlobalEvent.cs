@@ -68,15 +68,22 @@ namespace ChartTools
         /// <summary>
         /// Creates an instance of <see cref="GlobalEvent"/>.
         /// </summary>
+        /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
+        /// <param name="type">Value of <see cref="EventType"/></param>
+        /// <param name="argument">Value of <see cref="Event.Argument"/></param>
         public GlobalEvent(uint position, GlobalEventType type, string argument = "") : base(position, GetEventTypeString(type), argument) { }
         /// <summary>
         /// Creates an instance of <see cref="GlobalEvent"/>.
         /// </summary>
+        /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
+        /// <param name="type">Value of <see cref="EventTypeString"/></param>
+        /// <param name="argument">Value of <see cref="Argument"/></param>
         internal GlobalEvent(uint position, string type, string argument = "") : base(position, type, argument) { }
 
         /// <summary>
         /// Gets the string value to set <see cref="Event.EventTypeString"/>.
         /// </summary>
+        /// <param name="type">Event type to get the string value of</param>
         private static string GetEventTypeString(GlobalEventType type) => type == GlobalEventType.Unknown ? "Default" : globalTypesDictionary[type];
 
         /// <inheritdoc cref="ChartParser.ReadGlobalEvents(string)"/>

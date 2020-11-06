@@ -8,7 +8,7 @@ namespace ChartTools.Collections.Alternating
     public interface IAlternatingEnumerable<T> : IEnumerable<T>
     {
         /// <summary>
-        /// Enumerables to pull items froms
+        /// Enumerables to pull items from
         /// </summary>
         public IEnumerable<T>[] Enumerables { get; }
     }

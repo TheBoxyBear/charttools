@@ -20,6 +20,8 @@ namespace ChartTools.Collections.Alternating
         /// <summary>
         /// Creates an instance of <see cref="OrderedAlternatingEnumerable{T, TKey}"/>.
         /// </summary>
+        /// <param name="keyGetter">Method that retrieves the key from an item</param>
+        /// <param name="enumerables">Enumerables to pull items from</param>
         public OrderedAlternatingEnumerable(Func<T, TKey> keyGetter, params IEnumerable<T>[] enumerables)
         {
             KeyGetter = keyGetter;

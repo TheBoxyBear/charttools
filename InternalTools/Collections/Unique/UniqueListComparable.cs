@@ -11,6 +11,7 @@ namespace ChartTools.Collections
         /// <summary>
         /// Creates an instance of <see cref="UniqueListComparable{T}"/>.
         /// </summary>
+        /// <param name="capacity">Number of items that the <see cref="UniqueListComparable{T}{T}{TKey, TValue}"/> can initially store</param>
         public UniqueListComparable(int capacity = 0, IEnumerable<T> items = null) : base((T a, T b) => a.CompareTo(b), capacity, items) { }
     }
 }

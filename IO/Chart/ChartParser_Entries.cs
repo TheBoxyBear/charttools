@@ -24,6 +24,7 @@ namespace ChartTools.IO.Chart
             /// <summary>
             /// Creates an instance of <see cref="ChartEntry"/>.
             /// </summary>
+            /// <param name="line">Line in the file</param>
             /// <exception cref="FormatException"/>
             internal ChartEntry(string line)
             {
@@ -57,6 +58,7 @@ namespace ChartTools.IO.Chart
             /// <summary>
             /// Creates an instnace of see<see cref="TrackObjectEntry"/>.
             /// </summary>
+            /// <param name="line">Line in the file</param>
             /// <exception cref="FormatException"/>
             internal TrackObjectEntry(string line)
             {
@@ -95,6 +97,7 @@ namespace ChartTools.IO.Chart
             /// <summary>
             /// Creates an instance of <see cref="NoteData"/>.
             /// </summary>
+            /// <param name="data">Data section of the line in the file</param>
             /// <exception cref="FormatException"/>
             internal NoteData(string data)
             {

@@ -15,6 +15,7 @@ namespace ChartTools
         /// <summary>
         /// Creates an instance of <see cref="StandardChord"/>.
         /// </summary>
+        /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
         public StandardChord(uint position) : base(position) { }
 
         /// <inheritdoc>/>

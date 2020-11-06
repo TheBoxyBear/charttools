@@ -31,6 +31,7 @@ namespace ChartTools.IO.Ini
         /// Reads metadata from a ini file.
         /// </summary>
         /// <returns>Instance of <see cref="Metadata"/> containing the data in the file</returns>
+        /// <param name="path">Path of the file to read</param>
         /// <exception cref="FormatException"/>
         internal static Metadata ReadMetadata(string path)
         {
@@ -89,6 +90,8 @@ namespace ChartTools.IO.Ini
         /// <summary>
         /// Writes metadata to a ini file.
         /// </summary>
+        /// <param name="path">Path of the file to read</param>
+        /// <param name="metadata">Metadata to write</param>
         internal static void WriteMetadata(string path, Metadata metadata)
         {
             IniFile file = new IniFile(path);
@@ -112,6 +115,8 @@ namespace ChartTools.IO.Ini
         /// <returns>Difficulty read
         ///     <para><see langword="null"/> if the file does not mentio na difficulty for the provided instrument</para>
         /// </returns>
+        /// <param name="path">Path of the file to read</param>
+        /// <param name="instrument">Instrument to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
@@ -128,6 +133,8 @@ namespace ChartTools.IO.Ini
         /// Reads an <see cref="Instrument"/> difficulty from the contents of a ini file.
         /// </summary>
         /// <returns><inheritdoc cref="ReadDifficulty(string, Instruments)"/></returns>
+        /// <param name="contents">Contents of the file</param>
+        /// <param name="key">Key pointing to the difficulty</param>
         /// <exception cref="FormatException"/>
         private static sbyte? ReadDifficulty(IDictionary<string, string> contents, string key) => !contents.ContainsKey(key)
                 ? null
@@ -137,6 +144,8 @@ namespace ChartTools.IO.Ini
         /// <summary>
         /// Reads <see cref="Instrument"/> difficulties from a ini file and assigns them to the instruments in a <see cref="Song"/>.
         /// </summary>
+        /// <param name="path">Path of the file to read</param>
+        /// <param name="song">Song to assign the difficulties to</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="FormatException"/>
@@ -171,6 +180,9 @@ namespace ChartTools.IO.Ini
         /// <summary>
         /// Writes an <see cref="Instrument"/> difficulty to a ini file.
         /// </summary>
+        /// <param name="path">Path of the file to write</param>
+        /// <param name="instrument">Instrument to write the difficulty of</param>
+        /// <param name="value">Difficulty to write</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="FormatException"/>
@@ -185,7 +197,16 @@ namespace ChartTools.IO.Ini
             catch (IndexOutOfRangeException) { throw new IOException("Cannot read file."); }
             catch { throw; }
         }
+        /// <summary>
         /// <inheritdoc cref="WriteDifficulty(string, Instruments, sbyte)"/>
+        /// </summary>
+        /// <param name="file">File to write</param>
+        /// <param name="contents">Contents of the file</param>
+        /// <param name="key">Key pointing to the difficulty</param>
+        /// <param name="value">Difficulty to write</param>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="IOException"/>
+        /// <exception cref="FormatException"/>
         private static void WriteDifficulty(IniFile file, IDictionary<string, string> contents, string key, sbyte value)
         {
             if (contents.ContainsKey(key))
@@ -196,6 +217,8 @@ namespace ChartTools.IO.Ini
         /// <summary>
         /// Writes <see cref="Instrument"/> difficulties from a <see cref="Song"/> to a ini file.
         /// </summary>
+        /// <param name="path">Path of the file to write</param>
+        /// <param name="song">Song to get the difficulties from</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="IOException"/>
         internal static void WriteDifficulties(string path, Song song)
