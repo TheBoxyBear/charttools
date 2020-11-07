@@ -386,4 +386,21 @@ namespace ChartTools
             catch { throw; }
         }
     }
-}
+
+    /// <summary>
+    /// Provides additionnal methods to <see cref="Event"/>
+    /// </summary>
+    public static class EventExtensions
+    {
+        /// <summary>
+        /// Writes the global events to a file
+        /// </summary>
+        /// <param name="events">Events to write</param>
+        /// <param name="path">Path of the file to write</param>
+        public static void ToFile(this IEnumerable<GlobalEvent> events, string path)
+        {
+            try { ExtensionHandler.Write(path, events, (".chart", ChartParser.ReplaceGlobalEvents)); }
+            catch { throw; }
+        }
+    }
+}   

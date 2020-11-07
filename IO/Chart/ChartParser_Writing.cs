@@ -326,6 +326,17 @@ namespace ChartTools.IO.Chart
         }
 
         /// <summary>
+        /// Replaces the global events in a file.
+        /// </summary>
+        /// <param name="path">Path of the file to write</param>
+        /// <param name="events">Events to use as a replacement</param>
+        internal static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events)
+        {
+            try { ReplacePart(path, events.Select(e => GetEventLine(e)), "Events"); }
+            catch { throw; }
+        }
+
+        /// <summary>
         /// Gets the lines to write for a difficulty track.
         /// </summary>
         /// <returns>Enumerable of all the lines</returns>
