@@ -15,8 +15,12 @@ namespace ChartTools.IO
         /// <param name="path">Path of the file to read</param>
         /// <param name="readers">Array of tuples representing the supported extensions</param>
         /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="FileNotFoundException"/>
         internal static void Read(string path, params (string extension, Action<string> readMethod)[] readers)
         {
+            if (!File.Exists(path))
+                throw new FileNotFoundException();
+
             string extension = Path.GetExtension(path);
             (string extension, Action<string> readMethod) reader = readers.FirstOrDefault(r => r.extension == extension);
 
@@ -31,8 +35,12 @@ namespace ChartTools.IO
         /// <param name="path">Path of the file to read</param>
         /// <param name="readers">Array of tuples representing the supported extensions</param>
         /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="FileNotFoundException"/>
         internal static T Read<T>(string path, params (string extension, Func<string, T> readMethod)[] readers)
         {
+            if (!File.Exists(path))
+                throw new FileNotFoundException();
+
             string extension = Path.GetExtension(path);
             (string extension, Func<string, T> readMethod) reader = readers.FirstOrDefault(r => r.extension == extension);
 
@@ -46,8 +54,12 @@ namespace ChartTools.IO
         /// <param name="item">Item to write</param>
         /// <param name="writers">Array of tupples representing the supported extensions</param>
         /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="FileNotFoundException"/>
         internal static void Write<T>(string path, T item, params (string extension, Action<string, T> writeMethod)[] writers)
         {
+            if (!File.Exists(path))
+                throw new FileNotFoundException();
+
             string extension = Path.GetExtension(path);
             (string extension, Action<string, T> writeMethod) writer = writers.FirstOrDefault(w => w.extension == extension);
 
