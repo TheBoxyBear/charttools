@@ -8,7 +8,7 @@ using ChartTools.IO.Chart;
 using ChartTools.Lyrics;
 using ChartTools.Collections.Alternating;
 
-namespace System
+namespace ChartTools.SystemExtensions
 {
     /// <summary>
     /// Provides additionnal methods to Enum
@@ -43,7 +43,7 @@ namespace System
         }
     }
 }
-namespace System.Linq
+namespace ChartTools.SystemExtensions.Linq
 {
     /// <summary>
     /// Provides additionnal methods to Linq

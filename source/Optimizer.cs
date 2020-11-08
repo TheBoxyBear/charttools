@@ -1,6 +1,7 @@
-﻿using System.Linq;
+﻿using ChartTools.SystemExtensions.Linq;
+
+using System.Linq;
 using System.Collections.Generic;
-using System;
 using System.Data;
 
 namespace ChartTools.Optimization
