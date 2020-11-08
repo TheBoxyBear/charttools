@@ -4,7 +4,7 @@ ChartTools is a .NET Standard library with the purpose of modeling song files fo
 ## Installation
 ChartTools currently has no proper release and must be imported using the project included in the repository.
 
-To add ChartTools to your solution, select right-click on Dependeicnes of your project from the solution explorer and select "Add Project References...". Click on "Browse" and select ChartTools.csproj from your clone of the repository.
+To add ChartTools to your solution, select right-click on Dependeicnes of your project from the solution explorer and select "Add Project References...". Click on "Browse" and bin\Release\netstandard2.1\ChartTools.dll from the repository
 
 ## Getting started
 Every element of a chart is stored in an instance of the Song class. It can be initialized by reading a file. The file format is detected automatically using the extension:
