@@ -85,8 +85,9 @@ syncTrack.Tempo.RemoveUneeded();
 syncTrack.TimeSignatures.RemoveUneeded();
 ```
 ## Writing files
-Finally, changes can be saved to a file using the static ToFile method of most components. The format is based on the extension of the file. For instruments and tracks, the existing element will be overwritten or added while keeping the rest of the file if it already exists.
+Finally, changes can be saved to a file using the static or extension ToFile method of most components. The format is based on the extension of the file. For instruments and tracks, the existing element will be overwritten or added while keeping the rest of the file if it already exists.
 ```c#
 song.ToFile(filePath); //.chart file only
 metadata.ToFile(filePath) //.chart or .ini - some properties may not be written depending on the output format
+song.GlobalEvents.ToFile(path) //.chart only
 ```
