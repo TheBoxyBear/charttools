@@ -5,7 +5,8 @@ using System.Security;
 using System.IO;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
-using Melanchall.DryWetMidi.Core;
+using ChartTools.Lyrics;
+using ChartTools.Collections.Alternating;
 
 namespace System
 {
@@ -244,6 +245,16 @@ namespace System.Linq
                 previousItem = item;
             }
         }
+        /// <summary>
+        /// Removes all items in a <see cref="ICollection{T}"/> that meet a condition
+        /// </summary>
+        /// <param name="source">Collection to remove items from</param>
+        /// <param name="predicate">Function that determines which items to remove</param>
+        public static void RemoveWhere<T>(this ICollection<T> source, Predicate<T> predicate)
+        {
+            foreach (T item in source.Where(i => predicate(i)))
+                source.Remove(item);
+        }
     }
 }
 
@@ -291,7 +302,7 @@ namespace ChartTools
         /// <param name="path">Path of the file to write the difficulty to</param>
         public static void WriteDifficulty(this Instrument<DrumsChord> inst, string path)
         {
-            if (inst.Difficulty is not null)      
+            if (inst.Difficulty is not null)
                 try { Instrument.WriteDifficulty(path, Instruments.Drums, inst.Difficulty.Value); }
                 catch { throw; }
         }
@@ -403,4 +414,81 @@ namespace ChartTools
             catch { throw; }
         }
     }
-}   
+    /// <summary>
+    /// Provides additionnal methods for <see cref="GlobalEvent"/>
+    /// </summary>
+    public static class GlobalEventExtensions
+    {
+        /// <summary>
+        /// Gets the lyrics from an enumerable of <see cref="GlobalEvent"/>
+        /// </summary>
+        /// <returns>Enumerable of <see cref="Phrase"/></returns>
+        public static IEnumerable<Phrase> GetLyrics(this IEnumerable<GlobalEvent> globalEvents)
+        {
+            Phrase phrase = null;
+            Syllable phraselessFirstSyllable = null;
+
+            foreach (GlobalEvent globalEvent in globalEvents.OrderBy(e => e.Position))
+                switch (globalEvent.EventType)
+                {
+                    //Change active phrase
+                    case GlobalEventType.PhraseStart:
+                        if (phrase is not null)
+                            yield return phrase;
+
+                        phrase = new Phrase(globalEvent.Position);
+
+                        //If the stored lyric has the same position as the new phrase, add it to the phrase
+                        if (phraselessFirstSyllable is not null && phraselessFirstSyllable.Position == globalEvent.Position)
+                        {
+                            phrase.Syllables.Add(phraselessFirstSyllable);
+                            phraselessFirstSyllable = null;
+                        }
+                        break;
+                    //Add syllable to the active phrase usign the event argument
+                    case GlobalEventType.Lyric:
+                        Syllable newSyllable = new Syllable(globalEvent.Position) { RawText = globalEvent.Argument };
+
+                        //If the first lyric preceeds the first phrase, store it
+                        if (phrase is null)
+                            phraselessFirstSyllable = newSyllable;
+                        else
+                            phrase.Syllables.Add(newSyllable);
+                        break;
+                    //Set end position of active phrase
+                    case GlobalEventType.PhraseEnd:
+                        if (phrase is not null)
+                            phrase.EndPosition = globalEvent.Position;
+                        break;
+                }
+
+            if (phrase is not null)
+                yield return phrase;
+        }
+        /// <summary>
+        /// Gets a set of <see cref="GlobalEvent"/> where phrase and lyric events are replaced with the events makign up a set of <see cref="Phrase"/>.
+        /// </summary>
+        /// <returns>Enumerable of <see cref="GlobalEvent"/></returns>
+        public static IEnumerable<GlobalEvent> SetLyrics(this IEnumerable<GlobalEvent> events, IEnumerable<Phrase> lyrics)
+        {
+            foreach (GlobalEvent globalEvent in new OrderedAlternatingEnumerable<GlobalEvent, uint>(i => i.Position, events.Where(e => !e.IsLyricEvent), lyrics.SelectMany(p => p.ToGlobalEvents())))
+                yield return globalEvent;
+        }
+    }
+}
+ 
+namespace ChartTools.Lyrics
+{
+    /// <summary>
+    /// Provides additionnal methods to <see cref="Phrase"/>
+    /// </summary>
+    public static class PhraseExtensions
+    {
+        /// <summary>
+        /// Converts a set of <see cref="Phrase"/> to a set of <see cref="GlobalEvent"/> making up the phrases.
+        /// </summary>
+        /// <param name="source">Phrases to covnert into global evnets</param>
+        /// <returns>Global events making up the phrases</returns>
+        public static IEnumerable<GlobalEvent> ToGlobalEvents(this IEnumerable<Phrase> source) => source.SelectMany(p => p.ToGlobalEvents());
+    }
+}
