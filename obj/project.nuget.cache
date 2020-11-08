@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "dgSpecHash": "z1qcVwsA/6bONPhDDlDv1WSmnsnvWo3xTn3VzwpE7C3AK++tYrJ0VpikL9i6l7QO3vqNGigoie5sm5cg1YfVcQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Gaming\\source\\repos\\chart-tools\\ChartTools\\ChartTools.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Gaming\\.nuget\\packages\\ini.net\\1.1.0\\ini.net.1.1.0.nupkg.sha512",
+    "C:\\Users\\Gaming\\.nuget\\packages\\melanchall.drywetmidi\\5.1.1\\melanchall.drywetmidi.5.1.1.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'ini.net 1.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETStandard,Version=v2.1'. This package may not be fully compatible with your project.",
+      "libraryId": "ini.net",
+      "targetGraphs": [
+        ".NETStandard,Version=v2.1"
+      ]
+    }
+  ]
+}
