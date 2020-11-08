@@ -919,7 +919,6 @@ namespace ChartTools.IO.Chart
 
             //Read to the end
             using (reader)
-            {
                 while (!reader.EndOfStream)
                 {
                     string line = reader.ReadLine();
@@ -927,9 +926,6 @@ namespace ChartTools.IO.Chart
                     if (line != string.Empty)
                         yield return line;
                 }
-
-                reader.Close();
-            }
         }
         /// <summary>
         /// Gets a part from the contents of a chart file
