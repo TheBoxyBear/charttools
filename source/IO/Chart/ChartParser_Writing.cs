@@ -185,19 +185,11 @@ namespace ChartTools.IO.Chart
             catch { throw; }
         }
         /// <summary>
-        /// Replaces the global events in a file
+        /// Replaces the global events in a file.
         /// </summary>
-        /// <param name="path"^>Path of the file to write</param>
-        /// <param name="events">Events to write</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="PathTooLongException"/>
-        /// <exception cref="DirectoryNotFoundException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="UnauthorizedAccessException"/>
-        /// <exception cref="NotSupportedException"/>
-        /// <exception cref="SecurityException"/>
-        internal static void ReplaceEvents(string path, IEnumerable<GlobalEvent> events)
+        /// <param name="path">Path of the file to write</param>
+        /// <param name="events">Events to use as a replacement</param>
+        internal static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events)
         {
             try { ReplacePart(path, events.Select(e => GetEventLine(e)), "Events"); }
             catch { throw; }
@@ -321,21 +313,10 @@ namespace ChartTools.IO.Chart
             try
             {
                 if (File.Exists(path))
-                    File.WriteAllText(path, string.Join('\n', GetLines(path).ReplaceSection(part, l => l == $"[{partName}]", l => l == "}")));
+                    File.WriteAllText(path, string.Join('\n', GetLines(path).ReplaceSection(part, l => l == $"[{partName}]", l => l == "}", true)));
                 else
                     File.WriteAllText(path, string.Join('\n', part));
             }
-            catch { throw; }
-        }
-
-        /// <summary>
-        /// Replaces the global events in a file.
-        /// </summary>
-        /// <param name="path">Path of the file to write</param>
-        /// <param name="events">Events to use as a replacement</param>
-        internal static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events)
-        {
-            try { ReplacePart(path, events.Select(e => GetEventLine(e)), "Events"); }
             catch { throw; }
         }
 

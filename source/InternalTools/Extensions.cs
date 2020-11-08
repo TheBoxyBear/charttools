@@ -109,6 +109,8 @@ namespace ChartTools.SystemExtensions.Linq
             //Return original until startReplace
             while (!startReplace(itemsEnumerator.Current))
             {
+                yield return itemsEnumerator.Current;
+
                 if (!itemsEnumerator.MoveNext())
                 {
                     if (addIfMissing)
@@ -116,8 +118,6 @@ namespace ChartTools.SystemExtensions.Linq
                             yield return item;
                     yield break;
                 }
-
-                yield return itemsEnumerator.Current;
             }
 
             //Return replacement
