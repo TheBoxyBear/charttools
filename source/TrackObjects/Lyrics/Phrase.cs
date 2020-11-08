@@ -45,7 +45,7 @@ namespace ChartTools.Lyrics
         /// <summary>
         /// Gets the raw text of all syllables as a single string with spaces between syllables
         /// </summary>
-        public string RawText => string.Join("", Syllables.Select(s => s.IsWordEnd ? s.RawText + ' ' : s.RawText)).TrimEnd();
+        public string RawText => string.Join("", Syllables.Select(s => s.IsWordEnd ? s.RawText.Trim() + ' ' : s.RawText.Trim())).TrimEnd();
 
         /// <summary>
         /// Syllables in the <see cref="Phrase"/>

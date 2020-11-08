@@ -87,6 +87,10 @@ namespace ChartTools
         private static string GetEventTypeString(GlobalEventType type) => type == GlobalEventType.Unknown ? "Default" : globalTypesDictionary[type];
 
         /// <inheritdoc cref="ChartParser.ReadGlobalEvents(string)"/>
-        public static IEnumerable<GlobalEvent> FromFile(string path) => ExtensionHandler.Read(path, (".chart", ChartParser.ReadGlobalEvents));
+        public static IEnumerable<GlobalEvent> FromFile(string path)
+        {
+            try { return ExtensionHandler.Read(path, (".chart", ChartParser.ReadGlobalEvents)); }
+            catch { throw; }
+        }
     }
 }
