@@ -19,7 +19,7 @@ A song contains five main elements:
 Each of these elements can be read individually from a file using the non-generic version of the right class.
 
 ## Metadata
-Similar to reading a song: metadata can be read from one or multiple files:
+Similar to reading a song, metadata can be read from one or multiple files:
 ```c#
 Metadata metadata = Metadata.FromFile(filePath);
 Metadata metadata = Metada.FromFiles(filePath1, filePath2, filePath3...);
