@@ -24,7 +24,7 @@ Similar to reading a song, metadata can be read from one or multiple files:
 Metadata metadata = Metadata.FromFile(filePath);
 Metadata metadata = Metada.FromFiles(filePath1, filePath2, filePath3...);
 ```
-Files can be .chart or .ini. When reading from multiple files, the provided files can be a mix of different formats. Each file is read based on its extension.
+Files can be .chart or .ini. When reading from multiple files, the provided files can be a mix of different formats, each read based on its extension. The first file has upmost priority and other files are only read to retreive the missing information, in decreasing order of priority until all properties of the metadata have a value or until the last file is read.
 
 ## Instruments and tracks
 All instrument currently supported are represented using the generic Insrument class. Notes and other information are stored in a track. Each generic instrument contains one track per difficulty setting. A track can be retrieved from a song like so:
