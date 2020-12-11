@@ -74,6 +74,8 @@ using ChartTools.Lyrics;
 lyrics.ToGlobalEvents(); //Creates a new set of global events
 events.SetLyrics(lyrics); //Replaces existing lyric-related events with new events making up the phrases
 ```
+
+It is also possible to edit lyrics direclty from the global events.
 ## Optimizing
 Although still fucntional, some files may contain data that slow down the reading process or in worse cases, may result in non-functionnal files when saved in certain formats. ChartTools provides various utilities to fix such issues:
 ```c#
