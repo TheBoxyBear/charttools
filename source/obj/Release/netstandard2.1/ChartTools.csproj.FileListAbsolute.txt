@@ -1,8 +1,0 @@
-C:\Users\Gaming\Documents\GitHub\ChartTools\source\bin\Release\netstandard2.1\ChartTools.deps.json
-C:\Users\Gaming\Documents\GitHub\ChartTools\source\bin\Release\netstandard2.1\ChartTools.dll
-C:\Users\Gaming\Documents\GitHub\ChartTools\source\bin\Release\netstandard2.1\ChartTools.pdb
-C:\Users\Gaming\Documents\GitHub\ChartTools\source\obj\Release\netstandard2.1\ChartTools.AssemblyInfoInputs.cache
-C:\Users\Gaming\Documents\GitHub\ChartTools\source\obj\Release\netstandard2.1\ChartTools.AssemblyInfo.cs
-C:\Users\Gaming\Documents\GitHub\ChartTools\source\obj\Release\netstandard2.1\ChartTools.csproj.CoreCompileInputs.cache
-C:\Users\Gaming\Documents\GitHub\ChartTools\source\obj\Release\netstandard2.1\ChartTools.dll
-C:\Users\Gaming\Documents\GitHub\ChartTools\source\obj\Release\netstandard2.1\ChartTools.pdb
