@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETStandard,Version=v2.1": {
-      "Melanchall.DryWetMidi/5.1.1": {
+      "Melanchall.DryWetMidi/5.1.2": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Melanchall.DryWetMidi.dll": {}
@@ -14,10 +14,10 @@
     }
   },
   "libraries": {
-    "Melanchall.DryWetMidi/5.1.1": {
-      "sha512": "CVMOKKZ6N7u6DU4hufzrEj+X4gqyTvz0K/lQj1ypIBYhY7W06IJ5p0DJqxkQuCh1jAm1E6dTt9Mo9C1LG9uguw==",
+    "Melanchall.DryWetMidi/5.1.2": {
+      "sha512": "RgGf+uNRA4RaappCm0V7YDX7RDuXuTa1HNmHSm2MLZj+537TZJQr3fb0xpDetsqrb4up1usBUCiq0o3JwnQy2A==",
       "type": "package",
-      "path": "melanchall.drywetmidi/5.1.1",
+      "path": "melanchall.drywetmidi/5.1.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -26,14 +26,14 @@
         "lib/net45/Melanchall.DryWetMidi.xml",
         "lib/netstandard2.0/Melanchall.DryWetMidi.dll",
         "lib/netstandard2.0/Melanchall.DryWetMidi.xml",
-        "melanchall.drywetmidi.5.1.1.nupkg.sha512",
+        "melanchall.drywetmidi.5.1.2.nupkg.sha512",
         "melanchall.drywetmidi.nuspec"
       ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.1": [
-      "Melanchall.DryWetMidi >= 5.1.1"
+      "Melanchall.DryWetMidi >= 5.1.2"
     ]
   },
   "packageFolders": {
@@ -82,7 +82,7 @@
         "dependencies": {
           "Melanchall.DryWetMidi": {
             "target": "Package",
-            "version": "[5.1.1, )"
+            "version": "[5.1.2, )"
           }
         },
         "imports": [

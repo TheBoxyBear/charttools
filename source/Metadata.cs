@@ -130,7 +130,11 @@ namespace ChartTools
             return data[0];
         }
         /// <inheritdoc cref="IniParser.WriteMetadata(string, Metadata)"/>
-        public void ToFile(string path) => ExtensionHandler.Write(path, this, (".ini", IniParser.WriteMetadata));
+        public void ToFile(string path)
+        {
+            try { ExtensionHandler.Write(path, this, (".ini", IniParser.WriteMetadata)); }
+            catch { throw; }
+        }
     }
 
     /// <summary>

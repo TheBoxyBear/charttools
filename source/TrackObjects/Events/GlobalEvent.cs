@@ -2,6 +2,7 @@
 using ChartTools.IO.Chart;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 
 namespace ChartTools
 {
@@ -90,6 +91,12 @@ namespace ChartTools
         public static IEnumerable<GlobalEvent> FromFile(string path)
         {
             try { return ExtensionHandler.Read(path, (".chart", ChartParser.ReadGlobalEvents)); }
+            catch { throw; }
+        }
+        /// <inheritdoc cref="ChartParser.ReplaceGlobalEvents(string, IEnumerable{GlobalEvent})"/>
+        public static void ToFile(string path, IEnumerable<GlobalEvent> events)
+        {
+            try { ExtensionHandler.Write(path, events, (".chart", ChartParser.ReplaceGlobalEvents)); }
             catch { throw; }
         }
     }

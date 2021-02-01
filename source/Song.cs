@@ -94,9 +94,17 @@ namespace ChartTools
         public Instrument<StandardChord> GetInstrument(StandardInstrument instrument) => GetInstrument((Instruments)instrument) as Instrument<StandardChord>;
 
         /// <inheritdoc cref="ChartParser.ReadSong(string)"/>
-        public static Song FromFile(string path) => ExtensionHandler.Read(path, (".chart", ChartParser.ReadSong), (".ini", (p) => new Song { Metadata = IniParser.ReadMetadata(p) }));
+        public static Song FromFile(string path)
+        {
+            try { return ExtensionHandler.Read(path, (".chart", ChartParser.ReadSong), (".ini", (p) => new Song { Metadata = IniParser.ReadMetadata(p) })); }
+            catch { throw; }
+        }
         /// <inheritdoc cref="ChartParser.WriteSong(string, Song)"/>
-        public void ToFile(string path) => ExtensionHandler.Write(path, this, (".chart", ChartParser.WriteSong));
+        public void ToFile(string path)
+        {
+            try { ExtensionHandler.Write(path, this, (".chart", ChartParser.WriteSong)); }
+            catch { throw; }
+        }
 
         /// <summary>
         /// Reads the estimated instrument difficulties from a ini file.
@@ -105,14 +113,22 @@ namespace ChartTools
         /// <exception cref="ArgumentException"/>
         /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
-        public void ReadDifficulties(string path) => ExtensionHandler.Read(path, (".ini", (p) => IniParser.ReadDifficulties(p, this)));
+        public void ReadDifficulties(string path)
+        {
+            try { ExtensionHandler.Read(path, (".ini", (p) => IniParser.ReadDifficulties(p, this))); }
+            catch { throw; }
+        }
         /// <summary>
         /// Writes the estimated instrument difficulties to a ini file.
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="IOException"/>
-        public void WriteDifficulties(string path) => ExtensionHandler.Write<Song>(path, this, (".ini", IniParser.WriteDifficulties));
+        public void WriteDifficulties(string path)
+        {
+            try { ExtensionHandler.Write(path, this, (".ini", IniParser.WriteDifficulties)); }
+            catch { throw; }
+        }
 
         /// <summary>
         /// Retrieves the lyrics from the global events.
