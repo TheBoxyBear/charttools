@@ -1,11 +1,8 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30223.230
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChartTools", "ChartTools.csproj", "{FB2EEA78-DD96-4522-ACB4-C5A85EF43A20}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Debug", "..\..\Debug\Debug.csproj", "{FDD3865E-7F38-4EDF-9808-0519ACE389CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChartTools", "source/ChartTools.csproj", "{FB2EEA78-DD96-4522-ACB4-C5A85EF43A20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

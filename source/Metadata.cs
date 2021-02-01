@@ -2,6 +2,7 @@
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Ini;
+
 using System;
 using System.Linq;
 
@@ -46,6 +47,22 @@ namespace ChartTools
         /// </summary>
         public uint? PreviewEnd { get; set; }
         /// <summary>
+        /// Duration in milliseconds of the pewview in the Clone Hero song browser
+        /// </summary>
+        public uint PreviewLength
+        {
+            get
+            {
+                if (PreviewEnd is null)
+                    return 30000;
+
+                if (PreviewStart is null)
+                    return PreviewEnd.Value;
+
+                return PreviewEnd.Value - PreviewStart.Value;
+            }
+        }
+        /// <summary>
         /// Overall difficulty of the song
         /// </summary>
         public byte? Difficulty { get; set; }
@@ -58,17 +75,17 @@ namespace ChartTools
         /// </summary>
         public ushort Resolution { get; set; }
         /// <summary>
-        /// Offset of the audio track in milliseconds. A higher value makes the audio start sooner
+        /// Offset of the audio track in milliseconds. A higher value makes the audio start sooner.
         /// </summary>
-        public float? AudioOffset { get; set; }
+        public int? AudioOffset { get; set; }
         /// <summary>
         /// Paths of audio files
         /// </summary>
         public StreamCollection Streams { get; set; } = new StreamCollection();
         /// <summary>
-        /// Offset of the background video in milliseconds. A higher value makes the video start sooner
+        /// Offset of the background video in milliseconds. A higher value makes the video start sooner.
         /// </summary>
-        public float? VideoOffset { get; set; }
+        public int? VideoOffset { get; set; }
         /// <summary>
         /// Text to be displayed on the load screen
         /// </summary>

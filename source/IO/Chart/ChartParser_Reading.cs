@@ -19,7 +19,7 @@ namespace ChartTools.IO.Chart
         /// Reads a chart file.
         /// </summary>
         /// <returns>Instance of <see cref="Song"/> contianing all song data
-        ///     <para><see langword="null"/> if the file contains no song data</para>
+        /// <para><see langword="null"/> if the file contains no song data</para>
         /// </returns>
         /// <param name="path">Path of the file to read</param>
         /// <exception cref="ArgumentException"/>
@@ -543,13 +543,13 @@ namespace ChartTools.IO.Chart
                         NoteData data;
                         try
                         {
-                            data = new NoteData(entry.Data); 
+                            data = new NoteData(entry.Data);
                             chord = noteCase(track, chord, entry, data, newChord);
                         }
                         catch (Exception e) { throw GetException(line, e); }
 
                         break;
-                     //Star power
+                    //Star power
                     case "S":
                         try
                         {
@@ -626,7 +626,7 @@ namespace ChartTools.IO.Chart
         /// </returns>
         /// <param name="lines">Lines in the file</param>
         /// <exception cref="FormatException"
-        private static Metadata GetMetadata(string[]lines)
+        private static Metadata GetMetadata(string[] lines)
         {
             Metadata metadata = new Metadata();
 
@@ -657,7 +657,7 @@ namespace ChartTools.IO.Chart
                         catch (Exception e) { throw GetException(line, e); }
                         break;
                     case "Offset":
-                        try { metadata.AudioOffset = float.Parse(entry.Data); }
+                        try { metadata.AudioOffset = int.Parse(entry.Data); }
                         catch (Exception e) { throw GetException(line, e); }
                         break;
                     case "Resolution":
@@ -692,43 +692,35 @@ namespace ChartTools.IO.Chart
                         metadata.Streams.Bass = data;
                         break;
                     case "RhythmStream":
-                        if (metadata.Streams is null)
-                            metadata.Streams = new StreamCollection();
+                        metadata.Streams ??= new StreamCollection();
                         metadata.Streams.Rhythm = data;
                         break;
                     case "KeysStream":
-                        if (metadata.Streams is null)
-                            metadata.Streams = new StreamCollection();
+                        metadata.Streams ??= new StreamCollection();
                         metadata.Streams.Keys = data;
                         break;
                     case "DrumStream":
-                        if (metadata.Streams is null)
-                            metadata.Streams = new StreamCollection();
+                        metadata.Streams ??= new StreamCollection();
                         metadata.Streams.Drum = data;
                         break;
                     case "Drum2Stream":
-                        if (metadata.Streams is null)
-                            metadata.Streams = new StreamCollection();
+                        metadata.Streams ??= new StreamCollection();
                         metadata.Streams.Drum2 = data;
                         break;
                     case "Drum3Stream":
-                        if (metadata.Streams is null)
-                            metadata.Streams = new StreamCollection();
+                        metadata.Streams ??= new StreamCollection();
                         metadata.Streams.Drum3 = data;
                         break;
                     case "Drum4Stream":
-                        if (metadata.Streams is null)
-                            metadata.Streams = new StreamCollection();
+                        metadata.Streams ??= new StreamCollection();
                         metadata.Streams.Drum4 = data;
                         break;
                     case "VocalStream":
-                        if (metadata.Streams is null)
-                            metadata.Streams = new StreamCollection();
+                        metadata.Streams ??= new StreamCollection();
                         metadata.Streams.Vocal = data;
                         break;
                     case "CrowdStream":
-                        if (metadata.Streams is null)
-                            metadata.Streams = new StreamCollection();
+                        metadata.Streams ??= new StreamCollection();
                         metadata.Streams.Crowd = data;
                         break;
                 }

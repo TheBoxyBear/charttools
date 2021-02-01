@@ -28,7 +28,7 @@ namespace ChartTools
         /// List of events common to all instruments
         /// </summary>
         public List<GlobalEvent> GlobalEvents { get; set; } = new List<GlobalEvent>();
-        
+
         /// <summary>
         /// Set of drums tracks
         /// </summary>
@@ -78,6 +78,7 @@ namespace ChartTools
             Instruments.CoopGuitar => CoopGuitar,
             Instruments.Bass => Bass,
             Instruments.Keys => Keys,
+            _ => throw new Exception("Instrument does not exist.")
         };
         /// <summary>
         /// Gets property value for an <see cref="Instrument{TChord}"/> from a <see cref="GHLInstrument"/> <see langword="enum"/> value.

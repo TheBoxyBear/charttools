@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ini.net" Version="1.1.0" />
     <PackageReference Include="Melanchall.DryWetMidi" Version="5.1.1" />
   </ItemGroup>
 
