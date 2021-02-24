@@ -13,10 +13,6 @@ namespace ChartTools.IO.Ini
     internal static class IniParser
     {
         /// <summary>
-        /// Name of the section to read
-        /// </summary>
-        private const string section = "song";
-        /// <summary>
         /// Keys for <see cref="Instrument"/> difficulties
         /// </summary>
         private static readonly Dictionary<string, Instruments> difficultyKeys = new Dictionary<string, Instruments>()
@@ -57,7 +53,6 @@ namespace ChartTools.IO.Ini
         internal static Metadata ReadMetadata(string path)
         {
             Metadata metadata = new Metadata();
-            ushort ushortValue;
             int intValue;
             uint uintValue;
 
@@ -65,52 +60,52 @@ namespace ChartTools.IO.Ini
             {
                 foreach (string line in File.ReadLines(path))
                 {
-                    (string header, string value) entry = GetEntry(line);
+                    (string header, string value) = GetEntry(line);
 
-                    switch (entry.header)
+                    switch (header)
                     {
                         case "name":
-                            metadata.Title = entry.value;
+                            metadata.Title = value;
                             break;
                         case "artist":
-                            metadata.Artist = entry.value;
+                            metadata.Artist = value;
                             break;
                         case "album":
-                            metadata.Album = entry.value;
+                            metadata.Album = value;
                             break;
                         case "year":
-                            metadata.Year = ushort.TryParse(entry.value, out ushortValue) ? ushortValue
-                                : throw new FormatException($"Cannot parse year \"{entry.value}\" to {metadata.Year.GetType()}.");
+                            metadata.Year = ushort.TryParse(value, out ushort ushortValue) ? ushortValue
+                                : throw new FormatException($"Cannot parse year \"{value}\" to {metadata.Year.GetType()}.");
                             break;
                         case "genre":
-                            metadata.Genre = entry.value;
+                            metadata.Genre = value;
                             break;
                         case "charter":
                             metadata.Charter ??= new Charter();
-                            metadata.Charter.Name = entry.value;
+                            metadata.Charter.Name = value;
                             break;
                         case "icon":
                             metadata.Charter ??= new Charter();
-                            metadata.Charter.Icon = entry.value;
+                            metadata.Charter.Icon = value;
                             break;
                         case "preview_start_time":
-                            metadata.PreviewStart = uint.TryParse(entry.value, out uintValue) ? uintValue
-                                : throw new FormatException($"Cannot parse preview start \"{entry.value}\" to {metadata.PreviewStart.GetType()}.");
+                            metadata.PreviewStart = uint.TryParse(value, out uintValue) ? uintValue
+                                : throw new FormatException($"Cannot parse preview start \"{value}\" to {metadata.PreviewStart.GetType()}.");
                             break;
                         case "preview_end_time":
-                            metadata.PreviewEnd = uint.TryParse(entry.value, out uintValue) ? uintValue
-                                : throw new FormatException($"Cannot parse preview end \"{entry.value}\" to {metadata.PreviewEnd.GetType()}.");
+                            metadata.PreviewEnd = uint.TryParse(value, out uintValue) ? uintValue
+                                : throw new FormatException($"Cannot parse preview end \"{value}\" to {metadata.PreviewEnd.GetType()}.");
                             break;
                         case "delay":
-                            metadata.AudioOffset = int.TryParse(entry.value, out intValue) ? intValue
-                                : throw new FormatException($"Cannot parse audio offset \"{entry.value}\" to {metadata.AudioOffset.GetType()}.");
+                            metadata.AudioOffset = int.TryParse(value, out intValue) ? intValue
+                                : throw new FormatException($"Cannot parse audio offset \"{value}\" to {metadata.AudioOffset.GetType()}.");
                             break;
                         case "video_start_time":
-                            metadata.VideoOffset = int.TryParse(entry.value, out intValue) ? intValue
-                                : throw new FormatException($"Cannot parse video offset \"{entry.value}\" to {metadata.VideoOffset.GetType()}.");
+                            metadata.VideoOffset = int.TryParse(value, out intValue) ? intValue
+                                : throw new FormatException($"Cannot parse video offset \"{value}\" to {metadata.VideoOffset.GetType()}.");
                             break;
                         case "loading_text":
-                            metadata.LoadingText = entry.value;
+                            metadata.LoadingText = value;
                             break;
                     }
                 }
@@ -150,7 +145,7 @@ namespace ChartTools.IO.Ini
 
             Type metadataType = typeof(Metadata);
 
-            //Get the value of all properties whose name is in the dictionary and pair with its matching key, filtered to non-null properties
+            // Get the value of all properties whose name is in the dictionary and pair with its matching key, filtered to non-null properties
             foreach ((string key, object value) in metadataKeys.Keys.Select(p => (metadataKeys[p], metadataType.GetProperty(metadataKeys[p]).GetValue(metadata))).Where(t => t.Item2 is not null))
                 yield return $"{key} = {value}";
 
@@ -194,11 +189,10 @@ namespace ChartTools.IO.Ini
             }
             catch { throw; }
 
-            if (entry == default)
-                return null;
-
-            return sbyte.TryParse(entry.value, out sbyte difficulty) ? difficulty
-                : throw new FormatException($"Cannot parse difficulty \"{entry.value}\"");
+            return entry == default
+                ? null
+                : (sbyte.TryParse(entry.value, out sbyte difficulty) ? difficulty
+                : throw new FormatException($"Cannot parse difficulty \"{entry.value}\""));
         }
         /// <summary>
         /// Reads <see cref="Instrument"/> difficulties from a ini file and assigns them to the instruments in a <see cref="Song"/>.
@@ -267,7 +261,7 @@ namespace ChartTools.IO.Ini
         /// <exception cref="IOException"/>
         internal static void WriteDifficulties(string path, Song song)
         {
-            //Get all non-difficulty lines lines based on the non-null instruments
+            // Get all non-difficulty lines lines based on the non-null instruments
             try { File.WriteAllLines(path, File.ReadAllLines(path).Where(l => difficultyKeys.ContainsKey(GetEntry(l).header)).Concat(difficultyKeys.Select(p => (p.Key, song.GetInstrument(p.Value))).Where(t => t.Item2 is not null).Select(p => $"{p.Key} = {p.Item2.Difficulty}"))); }
             catch { throw; }
         }

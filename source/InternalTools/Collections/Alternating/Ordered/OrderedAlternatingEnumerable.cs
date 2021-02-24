@@ -8,24 +8,32 @@ namespace ChartTools.Collections.Alternating
     /// <summary>
     /// Enumerable where <typeparamref name="T"/> items are pulled from a set of enumerables in order using a <typeparamref name="TKey"/> key
     /// </summary>
-    public class OrderedAlternatingEnumerable<T, TKey> : IAlternatingEnumerable<T> where TKey : IComparable<TKey>
+    public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey : IComparable<TKey>
     {
-        ///<inheritdoc/>
-        public IEnumerable<T>[] Enumerables { get; }
+        private IEnumerable<T>[] Enumerables { get; }
         /// <summary>
         /// Method that retrieves the key from an item
         /// </summary>
-        internal Func<T, TKey> KeyGetter { get; set; }
+        private Func<T, TKey> KeyGetter { get; }
 
         /// <summary>
         /// Creates an instance of <see cref="OrderedAlternatingEnumerable{T, TKey}"/>.
         /// </summary>
         /// <param name="keyGetter">Method that retrieves the key from an item</param>
         /// <param name="enumerables">Enumerables to pull items from</param>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
         public OrderedAlternatingEnumerable(Func<T, TKey> keyGetter, params IEnumerable<T>[] enumerables)
         {
+            if (keyGetter is null)
+                throw new ArgumentNullException("keyGetter is null.");
+            if (enumerables is null)
+                throw new ArgumentNullException("Eumerable array is null.");
+            if (enumerables.Length == 0)
+                throw new ArgumentException("No enumerables provided.");
+
             KeyGetter = keyGetter;
-            Enumerables = enumerables;
+            Enumerables = enumerables.Where(e => e is not null).ToArray();
         }
 
         /// <inheritdoc/>

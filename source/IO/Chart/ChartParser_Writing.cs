@@ -28,7 +28,7 @@ namespace ChartTools.IO.Chart
         /// <exception cref="SecurityException"/>
         internal static void WriteSong(string path, Song song)
         {
-            //Add threads for metadata, synctrack and global events
+            // Add threads for metadata, synctrack and global events
             List<Task<IEnumerable<string>>> tasks = new List<Task<IEnumerable<string>>>()
             {
                 Task.Run(() => GetPartLines("Song", GetMetadataLines(song.Metadata))),
@@ -36,13 +36,13 @@ namespace ChartTools.IO.Chart
                 Task.Run(() => GetPartLines("Events", song.GlobalEvents.Select(e => GetEventLine(e))))
             };
 
-            //Part names of ghl instruments
+            // Part names of ghl instruments
             IEnumerable<(Instrument<GHLChord>, Instruments)> ghlInstruments = new (Instrument<GHLChord> instrument, Instruments name)[]
             {
                 (song.GHLBass, Instruments.GHLBass),
                 (song.GHLGuitar, Instruments.GHLGuitar)
             }.Where(i => i.instrument is not null);
-            //Part names of standard instruments
+            // Part names of standard instruments
             IEnumerable<(Instrument<StandardChord>, Instruments)> standardInstruments = new (Instrument<StandardChord> instrument, Instruments name)[]
             {
                 (song.LeadGuitar, Instruments.LeadGuitar),
@@ -52,12 +52,12 @@ namespace ChartTools.IO.Chart
                 (song.Keys, Instruments.Keys)
             }.Where(i => i.instrument is not null);
 
-            //Types used to get difficulty tracks using reflection
+            // Types used to get difficulty tracks using reflection
             Type drumsType = typeof(Instrument<DrumsChord>), ghlType = typeof(Instrument<GHLChord>), standardType = typeof(Instrument<StandardChord>);
 
             foreach (Difficulty difficulty in EnumExtensions.GetValues<Difficulty>())
             {
-                //Add threads to get the lines for each non-null drums track
+                // Add threads to get the lines for each non-null drums track
                 if (song.Drums is not null)
                     tasks.Add(Task.Run(() =>
                     {
@@ -66,7 +66,7 @@ namespace ChartTools.IO.Chart
                         return lines.Count() > 0 ? GetPartLines(GetFullPartName(Instruments.Drums, difficulty), lines) : lines;
                     }));
 
-                //Add threads to get the lines for each non-null track of each ghl instrument
+                // Add threads to get the lines for each non-null track of each ghl instrument
                 foreach ((Instrument<GHLChord> instrument, Instruments name) in ghlInstruments)
                     tasks.Add(Task.Run(() =>
                     {
@@ -74,7 +74,7 @@ namespace ChartTools.IO.Chart
 
                         return lines.Count() > 0 ? GetPartLines(GetFullPartName(name, difficulty), lines) : lines;
                     }));
-                //Add threads to get the lines for each non-null track of each standard instrument
+                // Add threads to get the lines for each non-null track of each standard instrument
                 foreach ((Instrument<StandardChord> instrument, Instruments name) in standardInstruments)
                     tasks.Add(Task.Run(() =>
                     {
@@ -84,7 +84,7 @@ namespace ChartTools.IO.Chart
                     }));
             }
 
-            //Join lines with line breaks and write to file
+            // Join lines with line breaks and write to file
             try { File.WriteAllText(path, string.Join('\n', tasks.SelectMany(t => t.Result))); }
             catch { throw; }
 
@@ -102,7 +102,7 @@ namespace ChartTools.IO.Chart
         internal static void ReplaceInstrument(string path, Instrument<GHLChord> inst, GHLInstrument instrument)
         {
             if (!Enum.IsDefined(typeof(GHLInstrument), instrument))
-                throw GetUndefinedInstrumentException();
+                throw IOExceptions.GetUndefinedInstrumentException();
 
             try { ReplaceInstrument(path, inst, (Instruments)instrument); }
             catch { throw; }
@@ -111,7 +111,7 @@ namespace ChartTools.IO.Chart
         internal static void ReplaceInstrument(string path, Instrument<StandardChord> inst, StandardInstrument instrument)
         {
             if (!Enum.IsDefined(typeof(StandardInstrument), instrument))
-                throw GetUndefinedInstrumentException();
+                throw IOExceptions.GetUndefinedInstrumentException();
 
             try { ReplaceInstrument(path, inst, (Instruments)instrument); }
             catch { throw; }
@@ -330,8 +330,8 @@ namespace ChartTools.IO.Chart
             if (track is null)
                 yield break;
 
-            //Loop through chords, local events and star power, picked using the lowest position
-            foreach (TrackObject trackObject in new Collections.Alternating.OrderedAlternatingEnumerable<TrackObject, uint>(t => t.Position, track.Chords, track.LocalEvents, track.StarPowerPhrases))
+            // Loop through chords, local events and star power, picked using the lowest position
+            foreach (TrackObject trackObject in new Collections.Alternating.OrderedAlternatingEnumerable<TrackObject, uint>(t => t.Position, track.Chords, track.LocalEvents, track.StarPower))
             {
                 if (trackObject is TChord)
                     foreach (string value in (trackObject as TChord).GetChartData())
@@ -376,7 +376,7 @@ namespace ChartTools.IO.Chart
             if (metadata.MediaType is not null)
                 yield return GetLine("MetiaType", $"\"{metadata.MediaType}\"");
 
-            //Audio streams
+            // Audio streams
             if (metadata.Streams is not null)
                 foreach (PropertyInfo property in typeof(StreamCollection).GetProperties())
                 {
@@ -401,7 +401,7 @@ namespace ChartTools.IO.Chart
             if (syncTrack is null)
                 yield break;
 
-            //Loop through time signatures and tempo markers, picked using the lowest position
+            // Loop through time signatures and tempo markers, picked using the lowest position
             foreach (TrackObject trackObject in new Collections.Alternating.OrderedAlternatingEnumerable<TrackObject, uint>(t => t.Position, syncTrack.TimeSignatures, syncTrack.Tempo))
             {
                 if (trackObject is TimeSignature)

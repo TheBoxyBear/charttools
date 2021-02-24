@@ -19,8 +19,8 @@
         /// <remarks>Syllable postion is based on the syntax of <see cref="RawText"/></remarks>
         public bool IsWordEnd
         {
-            //The last character is not - or =
-            get => RawText[^1] != '-' && RawText[^1] != '=';
+            // The last character is not - or =
+            get => RawText[^1] is not '-' and not '=';
             set
             {
                 if (value)

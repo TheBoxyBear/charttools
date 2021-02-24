@@ -1,4 +1,5 @@
 ﻿using ChartTools.IO.Chart;
+using System;
 
 namespace ChartTools
 {
@@ -17,6 +18,22 @@ namespace ChartTools
         /// </summary>
         /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
         public GHLChord(uint position) : base(position) { }
+        public GHLChord(uint position, params GHLNote[] notes) : this(position)
+        {
+            if (notes is null)
+                throw new ArgumentNullException("Note array is null");
+
+            foreach (GHLNote note in notes)
+                Notes.Add(note);
+        }
+        public GHLChord(uint position, params GHLNotes[] notes) : this(position)
+        {
+            if (notes is null)
+                throw new ArgumentNullException("Note array is null");
+
+            foreach (GHLNotes note in notes)
+                Notes.Add(new GHLNote(note));
+        }
 
         /// <inheritdoc/>
         internal override System.Collections.Generic.IEnumerable<string> GetChartData()

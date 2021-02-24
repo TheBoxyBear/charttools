@@ -1,4 +1,4 @@
-﻿using ChartTools.Collections;
+﻿using ChartTools.Collections.Unique;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 
@@ -12,11 +12,11 @@ namespace ChartTools
         /// <summary>
         /// Tempo markers
         /// </summary>
-        public UniqueListComparable<Tempo> Tempo { get; set; } = new UniqueListComparable<Tempo>();
+        public UniqueList<Tempo> Tempo { get; set; } = new UniqueList<Tempo>((t, other) => t.Equals(other));
         /// <summary>
         /// Time signature markers
         /// </summary>
-        public UniqueListComparable<TimeSignature> TimeSignatures { get; set; } = new UniqueListComparable<TimeSignature>();
+        public UniqueList<TimeSignature> TimeSignatures { get; set; } = new UniqueList<TimeSignature>((t, other) => t.Equals(other));
 
         /// <inheritdoc cref="ChartParser.ReadSyncTrack(string)"/>
         public static SyncTrack FromFile(string path)

@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+
+using ChartTools.SystemExtensions.Linq;
 
 namespace ChartTools.Collections.Alternating
 {
     /// <summary>
     /// Enumerator that yields <typeparamref name="T"/> items from a set of enumerators in order using a <typeparamref name="TKey"/> key
     /// </summary>
-    public class OrderedAlternatingEnumerator<T, TKey> : IAlternatingEnumerator<T> where TKey : IComparable<TKey>
+    public class OrderedAlternatingEnumerator<T, TKey> : IInitializable, IEnumerator<T> where TKey : IComparable<TKey>
     {
-        /// <inheritdoc/>
-        public IEnumerator<T>[] Enumerators { get; }
+        private IEnumerator<T>[] Enumerators { get; }
         /// <summary>
         /// Method that retrieves the key from an item
         /// </summary>
-        public Func<T, TKey> KeyGetter { get; set; }
+        private Func<T, TKey> KeyGetter { get; }
         /// <inheritdoc/>
         public bool Initialized { get; private set; }
 
@@ -23,19 +25,26 @@ namespace ChartTools.Collections.Alternating
         /// <inheritdoc/>
         object IEnumerator.Current => Current;
 
-        /// <summary>
-        /// State of the enumerators. True where MoveNext previously returned false
-        /// </summary>
-        private readonly bool[] endsReached;
+        LinkedList<int> equalMins = null;
+        bool[] endsReached;
 
         /// <summary>
         /// Creates a new instance of <see cref="OrderedAlternatingEnumerator{T, TKey}"/>.
         /// </summary>
         /// <param name="keyGetter">Method that retrieves the key from an item</param>
         /// <param name="enumerators">Enumerators to alternate between</param>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
         public OrderedAlternatingEnumerator(Func<T, TKey> keyGetter, params IEnumerator<T>[] enumerators)
         {
-            Enumerators = enumerators;
+            if (keyGetter is null)
+                throw new ArgumentNullException("keyGetter is null.");
+            if (enumerators is null)
+                throw new ArgumentNullException("Enumerator array is null.");
+            if (enumerators.Length == 0)
+                throw new ArgumentException("No enumerators provided.");
+
+            Enumerators = enumerators.Where(e => e is not null).ToArray();
             KeyGetter = keyGetter;
             endsReached = new bool[Enumerators.Length];
         }
@@ -51,63 +60,65 @@ namespace ChartTools.Collections.Alternating
         /// <inheritdoc/>
         public bool MoveNext()
         {
-            TKey smallestKey = default;
+            // Return remaining values if MinMaxBy returned multiple
+            if (equalMins is not null && equalMins.Count > 0)
+            {
+                Current = Enumerators[equalMins.First.Value].Current;
+                equalMins.RemoveFirst();
+
+                return true;
+            }
+
+            T current = default;
             int index = 0;
-            int smallestKeyIndex = -1;
+
+            // Index of the enumerators with items yet to have been set as Current
+            LinkedList<int> usableEnumerators = new LinkedList<int>();
 
             Initialize();
 
-            foreach (IEnumerator<T> enumerator in Enumerators)
-            {
-                //Skip ended enumerators
-                if (endsReached[index])
-                {
-                    index++;
-                    continue;
-                }
-
-                //Set current to next non-null
-                while (enumerator.Current is null)
-                    if (!enumerator.MoveNext())
-                    {
-                        endsReached[index] = true;
-                        break;
-                    }
-
-                //Skip if ended
-                if (endsReached[index])
-                {
-                    index++;
-                    continue;
-                }
-
-                TKey key = KeyGetter(enumerator.Current);
-
-                //Assign first key
-                if (smallestKeyIndex == -1)
-                {
-                    smallestKey = key;
-                    smallestKeyIndex = index;
-                }
-                //Assign new smallest key
-                else if (key.CompareTo(smallestKey) == -1)
-                {
-                    smallestKey = key;
-                    smallestKeyIndex = index;
-                }
-
-                index++;
-            }
-
-            //No key
-            if (smallestKeyIndex == -1)
+            if (!SearchEnumerator())
                 return false;
 
-            Current = Enumerators[smallestKeyIndex].Current;
+            bool SearchEnumerator()
+            {
+                // Skip enumerator if ended
+                if (endsReached[index])
+                    if (++index == Enumerators.Length)
+                        return false;
 
-            //Move selected enumerator to the next item
-            if (!Enumerators[smallestKeyIndex].MoveNext())
-                endsReached[smallestKeyIndex] = true;
+                IEnumerator<T> enumerator = Enumerators[index];
+
+                try { current = enumerator.Current; }
+                catch
+                {
+                    // If end reached, repeat with next enumerator
+                    if (!enumerator.MoveNext())
+                    {
+                        // All enumerators have been searched
+                        return ++index != Enumerators.Length && SearchEnumerator();
+                    }
+                }
+
+                // Continue search with the same enumerator until it runs out of items or the item is not null
+                if (current is null)
+                    return enumerator.MoveNext() && SearchEnumerator();
+
+                usableEnumerators.AddLast(index);
+                return true;
+            }
+
+            // Get the index of the enumerators whose current item yields the smallest key
+            equalMins = new LinkedList<int>(usableEnumerators.ManyMinBy(i => KeyGetter(Enumerators[i].Current)));
+
+            IEnumerator<T> minEnumerator = Enumerators[equalMins.First.Value];
+
+            Current = minEnumerator.Current;
+
+            if (!minEnumerator.MoveNext())
+                endsReached[equalMins.First.Value] = true;
+
+            equalMins.RemoveFirst();
 
             return true;
         }
@@ -124,14 +135,15 @@ namespace ChartTools.Collections.Alternating
             }
         }
 
-        /// <summary>
-        /// Resets the enumerator to the first item.
-        /// </summary>
+        /// <inheritdoc/>
         public void Reset()
         {
-            //Reset endsReached array
-            for (int i = 0; i < endsReached.Length; i++)
-                endsReached[i] = false;
+            foreach (IEnumerator<T> enumerator in Enumerators)
+                try { enumerator.Reset(); }
+                catch { throw; }
+
+            endsReached = default;
+            Initialized = false;
         }
     }
 }

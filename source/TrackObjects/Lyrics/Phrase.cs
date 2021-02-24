@@ -1,4 +1,4 @@
-﻿using ChartTools.Collections;
+﻿using ChartTools.Collections.Unique;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using System.Collections.Generic;
@@ -20,6 +20,10 @@ namespace ChartTools.Lyrics
         /// Position of the first syllable
         /// </summary>
         public uint? SyllablesStart => Syllables is null || Syllables.Count == 0 ? null : (uint?)Syllables.Select(s => s.Position).Min();
+        /// <summary>
+        /// Position of the last syllable
+        /// </summary>
+        public uint? SyllablesEnd => Syllables is null || Syllables.Count == 0 ? null : (uint?)Syllables.Select(s => s.Position).Max();
         /// <summary>
         /// The phrase as it is displayed in-game
         /// </summary>
@@ -50,7 +54,7 @@ namespace ChartTools.Lyrics
         /// <summary>
         /// Syllables in the <see cref="Phrase"/>
         /// </summary>
-        public UniqueListComparable<Syllable> Syllables { get; set; } = new UniqueListComparable<Syllable>();
+        public UniqueList<Syllable> Syllables { get; set; } = new UniqueList<Syllable>((s, other) => s.Equals(other));
 
         /// <summary>
         /// Creates an instance of <see cref="Phrase"/>

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using ChartTools.Collections.Alternating;
-
 namespace ChartTools.Collections.Sorted
 {
     /// <summary>

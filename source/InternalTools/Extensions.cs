@@ -10,6 +10,8 @@ using ChartTools.Collections.Alternating;
 
 namespace ChartTools.SystemExtensions
 {
+    public delegate bool EqualityComparison<T>(T a, T b);
+
     /// <summary>
     /// Provides additionnal methods to Enum
     /// </summary>
@@ -19,28 +21,28 @@ namespace ChartTools.SystemExtensions
         /// Gets all values of an <see langword="enum"/>.
         /// </summary>
         /// <exception cref="ArgumentException"/>
-        public static IEnumerable<TEnum> GetValues<TEnum>() where TEnum : struct, IConvertible => !typeof(TEnum).IsEnum
-            ? throw new ArgumentException("Type is not an enum.")
-            : Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
+        public static IEnumerable<TEnum> GetValues<TEnum>() where TEnum : Enum => Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
     }
 
     /// <summary>
-    /// Provides generic vesion of Activator methods
+    /// Provides additionnal methods to string
     /// </summary>
-    internal class ActivatorExtensions
+    internal static class StringExtensions
     {
-        /// <inheritdoc cref="Activator.CreateInstance(Type, bool)"/>
-        internal static T CreateInstance<T>(bool nonPublic) => (T)Activator.CreateInstance(typeof(T), nonPublic);
-        /// <inheritdoc cref="Activator.CreateInstance(Type, object[])"/>
-        internal static T CreateInstance<T>(params object[] args)
+        /// <inheritdoc cref="VerbalEnumerate(string, string[])"/>
+        public static string VerbalEnumerate(this IEnumerable<string> items, string lastItemPreceder) => VerbalEnumerate(lastItemPreceder, items.ToArray());
+        /// <summary>
+        /// Enumerates items with commas and a set word preceding the last item.
+        /// </summary>
+        /// <param name="lastItemPreceder">Word to place before the last item</param>
+        /// <exception cref="ArgumentNullException"/>
+        public static string VerbalEnumerate(string lastItemPreceder, params string[] items) => items is null ? throw new ArgumentNullException() : items.Length switch
         {
-            object instance;
-
-            try { instance = Activator.CreateInstance(typeof(T), args); }
-            catch { throw; }
-
-            return (T)instance;
-        }
+            0 => string.Empty,
+            1 => items[0],
+            2 => $"{items[0]} {lastItemPreceder} {items[1]}",
+            _ => $"{string.Join(", ", items, items.Length - 1)} {lastItemPreceder} {items[^0]}"
+        };
     }
 }
 namespace ChartTools.SystemExtensions.Linq
@@ -97,16 +99,17 @@ namespace ChartTools.SystemExtensions.Linq
         {
             IEnumerator<T> itemsEnumerator = source.GetEnumerator();
 
-            //Initialize the enumerator
+            // Initialize the enumerator
             if (!itemsEnumerator.MoveNext())
             {
+                // Return replacement if source is empty
                 if (addIfMissing)
                     foreach (T item in replacement)
                         yield return item;
                 yield break;
             }
 
-            //Return original until startReplace
+            // Return original until startReplace
             while (!startReplace(itemsEnumerator.Current))
             {
                 yield return itemsEnumerator.Current;
@@ -120,24 +123,24 @@ namespace ChartTools.SystemExtensions.Linq
                 }
             }
 
-            //Return replacement
+            // Return replacement
             foreach (T item in replacement)
                 yield return item;
 
-            //Move enumerator to the first item after triggering startReplace
+            // Move enumerator to the first item after triggering startReplace
             if (!itemsEnumerator.MoveNext())
                 yield break;
 
-            //Find the end of the section to replace
+            // Find the end of the section to replace
             do
                 if (!itemsEnumerator.MoveNext())
                     yield break;
             while (endReplace(itemsEnumerator.Current));
 
-            //Move to the first item after the replacement
+            // Move to the first item after the replacement
             itemsEnumerator.MoveNext();
 
-            //Return the rest
+            // Return the rest
             while (itemsEnumerator.MoveNext())
                 yield return itemsEnumerator.Current;
         }
@@ -158,11 +161,11 @@ namespace ChartTools.SystemExtensions.Linq
 
             do
             {
-                //Initialize the enumerator or move to the next item
+                // Initialize the enumerator or move to the next item
                 if (!itemsEnumerator.MoveNext())
                 {
                     if (addIfMissing)
-                        //Return remaining replacements
+                        // Return remaining replacements
                         for (int j = 0; j < replacements.Length; j++)
                             if (!replacedSections[j])
                                 foreach (T item in replacements[j].replacement)
@@ -175,16 +178,16 @@ namespace ChartTools.SystemExtensions.Linq
                     {
                         replacedSections[i] = true;
 
-                        //Return the replacement
+                        // Return the replacement
                         foreach (T item in replacements[i].replacement)
                             yield return item;
 
-                        //Move to the end of the section to replace
+                        // Move to the end of the section to replace
                         while (!replacements[i].endReplace(itemsEnumerator.Current))
                             if (!itemsEnumerator.MoveNext())
                             {
                                 if (addIfMissing)
-                                    //Return remaining replacements
+                                    // Return remaining replacements
                                     for (int j = 0; j < replacements.Length; j++)
                                         if (!replacedSections[j])
                                             foreach (T item in replacements[j].replacement)
@@ -195,7 +198,7 @@ namespace ChartTools.SystemExtensions.Linq
             }
             while (replacedSections.Count(r => r) < replacements.Length);
 
-            //Return the rest of the items
+            // Return the rest of the items
             while (itemsEnumerator.MoveNext())
                 yield return itemsEnumerator.Current;
         }
@@ -210,22 +213,22 @@ namespace ChartTools.SystemExtensions.Linq
         {
             IEnumerator<T> itemsEnumerator = source.GetEnumerator();
 
-            //Initialize the enumerator 
+            // Initialize the enumerator 
             if (!itemsEnumerator.MoveNext())
                 yield break;
 
-            //Move to the start of items to remove
+            // Move to the start of items to remove
             while (!startRemove(itemsEnumerator.Current))
                 if (!itemsEnumerator.MoveNext())
                     yield break;
 
-            //Skip items to remive
+            // Skip items to remive
             do
                 if (!itemsEnumerator.MoveNext())
                     yield break;
             while (!endRemove(itemsEnumerator.Current));
 
-            //Return the rest
+            // Return the rest
             while (itemsEnumerator.MoveNext())
                 yield return itemsEnumerator.Current;
         }
@@ -255,6 +258,82 @@ namespace ChartTools.SystemExtensions.Linq
             foreach (T item in source.Where(i => predicate(i)))
                 source.Remove(item);
         }
+
+        /// <summary>
+        /// Finds the item for which a function returns the smallest or greatest value based on a comparison.
+        /// </summary>
+        private static T MinMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector, Func<TKey, TKey, bool> comparison) where TKey : IComparable<TKey>
+        {
+            T minMaxItem;
+            TKey minMaxKey;
+
+            using (IEnumerator<T> enumerator = source.GetEnumerator())
+            {
+                if (!enumerator.MoveNext())
+                    throw new Exception("The enumerable has no items.");
+
+                minMaxItem = enumerator.Current;
+                minMaxKey = selector(minMaxItem);
+
+                while (enumerator.MoveNext())
+                {
+                    TKey key = selector(enumerator.Current);
+
+                    if (comparison(key, minMaxKey))
+                    {
+                        minMaxItem = enumerator.Current;
+                        minMaxKey = key;
+                    }
+                }
+            }
+
+            return minMaxItem;
+        }
+        /// <summary>
+        /// Finds the items for which a function returns the smallest or greatest value based on a comparison.
+        /// </summary>
+        private static IEnumerable<T> ManyMinMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector, Func<TKey, TKey, bool> comparison) where TKey : IComparable<TKey>
+        {
+            TKey minMaxKey;
+
+            using (IEnumerator<T> enumerator = source.GetEnumerator())
+            {
+                if (!enumerator.MoveNext())
+                    throw new Exception("The enumerable has no items.");
+
+                minMaxKey = selector(enumerator.Current);
+
+                while (enumerator.MoveNext())
+                {
+                    TKey key = selector(enumerator.Current);
+
+                    if (comparison(key, minMaxKey))
+                        minMaxKey = key;
+                }
+            }
+
+            return source.Where(t => selector(t).CompareTo(minMaxKey) == 0);
+        }
+
+        /// <summary>
+        /// Finds the item for which a function returns the smallest value.
+        /// </summary>
+        /// <remarks>If the smallest value is obtained from multiple items, the first item to do so will be returned.</remarks>
+        public static T MinBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => MinMaxBy(source, selector, (key, mmKey) => key.CompareTo(mmKey) < 0);
+        /// <summary>
+        /// Finds the item for which a function returns the greatest value.
+        /// </summary>
+        /// <remarks>If the greatest value is obtained from multiple items, the first item to do so will be returned.</remarks>
+        public static T MaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => MinMaxBy(source, selector, (key, mmKey) => key.CompareTo(mmKey) > 0);
+
+        /// <summary>
+        /// Finds the items for which a function returns the smallest value.
+        /// </summary>
+        public static IEnumerable<T> ManyMinBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) < 0);
+        /// <summary>
+        /// Finds the items for which a function returns the greatest value.
+        /// </summary>
+        public static IEnumerable<T> ManyMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) > 0);
     }
 }
 
@@ -332,6 +411,7 @@ namespace ChartTools
         /// Writes the <see cref="Instrument{TChord}"/> to a file.
         /// </summary>
         /// <param name="path">Path of the file to write to</param>
+        /// <param name="midiEventSource">Source of global events to use for every difficulty if written to a MIDI file
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="PathTooLongException"/>
@@ -340,7 +420,7 @@ namespace ChartTools
         /// <exception cref="UnauthorizedAccessException"/>
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="SecurityException"/>
-        public static void ToFile(this Instrument<DrumsChord> inst, string path)
+        public static void ToFile(this Instrument<DrumsChord> inst, string path, LocalEventSource eventSource = LocalEventSource.Auto)
         {
             try { ExtensionHandler.Write(path, inst, (".chart", ChartParser.ReplaceDrums)); }
             catch { throw; }
@@ -358,6 +438,11 @@ namespace ChartTools
             try { ExtensionHandler.Write(path, inst, (".chart", (p, i) => ChartParser.ReplaceInstrument(p, i, instrument))); }
             catch { throw; }
         }
+    }
+
+    internal static class CommonExceptions
+    {
+        internal static ArgumentException GetUndefinedException(object value) => new ArgumentException($"{value.GetType().Name} \"{value}\" is not defined.");
     }
 
     /// <summary>
@@ -431,31 +516,31 @@ namespace ChartTools
             foreach (GlobalEvent globalEvent in globalEvents.OrderBy(e => e.Position))
                 switch (globalEvent.EventType)
                 {
-                    //Change active phrase
+                    // Change active phrase
                     case GlobalEventType.PhraseStart:
                         if (phrase is not null)
                             yield return phrase;
 
                         phrase = new Phrase(globalEvent.Position);
 
-                        //If the stored lyric has the same position as the new phrase, add it to the phrase
+                        // If the stored lyric has the same position as the new phrase, add it to the phrase
                         if (phraselessFirstSyllable is not null && phraselessFirstSyllable.Position == globalEvent.Position)
                         {
                             phrase.Syllables.Add(phraselessFirstSyllable);
                             phraselessFirstSyllable = null;
                         }
                         break;
-                    //Add syllable to the active phrase usign the event argument
+                    // Add syllable to the active phrase usign the event argument
                     case GlobalEventType.Lyric:
                         Syllable newSyllable = new Syllable(globalEvent.Position) { RawText = globalEvent.Argument };
 
-                        //If the first lyric preceeds the first phrase, store it
+                        // If the first lyric preceeds the first phrase, store it
                         if (phrase is null)
                             phraselessFirstSyllable = newSyllable;
                         else
                             phrase.Syllables.Add(newSyllable);
                         break;
-                    //Set end position of active phrase
+                    // Set end position of active phrase
                     case GlobalEventType.PhraseEnd:
                         if (phrase is not null)
                             phrase.EndPosition = globalEvent.Position;

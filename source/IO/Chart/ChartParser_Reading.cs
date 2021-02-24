@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace ChartTools.IO.Chart
@@ -37,12 +38,12 @@ namespace ChartTools.IO.Chart
             Song song = new Song();
             Type songType = typeof(Song);
 
-            //Add threads to read metadata, global events, synctrack and drums
+            // Add threads to read metadata, global events, synctrack and drums
             List<Task> tasks = new List<Task>()
             {
                 Task.Run(() =>
                 {
-                    try {song.Metadata = GetMetadata(lines); }
+                    try { song.Metadata = GetMetadata(lines); }
                     catch { throw; }
                 }),
                 Task.Run(() =>
@@ -62,10 +63,10 @@ namespace ChartTools.IO.Chart
                 })
             };
 
-            //Add a thread to read each ghl instrument
+            // Add a thread to read each ghl instrument
             foreach (GHLInstrument instrument in EnumExtensions.GetValues<GHLInstrument>())
                 tasks.Add(Task.Run(() => songType.GetProperty($"GHL{instrument}").SetValue(song, GetInstrument(lines, part => GetGHLTrack(part), partNames[(Instruments)instrument]))));
-            //Add a thread to read each standard instrument
+            // Add a thread to read each standard instrument
             foreach (StandardInstrument instrument in EnumExtensions.GetValues<StandardInstrument>())
                 tasks.Add(Task.Run(() =>
                     songType.GetProperty(instrument.ToString()).SetValue(song, GetInstrument(lines, part => GetStandardTrack(part), partNames[(Instruments)instrument]))));
@@ -110,7 +111,7 @@ namespace ChartTools.IO.Chart
                 catch { throw; }
             }
 
-            throw GetUndefinedInstrumentException();
+            throw IOExceptions.GetUndefinedInstrumentException();
         }
 
         /// <summary>
@@ -178,19 +179,21 @@ namespace ChartTools.IO.Chart
         {
             Instrument<TChord> instrument = new Instrument<TChord>();
             List<Task> tasks = new List<Task>();
+            Type instrumentType = typeof(Instrument<TChord>);
 
-            //Add a thread to read each difficulty
+            // Add a thread to read each difficulty
             foreach (Difficulty difficulty in EnumExtensions.GetValues<Difficulty>())
                 tasks.Add(Task.Run(() =>
                 {
                     Track<TChord> track;
+                    string difficultyString = difficulty.ToString();
 
-                    try { track = getTrack(GetPart(lines, $"{difficulty}{instrumentPartName}")); }
+                    try { track = getTrack(GetPart(lines, $"{difficultyString}{instrumentPartName}")); }
                     catch { throw; }
 
-                    //Find the property named after the difficulty and set its value to the created track
+                    // Find the property named after the difficulty and set its value to the created track
                     if (track is not null)
-                        typeof(Instrument<TChord>).GetProperty(difficulty.ToString()).SetValue(instrument, track);
+                        instrumentType.GetProperty(difficultyString).SetValue(instrument, track);
                 }));
 
             Task.WaitAll(tasks.ToArray());
@@ -290,9 +293,9 @@ namespace ChartTools.IO.Chart
             {
                 return GetTrack<DrumsChord>(part, (track, chord, entry, data, newChord) =>
                 {
-                    //Body of noteCase in GetTrack call
+                    // Body of noteCase in GetTrack call
 
-                    //Find the parent chord or create it
+                    // Find the parent chord or create it
                     if (chord is null)
                         chord = new DrumsChord(entry.Position);
                     else if (entry.Position != chord.Position)
@@ -300,17 +303,17 @@ namespace ChartTools.IO.Chart
                     else
                         newChord = false;
 
-                    //Note
+                    // Note
                     if (data.NoteIndex < 5)
                         chord.Notes.Add(new DrumsNote((DrumsNotes)data.NoteIndex) { SustainLength = data.SustainLength });
-                    //Cymbal
-                    else if (data.NoteIndex > 66 && data.NoteIndex < 69)
+                    // Cymbal
+                    else if (data.NoteIndex is > 66 and < 69)
                     {
                         DrumsNote note = null;
-                        //NoteIndex of the note to set as cymbal
+                        // NoteIndex of the note to set as cymbal
                         byte seekedIndex = (byte)(data.NoteIndex - 63);
 
-                        //Find matching note
+                        // Find matching note
                         note = chord.Notes.FirstOrDefault(n => n.NoteIndex == seekedIndex, null, out bool returnedDefault);
 
                         if (returnedDefault)
@@ -325,7 +328,7 @@ namespace ChartTools.IO.Chart
                     if (newChord)
                         track.Chords.Add(chord);
 
-                    //Instance gets lost if not returned back to GetTrack
+                    // Instance gets lost if not returned back to GetTrack
                     return chord;
                 });
             }
@@ -379,9 +382,9 @@ namespace ChartTools.IO.Chart
             {
                 return GetTrack<GHLChord>(part, (track, chord, entry, data, newChord) =>
                 {
-                    //Body of noteCase in GetTrack call
+                    // Body of noteCase in GetTrack call
 
-                    //Find the parent chord or create it
+                    // Find the parent chord or create it
                     if (chord is null)
                         chord = new GHLChord(entry.Position);
                     else if (entry.Position != chord.Position)
@@ -389,14 +392,14 @@ namespace ChartTools.IO.Chart
                     else
                         newChord = false;
 
-                    //White notes
+                    // White notes
                     if (data.NoteIndex < 3)
                         chord.Notes.Add(new GHLNote((GHLNotes)(data.NoteIndex + 4)) { SustainLength = data.SustainLength });
-                    //Black 1 and 2
+                    // Black 1 and 2
                     else if (data.NoteIndex < 5)
                         chord.Notes.Add(new GHLNote((GHLNotes)(data.NoteIndex - 2)) { SustainLength = data.SustainLength });
                     else
-                        //Chord modifier or open note or black3
+                        // Chord modifier or open note or black3
                         switch (data.NoteIndex)
                         {
                             case 5:
@@ -416,7 +419,7 @@ namespace ChartTools.IO.Chart
                     if (newChord)
                         track.Chords.Add(chord);
 
-                    //Instance gets lost if not returned back to GetTrack
+                    // Instance gets lost if not returned back to GetTrack
                     return chord;
                 });
             }
@@ -471,9 +474,9 @@ namespace ChartTools.IO.Chart
             {
                 return GetTrack<StandardChord>(part, (track, chord, entry, data, newChord) =>
                 {
-                    //Body of noteCase in GetTrack call
+                    // Body of noteCase in GetTrack call
 
-                    //Find the parent chord or create it
+                    // Find the parent chord or create it
                     if (chord is null)
                         chord = new StandardChord(entry.Position);
                     else if (entry.Position != chord.Position)
@@ -481,10 +484,10 @@ namespace ChartTools.IO.Chart
                     else
                         newChord = false;
 
-                    //Note
+                    // Note
                     if (data.NoteIndex < 5)
                         chord.Notes.Add(new StandardNote((StandardNotes)(data.NoteIndex + 1)) { SustainLength = data.SustainLength });
-                    //Chord modifier or open notes
+                    // Chord modifier or open notes
                     else
                         switch (data.NoteIndex)
                         {
@@ -502,7 +505,7 @@ namespace ChartTools.IO.Chart
                     if (newChord)
                         track.Chords.Add(chord);
 
-                    //Instance gets lost if not returned back to GetTrack
+                    // Instance gets lost if not returned back to GetTrack
                     return chord;
                 });
             }
@@ -532,13 +535,13 @@ namespace ChartTools.IO.Chart
 
                 switch (entry.Type)
                 {
-                    //Local event
+                    // Local event
                     case "E":
                         string[] split = GetDataSplit(entry.Data);
 
                         track.LocalEvents.Add(new LocalEvent(entry.Position, split[0], split.Length == 1 ? "" : split[1]));
                         break;
-                    //Note or chord modifier
+                    // Note or chord modifier
                     case "N":
                         NoteData data;
                         try
@@ -549,7 +552,7 @@ namespace ChartTools.IO.Chart
                         catch (Exception e) { throw GetException(line, e); }
 
                         break;
-                    //Star power
+                    // Star power
                     case "S":
                         try
                         {
@@ -558,31 +561,24 @@ namespace ChartTools.IO.Chart
                             if (!uint.TryParse(split[1], out uint length))
                                 throw new FormatException($"Cannot parse length \"{split[0]}\" to uint.");
 
-                            track.StarPowerPhrases.Add(new StarPowerPhrase(entry.Position, length));
+                            track.StarPower.Add(new StarPowerPhrase(entry.Position, length));
                         }
                         catch (Exception e) { throw GetException(line, e); }
                         break;
                 }
             }
 
-            //Return null if no data
+            // Return null if no data
             byte emptyCount = 0;
 
-            if (track.Chords.Count == 0)
-            {
-                emptyCount++;
-                track.Chords = null;
-            }
-            if (track.LocalEvents.Count == 0)
-            {
-                emptyCount++;
-                track.LocalEvents = null;
-            }
-            if (track.StarPowerPhrases.Count == 0)
-            {
-                emptyCount++;
-                track.StarPowerPhrases = null;
-            }
+            Type trackType = typeof(Track<TChord>);
+
+            foreach (PropertyInfo pInfo in new string[] { "Chords", "LocalEvents", "StarPower" }.Select(s => trackType.GetProperty(s)))
+                if (((ICollection<TrackObject>)pInfo.GetValue(track)).Count == 0)
+                {
+                    emptyCount++;
+                    pInfo.SetValue(track, null);
+                }
 
             return emptyCount == 3 ? null : track;
         }
@@ -823,16 +819,16 @@ namespace ChartTools.IO.Chart
 
                 switch (entry.Type)
                 {
-                    //Time signature
+                    // Time signature
                     case "TS":
                         string[] split = GetDataSplit(entry.Data);
 
-                        byte numerator, denominator;
+                        byte denominator;
 
-                        if (!byte.TryParse(split[0], out numerator))
+                        if (!byte.TryParse(split[0], out byte numerator))
                             throw new FormatException($"Cannot parse numerator \"{split[0]}\" to byte.");
 
-                        //Denominator is only written if not equal to 4
+                        // Denominator is only written if not equal to 4
                         if (split.Length < 2)
                             denominator = 4;
                         else
@@ -847,17 +843,17 @@ namespace ChartTools.IO.Chart
                         try { syncTrack.TimeSignatures.Add(new TimeSignature(entry.Position, numerator, denominator)); }
                         catch { throw; }
                         break;
-                    //Tempo
+                    // Tempo
                     case "B":
                         float value;
 
-                        //Floats are written by ronding to the 3rd decimal and removing the decimal point
+                        // Floats are written by ronding to the 3rd decimal and removing the decimal point
                         if (float.TryParse(entry.Data, out value))
                             value /= 1000;
                         else
                             throw new FormatException($"Cannot parse value \"{entry.Data}\" to float.");
 
-                        //Find the marker matching the position in case it was already added through a mention of anchor
+                        // Find the marker matching the position in case it was already added through a mention of anchor
                         marker = syncTrack.Tempo.FirstOrDefault(m => m.Position == entry.Position);
 
                         if (marker is null)
@@ -866,17 +862,17 @@ namespace ChartTools.IO.Chart
                         else
                             marker.Value = value;
                         break;
-                    //Anchor
+                    // Anchor
                     case "A":
                         float anchor;
 
-                        //Floats are written by ronding to the 3rd decimal and removing the decimal point
+                        // Floats are written by ronding to the 3rd decimal and removing the decimal point
                         if (float.TryParse(entry.Data, out anchor))
                             anchor /= 1000;
                         else
                             throw new FormatException($"Cannot parse value \"{entry.Data}\" to float.");
 
-                        //Find the marker matching the position in case it was already added through a mention of value
+                        // Find the marker matching the position in case it was already added through a mention of value
                         marker = syncTrack.Tempo.FirstOrDefault(m => m.Position == entry.Position);
 
                         if (marker is null)
@@ -889,7 +885,7 @@ namespace ChartTools.IO.Chart
                 }
             }
 
-            //Return null if no data
+            // Return null if no data
             return syncTrack.TimeSignatures.Count == 0 && syncTrack.Tempo.Count == 0 ? null : syncTrack;
         }
 
@@ -909,7 +905,7 @@ namespace ChartTools.IO.Chart
             try { reader = new StreamReader(path); }
             catch { throw; }
 
-            //Read to the end
+            // Read to the end
             using (reader)
                 while (!reader.EndOfStream)
                 {
@@ -928,21 +924,20 @@ namespace ChartTools.IO.Chart
         /// <exception cref="InvalidDataException"/>
         private static IEnumerable<string> GetPart(IEnumerable<string> lines, string partName)
         {
-            IEnumerator<string> enumerator = lines.GetEnumerator();
-
+            using IEnumerator<string> enumerator = lines.GetEnumerator();
             enumerator.MoveNext();
 
-            //Find part
+            // Find part
             while (enumerator.Current != $"[{partName}]")
                 if (!enumerator.MoveNext())
                     yield break;
 
-            //Move past the part name and opening bracket
+            // Move past the part name and opening bracket
             for (int i = 0; i < 2; i++)
                 if (!enumerator.MoveNext())
                     yield break;
 
-            //Read until closing bracket
+            // Read until closing bracket
             while (enumerator.Current != "}")
             {
                 yield return enumerator.Current;

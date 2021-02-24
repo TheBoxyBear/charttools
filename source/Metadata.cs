@@ -49,19 +49,7 @@ namespace ChartTools
         /// <summary>
         /// Duration in milliseconds of the pewview in the Clone Hero song browser
         /// </summary>
-        public uint PreviewLength
-        {
-            get
-            {
-                if (PreviewEnd is null)
-                    return 30000;
-
-                if (PreviewStart is null)
-                    return PreviewEnd.Value;
-
-                return PreviewEnd.Value - PreviewStart.Value;
-            }
-        }
+        public uint PreviewLength => PreviewEnd is null ? 30000 : PreviewStart is null ? PreviewEnd.Value : PreviewEnd.Value - PreviewStart.Value;
         /// <summary>
         /// Overall difficulty of the song
         /// </summary>
@@ -114,13 +102,13 @@ namespace ChartTools
         /// <exception cref="OutOfMemoryException"/>
         public static Metadata FromFiles(params string[] paths)
         {
-            //No files provided
+            // No files provided
             if (paths is null || paths.Length == 0)
                 throw new ArgumentException("No provided paths");
 
             Metadata[] data = new Metadata[paths.Length];
 
-            //Read all files
+            // Read all files
             for (int i = 0; i < paths.Length; i++)
                 try { data[i] = FromFile(paths[i]); }
                 catch { throw; }

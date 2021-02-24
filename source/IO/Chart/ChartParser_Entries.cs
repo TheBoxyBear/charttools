@@ -106,8 +106,12 @@ namespace ChartTools.IO.Chart
                 if (split.Length < 2)
                     throw GetNewEntryException();
 
-                NoteIndex = byte.Parse(split[0]);
-                SustainLength = uint.Parse(split[1]);
+                try
+                {
+                    NoteIndex = byte.Parse(split[0]);
+                    SustainLength = uint.Parse(split[1]);
+                }
+                catch { throw GetNewEntryException(); }
             }
         }
 

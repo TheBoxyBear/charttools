@@ -1,4 +1,4 @@
-﻿using ChartTools.Collections;
+﻿using ChartTools.Collections.Unique;
 
 namespace ChartTools
 {
@@ -16,7 +16,7 @@ namespace ChartTools
         /// Creates an instance of <see cref="NoteCollection{TNote}"/>.
         /// </summary>
         /// <param name="openExclusivity">Value of <see cref="OpenExclusivity"/></param>
-        public NoteCollection(bool openExclusivity) : base((a, b) => a.NoteIndex.CompareTo(b.NoteIndex)) => OpenExclusivity = openExclusivity;
+        public NoteCollection(bool openExclusivity) : base((a, b) => a.NoteIndex.Equals(b.NoteIndex)) => OpenExclusivity = openExclusivity;
 
         /// <summary>
         /// Adds a note to the <see cref="NoteCollection{TNote}"/>.

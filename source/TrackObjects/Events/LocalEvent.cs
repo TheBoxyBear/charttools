@@ -6,7 +6,7 @@ namespace ChartTools
     /// <summary>
     /// Event specific to an instrument and difficulty
     /// </summary>
-    public class LocalEvent : Event
+    public class LocalEvent : Event, System.IEquatable<LocalEvent>
     {
         /// <summary>
         /// <see cref="Event.EventTypeString"/> value for each <see cref="LocalEventType"/>
@@ -49,5 +49,6 @@ namespace ChartTools
 
         /// <inheritdoc cref="GlobalEvent.GetEventTypeString(GlobalEventType)"/>
         private static string GetEventTypeString(LocalEventType type) => type == LocalEventType.Unknown ? "Default" : localTypesDictionary[type];
+        public bool Equals(LocalEvent other) => base.Equals(other);
     }
 }

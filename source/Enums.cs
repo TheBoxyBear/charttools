@@ -82,6 +82,23 @@ namespace ChartTools
         OwFaceOff
     }
     /// <summary>
+    /// Difficulty of the <see cref="Track"/> to serve as a source of local events to use for all tracks in the same <see cref="Instrument"/>
+    /// </summary>
+    /// <remarks><see cref="Auto"/> cannot be used if the output file is MIDI.</remarks>
+    public enum LocalEventSource : byte
+    {
+        /// <summary>
+        /// Each <see cref="Track"/> will keep its original local events
+        /// </summary>
+        /// <remarks>Not compatible with MIDI files.</remarks>
+        Auto,
+        /// <summary>
+        /// Each <see cref="Track"/> will contain a combinaition of all unique local events in the same <see cref="Instrument"/>
+        /// </summary>
+        Merge,
+        Easy, Medium, Hard, Expert
+    }
+    /// <summary>
     /// Modifier that affects how a <see cref="StandardChord"/> can be played
     /// </summary>
     [Flags] public enum StandardChordModifier : byte { None, Forced, Tap }

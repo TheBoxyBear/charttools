@@ -3,7 +3,7 @@
     /// <summary>
     /// Marker that defines an occurence at a given point in a song.
     /// </summary>
-    public abstract class Event : TrackObject
+    public abstract class Event : TrackObject, System.IEquatable<Event>
     {
         /// <summary>
         /// Type of event
@@ -25,5 +25,7 @@
             EventTypeString = type;
             Argument = argument;
         }
+
+        public bool Equals(Event other) => base.Equals(other) && EventTypeString == other.EventTypeString && Argument == other.Argument;
     }
 }

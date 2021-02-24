@@ -8,12 +8,12 @@ namespace ChartTools.Collections.Alternating
     /// <summary>
     /// Enumerator that yields <typeparamref name="T"/> items by alternating through a set of enumerators
     /// </summary>
-    public class SerialAlternatingEnumerator<T> : IAlternatingEnumerator<T>
+    public class SerialAlternatingEnumerator<T> : IEnumerator<T>, IInitializable
     {
         /// <summary>
         /// Enumerators to alternate between
         /// </summary>
-        public IEnumerator<T>[] Enumerators { get; }
+        private IEnumerator<T>[] Enumerators { get; }
         /// <summary>
         /// Position of the next enumerator to pull from
         /// </summary>
@@ -22,7 +22,7 @@ namespace ChartTools.Collections.Alternating
         /// <summary>
         /// Item to use in the iteration
         /// </summary>
-        public T Current { get; protected set; }
+        public T Current { get; private set; }
         /// <inheritdoc/>
         object IEnumerator.Current => Current;
 
@@ -31,17 +31,23 @@ namespace ChartTools.Collections.Alternating
         /// </summary>
         public bool Initialized { get; private set; }
 
+        private bool[] endsReached;
+
         /// <summary>
         /// Creates an instance of <see cref="SerialAlternatingEnumerator{T}"/>
         /// </summary>
         /// <param name="enumerators">Enumerators to alternate between</param>
         /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
         public SerialAlternatingEnumerator(params IEnumerator<T>[] enumerators)
         {
             if (enumerators is null)
+                throw new ArgumentNullException("Enumerator array is null.");
+            if (enumerators.Length == 0)
                 throw new ArgumentException("No enumerators provided.");
 
             Enumerators = enumerators.Where(e => e is not null).ToArray();
+            endsReached = new bool[Enumerators.Length];
         }
 
         /// <inheritdoc/>
@@ -53,26 +59,54 @@ namespace ChartTools.Collections.Alternating
         ~SerialAlternatingEnumerator() => Dispose();
 
         /// <inheritdoc/>
-        public virtual bool MoveNext()
+        public bool MoveNext()
         {
-            //Find the first non-null enumerator
-            while (Enumerators[index] is null)
-                index++;
+            int startingIndex = index;
+            bool startingPassed = false;
 
-            //Return false is none found
-            if (index == Enumerators.Length)
+            Initialize();
+            Enumerators[index].MoveNext();
+
+            return SearchEnumerator();
+
+            bool SearchEnumerator()
             {
-                index = 0;
-                return false;
+                // Skip enumerator if ended
+                if (endsReached[index])
+                    if (++index == Enumerators.Length)
+                        return false;
+
+                IEnumerator<T> enumerator = Enumerators[index];
+
+                try { Current = enumerator.Current; }
+                catch
+                {
+                    // If end reached, repeat with next enumerator
+                    if (!enumerator.MoveNext())
+                    {
+                        endsReached[index] = true;
+
+                        // First iteration or has looped back around
+                        if (index == startingIndex)
+                        {
+                            // Has looped around, all enumerators have been searched
+                            if (startingPassed)
+                                return false;
+
+                            startingPassed = true;
+                        }
+
+                        // If last enumerator is beaing search, return to the first one
+                        if (++index == Enumerators.Length)
+                            index = 0;
+
+                        return SearchEnumerator();
+                    }
+                }
+
+                // Continue search with the same enumerator until it runs out of items or the item is not null
+                return Current is not null || enumerator.MoveNext() && SearchEnumerator();
             }
-
-            //Move enumerator to the first non-null item
-            while (Enumerators[index].Current is null)
-                if (!Enumerators[index].MoveNext())
-                    return MoveNext();
-
-            Current = Enumerators[index].Current;
-            return true;
         }
 
         /// <inheritdoc/>
@@ -87,17 +121,17 @@ namespace ChartTools.Collections.Alternating
             }
         }
 
-        /// <summary>
-        /// Resets the enumerator to the first item.
-        /// </summary>
-        public virtual void Reset()
+        /// <inheritdoc/>
+        public void Reset()
         {
-            //Reset every enumerator
+            // Reset every enumerator
             foreach (IEnumerator<T> enumerator in Enumerators)
-                enumerator.Reset();
+                try { enumerator.Reset(); }
+                catch { throw; }
 
             index = 0;
             Initialized = false;
+            endsReached = default;
         }
     }
 }

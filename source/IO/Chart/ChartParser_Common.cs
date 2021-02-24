@@ -29,11 +29,5 @@ namespace ChartTools.IO.Chart
         private static string GetFullPartName(Instruments instrument, Difficulty difficulty) => Enum.IsDefined(typeof(Difficulty), difficulty)
                 ? $"{difficulty}{partNames[instrument]}"
                 : throw new ArgumentException("Difficulty is undefined.");
-
-        /// <summary>
-        /// Gets the exception to throw when a <see cref="Instruments"/> value is not defined.
-        /// </summary>
-        /// <returns>Instance of <see cref="ArgumentException"/> to throw</returns>
-        private static ArgumentException GetUndefinedInstrumentException() => new ArgumentException("Instrument is not defined.");
     }
 }

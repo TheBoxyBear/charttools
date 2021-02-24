@@ -2,7 +2,6 @@
 using ChartTools.IO.Chart;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
 
 namespace ChartTools
 {
@@ -51,7 +50,7 @@ namespace ChartTools
         public GlobalEventType EventType
         {
             get => globalTypesDictionary.ContainsValue(EventTypeString) ? globalTypesDictionary.First(pair => pair.Value == EventTypeString).Key : GlobalEventType.Unknown;
-            set => GetEventTypeString(value);
+            set => EventTypeString = GetEventTypeString(value);
         }
 
         /// <summary>
@@ -62,7 +61,7 @@ namespace ChartTools
             get
             {
                 GlobalEventType type = EventType;
-                return type == GlobalEventType.PhraseStart || type == GlobalEventType.Lyric || type == GlobalEventType.PhraseEnd;
+                return type is GlobalEventType.PhraseStart or GlobalEventType.Lyric or GlobalEventType.PhraseEnd;
             }
         }
 

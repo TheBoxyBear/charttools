@@ -1,4 +1,5 @@
 ﻿using ChartTools.IO.Chart;
+using System;
 
 namespace ChartTools
 {
@@ -17,6 +18,22 @@ namespace ChartTools
         /// </summary>
         /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
         public DrumsChord(uint position) : base(position) { }
+        public DrumsChord(uint position, params DrumsNote[] notes) : this(position)
+        {
+            if (notes is null)
+                throw new ArgumentNullException("Note array is null");
+
+            foreach (DrumsNote note in notes)
+                Notes.Add(note);
+        }
+        public DrumsChord(uint position, params DrumsNotes[] notes) : this(position)
+        {
+            if (notes is null)
+                throw new ArgumentNullException("Note array is null");
+
+            foreach (DrumsNotes note in notes)
+                Notes.Add(new DrumsNote(note));
+        }
 
         /// <inheritdoc/>
         internal override System.Collections.Generic.IEnumerable<string> GetChartData()
@@ -31,7 +48,7 @@ namespace ChartTools
 
             if (Modifier != DrumsChordModifier.None)
             {
-                //Add once accent and ghost are added to Clone Hero
+                // Add once accent and ghost are added to Clone Hero
             }
         }
     }

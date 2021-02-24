@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+
+using ChartTools.SystemExtensions;
 
 namespace ChartTools.IO
 {
@@ -25,7 +28,7 @@ namespace ChartTools.IO
             (string extension, Action<string> readMethod) reader = readers.FirstOrDefault(r => r.extension == extension);
 
             if (reader == default)
-                throw GetException();
+                throw GetException(extension, readers.Select(r => r.extension));
 
             reader.readMethod(path);
         }
@@ -44,7 +47,7 @@ namespace ChartTools.IO
             string extension = Path.GetExtension(path);
             (string extension, Func<string, T> readMethod) reader = readers.FirstOrDefault(r => r.extension == extension);
 
-            return reader == default ? throw GetException() : reader.readMethod(path);
+            return reader == default ? throw GetException(extension, readers.Select(r => r.extension)) : reader.readMethod(path);
         }
 
         /// <summary>
@@ -64,7 +67,7 @@ namespace ChartTools.IO
             (string extension, Action<string, T> writeMethod) writer = writers.FirstOrDefault(w => w.extension == extension);
 
             if (writer == default)
-                throw GetException();
+                throw GetException(extension, writers.Select(w => w.extension));
 
             writer.writeMethod(path, item);
         }
@@ -73,6 +76,6 @@ namespace ChartTools.IO
         /// Gets the exception to throw if the extension has no method that handles it.
         /// </summary>
         /// <returns>Instance of <see cref="Exception"/> to throw</returns>
-        private static Exception GetException() => new ArgumentException("File format not supported.");
+        private static Exception GetException(string extension, IEnumerable<string> supportedExtensions) => new ArgumentException($"\"{extension}\" is not a supported extension. File must be {supportedExtensions.VerbalEnumerate("or")}.");
     }
 }
