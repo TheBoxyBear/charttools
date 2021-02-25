@@ -7,6 +7,10 @@ using System.Linq;
 
 namespace ChartTools.Collections.Unique
 {
+    /// <summary>
+    /// Enumerable where <typeparamref name="T"/> items are pulled from multiple enumerables and filtered to the ones considered unique by an <see cref="EqualityComparison{T}"/>
+    /// </summary>
+    /// <typeparam name="T">Type of the enumerated items</typeparam>
     public class UniqueEnumerable<T> : IEnumerable<T>
     {
         /// <summary>

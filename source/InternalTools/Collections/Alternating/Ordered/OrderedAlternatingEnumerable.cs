@@ -8,6 +8,8 @@ namespace ChartTools.Collections.Alternating
     /// <summary>
     /// Enumerable where <typeparamref name="T"/> items are pulled from a set of enumerables in order using a <typeparamref name="TKey"/> key
     /// </summary>
+    /// <typeparam name="T">Type of the enumerated items</typeparam>
+    /// <typeparam name="TKey">Type of the key used to determine the order</typeparam>
     public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey : IComparable<TKey>
     {
         /// <summary>

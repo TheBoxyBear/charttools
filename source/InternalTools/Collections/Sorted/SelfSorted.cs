@@ -7,6 +7,7 @@ namespace ChartTools.Collections.Sorted
     /// <summary>
     /// *Deprecated* Collection where <typeparamref name="T"/> items are always sorted
     /// </summary>
+    /// <typeparam name="T">Type of the cotained items</typeparam>
     [Obsolete]
     internal class SelfSorted<T> : ICollection<T> where T : IComparable<T>
     {

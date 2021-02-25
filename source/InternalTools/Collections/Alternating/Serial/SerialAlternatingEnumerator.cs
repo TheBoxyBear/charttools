@@ -8,6 +8,7 @@ namespace ChartTools.Collections.Alternating
     /// <summary>
     /// Enumerator that yields <typeparamref name="T"/> items by alternating through a set of enumerators
     /// </summary>
+    /// <typeparam name="T">Type of the enumerated items</typeparam>
     public class SerialAlternatingEnumerator<T> : IEnumerator<T>, IInitializable
     {
         /// <summary>

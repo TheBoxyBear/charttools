@@ -23,23 +23,9 @@ namespace ChartTools.SystemExtensions
         /// <summary>
         /// Gets all values of an <see langword="enum"/>.
         /// </summary>
+        /// <typeparam name="TEnum"><see cref="Enum"/> to get the values of</typeparam>
         /// <exception cref="ArgumentException"/>
         public static IEnumerable<TEnum> GetValues<TEnum>() where TEnum : Enum => Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
-    }
-
-    internal static class ObjectExtensions
-    {
-        public static bool IsCast<TSource, TTarget>(this TSource source, out TTarget target) where TTarget : TSource
-        {
-            if (source is TTarget)
-            {
-                target = (TTarget)source;
-                return true;
-            }
-
-            target = default;
-            return false;
-        }
     }
 
     /// <summary>
@@ -99,13 +85,14 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="source">The IEnumerable&lt;out T&gt; to replace the items of</param>
         /// <param name="predicate">A function that determines if an item must be replaced</param>
         /// <param name="replacement">The item to replace items with</param>
+        /// <typeparam name="T">fgf</typeparam>
         public static IEnumerable<T> Replace<T>(this IEnumerable<T> source, Predicate<T> predicate, T replacement)
         {
             foreach (T item in source)
                 yield return predicate(item) ? replacement : item;
         }
         /// <summary>
-        /// Replaces a section with other items
+        /// Replaces a section with other items.
         /// </summary>
         /// <remarks>Items that match startReplace or endReplace are not included in the returned items.</remarks>
         /// <param name="source">Items to replace a section in</param>

@@ -338,15 +338,19 @@ namespace ChartTools.IO.Chart
 
             // Loop through chords, local events and star power, picked using the lowest position
             foreach (TrackObject trackObject in new Collections.Alternating.OrderedAlternatingEnumerable<TrackObject, uint>(t => t.Position, track.Chords, track.LocalEvents, track.StarPower))
-            {
-                if (trackObject.IsCast(out TChord chord))
-                    foreach (string value in chord.GetChartData())
-                        yield return GetLine(trackObject.Position.ToString(), value);
-                else if (trackObject.IsCast(out LocalEvent e))
-                    yield return GetEventLine(e);
-                else if (trackObject.IsCast(out StarPowerPhrase phrase))
-                    yield return GetLine(trackObject.Position.ToString(), $"P {phrase.Length}");
-            }
+                switch (trackObject)
+                {
+                    case TChord chord:
+                        foreach (string value in chord.GetChartData())
+                            yield return GetLine(trackObject.Position.ToString(), value);
+                        break;
+                    case LocalEvent e:
+                        yield return GetEventLine(e);
+                        break;
+                    case StarPowerPhrase phrase:
+                        yield return GetLine(trackObject.Position.ToString(), $"P {phrase.Length}");
+                        break;
+                }
         }
         /// <summary>
         /// Gets the lines to write for metadata.
