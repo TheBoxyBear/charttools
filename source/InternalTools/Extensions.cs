@@ -10,6 +10,9 @@ using ChartTools.Collections.Alternating;
 
 namespace ChartTools.SystemExtensions
 {
+    /// <summary>
+    /// <see cref="IEquatable{T}"/> equivalent to the <see cref="IComparable{T}"/> <see cref="Comparison{T}"/> delegate
+    /// </summary>
     public delegate bool EqualityComparison<T>(T a, T b);
 
     /// <summary>
@@ -22,6 +25,21 @@ namespace ChartTools.SystemExtensions
         /// </summary>
         /// <exception cref="ArgumentException"/>
         public static IEnumerable<TEnum> GetValues<TEnum>() where TEnum : Enum => Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
+    }
+
+    internal static class ObjectExtensions
+    {
+        public static bool IsCast<TSource, TTarget>(this TSource source, out TTarget target) where TTarget : TSource
+        {
+            if (source is TTarget)
+            {
+                target = (TTarget)source;
+                return true;
+            }
+
+            target = default;
+            return false;
+        }
     }
 
     /// <summary>
@@ -262,6 +280,9 @@ namespace ChartTools.SystemExtensions.Linq
         /// <summary>
         /// Finds the item for which a function returns the smallest or greatest value based on a comparison.
         /// </summary>
+        /// <param name="source">Items to find the minimum or maximum of</param>
+        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
+        /// <param name="comparison">Function that returns <see langword="true"/> if the second item defeats the first</param>
         private static T MinMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector, Func<TKey, TKey, bool> comparison) where TKey : IComparable<TKey>
         {
             T minMaxItem;
@@ -292,6 +313,9 @@ namespace ChartTools.SystemExtensions.Linq
         /// <summary>
         /// Finds the items for which a function returns the smallest or greatest value based on a comparison.
         /// </summary>
+        /// <param name="source">Items to find the minimum or maximum of</param>
+        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
+        /// <param name="comparison">Function that returns <see langword="true"/> if the second item defeats the first</param>
         private static IEnumerable<T> ManyMinMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector, Func<TKey, TKey, bool> comparison) where TKey : IComparable<TKey>
         {
             TKey minMaxKey;
@@ -319,20 +343,28 @@ namespace ChartTools.SystemExtensions.Linq
         /// Finds the item for which a function returns the smallest value.
         /// </summary>
         /// <remarks>If the smallest value is obtained from multiple items, the first item to do so will be returned.</remarks>
+        /// <param name="source">Items to find the minimum or maximum of</param>
+        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
         public static T MinBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => MinMaxBy(source, selector, (key, mmKey) => key.CompareTo(mmKey) < 0);
         /// <summary>
         /// Finds the item for which a function returns the greatest value.
         /// </summary>
         /// <remarks>If the greatest value is obtained from multiple items, the first item to do so will be returned.</remarks>
+        /// <param name="source">Items to find the minimum or maximum of</param>
+        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
         public static T MaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => MinMaxBy(source, selector, (key, mmKey) => key.CompareTo(mmKey) > 0);
 
         /// <summary>
         /// Finds the items for which a function returns the smallest value.
         /// </summary>
+        /// <param name="source">Items to find the minimum or maximum of</param>
+        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
         public static IEnumerable<T> ManyMinBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) < 0);
         /// <summary>
         /// Finds the items for which a function returns the greatest value.
         /// </summary>
+        /// <param name="source">Items to find the minimum or maximum of</param>
+        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
         public static IEnumerable<T> ManyMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) > 0);
     }
 }
@@ -440,6 +472,9 @@ namespace ChartTools
         }
     }
 
+    /// <summary>
+    /// Provides templates for commonly thrown exceptions
+    /// </summary>
     internal static class CommonExceptions
     {
         internal static ArgumentException GetUndefinedException(object value) => new ArgumentException($"{value.GetType().Name} \"{value}\" is not defined.");

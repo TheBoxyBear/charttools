@@ -25,7 +25,13 @@ namespace ChartTools.Collections.Alternating
         /// <inheritdoc/>
         object IEnumerator.Current => Current;
 
+        /// <summary>
+        /// Contains items if the last ManyMinBy call returned more than one index
+        /// </summary>
         LinkedList<int> equalMins = null;
+        /// <summary>
+        /// <see langword="true"/> for indexes where MoveNext previously returned <see langword="false"/>
+        /// </summary>
         bool[] endsReached;
 
         /// <summary>

@@ -9,6 +9,9 @@ namespace ChartTools.Collections.Unique
 {
     public class UniqueEnumerable<T> : IEnumerable<T>
     {
+        /// <summary>
+        /// Enumerables to pull items from
+        /// </summary>
         public IEnumerable<T>[] Enumerables { get; }
         /// <summary>
         /// Function that determines if two items are the same
@@ -19,6 +22,7 @@ namespace ChartTools.Collections.Unique
         /// Creates an instance of <see cref="UniqueEnumerable{T}"/>.
         /// </summary>
         /// <param name="comparison">Function that determines if two items are the same</param>
+        /// <param name="enumerables">Enumerables to pull items from</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         public UniqueEnumerable(EqualityComparison<T> comparison, params IEnumerable<T>[] enumerables)

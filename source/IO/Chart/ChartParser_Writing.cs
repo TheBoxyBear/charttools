@@ -135,17 +135,21 @@ namespace ChartTools.IO.Chart
             if (inst is null)
                 throw new ArgumentNullException("Instrument is null.");
 
+            // Tasks that generate the lines and associated part name to write for each track
             List<Task<(IEnumerable<string> lines, string partName)>> tasks = new List<Task<(IEnumerable<string>, string)>>();
             Type instrumentType = typeof(Instrument<TChord>);
             IEnumerable<Difficulty> difficulties = EnumExtensions.GetValues<Difficulty>();
 
             foreach (Difficulty difficulty in difficulties)
             {
+                // Get the track to write
                 object track = instrumentType.GetProperty(difficulty.ToString()).GetValue(inst);
 
                 if (track is not null)
                 {
                     string partName = GetFullPartName(instrument, difficulty);
+
+                    // Add thread to write the trck
                     tasks.Add(Task.Run(() => (GetPartLines(partName, GetTrackLines(track as Track<TChord>)), partName)));
                 }
             }
@@ -156,8 +160,10 @@ namespace ChartTools.IO.Chart
             try
             {
                 if (File.Exists(path))
+                    // Get the existing lines, remove lines relating to the instrument's tracks, construct the new parts, insert and rewrite the file
                     File.WriteAllText(path, string.Join('\n', GetLines(path).ReplaceSections(true, tasks.Select<Task<(IEnumerable<string> lines, string partName)>, (IEnumerable<string>, Predicate<string>, Predicate<string>)>(t => (t.Result.lines, l => l == $"[{t.Result.partName}]", l => l == "}")).ToArray())));
                 else
+                    // Create a new file containing the generated lines
                     File.WriteAllText(path, string.Join('\n', tasks.SelectMany(t => t.Result.lines)));
             }
             catch { throw; }
@@ -333,13 +339,13 @@ namespace ChartTools.IO.Chart
             // Loop through chords, local events and star power, picked using the lowest position
             foreach (TrackObject trackObject in new Collections.Alternating.OrderedAlternatingEnumerable<TrackObject, uint>(t => t.Position, track.Chords, track.LocalEvents, track.StarPower))
             {
-                if (trackObject is TChord)
-                    foreach (string value in (trackObject as TChord).GetChartData())
+                if (trackObject.IsCast(out TChord chord))
+                    foreach (string value in chord.GetChartData())
                         yield return GetLine(trackObject.Position.ToString(), value);
-                else if (trackObject is LocalEvent)
-                    yield return GetEventLine(trackObject as Event);
-                else if (trackObject is StarPowerPhrase)
-                    yield return GetLine(trackObject.Position.ToString(), $"P {(trackObject as StarPowerPhrase).Length}");
+                else if (trackObject.IsCast(out LocalEvent e))
+                    yield return GetEventLine(e);
+                else if (trackObject.IsCast(out StarPowerPhrase phrase))
+                    yield return GetLine(trackObject.Position.ToString(), $"P {phrase.Length}");
             }
         }
         /// <summary>

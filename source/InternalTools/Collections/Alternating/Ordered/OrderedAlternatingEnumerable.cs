@@ -10,6 +10,9 @@ namespace ChartTools.Collections.Alternating
     /// </summary>
     public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey : IComparable<TKey>
     {
+        /// <summary>
+        /// Enumerables to alternate between
+        /// </summary>
         private IEnumerable<T>[] Enumerables { get; }
         /// <summary>
         /// Method that retrieves the key from an item
@@ -20,7 +23,7 @@ namespace ChartTools.Collections.Alternating
         /// Creates an instance of <see cref="OrderedAlternatingEnumerable{T, TKey}"/>.
         /// </summary>
         /// <param name="keyGetter">Method that retrieves the key from an item</param>
-        /// <param name="enumerables">Enumerables to pull items from</param>
+        /// <param name="enumerables">Enumerables to alternate between</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         public OrderedAlternatingEnumerable(Func<T, TKey> keyGetter, params IEnumerable<T>[] enumerables)

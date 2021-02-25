@@ -742,8 +742,7 @@ namespace ChartTools.IO.Chart
             try { events = ReadGlobalEvents(path); }
             catch { throw; }
 
-            foreach (Phrase phrase in events.GetLyrics())
-                yield return phrase;
+            return events.GetLyrics();
         }
 
         /// <summary>

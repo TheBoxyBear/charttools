@@ -30,7 +30,9 @@ namespace ChartTools.Collections.Alternating
         /// True if the enumerator is initialized and the current item can be retrieved.
         /// </summary>
         public bool Initialized { get; private set; }
-
+        /// <summary>
+        /// <see langword="true"/> for indexes where MoveNext previously returned <see langword="false"/>
+        /// </summary>
         private bool[] endsReached;
 
         /// <summary>

@@ -9,8 +9,17 @@ namespace ChartTools.Collections.Unique
 {
     public class UniqueEnumerator<T> : IEnumerator<T>, IInitializable
     {
+        /// <summary>
+        /// Items that have previously been iterated, used for checking if a new item is unique
+        /// </summary>
         private readonly LinkedList<T> returnedItems = new LinkedList<T>();
+        /// <summary>
+        /// Enumerators to pull items from
+        /// </summary>
         private IEnumerator<T>[] Enumerators { get; }
+        /// <summary>
+        /// <see langword="true"/> for indexes where MoveNext previously returned <see langword="false"/>
+        /// </summary>
         private bool[] endsReached;
 
         /// <summary>
@@ -29,6 +38,7 @@ namespace ChartTools.Collections.Unique
         /// Creates an instance of <see cref="UniqueEnumerator{T}"/>.
         /// </summary>
         /// <param name="comparison">Function that determines if two items are the same</param>
+        /// <param name="enumerators">Enumerators to pull items from</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         public UniqueEnumerator(EqualityComparison<T> comparison, params IEnumerator<T>[] enumerators)
