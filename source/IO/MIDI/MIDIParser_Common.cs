@@ -8,12 +8,14 @@ namespace ChartTools.IO.MIDI
         {
             { Instruments.LeadGuitar, "PART GUITAR" },
             { Instruments.CoopGuitar, "PART GUITAR COOP" },
-            { Instruments.Bass, "PATT BASS" },
+            { Instruments.Bass, "PART BASS" },
             { Instruments.RhythmGuitar, "PART RHYTHM" },
             { Instruments.Keys, "PART KEYS" },
             { Instruments.Drums, "PART DRUMS" },
             { Instruments.GHLGuitar, "PART GUITAR GHL" },
             { Instruments.GHLBass, "PART BASS GHL" }
         };
+
+        private const string globalEventSequenceName = "EVENTS";
     }
 }

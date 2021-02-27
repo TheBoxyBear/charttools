@@ -49,12 +49,12 @@ namespace ChartTools.IO.Chart
                 Task.Run(() =>
                 {
                     try { song.GlobalEvents = GetGlobalEvents(lines).ToList(); }
-                    catch{ throw; }
+                    catch { throw; }
                 }),
                 Task.Run(() =>
                 {
                     try { song.SyncTrack = GetSyncTrack(lines); }
-                    catch{ throw; }
+                    catch { throw; }
                 }),
                 Task.Run(() =>
                 {
@@ -178,37 +178,32 @@ namespace ChartTools.IO.Chart
         private static Instrument<TChord> GetInstrument<TChord>(string[] lines, Func<IEnumerable<string>, Track<TChord>> getTrack, string instrumentPartName) where TChord : Chord
         {
             Instrument<TChord> instrument = new Instrument<TChord>();
-            List<Task> tasks = new List<Task>();
             Type instrumentType = typeof(Instrument<TChord>);
+            Difficulty[] difficulties = EnumExtensions.GetValues<Difficulty>().ToArray();
 
-            // Add a thread to read each difficulty
-            foreach (Difficulty difficulty in EnumExtensions.GetValues<Difficulty>())
-                tasks.Add(Task.Run(() =>
-                {
-                    Track<TChord> track;
-                    string difficultyString = difficulty.ToString();
-
-                    try { track = getTrack(GetPart(lines, $"{difficultyString}{instrumentPartName}")); }
-                    catch { throw; }
-
-                    // Find the property named after the difficulty and set its value to the created track
-                    if (track is not null)
-                        instrumentType.GetProperty(difficultyString).SetValue(instrument, track);
-                }));
-
-            Task.WaitAll(tasks.ToArray());
-
-            foreach (Track<TChord> track in new Track<TChord>[]
+            // Create threads to reach each difficulty and wait
+            Task[] tasks = difficulties.Select(d => Task.Run(() =>
             {
-                instrument.Easy,
-                instrument.Medium,
-                instrument.Hard,
-                instrument.Expert
-            })
-                if (track is not null)
-                    return instrument;
+                Track<TChord> track;
+                string difficultyString = d.ToString();
 
-            return null;
+                try { track = getTrack(GetPart(lines, $"{difficultyString}{instrumentPartName}")); }
+                catch { throw; }
+
+                // Find the property named after the difficulty and set its value to the created track
+                if (track is not null)
+                    instrumentType.GetProperty(difficultyString).SetValue(instrument, track);
+            })).ToArray();
+
+            foreach (Task task in tasks)
+            {
+                try { task.Wait(); }
+                catch { throw; }
+
+                task.Dispose();
+            }
+
+            return difficulties.Select(d => instrument.GetTrack(d)).All(t => t is null) ? null : instrument;
         }
 
         #region Tracks
