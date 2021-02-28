@@ -111,7 +111,7 @@ namespace ChartTools.IO.Chart
                 catch { throw; }
             }
 
-            throw IOExceptions.GetUndefinedInstrumentException();
+            throw CommonExceptions.GetUndefinedException(instrument);
         }
 
         /// <summary>
@@ -239,7 +239,7 @@ namespace ChartTools.IO.Chart
                 catch { throw; }
             }
 
-            throw new ArgumentException("Instrument is not defined.");
+            throw CommonExceptions.GetUndefinedException(instrument);
         }
 
         /// <summary>
@@ -526,15 +526,14 @@ namespace ChartTools.IO.Chart
                 TrackObjectEntry entry;
 
                 try { entry = new TrackObjectEntry(line); }
-                catch (Exception e) { throw GetException(line, e); }
+                catch (Exception e) { throw GetLineException(line, e); }
 
                 switch (entry.Type)
                 {
                     // Local event
                     case "E":
-                        string[] split = GetDataSplit(entry.Data);
-
-                        track.LocalEvents.Add(new LocalEvent(entry.Position, split[0], split.Length == 1 ? "" : split[1]));
+                        string[] split = GetDataSplit(entry.Data.Trim('"'));
+                        track.LocalEvents.Add(new LocalEvent(entry.Position, split.Length > 0 ? split[0] : string.Empty));
                         break;
                     // Note or chord modifier
                     case "N":
@@ -544,7 +543,7 @@ namespace ChartTools.IO.Chart
                             data = new NoteData(entry.Data);
                             chord = noteCase(track, chord, entry, data, newChord);
                         }
-                        catch (Exception e) { throw GetException(line, e); }
+                        catch (Exception e) { throw GetLineException(line, e); }
 
                         break;
                     // Star power
@@ -558,7 +557,7 @@ namespace ChartTools.IO.Chart
 
                             track.StarPower.Add(new StarPowerPhrase(entry.Position, length));
                         }
-                        catch (Exception e) { throw GetException(line, e); }
+                        catch (Exception e) { throw GetLineException(line, e); }
                         break;
                 }
             }
@@ -590,7 +589,7 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Exception"/> to throw</returns>
         /// <param name="line">Line that caused the excpetion</param>
         /// <param name="innerException">Exception caught when interpreting the line</param>
-        private static Exception GetException(string line, Exception innerException) => new FormatException($"Line \"{line}\": {innerException.Message}", innerException);
+        private static Exception GetLineException(string line, Exception innerException) => new FormatException($"Line \"{line}\": {innerException.Message}", innerException);
 
         /// <summary>
         /// Reads the metadata from a chart file.
@@ -625,7 +624,7 @@ namespace ChartTools.IO.Chart
             {
                 ChartEntry entry;
                 try { entry = new ChartEntry(line); }
-                catch (Exception e) { throw GetException(line, e); }
+                catch (Exception e) { throw GetLineException(line, e); }
 
                 string data = entry.Data.Trim('"');
 
@@ -645,27 +644,27 @@ namespace ChartTools.IO.Chart
                         break;
                     case "Year":
                         try { metadata.Year = ushort.Parse(data.TrimStart(',')); }
-                        catch (Exception e) { throw GetException(line, e); }
+                        catch (Exception e) { throw GetLineException(line, e); }
                         break;
                     case "Offset":
                         try { metadata.AudioOffset = int.Parse(entry.Data); }
-                        catch (Exception e) { throw GetException(line, e); }
+                        catch (Exception e) { throw GetLineException(line, e); }
                         break;
                     case "Resolution":
                         try { metadata.Resolution = ushort.Parse(data); }
-                        catch (Exception e) { throw GetException(line, e); }
+                        catch (Exception e) { throw GetLineException(line, e); }
                         break;
                     case "Difficulty":
                         try { metadata.Difficulty = byte.Parse(data); }
-                        catch (Exception e) { throw GetException(line, e); }
+                        catch (Exception e) { throw GetLineException(line, e); }
                         break;
                     case "PreviewStart":
                         try { metadata.PreviewStart = uint.Parse(data); }
-                        catch (Exception e) { throw GetException(line, e); }
+                        catch (Exception e) { throw GetLineException(line, e); }
                         break;
                     case "PreviewEnd":
                         try { metadata.PreviewEnd = uint.Parse(data); }
-                        catch (Exception e) { throw GetException(line, e); }
+                        catch (Exception e) { throw GetLineException(line, e); }
                         break;
                     case "Genre":
                         metadata.Genre = data;
@@ -767,10 +766,9 @@ namespace ChartTools.IO.Chart
             {
                 TrackObjectEntry entry;
                 try { entry = new TrackObjectEntry(line); }
-                catch (Exception e) { throw GetException(line, e); }
+                catch (Exception e) { throw GetLineException(line, e); }
 
-                string[] split = GetDataSplit(entry.Data.Trim('"'));
-                yield return new GlobalEvent(entry.Position, split[0], split.Length == 1 ? "" : split[1]);
+                yield return new GlobalEvent(entry.Position, entry.Data.Trim('"'));
             }
         }
 
@@ -807,7 +805,7 @@ namespace ChartTools.IO.Chart
             {
                 TrackObjectEntry entry;
                 try { entry = new TrackObjectEntry(line); }
-                catch (Exception e) { throw GetException(line, e); }
+                catch (Exception e) { throw GetLineException(line, e); }
 
                 Tempo marker;
 

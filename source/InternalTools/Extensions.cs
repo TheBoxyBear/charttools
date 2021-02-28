@@ -378,7 +378,7 @@ namespace ChartTools
         public static void ReadDifficulty(this Instrument<GHLChord> inst, string path, GHLInstrument instrument)
         {
             if (!Enum.IsDefined(typeof(GHLInstrument), instrument))
-                throw new ArgumentException("Instrument is not defined.");
+                throw CommonExceptions.GetUndefinedException(instrument);
 
             try { inst.Difficulty = Instrument.ReadDifficulty(path, (Instruments)instrument); }
             catch { throw; }
@@ -387,7 +387,7 @@ namespace ChartTools
         public static void ReadDifficulty(this Instrument<StandardChord> inst, string path, StandardInstrument instrument)
         {
             if (!Enum.IsDefined(typeof(StandardInstrument), instrument))
-                throw new ArgumentException("Instrument is not defined.");
+                throw CommonExceptions.GetUndefinedException(instrument);
 
             try { inst.Difficulty = Instrument.ReadDifficulty(path, (Instruments)100); }
             catch { throw; }
@@ -409,7 +409,7 @@ namespace ChartTools
         public static void WriteDifficulty(this Instrument<GHLChord> inst, string path, GHLInstrument instrument)
         {
             if (!Enum.IsDefined(typeof(GHLInstrument), instrument))
-                throw new ArgumentException("Instrument is not defined.");
+                throw CommonExceptions.GetUndefinedException(instrument);
 
             if (inst.Difficulty is not null)
                 try { Instrument.WriteDifficulty(path, (Instruments)instrument, inst.Difficulty.Value); }
@@ -419,7 +419,7 @@ namespace ChartTools
         public static void WriteDifficulty(this Instrument<StandardChord> inst, string path, StandardInstrument instrument)
         {
             if (!Enum.IsDefined(typeof(StandardInstrument), instrument))
-                throw new ArgumentException("Instrument is not defined.");
+                throw CommonExceptions.GetUndefinedException(instrument);
 
             if (inst.Difficulty is not null)
                 try { Instrument.WriteDifficulty(path, (Instruments)instrument, inst.Difficulty.Value); }
@@ -464,7 +464,8 @@ namespace ChartTools
     /// </summary>
     internal static class CommonExceptions
     {
-        internal static ArgumentException GetUndefinedException(object value) => new ArgumentException($"{value.GetType().Name} \"{value}\" is not defined.");
+        internal static ArgumentException GetUndefinedException<TEnum>(TEnum value) where TEnum : Enum => new ArgumentException($"{typeof(TEnum).Name} \"{value}\" is not defined.");
+        internal static ArgumentNullException GetNullParameterException(string name) => new ArgumentNullException($"Parameter {name} cannot be null.");
     }
 
     /// <summary>

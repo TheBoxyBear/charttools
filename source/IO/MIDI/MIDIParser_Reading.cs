@@ -70,7 +70,7 @@ namespace ChartTools.IO.MIDI
                 catch { throw; }
             }
 
-            throw IOExceptions.GetUndefinedInstrumentException();
+            throw CommonExceptions.GetUndefinedException(instrument);
         }
         internal static Instrument<DrumsChord> ReadDrums(string path)
         {
@@ -88,7 +88,7 @@ namespace ChartTools.IO.MIDI
         private static Instrument<StandardChord> GetInstrument(ChunksCollection chunks, StandardInstrument instrument)
         {
             if (!Enum.IsDefined(typeof(StandardInstrument), instrument))
-                throw new ArgumentException($"Instrument \"{instrument}\" is not defined.");
+                throw CommonExceptions.GetUndefinedException(instrument);
 
             Exception noTrackChunkException = CheckTrackChunkPresence(chunks);
 
@@ -135,15 +135,10 @@ namespace ChartTools.IO.MIDI
             throw new NotImplementedException();
         }
 
-        private static List<LocalEvent> GetLocalEvents(IEnumerable<MidiEvent> events)
+        private static List<LocalEvent> GetLocalEvents(IEnumerable<MidiEvent> events) => new List<LocalEvent>(events.OfType<TextEvent>().Select<TextEvent, LocalEvent>(textEvent =>
         {
-            foreach (MidiEvent e in events)
-            {
-
-            }
-
             throw new NotImplementedException();
-        }
+        }));
 
         internal static Metadata ReadMetadata(string path)
         {

@@ -102,7 +102,7 @@ namespace ChartTools.IO.Chart
         internal static void ReplaceInstrument(string path, Instrument<GHLChord> inst, GHLInstrument instrument)
         {
             if (!Enum.IsDefined(typeof(GHLInstrument), instrument))
-                throw IOExceptions.GetUndefinedInstrumentException();
+                throw CommonExceptions.GetUndefinedException(instrument);
 
             try { ReplaceInstrument(path, inst, (Instruments)instrument); }
             catch { throw; }
@@ -111,7 +111,7 @@ namespace ChartTools.IO.Chart
         internal static void ReplaceInstrument(string path, Instrument<StandardChord> inst, StandardInstrument instrument)
         {
             if (!Enum.IsDefined(typeof(StandardInstrument), instrument))
-                throw IOExceptions.GetUndefinedInstrumentException();
+                throw CommonExceptions.GetUndefinedException(instrument);
 
             try { ReplaceInstrument(path, inst, (Instruments)instrument); }
             catch { throw; }
@@ -133,7 +133,7 @@ namespace ChartTools.IO.Chart
         private static void ReplaceInstrument<TChord>(string path, Instrument<TChord> inst, Instruments instrument) where TChord : Chord
         {
             if (inst is null)
-                throw new ArgumentNullException("Instrument is null.");
+                throw CommonExceptions.GetNullParameterException("inst");
 
             // Tasks that generate the lines and associated part name to write for each track
             List<Task<(IEnumerable<string> lines, string partName)>> tasks = new List<Task<(IEnumerable<string>, string)>>();
@@ -400,7 +400,7 @@ namespace ChartTools.IO.Chart
         /// Gets a line to write for an event.
         /// </summary>
         /// <param name="e">Event to get the line of</param>
-        private static string GetEventLine(Event e) => GetLine(e.Position.ToString(), e.Argument == string.Empty ? $"E \"{e.EventTypeString}\"" : $"E \"{e.EventTypeString} {e.Argument}\"");
+        private static string GetEventLine(Event e) => GetLine(e.Position.ToString(), $"E \"{e.EventData}\"");
         /// <summary>
         /// Gets the lines to write for a sync track.
         /// </summary>

@@ -32,9 +32,9 @@ namespace ChartTools.Collections.Unique
         public UniqueEnumerable(EqualityComparison<T> comparison, params IEnumerable<T>[] enumerables)
         {
             if (comparison is null)
-                throw new ArgumentNullException("Comparison is null.");
+                throw CommonExceptions.GetNullParameterException("comparison");
             if (enumerables is null)
-                throw new ArgumentNullException("Enumerable array is null.");
+                throw CommonExceptions.GetNullParameterException("enumerables");
             if (enumerables.Length == 0)
                 throw new ArgumentException("No enumerables provided.");
 

@@ -66,20 +66,41 @@ namespace ChartTools
         }
 
         /// <summary>
+        /// Additional data to modifiy the outcome of the event
+        /// </summary>
+        public string Argument
+        {
+            get => EventData?.Split(' ', 2, System.StringSplitOptions.RemoveEmptyEntries)[1];
+            set
+            {
+                if (string.IsNullOrEmpty(EventData))
+                {
+                    EventData = $"Default {value}";
+                    return;
+                }
+
+                string[] split = EventData.Split(' ', 2, System.StringSplitOptions.RemoveEmptyEntries);
+                split[1] = value;
+
+                EventData = string.Join(' ', split);
+            }
+        }
+
+        /// <summary>
         /// Creates an instance of <see cref="GlobalEvent"/>.
         /// </summary>
         /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
         /// <param name="type">Value of <see cref="EventType"/></param>
         /// <param name="argument">Value of <see cref="Event.Argument"/></param>
-        public GlobalEvent(uint position, GlobalEventType type, string argument = "") : base(position, GetEventTypeString(type), argument) { }
+        public GlobalEvent(uint position, GlobalEventType type, string argument = "") : this(position, GetEventTypeString(type), argument) { }
         /// <summary>
         /// Creates an instance of <see cref="GlobalEvent"/>.
         /// </summary>
         /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
         /// <param name="type">Value of <see cref="EventTypeString"/></param>
         /// <param name="argument">Value of <see cref="Argument"/></param>
-        internal GlobalEvent(uint position, string type, string argument = "") : base(position, type, argument) { }
-
+        public GlobalEvent(uint position, string type, string argument = "") : base(position, $"{type} {argument}") { }
+        internal GlobalEvent(uint position, string eventData) : base(position, eventData) { } 
         /// <summary>
         /// Gets the string value to set <see cref="Event.EventTypeString"/>.
         /// </summary>

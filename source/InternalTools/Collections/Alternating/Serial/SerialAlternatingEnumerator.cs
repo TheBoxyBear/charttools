@@ -45,7 +45,7 @@ namespace ChartTools.Collections.Alternating
         public SerialAlternatingEnumerator(params IEnumerator<T>[] enumerators)
         {
             if (enumerators is null)
-                throw new ArgumentNullException("Enumerator array is null.");
+                throw CommonExceptions.GetNullParameterException("enumerators");
             if (enumerators.Length == 0)
                 throw new ArgumentException("No enumerators provided.");
 

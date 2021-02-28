@@ -38,14 +38,14 @@ namespace ChartTools
         /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
         /// <param name="type">Value of <see cref="EventType"/></param>
         /// <param name="argument">Value of <see cref="Event.Argument"/></param>
-        public LocalEvent(uint position, LocalEventType type, string argument = "") : base(position, GetEventTypeString(type), argument) { }
+        public LocalEvent(uint position, LocalEventType type) : base(position, GetEventTypeString(type)) { }
         /// <summary>
         /// Creates an instance of <see cref="LocalEvent"/>.
         /// </summary>
         /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
         /// <param name="type">Value of <see cref="EventTypeString"/></param>
         /// <param name="argument">Value of <see cref="Argument"/></param>
-        internal LocalEvent(uint position, string type, string argument = "") : base(position, type, argument) { }
+        public LocalEvent(uint position, string type) : base(position, type) { }
 
         /// <inheritdoc cref="GlobalEvent.GetEventTypeString(GlobalEventType)"/>
         private static string GetEventTypeString(LocalEventType type) => type == LocalEventType.Unknown ? "Default" : localTypesDictionary[type];

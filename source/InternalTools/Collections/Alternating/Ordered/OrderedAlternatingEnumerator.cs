@@ -46,9 +46,9 @@ namespace ChartTools.Collections.Alternating
         public OrderedAlternatingEnumerator(Func<T, TKey> keyGetter, params IEnumerator<T>[] enumerators)
         {
             if (keyGetter is null)
-                throw new ArgumentNullException("keyGetter is null.");
+                throw CommonExceptions.GetNullParameterException("keyGetter");
             if (enumerators is null)
-                throw new ArgumentNullException("Enumerator array is null.");
+                throw CommonExceptions.GetNullParameterException("enumerators");
             if (enumerators.Length == 0)
                 throw new ArgumentException("No enumerators provided.");
 
