@@ -1,4 +1,4 @@
-.sln
+*.sln
 /debug
 /.vs
 /source/.vs

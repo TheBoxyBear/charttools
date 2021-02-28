@@ -6,6 +6,10 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="InternalTools\Collections\Base\**" />
     <Compile Remove="InternalTools\Collections\Indexable\**" />
