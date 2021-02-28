@@ -1,4 +1,5 @@
 ﻿using ChartTools.SystemExtensions;
+using ChartTools.Collections.Alternating;
 using Melanchall.DryWetMidi.Core;
 
 using System;
@@ -13,6 +14,9 @@ namespace ChartTools.IO.MIDI
     /// </summary>
     internal static partial class MIDIParser
     {
+        /// <summary>
+        /// Parameter to use with MIDIFile.Read()
+        /// </summary>
         private static readonly ReadingSettings readingSettings = new ReadingSettings
         {
             NotEnoughBytesPolicy = NotEnoughBytesPolicy.Ignore,
@@ -130,15 +134,36 @@ namespace ChartTools.IO.MIDI
             return difficulties.Select(d => inst.GetTrack(d)).All(t => t is null) ? null : inst;
         }
 
+        internal static List<GlobalEvent> ReadGlobalEvents(string path)
+        {
+            try { return GetGlobalEvents(MidiFile.Read(path, readingSettings).Chunks); }
+            catch { throw; }
+        }
+        private static List<GlobalEvent> GetGlobalEvents(ChunksCollection chunks)
+        {
+            Exception noTrackChunkException = CheckTrackChunkPresence(chunks);
+
+            if (noTrackChunkException is not null)
+                throw noTrackChunkException;
+
+            // Get the events in the global events track and vocal track, alternating between the two by taking the lowest DeltaTime
+            return new List<GlobalEvent>(new OrderedAlternatingEnumerable<MidiEvent, long>(e => e.DeltaTime, GetSequenceEvents(chunks.OfType<TrackChunk>(), globalEventSequenceName), GetSequenceEvents(chunks.OfType<TrackChunk>(), lyricsSequenceName)).Select(e => new GlobalEvent((uint)e.DeltaTime, e switch
+            {
+                // For each event, select a new GlobalEvent with DeltaTime as Position and EventData based on the type of MIDIEvent
+                TextEvent textEvent => textEvent.Text,
+                NoteOnEvent noteOnEvent => GlobalEvent.GetEventTypeString(GlobalEventType.PhraseStart),
+                NoteOffEvent noteOffEvent => GlobalEvent.GetEventTypeString(GlobalEventType.PhraseEnd),
+                LyricEvent lyricEvent => GlobalEvent.GetEventTypeString(GlobalEventType.Lyric),
+                _ => throw new ArgumentException()
+            })));
+        }
+
         private static Track<StandardChord> GetStandardTrack(IEnumerable<MidiEvent> events, Difficulty difficulty)
         {
             throw new NotImplementedException();
         }
 
-        private static List<LocalEvent> GetLocalEvents(IEnumerable<MidiEvent> events) => new List<LocalEvent>(events.OfType<TextEvent>().Select<TextEvent, LocalEvent>(textEvent =>
-        {
-            throw new NotImplementedException();
-        }));
+        private static List<LocalEvent> GetLocalEvents(IEnumerable<MidiEvent> events) => new List<LocalEvent>(events.OfType<TextEvent>().Select(textEvent => new LocalEvent((uint)textEvent.DeltaTime, textEvent.Text)));
 
         internal static Metadata ReadMetadata(string path)
         {

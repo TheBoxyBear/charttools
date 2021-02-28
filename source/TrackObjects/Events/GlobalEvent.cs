@@ -105,7 +105,7 @@ namespace ChartTools
         /// Gets the string value to set <see cref="Event.EventTypeString"/>.
         /// </summary>
         /// <param name="type">Event type to get the string value of</param>
-        private static string GetEventTypeString(GlobalEventType type) => type == GlobalEventType.Unknown ? "Default" : globalTypesDictionary[type];
+        internal static string GetEventTypeString(GlobalEventType type) => type == GlobalEventType.Unknown ? "Default" : globalTypesDictionary[type];
 
         /// <inheritdoc cref="ChartParser.ReadGlobalEvents(string)"/>
         public static IEnumerable<GlobalEvent> FromFile(string path)
