@@ -24,8 +24,11 @@ namespace ChartTools.IO.MIDI
             NoHeaderChunkPolicy = NoHeaderChunkPolicy.Ignore
         };
 
-        internal static Song ReadSong(string path)
+        public static Song ReadSong(string path, MIDIReadingConfiguration midiConfig)
         {
+            if (midiConfig is null)
+                throw new CommonExceptions.ParameterNullException("midiConfig", 1);
+
             MidiFile file;
             try { file = MidiFile.Read(path, readingSettings); }
             catch { throw; }
@@ -38,15 +41,18 @@ namespace ChartTools.IO.MIDI
             {
                 Task.Run(() =>
                 {
-                    // Global events
+                    try { song.GlobalEvents = GetGlobalEvents(chunks); }
+                    catch { throw; }
                 }),
                 Task.Run(() =>
                 {
-                    // Sync track
+                    try {song.SyncTrack = GetSyncTrack(chunks); }
+                    catch { throw; }
                 }),
                 Task.Run(() =>
                 {
-                    // Drums
+                    try { song.Drums = GetDrums(chunks); }
+                    catch { throw; }
                 })
             };
 
@@ -56,37 +62,80 @@ namespace ChartTools.IO.MIDI
             return song;
         }
 
-        internal static Instrument ReadInstrument(string path, Instruments instrument)
+        public static Instrument ReadInstrument(string path, Instruments instrument, MIDIReadingConfiguration midiConfig)
         {
+            if (midiConfig is null)
+                throw new CommonExceptions.GetNullParameterException(2, "midiConfig");
+
+            MidiFile file;
+
+            try { file = MidiFile.Read(path, readingSettings); }
+            catch { throw; }
+
             if (instrument == Instruments.Drums)
             {
-                try { throw new NotImplementedException(); }
+                try { return GetDrums(file.Chunks); }
                 catch { throw; }
             }
             if (Enum.IsDefined(typeof(GHLInstrument), instrument))
             {
-                try { throw new NotImplementedException(); }
+                try { return GetInstrument(file.Chunks, (GHLInstrument)instrument); }
                 catch { throw; }
             }
             if (Enum.IsDefined(typeof(StandardInstrument), instrument))
             {
-                try { throw new NotImplementedException(); }
+                try { return GetInstrument(file.Chunks, (StandardInstrument)instrument); }
                 catch { throw; }
             }
 
             throw CommonExceptions.GetUndefinedException(instrument);
         }
-        internal static Instrument<DrumsChord> ReadDrums(string path)
+        public static Instrument<DrumsChord> ReadDrums(string path, MIDIReadingConfiguration midiConfig)
         {
-            throw new NotImplementedException();
+            if (midiConfig is null)
+                throw new CommonExceptions.ParameterNullException("midiConfig", 1);
+
+            try { return GetDrums(MidiFile.Read(path, readingSettings).Chunks); }
+            catch { throw; }
         }
-        internal static Instrument<GHLChord> ReadInstrument(string path, GHLInstrument instrument)
+        public static Instrument<GHLChord> ReadInstrument(string path, GHLInstrument instrument, MIDIReadingConfiguration midiConfig)
         {
-            throw new NotImplementedException();
-        }
-        internal static Instrument<StandardChord> ReadInstrument(string path, StandardInstrument instrument)
-        {
+            if (midiConfig is null)
+                throw new CommonExceptions.ParameterNullException("midiConfig", 1);
+
             try { return GetInstrument(MidiFile.Read(path, readingSettings).Chunks, instrument); }
+            catch { throw; }
+        }
+        public static Instrument<StandardChord> ReadInstrument(string path, StandardInstrument instrument, MIDIReadingConfiguration midiConfig)
+        {
+            if (midiConfig is null)
+                throw CommonExceptions.GetNullParameterException(2, "midiConfig");
+
+            try { return GetInstrument(MidiFile.Read(path, readingSettings).Chunks, instrument); }
+            catch { throw; }
+        }
+
+        private static Instrument<DrumsChord> GetDrums(ChunksCollection chunks)
+        {
+            Exception noTrackChunkException = CheckTrackChunkPresence(chunks);
+
+            if (noTrackChunkException is not null)
+                throw noTrackChunkException;
+
+            try { return GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[Instruments.Drums]), GetDrumsTrack); }
+            catch { throw; }
+        }
+        private static Instrument<GHLChord> GetInstrument(ChunksCollection chunks, GHLInstrument instrument)
+        {
+            if (!Enum.IsDefined(typeof(GHLInstrument), instrument))
+                throw CommonExceptions.GetUndefinedException(instrument);
+
+            Exception noTrackChunkException = CheckTrackChunkPresence(chunks);
+
+            if (noTrackChunkException is not null)
+                throw noTrackChunkException;
+
+            try { return GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[(Instruments)instrument]), GetGHLTrack); }
             catch { throw; }
         }
         private static Instrument<StandardChord> GetInstrument(ChunksCollection chunks, StandardInstrument instrument)
@@ -102,6 +151,7 @@ namespace ChartTools.IO.MIDI
             try { return GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[(Instruments)instrument]), GetStandardTrack); }
             catch { throw; }
         }
+
         private static Instrument<TChord> GetInstrument<TChord>(IEnumerable<MidiEvent> events, Func<IEnumerable<MidiEvent>, Difficulty, Track<TChord>> getTrack) where TChord : Chord
         {
             Instrument<TChord> inst = new Instrument<TChord>();
@@ -134,7 +184,33 @@ namespace ChartTools.IO.MIDI
             return difficulties.Select(d => inst.GetTrack(d)).All(t => t is null) ? null : inst;
         }
 
-        internal static List<GlobalEvent> ReadGlobalEvents(string path)
+        private static Track<DrumsChord> GetDrumsTrack(IEnumerable<MidiEvent> events, Difficulty difficulty)
+        {
+            throw new NotImplementedException();
+        }
+        private static Track<GHLChord> GetGHLTrack(IEnumerable<MidiEvent> events, Difficulty difficulty)
+        {
+            throw new NotImplementedException();
+        }
+        private static Track<StandardChord> GetStandardTrack(IEnumerable<MidiEvent> events, Difficulty difficulty)
+        {
+            foreach (MidiEvent e in events)
+            {
+                uint position = (uint)e.DeltaTime;
+
+                switch (e)
+                {
+                    case NoteOnEvent:
+                        break;
+                    case NoteOffEvent:
+                        break;
+                }
+            }
+
+            throw new NotImplementedException();
+        }
+
+        public static List<GlobalEvent> ReadGlobalEvents(string path)
         {
             try { return GetGlobalEvents(MidiFile.Read(path, readingSettings).Chunks); }
             catch { throw; }
@@ -151,21 +227,16 @@ namespace ChartTools.IO.MIDI
             {
                 // For each event, select a new GlobalEvent with DeltaTime as Position and EventData based on the type of MIDIEvent
                 TextEvent textEvent => textEvent.Text,
-                NoteOnEvent noteOnEvent => GlobalEvent.GetEventTypeString(GlobalEventType.PhraseStart),
-                NoteOffEvent noteOffEvent => GlobalEvent.GetEventTypeString(GlobalEventType.PhraseEnd),
-                LyricEvent lyricEvent => GlobalEvent.GetEventTypeString(GlobalEventType.Lyric),
+                NoteOnEvent => GlobalEvent.GetEventTypeString(GlobalEventType.PhraseStart),
+                NoteOffEvent => GlobalEvent.GetEventTypeString(GlobalEventType.PhraseEnd),
+                LyricEvent lyricEvent => $"{GlobalEvent.GetEventTypeString(GlobalEventType.Lyric)} {lyricEvent.Text}",
                 _ => throw new ArgumentException()
             })));
         }
 
-        private static Track<StandardChord> GetStandardTrack(IEnumerable<MidiEvent> events, Difficulty difficulty)
-        {
-            throw new NotImplementedException();
-        }
-
         private static List<LocalEvent> GetLocalEvents(IEnumerable<MidiEvent> events) => new List<LocalEvent>(events.OfType<TextEvent>().Select(textEvent => new LocalEvent((uint)textEvent.DeltaTime, textEvent.Text)));
 
-        internal static Metadata ReadMetadata(string path)
+        public static Metadata ReadMetadata(string path)
         {
             try { return GetMetadata(MidiFile.Read(path, readingSettings)); }
             catch { throw; }
@@ -187,7 +258,7 @@ namespace ChartTools.IO.MIDI
                 : throw new FormatException("Cannot get resolution from the file.");
         }
 
-        internal static SyncTrack ReadSyncTrack(string path)
+        public static SyncTrack ReadSyncTrack(string path)
         {
             try { return GetSyncTrack(MidiFile.Read(path, readingSettings).Chunks); }
             catch { throw; }

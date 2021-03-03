@@ -1,4 +1,5 @@
 ﻿using ChartTools.Collections.Unique;
+using ChartTools.IO.MIDI;
 
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,7 @@ namespace ChartTools
         /// </summary>
         public Track<TChord> GetTrack(Difficulty difficulty) => (Track<TChord>)GetType().GetProperty(difficulty.ToString()).GetValue(this);
 
-        public void ShareLocalEvents(LocalEventSource source)
+        public void ShareLocalEvents(IO.MIDI.LocalEventSource source)
         {
             LocalEvent[] events = ((IEnumerable<LocalEvent>)(source switch
             {
@@ -40,7 +41,7 @@ namespace ChartTools
                 LocalEventSource.Medium => Medium?.LocalEvents,
                 LocalEventSource.Hard => Hard?.LocalEvents,
                 LocalEventSource.Expert => Expert?.LocalEvents,
-                LocalEventSource.Auto => new UniqueEnumerable<LocalEvent>((e, other) => e.Equals(other), new Track<TChord>[] { Easy, Medium, Hard, Expert }.Select(t => t?.LocalEvents).ToArray()),
+                LocalEventSource.Merge => new UniqueEnumerable<LocalEvent>((e, other) => e.Equals(other), new Track<TChord>[] { Easy, Medium, Hard, Expert }.Select(t => t?.LocalEvents).ToArray()),
                 _ => throw CommonExceptions.GetUndefinedException(source)
             })).ToArray();
 

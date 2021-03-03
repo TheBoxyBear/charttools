@@ -1,6 +1,7 @@
 ﻿using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Ini;
+using ChartTools.IO.MIDI;
 using ChartTools.Lyrics;
 
 using System;
@@ -94,7 +95,7 @@ namespace ChartTools
         public Instrument<StandardChord> GetInstrument(StandardInstrument instrument) => GetInstrument((Instruments)instrument) as Instrument<StandardChord>;
 
         /// <inheritdoc cref="ChartParser.ReadSong(string)"/>
-        public static Song FromFile(string path)
+        public static Song FromFile(string path, MIDIReadingConfiguration midiConfig)
         {
             try { return ExtensionHandler.Read(path, (".chart", ChartParser.ReadSong), (".ini", (p) => new Song { Metadata = IniParser.ReadMetadata(p) })); }
             catch { throw; }

@@ -439,7 +439,7 @@ namespace ChartTools
         /// <exception cref="UnauthorizedAccessException"/>
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="SecurityException"/>
-        public static void ToFile(this Instrument<DrumsChord> inst, string path, LocalEventSource eventSource = LocalEventSource.Auto)
+        public static void ToFile(this Instrument<DrumsChord> inst, string path)
         {
             try { ExtensionHandler.Write(path, inst, (".chart", ChartParser.ReplaceDrums)); }
             catch { throw; }
@@ -464,8 +464,49 @@ namespace ChartTools
     /// </summary>
     internal static class CommonExceptions
     {
-        internal static ArgumentException GetUndefinedException<TEnum>(TEnum value) where TEnum : Enum => new ArgumentException($"{typeof(TEnum).Name} \"{value}\" is not defined.");
-        internal static ArgumentNullException GetNullParameterException(string name) => new ArgumentNullException($"Parameter {name} cannot be null.");
+        public static ArgumentException GetUndefinedException<TEnum>(TEnum value) where TEnum : Enum => new ArgumentException($"{typeof(TEnum).Name} \"{value}\" is not defined.");
+
+        /// <summary>
+        /// The exception that is thrown when a method is called with <see langword="null"/> as a parameter for which <see langword="null"/> is not an accepted value
+        /// </summary>
+        public class ParameterNullException : Exception
+        {
+            /// <summary>
+            /// Default value of <see cref="MessageTemplate"/>
+            /// </summary>
+            public const string DefaultTemplate = "Parameter {position} \"{name}\" cannot be null.";
+            /// <summary>
+            /// Format of the message where "{position}" and "{name}" will be replaced by the respective values.
+            /// </summary>
+            public static string MessageTemplate = DefaultTemplate;
+            private static string formatReadyTemplate => MessageTemplate.Replace("{name}", "{0}").Replace("{position}", "{1}");
+
+            /// <summary>
+            /// Zero-based position of the parameter in the method signature
+            /// </summary>
+            public byte ParameterPosition { get; set; } = 0;
+            /// <summary>
+            /// Name of the parameter in the method signature
+            /// </summary>
+            public string ParameterName { get; set; }
+
+            /// <summary>
+            /// Creates an instance of <see cref="ParameterNullException"/> using the previously defined template.
+            /// </summary>
+            public ParameterNullException(string paramName, byte paramPosition) : base(string.Format(formatReadyTemplate, paramName, paramPosition))
+            {
+                ParameterName = paramName;
+                ParameterPosition = paramPosition;
+            }
+            /// <summary>
+            /// Creates an instance of <see cref="ParameterNullException"/> using a single-use template.
+            /// </summary>
+            public ParameterNullException(string paramName, byte paramPosition, string template) : base(string.Format(template, paramName, paramPosition))
+            {
+                ParameterName = paramName;
+                ParameterPosition = paramPosition;
+            }
+        }
     }
 
     /// <summary>
