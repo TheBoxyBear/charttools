@@ -6,7 +6,7 @@ Special thanks to [FireFox](https://github.com/FireFox2000000) for making the Mo
 This library is an independant project not affiliated with Clone Hero or Moonscraper.
 
 ## Installation
-To add ChartTools to your solution, select right-click on Dependeicnes of your project from the solution explorer and select "Add Project References...". Click on "Browse" and select ChartTools.dll from the repository.
+To add ChartTools to your solution, right-click on Dependeicnes of your project from the solution explorer and select "Add Project References...". Click on "Browse" and select ChartTools.dll from the repository.
 
 ## Getting started
 Every element of a chart is stored in an instance of the Song class. It can be initialized by reading a file. The file format is detected automatically using the extension:
