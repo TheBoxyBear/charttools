@@ -26,6 +26,11 @@ namespace ChartTools.IO.MIDI
             NoHeaderChunkPolicy = NoHeaderChunkPolicy.Ignore
         };
 
+        /// <summary>
+        /// Reads a MIDI file.
+        /// </summary>
+        /// <param name="path">Path of the file to read</param>
+        /// <param name="midiConfig">Parameters used to interpret the file</param>
         public static Song ReadSong(string path, MIDIReadingConfiguration midiConfig)
         {
             if (midiConfig is null)
@@ -39,6 +44,11 @@ namespace ChartTools.IO.MIDI
             Type songType = typeof(Song);
             ChunksCollection chunks = file.Chunks;
 
+            bool hasTrackChunks = false;
+
+            if ()
+
+            // Threads for global events, sync track and drums
             List<Task> tasks = new List<Task>()
             {
                 Task.Run(() =>
@@ -58,6 +68,20 @@ namespace ChartTools.IO.MIDI
                 })
             };
 
+            foreach (GHLInstrument inst in EnumExtensions.GetValues<GHLInstrument>())
+            {
+                tasks.Add(Task.Run(() =>
+                {
+                    Instrument<GHLChord> output;
+
+                    try { output = GetInstrument<GHLChord>(GetSequenceEvents(chunks, sequenceNames[(Instruments)inst])); }
+                    catch { throw; }
+
+
+                }));
+            }
+
+            // Get the tile
             try { song.Metadata = GetMetadata(file); }
             catch { throw; }
 
@@ -92,6 +116,7 @@ namespace ChartTools.IO.MIDI
 
             throw CommonExceptions.GetUndefinedException(instrument);
         }
+
         public static Instrument<DrumsChord> ReadDrums(string path, MIDIReadingConfiguration midiConfig)
         {
             if (midiConfig is null)
@@ -119,10 +144,8 @@ namespace ChartTools.IO.MIDI
 
         private static Instrument<DrumsChord> GetDrums(ChunksCollection chunks, MIDIReadingConfiguration midiConfig)
         {
-            Exception noTrackChunkException = CheckTrackChunkPresence(chunks);
-
-            if (noTrackChunkException is not null)
-                throw noTrackChunkException;
+            if (!CheckTrackChunkPresence(chunks, out Exception e))
+                throw e;
 
             try { return GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[Instruments.Drums]), GetDrumsTrack, midiConfig); }
             catch { throw; }
@@ -132,10 +155,8 @@ namespace ChartTools.IO.MIDI
             if (!Enum.IsDefined(typeof(GHLInstrument), instrument))
                 throw CommonExceptions.GetUndefinedException(instrument);
 
-            Exception noTrackChunkException = CheckTrackChunkPresence(chunks);
-
-            if (noTrackChunkException is not null)
-                throw noTrackChunkException;
+            if (!CheckTrackChunkPresence(chunks, out Exception e))
+                throw e;
 
             try { return GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[(Instruments)instrument]), GetGHLTrack, midiConfig); }
             catch { throw; }
@@ -145,10 +166,8 @@ namespace ChartTools.IO.MIDI
             if (!Enum.IsDefined(typeof(StandardInstrument), instrument))
                 throw CommonExceptions.GetUndefinedException(instrument);
 
-            Exception noTrackChunkException = CheckTrackChunkPresence(chunks);
-
-            if (noTrackChunkException is not null)
-                throw noTrackChunkException;
+            if (!CheckTrackChunkPresence(chunks, out Exception e))
+                throw e;
 
             try { return GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[(Instruments)instrument]), GetStandardTrack, midiConfig); }
             catch { throw; }
@@ -275,10 +294,8 @@ namespace ChartTools.IO.MIDI
         }
         private static List<GlobalEvent> GetGlobalEvents(ChunksCollection chunks)
         {
-            Exception noTrackChunkException = CheckTrackChunkPresence(chunks);
-
-            if (noTrackChunkException is not null)
-                throw noTrackChunkException;
+            if (!CheckTrackChunkPresence(chunks, out Exception e))
+                throw e;
 
             // Get the events in the global events track and vocal track, alternating between the two by taking the lowest DeltaTime
             return new List<GlobalEvent>(new OrderedAlternatingEnumerable<MidiEvent, long>(e => e.DeltaTime, GetSequenceEvents(chunks.OfType<TrackChunk>(), globalEventSequenceName), GetSequenceEvents(chunks.OfType<TrackChunk>(), lyricsSequenceName)).Select(e => new GlobalEvent((uint)e.DeltaTime, e switch
@@ -357,10 +374,8 @@ namespace ChartTools.IO.MIDI
         }
         private static Metadata GetMetadata(MidiFile file)
         {
-            Exception noTrackChunkException = CheckTrackChunkPresence(file.Chunks);
-
-            if (noTrackChunkException is not null)
-                throw noTrackChunkException;
+            if (!CheckTrackChunkPresence(file.Chunks, out Exception e))
+                throw e;
 
             string title;
 
@@ -379,10 +394,8 @@ namespace ChartTools.IO.MIDI
         }
         private static SyncTrack GetSyncTrack(ChunksCollection chunks)
         {
-            Exception noTrackChunkException = CheckTrackChunkPresence(chunks);
-
-            if (noTrackChunkException is not null)
-                throw noTrackChunkException;
+            if (!CheckTrackChunkPresence(chunks, out Exception e))
+                throw e;
 
             SyncTrack syncTrack = new SyncTrack();
 
@@ -410,8 +423,22 @@ namespace ChartTools.IO.MIDI
                     yield return ev;
         }
 
-        private static Exception CheckTrackChunkPresence(ChunksCollection chunks) => chunks.Count == 0
-                ? new FormatException("File has no chunks.")
-                : chunks.Count(c => c is TrackChunk) == 0 ? new FormatException("File has no track chunks.") : null;
+        private static bool CheckTrackChunkPresence(ChunksCollection chunks, out Exception ex)
+        {
+            if (chunks.Count == 0)
+            {
+                ex = new FormatException("File has no chunks.");
+                return false;
+            }
+            
+            if (chunks.Any(chunks => chunks is TrackChunk))
+            {
+                ex = null;
+                return true;
+            }
+
+            ex = new FormatException("File has no track chunks.");
+            return false;
+        }
     }
 }

@@ -19,9 +19,7 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Reads a chart file.
         /// </summary>
-        /// <returns>Instance of <see cref="Song"/> contianing all song data
-        /// <para><see langword="null"/> if the file contains no song data</para>
-        /// </returns>
+        /// <returns>Instance of <see cref="Song"/> contianing all song data</returns>
         /// <param name="path">Path of the file to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
