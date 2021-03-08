@@ -38,7 +38,7 @@ namespace ChartTools
         internal Event(uint position, string eventData) : base(position)
         {
             if (eventData is null)
-                throw CommonExceptions.GetNullParameterException("eventData");
+                throw new CommonExceptions.ParameterNullException("eventData", 1);
         }
 
         public bool Equals(Event other) => base.Equals(other) && EventData == other.EventData;

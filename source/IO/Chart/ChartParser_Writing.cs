@@ -133,7 +133,7 @@ namespace ChartTools.IO.Chart
         private static void ReplaceInstrument<TChord>(string path, Instrument<TChord> inst, Instruments instrument) where TChord : Chord
         {
             if (inst is null)
-                throw CommonExceptions.GetNullParameterException(1, "inst");
+                throw new CommonExceptions.ParameterNullException("inst", 1);
 
             // Tasks that generate the lines and associated part name to write for each track
             List<Task<(IEnumerable<string> lines, string partName)>> tasks = new List<Task<(IEnumerable<string>, string)>>();

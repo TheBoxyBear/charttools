@@ -79,6 +79,18 @@ namespace ChartTools.SystemExtensions.Linq
             returnedDefault = true;
             return defaultValue;
         }
+        public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, out T item)
+        {
+            foreach (T t in source)
+                if (predicate(t))
+                {
+                    item = t;
+                    return true;
+                }
+
+            item = default;
+            return false;
+        }
         /// <summary>
         /// Replaces items that meet a condition with another item.
         /// </summary>
@@ -459,6 +471,17 @@ namespace ChartTools
         }
     }
 
+    public static class ChordExtensions
+    {
+        public static void Add(this NoteCollection<DrumsNote> notes, DrumsNotes note) => notes.Add(new DrumsNote(note));
+        public static void Add(this NoteCollection<GHLNote> notes, GHLNotes note) => notes.Add(new GHLNote(note));
+        public static void Add(this NoteCollection<StandardNote> notes, StandardNotes note) => notes.Add(new StandardNote(note));
+
+        public static bool Contains(this NoteCollection<DrumsNote> notes, DrumsNotes note) => notes.Any(n => n.Note == note);
+        public static bool Contains(this NoteCollection<GHLNote> notes, GHLNotes note) => notes.Any(n => n.Note == note);
+        public static bool Contains(this NoteCollection<StandardNote> notes, StandardNotes note) => notes.Any(n => n.Note == note);
+    }
+
     /// <summary>
     /// Provides templates for commonly thrown exceptions
     /// </summary>
@@ -479,7 +502,7 @@ namespace ChartTools
             /// Format of the message where "{position}" and "{name}" will be replaced by the respective values.
             /// </summary>
             public static string MessageTemplate = DefaultTemplate;
-            private static string formatReadyTemplate => MessageTemplate.Replace("{name}", "{0}").Replace("{position}", "{1}");
+            private static string FormatReadyTemplate => MessageTemplate.Replace("{name}", "{0}").Replace("{position}", "{1}");
 
             /// <summary>
             /// Zero-based position of the parameter in the method signature
@@ -493,7 +516,7 @@ namespace ChartTools
             /// <summary>
             /// Creates an instance of <see cref="ParameterNullException"/> using the previously defined template.
             /// </summary>
-            public ParameterNullException(string paramName, byte paramPosition) : base(string.Format(formatReadyTemplate, paramName, paramPosition))
+            public ParameterNullException(string paramName, byte paramPosition) : base(string.Format(FormatReadyTemplate, paramName, paramPosition))
             {
                 ParameterName = paramName;
                 ParameterPosition = paramPosition;

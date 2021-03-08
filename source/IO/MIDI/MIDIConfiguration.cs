@@ -10,7 +10,12 @@
         /// <summary>
         /// Each <see cref="Track"/> will contain a combinaition of all unique local events in the same <see cref="Instrument"/>
         /// </summary>
-        Merge = 4,
+        Merge,
+    }
+    public enum StarPowerSource
+    {
+        Easy, Medium, Hard, Expert,
+        Merge
     }
 
     /// <summary>
@@ -40,5 +45,6 @@
         public SoloNoStarPowerRule SoloNoStarPowerRule { get; set; } = SoloNoStarPowerRule.Convert;
         /// <inheritdoc cref="LocalEventSource">
         public LocalEventSource EventSource { get; set; } = LocalEventSource.Merge;
+        public StarPowerSource StarPowerSource { get; set; } = StarPowerSource.Merge;
     }
 }

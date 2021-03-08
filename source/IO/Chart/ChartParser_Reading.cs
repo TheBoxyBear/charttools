@@ -616,7 +616,7 @@ namespace ChartTools.IO.Chart
         ///     <para>Null if the lines contain no metadata</para>
         /// </returns>
         /// <param name="lines">Lines in the file</param>
-        /// <exception cref="FormatException"
+        /// <exception cref="FormatException"/>
         private static Metadata GetMetadata(string[] lines)
         {
             Metadata metadata = new Metadata();

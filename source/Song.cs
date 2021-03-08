@@ -94,10 +94,19 @@ namespace ChartTools
         /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="StandardChord"/> from the <see cref="Song"/>.</returns>
         public Instrument<StandardChord> GetInstrument(StandardInstrument instrument) => GetInstrument((Instruments)instrument) as Instrument<StandardChord>;
 
-        /// <inheritdoc cref="ChartParser.ReadSong(string)"/>
+        /// <summary>
+        /// Reads a <see cref="Song"/> from a file.
+        /// </summary>
+        /// <remarks>Supported extentions: chart, mid, ini</remarks>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="FormatException"/>
+        /// <exception cref="IOException"/>
+        /// <exception cref="OutOfMemoryException"/>
+        /// <exception cref="CommonExceptions.ParameterNullException"/>
         public static Song FromFile(string path, MIDIReadingConfiguration midiConfig)
         {
-            try { return ExtensionHandler.Read(path, (".chart", ChartParser.ReadSong), (".ini", (p) => new Song { Metadata = IniParser.ReadMetadata(p) })); }
+            try { return ExtensionHandler.Read(path, (".chart", ChartParser.ReadSong), (".mid", p => MIDIParser.ReadSong(p, midiConfig)), (".ini", p => new Song { Metadata = IniParser.ReadMetadata(p) })); }
             catch { throw; }
         }
         /// <inheritdoc cref="ChartParser.WriteSong(string, Song)"/>
@@ -116,7 +125,7 @@ namespace ChartTools
         /// <exception cref="IOException"/>
         public void ReadDifficulties(string path)
         {
-            try { ExtensionHandler.Read(path, (".ini", (p) => IniParser.ReadDifficulties(p, this))); }
+            try { ExtensionHandler.Read(path, (".ini", p => IniParser.ReadDifficulties(p, this))); }
             catch { throw; }
         }
         /// <summary>
