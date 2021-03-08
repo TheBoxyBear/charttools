@@ -394,8 +394,8 @@ namespace ChartTools.IO.MIDI
         }
         private static SyncTrack GetSyncTrack(ChunksCollection chunks)
         {
-            if (!CheckTrackChunkPresence(chunks, out Exception e))
-                throw e;
+            if (!CheckTrackChunkPresence(chunks, out Exception ex))
+                throw ex;
 
             SyncTrack syncTrack = new SyncTrack();
 
