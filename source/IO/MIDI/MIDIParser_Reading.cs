@@ -44,10 +44,6 @@ namespace ChartTools.IO.MIDI
             Type songType = typeof(Song);
             ChunksCollection chunks = file.Chunks;
 
-            bool hasTrackChunks = false;
-
-            if ()
-
             // Threads for global events, sync track and drums
             List<Task> tasks = new List<Task>()
             {
@@ -65,21 +61,31 @@ namespace ChartTools.IO.MIDI
                 {
                     try { song.Drums = GetDrums(chunks, midiConfig); }
                     catch { throw; }
-                })
+                }),
             };
 
+            // Threads for each ghl instrument
             foreach (GHLInstrument inst in EnumExtensions.GetValues<GHLInstrument>())
-            {
                 tasks.Add(Task.Run(() =>
                 {
                     Instrument<GHLChord> output;
 
-                    try { output = GetInstrument<GHLChord>(GetSequenceEvents(chunks, sequenceNames[(Instruments)inst])); }
+                    try { output = GetInstrument(chunks, inst, midiConfig); }
                     catch { throw; }
 
-
+                    songType.GetProperty(inst.ToString()).SetValue(song, output);
                 }));
-            }
+            // Threads for each standard instrument
+            foreach (StandardInstrument inst in EnumExtensions.GetValues<StandardInstrument>())
+                tasks.Add(Task.Run(() =>
+                {
+                    Instrument<StandardChord> output;
+
+                    try { output = GetInstrument(chunks, inst, midiConfig); }
+                    catch { throw; }
+
+                    songType.GetProperty(inst.ToString()).SetValue(song, output);
+                }));
 
             // Get the tile
             try { song.Metadata = GetMetadata(file); }
@@ -423,6 +429,12 @@ namespace ChartTools.IO.MIDI
                     yield return ev;
         }
 
+        /// <summary>
+        /// Checks if a <see cref="ChunksCollection"/> contains any <see cref="TrackChunk"/>.
+        /// </summary>
+        /// <param name="chunks">Chunks to check</param>
+        /// <param name="ex">Exception to throw if returned <see langword="false"/></param>
+        /// <returns><see langword="true"/> if the collection contains at least one <see cref="TrackChunk"/></returns>
         private static bool CheckTrackChunkPresence(ChunksCollection chunks, out Exception ex)
         {
             if (chunks.Count == 0)
