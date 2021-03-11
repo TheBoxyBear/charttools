@@ -54,7 +54,7 @@ namespace ChartTools.IO.MIDI
                 }),
                 Task.Run(() =>
                 {
-                    try {song.SyncTrack = GetSyncTrack(chunks); }
+                    try { song.SyncTrack = GetSyncTrack(chunks); }
                     catch { throw; }
                 }),
                 Task.Run(() =>
@@ -90,6 +90,14 @@ namespace ChartTools.IO.MIDI
             // Get the tile
             try { song.Metadata = GetMetadata(file); }
             catch { throw; }
+
+            foreach (Task task in tasks)
+            {
+                try { task.Wait(); }
+                catch { throw; }
+
+                task.Dispose();
+            }
 
             return song;
         }
@@ -271,6 +279,14 @@ namespace ChartTools.IO.MIDI
                         uint position = (uint)noteOnEvent.DeltaTime;
 
                         GetParentChord(noteOnEvent, position);
+
+                        StandardNotes noteEnum = (StandardNotes)GetNoteIndex(noteOnEvent.NoteNumber);
+
+                        if (chord.Notes.TryGetFirst(n => n.Note == noteEnum, out StandardNote n))
+                        {
+                            
+                        }
+
                         chord.Notes.Add((StandardNotes)GetNoteIndex(noteOnEvent.NoteNumber));
 
                         if (newChord)
@@ -290,6 +306,10 @@ namespace ChartTools.IO.MIDI
                     break;
                 }
 
+            throw new NotImplementedException();
+        }
+        private static Track<TChord> GetTrack<TChord>(IEnumerable<MidiEvent> events, Difficulty difficulty, MIDIReadingConfiguration midiConfig) where TChord : Chord
+        {
             throw new NotImplementedException();
         }
 
