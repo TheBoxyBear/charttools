@@ -20,8 +20,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore --project ./ChartTools.csproj
+      run: dotnet restore ./ChartTools.csproj
     - name: Build
-      run: dotnet build ./ChartTools.csproj --no-restore
+      run: dotnet build --source ./ChartTools.csproj --no-restore
     - name: Test
       run: dotnet test --project ./ChartTools.csproj --no-build --verbosity normal
