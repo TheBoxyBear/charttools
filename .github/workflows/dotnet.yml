@@ -20,7 +20,7 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore -- project ./ChartTools.csproj
+      run: dotnet restore --project ./ChartTools.csproj
     - name: Build
       run: dotnet build --project ./ChartTools.csproj --no-restore
     - name: Test
