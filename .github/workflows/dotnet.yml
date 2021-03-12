@@ -22,6 +22,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build ChartTools.csproj --no-restore
+      run: dotnet build --project ./ChartTools.csproj --no-restore
     - name: Test
-      run: dotnet test ChartTools.csproj --no-build --verbosity normal
+      run: dotnet test --project ./ChartTools.csproj --no-build --verbosity normal
