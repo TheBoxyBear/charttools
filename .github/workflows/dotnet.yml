@@ -11,7 +11,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      working-directory: ./source
+      working-directory: $GITHUB_WORKSPACE/source
 
     steps:
     - uses: actions/checkout@v2
