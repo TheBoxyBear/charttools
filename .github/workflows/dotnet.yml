@@ -20,7 +20,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore $GITHUB_WORKSPACE/source/ChartTools.csproj
     - name: Build
-      run: dotnet build --source $GITHUB_WORKSPACE/source/ChartTools.csproj --no-restore
+      run: dotnet build --source $GITHUB_WORKSPACE/source/charttools.csproj --no-restore
     - name: Test
-      run: dotnet test --project $GITHUB_WORKSPACE/source/ChartTools.csproj --no-build --verbosity normal
+      run: dotnet test --project $GITHUB_WORKSPACE/source/charttools.csproj --no-build --verbosity normal
 
