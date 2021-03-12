@@ -10,9 +10,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    env:
-      working-directory: $GITHUB_WORKSPACE/source
-
+    
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
@@ -20,8 +18,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore ./ChartTools.csproj
+      run: dotnet restore source/charttools.csproj
     - name: Build
-      run: dotnet build --source ./ChartTools.csproj --no-restore
+      run: dotnet build --source source/charttools.csproj --no-restore
     - name: Test
-      run: dotnet test --project ./ChartTools.csproj --no-build --verbosity normal
+      run: dotnet test --project source/charttools.csproj --no-build --verbosity normal
