@@ -23,3 +23,4 @@ jobs:
       run: dotnet build --source source/charttools.csproj --no-restore
     - name: Test
       run: dotnet test --project source/charttools.csproj --no-build --verbosity normal
+
