@@ -37,7 +37,7 @@ All instrument currently supported are represented using the generic Insrument c
 ```c#
 Track<StandardChord> track = song.LeadGuitar.Expert;
 ```
-Notice the use of StandardChord used as a generic type. Instrument are divided in three categories based on the type of chords it uses. These categories are:
+Notice the use of StandardChord used as a generic type. Instruments are divided in three categories based on the type of chords it uses. These categories are:
 - Standard - Five colored notes
 - Drums - Five colored notes where open notes (kick) can mixed with regular notes
 - GHL (Guitar Hero Live) - Three black and three white notes
