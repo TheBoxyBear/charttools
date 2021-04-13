@@ -179,7 +179,7 @@ namespace ChartTools.IO.Chart
             Type instrumentType = typeof(Instrument<TChord>);
             Difficulty[] difficulties = EnumExtensions.GetValues<Difficulty>().ToArray();
 
-            // Create threads to read each difficulty and wait
+            // Create threads to reach each difficulty and wait
             Task[] tasks = difficulties.Select(d => Task.Run(() =>
             {
                 Track<TChord> track;
