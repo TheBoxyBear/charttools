@@ -33,8 +33,7 @@ namespace ChartTools.Collections.Unique
             this.items = new List<T>(capacity);
 
             if (items is not null)
-                foreach (T item in items)
-                    this.items.Add(item);
+                AddRange(items);
         }
         /// <inheritdoc/>
         public T this[int index] { get => items[index]; set => items[index] = value; }
@@ -48,7 +47,7 @@ namespace ChartTools.Collections.Unique
         /// Adds an item to the list and overwrites any duplicate.
         /// </summary>
         /// <param name="item">Item to add</param>
-        public void Add(T item)
+        public virtual void Add(T item)
         {
             RemoveDuplicate(item);
             items.Add(item);
@@ -58,7 +57,7 @@ namespace ChartTools.Collections.Unique
         /// Adds multiple items to the <see cref="ICollection{T}"/>
         /// </summary>
         /// <param name="collection">Items to add</param>
-        public void AddRange(IEnumerable<T> collection)
+        public virtual void AddRange(IEnumerable<T> collection)
         {
             foreach (T item in collection)
                 RemoveDuplicate(item);
@@ -72,9 +71,7 @@ namespace ChartTools.Collections.Unique
         /// <param name="item">Item to remove the duplicate of</param>
         private void RemoveDuplicate(T item)
         {
-            T existing = items.FirstOrDefault(i => Comparison(i, item), default, out bool returneDefault);
-
-            if (!returneDefault)
+            if (items.TryGetFirst(i => Comparison(i, item), out T existing))
                 items.Remove(existing);
         }
 

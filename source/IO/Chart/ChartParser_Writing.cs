@@ -26,10 +26,10 @@ namespace ChartTools.IO.Chart
         /// <exception cref="UnauthorizedAccessException"/>
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="SecurityException"/>
-        internal static void WriteSong(string path, Song song)
+        internal static void WriteSong(string path, Song song, WritingConfiguration config)
         {
             // Add threads for metadata, synctrack and global events
-            List<Task<IEnumerable<string>>> tasks = new List<Task<IEnumerable<string>>>()
+            List<Task<IEnumerable<string>>> tasks = new()
             {
                 Task.Run(() => GetPartLines("Song", GetMetadataLines(song.Metadata))),
                 Task.Run(() => GetPartLines("SyncTrack", GetSyncTrackLines(song.SyncTrack))),
@@ -61,7 +61,7 @@ namespace ChartTools.IO.Chart
                 if (song.Drums is not null)
                     tasks.Add(Task.Run(() =>
                     {
-                        IEnumerable<string> lines = GetTrackLines((Track<DrumsChord>)drumsType.GetProperty(difficulty.ToString()).GetValue(song.Drums));
+                        IEnumerable<string> lines = GetTrackLines((Track<DrumsChord>)drumsType.GetProperty(difficulty.ToString()).GetValue(song.Drums), config);
 
                         return lines.Count() > 0 ? GetPartLines(GetFullPartName(Instruments.Drums, difficulty), lines) : lines;
                     }));
@@ -70,7 +70,7 @@ namespace ChartTools.IO.Chart
                 foreach ((Instrument<GHLChord> instrument, Instruments name) in ghlInstruments)
                     tasks.Add(Task.Run(() =>
                     {
-                        IEnumerable<string> lines = GetTrackLines((Track<GHLChord>)ghlType.GetProperty(difficulty.ToString()).GetValue(instrument));
+                        IEnumerable<string> lines = GetTrackLines((Track<GHLChord>)ghlType.GetProperty(difficulty.ToString()).GetValue(instrument), config);
 
                         return lines.Count() > 0 ? GetPartLines(GetFullPartName(name, difficulty), lines) : lines;
                     }));
@@ -78,7 +78,7 @@ namespace ChartTools.IO.Chart
                 foreach ((Instrument<StandardChord> instrument, Instruments name) in standardInstruments)
                     tasks.Add(Task.Run(() =>
                     {
-                        IEnumerable<string> lines = GetTrackLines((Track<StandardChord>)standardType.GetProperty(difficulty.ToString()).GetValue(instrument));
+                        IEnumerable<string> lines = GetTrackLines((Track<StandardChord>)standardType.GetProperty(difficulty.ToString()).GetValue(instrument), config);
 
                         return lines.Count() > 0 ? GetPartLines(GetFullPartName(name, difficulty), lines) : lines;
                     }));
@@ -93,27 +93,27 @@ namespace ChartTools.IO.Chart
         }
 
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments)"/>
-        internal static void ReplaceDrums(string path, Instrument<DrumsChord> inst)
+        internal static void ReplaceDrums(string path, Instrument<DrumsChord> inst, WritingConfiguration config)
         {
-            try { ReplaceInstrument(path, inst, Instruments.Drums); }
+            try { ReplaceInstrument(path, (inst, Instruments.Drums), config); }
             catch { throw; }
         }
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments)"/>
-        internal static void ReplaceInstrument(string path, Instrument<GHLChord> inst, GHLInstrument instrument)
+        internal static void ReplaceInstrument(string path, (Instrument<GHLChord> inst, GHLInstrument instrument) data, WritingConfiguration config)
         {
-            if (!Enum.IsDefined(typeof(GHLInstrument), instrument))
-                throw CommonExceptions.GetUndefinedException(instrument);
+            if (!Enum.IsDefined(typeof(GHLInstrument), data.instrument))
+                throw CommonExceptions.GetUndefinedException(data.instrument);
 
-            try { ReplaceInstrument(path, inst, (Instruments)instrument); }
+            try { ReplaceInstrument(path, data, config); }
             catch { throw; }
         }
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments)"/>
-        internal static void ReplaceInstrument(string path, Instrument<StandardChord> inst, StandardInstrument instrument)
+        internal static void ReplaceInstrument(string path, (Instrument<StandardChord> inst, StandardInstrument instrument) data, WritingConfiguration config)
         {
-            if (!Enum.IsDefined(typeof(StandardInstrument), instrument))
-                throw CommonExceptions.GetUndefinedException(instrument);
+            if (!Enum.IsDefined(typeof(StandardInstrument), data.instrument))
+                throw CommonExceptions.GetUndefinedException(data.instrument);
 
-            try { ReplaceInstrument(path, inst, (Instruments)instrument); }
+            try { ReplaceInstrument(path, data, config); }
             catch { throw; }
         }
         /// <summary>
@@ -130,27 +130,27 @@ namespace ChartTools.IO.Chart
         /// <exception cref="UnauthorizedAccessException"/>
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="SecurityException"/>
-        private static void ReplaceInstrument<TChord>(string path, Instrument<TChord> inst, Instruments instrument) where TChord : Chord
+        private static void ReplaceInstrument<TChord>(string path, (Instrument<TChord> inst, Instruments instrument) data, WritingConfiguration config) where TChord : Chord
         {
-            if (inst is null)
+            if (data.inst is null)
                 throw new CommonExceptions.ParameterNullException("inst", 1);
 
             // Tasks that generate the lines and associated part name to write for each track
-            List<Task<(IEnumerable<string> lines, string partName)>> tasks = new List<Task<(IEnumerable<string>, string)>>();
+            List<Task<(IEnumerable<string> lines, string partName)>> tasks = new();
             Type instrumentType = typeof(Instrument<TChord>);
             IEnumerable<Difficulty> difficulties = EnumExtensions.GetValues<Difficulty>();
 
             foreach (Difficulty difficulty in difficulties)
             {
                 // Get the track to write
-                object track = instrumentType.GetProperty(difficulty.ToString()).GetValue(inst);
+                object track = instrumentType.GetProperty(difficulty.ToString()).GetValue(data.inst);
 
                 if (track is not null)
                 {
-                    string partName = GetFullPartName(instrument, difficulty);
+                    string partName = GetFullPartName(data.instrument, difficulty);
 
                     // Add thread to write the trck
-                    tasks.Add(Task.Run(() => (GetPartLines(partName, GetTrackLines(track as Track<TChord>)), partName)));
+                    tasks.Add(Task.Run(() => (GetPartLines(partName, GetTrackLines(track as Track<TChord>, config)), partName)));
                 }
             }
 
@@ -195,7 +195,7 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="events">Events to use as a replacement</param>
-        internal static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events)
+        internal static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events, WritingConfiguration config)
         {
             try { ReplacePart(path, events.Select(e => GetEventLine(e)), "Events"); }
             catch { throw; }
@@ -218,66 +218,6 @@ namespace ChartTools.IO.Chart
             try { ReplacePart(path, GetSyncTrackLines(syncTrack), "SyncTrack"); }
             catch { throw; }
         }
-
-        /// <summary>
-        /// <inheritdoc cref="ReplaceTrack{TChord}(string, Track{TChord}, string)"/>
-        /// </summary>
-        /// <param name="path">Difficulty of the track to replace</param>
-        /// <param name="track">Track to use as a replacement</param>
-        /// <param name="difficulty">Difficulty of the track to replace</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="PathTooLongException"/>
-        /// <exception cref="DirectoryNotFoundException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="UnauthorizedAccessException"/>
-        /// <exception cref="NotSupportedException"/>
-        /// <exception cref="SecurityException"/>
-        internal static void ReplaceDrumsTrack(string path, Track<DrumsChord> track, Difficulty difficulty)
-        {
-            try { ReplaceTrack(path, track, GetFullPartName(Instruments.Drums, difficulty)); }
-            catch { throw; }
-        }
-        /// <summary>
-        /// <inheritdoc cref="ReplaceTrack{TChord}(string, Track{TChord}, string)"/>
-        /// </summary>
-        /// <param name="path">Path of the file to write</param>
-        /// <param name="track">Track to use as a replacement</param>
-        /// <param name="instrument">Instrument of the track to replace</param>
-        /// <param name="difficulty">Difficulty of the track to replace</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="PathTooLongException"/>
-        /// <exception cref="DirectoryNotFoundException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="UnauthorizedAccessException"/>
-        /// <exception cref="NotSupportedException"/>
-        /// <exception cref="SecurityException"/>
-        internal static void ReplaceTrack(string path, Track<GHLChord> track, GHLInstrument instrument, Difficulty difficulty)
-        {
-            try { ReplaceTrack(path, track, GetFullPartName((Instruments)instrument, difficulty)); }
-            catch { throw; }
-        }
-        /// <summary>
-        /// <inheritdoc cref="ReplaceTrack{TChord}(string, Track{TChord}, string)"/>
-        /// </summary>
-        /// <param name="path">Path of the file to write</param>
-        /// <param name="track">Track to use as a replacement</param>
-        /// <param name="instrument">Instrument of the track to replace</param>
-        /// <param name="difficulty">Difficulty of the track to replace</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="PathTooLongException"/>
-        /// <exception cref="DirectoryNotFoundException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="UnauthorizedAccessException"/>
-        /// <exception cref="NotSupportedException"/>
-        /// <exception cref="SecurityException"/>
-        internal static void ReplaceTrack(string path, Track<StandardChord> track, StandardInstrument instrument, Difficulty difficulty)
-        {
-            try { ReplaceTrack(path, track, GetFullPartName((Instruments)instrument, difficulty)); }
-            catch { throw; }
-        }
         /// <summary>
         /// Replaces a track in a file.
         /// </summary>
@@ -292,9 +232,9 @@ namespace ChartTools.IO.Chart
         /// <exception cref="UnauthorizedAccessException"/>
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="SecurityException"/>
-        private static void ReplaceTrack<TChord>(string path, Track<TChord> track, string partName) where TChord : Chord
+        internal static void ReplaceTrack<TChord>(string path, (Track<TChord> track, Instruments instrument, Difficulty difficulty) data, WritingConfiguration config) where TChord : Chord
         {
-            try { ReplacePart(path, GetTrackLines(track), partName); }
+            try { ReplacePart(path, GetTrackLines(data.track, config), GetFullPartName(data.instrument, data.difficulty)); }
             catch { throw; }
         }
 
@@ -331,7 +271,7 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <returns>Enumerable of all the lines</returns>
         /// <param name="track">Track to get the lines of</param>
-        private static IEnumerable<string> GetTrackLines<TChord>(Track<TChord> track) where TChord : Chord
+        private static IEnumerable<string> GetTrackLines<TChord>(Track<TChord> track, WritingConfiguration config) where TChord : Chord
         {
             if (track is null)
                 yield break;

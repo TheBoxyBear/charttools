@@ -26,18 +26,18 @@ namespace ChartTools.IO.Chart
         /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="OutOfMemoryException"/>
-        public static Song ReadSong(string path)
+        public static Song ReadSong(string path, ReadingConfiguration config)
         {
             string[] lines;
 
             try { lines = GetLines(path).ToArray(); }
             catch { throw; }
 
-            Song song = new Song();
+            Song song = new();
             Type songType = typeof(Song);
 
             // Add threads to read metadata, global events, synctrack and drums
-            List<Task> tasks = new List<Task>()
+            List<Task> tasks = new()
             {
                 Task.Run(() =>
                 {
@@ -56,18 +56,18 @@ namespace ChartTools.IO.Chart
                 }),
                 Task.Run(() =>
                 {
-                    try { song.Drums = GetInstrument(lines, part => GetDrumsTrack(part), partNames[Instruments.Drums]); }
+                    try { song.Drums = GetInstrument(lines, part => GetDrumsTrack(part, config), partNames[Instruments.Drums]); }
                     catch { throw; }
                 })
             };
 
             // Add a thread to read each ghl instrument
             foreach (GHLInstrument instrument in EnumExtensions.GetValues<GHLInstrument>())
-                tasks.Add(Task.Run(() => songType.GetProperty($"GHL{instrument}").SetValue(song, GetInstrument(lines, part => GetGHLTrack(part), partNames[(Instruments)instrument]))));
+                tasks.Add(Task.Run(() => songType.GetProperty($"GHL{instrument}").SetValue(song, GetInstrument(lines, part => GetGHLTrack(part, config), partNames[(Instruments)instrument]))));
             // Add a thread to read each standard instrument
             foreach (StandardInstrument instrument in EnumExtensions.GetValues<StandardInstrument>())
                 tasks.Add(Task.Run(() =>
-                    songType.GetProperty(instrument.ToString()).SetValue(song, GetInstrument(lines, part => GetStandardTrack(part), partNames[(Instruments)instrument]))));
+                    songType.GetProperty(instrument.ToString()).SetValue(song, GetInstrument(lines, part => GetStandardTrack(part, config), partNames[(Instruments)instrument]))));
 
             foreach (Task task in tasks)
             {
@@ -91,21 +91,21 @@ namespace ChartTools.IO.Chart
         /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="OutOfMemoryException"/>
-        public static Instrument ReadInstrument(string path, Instruments instrument)
+        public static Instrument ReadInstrument(string path, Instruments instrument, ReadingConfiguration config)
         {
             if (instrument == Instruments.Drums)
             {
-                try { return ReadDrums(path); }
+                try { return ReadDrums(path, config); }
                 catch { throw; }
             }
             if (Enum.IsDefined(typeof(GHLInstrument), instrument))
             {
-                try { return ReadInstrument(path, (GHLInstrument)instrument); }
+                try { return ReadInstrument(path, (GHLInstrument)instrument, config); }
                 catch { throw; }
             }
             if (Enum.IsDefined(typeof(StandardInstrument), instrument))
             {
-                try { return ReadInstrument(path, (StandardInstrument)instrument); }
+                try { return ReadInstrument(path, (StandardInstrument)instrument, config); }
                 catch { throw; }
             }
 
@@ -124,9 +124,9 @@ namespace ChartTools.IO.Chart
         /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="OutOfMemoryException"/>
-        public static Instrument<DrumsChord> ReadDrums(string path)
+        public static Instrument<DrumsChord> ReadDrums(string path, ReadingConfiguration config)
         {
-            try { return GetInstrument(GetLines(path).ToArray(), part => GetDrumsTrack(part), partNames[Instruments.Drums]); }
+            try { return GetInstrument(GetLines(path).ToArray(), part => GetDrumsTrack(part, config), partNames[Instruments.Drums]); }
             catch { throw; }
         }
         /// <summary>
@@ -140,9 +140,9 @@ namespace ChartTools.IO.Chart
         /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="OutOfMemoryException"/>
-        public static Instrument<GHLChord> ReadInstrument(string path, GHLInstrument instrument)
+        public static Instrument<GHLChord> ReadInstrument(string path, GHLInstrument instrument, ReadingConfiguration config)
         {
-            try { return GetInstrument(GetLines(path).ToArray(), part => GetGHLTrack(part), partNames[(Instruments)instrument]); }
+            try { return GetInstrument(GetLines(path).ToArray(), part => GetGHLTrack(part, config), partNames[(Instruments)instrument]); }
             catch { throw; }
         }
         /// <summary>
@@ -158,9 +158,9 @@ namespace ChartTools.IO.Chart
         /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="OutOfMemoryException"/>
-        public static Instrument<StandardChord> ReadInstrument(string path, StandardInstrument instrument)
+        public static Instrument<StandardChord> ReadInstrument(string path, StandardInstrument instrument, ReadingConfiguration config)
         {
-            try { return GetInstrument(GetLines(path).ToArray(), part => GetStandardTrack(part), partNames[(Instruments)instrument]); }
+            try { return GetInstrument(GetLines(path).ToArray(), part => GetStandardTrack(part, config), partNames[(Instruments)instrument]); }
             catch { throw; }
         }
         /// <summary>
@@ -175,7 +175,7 @@ namespace ChartTools.IO.Chart
         /// <exception cref="FormatException"/>
         private static Instrument<TChord> GetInstrument<TChord>(string[] lines, Func<IEnumerable<string>, Track<TChord>> getTrack, string instrumentPartName) where TChord : Chord
         {
-            Instrument<TChord> instrument = new Instrument<TChord>();
+            Instrument<TChord> instrument = new();
             Type instrumentType = typeof(Instrument<TChord>);
             Difficulty[] difficulties = EnumExtensions.GetValues<Difficulty>().ToArray();
 
@@ -219,21 +219,21 @@ namespace ChartTools.IO.Chart
         /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="OutOfMemoryException"/>
-        public static Track ReadTrack(string path, Instruments instrument, Difficulty difficulty)
+        public static Track ReadTrack(string path, Instruments instrument, Difficulty difficulty, ReadingConfiguration config)
         {
             if (instrument == Instruments.Drums)
             {
-                try { return ReadDrumsTrack(path, difficulty); }
+                try { return ReadDrumsTrack(path, difficulty, config); }
                 catch { throw; }
             }
             if (Enum.IsDefined(typeof(GHLInstrument), instrument))
             {
-                try { return ReadTrack(path, (GHLInstrument)instrument, difficulty); }
+                try { return ReadTrack(path, (GHLInstrument)instrument, difficulty, config); }
                 catch { throw; }
             }
             if (Enum.IsDefined(typeof(StandardInstrument), instrument))
             {
-                try { return ReadTrack(path, (StandardInstrument)instrument, difficulty); }
+                try { return ReadTrack(path, (StandardInstrument)instrument, difficulty, config); }
                 catch { throw; }
             }
 
@@ -253,9 +253,9 @@ namespace ChartTools.IO.Chart
         /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="OutOfMemoryException"/>
-        public static Track<DrumsChord> ReadDrumsTrack(string path, Difficulty difficulty)
+        public static Track<DrumsChord> ReadDrumsTrack(string path, Difficulty difficulty, ReadingConfiguration config)
         {
-            try { return GetDrumsTrack(GetLines(path), difficulty); }
+            try { return GetDrumsTrack(GetLines(path), difficulty, config); }
             catch { throw; }
         }
         /// <summary>
@@ -267,9 +267,9 @@ namespace ChartTools.IO.Chart
         /// <param name="lines">Lines in the file</param>
         /// <param name="difficulty">Difficulty of the track</param>
         /// <exception cref="FormatException"/>
-        public static Track<DrumsChord> GetDrumsTrack(IEnumerable<string> lines, Difficulty difficulty)
+        public static Track<DrumsChord> GetDrumsTrack(IEnumerable<string> lines, Difficulty difficulty, ReadingConfiguration config)
         {
-            try { return GetDrumsTrack(GetPart(lines, GetFullPartName(Instruments.Drums, difficulty))); }
+            try { return GetDrumsTrack(GetPart(lines, GetFullPartName(Instruments.Drums, difficulty)), config); }
             catch { throw; }
         }
         /// <summary>
@@ -280,7 +280,7 @@ namespace ChartTools.IO.Chart
         /// </returns>
         /// <param name="part">Lines of the file belonging to the track</param>
         /// <exception cref="FormatException"/>
-        public static Track<DrumsChord> GetDrumsTrack(IEnumerable<string> part)
+        public static Track<DrumsChord> GetDrumsTrack(IEnumerable<string> part, ReadingConfiguration config)
         {
             try
             {
@@ -323,7 +323,7 @@ namespace ChartTools.IO.Chart
 
                     // Instance gets lost if not returned back to GetTrack
                     return chord;
-                });
+                }, config);
             }
             catch { throw; }
         }
@@ -341,9 +341,9 @@ namespace ChartTools.IO.Chart
         /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="OutOfMemoryException"/>
-        public static Track<GHLChord> ReadTrack(string path, GHLInstrument instrument, Difficulty difficulty)
+        public static Track<GHLChord> ReadTrack(string path, GHLInstrument instrument, Difficulty difficulty, ReadingConfiguration config)
         {
-            try { return GetGHLTrack(GetLines(path), instrument, difficulty); }
+            try { return GetGHLTrack(GetLines(path), instrument, difficulty, config); }
             catch { throw; }
         }
         /// <summary>
@@ -356,9 +356,9 @@ namespace ChartTools.IO.Chart
         /// <param name="instrument">Instrument of the track</param>
         /// <param name="difficulty">Difficulty of the track</param>
         /// <exception cref="FormatException"/>
-        private static Track<GHLChord> GetGHLTrack(IEnumerable<string> lines, GHLInstrument instrument, Difficulty difficulty)
+        private static Track<GHLChord> GetGHLTrack(IEnumerable<string> lines, GHLInstrument instrument, Difficulty difficulty, ReadingConfiguration config)
         {
-            try { return GetGHLTrack(GetPart(lines, GetFullPartName((Instruments)instrument, difficulty))); }
+            try { return GetGHLTrack(GetPart(lines, GetFullPartName((Instruments)instrument, difficulty)), config); }
             catch { throw; }
         }
         /// <summary>
@@ -369,7 +369,7 @@ namespace ChartTools.IO.Chart
         /// </returns>
         /// <param name="part">Lines in the file belonging to the track</param>
         /// <exception cref="FormatException"/>
-        private static Track<GHLChord> GetGHLTrack(IEnumerable<string> part)
+        private static Track<GHLChord> GetGHLTrack(IEnumerable<string> part, ReadingConfiguration config)
         {
             try
             {
@@ -414,7 +414,7 @@ namespace ChartTools.IO.Chart
 
                     // Instance gets lost if not returned back to GetTrack
                     return chord;
-                });
+                }, config);
             }
             catch { throw; }
         }
@@ -432,9 +432,9 @@ namespace ChartTools.IO.Chart
         /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="OutOfMemoryException"/>
-        public static Track<StandardChord> ReadTrack(string path, StandardInstrument instrument, Difficulty difficulty)
+        public static Track<StandardChord> ReadTrack(string path, StandardInstrument instrument, Difficulty difficulty, ReadingConfiguration config)
         {
-            try { return GetStandardTrack(GetLines(path).ToArray(), instrument, difficulty); }
+            try { return GetStandardTrack(GetLines(path).ToArray(), instrument, difficulty, config); }
             catch { throw; }
         }
         /// <summary>
@@ -448,9 +448,9 @@ namespace ChartTools.IO.Chart
         /// <param name="difficulty">Difficulty of the track</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
-        private static Track<StandardChord> GetStandardTrack(string[] lines, StandardInstrument instrument, Difficulty difficulty)
+        private static Track<StandardChord> GetStandardTrack(string[] lines, StandardInstrument instrument, Difficulty difficulty, ReadingConfiguration config)
         {
-            try { return GetStandardTrack(GetPart(lines, GetFullPartName((Instruments)instrument, difficulty))); }
+            try { return GetStandardTrack(GetPart(lines, GetFullPartName((Instruments)instrument, difficulty)), config); }
             catch { throw; }
         }
         /// <summary>
@@ -461,7 +461,7 @@ namespace ChartTools.IO.Chart
         /// </returns>
         /// <param name="part">Lines in the file belonging to the track</param>
         /// <exception cref="FormatException"/>
-        private static Track<StandardChord> GetStandardTrack(IEnumerable<string> part)
+        private static Track<StandardChord> GetStandardTrack(IEnumerable<string> part, ReadingConfiguration config)
         {
             try
             {
@@ -500,7 +500,7 @@ namespace ChartTools.IO.Chart
 
                     // Instance gets lost if not returned back to GetTrack
                     return chord;
-                });
+                }, config);
             }
             catch { throw; }
         }
@@ -513,9 +513,9 @@ namespace ChartTools.IO.Chart
         /// <param name="part">Lines in the file belonging to the track</param>
         /// <param name="noteCase">Function that handles entries containing note data. Must return the same chord received as a parameter.</param>
         /// <exception cref="FormatException"/>
-        private static Track<TChord> GetTrack<TChord>(IEnumerable<string> part, Func<Track<TChord>, TChord, TrackObjectEntry, NoteData, bool, TChord> noteCase) where TChord : Chord
+        private static Track<TChord> GetTrack<TChord>(IEnumerable<string> part, Func<Track<TChord>, TChord, TrackObjectEntry, NoteData, bool, TChord> noteCase, ReadingConfiguration config) where TChord : Chord
         {
-            Track<TChord> track = new Track<TChord>();
+            Track<TChord> track = new();
 
             TChord chord = null;
             bool newChord = true;
@@ -559,9 +559,29 @@ namespace ChartTools.IO.Chart
                         catch (Exception e) { throw GetLineException(line, e); }
                         break;
                 }
+
+                if (config.SoloNoStarPowerRule == SoloNoStarPowerRule.Convert)
+                    foreach (LocalEvent e in track.LocalEvents.OrderBy(e => e.Position))
+                    {
+                        StarPowerPhrase phrase = null;
+
+                        switch (e.EventType)
+                        {
+                            case LocalEventType.Solo:
+                                phrase = new(e.Position);
+                                break;
+                            case LocalEventType.SoloEnd:
+                                if (phrase is not null)
+                                {
+                                    phrase.Length = e.Position - phrase.Position;
+                                    track.StarPower.Add(phrase);
+                                    phrase = null;
+                                }
+                                break;
+                        }
+                    }
             }
 
-            // Return null if no data
             byte emptyCount = 0;
 
             Type trackType = typeof(Track<TChord>);
@@ -573,6 +593,7 @@ namespace ChartTools.IO.Chart
                     pInfo.SetValue(track, null);
                 }
 
+            // Return null if no data
             return emptyCount == 3 ? null : track;
         }
         #endregion
@@ -599,7 +620,7 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FormatException"
+        /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="OutOfMemoryException"/>
         public static Metadata ReadMetadata(string path)
@@ -617,7 +638,7 @@ namespace ChartTools.IO.Chart
         /// <exception cref="FormatException"/>
         private static Metadata GetMetadata(string[] lines)
         {
-            Metadata metadata = new Metadata();
+            Metadata metadata = new();
 
             foreach (string line in GetPart(lines, "Song"))
             {
@@ -798,7 +819,7 @@ namespace ChartTools.IO.Chart
         /// <exception cref="FormatException"/>
         private static SyncTrack GetSyncTrack(string[] lines)
         {
-            SyncTrack syncTrack = new SyncTrack();
+            SyncTrack syncTrack = new();
 
             foreach (string line in GetPart(lines, "SyncTrack"))
             {
@@ -836,10 +857,8 @@ namespace ChartTools.IO.Chart
                         break;
                     // Tempo
                     case "B":
-                        float value;
-
                         // Floats are written by ronding to the 3rd decimal and removing the decimal point
-                        if (float.TryParse(entry.Data, out value))
+                        if (float.TryParse(entry.Data, out float value))
                             value /= 1000;
                         else
                             throw new FormatException($"Cannot parse value \"{entry.Data}\" to float.");
@@ -855,10 +874,8 @@ namespace ChartTools.IO.Chart
                         break;
                     // Anchor
                     case "A":
-                        float anchor;
-
                         // Floats are written by ronding to the 3rd decimal and removing the decimal point
-                        if (float.TryParse(entry.Data, out anchor))
+                        if (float.TryParse(entry.Data, out float anchor))
                             anchor /= 1000;
                         else
                             throw new FormatException($"Cannot parse value \"{entry.Data}\" to float.");

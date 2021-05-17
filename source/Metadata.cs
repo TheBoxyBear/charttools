@@ -4,6 +4,7 @@ using ChartTools.IO.Chart;
 using ChartTools.IO.Ini;
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ChartTools
@@ -78,6 +79,7 @@ namespace ChartTools
         /// Text to be displayed on the load screen
         /// </summary>
         public string LoadingText { get; set; }
+        public List<MetadataItem> UnidentifiedData { get; set; }
         #endregion
 
         /// <summary>
@@ -86,7 +88,7 @@ namespace ChartTools
         /// <param name="path">Path of the file to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FormatException"
+        /// <exception cref="FormatException"/>
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="OutOfMemoryException"/>
         public static Metadata FromFile(string path) => ExtensionHandler.Read(path, (".chart", ChartParser.ReadMetadata), (".ini", IniParser.ReadMetadata));
@@ -97,7 +99,7 @@ namespace ChartTools
         /// <param name="paths">Paths of the files to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FormatException"
+        /// <exception cref="FormatException"/>
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="OutOfMemoryException"/>
         public static Metadata FromFiles(params string[] paths)
@@ -193,5 +195,12 @@ namespace ChartTools
         /// Location of the crowd reaction audio file
         /// </summary>
         public string Crowd { get; set; }
+    }
+
+    public struct MetadataItem
+    {
+        public string Key { get; }
+        public object Data { get; }
+        public FileFormat Origin { get; }
     }
 }

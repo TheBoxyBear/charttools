@@ -8,7 +8,7 @@
         /// <summary>
         /// Numerical value of the note as writen in a chart file
         /// </summary>
-        internal byte NoteIndex { get; set; }
+        internal byte NoteIndex { get; }
         /// <summary>
         /// Maximum length the note can be held for extra points
         /// </summary>

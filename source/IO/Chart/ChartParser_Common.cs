@@ -8,7 +8,7 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Part names of <see cref="Instruments"/> without the difficulty
         /// </summary>
-        private static readonly Dictionary<Instruments, string> partNames = new Dictionary<Instruments, string>()
+        private static readonly Dictionary<Instruments, string> partNames = new()
         {
             { Instruments.Drums, "Drums" },
             { Instruments.GHLGuitar, "GHLGuitar" },

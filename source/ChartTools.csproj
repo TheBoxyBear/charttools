@@ -10,6 +10,10 @@
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Users\Gaming\Documents\GitHub\ChartTools\source\ChartTools.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="InternalTools\Collections\Base\**" />
     <Compile Remove="InternalTools\Collections\Indexable\**" />

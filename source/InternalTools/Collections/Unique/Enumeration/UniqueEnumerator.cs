@@ -16,7 +16,7 @@ namespace ChartTools.Collections.Unique
         /// <summary>
         /// Items that have previously been iterated, used for checking if a new item is unique
         /// </summary>
-        private readonly LinkedList<T> returnedItems = new LinkedList<T>();
+        private readonly List<T> returnedItems = new();
         /// <summary>
         /// Enumerators to pull items from
         /// </summary>
@@ -96,7 +96,7 @@ namespace ChartTools.Collections.Unique
                     return enumerator.MoveNext() && SearchEnumerator();
 
                 Current = current;
-                returnedItems.AddLast(current);
+                returnedItems.Add(current);
 
                 return true;
             }

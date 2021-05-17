@@ -25,7 +25,7 @@ namespace ChartTools
         ///     <para>If <see cref="OpenExclusivity"/> is <see langword="true"/>, combining an open note with other notes will remove the current ones.</para>
         /// </remarks>
         /// <param name="item">Item to add</param>
-        public new void Add(TNote item)
+        public override void Add(TNote item)
         {
             if (OpenExclusivity && (item.NoteIndex == 0 || Count > 0 && this[0].NoteIndex == 0))
                 Clear();

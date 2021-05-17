@@ -4,7 +4,7 @@ namespace ChartTools.IO.MIDI
 {
     internal static partial class MIDIParser
     {
-        private static readonly Dictionary<Instruments, string> sequenceNames = new Dictionary<Instruments, string>()
+        private static readonly Dictionary<Instruments, string> sequenceNames = new()
         {
             { Instruments.LeadGuitar, "PART GUITAR" },
             { Instruments.CoopGuitar, "PART GUITAR COOP" },

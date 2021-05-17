@@ -12,6 +12,7 @@ namespace ChartTools.IO
     /// </summary>
     internal static class ExtensionHandler
     {
+        #region Reading
         /// <summary>
         /// Reads a file using the method that matches the extension.
         /// </summary>
@@ -32,13 +33,7 @@ namespace ChartTools.IO
 
             reader.readMethod(path);
         }
-        /// <summary>
-        /// Reads a file using the method that matches the extension.
-        /// </summary>
-        /// <param name="path">Path of the file to read</param>
-        /// <param name="readers">Array of tuples representing the supported extensions</param>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FileNotFoundException"/>
+        /// <inheritdoc cref="Read(string, (string extension, Action{string} readMethod)[])"/>
         internal static T Read<T>(string path, params (string extension, Func<string, T> readMethod)[] readers)
         {
             if (!File.Exists(path))
@@ -49,7 +44,17 @@ namespace ChartTools.IO
 
             return reader == default ? throw GetException(extension, readers.Select(r => r.extension)) : reader.readMethod(path);
         }
+        /// <inheritdoc cref="Read(string, (string extension, Action{string} readMethod)[])"/>
+        internal static T Read<T, TConfig>(string path, TConfig config, params (string extension, Func<string, TConfig, T> readMethod)[] readers)
+        {
+            // Convert the read methods to ones that don't take a configuration
+            (string, Func<string, T>)[] convertedReaders = readers.Select<(string extension, Func<string, TConfig, T> readMethod), (string, Func<string, T>)>(r => (r.extension, p => r.readMethod(p, config))).ToArray();
 
+            try { return Read(path, convertedReaders); }
+            catch { throw; }
+        }
+        #endregion
+        #region Writing
         /// <summary>
         /// Writes an object to a file using the method that matches the extension.
         /// </summary>
@@ -71,6 +76,16 @@ namespace ChartTools.IO
 
             writer.writeMethod(path, item);
         }
+        /// <inheritdoc cref="Write{T, TConfig}(string, T, TConfig, (string extension, Action{string, T, TConfig} writeMethod)[])"/>
+        internal static void Write<T, TConfig>(string path, T item, TConfig config, params (string extension, Action<string, T, TConfig> writeMethod)[] writers)
+        {
+            // Convert the write methods to ones that don't take a configuration
+            (string, Action<string, T>)[] convertedWriters = writers.Select<(string extension, Action<string, T, TConfig> writeMethod), (string, Action<string, T>)>(r => (r.extension, (p, i) => r.writeMethod(p, i, config))).ToArray();
+
+            try { Write(path, convertedWriters); }
+            catch { throw; }
+        }
+        #endregion
 
         /// <summary>
         /// Gets the exception to throw if the extension has no method that handles it.

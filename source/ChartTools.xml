@@ -708,12 +708,12 @@
         <member name="M:ChartTools.InstrumentExtensions.WriteDifficulty(ChartTools.Instrument{ChartTools.StandardChord},System.String,ChartTools.StandardInstrument)">
             <inheritdoc cref="!:WriteDifficulty(Instrument&lt;GHLChord&gt;, string)"/>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:ChartTools.InstrumentExtensions.ToFile(ChartTools.Instrument{ChartTools.DrumsChord},System.String)" -->
-        <member name="M:ChartTools.InstrumentExtensions.ToFile(ChartTools.Instrument{ChartTools.GHLChord},System.String,ChartTools.GHLInstrument)">
-            <inheritdoc cref="M:ChartTools.InstrumentExtensions.ToFile(ChartTools.Instrument{ChartTools.DrumsChord},System.String)"/>
+        <!-- Badly formed XML comment ignored for member "M:ChartTools.InstrumentExtensions.ToFile(ChartTools.Instrument{ChartTools.DrumsChord},System.String,ChartTools.IO.WritingConfiguration)" -->
+        <member name="M:ChartTools.InstrumentExtensions.ToFile(ChartTools.Instrument{ChartTools.GHLChord},System.String,ChartTools.GHLInstrument,ChartTools.IO.WritingConfiguration)">
+            <inheritdoc cref="!:ToFile(Instrument&lt;DrumsChord&gt;, string)"/>
             <param name="instrument">Instrument to assign the data to</param>
         </member>
-        <member name="M:ChartTools.InstrumentExtensions.ToFile(ChartTools.Instrument{ChartTools.StandardChord},System.String,ChartTools.StandardInstrument)">
+        <member name="M:ChartTools.InstrumentExtensions.ToFile(ChartTools.Instrument{ChartTools.StandardChord},System.String,ChartTools.StandardInstrument,ChartTools.IO.WritingConfiguration)">
             <inheritdoc cref="!:ToFile(Instrument&lt;GHLChord&gt;, string)"/>
         </member>
         <member name="T:ChartTools.CommonExceptions">
@@ -761,7 +761,7 @@
             Provides additionnal methods to <see cref="T:ChartTools.Track`1"/>
             </summary>
         </member>
-        <member name="M:ChartTools.TrackExtensions.ToFile(ChartTools.Track{ChartTools.DrumsChord},System.String,ChartTools.Difficulty)">
+        <member name="M:ChartTools.TrackExtensions.ToFile(ChartTools.Track{ChartTools.DrumsChord},System.String,ChartTools.Difficulty,ChartTools.IO.WritingConfiguration)">
             <summary>
             Writes the <see cref="T:ChartTools.Track`1"/> to a file.
             </summary>
@@ -776,11 +776,11 @@
             <exception cref="T:System.NotSupportedException"/>
             <exception cref="T:System.Security.SecurityException"/>
         </member>
-        <member name="M:ChartTools.TrackExtensions.ToFile(ChartTools.Track{ChartTools.GHLChord},System.String,ChartTools.GHLInstrument,ChartTools.Difficulty)">
-            <inheritdoc cref="M:ChartTools.TrackExtensions.ToFile(ChartTools.Track{ChartTools.DrumsChord},System.String,ChartTools.Difficulty)"/>
+        <member name="M:ChartTools.TrackExtensions.ToFile(ChartTools.Track{ChartTools.GHLChord},System.String,ChartTools.GHLInstrument,ChartTools.Difficulty,ChartTools.IO.WritingConfiguration)">
+            <inheritdoc cref="!:ToFile(Track&lt;DrumsChord&gt;, string, Difficulty)"/>
             <param name="instrument">Instrument to assign the <see cref="T:ChartTools.Track`1"/> to</param>
         </member>
-        <member name="M:ChartTools.TrackExtensions.ToFile(ChartTools.Track{ChartTools.StandardChord},System.String,ChartTools.StandardInstrument,ChartTools.Difficulty)">
+        <member name="M:ChartTools.TrackExtensions.ToFile(ChartTools.Track{ChartTools.StandardChord},System.String,ChartTools.StandardInstrument,ChartTools.Difficulty,ChartTools.IO.WritingConfiguration)">
             <inheritdoc cref="!:ToFile(Track&lt;GHLChord&gt;, string, Difficulty)"/>
         </member>
         <member name="T:ChartTools.EventExtensions">
@@ -788,7 +788,7 @@
             Provides additionnal methods to <see cref="T:ChartTools.Event"/>
             </summary>
         </member>
-        <member name="M:ChartTools.EventExtensions.ToFile(System.Collections.Generic.IEnumerable{ChartTools.GlobalEvent},System.String)">
+        <member name="M:ChartTools.EventExtensions.ToFile(System.Collections.Generic.IEnumerable{ChartTools.GlobalEvent},System.String,ChartTools.IO.WritingConfiguration)">
             <summary>
             Writes the global events to a file
             </summary>
@@ -1012,7 +1012,7 @@
             Gets the <see cref="T:System.Exception"/> to throw from an entry.
             </summary>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReadSong(System.String)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.ReadSong(System.String,ChartTools.IO.ReadingConfiguration)">
             <summary>
             Reads a chart file.
             </summary>
@@ -1024,7 +1024,7 @@
             <exception cref="T:System.IO.IOException"/>
             <exception cref="T:System.OutOfMemoryException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReadInstrument(System.String,ChartTools.Instruments)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.ReadInstrument(System.String,ChartTools.Instruments,ChartTools.IO.ReadingConfiguration)">
             <summary>
             Reads an instrument from a chart file.
             </summary>
@@ -1039,7 +1039,7 @@
             <exception cref="T:System.IO.IOException"/>
             <exception cref="T:System.OutOfMemoryException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReadDrums(System.String)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.ReadDrums(System.String,ChartTools.IO.ReadingConfiguration)">
             <summary>
             Reads drums from a chart file.
             </summary>
@@ -1053,7 +1053,7 @@
             <exception cref="T:System.IO.IOException"/>
             <exception cref="T:System.OutOfMemoryException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReadInstrument(System.String,ChartTools.GHLInstrument)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.ReadInstrument(System.String,ChartTools.GHLInstrument,ChartTools.IO.ReadingConfiguration)">
             <summary>
             Reads a Guitar Hero Live instrument from a chart file.
             </summary>
@@ -1066,7 +1066,7 @@
             <exception cref="T:System.IO.IOException"/>
             <exception cref="T:System.OutOfMemoryException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReadInstrument(System.String,ChartTools.StandardInstrument)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.ReadInstrument(System.String,ChartTools.StandardInstrument,ChartTools.IO.ReadingConfiguration)">
             <summary>
             Reads a standard instrument from a chart file.
             </summary>
@@ -1093,7 +1093,7 @@
             <param name="instrumentPartName">Part name of the instrument excluding the difficulty</param>
             <exception cref="T:System.FormatException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReadTrack(System.String,ChartTools.Instruments,ChartTools.Difficulty)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.ReadTrack(System.String,ChartTools.Instruments,ChartTools.Difficulty,ChartTools.IO.ReadingConfiguration)">
             <summary>
             Reads a track from a chart file.
             </summary>
@@ -1109,7 +1109,7 @@
             <exception cref="T:System.IO.IOException"/>
             <exception cref="T:System.OutOfMemoryException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReadDrumsTrack(System.String,ChartTools.Difficulty)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.ReadDrumsTrack(System.String,ChartTools.Difficulty,ChartTools.IO.ReadingConfiguration)">
             <summary>
             Reads a drums track from a chart file.
             </summary>
@@ -1124,7 +1124,7 @@
             <exception cref="T:System.IO.IOException"/>
             <exception cref="T:System.OutOfMemoryException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetDrumsTrack(System.Collections.Generic.IEnumerable{System.String},ChartTools.Difficulty)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.GetDrumsTrack(System.Collections.Generic.IEnumerable{System.String},ChartTools.Difficulty,ChartTools.IO.ReadingConfiguration)">
             <summary>
             Gets a drums track from the contents of a chart file.
             </summary>
@@ -1135,7 +1135,7 @@
             <param name="difficulty">Difficulty of the track</param>
             <exception cref="T:System.FormatException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetDrumsTrack(System.Collections.Generic.IEnumerable{System.String})">
+        <member name="M:ChartTools.IO.Chart.ChartParser.GetDrumsTrack(System.Collections.Generic.IEnumerable{System.String},ChartTools.IO.ReadingConfiguration)">
             <summary>
             Gets all data from a portion of a chart file containing a drums track.
             </summary>
@@ -1145,7 +1145,7 @@
             <param name="part">Lines of the file belonging to the track</param>
             <exception cref="T:System.FormatException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReadTrack(System.String,ChartTools.GHLInstrument,ChartTools.Difficulty)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.ReadTrack(System.String,ChartTools.GHLInstrument,ChartTools.Difficulty,ChartTools.IO.ReadingConfiguration)">
             <summary>
             Reads a Guitar Hero Live track from a chart file.
             </summary>
@@ -1161,7 +1161,7 @@
             <exception cref="T:System.IO.IOException"/>
             <exception cref="T:System.OutOfMemoryException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetGHLTrack(System.Collections.Generic.IEnumerable{System.String},ChartTools.GHLInstrument,ChartTools.Difficulty)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.GetGHLTrack(System.Collections.Generic.IEnumerable{System.String},ChartTools.GHLInstrument,ChartTools.Difficulty,ChartTools.IO.ReadingConfiguration)">
             <summary>
             Gets a Guitar Hero Live track from the contents of a chart file.
             </summary>
@@ -1173,7 +1173,7 @@
             <param name="difficulty">Difficulty of the track</param>
             <exception cref="T:System.FormatException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetGHLTrack(System.Collections.Generic.IEnumerable{System.String})">
+        <member name="M:ChartTools.IO.Chart.ChartParser.GetGHLTrack(System.Collections.Generic.IEnumerable{System.String},ChartTools.IO.ReadingConfiguration)">
             <summary>
             Gets all data from a portion of a chart file containing a Guitar Hero Live track.
             </summary>
@@ -1183,7 +1183,7 @@
             <param name="part">Lines in the file belonging to the track</param>
             <exception cref="T:System.FormatException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReadTrack(System.String,ChartTools.StandardInstrument,ChartTools.Difficulty)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.ReadTrack(System.String,ChartTools.StandardInstrument,ChartTools.Difficulty,ChartTools.IO.ReadingConfiguration)">
             <summary>
             Reads a standard track from a chart file.
             </summary>
@@ -1199,7 +1199,7 @@
             <exception cref="T:System.IO.IOException"/>
             <exception cref="T:System.OutOfMemoryException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetStandardTrack(System.String[],ChartTools.StandardInstrument,ChartTools.Difficulty)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.GetStandardTrack(System.String[],ChartTools.StandardInstrument,ChartTools.Difficulty,ChartTools.IO.ReadingConfiguration)">
             <summary>
             Gets a standard track from the contents of a chart file.
             </summary>
@@ -1212,7 +1212,7 @@
             <exception cref="T:System.ArgumentException"/>
             <exception cref="T:System.ArgumentNullException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetStandardTrack(System.Collections.Generic.IEnumerable{System.String})">
+        <member name="M:ChartTools.IO.Chart.ChartParser.GetStandardTrack(System.Collections.Generic.IEnumerable{System.String},ChartTools.IO.ReadingConfiguration)">
             <summary>
             Gets all data from a portion of a chart file containing a standard track.
             </summary>
@@ -1222,7 +1222,7 @@
             <param name="part">Lines in the file belonging to the track</param>
             <exception cref="T:System.FormatException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetTrack``1(System.Collections.Generic.IEnumerable{System.String},System.Func{ChartTools.Track{``0},``0,ChartTools.IO.Chart.ChartParser.TrackObjectEntry,ChartTools.IO.Chart.ChartParser.NoteData,System.Boolean,``0})">
+        <member name="M:ChartTools.IO.Chart.ChartParser.GetTrack``1(System.Collections.Generic.IEnumerable{System.String},System.Func{ChartTools.Track{``0},``0,ChartTools.IO.Chart.ChartParser.TrackObjectEntry,ChartTools.IO.Chart.ChartParser.NoteData,System.Boolean,``0},ChartTools.IO.ReadingConfiguration)">
             <summary>
             Gets a track from a portion of a chart file.
             </summary>
@@ -1347,7 +1347,7 @@
             <param name="partName">Name of the part to extract</param>
             <exception cref="T:System.IO.InvalidDataException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.WriteSong(System.String,ChartTools.Song)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.WriteSong(System.String,ChartTools.Song,ChartTools.IO.WritingConfiguration)">
             <summary>
             Writes a song to a chart file
             </summary>
@@ -1362,16 +1362,16 @@
             <exception cref="T:System.NotSupportedException"/>
             <exception cref="T:System.Security.SecurityException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReplaceDrums(System.String,ChartTools.Instrument{ChartTools.DrumsChord})">
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReplaceInstrument``1(System.String,ChartTools.Instrument{``0},ChartTools.Instruments)"/>
+        <member name="M:ChartTools.IO.Chart.ChartParser.ReplaceDrums(System.String,ChartTools.Instrument{ChartTools.DrumsChord},ChartTools.IO.WritingConfiguration)">
+            <inheritdoc cref="!:ReplaceInstrument&lt;TChord&gt;(string, Instrument&lt;TChord&gt;, Instruments)"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReplaceInstrument(System.String,ChartTools.Instrument{ChartTools.GHLChord},ChartTools.GHLInstrument)">
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReplaceInstrument``1(System.String,ChartTools.Instrument{``0},ChartTools.Instruments)"/>
+        <member name="M:ChartTools.IO.Chart.ChartParser.ReplaceInstrument(System.String,System.ValueTuple{ChartTools.Instrument{ChartTools.GHLChord},ChartTools.GHLInstrument},ChartTools.IO.WritingConfiguration)">
+            <inheritdoc cref="!:ReplaceInstrument&lt;TChord&gt;(string, Instrument&lt;TChord&gt;, Instruments)"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReplaceInstrument(System.String,ChartTools.Instrument{ChartTools.StandardChord},ChartTools.StandardInstrument)">
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReplaceInstrument``1(System.String,ChartTools.Instrument{``0},ChartTools.Instruments)"/>
+        <member name="M:ChartTools.IO.Chart.ChartParser.ReplaceInstrument(System.String,System.ValueTuple{ChartTools.Instrument{ChartTools.StandardChord},ChartTools.StandardInstrument},ChartTools.IO.WritingConfiguration)">
+            <inheritdoc cref="!:ReplaceInstrument&lt;TChord&gt;(string, Instrument&lt;TChord&gt;, Instruments)"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReplaceInstrument``1(System.String,ChartTools.Instrument{``0},ChartTools.Instruments)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.ReplaceInstrument``1(System.String,System.ValueTuple{ChartTools.Instrument{``0},ChartTools.Instruments},ChartTools.IO.WritingConfiguration)">
             <summary>
             Replaces an instrument in a file.
             </summary>
@@ -1402,7 +1402,7 @@
             <exception cref="T:System.NotSupportedException"/>
             <exception cref="T:System.Security.SecurityException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReplaceGlobalEvents(System.String,System.Collections.Generic.IEnumerable{ChartTools.GlobalEvent})">
+        <member name="M:ChartTools.IO.Chart.ChartParser.ReplaceGlobalEvents(System.String,System.Collections.Generic.IEnumerable{ChartTools.GlobalEvent},ChartTools.IO.WritingConfiguration)">
             <summary>
             Replaces the global events in a file.
             </summary>
@@ -1424,57 +1424,7 @@
             <exception cref="T:System.NotSupportedException"/>
             <exception cref="T:System.Security.SecurityException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReplaceDrumsTrack(System.String,ChartTools.Track{ChartTools.DrumsChord},ChartTools.Difficulty)">
-            <summary>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReplaceTrack``1(System.String,ChartTools.Track{``0},System.String)"/>
-            </summary>
-            <param name="path">Difficulty of the track to replace</param>
-            <param name="track">Track to use as a replacement</param>
-            <param name="difficulty">Difficulty of the track to replace</param>
-            <exception cref="T:System.ArgumentException"/>
-            <exception cref="T:System.ArgumentNullException"/>
-            <exception cref="T:System.IO.PathTooLongException"/>
-            <exception cref="T:System.IO.DirectoryNotFoundException"/>
-            <exception cref="T:System.IO.IOException"/>
-            <exception cref="T:System.UnauthorizedAccessException"/>
-            <exception cref="T:System.NotSupportedException"/>
-            <exception cref="T:System.Security.SecurityException"/>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReplaceTrack(System.String,ChartTools.Track{ChartTools.GHLChord},ChartTools.GHLInstrument,ChartTools.Difficulty)">
-            <summary>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReplaceTrack``1(System.String,ChartTools.Track{``0},System.String)"/>
-            </summary>
-            <param name="path">Path of the file to write</param>
-            <param name="track">Track to use as a replacement</param>
-            <param name="instrument">Instrument of the track to replace</param>
-            <param name="difficulty">Difficulty of the track to replace</param>
-            <exception cref="T:System.ArgumentException"/>
-            <exception cref="T:System.ArgumentNullException"/>
-            <exception cref="T:System.IO.PathTooLongException"/>
-            <exception cref="T:System.IO.DirectoryNotFoundException"/>
-            <exception cref="T:System.IO.IOException"/>
-            <exception cref="T:System.UnauthorizedAccessException"/>
-            <exception cref="T:System.NotSupportedException"/>
-            <exception cref="T:System.Security.SecurityException"/>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReplaceTrack(System.String,ChartTools.Track{ChartTools.StandardChord},ChartTools.StandardInstrument,ChartTools.Difficulty)">
-            <summary>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReplaceTrack``1(System.String,ChartTools.Track{``0},System.String)"/>
-            </summary>
-            <param name="path">Path of the file to write</param>
-            <param name="track">Track to use as a replacement</param>
-            <param name="instrument">Instrument of the track to replace</param>
-            <param name="difficulty">Difficulty of the track to replace</param>
-            <exception cref="T:System.ArgumentException"/>
-            <exception cref="T:System.ArgumentNullException"/>
-            <exception cref="T:System.IO.PathTooLongException"/>
-            <exception cref="T:System.IO.DirectoryNotFoundException"/>
-            <exception cref="T:System.IO.IOException"/>
-            <exception cref="T:System.UnauthorizedAccessException"/>
-            <exception cref="T:System.NotSupportedException"/>
-            <exception cref="T:System.Security.SecurityException"/>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReplaceTrack``1(System.String,ChartTools.Track{``0},System.String)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.ReplaceTrack``1(System.String,System.ValueTuple{ChartTools.Track{``0},ChartTools.Instruments,ChartTools.Difficulty},ChartTools.IO.WritingConfiguration)">
             <summary>
             Replaces a track in a file.
             </summary>
@@ -1506,7 +1456,7 @@
             <exception cref="T:System.NotSupportedException"/>
             <exception cref="T:System.Security.SecurityException"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetTrackLines``1(ChartTools.Track{``0})">
+        <member name="M:ChartTools.IO.Chart.ChartParser.GetTrackLines``1(ChartTools.Track{``0},ChartTools.IO.WritingConfiguration)">
             <summary>
             Gets the lines to write for a difficulty track.
             </summary>
@@ -1561,6 +1511,51 @@
             <param name="index">Value of <see cref="P:ChartTools.Note.NoteIndex"/></param>
             <param name="sustain">Value of <see cref="P:ChartTools.Note.SustainLength"/></param>
         </member>
+        <member name="T:ChartTools.IO.CommonObjectsSource">
+            <summary>
+            Difficulty of the <see cref="T:ChartTools.Track"/> to serve as a source of for track objects common to all difficulties to use for all tracks in the same <see cref="T:ChartTools.Instrument"/>
+            
+            <para>Common track objects are:<list type="bullet">
+            <item>Local events</item>
+            <item>Star power phrases</item>
+            </list>
+            </para>
+            </summary>
+            <remarks>Can be casted from <see cref="T:ChartTools.Difficulty"/>.</remarks>
+        </member>
+        <member name="F:ChartTools.IO.CommonObjectsSource.Merge">
+            <summary>
+            Each <see cref="T:ChartTools.Track"/> will contain a combinaition of all unique common track objects in the same <see cref="T:ChartTools.Instrument"/>
+            </summary>
+        </member>
+        <member name="T:ChartTools.IO.SoloNoStarPowerRule">
+            <summary>
+            Defines how to handle "solo" local events in tracks 
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.SoloNoStarPowerRule.Ignore">
+            <summary>
+            Local events are interpreted as is
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.SoloNoStarPowerRule.Convert">
+            <summary>
+            If a track has "solo" or "soloend" local events and no star power, convert the events into star power as interpreted by Clone Hero
+            </summary>
+        </member>
+        <member name="T:ChartTools.IO.ReadingConfiguration">
+            <summary>
+            Configuration object to direct the reading of a file
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.ReadingConfiguration.SoloNoStarPowerRule">
+            <inheritdoc cref="T:ChartTools.IO.SoloNoStarPowerRule"/>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:ChartTools.IO.WritingConfiguration.SoloNoStarPowerRule" -->
+        <!-- Badly formed XML comment ignored for member "P:ChartTools.IO.WritingConfiguration.EventSource" -->
+        <member name="P:ChartTools.IO.WritingConfiguration.StarPowerSource">
+            <inheritdoc cref="T:ChartTools.IO.CommonObjectsSource"/>
+        </member>
         <member name="T:ChartTools.IO.ExtensionHandler">
             <summary>
             Provides methods for rading and writing files based on the extension
@@ -1576,13 +1571,10 @@
             <exception cref="T:System.IO.FileNotFoundException"/>
         </member>
         <member name="M:ChartTools.IO.ExtensionHandler.Read``1(System.String,System.ValueTuple{System.String,System.Func{System.String,``0}}[])">
-            <summary>
-            Reads a file using the method that matches the extension.
-            </summary>
-            <param name="path">Path of the file to read</param>
-            <param name="readers">Array of tuples representing the supported extensions</param>
-            <exception cref="T:System.ArgumentNullException"/>
-            <exception cref="T:System.IO.FileNotFoundException"/>
+            <inheritdoc cref="!:Read(string, (string extension, Action&lt;string&gt; readMethod)[])"/>
+        </member>
+        <member name="M:ChartTools.IO.ExtensionHandler.Read``2(System.String,``1,System.ValueTuple{System.String,System.Func{System.String,``1,``0}}[])">
+            <inheritdoc cref="!:Read(string, (string extension, Action&lt;string&gt; readMethod)[])"/>
         </member>
         <member name="M:ChartTools.IO.ExtensionHandler.Write``1(System.String,``0,System.ValueTuple{System.String,System.Action{System.String,``0}}[])">
             <summary>
@@ -1593,6 +1585,9 @@
             <param name="writers">Array of tupples representing the supported extensions</param>
             <exception cref="T:System.ArgumentNullException"/>
             <exception cref="T:System.IO.FileNotFoundException"/>
+        </member>
+        <member name="M:ChartTools.IO.ExtensionHandler.Write``2(System.String,``0,``1,System.ValueTuple{System.String,System.Action{System.String,``0,``1}}[])">
+            <inheritdoc cref="!:Write&lt;T, TConfig&gt;(string, T, TConfig, (string extension, Action&lt;string, T, TConfig&gt; writeMethod)[])"/>
         </member>
         <member name="M:ChartTools.IO.ExtensionHandler.GetException(System.String,System.Collections.Generic.IEnumerable{System.String})">
             <summary>
@@ -1676,41 +1671,6 @@
             <exception cref="T:System.ArgumentException"/>
             <exception cref="T:System.IO.IOException"/>
         </member>
-        <member name="T:ChartTools.IO.MIDI.CommonObjectsSource">
-            <summary>
-            Difficulty of the <see cref="T:ChartTools.Track"/> to serve as a source of for track objects common to all difficulties to use for all tracks in the same <see cref="T:ChartTools.Instrument"/>
-            
-            <para>Common track objects are:<list type="bullet">
-            <item>Local events</item>
-            <item>Star power phrases</item>
-            </list>
-            </para>
-            </summary>
-            <remarks>Can be casted from <see cref="T:ChartTools.Difficulty"/>.</remarks>
-        </member>
-        <member name="F:ChartTools.IO.MIDI.CommonObjectsSource.Merge">
-            <summary>
-            Each <see cref="T:ChartTools.Track"/> will contain a combinaition of all unique common track objects in the same <see cref="T:ChartTools.Instrument"/>
-            </summary>
-        </member>
-        <member name="T:ChartTools.IO.MIDI.SoloNoStarPowerRule">
-            <summary>
-            Defines how to handle "solo" local events in tracks 
-            </summary>
-        </member>
-        <member name="F:ChartTools.IO.MIDI.SoloNoStarPowerRule.Ignore">
-            <summary>
-            Local events are interpreted as is
-            </summary>
-        </member>
-        <member name="F:ChartTools.IO.MIDI.SoloNoStarPowerRule.Convert">
-            <summary>
-            If a track has "solo" or "soloend" local events and no star power, convert the events into star power as interpreted by Clone Hero
-            </summary>
-        </member>
-        <!-- Badly formed XML comment ignored for member "P:ChartTools.IO.MIDI.MIDIReadingConfiguration.SoloNoStarPowerRule" -->
-        <!-- Badly formed XML comment ignored for member "P:ChartTools.IO.MIDI.MIDIWritingConfiguration.SoloNoStarPowerRule" -->
-        <!-- Badly formed XML comment ignored for member "P:ChartTools.IO.MIDI.MIDIWritingConfiguration.EventSource" -->
         <member name="T:ChartTools.IO.MIDI.MIDIParser">
             <summary>
             Provides methods for reading and writing MIDI files
@@ -1721,7 +1681,7 @@
             Parameter to use with MIDIFile.Read()
             </summary>
         </member>
-        <member name="M:ChartTools.IO.MIDI.MIDIParser.ReadSong(System.String,ChartTools.IO.MIDI.MIDIReadingConfiguration)">
+        <member name="M:ChartTools.IO.MIDI.MIDIParser.ReadSong(System.String,ChartTools.IO.ReadingConfiguration)">
             <summary>
             Reads a MIDI file.
             </summary>
@@ -1962,13 +1922,11 @@
         </member>
         <member name="P:ChartTools.Song.Metadata">
             <summary>
-            Set of about the song not unrelated to instruments, syncing or events
+            Set of information about the song not unrelated to instruments, syncing or events
             </summary>
         </member>
         <member name="P:ChartTools.Song.SyncTrack">
-            <summary>
-            Set of time signatures and tempo markers
-            </summary>
+            <inheritdoc cref="T:ChartTools.SyncTrack"/>
         </member>
         <member name="P:ChartTools.Song.GlobalEvents">
             <summary>
@@ -2036,7 +1994,7 @@
             <param name="instrument">Instrument to get</param>
             <returns>Instance of <see cref="T:ChartTools.Instrument`1"/> where TChord is <see cref="T:ChartTools.StandardChord"/> from the <see cref="T:ChartTools.Song"/>.</returns>
         </member>
-        <member name="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.MIDI.MIDIReadingConfiguration)">
+        <member name="M:ChartTools.Song.FromFile(System.String)">
             <summary>
             Reads a <see cref="T:ChartTools.Song"/> from a file.
             </summary>
@@ -2048,8 +2006,24 @@
             <exception cref="T:System.OutOfMemoryException"/>
             <exception cref="T:ChartTools.CommonExceptions.ParameterNullException"/>
         </member>
+        <member name="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.ReadingConfiguration)">
+            <inheritdoc cref="M:ChartTools.Song.FromFile(System.String)"/>
+        </member>
         <member name="M:ChartTools.Song.ToFile(System.String)">
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.WriteSong(System.String,ChartTools.Song)"/>
+            <summary>
+            Writes the <see cref="T:ChartTools.Song"/> to a file.
+            </summary>
+            <exception cref="T:System.ArgumentException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+            <exception cref="T:System.IO.PathTooLongException"/>
+            <exception cref="T:System.IO.DirectoryNotFoundException"/>
+            <exception cref="T:System.IO.IOException"/>
+            <exception cref="T:System.UnauthorizedAccessException"/>
+            <exception cref="T:System.NotSupportedException"/>
+            <exception cref="T:System.Security.SecurityException"/>
+        </member>
+        <member name="M:ChartTools.Song.ToFile(System.String,ChartTools.IO.WritingConfiguration)">
+            <inheritdoc cref="M:ChartTools.Song.ToFile(System.String)"/>
         </member>
         <member name="M:ChartTools.Song.ReadDifficulties(System.String)">
             <summary>
@@ -2145,8 +2119,8 @@
         <member name="M:ChartTools.GlobalEvent.FromFile(System.String)">
             <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReadGlobalEvents(System.String)"/>
         </member>
-        <member name="M:ChartTools.GlobalEvent.ToFile(System.String,System.Collections.Generic.IEnumerable{ChartTools.GlobalEvent})">
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReplaceGlobalEvents(System.String,System.Collections.Generic.IEnumerable{ChartTools.GlobalEvent})"/>
+        <member name="M:ChartTools.GlobalEvent.ToFile(System.String,System.Collections.Generic.IEnumerable{ChartTools.GlobalEvent},ChartTools.IO.WritingConfiguration)">
+            <inheritdoc cref="!:ChartParser.ReplaceGlobalEvents(string, IEnumerable&lt;GlobalEvent&gt;)"/>
         </member>
         <member name="T:ChartTools.LocalEvent">
             <summary>
@@ -2190,17 +2164,17 @@
             Estimated difficulty
             </summary>
         </member>
-        <member name="M:ChartTools.Instrument.FromFile(System.String,ChartTools.Instruments)">
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReadInstrument(System.String,ChartTools.Instruments)"/>
+        <member name="M:ChartTools.Instrument.FromFile(System.String,ChartTools.Instruments,ChartTools.IO.ReadingConfiguration)">
+            <inheritdoc cref="!:ChartParser.ReadInstrument(string, Instruments)"/>
         </member>
-        <member name="M:ChartTools.Instrument.DrumsFromFile(System.String)">
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReadDrums(System.String)"/>
+        <member name="M:ChartTools.Instrument.DrumsFromFile(System.String,ChartTools.IO.ReadingConfiguration)">
+            <inheritdoc cref="!:ChartParser.ReadDrums(string)"/>
         </member>
-        <member name="M:ChartTools.Instrument.FromFile(System.String,ChartTools.GHLInstrument)">
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReadInstrument(System.String,ChartTools.GHLInstrument)"/>
+        <member name="M:ChartTools.Instrument.FromFile(System.String,ChartTools.GHLInstrument,ChartTools.IO.ReadingConfiguration)">
+            <inheritdoc cref="!:ChartParser.ReadInstrument(string, GHLInstrument)"/>
         </member>
-        <member name="M:ChartTools.Instrument.FromFile(System.String,ChartTools.StandardInstrument)">
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReadInstrument(System.String,ChartTools.StandardInstrument)"/>
+        <member name="M:ChartTools.Instrument.FromFile(System.String,ChartTools.StandardInstrument,ChartTools.IO.ReadingConfiguration)">
+            <inheritdoc cref="!:ChartParser.ReadInstrument(string, StandardInstrument)"/>
         </member>
         <member name="M:ChartTools.Instrument.ReadDifficulty(System.String,ChartTools.Instruments)">
             <inheritdoc cref="M:ChartTools.IO.Ini.IniParser.ReadDifficulty(System.String,ChartTools.Instruments)"/>
@@ -2473,14 +2447,14 @@
             Events specific to the <see cref="T:ChartTools.Track"/>
             </summary>
         </member>
-        <member name="M:ChartTools.Track.FromFile(System.String,ChartTools.Difficulty)">
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReadDrumsTrack(System.String,ChartTools.Difficulty)"/>
+        <member name="M:ChartTools.Track.FromFile(System.String,ChartTools.Difficulty,ChartTools.IO.ReadingConfiguration)">
+            <inheritdoc cref="!:ChartParser.ReadDrumsTrack(string, Difficulty)"/>
         </member>
-        <member name="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrument,ChartTools.Difficulty)">
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReadTrack(System.String,ChartTools.GHLInstrument,ChartTools.Difficulty)"/>
+        <member name="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrument,ChartTools.Difficulty,ChartTools.IO.ReadingConfiguration)">
+            <inheritdoc cref="!:ChartParser.ReadTrack(string, GHLInstrument, Difficulty)"/>
         </member>
-        <member name="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrument,ChartTools.Difficulty)">
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReadTrack(System.String,ChartTools.StandardInstrument,ChartTools.Difficulty)"/>
+        <member name="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrument,ChartTools.Difficulty,ChartTools.IO.ReadingConfiguration)">
+            <inheritdoc cref="!:ChartParser.ReadTrack(string, StandardInstrument, Difficulty)"/>
         </member>
         <member name="T:ChartTools.Track`1">
             <summary>

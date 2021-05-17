@@ -1,5 +1,7 @@
 ﻿using ChartTools.IO;
 using ChartTools.IO.Chart;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,12 +10,12 @@ namespace ChartTools
     /// <summary>
     /// Event common to all instruments
     /// </summary>
-    public class GlobalEvent : Event
+    public class GlobalEvent : Event, IEquatable<GlobalEvent>
     {
         /// <summary>
         /// <see cref="Event.EventTypeString"/> value for each <see cref="GlobalEventType"/>
         /// </summary>
-        private static readonly Dictionary<GlobalEventType, string> globalTypesDictionary = new Dictionary<GlobalEventType, string>()
+        private static readonly Dictionary<GlobalEventType, string> globalTypesDictionary = new()
         {
             { GlobalEventType.PhraseStart, "phrase_start" },
             { GlobalEventType.PhraseEnd, "phrase_end" },
@@ -68,9 +70,14 @@ namespace ChartTools
         /// <summary>
         /// Additional data to modifiy the outcome of the event
         /// </summary>
+        /// <remarks>A lack of argument is represented as an empty string.</remarks>
         public string Argument
         {
-            get => EventData?.Split(' ', 2, System.StringSplitOptions.RemoveEmptyEntries)[1];
+            get
+            {
+                string[] split = EventData.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
+                return split.Length > 1 ? split[1] : string.Empty;
+            }
             set
             {
                 if (string.IsNullOrEmpty(EventData))
@@ -79,7 +86,7 @@ namespace ChartTools
                     return;
                 }
 
-                string[] split = EventData.Split(' ', 2, System.StringSplitOptions.RemoveEmptyEntries);
+                string[] split = EventData.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
                 split[1] = value;
 
                 EventData = string.Join(' ', split);
@@ -114,10 +121,12 @@ namespace ChartTools
             catch { throw; }
         }
         /// <inheritdoc cref="ChartParser.ReplaceGlobalEvents(string, IEnumerable{GlobalEvent})"/>
-        public static void ToFile(string path, IEnumerable<GlobalEvent> events)
+        public static void ToFile(string path, IEnumerable<GlobalEvent> events, WritingConfiguration config)
         {
-            try { ExtensionHandler.Write(path, events, (".chart", ChartParser.ReplaceGlobalEvents)); }
+            try { ExtensionHandler.Write(path, events, config, (".chart", ChartParser.ReplaceGlobalEvents)); }
             catch { throw; }
         }
+
+        public bool Equals(GlobalEvent other) => base.Equals(other);
     }
 }

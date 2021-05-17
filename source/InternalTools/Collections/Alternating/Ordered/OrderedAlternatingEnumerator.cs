@@ -81,7 +81,7 @@ namespace ChartTools.Collections.Alternating
             int index = 0;
 
             // Index of the enumerators with items yet to have been set as Current
-            LinkedList<int> usableEnumerators = new LinkedList<int>();
+            LinkedList<int> usableEnumerators = new();
 
             Initialize();
 

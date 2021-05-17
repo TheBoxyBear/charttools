@@ -15,7 +15,7 @@ namespace ChartTools.IO.Ini
         /// <summary>
         /// Keys for <see cref="Instrument"/> difficulties
         /// </summary>
-        private static readonly Dictionary<string, Instruments> difficultyKeys = new Dictionary<string, Instruments>()
+        private static readonly Dictionary<string, Instruments> difficultyKeys = new()
         {
             { "diff_drums", Instruments.Drums },
             { "diff_guitarghl", Instruments.GHLGuitar },
@@ -24,7 +24,7 @@ namespace ChartTools.IO.Ini
             { "diff_bass", Instruments.Bass },
             { "diff_keys", Instruments.Keys }
         };
-        private static readonly Dictionary<string, string> metadataKeys = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> metadataKeys = new()
         {
             { "Title", "name" },
             { "Artist", "artist" },
@@ -52,7 +52,7 @@ namespace ChartTools.IO.Ini
         /// <exception cref="UnauthorizedAccessException"/>
         internal static Metadata ReadMetadata(string path)
         {
-            Metadata metadata = new Metadata();
+            Metadata metadata = new();
             int intValue;
             uint uintValue;
 
@@ -85,7 +85,7 @@ namespace ChartTools.IO.Ini
                             metadata.Charter.Name = value;
                             break;
                         case "icon":
-                            metadata.Charter ??= new Charter();
+                            metadata.Charter ??= new();
                             metadata.Charter.Icon = value;
                             break;
                         case "preview_start_time":

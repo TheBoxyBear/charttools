@@ -10,7 +10,7 @@ namespace ChartTools
         /// <summary>
         /// Position in beats from the start of the <see cref="Song"/> multiplied by <see cref="Metadata.Resolution"/>
         /// </summary>
-        public uint Position { get; set; }
+        public uint Position { get; }
         /// <summary>
         /// Creates a new instnace of <see cref="TrackObject"/>.
         /// </summary>
@@ -20,6 +20,6 @@ namespace ChartTools
         /// <param name="other">Track object to compare to</param>
         public virtual int CompareTo(TrackObject other) => Position.CompareTo(other.Position);
 
-        public bool Equals(TrackObject other) => other is not null && Position == other.Position;
+        public bool Equals(TrackObject other) => Position == other?.Position;
     }
 }

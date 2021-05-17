@@ -18,12 +18,10 @@ namespace ChartTools
     {
         #region Properties
         /// <summary>
-        /// Set of about the song not unrelated to instruments, syncing or events
+        /// Set of information about the song not unrelated to instruments, syncing or events
         /// </summary>
         public Metadata Metadata { get; set; } = new Metadata();
-        /// <summary>
-        /// Set of time signatures and tempo markers
-        /// </summary>
+        /// <inheritdoc cref="ChartTools.SyncTrack"/>
         public SyncTrack SyncTrack { get; set; } = new SyncTrack();
         /// <summary>
         /// List of events common to all instruments
@@ -104,15 +102,37 @@ namespace ChartTools
         /// <exception cref="IOException"/>
         /// <exception cref="OutOfMemoryException"/>
         /// <exception cref="CommonExceptions.ParameterNullException"/>
-        public static Song FromFile(string path, MIDIReadingConfiguration midiConfig)
+        public static Song FromFile(string path)
         {
-            try { return ExtensionHandler.Read(path, (".chart", ChartParser.ReadSong), (".mid", p => MIDIParser.ReadSong(p, midiConfig)), (".ini", p => new Song { Metadata = IniParser.ReadMetadata(p) })); }
+            try { return FromFile(path, new()); }
             catch { throw; }
         }
-        /// <inheritdoc cref="ChartParser.WriteSong(string, Song)"/>
+        /// <inheritdoc cref="FromFile(string)"/>
+        public static Song FromFile(string path, ReadingConfiguration config)
+        {
+            try { return ExtensionHandler.Read(path, config, (".chart", ChartParser.ReadSong), (".mid", MIDIParser.ReadSong), (".ini", (p, config) => new Song { Metadata = IniParser.ReadMetadata(p) })); }
+            catch { throw; }
+        }
+        /// <summary>
+        /// Writes the <see cref="Song"/> to a file.
+        /// </summary>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="PathTooLongException"/>
+        /// <exception cref="DirectoryNotFoundException"/>
+        /// <exception cref="IOException"/>
+        /// <exception cref="UnauthorizedAccessException"/>
+        /// <exception cref="NotSupportedException"/>
+        /// <exception cref="System.Security.SecurityException"/>
         public void ToFile(string path)
         {
-            try { ExtensionHandler.Write(path, this, (".chart", ChartParser.WriteSong)); }
+            try { ToFile(path, new()); }
+            catch { throw; }
+        }
+        /// <inheritdoc cref="ToFile(string)"/>
+        public void ToFile(string path, WritingConfiguration config)
+        {
+            try { ExtensionHandler.Write(path, this, config, (".chart", ChartParser.WriteSong)); }
             catch { throw; }
         }
 
@@ -127,6 +147,7 @@ namespace ChartTools
         {
             try { ExtensionHandler.Read(path, (".ini", p => IniParser.ReadDifficulties(p, this))); }
             catch { throw; }
+
         }
         /// <summary>
         /// Writes the estimated instrument difficulties to a ini file.
@@ -143,7 +164,7 @@ namespace ChartTools
         /// <summary>
         /// Retrieves the lyrics from the global events.
         /// </summary>
-        public IEnumerable<Phrase> GetLyrics() => GlobalEvents?.GetLyrics();
+        public IEnumerable<Phrase> GetLyrics() => GlobalEvents is null ? Enumerable.Empty<Phrase>() : GlobalEvents.GetLyrics();
         /// <summary>
         /// Replaces phrase and lyric events from <see cref="GlobalEvents"/> with the ones making up a set of <see cref="Phrase"/>.
         /// </summary>

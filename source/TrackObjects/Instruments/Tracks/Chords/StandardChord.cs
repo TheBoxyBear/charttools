@@ -35,11 +35,11 @@ namespace ChartTools
                 Notes.Add(new StandardNote(note));
         }
 
-        /// <inheritdoc>/>
+        /// <inheritdoc/>
         internal override System.Collections.Generic.IEnumerable<string> GetChartData()
         {
             foreach (StandardNote note in Notes)
-                yield return ChartParser.GetNoteData(note.Note == StandardNotes.Open ? 7 : (byte)(note.Note - 1), note.SustainLength);
+                yield return ChartParser.GetNoteData(note.Note == StandardNotes.Open ? (byte)7 : (byte)(note.Note - 1), note.SustainLength);
 
             if (Modifier.HasFlag(StandardChordModifier.Forced))
                 yield return ChartParser.GetNoteData(5, 0);

@@ -7,6 +7,7 @@ using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.Lyrics;
 using ChartTools.Collections.Alternating;
+using ChartTools.Collections.Unique;
 
 namespace ChartTools.SystemExtensions
 {
@@ -81,6 +82,12 @@ namespace ChartTools.SystemExtensions.Linq
         }
         public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, out T item)
         {
+            if (source is null)
+            {
+                item = default;
+                return false;
+            }
+
             foreach (T t in source)
                 if (predicate(t))
                 {
@@ -451,22 +458,22 @@ namespace ChartTools
         /// <exception cref="UnauthorizedAccessException"/>
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="SecurityException"/>
-        public static void ToFile(this Instrument<DrumsChord> inst, string path)
+        public static void ToFile(this Instrument<DrumsChord> inst, string path, WritingConfiguration config)
         {
-            try { ExtensionHandler.Write(path, inst, (".chart", ChartParser.ReplaceDrums)); }
+            try { ExtensionHandler.Write(path, inst, config, (".chart", ChartParser.ReplaceDrums)); }
             catch { throw; }
         }
         /// <inheritdoc cref="ToFile(Instrument{DrumsChord}, string)"/>
         /// <param name="instrument">Instrument to assign the data to</param>
-        public static void ToFile(this Instrument<GHLChord> inst, string path, GHLInstrument instrument)
+        public static void ToFile(this Instrument<GHLChord> inst, string path, GHLInstrument instrument, WritingConfiguration config)
         {
-            try { ExtensionHandler.Write(path, inst, (".chart", (p, i) => ChartParser.ReplaceInstrument(p, i, instrument))); }
+            try { ExtensionHandler.Write(path, (inst, instrument), config, (".chart", ChartParser.ReplaceInstrument)); }
             catch { throw; }
         }
         /// <inheritdoc cref="ToFile(Instrument{GHLChord}, string)"/>
-        public static void ToFile(this Instrument<StandardChord> inst, string path, StandardInstrument instrument)
+        public static void ToFile(this Instrument<StandardChord> inst, string path, StandardInstrument instrument, WritingConfiguration config)
         {
-            try { ExtensionHandler.Write(path, inst, (".chart", (p, i) => ChartParser.ReplaceInstrument(p, i, instrument))); }
+            try { ExtensionHandler.Write(path, (inst, instrument), config, (".chart", ChartParser.ReplaceInstrument)); }
             catch { throw; }
         }
     }
@@ -487,7 +494,7 @@ namespace ChartTools
     /// </summary>
     internal static class CommonExceptions
     {
-        public static ArgumentException GetUndefinedException<TEnum>(TEnum value) where TEnum : Enum => new ArgumentException($"{typeof(TEnum).Name} \"{value}\" is not defined.");
+        public static ArgumentException GetUndefinedException<TEnum>(TEnum value) where TEnum : Enum => new($"{typeof(TEnum).Name} \"{value}\" is not defined.");
 
         /// <summary>
         /// The exception that is thrown when a method is called with <see langword="null"/> as a parameter for which <see langword="null"/> is not an accepted value
@@ -550,22 +557,22 @@ namespace ChartTools
         /// <exception cref="UnauthorizedAccessException"/>
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="SecurityException"/>
-        public static void ToFile(this Track<DrumsChord> track, string path, Difficulty difficulty)
+        public static void ToFile(this Track<DrumsChord> track, string path, Difficulty difficulty, WritingConfiguration config)
         {
-            try { ExtensionHandler.Write(path, track, (".chart", (p, t) => ChartParser.ReplaceDrumsTrack(p, t, difficulty))); }
+            try { ExtensionHandler.Write(path, (track, Instruments.Drums, difficulty), config, (".chart", ChartParser.ReplaceTrack)); }
             catch { throw; }
         }
         /// <inheritdoc cref="ToFile(Track{DrumsChord}, string, Difficulty)"/>
         /// <param name="instrument">Instrument to assign the <see cref="Track{TChord}"/> to</param>
-        public static void ToFile(this Track<GHLChord> track, string path, GHLInstrument instrument, Difficulty difficulty)
+        public static void ToFile(this Track<GHLChord> track, string path, GHLInstrument instrument, Difficulty difficulty, WritingConfiguration config)
         {
-            try { ExtensionHandler.Write(path, track, (".chart", (p, t) => ChartParser.ReplaceTrack(p, t, instrument, difficulty))); }
+            try { ExtensionHandler.Write(path, (track, (Instruments)instrument, difficulty), config, (".chart", ChartParser.ReplaceTrack)); }
             catch { throw; }
         }
         /// <inheritdoc cref="ToFile(Track{GHLChord}, string, Difficulty)"/>
-        public static void ToFile(this Track<StandardChord> track, string path, StandardInstrument instrument, Difficulty difficulty)
+        public static void ToFile(this Track<StandardChord> track, string path, StandardInstrument instrument, Difficulty difficulty, WritingConfiguration config)
         {
-            try { ExtensionHandler.Write(path, track, (".chart", (p, t) => ChartParser.ReplaceTrack(p, t, instrument, difficulty))); }
+            try { ExtensionHandler.Write(path, (track, (Instruments)instrument, difficulty), config, (".chart", ChartParser.ReplaceTrack)); }
             catch { throw; }
         }
     }
@@ -580,9 +587,9 @@ namespace ChartTools
         /// </summary>
         /// <param name="events">Events to write</param>
         /// <param name="path">Path of the file to write</param>
-        public static void ToFile(this IEnumerable<GlobalEvent> events, string path)
+        public static void ToFile(this IEnumerable<GlobalEvent> events, string path, WritingConfiguration config)
         {
-            try { ExtensionHandler.Write(path, events, (".chart", ChartParser.ReplaceGlobalEvents)); }
+            try { ExtensionHandler.Write(path, events, config, (".chart", ChartParser.ReplaceGlobalEvents)); }
             catch { throw; }
         }
     }
@@ -600,7 +607,7 @@ namespace ChartTools
             Phrase phrase = null;
             Syllable phraselessFirstSyllable = null;
 
-            foreach (GlobalEvent globalEvent in globalEvents.OrderBy(e => e.Position))
+            foreach (GlobalEvent globalEvent in new UniqueEnumerable<GlobalEvent>((e , other) => e.Equals(other), globalEvents.OrderBy(e => e.Position)))
                 switch (globalEvent.EventType)
                 {
                     // Change active phrase
@@ -619,7 +626,7 @@ namespace ChartTools
                         break;
                     // Add syllable to the active phrase usign the event argument
                     case GlobalEventType.Lyric:
-                        Syllable newSyllable = new Syllable(globalEvent.Position) { RawText = globalEvent.Argument };
+                        Syllable newSyllable = new(globalEvent.Position) { RawText = globalEvent.Argument };
 
                         // If the first lyric preceeds the first phrase, store it
                         if (phrase is null)
