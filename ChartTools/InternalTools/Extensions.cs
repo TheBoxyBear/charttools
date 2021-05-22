@@ -30,10 +30,10 @@ namespace ChartTools.SystemExtensions
         /// <exception cref="ArgumentNullException"/>
         public static string VerbalEnumerate(string lastItemPreceder, params string[] items) => items is null ? throw new ArgumentNullException() : items.Length switch
         {
-            0 => string.Empty,
-            1 => items[0],
-            2 => $"{items[0]} {lastItemPreceder} {items[1]}",
-            _ => $"{string.Join(", ", items, items.Length - 1)} {lastItemPreceder} {items[^0]}"
+            0 => string.Empty, // ""
+            1 => items[0], // "Item1"
+            2 => $"{items[0]} {lastItemPreceder} {items[1]}", // "Item1 or Item2"
+            _ => $"{string.Join(", ", items, items.Length - 1)} {lastItemPreceder} {items[^0]}" // "Item1, Item2 lastItemPreceder Item3"
         };
     }
 }
@@ -127,8 +127,9 @@ namespace ChartTools.SystemExtensions.Linq
 
                 if (!itemsEnumerator.MoveNext())
                 {
+                    // Return the replacement
                     if (addIfMissing)
-                        foreach (T item in source)
+                        foreach (T item in replacement)
                             yield return item;
                     yield break;
                 }
@@ -179,6 +180,7 @@ namespace ChartTools.SystemExtensions.Linq
                         // Return remaining replacements
                         for (int j = 0; j < replacements.Length; j++)
                             if (!replacedSections[j])
+                                // Return the replacement
                                 foreach (T item in replacements[j].replacement)
                                     yield return item;
                     yield break;
@@ -207,6 +209,7 @@ namespace ChartTools.SystemExtensions.Linq
                             }
                     }
             }
+            // Continue until all replacements are applied
             while (replacedSections.Count(r => r) < replacements.Length);
 
             // Return the rest of the items
