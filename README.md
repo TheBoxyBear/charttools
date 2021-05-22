@@ -1,5 +1,5 @@
 # ChartTools
-ChartTools is a C# library using .NET Standard 2.1 with the purpose of modeling song files for the video game Clone Hero. It currently supports reading of chart and ini files, with MIDI support currently in development.
+ChartTools is a C# library using .NET 5 with the purpose of modeling song files for the video game Clone Hero. It currently supports reading of chart and ini files, with MIDI support currently in development.
 
 Special thanks to [FireFox](https://github.com/FireFox2000000) for making the Moonscraper editor open-source and to members of the [Moonscraper Discord](https://discord.gg/wdnD83APhE) including but not limited to DarkAngel2096, FireFox, Kanske, mdsitton, Spachi and XEntombmentX for their help in researching.
 
