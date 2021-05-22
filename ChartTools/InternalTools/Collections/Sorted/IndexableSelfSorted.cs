@@ -56,7 +56,7 @@ namespace ChartTools.Collections.Sorted
         public override void AddRange(IEnumerable<TValue> items)
         {
             foreach (TValue i in items)
-                if (ContainsDuplicate(i))
+                if (ContainsDuplicate(i))s
                     throw new ArgumentException("One or more items cannot be added because some with the same index already exist.");
 
             base.AddRange(items);

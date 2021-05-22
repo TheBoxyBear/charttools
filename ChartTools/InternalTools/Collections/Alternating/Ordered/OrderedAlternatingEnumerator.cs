@@ -123,6 +123,7 @@ namespace ChartTools.Collections.Alternating
 
             Current = minEnumerator.Current;
 
+            // Mark the enumerator as having reached its end if the next item can't be pulled
             if (!minEnumerator.MoveNext())
                 endsReached[equalMins.First.Value] = true;
 
