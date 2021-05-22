@@ -274,39 +274,6 @@ namespace ChartTools.SystemExtensions.Linq
         }
 
         /// <summary>
-        /// Finds the item for which a function returns the smallest or greatest value based on a comparison.
-        /// </summary>
-        /// <param name="source">Items to find the minimum or maximum of</param>
-        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
-        /// <param name="comparison">Function that returns <see langword="true"/> if the second item defeats the first</param>
-        private static T MinMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector, Func<TKey, TKey, bool> comparison) where TKey : IComparable<TKey>
-        {
-            T minMaxItem;
-            TKey minMaxKey;
-
-            using (IEnumerator<T> enumerator = source.GetEnumerator())
-            {
-                if (!enumerator.MoveNext())
-                    throw new Exception("The enumerable has no items.");
-
-                minMaxItem = enumerator.Current;
-                minMaxKey = selector(minMaxItem);
-
-                while (enumerator.MoveNext())
-                {
-                    TKey key = selector(enumerator.Current);
-
-                    if (comparison(key, minMaxKey))
-                    {
-                        minMaxItem = enumerator.Current;
-                        minMaxKey = key;
-                    }
-                }
-            }
-
-            return minMaxItem;
-        }
-        /// <summary>
         /// Finds the items for which a function returns the smallest or greatest value based on a comparison.
         /// </summary>
         /// <param name="source">Items to find the minimum or maximum of</param>
@@ -331,25 +298,8 @@ namespace ChartTools.SystemExtensions.Linq
                         minMaxKey = key;
                 }
             }
-
             return source.Where(t => selector(t).CompareTo(minMaxKey) == 0);
         }
-
-        /// <summary>
-        /// Finds the item for which a function returns the smallest value.
-        /// </summary>
-        /// <remarks>If the smallest value is obtained from multiple items, the first item to do so will be returned.</remarks>
-        /// <param name="source">Items to find the minimum or maximum of</param>
-        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
-        public static T MinBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => MinMaxBy(source, selector, (key, mmKey) => key.CompareTo(mmKey) < 0);
-        /// <summary>
-        /// Finds the item for which a function returns the greatest value.
-        /// </summary>
-        /// <remarks>If the greatest value is obtained from multiple items, the first item to do so will be returned.</remarks>
-        /// <param name="source">Items to find the minimum or maximum of</param>
-        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
-        public static T MaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => MinMaxBy(source, selector, (key, mmKey) => key.CompareTo(mmKey) > 0);
-
         /// <summary>
         /// Finds the items for which a function returns the smallest value.
         /// </summary>
