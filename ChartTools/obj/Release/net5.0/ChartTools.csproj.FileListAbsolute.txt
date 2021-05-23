@@ -9,3 +9,4 @@ C:\Users\Gaming\Documents\GitHub\ChartTools\ChartTools\obj\Release\net5.0\ChartT
 C:\Users\Gaming\Documents\GitHub\ChartTools\ChartTools\obj\Release\net5.0\ChartTools.dll
 C:\Users\Gaming\Documents\GitHub\ChartTools\ChartTools\obj\Release\net5.0\ref\ChartTools.dll
 C:\Users\Gaming\Documents\GitHub\ChartTools\ChartTools\obj\Release\net5.0\ChartTools.pdb
+C:\Users\Gaming\Documents\GitHub\ChartTools\ChartTools\obj\Release\net5.0\ChartTools.csprojAssemblyReference.cache

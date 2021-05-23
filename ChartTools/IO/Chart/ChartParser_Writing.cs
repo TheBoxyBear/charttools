@@ -63,7 +63,7 @@ namespace ChartTools.IO.Chart
                     {
                         IEnumerable<string> lines = GetTrackLines((Track<DrumsChord>)drumsType.GetProperty(difficulty.ToString()).GetValue(song.Drums), config);
 
-                        return lines.Count() > 0 ? GetPartLines(GetFullPartName(Instruments.Drums, difficulty), lines) : lines;
+                        return lines.Any() ? GetPartLines(GetFullPartName(Instruments.Drums, difficulty), lines) : lines;
                     }));
 
                 // Add threads to get the lines for each non-null track of each ghl instrument
@@ -72,7 +72,7 @@ namespace ChartTools.IO.Chart
                     {
                         IEnumerable<string> lines = GetTrackLines((Track<GHLChord>)ghlType.GetProperty(difficulty.ToString()).GetValue(instrument), config);
 
-                        return lines.Count() > 0 ? GetPartLines(GetFullPartName(name, difficulty), lines) : lines;
+                        return lines.Any() ? GetPartLines(GetFullPartName(name, difficulty), lines) : lines;
                     }));
                 // Add threads to get the lines for each non-null track of each standard instrument
                 foreach ((Instrument<StandardChord> instrument, Instruments name) in standardInstruments)
@@ -80,7 +80,7 @@ namespace ChartTools.IO.Chart
                     {
                         IEnumerable<string> lines = GetTrackLines((Track<StandardChord>)standardType.GetProperty(difficulty.ToString()).GetValue(instrument), config);
 
-                        return lines.Count() > 0 ? GetPartLines(GetFullPartName(name, difficulty), lines) : lines;
+                        return lines.Any() ? GetPartLines(GetFullPartName(name, difficulty), lines) : lines;
                     }));
             }
 
