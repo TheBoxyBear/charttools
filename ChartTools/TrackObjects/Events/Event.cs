@@ -30,7 +30,7 @@ namespace ChartTools
         /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
         /// <param name="eventData">Value of <see cref="EventData"/></param>
         internal Event(uint position, string eventData) : base(position) => EventData = eventData is null ?
-            throw new CommonExceptions.ParameterNullException("eventData", 1)
+            throw new CommonExceptions.ParameterNullException(nameof(eventData), 1)
             : eventData;
 
         public bool Equals(Event other) => base.Equals(other) && EventData == other.EventData;

@@ -34,7 +34,7 @@ namespace ChartTools.IO.MIDI
         public static Song ReadSong(string path, ReadingConfiguration midiConfig)
         {
             if (midiConfig is null)
-                throw new CommonExceptions.ParameterNullException("midiConfig", 1);
+                throw new CommonExceptions.ParameterNullException(nameof(midiConfig), 1);
 
             MidiFile file;
             try { file = MidiFile.Read(path, readingSettings); }
@@ -105,7 +105,7 @@ namespace ChartTools.IO.MIDI
         public static Instrument ReadInstrument(string path, Instruments instrument, ReadingConfiguration midiConfig)
         {
             if (midiConfig is null)
-                throw new CommonExceptions.ParameterNullException("midiConfig", 2);
+                throw new CommonExceptions.ParameterNullException(nameof(midiConfig), 2);
 
             MidiFile file;
 
@@ -134,7 +134,7 @@ namespace ChartTools.IO.MIDI
         public static Instrument<DrumsChord> ReadDrums(string path, ReadingConfiguration midiConfig)
         {
             if (midiConfig is null)
-                throw new CommonExceptions.ParameterNullException("midiConfig", 1);
+                throw new CommonExceptions.ParameterNullException(nameof(midiConfig), 1);
 
             try { return GetDrums(MidiFile.Read(path, readingSettings).Chunks, midiConfig); }
             catch { throw; }
@@ -142,7 +142,7 @@ namespace ChartTools.IO.MIDI
         public static Instrument<GHLChord> ReadInstrument(string path, GHLInstrument instrument, ReadingConfiguration midiConfig)
         {
             if (midiConfig is null)
-                throw new CommonExceptions.ParameterNullException("midiConfig", 1);
+                throw new CommonExceptions.ParameterNullException(nameof(midiConfig), 1);
 
             try { return GetInstrument(MidiFile.Read(path, readingSettings).Chunks, instrument, midiConfig); }
             catch { throw; }
@@ -150,7 +150,7 @@ namespace ChartTools.IO.MIDI
         public static Instrument<StandardChord> ReadInstrument(string path, StandardInstrument instrument, ReadingConfiguration midiConfig)
         {
             if (midiConfig is null)
-                throw new CommonExceptions.ParameterNullException("midiConfig", 2);
+                throw new CommonExceptions.ParameterNullException(nameof(midiConfig), 2);
 
             try { return GetInstrument(MidiFile.Read(path, readingSettings).Chunks, instrument, midiConfig); }
             catch { throw; }

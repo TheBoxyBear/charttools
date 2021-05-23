@@ -2,7 +2,6 @@
 
 namespace ChartTools
 {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     /// <summary>
     /// Difficulty levels
     /// </summary>
@@ -100,5 +99,4 @@ namespace ChartTools
     /// </summary>
     public enum Instruments : byte { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys }
     public enum FileFormat : byte { Chart, Ini, MIDI }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
