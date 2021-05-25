@@ -28,7 +28,7 @@ namespace ChartTools.SystemExtensions
         /// </summary>
         /// <param name="lastItemPreceder">Word to place before the last item</param>
         /// <exception cref="ArgumentNullException"/>
-        public static string VerbalEnumerate(string lastItemPreceder, params string[] items) => items is null ? throw new ArgumentNullException() : items.Length switch
+        public static string VerbalEnumerate(string lastItemPreceder, params string[] items) => items is null ? throw new ArgumentNullException(nameof(items)) : items.Length switch
         {
             0 => string.Empty, // ""
             1 => items[0], // "Item1"

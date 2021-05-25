@@ -52,7 +52,7 @@ namespace ChartTools.Collections.Unique
             if (enumerators.Length == 0)
                 throw new CommonExceptions.ParameterNullException(nameof(enumerators), 1);
             if (comparison is null)
-                throw new ArgumentNullException("Comparison is null");
+                throw new ArgumentNullException(nameof(comparison));
 
             Comparison = comparison;
             Enumerators = enumerators.Where(e => e is not null).ToArray();

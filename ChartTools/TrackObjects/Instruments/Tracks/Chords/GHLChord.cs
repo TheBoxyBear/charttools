@@ -21,7 +21,7 @@ namespace ChartTools
         public GHLChord(uint position, params GHLNote[] notes) : this(position)
         {
             if (notes is null)
-                throw new ArgumentNullException("Note array is null");
+                throw new ArgumentNullException(nameof(notes));
 
             foreach (GHLNote note in notes)
                 Notes.Add(note);
@@ -29,7 +29,7 @@ namespace ChartTools
         public GHLChord(uint position, params GHLNotes[] notes) : this(position)
         {
             if (notes is null)
-                throw new ArgumentNullException("Note array is null");
+                throw new ArgumentNullException(nameof(notes));
 
             foreach (GHLNotes note in notes)
                 Notes.Add(new GHLNote(note));

@@ -82,7 +82,7 @@ namespace ChartTools.IO
             // Convert the write methods to ones that don't take a configuration
             (string, Action<string, T>)[] convertedWriters = writers.Select<(string extension, Action<string, T, TConfig> writeMethod), (string, Action<string, T>)>(r => (r.extension, (p, i) => r.writeMethod(p, i, config))).ToArray();
 
-            try { Write(path, convertedWriters); }
+            try { Write(path, item, convertedWriters); }
             catch { throw; }
         }
         #endregion
