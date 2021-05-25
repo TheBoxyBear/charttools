@@ -117,12 +117,12 @@ namespace ChartTools.IO.MIDI
                 try { return GetDrums(file.Chunks, midiConfig); }
                 catch { throw; }
             }
-            if (Enum.IsDefined(typeof(GHLInstrument), instrument))
+            if (Enum.IsDefined(instrument))
             {
                 try { return GetInstrument(file.Chunks, (GHLInstrument)instrument, midiConfig); }
                 catch { throw; }
             }
-            if (Enum.IsDefined(typeof(StandardInstrument), instrument))
+            if (Enum.IsDefined(instrument))
             {
                 try { return GetInstrument(file.Chunks, (StandardInstrument)instrument, midiConfig); }
                 catch { throw; }
@@ -166,7 +166,7 @@ namespace ChartTools.IO.MIDI
         }
         private static Instrument<GHLChord> GetInstrument(ChunksCollection chunks, GHLInstrument instrument, ReadingConfiguration midiConfig)
         {
-            if (!Enum.IsDefined(typeof(GHLInstrument), instrument))
+            if (!Enum.IsDefined(instrument))
                 throw CommonExceptions.GetUndefinedException(instrument);
 
             if (!CheckTrackChunkPresence(chunks, out Exception e))
@@ -177,7 +177,7 @@ namespace ChartTools.IO.MIDI
         }
         private static Instrument<StandardChord> GetInstrument(ChunksCollection chunks, StandardInstrument instrument, ReadingConfiguration midiConfig)
         {
-            if (!Enum.IsDefined(typeof(StandardInstrument), instrument))
+            if (!Enum.IsDefined(instrument))
                 throw CommonExceptions.GetUndefinedException(instrument);
 
             if (!CheckTrackChunkPresence(chunks, out Exception e))
