@@ -35,6 +35,9 @@ namespace ChartTools
 
         public void ShareLocalEvents(CommonObjectsSource source)
         {
+            if (source == CommonObjectsSource.Seperate)
+                return;
+
             LocalEvent[] events = ((IEnumerable<LocalEvent>)(source switch
             {
                 CommonObjectsSource.Easy => Easy?.LocalEvents,
