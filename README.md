@@ -81,7 +81,7 @@ lyrics.ToGlobalEvents(); //Creates a new set of global events
 events.SetLyrics(lyrics); //Replaces existing lyric-related events with new events making up the phrases
 ```
 
-It is also possible to edit lyrics direclty from the global events. The use of phrase and syllable objects are intended to simplify the editing of lyrics and any changes to these objects are not reflected in the song until they are converted back into global events.
+It is also possible to edit lyrics direclty from the global events. The use of phrase and syllable objects are intended to simplify the editing of lyrics and any changes to these objects are only applied to the song once they are converted back into global events.
 
 ## Optimizing
 Although still fucntional, some files may contain data that slow down the reading process or in worse cases, may result in non-functionnal files when saved in certain formats. ChartTools provides various utilities to fix such issues:
