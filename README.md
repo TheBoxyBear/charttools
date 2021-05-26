@@ -17,7 +17,7 @@ Every element of a chart is stored in an instance of the Song class. It can be i
 ```c#
 Song song = Song.FromFile(filePath);
 ```
-Due to strict limitations with the MIDI format, future builds will also require a configuration instance to read and write files. This instance can be null if the file is not MIDI.
+Due to strict limitations with the MIDI format, future builds will also require a configuration object to read and write files. This object will be able to be used to customize the reading or writing of chart as well as MIDI files and there will be overloads of reading and writing methods that do not require a configuration, in which case the default configuration will be used.
 
 A song contains five main elements:
 
