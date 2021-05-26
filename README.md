@@ -61,7 +61,7 @@ foreach (StandardChord chord in track)
 ```
 
 ## Lyrics
-Lyrics of a song are defined by a collection of phrase. A phrase represents a single line displayed on-screen. It contains syllables, each one representing a section of the text which changes color by the karaoke system. Phrases can either be read from a file:
+Lyrics of a song are defined by a collection of phrases. A phrase represents a single line displayed on-screen. It contains syllables, each one representing a section of the text which changes color by the karaoke system. Phrases can either be read from a file:
 ```c#
 using ChartTools.Lyrics;
 
