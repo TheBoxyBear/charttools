@@ -6,7 +6,7 @@ Special thanks to [FireFox](https://github.com/FireFox2000000) for making the Mo
 This library is an independant project not affiliated with Clone Hero or Moonscraper.
 
 ## Installation
-To add ChartTools to your solution using Visual Studio, right-click on Dependeicnes under your project from the solution explorer and select "Add Project References...". Click on "Browse" and select ChartTools.dll from the repository. All classes are located under the ChartTools namespace.
+To add ChartTools to your solution using Visual Studio, right-click on Dependeicnes under your project from the solution explorer and select "Add Project References...". Click on "Browse" and select ChartTools.dll from the repository. All classes are located under the ChartTools namespace. The DLL contains the latest stable build, still in .NET Standard 2.1. To get the latest version, clone tis repository and compile the project or add the project to your solution and add it as a dependency through a project reference. This version may contain more bugs than the pre-built DLL. If you find any bugs in either version, you can report them in the [Issues sexction](https://github.com/TheBoxyBear/ChartTools/issues) of the repository.
 
 ## Getting started
 Every element of a chart is stored in an instance of the Song class. It can be initialized by reading a file. The file format is detected automatically using the extension:
