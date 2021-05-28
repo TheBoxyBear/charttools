@@ -33,15 +33,18 @@ namespace ChartTools
         /// </summary>
         public Track<TChord> GetTrack(Difficulty difficulty) => (Track<TChord>)GetType().GetProperty(difficulty.ToString()).GetValue(this);
 
-        public void ShareLocalEvents(CommonObjectsSource source)
+        public void ShareLocalEvents(TrackObjectSource source)
         {
+            if (source == TrackObjectSource.Seperate)
+                return;
+
             LocalEvent[] events = ((IEnumerable<LocalEvent>)(source switch
             {
-                CommonObjectsSource.Easy => Easy?.LocalEvents,
-                CommonObjectsSource.Medium => Medium?.LocalEvents,
-                CommonObjectsSource.Hard => Hard?.LocalEvents,
-                CommonObjectsSource.Expert => Expert?.LocalEvents,
-                CommonObjectsSource.Merge => new UniqueEnumerable<LocalEvent>((e, other) => e.Equals(other), new Track<TChord>[] { Easy, Medium, Hard, Expert }.Select(t => t?.LocalEvents).ToArray()),
+                TrackObjectSource.Easy => Easy?.LocalEvents,
+                TrackObjectSource.Medium => Medium?.LocalEvents,
+                TrackObjectSource.Hard => Hard?.LocalEvents,
+                TrackObjectSource.Expert => Expert?.LocalEvents,
+                TrackObjectSource.Merge => new UniqueEnumerable<LocalEvent>((e, other) => e.Equals(other), new Track<TChord>[] { Easy, Medium, Hard, Expert }.Select(t => t?.LocalEvents).ToArray()),
                 _ => throw CommonExceptions.GetUndefinedException(source)
             })).ToArray();
 

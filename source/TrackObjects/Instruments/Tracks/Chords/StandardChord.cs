@@ -21,7 +21,7 @@ namespace ChartTools
         public StandardChord(uint position, params StandardNote[] notes) : this(position)
         {
             if (notes is null)
-                throw new ArgumentNullException("Note array is null");
+                throw new ArgumentNullException(nameof(notes));
 
             foreach (StandardNote note in notes)
                 Notes.Add(note);
@@ -29,7 +29,7 @@ namespace ChartTools
         public StandardChord(uint position, params StandardNotes[] notes) : this(position)
         {
             if (notes is null)
-                throw new ArgumentNullException("Note array is null");
+                throw new ArgumentNullException(nameof(notes));
 
             foreach (StandardNotes note in notes)
                 Notes.Add(new StandardNote(note));

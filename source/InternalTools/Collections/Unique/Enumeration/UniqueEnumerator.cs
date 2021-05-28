@@ -48,11 +48,11 @@ namespace ChartTools.Collections.Unique
         public UniqueEnumerator(EqualityComparison<T> comparison, params IEnumerator<T>[] enumerators)
         {
             if (enumerators is null)
-                throw new CommonExceptions.ParameterNullException("enumerators", 1);
+                throw new CommonExceptions.ParameterNullException(nameof(enumerators), 1);
             if (enumerators.Length == 0)
-                throw new CommonExceptions.ParameterNullException("enumerators", 1);
+                throw new CommonExceptions.ParameterNullException(nameof(enumerators), 1);
             if (comparison is null)
-                throw new ArgumentNullException("Comparison is null");
+                throw new ArgumentNullException(nameof(comparison));
 
             Comparison = comparison;
             Enumerators = enumerators.Where(e => e is not null).ToArray();

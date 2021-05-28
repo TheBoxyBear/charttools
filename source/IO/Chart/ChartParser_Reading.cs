@@ -1,5 +1,4 @@
 ﻿using ChartTools.Lyrics;
-using ChartTools.SystemExtensions;
 using ChartTools.SystemExtensions.Linq;
 
 using System;
@@ -62,10 +61,10 @@ namespace ChartTools.IO.Chart
             };
 
             // Add a thread to read each ghl instrument
-            foreach (GHLInstrument instrument in EnumExtensions.GetValues<GHLInstrument>())
+            foreach (GHLInstrument instrument in Enum.GetValues<GHLInstrument>())
                 tasks.Add(Task.Run(() => songType.GetProperty($"GHL{instrument}").SetValue(song, GetInstrument(lines, part => GetGHLTrack(part, config), partNames[(Instruments)instrument]))));
             // Add a thread to read each standard instrument
-            foreach (StandardInstrument instrument in EnumExtensions.GetValues<StandardInstrument>())
+            foreach (StandardInstrument instrument in Enum.GetValues<StandardInstrument>())
                 tasks.Add(Task.Run(() =>
                     songType.GetProperty(instrument.ToString()).SetValue(song, GetInstrument(lines, part => GetStandardTrack(part, config), partNames[(Instruments)instrument]))));
 
@@ -177,7 +176,7 @@ namespace ChartTools.IO.Chart
         {
             Instrument<TChord> instrument = new();
             Type instrumentType = typeof(Instrument<TChord>);
-            Difficulty[] difficulties = EnumExtensions.GetValues<Difficulty>().ToArray();
+            Difficulty[] difficulties = Enum.GetValues<Difficulty>().ToArray();
 
             // Create threads to reach each difficulty and wait
             Task[] tasks = difficulties.Select(d => Task.Run(() =>
@@ -561,25 +560,7 @@ namespace ChartTools.IO.Chart
                 }
 
                 if (config.SoloNoStarPowerRule == SoloNoStarPowerRule.Convert)
-                    foreach (LocalEvent e in track.LocalEvents.OrderBy(e => e.Position))
-                    {
-                        StarPowerPhrase phrase = null;
-
-                        switch (e.EventType)
-                        {
-                            case LocalEventType.Solo:
-                                phrase = new(e.Position);
-                                break;
-                            case LocalEventType.SoloEnd:
-                                if (phrase is not null)
-                                {
-                                    phrase.Length = e.Position - phrase.Position;
-                                    track.StarPower.Add(phrase);
-                                    phrase = null;
-                                }
-                                break;
-                        }
-                    }
+                    track.StarPower.AddRange(track.SoloToStarPower());
             }
 
             byte emptyCount = 0;

@@ -55,7 +55,7 @@ namespace ChartTools.IO.Chart
             // Types used to get difficulty tracks using reflection
             Type drumsType = typeof(Instrument<DrumsChord>), ghlType = typeof(Instrument<GHLChord>), standardType = typeof(Instrument<StandardChord>);
 
-            foreach (Difficulty difficulty in EnumExtensions.GetValues<Difficulty>())
+            foreach (Difficulty difficulty in Enum.GetValues<Difficulty>())
             {
                 // Add threads to get the lines for each non-null drums track
                 if (song.Drums is not null)
@@ -63,7 +63,7 @@ namespace ChartTools.IO.Chart
                     {
                         IEnumerable<string> lines = GetTrackLines((Track<DrumsChord>)drumsType.GetProperty(difficulty.ToString()).GetValue(song.Drums), config);
 
-                        return lines.Count() > 0 ? GetPartLines(GetFullPartName(Instruments.Drums, difficulty), lines) : lines;
+                        return lines.Any() ? GetPartLines(GetFullPartName(Instruments.Drums, difficulty), lines) : lines;
                     }));
 
                 // Add threads to get the lines for each non-null track of each ghl instrument
@@ -72,7 +72,7 @@ namespace ChartTools.IO.Chart
                     {
                         IEnumerable<string> lines = GetTrackLines((Track<GHLChord>)ghlType.GetProperty(difficulty.ToString()).GetValue(instrument), config);
 
-                        return lines.Count() > 0 ? GetPartLines(GetFullPartName(name, difficulty), lines) : lines;
+                        return lines.Any() ? GetPartLines(GetFullPartName(name, difficulty), lines) : lines;
                     }));
                 // Add threads to get the lines for each non-null track of each standard instrument
                 foreach ((Instrument<StandardChord> instrument, Instruments name) in standardInstruments)
@@ -80,7 +80,7 @@ namespace ChartTools.IO.Chart
                     {
                         IEnumerable<string> lines = GetTrackLines((Track<StandardChord>)standardType.GetProperty(difficulty.ToString()).GetValue(instrument), config);
 
-                        return lines.Count() > 0 ? GetPartLines(GetFullPartName(name, difficulty), lines) : lines;
+                        return lines.Any() ? GetPartLines(GetFullPartName(name, difficulty), lines) : lines;
                     }));
             }
 
@@ -138,7 +138,7 @@ namespace ChartTools.IO.Chart
             // Tasks that generate the lines and associated part name to write for each track
             List<Task<(IEnumerable<string> lines, string partName)>> tasks = new();
             Type instrumentType = typeof(Instrument<TChord>);
-            IEnumerable<Difficulty> difficulties = EnumExtensions.GetValues<Difficulty>();
+            IEnumerable<Difficulty> difficulties = Enum.GetValues<Difficulty>();
 
             foreach (Difficulty difficulty in difficulties)
             {
@@ -234,6 +234,11 @@ namespace ChartTools.IO.Chart
         /// <exception cref="SecurityException"/>
         internal static void ReplaceTrack<TChord>(string path, (Track<TChord> track, Instruments instrument, Difficulty difficulty) data, WritingConfiguration config) where TChord : Chord
         {
+            if (config.SoloNoStarPowerRule == SoloNoStarPowerRule.Convert)
+            {
+                data.track.lo
+            }
+
             try { ReplacePart(path, GetTrackLines(data.track, config), GetFullPartName(data.instrument, data.difficulty)); }
             catch { throw; }
         }

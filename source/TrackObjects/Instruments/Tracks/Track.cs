@@ -1,6 +1,10 @@
-﻿using ChartTools.IO;
+﻿using ChartTools.Collections.Unique;
+using ChartTools.IO;
 using ChartTools.IO.Chart;
+
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ChartTools
 {
@@ -13,6 +17,36 @@ namespace ChartTools
         /// Events specific to the <see cref="Track"/>
         /// </summary>
         public List<LocalEvent> LocalEvents { get; set; } = new List<LocalEvent>();
+        /// <summary>
+        /// Sets of chrds that give star power
+        /// </summary>
+        public UniqueList<StarPowerPhrase> StarPower { get; set; } = new UniqueList<StarPowerPhrase>((s, other) => s.Equals(other));
+
+        internal IEnumerable<StarPowerPhrase> SoloToStarPower(bool removeEvents)
+        {
+            foreach (LocalEvent e in LocalEvents.OrderBy(e => e.Position))
+            {
+                StarPowerPhrase phrase = null;
+
+                switch (e.EventType)
+                {
+                    case LocalEventType.Solo:
+                        phrase = new(e.Position);
+                        break;
+                    case LocalEventType.SoloEnd:
+                        if (phrase is not null)
+                        {
+                            phrase.Length = e.Position - phrase.Position;
+                            yield return phrase;
+                            phrase = null;
+                        }
+                        break;
+                }
+            }
+
+            if (removeEvents)
+                foreach (LocalEvent e in LocalEvents)
+        }
 
         /// <inheritdoc cref="ChartParser.ReadDrumsTrack(string, Difficulty)"/>
         public static Track<DrumsChord> FromFile(string path, Difficulty difficulty, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadDrumsTrack(p, difficulty, config)));

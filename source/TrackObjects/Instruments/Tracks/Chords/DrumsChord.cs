@@ -21,7 +21,7 @@ namespace ChartTools
         public DrumsChord(uint position, params DrumsNote[] notes) : this(position)
         {
             if (notes is null)
-                throw new ArgumentNullException("Note array is null");
+                throw new ArgumentNullException(nameof(notes));
 
             foreach (DrumsNote note in notes)
                 Notes.Add(note);
@@ -29,7 +29,7 @@ namespace ChartTools
         public DrumsChord(uint position, params DrumsNotes[] notes) : this(position)
         {
             if (notes is null)
-                throw new ArgumentNullException("Note array is null");
+                throw new ArgumentNullException(nameof(notes));
 
             foreach (DrumsNotes note in notes)
                 Notes.Add(new DrumsNote(note));

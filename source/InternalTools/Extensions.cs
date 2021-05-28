@@ -17,19 +17,6 @@ namespace ChartTools.SystemExtensions
     public delegate bool EqualityComparison<T>(T a, T b);
 
     /// <summary>
-    /// Provides additionnal methods to Enum
-    /// </summary>
-    internal static class EnumExtensions
-    {
-        /// <summary>
-        /// Gets all values of an <see langword="enum"/>.
-        /// </summary>
-        /// <typeparam name="TEnum"><see cref="Enum"/> to get the values of</typeparam>
-        /// <exception cref="ArgumentException"/>
-        public static IEnumerable<TEnum> GetValues<TEnum>() where TEnum : Enum => Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
-    }
-
-    /// <summary>
     /// Provides additionnal methods to string
     /// </summary>
     internal static class StringExtensions
@@ -41,12 +28,12 @@ namespace ChartTools.SystemExtensions
         /// </summary>
         /// <param name="lastItemPreceder">Word to place before the last item</param>
         /// <exception cref="ArgumentNullException"/>
-        public static string VerbalEnumerate(string lastItemPreceder, params string[] items) => items is null ? throw new ArgumentNullException() : items.Length switch
+        public static string VerbalEnumerate(string lastItemPreceder, params string[] items) => items is null ? throw new ArgumentNullException(nameof(items)) : items.Length switch
         {
-            0 => string.Empty,
-            1 => items[0],
-            2 => $"{items[0]} {lastItemPreceder} {items[1]}",
-            _ => $"{string.Join(", ", items, items.Length - 1)} {lastItemPreceder} {items[^0]}"
+            0 => string.Empty, // ""
+            1 => items[0], // "Item1"
+            2 => $"{items[0]} {lastItemPreceder} {items[1]}", // "Item1 or Item2"
+            _ => $"{string.Join(", ", items, items.Length - 1)} {lastItemPreceder} {items[^0]}" // "Item1, Item2 lastItemPreceder Item3"
         };
     }
 }
@@ -140,8 +127,9 @@ namespace ChartTools.SystemExtensions.Linq
 
                 if (!itemsEnumerator.MoveNext())
                 {
+                    // Return the replacement
                     if (addIfMissing)
-                        foreach (T item in source)
+                        foreach (T item in replacement)
                             yield return item;
                     yield break;
                 }
@@ -192,6 +180,7 @@ namespace ChartTools.SystemExtensions.Linq
                         // Return remaining replacements
                         for (int j = 0; j < replacements.Length; j++)
                             if (!replacedSections[j])
+                                // Return the replacement
                                 foreach (T item in replacements[j].replacement)
                                     yield return item;
                     yield break;
@@ -220,6 +209,7 @@ namespace ChartTools.SystemExtensions.Linq
                             }
                     }
             }
+            // Continue until all replacements are applied
             while (replacedSections.Count(r => r) < replacements.Length);
 
             // Return the rest of the items
@@ -284,39 +274,6 @@ namespace ChartTools.SystemExtensions.Linq
         }
 
         /// <summary>
-        /// Finds the item for which a function returns the smallest or greatest value based on a comparison.
-        /// </summary>
-        /// <param name="source">Items to find the minimum or maximum of</param>
-        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
-        /// <param name="comparison">Function that returns <see langword="true"/> if the second item defeats the first</param>
-        private static T MinMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector, Func<TKey, TKey, bool> comparison) where TKey : IComparable<TKey>
-        {
-            T minMaxItem;
-            TKey minMaxKey;
-
-            using (IEnumerator<T> enumerator = source.GetEnumerator())
-            {
-                if (!enumerator.MoveNext())
-                    throw new Exception("The enumerable has no items.");
-
-                minMaxItem = enumerator.Current;
-                minMaxKey = selector(minMaxItem);
-
-                while (enumerator.MoveNext())
-                {
-                    TKey key = selector(enumerator.Current);
-
-                    if (comparison(key, minMaxKey))
-                    {
-                        minMaxItem = enumerator.Current;
-                        minMaxKey = key;
-                    }
-                }
-            }
-
-            return minMaxItem;
-        }
-        /// <summary>
         /// Finds the items for which a function returns the smallest or greatest value based on a comparison.
         /// </summary>
         /// <param name="source">Items to find the minimum or maximum of</param>
@@ -341,25 +298,8 @@ namespace ChartTools.SystemExtensions.Linq
                         minMaxKey = key;
                 }
             }
-
             return source.Where(t => selector(t).CompareTo(minMaxKey) == 0);
         }
-
-        /// <summary>
-        /// Finds the item for which a function returns the smallest value.
-        /// </summary>
-        /// <remarks>If the smallest value is obtained from multiple items, the first item to do so will be returned.</remarks>
-        /// <param name="source">Items to find the minimum or maximum of</param>
-        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
-        public static T MinBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => MinMaxBy(source, selector, (key, mmKey) => key.CompareTo(mmKey) < 0);
-        /// <summary>
-        /// Finds the item for which a function returns the greatest value.
-        /// </summary>
-        /// <remarks>If the greatest value is obtained from multiple items, the first item to do so will be returned.</remarks>
-        /// <param name="source">Items to find the minimum or maximum of</param>
-        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
-        public static T MaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => MinMaxBy(source, selector, (key, mmKey) => key.CompareTo(mmKey) > 0);
-
         /// <summary>
         /// Finds the items for which a function returns the smallest value.
         /// </summary>

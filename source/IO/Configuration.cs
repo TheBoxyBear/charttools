@@ -10,7 +10,7 @@
     /// </para>
     /// </summary>
     /// <remarks>Can be casted from <see cref="Difficulty"/>.</remarks>
-    public enum CommonObjectsSource : byte
+    public enum TrackObjectSource : byte
     {
         Easy, Medium, Hard, Expert,
         /// <summary>
@@ -48,9 +48,9 @@
     {
         /// <inheritdoc cref="IO.SoloNoStarPowerRule">
         public SoloNoStarPowerRule SoloNoStarPowerRule { get; set; } = SoloNoStarPowerRule.Convert;
-        /// <inheritdoc cref="CommonObjectsSource">
-        public CommonObjectsSource EventSource { get; set; } = CommonObjectsSource.Merge;
-        /// <inheritdoc cref="CommonObjectsSource"/>
-        public CommonObjectsSource StarPowerSource { get; set; } = CommonObjectsSource.Merge;
+        /// <inheritdoc cref="TrackObjectSource">
+        public TrackObjectSource EventSource { get; set; } = TrackObjectSource.Merge;
+        /// <inheritdoc cref="TrackObjectSource"/>
+        public TrackObjectSource StarPowerSource { get; set; } = TrackObjectSource.Merge;
     }
 }

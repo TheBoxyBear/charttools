@@ -1,4 +1,6 @@
-﻿namespace ChartTools
+﻿using System;
+
+namespace ChartTools
 {
     /// <summary>
     /// Note played by drums
@@ -35,6 +37,10 @@
         /// Creates an instance of <see cref="DrumsNote"/>.
         /// </summary>
         /// <param name="note">Value of <see cref="Note"/></param>
-        public DrumsNote(DrumsNotes note) : base((byte)note) { }
+        public DrumsNote(DrumsNotes note) : base((byte)note)
+        {
+            if (!Enum.IsDefined(note))
+                throw new ArgumentException($"Note value is not defined.", nameof(note));
+        }
     }
 }
