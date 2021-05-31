@@ -26,7 +26,7 @@ A song contains five main elements:
 - Global events
 - Instruments
 
-Each of these elements can be read individually from a file using the non-generic version of the right class.
+Each of these elements can be read individually from a file using the generic or non-generic version of the corresponding class.
 
 ## Metadata
 Similar to reading a song, metadata can be read from one or multiple files:
