@@ -44,7 +44,7 @@ namespace ChartTools
             }
 
             if (removeEvents)
-                foreach (LocalEvent e in LocalEvents)
+                LocalEvents.RemoveAll(e => e.IsStarPowerEvent);
         }
 
         public static Track FromFile(string path, Instruments instrument, Difficulty difficulty, ReadingConfiguration config)

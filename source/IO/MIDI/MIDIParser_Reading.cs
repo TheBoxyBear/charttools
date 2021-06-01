@@ -331,8 +331,8 @@ namespace ChartTools.IO.MIDI
                 NoteOnEvent => GlobalEvent.GetEventTypeString(GlobalEventType.PhraseStart),
                 NoteOffEvent => GlobalEvent.GetEventTypeString(GlobalEventType.PhraseEnd),
                 LyricEvent lyricEvent => $"{GlobalEvent.GetEventTypeString(GlobalEventType.Lyric)} {lyricEvent.Text}",
-                _ => throw new ArgumentException()
-            })));
+                _ => null
+            })).Where(e => e is not null));
         }
 
         private static void GetLocalEventsStarPower(IEnumerable<MidiEvent> events, out List<LocalEvent> eventDest, out UniqueList<StarPowerPhrase> starPowerDest, ReadingConfiguration midiConfig)

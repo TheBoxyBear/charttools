@@ -32,6 +32,8 @@ namespace ChartTools
             set => EventTypeString = GetEventTypeString(value);
         }
 
+        public bool IsStarPowerEvent => EventType is LocalEventType.Solo or LocalEventType.SoloEnd;
+
         /// <summary>
         /// Creates an instance of <see cref="LocalEvent"/>.
         /// </summary>
