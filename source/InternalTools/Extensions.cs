@@ -336,7 +336,7 @@ namespace ChartTools
         /// <param name="instrument">Instrument to read the difficulty of</param>
         public static void ReadDifficulty(this Instrument<GHLChord> inst, string path, GHLInstrument instrument)
         {
-            if (!Enum.IsDefined(typeof(GHLInstrument), instrument))
+            if (!Enum.IsDefined(instrument))
                 throw CommonExceptions.GetUndefinedException(instrument);
 
             try { inst.Difficulty = Instrument.ReadDifficulty(path, (Instruments)instrument); }
@@ -345,7 +345,7 @@ namespace ChartTools
         /// <inheritdoc cref="ReadDifficulty(Instrument{GHLChord}, string)"/>
         public static void ReadDifficulty(this Instrument<StandardChord> inst, string path, StandardInstrument instrument)
         {
-            if (!Enum.IsDefined(typeof(StandardInstrument), instrument))
+            if (!Enum.IsDefined(instrument))
                 throw CommonExceptions.GetUndefinedException(instrument);
 
             try { inst.Difficulty = Instrument.ReadDifficulty(path, (Instruments)100); }
@@ -367,7 +367,7 @@ namespace ChartTools
         /// <param name="instrument">Instrument to assign the difficulty to</param>
         public static void WriteDifficulty(this Instrument<GHLChord> inst, string path, GHLInstrument instrument)
         {
-            if (!Enum.IsDefined(typeof(GHLInstrument), instrument))
+            if (!Enum.IsDefined(instrument))
                 throw CommonExceptions.GetUndefinedException(instrument);
 
             if (inst.Difficulty is not null)
@@ -377,7 +377,7 @@ namespace ChartTools
         /// <inheritdoc cref="WriteDifficulty(Instrument{GHLChord}, string)"/>
         public static void WriteDifficulty(this Instrument<StandardChord> inst, string path, StandardInstrument instrument)
         {
-            if (!Enum.IsDefined(typeof(StandardInstrument), instrument))
+            if (!Enum.IsDefined(instrument))
                 throw CommonExceptions.GetUndefinedException(instrument);
 
             if (inst.Difficulty is not null)

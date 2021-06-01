@@ -97,12 +97,12 @@ namespace ChartTools.IO.Chart
                 try { return ReadDrums(path, config); }
                 catch { throw; }
             }
-            if (Enum.IsDefined(typeof(GHLInstrument), instrument))
+            if (Enum.IsDefined((GHLInstrument)instrument))
             {
                 try { return ReadInstrument(path, (GHLInstrument)instrument, config); }
                 catch { throw; }
             }
-            if (Enum.IsDefined(typeof(StandardInstrument), instrument))
+            if (Enum.IsDefined((StandardInstrument)instrument))
             {
                 try { return ReadInstrument(path, (StandardInstrument)instrument, config); }
                 catch { throw; }
@@ -225,12 +225,12 @@ namespace ChartTools.IO.Chart
                 try { return ReadDrumsTrack(path, difficulty, config); }
                 catch { throw; }
             }
-            if (Enum.IsDefined(typeof(GHLInstrument), instrument))
+            if (Enum.IsDefined((GHLInstrument)instrument))
             {
                 try { return ReadTrack(path, (GHLInstrument)instrument, difficulty, config); }
                 catch { throw; }
             }
-            if (Enum.IsDefined(typeof(StandardInstrument), instrument))
+            if (Enum.IsDefined((StandardInstrument)instrument))
             {
                 try { return ReadTrack(path, (StandardInstrument)instrument, difficulty, config); }
                 catch { throw; }
@@ -560,7 +560,7 @@ namespace ChartTools.IO.Chart
                 }
 
                 if (config.SoloNoStarPowerRule == SoloNoStarPowerRule.Convert)
-                    track.StarPower.AddRange(track.SoloToStarPower());
+                    track.StarPower.AddRange(track.SoloToStarPower(true));
             }
 
             byte emptyCount = 0;

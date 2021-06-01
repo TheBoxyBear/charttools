@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "JoifiS387hNrYLq/fJbby4Q7Mfjn7Snb/mZQ0r2002vV4XYwe5yHVMYhBvEREoZ8HLZaBBuyig2fTCzuFxCQ3w==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Gaming\\Documents\\GitHub\\ChartTools\\ChartTools\\ChartTools.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Gaming\\.nuget\\packages\\melanchall.drywetmidi\\5.2.0\\melanchall.drywetmidi.5.2.0.nupkg.sha512"
+  ],
+  "logs": []
+}

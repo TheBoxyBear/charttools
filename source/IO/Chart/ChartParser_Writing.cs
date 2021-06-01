@@ -101,7 +101,7 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments)"/>
         internal static void ReplaceInstrument(string path, (Instrument<GHLChord> inst, GHLInstrument instrument) data, WritingConfiguration config)
         {
-            if (!Enum.IsDefined(typeof(GHLInstrument), data.instrument))
+            if (!Enum.IsDefined(data.instrument))
                 throw CommonExceptions.GetUndefinedException(data.instrument);
 
             try { ReplaceInstrument(path, data, config); }
@@ -110,7 +110,7 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments)"/>
         internal static void ReplaceInstrument(string path, (Instrument<StandardChord> inst, StandardInstrument instrument) data, WritingConfiguration config)
         {
-            if (!Enum.IsDefined(typeof(StandardInstrument), data.instrument))
+            if (!Enum.IsDefined(data.instrument))
                 throw CommonExceptions.GetUndefinedException(data.instrument);
 
             try { ReplaceInstrument(path, data, config); }
@@ -236,7 +236,7 @@ namespace ChartTools.IO.Chart
         {
             if (config.SoloNoStarPowerRule == SoloNoStarPowerRule.Convert)
             {
-                data.track.lo
+
             }
 
             try { ReplacePart(path, GetTrackLines(data.track, config), GetFullPartName(data.instrument, data.difficulty)); }

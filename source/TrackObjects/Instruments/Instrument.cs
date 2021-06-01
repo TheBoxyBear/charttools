@@ -18,7 +18,7 @@ namespace ChartTools
         /// <inheritdoc cref="ChartParser.ReadInstrument(string, Instruments)"/>
         public static Instrument FromFile(string path, Instruments instrument, ReadingConfiguration config)
         {
-            if (!Enum.IsDefined(typeof(Instruments), instrument))
+            if (!Enum.IsDefined(instrument))
                 throw new ArgumentException("Instrument is not defined.");
 
             try { return ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadInstrument(p, instrument, config))); }
@@ -29,7 +29,7 @@ namespace ChartTools
         /// <inheritdoc cref="ChartParser.ReadInstrument(string, GHLInstrument)"/>
         public static Instrument<GHLChord> FromFile(string path, GHLInstrument instrument, ReadingConfiguration config)
         {
-            if (!Enum.IsDefined(typeof(GHLInstrument), instrument))
+            if (!Enum.IsDefined(instrument))
                 throw new ArgumentException("Instrument is not defined.");
 
             try { return ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadInstrument(p, instrument, config))); }
@@ -38,7 +38,7 @@ namespace ChartTools
         /// <inheritdoc cref="ChartParser.ReadInstrument(string, StandardInstrument)"/>
         public static Instrument<StandardChord> FromFile(string path, StandardInstrument instrument, ReadingConfiguration config)
         {
-            if (!Enum.IsDefined(typeof(StandardInstrument), instrument))
+            if (!Enum.IsDefined(instrument))
                 throw new ArgumentException("Instrument is not defined.");
 
             try { return ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadInstrument(p, instrument, config))); }

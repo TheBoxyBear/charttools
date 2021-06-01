@@ -2,7 +2,6 @@
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -48,6 +47,11 @@ namespace ChartTools
                 foreach (LocalEvent e in LocalEvents)
         }
 
+        public static Track FromFile(string path, Instruments instrument, Difficulty difficulty, ReadingConfiguration config)
+        {
+            try { return ExtensionHandler.Read(path, config, (".chart", (p, c) => ChartParser.ReadTrack(p, instrument, difficulty, c))); }
+            catch { throw; }
+        }
         /// <inheritdoc cref="ChartParser.ReadDrumsTrack(string, Difficulty)"/>
         public static Track<DrumsChord> FromFile(string path, Difficulty difficulty, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadDrumsTrack(p, difficulty, config)));
         /// <inheritdoc cref="ChartParser.ReadTrack(string, GHLInstrument, Difficulty)"/>
