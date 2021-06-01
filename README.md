@@ -6,7 +6,7 @@ Special thanks to [FireFox](https://github.com/FireFox2000000) for making the Mo
 This library is an independant project not affiliated with Clone Hero or Moonscraper.
 
 ## Installation
-To add ChartTools to your solution using Visual Studio, right-click on Dependeicnes under your project from the solution explorer and select "Add Project References...". Click on "Browse" and select ChartTools.dll from the repository. All classes are located under the ChartTools namespace. 
+To add ChartTools to your project using Visual Studio, right-click on Dependeicnes under your project from the solution explorer and select "Add Project References...". Click on "Browse" and select ChartTools.dll from the repository. All classes are located under the ChartTools namespace. 
 
 The DLL contains the latest stable build, still in .NET Standard 2.1. To get the latest version, clone tis repository and compile the project or add the project to your solution and add it as a dependency through a project reference. This version may contain more bugs than the pre-built DLL.
 
@@ -17,7 +17,7 @@ Every element of a chart is stored in an instance of the Song class. It can be i
 ```c#
 Song song = Song.FromFile(filePath);
 ```
-Due to strict limitations with the MIDI format, future builds will also require a configuration object to read and write files. This object will be able to be used to customize the reading or writing of chart as well as MIDI files and there will be overloads of reading and writing methods that do not require a configuration, in which case the default configuration will be used.
+Due to strict limitations with the MIDI format, future builds will make use of a configuration object to customize the reading and writing process. There will also be overloads that do not require it and will use the default configuration.
 
 A song contains five main elements:
 
@@ -26,7 +26,7 @@ A song contains five main elements:
 - Global events
 - Instruments
 
-Each of these elements can be read individually from a file using the non-generic version of the right class.
+Each of these elements can be read individually from a file using the non-generic version of the corresponding class.
 
 ## Metadata
 Similar to reading a song, metadata can be read from one or multiple files:
