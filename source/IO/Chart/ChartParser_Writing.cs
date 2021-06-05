@@ -138,9 +138,8 @@ namespace ChartTools.IO.Chart
             // Tasks that generate the lines and associated part name to write for each track
             List<Task<(IEnumerable<string> lines, string partName)>> tasks = new();
             Type instrumentType = typeof(Instrument<TChord>);
-            IEnumerable<Difficulty> difficulties = Enum.GetValues<Difficulty>();
 
-            foreach (Difficulty difficulty in difficulties)
+            foreach (Difficulty difficulty in Enum.GetValues<Difficulty>())
             {
                 // Get the track to write
                 object track = instrumentType.GetProperty(difficulty.ToString()).GetValue(data.inst);
