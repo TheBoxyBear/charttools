@@ -157,15 +157,13 @@ namespace ChartTools.IO.Chart
             try { Task.WaitAll(tasks.ToArray()); }
             catch { throw; }
 
-            try
-            {
-                if (File.Exists(path))
-                    // Get the existing lines, remove lines relating to the instrument's tracks, construct the new parts, insert and rewrite the file
-                    File.WriteAllText(path, string.Join('\n', GetLines(path).ReplaceSections(true, tasks.Select<Task<(IEnumerable<string> lines, string partName)>, (IEnumerable<string>, Predicate<string>, Predicate<string>)>(t => (t.Result.lines, l => l == $"[{t.Result.partName}]", l => l == "}")).ToArray())));
-                else
-                    // Create a new file containing the generated lines
-                    File.WriteAllText(path, string.Join('\n', tasks.SelectMany(t => t.Result.lines)));
-            }
+            string content = File.Exists(path) ?
+                // Get the existing lines, remove lines relating to the instrument's tracks, construct the new parts and insert
+                string.Join('\n', GetLines(path).ReplaceSections(true, tasks.Select<Task<(IEnumerable<string> lines, string partName)>, (IEnumerable<string>, Predicate<string>, Predicate<string>)>(t => (t.Result.lines, l => l == $"[{t.Result.partName}]", l => l == "}")).ToArray())) :
+                // Get only the generated lines
+                string.Join('\n', tasks.SelectMany(t => t.Result.lines));
+
+            try { File.WriteAllText(path, content); }
             catch { throw; }
 
             foreach (Task task in tasks)
