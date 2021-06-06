@@ -199,8 +199,8 @@ namespace ChartTools
 
     public struct MetadataItem
     {
-        public string Key { get; }
-        public object Data { get; }
-        public FileFormat Origin { get; }
+        public string Key { get; init; }
+        public object Data { get; set; }
+        public FileFormat Origin { get; internal init; }
     }
 }

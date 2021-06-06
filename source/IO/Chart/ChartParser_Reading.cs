@@ -714,6 +714,9 @@ namespace ChartTools.IO.Chart
                         metadata.Streams ??= new();
                         metadata.Streams.Crowd = data;
                         break;
+                    default:
+                        metadata.UnidentifiedData.Add(new() { Key = entry.Header, Data = entry.Data, Origin = FileFormat.Chart });
+                        break;
                 }
             }
 
