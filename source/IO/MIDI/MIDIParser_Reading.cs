@@ -252,7 +252,11 @@ namespace ChartTools.IO.MIDI
 
             Track<StandardChord> track = new();
             StandardChord chord = null;
+            Dictionary<StandardNotes, StandardChord> sustainOrigins = new();
             bool newChord = true;
+
+            foreach (StandardNotes n in Enum.GetValues<StandardNotes>())
+                sustainOrigins.Add(n, null);
 
             void GetParentChord(NoteEvent e, uint pos)
             {
@@ -277,17 +281,12 @@ namespace ChartTools.IO.MIDI
                             continue;
 
                         uint position = (uint)noteOnEvent.DeltaTime;
-
-                        GetParentChord(noteOnEvent, position);
-
                         StandardNotes noteEnum = (StandardNotes)GetNoteIndex(noteOnEvent.NoteNumber);
 
-                        if (chord.Notes.TryGetFirst(n => n.Note == noteEnum, out StandardNote n))
-                        {
-                            
-                        }
+                        GetParentChord(noteOnEvent, position);
+                        sustainOrigins[noteEnum] = chord;
 
-                        chord.Notes.Add((StandardNotes)GetNoteIndex(noteOnEvent.NoteNumber));
+                        chord.Notes.Add(new(noteEnum));
 
                         if (newChord)
                             track.Chords.Add(chord);
@@ -298,12 +297,19 @@ namespace ChartTools.IO.MIDI
                             continue;
 
                         position = (uint)noteOffEvent.DeltaTime;
-
                         GetParentChord(noteOffEvent, position);
 
-                        if (chord.Notes.TryGetFirst(n => n.Note == (StandardNotes)GetNoteIndex(noteOffEvent.NoteNumber), out StandardNote note))
-                            note.SustainLength = (uint)noteOffEvent.DeltaTime - chord.Position;
-                    break;
+                        noteEnum = (StandardNotes)GetNoteIndex(noteOffEvent.NoteNumber);
+
+                        if (sustainOrigins.ContainsKey(noteEnum))
+                        {
+                            StandardChord ch = sustainOrigins[noteEnum];
+                            StandardNote note = ch.Notes[noteEnum];
+
+                            if (note is not null)
+                                note.SustainLength = position - ch.Position;
+                        }
+                        break;
                 }
 
             throw new NotImplementedException();
