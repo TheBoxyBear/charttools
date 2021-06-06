@@ -1,11 +1,14 @@
-﻿using ChartTools.Collections.Unique;
+﻿using System;
+using System.Linq;
+
+using ChartTools.Collections.Unique;
 
 namespace ChartTools
 {
     /// <summary>
     /// Set of notes played simultaneously
     /// </summary>
-    public class NoteCollection<TNote> : UniqueList<TNote> where TNote : Note
+    public class NoteCollection<TNote, TNoteEnum> : UniqueList<TNote> where TNote : Note where TNoteEnum : struct, Enum
     {
         /// <summary>
         /// If <see langword="true"/>, trying to combine an open note with other notes will remove the current ones.
@@ -27,10 +30,26 @@ namespace ChartTools
         /// <param name="item">Item to add</param>
         public override void Add(TNote item)
         {
+            if (item is null)
+                throw GetNullNoteException(nameof(item));
+
             if (OpenExclusivity && (item.NoteIndex == 0 || Count > 0 && this[0].NoteIndex == 0))
                 Clear();
 
             base.Add(item);
         }
+
+        public TNote this[TNoteEnum note]
+        {
+            get
+            {
+                if (!Enum.IsDefined(note))
+                    throw GetNullNoteException(nameof(note));
+
+                return this.FirstOrDefault(n => n.NoteIndex == Convert.ToByte(note));
+            }
+        }
+
+        public static Exception GetNullNoteException(string paramName) => new ArgumentNullException(paramName, "Note is null.");
     }
 }
