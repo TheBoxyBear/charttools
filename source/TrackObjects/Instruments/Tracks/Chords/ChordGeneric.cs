@@ -3,7 +3,7 @@
     /// <summary>
     /// Set of notes played simultaneously
     /// </summary>
-    public abstract class Chord<TNote, TNoteEnum> : Chord where TNote : Note where TNoteEnum : System.Enum
+    public abstract class Chord<TNote, TNoteEnum> : Chord where TNote : Note where TNoteEnum : struct, System.Enum
     {
         /// <summary>
         /// Notes in the <see cref="Chord{TNote}"/>
