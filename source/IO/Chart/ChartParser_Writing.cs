@@ -358,7 +358,7 @@ namespace ChartTools.IO.Chart
                 if (trackObject is TimeSignature)
                 {
                     TimeSignature signature = trackObject as TimeSignature;
-                    byte writtenDenominator = (byte)(signature.Denominator / 4);
+                    byte writtenDenominator = (byte)Math.Log2(signature.Denominator);
 
                     yield return GetLine(trackObject.Position.ToString(), writtenDenominator == 1 ? $"TS {signature.Numerator}" : $"TS {signature.Numerator} {writtenDenominator}");
                 }
