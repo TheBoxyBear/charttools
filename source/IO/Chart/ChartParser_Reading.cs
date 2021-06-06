@@ -299,7 +299,7 @@ namespace ChartTools.IO.Chart
                     if (data.NoteIndex < 5)
                         chord.Notes.Add(new((DrumsNotes)data.NoteIndex) { SustainLength = data.SustainLength });
                     // Cymbal
-                    else if (data.NoteIndex is > 66 and < 69)
+                    else if (data.NoteIndex is > 65 and < 69)
                     {
                         DrumsNote note = null;
                         // NoteIndex of the note to set as cymbal
@@ -316,6 +316,8 @@ namespace ChartTools.IO.Chart
                             returnedDefault = false;
                         }
                     }
+                    else if (data.NoteIndex == 32)
+
 
                     if (newChord)
                         track.Chords.Add(chord);
