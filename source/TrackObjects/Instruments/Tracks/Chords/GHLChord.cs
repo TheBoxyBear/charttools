@@ -6,10 +6,8 @@ namespace ChartTools
     /// <summary>
     /// Set of notes played simultaneously by a Guitar Hero Live instrument
     /// </summary>
-    public class GHLChord : Chord<GHLNote>
+    public class GHLChord : Chord<GHLNote, GHLNotes>
     {
-         /// <inheritdoc/>
-        public override NoteCollection<GHLNote> Notes { get; } = new NoteCollection<GHLNote>(true);
         /// <inheritdoc cref="GHLChordModifier"/>
         public GHLChordModifier Modifier { get; set; } = GHLChordModifier.None;
 
@@ -17,7 +15,7 @@ namespace ChartTools
         /// Creates an instance of <see cref="GHLChord"/>.
         /// </summary>
         /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
-        public GHLChord(uint position) : base(position) { }
+        public GHLChord(uint position) : base(position) => Notes = new(true);
         public GHLChord(uint position, params GHLNote[] notes) : this(position)
         {
             if (notes is null)

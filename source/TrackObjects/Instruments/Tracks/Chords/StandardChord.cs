@@ -6,10 +6,8 @@ namespace ChartTools
     /// <summary>
     /// Set of notes played simultaneously by a standard five-fret instrument
     /// </summary>
-    public class StandardChord : Chord<StandardNote>
+    public class StandardChord : Chord<StandardNote, StandardNotes>
     {
-        /// <inheritdoc/>
-        public override NoteCollection<StandardNote> Notes { get; } = new NoteCollection<StandardNote>(true);
         /// <inheritdoc cref="StandardChordModifier"/>
         public StandardChordModifier Modifier { get; set; } = StandardChordModifier.None;
 
@@ -17,7 +15,7 @@ namespace ChartTools
         /// Creates an instance of <see cref="StandardChord"/>.
         /// </summary>
         /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
-        public StandardChord(uint position) : base(position) { }
+        public StandardChord(uint position) : base(position) => Notes = new(true);
         public StandardChord(uint position, params StandardNote[] notes) : this(position)
         {
             if (notes is null)

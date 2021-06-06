@@ -3,12 +3,12 @@
     /// <summary>
     /// Set of notes played simultaneously
     /// </summary>
-    public abstract class Chord<TNote> : Chord where TNote : Note
+    public abstract class Chord<TNote, TNoteEnum> : Chord where TNote : Note where TNoteEnum : System.Enum
     {
         /// <summary>
         /// Notes in the <see cref="Chord{TNote}"/>
         /// </summary>
-        public virtual NoteCollection<TNote> Notes { get; }
+        public NoteCollection<TNote, TNoteEnum> Notes { get; init; }
 
         /// <summary>
         /// Creates an instance of <see cref="Chord{TNote}"/>.

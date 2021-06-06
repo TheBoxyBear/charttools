@@ -6,10 +6,8 @@ namespace ChartTools
     /// <summary>
     /// Set of notes played simultaneously by drums
     /// </summary>
-    public class DrumsChord : Chord<DrumsNote>
+    public class DrumsChord : Chord<DrumsNote, DrumsNotes>
     {
-        /// <inheritdoc/>
-        public override NoteCollection<DrumsNote> Notes { get; } = new NoteCollection<DrumsNote>(false);
         /// <inheritdoc cref="DrumsChordModifier"/>
         public DrumsChordModifier Modifier { get; set; } = DrumsChordModifier.None;
 
@@ -17,7 +15,7 @@ namespace ChartTools
         /// Creates an instance of <see cref="DrumsChord"/>
         /// </summary>
         /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
-        public DrumsChord(uint position) : base(position) { }
+        public DrumsChord(uint position) : base(position) => Notes = new(false);
         public DrumsChord(uint position, params DrumsNote[] notes) : this(position)
         {
             if (notes is null)
