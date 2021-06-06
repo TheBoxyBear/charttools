@@ -298,6 +298,9 @@ namespace ChartTools.IO.Chart
                     // Note
                     if (data.NoteIndex < 5)
                         chord.Notes.Add(new((DrumsNotes)data.NoteIndex) { SustainLength = data.SustainLength });
+                    // Double kick
+                    else if (data.NoteIndex == 32)
+                        chord.Notes.Add(new(DrumsNotes.DoubleKick));
                     // Cymbal
                     else if (data.NoteIndex is > 65 and < 69)
                     {
@@ -316,8 +319,6 @@ namespace ChartTools.IO.Chart
                             returnedDefault = false;
                         }
                     }
-                    else if (data.NoteIndex == 32)
-
 
                     if (newChord)
                         track.Chords.Add(chord);

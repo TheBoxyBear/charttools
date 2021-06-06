@@ -14,7 +14,7 @@ namespace ChartTools
     /// <summary>
     /// Drums pads and pedals for a <see cref="DrumsNote"/>
     /// </summary>
-    public enum DrumsNotes : byte { Kick, Red, Yellow, Blue, Green4Lane_Orange5Lane, Green5Lane }
+    public enum DrumsNotes : byte { Kick, DoubleKick, Red, Yellow, Blue, Green4Lane_Orange5Lane, Green5Lane }
     /// <summary>
     /// Modifier that affects how a <see cref="GHLChord"/> can be played
     /// </summary>
