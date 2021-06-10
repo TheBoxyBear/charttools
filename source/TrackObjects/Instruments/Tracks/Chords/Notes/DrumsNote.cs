@@ -23,7 +23,7 @@ namespace ChartTools
             set
             {
                 if ((Note == DrumsNotes.Red || Note == DrumsNotes.Green5Lane) && value)
-                    throw new System.Exception("Red and 5-lane green notes cannot be cymbal.");
+                    throw new InvalidOperationException("Red and 5-lane green notes cannot be cymbal.");
 
                 _isCymbal = value;
             }

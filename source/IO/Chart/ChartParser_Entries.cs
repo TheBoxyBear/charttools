@@ -51,12 +51,12 @@ namespace ChartTools.IO.Chart
             /// </summary>
             internal string Type { get; }
             /// <summary>
-            /// Additionnal data
+            /// Additional data
             /// </summary>
             internal string Data { get; }
 
             /// <summary>
-            /// Creates an instnace of see<see cref="TrackObjectEntry"/>.
+            /// Creates an instance of see<see cref="TrackObjectEntry"/>.
             /// </summary>
             /// <param name="line">Line in the file</param>
             /// <exception cref="FormatException"/>
@@ -65,7 +65,7 @@ namespace ChartTools.IO.Chart
                 ChartEntry entry;
 
                 try { entry = new ChartEntry(line); }
-                catch{ throw; }
+                catch { throw; }
 
                 string[] split = entry.Data.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
 

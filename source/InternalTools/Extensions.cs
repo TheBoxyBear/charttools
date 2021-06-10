@@ -14,10 +14,10 @@ namespace ChartTools.SystemExtensions
     /// <summary>
     /// <see cref="IEquatable{T}"/> equivalent to the <see cref="IComparable{T}"/> <see cref="Comparison{T}"/> delegate
     /// </summary>
-    public delegate bool EqualityComparison<T>(T a, T b);
+    public delegate bool EqualityComparison<in T>(T a, T b);
 
     /// <summary>
-    /// Provides additionnal methods to string
+    /// Provides additional methods to string
     /// </summary>
     internal static class StringExtensions
     {
@@ -227,7 +227,7 @@ namespace ChartTools.SystemExtensions.Linq
         {
             IEnumerator<T> itemsEnumerator = source.GetEnumerator();
 
-            // Initialize the enumerator 
+            // Initialize the enumerator
             if (!itemsEnumerator.MoveNext())
                 yield break;
 
@@ -286,7 +286,7 @@ namespace ChartTools.SystemExtensions.Linq
             using (IEnumerator<T> enumerator = source.GetEnumerator())
             {
                 if (!enumerator.MoveNext())
-                    throw new Exception("The enumerable has no items.");
+                    throw new ArgumentException("The enumerable has no items.");
 
                 minMaxKey = selector(enumerator.Current);
 
@@ -595,7 +595,7 @@ namespace ChartTools
         }
     }
 }
- 
+
 namespace ChartTools.Lyrics
 {
     /// <summary>

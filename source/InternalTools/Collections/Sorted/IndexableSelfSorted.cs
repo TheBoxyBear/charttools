@@ -8,8 +8,8 @@ namespace ChartTools.Collections.Sorted
     /// *Deprecated* Collection where <typeparamref name="TValue"/> items are always sorted based on a <typeparamref name="TKey"/> key
     /// </summary>
     /// <typeparam name="TKey">Type of the key to use as in index</typeparam>
-    /// <typeparam name="TValue">Type of the cotained items</typeparam>
-    [Obsolete]
+    /// <typeparam name="TValue">Type of the contained items</typeparam>
+    [Obsolete("Unused by non-internal classes")]
     internal class IndexableSelfSorted<TKey, TValue> : SelfSorted<TValue> where TKey : IComparable<TKey> where TValue : IComparable<TValue>
     {
         /// <summary>

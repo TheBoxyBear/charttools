@@ -1,5 +1,8 @@
 *.sln
 /debug
+/ChartTools
+/ChartTools.Test
+/TestResults
 /.vs
 /source/.vs
 /source/bin

@@ -401,7 +401,7 @@ namespace ChartTools.IO.Chart
                                 chord.Modifier |= GHLChordModifier.Forced;
                                 break;
                             case 6:
-                                chord.Modifier |= GHLChordModifier.Tap; ;
+                                chord.Modifier |= GHLChordModifier.Tap;
                                 break;
                             case 7:
                                 chord.Notes.Add(new(GHLNotes.Open) { SustainLength = data.SustainLength });
@@ -801,7 +801,7 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <returns>Instance of <see cref="SyncTrack"/>
         ///     <para><see langword="null"/> if the lines contain no sync track</para>
-        /// </returns> 
+        /// </returns>
         /// <param name="lines">Lines in the file</param>
         /// <exception cref="FormatException"/>
         private static SyncTrack GetSyncTrack(string[] lines)
@@ -891,6 +891,8 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="DirectoryNotFoundException"/>
+        /// <exception cref="FileNotFoundException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="OutOfMemoryException"/>
         private static IEnumerable<string> GetLines(string path)
