@@ -3,10 +3,10 @@ ChartTools is a C# library using .NET 5 with the purpose of modeling song files 
 
 Special thanks to [FireFox](https://github.com/FireFox2000000) for making the Moonscraper editor open-source and to members of the [Moonscraper Discord](https://discord.gg/wdnD83APhE) including but not limited to DarkAngel2096, FireFox, Kanske, mdsitton, Spachi and XEntombmentX for their help in researching.
 
-This library is an independant project not affiliated with Clone Hero or Moonscraper.
+This library is an independent project not affiliated with Clone Hero or Moonscraper.
 
 ## Installation
-To add ChartTools to your project using Visual Studio, right-click on Dependeicnes under your project from the solution explorer and select "Add Project References...". Click on "Browse" and select ChartTools.dll from the repository. All classes are located under the ChartTools namespace. 
+To add ChartTools to your project using Visual Studio, right-click on Dependencies under your project from the solution explorer and select "Add Project References...". Click on "Browse" and select ChartTools.dll from the repository. All classes are located under the ChartTools namespace. 
 
 The DLL contains the latest stable build, still in .NET Standard 2.1. To get the latest version, clone tis repository and compile the project or add the project to your solution and add it as a dependency through a project reference. This version may contain more bugs than the pre-built DLL.
 
@@ -21,7 +21,7 @@ Due to strict limitations with the MIDI format, future builds will make use of a
 
 A song contains five main elements:
 
-- Metadata - Miscelanious info about the song, such as title, album, charter etc.
+- Metadata - Miscellaneous info about the song, such as title, album, charter etc.
 - Sync track - Markers that define time signature and tempo
 - Global events
 - Instruments
@@ -34,10 +34,10 @@ Similar to reading a song, metadata can be read from one or multiple files:
 Metadata metadata = Metadata.FromFile(filePath);
 Metadata metadata = Metada.FromFiles(filePath1, filePath2, filePath3...);
 ```
-Files can be .chart or .ini. When reading from multiple files, the provided files can be a mix of different formats, each read based on its extension. The first file has upmost priority and other files are only read to retreive the missing information, in decreasing order of priority until all properties of the metadata have a value or until the last file is read.
+Files can be .chart or .ini. When reading from multiple files, the provided files can be a mix of different formats, each read based on its extension. The first file has utmost priority and other files are only read to retrieve the missing information, in decreasing order of priority until all properties of the metadata have a value or until the last file is read.
 
 ## Instruments and tracks
-All instrument currently supported are represented using the generic Insrument class. Notes and other information are stored in a track, with each difficulty level being its own track. Each generic instrument contains one track per difficulty setting. A track can be retrieved from a song like so:
+All instrument currently supported are represented using the generic Instrument class. Notes and other information are stored in a track, with each difficulty level being its own track. Each generic instrument contains one track per difficulty setting. A track can be retrieved from a song like so:
 ```c#
 Track<StandardChord> track = song.LeadGuitar.Expert;
 ```
@@ -81,10 +81,10 @@ lyrics.ToGlobalEvents(); //Creates a new set of global events
 events.SetLyrics(lyrics); //Replaces existing lyric-related events with new events making up the phrases
 ```
 
-It is also possible to edit lyrics direclty from the global events. The use of phrase and syllable objects are intended to simplify the editing of lyrics and any changes to these objects are only applied to the song once they are converted back into global events.
+It is also possible to edit lyrics directly from the global events. The use of phrase and syllable objects are intended to simplify the editing of lyrics and any changes to these objects are only applied to the song once they are converted back into global events.
 
 ## Optimizing
-Although still fucntional, some files may contain data that slow down the reading process or in worse cases, may result in non-functionnal files when saved in certain formats. ChartTools provides various utilities to fix such issues:
+Although still functional, some files may contain data that slow down the reading process or in worse cases, may result in non-functional files when saved in certain formats. ChartTools provides various utilities to fix such issues:
 ```c#
 using ChartTools.Optimization;
 
