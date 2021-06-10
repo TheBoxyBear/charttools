@@ -2,7 +2,6 @@
 {
     /// <summary>
     /// Difficulty of the <see cref="Track"/> to serve as a source of for track objects common to all difficulties to use for all tracks in the same <see cref="Instrument"/>
-    /// 
     /// <para>Common track objects are:<list type="bullet">
     /// <item>Local events</item>
     /// <item>Star power phrases</item>
@@ -14,14 +13,14 @@
     {
         Easy, Medium, Hard, Expert,
         /// <summary>
-        /// Each <see cref="Track"/> will contain a combinaition of all unique common track objects in the same <see cref="Instrument"/>
+        /// Each <see cref="Track"/> will contain a combination of all unique common track objects in the same <see cref="Instrument"/>
         /// </summary>
         Merge,
         Seperate
     }
 
     /// <summary>
-    /// Defines how to handle "solo" local events in tracks 
+    /// Defines how to handle "solo" local events in tracks
     /// </summary>
     public enum SoloNoStarPowerRule : byte
     {

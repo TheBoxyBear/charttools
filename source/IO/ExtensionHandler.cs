@@ -8,7 +8,7 @@ using ChartTools.SystemExtensions;
 namespace ChartTools.IO
 {
     /// <summary>
-    /// Provides methods for rading and writing files based on the extension
+    /// Provides methods for reading and writing files based on the extension
     /// </summary>
     internal static class ExtensionHandler
     {
@@ -50,8 +50,7 @@ namespace ChartTools.IO
             // Convert the read methods to ones that don't take a configuration
             (string, Func<string, T>)[] convertedReaders = readers.Select<(string extension, Func<string, TConfig, T> readMethod), (string, Func<string, T>)>(r => (r.extension, p => r.readMethod(p, config))).ToArray();
 
-            try { return Read(path, convertedReaders); }
-            catch { throw; }
+            return Read(path, convertedReaders);
         }
         #endregion
         #region Writing
@@ -82,8 +81,7 @@ namespace ChartTools.IO
             // Convert the write methods to ones that don't take a configuration
             (string, Action<string, T>)[] convertedWriters = writers.Select<(string extension, Action<string, T, TConfig> writeMethod), (string, Action<string, T>)>(r => (r.extension, (p, i) => r.writeMethod(p, i, config))).ToArray();
 
-            try { Write(path, item, convertedWriters); }
-            catch { throw; }
+            Write(path, item, convertedWriters);
         }
         #endregion
 

@@ -62,10 +62,7 @@ namespace ChartTools.IO.Chart
             /// <exception cref="FormatException"/>
             internal TrackObjectEntry(string line)
             {
-                ChartEntry entry;
-
-                try { entry = new ChartEntry(line); }
-                catch { throw; }
+                ChartEntry entry = new ChartEntry(line);
 
                 string[] split = entry.Data.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
 

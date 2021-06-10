@@ -62,7 +62,7 @@ namespace ChartTools.Collections.Sorted
             base.AddRange(items);
         }
         /// <summary>
-        /// Determines if the collection contains any item of the samne key as the provided item.
+        /// Determines if the collection contains any item of the same key as the provided item.
         /// </summary>
         /// <param name="item">Item to search for duplicates of</param>
         private bool ContainsDuplicate(TValue item)

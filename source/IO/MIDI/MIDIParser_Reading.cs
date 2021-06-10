@@ -36,9 +36,7 @@ namespace ChartTools.IO.MIDI
             if (midiConfig is null)
                 throw new CommonExceptions.ParameterNullException(nameof(midiConfig), 1);
 
-            MidiFile file;
-            try { file = MidiFile.Read(path, readingSettings); }
-            catch { throw; }
+            MidiFile file = MidiFile.Read(path, readingSettings);
 
             Song song = new();
             Type songType = typeof(Song);
@@ -47,55 +45,23 @@ namespace ChartTools.IO.MIDI
             // Threads for global events, sync track and drums
             List<Task> tasks = new()
             {
-                Task.Run(() =>
-                {
-                    try { song.GlobalEvents = GetGlobalEvents(chunks); }
-                    catch { throw; }
-                }),
-                Task.Run(() =>
-                {
-                    try { song.SyncTrack = GetSyncTrack(chunks); }
-                    catch { throw; }
-                }),
-                Task.Run(() =>
-                {
-                    try { song.Drums = GetDrums(chunks, midiConfig); }
-                    catch { throw; }
-                }),
+                Task.Run(() => song.GlobalEvents = GetGlobalEvents(chunks)),
+                Task.Run(() => song.SyncTrack = GetSyncTrack(chunks)),
+                Task.Run(() => song.Drums = GetDrums(chunks, midiConfig))
             };
 
-            // Threads for each ghl instrument
+            // Threads for each GHL instrument
             foreach (GHLInstrument inst in Enum.GetValues<GHLInstrument>())
-                tasks.Add(Task.Run(() =>
-                {
-                    Instrument<GHLChord> output;
-
-                    try { output = GetInstrument(chunks, inst, midiConfig); }
-                    catch { throw; }
-
-                    songType.GetProperty(inst.ToString()).SetValue(song, output);
-                }));
+                tasks.Add(Task.Run(() => songType.GetProperty(inst.ToString()).SetValue(song, GetInstrument(chunks, inst, midiConfig))));
             // Threads for each standard instrument
             foreach (StandardInstrument inst in Enum.GetValues<StandardInstrument>())
-                tasks.Add(Task.Run(() =>
-                {
-                    Instrument<StandardChord> output;
-
-                    try { output = GetInstrument(chunks, inst, midiConfig); }
-                    catch { throw; }
-
-                    songType.GetProperty(inst.ToString()).SetValue(song, output);
-                }));
+                tasks.Add(Task.Run(() => songType.GetProperty(inst.ToString()).SetValue(song, GetInstrument(chunks, inst, midiConfig))));
 
             // Get the tile
-            try { song.Metadata = GetMetadata(file); }
-            catch { throw; }
 
             foreach (Task task in tasks)
             {
-                try { task.Wait(); }
-                catch { throw; }
-
+                task.Wait();
                 task.Dispose();
             }
 
@@ -107,63 +73,31 @@ namespace ChartTools.IO.MIDI
             if (midiConfig is null)
                 throw new CommonExceptions.ParameterNullException(nameof(midiConfig), 2);
 
-            MidiFile file;
-
-            try { file = MidiFile.Read(path, readingSettings); }
-            catch { throw; }
+            MidiFile file = MidiFile.Read(path, readingSettings);
 
             if (instrument == Instruments.Drums)
-            {
-                try { return GetDrums(file.Chunks, midiConfig); }
-                catch { throw; }
-            }
-            if (Enum.IsDefined(instrument))
-            {
-                try { return GetInstrument(file.Chunks, (GHLInstrument)instrument, midiConfig); }
-                catch { throw; }
-            }
-            if (Enum.IsDefined(instrument))
-            {
-                try { return GetInstrument(file.Chunks, (StandardInstrument)instrument, midiConfig); }
-                catch { throw; }
-            }
+                return GetDrums(file.Chunks, midiConfig);
+            if (Enum.IsDefined((GHLInstrument)instrument))
+                return GetInstrument(file.Chunks, (GHLInstrument)instrument, midiConfig);
+            if (Enum.IsDefined((GHLInstrument)instrument))
+                return GetInstrument(file.Chunks, (StandardInstrument)instrument, midiConfig);
 
             throw CommonExceptions.GetUndefinedException(instrument);
         }
 
-        public static Instrument<DrumsChord> ReadDrums(string path, ReadingConfiguration midiConfig)
-        {
-            if (midiConfig is null)
-                throw new CommonExceptions.ParameterNullException(nameof(midiConfig), 1);
+        public static Instrument<DrumsChord> ReadDrums(string path, ReadingConfiguration midiConfig) => midiConfig is null
+            ? throw new CommonExceptions.ParameterNullException(nameof(midiConfig), 1)
+            : GetDrums(MidiFile.Read(path, readingSettings).Chunks, midiConfig);
+        public static Instrument<GHLChord> ReadInstrument(string path, GHLInstrument instrument, ReadingConfiguration midiConfig) => midiConfig is null
+            ? throw new CommonExceptions.ParameterNullException(nameof(midiConfig), 1)
+            : GetInstrument(MidiFile.Read(path, readingSettings).Chunks, instrument, midiConfig);
+        public static Instrument<StandardChord> ReadInstrument(string path, StandardInstrument instrument, ReadingConfiguration midiConfig) => midiConfig is null
+            ? throw new CommonExceptions.ParameterNullException(nameof(midiConfig), 2)
+            : GetInstrument(MidiFile.Read(path, readingSettings).Chunks, instrument, midiConfig);
 
-            try { return GetDrums(MidiFile.Read(path, readingSettings).Chunks, midiConfig); }
-            catch { throw; }
-        }
-        public static Instrument<GHLChord> ReadInstrument(string path, GHLInstrument instrument, ReadingConfiguration midiConfig)
-        {
-            if (midiConfig is null)
-                throw new CommonExceptions.ParameterNullException(nameof(midiConfig), 1);
-
-            try { return GetInstrument(MidiFile.Read(path, readingSettings).Chunks, instrument, midiConfig); }
-            catch { throw; }
-        }
-        public static Instrument<StandardChord> ReadInstrument(string path, StandardInstrument instrument, ReadingConfiguration midiConfig)
-        {
-            if (midiConfig is null)
-                throw new CommonExceptions.ParameterNullException(nameof(midiConfig), 2);
-
-            try { return GetInstrument(MidiFile.Read(path, readingSettings).Chunks, instrument, midiConfig); }
-            catch { throw; }
-        }
-
-        private static Instrument<DrumsChord> GetDrums(ChunksCollection chunks, ReadingConfiguration midiConfig)
-        {
-            if (!CheckTrackChunkPresence(chunks, out Exception e))
-                throw e;
-
-            try { return GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[Instruments.Drums]), GetDrumsTrack, midiConfig); }
-            catch { throw; }
-        }
+        private static Instrument<DrumsChord> GetDrums(ChunksCollection chunks, ReadingConfiguration midiConfig) => CheckTrackChunkPresence(chunks, out Exception e)
+            ? GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[Instruments.Drums]), GetDrumsTrack, midiConfig)
+            : throw e;
         private static Instrument<GHLChord> GetInstrument(ChunksCollection chunks, GHLInstrument instrument, ReadingConfiguration midiConfig)
         {
             if (!Enum.IsDefined(instrument))
@@ -172,8 +106,7 @@ namespace ChartTools.IO.MIDI
             if (!CheckTrackChunkPresence(chunks, out Exception e))
                 throw e;
 
-            try { return GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[(Instruments)instrument]), GetGHLTrack, midiConfig); }
-            catch { throw; }
+            return GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[(Instruments)instrument]), GetGHLTrack, midiConfig);
         }
         private static Instrument<StandardChord> GetInstrument(ChunksCollection chunks, StandardInstrument instrument, ReadingConfiguration midiConfig)
         {
@@ -183,8 +116,7 @@ namespace ChartTools.IO.MIDI
             if (!CheckTrackChunkPresence(chunks, out Exception e))
                 throw e;
 
-            try { return GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[(Instruments)instrument]), GetStandardTrack, midiConfig); }
-            catch { throw; }
+            return GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[(Instruments)instrument]), GetStandardTrack, midiConfig);
         }
 
         private static Instrument<TChord> GetInstrument<TChord>(IEnumerable<MidiEvent> events, Func<IEnumerable<MidiEvent>, Difficulty, ReadingConfiguration, Track<TChord>> getTrack, ReadingConfiguration midiConfig) where TChord : Chord
@@ -192,11 +124,7 @@ namespace ChartTools.IO.MIDI
             Instrument<TChord> inst = new();
             Difficulty[] difficulties = Enum.GetValues<Difficulty>().ToArray();
             Type instrumentType = typeof(Instrument<TChord>);
-            Task<Track<TChord>>[] tasks = difficulties.Select(d => Task.Run(() =>
-            {
-                try { return getTrack(events, d, midiConfig); }
-                catch { throw; }
-            })).ToArray();
+            Task<Track<TChord>>[] tasks = difficulties.Select(d => Task.Run(() => getTrack(events, d, midiConfig))).ToArray();
 
             GetLocalEventsStarPower(events, out List<LocalEvent> localEvents, out UniqueList<StarPowerPhrase> starPower, midiConfig);
             bool noEventsOrStarPower = localEvents.Count == 0 && starPower.Count == 0;
@@ -207,8 +135,7 @@ namespace ChartTools.IO.MIDI
             {
                 Task<Track<TChord>> task = tasks[i];
 
-                try { task.Wait(); }
-                catch { throw; }
+                task.Wait();
 
                 Track<TChord> track = task.Result;
 
@@ -319,11 +246,7 @@ namespace ChartTools.IO.MIDI
             throw new NotImplementedException();
         }
 
-        public static List<GlobalEvent> ReadGlobalEvents(string path)
-        {
-            try { return GetGlobalEvents(MidiFile.Read(path, readingSettings).Chunks); }
-            catch { throw; }
-        }
+        public static List<GlobalEvent> ReadGlobalEvents(string path) => GetGlobalEvents(MidiFile.Read(path, readingSettings).Chunks);
         private static List<GlobalEvent> GetGlobalEvents(ChunksCollection chunks)
         {
             if (!CheckTrackChunkPresence(chunks, out Exception e))
@@ -343,8 +266,8 @@ namespace ChartTools.IO.MIDI
 
         private static void GetLocalEventsStarPower(IEnumerable<MidiEvent> events, out List<LocalEvent> eventDest, out UniqueList<StarPowerPhrase> starPowerDest, ReadingConfiguration midiConfig)
         {
-            eventDest = new List<LocalEvent>();
-            starPowerDest = new UniqueList<StarPowerPhrase>((p, other) => p?.Position == other?.Position);
+            eventDest = new();
+            starPowerDest = new((p, other) => p?.Position == other?.Position);
 
             bool unfinishedSolo = false;
             StarPowerPhrase sp = null;
@@ -399,31 +322,20 @@ namespace ChartTools.IO.MIDI
             }
         }
 
-        public static Metadata ReadMetadata(string path)
-        {
-            try { return GetMetadata(MidiFile.Read(path, readingSettings)); }
-            catch { throw; }
-        }
+        public static Metadata ReadMetadata(string path) => GetMetadata(MidiFile.Read(path, readingSettings));
         private static Metadata GetMetadata(MidiFile file)
         {
             if (!CheckTrackChunkPresence(file.Chunks, out Exception e))
                 throw e;
 
-            string title;
-
-            try { title = ((file.Chunks[0] as TrackChunk).Events[0] as SequenceTrackNameEvent).Text; }
-            catch { throw; }
+            string title = ((file.Chunks[0] as TrackChunk).Events[0] as SequenceTrackNameEvent).Text;
 
             return file.TimeDivision is TicksPerQuarterNoteTimeDivision division
                 ? new Metadata { Resolution = (ushort)division.TicksPerQuarterNote, Title = title }
                 : throw new FormatException("Cannot get resolution from the file.");
         }
 
-        public static SyncTrack ReadSyncTrack(string path)
-        {
-            try { return GetSyncTrack(MidiFile.Read(path, readingSettings).Chunks); }
-            catch { throw; }
-        }
+        public static SyncTrack ReadSyncTrack(string path) => GetSyncTrack(MidiFile.Read(path, readingSettings).Chunks);
         private static SyncTrack GetSyncTrack(ChunksCollection chunks)
         {
             if (!CheckTrackChunkPresence(chunks, out Exception ex))
@@ -450,9 +362,9 @@ namespace ChartTools.IO.MIDI
             // Get the chunk matching the desired sequence name
             TrackChunk chunk = chunks.First(c => c.Events.OfType<SequenceTrackNameEvent>().First().Text == sequenceName);
 
-            if (chunk is not null)
-                foreach (MidiEvent ev in chunk.Events.Where(e => e is not SequenceTrackNameEvent))
-                    yield return ev;
+            return chunk is null
+                ? Enumerable.Empty<MidiEvent>()
+                : chunk.Events.Where(e => e is not SequenceTrackNameEvent);
         }
 
         /// <summary>
@@ -468,7 +380,7 @@ namespace ChartTools.IO.MIDI
                 ex = new FormatException("File has no chunks.");
                 return false;
             }
-            
+
             if (chunks.Any(chunks => chunks is TrackChunk))
             {
                 ex = null;

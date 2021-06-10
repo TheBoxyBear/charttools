@@ -91,9 +91,8 @@ namespace ChartTools.Collections.Alternating
             bool SearchEnumerator()
             {
                 // Skip enumerator if ended
-                if (endsReached[index])
-                    if (++index == Enumerators.Length)
-                        return false;
+                if (endsReached[index] && ++index == Enumerators.Length)
+                    return false;
 
                 IEnumerator<T> enumerator = Enumerators[index];
 
@@ -148,8 +147,7 @@ namespace ChartTools.Collections.Alternating
         public void Reset()
         {
             foreach (IEnumerator<T> enumerator in Enumerators)
-                try { enumerator.Reset(); }
-                catch { throw; }
+                enumerator.Reset();
 
             endsReached = default;
             Initialized = false;

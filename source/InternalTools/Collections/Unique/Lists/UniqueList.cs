@@ -52,7 +52,7 @@ namespace ChartTools.Collections.Unique
             RemoveDuplicate(item);
             items.Add(item);
         }
-        
+
         /// <summary>
         /// Adds multiple items to the <see cref="ICollection{T}"/>
         /// </summary>

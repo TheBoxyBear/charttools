@@ -1,7 +1,7 @@
 ﻿namespace ChartTools
 {
     /// <summary>
-    /// Base clas for chords
+    /// Base class for chords
     /// </summary>
     public abstract class Chord : TrackObject
     {

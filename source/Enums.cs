@@ -18,9 +18,9 @@ namespace ChartTools
     /// <summary>
     /// Modifier that affects how a <see cref="GHLChord"/> can be played
     /// </summary>
-    [Flags] public enum GHLChordModifier : byte { None, Forced, Tap }
+    [Flags]public enum GHLChordModifier : byte { None, Forced, Tap }
     /// <summary>
-    /// Guiter Hero Live instruments
+    /// Guitar Hero Live instruments
     /// </summary>
     /// <remarks>Casting to <see cref="Instruments"/> will match the instrument.</remarks>
     public enum GHLInstrument : byte { Guitar = 1, Bass }

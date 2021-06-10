@@ -3,7 +3,7 @@
 namespace ChartTools
 {
     /// <summary>
-    /// Note played by a Guiter Hero Live instrument
+    /// Note played by a Guitar Hero Live instrument
     /// </summary>
     public class GHLNote : Note
     {

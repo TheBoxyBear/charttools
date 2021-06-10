@@ -68,7 +68,7 @@ namespace ChartTools
         }
 
         /// <summary>
-        /// Additional data to modifiy the outcome of the event
+        /// Additional data to modify the outcome of the event
         /// </summary>
         /// <remarks>A lack of argument is represented as an empty string.</remarks>
         public string Argument
@@ -107,7 +107,7 @@ namespace ChartTools
         /// <param name="type">Value of <see cref="EventTypeString"/></param>
         /// <param name="argument">Value of <see cref="Argument"/></param>
         public GlobalEvent(uint position, string type, string argument = "") : base(position, $"{type} {argument}") { }
-        internal GlobalEvent(uint position, string eventData) : base(position, eventData) { } 
+        internal GlobalEvent(uint position, string eventData) : base(position, eventData) { }
         /// <summary>
         /// Gets the string value to set <see cref="Event.EventTypeString"/>.
         /// </summary>
@@ -115,17 +115,9 @@ namespace ChartTools
         internal static string GetEventTypeString(GlobalEventType type) => type == GlobalEventType.Unknown ? "Default" : globalTypesDictionary[type];
 
         /// <inheritdoc cref="ChartParser.ReadGlobalEvents(string)"/>
-        public static IEnumerable<GlobalEvent> FromFile(string path)
-        {
-            try { return ExtensionHandler.Read(path, (".chart", ChartParser.ReadGlobalEvents)); }
-            catch { throw; }
-        }
+        public static IEnumerable<GlobalEvent> FromFile(string path) => ExtensionHandler.Read(path, (".chart", ChartParser.ReadGlobalEvents));
         /// <inheritdoc cref="ChartParser.ReplaceGlobalEvents(string, IEnumerable{GlobalEvent})"/>
-        public static void ToFile(string path, IEnumerable<GlobalEvent> events, WritingConfiguration config)
-        {
-            try { ExtensionHandler.Write(path, events, config, (".chart", ChartParser.ReplaceGlobalEvents)); }
-            catch { throw; }
-        }
+        public static void ToFile(string path, IEnumerable<GlobalEvent> events, WritingConfiguration config) => ExtensionHandler.Write(path, events, config, (".chart", ChartParser.ReplaceGlobalEvents));
 
         public bool Equals(GlobalEvent other) => base.Equals(other);
     }

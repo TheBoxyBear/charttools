@@ -27,7 +27,7 @@ namespace ChartTools.IO.Chart
         /// <exception cref="SecurityException"/>
         internal static void WriteSong(string path, Song song, WritingConfiguration config)
         {
-            // Add threads for metadata, synctrack and global events
+            // Add threads for metadata, sync track and global events
             List<Task<IEnumerable<string>>> tasks = new()
             {
                 Task.Run(() => GetPartLines("Song", GetMetadataLines(song.Metadata))),
@@ -35,7 +35,7 @@ namespace ChartTools.IO.Chart
                 Task.Run(() => GetPartLines("Events", song.GlobalEvents.Select(e => GetEventLine(e))))
             };
 
-            // Part names of ghl instruments
+            // Part names of GHL instruments
             IEnumerable<(Instrument<GHLChord>, Instruments)> ghlInstruments = new (Instrument<GHLChord> instrument, Instruments name)[]
             {
                 (song.GHLBass, Instruments.GHLBass),
@@ -65,7 +65,7 @@ namespace ChartTools.IO.Chart
                         return lines.Any() ? GetPartLines(GetFullPartName(Instruments.Drums, difficulty), lines) : lines;
                     }));
 
-                // Add threads to get the lines for each non-null track of each ghl instrument
+                // Add threads to get the lines for each non-null track of each GHL instrument
                 foreach ((Instrument<GHLChord> instrument, Instruments name) in ghlInstruments)
                     tasks.Add(Task.Run(() =>
                     {
@@ -84,27 +84,21 @@ namespace ChartTools.IO.Chart
             }
 
             // Join lines with line breaks and write to file
-            try { File.WriteAllText(path, string.Join('\n', tasks.SelectMany(t => t.Result))); }
-            catch { throw; }
+            File.WriteAllText(path, string.Join('\n', tasks.SelectMany(t => t.Result)));
 
             foreach (Task task in tasks)
                 task.Dispose();
         }
 
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments)"/>
-        internal static void ReplaceDrums(string path, Instrument<DrumsChord> inst, WritingConfiguration config)
-        {
-            try { ReplaceInstrument(path, (inst, Instruments.Drums), config); }
-            catch { throw; }
-        }
+        internal static void ReplaceDrums(string path, Instrument<DrumsChord> inst, WritingConfiguration config) => ReplaceInstrument(path, (inst, Instruments.Drums), config);
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments)"/>
         internal static void ReplaceInstrument(string path, (Instrument<GHLChord> inst, GHLInstrument instrument) data, WritingConfiguration config)
         {
             if (!Enum.IsDefined(data.instrument))
                 throw CommonExceptions.GetUndefinedException(data.instrument);
 
-            try { ReplaceInstrument(path, data, config); }
-            catch { throw; }
+            ReplaceInstrument(path, data, config);
         }
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments)"/>
         internal static void ReplaceInstrument(string path, (Instrument<StandardChord> inst, StandardInstrument instrument) data, WritingConfiguration config)
@@ -112,8 +106,7 @@ namespace ChartTools.IO.Chart
             if (!Enum.IsDefined(data.instrument))
                 throw CommonExceptions.GetUndefinedException(data.instrument);
 
-            try { ReplaceInstrument(path, data, config); }
-            catch { throw; }
+            ReplaceInstrument(path, data, config);
         }
         /// <summary>
         /// Replaces an instrument in a file.
@@ -147,13 +140,12 @@ namespace ChartTools.IO.Chart
                 {
                     string partName = GetFullPartName(data.instrument, difficulty);
 
-                    // Add thread to write the trck
+                    // Add thread to write the track
                     tasks.Add(Task.Run(() => (GetPartLines(partName, GetTrackLines(track as Track<TChord>, config)), partName)));
                 }
             }
 
-            try { Task.WaitAll(tasks.ToArray()); }
-            catch { throw; }
+            Task.WaitAll(tasks.ToArray());
 
             string content = File.Exists(path) ?
                 // Get the existing lines, remove lines relating to the instrument's tracks, construct the new parts and insert
@@ -161,15 +153,14 @@ namespace ChartTools.IO.Chart
                 // Get only the generated lines
                 string.Join('\n', tasks.SelectMany(t => t.Result.lines));
 
-            try { File.WriteAllText(path, content); }
-            catch { throw; }
+            File.WriteAllText(path, content);
 
             foreach (Task task in tasks)
                 task.Dispose();
         }
 
         /// <summary>
-        /// Replaces the metadaa in a file.
+        /// Replaces the metadata in a file.
         /// </summary>
         /// <param name="path">Path of the file to read</param>
         /// <param name="metadata">Metadata to write</param>
@@ -181,21 +172,14 @@ namespace ChartTools.IO.Chart
         /// <exception cref="UnauthorizedAccessException"/>
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="SecurityException"/>
-        internal static void ReplaceMetadata(string path, Metadata metadata)
-        {
-            try { ReplacePart(path, GetMetadataLines(metadata), "Song"); }
-            catch { throw; }
-        }
+        internal static void ReplaceMetadata(string path, Metadata metadata) => ReplacePart(path, GetMetadataLines(metadata), "Song");
+
         /// <summary>
         /// Replaces the global events in a file.
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="events">Events to use as a replacement</param>
-        internal static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events, WritingConfiguration config)
-        {
-            try { ReplacePart(path, events.Select(e => GetEventLine(e)), "Events"); }
-            catch { throw; }
-        }
+        internal static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events, WritingConfiguration config) => ReplacePart(path, events.Select(e => GetEventLine(e)), "Events");
         /// <summary>
         /// Replaces the sync track in a file.
         /// </summary>
@@ -209,11 +193,7 @@ namespace ChartTools.IO.Chart
         /// <exception cref="UnauthorizedAccessException"/>
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="SecurityException"/>
-        internal static void ReplaceSyncTrack(string path, SyncTrack syncTrack)
-        {
-            try { ReplacePart(path, GetSyncTrackLines(syncTrack), "SyncTrack"); }
-            catch { throw; }
-        }
+        internal static void ReplaceSyncTrack(string path, SyncTrack syncTrack) => ReplacePart(path, GetSyncTrackLines(syncTrack), "SyncTrack");
         /// <summary>
         /// Replaces a track in a file.
         /// </summary>
@@ -235,8 +215,7 @@ namespace ChartTools.IO.Chart
 
             }
 
-            try { ReplacePart(path, GetTrackLines(data.track, config), GetFullPartName(data.instrument, data.difficulty)); }
-            catch { throw; }
+            ReplacePart(path, GetTrackLines(data.track, config), GetFullPartName(data.instrument, data.difficulty));
         }
 
         /// <summary>
@@ -257,14 +236,9 @@ namespace ChartTools.IO.Chart
         {
             IEnumerable<string> part = GetPartLines(partName, partContent);
 
-            try
-            {
-                if (File.Exists(path))
-                    File.WriteAllText(path, string.Join('\n', GetLines(path).ReplaceSection(part, l => l == $"[{partName}]", l => l == "}", true)));
-                else
-                    File.WriteAllText(path, string.Join('\n', part));
-            }
-            catch { throw; }
+            File.WriteAllText(path, string.Join('\n', File.Exists(path)
+                ? GetLines(path).ReplaceSection(part, l => l == $"[{partName}]", l => l == "}", true)
+                : part));
         }
 
         /// <summary>

@@ -6,7 +6,7 @@
     public abstract class Note
     {
         /// <summary>
-        /// Numerical value of the note as writen in a chart file
+        /// Numerical value of the note as written in a chart file
         /// </summary>
         internal byte NoteIndex { get; }
         /// <summary>

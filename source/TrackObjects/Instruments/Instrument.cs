@@ -15,47 +15,27 @@ namespace ChartTools
         /// </summary>
         public sbyte? Difficulty { get; set; }
 
-        /// <inheritdoc cref="ChartParser.ReadInstrument(string, Instruments)"/>
-        public static Instrument FromFile(string path, Instruments instrument, ReadingConfiguration config)
-        {
-            if (!Enum.IsDefined(instrument))
-                throw new ArgumentException("Instrument is not defined.");
+        private const string undefinedInstrumentMessage = "Instrument is not defined.";
 
-            try { return ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadInstrument(p, instrument, config))); }
-            catch { throw; }
-        }
+        /// <inheritdoc cref="ChartParser.ReadInstrument(string, Instruments)"/>
+        public static Instrument FromFile(string path, Instruments instrument, ReadingConfiguration config) => Enum.IsDefined(instrument)
+            ? ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadInstrument(p, instrument, config)))
+            : throw new ArgumentException(undefinedInstrumentMessage);
         /// <inheritdoc cref="ChartParser.ReadDrums(string)"/>
         public static Instrument<DrumsChord> DrumsFromFile(string path, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".chart", ChartParser.ReadDrums));
         /// <inheritdoc cref="ChartParser.ReadInstrument(string, GHLInstrument)"/>
-        public static Instrument<GHLChord> FromFile(string path, GHLInstrument instrument, ReadingConfiguration config)
-        {
-            if (!Enum.IsDefined(instrument))
-                throw new ArgumentException("Instrument is not defined.");
+        public static Instrument<GHLChord> FromFile(string path, GHLInstrument instrument, ReadingConfiguration config) => Enum.IsDefined(instrument)
+            ? ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadInstrument(p, instrument, config)))
+            : throw new ArgumentException(undefinedInstrumentMessage);
 
-            try { return ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadInstrument(p, instrument, config))); }
-            catch { throw; }
-        }
         /// <inheritdoc cref="ChartParser.ReadInstrument(string, StandardInstrument)"/>
-        public static Instrument<StandardChord> FromFile(string path, StandardInstrument instrument, ReadingConfiguration config)
-        {
-            if (!Enum.IsDefined(instrument))
-                throw new ArgumentException("Instrument is not defined.");
-
-            try { return ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadInstrument(p, instrument, config))); }
-            catch { throw; }
-        }
+        public static Instrument<StandardChord> FromFile(string path, StandardInstrument instrument, ReadingConfiguration config) => Enum.IsDefined(instrument)
+            ? ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadInstrument(p, instrument, config)))
+            : throw new ArgumentException(undefinedInstrumentMessage);
 
         /// <inheritdoc cref="IniParser.ReadDifficulty(string, Instruments)"/>
-        public static sbyte? ReadDifficulty(string path, Instruments instrument)
-        {
-            try { return ExtensionHandler.Read(path, (".ini", p => IniParser.ReadDifficulty(p, instrument))); }
-            catch { throw; }
-        }
+        public static sbyte? ReadDifficulty(string path, Instruments instrument) => ExtensionHandler.Read(path, (".ini", p => IniParser.ReadDifficulty(p, instrument)));
         /// <inheritdoc cref="IniParser.WriteDifficulty(string, Instruments, sbyte)"/>
-        public static void WriteDifficulty(string path, Instruments instrument, sbyte value)
-        {
-            try { ExtensionHandler.Write(path, value, (".ini", (p, v) => IniParser.WriteDifficulty(p, instrument, v))); }
-            catch { throw; }
-        }
+        public static void WriteDifficulty(string path, Instruments instrument, sbyte value) => ExtensionHandler.Write(path, value, (".ini", (p, v) => IniParser.WriteDifficulty(p, instrument, v)));
     }
 }

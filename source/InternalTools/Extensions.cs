@@ -40,7 +40,7 @@ namespace ChartTools.SystemExtensions
 namespace ChartTools.SystemExtensions.Linq
 {
     /// <summary>
-    /// Provides additionnal methods to Linq
+    /// Provides additional methods to Linq
     /// </summary>
     public static class LinqExtensions
     {
@@ -91,7 +91,6 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="source">The IEnumerable&lt;out T&gt; to replace the items of</param>
         /// <param name="predicate">A function that determines if an item must be replaced</param>
         /// <param name="replacement">The item to replace items with</param>
-        /// <typeparam name="T">fgf</typeparam>
         public static IEnumerable<T> Replace<T>(this IEnumerable<T> source, Predicate<T> predicate, T replacement)
         {
             foreach (T item in source)
@@ -222,7 +221,7 @@ namespace ChartTools.SystemExtensions.Linq
         /// <remarks>Items that match startRemove or endRemove</remarks>
         /// <param name="source">Source items to remove a section of</param>
         /// <param name="startRemove">Function that determines the start of the section to replace</param>
-        /// <param name="endRemove">Function that determines the end of the section to repalce</param>
+        /// <param name="endRemove">Function that determines the end of the section to replace</param>
         public static IEnumerable<T> RemoveSection<T>(this IEnumerable<T> source, Predicate<T> startRemove, Predicate<T> endRemove)
         {
             IEnumerator<T> itemsEnumerator = source.GetEnumerator();
@@ -236,7 +235,7 @@ namespace ChartTools.SystemExtensions.Linq
                 if (!itemsEnumerator.MoveNext())
                     yield break;
 
-            // Skip items to remive
+            // Skip items to remove
             do
                 if (!itemsEnumerator.MoveNext())
                     yield break;
@@ -318,7 +317,7 @@ namespace ChartTools.SystemExtensions.Linq
 namespace ChartTools
 {
     /// <summary>
-    /// Provides additionnal methods to <see cref="Instrument{TChord}"/>
+    /// Provides additional methods to <see cref="Instrument{TChord}"/>
     /// </summary>
     public static class InstrumentExtensions
     {
@@ -327,11 +326,7 @@ namespace ChartTools
         /// </summary>
         /// <param name="inst">Instrument to the <see cref="Instrument.Difficulty"/> property of</param>
         /// <param name="path">Path of the file to read the difficulty from</param>
-        public static void ReadDifficulty(this Instrument<DrumsChord> inst, string path)
-        {
-            try { inst.Difficulty = Instrument.ReadDifficulty(path, Instruments.Drums); }
-            catch { throw; }
-        }
+        public static void ReadDifficulty(this Instrument<DrumsChord> inst, string path) => inst.Difficulty = Instrument.ReadDifficulty(path, Instruments.Drums);
         /// <inheritdoc cref="ReadDifficulty(Instrument{DrumsChord}, string)"/>
         /// <param name="instrument">Instrument to read the difficulty of</param>
         public static void ReadDifficulty(this Instrument<GHLChord> inst, string path, GHLInstrument instrument)
@@ -339,8 +334,7 @@ namespace ChartTools
             if (!Enum.IsDefined(instrument))
                 throw CommonExceptions.GetUndefinedException(instrument);
 
-            try { inst.Difficulty = Instrument.ReadDifficulty(path, (Instruments)instrument); }
-            catch { throw; }
+            inst.Difficulty = Instrument.ReadDifficulty(path, (Instruments)instrument);
         }
         /// <inheritdoc cref="ReadDifficulty(Instrument{GHLChord}, string)"/>
         public static void ReadDifficulty(this Instrument<StandardChord> inst, string path, StandardInstrument instrument)
@@ -348,8 +342,7 @@ namespace ChartTools
             if (!Enum.IsDefined(instrument))
                 throw CommonExceptions.GetUndefinedException(instrument);
 
-            try { inst.Difficulty = Instrument.ReadDifficulty(path, (Instruments)100); }
-            catch { throw; }
+            inst.Difficulty = Instrument.ReadDifficulty(path, (Instruments)100);
         }
 
         /// <summary>
@@ -360,8 +353,7 @@ namespace ChartTools
         public static void WriteDifficulty(this Instrument<DrumsChord> inst, string path)
         {
             if (inst.Difficulty is not null)
-                try { Instrument.WriteDifficulty(path, Instruments.Drums, inst.Difficulty.Value); }
-                catch { throw; }
+                Instrument.WriteDifficulty(path, Instruments.Drums, inst.Difficulty.Value);
         }
         /// <inheritdoc cref="WriteDifficulty(Instrument{DrumsChord}, string)"/>
         /// <param name="instrument">Instrument to assign the difficulty to</param>
@@ -371,8 +363,7 @@ namespace ChartTools
                 throw CommonExceptions.GetUndefinedException(instrument);
 
             if (inst.Difficulty is not null)
-                try { Instrument.WriteDifficulty(path, (Instruments)instrument, inst.Difficulty.Value); }
-                catch { throw; }
+                Instrument.WriteDifficulty(path, (Instruments)instrument, inst.Difficulty.Value);
         }
         /// <inheritdoc cref="WriteDifficulty(Instrument{GHLChord}, string)"/>
         public static void WriteDifficulty(this Instrument<StandardChord> inst, string path, StandardInstrument instrument)
@@ -381,8 +372,7 @@ namespace ChartTools
                 throw CommonExceptions.GetUndefinedException(instrument);
 
             if (inst.Difficulty is not null)
-                try { Instrument.WriteDifficulty(path, (Instruments)instrument, inst.Difficulty.Value); }
-                catch { throw; }
+                Instrument.WriteDifficulty(path, (Instruments)instrument, inst.Difficulty.Value);
         }
 
         /// <summary>
@@ -398,24 +388,12 @@ namespace ChartTools
         /// <exception cref="UnauthorizedAccessException"/>
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="SecurityException"/>
-        public static void ToFile(this Instrument<DrumsChord> inst, string path, WritingConfiguration config)
-        {
-            try { ExtensionHandler.Write(path, inst, config, (".chart", ChartParser.ReplaceDrums)); }
-            catch { throw; }
-        }
+        public static void ToFile(this Instrument<DrumsChord> inst, string path, WritingConfiguration config) => ExtensionHandler.Write(path, inst, config, (".chart", ChartParser.ReplaceDrums));
         /// <inheritdoc cref="ToFile(Instrument{DrumsChord}, string)"/>
         /// <param name="instrument">Instrument to assign the data to</param>
-        public static void ToFile(this Instrument<GHLChord> inst, string path, GHLInstrument instrument, WritingConfiguration config)
-        {
-            try { ExtensionHandler.Write(path, (inst, instrument), config, (".chart", ChartParser.ReplaceInstrument)); }
-            catch { throw; }
-        }
+        public static void ToFile(this Instrument<GHLChord> inst, string path, GHLInstrument instrument, WritingConfiguration config) => ExtensionHandler.Write(path, (inst, instrument), config, (".chart", ChartParser.ReplaceInstrument));
         /// <inheritdoc cref="ToFile(Instrument{GHLChord}, string)"/>
-        public static void ToFile(this Instrument<StandardChord> inst, string path, StandardInstrument instrument, WritingConfiguration config)
-        {
-            try { ExtensionHandler.Write(path, (inst, instrument), config, (".chart", ChartParser.ReplaceInstrument)); }
-            catch { throw; }
-        }
+        public static void ToFile(this Instrument<StandardChord> inst, string path, StandardInstrument instrument, WritingConfiguration config) => ExtensionHandler.Write(path, (inst, instrument), config, (".chart", ChartParser.ReplaceInstrument));
     }
 
     public static class ChordExtensions
@@ -480,7 +458,7 @@ namespace ChartTools
     }
 
     /// <summary>
-    /// Provides additionnal methods to <see cref="Track{TChord}"/>
+    /// Provides additional methods to <see cref="Track{TChord}"/>
     /// </summary>
     public static class TrackExtensions
     {
@@ -497,28 +475,16 @@ namespace ChartTools
         /// <exception cref="UnauthorizedAccessException"/>
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="SecurityException"/>
-        public static void ToFile(this Track<DrumsChord> track, string path, Difficulty difficulty, WritingConfiguration config)
-        {
-            try { ExtensionHandler.Write(path, (track, Instruments.Drums, difficulty), config, (".chart", ChartParser.ReplaceTrack)); }
-            catch { throw; }
-        }
+        public static void ToFile(this Track<DrumsChord> track, string path, Difficulty difficulty, WritingConfiguration config) => ExtensionHandler.Write(path, (track, Instruments.Drums, difficulty), config, (".chart", ChartParser.ReplaceTrack));
         /// <inheritdoc cref="ToFile(Track{DrumsChord}, string, Difficulty)"/>
         /// <param name="instrument">Instrument to assign the <see cref="Track{TChord}"/> to</param>
-        public static void ToFile(this Track<GHLChord> track, string path, GHLInstrument instrument, Difficulty difficulty, WritingConfiguration config)
-        {
-            try { ExtensionHandler.Write(path, (track, (Instruments)instrument, difficulty), config, (".chart", ChartParser.ReplaceTrack)); }
-            catch { throw; }
-        }
+        public static void ToFile(this Track<GHLChord> track, string path, GHLInstrument instrument, Difficulty difficulty, WritingConfiguration config) => ExtensionHandler.Write(path, (track, (Instruments)instrument, difficulty), config, (".chart", ChartParser.ReplaceTrack));
         /// <inheritdoc cref="ToFile(Track{GHLChord}, string, Difficulty)"/>
-        public static void ToFile(this Track<StandardChord> track, string path, StandardInstrument instrument, Difficulty difficulty, WritingConfiguration config)
-        {
-            try { ExtensionHandler.Write(path, (track, (Instruments)instrument, difficulty), config, (".chart", ChartParser.ReplaceTrack)); }
-            catch { throw; }
-        }
+        public static void ToFile(this Track<StandardChord> track, string path, StandardInstrument instrument, Difficulty difficulty, WritingConfiguration config) => ExtensionHandler.Write(path, (track, (Instruments)instrument, difficulty), config, (".chart", ChartParser.ReplaceTrack));
     }
 
     /// <summary>
-    /// Provides additionnal methods to <see cref="Event"/>
+    /// Provides additional methods to <see cref="Event"/>
     /// </summary>
     public static class EventExtensions
     {
@@ -534,7 +500,7 @@ namespace ChartTools
         }
     }
     /// <summary>
-    /// Provides additionnal methods for <see cref="GlobalEvent"/>
+    /// Provides additional methods for <see cref="GlobalEvent"/>
     /// </summary>
     public static class GlobalEventExtensions
     {
@@ -564,11 +530,11 @@ namespace ChartTools
                             phraselessFirstSyllable = null;
                         }
                         break;
-                    // Add syllable to the active phrase usign the event argument
+                    // Add syllable to the active phrase using the event argument
                     case GlobalEventType.Lyric:
                         Syllable newSyllable = new(globalEvent.Position) { RawText = globalEvent.Argument };
 
-                        // If the first lyric preceeds the first phrase, store it
+                        // If the first lyric precedes the first phrase, store it
                         if (phrase is null)
                             phraselessFirstSyllable = newSyllable;
                         else
@@ -585,7 +551,7 @@ namespace ChartTools
                 yield return phrase;
         }
         /// <summary>
-        /// Gets a set of <see cref="GlobalEvent"/> where phrase and lyric events are replaced with the events makign up a set of <see cref="Phrase"/>.
+        /// Gets a set of <see cref="GlobalEvent"/> where phrase and lyric events are replaced with the events making up a set of <see cref="Phrase"/>.
         /// </summary>
         /// <returns>Enumerable of <see cref="GlobalEvent"/></returns>
         public static IEnumerable<GlobalEvent> SetLyrics(this IEnumerable<GlobalEvent> events, IEnumerable<Phrase> lyrics)
@@ -599,14 +565,14 @@ namespace ChartTools
 namespace ChartTools.Lyrics
 {
     /// <summary>
-    /// Provides additionnal methods to <see cref="Phrase"/>
+    /// Provides additional methods to <see cref="Phrase"/>
     /// </summary>
     public static class PhraseExtensions
     {
         /// <summary>
         /// Converts a set of <see cref="Phrase"/> to a set of <see cref="GlobalEvent"/> making up the phrases.
         /// </summary>
-        /// <param name="source">Phrases to covnert into global evnets</param>
+        /// <param name="source">Phrases to convert into global events</param>
         /// <returns>Global events making up the phrases</returns>
         public static IEnumerable<GlobalEvent> ToGlobalEvents(this IEnumerable<Phrase> source) => source.SelectMany(p => p.ToGlobalEvents());
     }

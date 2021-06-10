@@ -56,61 +56,57 @@ namespace ChartTools.IO.Ini
             int intValue;
             uint uintValue;
 
-            try
+            foreach (string line in File.ReadLines(path))
             {
-                foreach (string line in File.ReadLines(path))
-                {
-                    (string header, string value) = GetEntry(line);
+                (string header, string value) = GetEntry(line);
 
-                    switch (header)
-                    {
-                        case "name":
-                            metadata.Title = value;
-                            break;
-                        case "artist":
-                            metadata.Artist = value;
-                            break;
-                        case "album":
-                            metadata.Album = value;
-                            break;
-                        case "year":
-                            metadata.Year = ushort.TryParse(value, out ushort ushortValue) ? ushortValue
-                                : throw new FormatException($"Cannot parse year \"{value}\" to {metadata.Year.GetType()}.");
-                            break;
-                        case "genre":
-                            metadata.Genre = value;
-                            break;
-                        case "charter":
-                            metadata.Charter ??= new Charter();
-                            metadata.Charter.Name = value;
-                            break;
-                        case "icon":
-                            metadata.Charter ??= new();
-                            metadata.Charter.Icon = value;
-                            break;
-                        case "preview_start_time":
-                            metadata.PreviewStart = uint.TryParse(value, out uintValue) ? uintValue
-                                : throw new FormatException($"Cannot parse preview start \"{value}\" to {metadata.PreviewStart.GetType()}.");
-                            break;
-                        case "preview_end_time":
-                            metadata.PreviewEnd = uint.TryParse(value, out uintValue) ? uintValue
-                                : throw new FormatException($"Cannot parse preview end \"{value}\" to {metadata.PreviewEnd.GetType()}.");
-                            break;
-                        case "delay":
-                            metadata.AudioOffset = int.TryParse(value, out intValue) ? intValue
-                                : throw new FormatException($"Cannot parse audio offset \"{value}\" to {metadata.AudioOffset.GetType()}.");
-                            break;
-                        case "video_start_time":
-                            metadata.VideoOffset = int.TryParse(value, out intValue) ? intValue
-                                : throw new FormatException($"Cannot parse video offset \"{value}\" to {metadata.VideoOffset.GetType()}.");
-                            break;
-                        case "loading_text":
-                            metadata.LoadingText = value;
-                            break;
-                    }
+                switch (header)
+                {
+                    case "name":
+                        metadata.Title = value;
+                        break;
+                    case "artist":
+                        metadata.Artist = value;
+                        break;
+                    case "album":
+                        metadata.Album = value;
+                        break;
+                    case "year":
+                        metadata.Year = ushort.TryParse(value, out ushort ushortValue) ? ushortValue
+                            : throw new FormatException($"Cannot parse year \"{value}\" to {metadata.Year.GetType()}.");
+                        break;
+                    case "genre":
+                        metadata.Genre = value;
+                        break;
+                    case "charter":
+                        metadata.Charter ??= new Charter();
+                        metadata.Charter.Name = value;
+                        break;
+                    case "icon":
+                        metadata.Charter ??= new();
+                        metadata.Charter.Icon = value;
+                        break;
+                    case "preview_start_time":
+                        metadata.PreviewStart = uint.TryParse(value, out uintValue) ? uintValue
+                            : throw new FormatException($"Cannot parse preview start \"{value}\" to {metadata.PreviewStart.GetType()}.");
+                        break;
+                    case "preview_end_time":
+                        metadata.PreviewEnd = uint.TryParse(value, out uintValue) ? uintValue
+                            : throw new FormatException($"Cannot parse preview end \"{value}\" to {metadata.PreviewEnd.GetType()}.");
+                        break;
+                    case "delay":
+                        metadata.AudioOffset = int.TryParse(value, out intValue) ? intValue
+                            : throw new FormatException($"Cannot parse audio offset \"{value}\" to {metadata.AudioOffset.GetType()}.");
+                        break;
+                    case "video_start_time":
+                        metadata.VideoOffset = int.TryParse(value, out intValue) ? intValue
+                            : throw new FormatException($"Cannot parse video offset \"{value}\" to {metadata.VideoOffset.GetType()}.");
+                        break;
+                    case "loading_text":
+                        metadata.LoadingText = value;
+                        break;
                 }
             }
-            catch { throw; }
 
             return metadata;
         }
@@ -119,22 +115,7 @@ namespace ChartTools.IO.Ini
         /// </summary>
         /// <param name="path">Path of the file to read</param>
         /// <param name="metadata">Metadata to write</param>
-        internal static void WriteMetadata(string path, Metadata metadata)
-        {
-            StreamReader reader;
-
-            try { reader = new StreamReader(path); }
-            catch { throw; }
-
-            List<string> extraLines;
-
-            try
-            {
-                extraLines = new List<string>(File.ReadLines(path).Where(l => !metadataKeys.ContainsValue(GetEntry(l).header)));
-                File.WriteAllLines(path, GetLines(metadata).Concat(extraLines));
-            }
-            catch { throw; }
-        }
+        internal static void WriteMetadata(string path, Metadata metadata) => File.WriteAllLines(path, GetLines(metadata).Concat(new List<string>(File.ReadLines(path).Where(l => !metadataKeys.ContainsValue(GetEntry(l).header)))));
 
         private static IEnumerable<string> GetLines(Metadata metadata)
         {
@@ -162,7 +143,7 @@ namespace ChartTools.IO.Ini
         /// Reads an <see cref="Instrument"/> difficulty from a ini file.
         /// </summary>
         /// <returns>Difficulty read
-        ///     <para><see langword="null"/> if the file does not mentio na difficulty for the provided instrument</para>
+        ///     <para><see langword="null"/> if the file does not mention a difficulty for the provided instrument</para>
         /// </returns>
         /// <param name="path">Path of the file to read</param>
         /// <param name="instrument">Instrument to read</param>
@@ -177,17 +158,13 @@ namespace ChartTools.IO.Ini
             (string header, string value) entry = default;
             string key = difficultyKeys.Keys.First(k => difficultyKeys[k] == instrument);
 
-            try
+            foreach (string line in File.ReadLines(path))
             {
-                foreach (string line in File.ReadLines(path))
-                {
-                    entry = GetEntry(line);
+                entry = GetEntry(line);
 
-                    if (entry.header == key)
-                        break;
-                }
+                if (entry.header == key)
+                    break;
             }
-            catch { throw; }
 
             return entry == default
                 ? null
@@ -204,23 +181,19 @@ namespace ChartTools.IO.Ini
         /// <exception cref="FormatException"/>
         internal static void ReadDifficulties(string path, Song song)
         {
-            try
+            foreach (string line in File.ReadAllLines(path))
             {
-                foreach (string line in File.ReadAllLines(path))
+                (string header, string value) = GetEntry(line);
+
+                if (difficultyKeys.ContainsKey(header))
                 {
-                    (string header, string value) = GetEntry(line);
+                    Instrument inst = song.GetInstrument(difficultyKeys[header]);
 
-                    if (difficultyKeys.ContainsKey(header))
-                    {
-                        Instrument inst = song.GetInstrument(difficultyKeys[header]);
-
-                        if (inst is not null)
-                            inst.Difficulty = sbyte.TryParse(value, out sbyte difficulty) ? difficulty
-                                : throw new FormatException($"Cannot parse difficulty \"{value}\"");
-                    }
+                    if (inst is not null)
+                        inst.Difficulty = sbyte.TryParse(value, out sbyte difficulty) ? difficulty
+                            : throw new FormatException($"Cannot parse difficulty \"{value}\"");
                 }
             }
-            catch { throw; }
         }
         private static (string header, string value) GetEntry(string line)
         {
@@ -249,8 +222,8 @@ namespace ChartTools.IO.Ini
             string key = difficultyKeys.Keys.First(k => difficultyKeys[k] == instrument);
 
             // Get all the lines, replace the right one and rewrite the file
-            try { File.WriteAllLines(path, File.ReadAllLines(path).Replace(l => GetEntry(l).header == key, $"{key} = {value}")); }
-            catch { throw; }
+            File.WriteAllLines(path, File.ReadAllLines(path).Replace(l => GetEntry(l).header == key, $"{key} = {value}"));
+
         }
         /// <summary>
         /// Writes <see cref="Instrument"/> difficulties from a <see cref="Song"/> to a ini file.
@@ -261,9 +234,8 @@ namespace ChartTools.IO.Ini
         /// <exception cref="IOException"/>
         internal static void WriteDifficulties(string path, Song song)
         {
-            // Get all non-difficulty lines lines based on the non-null instruments
-            try { File.WriteAllLines(path, File.ReadAllLines(path).Where(l => difficultyKeys.ContainsKey(GetEntry(l).header)).Concat(difficultyKeys.Select(p => (p.Key, song.GetInstrument(p.Value))).Where(t => t.Item2 is not null).Select(p => $"{p.Key} = {p.Item2.Difficulty}"))); }
-            catch { throw; }
+            // Get all non-difficulty lines based on the non-null instruments
+            File.WriteAllLines(path, File.ReadAllLines(path).Where(l => difficultyKeys.ContainsKey(GetEntry(l).header)).Concat(difficultyKeys.Select(p => (p.Key, song.GetInstrument(p.Value))).Where(t => t.Item2 is not null).Select(p => $"{p.Key} = {p.Item2.Difficulty}")));
         }
     }
 }

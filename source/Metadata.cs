@@ -10,7 +10,7 @@ using System.Linq;
 namespace ChartTools
 {
     /// <summary>
-    /// Set of miscelanious information about a <see cref="Song"/>
+    /// Set of miscellaneous information about a <see cref="Song"/>
     /// </summary>
     public class Metadata
     {
@@ -48,7 +48,7 @@ namespace ChartTools
         /// </summary>
         public uint? PreviewEnd { get; set; }
         /// <summary>
-        /// Duration in milliseconds of the pewview in the Clone Hero song browser
+        /// Duration in milliseconds of the preview in the Clone Hero song browser
         /// </summary>
         public uint PreviewLength => PreviewEnd is null ? 30000 : PreviewStart is null ? PreviewEnd.Value : PreviewEnd.Value - PreviewStart.Value;
         /// <summary>
@@ -112,19 +112,14 @@ namespace ChartTools
 
             // Read all files
             for (int i = 0; i < paths.Length; i++)
-                try { data[i] = FromFile(paths[i]); }
-                catch { throw; }
+                data[i] = FromFile(paths[i]);
 
             data[0].Merge(false, data.Skip(1).ToArray());
 
             return data[0];
         }
         /// <inheritdoc cref="IniParser.WriteMetadata(string, Metadata)"/>
-        public void ToFile(string path)
-        {
-            try { ExtensionHandler.Write(path, this, (".ini", IniParser.WriteMetadata)); }
-            catch { throw; }
-        }
+        public void ToFile(string path) => ExtensionHandler.Write(path, this, (".ini", IniParser.WriteMetadata));
     }
 
     /// <summary>
@@ -161,7 +156,7 @@ namespace ChartTools
         /// </summary>
         public string Bass { get; set; }
         /// <summary>
-        /// Location of the rythm guitar audio file
+        /// Location of the rhythm guitar audio file
         /// </summary>
         public string Rhythm { get; set; }
         /// <summary>
@@ -174,21 +169,21 @@ namespace ChartTools
         /// <remarks>Can include all drums audio</remarks>
         public string Drum { get; set; }
         /// <summary>
-        /// Lotacion of the drums' snares audio file
+        /// Location of the drums' snares audio file
         /// </summary>
         /// <remarks>Can include all drums audio except kicks</remarks>
         public string Drum2 { get; set; }
         /// <summary>
-        /// Lotacion of the drum's toms audio file
+        /// Location of the drum's toms audio file
         /// </summary>
         /// <remarks>Can include toms and cymbals</remarks>
         public string Drum3 { get; set; }
         /// <summary>
-        /// Lotacion of the drum's cymbals audio file
+        /// Location of the drum's cymbals audio file
         /// </summary>
         public string Drum4 { get; set; }
         /// <summary>
-        /// Lotacion of the vocals audio file
+        /// Location of the vocals audio file
         /// </summary>
         public string Vocal { get; set; }
         /// <summary>

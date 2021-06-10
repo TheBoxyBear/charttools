@@ -3,7 +3,7 @@
 namespace ChartTools
 {
     /// <summary>
-    /// Marker that defines an occurence at a given point in a song.
+    /// Marker that defines an occurrence at a given point in a song.
     /// </summary>
     public abstract class Event : TrackObject, IEquatable<Event>
     {

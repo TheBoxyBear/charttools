@@ -74,9 +74,8 @@ namespace ChartTools.Collections.Unique
             bool SearchEnumerator()
             {
                 // Skip enumerator if ended
-                if (endsReached[index])
-                    if (++index == Enumerators.Length)
-                        return false;
+                if (endsReached[index] && ++index == Enumerators.Length)
+                    return false;
 
                 IEnumerator<T> enumerator = Enumerators[index];
 
@@ -106,8 +105,7 @@ namespace ChartTools.Collections.Unique
         {
             // Reset every enumerator
             foreach (IEnumerator<T> enumerator in Enumerators)
-                try { enumerator.Reset(); }
-                catch { throw; }
+                enumerator.Reset();
 
             returnedItems.Clear();
             endsReached = default;

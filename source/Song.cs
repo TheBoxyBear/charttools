@@ -45,7 +45,7 @@ namespace ChartTools
         /// </summary>
         public Instrument<StandardChord> LeadGuitar { get; set; }
         /// <summary>
-        /// Set of rythym guitar tracks
+        /// Set of rhythm guitar tracks
         /// </summary>
         public Instrument<StandardChord> RhythmGuitar { get; set; }
         /// <summary>
@@ -95,24 +95,16 @@ namespace ChartTools
         /// <summary>
         /// Reads a <see cref="Song"/> from a file.
         /// </summary>
-        /// <remarks>Supported extentions: chart, mid, ini</remarks>
+        /// <remarks>Supported extensions: chart, mid, ini</remarks>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="OutOfMemoryException"/>
         /// <exception cref="CommonExceptions.ParameterNullException"/>
-        public static Song FromFile(string path)
-        {
-            try { return FromFile(path, new()); }
-            catch { throw; }
-        }
+        public static Song FromFile(string path) => FromFile(path, new());
         /// <inheritdoc cref="FromFile(string)"/>
-        public static Song FromFile(string path, ReadingConfiguration config)
-        {
-            try { return ExtensionHandler.Read(path, config, (".chart", ChartParser.ReadSong), (".mid", MIDIParser.ReadSong), (".ini", (p, config) => new Song { Metadata = IniParser.ReadMetadata(p) })); }
-            catch { throw; }
-        }
+        public static Song FromFile(string path, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".chart", ChartParser.ReadSong), (".mid", MIDIParser.ReadSong), (".ini", (p, config) => new Song { Metadata = IniParser.ReadMetadata(p) }));
         /// <summary>
         /// Writes the <see cref="Song"/> to a file.
         /// </summary>
@@ -124,17 +116,9 @@ namespace ChartTools
         /// <exception cref="UnauthorizedAccessException"/>
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="System.Security.SecurityException"/>
-        public void ToFile(string path)
-        {
-            try { ToFile(path, new()); }
-            catch { throw; }
-        }
+        public void ToFile(string path) => ToFile(path, new());
         /// <inheritdoc cref="ToFile(string)"/>
-        public void ToFile(string path, WritingConfiguration config)
-        {
-            try { ExtensionHandler.Write(path, this, config, (".chart", ChartParser.WriteSong)); }
-            catch { throw; }
-        }
+        public void ToFile(string path, WritingConfiguration config) => ExtensionHandler.Write(path, this, config, (".chart", ChartParser.WriteSong));
 
         /// <summary>
         /// Reads the estimated instrument difficulties from a ini file.
@@ -143,23 +127,14 @@ namespace ChartTools
         /// <exception cref="ArgumentException"/>
         /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
-        public void ReadDifficulties(string path)
-        {
-            try { ExtensionHandler.Read(path, (".ini", p => IniParser.ReadDifficulties(p, this))); }
-            catch { throw; }
-
-        }
+        public void ReadDifficulties(string path) => ExtensionHandler.Read(path, (".ini", p => IniParser.ReadDifficulties(p, this)));
         /// <summary>
         /// Writes the estimated instrument difficulties to a ini file.
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="IOException"/>
-        public void WriteDifficulties(string path)
-        {
-            try { ExtensionHandler.Write(path, this, (".ini", IniParser.WriteDifficulties)); }
-            catch { throw; }
-        }
+        public void WriteDifficulties(string path) => ExtensionHandler.Write(path, this, (".ini", IniParser.WriteDifficulties));
 
         /// <summary>
         /// Retrieves the lyrics from the global events.

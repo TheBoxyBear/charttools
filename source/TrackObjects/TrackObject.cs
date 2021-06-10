@@ -12,7 +12,7 @@ namespace ChartTools
         /// </summary>
         public uint Position { get; }
         /// <summary>
-        /// Creates a new instnace of <see cref="TrackObject"/>.
+        /// Creates a new instance of <see cref="TrackObject"/>.
         /// </summary>
         /// <param name="position">Value of <see cref="Position"/></param>
         public TrackObject(uint position) => Position = position;

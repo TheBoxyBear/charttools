@@ -17,7 +17,7 @@ namespace ChartTools
         /// </summary>
         public List<LocalEvent> LocalEvents { get; set; } = new List<LocalEvent>();
         /// <summary>
-        /// Sets of chrds that give star power
+        /// Sets of chords that give star power
         /// </summary>
         public UniqueList<StarPowerPhrase> StarPower { get; set; } = new UniqueList<StarPowerPhrase>((s, other) => s.Equals(other));
 
@@ -47,11 +47,7 @@ namespace ChartTools
                 LocalEvents.RemoveAll(e => e.IsStarPowerEvent);
         }
 
-        public static Track FromFile(string path, Instruments instrument, Difficulty difficulty, ReadingConfiguration config)
-        {
-            try { return ExtensionHandler.Read(path, config, (".chart", (p, c) => ChartParser.ReadTrack(p, instrument, difficulty, c))); }
-            catch { throw; }
-        }
+        public static Track FromFile(string path, Instruments instrument, Difficulty difficulty, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".chart", (p, c) => ChartParser.ReadTrack(p, instrument, difficulty, c)));
         /// <inheritdoc cref="ChartParser.ReadDrumsTrack(string, Difficulty)"/>
         public static Track<DrumsChord> FromFile(string path, Difficulty difficulty, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadDrumsTrack(p, difficulty, config)));
         /// <inheritdoc cref="ChartParser.ReadTrack(string, GHLInstrument, Difficulty)"/>
