@@ -77,8 +77,8 @@ To be written to a file, lyrics must be converted back into global events:
 ```c#
 using ChartTools.Lyrics;
 
-lyrics.ToGlobalEvents(); //Creates a new set of global events
-events.SetLyrics(lyrics); //Replaces existing lyric-related events with new events making up the phrases
+lyrics.ToGlobalEvents(); // Creates a new set of global events
+events.SetLyrics(lyrics); // Replaces existing lyric-related events with new events making up the phrases
 ```
 
 It is also possible to edit lyrics directly from the global events. The use of phrase and syllable objects are intended to simplify the editing of lyrics and any changes to these objects are only applied to the song once they are converted back into global events.
@@ -88,17 +88,17 @@ Although still functional, some files may contain data that slow down the readin
 ```c#
 using ChartTools.Optimization;
 
-chords.CutSustains() //Cuts short sustains that exceed the position of the next identical note
-chords.CutLengths() //Cuts short star power phrases that exceed the start of the next phrase
+chords.CutSustains() // Cuts short sustains that exceed the position of the next identical note
+chords.CutLengths() // Cuts short star power phrases that exceed the start of the next phrase
 
-//Sorts and removes redundant markers
+// Sorts and removes redundant markers
 syncTrack.Tempo.RemoveUneeded();
 syncTrack.TimeSignatures.RemoveUneeded();
 ```
 ## Writing files
 Finally, changes can be saved to a file using the instance or extension ToFile method of most components. The format is based on the extension of the file. For instruments and tracks, the existing element will be overwritten or added while keeping the rest of the file if it already exists.
 ```c#
-song.ToFile(filePath); //.chart file only
-metadata.ToFile(filePath) //.chart or .ini - some properties may not be written depending on the output format
-song.GlobalEvents.ToFile(path) //.chart only
+song.ToFile(filePath); // .chart file only
+metadata.ToFile(filePath) // .chart or .ini - some properties may not be written depending on the output format
+song.GlobalEvents.ToFile(path) // .chart only
 ```
