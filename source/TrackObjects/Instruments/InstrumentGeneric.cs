@@ -51,10 +51,12 @@ namespace ChartTools
             if (events.Length == 0)
                 return;
 
-            (Easy ??= new Track<TChord>()).LocalEvents = new List<LocalEvent>(events);
-            (Medium ??= new Track<TChord>()).LocalEvents = new List<LocalEvent>(events);
-            (Hard ??= new Track<TChord>()).LocalEvents = new List<LocalEvent>(events);
-            (Expert ??= new Track<TChord>()).LocalEvents = new List<LocalEvent>(events);
+#pragma warning disable S1121 // Assignments should not be made from within sub-expressions
+            (Easy ??= new()).LocalEvents = new List<LocalEvent>(events);
+            (Medium ??= new()).LocalEvents = new List<LocalEvent>(events);
+            (Hard ??= new()).LocalEvents = new List<LocalEvent>(events);
+            (Expert ??= new()).LocalEvents = new List<LocalEvent>(events);
+#pragma warning restore S1121 // Assignments should not be made from within sub-expressions
         }
     }
 }
