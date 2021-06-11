@@ -410,7 +410,7 @@ namespace ChartTools
     /// <summary>
     /// Provides templates for commonly thrown exceptions
     /// </summary>
-    internal static class CommonExceptions
+    public static class CommonExceptions
     {
         public static ArgumentException GetUndefinedException<TEnum>(TEnum value) where TEnum : Enum => new($"{typeof(TEnum).Name} \"{value}\" is not defined.");
 
