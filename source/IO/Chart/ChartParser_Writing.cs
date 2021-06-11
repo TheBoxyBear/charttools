@@ -212,7 +212,7 @@ namespace ChartTools.IO.Chart
         {
             if (config.SoloNoStarPowerRule == SoloNoStarPowerRule.Convert)
             {
-
+                throw new NotImplementedException();
             }
 
             ReplacePart(path, GetTrackLines(data.track, config), GetFullPartName(data.instrument, data.difficulty));

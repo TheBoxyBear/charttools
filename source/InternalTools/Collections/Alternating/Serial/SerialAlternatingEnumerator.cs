@@ -56,10 +56,15 @@ namespace ChartTools.Collections.Alternating
         /// <inheritdoc/>
         public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        public virtual void Dispose(bool disposing)
+        {
             foreach (IEnumerator<T> enumerator in Enumerators)
                 enumerator.Dispose();
         }
-        ~SerialAlternatingEnumerator() => Dispose();
+        ~SerialAlternatingEnumerator() => Dispose(false);
 
         /// <inheritdoc/>
         public bool MoveNext()

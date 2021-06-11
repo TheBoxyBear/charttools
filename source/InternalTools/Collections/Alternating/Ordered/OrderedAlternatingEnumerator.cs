@@ -56,14 +56,19 @@ namespace ChartTools.Collections.Alternating
             KeyGetter = keyGetter;
             endsReached = new bool[Enumerators.Length];
         }
+        ~OrderedAlternatingEnumerator() => Dispose(false);
 
         /// <inheritdoc/>
         public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        public virtual void Dispose(bool disposing)
+        {
             foreach (IEnumerator<T> enumerator in Enumerators)
                 enumerator.Dispose();
         }
-        ~OrderedAlternatingEnumerator() => Dispose();
 
         /// <inheritdoc/>
         public bool MoveNext()

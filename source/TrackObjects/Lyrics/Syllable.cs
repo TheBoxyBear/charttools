@@ -16,7 +16,7 @@
         /// <summary>
         /// True if is the last syllable or the only syllable of its word
         /// </summary>
-        /// <remarks>Syllable postion is based on the syntax of <see cref="RawText"/></remarks>
+        /// <remarks>Syllable position is based on the syntax of <see cref="RawText"/></remarks>
         public bool IsWordEnd
         {
             // The last character is not - or =

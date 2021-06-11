@@ -426,7 +426,7 @@ namespace ChartTools
             /// <summary>
             /// Format of the message where "{position}" and "{name}" will be replaced by the respective values.
             /// </summary>
-            public static string MessageTemplate = DefaultTemplate;
+            public static string MessageTemplate { get; set; } = DefaultTemplate;
             private static string FormatReadyTemplate => MessageTemplate.Replace("{name}", "{0}").Replace("{position}", "{1}");
 
             /// <summary>

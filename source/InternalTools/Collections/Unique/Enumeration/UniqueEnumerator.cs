@@ -58,8 +58,19 @@ namespace ChartTools.Collections.Unique
             Enumerators = enumerators.Where(e => e is not null).ToArray();
             endsReached = new bool[Enumerators.Length];
         }
+        ~UniqueEnumerator() => Dispose(false);
 
-        ~UniqueEnumerator() => Dispose();
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        public virtual void Dispose(bool disposing)
+        {
+            foreach (IEnumerator<T> enumerator in Enumerators)
+                enumerator.Dispose();
+        }
 
         /// <inheritdoc/>
         public bool MoveNext()
@@ -111,12 +122,6 @@ namespace ChartTools.Collections.Unique
             endsReached = default;
         }
 
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            foreach (IEnumerator<T> enumerator in Enumerators)
-                enumerator.Dispose();
-        }
         /// <inheritdoc>/
         public void Initialize()
         {

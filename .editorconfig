@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# S1699: Constructors should only call non-overridable methods
+dotnet_diagnostic.S1699.severity = silent

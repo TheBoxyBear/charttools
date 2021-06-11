@@ -166,10 +166,12 @@ namespace ChartTools.IO.Ini
                     break;
             }
 
-            return entry == default
-                ? null
-                : (sbyte.TryParse(entry.value, out sbyte difficulty) ? difficulty
-                : throw new FormatException($"Cannot parse difficulty \"{entry.value}\""));
+            if (entry == default)
+                return null;
+
+            return sbyte.TryParse(entry.value, out sbyte difficulty)
+                ? difficulty
+                : throw new FormatException($"Cannot parse difficulty \"{entry.value}\"");
         }
         /// <summary>
         /// Reads <see cref="Instrument"/> difficulties from a ini file and assigns them to the instruments in a <see cref="Song"/>.
