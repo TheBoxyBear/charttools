@@ -31,9 +31,9 @@ namespace ChartTools.Collections.Alternating
         public OrderedAlternatingEnumerable(Func<T, TKey> keyGetter, params IEnumerable<T>[] enumerables)
         {
             if (keyGetter is null)
-                throw new CommonExceptions.ParameterNullException(nameof(keyGetter), 0);
+                throw new ArgumentNullException(nameof(keyGetter));
             if (enumerables is null)
-                throw new CommonExceptions.ParameterNullException(nameof(enumerables), 1);
+                throw new ArgumentNullException(nameof(enumerables));
             if (enumerables.Length == 0)
                 throw new ArgumentException("No enumerables provided.");
 

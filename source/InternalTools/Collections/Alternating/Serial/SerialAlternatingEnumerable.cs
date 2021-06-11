@@ -23,7 +23,7 @@ namespace ChartTools.Collections.Alternating
         public SerialAlternatingEnumerable(params IEnumerable<T>[] enumerables)
         {
             if (enumerables is null)
-                throw new CommonExceptions.ParameterNullException(nameof(enumerables), 1);
+                throw new ArgumentNullException(nameof(enumerables));
             if (enumerables.Length == 0)
                 throw new ArgumentException("No enumerables provided.");
         }

@@ -34,7 +34,7 @@ namespace ChartTools.IO.MIDI
         public static Song ReadSong(string path, ReadingConfiguration midiConfig)
         {
             if (midiConfig is null)
-                throw new CommonExceptions.ParameterNullException(nameof(midiConfig), 1);
+                throw new ArgumentNullException(nameof(midiConfig));
 
             MidiFile file = MidiFile.Read(path, readingSettings);
 
@@ -71,7 +71,7 @@ namespace ChartTools.IO.MIDI
         public static Instrument ReadInstrument(string path, Instruments instrument, ReadingConfiguration midiConfig)
         {
             if (midiConfig is null)
-                throw new CommonExceptions.ParameterNullException(nameof(midiConfig), 2);
+                throw new ArgumentNullException(nameof(midiConfig));
 
             MidiFile file = MidiFile.Read(path, readingSettings);
 
@@ -86,13 +86,13 @@ namespace ChartTools.IO.MIDI
         }
 
         public static Instrument<DrumsChord> ReadDrums(string path, ReadingConfiguration midiConfig) => midiConfig is null
-            ? throw new CommonExceptions.ParameterNullException(nameof(midiConfig), 1)
+            ? throw new ArgumentNullException(nameof(midiConfig))
             : GetDrums(MidiFile.Read(path, readingSettings).Chunks, midiConfig);
         public static Instrument<GHLChord> ReadInstrument(string path, GHLInstrument instrument, ReadingConfiguration midiConfig) => midiConfig is null
-            ? throw new CommonExceptions.ParameterNullException(nameof(midiConfig), 1)
+            ? throw new ArgumentNullException(nameof(midiConfig))
             : GetInstrument(MidiFile.Read(path, readingSettings).Chunks, instrument, midiConfig);
         public static Instrument<StandardChord> ReadInstrument(string path, StandardInstrument instrument, ReadingConfiguration midiConfig) => midiConfig is null
-            ? throw new CommonExceptions.ParameterNullException(nameof(midiConfig), 2)
+            ? throw new ArgumentNullException(nameof(midiConfig))
             : GetInstrument(MidiFile.Read(path, readingSettings).Chunks, instrument, midiConfig);
 
         private static Instrument<DrumsChord> GetDrums(ChunksCollection chunks, ReadingConfiguration midiConfig) => CheckTrackChunkPresence(chunks, out Exception e)

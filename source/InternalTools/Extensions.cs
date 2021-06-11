@@ -417,7 +417,10 @@ namespace ChartTools
         /// <summary>
         /// The exception that is thrown when a method is called with <see langword="null"/> as a parameter for which <see langword="null"/> is not an accepted value
         /// </summary>
+        [Obsolete("Replaced with ArgumentNullException")]
+#pragma warning disable S3925 // "ISerializable" should be implemented correctly
         public class ParameterNullException : Exception
+#pragma warning restore S3925 // "ISerializable" should be implemented correctly
         {
             /// <summary>
             /// Default value of <see cref="MessageTemplate"/>
