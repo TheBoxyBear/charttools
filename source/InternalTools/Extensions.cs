@@ -67,6 +67,12 @@ namespace ChartTools.SystemExtensions.Linq
             returnedDefault = true;
             return defaultValue;
         }
+        /// <summary>
+        /// Tries to get the first item that meet a condition from en enumerable.
+        /// </summary>
+        /// <param name="predicate">Method that returns <see langword="true"/> if a given item meets the condition</param>
+        /// <param name="item">Found item</param>
+        /// <returns><see langword="true"/> if an item was found</returns>
         public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, out T item)
         {
             if (source is null)

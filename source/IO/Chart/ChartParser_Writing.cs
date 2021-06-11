@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Security;
 using System.Threading.Tasks;
 
 namespace ChartTools.IO.Chart
@@ -17,14 +16,7 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="song">Song to write</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="PathTooLongException"/>
-        /// <exception cref="DirectoryNotFoundException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="UnauthorizedAccessException"/>
-        /// <exception cref="NotSupportedException"/>
-        /// <exception cref="SecurityException"/>
+        /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
         internal static void WriteSong(string path, Song song, WritingConfiguration config)
         {
             // Add threads for metadata, sync track and global events
@@ -114,14 +106,8 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to write</param>
         /// <param name="inst">Instrument to use as a replacement</param>
         /// <param name="instrument">Instrument to replace</param>
-        /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="PathTooLongException"/>
-        /// <exception cref="DirectoryNotFoundException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="UnauthorizedAccessException"/>
-        /// <exception cref="NotSupportedException"/>
-        /// <exception cref="SecurityException"/>
+        /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
         private static void ReplaceInstrument<TChord>(string path, (Instrument<TChord> inst, Instruments instrument) data, WritingConfiguration config) where TChord : Chord
         {
             if (data.inst is null)
@@ -164,14 +150,7 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <param name="path">Path of the file to read</param>
         /// <param name="metadata">Metadata to write</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="PathTooLongException"/>
-        /// <exception cref="DirectoryNotFoundException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="UnauthorizedAccessException"/>
-        /// <exception cref="NotSupportedException"/>
-        /// <exception cref="SecurityException"/>
+        /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
         internal static void ReplaceMetadata(string path, Metadata metadata) => ReplacePart(path, GetMetadataLines(metadata), "Song");
 
         /// <summary>
@@ -179,20 +158,14 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="events">Events to use as a replacement</param>
+        /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
         internal static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events, WritingConfiguration config) => ReplacePart(path, events.Select(e => GetEventLine(e)), "Events");
         /// <summary>
         /// Replaces the sync track in a file.
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="syncTrack">Sync track to write</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="PathTooLongException"/>
-        /// <exception cref="DirectoryNotFoundException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="UnauthorizedAccessException"/>
-        /// <exception cref="NotSupportedException"/>
-        /// <exception cref="SecurityException"/>
+        /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
         internal static void ReplaceSyncTrack(string path, SyncTrack syncTrack) => ReplacePart(path, GetSyncTrackLines(syncTrack), "SyncTrack");
         /// <summary>
         /// Replaces a track in a file.
@@ -200,14 +173,7 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to write</param>
         /// <param name="track">Track to use as a replacement</param>
         /// <param name="partName">Name of the part containing the track to replace</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="PathTooLongException"/>
-        /// <exception cref="DirectoryNotFoundException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="UnauthorizedAccessException"/>
-        /// <exception cref="NotSupportedException"/>
-        /// <exception cref="SecurityException"/>
+        /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
         internal static void ReplaceTrack<TChord>(string path, (Track<TChord> track, Instruments instrument, Difficulty difficulty) data, WritingConfiguration config) where TChord : Chord
         {
             if (config.SoloNoStarPowerRule == SoloNoStarPowerRule.Convert)
@@ -224,14 +190,8 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to write</param>
         /// <param name="partContent">Lines representing the entries in the part to use as a replacement</param>
         /// <param name="partName">Name of the part to replace</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="PathTooLongException"/>
-        /// <exception cref="DirectoryNotFoundException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="UnauthorizedAccessException"/>
-        /// <exception cref="NotSupportedException"/>
-        /// <exception cref="SecurityException"/>
+        /// <inheritdoc cref="File.WriteAllText(string, string?)" path="/exception"/>
+        /// <inheritdoc cref="GetLines(string)" path="/exception"/>
         internal static void ReplacePart(string path, IEnumerable<string> partContent, string partName)
         {
             IEnumerable<string> part = GetPartLines(partName, partContent);

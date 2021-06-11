@@ -41,15 +41,7 @@ namespace ChartTools.IO.Ini
         /// </summary>
         /// <returns>Instance of <see cref="Metadata"/> containing the data in the file</returns>
         /// <param name="path">Path of the file to read</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="DirectoryNotFoundException"/>
-        /// <exception cref="FileNotFoundException"/>
-        /// <exception cref="FormatException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="PathTooLongException"/>
-        /// <exception cref="System.Security.SecurityException"/>
-        /// <exception cref="UnauthorizedAccessException"/>
+        /// <inheritdoc cref="File.ReadLines(string)" path="/exception"/>
         internal static Metadata ReadMetadata(string path)
         {
             Metadata metadata = new();
@@ -147,9 +139,7 @@ namespace ChartTools.IO.Ini
         /// </returns>
         /// <param name="path">Path of the file to read</param>
         /// <param name="instrument">Instrument to read</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="FormatException"/>
-        /// <exception cref="IOException"/>
+        /// <inheritdoc cref="File.ReadLines(string)" path="/exception"/>
         internal static sbyte? ReadDifficulty(string path, Instruments instrument)
         {
             if (!difficultyKeys.ContainsValue(instrument))
@@ -178,9 +168,7 @@ namespace ChartTools.IO.Ini
         /// </summary>
         /// <param name="path">Path of the file to read</param>
         /// <param name="song">Song to assign the difficulties to</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="FormatException"/>
+        /// <inheritdoc cref="File.ReadAllLines(string)" path="/exception"/>
         internal static void ReadDifficulties(string path, Song song)
         {
             foreach (string line in File.ReadAllLines(path))
@@ -213,9 +201,8 @@ namespace ChartTools.IO.Ini
         /// <param name="path">Path of the file to write</param>
         /// <param name="instrument">Instrument to write the difficulty of</param>
         /// <param name="value">Difficulty to write</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="FormatException"/>
+        /// <inheritdoc cref="File.ReadAllLines" path="/exception"/>
+        /// <inheritdoc cref="File.WriteAllLines(string, IEnumerable{string})" path="/exception"/>
         internal static void WriteDifficulty(string path, Instruments instrument, sbyte value)
         {
             if (!difficultyKeys.ContainsValue(instrument))
@@ -232,8 +219,7 @@ namespace ChartTools.IO.Ini
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="song">Song to get the difficulties from</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="IOException"/>
+        /// <inheritdoc cref="WriteDifficulty(string, Instruments, sbyte)" path="/exception"/>
         internal static void WriteDifficulties(string path, Song song)
         {
             // Get all non-difficulty lines based on the non-null instruments

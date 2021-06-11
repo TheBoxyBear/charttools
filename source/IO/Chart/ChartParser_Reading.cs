@@ -20,11 +20,7 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <returns>Instance of <see cref="Song"/> containing all song data</returns>
         /// <param name="path">Path of the file to read</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FormatException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="OutOfMemoryException"/>
+        /// <inheritdoc cref="GetLines(string)" path="/exception"/>
         public static Song ReadSong(string path, ReadingConfiguration config)
         {
             string[] lines = GetLines(path).ToArray();
@@ -58,6 +54,7 @@ namespace ChartTools.IO.Chart
             return song;
         }
 
+        #region Instruments
         /// <summary>
         /// Reads an instrument from a chart file.
         /// </summary>
@@ -66,11 +63,9 @@ namespace ChartTools.IO.Chart
         /// </returns>
         /// <param name="path">Path of the file to read</param>
         /// <param name="instrument">Instrument to read</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FormatException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="OutOfMemoryException"/>
+        /// <inheritdoc cref="ReadDrums(string, ReadingConfiguration)" path="/exception"/>
+        /// <inheritdoc cref="ReadInstrument(string, GHLInstrument, ReadingConfiguration)" path="/exception"/>
+        /// <inheritdoc cref="ReadInstrument(string, StandardInstrument, ReadingConfiguration)" path="/exception"/>
         public static Instrument ReadInstrument(string path, Instruments instrument, ReadingConfiguration config)
         {
             if (instrument == Instruments.Drums)
@@ -90,11 +85,8 @@ namespace ChartTools.IO.Chart
         ///     <para><see langword="null"/> if the file contains no drums data</para>
         /// </returns>
         /// <param name="path">Path of the file to read</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FormatException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="OutOfMemoryException"/>
+        /// <inheritdoc cref="GetLines(string)" path="/exception"/>
+        /// <inheritdoc cref="GetDrumsTrack(IEnumerable{string}, ReadingConfiguration)(IEnumerable{string}, ReadingConfiguration)" path="/exception"/>
         public static Instrument<DrumsChord> ReadDrums(string path, ReadingConfiguration config) => GetInstrument(GetLines(path).ToArray(), part => GetDrumsTrack(part, config), partNames[Instruments.Drums]);
         /// <summary>
         /// Reads a Guitar Hero Live instrument from a chart file.
@@ -102,11 +94,8 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="GHLChord"/> containing all data about the given instrument
         ///     <para><see langword="null"/> if the file has no data for the given instrument</para>
         /// </returns>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FormatException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="OutOfMemoryException"/>
+        /// <inheritdoc cref="GetLines(string)" path="/exception"/>
+        /// <inheritdoc cref="GetGHLTrack(IEnumerable{string}, ReadingConfiguration)(IEnumerable{string}, ReadingConfiguration)" path="/exception"/>
         public static Instrument<GHLChord> ReadInstrument(string path, GHLInstrument instrument, ReadingConfiguration config) => GetInstrument(GetLines(path).ToArray(), part => GetGHLTrack(part, config), partNames[(Instruments)instrument]);
         /// <summary>
         /// Reads a standard instrument from a chart file.
@@ -116,11 +105,8 @@ namespace ChartTools.IO.Chart
         /// </returns>
         /// <param name="path">Path of the file to read</param>
         /// <param name="instrument">Instrument to read</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FormatException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="OutOfMemoryException"/>
+        /// <inheritdoc cref="GetLines(string)" path="/exception"/>
+        /// <inheritdoc cref="GetStandardTrack(IEnumerable{string}, ReadingConfiguration)" path="/exception"/>
         public static Instrument<StandardChord> ReadInstrument(string path, StandardInstrument instrument, ReadingConfiguration config) => GetInstrument(GetLines(path).ToArray(), part => GetStandardTrack(part, config), partNames[(Instruments)instrument]);
         /// <summary>
         /// Gets all data for an instrument from the contents of a chart file.
@@ -131,7 +117,6 @@ namespace ChartTools.IO.Chart
         /// <param name="lines">Lines in the file</param>
         /// <param name="getTrack">Function that retrieves the track from the lines</param>
         /// <param name="instrumentPartName">Part name of the instrument excluding the difficulty</param>
-        /// <exception cref="FormatException"/>
         private static Instrument<TChord> GetInstrument<TChord>(string[] lines, Func<IEnumerable<string>, Track<TChord>> getTrack, string instrumentPartName) where TChord : Chord
         {
             Instrument<TChord> instrument = new();
@@ -157,7 +142,7 @@ namespace ChartTools.IO.Chart
 
             return difficulties.Select(d => instrument.GetTrack(d)).All(t => t is null) ? null : instrument;
         }
-
+        #endregion
         #region Tracks
         /// <summary>
         /// Reads a track from a chart file.
@@ -168,11 +153,9 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to read</param>
         /// <param name="instrument">Instrument of the track to read</param>
         /// <param name="difficulty">Difficulty of the track to read</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FormatException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="OutOfMemoryException"/>
+        /// <inheritdoc cref="ReadDrumsTrack(string, Difficulty, ReadingConfiguration)" path="/exception"/>
+        /// <inheritdoc cref="ReadTrack(string, GHLInstrument, Difficulty, ReadingConfiguration)" path="/exception"/>
+        /// <inheritdoc cref="ReadTrack(string, StandardInstrument, Difficulty, ReadingConfiguration)" path="/exception"/>
         public static Track ReadTrack(string path, Instruments instrument, Difficulty difficulty, ReadingConfiguration config)
         {
             if (instrument == Instruments.Drums)
@@ -193,11 +176,9 @@ namespace ChartTools.IO.Chart
         /// </returns>
         /// <param name="path">Path of the file to read</param>
         /// <param name="difficulty">Difficulty of the track to read</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FormatException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="OutOfMemoryException"/>
+        /// <inheritdoc cref="GetDrumsTrack(IEnumerable{string}, Difficulty, ReadingConfiguration), GHLInstrument, Difficulty, ReadingConfiguration)" path="/exception"/>
+        /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
+        /// <inheritdoc cref="GetFullPartName(Instruments, Difficulty)(IEnumerable{string}, string)" path="/exception"/>
         public static Track<DrumsChord> ReadDrumsTrack(string path, Difficulty difficulty, ReadingConfiguration config) => GetDrumsTrack(GetLines(path), difficulty, config);
         /// <summary>
         /// Gets a drums track from the contents of a chart file.
@@ -207,7 +188,9 @@ namespace ChartTools.IO.Chart
         /// </returns>
         /// <param name="lines">Lines in the file</param>
         /// <param name="difficulty">Difficulty of the track</param>
-        /// <exception cref="FormatException"/>
+        /// <inheritdoc cref="GetDrumsTrack(IEnumerable{string}, ReadingConfiguration)" path="/exception"/>
+        /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
+        /// <inheritdoc cref="GetFullPartName(Instruments, Difficulty)(IEnumerable{string}, string)" path="/exception"/>
         public static Track<DrumsChord> GetDrumsTrack(IEnumerable<string> lines, Difficulty difficulty, ReadingConfiguration config) => GetDrumsTrack(GetPart(lines, GetFullPartName(Instruments.Drums, difficulty)), config);
         /// <summary>
         /// Gets all data from a portion of a chart file containing a drums track.
@@ -216,7 +199,7 @@ namespace ChartTools.IO.Chart
         ///     <para><see langword="null"/> if the part contains no data</para>
         /// </returns>
         /// <param name="part">Lines of the file belonging to the track</param>
-        /// <exception cref="FormatException"/>
+        /// <inheritdoc cref="GetTrack{TChord}(IEnumerable{string}, Func{Track{TChord}, TChord, TrackObjectEntry, NoteData, bool, TChord}, ReadingConfiguration)" path="/exception"/>
         public static Track<DrumsChord> GetDrumsTrack(IEnumerable<string> part, ReadingConfiguration config) => GetTrack<DrumsChord>(part, (track, chord, entry, data, newChord) =>
         {
             // Body of noteCase in GetTrack call
@@ -270,11 +253,9 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to read</param>
         /// <param name="instrument">Instrument of the track</param>
         /// <param name="difficulty">Difficulty of the track</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FormatException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="OutOfMemoryException"/>
+        /// <inheritdoc cref="GetGHLTrack(IEnumerable{string}, GHLInstrument, Difficulty, ReadingConfiguration)" path="/exception"/>
+        /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
+        /// <inheritdoc cref="GetFullPartName(Instruments, Difficulty)(IEnumerable{string}, string)" path="/exception"/>
         public static Track<GHLChord> ReadTrack(string path, GHLInstrument instrument, Difficulty difficulty, ReadingConfiguration config) => GetGHLTrack(GetLines(path), instrument, difficulty, config);
         /// <summary>
         /// Gets a Guitar Hero Live track from the contents of a chart file.
@@ -285,7 +266,9 @@ namespace ChartTools.IO.Chart
         /// <param name="lines">Lines in the file</param>
         /// <param name="instrument">Instrument of the track</param>
         /// <param name="difficulty">Difficulty of the track</param>
-        /// <exception cref="FormatException"/>
+        /// <inheritdoc cref="GetGHLTrack(IEnumerable{string}, GHLInstrument, Difficulty, ReadingConfiguration)" path="/exception"/>
+        /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
+        /// <inheritdoc cref="GetFullPartName(Instruments, Difficulty)(IEnumerable{string}, string)" path="/exception"/>
         private static Track<GHLChord> GetGHLTrack(IEnumerable<string> lines, GHLInstrument instrument, Difficulty difficulty, ReadingConfiguration config) => GetGHLTrack(GetPart(lines, GetFullPartName((Instruments)instrument, difficulty)), config);
         /// <summary>
         /// Gets all data from a portion of a chart file containing a Guitar Hero Live track.
@@ -294,7 +277,7 @@ namespace ChartTools.IO.Chart
         ///     <para><see langword="null"/> if the part contains no data</para>
         /// </returns>
         /// <param name="part">Lines in the file belonging to the track</param>
-        /// <exception cref="FormatException"/>
+        /// <inheritdoc cref="GetTrack{TChord}(IEnumerable{string}, Func{Track{TChord}, TChord, TrackObjectEntry, NoteData, bool, TChord}, ReadingConfiguration)" path="/exception"/>
         private static Track<GHLChord> GetGHLTrack(IEnumerable<string> part, ReadingConfiguration config) => GetTrack<GHLChord>(part, (track, chord, entry, data, newChord) =>
         {
             // Body of noteCase in GetTrack call
@@ -347,12 +330,9 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to read</param>
         /// <param name="instrument">Instrument of the track</param>
         /// <param name="difficulty">Difficulty of the track</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FormatException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="OutOfMemoryException"/>
-        public static Track<StandardChord> ReadTrack(string path, StandardInstrument instrument, Difficulty difficulty, ReadingConfiguration config) => GetStandardTrack(GetLines(path).ToArray(), instrument, difficulty, config);
+        /// <inheritdoc cref="GetStandardTrack(IEnumerable{string}, StandardInstrument, Difficulty, ReadingConfiguration)"/>
+        /// <inheritdoc cref="GetLines(string)" path="/exception"/>
+        public static Track<StandardChord> ReadTrack(string path, StandardInstrument instrument, Difficulty difficulty, ReadingConfiguration config) => GetStandardTrack(GetLines(path), instrument, difficulty, config);
         /// <summary>
         /// Gets a standard track from the contents of a chart file.
         /// </summary>
@@ -362,9 +342,10 @@ namespace ChartTools.IO.Chart
         /// <param name="lines">Liens in the file</param>
         /// <param name="instrument">Instrument of the track</param>
         /// <param name="difficulty">Difficulty of the track</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        private static Track<StandardChord> GetStandardTrack(string[] lines, StandardInstrument instrument, Difficulty difficulty, ReadingConfiguration config) => GetStandardTrack(GetPart(lines, GetFullPartName((Instruments)instrument, difficulty)), config);
+        /// <inheritdoc cref="GetTrack{TChord}(IEnumerable{string}, Func{Track{TChord}, TChord, TrackObjectEntry, NoteData, bool, TChord}, ReadingConfiguration)" path="/exception"/>
+        /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
+        /// <inheritdoc cref="GetFullPartName(Instruments, Difficulty)(IEnumerable{string}, string)" path="/exception"/>
+        private static Track<StandardChord> GetStandardTrack(IEnumerable<string> lines, StandardInstrument instrument, Difficulty difficulty, ReadingConfiguration config) => GetStandardTrack(GetPart(lines, GetFullPartName((Instruments)instrument, difficulty)), config);
         /// <summary>
         /// Gets all data from a portion of a chart file containing a standard track.
         /// </summary>
@@ -372,7 +353,7 @@ namespace ChartTools.IO.Chart
         ///     <para><see langword="null"/> if the part contains no data</para>
         /// </returns>
         /// <param name="part">Lines in the file belonging to the track</param>
-        /// <exception cref="FormatException"/>
+        /// <inheritdoc cref="GetTrack{TChord}(IEnumerable{string}, Func{Track{TChord}, TChord, TrackObjectEntry, NoteData, bool, TChord}, ReadingConfiguration)" path="/exception"/>
         private static Track<StandardChord> GetStandardTrack(IEnumerable<string> part, ReadingConfiguration config) => GetTrack<StandardChord>(part, (track, chord, entry, data, newChord) =>
         {
             // Body of noteCase in GetTrack call
@@ -506,11 +487,8 @@ namespace ChartTools.IO.Chart
         ///     <para>Null if the file contains no metadata</para>
         /// </returns>
         /// <param name="path">Path of the file to read</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FormatException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="OutOfMemoryException"/>
+        /// <inheritdoc cref="GetMetadata(string[])" path="/exception"/>
+        /// <inheritdoc cref="GetLines(string)" path="/exception"/>
         public static Metadata ReadMetadata(string path) => GetMetadata(GetLines(path).ToArray());
         /// <summary>
         /// Gets the metadata from the contents of a chart file.
@@ -519,6 +497,7 @@ namespace ChartTools.IO.Chart
         ///     <para>Null if the lines contain no metadata</para>
         /// </returns>
         /// <param name="lines">Lines in the file</param>
+        /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
         /// <exception cref="FormatException"/>
         private static Metadata GetMetadata(string[] lines)
         {
@@ -631,11 +610,7 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <returns>Enumerable of <see cref="Phrase"/> containing the lyrics from the file</returns>
         /// <param name="path">Path of the file to read</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FormatException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="OutOfMemoryException"/>
+        /// <inheritdoc cref="ReadGlobalEvents(string)(string[])" path="/exception"/>
         public static IEnumerable<Phrase> ReadLyrics(string path) => ReadGlobalEvents(path).GetLyrics();
 
         /// <summary>
@@ -643,18 +618,16 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <returns>Enumerable of <see cref="GlobalEvent"/></returns>
         /// <param name="path">Path of the file the read</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FormatException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="OutOfMemoryException"/>
+        /// <inheritdoc cref="GetGlobalEvents(string[])" path="/exception"/>
+        /// <inheritdoc cref="GetLines(string)" path="/exception"/>
         public static IEnumerable<GlobalEvent> ReadGlobalEvents(string path) => GetGlobalEvents(GetLines(path).ToArray());
         /// <summary>
         /// Gets the global events from the contents of a chart file.
         /// </summary>
         /// <param name="lines">Lines in the file</param>
         /// <returns>Enumerable of <see cref="GlobalEvent"/></returns>
-        /// <exception cref="FormatException"/>
+        /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
+        /// <inheritdoc cref="TrackObjectEntry(string)" path="/exception"/>
         private static IEnumerable<GlobalEvent> GetGlobalEvents(string[] lines)
         {
             foreach (string line in GetPart(lines, "Events"))
@@ -674,11 +647,8 @@ namespace ChartTools.IO.Chart
         ///     <para><see langword="null"/> if the file contains no sync track</para>
         /// </returns>
         /// <param name="path">Path of the file to read</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FormatException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="OutOfMemoryException"/>
+        /// <inheritdoc cref="GetSyncTrack(string[])" path="/exception"/>
+        /// <inheritdoc cref="GetLines(string)" path="/exception"/>
         public static SyncTrack ReadSyncTrack(string path) => GetSyncTrack(GetLines(path).ToArray());
         /// <summary>
         /// Gets the sync track from the contents of a chart file.
@@ -688,6 +658,8 @@ namespace ChartTools.IO.Chart
         /// </returns>
         /// <param name="lines">Lines in the file</param>
         /// <exception cref="FormatException"/>
+        /// <inheritdoc cref="TrackObjectEntry(string)" path="/exception"/>
+        /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
         private static SyncTrack GetSyncTrack(string[] lines)
         {
             SyncTrack syncTrack = new();
@@ -770,12 +742,8 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <returns>Enumerable of all the lines in the file</returns>
         /// <param name="path">Path of the file to read</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="DirectoryNotFoundException"/>
-        /// <exception cref="FileNotFoundException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="OutOfMemoryException"/>
+        /// <inheritdoc cref="StreamReader(string)" path="/exception"/>
+        /// <inheritdoc cref="StreamReader.ReadLine" path="/exception"/>
         private static IEnumerable<string> GetLines(string path)
         {
             StreamReader reader = new(path);
@@ -797,6 +765,7 @@ namespace ChartTools.IO.Chart
         /// <param name="lines">Lines in the file</param>
         /// <param name="partName">Name of the part to extract</param>
         /// <exception cref="InvalidDataException"/>
+        /// <exception cref="InvalidOperationException"/>
         private static IEnumerable<string> GetPart(IEnumerable<string> lines, string partName)
         {
             using IEnumerator<string> enumerator = lines.GetEnumerator();
