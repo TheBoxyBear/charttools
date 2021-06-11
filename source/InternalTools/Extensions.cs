@@ -493,11 +493,7 @@ namespace ChartTools
         /// </summary>
         /// <param name="events">Events to write</param>
         /// <param name="path">Path of the file to write</param>
-        public static void ToFile(this IEnumerable<GlobalEvent> events, string path, WritingConfiguration config)
-        {
-            try { ExtensionHandler.Write(path, events, config, (".chart", ChartParser.ReplaceGlobalEvents)); }
-            catch { throw; }
-        }
+        public static void ToFile(this IEnumerable<GlobalEvent> events, string path, WritingConfiguration config) => ExtensionHandler.Write(path, events, config, (".chart", ChartParser.ReplaceGlobalEvents));
     }
     /// <summary>
     /// Provides additional methods for <see cref="GlobalEvent"/>
