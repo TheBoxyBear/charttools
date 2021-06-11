@@ -50,7 +50,16 @@ namespace ChartTools
         /// <summary>
         /// Duration in milliseconds of the preview in the Clone Hero song browser
         /// </summary>
-        public uint PreviewLength => PreviewEnd is null ? 30000 : PreviewStart is null ? PreviewEnd.Value : PreviewEnd.Value - PreviewStart.Value;
+        public uint PreviewLength
+        {
+            get
+            {
+                if (PreviewEnd is null)
+                    return 30000;
+
+                return PreviewStart is null ? PreviewEnd.Value : PreviewEnd.Value - PreviewStart.Value;
+            }
+        }
         /// <summary>
         /// Overall difficulty of the song
         /// </summary>
