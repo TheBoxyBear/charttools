@@ -9,7 +9,7 @@
         /// Creates an instance of <see cref="Chord"/>
         /// </summary>
         /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
-        public Chord(uint position) : base(position) { }
+        protected Chord(uint position) : base(position) { }
 
         /// <summary>
         /// Gets the data to write in a chart file.
