@@ -218,7 +218,7 @@ namespace ChartTools.IO.Chart
         internal static void ReplacePart(string path, IEnumerable<string> partContent, string partName)
         {
             IEnumerable<string> part = GetPartLines(partName, partContent);
-            using StreamWriter writer = new(path);
+            using StreamWriter writer = new(new FileStream(path, FileMode.Create));
 
             foreach (string line in File.Exists(path)
                 ? GetLines(path).ReplaceSection(part, l => l == $"[{partName}]", l => l == "}", true)
