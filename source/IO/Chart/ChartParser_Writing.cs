@@ -52,7 +52,7 @@ namespace ChartTools.IO.Chart
                 if (song.Drums is not null)
                     tasks.Add(Task.Run(() =>
                     {
-                        IEnumerable<string> lines = GetTrackLines((Track<DrumsChord>)drumsType.GetProperty(difficulty.ToString()).GetValue(song.Drums), config);
+                        IEnumerable<string> lines = GetTrackLines((Track<DrumsChord>)drumsType.GetProperty(difficulty.ToString()).GetValue(song.Drums));
 
                         return lines.Any() ? GetPartLines(GetFullPartName(Instruments.Drums, difficulty), lines) : lines;
                     }));
@@ -61,7 +61,7 @@ namespace ChartTools.IO.Chart
                 foreach ((Instrument<GHLChord> instrument, Instruments name) in ghlInstruments)
                     tasks.Add(Task.Run(() =>
                     {
-                        IEnumerable<string> lines = GetTrackLines((Track<GHLChord>)ghlType.GetProperty(difficulty.ToString()).GetValue(instrument), config);
+                        IEnumerable<string> lines = GetTrackLines((Track<GHLChord>)ghlType.GetProperty(difficulty.ToString()).GetValue(instrument));
 
                         return lines.Any() ? GetPartLines(GetFullPartName(name, difficulty), lines) : lines;
                     }));
@@ -69,7 +69,7 @@ namespace ChartTools.IO.Chart
                 foreach ((Instrument<StandardChord> instrument, Instruments name) in standardInstruments)
                     tasks.Add(Task.Run(() =>
                     {
-                        IEnumerable<string> lines = GetTrackLines((Track<StandardChord>)standardType.GetProperty(difficulty.ToString()).GetValue(instrument), config);
+                        IEnumerable<string> lines = GetTrackLines((Track<StandardChord>)standardType.GetProperty(difficulty.ToString()).GetValue(instrument));
 
                         return lines.Any() ? GetPartLines(GetFullPartName(name, difficulty), lines) : lines;
                     }));
@@ -127,7 +127,7 @@ namespace ChartTools.IO.Chart
                     string partName = GetFullPartName(data.instrument, difficulty);
 
                     // Add thread to write the track
-                    tasks.Add(Task.Run(() => (GetPartLines(partName, GetTrackLines(track as Track<TChord>, config)), partName)));
+                    tasks.Add(Task.Run(() => (GetPartLines(partName, GetTrackLines(track as Track<TChord>)), partName)));
                 }
             }
 
@@ -204,7 +204,7 @@ namespace ChartTools.IO.Chart
                 data.track.LocalEvents.RemoveWhere(e => e.EventType is LocalEventType.Solo or LocalEventType.SoloEnd);
             }
 
-            ReplacePart(path, GetTrackLines(data.track, config), GetFullPartName(data.instrument, data.difficulty));
+            ReplacePart(path, GetTrackLines(data.track), GetFullPartName(data.instrument, data.difficulty));
         }
 
         /// <summary>
@@ -231,7 +231,7 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <returns>Enumerable of all the lines</returns>
         /// <param name="track">Track to get the lines of</param>
-        private static IEnumerable<string> GetTrackLines<TChord>(Track<TChord> track, WritingConfiguration config) where TChord : Chord
+        private static IEnumerable<string> GetTrackLines<TChord>(Track<TChord> track) where TChord : Chord
         {
             if (track is null)
                 yield break;
