@@ -275,7 +275,7 @@ namespace ChartTools.IO.MIDI
             const int spNoteNumber = 116;
 
             // First pass checking star power defined as NoteEvent
-            foreach (NoteEvent e in events)
+            foreach (NoteEvent e in events.OfType<NoteEvent>())
             {
                 switch (e)
                 {
@@ -295,7 +295,7 @@ namespace ChartTools.IO.MIDI
             bool convertEvent = midiConfig.SoloNoStarPowerRule == SoloNoStarPowerRule.Convert && starPowerDest.Count == 0;
 
             // Second pass checking text events
-            foreach (TextEvent e in events)
+            foreach (TextEvent e in events.OfType<TextEvent>())
             {
                 if (convertEvent)
                 {
