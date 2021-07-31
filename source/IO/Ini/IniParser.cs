@@ -97,6 +97,9 @@ namespace ChartTools.IO.Ini
                     case "loading_text":
                         metadata.LoadingText = value;
                         break;
+                    default:
+                        metadata.UnidentifiedData.Add(new() { Key = header, Data = value, Origin = FileFormat.Ini });
+                        break;
                 }
             }
 

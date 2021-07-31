@@ -295,6 +295,10 @@ namespace ChartTools.IO.Chart
                     if (value is not null)
                         yield return GetLine($"{property.Name}Stream", $"\"{value}\"");
                 }
+
+            if (metadata.UnidentifiedData is not null)
+                foreach (MetadataItem data in metadata.UnidentifiedData.Where(d => d.Origin == FileFormat.Chart))
+                    yield return GetLine(data.Key, data.Data);
         }
         /// <summary>
         /// Gets a line to write for an event.
