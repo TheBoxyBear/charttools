@@ -110,7 +110,14 @@ namespace ChartTools.IO.Ini
         /// </summary>
         /// <param name="path">Path of the file to read</param>
         /// <param name="metadata">Metadata to write</param>
-        internal static void WriteMetadata(string path, Metadata metadata) => File.WriteAllLines(path, GetLines(metadata).Concat(new List<string>(File.ReadLines(path).Where(l => !metadataKeys.ContainsValue(GetEntry(l).header)))));
+        internal static void WriteMetadata(string path, Metadata metadata)
+        {
+            using StreamWriter writer = new(new FileStream(path, FileMode.Create));
+
+            foreach (string line in GetLines(metadata))
+                writer.WriteLine(line);
+
+        }
 
         private static IEnumerable<string> GetLines(Metadata metadata)
         {
@@ -132,6 +139,10 @@ namespace ChartTools.IO.Ini
                 if (metadata.Charter.Icon is not null)
                     yield return $"icon = {metadata.Charter.Icon}";
             }
+
+            if (metadata.UnidentifiedData is not null)
+                foreach (MetadataItem data in metadata.UnidentifiedData.Where(d => d.Origin == FileFormat.Ini))
+                    yield return $"{data.Key} = {data.Data}";
         }
 
         /// <summary>
