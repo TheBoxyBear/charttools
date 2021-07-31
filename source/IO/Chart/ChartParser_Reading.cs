@@ -538,7 +538,7 @@ namespace ChartTools.IO.Chart
                         catch (Exception e) { throw GetLineException(line, e); }
                         break;
                     case "Difficulty":
-                        try { metadata.Difficulty = byte.Parse(data); }
+                        try { metadata.Difficulty = sbyte.Parse(data); }
                         catch (Exception e) { throw GetLineException(line, e); }
                         break;
                     case "PreviewStart":

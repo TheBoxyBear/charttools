@@ -63,7 +63,7 @@ namespace ChartTools
         /// <summary>
         /// Overall difficulty of the song
         /// </summary>
-        public byte? Difficulty { get; set; }
+        public sbyte? Difficulty { get; set; }
         /// <summary>
         /// Type of media the audio track comes from
         /// </summary>
