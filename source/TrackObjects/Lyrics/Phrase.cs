@@ -3,6 +3,7 @@ using ChartTools.IO;
 using ChartTools.IO.Chart;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace ChartTools.Lyrics
 {
@@ -32,18 +33,18 @@ namespace ChartTools.Lyrics
             get
             {
                 Syllable syllable = Syllables[0];
-                string output = Syllables[0].DisplayedText;
+                StringBuilder builder = new(Syllables[0].DisplayedText);
                 bool addSpace = syllable.IsWordEnd && syllable.RawText[^1] != ',';
 
                 for (int i = 1; i < Syllables.Count; i++)
                 {
                     syllable = Syllables[i];
 
-                    output += addSpace ? $" {syllable.DisplayedText}" : syllable.DisplayedText;
+                    builder.Append(addSpace ? $" {syllable.DisplayedText}" : syllable.DisplayedText);
                     addSpace = syllable.IsWordEnd && syllable.RawText[^1] != ',';
                 }
 
-                return output.Trim();
+                return builder.ToString().Trim();
             }
         }
         /// <summary>
