@@ -176,9 +176,32 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
         internal static void ReplaceTrack<TChord>(string path, (Track<TChord> track, Instruments instrument, Difficulty difficulty) data, WritingConfiguration config) where TChord : Chord
         {
-            if (config.SoloNoStarPowerRule == SoloNoStarPowerRule.Convert)
+            // Convert solo and soloend events into star power
+            if (config.SoloNoStarPowerRule == SoloNoStarPowerRule.Convert && data.track.StarPower.Count == 0)
             {
-                throw new NotImplementedException();
+                StarPowerPhrase starPower = null;
+
+                foreach (LocalEvent e in data.track.LocalEvents)
+                    switch (e.EventType)
+                    {
+                        case LocalEventType.Solo:
+                            if (starPower is not null)
+                            {
+                                starPower.Length = e.Position - starPower.Position;
+                                data.track.StarPower.Add(starPower);
+                            }
+
+                            starPower = new(e.Position);
+                            break;
+                        case LocalEventType.SoloEnd:
+                            starPower.Length = e.Position - starPower.Position;
+                            data.track.StarPower.Add(starPower);
+
+                            starPower = null;
+                            break;
+                    }
+
+                data.track.LocalEvents.RemoveWhere(e => e.EventType is LocalEventType.Solo or LocalEventType.SoloEnd);
             }
 
             ReplacePart(path, GetTrackLines(data.track, config), GetFullPartName(data.instrument, data.difficulty));
