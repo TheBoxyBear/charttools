@@ -15,10 +15,6 @@ namespace ChartTools
         /// <summary>
         /// Creates an instance of <see cref="StandardNote"/>.
         /// </summary>
-        internal StandardNote() : base (0) { }
-        /// <summary>
-        /// Creates an instance of <see cref="StandardNote"/>.
-        /// </summary>
         /// <param name="note">Value of <see cref="Note"/></param>
         public StandardNote(StandardNotes note) : base((byte)note)
         {
