@@ -6,7 +6,7 @@ namespace ChartTools
     /// <summary>
     /// Event specific to an instrument and difficulty
     /// </summary>
-    public class LocalEvent : Event, System.IEquatable<LocalEvent>
+    public class LocalEvent : Event
     {
         /// <summary>
         /// <see cref="Event.EventTypeString"/> value for each <see cref="LocalEventType"/>
