@@ -16,7 +16,6 @@ namespace ChartTools
     /// </summary>
     public class Song
     {
-        #region Properties
         /// <summary>
         /// Set of information about the song not unrelated to instruments, syncing or events
         /// </summary>
@@ -28,6 +27,7 @@ namespace ChartTools
         /// </summary>
         public List<GlobalEvent> GlobalEvents { get; set; } = new List<GlobalEvent>();
 
+        #region Instruments
         /// <summary>
         /// Set of drums tracks
         /// </summary>
