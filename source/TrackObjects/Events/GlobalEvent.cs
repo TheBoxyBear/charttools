@@ -10,7 +10,7 @@ namespace ChartTools
     /// <summary>
     /// Event common to all instruments
     /// </summary>
-    public class GlobalEvent : Event, IEquatable<GlobalEvent>
+    public class GlobalEvent : Event
     {
         /// <summary>
         /// <see cref="Event.EventTypeString"/> value for each <see cref="GlobalEventType"/>

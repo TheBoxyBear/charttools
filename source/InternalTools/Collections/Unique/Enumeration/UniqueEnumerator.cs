@@ -50,7 +50,7 @@ namespace ChartTools.Collections.Unique
             if (enumerators is null)
                 throw new ArgumentNullException(nameof(enumerators));
             if (enumerators.Length == 0)
-                throw new ArgumentException(nameof(enumerators));
+                throw new ArgumentException("No enumerators provided", nameof(enumerators));
             if (comparison is null)
                 throw new ArgumentNullException(nameof(comparison));
 
