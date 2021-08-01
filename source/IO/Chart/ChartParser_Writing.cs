@@ -213,7 +213,10 @@ namespace ChartTools.IO.Chart
             if (instrument is null)
                 yield break;
 
-
+            if (config.EventSource == TrackObjectSource.Merge)
+            {
+                instrument.ShareLocalEvents(TrackObjectSource.Merge);
+            }
 
             foreach (Difficulty diff in Enum.GetValues<Difficulty>())
             {

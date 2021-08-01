@@ -33,6 +33,9 @@ namespace ChartTools
         /// </summary>
         public Track<TChord> GetTrack(Difficulty difficulty) => (Track<TChord>)GetType().GetProperty(difficulty.ToString()).GetValue(this);
 
+        /// <summary>
+        /// Gives all tracks the same local events.
+        /// </summary>
         public void ShareLocalEvents(TrackObjectSource source)
         {
             if (source == TrackObjectSource.Seperate)
