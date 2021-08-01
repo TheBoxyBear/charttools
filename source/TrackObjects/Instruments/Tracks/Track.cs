@@ -1,6 +1,7 @@
 ﻿using ChartTools.Collections.Unique;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
+using ChartTools.SystemExtensions;
 
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,9 @@ namespace ChartTools
         /// <summary>
         /// Sets of chords that give star power
         /// </summary>
-        public UniqueList<StarPowerPhrase> StarPower { get; set; } = new UniqueList<StarPowerPhrase>((s, other) => s.Equals(other));
+        public UniqueList<StarPowerPhrase> StarPower { get; set; } = new UniqueList<StarPowerPhrase>(startPowerComparison);
+
+        internal static readonly EqualityComparison<StarPowerPhrase> startPowerComparison = (s, other) => s.Equals(other);
 
         internal IEnumerable<StarPowerPhrase> SoloToStarPower(bool removeEvents)
         {
