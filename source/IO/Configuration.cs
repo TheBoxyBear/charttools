@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ChartTools.IO
+﻿namespace ChartTools.IO
 {
     /// <summary>
     /// Difficulty of the <see cref="Track"/> to serve as a source of for track objects common to all difficulties to use for all tracks in the same <see cref="Instrument"/>
@@ -40,13 +38,13 @@ namespace ChartTools.IO
     /// </summary>
     public class ReadingConfiguration
     {
-        /// <inheritdoc cref="IO.SoloNoStarPowerPolicy"/>
+        /// <inheritdoc cref="SoloNoStarPowerPolicy"/>
         public SoloNoStarPowerPolicy SoloNoStarPowerRule { get; set; } = SoloNoStarPowerPolicy.Convert;
     }
 
     public class WritingConfiguration
     {
-        /// <inheritdoc cref="IO.SoloNoStarPowerPolicy">
+        /// <inheritdoc cref="SoloNoStarPowerPolicy">
         public SoloNoStarPowerPolicy SoloNoStarPowerPolicy { get; set; } = SoloNoStarPowerPolicy.Convert;
         /// <inheritdoc cref="TrackObjectSource">
         public TrackObjectSource EventSource { get; set; } = TrackObjectSource.Merge;
