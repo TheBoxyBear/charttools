@@ -40,14 +40,14 @@ namespace ChartTools.IO.Chart
                 (song.GHLBass, Instruments.GHLBass),
                 (song.GHLGuitar, Instruments.GHLGuitar)
             }).Select(t => Task.Run(() => GetInstrumentLines(t.instrument, t.name, config))));
-            tasks.AddRange((new (Instrument<GHLChord> instrument, Instruments name)[]
+            tasks.AddRange((new (Instrument<StandardChord> instrument, Instruments name)[]
             {
-                (song.GHLBass, Instruments.GHLBass),
-                (song.GHLGuitar, Instruments.GHLGuitar)
+                (song.LeadGuitar, Instruments.LeadGuitar),
+                (song.RhythmGuitar, Instruments.RhythmGuitar),
+                (song.CoopGuitar, Instruments.CoopGuitar),
+                (song.Bass, Instruments.Bass),
+                (song.Keys, Instruments.Keys)
             }).Select(t => Task.Run(() => GetInstrumentLines(t.instrument, t.name, config))));
-
-            // Types used to get difficulty tracks using reflection
-            Type drumsType = typeof(Instrument<DrumsChord>), ghlType = typeof(Instrument<GHLChord>), standardType = typeof(Instrument<StandardChord>);
 
             // Join lines with line breaks and write to file
             File.WriteAllText(path, string.Join('\n', tasks.SelectMany(t => t.Result)));
