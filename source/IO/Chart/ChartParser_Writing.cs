@@ -31,24 +31,25 @@ namespace ChartTools.IO.Chart
             {
                 Task.Run(() => GetPartLines("Song", GetMetadataLines(song.Metadata))),
                 Task.Run(() => GetPartLines("SyncTrack", GetSyncTrackLines(song.SyncTrack))),
-                Task.Run(() => GetPartLines("Events", song.GlobalEvents.Select(e => GetEventLine(e))))
+                Task.Run(() => GetPartLines("Events", song.GlobalEvents.Select(e => GetEventLine(e)))),
+                Task.Run(() => GetInstrumentLines(song.Drums, Instruments.Drums, config))
             };
 
-            // Part names of GHL instruments
-            IEnumerable<(Instrument<GHLChord>, Instruments)> ghlInstruments = new (Instrument<GHLChord> instrument, Instruments name)[]
+            foreach ((Instrument<GHLChord> inst, Instruments instName) tuple in new (Instrument<GHLChord> instrument, Instruments name)[]
             {
                 (song.GHLBass, Instruments.GHLBass),
                 (song.GHLGuitar, Instruments.GHLGuitar)
-            }.Where(i => i.instrument is not null);
-            // Part names of standard instruments
-            IEnumerable<(Instrument<StandardChord>, Instruments)> standardInstruments = new (Instrument<StandardChord> instrument, Instruments name)[]
+            })
+                tasks.Add(Task.Run(() => GetInstrumentLines(tuple.inst, tuple.instName, config)));
+            foreach ((Instrument<StandardChord> inst, Instruments instName) tuple in new (Instrument<StandardChord> instrument, Instruments name)[]
             {
                 (song.LeadGuitar, Instruments.LeadGuitar),
                 (song.RhythmGuitar, Instruments.RhythmGuitar),
                 (song.CoopGuitar, Instruments.CoopGuitar),
                 (song.Bass, Instruments.Bass),
                 (song.Keys, Instruments.Keys)
-            }.Where(i => i.instrument is not null);
+            })
+                tasks.Add(Task.Run(() => GetInstrumentLines(tuple.inst, tuple.instName, config)));
 
             // Types used to get difficulty tracks using reflection
             Type drumsType = typeof(Instrument<DrumsChord>), ghlType = typeof(Instrument<GHLChord>), standardType = typeof(Instrument<StandardChord>);
@@ -213,6 +214,7 @@ namespace ChartTools.IO.Chart
             if (instrument is null)
                 yield break;
 
+            // Apply sharing policies
             instrument.ShareLocalEvents(config.EventSource);
             instrument.ShareStarPower(config.StarPowerSource);
 
@@ -221,8 +223,13 @@ namespace ChartTools.IO.Chart
                 Track<TChord> track = (Track<TChord>)instrument.GetType().GetProperty(diff.ToString()).GetValue(instrument);
 
                 if (track is not null)
-                    foreach (string line in GetPartLines(GetFullPartName(instEnum, diff), GetTrackLines(track, config)))
-                        yield return line;
+                {
+                    string[] trackLines = GetTrackLines(track, config).ToArray();
+
+                    if (trackLines.Any())
+                        foreach (string line in GetPartLines(GetFullPartName(instEnum, diff), trackLines))
+                            yield return line;
+                }
             }
         }
 
