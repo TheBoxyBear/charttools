@@ -447,7 +447,7 @@ namespace ChartTools.IO.Chart
                         break;
                 }
 
-                if (config.SoloNoStarPowerRule == SoloNoStarPowerRule.Convert)
+                if (config.SoloNoStarPowerRule == SoloNoStarPowerPolicy.Convert)
                     track.StarPower.AddRange(track.SoloToStarPower(true));
             }
 

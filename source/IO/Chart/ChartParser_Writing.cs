@@ -177,7 +177,7 @@ namespace ChartTools.IO.Chart
         internal static void ReplaceTrack<TChord>(string path, (Track<TChord> track, Instruments instrument, Difficulty difficulty) data, WritingConfiguration config) where TChord : Chord
         {
             // Convert solo and soloend events into star power
-            if (config.SoloNoStarPowerRule == SoloNoStarPowerRule.Convert && data.track.StarPower.Count == 0)
+            if (config.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && data.track.StarPower.Count == 0)
             {
                 StarPowerPhrase starPower = null;
 

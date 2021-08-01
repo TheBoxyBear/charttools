@@ -1,4 +1,6 @@
-﻿namespace ChartTools.IO
+﻿using System;
+
+namespace ChartTools.IO
 {
     /// <summary>
     /// Difficulty of the <see cref="Track"/> to serve as a source of for track objects common to all difficulties to use for all tracks in the same <see cref="Instrument"/>
@@ -18,11 +20,10 @@
         Merge,
         Seperate
     }
-
     /// <summary>
     /// Defines how to handle "solo" local events in tracks
     /// </summary>
-    public enum SoloNoStarPowerRule : byte
+    public enum SoloNoStarPowerPolicy : byte
     {
         /// <summary>
         /// Local events are interpreted as is
@@ -39,14 +40,14 @@
     /// </summary>
     public class ReadingConfiguration
     {
-        /// <inheritdoc cref="IO.SoloNoStarPowerRule"/>
-        public SoloNoStarPowerRule SoloNoStarPowerRule { get; set; } = SoloNoStarPowerRule.Convert;
+        /// <inheritdoc cref="IO.SoloNoStarPowerPolicy"/>
+        public SoloNoStarPowerPolicy SoloNoStarPowerRule { get; set; } = SoloNoStarPowerPolicy.Convert;
     }
 
     public class WritingConfiguration
     {
-        /// <inheritdoc cref="IO.SoloNoStarPowerRule">
-        public SoloNoStarPowerRule SoloNoStarPowerRule { get; set; } = SoloNoStarPowerRule.Convert;
+        /// <inheritdoc cref="IO.SoloNoStarPowerPolicy">
+        public SoloNoStarPowerPolicy SoloNoStarPowerPolicy { get; set; } = SoloNoStarPowerPolicy.Convert;
         /// <inheritdoc cref="TrackObjectSource">
         public TrackObjectSource EventSource { get; set; } = TrackObjectSource.Merge;
         /// <inheritdoc cref="TrackObjectSource"/>
