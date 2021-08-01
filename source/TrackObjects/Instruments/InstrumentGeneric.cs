@@ -75,7 +75,7 @@ namespace ChartTools
                 TrackObjectSource.Medium => Medium?.StarPower,
                 TrackObjectSource.Hard => Hard?.StarPower,
                 TrackObjectSource.Expert => Expert?.StarPower,
-                TrackObjectSource.Merge => new UniqueEnumerable<StarPowerPhrase>((sp, other) => sp.Equals(other), new Track<TChord>[] { Easy, Medium, Hard, Expert }.Select(t => t?.StarPower).ToArray()),
+                TrackObjectSource.Merge => new UniqueEnumerable<StarPowerPhrase>(Track.startPowerComparison, new Track<TChord>[] { Easy, Medium, Hard, Expert }.Select(t => t?.StarPower).ToArray()),
                 _ => throw CommonExceptions.GetUndefinedException(source)
             })).ToArray();
 
@@ -83,10 +83,10 @@ namespace ChartTools
                 return;
 
 #pragma warning disable S1121 // Assignments should not be made from within sub-expressions
-            (Easy ??= new()).StarPower = new UniqueList<StarPowerPhrase>((s, other) => s.Equals(other), starPower.Length, starPower);
-            (Medium ??= new()).StarPower = new UniqueList<StarPowerPhrase>((s, other) => s.Equals(other), starPower.Length, starPower);
-            (Hard ??= new()).StarPower = new UniqueList<StarPowerPhrase>((s, other) => s.Equals(other), starPower.Length, starPower);
-            (Expert ??= new()).StarPower = new UniqueList<StarPowerPhrase>((s, other) => s.Equals(other), starPower.Length, starPower);
+            (Easy ??= new()).StarPower = new UniqueList<StarPowerPhrase>(Track.startPowerComparison, starPower.Length, starPower);
+            (Medium ??= new()).StarPower = new UniqueList<StarPowerPhrase>(Track.startPowerComparison, starPower.Length, starPower);
+            (Hard ??= new()).StarPower = new UniqueList<StarPowerPhrase>(Track.startPowerComparison, starPower.Length, starPower);
+            (Expert ??= new()).StarPower = new UniqueList<StarPowerPhrase>(Track.startPowerComparison, starPower.Length, starPower);
 #pragma warning restore S1121 // Assignments should not be made from within sub-expressions
         }
     }
