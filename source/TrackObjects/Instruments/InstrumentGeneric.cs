@@ -61,5 +61,33 @@ namespace ChartTools
             (Expert ??= new()).LocalEvents = new List<LocalEvent>(events);
 #pragma warning restore S1121 // Assignments should not be made from within sub-expressions
         }
+        /// <summary>
+        /// Gives all tracks the same star power
+        /// </summary>
+        public void ShareStarPower(TrackObjectSource source)
+        {
+            if (source == TrackObjectSource.Seperate)
+                return;
+
+            StarPowerPhrase[] starPower = ((IEnumerable<StarPowerPhrase>)(source switch
+            {
+                TrackObjectSource.Easy => Easy?.StarPower,
+                TrackObjectSource.Medium => Medium?.StarPower,
+                TrackObjectSource.Hard => Hard?.StarPower,
+                TrackObjectSource.Expert => Expert?.StarPower,
+                TrackObjectSource.Merge => new UniqueEnumerable<StarPowerPhrase>((sp, other) => sp.Equals(other), new Track<TChord>[] { Easy, Medium, Hard, Expert }.Select(t => t?.StarPower).ToArray()),
+                _ => throw CommonExceptions.GetUndefinedException(source)
+            })).ToArray();
+
+            if (starPower.Length == 0)
+                return;
+
+#pragma warning disable S1121 // Assignments should not be made from within sub-expressions
+            (Easy ??= new()).StarPower = new UniqueList<StarPowerPhrase>((s, other) => s.Equals(other), starPower.Length, starPower);
+            (Medium ??= new()).StarPower = new UniqueList<StarPowerPhrase>((s, other) => s.Equals(other), starPower.Length, starPower);
+            (Hard ??= new()).StarPower = new UniqueList<StarPowerPhrase>((s, other) => s.Equals(other), starPower.Length, starPower);
+            (Expert ??= new()).StarPower = new UniqueList<StarPowerPhrase>((s, other) => s.Equals(other), starPower.Length, starPower);
+#pragma warning restore S1121 // Assignments should not be made from within sub-expressions
+        }
     }
 }
