@@ -35,53 +35,19 @@ namespace ChartTools.IO.Chart
                 Task.Run(() => GetInstrumentLines(song.Drums, Instruments.Drums, config))
             };
 
-            foreach ((Instrument<GHLChord> inst, Instruments instName) tuple in new (Instrument<GHLChord> instrument, Instruments name)[]
+            tasks.AddRange((new (Instrument<GHLChord> instrument, Instruments name)[]
             {
                 (song.GHLBass, Instruments.GHLBass),
                 (song.GHLGuitar, Instruments.GHLGuitar)
-            })
-                tasks.Add(Task.Run(() => GetInstrumentLines(tuple.inst, tuple.instName, config)));
-            foreach ((Instrument<StandardChord> inst, Instruments instName) tuple in new (Instrument<StandardChord> instrument, Instruments name)[]
+            }).Select(t => Task.Run(() => GetInstrumentLines(t.instrument, t.name, config))));
+            tasks.AddRange((new (Instrument<GHLChord> instrument, Instruments name)[]
             {
-                (song.LeadGuitar, Instruments.LeadGuitar),
-                (song.RhythmGuitar, Instruments.RhythmGuitar),
-                (song.CoopGuitar, Instruments.CoopGuitar),
-                (song.Bass, Instruments.Bass),
-                (song.Keys, Instruments.Keys)
-            })
-                tasks.Add(Task.Run(() => GetInstrumentLines(tuple.inst, tuple.instName, config)));
+                (song.GHLBass, Instruments.GHLBass),
+                (song.GHLGuitar, Instruments.GHLGuitar)
+            }).Select(t => Task.Run(() => GetInstrumentLines(t.instrument, t.name, config))));
 
             // Types used to get difficulty tracks using reflection
             Type drumsType = typeof(Instrument<DrumsChord>), ghlType = typeof(Instrument<GHLChord>), standardType = typeof(Instrument<StandardChord>);
-
-            foreach (Difficulty difficulty in Enum.GetValues<Difficulty>())
-            {
-                // Add threads to get the lines for each non-null drums track
-                if (song.Drums is not null)
-                    tasks.Add(Task.Run(() =>
-                    {
-                        IEnumerable<string> lines = GetTrackLines((Track<DrumsChord>)drumsType.GetProperty(difficulty.ToString()).GetValue(song.Drums), config);
-
-                        return lines.Any() ? GetPartLines(GetFullPartName(Instruments.Drums, difficulty), lines) : lines;
-                    }));
-
-                // Add threads to get the lines for each non-null track of each GHL instrument
-                foreach ((Instrument<GHLChord> instrument, Instruments name) in ghlInstruments)
-                    tasks.Add(Task.Run(() =>
-                    {
-                        IEnumerable<string> lines = GetTrackLines((Track<GHLChord>)ghlType.GetProperty(difficulty.ToString()).GetValue(instrument), config);
-
-                        return lines.Any() ? GetPartLines(GetFullPartName(name, difficulty), lines) : lines;
-                    }));
-                // Add threads to get the lines for each non-null track of each standard instrument
-                foreach ((Instrument<StandardChord> instrument, Instruments name) in standardInstruments)
-                    tasks.Add(Task.Run(() =>
-                    {
-                        IEnumerable<string> lines = GetTrackLines((Track<StandardChord>)standardType.GetProperty(difficulty.ToString()).GetValue(instrument), config);
-
-                        return lines.Any() ? GetPartLines(GetFullPartName(name, difficulty), lines) : lines;
-                    }));
-            }
 
             // Join lines with line breaks and write to file
             File.WriteAllText(path, string.Join('\n', tasks.SelectMany(t => t.Result)));
