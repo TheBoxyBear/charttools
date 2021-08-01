@@ -11,6 +11,13 @@ namespace ChartTools.IO.Chart
 {
     internal partial class ChartParser
     {
+        internal static readonly WritingConfiguration DefaultWriteConfig = new()
+        {
+            SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
+            EventSource = TrackObjectSource.Seperate,
+            StarPowerSource = TrackObjectSource.Seperate
+        };
+
         /// <summary>
         /// Writes a song to a chart file
         /// </summary>
@@ -196,9 +203,32 @@ namespace ChartTools.IO.Chart
         }
 
         /// <summary>
+        /// Gets the lines to write all the parts making up an instrument.
+        /// </summary>
+        /// <param name="instrument">Instrument to get the lines for</param>
+        /// <param name="instEnum">Instrument to define the part names</param>
+        /// <returns>Enumerable of all the lines making up the parts for the instrument</returns>
+        private static IEnumerable<string> GetInstrumentLines<TChord>(Instrument<TChord> instrument, Instruments instEnum, WritingConfiguration config) where TChord : Chord
+        {
+            if (instrument is null)
+                yield break;
+
+
+
+            foreach (Difficulty diff in Enum.GetValues<Difficulty>())
+            {
+                Track<TChord> track = (Track<TChord>)instrument.GetType().GetProperty(diff.ToString()).GetValue(instrument);
+
+                if (track is not null)
+                    foreach (string line in GetPartLines(GetFullPartName(instEnum, diff), GetTrackLines(track, config)))
+                        yield return line;
+            }
+        }
+
+        /// <summary>
         /// Gets the lines to write for a difficulty track.
         /// </summary>
-        /// <returns>Enumerable of all the lines</returns>
+        /// <returns>Enumerable of all the lines making up the inside of the part</returns>
         /// <param name="track">Track to get the lines of</param>
         private static IEnumerable<string> GetTrackLines<TChord>(Track<TChord> track, WritingConfiguration config) where TChord : Chord
         {
@@ -232,8 +262,6 @@ namespace ChartTools.IO.Chart
 
                 track.LocalEvents.RemoveWhere(e => e.EventType is LocalEventType.Solo or LocalEventType.SoloEnd);
             }
-
-
 
             // Loop through chords, local events and star power, picked using the lowest position
             foreach (TrackObject trackObject in new Collections.Alternating.OrderedAlternatingEnumerable<TrackObject, uint>(t => t.Position, track.Chords, track.LocalEvents, track.StarPower))

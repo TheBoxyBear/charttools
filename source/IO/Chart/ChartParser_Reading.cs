@@ -15,6 +15,8 @@ namespace ChartTools.IO.Chart
     /// </summary>
     internal static partial class ChartParser
     {
+        internal static readonly ReadingConfiguration DefaultReadConfig = new() { SoloNoStarPowerRule = SoloNoStarPowerPolicy.Convert };
+
         /// <summary>
         /// Reads a chart file.
         /// </summary>

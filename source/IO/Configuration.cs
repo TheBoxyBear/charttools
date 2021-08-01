@@ -45,10 +45,10 @@
     public class WritingConfiguration
     {
         /// <inheritdoc cref="SoloNoStarPowerPolicy">
-        public SoloNoStarPowerPolicy SoloNoStarPowerPolicy { get; set; } = SoloNoStarPowerPolicy.Convert;
+        public SoloNoStarPowerPolicy SoloNoStarPowerPolicy { get; set; }
         /// <inheritdoc cref="TrackObjectSource">
-        public TrackObjectSource EventSource { get; set; } = TrackObjectSource.Merge;
+        public TrackObjectSource EventSource { get; set; }
         /// <inheritdoc cref="TrackObjectSource"/>
-        public TrackObjectSource StarPowerSource { get; set; } = TrackObjectSource.Merge;
+        public TrackObjectSource StarPowerSource { get; set; }
     }
 }
