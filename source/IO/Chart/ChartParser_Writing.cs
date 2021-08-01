@@ -52,7 +52,7 @@ namespace ChartTools.IO.Chart
                 if (song.Drums is not null)
                     tasks.Add(Task.Run(() =>
                     {
-                        IEnumerable<string> lines = GetTrackLines((Track<DrumsChord>)drumsType.GetProperty(difficulty.ToString()).GetValue(song.Drums));
+                        IEnumerable<string> lines = GetTrackLines((Track<DrumsChord>)drumsType.GetProperty(difficulty.ToString()).GetValue(song.Drums), config);
 
                         return lines.Any() ? GetPartLines(GetFullPartName(Instruments.Drums, difficulty), lines) : lines;
                     }));
@@ -61,7 +61,7 @@ namespace ChartTools.IO.Chart
                 foreach ((Instrument<GHLChord> instrument, Instruments name) in ghlInstruments)
                     tasks.Add(Task.Run(() =>
                     {
-                        IEnumerable<string> lines = GetTrackLines((Track<GHLChord>)ghlType.GetProperty(difficulty.ToString()).GetValue(instrument));
+                        IEnumerable<string> lines = GetTrackLines((Track<GHLChord>)ghlType.GetProperty(difficulty.ToString()).GetValue(instrument), config);
 
                         return lines.Any() ? GetPartLines(GetFullPartName(name, difficulty), lines) : lines;
                     }));
@@ -69,7 +69,7 @@ namespace ChartTools.IO.Chart
                 foreach ((Instrument<StandardChord> instrument, Instruments name) in standardInstruments)
                     tasks.Add(Task.Run(() =>
                     {
-                        IEnumerable<string> lines = GetTrackLines((Track<StandardChord>)standardType.GetProperty(difficulty.ToString()).GetValue(instrument));
+                        IEnumerable<string> lines = GetTrackLines((Track<StandardChord>)standardType.GetProperty(difficulty.ToString()).GetValue(instrument), config);
 
                         return lines.Any() ? GetPartLines(GetFullPartName(name, difficulty), lines) : lines;
                     }));
@@ -127,7 +127,7 @@ namespace ChartTools.IO.Chart
                     string partName = GetFullPartName(data.instrument, difficulty);
 
                     // Add thread to write the track
-                    tasks.Add(Task.Run(() => (GetPartLines(partName, GetTrackLines(track as Track<TChord>)), partName)));
+                    tasks.Add(Task.Run(() => (GetPartLines(partName, GetTrackLines(track as Track<TChord>, config)), partName)));
                 }
             }
 
