@@ -49,8 +49,10 @@ namespace ChartTools.IO.Chart
                 (song.Keys, Instruments.Keys)
             }).Select(t => Task.Run(() => GetInstrumentLines(t.instrument, t.name, config))));
 
-            // Join lines with line breaks and write to file
-            File.WriteAllText(path, string.Join('\n', tasks.SelectMany(t => t.Result)));
+            using StreamWriter writer = new(new FileStream(path, FileMode.Create));
+
+            foreach (string line in tasks.SelectMany(t => t.Result))
+                writer.WriteLine(line);
 
             foreach (Task task in tasks)
                 task.Dispose();
