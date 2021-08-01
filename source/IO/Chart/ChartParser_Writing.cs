@@ -174,38 +174,7 @@ namespace ChartTools.IO.Chart
         /// <param name="track">Track to use as a replacement</param>
         /// <param name="partName">Name of the part containing the track to replace</param>
         /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-        internal static void ReplaceTrack<TChord>(string path, (Track<TChord> track, Instruments instrument, Difficulty difficulty) data, WritingConfiguration config) where TChord : Chord
-        {
-            // Convert solo and soloend events into star power
-            if (config.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && data.track.StarPower.Count == 0)
-            {
-                StarPowerPhrase starPower = null;
-
-                foreach (LocalEvent e in data.track.LocalEvents)
-                    switch (e.EventType)
-                    {
-                        case LocalEventType.Solo:
-                            if (starPower is not null)
-                            {
-                                starPower.Length = e.Position - starPower.Position;
-                                data.track.StarPower.Add(starPower);
-                            }
-
-                            starPower = new(e.Position);
-                            break;
-                        case LocalEventType.SoloEnd:
-                            starPower.Length = e.Position - starPower.Position;
-                            data.track.StarPower.Add(starPower);
-
-                            starPower = null;
-                            break;
-                    }
-
-                data.track.LocalEvents.RemoveWhere(e => e.EventType is LocalEventType.Solo or LocalEventType.SoloEnd);
-            }
-
-            ReplacePart(path, GetTrackLines(data.track), GetFullPartName(data.instrument, data.difficulty));
-        }
+        internal static void ReplaceTrack<TChord>(string path, (Track<TChord> track, Instruments instrument, Difficulty difficulty) data, WritingConfiguration config) where TChord : Chord => ReplacePart(path, GetTrackLines(data.track, config), GetFullPartName(data.instrument, data.difficulty));
 
         /// <summary>
         /// Replaces a part in a file.
@@ -231,10 +200,40 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <returns>Enumerable of all the lines</returns>
         /// <param name="track">Track to get the lines of</param>
-        private static IEnumerable<string> GetTrackLines<TChord>(Track<TChord> track) where TChord : Chord
+        private static IEnumerable<string> GetTrackLines<TChord>(Track<TChord> track, WritingConfiguration config) where TChord : Chord
         {
             if (track is null)
                 yield break;
+
+            // Convert solo and soloend events into star power
+            if (config.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && track.StarPower.Count == 0)
+            {
+                StarPowerPhrase starPower = null;
+
+                foreach (LocalEvent e in track.LocalEvents)
+                    switch (e.EventType)
+                    {
+                        case LocalEventType.Solo:
+                            if (starPower is not null)
+                            {
+                                starPower.Length = e.Position - starPower.Position;
+                                track.StarPower.Add(starPower);
+                            }
+
+                            starPower = new(e.Position);
+                            break;
+                        case LocalEventType.SoloEnd:
+                            starPower.Length = e.Position - starPower.Position;
+                            track.StarPower.Add(starPower);
+
+                            starPower = null;
+                            break;
+                    }
+
+                track.LocalEvents.RemoveWhere(e => e.EventType is LocalEventType.Solo or LocalEventType.SoloEnd);
+            }
+
+
 
             // Loop through chords, local events and star power, picked using the lowest position
             foreach (TrackObject trackObject in new Collections.Alternating.OrderedAlternatingEnumerable<TrackObject, uint>(t => t.Position, track.Chords, track.LocalEvents, track.StarPower))
