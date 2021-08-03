@@ -125,21 +125,13 @@ namespace ChartTools.IO.Chart
             Type instrumentType = typeof(Instrument<TChord>);
             Difficulty[] difficulties = Enum.GetValues<Difficulty>().ToArray();
 
-            // Create threads to reach each difficulty and wait
-            Task[] tasks = difficulties.Select(d => Task.Run(() =>
+            foreach (Difficulty diff in Enum.GetValues<Difficulty>())
             {
-                string difficultyString = d.ToString();
-                Track<TChord> track = getTrack(GetPart(lines, $"{difficultyString}{instrumentPartName}"));
+                Track<TChord> track = getTrack(GetPart(lines, $"{diff}{instrumentPartName}"));
 
                 // Find the property named after the difficulty and set its value to the created track
                 if (track is not null)
-                    instrumentType.GetProperty(difficultyString).SetValue(instrument, track);
-            })).ToArray();
-
-            foreach (Task task in tasks)
-            {
-                task.Wait();
-                task.Dispose();
+                    instrumentType.GetProperty(diff.ToString()).SetValue(instrument, track);
             }
 
             return difficulties.Select(d => instrument.GetTrack(d)).All(t => t is null) ? null : instrument;
