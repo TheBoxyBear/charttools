@@ -170,8 +170,12 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="replacements">Array of tuples containing the items to replace the section and functions that determine the start and end of the replacement. Each tuple represents a section to replace</param>
         public static IEnumerable<T> ReplaceSections<T>(this IEnumerable<T> source, bool addIfMissing, params (IEnumerable<T> replacement, Predicate<T> startReplace, Predicate<T> endReplace)[] replacements)
         {
-            if (replacements.Length == 0)
+            if (replacements is null || replacements.Length == 0)
+            {
+                foreach (T item in source)
+                    yield return item;
                 yield break;
+            }
 
             IEnumerator<T> itemsEnumerator = source.GetEnumerator();
             bool[] replacedSections = new bool[replacements.Length];
@@ -213,9 +217,12 @@ namespace ChartTools.SystemExtensions.Linq
                                 yield break;
                             }
                     }
+                    else
+                        yield return itemsEnumerator.Current;
+
             }
             // Continue until all replacements are applied
-            while (replacedSections.Count(r => r) < replacements.Length);
+            while (replacedSections.Any(r => !r));
 
             // Return the rest of the items
             while (itemsEnumerator.MoveNext())
@@ -248,6 +255,51 @@ namespace ChartTools.SystemExtensions.Linq
             while (!endRemove(itemsEnumerator.Current));
 
             // Return the rest
+            while (itemsEnumerator.MoveNext())
+                yield return itemsEnumerator.Current;
+        }
+        /// <summary>
+        /// Removes multiple sections of items.
+        /// </summary>
+        /// <remarks>Items that match startRemove or endRemove</remarks>
+        /// <param name="source">Source items to remove a section of</param>
+        /// <param name="startRemove">Function that determines the start of the section to replace</param>
+        /// <param name="endRemove">Function that determines the end of the section to replace</param>
+        public static IEnumerable<T> RemoveSections<T>(this IEnumerable<T> source, params (Predicate<T> startRemove, Predicate<T> endRemove)[] sections)
+        {
+            if (sections is null || sections.Length == 0)
+            {
+                foreach (T item in source)
+                    yield return item;
+                yield break;
+            }
+
+            IEnumerator<T> itemsEnumerator = source.GetEnumerator();
+            bool[] removedSections = new bool[sections.Length];
+
+            do
+            {
+                // Initialize the enumerator or move to the next item
+                if (!itemsEnumerator.MoveNext())
+                    yield break;
+
+                for (int i = 0; i < sections.Length; i++)
+                    if (!removedSections[i] && sections[i].startRemove(itemsEnumerator.Current))
+                    {
+                        removedSections[i] = true;
+
+                        // Move to the end of the section to replace
+                        while (!sections[i].endRemove(itemsEnumerator.Current))
+                            if (!itemsEnumerator.MoveNext())
+                                yield break;
+                    }
+                    else
+                        yield return itemsEnumerator.Current;
+            }
+            // Continue until all replacements are applied
+            while (removedSections.Any(r => !r));
+
+            // Return the rest of the items
             while (itemsEnumerator.MoveNext())
                 yield return itemsEnumerator.Current;
         }

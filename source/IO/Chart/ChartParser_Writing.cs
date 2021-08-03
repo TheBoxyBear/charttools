@@ -49,6 +49,8 @@ namespace ChartTools.IO.Chart
                 (song.Keys, Instruments.Keys)
             }).Select(t => Task.Run(() => GetInstrumentLines(t.instrument, t.name, config))));
 
+            Task.WaitAll(tasks.ToArray());
+
             using StreamWriter writer = new(new FileStream(path, FileMode.Create));
 
             foreach (string line in tasks.SelectMany(t => t.Result))
@@ -89,36 +91,8 @@ namespace ChartTools.IO.Chart
             if (data.inst is null)
                 throw new ArgumentNullException("data.inst");
 
-            // Tasks that generate the lines and associated part name to write for each track
-            List<Task<(IEnumerable<string> lines, string partName)>> tasks = new();
-            Type instrumentType = typeof(Instrument<TChord>);
-
-            foreach (Difficulty difficulty in Enum.GetValues<Difficulty>())
-            {
-                // Get the track to write
-                object track = instrumentType.GetProperty(difficulty.ToString()).GetValue(data.inst);
-
-                if (track is not null)
-                {
-                    string partName = GetFullPartName(data.instrument, difficulty);
-
-                    // Add thread to write the track
-                    tasks.Add(Task.Run(() => (GetPartLines(partName, GetTrackLines(track as Track<TChord>, config)), partName)));
-                }
-            }
-
-            Task.WaitAll(tasks.ToArray());
-
-            string content = File.Exists(path) ?
-                // Get the existing lines, remove lines relating to the instrument's tracks, construct the new parts and insert
-                string.Join('\n', GetLines(path).ReplaceSections(true, tasks.Select<Task<(IEnumerable<string> lines, string partName)>, (IEnumerable<string>, Predicate<string>, Predicate<string>)>(t => (t.Result.lines, l => l == $"[{t.Result.partName}]", l => l == "}")).ToArray())) :
-                // Get only the generated lines
-                string.Join('\n', tasks.SelectMany(t => t.Result.lines));
-
-            File.WriteAllText(path, content);
-
-            foreach (Task task in tasks)
-                task.Dispose();
+            // Get the instrument lines, combiner them with the lines from the file not related to the instrument and re-write the file
+            WriteFile(path, GetInstrumentLines(data.inst, data.instrument, config).Concat(ReadFile(path).RemoveSections(Enum.GetValues<Difficulty>().Select(d => ((Predicate<string>)(l => l == $"[{GetFullPartName(data.instrument, d)}]"), (Predicate<string>)(l => l == "}"))).ToArray()).ToArray()));
         }
 
         /// <summary>
@@ -159,16 +133,14 @@ namespace ChartTools.IO.Chart
         /// <param name="partContent">Lines representing the entries in the part to use as a replacement</param>
         /// <param name="partName">Name of the part to replace</param>
         /// <inheritdoc cref="File.WriteAllText(string, string?)" path="/exception"/>
-        /// <inheritdoc cref="GetLines(string)" path="/exception"/>
+        /// <inheritdoc cref="ReadFile(string)" path="/exception"/>
         internal static void ReplacePart(string path, IEnumerable<string> partContent, string partName)
         {
             IEnumerable<string> part = GetPartLines(partName, partContent);
-            using StreamWriter writer = new(new FileStream(path, FileMode.Create));
 
-            foreach (string line in File.Exists(path)
-                ? GetLines(path).ReplaceSection(part, l => l == $"[{partName}]", l => l == "}", true)
-                : part)
-                writer.WriteLine(line);
+            WriteFile(path, (File.Exists(path)
+                ? ReadFile(path).ReplaceSection(part, l => l == $"[{partName}]", l => l == "}", true)
+                : part).ToArray());
         }
 
         /// <summary>
@@ -372,5 +344,13 @@ namespace ChartTools.IO.Chart
         /// <param name="index">Value of <see cref="Note.NoteIndex"/></param>
         /// <param name="sustain">Value of <see cref="Note.SustainLength"/></param>
         internal static string GetNoteData(byte index, uint sustain) => $"N {index} {sustain}";
+
+        private static void WriteFile(string path, IEnumerable<string> lines)
+        {
+            using StreamWriter writer = new(new FileStream(path, FileMode.Create));
+
+            foreach (string line in lines)
+                writer.WriteLine(line);
+        }
     }
 }
