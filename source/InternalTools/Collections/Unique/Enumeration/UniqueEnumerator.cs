@@ -34,7 +34,7 @@ namespace ChartTools.Collections.Unique
         /// <inheritdoc/>
         public T Current { get; private set; }
         /// <inheritdoc/>
-        object IEnumerator.Current => Current;
+        object? IEnumerator.Current => Current;
         /// <inheritdoc/>
         public bool Initialized { get; private set; }
 
@@ -119,7 +119,9 @@ namespace ChartTools.Collections.Unique
                 enumerator.Reset();
 
             returnedItems.Clear();
-            endsReached = default;
+
+            for (int i = 0; i < endsReached.Length; i++)
+                endsReached[i] = false;
         }
 
         /// <inheritdoc>/

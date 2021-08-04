@@ -11,7 +11,7 @@ namespace ChartTools
         /// <summary>
         /// Chords to play
         /// </summary>
-        public UniqueList<TChord> Chords { get; set; } = new UniqueList<TChord>(chordComparison);
+        public UniqueList<TChord> Chords { get; } = new UniqueList<TChord>(chordComparison);
 
         internal static readonly EqualityComparison<TChord> chordComparison = (c, other) => c.Equals(other);
     }

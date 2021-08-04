@@ -39,7 +39,7 @@ namespace ChartTools
             base.Add(item);
         }
 
-        public TNote this[TNoteEnum note] => Enum.IsDefined(note) ? this.FirstOrDefault(n => n.NoteIndex == Convert.ToByte(note)) : throw GetNullNoteException(nameof(note));
+        public TNote? this[TNoteEnum note] => Enum.IsDefined(note) ? this.FirstOrDefault(n => n.NoteIndex == Convert.ToByte(note)) : throw GetNullNoteException(nameof(note));
 
         public static Exception GetNullNoteException(string paramName) => new ArgumentNullException(paramName, "Note is null.");
     }

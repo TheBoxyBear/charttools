@@ -160,7 +160,7 @@ namespace ChartTools.IO.Chart
 
             foreach (Difficulty diff in Enum.GetValues<Difficulty>())
             {
-                Track<TChord> track = (Track<TChord>)instrument.GetType().GetProperty(diff.ToString()).GetValue(instrument);
+                Track<TChord>? track = instrument.GetTrack(diff);
 
                 if (track is not null)
                 {
@@ -186,7 +186,7 @@ namespace ChartTools.IO.Chart
             // Convert solo and soloend events into star power
             if (config.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && track.StarPower.Count == 0)
             {
-                StarPowerPhrase starPower = null;
+                StarPowerPhrase? starPower = null;
 
                 foreach (LocalEvent e in track.LocalEvents)
                     switch (e.EventType)
@@ -200,7 +200,8 @@ namespace ChartTools.IO.Chart
 
                             starPower = new(e.Position);
                             break;
-                        case LocalEventType.SoloEnd:
+                        case LocalEventType.SoloEnd when starPower is not null:
+
                             starPower.Length = e.Position - starPower.Position;
                             track.StarPower.Add(starPower);
 
@@ -248,14 +249,14 @@ namespace ChartTools.IO.Chart
             if (metadata.Year is not null)
                 yield return GetLine("Year", $"\", {metadata.Year}\"");
             if (metadata.AudioOffset is not null)
-                yield return GetLine("Offset", metadata.AudioOffset.ToString());
+                yield return GetLine("Offset", metadata.AudioOffset.ToString()!);
             yield return GetLine("Resolution", metadata.Resolution.ToString());
             if (metadata.Difficulty is not null)
-                yield return GetLine("Difficulty", metadata.Difficulty.ToString());
+                yield return GetLine("Difficulty", metadata.Difficulty.ToString()!);
             if (metadata.PreviewStart is not null)
-                yield return GetLine("PreviewStart", metadata.PreviewStart.ToString());
+                yield return GetLine("PreviewStart", metadata.PreviewStart.ToString()!);
             if (metadata.PreviewEnd is not null)
-                yield return GetLine("PreviewEnd", metadata.PreviewEnd.ToString());
+                yield return GetLine("PreviewEnd", metadata.PreviewEnd.ToString()!);
             if (metadata.Genre is not null)
                 yield return GetLine("Genre", $"\"{metadata.Genre}\"");
             if (metadata.MediaType is not null)
@@ -285,7 +286,7 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <returns>Enumerable of all the lines</returns>
         /// <param name="syncTrack">Sync track to get the liens of</param>
-        private static IEnumerable<string> GetSyncTrackLines(SyncTrack syncTrack)
+        private static IEnumerable<string> GetSyncTrackLines(SyncTrack? syncTrack)
         {
             if (syncTrack is null)
                 yield break;
@@ -293,17 +294,14 @@ namespace ChartTools.IO.Chart
             // Loop through time signatures and tempo markers, picked using the lowest position
             foreach (TrackObject trackObject in new Collections.Alternating.OrderedAlternatingEnumerable<uint, TrackObject>(t => t.Position, syncTrack.TimeSignatures, syncTrack.Tempo))
             {
-                if (trackObject is TimeSignature)
+                if (trackObject is TimeSignature ts)
                 {
-                    TimeSignature signature = trackObject as TimeSignature;
-                    byte writtenDenominator = (byte)Math.Log2(signature.Denominator);
+                    byte writtenDenominator = (byte)Math.Log2(ts.Denominator);
 
-                    yield return GetLine(trackObject.Position.ToString(), writtenDenominator == 1 ? $"TS {signature.Numerator}" : $"TS {signature.Numerator} {writtenDenominator}");
+                    yield return GetLine(trackObject.Position.ToString(), writtenDenominator == 1 ? $"TS {ts.Numerator}" : $"TS {ts.Numerator} {writtenDenominator}");
                 }
-                else if (trackObject is Tempo)
+                else if (trackObject is Tempo tempo)
                 {
-                    Tempo tempo = trackObject as Tempo;
-
                     if (tempo.Anchor is not null)
                         yield return GetLine(tempo.Position.ToString(), $"A {GetWrittenFloat((float)tempo.Anchor)}");
                     yield return GetLine(tempo.Position.ToString(), $"B {GetWrittenFloat(tempo.Value)}");

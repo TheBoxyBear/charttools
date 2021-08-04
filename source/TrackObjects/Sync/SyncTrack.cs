@@ -12,11 +12,11 @@ namespace ChartTools
         /// <summary>
         /// Tempo markers
         /// </summary>
-        public UniqueList<Tempo> Tempo { get; set; } = new UniqueList<Tempo>((t, other) => t.Equals(other));
+        public UniqueList<Tempo> Tempo { get; } = new UniqueList<Tempo>((t, other) => t.Equals(other));
         /// <summary>
         /// Time signature markers
         /// </summary>
-        public UniqueList<TimeSignature> TimeSignatures { get; set; } = new UniqueList<TimeSignature>((t, other) => t.Equals(other));
+        public UniqueList<TimeSignature> TimeSignatures { get; } = new UniqueList<TimeSignature>((t, other) => t.Equals(other));
 
         /// <inheritdoc cref="ChartParser.ReadSyncTrack(string)"/>
         public static SyncTrack FromFile(string path) => ExtensionHandler.Read(path, (".chart", ChartParser.ReadSyncTrack));

@@ -129,7 +129,9 @@ namespace ChartTools.IO.Ini
             Type metadataType = typeof(Metadata);
 
             // Get the value of all properties whose name is in the dictionary and pair with its matching key, filtered to non-null properties
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             foreach ((string key, object value) in metadataKeys.Keys.Select(p => (metadataKeys[p], metadataType.GetProperty(metadataKeys[p]).GetValue(metadata))).Where(t => t.Item2 is not null))
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
                 yield return $"{key} = {value}";
 
             if (metadata.Charter is not null)
@@ -237,7 +239,13 @@ namespace ChartTools.IO.Ini
         internal static void WriteDifficulties(string path, Song song)
         {
             // Get all non-difficulty lines based on the non-null instruments
-            File.WriteAllLines(path, File.ReadAllLines(path).Where(l => difficultyKeys.ContainsKey(GetEntry(l).header)).Concat(difficultyKeys.Select(p => (p.Key, song.GetInstrument(p.Value))).Where(t => t.Item2 is not null).Select(p => $"{p.Key} = {p.Item2.Difficulty}")));
+            File.WriteAllLines(path,
+                File.ReadAllLines(path).Where(l => difficultyKeys.ContainsKey(GetEntry(l).header))
+                .Concat(difficultyKeys
+                .Select(p => (p.Key, song.GetInstrument(p.Value)))
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                .Where(t => t.Item2?.Difficulty is not null).Select(p => $"{p.Key} = {p.Item2.Difficulty}")));
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
         }
     }
 }

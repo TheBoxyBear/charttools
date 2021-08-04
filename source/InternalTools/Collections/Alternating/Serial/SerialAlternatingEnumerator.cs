@@ -137,7 +137,9 @@ namespace ChartTools.Collections.Alternating
 
             index = 0;
             Initialized = false;
-            endsReached = default;
+
+            for (int i = 0; i < endsReached.Length; i++)
+                endsReached[i] = false;
         }
     }
 }

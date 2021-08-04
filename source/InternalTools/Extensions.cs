@@ -46,7 +46,7 @@ namespace ChartTools.SystemExtensions.Linq
     {
         /// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
         /// <param name="defaultValue">Value to return if no item meets the condition</param>
-        public static T FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T defaultValue)
+        public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue)
         {
             foreach (T item in source)
                 if (predicate(item))
@@ -55,7 +55,7 @@ namespace ChartTools.SystemExtensions.Linq
         }
         /// <inheritdoc cref="FirstOrDefault{T}(IEnumerable{T}, Predicate{T}, T)"/>
         /// <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
-        public static T FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T defaultValue, out bool returnedDefault)
+        public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue, out bool returnedDefault)
         {
             foreach (T item in source)
                 if (predicate(item))
@@ -73,7 +73,7 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="predicate">Method that returns <see langword="true"/> if a given item meets the condition</param>
         /// <param name="item">Found item</param>
         /// <returns><see langword="true"/> if an item was found</returns>
-        public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, out T item)
+        public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, out T? item)
         {
             if (source is null)
             {
@@ -309,9 +309,9 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="source">Items to loop through</param>
         /// <param name="action">Function to run for each item</param>
         /// <param name="firstPrevious">Value of the previous item in the first call of the action</param>
-        public static void RelativeLoop<T>(this IEnumerable<T> source, Action<T, T> action, T firstPrevious = default)
+        public static void RelativeLoop<T>(this IEnumerable<T> source, Action<T?, T> action, T? firstPrevious = default)
         {
-            T previousItem = firstPrevious;
+            T? previousItem = firstPrevious;
 
             foreach (T item in source)
             {

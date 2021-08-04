@@ -14,24 +14,24 @@ namespace ChartTools
         /// <summary>
         /// Easy track
         /// </summary>
-        public Track<TChord> Easy { get; set; } = null;
+        public Track<TChord>? Easy { get; set; } = null;
         /// <summary>
         /// Medium track
         /// </summary>
-        public Track<TChord> Medium { get; set; } = null;
+        public Track<TChord>? Medium { get; set; } = null;
         /// <summary>
         /// Hard track
         /// </summary>
-        public Track<TChord> Hard { get; set; } = null;
+        public Track<TChord>? Hard { get; set; } = null;
         /// <summary>
         /// Expert track
         /// </summary>
-        public Track<TChord> Expert { get; set; } = null;
+        public Track<TChord>? Expert { get; set; } = null;
 
         /// <summary>
         /// Gets the <see cref="Track{TChord}"/> that matches a <see cref="Difficulty"/>
         /// </summary>
-        public Track<TChord> GetTrack(Difficulty difficulty) => (Track<TChord>)GetType().GetProperty(difficulty.ToString()).GetValue(this);
+        public Track<TChord>? GetTrack(Difficulty difficulty) => GetType().GetProperty(difficulty.ToString())!.GetValue(this) as Track<TChord>;
 
         /// <summary>
         /// Gives all tracks the same local events.
@@ -41,13 +41,13 @@ namespace ChartTools
             if (source == TrackObjectSource.Seperate)
                 return;
 
-            LocalEvent[] events = ((IEnumerable<LocalEvent>)(source switch
+            LocalEvent?[]? events = ((IEnumerable<LocalEvent?>?)(source switch
             {
                 TrackObjectSource.Easy => Easy?.LocalEvents,
                 TrackObjectSource.Medium => Medium?.LocalEvents,
                 TrackObjectSource.Hard => Hard?.LocalEvents,
                 TrackObjectSource.Expert => Expert?.LocalEvents,
-                TrackObjectSource.Merge => new UniqueEnumerable<LocalEvent>((e, other) => e.Equals(other), new Track<TChord>[] { Easy, Medium, Hard, Expert }.Select(t => t?.LocalEvents).ToArray()),
+                //TrackObjectSource.Merge => new UniqueEnumerable<LocalEvent>((e, other) => e.Equals(other), new Track<TChord>[] { Easy, Medium, Hard, Expert }.Select(t => t?.LocalEvents).ToArray()),
                 _ => throw CommonExceptions.GetUndefinedException(source)
             })).ToArray();
 

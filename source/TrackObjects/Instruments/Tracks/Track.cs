@@ -16,7 +16,7 @@ namespace ChartTools
         /// <summary>
         /// Events specific to the <see cref="Track"/>
         /// </summary>
-        public List<LocalEvent> LocalEvents { get; set; } = new List<LocalEvent>();
+        public List<LocalEvent>? LocalEvents { get; set; } = new List<LocalEvent>();
         /// <summary>
         /// Sets of chords that give star power
         /// </summary>
@@ -28,7 +28,7 @@ namespace ChartTools
         {
             foreach (LocalEvent e in LocalEvents.OrderBy(e => e.Position))
             {
-                StarPowerPhrase phrase = null;
+                StarPowerPhrase? phrase = null;
 
                 switch (e.EventType)
                 {

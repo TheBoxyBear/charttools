@@ -25,16 +25,16 @@ namespace ChartTools.Collections.Alternating
         /// <inheritdoc/>
         public T Current { get; private set; }
         /// <inheritdoc/>
-        object IEnumerator.Current => Current;
+        object? IEnumerator.Current => Current;
 
         /// <summary>
         /// Contains items if the last ManyMinBy call returned more than one index
         /// </summary>
-        LinkedList<int> equalMins = null;
+        LinkedList<int> equalMins = new();
         /// <summary>
         /// <see langword="true"/> for indexes where MoveNext previously returned <see langword="false"/>
         /// </summary>
-        bool[] endsReached;
+        readonly bool[] endsReached;
 
         /// <summary>
         /// Creates a new instance of <see cref="OrderedAlternatingEnumerator{T, TKey}"/>.
@@ -74,15 +74,17 @@ namespace ChartTools.Collections.Alternating
         public bool MoveNext()
         {
             // Return remaining values if MinMaxBy returned multiple
-            if (equalMins is not null && equalMins.Count > 0)
+            if (equalMins.Count > 0)
             {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 Current = Enumerators[equalMins.First.Value].Current;
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
                 equalMins.RemoveFirst();
 
                 return true;
             }
 
-            T current = default;
+            T? current = default;
             int index = 0;
 
             // Index of the enumerators with items yet to have been set as Current
@@ -123,7 +125,9 @@ namespace ChartTools.Collections.Alternating
             // Get the index of the enumerators whose current item yields the smallest key
             equalMins = new LinkedList<int>(usableEnumerators.ManyMinBy(i => KeyGetter(Enumerators[i].Current)));
 
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             IEnumerator<T> minEnumerator = Enumerators[equalMins.First.Value];
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
             Current = minEnumerator.Current;
 
@@ -154,7 +158,9 @@ namespace ChartTools.Collections.Alternating
             foreach (IEnumerator<T> enumerator in Enumerators)
                 enumerator.Reset();
 
-            endsReached = default;
+            for (int i = 0; i < endsReached.Length; i++)
+                endsReached[i] = false;
+
             Initialized = false;
         }
     }
