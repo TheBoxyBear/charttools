@@ -31,35 +31,35 @@ namespace ChartTools
         /// <summary>
         /// Set of drums tracks
         /// </summary>
-        public Instrument<DrumsChord> Drums { get; set; }
+        public Instrument<DrumsChord>? Drums { get; set; }
         /// <summary>
         /// Set of Guitar Hero Live guitar tracks
         /// </summary>
-        public Instrument<GHLChord> GHLGuitar { get; set; }
+        public Instrument<GHLChord>? GHLGuitar { get; set; }
         /// <summary>
         /// Set of Guitar Hero Live bass tracks
         /// </summary>
-        public Instrument<GHLChord> GHLBass { get; set; }
+        public Instrument<GHLChord>? GHLBass { get; set; }
         /// <summary>
         /// Set of lead guitar tracks
         /// </summary>
-        public Instrument<StandardChord> LeadGuitar { get; set; }
+        public Instrument<StandardChord>? LeadGuitar { get; set; }
         /// <summary>
         /// Set of rhythm guitar tracks
         /// </summary>
-        public Instrument<StandardChord> RhythmGuitar { get; set; }
+        public Instrument<StandardChord>? RhythmGuitar { get; set; }
         /// <summary>
         /// Set of coop guitar tracks
         /// </summary>
-        public Instrument<StandardChord> CoopGuitar { get; set; }
+        public Instrument<StandardChord>? CoopGuitar { get; set; }
         /// <summary>
         /// Set of bass tracks
         /// </summary>
-        public Instrument<StandardChord> Bass { get; set; }
+        public Instrument<StandardChord>? Bass { get; set; }
         /// <summary>
         /// Set of keyboard tracks
         /// </summary>
-        public Instrument<StandardChord> Keys { get; set; }
+        public Instrument<StandardChord>? Keys { get; set; }
         #endregion
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace ChartTools
         /// </summary>
         /// <returns>Instance of <see cref="Instrument"/> from the <see cref="Song"/></returns>
         /// <param name="instrument">Instrument to get</param>
-        public Instrument GetInstrument(Instruments instrument) => instrument switch
+        public Instrument? GetInstrument(Instruments instrument) => instrument switch
         {
             Instruments.Drums => Drums,
             Instruments.GHLGuitar => GHLGuitar,
@@ -84,13 +84,13 @@ namespace ChartTools
         /// </summary>
         /// /// <param name="instrument">Instrument to get</param>
         /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="GHLChord"/> from the <see cref="Song"/>.</returns>
-        public Instrument<GHLChord> GetInstrument(GHLInstrument instrument) => GetInstrument((Instruments)instrument) as Instrument<GHLChord>;
+        public Instrument<GHLChord>? GetInstrument(GHLInstrument instrument) => GetInstrument((Instruments)instrument) as Instrument<GHLChord>;
         /// <summary>
         /// Gets property value for an <see cref="Instrument{TChord}"/> from a <see cref="StandardInstrument"/> <see langword="enum"/> value.
         /// </summary>
         /// <param name="instrument">Instrument to get</param>
         /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="StandardChord"/> from the <see cref="Song"/>.</returns>
-        public Instrument<StandardChord> GetInstrument(StandardInstrument instrument) => GetInstrument((Instruments)instrument) as Instrument<StandardChord>;
+        public Instrument<StandardChord>? GetInstrument(StandardInstrument instrument) => GetInstrument((Instruments)instrument) as Instrument<StandardChord>;
 
         /// <summary>
         /// Reads a <see cref="Song"/> from a file.

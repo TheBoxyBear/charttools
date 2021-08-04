@@ -25,7 +25,7 @@ namespace ChartTools.Collections.Alternating
         /// </summary>
         public T Current { get; private set; }
         /// <inheritdoc/>
-        object IEnumerator.Current => Current;
+        object? IEnumerator.Current => Current;
 
         /// <summary>
         /// True if the enumerator is initialized and the current item can be retrieved.

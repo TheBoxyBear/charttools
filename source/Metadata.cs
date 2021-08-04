@@ -18,15 +18,15 @@ namespace ChartTools
         /// <summary>
         /// Title of the <see cref="Song"/>
         /// </summary>
-        public string Title { get; set; }
+        public string? Title { get; set; }
         /// <summary>
         /// Artist or band behind the <see cref="Song"/>
         /// </summary>
-        public string Artist { get; set; }
+        public string? Artist { get; set; }
         /// <summary>
         /// Album featuring the <see cref="Song"/>
         /// </summary>
-        public string Album { get; set; }
+        public string? Album { get; set; }
         /// <summary>
         /// Year of release
         /// </summary>
@@ -34,7 +34,7 @@ namespace ChartTools
         /// <summary>
         /// Genre of the <see cref="Song"/>
         /// </summary>
-        public string Genre { get; set; }
+        public string? Genre { get; set; }
         /// <summary>
         /// Creator of the chart
         /// </summary>
@@ -67,7 +67,7 @@ namespace ChartTools
         /// <summary>
         /// Type of media the audio track comes from
         /// </summary>
-        public string MediaType { get; set; }
+        public string? MediaType { get; set; }
         /// <summary>
         /// Number of <see cref="TrackObject.Position"/> values per beat
         /// </summary>
@@ -87,8 +87,8 @@ namespace ChartTools
         /// <summary>
         /// Text to be displayed on the load screen
         /// </summary>
-        public string LoadingText { get; set; }
-        public List<MetadataItem> UnidentifiedData { get; set; }
+        public string? LoadingText { get; set; }
+        public List<MetadataItem> UnidentifiedData { get; set; } = new();
         #endregion
 
         /// <summary>
@@ -155,50 +155,50 @@ namespace ChartTools
         /// <summary>
         /// Location of the base audio file
         /// </summary>
-        public string Music { get; set; }
+        public string? Music { get; set; }
         /// <summary>
         /// Location of the guitar audio file
         /// </summary>
-        public string Guitar { get; set; }
+        public string? Guitar { get; set; }
         /// <summary>
         /// Location of the bass audio
         /// </summary>
-        public string Bass { get; set; }
+        public string? Bass { get; set; }
         /// <summary>
         /// Location of the rhythm guitar audio file
         /// </summary>
-        public string Rhythm { get; set; }
+        public string? Rhythm { get; set; }
         /// <summary>
         /// Location of the keys audio file
         /// </summary>
-        public string Keys { get; set; }
+        public string? Keys { get; set; }
         /// <summary>
         /// Location of the drums' kicks audio file
         /// </summary>
         /// <remarks>Can include all drums audio</remarks>
-        public string Drum { get; set; }
+        public string? Drum { get; set; }
         /// <summary>
         /// Location of the drums' snares audio file
         /// </summary>
         /// <remarks>Can include all drums audio except kicks</remarks>
-        public string Drum2 { get; set; }
+        public string? Drum2 { get; set; }
         /// <summary>
         /// Location of the drum's toms audio file
         /// </summary>
         /// <remarks>Can include toms and cymbals</remarks>
-        public string Drum3 { get; set; }
+        public string? Drum3 { get; set; }
         /// <summary>
         /// Location of the drum's cymbals audio file
         /// </summary>
-        public string Drum4 { get; set; }
+        public string? Drum4 { get; set; }
         /// <summary>
         /// Location of the vocals audio file
         /// </summary>
-        public string Vocal { get; set; }
+        public string? Vocal { get; set; }
         /// <summary>
         /// Location of the crowd reaction audio file
         /// </summary>
-        public string Crowd { get; set; }
+        public string? Crowd { get; set; }
     }
 
     public struct MetadataItem
