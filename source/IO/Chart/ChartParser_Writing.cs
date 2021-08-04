@@ -212,7 +212,7 @@ namespace ChartTools.IO.Chart
             }
 
             // Loop through chords, local events and star power, picked using the lowest position
-            foreach (TrackObject trackObject in new Collections.Alternating.OrderedAlternatingEnumerable<TrackObject, uint>(t => t.Position, track.Chords, track.LocalEvents, track.StarPower))
+            foreach (TrackObject trackObject in new Collections.Alternating.OrderedAlternatingEnumerable<uint, TrackObject>(t => t.Position, track.Chords, track.LocalEvents, track.StarPower))
                 switch (trackObject)
                 {
                     case TChord chord:
@@ -291,7 +291,7 @@ namespace ChartTools.IO.Chart
                 yield break;
 
             // Loop through time signatures and tempo markers, picked using the lowest position
-            foreach (TrackObject trackObject in new Collections.Alternating.OrderedAlternatingEnumerable<TrackObject, uint>(t => t.Position, syncTrack.TimeSignatures, syncTrack.Tempo))
+            foreach (TrackObject trackObject in new Collections.Alternating.OrderedAlternatingEnumerable<uint, TrackObject>(t => t.Position, syncTrack.TimeSignatures, syncTrack.Tempo))
             {
                 if (trackObject is TimeSignature)
                 {

@@ -10,7 +10,7 @@ namespace ChartTools.Collections.Alternating
     /// </summary>
     /// <typeparam name="T">Type of the enumerated items</typeparam>
     /// <typeparam name="TKey">Type of the key used to determine the order</typeparam>
-    public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey : IComparable<TKey>
+    public class OrderedAlternatingEnumerable<TKey, T> : IEnumerable<T> where TKey : IComparable<TKey>
     {
         /// <summary>
         /// Enumerables to alternate between

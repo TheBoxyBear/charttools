@@ -613,7 +613,7 @@ namespace ChartTools
         /// <returns>Enumerable of <see cref="GlobalEvent"/></returns>
         public static IEnumerable<GlobalEvent> SetLyrics(this IEnumerable<GlobalEvent> events, IEnumerable<Phrase> lyrics)
         {
-            foreach (GlobalEvent globalEvent in new OrderedAlternatingEnumerable<GlobalEvent, uint>(i => i.Position, events.Where(e => !e.IsLyricEvent), lyrics.SelectMany(p => p.ToGlobalEvents())))
+            foreach (GlobalEvent globalEvent in new OrderedAlternatingEnumerable<uint, GlobalEvent>(i => i.Position, events.Where(e => !e.IsLyricEvent), lyrics.SelectMany(p => p.ToGlobalEvents())))
                 yield return globalEvent;
         }
     }

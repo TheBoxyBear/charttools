@@ -253,7 +253,7 @@ namespace ChartTools.IO.MIDI
                 throw e;
 
             // Get the events in the global events track and vocal track, alternating between the two by taking the lowest DeltaTime
-            return new List<GlobalEvent>(new OrderedAlternatingEnumerable<MidiEvent, long>(e => e.DeltaTime, GetSequenceEvents(chunks.OfType<TrackChunk>(), globalEventSequenceName), GetSequenceEvents(chunks.OfType<TrackChunk>(), lyricsSequenceName)).Select(e => new GlobalEvent((uint)e.DeltaTime, e switch
+            return new List<GlobalEvent>(new OrderedAlternatingEnumerable<long, MidiEvent>(e => e.DeltaTime, GetSequenceEvents(chunks.OfType<TrackChunk>(), globalEventSequenceName), GetSequenceEvents(chunks.OfType<TrackChunk>(), lyricsSequenceName)).Select(e => new GlobalEvent((uint)e.DeltaTime, e switch
             {
                 // For each event, select a new GlobalEvent with DeltaTime as Position and EventData based on the type of MIDIEvent
                 TextEvent textEvent => textEvent.Text,
