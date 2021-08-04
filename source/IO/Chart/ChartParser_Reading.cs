@@ -394,7 +394,7 @@ namespace ChartTools.IO.Chart
         /// <param name="part">Lines in the file belonging to the track</param>
         /// <param name="noteCase">Function that handles entries containing note data. Must return the same chord received as a parameter.</param>
         /// <exception cref="FormatException"/>
-        private static Track<TChord> GetTrack<TChord>(IEnumerable<string> part, Func<Track<TChord>, TChord, TrackObjectEntry, NoteData, bool, TChord> noteCase, ReadingConfiguration config) where TChord : Chord
+        private static Track<TChord>? GetTrack<TChord>(IEnumerable<string> part, Func<Track<TChord>, TChord, TrackObjectEntry, NoteData, bool, TChord> noteCase, ReadingConfiguration config) where TChord : Chord
         {
             Track<TChord> track = new();
 
@@ -445,19 +445,11 @@ namespace ChartTools.IO.Chart
                     track.StarPower.AddRange(track.SoloToStarPower(true));
             }
 
-            byte emptyCount = 0;
-
-            Type trackType = typeof(Track<TChord>);
-
-            foreach (PropertyInfo pInfo in new string[] { "Chords", "LocalEvents", "StarPower" }.Select(s => trackType.GetProperty(s)))
-                if (((ICollection<TrackObject>)pInfo.GetValue(track)).Count == 0)
-                {
-                    emptyCount++;
-                    pInfo.SetValue(track, null);
-                }
-
             // Return null if no data
-            return emptyCount == 3 ? null : track;
+            return track.Chords.Count == 0
+                && track.LocalEvents.Count == 0
+                && track.StarPower.Count == 0
+                ? null : track;
         }
         #endregion
 

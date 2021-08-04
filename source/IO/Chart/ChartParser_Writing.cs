@@ -232,7 +232,7 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <returns>Enumerable of all the lines</returns>
         /// <param name="metadata">Metadata to get the lines of</param>
-        private static IEnumerable<string> GetMetadataLines(Metadata metadata)
+        private static IEnumerable<string> GetMetadataLines(Metadata? metadata)
         {
             if (metadata is null)
                 yield break;
@@ -337,7 +337,7 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <param name="header">Part of the line before the equal sign</param>
         /// <param name="value">Part of the line after the equal sign</param>
-        private static string GetLine(string header, string value) => $"  {header} = {value}";
+        private static string GetLine(string header, string value) => value is null ? string.Empty : $"  {header} = {value}";
         /// <summary>
         /// Gets the written data for a note.
         /// </summary>
