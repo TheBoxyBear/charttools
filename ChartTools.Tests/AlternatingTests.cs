@@ -14,21 +14,21 @@ namespace ChartTools.Tests
         [TestMethod]
         public void CreateEnumerableNull() => Assert.ThrowsException<ArgumentNullException>(() => new SerialAlternatingEnumerable<object>(null));
         [TestMethod]
-        public void CreateEnumerableEmpty() => Assert.ThrowsException<ArgumentException>(() => new SerialAlternatingEnumerable<object>(Array.Empty<IEnumerable<string>>()));
+        public void CreateEnumerableEmpty() => Assert.ThrowsException<ArgumentException>(() => new SerialAlternatingEnumerable<object>());
     }
 
     [TestClass]
     [TestCategory("Alternating")]
     public class OrderedAlternatingTests
     {
-        private static readonly Func<int, object> keyGetter = (i => i);
+        private static readonly Func<object, int> keyGetter = o => 0;
 
         [TestMethod]
-        public void CreateEnumerableNullKeyGetter => Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<int, int>(null, null));
+        public void CreateEnumerableNullKeyGetter() => Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<int, object>(null, null));
 
         [TestMethod]
-        public void CreateEnumerableNullEnumerables() => Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<string>(null));
+        public void CreateEnumerableNullEnumerables() => Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<int, object>(null, null));
         [TestMethod]
-        public void CreateEnumerableEmptyEnumerables() => Assert.ThrowsException<ArgumentException>(() => new OrderedAlternatingEnumerable<string>(Array.Empty<IEnumerable<string>>()));
+        public void CreateEnumerableEmptyEnumerables() => Assert.ThrowsException<ArgumentException>(() => new OrderedAlternatingEnumerable<int, object>(keyGetter));
     }
 }
