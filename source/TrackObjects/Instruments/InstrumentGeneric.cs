@@ -47,18 +47,18 @@ namespace ChartTools
                 TrackObjectSource.Medium => Medium?.LocalEvents,
                 TrackObjectSource.Hard => Hard?.LocalEvents,
                 TrackObjectSource.Expert => Expert?.LocalEvents,
-                //TrackObjectSource.Merge => new UniqueEnumerable<LocalEvent>((e, other) => e.Equals(other), new Track<TChord>[] { Easy, Medium, Hard, Expert }.Select(t => t?.LocalEvents).ToArray()),
+                TrackObjectSource.Merge => new UniqueEnumerable<LocalEvent>((e, other) => e.Equals(other), (new Track<TChord>?[] { Easy, Medium, Hard, Expert }).Select(t => t?.LocalEvents).ToArray()),
                 _ => throw CommonExceptions.GetUndefinedException(source)
-            })).ToArray();
+            }))?.ToArray();
 
-            if (events.Length == 0)
+            if (events is null || events.Length == 0)
                 return;
 
 #pragma warning disable S1121 // Assignments should not be made from within sub-expressions
-            (Easy ??= new()).LocalEvents = new List<LocalEvent>(events);
-            (Medium ??= new()).LocalEvents = new List<LocalEvent>(events);
-            (Hard ??= new()).LocalEvents = new List<LocalEvent>(events);
-            (Expert ??= new()).LocalEvents = new List<LocalEvent>(events);
+            (Easy ??= new()).LocalEvents = new List<LocalEvent>(events!);
+            (Medium ??= new()).LocalEvents = new List<LocalEvent>(events!);
+            (Hard ??= new()).LocalEvents = new List<LocalEvent>(events!);
+            (Expert ??= new()).LocalEvents = new List<LocalEvent>(events!);
 #pragma warning restore S1121 // Assignments should not be made from within sub-expressions
         }
         /// <summary>
@@ -69,17 +69,17 @@ namespace ChartTools
             if (source == TrackObjectSource.Seperate)
                 return;
 
-            StarPowerPhrase[] starPower = ((IEnumerable<StarPowerPhrase>)(source switch
+            StarPowerPhrase?[]? starPower = ((IEnumerable<StarPowerPhrase?>?)(source switch
             {
                 TrackObjectSource.Easy => Easy?.StarPower,
                 TrackObjectSource.Medium => Medium?.StarPower,
                 TrackObjectSource.Hard => Hard?.StarPower,
                 TrackObjectSource.Expert => Expert?.StarPower,
-                TrackObjectSource.Merge => new UniqueEnumerable<StarPowerPhrase>(Track.startPowerComparison, new Track<TChord>[] { Easy, Medium, Hard, Expert }.Select(t => t?.StarPower).ToArray()),
+                TrackObjectSource.Merge => new UniqueEnumerable<StarPowerPhrase>(Track.startPowerComparison, new Track<TChord>?[] { Easy, Medium, Hard, Expert }.OfType<Track<TChord>>().Select(t => t.StarPower).ToArray()),
                 _ => throw CommonExceptions.GetUndefinedException(source)
-            })).ToArray();
+            }))?.ToArray();
 
-            if (starPower.Length == 0)
+            if (starPower!.Length == 0)
                 return;
 
 #pragma warning disable S1121 // Assignments should not be made from within sub-expressions

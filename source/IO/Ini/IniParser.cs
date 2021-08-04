@@ -65,7 +65,7 @@ namespace ChartTools.IO.Ini
                         break;
                     case "year":
                         metadata.Year = ushort.TryParse(value, out ushort ushortValue) ? ushortValue
-                            : throw new FormatException($"Cannot parse year \"{value}\" to {metadata.Year.GetType()}.");
+                            : throw new FormatException($"Cannot parse year \"{value}\" to ushort.");
                         break;
                     case "genre":
                         metadata.Genre = value;
@@ -80,19 +80,19 @@ namespace ChartTools.IO.Ini
                         break;
                     case "preview_start_time":
                         metadata.PreviewStart = uint.TryParse(value, out uintValue) ? uintValue
-                            : throw new FormatException($"Cannot parse preview start \"{value}\" to {metadata.PreviewStart.GetType()}.");
+                            : throw new FormatException($"Cannot parse preview start \"{value}\" to uint.");
                         break;
                     case "preview_end_time":
                         metadata.PreviewEnd = uint.TryParse(value, out uintValue) ? uintValue
-                            : throw new FormatException($"Cannot parse preview end \"{value}\" to {metadata.PreviewEnd.GetType()}.");
+                            : throw new FormatException($"Cannot parse preview end \"{value}\" to uint.");
                         break;
                     case "delay":
                         metadata.AudioOffset = int.TryParse(value, out intValue) ? intValue
-                            : throw new FormatException($"Cannot parse audio offset \"{value}\" to {metadata.AudioOffset.GetType()}.");
+                            : throw new FormatException($"Cannot parse audio offset \"{value}\" to int.");
                         break;
                     case "video_start_time":
                         metadata.VideoOffset = int.TryParse(value, out intValue) ? intValue
-                            : throw new FormatException($"Cannot parse video offset \"{value}\" to {metadata.VideoOffset.GetType()}.");
+                            : throw new FormatException($"Cannot parse video offset \"{value}\" to int.");
                         break;
                     case "loading_text":
                         metadata.LoadingText = value;
@@ -129,9 +129,7 @@ namespace ChartTools.IO.Ini
             Type metadataType = typeof(Metadata);
 
             // Get the value of all properties whose name is in the dictionary and pair with its matching key, filtered to non-null properties
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-            foreach ((string key, object value) in metadataKeys.Keys.Select(p => (metadataKeys[p], metadataType.GetProperty(metadataKeys[p]).GetValue(metadata))).Where(t => t.Item2 is not null))
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            foreach ((string key, object value) in metadataKeys.Keys.Select(p => (metadataKeys[p], metadataType.GetProperty(metadataKeys[p])!.GetValue(metadata))).Where(t => t.Item2 is not null))
                 yield return $"{key} = {value}";
 
             if (metadata.Charter is not null)
@@ -193,7 +191,7 @@ namespace ChartTools.IO.Ini
 
                 if (difficultyKeys.ContainsKey(header))
                 {
-                    Instrument inst = song.GetInstrument(difficultyKeys[header]);
+                    Instrument? inst = song.GetInstrument(difficultyKeys[header]);
 
                     if (inst is not null)
                         inst.Difficulty = sbyte.TryParse(value, out sbyte difficulty) ? difficulty
@@ -243,9 +241,7 @@ namespace ChartTools.IO.Ini
                 File.ReadAllLines(path).Where(l => difficultyKeys.ContainsKey(GetEntry(l).header))
                 .Concat(difficultyKeys
                 .Select(p => (p.Key, song.GetInstrument(p.Value)))
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                .Where(t => t.Item2?.Difficulty is not null).Select(p => $"{p.Key} = {p.Item2.Difficulty}")));
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+                .Where(t => t.Item2?.Difficulty is not null).Select(p => $"{p.Key} = {p.Item2!.Difficulty}")));
         }
     }
 }

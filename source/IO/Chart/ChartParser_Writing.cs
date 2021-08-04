@@ -26,21 +26,24 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
         internal static void WriteSong(string path, Song song, WritingConfiguration config)
         {
+            if (song is null)
+                return;
+
             // Add threads for metadata, sync track and global events
             List<Task<IEnumerable<string>>> tasks = new()
             {
                 Task.Run(() => GetPartLines("Song", GetMetadataLines(song.Metadata))),
                 Task.Run(() => GetPartLines("SyncTrack", GetSyncTrackLines(song.SyncTrack))),
-                Task.Run(() => GetPartLines("Events", song.GlobalEvents.Select(e => GetEventLine(e)))),
+                Task.Run(() => GetPartLines("Events", song.GlobalEvents?.Select(e => GetEventLine(e)))),
                 Task.Run(() => GetInstrumentLines(song.Drums, Instruments.Drums, config))
             };
 
-            tasks.AddRange((new (Instrument<GHLChord> instrument, Instruments name)[]
+            tasks.AddRange((new (Instrument<GHLChord>? instrument, Instruments name)[]
             {
                 (song.GHLBass, Instruments.GHLBass),
                 (song.GHLGuitar, Instruments.GHLGuitar)
             }).Select(t => Task.Run(() => GetInstrumentLines(t.instrument, t.name, config))));
-            tasks.AddRange((new (Instrument<StandardChord> instrument, Instruments name)[]
+            tasks.AddRange((new (Instrument<StandardChord>? instrument, Instruments name)[]
             {
                 (song.LeadGuitar, Instruments.LeadGuitar),
                 (song.RhythmGuitar, Instruments.RhythmGuitar),
@@ -149,7 +152,7 @@ namespace ChartTools.IO.Chart
         /// <param name="instrument">Instrument to get the lines for</param>
         /// <param name="instEnum">Instrument to define the part names</param>
         /// <returns>Enumerable of all the lines making up the parts for the instrument</returns>
-        private static IEnumerable<string> GetInstrumentLines<TChord>(Instrument<TChord> instrument, Instruments instEnum, WritingConfiguration config) where TChord : Chord
+        private static IEnumerable<string> GetInstrumentLines<TChord>(Instrument<TChord>? instrument, Instruments instEnum, WritingConfiguration config) where TChord : Chord
         {
             if (instrument is null)
                 yield break;
@@ -187,6 +190,9 @@ namespace ChartTools.IO.Chart
             if (config.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && track.StarPower.Count == 0)
             {
                 StarPowerPhrase? starPower = null;
+
+                if (track.LocalEvents is null)
+                    yield break;
 
                 foreach (LocalEvent e in track.LocalEvents)
                     switch (e.EventType)
@@ -266,7 +272,7 @@ namespace ChartTools.IO.Chart
             if (metadata.Streams is not null)
                 foreach (PropertyInfo property in typeof(StreamCollection).GetProperties())
                 {
-                    string value = (string)property.GetValue(metadata.Streams);
+                    string value = (string)property.GetValue(metadata.Streams)!;
 
                     if (value is not null)
                         yield return GetLine($"{property.Name}Stream", $"\"{value}\"");
@@ -320,8 +326,11 @@ namespace ChartTools.IO.Chart
         /// <returns>Enumerable of all the lines</returns>
         /// <param name="partName">Name of the part to get the lines of</param>
         /// <param name="lines">Lines in the file</param>
-        private static IEnumerable<string> GetPartLines(string partName, IEnumerable<string> lines)
+        private static IEnumerable<string> GetPartLines(string partName, IEnumerable<string>? lines)
         {
+            if (lines is null || !lines.Any())
+                yield break;
+
             yield return $"[{partName}]";
             yield return "{";
 

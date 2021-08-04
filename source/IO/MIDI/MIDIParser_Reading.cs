@@ -93,7 +93,7 @@ namespace ChartTools.IO.MIDI
             ? throw new ArgumentNullException(nameof(midiConfig))
             : GetInstrument(MidiFile.Read(path, readingSettings).Chunks, instrument, midiConfig);
 
-        private static Instrument<DrumsChord>? GetDrums(ChunksCollection chunks, ReadingConfiguration midiConfig) => CheckTrackChunkPresence(chunks, out Exception e)
+        private static Instrument<DrumsChord>? GetDrums(ChunksCollection chunks, ReadingConfiguration midiConfig) => CheckTrackChunkPresence(chunks, out Exception? e)
             ? GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[Instruments.Drums]), GetDrumsTrack, midiConfig)
             : throw e!;
         private static Instrument<GHLChord>? GetInstrument(ChunksCollection chunks, GHLInstrument instrument, ReadingConfiguration midiConfig)
@@ -188,9 +188,9 @@ namespace ChartTools.IO.MIDI
             {
                 // Find the parent chord or create it
                 if (chord is null)
-                    chord = new StandardChord((uint)e.DeltaTime);
+                    chord = new((uint)e.DeltaTime);
                 else if (pos != chord.Position)
-                    chord = track.Chords.FirstOrDefault(c => c.Position == pos, new StandardChord(pos), out newChord);
+                    chord = track.Chords.FirstOrDefault(c => c.Position == pos, new(pos), out newChord);
                 else
                     newChord = false;
             }
@@ -212,7 +212,7 @@ namespace ChartTools.IO.MIDI
                         GetParentChord(noteOnEvent, position);
                         sustainOrigins[noteEnum] = chord;
 
-                        chord.Notes.Add(new(noteEnum));
+                        chord!.Notes.Add(new(noteEnum));
 
                         if (newChord)
                             track.Chords.Add(chord);
@@ -233,7 +233,7 @@ namespace ChartTools.IO.MIDI
                             StandardNote? note = ch?.Notes[noteEnum];
 
                             if (note is not null)
-                                note.SustainLength = position - ch.Position;
+                                note.SustainLength = position - ch!.Position;
                         }
                         break;
                 }
@@ -269,7 +269,7 @@ namespace ChartTools.IO.MIDI
             starPowerDest = new((p, other) => p?.Position == other?.Position);
 
             bool unfinishedSolo = false;
-            StarPowerPhrase sp = null;
+            StarPowerPhrase? sp = null;
 
             const int spNoteNumber = 116;
 
@@ -282,7 +282,7 @@ namespace ChartTools.IO.MIDI
                         sp = new StarPowerPhrase((uint)e.DeltaTime);
                         unfinishedSolo = true;
                         break;
-                    case NoteOffEvent noteOffEvent when noteOffEvent.NoteNumber == spNoteNumber && unfinishedSolo:
+                    case NoteOffEvent noteOffEvent when sp is not null && noteOffEvent.NoteNumber == spNoteNumber && unfinishedSolo:
                         sp.Length = (uint)e.DeltaTime - sp.Position;
                         unfinishedSolo = false;
                         break;
@@ -305,7 +305,7 @@ namespace ChartTools.IO.MIDI
                             break;
                         // Star power end
                         case "soloend" when unfinishedSolo:
-                            sp.Length = (uint)e.DeltaTime - sp.Position;
+                            sp!.Length = (uint)e.DeltaTime - sp.Position;
                             starPowerDest.Add(sp);
                             unfinishedSolo = false;
                             break;

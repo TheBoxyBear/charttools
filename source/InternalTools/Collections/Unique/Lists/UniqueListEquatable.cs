@@ -13,6 +13,6 @@ namespace ChartTools.Collections.Unique
         /// Creates an instance of <see cref="UniqueListEquatable{T}"/>.
         /// </summary>
         /// <param name="capacity">Number of items that the <see cref="UniqueListEquatable{T}"/> can initially store</param>
-        public UniqueListEquatable(int capacity = 0, IEnumerable<T> items = null) : base((T a, T b) => a.Equals(b), capacity, items) { }
+        public UniqueListEquatable(int capacity = 0, IEnumerable<T>? items = null) : base((T a, T b) => a.Equals(b), capacity, items) { }
     }
 }

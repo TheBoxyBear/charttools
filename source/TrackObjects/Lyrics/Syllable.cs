@@ -5,10 +5,16 @@
     /// </summary>
     public class Syllable : TrackObject
     {
+        private string _rawText = string.Empty;
         /// <summary>
         /// Argument of the native <see cref="GlobalEvent"/>
         /// </summary>
-        public string RawText { get; set; }
+        /// <remarks>Setting to <see langword="null"/> will set to an empty string.</remarks>
+        public string RawText
+        {
+            get => _rawText;
+            set => _rawText = value is null ? string.Empty : value;
+        }
         /// <summary>
         /// The syllable as it is displayed in-game
         /// </summary>

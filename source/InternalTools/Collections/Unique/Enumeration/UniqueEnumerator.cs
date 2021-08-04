@@ -24,7 +24,7 @@ namespace ChartTools.Collections.Unique
         /// <summary>
         /// <see langword="true"/> for indexes where MoveNext previously returned <see langword="false"/>
         /// </summary>
-        private bool[] endsReached;
+        private readonly bool[] endsReached;
 
         /// <summary>
         /// Function that determines if two items are the same
@@ -32,7 +32,7 @@ namespace ChartTools.Collections.Unique
         private EqualityComparison<T> Comparison { get; }
 
         /// <inheritdoc/>
-        public T Current { get; private set; }
+        public T? Current { get; private set; }
         /// <inheritdoc/>
         object? IEnumerator.Current => Current;
         /// <inheritdoc/>
@@ -55,7 +55,7 @@ namespace ChartTools.Collections.Unique
                 throw new ArgumentNullException(nameof(comparison));
 
             Comparison = comparison;
-            Enumerators = enumerators.Where(e => e is not null).ToArray();
+            Enumerators = enumerators;
             endsReached = new bool[Enumerators.Length];
         }
         ~UniqueEnumerator() => Dispose(false);
@@ -75,7 +75,7 @@ namespace ChartTools.Collections.Unique
         /// <inheritdoc/>
         public bool MoveNext()
         {
-            T current = default;
+            T? current = default;
             int index = 0;
 
             Initialize();

@@ -26,6 +26,9 @@ namespace ChartTools
 
         internal IEnumerable<StarPowerPhrase> SoloToStarPower(bool removeEvents)
         {
+            if (LocalEvents is null)
+                yield break;
+
             foreach (LocalEvent e in LocalEvents.OrderBy(e => e.Position))
             {
                 StarPowerPhrase? phrase = null;

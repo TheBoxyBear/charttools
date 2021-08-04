@@ -76,9 +76,7 @@ namespace ChartTools.Collections.Alternating
             // Return remaining values if MinMaxBy returned multiple
             if (equalMins.Count > 0)
             {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                Current = Enumerators[equalMins.First.Value].Current;
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+                Current = Enumerators[equalMins.First!.Value].Current;
                 equalMins.RemoveFirst();
 
                 return true;
@@ -125,9 +123,7 @@ namespace ChartTools.Collections.Alternating
             // Get the index of the enumerators whose current item yields the smallest key
             equalMins = new LinkedList<int>(usableEnumerators.ManyMinBy(i => KeyGetter(Enumerators[i].Current)));
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-            IEnumerator<T> minEnumerator = Enumerators[equalMins.First.Value];
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            IEnumerator<T> minEnumerator = Enumerators[equalMins.First!.Value];
 
             Current = minEnumerator.Current;
 

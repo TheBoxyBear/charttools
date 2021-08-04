@@ -75,7 +75,7 @@ namespace ChartTools.Lyrics
             yield return new GlobalEvent(Position, GlobalEventType.PhraseStart);
 
             foreach (Syllable syllable in Syllables)
-                yield return new GlobalEvent(syllable.Position, GlobalEventType.Lyric, syllable.RawText);
+                yield return new GlobalEvent(syllable.Position, GlobalEventType.Lyric, syllable.RawText is null ? string.Empty : syllable.RawText);
 
             if (EndPosition is not null)
                 yield return new GlobalEvent((uint)EndPosition, GlobalEventType.PhraseEnd);

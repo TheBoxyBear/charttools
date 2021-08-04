@@ -23,7 +23,7 @@ namespace ChartTools.Collections.Alternating
         /// <summary>
         /// Item to use in the iteration
         /// </summary>
-        public T Current { get; private set; }
+        public T? Current { get; private set; }
         /// <inheritdoc/>
         object? IEnumerator.Current => Current;
 
@@ -34,7 +34,7 @@ namespace ChartTools.Collections.Alternating
         /// <summary>
         /// <see langword="true"/> for indexes where MoveNext previously returned <see langword="false"/>
         /// </summary>
-        private bool[] endsReached;
+        private readonly bool[] endsReached;
 
         /// <summary>
         /// Creates an instance of <see cref="SerialAlternatingEnumerator{T}"/>
@@ -49,7 +49,7 @@ namespace ChartTools.Collections.Alternating
             if (enumerators.Length == 0)
                 throw new ArgumentException("No enumerators provided.");
 
-            Enumerators = enumerators.Where(e => e is not null).ToArray();
+            Enumerators = enumerators;
             endsReached = new bool[Enumerators.Length];
         }
 

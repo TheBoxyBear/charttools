@@ -118,7 +118,7 @@ namespace ChartTools.IO.Chart
         /// <param name="lines">Lines in the file</param>
         /// <param name="getTrack">Function that retrieves the track from the lines</param>
         /// <param name="instrumentPartName">Part name of the instrument excluding the difficulty</param>
-        private static Instrument<TChord> GetInstrument<TChord>(string[] lines, Func<IEnumerable<string>, Track<TChord>?> getTrack, string instrumentPartName) where TChord : Chord
+        private static Instrument<TChord>? GetInstrument<TChord>(string[] lines, Func<IEnumerable<string>, Track<TChord>?> getTrack, string instrumentPartName) where TChord : Chord
         {
             Instrument<TChord> instrument = new();
             Type instrumentType = typeof(Instrument<TChord>);
@@ -209,10 +209,10 @@ namespace ChartTools.IO.Chart
 
             // Note
             if (data.NoteIndex < 5)
-                chord.Notes.Add(new((DrumsNotes)data.NoteIndex) { SustainLength = data.SustainLength });
+                chord!.Notes.Add(new((DrumsNotes)data.NoteIndex) { SustainLength = data.SustainLength });
             // Double kick
             else if (data.NoteIndex == 32)
-                chord.Notes.Add(new(DrumsNotes.DoubleKick));
+                chord!.Notes.Add(new(DrumsNotes.DoubleKick));
             // Cymbal
             else if (data.NoteIndex is > 65 and < 69)
             {
@@ -221,10 +221,10 @@ namespace ChartTools.IO.Chart
                 byte seekedIndex = (byte)(data.NoteIndex - 63);
 
                 // Find matching note
-                note = chord.Notes.FirstOrDefault(n => n.NoteIndex == seekedIndex, null, out bool returnedDefault);
+                note = chord!.Notes.FirstOrDefault(n => n.NoteIndex == seekedIndex, null, out bool returnedDefault);
 
                 if (returnedDefault)
-                    note.IsCymbal = true;
+                    note!.IsCymbal = true;
                 else
                 {
                     chord.Notes.Add(new((DrumsNotes)(seekedIndex + 1)) { IsCymbal = true, SustainLength = data.SustainLength });
@@ -233,10 +233,10 @@ namespace ChartTools.IO.Chart
             }
 
             if (newChord)
-                track.Chords.Add(chord);
+                track.Chords.Add(chord!);
 
             // Instance gets lost if not returned back to GetTrack
-            return chord;
+            return chord!;
         }, config);
 
         /// <summary>
@@ -287,33 +287,33 @@ namespace ChartTools.IO.Chart
 
             // White notes
             if (data.NoteIndex < 3)
-                chord.Notes.Add(new((GHLNotes)(data.NoteIndex + 4)) { SustainLength = data.SustainLength });
+                chord!.Notes.Add(new((GHLNotes)(data.NoteIndex + 4)) { SustainLength = data.SustainLength });
             // Black 1 and 2
             else if (data.NoteIndex < 5)
-                chord.Notes.Add(new((GHLNotes)(data.NoteIndex - 2)) { SustainLength = data.SustainLength });
+                chord!.Notes.Add(new((GHLNotes)(data.NoteIndex - 2)) { SustainLength = data.SustainLength });
             else
                 // Chord modifier or open note or black3
                 switch (data.NoteIndex)
                 {
                     case 5:
-                        chord.Modifier |= GHLChordModifier.Forced;
+                        chord!.Modifier |= GHLChordModifier.Forced;
                         break;
                     case 6:
-                        chord.Modifier |= GHLChordModifier.Tap;
+                        chord!.Modifier |= GHLChordModifier.Tap;
                         break;
                     case 7:
-                        chord.Notes.Add(new(GHLNotes.Open) { SustainLength = data.SustainLength });
+                        chord!.Notes.Add(new(GHLNotes.Open) { SustainLength = data.SustainLength });
                         break;
                     case 8:
-                        chord.Notes.Add(new(GHLNotes.Black3) { SustainLength = data.SustainLength });
+                        chord!.Notes.Add(new(GHLNotes.Black3) { SustainLength = data.SustainLength });
                         break;
                 }
 
             if (newChord)
-                track.Chords.Add(chord);
+                track.Chords.Add(chord!);
 
             // Instance gets lost if not returned back to GetTrack
-            return chord;
+            return chord!;
         }, config);
 
         /// <summary>
@@ -363,27 +363,27 @@ namespace ChartTools.IO.Chart
 
             // Note
             if (data.NoteIndex < 5)
-                chord.Notes.Add(new((StandardNotes)(data.NoteIndex + 1)) { SustainLength = data.SustainLength });
+                chord!.Notes.Add(new((StandardNotes)(data.NoteIndex + 1)) { SustainLength = data.SustainLength });
             // Chord modifier or open notes
             else
                 switch (data.NoteIndex)
                 {
                     case 5:
-                        chord.Modifier |= StandardChordModifier.Forced;
+                        chord!.Modifier |= StandardChordModifier.Forced;
                         break;
                     case 6:
-                        chord.Modifier |= StandardChordModifier.Tap;
+                        chord!.Modifier |= StandardChordModifier.Tap;
                         break;
                     case 7:
-                        chord.Notes.Add(new(StandardNotes.Open) { SustainLength = data.SustainLength });
+                        chord!.Notes.Add(new(StandardNotes.Open) { SustainLength = data.SustainLength });
                         break;
                 }
 
             if (newChord)
-                track.Chords.Add(chord);
+                track.Chords.Add(chord!);
 
             // Instance gets lost if not returned back to GetTrack
-            return chord;
+            return chord!;
         }, config);
 
         /// <summary>
@@ -395,7 +395,7 @@ namespace ChartTools.IO.Chart
         /// <param name="part">Lines in the file belonging to the track</param>
         /// <param name="noteCase">Function that handles entries containing note data. Must return the same chord received as a parameter.</param>
         /// <exception cref="FormatException"/>
-        private static Track<TChord>? GetTrack<TChord>(IEnumerable<string> part, Func<Track<TChord>, TChord, TrackObjectEntry, NoteData, bool, TChord> noteCase, ReadingConfiguration config) where TChord : Chord
+        private static Track<TChord>? GetTrack<TChord>(IEnumerable<string> part, Func<Track<TChord>, TChord?, TrackObjectEntry, NoteData, bool, TChord> noteCase, ReadingConfiguration config) where TChord : Chord
         {
             Track<TChord> track = new();
 
@@ -657,7 +657,7 @@ namespace ChartTools.IO.Chart
                 try { entry = new(line); }
                 catch (Exception e) { throw GetLineException(line, e); }
 
-                Tempo marker;
+                Tempo? marker;
 
                 switch (entry.Type)
                 {

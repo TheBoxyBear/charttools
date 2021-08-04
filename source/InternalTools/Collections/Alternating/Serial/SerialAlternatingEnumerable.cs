@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+using ChartTools.SystemExtensions.Linq;
+
 namespace ChartTools.Collections.Alternating
 {
     /// <summary>
@@ -20,12 +22,14 @@ namespace ChartTools.Collections.Alternating
         /// <param name="enumerables">Enumerables to pull items from</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
-        public SerialAlternatingEnumerable(params IEnumerable<T>[] enumerables)
+        public SerialAlternatingEnumerable(params IEnumerable<T>?[] enumerables)
         {
             if (enumerables is null)
                 throw new ArgumentNullException(nameof(enumerables));
             if (enumerables.Length == 0)
                 throw new ArgumentException("No enumerables provided.");
+
+            Enumerables = enumerables.NonNull().ToArray();
         }
 
         /// <inheritdoc/>

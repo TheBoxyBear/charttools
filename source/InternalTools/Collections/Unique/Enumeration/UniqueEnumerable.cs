@@ -1,4 +1,5 @@
 ﻿using ChartTools.SystemExtensions;
+using ChartTools.SystemExtensions.Linq;
 
 using System;
 using System.Collections;
@@ -29,7 +30,7 @@ namespace ChartTools.Collections.Unique
         /// <param name="enumerables">Enumerables to pull items from</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
-        public UniqueEnumerable(EqualityComparison<T> comparison, params IEnumerable<T>[] enumerables)
+        public UniqueEnumerable(EqualityComparison<T> comparison, params IEnumerable<T>?[] enumerables)
         {
             if (comparison is null)
                 throw new ArgumentNullException(nameof(comparison));
@@ -39,7 +40,7 @@ namespace ChartTools.Collections.Unique
                 throw new ArgumentException("No enumerables provided.");
 
             Comparison = comparison;
-            Enumerables = enumerables;
+            Enumerables = enumerables.NonNull().ToArray();
         }
 
         /// <inheritdoc/>

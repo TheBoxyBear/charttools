@@ -44,6 +44,11 @@ namespace ChartTools.SystemExtensions.Linq
     /// </summary>
     public static class LinqExtensions
     {
+        /// <summary>
+        /// Excludes <see langword="null"/> items.
+        /// </summary>
+        public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) => source.Where(t => t is not null).Select(t => t!);
+
         /// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
         /// <param name="defaultValue">Value to return if no item meets the condition</param>
         public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue)
@@ -567,8 +572,8 @@ namespace ChartTools
         /// <returns>Enumerable of <see cref="Phrase"/></returns>
         public static IEnumerable<Phrase> GetLyrics(this IEnumerable<GlobalEvent> globalEvents)
         {
-            Phrase phrase = null;
-            Syllable phraselessFirstSyllable = null;
+            Phrase? phrase = null;
+            Syllable? phraselessFirstSyllable = null;
 
             foreach (GlobalEvent globalEvent in new UniqueEnumerable<GlobalEvent>((e , other) => e.Equals(other), globalEvents.OrderBy(e => e.Position)))
                 switch (globalEvent.EventType)
