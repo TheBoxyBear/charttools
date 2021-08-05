@@ -32,7 +32,7 @@ namespace ChartTools.Collections.Unique
         private EqualityComparison<T> Comparison { get; }
 
         /// <inheritdoc/>
-        public T Current { get; private set; }
+        public T? Current { get; private set; }
         /// <inheritdoc/>
         object? IEnumerator.Current => Current;
         /// <inheritdoc/>

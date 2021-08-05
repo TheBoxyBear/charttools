@@ -23,7 +23,7 @@ namespace ChartTools.Collections.Alternating
         public bool Initialized { get; private set; }
 
         /// <inheritdoc/>
-        public T Current { get; private set; }
+        public T? Current { get; private set; }
         /// <inheritdoc/>
         object? IEnumerator.Current => Current;
 
@@ -52,7 +52,7 @@ namespace ChartTools.Collections.Alternating
             if (enumerators.Length == 0)
                 throw new ArgumentException("No enumerators provided.");
 
-            Enumerators = enumerators.Where(e => e is not null).ToArray();
+            Enumerators = enumerators;
             KeyGetter = keyGetter;
             endsReached = new bool[Enumerators.Length];
         }
