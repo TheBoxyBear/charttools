@@ -1,4 +1,6 @@
-﻿namespace ChartTools
+﻿using System.Collections.Generic;
+
+namespace ChartTools
 {
     /// <summary>
     /// Set of notes played simultaneously
@@ -14,5 +16,7 @@
 
         /// <inheritdoc cref="Chord(uint)" path="/param"/>
         protected Chord(uint position) : base(position) => Notes = new(openExclusivity);
+
+        public override IEnumerable<Note> GetNotes() => Notes;
     }
 }
