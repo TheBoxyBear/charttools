@@ -17,9 +17,9 @@ namespace ChartTools.Optimization
         /// <param name="chords">Chords to cut the sustains of</param>
         public static void CutSustains<TNote, TNoteEnum>(this IEnumerable<Chord<TNote, TNoteEnum>> chords) where TNote : Note where TNoteEnum : struct, System.Enum => chords.OrderBy(c => c.Position).RelativeLoop((previous, current) =>
         {
-            foreach (TNote note in current.Notes)
+            foreach (TNote note in current!.Notes)
             {
-                TNote previousNote = previous.Notes.First(n => n.NoteIndex == note.NoteIndex);
+                TNote previousNote = previous!.Notes.First(n => n.NoteIndex == note.NoteIndex);
 
                 if (previousNote is not null && previous.Position + previousNote.SustainLength > current.Position)
                     previousNote.SustainLength = current.Position - previous.Position;
@@ -41,7 +41,7 @@ namespace ChartTools.Optimization
         /// <param name="markers">Tempo markers to remove the undded from</param>
         public static void RemoveUneeded(this IList<Tempo> markers) => markers.OrderBy(m => m.Position).RelativeLoop((previous, current) =>
         {
-            if (previous is not null && previous.Anchor is null && current.Anchor is null && previous.Value == current.Value)
+            if (previous is not null && previous.Anchor is null && current?.Anchor is null && previous.Value == current?.Value)
                 markers.Remove(current);
         });
         /// <summary>

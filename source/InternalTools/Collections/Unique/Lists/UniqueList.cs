@@ -33,7 +33,7 @@ namespace ChartTools.Collections.Unique
             this.items = new List<T>(capacity);
 
             if (items is not null)
-                AddRange(items);
+                AddRange(items!);
         }
         /// <inheritdoc/>
         public T this[int index] { get => items[index]; set => items[index] = value; }

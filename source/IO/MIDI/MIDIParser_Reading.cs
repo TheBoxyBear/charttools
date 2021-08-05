@@ -325,7 +325,7 @@ namespace ChartTools.IO.MIDI
             if (!CheckTrackChunkPresence(file.Chunks, out Exception? e))
                 throw e!;
 
-            string title = ((file.Chunks[0] as TrackChunk).Events[0] as SequenceTrackNameEvent).Text;
+            string title = ((file.Chunks[0] as TrackChunk)!.Events[0] as SequenceTrackNameEvent)!.Text;
 
             return file.TimeDivision is TicksPerQuarterNoteTimeDivision division
                 ? new Metadata { Resolution = (ushort)division.TicksPerQuarterNote, Title = title }
