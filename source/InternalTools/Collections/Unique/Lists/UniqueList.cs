@@ -27,7 +27,7 @@ namespace ChartTools.Collections.Unique
         /// </summary>
         /// <param name="comparison">Method that defines uniqueness of items</param>
         /// <param name="capacity">Number of items that the <see cref="UniqueList{T}"/> can initially store</param>
-        public UniqueList(EqualityComparison<T> comparison, int capacity = 0, IEnumerable<T>? items = null)
+        public UniqueList(EqualityComparison<T> comparison, int capacity = 0, IEnumerable<T?>? items = null)
         {
             Comparison = comparison;
             this.items = new List<T>(capacity);

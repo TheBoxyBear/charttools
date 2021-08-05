@@ -26,12 +26,12 @@ namespace ChartTools
         /// <summary>
         /// Expert track
         /// </summary>
-        public Track<TChord>? Expert { get; set; } = null;
+        public new Track<TChord>? Expert { get; set; } = null;
 
         /// <summary>
         /// Gets the <see cref="Track{TChord}"/> that matches a <see cref="Difficulty"/>
         /// </summary>
-        public Track<TChord>? GetTrack(Difficulty difficulty) => GetType().GetProperty(difficulty.ToString())!.GetValue(this) as Track<TChord>;
+        public new Track<TChord>? GetTrack(Difficulty difficulty) => GetType().GetProperty(difficulty.ToString())!.GetValue(this) as Track<TChord>;
 
         /// <summary>
         /// Gives all tracks the same local events.

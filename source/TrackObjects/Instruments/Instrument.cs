@@ -2,6 +2,7 @@
 using ChartTools.IO.Chart;
 using ChartTools.IO.Ini;
 using System;
+using DiffEnum = ChartTools.Difficulty;
 
 namespace ChartTools
 {
@@ -16,6 +17,19 @@ namespace ChartTools
         public sbyte? Difficulty { get; set; }
 
         private const string undefinedInstrumentMessage = "Instrument is not defined.";
+
+        protected abstract Track? GetEasy();
+        protected abstract Track? GetMedium();
+        protected abstract Track? GetHard();
+        protected abstract Track? GetExpert();
+        public Track? GetTrack(DiffEnum difficulty) => difficulty switch
+        {
+            DiffEnum.Easy => GetEasy(),
+            DiffEnum.Medium => GetMedium(),
+            DiffEnum.Hard => GetHard(),
+            DiffEnum.Expert => GetExpert(),
+            _ => throw CommonExceptions.GetUndefinedException(difficulty);
+        };
 
         /// <inheritdoc cref="ChartParser.ReadInstrument(string, Instruments)"/>
         public static Instrument FromFile(string path, Instruments instrument, ReadingConfiguration config) => Enum.IsDefined(instrument)

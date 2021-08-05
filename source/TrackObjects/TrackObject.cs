@@ -18,7 +18,7 @@ namespace ChartTools
         public TrackObject(uint position) => Position = position;
         /// <inheritdoc/>
         /// <param name="other">Track object to compare to</param>
-        public virtual int CompareTo(TrackObject other) => Position.CompareTo(other.Position);
+        public virtual int CompareTo(TrackObject? other) => Position.CompareTo(other?.Position);
 
         public bool Equals(TrackObject? other) => Position == other?.Position;
     }
