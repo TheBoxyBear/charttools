@@ -10,13 +10,11 @@ namespace ChartTools
     {
         /// <inheritdoc cref="GHLChordModifier"/>
         public GHLChordModifier Modifier { get; set; } = GHLChordModifier.None;
+        protected override bool openExclusivity => true;
 
-        /// <summary>
-        /// Creates an instance of <see cref="GHLChord"/>.
-        /// </summary>
-        /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
-        public GHLChord(uint position) : base(position) => Notes = new(true);
-        public GHLChord(uint position, params GHLNote[] notes) : this(position)
+        /// <inheritdoc cref="Chord(uint)"/>
+        /// <param name="notes">Notes to add</param>
+        public GHLChord(uint position, params GHLNote[] notes) : base(position)
         {
             if (notes is null)
                 throw new ArgumentNullException(nameof(notes));
@@ -24,7 +22,8 @@ namespace ChartTools
             foreach (GHLNote note in notes)
                 Notes.Add(note);
         }
-        public GHLChord(uint position, params GHLNotes[] notes) : this(position)
+        /// <inheritdoc cref="GHLChord(uint, GHLNote[])"/>
+        public GHLChord(uint position, params GHLNotes[] notes) : base(position)
         {
             if (notes is null)
                 throw new ArgumentNullException(nameof(notes));

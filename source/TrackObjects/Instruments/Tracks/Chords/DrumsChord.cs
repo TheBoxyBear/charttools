@@ -1,5 +1,6 @@
 ﻿using ChartTools.IO.Chart;
 using System;
+using System.Linq;
 
 namespace ChartTools
 {
@@ -10,13 +11,11 @@ namespace ChartTools
     {
         /// <inheritdoc cref="DrumsChordModifier"/>
         public DrumsChordModifier Modifier { get; set; } = DrumsChordModifier.None;
+        protected override bool openExclusivity => false;
 
-        /// <summary>
-        /// Creates an instance of <see cref="DrumsChord"/>
-        /// </summary>
-        /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
-        public DrumsChord(uint position) : base(position) => Notes = new(false);
-        public DrumsChord(uint position, params DrumsNote[] notes) : this(position)
+        /// <inheritdoc cref="Chord(uint)"/>
+        /// <param name="notes">Notes to add</param>
+        public DrumsChord(uint position, params DrumsNote[] notes) : base(position)
         {
             if (notes is null)
                 throw new ArgumentNullException(nameof(notes));
@@ -24,7 +23,8 @@ namespace ChartTools
             foreach (DrumsNote note in notes)
                 Notes.Add(note);
         }
-        public DrumsChord(uint position, params DrumsNotes[] notes) : this(position)
+        /// <inheritdoc cref="DrumsChord(uint, DrumsNote[])"/>
+        public DrumsChord(uint position, params DrumsNotes[] notes) : base(position)
         {
             if (notes is null)
                 throw new ArgumentNullException(nameof(notes));

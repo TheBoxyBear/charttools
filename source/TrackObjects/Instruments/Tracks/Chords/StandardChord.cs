@@ -10,13 +10,11 @@ namespace ChartTools
     {
         /// <inheritdoc cref="StandardChordModifier"/>
         public StandardChordModifier Modifier { get; set; } = StandardChordModifier.None;
+        protected override bool openExclusivity => true;
 
-        /// <summary>
-        /// Creates an instance of <see cref="StandardChord"/>.
-        /// </summary>
-        /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
-        public StandardChord(uint position) : base(position) => Notes = new(true);
-        public StandardChord(uint position, params StandardNote[] notes) : this(position)
+        /// <inheritdoc cref="Chord(uint)"/>
+        /// <param name="notes">Notes to add</param>
+        public StandardChord(uint position, params StandardNote[] notes) : base(position)
         {
             if (notes is null)
                 throw new ArgumentNullException(nameof(notes));
@@ -24,7 +22,8 @@ namespace ChartTools
             foreach (StandardNote note in notes)
                 Notes.Add(note);
         }
-        public StandardChord(uint position, params StandardNotes[] notes) : this(position)
+        /// <inheritdoc cref="StandardChord(uint, StandardNote[])"/>
+        public StandardChord(uint position, params StandardNotes[] notes) : base(position)
         {
             if (notes is null)
                 throw new ArgumentNullException(nameof(notes));

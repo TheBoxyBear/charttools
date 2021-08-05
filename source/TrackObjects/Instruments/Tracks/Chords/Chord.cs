@@ -5,10 +5,7 @@
     /// </summary>
     public abstract class Chord : TrackObject
     {
-        /// <summary>
-        /// Creates an instance of <see cref="Chord"/>
-        /// </summary>
-        /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
+        /// <param name="position">Position of the Chord on the Track</param>
         protected Chord(uint position) : base(position) { }
 
         /// <summary>
