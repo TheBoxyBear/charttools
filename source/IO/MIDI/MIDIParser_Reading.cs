@@ -259,7 +259,7 @@ namespace ChartTools.IO.MIDI
                 NoteOnEvent => GlobalEvent.GetEventTypeString(GlobalEventType.PhraseStart),
                 NoteOffEvent => GlobalEvent.GetEventTypeString(GlobalEventType.PhraseEnd),
                 LyricEvent lyricEvent => $"{GlobalEvent.GetEventTypeString(GlobalEventType.Lyric)} {lyricEvent.Text}",
-                _ => null
+                _ => e.EventType.ToString()
             })).Where(e => e is not null));
         }
 

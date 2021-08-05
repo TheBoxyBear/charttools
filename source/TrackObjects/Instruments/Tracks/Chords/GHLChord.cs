@@ -46,7 +46,7 @@ namespace ChartTools
                     GHLNotes.Black3 => 8,
                     GHLNotes.White1 => 0,
                     GHLNotes.White2 => 1,
-                    GHLNotes.White3 => 2
+                    GHLNotes.White3 => 2,
                 }, note.SustainLength);
 
             if (Modifier.HasFlag(GHLChordModifier.Forced))
