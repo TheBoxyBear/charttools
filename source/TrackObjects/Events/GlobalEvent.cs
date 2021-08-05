@@ -117,7 +117,5 @@ namespace ChartTools
         public static IEnumerable<GlobalEvent> FromFile(string path) => ExtensionHandler.Read(path, (".chart", ChartParser.ReadGlobalEvents));
         /// <inheritdoc cref="ChartParser.ReplaceGlobalEvents(string, IEnumerable{GlobalEvent})"/>
         public static void ToFile(string path, IEnumerable<GlobalEvent> events, WritingConfiguration config) => ExtensionHandler.Write(path, events, config, (".chart", ChartParser.ReplaceGlobalEvents));
-
-        public bool Equals(GlobalEvent other) => base.Equals(other);
     }
 }
