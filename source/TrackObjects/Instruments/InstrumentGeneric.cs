@@ -26,7 +26,12 @@ namespace ChartTools
         /// <summary>
         /// Expert track
         /// </summary>
-        public new Track<TChord>? Expert { get; set; } = null;
+        public Track<TChord>? Expert { get; set; } = null;
+
+        protected override Track? GetEasy() => Easy;
+        protected override Track? GetMedium() => Medium;
+        protected override Track? GetHard() => Hard;
+        protected override Track? GetExpert() => Expert;
 
         /// <summary>
         /// Gets the <see cref="Track{TChord}"/> that matches a <see cref="Difficulty"/>

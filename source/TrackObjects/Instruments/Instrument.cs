@@ -28,7 +28,7 @@ namespace ChartTools
             DiffEnum.Medium => GetMedium(),
             DiffEnum.Hard => GetHard(),
             DiffEnum.Expert => GetExpert(),
-            _ => throw CommonExceptions.GetUndefinedException(difficulty);
+            _ => throw CommonExceptions.GetUndefinedException(difficulty)
         };
 
         /// <inheritdoc cref="ChartParser.ReadInstrument(string, Instruments)"/>

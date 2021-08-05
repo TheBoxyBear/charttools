@@ -11,7 +11,7 @@ namespace ChartTools
     /// <summary>
     /// Base class for tracks
     /// </summary>
-    public class Track
+    public abstract class Track
     {
         /// <summary>
         /// Events specific to the <see cref="Track"/>
