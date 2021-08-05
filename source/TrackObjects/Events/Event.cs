@@ -33,6 +33,6 @@ namespace ChartTools
             ? throw new ArgumentNullException(nameof(eventData))
             : eventData;
 
-        public bool Equals(Event other) => base.Equals(other) && EventData == other.EventData;
+        public bool Equals(Event? other) => base.Equals(other) && EventData == other.EventData;
     }
 }

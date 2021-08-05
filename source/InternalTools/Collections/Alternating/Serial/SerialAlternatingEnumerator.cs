@@ -23,7 +23,7 @@ namespace ChartTools.Collections.Alternating
         /// <summary>
         /// Item to use in the iteration
         /// </summary>
-        public T? Current { get; private set; }
+        public T Current { get; private set; }
         /// <inheritdoc/>
         object? IEnumerator.Current => Current;
 

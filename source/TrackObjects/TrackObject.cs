@@ -5,7 +5,7 @@ namespace ChartTools
     /// <summary>
     /// Object located on a track
     /// </summary>
-    public class TrackObject : IComparable<TrackObject>
+    public class TrackObject : IComparable<TrackObject>, IEquatable<TrackObject>
     {
         /// <summary>
         /// Position in beats from the start of the <see cref="Song"/> multiplied by <see cref="Metadata.Resolution"/>
@@ -20,6 +20,6 @@ namespace ChartTools
         /// <param name="other">Track object to compare to</param>
         public virtual int CompareTo(TrackObject other) => Position.CompareTo(other.Position);
 
-        public bool Equals(TrackObject other) => Position == other?.Position;
+        public bool Equals(TrackObject? other) => Position == other?.Position;
     }
 }

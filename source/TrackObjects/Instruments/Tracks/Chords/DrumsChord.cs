@@ -14,6 +14,8 @@ namespace ChartTools
         protected override bool openExclusivity => false;
 
         /// <inheritdoc cref="Chord(uint)"/>
+        public DrumsChord(uint position) : base(position) { }
+        /// <inheritdoc cref="DrumsChord(uint)"/>
         /// <param name="notes">Notes to add</param>
         public DrumsChord(uint position, params DrumsNote[] notes) : base(position)
         {

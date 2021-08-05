@@ -13,6 +13,8 @@ namespace ChartTools
         protected override bool openExclusivity => true;
 
         /// <inheritdoc cref="Chord(uint)"/>
+        public GHLChord(uint position) : base(position) { }
+        /// <inheritdoc cref="GHLChord(uint)"/>
         /// <param name="notes">Notes to add</param>
         public GHLChord(uint position, params GHLNote[] notes) : base(position)
         {

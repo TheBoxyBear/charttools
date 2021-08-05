@@ -13,6 +13,8 @@ namespace ChartTools
         protected override bool openExclusivity => true;
 
         /// <inheritdoc cref="Chord(uint)"/>
+        public StandardChord(uint position) : base(position) { }
+        /// <inheritdoc cref="StandardChord(uint)"/>
         /// <param name="notes">Notes to add</param>
         public StandardChord(uint position, params StandardNote[] notes) : base(position)
         {
