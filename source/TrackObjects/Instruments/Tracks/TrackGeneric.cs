@@ -1,4 +1,6 @@
-﻿using ChartTools.Collections.Unique;
+﻿using System.Collections.Generic;
+
+using ChartTools.Collections.Unique;
 using ChartTools.SystemExtensions;
 
 namespace ChartTools
@@ -13,6 +15,7 @@ namespace ChartTools
         /// </summary>
         public UniqueList<TChord> Chords { get; } = new UniqueList<TChord>(chordComparison);
 
+        public override IEnumerable<Chord> GetChords() => Chords;
         internal static readonly EqualityComparison<TChord> chordComparison = (c, other) => c.Equals(other);
     }
 }
