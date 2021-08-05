@@ -28,7 +28,7 @@ namespace ChartTools.Collections.Alternating
         /// <param name="enumerables">Enumerables to alternate between</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
-        public OrderedAlternatingEnumerable(Func<T, TKey> keyGetter, params IEnumerable<T>[] enumerables)
+        public OrderedAlternatingEnumerable(Func<T, TKey> keyGetter, params IEnumerable<T>?[] enumerables)
         {
             if (keyGetter is null)
                 throw new ArgumentNullException(nameof(keyGetter));
