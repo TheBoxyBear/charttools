@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ChartTools.Collections.Alternating
 {
@@ -9,7 +8,7 @@ namespace ChartTools.Collections.Alternating
     /// Enumerator that yields <typeparamref name="T"/> items by alternating through a set of enumerators
     /// </summary>
     /// <typeparam name="T">Type of the enumerated items</typeparam>
-    public class SerialAlternatingEnumerator<T> : IEnumerator<T>, IInitializable
+    public class SerialAlternatingEnumerator<T> : IEnumerator<T>
     {
         /// <summary>
         /// Enumerators to alternate between
@@ -27,10 +26,6 @@ namespace ChartTools.Collections.Alternating
         /// <inheritdoc/>
         object? IEnumerator.Current => Current;
 
-        /// <summary>
-        /// True if the enumerator is initialized and the current item can be retrieved.
-        /// </summary>
-        public bool Initialized { get; private set; }
         /// <summary>
         /// <see langword="true"/> for indexes where MoveNext previously returned <see langword="false"/>
         /// </summary>
@@ -70,61 +65,25 @@ namespace ChartTools.Collections.Alternating
         public bool MoveNext()
         {
             int startingIndex = index;
-            bool startingPassed = false;
-
-            Initialize();
-            Enumerators[index].MoveNext();
-
             return SearchEnumerator();
 
             bool SearchEnumerator()
             {
-                // Skip enumerator if ended
-                if (endsReached[index] && ++index == Enumerators.Length)
-                    return false;
-
                 IEnumerator<T> enumerator = Enumerators[index];
 
-                try { Current = enumerator.Current; }
-                catch
+                if (enumerator.MoveNext())
                 {
-                    // If end reached, repeat with next enumerator
-                    if (!enumerator.MoveNext())
-                    {
-                        endsReached[index] = true;
+                    Current = enumerator.Current;
 
-                        // First iteration or has looped back around
-                        if (index == startingIndex)
-                        {
-                            // Has looped around, all enumerators have been searched
-                            if (startingPassed)
-                                return false;
+                    // Move to the next enumerator
+                    if (++index == Enumerators.Length)
+                        index = 0;
 
-                            startingPassed = true;
-                        }
-
-                        // If last enumerator is being search, return to the first one
-                        if (++index == Enumerators.Length)
-                            index = 0;
-
-                        return SearchEnumerator();
-                    }
+                    return true;
                 }
 
-                // Continue search with the same enumerator until it runs out of items or the item is not null
-                return Current is not null || enumerator.MoveNext() && SearchEnumerator();
-            }
-        }
-
-        /// <inheritdoc/>
-        public void Initialize()
-        {
-            if (!Initialized)
-            {
-                foreach (IEnumerator<T> enumerator in Enumerators)
-                    enumerator.MoveNext();
-
-                Initialized = true;
+                // End if looped back around to the first enumerator checked, else check the next enumerator
+                return index != startingIndex && SearchEnumerator();
             }
         }
 
@@ -136,10 +95,15 @@ namespace ChartTools.Collections.Alternating
                 enumerator.Reset();
 
             index = 0;
-            Initialized = false;
+        }
 
-            for (int i = 0; i < endsReached.Length; i++)
-                endsReached[i] = false;
+        /// <summary>
+        /// Moves to the next enumerator to use
+        /// </summary>
+        private void SwitchEnumerators()
+        {
+            if (++index == Enumerators.Length)
+                index = 0;
         }
     }
 }

@@ -137,15 +137,15 @@ namespace ChartTools.Collections.Alternating
         }
 
         /// <inheritdoc/>
-        public void Initialize()
+        public bool Initialize()
         {
-            if (!Initialized)
-            {
-                foreach (IEnumerator<T> enumerator in Enumerators)
-                    enumerator.MoveNext();
+            if (Initialized)
+                return false;
 
-                Initialized = true;
-            }
+            foreach (IEnumerator<T> enumerator in Enumerators)
+                enumerator.MoveNext();
+
+            return Initialized = true;
         }
 
         /// <inheritdoc/>

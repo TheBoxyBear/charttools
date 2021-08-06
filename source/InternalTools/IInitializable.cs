@@ -12,6 +12,7 @@
         /// <summary>
         /// Does required initialization if not already done.
         /// </summary>
-        public void Initialize();
+        /// <returns><see langword="true"/> if the object was not initialized prior to calling.</returns>
+        public bool Initialize();
     }
 }
