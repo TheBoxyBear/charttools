@@ -52,7 +52,7 @@ namespace ChartTools.Collections.Alternating
             if (enumerators.Length == 0)
                 throw new ArgumentException("No enumerators provided.");
 
-            Enumerators = enumerators;
+            Enumerators = enumerators.NonNull().ToArray();
             KeyGetter = keyGetter;
             endsReached = new bool[Enumerators.Length];
         }

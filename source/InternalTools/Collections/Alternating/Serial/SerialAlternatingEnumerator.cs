@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+
+using ChartTools.SystemExtensions.Linq;
 
 namespace ChartTools.Collections.Alternating
 {
@@ -44,7 +47,7 @@ namespace ChartTools.Collections.Alternating
             if (enumerators.Length == 0)
                 throw new ArgumentException("No enumerators provided.");
 
-            Enumerators = enumerators;
+            Enumerators = enumerators.NonNull().ToArray();
             endsReached = new bool[Enumerators.Length];
         }
 
