@@ -51,6 +51,5 @@ namespace ChartTools
 
         /// <inheritdoc cref="GlobalEvent.GetEventTypeString(GlobalEventType)"/>
         private static string GetEventTypeString(LocalEventType type) => type == LocalEventType.Unknown ? "Default" : localTypesDictionary[type];
-        public bool Equals(LocalEvent other) => base.Equals(other);
     }
 }

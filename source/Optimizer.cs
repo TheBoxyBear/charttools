@@ -31,7 +31,7 @@ namespace ChartTools.Optimization
         /// <param name="phrases">Star power phrases to cut the lenghts of</param>
         public static void CutLengths(this IEnumerable<StarPowerPhrase> phrases) => phrases.OrderBy(p => p.Position).RelativeLoop((previous, current) =>
         {
-            if (previous is not null && previous.Position + previous.Length > current.Position)
+            if (previous is not null && previous.Position + previous.Length > current?.Position)
                 previous.Length = current.Position - previous.Position;
         });
 
@@ -50,7 +50,7 @@ namespace ChartTools.Optimization
         /// <param name="signatures">Time signatures to remove the uneeded from</param>
         public static void RemoveUneeded(this IList<TimeSignature> signatures) => signatures.OrderBy(s => s.Position).RelativeLoop((previous, current) =>
         {
-            if (previous is not null && previous.Numerator == current.Numerator && previous.Denominator == current.Denominator)
+            if (previous is not null && previous.Numerator == current?.Numerator && previous.Denominator == current.Denominator)
                 signatures.Remove(current);
         });
     }

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+using ChartTools.SystemExtensions.Linq;
+
 namespace ChartTools.Collections.Alternating
 {
     /// <summary>
@@ -38,7 +40,7 @@ namespace ChartTools.Collections.Alternating
                 throw new ArgumentException("No enumerables provided.");
 
             KeyGetter = keyGetter;
-            Enumerables = enumerables.Where(e => e is not null).ToArray();
+            Enumerables = enumerables.NonNull().ToArray();
         }
 
         /// <inheritdoc/>
