@@ -16,14 +16,14 @@ namespace ChartTools.Tests
         byte[] testArrayB = new byte[] { 4, 5, 6 };
 
         [TestMethod]
-        public void CreateEnumerableNull() => Assert.ThrowsException<ArgumentNullException>(() => new SerialAlternatingEnumerable<object>(null));
+        public void CreateEnumerableNull() => Assert.ThrowsException<ArgumentNullException>(() => new SerialAlternatingEnumerable<byte>(null));
         [TestMethod]
-        public void CreateEnumerableEmpty() => Assert.ThrowsException<ArgumentException>(() => new SerialAlternatingEnumerable<object>());
+        public void CreateEnumerableEmpty() => Assert.ThrowsException<ArgumentException>(() => new SerialAlternatingEnumerable<byte>());
 
         [TestMethod]
-        public void CreateEnumeratorNull() => Assert.ThrowsException<ArgumentNullException>(() => new SerialAlternatingEnumerator<object>(null));
+        public void CreateEnumeratorNull() => Assert.ThrowsException<ArgumentNullException>(() => new SerialAlternatingEnumerator<byte>(null));
         [TestMethod]
-        public void CreateEnumeratorEmpty() => Assert.ThrowsException<ArgumentException>(() => new SerialAlternatingEnumerator<object>());
+        public void CreateEnumeratorEmpty() => Assert.ThrowsException<ArgumentException>(() => new SerialAlternatingEnumerator<byte>());
 
         [TestMethod]
         public void EnumerateFromEnumerable() => Assert.IsTrue(string.Concat(new SerialAlternatingEnumerable<byte>(testArrayA, testArrayB)) == "142536");
@@ -48,14 +48,34 @@ namespace ChartTools.Tests
     [TestCategory("Alternating")]
     public class OrderedAlternatingTests
     {
-        private static readonly Func<object, int> keyGetter = o => 0;
+        private static readonly Func<byte, byte> keyGetter = n => n;
+        byte[] testArrayA = new byte[] { 1, 2, 3 };
+        byte[] testArrayB = new byte[] { 4, 5, 6 };
 
         [TestMethod]
-        public void CreateEnumerableNullKeyGetter() => Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<int, object>(null, null));
+        public void CreateEnumerableNullKeyGetter() => Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<byte, byte>(null, null));
 
         [TestMethod]
-        public void CreateEnumerableNullEnumerables() => Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<int, object>(null, null));
+        public void CreateEnumerableNullEnumerables() => Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<byte, byte>(null, null));
         [TestMethod]
-        public void CreateEnumerableEmptyEnumerables() => Assert.ThrowsException<ArgumentException>(() => new OrderedAlternatingEnumerable<int, object>(keyGetter));
+        public void CreateEnumerableEmptyEnumerables() => Assert.ThrowsException<ArgumentException>(() => new OrderedAlternatingEnumerable<byte, byte>(keyGetter));
+
+        [TestMethod]
+        public void EnumerateFromEnumerable() => Assert.IsTrue(string.Concat(new OrderedAlternatingEnumerable<byte, byte>(keyGetter, testArrayA, testArrayB)) == "123456");
+
+        [TestMethod]
+        public void EnumerateFromEnumertor()
+        {
+            var enumerator = new OrderedAlternatingEnumerator<byte, byte>(keyGetter, testArrayA.AsEnumerable().GetEnumerator(), testArrayB.AsEnumerable().GetEnumerator());
+            var output = new List<byte>(6);
+
+            for (int i = 0; i < 6; i++)
+            {
+                Assert.IsTrue(enumerator.MoveNext());
+                output.Add(enumerator.Current);
+            }
+
+            Assert.IsTrue(string.Concat(output) == "123456");
+        }
     }
 }
