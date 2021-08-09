@@ -47,12 +47,12 @@ namespace ChartTools.Collections.Unique
         /// <exception cref="ArgumentNullException"/>
         public UniqueEnumerator(EqualityComparison<T> comparison, params IEnumerator<T>[] enumerators)
         {
+            if (comparison is null)
+                throw new ArgumentNullException(nameof(comparison));
             if (enumerators is null)
                 throw new ArgumentNullException(nameof(enumerators));
             if (enumerators.Length == 0)
                 throw new ArgumentException("No enumerators provided", nameof(enumerators));
-            if (comparison is null)
-                throw new ArgumentNullException(nameof(comparison));
 
             Comparison = comparison;
             Enumerators = enumerators;
