@@ -9,11 +9,10 @@ using System.Linq;
 namespace ChartTools.Tests
 {
     [TestClass]
-    [TestCategory("Alternating")]
     public class SerialAlternatingTests
     {
-        byte[] testArrayA = new byte[] { 1, 2, 3 };
-        byte[] testArrayB = new byte[] { 4, 5, 6 };
+        readonly byte[] testArrayA = new byte[] { 1, 2, 3 };
+        readonly byte[] testArrayB = new byte[] { 4, 5, 6 };
 
         [TestMethod]
         public void CreateEnumerableNull() => Assert.ThrowsException<ArgumentNullException>(() => new SerialAlternatingEnumerable<byte>(null));

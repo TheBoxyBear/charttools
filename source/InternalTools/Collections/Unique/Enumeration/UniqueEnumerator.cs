@@ -1,4 +1,5 @@
 ﻿using ChartTools.SystemExtensions;
+using ChartTools.SystemExtensions.Linq;
 
 using System;
 using System.Collections;
@@ -55,7 +56,7 @@ namespace ChartTools.Collections.Unique
                 throw new ArgumentException("No enumerators provided", nameof(enumerators));
 
             Comparison = comparison;
-            Enumerators = enumerators;
+            Enumerators = enumerators.NonNull().ToArray();
             endsReached = new bool[Enumerators.Length];
         }
         ~UniqueEnumerator() => Dispose(false);

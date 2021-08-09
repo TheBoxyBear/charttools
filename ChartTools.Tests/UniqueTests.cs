@@ -3,13 +3,17 @@ using ChartTools.SystemExtensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using System;
+using System.Collections.Generic;
 
 namespace ChartTools.Tests
 {
     [TestClass]
     public class UniqueTests
     {
-        private readonly EqualityComparison<byte> comparison = (a, b) => a == b;
+        readonly EqualityComparison<byte> comparison = (a, b) => a == b;
+
+        readonly byte[] testArrayA = new byte[] { 1, 1, 2, 6, 3 };
+        readonly byte[] testArrayB = new byte[] { 4, 5, 6, 2, 6 };
 
         [TestMethod]
         public void CreateEnumerableNullComparison() => Assert.ThrowsException<ArgumentNullException>(() => new UniqueEnumerable<byte>(null));
@@ -24,5 +28,8 @@ namespace ChartTools.Tests
         public void CreateEnumeratorNullEnumerators() => Assert.ThrowsException<ArgumentNullException>(() => new UniqueEnumerator<byte>(comparison, null));
         [TestMethod]
         public void CreateEnumeratorEmptyEnumerators() => Assert.ThrowsException<ArgumentException>(() => new UniqueEnumerator<byte>(comparison));
+
+        [TestMethod]
+        public void TestFromEnumerable() => Assert.IsTrue(string.Concat(new UniqueEnumerable<byte>(comparison, testArrayA, testArrayB)) == "123456");
     }
 }
