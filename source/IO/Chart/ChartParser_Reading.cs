@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace ChartTools.IO.Chart
@@ -42,8 +43,7 @@ namespace ChartTools.IO.Chart
                 tasks.Add(Task.Run(() => songType.GetProperty($"GHL{instrument}")!.SetValue(song, GetInstrument(lines, part => GetGHLTrack(part, config), partNames[(Instruments)instrument]))));
             // Add a thread to read each standard instrument
             foreach (StandardInstrument instrument in Enum.GetValues<StandardInstrument>())
-                tasks.Add(Task.Run(() =>
-                    songType.GetProperty(instrument.ToString())!.SetValue(song, GetInstrument(lines, part => GetStandardTrack(part, config), partNames[(Instruments)instrument]))));
+                tasks.Add(Task.Run(() => songType.GetProperty(instrument.ToString())!.SetValue(song, GetInstrument(lines, part => GetStandardTrack(part, config), partNames[(Instruments)instrument]))));
 
             foreach (Task task in tasks)
             {
@@ -133,7 +133,7 @@ namespace ChartTools.IO.Chart
             }
 
             return instrument.Difficulty is null
-                || difficulties.Select(d => instrument.GetTrack(d)).All(t => t is null)
+                && difficulties.Select(d => instrument.GetTrack(d)).All(t => t is null)
                 ? null : instrument;
         }
         #endregion
