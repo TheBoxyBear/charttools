@@ -58,6 +58,8 @@ A chord is a set of notes played at the same time. All supported instruments use
 ```c#
 foreach (StandardChord chord in track)
 {
+    chord.Notes.Add(StandardNotes.Orange);
+    // or
     chord.Notes.Add(new StandardNote(StandardNotes.Orange));
 }
 ```
