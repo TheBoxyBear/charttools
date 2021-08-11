@@ -528,10 +528,9 @@ namespace ChartTools
         /// <inheritdoc cref="ExtensionHandler.Write{T, TConfig}(string, T, TConfig, (string extension, Action{string, T, TConfig} writeMethod)[])" path="/exception"/>
         public static void ToFile(this Instrument<DrumsChord> inst, string path, WritingConfiguration config) => ExtensionHandler.Write(path, inst, config, (".chart", ChartParser.ReplaceDrums));
 
-        ///////// <inheritdoc cref="ChartParser.ReplaceInstrument(string, (Instrument{GHLChord} inst, GHLInstrument instEnum), WritingConfiguration)" path="param"/>
-        ///////// <inheritdoc cref="ChartParser.ReplaceInstrument(string, (Instrument{GHLChord} inst, GHLInstrument instEnum), WritingConfiguration)" path="exception"/>
-        /////// <inheritdoc cref="/>
-        ///////// <param name="instrument">Instrument to assign the data to</param>
+        /// <inheritdoc cref="ChartParser.ReplaceInstrument(string, (Instrument{GHLChord} inst, GHLInstrument instEnum), WritingConfiguration)" path="param"/>
+        /// <inheritdoc cref="ChartParser.ReplaceInstrument(string, (Instrument{GHLChord} inst, GHLInstrument instEnum), WritingConfiguration)" path="exception"/>
+        /// <param name="instrument">Instrument to assign the data to</param>
         public static void ToFile(this Instrument<GHLChord> inst, string path, GHLInstrument instrument, WritingConfiguration config) => ExtensionHandler.Write(path, (inst, instrument), config, (".chart", ChartParser.ReplaceInstrument));
 
         /// <inheritdoc cref="ToFile(Instrument{GHLChord}, string)"/>
