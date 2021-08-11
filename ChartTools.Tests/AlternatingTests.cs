@@ -11,8 +11,8 @@ namespace ChartTools.Tests
     [TestClass]
     public class SerialAlternatingTests
     {
-        readonly byte[] testArrayA = new byte[] { 1, 2, 3 };
-        readonly byte[] testArrayB = new byte[] { 4, 5, 6 };
+        readonly byte[] testArrayA = new byte[] { 1, 6, 2 };
+        readonly byte[] testArrayB = new byte[] { 3, 5, 6 };
 
         [TestMethod]
         public void CreateEnumerableNull() => Assert.ThrowsException<ArgumentNullException>(() => new SerialAlternatingEnumerable<byte>(null));
@@ -25,7 +25,7 @@ namespace ChartTools.Tests
         public void CreateEnumeratorEmpty() => Assert.ThrowsException<ArgumentException>(() => new SerialAlternatingEnumerator<byte>());
 
         [TestMethod]
-        public void EnumerateFromEnumerable() => Assert.IsTrue(string.Concat(new SerialAlternatingEnumerable<byte>(testArrayA, testArrayB)) == "142536");
+        public void EnumerateFromEnumerable() => Assert.IsTrue(string.Concat(new SerialAlternatingEnumerable<byte>(testArrayA, testArrayB)) == "136526");
 
         [TestMethod]
         public void EnumerateFromEnumertor()
@@ -39,17 +39,16 @@ namespace ChartTools.Tests
                 output.Add(enumerator.Current);
             }
 
-            Assert.IsTrue(string.Concat(output) == "142536");
+            Assert.IsTrue(string.Concat(output) == "136526");
         }
     }
 
     [TestClass]
-    [TestCategory("Alternating")]
     public class OrderedAlternatingTests
     {
-        private static readonly Func<byte, byte> keyGetter = n => n;
-        byte[] testArrayA = new byte[] { 1, 2, 3 };
-        byte[] testArrayB = new byte[] { 4, 5, 6 };
+        static readonly Func<byte, byte> keyGetter = n => n;
+        readonly byte[] testArrayA = new byte[] { 1, 6, 2 };
+        readonly byte[] testArrayB = new byte[] { 3, 5, 6 };
 
         [TestMethod]
         public void CreateEnumerableNullKeyGetter() => Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<byte, byte>(null, null));
@@ -60,7 +59,7 @@ namespace ChartTools.Tests
         public void CreateEnumerableEmptyEnumerables() => Assert.ThrowsException<ArgumentException>(() => new OrderedAlternatingEnumerable<byte, byte>(keyGetter));
 
         [TestMethod]
-        public void EnumerateFromEnumerable() => Assert.IsTrue(string.Concat(new OrderedAlternatingEnumerable<byte, byte>(keyGetter, testArrayA, testArrayB)) == "123456");
+        public void EnumerateFromEnumerable() => Assert.IsTrue(string.Concat(new OrderedAlternatingEnumerable<byte, byte>(keyGetter, testArrayA, testArrayB)) == "135626");
 
         [TestMethod]
         public void EnumerateFromEnumertor()
@@ -74,7 +73,7 @@ namespace ChartTools.Tests
                 output.Add(enumerator.Current);
             }
 
-            Assert.IsTrue(string.Concat(output) == "123456");
+            Assert.IsTrue(string.Concat(output) == "135626");
         }
     }
 }

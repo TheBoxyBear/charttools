@@ -44,10 +44,25 @@ namespace ChartTools.SystemExtensions.Linq
     /// </summary>
     public static class LinqExtensions
     {
+        public static bool All(this IEnumerable<bool> source)
+        {
+            foreach (bool b in source)
+                if (!b)
+                    return false;
+            return true;
+        }
+        public static bool Any(this IEnumerable<bool> source)
+        {
+            foreach (bool b in source)
+                if (b)
+                    return true;
+            return false;
+        }
+
         /// <summary>
         /// Excludes <see langword="null"/> items.
         /// </summary>
-        public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) => source.Where(t => t is not null).Select(t => t!);
+        public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) => source.Where(t => t is not null)!;
 
         /// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
         /// <param name="defaultValue">Value to return if no item meets the condition</param>
@@ -336,6 +351,56 @@ namespace ChartTools.SystemExtensions.Linq
         }
 
         /// <summary>
+        /// Finds the item for which a function returns the smallest or greatest value based on a comparison.
+        /// </summary>
+        /// <param name="source">Items to find the minimum or maximum of</param>
+        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
+        /// <param name="comparison">Function that returns <see langword="true"/> if the second item defeats the first</param>
+        private static T MinMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector, Func<TKey, TKey, bool> comparison) where TKey : IComparable<TKey>
+        {
+            T minMaxItem;
+            TKey minMaxKey;
+
+            using (IEnumerator<T> enumerator = source.GetEnumerator())
+            {
+                if (!enumerator.MoveNext())
+                    throw new ArgumentException("The enumerable has no items.", nameof(source));
+
+                minMaxItem = enumerator.Current;
+                minMaxKey = selector(minMaxItem);
+
+                while (enumerator.MoveNext())
+                {
+                    TKey key = selector(enumerator.Current);
+
+                    if (comparison(key, minMaxKey))
+                    {
+                        minMaxItem = enumerator.Current;
+                        minMaxKey = key;
+                    }
+                }
+            }
+
+            return minMaxItem;
+        }
+
+        /// <summary>
+        /// Finds the item for which a function returns the smallest value.
+        /// </summary>
+        /// <remarks>If the smallest value is obtained from multiple items, the first item to do so will be returned.</remarks>
+        /// <param name="source">Items to find the minimum or maximum of</param>
+        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
+        public static T MinBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => MinMaxBy(source, selector, (key, mmKey) => key.CompareTo(mmKey) < 0);
+        /// <summary>
+        /// Finds the item for which a function returns the greatest value.
+        /// </summary>
+        /// <remarks>If the greatest value is obtained from multiple items, the first item to do so will be returned.</remarks>
+        /// <param name="source">Items to find the minimum or maximum of</param>
+        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
+        public static T MaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => MinMaxBy(source, selector, (key, mmKey) => key.CompareTo(mmKey) > 0);
+
+
+        /// <summary>
         /// Finds the items for which a function returns the smallest or greatest value based on a comparison.
         /// </summary>
         /// <param name="source">Items to find the minimum or maximum of</param>
@@ -348,7 +413,7 @@ namespace ChartTools.SystemExtensions.Linq
             using (IEnumerator<T> enumerator = source.GetEnumerator())
             {
                 if (!enumerator.MoveNext())
-                    throw new ArgumentException("The enumerable has no items.");
+                    throw new ArgumentException("The enumerable has no items.", nameof(source));
 
                 minMaxKey = selector(enumerator.Current);
 

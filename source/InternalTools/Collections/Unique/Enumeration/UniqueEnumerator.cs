@@ -79,7 +79,7 @@ namespace ChartTools.Collections.Unique
             T? current = default;
             int index = 0;
 
-            Initialize();
+            //Initialize();
 
             return SearchEnumerator();
 
@@ -131,8 +131,8 @@ namespace ChartTools.Collections.Unique
             if (Initialized)
                 return false;
 
-            foreach (IEnumerator<T> enumerator in Enumerators)
-                enumerator.MoveNext();
+            for (int i = 0; i < Enumerators.Length; i++)
+                endsReached[i] = Enumerators[i].MoveNext();
 
             return Initialized = true;
         }

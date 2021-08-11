@@ -28,10 +28,6 @@ namespace ChartTools.Collections.Alternating
         object? IEnumerator.Current => Current;
 
         /// <summary>
-        /// Contains items if the last ManyMinBy call returned more than one index
-        /// </summary>
-        LinkedList<int> equalMins = new();
-        /// <summary>
         /// <see langword="true"/> for indexes where MoveNext previously returned <see langword="false"/>
         /// </summary>
         readonly bool[] endsReached;
@@ -73,65 +69,28 @@ namespace ChartTools.Collections.Alternating
         /// <inheritdoc/>
         public bool MoveNext()
         {
-            // Return remaining values if MinMaxBy returned multiple
-            if (equalMins.Count > 0)
-            {
-                Current = Enumerators[equalMins.First!.Value].Current;
-                equalMins.RemoveFirst();
-
-                return true;
-            }
-
-            T? current = default;
-            int index = 0;
-
-            // Index of the enumerators with items yet to have been set as Current
+            // Index of the enumerators with items left
             LinkedList<int> usableEnumerators = new();
 
             Initialize();
 
-            if (!SearchEnumerator())
+            for (int i = 0; i < Enumerators.Length; i++)
+                if (!endsReached[i])
+                    usableEnumerators.AddLast(i);
+
+            if (usableEnumerators.Count == 0)
                 return false;
 
-            bool SearchEnumerator()
-            {
-                // Skip enumerator if ended
-                if (endsReached[index] && ++index == Enumerators.Length)
-                    return false;
-
-                IEnumerator<T> enumerator = Enumerators[index];
-
-                try { current = enumerator.Current; }
-                catch
-                {
-                    // If end reached, repeat with next enumerator
-                    if (!enumerator.MoveNext())
-                    {
-                        // All enumerators have been searched
-                        return ++index != Enumerators.Length && SearchEnumerator();
-                    }
-                }
-
-                // Continue search with the same enumerator until it runs out of items or the item is not null
-                if (current is null)
-                    return enumerator.MoveNext() && SearchEnumerator();
-
-                usableEnumerators.AddLast(index);
-                return true;
-            }
-
             // Get the index of the enumerators whose current item yields the smallest key
-            equalMins = new LinkedList<int>(usableEnumerators.ManyMinBy(i => KeyGetter(Enumerators[i].Current)));
+            int minIndex = usableEnumerators.MinBy(i => KeyGetter(Enumerators[i].Current));
 
-            IEnumerator<T> minEnumerator = Enumerators[equalMins.First!.Value];
-
+            // Get the enumerator of this index and set its current item as Current
+            IEnumerator<T> minEnumerator = Enumerators[minIndex];
             Current = minEnumerator.Current;
 
             // Mark the enumerator as having reached its end if the next item can't be pulled
             if (!minEnumerator.MoveNext())
-                endsReached[equalMins.First.Value] = true;
-
-            equalMins.RemoveFirst();
+                endsReached[minIndex] = true;
 
             return true;
         }
@@ -142,8 +101,8 @@ namespace ChartTools.Collections.Alternating
             if (Initialized)
                 return false;
 
-            foreach (IEnumerator<T> enumerator in Enumerators)
-                enumerator.MoveNext();
+            for (int i = 0; i < Enumerators.Length; i++)
+                endsReached[i] = !Enumerators[i].MoveNext();
 
             return Initialized = true;
         }
