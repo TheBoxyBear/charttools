@@ -3,6 +3,11 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <nullable>enable</nullable>
+    <Company>TheBoxyBear</Company>
+    <Authors>TheBoxyBear</Authors>
+    <PackageProjectUrl>https://github.com/TheBoxyBear/ChartTools</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/TheBoxyBear/ChartTools</RepositoryUrl>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
 
   <ItemGroup>
