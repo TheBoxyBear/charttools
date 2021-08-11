@@ -75,6 +75,9 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="defaultValue">Value to return if no item meets the condition</param>
         public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue)
         {
+            if (predicate is null)
+                throw new ArgumentNullException(nameof(predicate));
+
             foreach (T item in source)
                 if (predicate(item))
                     return item;
@@ -84,6 +87,9 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
         public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue, out bool returnedDefault)
         {
+            if (predicate is null)
+                throw new ArgumentNullException(nameof(predicate));
+
             foreach (T item in source)
                 if (predicate(item))
                 {

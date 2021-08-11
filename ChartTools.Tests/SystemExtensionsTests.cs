@@ -27,5 +27,20 @@ namespace ChartTools.Tests
         [TestMethod] public void AnyNoFalse() => Assert.AreEqual(true, trueArray.Any());
         [TestMethod] public void AnyNoTrue() => Assert.AreEqual(false, falseArray.Any());
         [TestMethod] public void AnyMix() => Assert.AreEqual(true, mixBoolArray.Any());
+
+        [TestMethod] public void FirstOrDefaultNullPredicate() => Assert.ThrowsException<ArgumentNullException>(() => trueArray.FirstOrDefault(null, false));
+        [TestMethod] public void OutFirstOrDefaultNullPredicate() => Assert.ThrowsException<ArgumentNullException>(() => trueArray.FirstOrDefault(null, false, out bool returnedDefault));
+        [TestMethod] public void FirstOrDefaultExistingItem() => Assert.AreEqual(true, trueArray.FirstOrDefault(b => b, false));
+        [TestMethod] public void OutFirstOrDefaultExistingItem()
+        {
+            Assert.AreEqual(true, trueArray.FirstOrDefault(b => b, false, out bool returnedDefault));
+            Assert.IsFalse(returnedDefault);
+        }
+        [TestMethod] public void FirstOrDefaultNonExistentItem() => Assert.AreEqual(true, trueArray.FirstOrDefault(b => !b, true));
+        [TestMethod] public void OutFirstOrDefaultNonExistentItem()
+        {
+            Assert.AreEqual(true, trueArray.FirstOrDefault(b => !b, true, out bool returnedDefault));
+            Assert.IsTrue(returnedDefault);
+        }
     }
 }
