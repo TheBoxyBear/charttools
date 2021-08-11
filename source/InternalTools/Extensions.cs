@@ -7,7 +7,6 @@ using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.Lyrics;
 using ChartTools.Collections.Alternating;
-using ChartTools.Collections.Unique;
 
 namespace ChartTools.SystemExtensions
 {
@@ -32,7 +31,7 @@ namespace ChartTools.SystemExtensions
         {
             0 => string.Empty, // ""
             1 => items[0], // "Item1"
-            2 => $"{items[0]} {lastItemPreceder} {items[1]}", // "Item1 or Item2"
+            2 => $"{items[0]} {lastItemPreceder} {items[1]}", // "Item1 lastItemPreceder Item2"
             _ => $"{string.Join(", ", items, items.Length - 1)} {lastItemPreceder} {items[^0]}" // "Item1, Item2 lastItemPreceder Item3"
         };
     }
@@ -46,16 +45,24 @@ namespace ChartTools.SystemExtensions.Linq
     {
         public static bool All(this IEnumerable<bool> source)
         {
+            bool containsItems = false;
+
             foreach (bool b in source)
+            {
+                containsItems = true;
+
                 if (!b)
                     return false;
-            return true;
+            }
+
+            return containsItems;
         }
         public static bool Any(this IEnumerable<bool> source)
         {
             foreach (bool b in source)
                 if (b)
                     return true;
+
             return false;
         }
 
