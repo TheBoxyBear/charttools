@@ -1,5 +1,6 @@
 ﻿using ChartTools.Collections.Unique;
 using ChartTools.IO;
+using ChartTools.SystemExtensions.Linq;
 
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace ChartTools
                 TrackObjectSource.Medium => Medium?.LocalEvents,
                 TrackObjectSource.Hard => Hard?.LocalEvents,
                 TrackObjectSource.Expert => Expert?.LocalEvents,
-                TrackObjectSource.Merge => new UniqueEnumerable<LocalEvent>((e, other) => e.Equals(other), (new Track<TChord>?[] { Easy, Medium, Hard, Expert }).Select(t => t?.LocalEvents).ToArray()),
+                TrackObjectSource.Merge => new Track<TChord>?[] { Easy, Medium, Hard, Expert }.NonNull().SelectMany(t => t.LocalEvents).Distinct(),
                 _ => throw CommonExceptions.GetUndefinedException(source)
             }))?.ToArray();
 
@@ -80,7 +81,7 @@ namespace ChartTools
                 TrackObjectSource.Medium => Medium?.StarPower,
                 TrackObjectSource.Hard => Hard?.StarPower,
                 TrackObjectSource.Expert => Expert?.StarPower,
-                TrackObjectSource.Merge => new UniqueEnumerable<StarPowerPhrase>(Track.startPowerComparison, new Track<TChord>?[] { Easy, Medium, Hard, Expert }.OfType<Track<TChord>>().Select(t => t.StarPower).ToArray()),
+                TrackObjectSource.Merge => new Track<TChord>?[] { Easy, Medium, Hard, Expert }.NonNull().SelectMany(t => t.StarPower).Distinct(Track.startPowerComparison),
                 _ => throw CommonExceptions.GetUndefinedException(source)
             }))?.ToArray();
 

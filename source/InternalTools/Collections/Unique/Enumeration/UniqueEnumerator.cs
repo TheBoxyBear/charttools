@@ -12,6 +12,7 @@ namespace ChartTools.Collections.Unique
     /// Enumerator where <typeparamref name="T"/> items are pulled from multiple enumerators and filtered to the ones considered unique by an <see cref="EqualityComparison{T}"/>
     /// </summary>
     /// <typeparam name="T">Type of the enumerated items</typeparam>
+    [Obsolete("Use SelectMany().Distinct(EqualityComparison<T>) instead")]
     public class UniqueEnumerator<T> : IEnumerator<T>, IInitializable
     {
         /// <summary>
@@ -132,7 +133,7 @@ namespace ChartTools.Collections.Unique
                 return false;
 
             for (int i = 0; i < Enumerators.Length; i++)
-                endsReached[i] = Enumerators[i].MoveNext();
+                endsReached[i] = !Enumerators[i].MoveNext();
 
             return Initialized = true;
         }

@@ -111,6 +111,14 @@ namespace ChartTools.SystemExtensions.Linq
             item = default;
             return false;
         }
+
+        /// <summary>
+        /// Returns distinct elements of a sequence using a method to determine the equality of elements
+        /// </summary>
+        /// <param name="comparison">Method that determines if two elements are the same</param>
+        /// <inheritdoc cref="Enumerable.Distinct{TSource}(IEnumerable{TSource})" path="/exception"/>
+        public static IEnumerable<T> Distinct<T>(this IEnumerable<T> source, EqualityComparison<T?> comparison) => source.Distinct(new FuncEqualityComparer<T>(comparison));
+
         /// <summary>
         /// Replaces items that meet a condition with another item.
         /// </summary>
@@ -640,7 +648,7 @@ namespace ChartTools
             Phrase? phrase = null;
             Syllable? phraselessFirstSyllable = null;
 
-            foreach (GlobalEvent globalEvent in new UniqueEnumerable<GlobalEvent>((e , other) => e.Equals(other), globalEvents.OrderBy(e => e.Position)))
+            foreach (GlobalEvent globalEvent in globalEvents.OrderBy(e => e.Position).Distinct())
                 switch (globalEvent.EventType)
                 {
                     // Change active phrase
