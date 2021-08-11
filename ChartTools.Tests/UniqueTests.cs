@@ -12,8 +12,8 @@ namespace ChartTools.Tests
     {
         readonly EqualityComparison<byte> comparison = (a, b) => a == b;
 
-        readonly byte[] testArrayA = new byte[] { 1, 1, 2, 6, 3 };
-        readonly byte[] testArrayB = new byte[] { 4, 5, 6, 2, 6 };
+        readonly byte[] testArrayA = new byte[] { 1, 1, 2, 3 };
+        readonly byte[] testArrayB = new byte[] { 4, 5, 6, 2, 2, 1, 3, 6 };
 
         [TestMethod]
         public void CreateEnumerableNullComparison() => Assert.ThrowsException<ArgumentNullException>(() => new UniqueEnumerable<byte>(null));

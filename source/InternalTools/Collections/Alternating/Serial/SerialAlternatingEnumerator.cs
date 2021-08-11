@@ -30,11 +30,6 @@ namespace ChartTools.Collections.Alternating
         object? IEnumerator.Current => Current;
 
         /// <summary>
-        /// <see langword="true"/> for indexes where MoveNext previously returned <see langword="false"/>
-        /// </summary>
-        private readonly bool[] endsReached;
-
-        /// <summary>
         /// Creates an instance of <see cref="SerialAlternatingEnumerator{T}"/>
         /// </summary>
         /// <param name="enumerators">Enumerators to alternate between</param>
@@ -48,7 +43,6 @@ namespace ChartTools.Collections.Alternating
                 throw new ArgumentException("No enumerators provided.");
 
             Enumerators = enumerators.NonNull().ToArray();
-            endsReached = new bool[Enumerators.Length];
         }
 
         /// <inheritdoc/>
@@ -98,15 +92,6 @@ namespace ChartTools.Collections.Alternating
                 enumerator.Reset();
 
             index = 0;
-        }
-
-        /// <summary>
-        /// Moves to the next enumerator to use
-        /// </summary>
-        private void SwitchEnumerators()
-        {
-            if (++index == Enumerators.Length)
-                index = 0;
         }
     }
 }
