@@ -64,9 +64,6 @@ namespace ChartTools.IO
         /// <exception cref="FileNotFoundException"/>
         internal static void Write<T>(string path, T item, params (string extension, Action<string, T> writeMethod)[] writers)
         {
-            if (!File.Exists(path))
-                throw new FileNotFoundException();
-
             string extension = Path.GetExtension(path);
             (string extension, Action<string, T> writeMethod) writer = writers.FirstOrDefault(w => w.extension == extension);
 
