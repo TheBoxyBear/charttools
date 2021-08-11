@@ -33,6 +33,7 @@ namespace ChartTools
             ? throw new ArgumentNullException(nameof(eventData))
             : eventData;
 
+        public override bool Equals(TrackObject? other) => Equals(other as Event);
         public bool Equals(Event? other) => base.Equals(other) && EventData == other.EventData;
 
         public override string ToString() => $"Event: {EventData}";

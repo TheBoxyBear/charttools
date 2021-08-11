@@ -124,7 +124,7 @@ namespace ChartTools.IO.MIDI
             Type instrumentType = typeof(Instrument<TChord>);
             Task<Track<TChord>>[] tasks = difficulties.Select(d => Task.Run(() => getTrack(events, d, midiConfig))).ToArray();
 
-            GetLocalEventsStarPower(events, out List<LocalEvent> localEvents, out UniqueList<StarPowerPhrase> starPower, midiConfig);
+            GetLocalEventsStarPower(events, out List<LocalEvent> localEvents, out StarPowerCollection starPower, midiConfig);
             bool noEventsOrStarPower = localEvents.Count == 0 && starPower.Count == 0;
 
             byte emptyCount = 0;
@@ -263,10 +263,10 @@ namespace ChartTools.IO.MIDI
             })).Where(e => e is not null));
         }
 
-        private static void GetLocalEventsStarPower(IEnumerable<MidiEvent> events, out List<LocalEvent> eventDest, out UniqueList<StarPowerPhrase> starPowerDest, ReadingConfiguration midiConfig)
+        private static void GetLocalEventsStarPower(IEnumerable<MidiEvent> events, out List<LocalEvent> eventDest, out StarPowerCollection starPowerDest, ReadingConfiguration midiConfig)
         {
             eventDest = new();
-            starPowerDest = new((p, other) => p?.Position == other?.Position);
+            starPowerDest = new();
 
             bool unfinishedSolo = false;
             StarPowerPhrase? sp = null;

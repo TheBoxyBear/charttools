@@ -20,11 +20,9 @@ namespace ChartTools
         /// <summary>
         /// Sets of chords that give star power
         /// </summary>
-        public UniqueList<StarPowerPhrase> StarPower { get; set; } = new UniqueList<StarPowerPhrase>(startPowerComparison);
+        public StarPowerCollection StarPower { get; set; } = new();
 
         public abstract IEnumerable<Chord> GetChords();
-
-        internal static readonly EqualityComparison<StarPowerPhrase> startPowerComparison = (s, other) => s.Equals(other);
 
         internal IEnumerable<StarPowerPhrase> SoloToStarPower(bool removeEvents)
         {

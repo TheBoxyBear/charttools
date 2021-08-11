@@ -75,24 +75,24 @@ namespace ChartTools
             if (source == TrackObjectSource.Seperate)
                 return;
 
-            StarPowerPhrase?[]? starPower = ((IEnumerable<StarPowerPhrase?>?)(source switch
+            StarPowerPhrase?[]? starPower = (source switch
             {
                 TrackObjectSource.Easy => Easy?.StarPower,
                 TrackObjectSource.Medium => Medium?.StarPower,
                 TrackObjectSource.Hard => Hard?.StarPower,
                 TrackObjectSource.Expert => Expert?.StarPower,
-                TrackObjectSource.Merge => new Track<TChord>?[] { Easy, Medium, Hard, Expert }.NonNull().SelectMany(t => t.StarPower).Distinct(Track.startPowerComparison),
+                TrackObjectSource.Merge => new Track<TChord>?[] { Easy, Medium, Hard, Expert }.NonNull().SelectMany(t => t.StarPower).Distinct(),
                 _ => throw CommonExceptions.GetUndefinedException(source)
-            }))?.ToArray();
+            })?.ToArray();
 
             if (starPower!.Length == 0)
                 return;
 
 #pragma warning disable S1121 // Assignments should not be made from within sub-expressions
-            (Easy ??= new()).StarPower = new UniqueList<StarPowerPhrase>(Track.startPowerComparison, starPower.Length, starPower);
-            (Medium ??= new()).StarPower = new UniqueList<StarPowerPhrase>(Track.startPowerComparison, starPower.Length, starPower);
-            (Hard ??= new()).StarPower = new UniqueList<StarPowerPhrase>(Track.startPowerComparison, starPower.Length, starPower);
-            (Expert ??= new()).StarPower = new UniqueList<StarPowerPhrase>(Track.startPowerComparison, starPower.Length, starPower);
+            (Easy ??= new()).StarPower = new(starPower.Length, starPower!);
+            (Medium ??= new()).StarPower = new(starPower.Length, starPower!);
+            (Hard ??= new()).StarPower = new(starPower.Length, starPower!);
+            (Expert ??= new()).StarPower = new(starPower.Length, starPower!);
 #pragma warning restore S1121 // Assignments should not be made from within sub-expressions
         }
     }

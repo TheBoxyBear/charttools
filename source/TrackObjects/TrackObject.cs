@@ -16,10 +16,13 @@ namespace ChartTools
         /// </summary>
         /// <param name="position">Value of <see cref="Position"/></param>
         public TrackObject(uint position) => Position = position;
-        /// <inheritdoc/>
-        /// <param name="other">Track object to compare to</param>
+
         public virtual int CompareTo(TrackObject? other) => Position.CompareTo(other?.Position);
 
-        public bool Equals(TrackObject? other) => Position == other?.Position;
+        public override bool Equals(object? obj) => Equals(obj as TrackObject);
+        public virtual bool Equals(TrackObject? other) => other is not null && other.Position == Position;
+
+        public static bool operator ==(TrackObject a, TrackObject b) => a.Equals(b);
+        public static bool operator !=(TrackObject a, TrackObject b) => !a.Equals(b);
     }
 }
