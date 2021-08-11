@@ -42,5 +42,21 @@ namespace ChartTools.Tests
             Assert.AreEqual(true, trueArray.FirstOrDefault(b => !b, true, out bool returnedDefault));
             Assert.IsTrue(returnedDefault);
         }
+
+        [TestMethod] public void TryGetFirstNoItems()
+        {
+            Assert.IsFalse(Array.Empty<bool>().TryGetFirst(b => b, out bool item));
+            Assert.AreEqual(default(bool), item);
+        }
+        [TestMethod] public void TryGetFirstNonExistentItem()
+        {
+            Assert.IsFalse(falseArray.TryGetFirst(b => b, out bool item));
+            Assert.AreEqual(default, item);
+        }
+        [TestMethod] public void TryGetFirstExistentItem()
+        {
+            Assert.IsTrue(trueArray.TryGetFirst(b => b, out bool item));
+            Assert.AreEqual(true, item);
+        }
     }
 }

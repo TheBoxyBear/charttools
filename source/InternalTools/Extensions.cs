@@ -108,12 +108,6 @@ namespace ChartTools.SystemExtensions.Linq
         /// <returns><see langword="true"/> if an item was found</returns>
         public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, out T? item)
         {
-            if (source is null)
-            {
-                item = default;
-                return false;
-            }
-
             foreach (T t in source)
                 if (predicate(t))
                 {
