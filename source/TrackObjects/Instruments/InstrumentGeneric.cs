@@ -85,7 +85,7 @@ namespace ChartTools
                 _ => throw CommonExceptions.GetUndefinedException(source)
             })?.ToArray();
 
-            if (starPower!.Length == 0)
+            if (starPower is null || starPower.Length == 0)
                 return;
 
 #pragma warning disable S1121 // Assignments should not be made from within sub-expressions

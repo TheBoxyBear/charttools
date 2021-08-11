@@ -51,7 +51,6 @@ namespace ChartTools.IO.Chart
                 (song.Bass, Instruments.Bass),
                 (song.Keys, Instruments.Keys)
             }).Select(t => Task.Run(() => GetInstrumentLines(t.instrument, t.name, config))));
-
             Task.WaitAll(tasks.ToArray());
 
             using StreamWriter writer = new(new FileStream(path, FileMode.Create));
@@ -60,7 +59,10 @@ namespace ChartTools.IO.Chart
                 writer.WriteLine(line);
 
             foreach (Task task in tasks)
+            {
+                task.Wait();
                 task.Dispose();
+            }
         }
 
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments)"/>
