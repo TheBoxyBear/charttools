@@ -106,7 +106,7 @@ namespace ChartTools
         /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
         /// <param name="type">Value of <see cref="EventTypeString"/></param>
         /// <param name="argument">Value of <see cref="Argument"/></param>
-        public GlobalEvent(uint position, string type, string argument = "") : base(position, $"{type} {argument}") { }
+        public GlobalEvent(uint position, string type, string argument = "") : base(position, type + (string.IsNullOrEmpty(argument) ? string.Empty : $" {argument})")) { }
         /// <summary>
         /// Gets the string value to set <see cref="Event.EventTypeString"/>.
         /// </summary>

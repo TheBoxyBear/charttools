@@ -34,5 +34,7 @@ namespace ChartTools
             : eventData;
 
         public bool Equals(Event? other) => base.Equals(other) && EventData == other.EventData;
+
+        public override string ToString() => $"Event: {EventData}";
     }
 }
