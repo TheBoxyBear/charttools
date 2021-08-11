@@ -1,6 +1,7 @@
 ﻿using ChartTools.SystemExtensions;
 using ChartTools.SystemExtensions.Linq;
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,9 @@ namespace ChartTools.Collections.Unique
         /// <param name="capacity">Number of items that the <see cref="UniqueList{T}"/> can initially store</param>
         public UniqueList(EqualityComparison<T> comparison, int capacity = 0, IEnumerable<T?>? items = null)
         {
+            if (comparison is null)
+                throw new ArgumentNullException(nameof(comparison));
+
             Comparison = comparison;
             this.items = new List<T>(capacity);
 
@@ -36,7 +40,15 @@ namespace ChartTools.Collections.Unique
                 AddRange(items!);
         }
         /// <inheritdoc/>
-        public T this[int index] { get => items[index]; set => items[index] = value; }
+        public T this[int index]
+        {
+            get => items[index];
+            set
+            {
+                RemoveDuplicate(value);
+                items[index] = value;
+            }
+        }
 
         public int Count => items.Count;
 
@@ -62,7 +74,7 @@ namespace ChartTools.Collections.Unique
             foreach (T item in collection)
                 RemoveDuplicate(item);
 
-            items.AddRange(collection);
+            items.AddRange(collection.Distinct(Comparison));
         }
 
         /// <summary>
@@ -81,7 +93,7 @@ namespace ChartTools.Collections.Unique
         /// <inheritdoc/>
         public bool Contains(T item) => items.Contains(item);
 
-        /// <inheritdoc/>m>
+        /// <inheritdoc/>
         public void CopyTo(T[] array, int arrayIndex) => items.CopyTo(array, arrayIndex);
 
         /// <inheritdoc/>>
@@ -93,8 +105,8 @@ namespace ChartTools.Collections.Unique
         /// <inheritdoc/>
         public void Insert(int index, T item)
         {
-            if (!items.Any(a => Comparison(a, item)))
-                items.Insert(index, item);
+            RemoveDuplicate(item);
+            items.Insert(index, item);
         }
 
         /// <inheritdoc/>

@@ -12,7 +12,7 @@ namespace ChartTools.Collections.Unique
     /// Enumerable where <typeparamref name="T"/> items are pulled from multiple enumerables and filtered to the ones considered unique by an <see cref="EqualityComparison{T}"/>
     /// </summary>
     /// <typeparam name="T">Type of the enumerated items</typeparam>
-    [Obsolete("Use SelectMany().Distinct(EqqualityComparison<T>) instead")]
+    [Obsolete("Use SelectMany().Distinct(EqualityComparison<T>) instead")]
     public class UniqueEnumerable<T> : IEnumerable<T>
     {
         /// <summary>
