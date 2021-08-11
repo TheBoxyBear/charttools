@@ -94,6 +94,7 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="GHLChord"/> containing all data about the given instrument
         ///     <para><see langword="null"/> if the file has no data for the given instrument</para>
         /// </returns>
+        /// <param name="path">Path of the file to read</param>
         /// <inheritdoc cref="ReadFile(string)" path="/exception"/>
         /// <inheritdoc cref="GetGHLTrack(IEnumerable{string}, ReadingConfiguration)(IEnumerable{string}, ReadingConfiguration)" path="/exception"/>
         public static Instrument<GHLChord>? ReadInstrument(string path, GHLInstrument instrument, ReadingConfiguration config) => GetInstrument(ReadFile(path).ToArray(), part => GetGHLTrack(part, config), partNames[(Instruments)instrument]);

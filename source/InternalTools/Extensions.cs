@@ -518,23 +518,22 @@ namespace ChartTools
                 Instrument.WriteDifficulty(path, (Instruments)instrument, inst.Difficulty.Value);
         }
 
+        /// <inheritdoc cref="ToFile(Instrument{DrumsChord}, string, WritingConfiguration)"/>
+        public static void ToFile(this Instrument<DrumsChord> inst, string path) => ToFile(inst, path, new());
         /// <summary>
-        /// Writes the <see cref="Instrument{TChord}"/> to a file.
+        /// Replaces drums in a file.
         /// </summary>
-        /// <param name="path">Path of the file to write to</param>
-        /// <param name="midiEventSource">Source of global events to use for every difficulty if written to a MIDI file
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="PathTooLongException"/>
-        /// <exception cref="DirectoryNotFoundException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="UnauthorizedAccessException"/>
-        /// <exception cref="NotSupportedException"/>
-        /// <exception cref="SecurityException"/>
+        /// <inheritdoc cref="ChartParser.ReplaceDrums(string, Instrument{DrumsChord}, WritingConfiguration)" path="/param"/>
+        /// <inheritdoc cref="ChartParser.ReplaceDrums(string, Instrument{DrumsChord}, WritingConfiguration)" path="/exception"/>
+        /// <inheritdoc cref="ExtensionHandler.Write{T, TConfig}(string, T, TConfig, (string extension, Action{string, T, TConfig} writeMethod)[])" path="/exception"/>
         public static void ToFile(this Instrument<DrumsChord> inst, string path, WritingConfiguration config) => ExtensionHandler.Write(path, inst, config, (".chart", ChartParser.ReplaceDrums));
-        /// <inheritdoc cref="ToFile(Instrument{DrumsChord}, string)"/>
-        /// <param name="instrument">Instrument to assign the data to</param>
+
+        ///////// <inheritdoc cref="ChartParser.ReplaceInstrument(string, (Instrument{GHLChord} inst, GHLInstrument instEnum), WritingConfiguration)" path="param"/>
+        ///////// <inheritdoc cref="ChartParser.ReplaceInstrument(string, (Instrument{GHLChord} inst, GHLInstrument instEnum), WritingConfiguration)" path="exception"/>
+        /////// <inheritdoc cref="/>
+        ///////// <param name="instrument">Instrument to assign the data to</param>
         public static void ToFile(this Instrument<GHLChord> inst, string path, GHLInstrument instrument, WritingConfiguration config) => ExtensionHandler.Write(path, (inst, instrument), config, (".chart", ChartParser.ReplaceInstrument));
+
         /// <inheritdoc cref="ToFile(Instrument{GHLChord}, string)"/>
         public static void ToFile(this Instrument<StandardChord> inst, string path, StandardInstrument instrument, WritingConfiguration config) => ExtensionHandler.Write(path, (inst, instrument), config, (".chart", ChartParser.ReplaceInstrument));
     }
@@ -622,9 +621,11 @@ namespace ChartTools
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="SecurityException"/>
         public static void ToFile(this Track<DrumsChord> track, string path, Difficulty difficulty, WritingConfiguration config) => ExtensionHandler.Write(path, (track, Instruments.Drums, difficulty), config, (".chart", ChartParser.ReplaceTrack));
+
         /// <inheritdoc cref="ToFile(Track{DrumsChord}, string, Difficulty)"/>
         /// <param name="instrument">Instrument to assign the <see cref="Track{TChord}"/> to</param>
         public static void ToFile(this Track<GHLChord> track, string path, GHLInstrument instrument, Difficulty difficulty, WritingConfiguration config) => ExtensionHandler.Write(path, (track, (Instruments)instrument, difficulty), config, (".chart", ChartParser.ReplaceTrack));
+
         /// <inheritdoc cref="ToFile(Track{GHLChord}, string, Difficulty)"/>
         public static void ToFile(this Track<StandardChord> track, string path, StandardInstrument instrument, Difficulty difficulty, WritingConfiguration config) => ExtensionHandler.Write(path, (track, (Instruments)instrument, difficulty), config, (".chart", ChartParser.ReplaceTrack));
     }

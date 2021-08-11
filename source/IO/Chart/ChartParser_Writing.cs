@@ -65,39 +65,48 @@ namespace ChartTools.IO.Chart
             }
         }
 
-        /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments)"/>
-        internal static void ReplaceDrums(string path, Instrument<DrumsChord> inst, WritingConfiguration config) => ReplaceInstrument(path, (inst, Instruments.Drums), config);
-        /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments)"/>
-        internal static void ReplaceInstrument(string path, (Instrument<GHLChord> inst, GHLInstrument instrument) data, WritingConfiguration config)
+        /// <summary>Replaces drums in a chart file.</summary>
+        /// <param name="path">Path of the file to write</param>
+        /// <param name="inst">Instrument object to write</param>
+        /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/exception"/>
+        internal static void ReplaceDrums(string path, Instrument<DrumsChord> inst, WritingConfiguration config) => ReplaceInstrument(path, inst, Instruments.Drums, config);
+        /// <summary>Replaces a GHL instrument in a chart file.</summary>
+        /// <param name="path">Path of the file to write</param>
+        /// <param name="data">Tuple containing the Instrument object to write and the instrument to assign it to</param>
+        /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/exception"/>
+        internal static void ReplaceInstrument(string path, (Instrument<GHLChord> inst, GHLInstrument instEnum) data, WritingConfiguration config)
         {
-            if (!Enum.IsDefined(data.instrument))
-                throw CommonExceptions.GetUndefinedException(data.instrument);
+            if (!Enum.IsDefined(data.instEnum))
+                throw CommonExceptions.GetUndefinedException(data.instEnum);
 
-            ReplaceInstrument(path, data, config);
+            ReplaceInstrument(path, data.inst, (Instruments)data.instEnum, config);
         }
-        /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments)"/>
-        internal static void ReplaceInstrument(string path, (Instrument<StandardChord> inst, StandardInstrument instrument) data, WritingConfiguration config)
+        /// <summary>Replaces a standard instrument in a chart file.</summary>
+        /// <param name="data">Tuple containing the Instrument object to write and the instrument to assign it to</param>
+        /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/param"/>
+        /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/exception"/>
+        internal static void ReplaceInstrument(string path, (Instrument<StandardChord> inst, StandardInstrument instEnum) data, WritingConfiguration config)
         {
-            if (!Enum.IsDefined(data.instrument))
-                throw CommonExceptions.GetUndefinedException(data.instrument);
+            if (!Enum.IsDefined(data.instEnum))
+                throw CommonExceptions.GetUndefinedException(data.instEnum);
 
-            ReplaceInstrument(path, data, config);
+            ReplaceInstrument(path, data.inst, (Instruments)data.instEnum, config);
         }
         /// <summary>
         /// Replaces an instrument in a file.
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="inst">Instrument to use as a replacement</param>
-        /// <param name="instrument">Instrument to replace</param>
+        /// <param name="instEnum">Instrument to replace</param>
         /// <exception cref="ArgumentNullException"/>
         /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-        private static void ReplaceInstrument<TChord>(string path, (Instrument<TChord> inst, Instruments instrument) data, WritingConfiguration config) where TChord : Chord
+        private static void ReplaceInstrument<TChord>(string path, Instrument<TChord> inst, Instruments instEnum, WritingConfiguration config) where TChord : Chord
         {
-            if (data.inst is null)
-                throw new ArgumentNullException("data.inst");
+            if (inst is null)
+                throw new ArgumentNullException("inst");
 
             // Get the instrument lines, combiner them with the lines from the file not related to the instrument and re-write the file
-            WriteFile(path, GetInstrumentLines(data.inst, data.instrument, config).Concat(ReadFile(path).RemoveSections(Enum.GetValues<Difficulty>().Select(d => ((Predicate<string>)(l => l == $"[{GetFullPartName(data.instrument, d)}]"), (Predicate<string>)(l => l == "}"))).ToArray()).ToArray()));
+            WriteFile(path, GetInstrumentLines(inst, instEnum, config).Concat(ReadFile(path).RemoveSections(Enum.GetValues<Difficulty>().Select(d => ((Predicate<string>)(l => l == $"[{GetFullPartName(instEnum, d)}]"), (Predicate<string>)(l => l == "}"))).ToArray()).ToArray()));
         }
 
         /// <summary>

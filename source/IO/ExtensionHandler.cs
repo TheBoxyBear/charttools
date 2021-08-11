@@ -61,7 +61,6 @@ namespace ChartTools.IO
         /// <param name="item">Item to write</param>
         /// <param name="writers">Array of tupples representing the supported extensions</param>
         /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FileNotFoundException"/>
         internal static void Write<T>(string path, T item, params (string extension, Action<string, T> writeMethod)[] writers)
         {
             string extension = Path.GetExtension(path);
