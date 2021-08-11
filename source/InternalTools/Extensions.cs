@@ -491,8 +491,7 @@ namespace ChartTools
         /// <summary>
         /// Writes <see cref="Instrument.Difficulty"/> to a file.
         /// </summary>
-        /// <param name="inst"><see cref="Instrument"/> containing the difficulty to write</param>
-        /// <param name="path">Path of the file to write the difficulty to</param>
+        /// <inheritdoc cref="Instrument.WriteDifficulty(string, Instruments, sbyte)"/>
         public static void WriteDifficulty(this Instrument<DrumsChord> inst, string path)
         {
             if (inst.Difficulty is not null)
@@ -508,7 +507,8 @@ namespace ChartTools
             if (inst.Difficulty is not null)
                 Instrument.WriteDifficulty(path, (Instruments)instrument, inst.Difficulty.Value);
         }
-        /// <inheritdoc cref="WriteDifficulty(Instrument{GHLChord}, string)"/>
+        /// <inheritdoc cref="WriteDifficulty(Instrument{DrumsChord}, string)"/>
+        /// <inheritdoc cref="WriteDifficulty(Instrument{GHLChord}, string, GHLInstrument)" path="param"/>
         public static void WriteDifficulty(this Instrument<StandardChord> inst, string path, StandardInstrument instrument)
         {
             if (!Enum.IsDefined(instrument))
