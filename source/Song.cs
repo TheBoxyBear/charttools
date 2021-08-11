@@ -105,6 +105,7 @@ namespace ChartTools
         public static Song FromFile(string path) => FromFile(path, new());
         /// <inheritdoc cref="FromFile(string)"/>
         public static Song FromFile(string path, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".chart", ChartParser.ReadSong), (".mid", MIDIParser.ReadSong), (".ini", (p, config) => new Song { Metadata = IniParser.ReadMetadata(p) }));
+
         /// <summary>
         /// Writes the <see cref="Song"/> to a file.
         /// </summary>
