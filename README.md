@@ -8,7 +8,7 @@ This library is an independent project not affiliated with Clone Hero or Moonscr
 ## Installation
 To add ChartTools to your project using Visual Studio, right-click on Dependencies under your project from the solution explorer and select "Add Project References...". Click on "Browse" and select ChartTools.dll from the repository. All classes are located under the ChartTools namespace. 
 
-The DLL contains the latest stable build, still in .NET Standard 2.1. To get the latest version, clone tis repository and compile the project or add the project to your solution and add it as a dependency through a project reference. This version may contain more bugs than the pre-built DLL.
+The DLL contains the latest stable build. To get the latest version, clone tis repository and compile the project or add the project to your solution and add it as a dependency through a project reference. This version may contain more bugs than the pre-built DLL.
 
 If you find any bugs in either version, you can report them in the [Issues section](https://github.com/TheBoxyBear/ChartTools/issues) of the repository.
 
@@ -17,8 +17,6 @@ Every element of a chart is stored in an instance of the Song class. It can be i
 ```c#
 Song song = Song.FromFile(filePath);
 ```
-Due to strict limitations with the MIDI format, future builds will make use of a configuration object to customize the reading and writing process. There will also be overloads that do not require it and will use the default configuration.
-
 A song contains five main elements:
 
 - Metadata - Miscellaneous info about the song, such as title, album, charter etc.
@@ -106,3 +104,4 @@ song.ToFile(filePath); // .chart file only
 metadata.ToFile(filePath) // .chart or .ini - some properties may not be written depending on the output format
 song.GlobalEvents.ToFile(path) // .chart only
 ```
+Due to strict limitations with the MIDI format, it is recommended to use the ToFile overloads which make use of a WritingConfiguration object for more control over the conversions needed to write to MIDI.
