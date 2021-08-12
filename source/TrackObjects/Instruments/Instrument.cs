@@ -46,7 +46,7 @@ namespace ChartTools
             _ => throw CommonExceptions.GetUndefinedException(difficulty)
         };
 
-        #region Instrument reading
+        #region File reading
         /// <inheritdoc cref="FromFile(string, Instruments, ReadingConfiguration)"/>
         public static Instrument FromFile(string path, Instruments instrument) => FromFile(path, instrument, new());
         /// <summary>

@@ -606,6 +606,7 @@ namespace ChartTools
     /// </summary>
     public static class TrackExtensions
     {
+        public static void ToFile(this Track<DrumsChord> track, string path, Difficulty difficulty) => ToFile(track, path, difficulty, new());
         /// <summary>
         /// Writes the <see cref="Track{TChord}"/> to a file.
         /// </summary>
@@ -621,10 +622,12 @@ namespace ChartTools
         /// <exception cref="SecurityException"/>
         public static void ToFile(this Track<DrumsChord> track, string path, Difficulty difficulty, WritingConfiguration config) => ExtensionHandler.Write(path, (track, Instruments.Drums, difficulty), config, (".chart", ChartParser.ReplaceTrack));
 
+        public static void ToFile(this Track<GHLChord> track, string path, GHLInstrument instrument, Difficulty difficulty) => ToFile(track, path, instrument, difficulty, new());
         /// <inheritdoc cref="ToFile(Track{DrumsChord}, string, Difficulty)"/>
         /// <param name="instrument">Instrument to assign the <see cref="Track{TChord}"/> to</param>
         public static void ToFile(this Track<GHLChord> track, string path, GHLInstrument instrument, Difficulty difficulty, WritingConfiguration config) => ExtensionHandler.Write(path, (track, (Instruments)instrument, difficulty), config, (".chart", ChartParser.ReplaceTrack));
 
+        public static void ToFile(this Track<StandardChord> track, string path, StandardInstrument instrument, Difficulty difficulty) => ToFile(track, path, instrument, difficulty, new());
         /// <inheritdoc cref="ToFile(Track{GHLChord}, string, Difficulty)"/>
         public static void ToFile(this Track<StandardChord> track, string path, StandardInstrument instrument, Difficulty difficulty, WritingConfiguration config) => ExtensionHandler.Write(path, (track, (Instruments)instrument, difficulty), config, (".chart", ChartParser.ReplaceTrack));
     }
