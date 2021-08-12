@@ -53,8 +53,12 @@ namespace ChartTools
                 LocalEvents.RemoveAll(e => e.IsStarPowerEvent);
         }
 
+        /// <summary>
+        /// Reads a track from a file
+        /// </summary>
+        /// <inheritdoc cref="ChartParser.ReadTrack(string, Instruments, Difficulty, ReadingConfiguration)"/>
         public static Track FromFile(string path, Instruments instrument, Difficulty difficulty, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".chart", (p, c) => ChartParser.ReadTrack(p, instrument, difficulty, c)));
-        /// <inheritdoc cref="ChartParser.ReadDrumsTrack(string, Difficulty)"/>
+        /// <inheritdoc cref="ChartParser.ReadDrumsTrack(string, Difficulty, ReadingConfiguration)"/>
         public static Track<DrumsChord> FromFile(string path, Difficulty difficulty, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadDrumsTrack(p, difficulty, config)));
         /// <inheritdoc cref="ChartParser.ReadTrack(string, GHLInstrument, Difficulty)"/>
         public static Track<GHLChord> FromFile(string path, GHLInstrument instrument, Difficulty difficulty, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadTrack(p, instrument, difficulty, config)));
