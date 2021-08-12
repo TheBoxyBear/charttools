@@ -86,6 +86,10 @@ namespace ChartTools.Collections.Unique
             if (items.TryGetFirst(i => Comparison(i, item), out T? existing))
                 items.Remove(existing!);
         }
+        /// <summary>
+        /// Removes the first duplicate of multiple items
+        /// </summary>
+        /// <param name="item">Items to remove the duplicate of</param>
         private void RemoveDuplicates(List<T> collection)
         {
             int i = 0;
