@@ -41,8 +41,9 @@ namespace ChartTools.Tests
         }
         [TestMethod] public void AddRange()
         {
-            var list = new UniqueList<byte>(comparison);
-            list.AddRange(testItems);
+            var list = new UniqueList<int>((a ,b) => a == b);
+            list.AddRange(Enumerable.Range(0, 50000));
+            list.AddRange(Enumerable.Repeat(1, 50000));
 
             Assert.IsTrue(string.Concat(list) == expectedString);
         }

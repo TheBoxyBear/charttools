@@ -71,10 +71,10 @@ namespace ChartTools.Collections.Unique
         /// <param name="collection">Items to add</param>
         public virtual void AddRange(IEnumerable<T> collection)
         {
-            //foreach (T item in collection)
-            //    RemoveDuplicate(item);
-            RemoveDuplicates(collection);
-            items.AddRange(collection.NonNull().Distinct(Comparison!));
+            var itemList = new List<T>(collection.NonNull().Distinct(Comparison!));
+
+            RemoveDuplicates(itemList);
+            items.AddRange(itemList);
         }
 
         /// <summary>
@@ -86,18 +86,24 @@ namespace ChartTools.Collections.Unique
             if (items.TryGetFirst(i => Comparison(i, item), out T? existing))
                 items.Remove(existing!);
         }
-        private void RemoveDuplicates(IEnumerable<T> collection)
+        private void RemoveDuplicates(List<T> collection)
         {
-            var itemList = new List<T>(collection);
-
             int i = 0;
 
             while (i < items.Count)
-                for (int j = 0; j < itemList.Count; j++)
-                    if (Comparison(itemList[j], items[i]))
+            {
+                if (collection.Count == 0)
+                    return;
+
+                for (int j = 0; j < collection.Count; j++)
+                    if (Comparison(collection[j], items[i]))
+                    {
                         items.RemoveAt(i);
+                        collection.RemoveAt(j);
+                    }
                     else
                         i++;
+            }
         }
 
         /// <inheritdoc/>
