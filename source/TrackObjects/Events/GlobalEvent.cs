@@ -44,6 +44,7 @@ namespace ChartTools
             { GlobalEventType.CrowdDoubleTempo, "crowd_double_tempo" },
             { GlobalEventType.BandJump, "band_jump" },
             { GlobalEventType.Section, "section" },
+            { GlobalEventType.Section, "prc_" },
             { GlobalEventType.SyncHeadBang, "sync_head_bang" },
             { GlobalEventType.SyncWag, "sync_wag" }
         };
@@ -111,7 +112,12 @@ namespace ChartTools
         /// Gets the string value to set <see cref="Event.EventTypeString"/>.
         /// </summary>
         /// <param name="type">Event type to get the string value of</param>
-        internal static string GetEventTypeString(GlobalEventType type) => type == GlobalEventType.Unknown ? "Default" : globalTypesDictionary[type];
+        internal static string GetEventTypeString(GlobalEventType type) => type switch
+        {
+            GlobalEventType.Unknown => "Default",
+            GlobalEventType.Section => "section",
+            _ => globalTypesDictionary[type]
+        };
 
         /// <inheritdoc cref="ChartParser.ReadGlobalEvents(string)"/>
         public static IEnumerable<GlobalEvent> FromFile(string path) => ExtensionHandler.Read(path, (".chart", ChartParser.ReadGlobalEvents));

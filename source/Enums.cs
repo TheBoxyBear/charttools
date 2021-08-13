@@ -81,6 +81,7 @@ namespace ChartTools
         OwFaceOn,
         OwFaceOff
     }
+    public enum RockBandScetionFormat : byte { RockBand2, RockBand3, Mixed }
     /// <summary>
     /// Modifier that affects how a <see cref="StandardChord"/> can be played
     /// </summary>

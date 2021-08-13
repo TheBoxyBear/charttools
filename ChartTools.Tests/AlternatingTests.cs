@@ -45,7 +45,6 @@ namespace ChartTools.Tests
         static readonly byte[] testArrayB = new byte[] { 3, 5, 6 };
         const string expected = "1 3 5 6 2 6";
 
-
         [TestMethod] public void CreateEnumerableNullKeyGetter() => Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<byte, byte>(null, null));
 
         [TestMethod] public void CreateEnumerableNullEnumerables() => Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<byte, byte>(null, null));
