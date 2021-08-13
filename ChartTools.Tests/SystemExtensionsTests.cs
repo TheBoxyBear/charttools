@@ -47,7 +47,7 @@ namespace ChartTools.Tests
         [TestMethod] public void TryGetFirstNoItems()
         {
             Assert.IsFalse(Array.Empty<bool>().TryGetFirst(b => b, out bool item));
-            Assert.AreEqual(default(bool), item);
+            Assert.AreEqual(default, item);
         }
         [TestMethod] public void TryGetFirstNonExistentItem()
         {

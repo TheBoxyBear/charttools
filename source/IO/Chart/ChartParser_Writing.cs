@@ -103,7 +103,7 @@ namespace ChartTools.IO.Chart
         private static void ReplaceInstrument<TChord>(string path, Instrument<TChord> inst, Instruments instEnum, WritingConfiguration config) where TChord : Chord
         {
             if (inst is null)
-                throw new ArgumentNullException("inst");
+                throw new ArgumentNullException(nameof(inst));
 
             // Get the instrument lines, combiner them with the lines from the file not related to the instrument and re-write the file
             WriteFile(path, GetInstrumentLines(inst, instEnum, config).Concat(ReadFile(path).RemoveSections(Enum.GetValues<Difficulty>().Select(d => ((Predicate<string>)(l => l == $"[{GetFullPartName(instEnum, d)}]"), (Predicate<string>)(l => l == "}"))).ToArray()).ToArray()));

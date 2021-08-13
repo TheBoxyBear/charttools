@@ -626,7 +626,7 @@ namespace ChartTools.IO.Chart
                 try { entry = new(line); }
                 catch (Exception e) { throw GetLineException(line, e); }
 
-                GlobalEvent ev = new GlobalEvent(entry.Position, entry.Data.Trim('"'));
+                GlobalEvent ev = new(entry.Position, entry.Data.Trim('"'));
                 yield return ev;
             }
         }

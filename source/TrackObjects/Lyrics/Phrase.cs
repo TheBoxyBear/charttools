@@ -33,7 +33,7 @@ namespace ChartTools.Lyrics
             get
             {
                 // Checks if a space whould be inserted between a syllable and the next one
-                bool CheckAddSpace(Syllable syllable)
+                static bool CheckAddSpace(Syllable syllable)
                 {
                     // Don't insert spaces in the middle of words
                     if (!syllable.IsWordEnd)

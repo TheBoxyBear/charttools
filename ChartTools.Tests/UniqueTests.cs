@@ -23,12 +23,12 @@ namespace ChartTools.Tests
             var list = GetList();
             list[1] = 5;
 
-            Assert.AreEqual("1 5 7", string.Join(' ', list));
+            Assert.AreEqual("1 5 7", Formatting.FormatCollection(list));
         }
 
         [TestMethod] public void CreateListNullComparison() => Assert.ThrowsException<ArgumentNullException>(() => new UniqueList<byte>(null));
         [TestMethod] public void CreateListNegativeCapacity() => Assert.ThrowsException<ArgumentOutOfRangeException>(() => new UniqueList<byte>(comparison, -1));
-        [TestMethod] public void CreateListStartingItems() => Assert.IsTrue(string.Join(' ', new UniqueList<byte>(comparison, testItems.Length, testItems)) == expectedString);
+        [TestMethod] public void CreateListStartingItems() => Assert.AreEqual(expectedString, Formatting.FormatCollection(new UniqueList<byte>(comparison, testItems.Length, testItems)));
 
         [TestMethod] public void Add()
         {
@@ -37,21 +37,21 @@ namespace ChartTools.Tests
             foreach (byte item in testItems)
                 list.Add(item);
 
-            Assert.AreEqual(expectedString, string.Join(' ', list));
+            Assert.AreEqual(expectedString, Formatting.FormatCollection(list));
         }
         [TestMethod] public void AddRange()
         {
             var list = new UniqueList<byte>(comparison);
             list.AddRange(testItems);
 
-            Assert.AreEqual(string.Join(' ', list), expectedString);
+            Assert.AreEqual(expectedString, Formatting.FormatCollection(list));
         }
         [TestMethod] public void Clear()
         {
             var list = GetList();
             list.Clear();
 
-            string result = string.Join(' ', list);
+            string result = Formatting.FormatCollection(list);
 
             Assert.AreEqual(string.Empty, result);
         }
@@ -70,7 +70,7 @@ namespace ChartTools.Tests
 
             list.CopyTo(result, 0);
 
-            Assert.AreEqual(string.Join(' ', expectedArray), string.Join(' ', result));
+            Assert.AreEqual(Formatting.FormatCollection(expectedArray),  Formatting.FormatCollection(result));
         }
         [TestMethod] public void IndexOf()
         {
@@ -85,14 +85,14 @@ namespace ChartTools.Tests
             var list = GetList();
             list.Insert(0, missingItem);
 
-            Assert.AreEqual(string.Join(' ', new byte[] { 10 }.Concat(expectedArray)), string.Join(' ', list));
+            Assert.AreEqual(string.Join(' ', new byte[] { 10 }.Concat(expectedArray)), Formatting.FormatCollection(list));
         }
         [TestMethod] public void InsertExistingItem()
         {
             var list = GetList();
             list.Insert(0, 5);
 
-            Assert.AreEqual("5 1 2 7", string.Join(' ', list));
+            Assert.AreEqual("5 1 2 7", Formatting.FormatCollection(list));
         }
         [TestMethod] public void RemoveMissingItem() => Assert.IsFalse(GetList().Remove(missingItem));
         [TestMethod] public void RemoveExistingItem()
@@ -100,7 +100,7 @@ namespace ChartTools.Tests
             var list = GetList();
 
             Assert.IsTrue(list.Remove(5));
-            Assert.AreEqual("1 2 7", string.Join(' ', list));
+            Assert.AreEqual("1 2 7", Formatting.FormatCollection(list));
         }
         [TestMethod] public void RemoteAtNegativeIndex() => Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetList().RemoveAt(-1));
         [TestMethod] public void RemoteAtHighIndex() => Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetList().RemoveAt(int.MaxValue));
@@ -109,9 +109,9 @@ namespace ChartTools.Tests
             var list = GetList();
             list.RemoveAt(2);
 
-            Assert.AreEqual("1 2 7", string.Join(' ', list));
+            Assert.AreEqual("1 2 7", Formatting.FormatCollection(list));
         }
 
-        private static UniqueList<byte> GetList() => new UniqueList<byte>(comparison, testItems.Length, testItems);
+        private static UniqueList<byte> GetList() => new(comparison, testItems.Length, testItems);
     }
 }

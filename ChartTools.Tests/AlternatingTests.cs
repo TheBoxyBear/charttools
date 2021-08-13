@@ -20,7 +20,7 @@ namespace ChartTools.Tests
         [TestMethod] public void CreateEnumeratorNull() => Assert.ThrowsException<ArgumentNullException>(() => new SerialAlternatingEnumerator<byte>(null));
         [TestMethod] public void CreateEnumeratorEmpty() => Assert.ThrowsException<ArgumentException>(() => new SerialAlternatingEnumerator<byte>());
 
-        [TestMethod] public void EnumerateFromEnumerable() => Assert.AreEqual(expected, string.Join(' ', new SerialAlternatingEnumerable<byte>(testArrayA, testArrayB)));
+        [TestMethod] public void EnumerateFromEnumerable() => Assert.AreEqual(expected,  Formatting.FormatCollection(new SerialAlternatingEnumerable<byte>(testArrayA, testArrayB)));
 
         [TestMethod] public void EnumerateFromEnumertor()
         {
@@ -33,7 +33,7 @@ namespace ChartTools.Tests
                 output.Add(enumerator.Current);
             }
 
-            Assert.AreEqual(expected, string.Join(' ', output));
+            Assert.AreEqual(expected, Formatting.FormatCollection(output));
         }
     }
 
@@ -51,7 +51,7 @@ namespace ChartTools.Tests
         [TestMethod] public void CreateEnumerableNullEnumerables() => Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<byte, byte>(null, null));
         [TestMethod] public void CreateEnumerableEmptyEnumerables() => Assert.ThrowsException<ArgumentException>(() => new OrderedAlternatingEnumerable<byte, byte>(keyGetter));
 
-        [TestMethod] public void EnumerateFromEnumerable() => Assert.AreEqual(expected, string.Join(' ', new OrderedAlternatingEnumerable<byte, byte>(keyGetter, testArrayA, testArrayB)));
+        [TestMethod] public void EnumerateFromEnumerable() => Assert.AreEqual(expected, Formatting.FormatCollection(new OrderedAlternatingEnumerable<byte, byte>(keyGetter, testArrayA, testArrayB)));
 
         [TestMethod] public void EnumerateFromEnumertor()
         {
@@ -64,7 +64,7 @@ namespace ChartTools.Tests
                 output.Add(enumerator.Current);
             }
 
-            Assert.AreEqual(expected, string.Join(' ', output));
+            Assert.AreEqual(expected, Formatting.FormatCollection(output));
         }
     }
 }
