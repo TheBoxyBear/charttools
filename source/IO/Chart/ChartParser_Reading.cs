@@ -116,7 +116,7 @@ namespace ChartTools.IO.Chart
         private static Instrument<TChord>? GetInstrument<TChord>(string[] lines, Func<IEnumerable<string>, Track<TChord>?> getTrack, string instrumentPartName) where TChord : Chord
         {
             Instrument<TChord> instrument = new();
-            Difficulty[] difficulties = Enum.GetValues<Difficulty>().ToArray();
+            Difficulty[] difficulties = Enum.GetValues<Difficulty>().Reverse().ToArray();
             Task<Track<TChord>?>[] tasks = difficulties.Select(d => Task.Run(() => getTrack(GetPart(lines, $"{d}{instrumentPartName}")))).ToArray();
 
             Task.WaitAll(tasks);
