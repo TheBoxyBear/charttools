@@ -12,7 +12,7 @@ namespace ChartTools.Tests
     {
         static readonly byte[] testArrayA = new byte[] { 1, 6, 2 };
         static readonly byte[] testArrayB = new byte[] { 3, 5, 6 };
-        const string expected = "136526";
+        const string expected = "1 3 6 5 2 6";
 
         [TestMethod] public void CreateEnumerableNull() => Assert.ThrowsException<ArgumentNullException>(() => new SerialAlternatingEnumerable<byte>(null));
         [TestMethod] public void CreateEnumerableEmpty() => Assert.ThrowsException<ArgumentException>(() => new SerialAlternatingEnumerable<byte>());
@@ -20,7 +20,7 @@ namespace ChartTools.Tests
         [TestMethod] public void CreateEnumeratorNull() => Assert.ThrowsException<ArgumentNullException>(() => new SerialAlternatingEnumerator<byte>(null));
         [TestMethod] public void CreateEnumeratorEmpty() => Assert.ThrowsException<ArgumentException>(() => new SerialAlternatingEnumerator<byte>());
 
-        [TestMethod] public void EnumerateFromEnumerable() => Assert.AreEqual(expected, string.Concat(new SerialAlternatingEnumerable<byte>(testArrayA, testArrayB)));
+        [TestMethod] public void EnumerateFromEnumerable() => Assert.AreEqual(expected, string.Join(' ', new SerialAlternatingEnumerable<byte>(testArrayA, testArrayB)));
 
         [TestMethod] public void EnumerateFromEnumertor()
         {
@@ -33,7 +33,7 @@ namespace ChartTools.Tests
                 output.Add(enumerator.Current);
             }
 
-            Assert.AreEqual(expected, string.Concat(output));
+            Assert.AreEqual(expected, string.Join(' ', output));
         }
     }
 
@@ -43,7 +43,7 @@ namespace ChartTools.Tests
         static readonly Func<byte, byte> keyGetter = n => n;
         static readonly byte[] testArrayA = new byte[] { 1, 6, 2 };
         static readonly byte[] testArrayB = new byte[] { 3, 5, 6 };
-        const string expected = "135626";
+        const string expected = "1 3 5 6 2 6";
 
 
         [TestMethod] public void CreateEnumerableNullKeyGetter() => Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<byte, byte>(null, null));
@@ -51,7 +51,7 @@ namespace ChartTools.Tests
         [TestMethod] public void CreateEnumerableNullEnumerables() => Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<byte, byte>(null, null));
         [TestMethod] public void CreateEnumerableEmptyEnumerables() => Assert.ThrowsException<ArgumentException>(() => new OrderedAlternatingEnumerable<byte, byte>(keyGetter));
 
-        [TestMethod] public void EnumerateFromEnumerable() => Assert.AreEqual(expected, string.Concat(new OrderedAlternatingEnumerable<byte, byte>(keyGetter, testArrayA, testArrayB)));
+        [TestMethod] public void EnumerateFromEnumerable() => Assert.AreEqual(expected, string.Join(' ', new OrderedAlternatingEnumerable<byte, byte>(keyGetter, testArrayA, testArrayB)));
 
         [TestMethod] public void EnumerateFromEnumertor()
         {
@@ -64,7 +64,7 @@ namespace ChartTools.Tests
                 output.Add(enumerator.Current);
             }
 
-            Assert.AreEqual(expected, string.Concat(output));
+            Assert.AreEqual(expected, string.Join(' ', output));
         }
     }
 }

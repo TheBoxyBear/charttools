@@ -134,6 +134,9 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="replacement">The item to replace items with</param>
         public static IEnumerable<T> Replace<T>(this IEnumerable<T> source, Predicate<T> predicate, T replacement)
         {
+            if (predicate is null)
+                throw new ArgumentNullException(nameof(predicate));
+
             foreach (T item in source)
                 yield return predicate(item) ? replacement : item;
         }
