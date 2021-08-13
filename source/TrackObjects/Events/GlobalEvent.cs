@@ -95,6 +95,26 @@ namespace ChartTools
         }
 
         /// <summary>
+        /// Rock Band format the section event is written in
+        /// </summary>
+        /// <remarks><see langword="null"/> if the event is not a section. Setting to <see langword="null"/> will set the event to the default <see cref="GlobalEventType.Unknown"/> type.</remarks>
+        public RockBandSectionFormat? RockBandSectionFormat
+        {
+            get => EventTypeString switch
+            {
+                "section" => ChartTools.RockBandSectionFormat.RockBand2,
+                "prc_" => ChartTools.RockBandSectionFormat.RockBand3,
+                _ => null
+            };
+            set => EventTypeString = value switch
+            {
+                ChartTools.RockBandSectionFormat.RockBand2 => "section",
+                ChartTools.RockBandSectionFormat.RockBand3 => "prc_",
+                _ => GetEventTypeString(GlobalEventType.Unknown)
+            };
+        }
+
+        /// <summary>
         /// Creates an instance of <see cref="GlobalEvent"/>.
         /// </summary>
         /// <param name="position">Value of <see cref="TrackObject.Position"/></param>

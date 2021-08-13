@@ -81,7 +81,10 @@ namespace ChartTools
         OwFaceOn,
         OwFaceOff
     }
-    public enum RockBandScetionFormat : byte { RockBand2, RockBand3, Mixed }
+    /// <summary>
+    /// Defines how section global events are written
+    /// </summary>
+    public enum RockBandSectionFormat : byte { RockBand2, RockBand3 }
     /// <summary>
     /// Modifier that affects how a <see cref="StandardChord"/> can be played
     /// </summary>
