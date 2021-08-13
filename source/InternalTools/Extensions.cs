@@ -108,6 +108,9 @@ namespace ChartTools.SystemExtensions.Linq
         /// <returns><see langword="true"/> if an item was found</returns>
         public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, out T? item)
         {
+            if (predicate is null)
+                throw new ArgumentNullException(nameof(predicate));
+
             foreach (T t in source)
                 if (predicate(t))
                 {
@@ -151,6 +154,11 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="addIfMissing">Add the replacement to the end of the items if startReplace is never met</param>
         public static IEnumerable<T> ReplaceSection<T>(this IEnumerable<T> source, IEnumerable<T> replacement, Predicate<T> startReplace, Predicate<T> endReplace, bool addIfMissing = false)
         {
+            if (startReplace is null)
+                throw new ArgumentNullException(nameof(startReplace));
+            if (endReplace is null)
+                throw new ArgumentNullException(nameof(endReplace));
+
             IEnumerator<T> itemsEnumerator = source.GetEnumerator();
 
             // Initialize the enumerator

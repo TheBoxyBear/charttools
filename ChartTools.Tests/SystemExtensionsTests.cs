@@ -43,6 +43,7 @@ namespace ChartTools.Tests
             Assert.IsTrue(returnedDefault);
         }
 
+        [TestMethod] public void TryGetFirstNullPredicate() => Assert.ThrowsException<ArgumentNullException>(() => trueArray.TryGetFirst(null, out bool b));
         [TestMethod] public void TryGetFirstNoItems()
         {
             Assert.IsFalse(Array.Empty<bool>().TryGetFirst(b => b, out bool item));
@@ -66,5 +67,9 @@ namespace ChartTools.Tests
             int[] numbers = Enumerable.Range(0, 10).ToArray();
             Assert.AreEqual("0 1 2 3 4 5 0 0 0 0", string.Join(' ', numbers.Replace(n => n > 5, 0)));
         }
+
+        [TestMethod] public void ReplaceSectionNullStartReplace() => Assert.ThrowsException<ArgumentNullException>(() => trueArray.ReplaceSection(Enumerable.Empty<bool>(), null, b => true).ToArray());
+        [TestMethod] public void ReplaceSectionNullEndReplace() => Assert.ThrowsException<ArgumentNullException>(() => trueArray.ReplaceSection(Enumerable.Empty<bool>(), b => true, null).ToArray());
+        [TestMethod] public void ReplaceSectioNeverStart() => Assert.AreEqual(Formatting.FormatCollection(trueArray), Formatting.FormatCollection(trueArray.ReplaceSection(falseArray, b => false, b => true)));
     }
 }
