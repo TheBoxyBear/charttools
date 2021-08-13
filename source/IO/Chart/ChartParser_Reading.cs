@@ -44,11 +44,7 @@ namespace ChartTools.IO.Chart
             foreach (StandardInstrument instrument in Enum.GetValues<StandardInstrument>())
                 tasks.Add(Task.Run(() => songType.GetProperty(instrument.ToString())!.SetValue(song, GetInstrument(lines, part => GetStandardTrack(part, config), partNames[(Instruments)instrument]))));
 
-            foreach (Task task in tasks)
-            {
-                task.Wait();
-                task.Dispose();
-            }
+            Task.WaitAll(tasks.ToArray());
 
             return song;
         }
@@ -120,16 +116,23 @@ namespace ChartTools.IO.Chart
         private static Instrument<TChord>? GetInstrument<TChord>(string[] lines, Func<IEnumerable<string>, Track<TChord>?> getTrack, string instrumentPartName) where TChord : Chord
         {
             Instrument<TChord> instrument = new();
-            Type instrumentType = typeof(Instrument<TChord>);
             Difficulty[] difficulties = Enum.GetValues<Difficulty>().ToArray();
+            Task<Track<TChord>?>[] tasks = difficulties.Select(d => Task.Run(() => getTrack(GetPart(lines, $"{d}{instrumentPartName}")))).ToArray();
 
-            foreach (Difficulty diff in Enum.GetValues<Difficulty>())
+            Task.WaitAll(tasks);
+
+            if (instrument.Difficulty is not null || tasks.Any(t => t.Result is not null))
             {
-                Track<TChord>? track = getTrack(GetPart(lines, $"{diff}{instrumentPartName}"));
+                if (tasks.Any(t => t.Result is not null))
+                {
+                    Type instrumentType = typeof(Instrument<TChord>);
 
-                // Find the property named after the difficulty and set its value to the created track
-                if (track is not null)
-                    instrumentType.GetProperty(diff.ToString())!.SetValue(instrument, track);
+                    for (int i = 0; i < difficulties.Length; i++)
+                        if (tasks[i].Result is not null)
+                            instrumentType.GetProperty(difficulties[i].ToString())!.SetValue(instrument, tasks[i].Result);
+                }
+
+                return instrument;
             }
 
             return instrument.Difficulty is null

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 using ChartTools.SystemExtensions;
 
@@ -53,6 +54,7 @@ namespace ChartTools.IO
             return Read(path, convertedReaders);
         }
         #endregion
+
         #region Writing
         /// <summary>
         /// Writes an object to a file using the method that matches the extension.

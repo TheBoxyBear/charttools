@@ -1,7 +1,5 @@
-﻿using ChartTools.SystemExtensions;
-using ChartTools.SystemExtensions.Linq;
+﻿using ChartTools.SystemExtensions.Linq;
 using ChartTools.Collections.Alternating;
-using ChartTools.Collections.Unique;
 using Melanchall.DryWetMidi.Core;
 
 using System;
@@ -42,20 +40,20 @@ namespace ChartTools.IO.MIDI
             Type songType = typeof(Song);
             ChunksCollection chunks = file.Chunks;
 
-            // Threads for global events, sync track and drums
-            List<Task> tasks = new()
-            {
-                Task.Run(() => song.GlobalEvents = GetGlobalEvents(chunks)),
-                Task.Run(() => song.SyncTrack = GetSyncTrack(chunks)),
-                Task.Run(() => song.Drums = GetDrums(chunks, midiConfig))
-            };
+            // Tasks for global events, sync track and drums
+            List<Task> tasks = new();
+            //{
+            //    Task.Run(() => song.GlobalEvents = GetGlobalEvents(chunks)),
+            //    Task.Run(() => song.SyncTrack = GetSyncTrack(chunks)),
+            //    Task.Run(() => song.Drums = GetDrums(chunks, midiConfig))
+            //};
 
-            // Threads for each GHL instrument
-            foreach (GHLInstrument inst in Enum.GetValues<GHLInstrument>())
-                tasks.Add(Task.Run(() => songType.GetProperty(inst.ToString())!.SetValue(song, GetInstrument(chunks, inst, midiConfig))));
-            // Threads for each standard instrument
-            foreach (StandardInstrument inst in Enum.GetValues<StandardInstrument>())
-                tasks.Add(Task.Run(() => songType.GetProperty(inst.ToString())!.SetValue(song, GetInstrument(chunks, inst, midiConfig))));
+            //// Tasks for each GHL instrument
+            //foreach (GHLInstrument inst in Enum.GetValues<GHLInstrument>())
+            //    tasks.Add(Task.Run(() => songType.GetProperty(inst.ToString())!.SetValue(song, GetInstrument(chunks, inst, midiConfig))));
+            //// Tasks for each standard instrument
+            //foreach (StandardInstrument inst in Enum.GetValues<StandardInstrument>())
+                tasks.Add(Task.Run(() => songType.GetProperty(StandardInstrument.LeadGuitar.ToString())!.SetValue(song, GetInstrument(chunks, StandardInstrument.LeadGuitar, midiConfig))));
 
             foreach (Task task in tasks)
             {
@@ -117,52 +115,43 @@ namespace ChartTools.IO.MIDI
             return GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[(Instruments)instrument]), GetStandardTrack, midiConfig);
         }
 
-        private static Instrument<TChord>? GetInstrument<TChord>(IEnumerable<MidiEvent> events, Func<IEnumerable<MidiEvent>, Difficulty, ReadingConfiguration, Track<TChord>> getTrack, ReadingConfiguration midiConfig) where TChord : Chord
+        private static Instrument<TChord>? GetInstrument<TChord>(IEnumerable<MidiEvent> events, Func<IEnumerable<MidiEvent>, Difficulty, ReadingConfiguration, Track<TChord>> getTrack, ReadingConfiguration config) where TChord : Chord
         {
-            Instrument<TChord> inst = new();
+            Instrument<TChord> instrument = new();
             Difficulty[] difficulties = Enum.GetValues<Difficulty>().ToArray();
-            Type instrumentType = typeof(Instrument<TChord>);
-            Task<Track<TChord>>[] tasks = difficulties.Select(d => Task.Run(() => getTrack(events, d, midiConfig))).ToArray();
+            Task<Track<TChord>>[] tasks = new Task<Track<TChord>>[] { Task.Run(() => getTrack(events, Difficulty.Expert, config)) }; /*difficulties.Select(d => Task.Run(() => getTrack(events, d, config))).ToArray();*/
 
-            GetLocalEventsStarPower(events, out List<LocalEvent> localEvents, out StarPowerCollection starPower, midiConfig);
+            GetLocalEventsStarPower(events, out List<LocalEvent> localEvents, out StarPowerCollection starPower, config);
             bool noEventsOrStarPower = localEvents.Count == 0 && starPower.Count == 0;
 
-            byte emptyCount = 0;
+            Task.WaitAll(tasks);
 
-            for (int i = 0; i < 4; i++)
+            if (instrument.Difficulty is not null || tasks.Any(t => t.Result is not null))
             {
-                Task<Track<TChord>> task = tasks[i];
-
-                task.Wait();
-
-                Track<TChord> track = task.Result;
-
-                if (track.Chords.Count == 0 && noEventsOrStarPower)
+                if (tasks.Any(t => t.Result is not null))
                 {
-                    emptyCount++;
-                    continue;
+                    Type instrumentType = typeof(Instrument<TChord>);
+
+                    for (int i = 0; i < difficulties.Length; i++)
+                        if (tasks[i].Result is not null)
+                            instrumentType.GetProperty(difficulties[i].ToString())!.SetValue(instrument, tasks[i].Result);
                 }
 
-                track.LocalEvents = localEvents;
-                track.StarPower = starPower;
-
-                instrumentType.GetProperty(((Difficulty)i).ToString())!.SetValue(inst, track);
-
-                task.Dispose();
+                return instrument;
             }
 
-            return emptyCount == difficulties.Length ? null : inst;
+            return null;
         }
 
-        private static Track<DrumsChord> GetDrumsTrack(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig)
+        private static Track<DrumsChord>? GetDrumsTrack(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig)
         {
-            throw new NotImplementedException();
+            return null;
         }
-        private static Track<GHLChord> GetGHLTrack(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig)
+        private static Track<GHLChord>? GetGHLTrack(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig)
         {
-            throw new NotImplementedException();
+            return null;
         }
-        private static Track<StandardChord> GetStandardTrack(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig)
+        private static Track<StandardChord>? GetStandardTrack(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig)
         {
             Predicate<byte> NoteMatchDifficulty = difficulty switch
             {
@@ -238,9 +227,9 @@ namespace ChartTools.IO.MIDI
                         break;
                 }
 
-            throw new NotImplementedException();
+            return track.Chords.Count == 0 && track.LocalEvents!.Count == 0 && track.StarPower.Count == 0 ? null : track;
         }
-        private static Track<TChord> GetTrack<TChord>(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig) where TChord : Chord
+        private static Track<TChord>? GetTrack<TChord>(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig) where TChord : Chord
         {
             throw new NotImplementedException();
         }
