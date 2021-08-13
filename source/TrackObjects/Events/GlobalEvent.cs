@@ -13,6 +13,11 @@ namespace ChartTools
     public class GlobalEvent : Event
     {
         /// <summary>
+        /// Format in which events will be written when set to the <see cref="GlobalEventType.Section"/> type
+        /// </summary>
+        public static RockBandSectionFormat GlobalRockBandSectionFormat { get; set; }
+
+        /// <summary>
         /// <see cref="Event.EventTypeString"/> value for each <see cref="GlobalEventType"/>
         /// </summary>
         private static readonly Dictionary<GlobalEventType, string> globalTypesDictionary = new()
@@ -97,7 +102,7 @@ namespace ChartTools
         /// <summary>
         /// Rock Band format the section event is written in
         /// </summary>
-        /// <remarks><see langword="null"/> if the event is not a section. Setting to <see langword="null"/> will set the event to the default <see cref="GlobalEventType.Unknown"/> type.</remarks>
+        /// <remarks><see langword="null"/> if the event is not a section.</remarks>
         public RockBandSectionFormat? RockBandSectionFormat
         {
             get => EventTypeString switch
@@ -106,12 +111,16 @@ namespace ChartTools
                 "prc_" => ChartTools.RockBandSectionFormat.RockBand3,
                 _ => null
             };
-            set => EventTypeString = value switch
+            set
             {
-                ChartTools.RockBandSectionFormat.RockBand2 => "section",
-                ChartTools.RockBandSectionFormat.RockBand3 => "prc_",
-                _ => GetEventTypeString(GlobalEventType.Unknown)
-            };
+                if (value is not null)
+                    EventTypeString = value switch
+                    {
+                        ChartTools.RockBandSectionFormat.RockBand2 => "section",
+                        ChartTools.RockBandSectionFormat.RockBand3 => "prc_",
+                        _ => throw CommonExceptions.GetUndefinedException(value.Value)
+                    };
+            }
         }
 
         /// <summary>
@@ -135,7 +144,7 @@ namespace ChartTools
         internal static string GetEventTypeString(GlobalEventType type) => type switch
         {
             GlobalEventType.Unknown => "Default",
-            GlobalEventType.Section => "section",
+            GlobalEventType.Section => GlobalRockBandSectionFormat == ChartTools.RockBandSectionFormat.RockBand2 ? "section" : "prc_",
             _ => globalTypesDictionary[type]
         };
 
