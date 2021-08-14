@@ -74,6 +74,23 @@ namespace ChartTools
         SyncWag
     }
     /// <summary>
+    /// Lighting effect caused by a <see cref="GlobalEvent"/> of type <see cref="GlobalEventType.Lighting"/>
+    /// </summary>
+    public enum LightingEffect
+    {
+        /// <summary>
+        /// The backing argument of the event does not match a known lighting effect
+        /// </summary>
+        Unknwon,
+        Flare,
+        Blackout,
+        Chase,
+        Strobe,
+        Color1,
+        Color2,
+        Sweep
+    }
+    /// <summary>
     /// Types of <see cref="LocalEvent"/>
     /// </summary>
     public enum LocalEventType : byte

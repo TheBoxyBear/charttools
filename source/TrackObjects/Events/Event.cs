@@ -8,7 +8,7 @@ namespace ChartTools
     public abstract class Event : TrackObject, IEquatable<Event>
     {
         /// <summary>
-        /// Type of event
+        /// Type of event as it is written in the file
         /// </summary>
         public string EventTypeString
         {

@@ -1,5 +1,6 @@
 ﻿using ChartTools.IO;
 using ChartTools.IO.Chart;
+using ChartTools.SystemExtensions.Linq;
 
 using System;
 using System.Collections.Generic;
@@ -46,11 +47,22 @@ namespace ChartTools
             { GlobalEventType.SyncHeadBang, "sync_head_bang" },
             { GlobalEventType.SyncWag, "sync_wag" }
         };
+        private static readonly Dictionary<LightingEffect, string> lightingTypeDictionary = new()
+        {
+            { ChartTools.LightingEffect.Unknwon, "" },
+            { ChartTools.LightingEffect.Flare, "flare" },
+            { ChartTools.LightingEffect.Blackout, "blackout" },
+            { ChartTools.LightingEffect.Chase, "chase" },
+            { ChartTools.LightingEffect.Strobe, "strobe" },
+            { ChartTools.LightingEffect.Color1, "color1" },
+            { ChartTools.LightingEffect.Color2, "color2" },
+            { ChartTools.LightingEffect.Sweep, "sweep" }
+        };
 
         /// <inheritdoc cref="Event.EventTypeString"/>
         public GlobalEventType EventType
         {
-            get => globalTypesDictionary.ContainsValue(EventTypeString) ? globalTypesDictionary.First(pair => pair.Value == EventTypeString).Key : GlobalEventType.Unknown;
+            get => globalTypesDictionary.TryGetFirst(p => p.Value == EventTypeString, out KeyValuePair<GlobalEventType, string> pair) ? pair.Key : GlobalEventType.Unknown;
             set => EventTypeString = GetEventTypeString(value);
         }
 
@@ -113,6 +125,46 @@ namespace ChartTools
                         ChartTools.RockBandSectionFormat.RockBand3 => "prc_",
                         _ => throw CommonExceptions.GetUndefinedException(value.Value)
                     };
+            }
+        }
+
+        /// <summary>
+        /// Effect caused by the event if it is a lighting event
+        /// </summary>
+        /// <remarks><see langword="null"/> if the event is not a lighting event</remarks>
+        public LightingEffect? LightingEffect
+        {
+            get
+            {
+                if (EventType is not GlobalEventType.Lighting)
+                    return null;
+
+                string value = LightingEffectSting!;
+
+                return lightingTypeDictionary.TryGetFirst(p => p.Value == value, out KeyValuePair<LightingEffect, string> pair) ? pair.Key : ChartTools.LightingEffect.Unknwon;
+            }
+            set
+            {
+                if (value is not null)
+                {
+                    if (EventType is not GlobalEventType.Lighting)
+                        EventType = GlobalEventType.Lighting;
+
+                    LightingEffectSting = lightingTypeDictionary.TryGetValue(value.Value, out string? arg) ? arg : string.Empty;
+                }
+
+            }
+        }
+        /// <summary>
+        /// Lighting effect as it is written in the file
+        /// </summary>
+        public string? LightingEffectSting
+        {
+            get => EventType is not GlobalEventType.Lighting ? null : Argument.TrimStart('(').TrimEnd(')');
+            set
+            {
+                if (EventType is not GlobalEventType.Lighting)
+                    Argument = $"({value})";
             }
         }
 
