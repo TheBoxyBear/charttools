@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChartTools.Lyrics;
+using System;
 
 namespace ChartTools
 {
@@ -33,9 +34,21 @@ namespace ChartTools
     /// </summary>
     public enum GlobalEventType : byte
     {
+        /// <summary>
+        /// The backing <see cref="Event.EventTypeString"/> property does not match a known event type
+        /// </summary>
         Unknown,
+        /// <summary>
+        /// Marks the start of a new <see cref="Phrase"/>
+        /// </summary>
         PhraseStart,
+        /// <summary>
+        /// Marks the end of the current <see cref="Phrase"/>
+        /// </summary>
         PhraseEnd,
+        /// <summary>
+        /// Marks a <see cref="Syllable"/> in the current <see cref="Phrase"/>
+        /// </summary>
         Lyric,
         Idle,
         Play,
@@ -60,6 +73,9 @@ namespace ChartTools
         CrowdNormalTempo,
         CrowdDoubleTempo,
         BandJump,
+        /// <summary>
+        /// Marks a new section used by Practice mode and in post-game summary
+        /// </summary>
         Section,
         SyncHeadBang,
         SyncWag
@@ -69,8 +85,17 @@ namespace ChartTools
     /// </summary>
     public enum LocalEventType : byte
     {
+        /// <summary>
+        /// The backing <see cref="Event.EventTypeString"/> property does not match a known event type
+        /// </summary>
         Unknown,
+        /// <summary>
+        /// Marks the start of a Rock Band style solo section
+        /// </summary>
         Solo,
+        /// <summary>
+        /// Marks the end of a Rock Band style solo section
+        /// </summary>
         SoloEnd,
         GHL6,
         GHL6Forced,
