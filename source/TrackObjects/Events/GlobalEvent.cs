@@ -67,7 +67,7 @@ namespace ChartTools
         }
 
         /// <summary>
-        /// Determines if the <see cref="GlobalEvent"/> serves to display lyrics
+        /// The event serves to display lyrics
         /// </summary>
         public bool IsLyricEvent
         {
@@ -77,6 +77,10 @@ namespace ChartTools
                 return type is GlobalEventType.PhraseStart or GlobalEventType.Lyric or GlobalEventType.PhraseEnd;
             }
         }
+        /// <summary>
+        /// The event controls the crowd
+        /// </summary>
+        public bool IsCrowdEvent => EventTypeString.StartsWith("crowd_");
 
         /// <summary>
         /// Additional data to modify the outcome of the event
