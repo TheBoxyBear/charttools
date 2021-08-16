@@ -16,9 +16,9 @@ namespace ChartTools
         /// </summary>
         public List<LocalEvent>? LocalEvents { get; set; } = new List<LocalEvent>();
         /// <summary>
-        /// Sets of chords that give star power
+        /// Sets of star power phrases
         /// </summary>
-        public StarPowerCollection StarPower { get; set; } = new();
+        public NonStackableTrackObjectCollection<StarPowerPhrase> StarPower { get; set; } = new();
 
         public abstract IEnumerable<Chord> GetChords();
 
