@@ -122,7 +122,7 @@ namespace ChartTools.IO.Chart
 
             Task.WaitAll(tasks);
 
-            if (instrument.Difficulty is not null || tasks.Any(t => t.Result is not null))
+            if (tasks.Any(t => t.Result is not null))
             {
                 if (tasks.Any(t => t.Result is not null))
                 {
