@@ -15,6 +15,5 @@ namespace ChartTools
         public NonStackableTrackObjectCollection<TChord> Chords { get; } = new();
 
         public override IEnumerable<Chord> GetChords() => Chords;
-        internal static readonly EqualityComparison<TChord> chordComparison = (c, other) => c.Equals(other);
     }
 }
