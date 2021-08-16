@@ -11,9 +11,9 @@ namespace ChartTools
     public class Track<TChord> : Track where TChord : Chord
     {
         /// <summary>
-        /// Chords to play
+        /// Groups of notes of the same position
         /// </summary>
-        public UniqueList<TChord> Chords { get; } = new UniqueList<TChord>(chordComparison);
+        public NonStackableTrackObjectCollection<TChord> Chords { get; } = new();
 
         public override IEnumerable<Chord> GetChords() => Chords;
         internal static readonly EqualityComparison<TChord> chordComparison = (c, other) => c.Equals(other);
