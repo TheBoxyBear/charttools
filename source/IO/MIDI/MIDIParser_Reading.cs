@@ -115,7 +115,7 @@ namespace ChartTools.IO.MIDI
             return GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[(Instruments)instrument]), GetStandardTrack, midiConfig);
         }
 
-        private static Instrument<TChord>? GetInstrument<TChord>(IEnumerable<MidiEvent> events, Func<IEnumerable<MidiEvent>, Difficulty, ReadingConfiguration, Track<TChord>> getTrack, ReadingConfiguration config) where TChord : Chord
+        private static Instrument<TChord>? GetInstrument<TChord>(IEnumerable<MidiEvent> events, Func<IEnumerable<MidiEvent>, Difficulty, ReadingConfiguration, Track<TChord>?> getTrack, ReadingConfiguration config) where TChord : Chord
         {
             Instrument<TChord> instrument = new();
             Difficulty[] difficulties = Enum.GetValues<Difficulty>().ToArray();
