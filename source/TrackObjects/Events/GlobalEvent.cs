@@ -42,8 +42,8 @@ namespace ChartTools
             { GlobalEventType.CrowdNormalTempo, "crowd_normal_tempo" },
             { GlobalEventType.CrowdDoubleTempo, "crowd_double_tempo" },
             { GlobalEventType.BandJump, "band_jump" },
-            { GlobalEventType.Section, "section" },
-            { GlobalEventType.Section, "prc_" },
+            //{ GlobalEventType.Section, "section" },
+            //{ GlobalEventType.Section, "prc_" },
             { GlobalEventType.SyncHeadBang, "sync_head_bang" },
             { GlobalEventType.SyncWag, "sync_wag" }
         };
@@ -62,7 +62,15 @@ namespace ChartTools
         /// <inheritdoc cref="Event.EventTypeString"/>
         public GlobalEventType EventType
         {
-            get => globalTypesDictionary.TryGetFirst(p => p.Value == EventTypeString, out KeyValuePair<GlobalEventType, string> pair) ? pair.Key : GlobalEventType.Unknown;
+            get
+            {
+                if (EventTypeString is "section" or "prc_")
+                    return GlobalEventType.Section;
+
+                return globalTypesDictionary.TryGetFirst(p => p.Value == EventTypeString, out KeyValuePair<GlobalEventType, string> pair)
+                    ? pair.Key
+                    : GlobalEventType.Unknown;
+            }
             set => EventTypeString = GetEventTypeString(value);
         }
 

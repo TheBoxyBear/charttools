@@ -1,7 +1,6 @@
 ﻿using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Ini;
-using ChartTools.IO.MIDI;
 using ChartTools.Lyrics;
 
 using System;
