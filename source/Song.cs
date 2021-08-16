@@ -95,7 +95,7 @@ namespace ChartTools
         /// <summary>
         /// Reads a <see cref="Song"/> from a file.
         /// </summary>
-        /// <remarks>Supported extensions: chart, mid, ini</remarks>
+        /// <remarks>Supported extensions: chart, ini (mid currently in development)</remarks>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FormatException"/>
@@ -104,7 +104,7 @@ namespace ChartTools
         /// <exception cref="CommonExceptions.ParameterNullException"/>
         public static Song FromFile(string path) => FromFile(path, new());
         /// <inheritdoc cref="FromFile(string)"/>
-        public static Song FromFile(string path, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".chart", ChartParser.ReadSong), (".mid", MIDIParser.ReadSong), (".ini", (p, config) => new Song { Metadata = IniParser.ReadMetadata(p) }));
+        public static Song FromFile(string path, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".chart", ChartParser.ReadSong), (".ini", (p, config) => new Song { Metadata = IniParser.ReadMetadata(p) }));
 
         /// <summary>
         /// Writes the <see cref="Song"/> to a file.
