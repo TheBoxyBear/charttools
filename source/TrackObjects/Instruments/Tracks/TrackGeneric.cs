@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using ChartTools.SystemExtensions;
-
 namespace ChartTools
 {
     /// <summary>
