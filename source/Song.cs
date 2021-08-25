@@ -1,12 +1,14 @@
 ﻿using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Ini;
+using ChartTools.IO.MIDI;
 using ChartTools.Lyrics;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using ChartTools.SystemExtensions.Linq;
 
 namespace ChartTools
 {
@@ -90,6 +92,7 @@ namespace ChartTools
         /// <param name="instrument">Instrument to get</param>
         /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="StandardChord"/> from the <see cref="Song"/>.</returns>
         public Instrument<StandardChord>? GetInstrument(StandardInstrument instrument) => GetInstrument((Instruments)instrument) as Instrument<StandardChord>;
+        public IEnumerable<Instrument> GetInstruments() => new Instrument?[] { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys }.NonNull();
 
         /// <summary>
         /// Reads a <see cref="Song"/> from a file.
@@ -103,7 +106,7 @@ namespace ChartTools
         /// <exception cref="CommonExceptions.ParameterNullException"/>
         public static Song FromFile(string path) => FromFile(path, new());
         /// <inheritdoc cref="FromFile(string)"/>
-        public static Song FromFile(string path, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".chart", ChartParser.ReadSong), (".ini", (p, config) => new Song { Metadata = IniParser.ReadMetadata(p) }));
+        public static Song FromFile(string path, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".mid", MIDIParser.ReadSong), (".chart", ChartParser.ReadSong), (".ini", (p, config) => new Song { Metadata = IniParser.ReadMetadata(p) }));
 
         /// <summary>
         /// Writes the <see cref="Song"/> to a file.

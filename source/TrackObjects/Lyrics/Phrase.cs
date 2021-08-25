@@ -1,6 +1,8 @@
 ﻿using ChartTools.Collections.Unique;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
+
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +12,7 @@ namespace ChartTools.Lyrics
     /// <summary>
     /// Line of lyrics shown as karaoke
     /// </summary>
-    public class Phrase : TrackObject
+    public class Phrase : TrackObject, IEnumerable<Syllable>
     {
         /// <summary>
         /// Position of the PhraseEnd event
@@ -20,11 +22,11 @@ namespace ChartTools.Lyrics
         /// <summary>
         /// Position of the first syllable
         /// </summary>
-        public uint? SyllablesStart => Syllables is null || Syllables.Count == 0 ? null : Syllables.Select(s => s.Position).Min();
+        public uint? SyllablesStart => GetSyllablePositions()?.Min();
         /// <summary>
         /// Position of the last syllable
         /// </summary>
-        public uint? SyllablesEnd => Syllables is null || Syllables.Count == 0 ? null : Syllables.Select(s => s.Position).Max();
+        public uint? SyllablesEnd => GetSyllablePositions()?.Max();
         /// <summary>
         /// The phrase as it is displayed in-game
         /// </summary>
@@ -32,7 +34,7 @@ namespace ChartTools.Lyrics
         {
             get
             {
-                // Checks if a space whould be inserted between a syllable and the next one
+                // Checks if a space would be inserted between a syllable and the next one
                 static bool CheckAddSpace(Syllable syllable)
                 {
                     // Don't insert spaces in the middle of words
@@ -75,7 +77,7 @@ namespace ChartTools.Lyrics
         /// <summary>
         /// Syllables in the <see cref="Phrase"/>
         /// </summary>
-        public UniqueList<Syllable> Syllables { get; set; } = new UniqueList<Syllable>((s, other) => s.Equals(other));
+        public NonStackableTrackObjectCollection<Syllable> Syllables { get; set; } = new();
 
         /// <summary>
         /// Creates an instance of <see cref="Phrase"/>
@@ -100,5 +102,10 @@ namespace ChartTools.Lyrics
             if (EndPosition is not null)
                 yield return new GlobalEvent((uint)EndPosition, GlobalEventType.PhraseEnd);
         }
+
+        public IEnumerator<Syllable> GetEnumerator() => Syllables.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        private IEnumerable<uint>? GetSyllablePositions() => Syllables is null || Syllables.Count == 0 ? null : Syllables.Select(s => s.Position);
     }
 }

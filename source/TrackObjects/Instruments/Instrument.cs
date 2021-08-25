@@ -1,7 +1,10 @@
 ﻿using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Ini;
+
 using System;
+using System.Collections.Generic;
+
 using DiffEnum = ChartTools.Difficulty;
 
 namespace ChartTools
@@ -45,6 +48,16 @@ namespace ChartTools
             DiffEnum.Expert => GetExpert(),
             _ => throw CommonExceptions.GetUndefinedException(difficulty)
         };
+        public IEnumerable<Track> GetTracks()
+        {
+            foreach (var getter in new Func<Track?>[] { GetEasy, GetMedium, GetHard, GetExpert })
+            {
+                Track? track = getter();
+
+                if (track is not null)
+                    yield return track;
+            }
+        }
 
         #region File reading
         /// <inheritdoc cref="FromFile(string, Instruments, ReadingConfiguration)"/>

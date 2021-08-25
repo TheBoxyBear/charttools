@@ -18,5 +18,7 @@ namespace ChartTools.IO.MIDI
 
         private const string globalEventSequenceName = "EVENTS";
         private const string lyricsSequenceName = "VOCALS";
+
+        private enum NoteMode : byte { Regular, Open, Tap }
     }
 }

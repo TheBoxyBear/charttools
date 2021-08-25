@@ -14,7 +14,7 @@ namespace ChartTools
         /// <summary>
         /// Events specific to the <see cref="Track"/>
         /// </summary>
-        public List<LocalEvent>? LocalEvents { get; set; } = new List<LocalEvent>();
+        public List<LocalEvent>? LocalEvents { get; set; } = new();
         /// <summary>
         /// Sets of star power phrases
         /// </summary>

@@ -32,6 +32,12 @@
         /// </summary>
         Convert
     }
+    public enum ForcedTapPolicy
+    {
+        Ignore,
+        ConvertToTap,
+        ThrowException
+    }
 
     /// <summary>
     /// Configuration object to direct the reading of a file

@@ -160,6 +160,9 @@ namespace ChartTools.IO.MIDI
         }
         private static NonStackableTrackObjectCollection<StandardChord> GetStandardChords(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig)
         {
+            NoteMode mode = NoteMode.Regular;
+            StandardNote[] sustainedNotes = new StandardNote[6]; // Stores references notes gnerated from a NoteON event until they are closed by a NoteOff
+
             Predicate<byte> NoteMatchDifficulty = difficulty switch
             {
                 Difficulty.Easy => n => n / 10 == 6,
@@ -169,7 +172,7 @@ namespace ChartTools.IO.MIDI
                 _ => throw CommonExceptions.GetUndefinedException(difficulty)
             };
 
-            byte difficultyNoteIndexOffset = (byte)(((byte)difficulty + 1) * 2);
+            byte difficultyNoteIndexOffset = (byte)(10 * ((int)difficulty + 6) + (int)difficulty * 2);
             byte GetNoteIndex(byte noteNumber) => (byte)(noteNumber - difficultyNoteIndexOffset);
 
             NonStackableTrackObjectCollection<StandardChord> chords = new();

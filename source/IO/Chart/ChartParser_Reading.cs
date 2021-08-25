@@ -210,29 +210,33 @@ namespace ChartTools.IO.Chart
             else
                 newChord = false;
 
-            // Note
-            if (data.NoteIndex < 5)
-                chord!.Notes.Add(new((DrumsNotes)data.NoteIndex) { SustainLength = data.SustainLength });
-            // Double kick
-            else if (data.NoteIndex == 32)
-                chord!.Notes.Add(new(DrumsNotes.DoubleKick));
-            // Cymbal
-            else if (data.NoteIndex is > 65 and < 69)
+            switch (data.NoteIndex)
             {
-                DrumsNote? note = null;
-                // NoteIndex of the note to set as cymbal
-                byte seekedIndex = (byte)(data.NoteIndex - 63);
+                // Note
+                case < 5:
+                    chord!.Notes.Add(new((DrumsNotes)data.NoteIndex) { SustainLength = data.SustainLength });
+                    break;
+                // Double kick
+                case 32:
+                    chord!.Notes.Add(new(DrumsNotes.DoubleKick));
+                    break;
+                // Cymbal
+                case > 65 and < 69:
+                    DrumsNote? note = null;
+                    // NoteIndex of the note to set as cymbal
+                    byte seekedIndex = (byte)(data.NoteIndex - 63);
 
-                // Find matching note
-                note = chord!.Notes.FirstOrDefault(n => n.NoteIndex == seekedIndex, null, out bool returnedDefault);
+                    // Find matching note
+                    note = chord!.Notes.FirstOrDefault(n => n.NoteIndex == seekedIndex, null, out bool returnedDefault);
 
-                if (returnedDefault)
-                    note!.IsCymbal = true;
-                else
-                {
-                    chord.Notes.Add(new((DrumsNotes)(seekedIndex + 1)) { IsCymbal = true, SustainLength = data.SustainLength });
-                    returnedDefault = false;
-                }
+                    if (returnedDefault)
+                    {
+                        chord.Notes.Add(new((DrumsNotes)(seekedIndex + 1)) { IsCymbal = true, SustainLength = data.SustainLength });
+                        returnedDefault = false;
+                    }
+                    else
+                        note!.IsCymbal = true;
+                    break;
             }
 
             if (newChord)
@@ -288,29 +292,29 @@ namespace ChartTools.IO.Chart
             else
                 newChord = false;
 
-            // White notes
-            if (data.NoteIndex < 3)
-                chord!.Notes.Add(new((GHLNotes)(data.NoteIndex + 4)) { SustainLength = data.SustainLength });
-            // Black 1 and 2
-            else if (data.NoteIndex < 5)
-                chord!.Notes.Add(new((GHLNotes)(data.NoteIndex - 2)) { SustainLength = data.SustainLength });
-            else
-                // Chord modifier or open note or black3
-                switch (data.NoteIndex)
-                {
-                    case 5:
-                        chord!.Modifier |= GHLChordModifier.Forced;
-                        break;
-                    case 6:
-                        chord!.Modifier |= GHLChordModifier.Tap;
-                        break;
-                    case 7:
-                        chord!.Notes.Add(new(GHLNotes.Open) { SustainLength = data.SustainLength });
-                        break;
-                    case 8:
-                        chord!.Notes.Add(new(GHLNotes.Black3) { SustainLength = data.SustainLength });
-                        break;
-                }
+            switch (data.NoteIndex)
+            {
+                // White notes
+                case < 3:
+                    chord!.Notes.Add(new((GHLNotes)(data.NoteIndex + 4)) { SustainLength = data.SustainLength });
+                    break;
+                // Black 1 and 2
+                case < 5:
+                    chord!.Notes.Add(new((GHLNotes)(data.NoteIndex - 2)) { SustainLength = data.SustainLength });
+                    break;
+                case 5:
+                    chord!.Modifier |= GHLChordModifier.Forced;
+                    break;
+                case 6:
+                    chord!.Modifier |= GHLChordModifier.Tap;
+                    break;
+                case 7:
+                    chord!.Notes.Add(new(GHLNotes.Open) { SustainLength = data.SustainLength });
+                    break;
+                case 8:
+                    chord!.Notes.Add(new(GHLNotes.Black3) { SustainLength = data.SustainLength });
+                    break;
+            }
 
             if (newChord)
                 track.Chords.Add(chord!);
@@ -364,23 +368,22 @@ namespace ChartTools.IO.Chart
             else
                 newChord = false;
 
-            // Note
-            if (data.NoteIndex < 5)
-                chord!.Notes.Add(new((StandardNotes)(data.NoteIndex + 1)) { SustainLength = data.SustainLength });
-            // Chord modifier or open notes
-            else
-                switch (data.NoteIndex)
-                {
-                    case 5:
-                        chord!.Modifier |= StandardChordModifier.Forced;
-                        break;
-                    case 6:
-                        chord!.Modifier |= StandardChordModifier.Tap;
-                        break;
-                    case 7:
-                        chord!.Notes.Add(new(StandardNotes.Open) { SustainLength = data.SustainLength });
-                        break;
-                }
+            switch (data.NoteIndex)
+            {
+                // Colored note
+                case < 5:
+                    chord!.Notes.Add(new((StandardNotes)(data.NoteIndex + 1)) { SustainLength = data.SustainLength });
+                    break;
+                case 5:
+                    chord!.Modifier |= StandardChordModifier.Forced;
+                    break;
+                case 6:
+                    chord!.Modifier |= StandardChordModifier.Tap;
+                    break;
+                case 7:
+                    chord!.Notes.Add(new(StandardNotes.Open) { SustainLength = data.SustainLength });
+                    break;
+            }
 
             if (newChord)
                 track.Chords.Add(chord!);

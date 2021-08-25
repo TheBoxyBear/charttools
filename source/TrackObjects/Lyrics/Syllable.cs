@@ -26,15 +26,15 @@
         public bool IsWordEnd
         {
             // The last character is not - or =
-            get => RawText[^1] is not '-' and not '=';
+            get => RawText.Length == 0 || RawText[^1] is not '-' and not '=';
             set
             {
                 if (value)
                 {
-                    if (IsWordEnd)
+                    if (!IsWordEnd)
                         RawText = RawText[..^1];
                 }
-                else if (!IsWordEnd)
+                else if (IsWordEnd)
                     RawText += '-';
             }
         }

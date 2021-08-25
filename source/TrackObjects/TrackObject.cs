@@ -10,7 +10,7 @@ namespace ChartTools
         /// <summary>
         /// Position in beats from the start of the <see cref="Song"/> multiplied by <see cref="Metadata.Resolution"/>
         /// </summary>
-        public uint Position { get; }
+        public uint Position { get; set; }
         /// <summary>
         /// Creates a new instance of <see cref="TrackObject"/>.
         /// </summary>
