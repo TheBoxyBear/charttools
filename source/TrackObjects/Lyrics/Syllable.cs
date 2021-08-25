@@ -20,9 +20,8 @@
         /// </summary>
         public string DisplayedText => RawText.Replace("-", "").Replace('=', '-');
         /// <summary>
-        /// True if is the last syllable or the only syllable of its word
+        /// <see langword="true"/> if is the last syllable or the only syllable of its word
         /// </summary>
-        /// <remarks>Syllable position is based on the syntax of <see cref="RawText"/></remarks>
         public bool IsWordEnd
         {
             // The last character is not - or =
