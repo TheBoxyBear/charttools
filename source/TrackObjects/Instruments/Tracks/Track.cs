@@ -18,7 +18,7 @@ namespace ChartTools
         /// <summary>
         /// Sets of star power phrases
         /// </summary>
-        public NonStackableTrackObjectCollection<StarPowerPhrase> StarPower { get; set; } = new();
+        public UniqueTrackObjectCollection<StarPowerPhrase> StarPower { get; set; } = new();
 
         public abstract IEnumerable<Chord> GetChords();
 

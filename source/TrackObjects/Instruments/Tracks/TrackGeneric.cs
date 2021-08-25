@@ -10,7 +10,7 @@ namespace ChartTools
         /// <summary>
         /// Groups of notes of the same position
         /// </summary>
-        public NonStackableTrackObjectCollection<TChord> Chords { get; } = new();
+        public UniqueTrackObjectCollection<TChord> Chords { get; } = new();
 
         public override IEnumerable<Chord> GetChords() => Chords;
     }

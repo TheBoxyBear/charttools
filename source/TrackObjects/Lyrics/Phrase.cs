@@ -77,7 +77,7 @@ namespace ChartTools.Lyrics
         /// <summary>
         /// Syllables in the <see cref="Phrase"/>
         /// </summary>
-        public NonStackableTrackObjectCollection<Syllable> Syllables { get; set; } = new();
+        public UniqueTrackObjectCollection<Syllable> Syllables { get; set; } = new();
 
         /// <summary>
         /// Creates an instance of <see cref="Phrase"/>

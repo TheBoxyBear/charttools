@@ -115,11 +115,11 @@ namespace ChartTools.IO.MIDI
             return GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[(Instruments)instrument]), GetStandardChords, midiConfig);
         }
 
-        private static Instrument<TChord>? GetInstrument<TChord>(IEnumerable<MidiEvent> events, Func<IEnumerable<MidiEvent>, Difficulty, ReadingConfiguration, NonStackableTrackObjectCollection<TChord>> getChords, ReadingConfiguration config) where TChord : Chord
+        private static Instrument<TChord>? GetInstrument<TChord>(IEnumerable<MidiEvent> events, Func<IEnumerable<MidiEvent>, Difficulty, ReadingConfiguration, UniqueTrackObjectCollection<TChord>> getChords, ReadingConfiguration config) where TChord : Chord
         {
             Instrument<TChord> instrument = new();
             var difficulties = Enum.GetValues<Difficulty>().ToArray();
-            var tasks = new Task<NonStackableTrackObjectCollection<TChord>>[] { Task.Run(() => getChords(events, Difficulty.Expert, config)) }; /*difficulties.Select(d => Task.Run(() => getTrack(events, d, config))).ToArray();*/
+            var tasks = new Task<UniqueTrackObjectCollection<TChord>>[] { Task.Run(() => getChords(events, Difficulty.Expert, config)) }; /*difficulties.Select(d => Task.Run(() => getTrack(events, d, config))).ToArray();*/
 
             (List<LocalEvent> localEvents, List<StarPowerPhrase> starPower) = GetLocalEventsStarPower(events, config);
             bool eventsOrStarPower = localEvents.Count > 0 || starPower.Count > 0;
@@ -132,7 +132,7 @@ namespace ChartTools.IO.MIDI
 
                 for (int i = 0; i < difficulties.Length; i++)
                 {
-                    NonStackableTrackObjectCollection<TChord> chords = tasks[i].Result;
+                    UniqueTrackObjectCollection<TChord> chords = tasks[i].Result;
 
                     if (eventsOrStarPower || chords.Count > 0)
                     {
@@ -150,15 +150,15 @@ namespace ChartTools.IO.MIDI
             return null;
         }
 
-        private static NonStackableTrackObjectCollection<DrumsChord> GetDrumsChords(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig)
+        private static UniqueTrackObjectCollection<DrumsChord> GetDrumsChords(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig)
         {
             return null;
         }
-        private static NonStackableTrackObjectCollection<GHLChord> GetGHLChords(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig)
+        private static UniqueTrackObjectCollection<GHLChord> GetGHLChords(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig)
         {
             return null;
         }
-        private static NonStackableTrackObjectCollection<StandardChord> GetStandardChords(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig)
+        private static UniqueTrackObjectCollection<StandardChord> GetStandardChords(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig)
         {
             NoteMode mode = NoteMode.Regular;
             StandardNote[] sustainedNotes = new StandardNote[6]; // Stores references notes gnerated from a NoteON event until they are closed by a NoteOff
@@ -175,7 +175,7 @@ namespace ChartTools.IO.MIDI
             byte difficultyNoteIndexOffset = (byte)(10 * ((int)difficulty + 6) + (int)difficulty * 2);
             byte GetNoteIndex(byte noteNumber) => (byte)(noteNumber - difficultyNoteIndexOffset);
 
-            NonStackableTrackObjectCollection<StandardChord> chords = new();
+            UniqueTrackObjectCollection<StandardChord> chords = new();
             StandardChord? chord = null;
 
             Dictionary<StandardNotes, StandardChord?> sustainOrigins =
