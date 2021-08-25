@@ -10,7 +10,7 @@ To add ChartTools to your project using Visual Studio, right-click on Dependenci
 
 The DLL contains the latest stable build. To get the latest version, clone tis repository and compile the project or add the project to your solution and add it as a dependency through a project reference. This version may contain more bugs than the pre-built DLL.
 
-If you find any bugs in either version, you can report them in the [Issues section](https://github.com/TheBoxyBear/ChartTools/issues) of the repository.
+If you find any bugs, you can report them in the [Issues section](https://github.com/TheBoxyBear/ChartTools/issues) of the repository.
 
 ## Getting started
 Every element of a chart is stored in an instance of the Song class. It can be initialized by reading a file. The file format is detected automatically using the extension:
