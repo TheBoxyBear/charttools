@@ -20,13 +20,13 @@ namespace ChartTools
         /// <summary>
         /// Set of information about the song not unrelated to instruments, syncing or events
         /// </summary>
-        public Metadata? Metadata { get; set; } = new Metadata();
+        public Metadata? Metadata { get; set; } = new();
         /// <inheritdoc cref="ChartTools.SyncTrack"/>
-        public SyncTrack? SyncTrack { get; set; } = new SyncTrack();
+        public SyncTrack? SyncTrack { get; set; } = new();
         /// <summary>
         /// List of events common to all instruments
         /// </summary>
-        public List<GlobalEvent>? GlobalEvents { get; set; } = new List<GlobalEvent>();
+        public List<GlobalEvent>? GlobalEvents { get; set; } = new();
 
         #region Instruments
         /// <summary>
