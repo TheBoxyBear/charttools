@@ -1,5 +1,4 @@
 ﻿using ChartTools.Lyrics;
-using System;
 
 namespace ChartTools
 {
