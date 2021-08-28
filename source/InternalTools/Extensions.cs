@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security;
-using System.IO;
+﻿using System.Security;
+
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.Lyrics;
@@ -36,6 +33,7 @@ namespace ChartTools.SystemExtensions
         };
     }
 }
+
 namespace ChartTools.SystemExtensions.Linq
 {
     /// <summary>
