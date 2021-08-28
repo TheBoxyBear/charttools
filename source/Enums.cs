@@ -137,4 +137,3 @@ public enum StandardNotes : byte { Open, Green, Red, Yellow, Blue, Orange }
 /// </summary>
 public enum Instruments : byte { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys }
 public enum FileFormat : byte { Chart, Ini, MIDI }
-}

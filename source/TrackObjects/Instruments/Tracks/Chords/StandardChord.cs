@@ -34,7 +34,7 @@ public class StandardChord : Chord<StandardNote, StandardNotes>
     }
 
     /// <inheritdoc/>
-    internal override System.Collections.Generic.IEnumerable<string> GetChartData()
+    internal override IEnumerable<string> GetChartData()
     {
         foreach (StandardNote note in Notes)
             yield return ChartParser.GetNoteData(note.Note == StandardNotes.Open ? (byte)7 : (byte)(note.Note - 1), note.SustainLength);
