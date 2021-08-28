@@ -1,7 +1,7 @@
 # ChartTools
 ChartTools is a C# library using .NET 5 with the purpose of modeling song files for the video game Clone Hero. It currently supports reading of chart and ini files, with MIDI support currently in development.
 
-NOTE: In order to broaden compatibility with modded charts, improve code readibility and insure long-term support, the library is in the process of being ported to .NET 6. While .NET 6 and Visual Studio 2022 are in preview, both .NET versions will be supported, with new features being added to the net6-beta branch before being brought to net5-stable. Once the pewview period is over, the stable branch will be brought to .NET 6.
+NOTE: In order to broaden compatibility with modded charts, improve code readibility and insure long-term support, the library is in the process of being ported to .NET 6. While .NET 6 is in preview, both .NET versions will be supported, with new features being added to the net6-beta branch before being brought to net5-stable. Once the pewview period is over, the stable branch will be brought to .NET 6.
 
 Special thanks to [FireFox](https://github.com/FireFox2000000) for making the Moonscraper editor open-source and to members of the [Moonscraper Discord](https://discord.gg/wdnD83APhE) including but not limited to DarkAngel2096, FireFox, Kanske, mdsitton, Spachi and XEntombmentX for their help in researching.
 
@@ -10,7 +10,7 @@ This library is an independent project not affiliated with Clone Hero or Moonscr
 ## Installation
 To add ChartTools to your project using Visual Studio, right-click on Dependencies under your project from the solution explorer and select "Add Project References...". Click on "Browse" and select ChartTools.dll from the repository. All classes are located under the ChartTools namespace. This version runs on .NET 5.
 
-If you find any bugs, you can report them in the [Issues section](https://github.com/TheBoxyBear/ChartTools/issues) of the repository.
+If you find any bugs, you can report them in the [Issues section](https://github.com/TheBoxyBear/ChartTools/issues) of the repository. Make sure to use the "bug" label.
 
 ## Getting started
 Every element of a chart is stored in an instance of the Song class. It can be initialized by reading a file. The file format is detected automatically using the extension:
