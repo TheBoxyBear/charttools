@@ -32,18 +32,18 @@ Similar to reading a song, metadata can be read from one or multiple files:
 Metadata metadata = Metadata.FromFile(filePath);
 Metadata metadata = Metada.FromFiles(filePath1, filePath2, filePath3...);
 ```
-Files can be .chart or .ini. When reading from multiple files, the provided files can be a mix of different formats, each read based on its extension. The first file has utmost priority and other files are only read to retrieve the missing information, in decreasing order of priority until all properties of the metadata have a value or until the last file is read.
+Files can be .chart or .ini. When reading from multiple files and the extensions can be mixed together. The first file has utmost priority and other files are only read to retrieve the missing information, in decreasing order of priority until all properties of the metadata have a value or until the last file is read.
 
 As a future-proofing method, all unsupported items can be found under UnidentifiedData. This data will onlty be written to the same file format as the one it was read from.
 
 ## Instruments and tracks
-All instrument currently supported are represented using the generic Instrument class. Notes and other information are stored in a track, with each difficulty level being its own track. Each generic instrument contains one track per difficulty setting. A track can be retrieved from a song like so:
+All instrument currently supported are represented using the generic Instrument class. This class contains a track for every difficulty level. A track can be retrieved from a song like so:
 ```c#
 Track<StandardChord> track = song.LeadGuitar.Expert;
 ```
 Notice the use of StandardChord used as a generic type. Instruments are divided in three categories based on the type of chords it uses. These categories are:
 - Standard - Five colored notes
-- Drums - Five colored notes where open notes (kick) can be mixed with regular notes
+- Drums - Five colored with support for double kick and cymbal flags
 - GHL (Guitar Hero Live) - Three black and three white notes
 
 A track is composed of three elements:
@@ -52,7 +52,7 @@ A track is composed of three elements:
 - Local events
 
 ## Chords and notes
-A chord is a set of notes played at the same time. All supported instruments use the generic version of the Chord class where the generic type defines the type of notes contained. The note types are the same as the types of instruments as listed above in the previous section. Each note in a chord must be a different fret/pad and each chord in a track must have a unique position. Trying to add a duplicate note or chord will overwrite the existing one. The following adds an orange note to every chord on a track:
+A chord is a set of notes played at the same time. All supported instruments use the generic version of the Chord class where the generic type defines the type of notes contained. The note types are the same as the types of instruments as listed in thesection. The following adds an orange note to every chord on a track:
 ```c#
 foreach (StandardChord chord in track)
 {
