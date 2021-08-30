@@ -143,9 +143,5 @@ public class Song
     /// Replaces phrase and lyric events from <see cref="GlobalEvents"/> with the ones making up a set of <see cref="Phrase"/>.
     /// </summary>
     /// <param name="phrases">Phrases to use as a replacement</param>
-    public void SetLyrics(IEnumerable<Phrase> phrases)
-    {
-        GlobalEvents ??= new();
-        GlobalEvents = GlobalEvents.SetLyrics(phrases).ToList();
-    }
+    public void SetLyrics(IEnumerable<Phrase> phrases) => GlobalEvents = (GlobalEvents ?? new()).SetLyrics(phrases).ToList();
 }
