@@ -34,7 +34,7 @@ public class DrumsChord : Chord<DrumsNote, DrumsNotes>
     }
 
     /// <inheritdoc/>
-    internal override System.Collections.Generic.IEnumerable<string> GetChartData()
+    internal override IEnumerable<string> GetChartData()
     {
         foreach (DrumsNote note in Notes)
         {
@@ -44,9 +44,7 @@ public class DrumsChord : Chord<DrumsNote, DrumsNotes>
                 yield return ChartParser.GetNoteData((byte)(note.Note + 64), 0);
         }
 
-        if (Modifier != DrumsChordModifier.None)
-        {
-            // Add once accent and ghost are added to Clone Hero
-        }
+        if (Modifier.HasFlag(DrumsChordModifier.Flam))
+            yield return ChartParser.GetNoteData(109, 0);
     }
 }

@@ -7,14 +7,42 @@ namespace ChartTools;
 /// </summary>
 public enum Difficulty : byte { Easy, Medium, Hard, Expert }
 /// <summary>
-/// *Unsupported* Modifier that affects the way the chord can be played
+/// Modifier that affects the way the chord can be played
 /// </summary>
-/// <remarks>Support will be added once accent notes are added to Clone Hero.</remarks>
-[Flags] public enum DrumsChordModifier : byte { None, Accent, Ghost }
+[Flags] public enum DrumsChordModifier : byte
+{
+    None,
+    /// <summary>
+    /// *Unsupported*
+    /// </summary>
+    Accent,
+    /// <summary>
+    /// *Unsupported*
+    /// </summary>
+    Ghost,
+    Flam = 4 }
 /// <summary>
 /// Drums pads and pedals for a <see cref="DrumsNote"/>
 /// </summary>
-public enum DrumsNotes : byte { Kick, Red, Yellow, Blue, Green4Lane_Orange5Lane, Green5Lane, DoubleKick }
+public enum DrumsNotes : byte
+{
+    Kick,
+    Red,
+    Yellow,
+    Blue,
+    /// <summary>
+    /// Green when playing with four pads, orange when playing with five pads
+    /// </summary>
+    Green4Lane_Orange5Lane,
+    /// <summary>
+    /// Green when playing with five pad, otherwise converted to <see cref="Green4Lane_Orange5Lane"/>
+    /// </summary>
+    Green5Lane,
+    /// <summary>
+    /// <see cref="Kick"/> that only appears when playing with multiple pedals
+    /// </summary>
+    DoubleKick
+}
 /// <summary>
 /// Modifier that affects how a <see cref="GHLChord"/> can be played
 /// </summary>

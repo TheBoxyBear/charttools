@@ -231,6 +231,9 @@ internal static partial class ChartParser
                 else
                     note!.IsCymbal = true;
                 break;
+            case 109:
+                chord!.Modifier |= DrumsChordModifier.Flam;
+                break;
         }
 
         if (newChord)

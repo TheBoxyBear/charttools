@@ -27,6 +27,8 @@ public class DrumsNote : Note
         }
     }
 
+    public bool IsKick => Note is DrumsNotes.Kick or DrumsNotes.DoubleKick;
+
     /// <summary>
     /// Creates an instance of <see cref="DrumsNote"/>.
     /// </summary>
