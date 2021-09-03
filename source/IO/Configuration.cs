@@ -38,6 +38,12 @@ public enum ForcedTapPolicy
     ConvertToTap,
     ThrowException
 }
+public enum DuplicateTrackObjectPolicy : byte
+{
+    IncludeFirst,
+    IncludeAll,
+    ThrowException
+}
 
 /// <summary>
 /// Configuration object to direct the reading of a file
@@ -46,6 +52,10 @@ public class ReadingConfiguration
 {
     /// <inheritdoc cref="SoloNoStarPowerPolicy"/>
     public SoloNoStarPowerPolicy SoloNoStarPowerRule { get; set; } = SoloNoStarPowerPolicy.Convert;
+    /// <summary>
+    /// *Unsupported*
+    /// </summary>
+    public DuplicateTrackObjectPolicy DuplicateTrackObjectPolicy { get; set; }
 }
 
 public class WritingConfiguration
@@ -56,4 +66,8 @@ public class WritingConfiguration
     public TrackObjectSource EventSource { get; set; }
     /// <inheritdoc cref="TrackObjectSource"/>
     public TrackObjectSource StarPowerSource { get; set; }
+    /// <summary>
+    /// *Unsupported*
+    /// </summary>
+    public DuplicateTrackObjectPolicy DuplicateTrackObjectPolicy { get; set; }
 }
