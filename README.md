@@ -3,7 +3,7 @@ ChartTools is a C# library using .NET 5 with the purpose of modeling song files 
 
 NOTE: In order to broaden compatibility with modded charts, improve code readibility and insure long-term support, the library is in the process of being ported to .NET 6. While .NET 6 is in preview, both .NET versions will be supported, with new features being added to the net6-beta branch before being brought to net5-stable. Once the pewview period is over, the stable branch will be brought to .NET 6.
 
-Special thanks to [FireFox](https://github.com/FireFox2000000) for making the Moonscraper editor open-source and to members of the [Moonscraper Discord](https://discord.gg/wdnD83APhE) including but not limited to DarkAngel2096, drums, FireFox, Kanske, mdsitton, Spachi and XEntombmentX for their help in researching.
+Special thanks to [FireFox](https://github.com/FireFox2000000) for making the Moonscraper editor open-source and to members of the [Moonscraper Discord](https://discord.gg/wdnD83APhE) including but not limited to DarkAngel2096, drumbs, FireFox, Kanske, mdsitton, Spachi and XEntombmentX for their help in researching.
 
 This library is an independent project not affiliated with Clone Hero or Moonscraper.
 
