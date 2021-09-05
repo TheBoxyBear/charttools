@@ -3,13 +3,8 @@
 /// <summary>
 /// Note played by drums
 /// </summary>
-public class DrumsNote : Note
+public class DrumsNote : Note<DrumsNotes>
 {
-    /// <summary>
-    /// Pad to hit
-    /// </summary>
-    public DrumsNotes Note => (DrumsNotes)NoteIndex;
-
     private bool _isCymbal = false;
     /// <summary>
     /// <see langword="true"/> if the cymbal must be hit instead of the pad on supported drum sets
@@ -20,22 +15,14 @@ public class DrumsNote : Note
         get => _isCymbal;
         set
         {
-            if ((Note == DrumsNotes.Red || Note == DrumsNotes.Green5Lane) && value)
+            if ((Fret == DrumsNotes.Red || Fret == DrumsNotes.Green5Lane) && value)
                 throw new InvalidOperationException("Red and 5-lane green notes cannot be cymbal.");
 
             _isCymbal = value;
         }
     }
 
-    public bool IsKick => Note is DrumsNotes.Kick or DrumsNotes.DoubleKick;
+    internal DrumsNote(DrumsNotes note) : base(note) { }
 
-    /// <summary>
-    /// Creates an instance of <see cref="DrumsNote"/>.
-    /// </summary>
-    /// <param name="note">Value of <see cref="Note"/></param>
-    public DrumsNote(DrumsNotes note) : base((byte)note)
-    {
-        if (!Enum.IsDefined(note))
-            throw new ArgumentException($"Note value is not defined.", nameof(note));
-    }
+    public bool IsKick => Fret is DrumsNotes.Kick or DrumsNotes.DoubleKick;
 }

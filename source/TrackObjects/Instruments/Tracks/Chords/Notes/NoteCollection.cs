@@ -5,7 +5,7 @@ namespace ChartTools;
 /// <summary>
 /// Set of notes played simultaneously
 /// </summary>
-public class NoteCollection<TNote, TNoteEnum> : UniqueList<TNote> where TNote : Note where TNoteEnum : struct, Enum
+public class NoteCollection<TNote, TNoteEnum> : UniqueList<TNote> where TNote : Note<TNoteEnum> where TNoteEnum : struct, Enum
 {
     /// <summary>
     /// If <see langword="true"/>, trying to combine an open note with other notes will remove the current ones.
