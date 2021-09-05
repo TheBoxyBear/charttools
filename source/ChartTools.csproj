@@ -1,17 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <nullable>enable</nullable>
     <Company>TheBoxyBear</Company>
     <Authors>TheBoxyBear</Authors>
     <PackageProjectUrl>https://github.com/TheBoxyBear/ChartTools</PackageProjectUrl>
     <RepositoryUrl>https://github.com/TheBoxyBear/ChartTools</RepositoryUrl>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <NeutralLanguage>en-CA</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Melanchall.DryWetMidi" Version="5.2.0" />
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Melanchall.DryWetMidi" Version="5.2.1" />
   </ItemGroup>
 
 </Project>
