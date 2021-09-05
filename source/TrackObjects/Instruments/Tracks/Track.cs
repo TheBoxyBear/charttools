@@ -49,23 +49,19 @@ public abstract class Track
     }
 
     #region File reading
-    public static Track FromFile(string path, Instruments instrument, Difficulty difficulty) => FromFile(path, instrument, difficulty, new());
     /// <summary>
     /// Reads a track from a file
     /// </summary>
     /// <inheritdoc cref="ChartParser.ReadTrack(string, Instruments, Difficulty, ReadingConfiguration)"/>
-    public static Track FromFile(string path, Instruments instrument, Difficulty difficulty, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".chart", (p, c) => ChartParser.ReadTrack(p, instrument, difficulty, c)));
+    public static Track FromFile(string path, Instruments instrument, Difficulty difficulty, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, config, (".chart", (p, c) => ChartParser.ReadTrack(p, instrument, difficulty, c)));
 
-    public static Track<DrumsChord> FromFile(string path, Difficulty difficulty) => FromFile(path, difficulty, new());
     /// <inheritdoc cref="ChartParser.ReadDrumsTrack(string, Difficulty, ReadingConfiguration)"/>
-    public static Track<DrumsChord> FromFile(string path, Difficulty difficulty, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadDrumsTrack(p, difficulty, config)));
+    public static Track<DrumsChord> FromFile(string path, Difficulty difficulty, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadDrumsTrack(p, difficulty, config)));
 
-    public static Track<GHLChord> FromFile(string path, GHLInstrument instrument, Difficulty difficulty) => FromFile(path, instrument, difficulty, new());
     /// <inheritdoc cref="ChartParser.ReadTrack(string, GHLInstrument, Difficulty)"/>
-    public static Track<GHLChord> FromFile(string path, GHLInstrument instrument, Difficulty difficulty, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadTrack(p, instrument, difficulty, config)));
+    public static Track<GHLChord> FromFile(string path, GHLInstrument instrument, Difficulty difficulty, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadTrack(p, instrument, difficulty, config)));
 
-    public static Track<StandardChord> FromFile(string path, StandardInstrument instrument, Difficulty difficulty) => FromFile(path, instrument, difficulty, new());
     /// <inheritdoc cref="ChartParser.ReadTrack(string, StandardInstrument, Difficulty)"/>
-    public static Track<StandardChord> FromFile(string path, StandardInstrument instrument, Difficulty difficulty, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadTrack(p, instrument, difficulty, config)));
+    public static Track<StandardChord> FromFile(string path, StandardInstrument instrument, Difficulty difficulty, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadTrack(p, instrument, difficulty, config)));
     #endregion
 }

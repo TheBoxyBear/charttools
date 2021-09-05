@@ -9,7 +9,7 @@ public class DrumsChord : Chord<DrumsNote, DrumsNotes>
 {
     /// <inheritdoc cref="DrumsChordModifier"/>
     public DrumsChordModifier Modifier { get; set; } = DrumsChordModifier.None;
-    protected override bool openExclusivity => false;
+    protected override bool OpenExclusivity => false;
 
     /// <inheritdoc cref="Chord(uint)"/>
     public DrumsChord(uint position) : base(position) { }

@@ -18,7 +18,7 @@ internal partial class ChartParser
     /// <param name="path">Path of the file to write</param>
     /// <param name="song">Song to write</param>
     /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-    internal static void WriteSong(string path, Song song, WritingConfiguration config)
+    internal static void WriteSong(string path, Song song, WritingConfiguration? config)
     {
         if (song is null)
             return;
@@ -27,7 +27,7 @@ internal partial class ChartParser
         List<Task<IEnumerable<string>>> tasks = new()
         {
             Task.Run(() => GetPartLines("Song", GetMetadataLines(song.Metadata))),
-            Task.Run(() => GetPartLines("SyncTrack", GetSyncTrackLines(song.SyncTrack))),
+            Task.Run(() => GetPartLines("SyncTrack", GetSyncTrackLines(song.SyncTrack, config))),
             Task.Run(() => GetPartLines("Events", song.GlobalEvents?.Select(e => GetEventLine(e)))),
             Task.Run(() => GetInstrumentLines(song.Drums, Instruments.Drums, config))
         };
@@ -63,12 +63,12 @@ internal partial class ChartParser
     /// <param name="path">Path of the file to write</param>
     /// <param name="inst">Instrument object to write</param>
     /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/exception"/>
-    internal static void ReplaceDrums(string path, Instrument<DrumsChord> inst, WritingConfiguration config) => ReplaceInstrument(path, inst, Instruments.Drums, config);
+    internal static void ReplaceDrums(string path, Instrument<DrumsChord> inst, WritingConfiguration? config) => ReplaceInstrument(path, inst, Instruments.Drums, config);
     /// <summary>Replaces a GHL instrument in a chart file.</summary>
     /// <param name="path">Path of the file to write</param>
     /// <param name="data">Tuple containing the Instrument object to write and the instrument to assign it to</param>
     /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/exception"/>
-    internal static void ReplaceInstrument(string path, (Instrument<GHLChord> inst, GHLInstrument instEnum) data, WritingConfiguration config)
+    internal static void ReplaceInstrument(string path, (Instrument<GHLChord> inst, GHLInstrument instEnum) data, WritingConfiguration? config)
     {
         if (!Enum.IsDefined(data.instEnum))
             throw CommonExceptions.GetUndefinedException(data.instEnum);
@@ -79,7 +79,7 @@ internal partial class ChartParser
     /// <param name="data">Tuple containing the Instrument object to write and the instrument to assign it to</param>
     /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/param"/>
     /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/exception"/>
-    internal static void ReplaceInstrument(string path, (Instrument<StandardChord> inst, StandardInstrument instEnum) data, WritingConfiguration config)
+    internal static void ReplaceInstrument(string path, (Instrument<StandardChord> inst, StandardInstrument instEnum) data, WritingConfiguration? config)
     {
         if (!Enum.IsDefined(data.instEnum))
             throw CommonExceptions.GetUndefinedException(data.instEnum);
@@ -94,7 +94,7 @@ internal partial class ChartParser
     /// <param name="instEnum">Instrument to replace</param>
     /// <exception cref="ArgumentNullException"/>
     /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-    private static void ReplaceInstrument<TChord>(string path, Instrument<TChord> inst, Instruments instEnum, WritingConfiguration config) where TChord : Chord
+    private static void ReplaceInstrument<TChord>(string path, Instrument<TChord> inst, Instruments instEnum, WritingConfiguration? config) where TChord : Chord
     {
         if (inst is null)
             throw new ArgumentNullException(nameof(inst));
@@ -117,14 +117,14 @@ internal partial class ChartParser
     /// <param name="path">Path of the file to write</param>
     /// <param name="events">Events to use as a replacement</param>
     /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-    internal static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events, WritingConfiguration config) => ReplacePart(path, events.Select(e => GetEventLine(e)), "Events");
+    internal static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events, WritingConfiguration? config) => ReplacePart(path, events.Select(e => GetEventLine(e)), "Events");
     /// <summary>
     /// Replaces the sync track in a file.
     /// </summary>
     /// <param name="path">Path of the file to write</param>
     /// <param name="syncTrack">Sync track to write</param>
     /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-    internal static void ReplaceSyncTrack(string path, SyncTrack syncTrack) => ReplacePart(path, GetSyncTrackLines(syncTrack), "SyncTrack");
+    internal static void ReplaceSyncTrack(string path, SyncTrack syncTrack, WritingConfiguration? config) => ReplacePart(path, GetSyncTrackLines(syncTrack, config), "SyncTrack");
     /// <summary>
     /// Replaces a track in a file.
     /// </summary>
@@ -132,7 +132,7 @@ internal partial class ChartParser
     /// <param name="track">Track to use as a replacement</param>
     /// <param name="partName">Name of the part containing the track to replace</param>
     /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-    internal static void ReplaceTrack<TChord>(string path, (Track<TChord> track, Instruments instrument, Difficulty difficulty) data, WritingConfiguration config) where TChord : Chord => ReplacePart(path, GetTrackLines(data.track, config), GetFullPartName(data.instrument, data.difficulty));
+    internal static void ReplaceTrack<TChord>(string path, (Track<TChord> track, Instruments instrument, Difficulty difficulty) data, WritingConfiguration? config) where TChord : Chord => ReplacePart(path, GetTrackLines(data.track, config), GetFullPartName(data.instrument, data.difficulty));
 
     /// <summary>
     /// Replaces a part in a file.
@@ -157,10 +157,12 @@ internal partial class ChartParser
     /// <param name="instrument">Instrument to get the lines for</param>
     /// <param name="instEnum">Instrument to define the part names</param>
     /// <returns>Enumerable of all the lines making up the parts for the instrument</returns>
-    private static IEnumerable<string> GetInstrumentLines<TChord>(Instrument<TChord>? instrument, Instruments instEnum, WritingConfiguration config) where TChord : Chord
+    private static IEnumerable<string> GetInstrumentLines<TChord>(Instrument<TChord>? instrument, Instruments instEnum, WritingConfiguration? config) where TChord : Chord
     {
         if (instrument is null)
             yield break;
+
+        config ??= DefaultWriteConfig;
 
         // Apply sharing policies
         instrument.ShareLocalEvents(config.EventSource);
@@ -186,10 +188,12 @@ internal partial class ChartParser
     /// </summary>
     /// <returns>Enumerable of all the lines making up the inside of the part</returns>
     /// <param name="track">Track to get the lines of</param>
-    private static IEnumerable<string> GetTrackLines<TChord>(Track<TChord> track, WritingConfiguration config) where TChord : Chord
+    private static IEnumerable<string> GetTrackLines<TChord>(Track<TChord> track, WritingConfiguration? config) where TChord : Chord
     {
         if (track is null)
             yield break;
+
+        config ??= DefaultWriteConfig;
 
         // Convert solo and soloend events into star power
         if (config.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && track.StarPower.Count == 0)
@@ -297,10 +301,12 @@ internal partial class ChartParser
     /// </summary>
     /// <returns>Enumerable of all the lines</returns>
     /// <param name="syncTrack">Sync track to get the liens of</param>
-    private static IEnumerable<string> GetSyncTrackLines(SyncTrack? syncTrack)
+    private static IEnumerable<string> GetSyncTrackLines(SyncTrack? syncTrack, WritingConfiguration? config)
     {
         if (syncTrack is null)
             yield break;
+
+        config ??= DefaultWriteConfig;
 
         // Loop through time signatures and tempo markers, picked using the lowest position
         foreach (TrackObject trackObject in new Collections.Alternating.OrderedAlternatingEnumerable<uint, TrackObject>(t => t.Position, syncTrack.TimeSignatures, syncTrack.Tempo))

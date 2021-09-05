@@ -8,7 +8,11 @@ namespace ChartTools.IO.Chart;
 /// </summary>
 internal static partial class ChartParser
 {
-    internal static readonly ReadingConfiguration DefaultReadConfig = new() { SoloNoStarPowerRule = SoloNoStarPowerPolicy.Convert };
+    internal static readonly ReadingConfiguration DefaultReadConfig = new()
+    {
+        DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
+        SoloNoStarPowerRule = SoloNoStarPowerPolicy.Convert
+    };
 
     /// <summary>
     /// Reads a chart file.
@@ -16,7 +20,7 @@ internal static partial class ChartParser
     /// <returns>Instance of <see cref="Song"/> containing all song data</returns>
     /// <param name="path">Path of the file to read</param>
     /// <inheritdoc cref="ReadFile(string)" path="/exception"/>
-    public static Song ReadSong(string path, ReadingConfiguration config)
+    public static Song ReadSong(string path, ReadingConfiguration? config)
     {
         string[] lines = ReadFile(path).ToArray();
 
@@ -27,8 +31,8 @@ internal static partial class ChartParser
         List<Task> tasks = new()
         {
             Task.Run(() => song.Metadata = GetMetadata(lines)),
-            Task.Run(() => song.GlobalEvents = GetGlobalEvents(lines).ToList()),
-            Task.Run(() => song.SyncTrack = GetSyncTrack(lines)),
+            Task.Run(() => song.GlobalEvents = GetGlobalEvents(lines, config).ToList()),
+            Task.Run(() => song.SyncTrack = GetSyncTrack(lines, config)),
             Task.Run(() => song.Drums = GetInstrument(lines, part => GetDrumsTrack(part, config), partNames[Instruments.Drums]))
         };
         // Add a thread to read each GHL instrument
@@ -171,7 +175,7 @@ internal static partial class ChartParser
     /// <inheritdoc cref="GetDrumsTrack(IEnumerable{string}, Difficulty, ReadingConfiguration), GHLInstrument, Difficulty, ReadingConfiguration)" path="/exception"/>
     /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
     /// <inheritdoc cref="GetFullPartName(Instruments, Difficulty)(IEnumerable{string}, string)" path="/exception"/>
-    public static Track<DrumsChord>? ReadDrumsTrack(string path, Difficulty difficulty, ReadingConfiguration config) => GetDrumsTrack(ReadFile(path), difficulty, config);
+    public static Track<DrumsChord>? ReadDrumsTrack(string path, Difficulty difficulty, ReadingConfiguration? config) => GetDrumsTrack(ReadFile(path), difficulty, config);
     /// <summary>
     /// Gets a drums track from the contents of a chart file.
     /// </summary>
@@ -183,7 +187,7 @@ internal static partial class ChartParser
     /// <inheritdoc cref="GetDrumsTrack(IEnumerable{string}, ReadingConfiguration)" path="/exception"/>
     /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
     /// <inheritdoc cref="GetFullPartName(Instruments, Difficulty)(IEnumerable{string}, string)" path="/exception"/>
-    public static Track<DrumsChord>? GetDrumsTrack(IEnumerable<string> lines, Difficulty difficulty, ReadingConfiguration config) => GetDrumsTrack(GetPart(lines, GetFullPartName(Instruments.Drums, difficulty)), config);
+    public static Track<DrumsChord>? GetDrumsTrack(IEnumerable<string> lines, Difficulty difficulty, ReadingConfiguration? config) => GetDrumsTrack(GetPart(lines, GetFullPartName(Instruments.Drums, difficulty)), config);
     /// <summary>
     /// Gets all data from a portion of a chart file containing a drums track.
     /// </summary>
@@ -192,7 +196,7 @@ internal static partial class ChartParser
     /// </returns>
     /// <param name="part">Lines of the file belonging to the track</param>
     /// <inheritdoc cref="GetTrack{TChord}(IEnumerable{string}, Func{Track{TChord}, TChord, TrackObjectEntry, NoteData, bool, TChord}, ReadingConfiguration)" path="/exception"/>
-    public static Track<DrumsChord>? GetDrumsTrack(IEnumerable<string> part, ReadingConfiguration config) => GetTrack<DrumsChord>(part, (track, chord, entry, data, newChord) =>
+    public static Track<DrumsChord>? GetDrumsTrack(IEnumerable<string> part, ReadingConfiguration? config) => GetTrack<DrumsChord>(part, (track, chord, entry, data, newChord) =>
     {
         // Body of noteCase in GetTrack call
 
@@ -255,7 +259,7 @@ internal static partial class ChartParser
     /// <inheritdoc cref="GetGHLTrack(IEnumerable{string}, GHLInstrument, Difficulty, ReadingConfiguration)" path="/exception"/>
     /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
     /// <inheritdoc cref="GetFullPartName(Instruments, Difficulty)(IEnumerable{string}, string)" path="/exception"/>
-    public static Track<GHLChord>? ReadTrack(string path, GHLInstrument instrument, Difficulty difficulty, ReadingConfiguration config) => GetGHLTrack(ReadFile(path), instrument, difficulty, config);
+    public static Track<GHLChord>? ReadTrack(string path, GHLInstrument instrument, Difficulty difficulty, ReadingConfiguration? config) => GetGHLTrack(ReadFile(path), instrument, difficulty, config);
     /// <summary>
     /// Gets a Guitar Hero Live track from the contents of a chart file.
     /// </summary>
@@ -268,7 +272,7 @@ internal static partial class ChartParser
     /// <inheritdoc cref="GetGHLTrack(IEnumerable{string}, GHLInstrument, Difficulty, ReadingConfiguration)" path="/exception"/>
     /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
     /// <inheritdoc cref="GetFullPartName(Instruments, Difficulty)(IEnumerable{string}, string)" path="/exception"/>
-    private static Track<GHLChord>? GetGHLTrack(IEnumerable<string> lines, GHLInstrument instrument, Difficulty difficulty, ReadingConfiguration config) => GetGHLTrack(GetPart(lines, GetFullPartName((Instruments)instrument, difficulty)), config);
+    private static Track<GHLChord>? GetGHLTrack(IEnumerable<string> lines, GHLInstrument instrument, Difficulty difficulty, ReadingConfiguration? config) => GetGHLTrack(GetPart(lines, GetFullPartName((Instruments)instrument, difficulty)), config);
     /// <summary>
     /// Gets all data from a portion of a chart file containing a Guitar Hero Live track.
     /// </summary>
@@ -277,7 +281,7 @@ internal static partial class ChartParser
     /// </returns>
     /// <param name="part">Lines in the file belonging to the track</param>
     /// <inheritdoc cref="GetTrack{TChord}(IEnumerable{string}, Func{Track{TChord}, TChord, TrackObjectEntry, NoteData, bool, TChord}, ReadingConfiguration)" path="/exception"/>
-    private static Track<GHLChord>? GetGHLTrack(IEnumerable<string> part, ReadingConfiguration config) => GetTrack<GHLChord>(part, (track, chord, entry, data, newChord) =>
+    private static Track<GHLChord>? GetGHLTrack(IEnumerable<string> part, ReadingConfiguration? config) => GetTrack<GHLChord>(part, (track, chord, entry, data, newChord) =>
     {
         // Body of noteCase in GetTrack call
 
@@ -353,7 +357,7 @@ internal static partial class ChartParser
     /// </returns>
     /// <param name="part">Lines in the file belonging to the track</param>
     /// <inheritdoc cref="GetTrack{TChord}(IEnumerable{string}, Func{Track{TChord}, TChord, TrackObjectEntry, NoteData, bool, TChord}, ReadingConfiguration)" path="/exception"/>
-    private static Track<StandardChord>? GetStandardTrack(IEnumerable<string> part, ReadingConfiguration config) => GetTrack<StandardChord>(part, (track, chord, entry, data, newChord) =>
+    private static Track<StandardChord>? GetStandardTrack(IEnumerable<string> part, ReadingConfiguration? config) => GetTrack<StandardChord>(part, (track, chord, entry, data, newChord) =>
     {
         // Body of noteCase in GetTrack call
 
@@ -398,8 +402,9 @@ internal static partial class ChartParser
     /// <param name="part">Lines in the file belonging to the track</param>
     /// <param name="noteCase">Function that handles entries containing note data. Must return the same chord received as a parameter.</param>
     /// <exception cref="FormatException"/>
-    private static Track<TChord>? GetTrack<TChord>(IEnumerable<string> part, Func<Track<TChord>, TChord?, TrackObjectEntry, NoteData, bool, TChord> noteCase, ReadingConfiguration config) where TChord : Chord
+    private static Track<TChord>? GetTrack<TChord>(IEnumerable<string> part, Func<Track<TChord>, TChord?, TrackObjectEntry, NoteData, bool, TChord> noteCase, ReadingConfiguration? config) where TChord : Chord
     {
+        config ??= DefaultReadConfig;
         Track<TChord> track = new();
 
         TChord? chord = null;
@@ -601,7 +606,7 @@ internal static partial class ChartParser
     /// <returns>Enumerable of <see cref="Phrase"/> containing the lyrics from the file</returns>
     /// <param name="path">Path of the file to read</param>
     /// <inheritdoc cref="ReadGlobalEvents(string)(string[])" path="/exception"/>
-    public static IEnumerable<Phrase> ReadLyrics(string path) => ReadGlobalEvents(path).GetLyrics();
+    public static IEnumerable<Phrase> ReadLyrics(string path, ReadingConfiguration? config) => ReadGlobalEvents(path, config).GetLyrics();
 
     /// <summary>
     /// Reads the global events from a chart file.
@@ -610,7 +615,7 @@ internal static partial class ChartParser
     /// <param name="path">Path of the file the read</param>
     /// <inheritdoc cref="GetGlobalEvents(string[])" path="/exception"/>
     /// <inheritdoc cref="ReadFile(string)" path="/exception"/>
-    public static IEnumerable<GlobalEvent> ReadGlobalEvents(string path) => GetGlobalEvents(ReadFile(path).ToArray());
+    public static IEnumerable<GlobalEvent> ReadGlobalEvents(string path, ReadingConfiguration? config) => GetGlobalEvents(ReadFile(path), config);
     /// <summary>
     /// Gets the global events from the contents of a chart file.
     /// </summary>
@@ -618,8 +623,10 @@ internal static partial class ChartParser
     /// <returns>Enumerable of <see cref="GlobalEvent"/></returns>
     /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
     /// <inheritdoc cref="TrackObjectEntry(string)" path="/exception"/>
-    private static IEnumerable<GlobalEvent> GetGlobalEvents(string[] lines)
+    private static IEnumerable<GlobalEvent> GetGlobalEvents(IEnumerable<string> lines, ReadingConfiguration? config)
     {
+        config ??= default;
+
         foreach (string line in GetPart(lines, "Events"))
         {
             TrackObjectEntry entry;
@@ -640,7 +647,7 @@ internal static partial class ChartParser
     /// <param name="path">Path of the file to read</param>
     /// <inheritdoc cref="GetSyncTrack(string[])" path="/exception"/>
     /// <inheritdoc cref="ReadFile(string)" path="/exception"/>
-    public static SyncTrack? ReadSyncTrack(string path) => GetSyncTrack(ReadFile(path).ToArray());
+    public static SyncTrack? ReadSyncTrack(string path, ReadingConfiguration? config) => GetSyncTrack(ReadFile(path).ToArray(), config);
     /// <summary>
     /// Gets the sync track from the contents of a chart file.
     /// </summary>
@@ -651,8 +658,9 @@ internal static partial class ChartParser
     /// <exception cref="FormatException"/>
     /// <inheritdoc cref="TrackObjectEntry(string)" path="/exception"/>
     /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
-    private static SyncTrack? GetSyncTrack(string[] lines)
+    private static SyncTrack? GetSyncTrack(string[] lines, ReadingConfiguration? config)
     {
+        config ??= DefaultReadConfig;
         SyncTrack syncTrack = new();
 
         foreach (string line in GetPart(lines, "SyncTrack"))

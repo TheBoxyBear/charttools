@@ -201,8 +201,6 @@ public class GlobalEvent : Event
         _ => globalTypesDictionary[type]
     };
 
-    /// <inheritdoc cref="ChartParser.ReadGlobalEvents(string)"/>
-    public static IEnumerable<GlobalEvent> FromFile(string path) => ExtensionHandler.Read(path, (".chart", ChartParser.ReadGlobalEvents));
     /// <inheritdoc cref="ChartParser.ReplaceGlobalEvents(string, IEnumerable{GlobalEvent})"/>
-    public static void ToFile(string path, IEnumerable<GlobalEvent> events, WritingConfiguration config) => ExtensionHandler.Write(path, events, config, (".chart", ChartParser.ReplaceGlobalEvents));
+    public static void ToFile(string path, IEnumerable<GlobalEvent> events, WritingConfiguration? config = default) => ExtensionHandler.Write(path, events, config, (".chart", ChartParser.ReplaceGlobalEvents));
 }

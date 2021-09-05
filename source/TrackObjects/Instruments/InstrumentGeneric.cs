@@ -49,19 +49,17 @@ public class Instrument<TChord> : Instrument where TChord : Chord
             TrackObjectSource.Medium => Medium?.LocalEvents,
             TrackObjectSource.Hard => Hard?.LocalEvents,
             TrackObjectSource.Expert => Expert?.LocalEvents,
-            TrackObjectSource.Merge => new Track<TChord>?[] { Easy, Medium, Hard, Expert }.NonNull().SelectMany(t => t.LocalEvents).Distinct(),
+            TrackObjectSource.Merge => new Track<TChord>?[] { Easy, Medium, Hard, Expert }.NonNull().SelectMany(t => t.LocalEvents!).Distinct(),
             _ => throw CommonExceptions.GetUndefinedException(source)
         }))?.ToArray();
 
         if (events is null || events.Length == 0)
             return;
 
-#pragma warning disable S1121 // Assignments should not be made from within sub-expressions
         (Easy ??= new()).LocalEvents = new List<LocalEvent>(events!);
         (Medium ??= new()).LocalEvents = new List<LocalEvent>(events!);
         (Hard ??= new()).LocalEvents = new List<LocalEvent>(events!);
         (Expert ??= new()).LocalEvents = new List<LocalEvent>(events!);
-#pragma warning restore S1121 // Assignments should not be made from within sub-expressions
     }
     /// <summary>
     /// Gives all tracks the same star power
@@ -84,11 +82,9 @@ public class Instrument<TChord> : Instrument where TChord : Chord
         if (starPower is null || starPower.Length == 0)
             return;
 
-#pragma warning disable S1121 // Assignments should not be made from within sub-expressions
         (Easy ??= new()).StarPower = new(starPower.Length, starPower!);
         (Medium ??= new()).StarPower = new(starPower.Length, starPower!);
         (Hard ??= new()).StarPower = new(starPower.Length, starPower!);
         (Expert ??= new()).StarPower = new(starPower.Length, starPower!);
-#pragma warning restore S1121 // Assignments should not be made from within sub-expressions
     }
 }

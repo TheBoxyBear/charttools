@@ -9,7 +9,7 @@ public class StandardChord : Chord<StandardNote, StandardNotes>
 {
     /// <inheritdoc cref="StandardChordModifier"/>
     public StandardChordModifier Modifier { get; set; } = StandardChordModifier.None;
-    protected override bool openExclusivity => true;
+    protected override bool OpenExclusivity => true;
 
     /// <inheritdoc cref="Chord(uint)"/>
     public StandardChord(uint position) : base(position) { }

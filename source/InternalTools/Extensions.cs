@@ -437,23 +437,17 @@ namespace ChartTools
                 Instrument.WriteDifficulty(path, (Instruments)instrument, inst.Difficulty.Value);
         }
 
-        /// <inheritdoc cref="ToFile(Instrument{DrumsChord}, string, WritingConfiguration)"/>
-        public static void ToFile(this Instrument<DrumsChord> inst, string path) => ToFile(inst, path, new());
         /// <summary>
         /// Replaces drums in a file.
         /// </summary>
         /// <inheritdoc cref="ChartParser.ReplaceDrums(string, Instrument{DrumsChord}, WritingConfiguration)" path="/param"/>
         /// <inheritdoc cref="ChartParser.ReplaceDrums(string, Instrument{DrumsChord}, WritingConfiguration)" path="/exception"/>
         /// <inheritdoc cref="ExtensionHandler.Write{T, TConfig}(string, T, TConfig, (string extension, Action{string, T, TConfig} writeMethod)[])" path="/exception"/>
-        public static void ToFile(this Instrument<DrumsChord> inst, string path, WritingConfiguration config) => ExtensionHandler.Write(path, inst, config, (".chart", ChartParser.ReplaceDrums));
+        public static void ToFile(this Instrument<DrumsChord> inst, string path, WritingConfiguration? config = default) => ExtensionHandler.Write(path, inst, config, (".chart", ChartParser.ReplaceDrums));
 
-        /// <inheritdoc cref="ChartParser.ReplaceInstrument(string, (Instrument{GHLChord} inst, GHLInstrument instEnum), WritingConfiguration)" path="param"/>
-        /// <inheritdoc cref="ChartParser.ReplaceInstrument(string, (Instrument{GHLChord} inst, GHLInstrument instEnum), WritingConfiguration)" path="exception"/>
-        /// <param name="instrument">Instrument to assign the data to</param>
-        public static void ToFile(this Instrument<GHLChord> inst, string path, GHLInstrument instrument, WritingConfiguration config) => ExtensionHandler.Write(path, (inst, instrument), config, (".chart", ChartParser.ReplaceInstrument));
+        public static void ToFile(this Instrument<GHLChord> inst, string path, GHLInstrument instrument, WritingConfiguration? config = default) => ExtensionHandler.Write(path, (inst, instrument), config, (".chart", ChartParser.ReplaceInstrument));
 
-        /// <inheritdoc cref="ToFile(Instrument{GHLChord}, string)"/>
-        public static void ToFile(this Instrument<StandardChord> inst, string path, StandardInstrument instrument, WritingConfiguration config) => ExtensionHandler.Write(path, (inst, instrument), config, (".chart", ChartParser.ReplaceInstrument));
+        public static void ToFile(this Instrument<StandardChord> inst, string path, StandardInstrument instrument, WritingConfiguration? config = default) => ExtensionHandler.Write(path, (inst, instrument), config, (".chart", ChartParser.ReplaceInstrument));
     }
 
     public static class ChordExtensions
@@ -478,9 +472,7 @@ namespace ChartTools
         /// The exception that is thrown when a method is called with <see langword="null"/> as a parameter for which <see langword="null"/> is not an accepted value
         /// </summary>
         [Obsolete("Replaced with ArgumentNullException")]
-#pragma warning disable S3925 // "ISerializable" should be implemented correctly
         public class ParameterNullException : Exception
-#pragma warning restore S3925 // "ISerializable" should be implemented correctly
         {
             /// <summary>
             /// Default value of <see cref="MessageTemplate"/>
@@ -525,7 +517,6 @@ namespace ChartTools
     /// </summary>
     public static class TrackExtensions
     {
-        public static void ToFile(this Track<DrumsChord> track, string path, Difficulty difficulty) => ToFile(track, path, difficulty, new());
         /// <summary>
         /// Writes the <see cref="Track{TChord}"/> to a file.
         /// </summary>
@@ -539,35 +530,28 @@ namespace ChartTools
         /// <exception cref="UnauthorizedAccessException"/>
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="SecurityException"/>
-        public static void ToFile(this Track<DrumsChord> track, string path, Difficulty difficulty, WritingConfiguration config) => ExtensionHandler.Write(path, (track, Instruments.Drums, difficulty), config, (".chart", ChartParser.ReplaceTrack));
+        public static void ToFile(this Track<DrumsChord> track, string path, Difficulty difficulty, WritingConfiguration? config = default) => ExtensionHandler.Write(path, (track, Instruments.Drums, difficulty), config, (".chart", ChartParser.ReplaceTrack));
 
-        public static void ToFile(this Track<GHLChord> track, string path, GHLInstrument instrument, Difficulty difficulty) => ToFile(track, path, instrument, difficulty, new());
         /// <inheritdoc cref="ToFile(Track{DrumsChord}, string, Difficulty)"/>
         /// <param name="instrument">Instrument to assign the <see cref="Track{TChord}"/> to</param>
-        public static void ToFile(this Track<GHLChord> track, string path, GHLInstrument instrument, Difficulty difficulty, WritingConfiguration config) => ExtensionHandler.Write(path, (track, (Instruments)instrument, difficulty), config, (".chart", ChartParser.ReplaceTrack));
+        public static void ToFile(this Track<GHLChord> track, string path, GHLInstrument instrument, Difficulty difficulty, WritingConfiguration? config = default) => ExtensionHandler.Write(path, (track, (Instruments)instrument, difficulty), config, (".chart", ChartParser.ReplaceTrack));
 
-        public static void ToFile(this Track<StandardChord> track, string path, StandardInstrument instrument, Difficulty difficulty) => ToFile(track, path, instrument, difficulty, new());
         /// <inheritdoc cref="ToFile(Track{GHLChord}, string, Difficulty)"/>
-        public static void ToFile(this Track<StandardChord> track, string path, StandardInstrument instrument, Difficulty difficulty, WritingConfiguration config) => ExtensionHandler.Write(path, (track, (Instruments)instrument, difficulty), config, (".chart", ChartParser.ReplaceTrack));
+        public static void ToFile(this Track<StandardChord> track, string path, StandardInstrument instrument, Difficulty difficulty, WritingConfiguration? config = default) => ExtensionHandler.Write(path, (track, (Instruments)instrument, difficulty), config, (".chart", ChartParser.ReplaceTrack));
     }
 
     /// <summary>
-    /// Provides additional methods to <see cref="Event"/>
+    /// Provides additional methods for <see cref="GlobalEvent"/>
     /// </summary>
-    public static class EventExtensions
+    public static class GlobalEventExtensions
     {
         /// <summary>
         /// Writes the global events to a file
         /// </summary>
         /// <param name="events">Events to write</param>
         /// <param name="path">Path of the file to write</param>
-        public static void ToFile(this IEnumerable<GlobalEvent> events, string path, WritingConfiguration config) => ExtensionHandler.Write(path, events, config, (".chart", ChartParser.ReplaceGlobalEvents));
-    }
-    /// <summary>
-    /// Provides additional methods for <see cref="GlobalEvent"/>
-    /// </summary>
-    public static class GlobalEventExtensions
-    {
+        public static void ToFile(this IEnumerable<GlobalEvent> events, string path, WritingConfiguration? config = default) => ExtensionHandler.Write(path, events, config, (".chart", ChartParser.ReplaceGlobalEvents));
+
         /// <summary>
         /// Gets the lyrics from an enumerable of <see cref="GlobalEvent"/>
         /// </summary>

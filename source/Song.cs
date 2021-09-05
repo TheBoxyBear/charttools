@@ -100,9 +100,7 @@ public class Song
     /// <exception cref="IOException"/>
     /// <exception cref="OutOfMemoryException"/>
     /// <exception cref="CommonExceptions.ParameterNullException"/>
-    public static Song FromFile(string path) => FromFile(path, new());
-    /// <inheritdoc cref="FromFile(string)"/>
-    public static Song FromFile(string path, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".mid", MIDIParser.ReadSong), (".chart", ChartParser.ReadSong), (".ini", (p, config) => new Song { Metadata = IniParser.ReadMetadata(p) }));
+    public static Song FromFile(string path, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, config, (".mid", MIDIParser.ReadSong), (".chart", ChartParser.ReadSong), (".ini", (p, config) => new Song { Metadata = IniParser.ReadMetadata(p) }));
 
     /// <summary>
     /// Writes the <see cref="Song"/> to a file.
@@ -115,9 +113,7 @@ public class Song
     /// <exception cref="UnauthorizedAccessException"/>
     /// <exception cref="NotSupportedException"/>
     /// <exception cref="System.Security.SecurityException"/>
-    public void ToFile(string path) => ToFile(path, new());
-    /// <inheritdoc cref="ToFile(string)"/>
-    public void ToFile(string path, WritingConfiguration config) => ExtensionHandler.Write(path, this, config, (".chart", ChartParser.WriteSong));
+    public void ToFile(string path, WritingConfiguration? config = default) => ExtensionHandler.Write(path, this, config, (".chart", ChartParser.WriteSong));
 
     /// <summary>
     /// Reads the estimated instrument difficulties from a ini file.

@@ -9,7 +9,7 @@ public class GHLChord : Chord<GHLNote, GHLNotes>
 {
     /// <inheritdoc cref="GHLChordModifier"/>
     public GHLChordModifier Modifier { get; set; } = GHLChordModifier.None;
-    protected override bool openExclusivity => true;
+    protected override bool OpenExclusivity => true;
 
     /// <inheritdoc cref="Chord(uint)"/>
     public GHLChord(uint position) : base(position) { }
