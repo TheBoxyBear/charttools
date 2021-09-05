@@ -1,9 +1,25 @@
-﻿namespace ChartTools;
+﻿using System;
 
-/// <summary>
-/// Note played by a standard five-fret instrument
-/// </summary>
-public class StandardNote : Note<StandardNotes>
+namespace ChartTools
 {
-    public StandardNote(StandardNotes note) : base(note) { }
+    /// <summary>
+    /// Note played by a standard five-fret instrument
+    /// </summary>
+    public class StandardNote : Note
+    {
+        /// <summary>
+        /// Fret to press
+        /// </summary>
+        public StandardNotes Note => (StandardNotes)NoteIndex;
+
+        /// <summary>
+        /// Creates an instance of <see cref="StandardNote"/>.
+        /// </summary>
+        /// <param name="note">Value of <see cref="Note"/></param>
+        public StandardNote(StandardNotes note) : base((byte)note)
+        {
+            if (!Enum.IsDefined(note))
+                throw new ArgumentException($"Note value is not defined.", nameof(note));
+        }
+    }
 }
