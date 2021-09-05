@@ -1,10 +1,8 @@
-*.sln
 /debug
 /ChartTools
 /ChartTools.Test
 /TestResults
-/.vs
-/source/.vs
 /source/bin
 /source/obj
-source/TrackObjects/Instruments/Tracks/Chords/Notes/VocalsNote.cs
+/charttools.tests/bin
+/charttools.tests/obj
