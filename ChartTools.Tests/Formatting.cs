@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ChartTools.Tests
+﻿namespace ChartTools.Tests
 {
     public static class Formatting
     {

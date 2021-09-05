@@ -2,9 +2,6 @@
 using ChartTools.SystemExtensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using System;
-using System.Linq;
-
 namespace ChartTools.Tests
 {
     [TestClass]

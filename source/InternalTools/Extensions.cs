@@ -69,18 +69,6 @@ namespace ChartTools.SystemExtensions.Linq
         /// </summary>
         public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) => source.Where(t => t is not null)!;
 
-        /// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
-        /// <param name="defaultValue">Value to return if no item meets the condition</param>
-        public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue)
-        {
-            if (predicate is null)
-                throw new ArgumentNullException(nameof(predicate));
-
-            foreach (T item in source)
-                if (predicate(item))
-                    return item;
-            return defaultValue;
-        }
         /// <inheritdoc cref="FirstOrDefault{T}(IEnumerable{T}, Predicate{T}, T)"/>
         /// <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
         public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue, out bool returnedDefault)

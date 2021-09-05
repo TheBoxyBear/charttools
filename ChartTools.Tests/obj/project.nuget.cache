@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "F5OsROZ1TPd3UJNqgW3BcyATX7ZFJhydcQXbGW1IOuu6RHxOmldg9h4RF+jK6cY6z06gs/DLeDyXqbgomX6CJQ==",
+  "dgSpecHash": "lPgvMS9CFpxfbVtN3jTW8zV3GGdkDCj6h+zH+8fWy+pVcJjO5bYj08XybHlx3dRe9WLWucVU6ctvvWaQRSkIDg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Gaming\\Documents\\GitHub\\ChartTools\\ChartTools.Tests\\ChartTools.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Gaming\\.nuget\\packages\\coverlet.collector\\3.0.2\\coverlet.collector.3.0.2.nupkg.sha512",
-    "C:\\Users\\Gaming\\.nuget\\packages\\melanchall.drywetmidi\\5.2.0\\melanchall.drywetmidi.5.2.0.nupkg.sha512",
+    "C:\\Users\\Gaming\\.nuget\\packages\\melanchall.drywetmidi\\5.2.1\\melanchall.drywetmidi.5.2.1.nupkg.sha512",
     "C:\\Users\\Gaming\\.nuget\\packages\\microsoft.codecoverage\\16.9.4\\microsoft.codecoverage.16.9.4.nupkg.sha512",
     "C:\\Users\\Gaming\\.nuget\\packages\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",
     "C:\\Users\\Gaming\\.nuget\\packages\\microsoft.net.test.sdk\\16.9.4\\microsoft.net.test.sdk.16.9.4.nupkg.sha512",

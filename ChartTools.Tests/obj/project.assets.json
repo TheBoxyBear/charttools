@@ -1,14 +1,14 @@
 {
   "version": 3,
   "targets": {
-    "net5.0": {
+    "net6.0": {
       "coverlet.collector/3.0.2": {
         "type": "package",
         "build": {
           "build/netstandard1.0/coverlet.collector.targets": {}
         }
       },
-      "Melanchall.DryWetMidi/5.2.0": {
+      "Melanchall.DryWetMidi/5.2.1": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Melanchall.DryWetMidi.dll": {}
@@ -1672,9 +1672,9 @@
       },
       "ChartTools/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
+        "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "Melanchall.DryWetMidi": "5.2.0"
+          "Melanchall.DryWetMidi": "5.2.1"
         },
         "compile": {
           "bin/placeholder/ChartTools.dll": {}
@@ -1737,10 +1737,10 @@
         "coverlet.collector.nuspec"
       ]
     },
-    "Melanchall.DryWetMidi/5.2.0": {
-      "sha512": "CH3ytIOa0Dl2e6dNSObg0Th7hjkw0FWX9uEbG6U52Q7jpRVokljkVerqhDZ2BguQy4SuAfKxnQF3azmRk6p6Zw==",
+    "Melanchall.DryWetMidi/5.2.1": {
+      "sha512": "LMtff2kMFZJEhE8KXzaNye1oWyHyGaAu6sp/Taf45M5K+ZjEtWGZM4NmTX6bwLWfWj0e5oITFoQwrTONgothCQ==",
       "type": "package",
-      "path": "melanchall.drywetmidi/5.2.0",
+      "path": "melanchall.drywetmidi/5.2.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1749,7 +1749,7 @@
         "lib/net45/Melanchall.DryWetMidi.xml",
         "lib/netstandard2.0/Melanchall.DryWetMidi.dll",
         "lib/netstandard2.0/Melanchall.DryWetMidi.xml",
-        "melanchall.drywetmidi.5.2.0.nupkg.sha512",
+        "melanchall.drywetmidi.5.2.1.nupkg.sha512",
         "melanchall.drywetmidi.nuspec"
       ]
     },
@@ -6149,7 +6149,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net5.0": [
+    "net6.0": [
       "ChartTools >= 1.0.0",
       "MSTest.TestAdapter >= 2.2.3",
       "MSTest.TestFramework >= 2.2.3",
@@ -6160,8 +6160,7 @@
   "packageFolders": {
     "C:\\Users\\Gaming\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files (x86)\\Progress\\ToolboxNuGetPackages": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Program Files (x86)\\Progress\\ToolboxNuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
@@ -6174,26 +6173,24 @@
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files (x86)\\Progress\\ToolboxNuGetPackages",
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Program Files (x86)\\Progress\\ToolboxNuGetPackages"
       ],
       "configFilePaths": [
         "C:\\Users\\Gaming\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Telerik UI for WinForms.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Telerik UI for WinForms.config"
       ],
       "originalTargetFrameworks": [
-        "net5.0"
+        "net6.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "projectReferences": {
             "C:\\Users\\Gaming\\Documents\\GitHub\\ChartTools\\source\\ChartTools.csproj": {
               "projectPath": "C:\\Users\\Gaming\\Documents\\GitHub\\ChartTools\\source\\ChartTools.csproj"
@@ -6208,8 +6205,8 @@
       }
     },
     "frameworks": {
-      "net5.0": {
-        "targetAlias": "net5.0",
+      "net6.0": {
+        "targetAlias": "net6.0",
         "dependencies": {
           "MSTest.TestAdapter": {
             "target": "Package",
@@ -6243,7 +6240,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100-preview.7.21379.14\\RuntimeIdentifierGraph.json"
       }
     }
   }
