@@ -362,7 +362,48 @@ namespace ChartTools.SystemExtensions.Linq
                 source.Remove(item);
         }
 
-// Methods present in .NET 6 but needed for .NET builds
+        /// <summary>
+        /// Finds the items for which a function returns the smallest or greatest value based on a comparison.
+        /// </summary>
+        /// <param name="source">Items to find the minimum or maximum of</param>
+        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
+        /// <param name="comparison">Function that returns <see langword="true"/> if the second item defeats the first</param>
+        private static IEnumerable<T> ManyMinMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector, Func<TKey, TKey, bool> comparison) where TKey : IComparable<TKey>
+        {
+            TKey minMaxKey;
+
+            using (IEnumerator<T> enumerator = source.GetEnumerator())
+            {
+                if (!enumerator.MoveNext())
+                    throw new ArgumentException("The enumerable has no items.", nameof(source));
+
+                minMaxKey = selector(enumerator.Current);
+
+                while (enumerator.MoveNext())
+                {
+                    TKey key = selector(enumerator.Current);
+
+                    if (comparison(key, minMaxKey))
+                        minMaxKey = key;
+                }
+            }
+            return source.Where(t => selector(t).CompareTo(minMaxKey) == 0);
+        }
+        /// <summary>
+        /// Finds the items for which a function returns the smallest value.
+        /// </summary>
+        /// <param name="source">Items to find the minimum or maximum of</param>
+        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
+        public static IEnumerable<T> ManyMinBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) < 0);
+        /// <summary>
+        /// Finds the items for which a function returns the greatest value.
+        /// </summary>
+        /// <param name="source">Items to find the minimum or maximum of</param>
+        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
+        public static IEnumerable<T> ManyMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) > 0);
+    }
+
+    // Methods present in .NET 6 but needed for .NET builds
 #if NET5_0
         /// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
         /// <param name="defaultValue">Value to return if no item meets the condition</param>
@@ -443,7 +484,7 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
         public static T MaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => MinMaxBy(source, selector, (key, mmKey) => key.CompareTo(mmKey) > 0);
 #endif
-    }
+}
 }
 
 namespace ChartTools
