@@ -94,8 +94,8 @@ chords.CutSustains() // Cuts short sustains that exceed the position of the next
 chords.CutLengths() // Cuts short star power phrases that exceed the start of the next phrase
 
 // Sorts and removes redundant markers
-syncTrack.Tempo.RemoveUneeded();
-syncTrack.TimeSignatures.RemoveUneeded();
+syncTrack.Tempo.RemoveUnneeded();
+syncTrack.TimeSignatures.RemoveUnneeded();
 ```
 ## Writing files
 Finally, changes can be saved to a file using the instance or extension ToFile method of most components. The format is based on the extension of the file. For instruments and tracks, the existing element will be overwritten or added while keeping the rest of the file if it already exists.

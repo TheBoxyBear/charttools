@@ -1,19 +1,20 @@
-﻿namespace ChartTools;
-
-/// <summary>
-/// Set of notes played simultaneously
-/// </summary>
-public abstract class Chord<TNote, TNoteEnum> : Chord where TNote : Note where TNoteEnum : struct, System.Enum
+﻿namespace ChartTools
 {
-    protected abstract bool OpenExclusivity { get; }
-
     /// <summary>
-    /// Notes in the <see cref="Chord{TNote}"/>
+    /// Set of notes played simultaneously
     /// </summary>
-    public NoteCollection<TNote, TNoteEnum> Notes { get; init; }
+    public abstract class Chord<TNote, TNoteEnum> : Chord where TNote : Note where TNoteEnum : struct, System.Enum
+    {
+        protected abstract bool OpenExclusivity { get; }
 
-    /// <inheritdoc cref="Chord(uint)" path="/param"/>
-    protected Chord(uint position) : base(position) => Notes = new(OpenExclusivity);
+        /// <summary>
+        /// Notes in the <see cref="Chord{TNote}"/>
+        /// </summary>
+        public NoteCollection<TNote, TNoteEnum> Notes { get; init; }
 
-    public override IEnumerable<Note> GetNotes() => Notes;
+        /// <inheritdoc cref="Chord(uint)" path="/param"/>
+        protected Chord(uint position) : base(position) => Notes = new(OpenExclusivity);
+
+        public override IEnumerable<Note> GetNotes() => Notes;
+    }
 }
