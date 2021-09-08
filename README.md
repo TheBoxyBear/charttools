@@ -54,8 +54,8 @@ A track is composed of three elements:
 ## Chords and notes
 A chord is a set of notes played at the same time. All supported instruments use the generic version of the Chord class where the generic type defines the type of notes contained. The note types are the same as the types of instruments as listed in the section. The types for notes are:
 
-- Note<StandardFrets>
-- Note<GHLFrets>
+- Note\<StandardFrets>
+- Note\<GHLFrets>
 - DrumsNotes
 
 Drums is an exception case where a class is specifically defined as it contains exclusive properties. It inherits from Note<DrumsFret>.
