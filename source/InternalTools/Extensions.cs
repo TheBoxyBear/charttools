@@ -562,13 +562,13 @@ namespace ChartTools
 
     public static class ChordExtensions
     {
-        public static void Add(this NoteCollection<DrumsNote, DrumsNotes> notes, DrumsNotes note) => notes.Add(new DrumsNote(note));
-        public static void Add(this NoteCollection<GHLNote, GHLNotes> notes, GHLNotes note) => notes.Add(new GHLNote(note));
-        public static void Add(this NoteCollection<StandardNote, StandardNotes> notes, StandardNotes note) => notes.Add(new StandardNote(note));
+        public static void Add(this NoteCollection<DrumsNote, DrumsFret> notes, DrumsFret note) => notes.Add(new DrumsNote(note));
+        public static void Add(this NoteCollection<Note<GHLFret>, GHLFret> notes, GHLFret note) => notes.Add(new Note<GHLFret>(note));
+        public static void Add(this NoteCollection<Note<StandardFret>, StandardFret> notes, StandardFret note) => notes.Add(new Note<StandardFret>(note));
 
-        public static bool Contains(this NoteCollection<DrumsNote, DrumsNotes> notes, DrumsNotes note) => notes.Any(n => n.Fret == note);
-        public static bool Contains(this NoteCollection<GHLNote, GHLNotes> notes, GHLNotes note) => notes.Any(n => n.Fret == note);
-        public static bool Contains(this NoteCollection<StandardNote, StandardNotes> notes, StandardNotes note) => notes.Any(n => n.Fret == note);
+        public static bool Contains(this NoteCollection<DrumsNote, DrumsFret> notes, DrumsFret note) => notes.Any(n => n.Fret == note);
+        public static bool Contains(this NoteCollection<Note<GHLFret>, GHLFret> notes, GHLFret note) => notes.Any(n => n.Fret == note);
+        public static bool Contains(this NoteCollection<Note<StandardFret>, StandardFret> notes, StandardFret note) => notes.Any(n => n.Fret == note);
     }
 
     /// <summary>

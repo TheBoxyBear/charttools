@@ -5,7 +5,7 @@ namespace ChartTools
     /// <summary>
     /// Set of notes played simultaneously by drums
     /// </summary>
-    public class DrumsChord : Chord<DrumsNote, DrumsNotes>
+    public class DrumsChord : Chord<DrumsNote, DrumsFret>
     {
         /// <inheritdoc cref="DrumsChordModifier"/>
         public DrumsChordModifier Modifier { get; set; } = DrumsChordModifier.None;
@@ -24,12 +24,12 @@ namespace ChartTools
                 Notes.Add(note);
         }
         /// <inheritdoc cref="DrumsChord(uint, DrumsNote[])"/>
-        public DrumsChord(uint position, params DrumsNotes[] notes) : base(position)
+        public DrumsChord(uint position, params DrumsFret[] notes) : base(position)
         {
             if (notes is null)
                 throw new ArgumentNullException(nameof(notes));
 
-            foreach (DrumsNotes note in notes)
+            foreach (DrumsFret note in notes)
                 Notes.Add(new DrumsNote(note));
         }
 
@@ -38,7 +38,7 @@ namespace ChartTools
         {
             foreach (DrumsNote note in Notes)
             {
-                yield return ChartParser.GetNoteData(note.Fret == DrumsNotes.DoubleKick ? (byte)32 : note.NoteIndex, note.SustainLength);
+                yield return ChartParser.GetNoteData(note.Fret == DrumsFret.DoubleKick ? (byte)32 : note.NoteIndex, note.SustainLength);
 
                 if (note.IsCymbal)
                     yield return ChartParser.GetNoteData((byte)(note.Fret + 64), 0);

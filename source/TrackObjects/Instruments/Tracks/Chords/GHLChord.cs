@@ -5,7 +5,7 @@ namespace ChartTools
     /// <summary>
     /// Set of notes played simultaneously by a Guitar Hero Live instrument
     /// </summary>
-    public class GHLChord : Chord<GHLNote, GHLNotes>
+    public class GHLChord : Chord<Note<GHLFret>, GHLFret>
     {
         /// <inheritdoc cref="GHLChordModifier"/>
         public GHLChordModifier Modifier { get; set; } = GHLChordModifier.None;
@@ -15,37 +15,37 @@ namespace ChartTools
         public GHLChord(uint position) : base(position) { }
         /// <inheritdoc cref="GHLChord(uint)"/>
         /// <param name="notes">Notes to add</param>
-        public GHLChord(uint position, params GHLNote[] notes) : base(position)
+        public GHLChord(uint position, params Note<GHLFret>[] notes) : base(position)
         {
             if (notes is null)
                 throw new ArgumentNullException(nameof(notes));
 
-            foreach (GHLNote note in notes)
+            foreach (Note<GHLFret> note in notes)
                 Notes.Add(note);
         }
         /// <inheritdoc cref="GHLChord(uint, GHLNote[])"/>
-        public GHLChord(uint position, params GHLNotes[] notes) : base(position)
+        public GHLChord(uint position, params GHLFret[] notes) : base(position)
         {
             if (notes is null)
                 throw new ArgumentNullException(nameof(notes));
 
-            foreach (GHLNotes note in notes)
-                Notes.Add(new GHLNote(note));
+            foreach (GHLFret note in notes)
+                Notes.Add(new Note<GHLFret>(note));
         }
 
         /// <inheritdoc/>
         internal override System.Collections.Generic.IEnumerable<string> GetChartData()
         {
-            foreach (GHLNote note in Notes)
+            foreach (Note<GHLFret> note in Notes)
                 yield return ChartParser.GetNoteData(note.Fret switch
                 {
-                    GHLNotes.Open => 7,
-                    GHLNotes.Black1 => 3,
-                    GHLNotes.Black2 => 4,
-                    GHLNotes.Black3 => 8,
-                    GHLNotes.White1 => 0,
-                    GHLNotes.White2 => 1,
-                    GHLNotes.White3 => 2,
+                    GHLFret.Open => 7,
+                    GHLFret.Black1 => 3,
+                    GHLFret.Black2 => 4,
+                    GHLFret.Black3 => 8,
+                    GHLFret.White1 => 0,
+                    GHLFret.White2 => 1,
+                    GHLFret.White3 => 2,
                 }, note.SustainLength);
 
             if (Modifier.HasFlag(GHLChordModifier.Forced))

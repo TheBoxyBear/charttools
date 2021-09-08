@@ -26,7 +26,7 @@ namespace ChartTools
     /// <summary>
     /// Drums pads and pedals for a <see cref="DrumsNote"/>
     /// </summary>
-    public enum DrumsNotes : byte
+    public enum DrumsFret : byte
     {
         Kick,
         Red,
@@ -57,7 +57,7 @@ namespace ChartTools
     /// <summary>
     /// Frets for a <see cref="GHLNote"/>
     /// </summary>
-    public enum GHLNotes : byte { Open, Black1, Black2, Black3, White1, White2, White3 }
+    public enum GHLFret : byte { Open, Black1, Black2, Black3, White1, White2, White3 }
     /// <summary>
     /// Types of <see cref="GlobalEvent"/>
     /// </summary>
@@ -161,7 +161,7 @@ namespace ChartTools
     /// <summary>
     /// Frets for a <see cref="StandardNote"/>
     /// </summary>
-    public enum StandardNotes : byte { Open, Green, Red, Yellow, Blue, Orange }
+    public enum StandardFret : byte { Open, Green, Red, Yellow, Blue, Orange }
     /// <summary>
     /// All instruments
     /// </summary>

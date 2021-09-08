@@ -198,53 +198,53 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="GetTrack{TChord}(IEnumerable{string}, Func{Track{TChord}, TChord, TrackObjectEntry, NoteData, bool, TChord}, ReadingConfiguration)" path="/exception"/>
         public static Track<DrumsChord>? GetDrumsTrack(IEnumerable<string> part, ReadingConfiguration? config) => GetTrack<DrumsChord>(part, (track, chord, entry, data, newChord) =>
         {
-        // Body of noteCase in GetTrack call
+            // Body of noteCase in GetTrack call
 
-        // Find the parent chord or create it
-        if (chord is null)
-                chord = new(entry.Position);
-            else if (entry.Position != chord.Position)
-                chord = track.Chords.FirstOrDefault(c => c.Position == entry.Position, new(entry.Position), out newChord);
-            else
-                newChord = false;
+            // Find the parent chord or create it
+            if (chord is null)
+                    chord = new(entry.Position);
+                else if (entry.Position != chord.Position)
+                    chord = track.Chords.FirstOrDefault(c => c.Position == entry.Position, new(entry.Position), out newChord);
+                else
+                    newChord = false;
 
-            switch (data.NoteIndex)
-            {
-            // Note
-            case < 5:
-                    chord!.Notes.Add(new((DrumsNotes)data.NoteIndex) { SustainLength = data.SustainLength });
-                    break;
-            // Double kick
-            case 32:
-                    chord!.Notes.Add(new(DrumsNotes.DoubleKick));
-                    break;
-            // Cymbal
-            case > 65 and < 69:
-                    DrumsNote? note = null;
-                // NoteIndex of the note to set as cymbal
-                byte seekedIndex = (byte)(data.NoteIndex - 63);
+                switch (data.NoteIndex)
+                {
+                // Note
+                case < 5:
+                        chord!.Notes.Add(new((DrumsFret)data.NoteIndex) { SustainLength = data.SustainLength });
+                        break;
+                // Double kick
+                case 32:
+                        chord!.Notes.Add(new(DrumsFret.DoubleKick));
+                        break;
+                // Cymbal
+                case > 65 and < 69:
+                        DrumsNote? note = null;
+                    // NoteIndex of the note to set as cymbal
+                    byte seekedIndex = (byte)(data.NoteIndex - 63);
 
-                // Find matching note
-                note = chord!.Notes.FirstOrDefault(n => n.NoteIndex == seekedIndex, null, out bool returnedDefault);
+                    // Find matching note
+                    note = chord!.Notes.FirstOrDefault(n => n.NoteIndex == seekedIndex, null, out bool returnedDefault);
 
-                    if (returnedDefault)
-                    {
-                        chord.Notes.Add(new((DrumsNotes)(seekedIndex + 1)) { IsCymbal = true, SustainLength = data.SustainLength });
-                        returnedDefault = false;
-                    }
-                    else
-                        note!.IsCymbal = true;
-                    break;
-                case 109:
-                    chord!.Modifier |= DrumsChordModifier.Flam;
-                    break;
-            }
+                        if (returnedDefault)
+                        {
+                            chord.Notes.Add(new((DrumsFret)(seekedIndex + 1)) { IsCymbal = true, SustainLength = data.SustainLength });
+                            returnedDefault = false;
+                        }
+                        else
+                            note!.IsCymbal = true;
+                        break;
+                    case 109:
+                        chord!.Modifier |= DrumsChordModifier.Flam;
+                        break;
+                }
 
-            if (newChord)
-                track.Chords.Add(chord!);
+                if (newChord)
+                    track.Chords.Add(chord!);
 
-        // Instance gets lost if not returned back to GetTrack
-        return chord!;
+            // Instance gets lost if not returned back to GetTrack
+            return chord!;
         }, config);
 
         /// <summary>
@@ -297,11 +297,11 @@ namespace ChartTools.IO.Chart
             {
             // White notes
             case < 3:
-                    chord!.Notes.Add(new((GHLNotes)(data.NoteIndex + 4)) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new((GHLFret)(data.NoteIndex + 4)) { SustainLength = data.SustainLength });
                     break;
             // Black 1 and 2
             case < 5:
-                    chord!.Notes.Add(new((GHLNotes)(data.NoteIndex - 2)) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new((GHLFret)(data.NoteIndex - 2)) { SustainLength = data.SustainLength });
                     break;
                 case 5:
                     chord!.Modifier |= GHLChordModifier.Forced;
@@ -310,10 +310,10 @@ namespace ChartTools.IO.Chart
                     chord!.Modifier |= GHLChordModifier.Tap;
                     break;
                 case 7:
-                    chord!.Notes.Add(new(GHLNotes.Open) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new(GHLFret.Open) { SustainLength = data.SustainLength });
                     break;
                 case 8:
-                    chord!.Notes.Add(new(GHLNotes.Black3) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new(GHLFret.Black3) { SustainLength = data.SustainLength });
                     break;
             }
 
@@ -373,7 +373,7 @@ namespace ChartTools.IO.Chart
             {
             // Colored note
             case < 5:
-                    chord!.Notes.Add(new((StandardNotes)(data.NoteIndex + 1)) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new((StandardFret)(data.NoteIndex + 1)) { SustainLength = data.SustainLength });
                     break;
                 case 5:
                     chord!.Modifier |= StandardChordModifier.Forced;
@@ -382,7 +382,7 @@ namespace ChartTools.IO.Chart
                     chord!.Modifier |= StandardChordModifier.Tap;
                     break;
                 case 7:
-                    chord!.Notes.Add(new(StandardNotes.Open) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new(StandardFret.Open) { SustainLength = data.SustainLength });
                     break;
             }
 

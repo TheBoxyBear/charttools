@@ -156,7 +156,7 @@ namespace ChartTools.IO.MIDI
         private static UniqueTrackObjectCollection<StandardChord> GetStandardChords(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig)
         {
             NoteMode mode = NoteMode.Regular;
-            StandardNote[] sustainedNotes = new StandardNote[6]; // Stores references notes gnerated from a NoteON event until they are closed by a NoteOff
+            Note<StandardFret>[] sustainedNotes = new Note<StandardFret>[6]; // Stores references notes gnerated from a NoteON event until they are closed by a NoteOff
 
             Predicate<byte> NoteMatchDifficulty = difficulty switch
             {
@@ -173,9 +173,9 @@ namespace ChartTools.IO.MIDI
             UniqueTrackObjectCollection<StandardChord> chords = new();
             StandardChord? chord = null;
 
-            Dictionary<StandardNotes, StandardChord?> sustainOrigins =
-                new(from note in Enum.GetValues<StandardNotes>()
-                    select new KeyValuePair<StandardNotes, StandardChord?>(note, null));
+            Dictionary<StandardFret, StandardChord?> sustainOrigins =
+                new(from note in Enum.GetValues<StandardFret>()
+                    select new KeyValuePair<StandardFret, StandardChord?>(note, null));
 
             bool newChord = true;
 
@@ -202,7 +202,7 @@ namespace ChartTools.IO.MIDI
                             continue;
 
                         uint position = (uint)noteOnEvent.DeltaTime;
-                        StandardNotes noteEnum = (StandardNotes)GetNoteIndex(noteOnEvent.NoteNumber);
+                        StandardFret noteEnum = (StandardFret)GetNoteIndex(noteOnEvent.NoteNumber);
 
                         GetParentChord(noteOnEvent, position);
                         sustainOrigins[noteEnum] = chord;
@@ -220,12 +220,12 @@ namespace ChartTools.IO.MIDI
                         position = (uint)noteOffEvent.DeltaTime;
                         GetParentChord(noteOffEvent, position);
 
-                        noteEnum = (StandardNotes)GetNoteIndex(noteOffEvent.NoteNumber);
+                        noteEnum = (StandardFret)GetNoteIndex(noteOffEvent.NoteNumber);
 
                         if (sustainOrigins.ContainsKey(noteEnum))
                         {
                             StandardChord? ch = sustainOrigins[noteEnum];
-                            StandardNote? note = ch?.Notes[noteEnum];
+                            Note<StandardFret>? note = ch?.Notes[noteEnum];
 
                             if (note is not null)
                                 note.SustainLength = position - ch!.Position;

@@ -1,7 +1,7 @@
 # ChartTools
 ChartTools is a C# library using .NET 5 with the purpose of modeling song files for the video game Clone Hero. It currently supports reading of chart and ini files, with MIDI support currently in development.
 
-NOTE: In order to future-proof the library for features added to Clone Hero, improve code readibility and insure long-term support, the library is in the process of being ported to .NET 6. While .NET 6 is in preview, both .NET versions will be supported, with new features being added to the net6-beta branch before being brought to net5-stable. Once the preview period is over, the stable branch will be brought to .NET 6.
+NOTE: In order to future-proof the library for features added to Clone Hero, improve code readability and insure long-term support, the library is in the process of being ported to .NET 6. While .NET 6 is in preview, both .NET versions will be supported, with new features being added to the net6-beta branch before being brought to net5-stable. Once the preview period is over, the stable branch will be brought to .NET 6.
 
 Special thanks to [FireFox](https://github.com/FireFox2000000) for making the Moonscraper editor open-source and to members of the [Clone Hero Discord](https://discord.gg/clonehero) and [Moonscraper Discord](https://discord.gg/wdnD83APhE) including but not limited to DarkAngel2096, drumbs, FireFox, Kanske, mdsitton, Spachi and XEntombmentX for their help in researching.
 
@@ -34,7 +34,7 @@ Metadata metadata = Metada.FromFiles(filePath1, filePath2, filePath3...);
 ```
 Files can be .chart or .ini. When reading from multiple files and the extensions can be mixed together. The first file has utmost priority and other files are only read to retrieve the missing information, in decreasing order of priority until all properties of the metadata have a value or until the last file is read.
 
-As a future-proofing method, all unsupported items can be found under UnidentifiedData. This data will onlty be written to the same file format as the one it was read from.
+As a future-proofing method, all unsupported items can be found under UnidentifiedData. This data will only be written to the same file format as the one it was read from.
 
 ## Instruments and tracks
 All instrument currently supported are represented using the generic Instrument class. This class contains a track for every difficulty level. A track can be retrieved from a song like so:
@@ -52,13 +52,21 @@ A track is composed of three elements:
 - Local events
 
 ## Chords and notes
-A chord is a set of notes played at the same time. All supported instruments use the generic version of the Chord class where the generic type defines the type of notes contained. The note types are the same as the types of instruments as listed in thesection. The following adds an orange note to every chord on a track:
+A chord is a set of notes played at the same time. All supported instruments use the generic version of the Chord class where the generic type defines the type of notes contained. The note types are the same as the types of instruments as listed in the section. The types for notes are:
+
+- Note<StandardFrets
+- Note<GHLFrets>
+- DrumsNotes
+
+Drums is an exception case where a class is specifically defined as it contains exclusive properties. It inherits from Note<DrumsFret>.
+
+The following adds an orange note to every chord on a track:
 ```c#
 foreach (StandardChord chord in track)
 {
-    chord.Notes.Add(StandardNotes.Orange);
+    chord.Notes.Add(StandardFrets.Orange);
     // or
-    chord.Notes.Add(new StandardNote(StandardNotes.Orange));
+    chord.Notes.Add(new Note<StandardFret>(StandardFrets.Orange));
 }
 ```
 
