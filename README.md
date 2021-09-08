@@ -58,7 +58,7 @@ A chord is a set of notes played at the same time. All supported instruments use
 - Note\<GHLFrets>
 - DrumsNotes
 
-Drums is an exception case where a class is specifically defined as it contains exclusive properties. It inherits from Note<DrumsFret>.
+Drums is an exception case where a class is specifically defined as it contains exclusive properties. It inherits from Note\<DrumsFret>.
 
 The following adds an orange note to every chord on a track:
 ```c#
