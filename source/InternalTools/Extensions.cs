@@ -566,9 +566,9 @@ namespace ChartTools
         public static void Add(this NoteCollection<GHLNote, GHLNotes> notes, GHLNotes note) => notes.Add(new GHLNote(note));
         public static void Add(this NoteCollection<StandardNote, StandardNotes> notes, StandardNotes note) => notes.Add(new StandardNote(note));
 
-        public static bool Contains(this NoteCollection<DrumsNote, DrumsNotes> notes, DrumsNotes note) => notes.Any(n => n.Note == note);
-        public static bool Contains(this NoteCollection<GHLNote, GHLNotes> notes, GHLNotes note) => notes.Any(n => n.Note == note);
-        public static bool Contains(this NoteCollection<StandardNote, StandardNotes> notes, StandardNotes note) => notes.Any(n => n.Note == note);
+        public static bool Contains(this NoteCollection<DrumsNote, DrumsNotes> notes, DrumsNotes note) => notes.Any(n => n.Fret == note);
+        public static bool Contains(this NoteCollection<GHLNote, GHLNotes> notes, GHLNotes note) => notes.Any(n => n.Fret == note);
+        public static bool Contains(this NoteCollection<StandardNote, StandardNotes> notes, StandardNotes note) => notes.Any(n => n.Fret == note);
     }
 
     /// <summary>

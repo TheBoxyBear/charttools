@@ -38,10 +38,10 @@ namespace ChartTools
         {
             foreach (DrumsNote note in Notes)
             {
-                yield return ChartParser.GetNoteData(note.Note == DrumsNotes.DoubleKick ? (byte)32 : note.NoteIndex, note.SustainLength);
+                yield return ChartParser.GetNoteData(note.Fret == DrumsNotes.DoubleKick ? (byte)32 : note.NoteIndex, note.SustainLength);
 
                 if (note.IsCymbal)
-                    yield return ChartParser.GetNoteData((byte)(note.Note + 64), 0);
+                    yield return ChartParser.GetNoteData((byte)(note.Fret + 64), 0);
             }
 
             if (Modifier.HasFlag(DrumsChordModifier.Flam))
