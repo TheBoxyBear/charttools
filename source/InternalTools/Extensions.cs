@@ -485,7 +485,6 @@ namespace ChartTools.SystemExtensions.Linq
         public static T MaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => MinMaxBy(source, selector, (key, mmKey) => key.CompareTo(mmKey) > 0);
 #endif
 }
-}
 
 namespace ChartTools
 {

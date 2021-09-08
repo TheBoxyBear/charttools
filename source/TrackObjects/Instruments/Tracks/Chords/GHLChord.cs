@@ -37,7 +37,7 @@ namespace ChartTools
         internal override System.Collections.Generic.IEnumerable<string> GetChartData()
         {
             foreach (GHLNote note in Notes)
-                yield return ChartParser.GetNoteData(note.Note switch
+                yield return ChartParser.GetNoteData(note.Fret switch
                 {
                     GHLNotes.Open => 7,
                     GHLNotes.Black1 => 3,
