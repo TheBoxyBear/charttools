@@ -92,19 +92,19 @@ Streams are paths to audio files to play during the song. These paths are relati
 
 These stream paths are not used by Clone Hero, it instead has static names for these tracks, and dynamically includes them based on their presence.
 
- | `Key`          | Description                                                                                     | Data type |
- | :---:          | :---                                                                                            | :---:     |
- | `MusicStream`  | Contains either the entire song, or any audio that doesn't fit into the other streams.          | string    |
- | `GuitarStream` | Contains the lead guitar audio.                                                                 | string    |
- | `RhythmStream` | Contains the rhythm guitar audio.                                                               | string    |
- | `BassStream`   | Contains the bass audio.                                                                        | string    |
- | `KeysStream`   | Contains keyboard/synth audio.                                                                  | string    |
- | `DrumStream`   | Contains the audio for the kick drum, and the contents of the next streams if they are absent.  | string    |
- | `Drum2Stream`  | Contains the audio for the snare drum, and the contents of the next streams if they are absent. | string    |
- | `Drum3Stream`  | Contains the audio for toms, and the contents of the next stream if it is absent.               | string    |
- | `Drum4Stream`  | Contains the audio for cymbals.                                                                 | string    |
- | `VocalStream`  | Contains the vocals audio.                                                                      | string    |
- | `CrowdStream`  | Contains crowd singing audio.                                                                   | string    |
+| `Key`          | Description                                                                                     | Data type |
+| :---:          | :---                                                                                            | :---:     |
+| `MusicStream`  | Contains either the entire song, or any audio that doesn't fit into the other streams.          | string    |
+| `GuitarStream` | Contains the lead guitar audio.                                                                 | string    |
+| `RhythmStream` | Contains the rhythm guitar audio.                                                               | string    |
+| `BassStream`   | Contains the bass audio.                                                                        | string    |
+| `KeysStream`   | Contains keyboard/synth audio.                                                                  | string    |
+| `DrumStream`   | Contains the audio for the kick drum, and the contents of the next streams if they are absent.  | string    |
+| `Drum2Stream`  | Contains the audio for the snare drum, and the contents of the next streams if they are absent. | string    |
+| `Drum3Stream`  | Contains the audio for toms, and the contents of the next stream if it is absent.               | string    |
+| `Drum4Stream`  | Contains the audio for cymbals.                                                                 | string    |
+| `VocalStream`  | Contains the vocals audio.                                                                      | string    |
+| `CrowdStream`  | Contains crowd singing audio.                                                                   | string    |
 
 ## Track Objects and Type Codes
 
@@ -212,6 +212,8 @@ Notes and modifiers are instrument track objects and use the `N` type code.
 `Length` is the length of a note. This value doesn't do anything for modifiers.
 
 As with tempo anchors, modifiers are applied to notes but are listed as separate objects. A modifier applies to all notes in the same position, so different notes of the same position cannot have different modifiers unless the modifier specifically targets a single color/type.
+
+HOPOs get forced automatically based on the distance to the previous note. The default threshold is 65/192 ticks in a 192 resolution, and this ratio gets recalculated for other resolutions.
 
 To help prevent issues such as Black 3 in the GHL notes having a non-sequential value of 8, moving forward the types will be divided into groups of 32:
 
