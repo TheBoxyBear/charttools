@@ -56,7 +56,7 @@ Section data is represented by objects, each one separated by a line break. Sect
 
 `<Key> = <Value>`
 
-The key is a string in the Song section, and a number everywhere else. The value type is either a string or a number, depending on what the key is. Numbers are always written in base 10.
+The key is a string in the Song section, and a number everywhere else. The value type is either a string or a number, depending on what the key is. Numbers are always written in base 10. Strings are written with quotes which should be removed.
 
 ## Metadata
 
