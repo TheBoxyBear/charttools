@@ -126,8 +126,6 @@ Time signature markers are SyncTrack objects and use the `TS` type code.
 
 `Denominator exponent` is the power of 2 to use for the denominator of the time signature. (Optional, defaults to 2 if unspecified.) In other words: Denominator = `2 ^ <denominator exponent>`
 
-$x^{n}$
-
 Examples:
 
 4/4 is `TS 4` or `TS 4 2`.
