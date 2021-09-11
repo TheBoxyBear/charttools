@@ -259,7 +259,7 @@ These are commonly seen/read-by-CH global events:
 
 #### Common Legacy/Unused Global Events
 
-These are mostly just venue and character animation events that used to be included with Moonscraper's list for some reason (they have been removed in newer versions). Some of these may be seen if you import a .mid into Moonscraper, so not all are entirely legacy.
+Most/all of these are from Guitar Hero 1/2 charts, and are included with Moonscraper's default list of global events for some reason.
 
 - `idle`
 - `play`
@@ -406,12 +406,12 @@ These are local events available on all instruments.
 
 #### Common Legacy/Unused Local Events
 
-Mainly just events included in Moonscraper's default local events list for some reason.
+Most of these are from GH1/2, and are included with Moonscraper's default local events list for some reason.
 
 - `ghl_6` - Indicates that a note should be a GHL 6th fret note. Only has an effect in Moonscraper when exporting to .mid, pretty sure.
 - `ghl_6_forced` - Indicates that a note should be a GHL forced 6th fret note. Only has an effect in Moonscraper when exporting to .mid, pretty sure.
-- `solo_on` - Solo start event for another game.
-- `solo_off` - Solo end event for another game.
+- `solo_on` - Solo start event for GH1/2.
+- `solo_off` - Solo end event for GH1/2.
 - `wail_on`
 - `wail_off`
 - `ow_face_on`
