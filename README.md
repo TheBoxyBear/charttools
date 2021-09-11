@@ -54,19 +54,19 @@ A track is composed of three elements:
 ## Chords and notes
 A chord is a set of notes played at the same time. All supported instruments use the generic version of the Chord class where the generic type defines the type of notes contained. The note types are the same as the types of instruments as listed in the section. The types for notes are:
 
-- Note\<StandardFrets>
-- Note\<GHLFrets>
+- Note\<StandardLane>
+- Note\<GHLLane>
 - DrumsNote
 
 Drums is an exception case where a class is specifically defined as it contains exclusive properties. It inherits from Note\<DrumsFret>.
 
 The following adds an orange note to every chord on a track:
 ```c#
-foreach (StandardChord chord in track)
+foreach (StandardChord chord in song.LeadGuitar.Expert)
 {
-    chord.Notes.Add(StandardFrets.Orange);
+    chord.Notes.Add(StandardLane.Orange);
     // or
-    chord.Notes.Add(new Note<StandardFret>(StandardFrets.Orange));
+    chord.Notes.Add(new Note<StandardLane>(StandardLane.Orange));
 }
 ```
 
