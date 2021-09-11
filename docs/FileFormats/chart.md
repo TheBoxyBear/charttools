@@ -66,6 +66,8 @@ Section data is represented by objects, each one separated by a line break. Sect
 
 The value type of both the key and the value depends on what section the object is contained in.
 
+Numbers are always written in decimal.
+
 ### Section Names
 
 The first sections are:
@@ -107,7 +109,7 @@ Its section objects follow this format:
 
 `Name` is the name of the metadata entry, written in PascalCase.
 
-`Value` is the value of the metadata entry. The data type of `Value String data is surrounded by quotation marks while numerical data.
+`Value` is the value of the metadata entry. The data type of `Value` depends on which entry it is paired to. Strings are surrounded by quotation marks which must be removed when parsed.
 
 The order of metadata objects may vary, so you should *not* rely on the order to identify each object, and should only rely on their keys.
 
