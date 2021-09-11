@@ -19,7 +19,7 @@ Table of contents:
 
 ### Sections
 
-A song.ini file should be started off with a `[song]`/`[Song]` section header. Leading or trailing line breaks don't matter for CH.`
+A song.ini file should be started off with a `[song]`/`[Song]` section header. Leading or trailing line breaks don't matter for CH.
 
 ### Tags
 
