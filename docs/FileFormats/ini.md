@@ -1,22 +1,41 @@
-# .ini
+# Initialization
 
-Song metadata for CH is stored in a song.ini file. A large majority of these tags are not required whatsoever, but many are recommended.
+Initialization files are commonly-used files for storing things such as settings/configurations. They are text-based and use the .ini format.
 
-## Section
+Song metadata for .mid files are stored in a song.ini file. Clone Hero also extends this file to .chart files.
+
+Table of contents:
+
+- [Initialization](#initialization)
+  - [Basic Structure](#basic-structure)
+    - [Sections](#sections)
+    - [Tags](#tags)
+  - [Available Tags](#available-tags)
+    - [Common Tags](#common-tags)
+    - [Legacy/Unused Tags](#legacyunused-tags)
+  - [Documentation Notes](#documentation-notes)
+
+## Basic Structure
+
+### Sections
 
 A song.ini file should be started off with a `[song]`/`[Song]` section header. Leading or trailing line breaks don't matter for CH.`
 
-## Tags
+### Tags
 
 Tags are a key-value pair that store each metadata entry.
 
 `<Key> = <Value>`
 
-`Key` is a string, and `Value` is either a string or a number, depending on the key.
+`Key` is a string, and `Value` is either a string, number, or a boolean, depending on the key. No specific number types to my knowledge, so it'd be safest to use at least a 32-bit signed integer for each.
 
-There are *many* tags in existance, so listing them all in one place is rather difficult. Still, this should be a pretty good amount of them.
+The equals sign may, but is not required to be, padded by spaces.
 
-Tags read by CH:
+## Available Tags
+
+There are *many* tags in existance, so listing them all in one place is rather difficult. Still, this should be a pretty good amount of them. Additionally, tags can be in any order in the song.ini, so you should *not* rely on the order of tags to determine what is what.
+
+### Common Tags
 
 | `Key`                      | Description                                                                                             | Data type |
 | :------------------------: | :------------------------------------------------------------------------------------------------------ | :-------: |
@@ -50,7 +69,9 @@ Tags read by CH:
 | `hopo_frequency`           | Overrides the natural HOPO threshold.                                                                   |  number   |
 | `end_events`               | Overrides whether or not end events in the chart will be respected.                                     |  boolean  |
 
-Tags not read by CH (these descriptions may be wrong):
+### Legacy/Unused Tags
+
+(Some of these descriptions may be wrong.)
 
 | `Key`                 | Description                                                                     | Data type |
 | :-------------------: | :------------------------------------------------------------------------------ | :-------: |
@@ -77,6 +98,6 @@ Tags not read by CH (these descriptions may be wrong):
 | `link_name_b`         | Name for Link B?                                                                |  string   |
 | `video`               | Name/path for a video file?                                                     |  string   |
 
-## Notes
+## Documentation Notes
 
 A large number of these tags are referenced from [grishhung's song.ini guide](https://docs.google.com/document/d/1ped13di4LqDqhaxbCgZEMUoqnyc3gOy3Bw1FCg58FPI/edit#).
