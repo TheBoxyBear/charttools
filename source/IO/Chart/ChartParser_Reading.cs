@@ -212,11 +212,11 @@ namespace ChartTools.IO.Chart
                 {
                 // Note
                 case < 5:
-                        chord!.Notes.Add(new((DrumsFret)data.NoteIndex) { SustainLength = data.SustainLength });
+                        chord!.Notes.Add(new((DrumsLane)data.NoteIndex) { SustainLength = data.SustainLength });
                         break;
                 // Double kick
                 case 32:
-                        chord!.Notes.Add(new(DrumsFret.DoubleKick));
+                        chord!.Notes.Add(new(DrumsLane.DoubleKick));
                         break;
                 // Cymbal
                 case > 65 and < 69:
@@ -229,7 +229,7 @@ namespace ChartTools.IO.Chart
 
                         if (returnedDefault)
                         {
-                            chord.Notes.Add(new((DrumsFret)(seekedIndex + 1)) { IsCymbal = true, SustainLength = data.SustainLength });
+                            chord.Notes.Add(new((DrumsLane)(seekedIndex + 1)) { IsCymbal = true, SustainLength = data.SustainLength });
                             returnedDefault = false;
                         }
                         else
@@ -297,11 +297,11 @@ namespace ChartTools.IO.Chart
             {
             // White notes
             case < 3:
-                    chord!.Notes.Add(new((GHLFret)(data.NoteIndex + 4)) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new((GHLLane)(data.NoteIndex + 4)) { SustainLength = data.SustainLength });
                     break;
             // Black 1 and 2
             case < 5:
-                    chord!.Notes.Add(new((GHLFret)(data.NoteIndex - 2)) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new((GHLLane)(data.NoteIndex - 2)) { SustainLength = data.SustainLength });
                     break;
                 case 5:
                     chord!.Modifier |= GHLChordModifier.Forced;
@@ -310,10 +310,10 @@ namespace ChartTools.IO.Chart
                     chord!.Modifier |= GHLChordModifier.Tap;
                     break;
                 case 7:
-                    chord!.Notes.Add(new(GHLFret.Open) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new(GHLLane.Open) { SustainLength = data.SustainLength });
                     break;
                 case 8:
-                    chord!.Notes.Add(new(GHLFret.Black3) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new(GHLLane.Black3) { SustainLength = data.SustainLength });
                     break;
             }
 
@@ -373,7 +373,7 @@ namespace ChartTools.IO.Chart
             {
             // Colored note
             case < 5:
-                    chord!.Notes.Add(new((StandardFret)(data.NoteIndex + 1)) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new((StandardLane)(data.NoteIndex + 1)) { SustainLength = data.SustainLength });
                     break;
                 case 5:
                     chord!.Modifier |= StandardChordModifier.Forced;
@@ -382,7 +382,7 @@ namespace ChartTools.IO.Chart
                     chord!.Modifier |= StandardChordModifier.Tap;
                     break;
                 case 7:
-                    chord!.Notes.Add(new(StandardFret.Open) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new(StandardLane.Open) { SustainLength = data.SustainLength });
                     break;
             }
 
