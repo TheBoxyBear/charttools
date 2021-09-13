@@ -6,14 +6,13 @@ Song metadata for .mid files are stored in a song.ini file. Clone Hero also exte
 
 Table of contents:
 
-- [Initialization](#initialization)
-  - [Basic Structure](#basic-structure)
-    - [Sections](#sections)
-    - [Tags](#tags)
-  - [Available Tags](#available-tags)
-    - [Common Tags](#common-tags)
-    - [Legacy/Unused Tags](#legacyunused-tags)
-  - [Documentation Notes](#documentation-notes)
+- [Basic Structure](#basic-structure)
+  - [Sections](#sections)
+  - [Tags](#tags)
+- [Available Tags](#available-tags)
+  - [Common Tags](#common-tags)
+  - [Legacy/Unused Tags](#legacyunused-tags)
+- [Documentation Notes](#documentation-notes)
 
 ## Basic Structure
 
