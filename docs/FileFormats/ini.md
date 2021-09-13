@@ -66,36 +66,41 @@ There are *many* tags in existance, so listing them all in one place is rather d
 | `loading_phrase`           | Text that will be shown during instrument/difficulty/modifier selection.                                |  string   |
 | `sustain_cutoff_threshold` | Overrides the default threshold under which a sustain will get removed.                                 |  number   |
 | `hopo_frequency`           | Overrides the natural HOPO threshold.                                                                   |  number   |
+| `multiplier_note`          | Overrides the SP phrase note for .mid charts.                                                           |  number   |
 | `end_events`               | Overrides whether or not end events in the chart will be respected.                                     |  boolean  |
+| `playlist`                 | Specifies a playlist that the song will show up in.                                                     |  string   |
+| `sub_playlist`             | Specifies a sub-playlist that the song will show up in.                                                 |  string   |
 
 ### Legacy/Unused Tags
 
 (Some of these descriptions may be wrong.)
 
-| `Key`                 | Description                                                                     | Data type |
-| :-------------------: | :------------------------------------------------------------------------------ | :-------: |
-| `diff_band`           | Estimated average difficulty of all tracks in the song.                         |  number   |
-| `diff_guitar_coop`    | Estimated difficulty of the Guitar Co-op track.                                 |  number   |
-| `diff_guitar_real`    | Estimated difficulty of the Pro Guitar track.                                   |  number   |
-| `diff_guitar_real_22` | Estimated difficulty of the Pro Guitar 22-fret track.                           |  number   |
-| `diff_bass_real`      | Estimated difficulty of the Pro Bass track.                                     |  number   |
-| `diff_bass_real_22`   | Estimated difficulty of the Pro Bass 22-fret track.                             |  number   |
-| `diff_drums_real`     | Estimated difficulty of the Pro Drums track.                                    |  number   |
-| `diff_drums_real_ps`  | Estimated difficulty of the Drums Real track.                                   |  number   |
-| `diff_keys_real`      | Estimated difficulty of the Pro Keys track.                                     |  number   |
-| `diff_keys_real_ps`   | Estimated difficulty of the Keys Real track.                                    |  number   |
-| `diff_vocals`         | Estimated difficulty of the Vocals track.                                       |  number   |
-| `diff_vocals_harm`    | Estimated difficulty of the Harmonies tracks.                                   |  number   |
-| `diff_dance`          | Estimated difficulty of the Dance track.                                        |  number   |
-| `sysex_slider`        | Indicates that this chart has SysEx events for sliders/tap notes.               |  boolean  |
-| `sysex_high_hat_ctrl` | Indicates that this chart has SysEx events for Drums Real hi-hat pedal control. |  boolean  |
-| `sysex_rimshot`       | Indicates that this chart has SysEx events for Drums Real rimshot hits.         |  boolean  |
-| `sysex_open_bass`     | Indicates that this chart has SysEx events for open notes.                      |  boolean  |
-| `banner_link_a`       | Link A for an in-game banner?                                                   |  string   |
-| `link_name_a`         | Name for Link A?                                                                |  string   |
-| `banner_link_b`       | Link B for an in-game banner?                                                   |  string   |
-| `link_name_b`         | Name for Link B?                                                                |  string   |
-| `video`               | Name/path for a video file?                                                     |  string   |
+| `Key`                                  | Description                                                                          | Data type |
+| :------------------------------------: | :----------------------------------------------------------------------------------- | :-------: |
+| `diff_band`                            | Estimated average difficulty of all tracks in the song.                              |  number   |
+| `diff_guitar_coop`                     | Estimated difficulty of the Guitar Co-op track.                                      |  number   |
+| `diff_guitar_real`                     | Estimated difficulty of the Pro Guitar track.                                        |  number   |
+| `diff_guitar_real_22`                  | Estimated difficulty of the Pro Guitar 22-fret track.                                |  number   |
+| `diff_bass_real`                       | Estimated difficulty of the Pro Bass track.                                          |  number   |
+| `diff_bass_real_22`                    | Estimated difficulty of the Pro Bass 22-fret track.                                  |  number   |
+| `diff_drums_real`                      | Estimated difficulty of the Pro Drums track.                                         |  number   |
+| `diff_drums_real_ps`                   | Estimated difficulty of the Drums Real track.                                        |  number   |
+| `diff_keys_real`                       | Estimated difficulty of the Pro Keys track.                                          |  number   |
+| `diff_keys_real_ps`                    | Estimated difficulty of the Keys Real track.                                         |  number   |
+| `diff_vocals`                          | Estimated difficulty of the Vocals track.                                            |  number   |
+| `diff_vocals_harm`                     | Estimated difficulty of the Harmonies tracks.                                        |  number   |
+| `diff_dance`                           | Estimated difficulty of the Dance track.                                             |  number   |
+| `sysex_slider`                         | Indicates that this chart has SysEx events for sliders/tap notes.                    |  boolean  |
+| `sysex_high_hat_ctrl`                  | Indicates that this chart has SysEx events for Drums Real hi-hat pedal control.      |  boolean  |
+| `sysex_rimshot`                        | Indicates that this chart has SysEx events for Drums Real rimshot hits.              |  boolean  |
+| `sysex_open_bass`                      | Indicates that this chart has SysEx events for open notes.                           |  boolean  |
+| `banner_link_a`                        | Link A for an in-game banner?                                                        |  string   |
+| `link_name_a`                          | Name for Link A?                                                                     |  string   |
+| `banner_link_b`                        | Link B for an in-game banner?                                                        |  string   |
+| `link_name_b`                          | Name for Link B?                                                                     |  string   |
+| `video`                                | Name/path for a video file?                                                          |  string   |
+| `eof_midi_import_drum_accent_velocity` | Tells Editor on Fire that drum notes at this velocity should be imported as accents? |  number   |
+| `eof_midi_import_drum_ghost_velocity`  | Tells Editor on Fire that drum notes at this velocity should be imported as ghosts?  |  number   |
 
 ## Documentation Notes
 
