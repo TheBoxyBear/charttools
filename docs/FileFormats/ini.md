@@ -14,7 +14,7 @@ Tags are a key-value pair that store each metadata entry.
 
 `Key` is a string, and `Value` is either a string or a number, depending on the key.
 
-There are *many* tags in existance, so listing them all in one place is rather difficult. Still, this should be a pretty good amount of them.
+There are *many* tags in existence, so listing them all in one place is rather difficult. Still, this should be a pretty good amount of them.
 
 Tags read by CH:
 
