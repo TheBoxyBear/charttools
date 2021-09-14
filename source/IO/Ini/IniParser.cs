@@ -22,14 +22,19 @@ namespace ChartTools.IO.Ini
         };
         private static readonly Dictionary<string, string> metadataKeys = new()
         {
-            { "Title", "name" },
-            { "Artist", "artist" },
-            { "Genre", "genre" },
-            { "Year", "year" },
-            { "PreviewStart", "preview_start_time" },
-            { "PreviewEnd", "preview_end_time" },
-            { "AudioOffset", "delay" },
-            { "VideoOffset", "video_start_time" },
+            { nameof(Metadata.Title), "name" },
+            { nameof(Metadata.Artist), "artist" },
+            { nameof(Metadata.Album), "album" },
+            { nameof(Metadata.AlbumTrack), "album_track" },
+            { nameof(Metadata.PlaylistTrack), "playlist_track" },
+            { nameof(Metadata.Genre), "genre" },
+            { nameof(Metadata.Year), "year" },
+            { nameof(Metadata.PreviewStart), "preview_start_time" },
+            { nameof(Metadata.PreviewEnd), "preview_end_time" },
+            { nameof(Metadata.AudioOffset), "delay" },
+            { nameof(Metadata.VideoOffset), "video_start_time" },
+            { nameof(Metadata.Length), "song_length" },
+            { nameof(Metadata.IsModchart), "modchart" }
         };
 
         /// <summary>
@@ -59,14 +64,22 @@ namespace ChartTools.IO.Ini
                     case "album":
                         metadata.Album = value;
                         break;
+                    case "album_track" or "track":
+                        metadata.AlbumTrack = ushort.TryParse(value, out ushort ushortValue) ? ushortValue
+                            : throw new FormatException($"Cannot parse album track \"{value}\" to ushort.");
+                        break;
+                    case "playlist_track":
+                        metadata.PlaylistTrack = ushort.TryParse(value, out ushortValue) ? ushortValue
+                            : throw new FormatException($"Cannot parse playlist track \"{value}\" to ushort.");
+                        break;
                     case "year":
-                        metadata.Year = ushort.TryParse(value, out ushort ushortValue) ? ushortValue
+                        metadata.Year = ushort.TryParse(value, out ushortValue) ? ushortValue
                             : throw new FormatException($"Cannot parse year \"{value}\" to ushort.");
                         break;
                     case "genre":
                         metadata.Genre = value;
                         break;
-                    case "charter":
+                    case "charter" or "frets":
                         metadata.Charter ??= new Charter();
                         metadata.Charter.Name = value;
                         break;
@@ -90,8 +103,16 @@ namespace ChartTools.IO.Ini
                         metadata.VideoOffset = int.TryParse(value, out intValue) ? intValue
                             : throw new FormatException($"Cannot parse video offset \"{value}\" to int.");
                         break;
+                    case "song_length":
+                        metadata.Length = uint.TryParse(value, out uintValue) ? uintValue
+                            : throw new FormatException($"Cannot parse song length \"{value}\" to uint.");
+                        break;
                     case "loading_text":
                         metadata.LoadingText = value;
+                        break;
+                    case "modchart":
+                        metadata.IsModchart = bool.TryParse(value, out bool boolValue) ? boolValue
+                            : throw new FormatException($"Cannot parse modchart \"{value}\" to bool.");
                         break;
                     default:
                         metadata.UnidentifiedData.Add(new() { Key = header, Data = value, Origin = FileFormat.Ini });
