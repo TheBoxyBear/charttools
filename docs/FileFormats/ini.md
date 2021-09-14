@@ -50,7 +50,7 @@ Tags read by CH:
 | `hopo_frequency`           | Overrides the natural HOPO threshold.                                                                   |  number   |
 | `end_events`               | Overrides whether or not end events in the chart will be respected.                                     |  boolean  |
 
-Tags not read by CH (these descriptions may be wrong):
+Tags not read by CH (these descriptions may be wrong) Any keys not modeled by the Metadata class are added to the UnidentifiedData list:
 
 | `Key`                 | Description                                                                     | Data type |
 | :-------------------: | :------------------------------------------------------------------------------ | :-------: |

@@ -1,4 +1,5 @@
-﻿using ChartTools.InternalTools;
+﻿using ChartTools.Collections.Unique;
+using ChartTools.InternalTools;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Ini;
@@ -100,7 +101,7 @@ namespace ChartTools
         /// The song is a modchart
         /// </summary>
         public bool IsModchart { get; set; }
-        public List<MetadataItem> UnidentifiedData { get; set; } = new();
+        public UniqueList<MetadataItem> UnidentifiedData { get; } = new((a, b) => a.Key == b.Key);
         #endregion
 
         /// <summary>
