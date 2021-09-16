@@ -48,7 +48,14 @@ namespace ChartTools
     /// <summary>
     /// Modifier that affects how a <see cref="GHLChord"/> can be played
     /// </summary>
-    [Flags] public enum GHLChordModifier : byte { None, Forced, Tap }
+    [Flags] public enum GHLChordModifier : byte
+    {
+        Natural,
+        Invert,
+        ForceStrum,
+        ForceHopo,
+        Tap
+    }
     /// <summary>
     /// Guitar Hero Live instruments
     /// </summary>
@@ -152,7 +159,14 @@ namespace ChartTools
     /// <summary>
     /// Modifier that affects how a <see cref="StandardChord"/> can be played
     /// </summary>
-    [Flags] public enum StandardChordModifier : byte { None, Forced, Tap }
+    [Flags] public enum StandardChordModifier : byte
+    {
+        Natural,
+        Invert,
+        ForceStrum,
+        ForceHopo,
+        Tap
+    }
     /// <summary>
     /// Standard five-fret instruments
     /// </summary>

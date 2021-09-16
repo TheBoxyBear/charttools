@@ -8,7 +8,7 @@ namespace ChartTools
     public class StandardChord : Chord<Note<StandardLane>, StandardLane>
     {
         /// <inheritdoc cref="StandardChordModifier"/>
-        public StandardChordModifier Modifier { get; set; } = StandardChordModifier.None;
+        public StandardChordModifier Modifier { get; set; } = StandardChordModifier.Natural;
         protected override bool OpenExclusivity => true;
 
         /// <inheritdoc cref="Chord(uint)"/>
@@ -39,7 +39,7 @@ namespace ChartTools
             foreach (Note<StandardLane> note in Notes)
                 yield return ChartParser.GetNoteData(note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.SustainLength);
 
-            if (Modifier.HasFlag(StandardChordModifier.Forced))
+            if (Modifier.HasFlag(StandardChordModifier.Invert))
                 yield return ChartParser.GetNoteData(5, 0);
             if (Modifier.HasFlag(StandardChordModifier.Tap))
                 yield return ChartParser.GetNoteData(6, 0);

@@ -8,7 +8,7 @@ namespace ChartTools
     public class GHLChord : Chord<Note<GHLLane>, GHLLane>
     {
         /// <inheritdoc cref="GHLChordModifier"/>
-        public GHLChordModifier Modifier { get; set; } = GHLChordModifier.None;
+        public GHLChordModifier Modifier { get; set; } = GHLChordModifier.Natural;
         protected override bool OpenExclusivity => true;
 
         /// <inheritdoc cref="Chord(uint)"/>
@@ -48,7 +48,7 @@ namespace ChartTools
                     GHLLane.White3 => 2,
                 }, note.SustainLength);
 
-            if (Modifier.HasFlag(GHLChordModifier.Forced))
+            if (Modifier.HasFlag(GHLChordModifier.Invert))
                 yield return ChartParser.GetNoteData(5, 0);
             if (Modifier.HasFlag(GHLChordModifier.Tap))
                 yield return ChartParser.GetNoteData(6, 0);
