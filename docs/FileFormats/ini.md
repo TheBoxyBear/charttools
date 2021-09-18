@@ -32,7 +32,7 @@ The equals sign may, but is not required to be, padded by spaces.
 
 ## Available Tags
 
-There are *many* tags in existance, so listing them all in one place is rather difficult. Still, this should be a pretty good amount of them. Additionally, tags can be in any order in the song.ini, so you should *not* rely on the order of tags to determine what is what.
+There are *many* tags in existence, so listing them all in one place is rather difficult. Still, this should be a pretty good amount of them. Additionally, tags can be in any order in the song.ini, so you should *not* rely on the order of tags to determine what is what.
 
 ### Common Tags
 
