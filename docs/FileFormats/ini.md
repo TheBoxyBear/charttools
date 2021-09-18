@@ -30,6 +30,10 @@ Tags are a key-value pair that store each metadata entry.
 
 The equals sign may, but is not required to be, padded by spaces.
 
+## Using via ChartTools
+
+WIP (Info such as reading, writing, etc. should go here)
+
 ## Available Tags
 
 There are *many* tags in existence, so listing them all in one place is rather difficult. Still, this should be a pretty good amount of them. Additionally, tags can be in any order in the song.ini, so you should *not* rely on the order of tags to determine what is what.

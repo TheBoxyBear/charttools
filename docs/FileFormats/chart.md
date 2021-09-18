@@ -98,6 +98,10 @@ The instrument names are:
 
 All instrument sections are optional. A missing section is equivalent to a section with no data.
 
+## Using via ChartTools
+
+WIP (Info such as reading, writing, etc. should go here)
+
 ## Song Section Details
 
 The `Song` section contains metadata about the song and chart.
