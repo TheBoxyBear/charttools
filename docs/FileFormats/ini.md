@@ -94,17 +94,24 @@ There are *many* tags in existence, so listing them all in one place is rather d
 | `diff_vocals`                          | Estimated difficulty of the Vocals track.                                            |  number   |
 | `diff_vocals_harm`                     | Estimated difficulty of the Harmonies tracks.                                        |  number   |
 | `diff_dance`                           | Estimated difficulty of the Dance track.                                             |  number   |
-| `sysex_slider`                         | Indicates that this chart has SysEx events for sliders/tap notes.                    |  boolean  |
-| `sysex_high_hat_ctrl`                  | Indicates that this chart has SysEx events for Drums Real hi-hat pedal control.      |  boolean  |
-| `sysex_rimshot`                        | Indicates that this chart has SysEx events for Drums Real rimshot hits.              |  boolean  |
-| `sysex_open_bass`                      | Indicates that this chart has SysEx events for open notes.                           |  boolean  |
+| `sysex_slider`                         | Enables parsing of SysEx events for sliders/tap notes.                               |  boolean  |
+| `sysex_high_hat_ctrl`                  | Enables parsing of SysEx events for Drums Real hi-hat pedal control.                 |  boolean  |
+| `sysex_rimshot`                        | Enables parsing of SysEx events for Drums Real rimshot hits.                         |  boolean  |
+| `sysex_open_bass`                      | Enables parsing of SysEx events for open notes.                                      |  boolean  |
 | `banner_link_a`                        | Link A for an in-game banner?                                                        |  string   |
 | `link_name_a`                          | Name for Link A?                                                                     |  string   |
 | `banner_link_b`                        | Link B for an in-game banner?                                                        |  string   |
 | `link_name_b`                          | Name for Link B?                                                                     |  string   |
-| `video`                                | Name/path for a video file?                                                          |  string   |
-| `eof_midi_import_drum_accent_velocity` | Tells Editor on Fire that drum notes at this velocity should be imported as accents? |  number   |
-| `eof_midi_import_drum_ghost_velocity`  | Tells Editor on Fire that drum notes at this velocity should be imported as ghosts?  |  number   |
+| `video`                                | Name/path for a video file.                                                          |  string   |
+| `video_end_time`                       | Timestamp in milliseconds where playback of an included video background will end.   |  number   |
+| `video_loop`                           | Sets whether or not the video should loop.                                           |  boolean  |
+| `guitar_type`                          | Specifies a guitar sample sound set.                                                 |  number   |
+| `bass_type`                            | Specifies a bass sample sound set.                                                   |  number   |
+| `kit_type`                             | Specifies a drumkit sample sound set.                                                |  number   |
+| `keys_type`                            | Specifies a keyboard sample sound set.                                               |  number   |
+| `real_guitar_tuning`                   | Specifies a tuning for Pro Guitar.                                                   |  number?  |
+| `eof_midi_import_drum_accent_velocity` | Tells Editor on Fire that drum notes at this velocity should be imported as accents. |  number   |
+| `eof_midi_import_drum_ghost_velocity`  | Tells Editor on Fire that drum notes at this velocity should be imported as ghosts.  |  number   |
 
 ## Documentation Notes
 
