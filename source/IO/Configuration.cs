@@ -33,16 +33,71 @@
         /// </summary>
         Convert
     }
-    public enum ForcedTapPolicy
+    /// <summary>
+    /// Defines how chords with a set of incompatible modifiers are handled
+    /// </summary>
+    public enum IncompatibleModifiersPolicy
     {
-        Ignore,
-        ConvertToTap,
+        /// <summary>
+        /// All modifiers are included
+        /// </summary>
+        IncludeAll,
+        /// <summary>
+        /// The modifiers are excluded
+        /// </summary>
+        IgnoreModifers,
+        /// <summary>
+        /// The chord is excluded
+        /// </summary>
+        IgnoreChord,
         ThrowException
     }
+    /// <summary>
+    /// Defines how duplicate track objects are handled
+    /// </summary>
     public enum DuplicateTrackObjectPolicy : byte
     {
+        /// <summary>
+        /// Only include the first object
+        /// </summary>
         IncludeFirst,
+        /// <summary>
+        /// Include all objects
+        /// </summary>
         IncludeAll,
+        ThrowException
+    }
+    /// <summary>
+    /// Hopo threshold to prioritize if included in the metadata and configuration
+    /// </summary>
+    public enum HopoThresholdPriority
+    {
+        /// <summary>
+        /// Get the threshold from metadata
+        /// </summary>
+        Metadata,
+        /// <summary>
+        /// Get the threshold from configuration
+        /// </summary>
+        Configuration
+    }
+    /// <summary>
+    /// Defines how to handle chord modifiers not supported by the target format
+    /// </summary>
+    public enum UnsupportedModifierPolicy
+    {
+        /// <summary>
+        /// The modifier is excluded
+        /// </summary>
+        IgnoreModifier,
+        /// <summary>
+        /// The chord is excluded
+        /// </summary>
+        IgnoreChord,
+        /// <summary>
+        /// The modifier is converted to a compatible one
+        /// </summary>
+        Convert,
         ThrowException
     }
 
@@ -71,5 +126,17 @@
         /// *Unsupported*
         /// </summary>
         public DuplicateTrackObjectPolicy DuplicateTrackObjectPolicy { get; set; }
+        /// <summary>
+        /// *Unsupported*
+        /// </summary>
+        public HopoThresholdPriority HopoThresholdPriority { get; set; }
+        /// <summary>
+        /// *Unsupported*
+        /// </summary>
+        public uint? HopoTreshold { get; set; } = null;
+        /// <summary>
+        /// *Unsupported*
+        /// </summary>
+        public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; set; }
     }
 }
