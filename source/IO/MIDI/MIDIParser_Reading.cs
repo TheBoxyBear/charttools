@@ -156,7 +156,7 @@ namespace ChartTools.IO.MIDI
         private static UniqueTrackObjectCollection<StandardChord> GetStandardChords(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig)
         {
             NoteMode mode = NoteMode.Regular;
-            Note<StandardLane>[] sustainedNotes = new Note<StandardLane>[6]; // Stores references notes gnerated from a NoteON event until they are closed by a NoteOff
+            Note<StandardLane>[] sustainedNotes = new Note<StandardLane>[6]; // Stores references notes generated from a NoteON event until they are closed by a NoteOff
 
             Predicate<byte> NoteMatchDifficulty = difficulty switch
             {

@@ -304,7 +304,7 @@ namespace ChartTools.IO.Chart
                     chord!.Notes.Add(new((GHLLane)(data.NoteIndex - 2)) { SustainLength = data.SustainLength });
                     break;
                 case 5:
-                    chord!.Modifier |= GHLChordModifier.Forced;
+                    chord!.Modifier |= GHLChordModifier.Invert;
                     break;
                 case 6:
                     chord!.Modifier |= GHLChordModifier.Tap;
@@ -376,7 +376,7 @@ namespace ChartTools.IO.Chart
                     chord!.Notes.Add(new((StandardLane)(data.NoteIndex + 1)) { SustainLength = data.SustainLength });
                     break;
                 case 5:
-                    chord!.Modifier |= StandardChordModifier.Forced;
+                    chord!.Modifier |= StandardChordModifier.Natural;
                     break;
                 case 6:
                     chord!.Modifier |= StandardChordModifier.Tap;
