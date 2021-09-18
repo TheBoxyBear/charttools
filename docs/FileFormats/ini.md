@@ -26,13 +26,15 @@ Tags are a key-value pair that store each metadata entry.
 
 `<Key> = <Value>`
 
-`Key` is a string, and `Value` is either a string, number, or a boolean, depending on the key. No specific number types to my knowledge, so it'd be safest to use at least a 32-bit signed integer for each.
+`Key` is a string, and `Value` is either a string, number, or a boolean, depending on the key. No specific number types are known so far.
 
-The equals sign may, but is not required to be, padded by spaces.
+The equals sign may, but is not required to be, padded by spaces, but it is recommended as not all games/programs support song.ini files without the padding (Phase Shift, for example).
 
 ## Using via ChartTools
 
 WIP (Info such as reading, writing, etc. should go here)
+
+Any tags not modelled by the Metadata class are added to an UnidentifiedData list.
 
 ## Available Tags
 
@@ -52,8 +54,8 @@ There are *many* tags in existence, so listing them all in one place is rather d
 | `playlist_track`           | Track number of the song within the playlist/setlist it's from.                                         |  number   |
 | `charter`                  | Community member responsible for charting the song.                                                     |  string   |
 | `frets`                    | Same as `charter`. (Legacy)                                                                             |  string   |
-| `preview_start_time`       | Time of the song, in milliseconds, where the song preview starts.                                       |  number   |
-| `video_start_time`         | Time of the video, in milliseconds, where playback of an included video background will start.          |  number   |
+| `preview_start_time`       | Timestamp in milliseconds where the song preview starts.                                                |  number   |
+| `video_start_time`         | Timestamp in milliseconds where playback of an included video background will start.                    |  number   |
 | `diff_guitar`              | Estimated difficulty of the Lead Guitar track.                                                          |  number   |
 | `diff_guitarghl`           | Estimated difficulty of the 6 Fret Lead track.                                                          |  number   |
 | `diff_bass`                | Estimated difficulty of the Bass Guitar track.                                                          |  number   |
