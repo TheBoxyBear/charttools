@@ -371,12 +371,12 @@ namespace ChartTools.IO.Chart
 
             switch (data.NoteIndex)
             {
-            // Colored note
-            case < 5:
+                // Colored note
+                case < 5:
                     chord!.Notes.Add(new((StandardLane)(data.NoteIndex + 1)) { SustainLength = data.SustainLength });
                     break;
                 case 5:
-                    chord!.Modifier |= StandardChordModifier.Natural;
+                    chord!.Modifier |= StandardChordModifier.Invert;
                     break;
                 case 6:
                     chord!.Modifier |= StandardChordModifier.Tap;
