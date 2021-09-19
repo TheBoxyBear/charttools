@@ -107,36 +107,37 @@
     public class ReadingConfiguration
     {
         /// <inheritdoc cref="SoloNoStarPowerPolicy"/>
-        public SoloNoStarPowerPolicy SoloNoStarPowerRule { get; set; } = SoloNoStarPowerPolicy.Convert;
+        public SoloNoStarPowerPolicy SoloNoStarPowerRule { get; init; }
         /// <summary>
         /// *Unsupported*
         /// </summary>
-        public DuplicateTrackObjectPolicy DuplicateTrackObjectPolicy { get; set; }
+        public DuplicateTrackObjectPolicy DuplicateTrackObjectPolicy { get; init; }
+        public IncompatibleModifiersPolicy IncompatibleModifiersPolicy { get; init; }
     }
 
     public class WritingConfiguration
     {
         /// <inheritdoc cref="SoloNoStarPowerPolicy">
-        public SoloNoStarPowerPolicy SoloNoStarPowerPolicy { get; set; }
+        public SoloNoStarPowerPolicy SoloNoStarPowerPolicy { get; init; }
         /// <inheritdoc cref="TrackObjectSource">
-        public TrackObjectSource EventSource { get; set; }
+        public TrackObjectSource EventSource { get; init; }
         /// <inheritdoc cref="TrackObjectSource"/>
-        public TrackObjectSource StarPowerSource { get; set; }
+        public TrackObjectSource StarPowerSource { get; init; }
         /// <summary>
         /// *Unsupported*
         /// </summary>
-        public DuplicateTrackObjectPolicy DuplicateTrackObjectPolicy { get; set; }
+        public DuplicateTrackObjectPolicy DuplicateTrackObjectPolicy { get; init; }
         /// <summary>
         /// *Unsupported*
         /// </summary>
-        public HopoThresholdPriority HopoThresholdPriority { get; set; }
+        public HopoThresholdPriority HopoThresholdPriority { get; init; }
         /// <summary>
         /// *Unsupported*
         /// </summary>
-        public uint? HopoTreshold { get; set; } = null;
+        public uint? HopoTreshold { get; init; } = null;
         /// <summary>
         /// *Unsupported*
         /// </summary>
-        public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; set; }
+        public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }
     }
 }
