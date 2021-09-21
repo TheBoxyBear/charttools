@@ -8,18 +8,55 @@ namespace ChartTools
     /// </summary>
     public enum Difficulty : byte { Easy, Medium, Hard, Expert }
     /// <summary>
-    /// *Unsupported* Modifier that affects the way the chord can be played
+    /// Modifier that affects the way the chord can be played
     /// </summary>
-    /// <remarks>Support will be added once accent notes are added to Clone Hero.</remarks>
-    [Flags] public enum DrumsChordModifier : byte { None, Accent, Ghost }
+    [Flags]
+    public enum DrumsChordModifier : byte
+    {
+        None,
+        /// <summary>
+        /// *Unsupported*
+        /// </summary>
+        Accent,
+        /// <summary>
+        /// *Unsupported*
+        /// </summary>
+        Ghost,
+        Flam = 4
+    }
     /// <summary>
     /// Drums pads and pedals for a <see cref="DrumsNote"/>
     /// </summary>
-    public enum DrumsNotes : byte { Kick, Red, Yellow, Blue, Green4Lane_Orange5Lane, Green5Lane, DoubleKick }
+    public enum DrumsLane : byte
+    {
+        Kick,
+        Red,
+        Yellow,
+        Blue,
+        /// <summary>
+        /// Green when playing with four pads, orange when playing with five pads
+        /// </summary>
+        Green4Lane_Orange5Lane,
+        /// <summary>
+        /// Green when playing with five pad, otherwise converted to <see cref="Green4Lane_Orange5Lane"/>
+        /// </summary>
+        Green5Lane,
+        /// <summary>
+        /// <see cref="Kick"/> that only appears when playing with multiple pedals
+        /// </summary>
+        DoubleKick
+    }
     /// <summary>
     /// Modifier that affects how a <see cref="GHLChord"/> can be played
     /// </summary>
-    [Flags] public enum GHLChordModifier : byte { None, Forced, Tap }
+    [Flags] public enum GHLChordModifier : byte
+    {
+        Natural,
+        Invert,
+        ForceStrum,
+        ForceHopo,
+        Tap
+    }
     /// <summary>
     /// Guitar Hero Live instruments
     /// </summary>
@@ -28,7 +65,7 @@ namespace ChartTools
     /// <summary>
     /// Frets for a <see cref="GHLNote"/>
     /// </summary>
-    public enum GHLNotes : byte { Open, Black1, Black2, Black3, White1, White2, White3 }
+    public enum GHLLane : byte { Open, Black1, Black2, Black3, White1, White2, White3 }
     /// <summary>
     /// Types of <see cref="GlobalEvent"/>
     /// </summary>
@@ -123,7 +160,14 @@ namespace ChartTools
     /// <summary>
     /// Modifier that affects how a <see cref="StandardChord"/> can be played
     /// </summary>
-    [Flags] public enum StandardChordModifier : byte { None, Forced, Tap }
+    [Flags] public enum StandardChordModifier : byte
+    {
+        Natural,
+        Invert,
+        ForceStrum,
+        ForceHopo,
+        Tap
+    }
     /// <summary>
     /// Standard five-fret instruments
     /// </summary>
@@ -132,7 +176,7 @@ namespace ChartTools
     /// <summary>
     /// Frets for a <see cref="StandardNote"/>
     /// </summary>
-    public enum StandardNotes : byte { Open, Green, Red, Yellow, Blue, Orange }
+    public enum StandardLane : byte { Open, Green, Red, Yellow, Blue, Orange }
     /// <summary>
     /// All instruments
     /// </summary>

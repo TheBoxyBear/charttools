@@ -1,11 +1,8 @@
-﻿using ChartTools.InternalTools;
+﻿using ChartTools.Collections.Unique;
+using ChartTools.InternalTools;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Ini;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ChartTools
 {
@@ -27,6 +24,14 @@ namespace ChartTools
         /// Album featuring the <see cref="Song"/>
         /// </summary>
         public string? Album { get; set; }
+        /// <summary>
+        /// Track number of the song within the album
+        /// </summary>
+        public ushort? AlbumTrack { get; set; }
+        /// <summary>
+        /// Track number of the song within the playlist/setlist
+        /// </summary>
+        public ushort? PlaylistTrack { get; set; }
         /// <summary>
         /// Year of release
         /// </summary>
@@ -85,10 +90,18 @@ namespace ChartTools
         /// </summary>
         public int? VideoOffset { get; set; }
         /// <summary>
+        /// Length of the song in milliseconds
+        /// </summary>
+        public uint? Length { get; set; }
+        /// <summary>
         /// Text to be displayed on the load screen
         /// </summary>
         public string? LoadingText { get; set; }
-        public List<MetadataItem> UnidentifiedData { get; set; } = new();
+        /// <summary>
+        /// The song is a modchart
+        /// </summary>
+        public bool IsModchart { get; set; }
+        public UniqueList<MetadataItem> UnidentifiedData { get; } = new((a, b) => a.Key == b.Key);
         #endregion
 
         /// <summary>

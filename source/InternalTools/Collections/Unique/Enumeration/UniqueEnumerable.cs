@@ -1,4 +1,6 @@
-﻿using ChartTools.SystemExtensions;
+﻿using System.Collections;
+
+using ChartTools.SystemExtensions;
 using ChartTools.SystemExtensions.Linq;
 
 using System;

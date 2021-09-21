@@ -1,13 +1,10 @@
-﻿using ChartTools.SystemExtensions.Linq;
-
-using System.Linq;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
+using ChartTools.SystemExtensions.Linq;
 
 namespace ChartTools.Optimization
 {
     /// <summary>
-    /// Pvodies methods for simplifying songs
+    /// Provides methods for simplifying songs
     /// </summary>
     public static class Optimizer
     {
@@ -15,7 +12,7 @@ namespace ChartTools.Optimization
         /// Cuts short sustains that exceed the position of the next identical note.
         /// </summary>
         /// <param name="chords">Chords to cut the sustains of</param>
-        public static void CutSustains<TNote, TNoteEnum>(this IEnumerable<Chord<TNote, TNoteEnum>> chords) where TNote : Note where TNoteEnum : struct, System.Enum => chords.OrderBy(c => c.Position).RelativeLoop((previous, current) =>
+        public static void CutSustains<TNote, TNoteEnum>(this IEnumerable<Chord<TNote, TNoteEnum>> chords) where TNote : Note<TNoteEnum> where TNoteEnum : struct, System.Enum => chords.OrderBy(c => c.Position).RelativeLoop((previous, current) =>
         {
             foreach (TNote note in current!.Notes)
             {
@@ -38,7 +35,7 @@ namespace ChartTools.Optimization
         /// <summary>
         /// Sorts tempo markers and removes redundant ones.
         /// </summary>
-        /// <param name="markers">Tempo markers to remove the undded from</param>
+        /// <param name="markers">Tempo markers to remove the unneeded from</param>
         public static void RemoveUneeded(this IList<Tempo> markers) => markers.OrderBy(m => m.Position).RelativeLoop((previous, current) =>
         {
             if (previous is not null && previous.Anchor is null && current?.Anchor is null && previous.Value == current?.Value)
@@ -47,8 +44,8 @@ namespace ChartTools.Optimization
         /// <summary>
         /// Sorts time signatures and removes redundant ones.
         /// </summary>
-        /// <param name="signatures">Time signatures to remove the uneeded from</param>
-        public static void RemoveUneeded(this IList<TimeSignature> signatures) => signatures.OrderBy(s => s.Position).RelativeLoop((previous, current) =>
+        /// <param name="signatures">Time signatures to remove the unneeded from</param>
+        public static void RemoveUnneeded(this IList<TimeSignature> signatures) => signatures.OrderBy(s => s.Position).RelativeLoop((previous, current) =>
         {
             if (previous is not null && previous.Numerator == current?.Numerator && previous.Denominator == current.Denominator)
                 signatures.Remove(current);

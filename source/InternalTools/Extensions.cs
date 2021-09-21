@@ -71,18 +71,6 @@ namespace ChartTools.SystemExtensions.Linq
         /// </summary>
         public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) => source.Where(t => t is not null)!;
 
-        /// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
-        /// <param name="defaultValue">Value to return if no item meets the condition</param>
-        public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue)
-        {
-            if (predicate is null)
-                throw new ArgumentNullException(nameof(predicate));
-
-            foreach (T item in source)
-                if (predicate(item))
-                    return item;
-            return defaultValue;
-        }
         /// <inheritdoc cref="FirstOrDefault{T}(IEnumerable{T}, Predicate{T}, T)"/>
         /// <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
         public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue, out bool returnedDefault)
@@ -377,6 +365,79 @@ namespace ChartTools.SystemExtensions.Linq
         }
 
         /// <summary>
+        /// Finds the items for which a function returns the smallest or greatest value based on a comparison.
+        /// </summary>
+        /// <param name="source">Items to find the minimum or maximum of</param>
+        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
+        /// <param name="comparison">Function that returns <see langword="true"/> if the second item defeats the first</param>
+        private static IEnumerable<T> ManyMinMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector, Func<TKey, TKey, bool> comparison) where TKey : IComparable<TKey>
+        {
+            TKey minMaxKey;
+
+            using (IEnumerator<T> enumerator = source.GetEnumerator())
+            {
+                if (!enumerator.MoveNext())
+                    throw new ArgumentException("The enumerable has no items.", nameof(source));
+
+                minMaxKey = selector(enumerator.Current);
+
+                while (enumerator.MoveNext())
+                {
+                    TKey key = selector(enumerator.Current);
+
+                    if (comparison(key, minMaxKey))
+                        minMaxKey = key;
+                }
+            }
+            return source.Where(t => selector(t).CompareTo(minMaxKey) == 0);
+        }
+        /// <summary>
+        /// Finds the items for which a function returns the smallest value.
+        /// </summary>
+        /// <param name="source">Items to find the minimum or maximum of</param>
+        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
+        public static IEnumerable<T> ManyMinBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) < 0);
+        /// <summary>
+        /// Finds the items for which a function returns the greatest value.
+        /// </summary>
+        /// <param name="source">Items to find the minimum or maximum of</param>
+        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
+        public static IEnumerable<T> ManyMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) > 0);
+    }
+
+    // Methods present in .NET 6 but needed for .NET builds
+#if NET5_0
+        /// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
+        /// <param name="defaultValue">Value to return if no item meets the condition</param>
+        public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue)
+        {
+            if (predicate is null)
+                throw new ArgumentNullException(nameof(predicate));
+
+            foreach (T item in source)
+                if (predicate(item))
+                    return item;
+            return defaultValue;
+        }
+        /// <inheritdoc cref="FirstOrDefault{T}(IEnumerable{T}, Predicate{T}, T)"/>
+        /// <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
+        public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue, out bool returnedDefault)
+        {
+            if (predicate is null)
+                throw new ArgumentNullException(nameof(predicate));
+
+            foreach (T item in source)
+                if (predicate(item))
+                {
+                    returnedDefault = false;
+                    return item;
+                }
+
+            returnedDefault = true;
+            return defaultValue;
+        }
+
+        /// <summary>
         /// Finds the item for which a function returns the smallest or greatest value based on a comparison.
         /// </summary>
         /// <param name="source">Items to find the minimum or maximum of</param>
@@ -424,48 +485,7 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="source">Items to find the minimum or maximum of</param>
         /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
         public static T MaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => MinMaxBy(source, selector, (key, mmKey) => key.CompareTo(mmKey) > 0);
-
-
-        /// <summary>
-        /// Finds the items for which a function returns the smallest or greatest value based on a comparison.
-        /// </summary>
-        /// <param name="source">Items to find the minimum or maximum of</param>
-        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
-        /// <param name="comparison">Function that returns <see langword="true"/> if the second item defeats the first</param>
-        private static IEnumerable<T> ManyMinMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector, Func<TKey, TKey, bool> comparison) where TKey : IComparable<TKey>
-        {
-            TKey minMaxKey;
-
-            using (IEnumerator<T> enumerator = source.GetEnumerator())
-            {
-                if (!enumerator.MoveNext())
-                    throw new ArgumentException("The enumerable has no items.", nameof(source));
-
-                minMaxKey = selector(enumerator.Current);
-
-                while (enumerator.MoveNext())
-                {
-                    TKey key = selector(enumerator.Current);
-
-                    if (comparison(key, minMaxKey))
-                        minMaxKey = key;
-                }
-            }
-            return source.Where(t => selector(t).CompareTo(minMaxKey) == 0);
-        }
-        /// <summary>
-        /// Finds the items for which a function returns the smallest value.
-        /// </summary>
-        /// <param name="source">Items to find the minimum or maximum of</param>
-        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
-        public static IEnumerable<T> ManyMinBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) < 0);
-        /// <summary>
-        /// Finds the items for which a function returns the greatest value.
-        /// </summary>
-        /// <param name="source">Items to find the minimum or maximum of</param>
-        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
-        public static IEnumerable<T> ManyMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) > 0);
-    }
+#endif
 }
 
 namespace ChartTools
@@ -529,8 +549,6 @@ namespace ChartTools
                 Instrument.WriteDifficulty(path, (Instruments)instrument, inst.Difficulty.Value);
         }
 
-        /// <inheritdoc cref="ToFile(Instrument{DrumsChord}, string, WritingConfiguration)"/>
-        public static void ToFile(this Instrument<DrumsChord> inst, string path) => ToFile(inst, path, new());
         /// <summary>
         /// Replaces drums in a file.
         /// </summary>
@@ -550,13 +568,13 @@ namespace ChartTools
 
     public static class ChordExtensions
     {
-        public static void Add(this NoteCollection<DrumsNote, DrumsNotes> notes, DrumsNotes note) => notes.Add(new DrumsNote(note));
-        public static void Add(this NoteCollection<GHLNote, GHLNotes> notes, GHLNotes note) => notes.Add(new GHLNote(note));
-        public static void Add(this NoteCollection<StandardNote, StandardNotes> notes, StandardNotes note) => notes.Add(new StandardNote(note));
+        public static void Add(this NoteCollection<DrumsNote, DrumsLane> notes, DrumsLane note) => notes.Add(new DrumsNote(note));
+        public static void Add(this NoteCollection<Note<GHLLane>, GHLLane> notes, GHLLane note) => notes.Add(new Note<GHLLane>(note));
+        public static void Add(this NoteCollection<Note<StandardLane>, StandardLane> notes, StandardLane note) => notes.Add(new Note<StandardLane>(note));
 
-        public static bool Contains(this NoteCollection<DrumsNote, DrumsNotes> notes, DrumsNotes note) => notes.Any(n => n.Note == note);
-        public static bool Contains(this NoteCollection<GHLNote, GHLNotes> notes, GHLNotes note) => notes.Any(n => n.Note == note);
-        public static bool Contains(this NoteCollection<StandardNote, StandardNotes> notes, StandardNotes note) => notes.Any(n => n.Note == note);
+        public static bool Contains(this NoteCollection<DrumsNote, DrumsLane> notes, DrumsLane note) => notes.Any(n => n.Lane == note);
+        public static bool Contains(this NoteCollection<Note<GHLLane>, GHLLane> notes, GHLLane note) => notes.Any(n => n.Lane == note);
+        public static bool Contains(this NoteCollection<Note<StandardLane>, StandardLane> notes, StandardLane note) => notes.Any(n => n.Lane == note);
     }
 
     /// <summary>
@@ -570,9 +588,7 @@ namespace ChartTools
         /// The exception that is thrown when a method is called with <see langword="null"/> as a parameter for which <see langword="null"/> is not an accepted value
         /// </summary>
         [Obsolete("Replaced with ArgumentNullException")]
-#pragma warning disable S3925 // "ISerializable" should be implemented correctly
         public class ParameterNullException : Exception
-#pragma warning restore S3925 // "ISerializable" should be implemented correctly
         {
             /// <summary>
             /// Default value of <see cref="MessageTemplate"/>
@@ -617,7 +633,6 @@ namespace ChartTools
     /// </summary>
     public static class TrackExtensions
     {
-        public static void ToFile(this Track<DrumsChord> track, string path, Difficulty difficulty) => ToFile(track, path, difficulty, new());
         /// <summary>
         /// Writes the <see cref="Track{TChord}"/> to a file.
         /// </summary>
@@ -633,12 +648,10 @@ namespace ChartTools
         /// <exception cref="SecurityException"/>
         public static void ToFile(this Track<DrumsChord> track, string path, Difficulty difficulty, WritingConfiguration config) => ExtensionHandler.Write(path, (track, Instruments.Drums, difficulty), config, (".chart", ChartParser.ReplaceTrack));
 
-        public static void ToFile(this Track<GHLChord> track, string path, GHLInstrument instrument, Difficulty difficulty) => ToFile(track, path, instrument, difficulty, new());
         /// <inheritdoc cref="ToFile(Track{DrumsChord}, string, Difficulty)"/>
         /// <param name="instrument">Instrument to assign the <see cref="Track{TChord}"/> to</param>
         public static void ToFile(this Track<GHLChord> track, string path, GHLInstrument instrument, Difficulty difficulty, WritingConfiguration config) => ExtensionHandler.Write(path, (track, (Instruments)instrument, difficulty), config, (".chart", ChartParser.ReplaceTrack));
 
-        public static void ToFile(this Track<StandardChord> track, string path, StandardInstrument instrument, Difficulty difficulty) => ToFile(track, path, instrument, difficulty, new());
         /// <inheritdoc cref="ToFile(Track{GHLChord}, string, Difficulty)"/>
         public static void ToFile(this Track<StandardChord> track, string path, StandardInstrument instrument, Difficulty difficulty, WritingConfiguration config) => ExtensionHandler.Write(path, (track, (Instruments)instrument, difficulty), config, (".chart", ChartParser.ReplaceTrack));
     }

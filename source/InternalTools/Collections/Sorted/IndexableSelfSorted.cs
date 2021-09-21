@@ -46,9 +46,9 @@ namespace ChartTools.Collections.Sorted
                 base.Add(item);
             else
                 if (ContainsDuplicate(item))
-                    throw new ArgumentException("Item cannot be added because one of the same index already exists.");
-                else
-                    base.Add(item);
+                throw new ArgumentException("Item cannot be added because one of the same index already exists.");
+            else
+                base.Add(item);
         }
         /// <inheritdoc/>
         /// <param name="items">Items to add</param>

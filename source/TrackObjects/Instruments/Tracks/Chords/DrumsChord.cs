@@ -7,11 +7,11 @@ namespace ChartTools
     /// <summary>
     /// Set of notes played simultaneously by drums
     /// </summary>
-    public class DrumsChord : Chord<DrumsNote, DrumsNotes>
+    public class DrumsChord : Chord<DrumsNote, DrumsLane>
     {
         /// <inheritdoc cref="DrumsChordModifier"/>
         public DrumsChordModifier Modifier { get; set; } = DrumsChordModifier.None;
-        protected override bool openExclusivity => false;
+        protected override bool OpenExclusivity => false;
 
         /// <inheritdoc cref="Chord(uint)"/>
         public DrumsChord(uint position) : base(position) { }
@@ -26,30 +26,28 @@ namespace ChartTools
                 Notes.Add(note);
         }
         /// <inheritdoc cref="DrumsChord(uint, DrumsNote[])"/>
-        public DrumsChord(uint position, params DrumsNotes[] notes) : base(position)
+        public DrumsChord(uint position, params DrumsLane[] notes) : base(position)
         {
             if (notes is null)
                 throw new ArgumentNullException(nameof(notes));
 
-            foreach (DrumsNotes note in notes)
+            foreach (DrumsLane note in notes)
                 Notes.Add(new DrumsNote(note));
         }
 
         /// <inheritdoc/>
-        internal override System.Collections.Generic.IEnumerable<string> GetChartData()
+        internal override IEnumerable<string> GetChartData()
         {
             foreach (DrumsNote note in Notes)
             {
-                yield return ChartParser.GetNoteData(note.Note == DrumsNotes.DoubleKick ? (byte)32 : note.NoteIndex, note.SustainLength);
+                yield return ChartParser.GetNoteData(note.Lane == DrumsLane.DoubleKick ? (byte)32 : note.NoteIndex, note.SustainLength);
 
                 if (note.IsCymbal)
-                    yield return ChartParser.GetNoteData((byte)(note.Note + 64), 0);
+                    yield return ChartParser.GetNoteData((byte)(note.Lane + 64), 0);
             }
 
-            if (Modifier != DrumsChordModifier.None)
-            {
-                // Add once accent and ghost are added to Clone Hero
-            }
+            if (Modifier.HasFlag(DrumsChordModifier.Flam))
+                yield return ChartParser.GetNoteData(109, 0);
         }
     }
 }

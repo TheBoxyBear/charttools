@@ -20,9 +20,9 @@ namespace ChartTools.InternalTools
             foreach (PropertyInfo i in typeof(T).GetProperties())
                 if (i.GetValue(current) is null || overwriteNonNull)
                     foreach (object newProperty in from newValue in newValues
-                                                let newProperty = i.GetValue(newValues)
-                                                where newProperty is not null
-                                                select newProperty)
+                                                   let newProperty = i.GetValue(newValues)
+                                                   where newProperty is not null
+                                                   select newProperty)
                         i.SetValue(current, newProperty);
         }
     }

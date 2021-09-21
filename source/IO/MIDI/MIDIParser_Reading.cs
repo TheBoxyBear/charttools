@@ -53,7 +53,7 @@ namespace ChartTools.IO.MIDI
             //    tasks.Add(Task.Run(() => songType.GetProperty(inst.ToString())!.SetValue(song, GetInstrument(chunks, inst, midiConfig))));
             //// Tasks for each standard instrument
             //foreach (StandardInstrument inst in Enum.GetValues<StandardInstrument>())
-                tasks.Add(Task.Run(() => songType.GetProperty(StandardInstrument.LeadGuitar.ToString())!.SetValue(song, GetInstrument(chunks, StandardInstrument.LeadGuitar, midiConfig))));
+            tasks.Add(Task.Run(() => songType.GetProperty(StandardInstrument.LeadGuitar.ToString())!.SetValue(song, GetInstrument(chunks, StandardInstrument.LeadGuitar, midiConfig))));
 
             foreach (Task task in tasks)
             {
@@ -161,7 +161,7 @@ namespace ChartTools.IO.MIDI
         private static UniqueTrackObjectCollection<StandardChord> GetStandardChords(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig)
         {
             NoteMode mode = NoteMode.Regular;
-            StandardNote[] sustainedNotes = new StandardNote[6]; // Stores references notes gnerated from a NoteON event until they are closed by a NoteOff
+            Note<StandardLane>[] sustainedNotes = new Note<StandardLane>[6]; // Stores references notes generated from a NoteON event until they are closed by a NoteOff
 
             Predicate<byte> NoteMatchDifficulty = difficulty switch
             {
@@ -178,9 +178,9 @@ namespace ChartTools.IO.MIDI
             UniqueTrackObjectCollection<StandardChord> chords = new();
             StandardChord? chord = null;
 
-            Dictionary<StandardNotes, StandardChord?> sustainOrigins =
-                new(from note in Enum.GetValues<StandardNotes>()
-                    select new KeyValuePair<StandardNotes, StandardChord?>(note, null));
+            Dictionary<StandardLane, StandardChord?> sustainOrigins =
+                new(from note in Enum.GetValues<StandardLane>()
+                    select new KeyValuePair<StandardLane, StandardChord?>(note, null));
 
             bool newChord = true;
 
@@ -207,7 +207,7 @@ namespace ChartTools.IO.MIDI
                             continue;
 
                         uint position = (uint)noteOnEvent.DeltaTime;
-                        StandardNotes noteEnum = (StandardNotes)GetNoteIndex(noteOnEvent.NoteNumber);
+                        StandardLane noteEnum = (StandardLane)GetNoteIndex(noteOnEvent.NoteNumber);
 
                         GetParentChord(noteOnEvent, position);
                         sustainOrigins[noteEnum] = chord;
@@ -225,12 +225,12 @@ namespace ChartTools.IO.MIDI
                         position = (uint)noteOffEvent.DeltaTime;
                         GetParentChord(noteOffEvent, position);
 
-                        noteEnum = (StandardNotes)GetNoteIndex(noteOffEvent.NoteNumber);
+                        noteEnum = (StandardLane)GetNoteIndex(noteOffEvent.NoteNumber);
 
                         if (sustainOrigins.ContainsKey(noteEnum))
                         {
                             StandardChord? ch = sustainOrigins[noteEnum];
-                            StandardNote? note = ch?.Notes[noteEnum];
+                            Note<StandardLane>? note = ch?.Notes[noteEnum];
 
                             if (note is not null)
                                 note.SustainLength = position - ch!.Position;

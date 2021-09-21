@@ -1,5 +1,6 @@
 ﻿namespace ChartTools.IO
 {
+
     /// <summary>
     /// Difficulty of the <see cref="Track"/> to serve as a source of for track objects common to all difficulties to use for all tracks in the same <see cref="Instrument"/>
     /// <para>Common track objects are:<list type="bullet">
@@ -32,10 +33,71 @@
         /// </summary>
         Convert
     }
-    public enum ForcedTapPolicy
+    /// <summary>
+    /// Defines how chords with a set of incompatible modifiers are handled
+    /// </summary>
+    public enum IncompatibleModifiersPolicy
     {
-        Ignore,
-        ConvertToTap,
+        /// <summary>
+        /// All modifiers are included
+        /// </summary>
+        IncludeAll,
+        /// <summary>
+        /// The modifiers are excluded
+        /// </summary>
+        IgnoreModifers,
+        /// <summary>
+        /// The chord is excluded
+        /// </summary>
+        IgnoreChord,
+        ThrowException
+    }
+    /// <summary>
+    /// Defines how duplicate track objects are handled
+    /// </summary>
+    public enum DuplicateTrackObjectPolicy : byte
+    {
+        /// <summary>
+        /// Only include the first object
+        /// </summary>
+        IncludeFirst,
+        /// <summary>
+        /// Include all objects
+        /// </summary>
+        IncludeAll,
+        ThrowException
+    }
+    /// <summary>
+    /// Hopo threshold to prioritize if included in the metadata and configuration
+    /// </summary>
+    public enum HopoThresholdPriority
+    {
+        /// <summary>
+        /// Get the threshold from metadata
+        /// </summary>
+        Metadata,
+        /// <summary>
+        /// Get the threshold from configuration
+        /// </summary>
+        Configuration
+    }
+    /// <summary>
+    /// Defines how to handle chord modifiers not supported by the target format
+    /// </summary>
+    public enum UnsupportedModifierPolicy
+    {
+        /// <summary>
+        /// The modifier is excluded
+        /// </summary>
+        IgnoreModifier,
+        /// <summary>
+        /// The chord is excluded
+        /// </summary>
+        IgnoreChord,
+        /// <summary>
+        /// The modifier is converted to a compatible one
+        /// </summary>
+        Convert,
         ThrowException
     }
 
@@ -45,16 +107,37 @@
     public class ReadingConfiguration
     {
         /// <inheritdoc cref="SoloNoStarPowerPolicy"/>
-        public SoloNoStarPowerPolicy SoloNoStarPowerRule { get; set; } = SoloNoStarPowerPolicy.Convert;
+        public SoloNoStarPowerPolicy SoloNoStarPowerRule { get; init; }
+        /// <summary>
+        /// *Unsupported*
+        /// </summary>
+        public DuplicateTrackObjectPolicy DuplicateTrackObjectPolicy { get; init; }
+        public IncompatibleModifiersPolicy IncompatibleModifiersPolicy { get; init; }
     }
 
     public class WritingConfiguration
     {
         /// <inheritdoc cref="SoloNoStarPowerPolicy">
-        public SoloNoStarPowerPolicy SoloNoStarPowerPolicy { get; set; }
+        public SoloNoStarPowerPolicy SoloNoStarPowerPolicy { get; init; }
         /// <inheritdoc cref="TrackObjectSource">
-        public TrackObjectSource EventSource { get; set; }
+        public TrackObjectSource EventSource { get; init; }
         /// <inheritdoc cref="TrackObjectSource"/>
-        public TrackObjectSource StarPowerSource { get; set; }
+        public TrackObjectSource StarPowerSource { get; init; }
+        /// <summary>
+        /// *Unsupported*
+        /// </summary>
+        public DuplicateTrackObjectPolicy DuplicateTrackObjectPolicy { get; init; }
+        /// <summary>
+        /// *Unsupported*
+        /// </summary>
+        public HopoThresholdPriority HopoThresholdPriority { get; init; }
+        /// <summary>
+        /// *Unsupported*
+        /// </summary>
+        public uint? HopoTreshold { get; init; } = null;
+        /// <summary>
+        /// *Unsupported*
+        /// </summary>
+        public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }
     }
 }

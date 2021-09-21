@@ -19,8 +19,8 @@ namespace ChartTools
         public UniqueList<TimeSignature> TimeSignatures { get; } = new UniqueList<TimeSignature>((t, other) => t.Equals(other));
 
         /// <inheritdoc cref="ChartParser.ReadSyncTrack(string)"/>
-        public static SyncTrack FromFile(string path) => ExtensionHandler.Read(path, (".chart", ChartParser.ReadSyncTrack));
+        public static SyncTrack FromFile(string path, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, config, (".chart", ChartParser.ReadSyncTrack));
         /// <inheritdoc cref="ChartParser.ReplaceSyncTrack(string, SyncTrack)"/>
-        public void ToFile(string path) => ExtensionHandler.Write(path, this, (".chart", ChartParser.ReplaceSyncTrack));
+        public void ToFile(string path, WritingConfiguration? config = default) => ExtensionHandler.Write(path, this, config, (".chart", ChartParser.ReplaceSyncTrack));
     }
 }

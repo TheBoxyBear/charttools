@@ -60,42 +60,33 @@ namespace ChartTools
         }
 
         #region File reading
-        /// <inheritdoc cref="FromFile(string, Instruments, ReadingConfiguration)"/>
-        public static Instrument FromFile(string path, Instruments instrument) => FromFile(path, instrument, new());
         /// <summary>
         /// Reads an instrument from a file.
         /// </summary>
         /// <inheritdoc cref="ChartParser.ReadInstrument(string, Instruments, ReadingConfiguration)"/>
-        public static Instrument FromFile(string path, Instruments instrument, ReadingConfiguration config) => Enum.IsDefined(instrument)
+        public static Instrument FromFile(string path, Instruments instrument, ReadingConfiguration? config = default) => Enum.IsDefined(instrument)
             ? ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadInstrument(p, instrument, config)))
             : throw new ArgumentException(undefinedInstrumentMessage);
 
-
-        /// <inheritdoc cref="FromFile(string, ReadingConfiguration)"/>
-        public static Instrument<DrumsChord> FromFile(string path) => FromFile(path, new ReadingConfiguration());
         /// <summary>
         /// Reads drums from a file.
         /// </summary>
         /// <inheritdoc cref="ChartParser.ReadDrums(string, ReadingConfiguration)(string, Instruments, ReadingConfiguration)"/>
-        public static Instrument<DrumsChord> FromFile(string path, ReadingConfiguration config) => ExtensionHandler.Read(path, config, (".chart", ChartParser.ReadDrums));
+        public static Instrument<DrumsChord> FromFile(string path, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, config, (".chart", ChartParser.ReadDrums));
 
-        /// <inheritdoc cref="FromFile(string, GHLInstrument, ReadingConfiguration)"/>
-        public static Instrument<GHLChord> FromFile(string path, GHLInstrument instrument) => FromFile(path, instrument, new());
         /// <summary>
         /// Reads a GHL instrument from a file.
         /// </summary>
         /// <inheritdoc cref="ChartParser.ReadInstrument(string, GHLInstrument, ReadingConfiguration)" />
-        public static Instrument<GHLChord> FromFile(string path, GHLInstrument instrument, ReadingConfiguration config) => Enum.IsDefined(instrument)
+        public static Instrument<GHLChord> FromFile(string path, GHLInstrument instrument, ReadingConfiguration? config = default) => Enum.IsDefined(instrument)
             ? ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadInstrument(p, instrument, config)))
             : throw new ArgumentException(undefinedInstrumentMessage);
 
-        /// <inheritdoc cref="FromFile(string, StandardInstrument, ReadingConfiguration)"/>
-        public static Instrument<StandardChord> FromFile(string path, StandardInstrument instrument) => FromFile(path, instrument, new());
         /// <summary>
         /// Reads a standard instrument from a file.
         /// </summary>
         /// <inheritdoc cref="ChartParser.ReadInstrument(string, StandardInstrument, ReadingConfiguration)"/>
-        public static Instrument<StandardChord> FromFile(string path, StandardInstrument instrument, ReadingConfiguration config) => Enum.IsDefined(instrument)
+        public static Instrument<StandardChord> FromFile(string path, StandardInstrument instrument, ReadingConfiguration? config = default) => Enum.IsDefined(instrument)
             ? ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadInstrument(p, instrument, config)))
             : throw new ArgumentException(undefinedInstrumentMessage);
         #endregion

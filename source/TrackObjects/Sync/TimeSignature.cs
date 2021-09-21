@@ -15,7 +15,7 @@
         public byte Denominator { get; set; }
 
         /// <summary>
-        /// Creates an instnace of <see cref="TimeSignature"/>.
+        /// Creates an instance of <see cref="TimeSignature"/>.
         /// </summary>
         /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
         /// <param name="numerator">Value of <see cref="Numerator"/></param>

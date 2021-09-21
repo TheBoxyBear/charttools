@@ -35,23 +35,23 @@ namespace ChartTools.Lyrics
             {
                 Syllable syllable = Syllables[0];
                 StringBuilder builder = new(Syllables[0].DisplayedText);
-                bool addSpace = syllable.SpaceAdded;
+                bool addSpace = syllable.IsWordEnd;
 
                 for (int i = 1; i < Syllables.Count; i++)
                 {
                     syllable = Syllables[i];
 
                     builder.Append(addSpace ? $" {syllable.DisplayedText}" : syllable.DisplayedText);
-                    addSpace = syllable.SpaceAdded;
+                    addSpace = syllable.IsWordEnd;
                 }
 
-                return builder.ToString().Trim();
+                return builder.ToString();
             }
         }
         /// <summary>
         /// Gets the raw text of all syllables as a single string with spaces between syllables
         /// </summary>
-        public string RawText => string.Concat(Syllables.Select(s => s.IsWordEnd ? s.RawText.Trim() + ' ' : s.RawText.Trim())).TrimEnd();
+        public string RawText => string.Concat(Syllables.Select(s => s.IsWordEnd ? s.RawText + ' ' : s.RawText));
 
         /// <summary>
         /// Syllables in the <see cref="Phrase"/>
@@ -65,7 +65,7 @@ namespace ChartTools.Lyrics
         public Phrase(uint position) : base(position) { }
 
         /// <inheritdoc cref="ChartParser.ReadLyrics(string)"/>
-        public static IEnumerable<Phrase> FromFile(string path) => ExtensionHandler.Read(path, (".chart", ChartParser.ReadLyrics));
+        public static IEnumerable<Phrase> FromFile(string path, ReadingConfiguration? config) => ExtensionHandler.Read(path, config, (".chart", ChartParser.ReadLyrics));
 
         /// <summary>
         /// Gets a set of <see cref="GlobalEvent"/> that make up the <see cref="Phrase"/>
