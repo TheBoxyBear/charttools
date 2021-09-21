@@ -66,6 +66,24 @@ namespace ChartTools.SystemExtensions.Linq
             return false;
         }
 
+        /// <inheritdoc cref="FirstOrDefault{T}(IEnumerable{T}, Predicate{T}, T)"/>
+        /// <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
+        public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue, out bool returnedDefault)
+        {
+            if (predicate is null)
+                throw new ArgumentNullException(nameof(predicate));
+
+            foreach (T item in source)
+                if (predicate(item))
+                {
+                    returnedDefault = false;
+                    return item;
+                }
+
+            returnedDefault = true;
+            return defaultValue;
+        }
+
         /// <summary>
         /// Excludes <see langword="null"/> items.
         /// </summary>
@@ -399,23 +417,6 @@ namespace ChartTools.SystemExtensions.Linq
             foreach (T item in source)
                 if (predicate(item))
                     return item;
-            return defaultValue;
-        }
-        /// <inheritdoc cref="FirstOrDefault{T}(IEnumerable{T}, Predicate{T}, T)"/>
-        /// <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
-        public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue, out bool returnedDefault)
-        {
-            if (predicate is null)
-                throw new ArgumentNullException(nameof(predicate));
-
-            foreach (T item in source)
-                if (predicate(item))
-                {
-                    returnedDefault = false;
-                    return item;
-                }
-
-            returnedDefault = true;
             return defaultValue;
         }
 
