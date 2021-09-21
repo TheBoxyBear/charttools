@@ -17,7 +17,7 @@ Every element of a chart is stored in an instance of the Song class. It can be i
 ```c#
 Song song = Song.FromFile(filePath);
 ```
-A configuration object may also be used to customize the error-handling behavior.
+A configuration object may also be used to customize the error-handling behavior:
 ```c#
 Song song = Song.FromFile(filePath, new Readingconfiguration {});
 ```
