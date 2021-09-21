@@ -112,4 +112,4 @@ song.ToFile(filePath); // .chart file only
 metadata.ToFile(filePath) // .chart or .ini - some properties may not be written depending on the output format
 song.GlobalEvents.ToFile(path) // .chart only
 ```
-Due to strict limitations with the MIDI format, it is recommended to use the ToFile overloads which make use of a WritingConfiguration object for more control over the conversions needed to write to MIDI.
+Due to strict limitations with the MIDI format, it is recommended to use a custom configuration object when writing files.
