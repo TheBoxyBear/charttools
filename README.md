@@ -19,7 +19,7 @@ Song song = Song.FromFile(filePath);
 ```
 A configuration object may also be used to customize the error-handling behavior:
 ```c#
-Song song = Song.FromFile(filePath, new Readingconfiguration {});
+Song song = Song.FromFile(filePath, new ReadingConfiguration {});
 ```
 
 A song contains five main elements:
