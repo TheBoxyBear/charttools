@@ -1,4 +1,6 @@
-﻿namespace ChartTools
+﻿using System;
+
+namespace ChartTools
 {
     /// <summary>
     /// Note played by drums

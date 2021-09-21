@@ -1,4 +1,6 @@
-﻿namespace ChartTools
+﻿using System.Collections.Generic;
+
+namespace ChartTools
 {
     /// <summary>
     /// Set of notes played simultaneously

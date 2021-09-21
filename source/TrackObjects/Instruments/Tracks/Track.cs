@@ -1,6 +1,9 @@
 ﻿using ChartTools.IO;
 using ChartTools.IO.Chart;
 
+using System.Collections.Generic;
+using System.Linq;
+
 namespace ChartTools
 {
     /// <summary>

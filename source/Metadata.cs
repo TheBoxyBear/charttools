@@ -4,6 +4,9 @@ using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Ini;
 
+using System;
+using System.Linq;
+
 namespace ChartTools
 {
     /// <summary>

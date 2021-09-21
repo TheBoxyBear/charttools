@@ -1,4 +1,6 @@
-﻿namespace ChartTools
+﻿using System;
+
+namespace ChartTools
 {
     public class Note<TLaneEnum> : Note where TLaneEnum : struct, Enum
     {

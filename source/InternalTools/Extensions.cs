@@ -71,23 +71,6 @@ namespace ChartTools.SystemExtensions.Linq
         /// </summary>
         public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) => source.Where(t => t is not null)!;
 
-        /// <inheritdoc cref="FirstOrDefault{T}(IEnumerable{T}, Predicate{T}, T)"/>
-        /// <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
-        public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue, out bool returnedDefault)
-        {
-            if (predicate is null)
-                throw new ArgumentNullException(nameof(predicate));
-
-            foreach (T item in source)
-                if (predicate(item))
-                {
-                    returnedDefault = false;
-                    return item;
-                }
-
-            returnedDefault = true;
-            return defaultValue;
-        }
         /// <summary>
         /// Tries to get the first item that meet a condition from en enumerable.
         /// </summary>
@@ -403,9 +386,8 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="source">Items to find the minimum or maximum of</param>
         /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
         public static IEnumerable<T> ManyMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) > 0);
-    }
 
-    // Methods present in .NET 6 but needed for .NET builds
+        // Methods present in .NET 6 but needed for .NET builds
 #if NET5_0
         /// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
         /// <param name="defaultValue">Value to return if no item meets the condition</param>
@@ -486,6 +468,7 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
         public static T MaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => MinMaxBy(source, selector, (key, mmKey) => key.CompareTo(mmKey) > 0);
 #endif
+    }
 }
 
 namespace ChartTools

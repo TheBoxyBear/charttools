@@ -1,4 +1,6 @@
-﻿namespace ChartTools
+﻿using System.Collections.Generic;
+
+namespace ChartTools
 {
     /// <summary>
     /// Set of chords for a instrument at a certain difficulty
