@@ -1,4 +1,6 @@
-﻿namespace ChartTools.IO.MIDI
+﻿using System.Collections.Generic;
+
+namespace ChartTools.IO.MIDI
 {
     internal static partial class MIDIParser
     {

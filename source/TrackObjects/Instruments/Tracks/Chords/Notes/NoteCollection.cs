@@ -1,4 +1,7 @@
-﻿using ChartTools.Collections.Unique;
+﻿using System;
+using System.Linq;
+
+using ChartTools.Collections.Unique;
 
 namespace ChartTools
 {

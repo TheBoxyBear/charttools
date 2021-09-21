@@ -1,4 +1,5 @@
 ﻿using ChartTools.IO.Chart;
+using System;
 
 namespace ChartTools
 {

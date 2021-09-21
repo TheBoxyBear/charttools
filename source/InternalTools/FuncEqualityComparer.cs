@@ -1,4 +1,7 @@
-﻿using ChartTools.SystemExtensions;
+﻿using System;
+using System.Collections.Generic;
+
+using ChartTools.SystemExtensions;
 
 namespace ChartTools
 {

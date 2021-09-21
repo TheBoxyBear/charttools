@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
 using ChartTools.SystemExtensions.Linq;
 
 namespace ChartTools.Collections.Alternating

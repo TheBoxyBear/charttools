@@ -1,4 +1,7 @@
-﻿namespace ChartTools.IO.Chart
+﻿using System;
+using System.Collections.Generic;
+
+namespace ChartTools.IO.Chart
 {
     internal static partial class ChartParser
     {

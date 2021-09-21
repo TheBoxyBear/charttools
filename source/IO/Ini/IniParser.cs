@@ -1,7 +1,9 @@
 ﻿using ChartTools.SystemExtensions.Linq;
 
-namespace ChartTools.IO.Ini
-{
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
     /// <summary>
     /// Provides methods for reading and writing ini files

@@ -1,4 +1,6 @@
-﻿namespace ChartTools
+﻿using System;
+
+namespace ChartTools
 {
     /// <summary>
     /// Marker that defines an occurrence at a given point in a song.

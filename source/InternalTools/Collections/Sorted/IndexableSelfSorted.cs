@@ -1,4 +1,8 @@
-﻿namespace ChartTools.Collections.Sorted
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ChartTools.Collections.Sorted
 {
     /// <summary>
     /// *Deprecated* Collection where <typeparamref name="TValue"/> items are always sorted based on a <typeparamref name="TKey"/> key

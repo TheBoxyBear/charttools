@@ -2,6 +2,8 @@
 using ChartTools.IO.Chart;
 
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ChartTools.Lyrics

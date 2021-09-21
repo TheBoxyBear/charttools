@@ -2,6 +2,9 @@
 using ChartTools.IO.Chart;
 using ChartTools.IO.Ini;
 
+using System;
+using System.Collections.Generic;
+
 using DiffEnum = ChartTools.Difficulty;
 
 namespace ChartTools

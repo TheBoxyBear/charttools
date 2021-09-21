@@ -1,4 +1,7 @@
-﻿namespace ChartTools
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace ChartTools
 {
     /// <summary>
     /// Event specific to an instrument and difficulty

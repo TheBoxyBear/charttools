@@ -1,4 +1,10 @@
-﻿using ChartTools.SystemExtensions;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+
+using ChartTools.SystemExtensions;
 
 namespace ChartTools.IO
 {

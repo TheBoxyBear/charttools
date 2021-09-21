@@ -4,6 +4,10 @@ using ChartTools.IO.Ini;
 using ChartTools.IO.MIDI;
 using ChartTools.Lyrics;
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.IO;
 using ChartTools.SystemExtensions.Linq;
 
 namespace ChartTools

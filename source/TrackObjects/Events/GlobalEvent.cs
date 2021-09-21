@@ -2,6 +2,10 @@
 using ChartTools.IO.Chart;
 using ChartTools.SystemExtensions.Linq;
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace ChartTools
 {
     /// <summary>

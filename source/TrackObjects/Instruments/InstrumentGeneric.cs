@@ -1,4 +1,5 @@
-﻿using ChartTools.IO;
+﻿using ChartTools.Collections.Unique;
+using ChartTools.IO;
 using ChartTools.SystemExtensions.Linq;
 
 namespace ChartTools

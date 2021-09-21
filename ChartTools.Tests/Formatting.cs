@@ -1,4 +1,6 @@
-﻿namespace ChartTools.Tests
+﻿using System.Collections.Generic;
+
+namespace ChartTools.Tests
 {
     public static class Formatting
     {

@@ -1,4 +1,6 @@
-﻿namespace ChartTools.IO.Chart
+﻿using System;
+
+namespace ChartTools.IO.Chart
 {
     /// <summary>
     /// Provides methods for reading and writing chart files

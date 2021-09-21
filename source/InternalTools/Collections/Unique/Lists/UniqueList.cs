@@ -1,7 +1,10 @@
-﻿using System.Collections;
-
-using ChartTools.SystemExtensions;
+﻿using ChartTools.SystemExtensions;
 using ChartTools.SystemExtensions.Linq;
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ChartTools.Collections.Unique
 {

@@ -1,4 +1,7 @@
-﻿namespace ChartTools.Collections.Unique
+﻿using System;
+using System.Collections.Generic;
+
+namespace ChartTools.Collections.Unique
 {
     /// <summary>
     /// List where all <typeparamref name="T"/> items must be unique using the default <see cref="IEquatable{T}"/> comparison to determine uniqueness

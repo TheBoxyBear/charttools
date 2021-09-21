@@ -1,6 +1,12 @@
 ﻿using ChartTools.Lyrics;
 using ChartTools.SystemExtensions.Linq;
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace ChartTools.IO.Chart
 {
     /// <summary>
@@ -8,12 +14,7 @@ namespace ChartTools.IO.Chart
     /// </summary>
     internal static partial class ChartParser
     {
-        internal static readonly ReadingConfiguration DefaultReadConfig = new()
-        {
-            DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
-            SoloNoStarPowerRule = SoloNoStarPowerPolicy.Convert
-        };
-        private delegate void NoteCase<TChord>(Track<TChord> track, ref TChord? chord, uint position, NoteData data, ref bool newChord) where TChord : Chord;
+        internal static readonly ReadingConfiguration DefaultReadConfig = new() { SoloNoStarPowerRule = SoloNoStarPowerPolicy.Convert };
 
         /// <summary>
         /// Reads a chart file.
