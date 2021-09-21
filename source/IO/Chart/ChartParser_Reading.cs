@@ -15,6 +15,7 @@ namespace ChartTools.IO.Chart
     internal static partial class ChartParser
     {
         internal static readonly ReadingConfiguration DefaultReadConfig = new() { SoloNoStarPowerRule = SoloNoStarPowerPolicy.Convert };
+        private delegate void NoteCase<TChord>(Track<TChord> track, ref TChord? chord, uint position, NoteData data, ref bool newChord) where TChord : Chord;
 
         /// <summary>
         /// Reads a chart file.
