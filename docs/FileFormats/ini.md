@@ -1,10 +1,10 @@
-# Initialization
+# .ini
 
-Initialization files are commonly-used files for storing things such as settings/configurations. They are text-based and use the .ini format.
+Initialization files are commonly-used files for storing things such as settings/configurations. They are text-based and use the `.ini` file extension.
 
 Song metadata for .mid files are stored in a song.ini file. Clone Hero also extends this file to .chart files.
 
-Table of contents:
+## Table of Contents
 
 - [Basic Structure](#basic-structure)
   - [Sections](#sections)

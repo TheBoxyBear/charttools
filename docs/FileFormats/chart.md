@@ -2,7 +2,7 @@
 
 Chart is a customs format originating from the GH1/2 era. It is text-based and uses the `.chart` file extension.
 
-Table of contents:
+## Table of Contents
 
 - [Basic Infrastructure](#basic-infrastructure)
   - [Sections](#sections)
@@ -255,7 +255,7 @@ These are commonly seen/read-by-CH global events:
 - `phrase_end` – End of the current lyrics phrase. Lyrics will disappear at this event if far enough from the next start event.
 - `lyric <syllable>` – Stores a syllable of the current lyric phrase as the argument. All of the lyrics within a phrase get concatenated into a single phrase in-game. Text gets highlighted one syllable at a time by the lyrics system as lyric events are passed. There are various symbols that do various things or get stripped out:
   - Hyphens `-` will combine two syllables into a single word.
-  - Equals `=` will join two symbols using a hyphen.
+  - Equals `=` will join two syllables using a hyphen.
   - Slashes `/`, underscores `_`, pluses `+`, hashes/pounds `#`, carets `^`, sections `§`, dollar signs `$`, percents `%` and anything inside triangle brackets `<>` that does not match a whitelist are either stripped out or replaced with a space by CH. Most of these are various symbols used in .mid charts for things in Rock Band, their purposes are explained in the .mid docs.
   - CH's PTB can properly parse [TextMeshPro formatting tags](http://digitalnativestudios.com/textmeshpro/docs/rich-text/), such as `<color=#00FF00>`, and has [a whitelist](https://strikeline.myjetbrains.com/youtrack/issue/CH-226) for tags that it allows. CH v.23 will break ones that include an equals sign, slash, or hash.
   - Syllables not joined together through anything will automatically be separated by a space.
@@ -264,7 +264,7 @@ These are commonly seen/read-by-CH global events:
 
 #### Common Legacy/Unused Global Events
 
-Most/all of these are from Guitar Hero 1/2 charts, and are included with Moonscraper's default list of global events for some reason.
+Most/all of these are from Guitar Hero 1/2 charts, and are included with Moonscraper's default list of global events.
 
 - `idle`
 - `play`
@@ -411,7 +411,7 @@ These are local events available on all instruments.
 
 #### Common Legacy/Unused Local Events
 
-Most of these are from GH1/2, and are included with Moonscraper's default local events list for some reason.
+Most of these are from GH1/2, and are included with Moonscraper's default local events list (excluding `solo_on` and `solo_off`).
 
 - `ghl_6` - Indicates that a note should be a GHL 6th fret note. Only has an effect in Moonscraper when exporting to .mid, pretty sure.
 - `ghl_6_forced` - Indicates that a note should be a GHL forced 6th fret note. Only has an effect in Moonscraper when exporting to .mid, pretty sure.
