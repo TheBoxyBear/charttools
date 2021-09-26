@@ -251,16 +251,26 @@ Global event data should be surrounded by quotation marks. As a result, having q
 
 These are commonly seen/read-by-CH global events:
 
-- `phrase_start` – Start of a new lyrics phrase. Marks the end of the previous phrase if it has no end event.
-- `phrase_end` – End of the current lyrics phrase. Lyrics will disappear at this event if far enough from the next start event.
-- `lyric <syllable>` – Stores a syllable of the current lyric phrase as the argument. All of the lyrics within a phrase get concatenated into a single phrase in-game. Text gets highlighted one syllable at a time by the lyrics system as lyric events are passed. There are various symbols that do various things or get stripped out:
-  - Hyphens `-` will combine two syllables into a single word.
-  - Equals `=` will join two syllables using a hyphen.
-  - Slashes `/`, underscores `_`, pluses `+`, hashes/pounds `#`, carets `^`, sections `§`, dollar signs `$`, percents `%` and anything inside triangle brackets `<>` that does not match a whitelist are either stripped out or replaced with a space by CH. Most of these are various symbols used in .mid charts for things in Rock Band, their purposes are explained in the .mid docs.
-  - CH's PTB can properly parse [TextMeshPro formatting tags](http://digitalnativestudios.com/textmeshpro/docs/rich-text/), such as `<color=#00FF00>`, and has [a whitelist](https://strikeline.myjetbrains.com/youtrack/issue/CH-226) for tags that it allows. CH v.23 will break ones that include an equals sign, slash, or hash.
-  - Syllables not joined together through anything will automatically be separated by a space.
+- `phrase_start` – Start of a new lyrics phrase.
+- `phrase_end` – End of the current lyrics phrase.
+- `lyric <syllable>` – Contains a syllable of a lyrics phrase. `Syllable` is a string.
 - `section <name>` – Marks a new section used by Practice mode and post-game summary.
 - `end` – Marks the end of a song.
+
+#### Lyrics
+
+Lyrics are laid out as `phrase_start`, `phrase_end`, and `lyric` events throughout the `Events` section.
+
+`phrase_start` indicates the start of a phrase of lyrics. Any `lyric` events between this and either a `phrase_end` event or a new `phrase_start` event will be concatenated into a single phrase in-game. The text of this phrase gets highlighted one syllable at a time as lyric events are passed. If a `phrase_end` event is used, and there is a large enough gap between it and a new `phrase_start` event, the lyrics will fade out instead of appearing beneath as the next phrase.
+
+There are various symbols used for specific things:
+
+- Hyphens `-` indicate that a syllable should be combined with the next.
+- Equals `=` indicate that a syllable should be joined with the next using a literal hyphen.
+- Syllables not joined together through anything will automatically be separated by a space.
+- Pluses `+`, pounds `#`, carets `^`, asterisks `*`, percents `%`, dollars `$`, and slashes `/` are stripped out by CH, and sections `§` are replaced by a space. These are all from Rock Band, and their purposes are explained in the .mid doc.
+- Underscores `_` are replaced with a space by CH.
+- CH's PTB can properly parse [TextMeshPro formatting tags](http://digitalnativestudios.com/textmeshpro/docs/rich-text/), such as `<color=#00FF00>`, and has [a whitelist](https://strikeline.myjetbrains.com/youtrack/issue/CH-226) for tags that it allows. Any tags not matching this whitelist will be stripped out. CH v.23 or earlier will break ones that include symbols that get stripped out.
 
 #### Common Legacy/Unused Global Events
 
