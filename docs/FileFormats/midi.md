@@ -1,0 +1,674 @@
+# MIDI
+
+A MIDI file is a file that stores a MIDI stream. It is a binary format and uses the `.mid` and `.midi` file extensions (`.midi` is not used for charts or supported by CH, however).
+
+Modern MIDI charts originate from Rock Band's MIDI chart format, with some additional functionality added in by Phase Shift and Clone Hero. Older MIDI charts are slightly different and are based on GH1/2's format, but follow similar patterns.
+
+## Table of Contents
+
+- [Basic Infrastructure](#basic-infrastructure)
+  - [Chunks](#chunks)
+  - [Events](#events)
+    - [Event Types](#event-types)
+    - [Warning For SysEx](#warning-for-sysex)
+- [Using via ChartTools](#using-via-charttools)
+- [Track Names](#track-names)
+- [Track Details](#track-details)
+  - [5-Fret Tracks](#5-fret-tracks)
+    - [5-Fret Notes](#5-fret-notes)
+    - [5-Fret SysEx Events](#5-fret-sysex-events)
+    - [5-Fret Text Events](#5-fret-text-events)
+  - [6-Fret Tracks](#6-fret-tracks)
+    - [6-Fret Notes](#6-fret-notes)
+    - [6-Fret SysEx Events](#6-fret-sysex-events)
+  - [Drums Tracks](#drums-tracks)
+    - [Drums Notes](#drums-notes)
+    - [Drums Real SysEx Events](#drums-real-sysex-events)
+    - [Drums Additional Notes](#drums-additional-notes)
+  - [Vocals Tracks](#vocals-tracks)
+    - [Vocals Notes](#vocals-notes)
+    - [Vocals Lyrics](#vocals-lyrics)
+  - [5-Lane Keys Track](#5-lane-keys-track)
+    - [5-Lane Keys Notes](#5-lane-keys-notes)
+  - [Pro Keys Tracks](#pro-keys-tracks)
+    - [Pro Keys Notes](#pro-keys-notes)
+    - [Pro Keys Animation Notes](#pro-keys-animation-notes)
+  - [Keys Real Tracks](#keys-real-tracks)
+    - [Keys Real Notes](#keys-real-notes)
+  - [Pro Guitar/Bass Tracks](#pro-guitarbass-tracks)
+    - [Pro Guitar/Bass 17-Fret Notes](#pro-guitarbass-17-fret-notes)
+    - [Pro Guitar/Bass 22-Fret Notes](#pro-guitarbass-22-fret-notes)
+  - [Dance Track](#dance-track)
+    - [Dance Notes](#dance-notes)
+  - [Events Track](#events-track)
+  - [Venue Track](#venue-track)
+  - [Beat Track](#beat-track)
+- [Documentation Notes](#documentation-notes)
+
+## Basic Infrastructure
+
+This only goes over the basic infrastructure of MIDI data, there are plenty of resources elsewhere to learn about the details for the MIDI format itself.
+
+### Chunks
+
+MIDI files are comprised of chunks. There are two types of chunks: header chunks, which contain metadata about the MIDI file itself, such as the format type and the tick resolution, and track chunks, which contain MIDI data streams.
+
+### Events
+
+Track chunks contain a series of MIDI events. Events have a delta-time relative to the previous event in the stream, and data related to the event. There are 3 main types of events: standard MIDI messages, System Exclusive (SysEx) messages, and meta-messages.
+
+#### Event Types
+
+Standard messages:
+
+Most of these don't matter for charts in most cases, but are listed anyways as part of a general overview.
+
+- Note On
+  - Marks the start point of a note.
+  - Has a note number (0-127) and velocity value (0-127).
+  - A Note On with a velocity of 0 is equivalent to a Note Off.
+- Note Off
+  - Marks the end point of a note.
+  - Has a note number (0-127) and velocity value (0-127).
+- Control Change
+  - Changes the value of a control setting, such as sustain or pitch bend.
+  - Has a controller number (0-119) and a control value (0-127).
+  - The values for controllers 0-31 and controllers 32-63 are paired up as most-significant bytes and least significant bytes respectively.
+    - For example, controller 2 and 34 are each part of the same value, where 2's value is the most significant byte, and 34's value is the least significant byte.
+  - Controller numbers 120 through 127 are reserved for channel mode messages.
+- Program Change
+  - Changes the sound/voicing of the track.
+  - Has a program number (0-127).
+- Polyphonic Key Pressure
+  - Modifies a specific note in some way.
+  - Has a note number (0-127) and pressure value (0-127).
+- Channel Pressure
+  - Modifies all of the notes in the current MIDI channel in some way.
+  - Has a pressure value (0-127).
+- Pitch Bend Change
+  - Special control change that bends the pitch of the note.
+  - Has a least-significant byte and most-significant byte (both 0-127, forms a 14-bit number.)
+  - Max negative is 0, 0, center is 0, 64 (8,192), max positive is 127, 127 (16,383).
+
+Meta-messages:
+
+- Sequence Number
+  - Specifies the number of a sequence.
+- Text Event
+  - Any amount of text describing anything.
+- Copyright Notice
+  - A copyright notice as text.
+- Sequence/Track Name
+  - The name of the overall sequence or for a specific track.
+- Instrument Name
+  - A description of what instrumentation should be used for the track.
+- Lyric
+  - A singular lyric.
+  - This is *not* used for lyrics in charts.
+- Marker
+  - Name of the current point in a sequence, such as a rehearsal letter or section name.
+  - This is *not* used for practice mode sections.
+- Cue Point
+  - A description of an event happening at this point in an accompanying video, stage performance, etc.
+- MIDI Channel Prefix
+  - Can be used to associate a MIDI channel with all following events, up until the next channel prefix event.
+- End of Track
+  - Required event that specifies the exact ending point of a track.
+- Set Tempo
+  - Sets a tempo in microseconds per MIDI quarter note.
+- SMPTE Offset
+  - Sets an SMPTE time that a track should start at.
+- Time Signature
+  - Sets a time signature.
+- Key Signature
+  - Sets a key signature.
+
+SysEx messages:
+
+- TODO
+
+#### Warning For SysEx
+
+Standard SysEx events normally do not allow values above `0x7F`. However, the guitar tap note SysEx event violates this, so this must be accounted for in MIDI parsing.
+
+## Using via ChartTools
+
+WIP (Info such as reading, writing, etc. should go here)
+
+## Track Names
+
+Tracks are identified by their name.
+
+Standard tracks:
+
+- `PART GUITAR` - Lead Guitar
+- `PART GUITAR COOP` - Co-op Guitar
+- `PART GUITAR GHL` - Guitar Hero Live Guitar
+- `PART BASS` - Bass Guitar
+- `PART BASS GHL` - Guitar Hero Live Bass
+- `PART RHYTHM` - Rhythm Guitar
+- `PART KEYS` - 5-lane Keys
+- `PART DRUMS` - Drums/Pro Drums/5-lane Drums
+- `PART VOCALS` - Vocals (used for lyrics in CH)
+- `EVENTS` - Global events
+
+Legacy tracks:
+
+- `T1 GEMS` - GH1/2-era Lead Guitar
+
+Additional tracks (from either Rock Band or Phase Shift):
+
+- `PART REAL_GUITAR` - RB3 Pro Guitar (17-fret)
+- `PART REAL_GUITAR_22` - RB3 Pro Guitar (22-fret)
+- `PART REAL_GUITAR_BONUS` - a
+- `PART REAL_BASS` - RB3 Pro Bass (17-fret)
+- `PART REAL_BASS_22` - RB3 Pro Bass (22-fret)
+- `PART REAL_DRUMS_PS` - PS Drums Real
+- `PART REAL_KEYS_X` - RB3 Pro Keys Expert
+- `PART REAL_KEYS_M` - RB3 Pro Keys Medium
+- `PART REAL_KEYS_H` - RB3 Pro Keys Hard
+- `PART REAL_KEYS_E` - RB3 Pro Keys Easy
+- `PART KEYS_ANIM_LH` - RB3 Pro Keys left-hand animations
+- `PART KEYS_ANIM_RH` - RB3 Pro Keys right-hand animations
+- `PART REAL_KEYS_PS_X` - PS Keys Real Expert
+- `PART REAL_KEYS_PS_M` - PS Keys Real Medium
+- `PART REAL_KEYS_PS_H` - PS Keys Real Hard
+- `PART REAL_KEYS_PS_E` - PS Keys Real Easy
+- `PART DANCE` - PS 4-key dance
+- `HARM1` - RB3 Harmony part 1
+- `HARM2` - RB3 Harmony part 2
+- `HARM3` - RB3 Harmony part 3
+- `VENUE` - RB venue camera/lighting effects
+- `BEAT` - RB beat track
+
+## Track Details
+
+This section contains lists of MIDI notes, text events, and SysEx events that lay out the chart itself. Not all of the tracks detailed are available in Clone Hero, this is a broader documentation of all known .mid tracks.
+
+SysEx events follow this format, for the most part:
+
+`50 53 00 00 <difficulty> <type> <enable/disable>`
+
+- `50 53` is the hexadecimal ASCII representation of the letters `PS`, which stands for Phase Shift.
+- `00 00` is a constant.
+- `Difficulty` is the difficulty this event affects as a hexadecimal number, where Easy is `00`, and Expert is `03`. `FF` means it affects all difficulties.
+- `Type` is the event type code. These will be specified later on where relevant.
+- `Enable/disable` is a boolean (`00` or `01`) that sets whether open note parsing should be enabled or disabled from this point onward.
+
+TODO:
+
+- Text events for character animations
+
+### 5-Fret Tracks
+
+This includes:
+
+- `PART GUITAR` - Lead Guitar
+- `PART GUITAR COOP` - Co-op Guitar
+- `PART BASS` - Bass Guitar
+- `PART RHYTHM` - Rhythm Guitar
+
+#### 5-Fret Notes
+
+Notes/markers:
+
+- 127 - Trill Lane Marker
+  - Only applies to Expert unless velocity is between 50 and 41, then it will show up on Hard as well
+- 126 - Tremolo Lane Marker
+  - Only applies to Expert unless velocity is between 50 and 41, then it will show up on Hard as well
+- 124 - BRE Marker 1
+- 123 - BRE Marker 2
+- 122 - BRE Marker 3
+- 121 - BRE Marker 4
+- 120 - BRE Marker 5
+  - All 5 must be used along with a `[coda]` event on the EVENTS track to initiate a Big Rock Ending.
+- 116 - Star Power/Overdrive Marker
+- 104 - Tap Note Marker (CH only)
+- 103 - Solo Marker, or Star Power if no 116 notes exist (for legacy compatibility)
+- 102 - Expert Force Strum
+- 101 - Expert Force HOPO
+- 100 - Expert Orange
+- 99  - Expert Blue
+- 98  - Expert Yellow
+- 97  - Expert Red
+- 96  - Expert Green
+- 95  - Expert Open*
+  - *Only enabled if there's an `[ENHANCED_OPENS]`/`ENHANCED_OPENS` text event at the start.
+- 90  - Hard Force Strum
+- 89  - Hard Force HOPO
+- 88  - Hard Orange
+- 87  - Hard Blue
+- 86  - Hard Yellow
+- 85  - Hard Red
+- 84  - Hard Green
+- 83  - Hard Open*
+  - *Only enabled if there's an `[ENHANCED_OPENS]`/`ENHANCED_OPENS` text event at the start.
+- 78  - Hard Force Strum
+- 77  - Hard Force HOPO
+- 76  - Medium Orange
+- 75  - Medium Blue
+- 74  - Medium Yellow
+- 73  - Medium Red
+- 72  - Medium Green
+- 71  - Medium Open*
+  - *Only enabled if there's an `[ENHANCED_OPENS]`/`ENHANCED_OPENS` text event at the start.
+- 66  - Easy Force Strum
+- 65  - Easy Force HOPO
+- 64  - Easy Orange
+- 63  - Easy Blue
+- 62  - Easy Yellow
+- 61  - Easy Red
+- 60  - Easy Green
+- 59  - Easy Open*
+  - *Only enabled if there's an `[ENHANCED_OPENS]`/`ENHANCED_OPENS` text event at the start. Otherwise, part of the left hand position animation data below.
+
+Animation:
+
+None of these notes should be expected if there's an `[ENHANCED_OPENS]`/`ENHANCED_OPENS` text event at the start.
+
+- 59  - Animation - Left Hand Position Highest
+- 58  - Animation - Left Hand Position
+- 57  - Animation - Left Hand Position
+- 56  - Animation - Left Hand Position
+- 55  - Animation - Left Hand Position
+- 54  - Animation - Left Hand Position
+- 53  - Animation - Left Hand Position
+- 52  - Animation - Left Hand Position
+- 51  - Animation - Left Hand Position
+- 50  - Animation - Left Hand Position
+- 49  - Animation - Left Hand Position
+- 48  - Animation - Left Hand Position
+- 47  - Animation - Left Hand Position
+- 46  - Animation - Left Hand Position
+- 45  - Animation - Left Hand Position
+- 44  - Animation - Left Hand Position
+- 43  - Animation - Left Hand Position
+- 42  - Animation - Left Hand Position
+- 41  - Animation - Left Hand Position
+- 40  - Animation - Left Hand Position Lowest
+
+#### 5-Fret SysEx Events
+
+Open Notes: `50 53 00 00 <difficulty> 01 <enable/disable>`
+
+Tap Notes: `50 53 00 00 FF 04 <enable/disable>`
+
+#### 5-Fret Text Events
+
+- `[ENHANCED_OPENS]`/`ENHANCED_OPENS` - Enables note-based open notes.
+
+### 6-Fret Tracks
+
+This includes:
+
+- `PART GUITAR GHL` - Lead Guitar
+- `PART BASS GHL` - Bass Guitar
+
+TODO: Reference GHL/GHTV charts
+
+#### 6-Fret Notes
+
+Notes/markers:
+
+- 116 - Star Power/Overdrive Marker
+- 104 - Tap Note Marker (CH only)
+- 103 - Solo Marker
+- 102 - Expert Force Strum
+- 101 - Expert Force HOPO
+- 100 - Expert Black 3
+- 99  - Expert Black 2
+- 98  - Expert Black 1
+- 97  - Expert White 3
+- 96  - Expert White 2
+- 95  - Expert White 1
+- 94  - Expert Open
+- 90  - Hard Force Strum
+- 89  - Hard Force HOPO
+- 88  - Hard Black 3
+- 87  - Hard Black 2
+- 86  - Hard Black 1
+- 85  - Hard White 3
+- 84  - Hard White 2
+- 83  - Hard White 1
+- 82  - Hard Open
+- 78  - Medium Force Strum
+- 77  - Medium Force HOPO
+- 76  - Medium Black 3
+- 75  - Medium Black 2
+- 74  - Medium Black 1
+- 73  - Medium White 3
+- 72  - Medium White 2
+- 71  - Medium White 1
+- 70  - Medium Open
+- 66  - Easy Force Strum
+- 65  - Easy Force HOPO
+- 64  - Easy Black 3
+- 63  - Easy Black 2
+- 62  - Easy Black 1
+- 61  - Easy White 3
+- 60  - Easy White 2
+- 59  - Easy White 1
+- 58  - Easy Open
+
+#### 6-Fret SysEx Events
+
+Open Notes: `50 53 00 00 <difficulty> 01 <enable/disable>` (redundant, but still supported by CH)
+
+Tap Notes: `50 53 00 00 FF 04 <enable/disable>`
+
+### Drums Tracks
+
+This includes `PART DRUMS` and `PART REAL_DRUMS_PS`.
+
+#### Drums Notes
+
+Notes/markers:
+
+- 127 - 2-Lane (Special) Roll Marker
+  - Only applies to Expert unless velocity is between 50 and 41, then it will show up on Hard as well
+- 126 - 1-Lane (Standard) Roll Marker
+  - Only applies to Expert unless velocity is between 50 and 41, then it will show up on Hard as well
+- 124 - BRE/Fill Marker 1
+- 123 - BRE/Fill Marker 2
+- 122 - BRE/Fill Marker 3
+- 121 - BRE/Fill Marker 4
+- 120 - BRE/Fill Marker 5
+  - All 5 must be used to mark an SP activation fill, along with a `[coda]` event on the EVENTS track to initiate a Big Rock Ending instead.
+- 116 - Star Power/Overdrive Marker
+- 112 - Green Tom Marker
+- 111 - Blue Tom Marker
+- 110 - Yellow Tom Marker
+- 109 - Flam Marker
+  - In CH, this will turn a note into a RB-style flam:
+    - R -> RY
+    - Y -> YB
+    - B -> YG
+    - G -> BG
+- 103 - Solo Marker
+- 101 - Expert 5-Lane Orange
+- 100 - Expert 4-Lane Green/5-Lane Orange
+- 99  - Expert Blue
+- 98  - Expert Yellow
+- 97  - Expert Red
+- 96  - Expert Kick
+- 95  - Expert+ / 2x Kick
+- 89  - Hard 5-Lane Orange
+- 88  - Hard 4-Lane Green/5-Lane Orange
+- 87  - Hard Blue
+- 86  - Hard Yellow
+- 85  - Hard Red
+- 84  - Hard Kick
+- 77  - Medium 5-Lane Orange
+- 76  - Medium 4-Lane Green/5-Lane Orange
+- 75  - Medium Blue
+- 74  - Medium Yellow
+- 73  - Medium Red
+- 72  - Medium Kick
+- 65  - Easy 5-Lane Orange
+- 64  - Easy 4-Lane Green/5-Lane Orange
+- 63  - Easy Blue
+- 62  - Easy Yellow
+- 61  - Easy Red
+- 60  - Easy Kick
+
+Animation (not present on `PART REAL_DRUMS_PS`):
+
+- 51  - Animation - Floor Tom Right Hand
+- 50  - Animation - Floor Tom Left Hand
+- 49  - Animation - Tom 2 Right Hand
+- 48  - Animation - Tom 2 Left Hand
+- 47  - Animation - Tom 1 Right Hand
+- 46  - Animation - Tom 1 Left Hand
+- 45  - Animation - Crash 2 Soft Left Hand
+- 44  - Animation - Crash 2 Hard Left Hand
+- 43  - Animation - Ride Cymbal Left Hand
+- 42  - Animation - Ride Cymbal Right Hand
+- 41  - Animation - Crash 2 Choke
+- 40  - Animation - Crash 1 Choke
+- 39  - Animation - Crash 2 Soft Right Hand
+- 38  - Animation - Crash 2 Hard Right Hand
+- 37  - Animation - Crash 1 Soft Right Hand
+- 36  - Animation - Crash 1 Hard Right Hand
+- 35  - Animation - Crash 1 Soft Left Hand
+- 34  - Animation - Crash 1 Hard Left Hand
+- 32  - Animation - Other Percussion Right Hand
+- 31  - Animation - Hi-Hat Right Hand
+- 30  - Animation - Hi-Hat Left Hand
+- 29  - Animation - Snare Soft Right Hand
+- 28  - Animation - Snare Soft Left Hand
+- 27  - Animation - Snare Hard Right Hand
+- 26  - Animation - Snare Hard Left Hand
+- 25  - Animation - Hi-Hat Open
+- 24  - Animation - Kick Right Foot
+
+Additional Modifications:
+
+- A note at a velocity of 127 is an accent note, and one at a velocity of 1 is a ghost note, though ghost/accent kicks are not supported by anything other than Editor on Fire currently.
+
+#### Drums Real SysEx Events
+
+- Rimshot: `50 53 00 00 <difficulty> 07 <enable/disable>`
+- Hi-Hat Open: `50 53 00 00 <difficulty> 05 <enable/disable>`
+- Hi-Hat Pedal: `50 53 00 00 <difficulty> 06 <enable/disable>`
+- Hi-Hat Sizzle: `50 53 00 00 <difficulty> 08 <enable/disable>`
+- Yellow Cymbal + Tom: `50 53 00 00 <difficulty> 11 <enable/disable>`
+- Blue Cymbal + Tom: `50 53 00 00 <difficulty> 12 <enable/disable>`
+- Green Cymbal + Tom: `50 53 00 00 <difficulty> 13 <enable/disable>`
+
+#### Drums Additional Notes
+
+The same track is used for drums regardless of whether or not it's standard 4-lane, 4-lane Pro, or 5-lane. Detecting the type of drums track can can be done through checking for tom flags for Pro Drums and checking for 5-lane Green for 5-lane, and falling back to standard 4-lane if neither are present. There are also tags in the song.ini to force what drums should be parsed as, `pro_drums = True` and `five_lane_drums = True`, if the song is such that there *cannot* be either tom flags or 5-lane Green.
+
+### Vocals Tracks
+
+This includes `PART VOCALS` and `HARM1`-`3`.
+
+#### Vocals Notes
+
+- 116 - Star Power/Overdrive Marker
+  - Standard vocals and Harmonies can have independent overdrive. `HARM2` and `HARM3` get their overdrive from `HARM1`.
+- 105 - Phrase Marker
+  - Marks the duration of a lyrics phrase.
+  - The `HARM1` phrase is used for all 3 harmony tracks. The `HARM2` phrase is only used for when harmony 2/3 lyrics shift in static vocals. Not used in `HARM3`.
+- 97  - Not Displayed Percussion
+- 96  - Displayed Percussion
+- 84  - C5 (Highest)
+- 83  - B4
+- 82  - Bb4
+- 81  - A4
+- 80  - G#4
+- 79  - G4
+- 78  - F#4
+- 77  - F4
+- 76  - E4
+- 75  - Eb4
+- 74  - D4
+- 73  - C#4
+- 72  - C4
+- 71  - B3
+- 70  - Bb3
+- 69  - A3
+- 68  - G#3
+- 67  - G3
+- 66  - F#3
+- 65  - F3
+- 64  - E3
+- 63  - Eb3
+- 62  - D3
+- 61  - C#3
+- 60  - C3
+- 59  - B2
+- 58  - Bb2
+- 57  - A2
+- 56  - G#2
+- 55  - G2
+- 54  - F#2
+- 53  - F2
+- 52  - E2
+- 51  - Eb2
+- 50  - D2
+- 49  - C#2
+- 48  - C2
+- 47  - B1
+- 46  - Bb1
+- 45  - A1
+- 44  - G#1
+- 43  - G1
+- 42  - F#1
+- 41  - F1
+- 40  - E1
+- 39  - Eb1
+- 38  - D1
+- 37  - C#1
+- 36  - C1 (Lowest)
+- 1   - Lyric Shift
+  - Sets additional shift points for static lyrics.
+- 0   - Range Shift
+  - Allows the note display range to shift if a vocal range changes drastically.
+  - Length determines the speed of the shift, not the duration that it should be shifted for.
+
+#### Vocals Lyrics
+
+Lyrics are stored as text events paired up with the notes in the C1 to C5 range. There are various symbols used for specific things in Rock Band:
+
+- Hyphens `-` indicate that a syllable should be combined with the next.
+- Pluses `+` will connect the previous note and the current note into a slide. These are stripped out by CH.
+- Equals `=` indicate that a syllable should be joined with the next using a literal hyphen.
+- Various symbols are used to mark a note as non-pitched. These are commonly referred to as talkies.
+  - Pounds `#` are the standard talkie symbol.
+  - Carets `^` have a more generous scoring in RB, typically used on short syllables or syllables without sharp attacks.
+  - Asterisks `*` are also used for them in some cases. These are undocumented in the RBN docs.
+  - All of these are stripped out by CH.
+- Percents `%` are a range divider marker for vocals parts with large octave ranges. These are stripped out by CH.
+- Sections `§` are used in Spanish (and likely other languages) lyric authoring to indicate that two syllables are sung as one. These are replaced by a space in CH, and with a tie character `‿` in RB.
+- Dollars `$` are used in harmonies to tell the syllables they are part of to hide. These are stripped out by CH.
+  - In one case it is also on the standard Vocals track for some reason, it appears to not do anything in RB here.
+- Slashes `/` appear in some charts for some reason, mainly The Beatles: Rock Band. These are stripped out by CH.
+- Syllables not joined together through anything will automatically be separated by a space.
+
+CH-specific stuff:
+
+- Underscores `_` are replaced with a space by CH.
+- CH's PTB can properly parse [TextMeshPro formatting tags](http://digitalnativestudios.com/textmeshpro/docs/rich-text/), such as `<color=#00FF00>`, and has [a whitelist](https://strikeline.myjetbrains.com/youtrack/issue/CH-226) for tags that it allows. Any tags not matching this whitelist will be stripped out. CH v.23 or earlier will break ones that include symbols that get stripped out.
+
+### 5-Lane Keys Track
+
+This includes `PART KEYS`.
+
+#### 5-Lane Keys Notes
+
+Notes/markers:
+
+- 127 - Trill Lane Marker
+- 124 - BRE Marker 1
+- 123 - BRE Marker 2
+- 122 - BRE Marker 3
+- 121 - BRE Marker 4
+- 120 - BRE Marker 5
+  - All 5 must be used along with a `[coda]` event on the EVENTS track.
+- 116 - Star Power/Overdrive Marker
+- 103 - Solo Marker
+- 100 - Expert Orange
+- 99  - Expert Blue
+- 98  - Expert Yellow
+- 97  - Expert Red
+- 96  - Expert Green
+- 88  - Hard Orange
+- 87  - Hard Blue
+- 86  - Hard Yellow
+- 85  - Hard Red
+- 84  - Hard Green
+- 76  - Medium Orange
+- 75  - Medium Blue
+- 74  - Medium Yellow
+- 73  - Medium Red
+- 72  - Medium Green
+- 64  - Easy Orange
+- 63  - Easy Blue
+- 62  - Easy Yellow
+- 61  - Easy Red
+- 60  - Easy Green
+
+### Pro Keys Tracks
+
+This includes `PART REAL_KEYS_X`, `PART REAL_KEYS_M`, `PART REAL_KEYS_H`, and `PART REAL_KEYS_E`.
+
+#### Pro Keys Notes
+
+TODO
+
+#### Pro Keys Animation Notes
+
+This includes `PART KEYS_ANIM_LH`, and `PART KEYS_ANIM_RH`.
+
+TODO
+
+### Keys Real Tracks
+
+This includes `PART REAL_KEYS_PS_X`, `PART REAL_KEYS_PS_M`, `PART REAL_KEYS_PS_H`, and `PART REAL_KEYS_PS_E`.
+
+#### Keys Real Notes
+
+TODO
+
+### Pro Guitar/Bass Tracks
+
+This includes `PART REAL_GUITAR`, `PART REAL_GUITAR_22`, `PART REAL_GUITAR_BONUS`, `PART REAL_BASS`, and `PART REAL_BASS_22`.
+
+#### Pro Guitar/Bass 17-Fret Notes
+
+TODO
+
+#### Pro Guitar/Bass 22-Fret Notes
+
+TODO
+
+### Dance Track
+
+This includes `PART DANCE`.
+
+#### Dance Notes
+
+- 116 - Star Power
+- 103 - Solo
+- 99  - Challenge Right
+- 98  - Challenge Up
+- 97  - Challenge Down
+- 96  - Challenge Left
+- 87  - Hard Right
+- 86  - Hard Up
+- 85  - Hard Down
+- 84  - Hard Left
+- 75  - Medium Right
+- 74  - Medium Up
+- 73  - Medium Down
+- 72  - Medium Left
+- 63  - Easy Right
+- 62  - Easy Up
+- 61  - Easy Down
+- 60  - Easy Left
+- 51  - Beginner Right
+- 50  - Beginner Up
+- 49  - Beginner Down
+- 48  - Beginner Left
+
+### Events Track
+
+TODO
+
+### Venue Track
+
+TODO
+
+### Beat Track
+
+TODO
+
+## Documentation Notes
+
+Specifications for the MIDI protocol/format itself are available from the MIDI Association here:
+
+- [MIDI 1.0 Protocol Specifications](https://www.midi.org/specifications/midi1-specifications)
+- [Standard MIDI File Specifications](https://www.midi.org/specifications/file-format-specifications/standard-midi-files)
+
+Info about creating one of these charts through a DAW such as [REAPER](https://reaper.fm) with a focus on Rock Band 3 can be found [here](http://docs.c3universe.com/rbndocs/index.php?title=Authoring).
