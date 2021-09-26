@@ -10,19 +10,8 @@ namespace ChartTools
     /// </summary>
     public class DrumsChord : Chord<DrumsNote, DrumsLane>
     {
-        private DrumsChordModifier _modifier = DrumsChordModifier.None;
         /// <inheritdoc cref="DrumsChordModifier"/>
-        public DrumsChordModifier Modifier
-        {
-            get => _modifier;
-            set
-            {
-                if (!Enum.IsDefined(value))
-                    throw CommonExceptions.GetUndefinedException(value);
-
-                _modifier = value;
-            }
-        }
+        public DrumsChordModifier Modifier { get; set; }
         public override byte ModifierKey
         {
             get => (byte)Modifier;
