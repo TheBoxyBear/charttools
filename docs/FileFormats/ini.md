@@ -1,22 +1,46 @@
 # .ini
 
-Song metadata for CH is stored in a song.ini file. A large majority of these tags are not required whatsoever, but many are recommended.
+Initialization files are commonly-used files for storing things such as settings/configurations. They are text-based and use the `.ini` file extension.
 
-## Section
+Song metadata for .mid files are stored in a song.ini file. Clone Hero also extends this file to .chart files.
 
-A song.ini file should be started off with a `[song]`/`[Song]` section header. Leading or trailing line breaks don't matter for CH.`
+## Table of Contents
 
-## Tags
+- [Basic Structure](#basic-structure)
+  - [Sections](#sections)
+  - [Tags](#tags)
+- [Available Tags](#available-tags)
+  - [Common Tags](#common-tags)
+  - [Legacy/Unused Tags](#legacyunused-tags)
+- [Documentation Notes](#documentation-notes)
+
+## Basic Structure
+
+### Sections
+
+A song.ini file should be started off with a `[song]`/`[Song]` section header. Leading or trailing line breaks don't matter for CH.
+
+### Tags
 
 Tags are a key-value pair that store each metadata entry.
 
 `<Key> = <Value>`
 
-`Key` is a string, and `Value` is either a string or a number, depending on the key.
+`Key` is a string, and `Value` is either a string, number, or a boolean, depending on the key. No specific number types are known so far.
 
-There are *many* tags in existence, so listing them all in one place is rather difficult. Still, this should be a pretty good amount of them.
+The equals sign may, but is not required to be, padded by spaces, but it is recommended as not all games/programs support song.ini files without the padding (Phase Shift, for example).
 
-Tags read by CH:
+## Using via ChartTools
+
+WIP (Info such as reading, writing, etc. should go here)
+
+Any tags not modelled by the Metadata class are added to an UnidentifiedData list.
+
+## Available Tags
+
+There are *many* tags in existence, so listing them all in one place is rather difficult. Still, this should be a pretty good amount of them. Additionally, tags can be in any order in the song.ini, so you should *not* rely on the order of tags to determine what is what.
+
+### Common Tags
 
 | `Key`                      | Description                                                                                             | Data type |
 | :------------------------: | :------------------------------------------------------------------------------------------------------ | :-------: |
@@ -30,8 +54,8 @@ Tags read by CH:
 | `playlist_track`           | Track number of the song within the playlist/setlist it's from.                                         |  number   |
 | `charter`                  | Community member responsible for charting the song.                                                     |  string   |
 | `frets`                    | Same as `charter`. (Legacy)                                                                             |  string   |
-| `preview_start_time`       | Time of the song, in milliseconds, where the song preview starts.                                       |  number   |
-| `video_start_time`         | Time of the video, in milliseconds, where playback of an included video background will start.          |  number   |
+| `preview_start_time`       | Timestamp in milliseconds where the song preview starts.                                                |  number   |
+| `video_start_time`         | Timestamp in milliseconds where playback of an included video background will start.                    |  number   |
 | `diff_guitar`              | Estimated difficulty of the Lead Guitar track.                                                          |  number   |
 | `diff_guitarghl`           | Estimated difficulty of the 6 Fret Lead track.                                                          |  number   |
 | `diff_bass`                | Estimated difficulty of the Bass Guitar track.                                                          |  number   |
@@ -48,35 +72,49 @@ Tags read by CH:
 | `loading_phrase`           | Text that will be shown during instrument/difficulty/modifier selection.                                |  string   |
 | `sustain_cutoff_threshold` | Overrides the default threshold under which a sustain will get removed.                                 |  number   |
 | `hopo_frequency`           | Overrides the natural HOPO threshold.                                                                   |  number   |
+| `multiplier_note`          | Overrides the SP phrase note for .mid charts.                                                           |  number   |
 | `end_events`               | Overrides whether or not end events in the chart will be respected.                                     |  boolean  |
+| `playlist`                 | Specifies a playlist that the song will show up in.                                                     |  string   |
+| `sub_playlist`             | Specifies a sub-playlist that the song will show up in.                                                 |  string   |
 
-Tags not read by CH (these descriptions may be wrong) Any keys not modeled by the Metadata class are added to the UnidentifiedData list:
+### Legacy/Unused Tags
 
-| `Key`                 | Description                                                                     | Data type |
-| :-------------------: | :------------------------------------------------------------------------------ | :-------: |
-| `diff_band`           | Estimated average difficulty of all tracks in the song.                         |  number   |
-| `diff_guitar_coop`    | Estimated difficulty of the Guitar Co-op track.                                 |  number   |
-| `diff_guitar_real`    | Estimated difficulty of the Pro Guitar track.                                   |  number   |
-| `diff_guitar_real_22` | Estimated difficulty of the Pro Guitar 22-fret track.                           |  number   |
-| `diff_bass_real`      | Estimated difficulty of the Pro Bass track.                                     |  number   |
-| `diff_bass_real_22`   | Estimated difficulty of the Pro Bass 22-fret track.                             |  number   |
-| `diff_drums_real`     | Estimated difficulty of the Pro Drums track.                                    |  number   |
-| `diff_drums_real_ps`  | Estimated difficulty of the Drums Real track.                                   |  number   |
-| `diff_keys_real`      | Estimated difficulty of the Pro Keys track.                                     |  number   |
-| `diff_keys_real_ps`   | Estimated difficulty of the Keys Real track.                                    |  number   |
-| `diff_vocals`         | Estimated difficulty of the Vocals track.                                       |  number   |
-| `diff_vocals_harm`    | Estimated difficulty of the Harmonies tracks.                                   |  number   |
-| `diff_dance`          | Estimated difficulty of the Dance track.                                        |  number   |
-| `sysex_slider`        | Indicates that this chart has SysEx events for sliders/tap notes.               |  boolean  |
-| `sysex_high_hat_ctrl` | Indicates that this chart has SysEx events for Drums Real hi-hat pedal control. |  boolean  |
-| `sysex_rimshot`       | Indicates that this chart has SysEx events for Drums Real rimshot hits.         |  boolean  |
-| `sysex_open_bass`     | Indicates that this chart has SysEx events for open notes.                      |  boolean  |
-| `banner_link_a`       | Link A for an in-game banner?                                                   |  string   |
-| `link_name_a`         | Name for Link A?                                                                |  string   |
-| `banner_link_b`       | Link B for an in-game banner?                                                   |  string   |
-| `link_name_b`         | Name for Link B?                                                                |  string   |
-| `video`               | Name/path for a video file?                                                     |  string   |
+(Some of these descriptions may be wrong.)
 
-## Notes
+| `Key`                                  | Description                                                                          | Data type |
+| :------------------------------------: | :----------------------------------------------------------------------------------- | :-------: |
+| `diff_band`                            | Estimated average difficulty of all tracks in the song.                              |  number   |
+| `diff_guitar_coop`                     | Estimated difficulty of the Guitar Co-op track.                                      |  number   |
+| `diff_guitar_real`                     | Estimated difficulty of the Pro Guitar track.                                        |  number   |
+| `diff_guitar_real_22`                  | Estimated difficulty of the Pro Guitar 22-fret track.                                |  number   |
+| `diff_bass_real`                       | Estimated difficulty of the Pro Bass track.                                          |  number   |
+| `diff_bass_real_22`                    | Estimated difficulty of the Pro Bass 22-fret track.                                  |  number   |
+| `diff_drums_real`                      | Estimated difficulty of the Pro Drums track.                                         |  number   |
+| `diff_drums_real_ps`                   | Estimated difficulty of the Drums Real track.                                        |  number   |
+| `diff_keys_real`                       | Estimated difficulty of the Pro Keys track.                                          |  number   |
+| `diff_keys_real_ps`                    | Estimated difficulty of the Keys Real track.                                         |  number   |
+| `diff_vocals`                          | Estimated difficulty of the Vocals track.                                            |  number   |
+| `diff_vocals_harm`                     | Estimated difficulty of the Harmonies tracks.                                        |  number   |
+| `diff_dance`                           | Estimated difficulty of the Dance track.                                             |  number   |
+| `sysex_slider`                         | Enables parsing of SysEx events for sliders/tap notes.                               |  boolean  |
+| `sysex_high_hat_ctrl`                  | Enables parsing of SysEx events for Drums Real hi-hat pedal control.                 |  boolean  |
+| `sysex_rimshot`                        | Enables parsing of SysEx events for Drums Real rimshot hits.                         |  boolean  |
+| `sysex_open_bass`                      | Enables parsing of SysEx events for open notes.                                      |  boolean  |
+| `banner_link_a`                        | Link A for an in-game banner?                                                        |  string   |
+| `link_name_a`                          | Name for Link A?                                                                     |  string   |
+| `banner_link_b`                        | Link B for an in-game banner?                                                        |  string   |
+| `link_name_b`                          | Name for Link B?                                                                     |  string   |
+| `video`                                | Name/path for a video file.                                                          |  string   |
+| `video_end_time`                       | Timestamp in milliseconds where playback of an included video background will end.   |  number   |
+| `video_loop`                           | Sets whether or not the video should loop.                                           |  boolean  |
+| `guitar_type`                          | Specifies a guitar sample sound set.                                                 |  number   |
+| `bass_type`                            | Specifies a bass sample sound set.                                                   |  number   |
+| `kit_type`                             | Specifies a drumkit sample sound set.                                                |  number   |
+| `keys_type`                            | Specifies a keyboard sample sound set.                                               |  number   |
+| `real_guitar_tuning`                   | Specifies a tuning for Pro Guitar.                                                   |  number?  |
+| `eof_midi_import_drum_accent_velocity` | Tells Editor on Fire that drum notes at this velocity should be imported as accents. |  number   |
+| `eof_midi_import_drum_ghost_velocity`  | Tells Editor on Fire that drum notes at this velocity should be imported as ghosts.  |  number   |
+
+## Documentation Notes
 
 A large number of these tags are referenced from [grishhung's song.ini guide](https://docs.google.com/document/d/1ped13di4LqDqhaxbCgZEMUoqnyc3gOy3Bw1FCg58FPI/edit#).
