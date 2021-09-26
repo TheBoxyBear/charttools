@@ -168,7 +168,7 @@ Track objects are section objects with a numerical position, and are written lik
 
 `Type Code` is a string (typically a single character) which indicates what type this object is.
 
-`Value[]` is a set of one or more individual numbers, the amount of which varies per type.
+`Value[]` is a set of one or more individual values, the amount and value types of which varies per event type.
 
 Track objects in the same section should be written in increasing order of position, and for events on the same position, they should be sorted first by type (alphabetically), then by value(s) (numerically).
 
@@ -202,7 +202,7 @@ Tempo markers use the `B` type code, and are written like this:
 
 `<Position> = B <Tempo>`
 
-`Tempo` is any BPM value that has up to 3 whole number places and up to 3 decimal places, multiplied by 1000. This makes valid BPM values range from 0.001 to 999.999.
+`Tempo` is a number representing any BPM value that has up to 3 whole number places and up to 3 decimal places, multiplied by 1000. This makes valid BPM values range from `0.001` to `999.999`.
 
 #### Tempo Examples
 
@@ -218,7 +218,7 @@ Tempo anchors use the `A` type code, and are written like this:
 
 `<Position> = A <Audio time position>`
 
-`Audio time position` is the position that the associated tempo marker should be set to, in microseconds.
+`Audio time position` is the audio time position that the associated tempo marker should be set to, in microseconds.
 
 They lock a tempo marker's position to a time position relative to the audio. The preceding tempo marker should have its tempo adjusted to maintain this lock if any of the preceding tempo markers are adjusted.
 
@@ -243,7 +243,7 @@ Events use the `E` type code, and are written like this:.
 
 `<Position> = E <Event>`
 
-`Event` is the event data.
+`Event` is a string containing event data.
 
 Global event data should be surrounded by quotation marks. As a result, having quotation marks in global events is disallowed. However, some charters who want quotation marks in their lyrics might work around this by using `/"` or `"/"` if it goes before a syllable, and `"/` if it goes after. The CH PTB is able to parse quotation marks in events without these workarounds.
 
@@ -309,9 +309,9 @@ Notes and modifiers use the `N` type code and are written like this:
 
 `<Position> = N <Type> <Length>`
 
-`Type` is the type of note/modifier that this object represents.
+`Type` is the type number of the note/modifier that this object represents.
 
-`Length` is the length of a note. This value doesn't do anything for modifiers.
+`Length` is the length of a note in positional ticks. This value doesn't do anything for modifiers.
 
 As with tempo anchors, modifiers are applied to notes but are listed as separate objects. A modifier applies to all notes in the same position, so different notes of the same position cannot have different modifiers unless the modifier specifically targets a single color/type.
 
@@ -370,6 +370,10 @@ Special phrase objects use the `S` type code and are written like this:
 
 `<Position> = S <Type> <Length>`
 
+`Type` is the type number of special phrase that this object represents.
+
+`Length` is the length of a phrase in positional ticks.
+
 These are other track-specific objects that do not fit under the description of notes/modifiers.
 
 #### Special Phrase Type Divisions
@@ -402,7 +406,7 @@ Events use the `E` type code, and are written like this:
 
 `<Position> = E <Event>`
 
-`Event` is the event data.
+`Event` is a string containing event data.
 
 Local events are written plainly with no surrounding symbols, and cannot have spaces in them. There may be .chart files out there with spaces in local events, though.
 
@@ -417,7 +421,7 @@ These are local events available on all instruments.
 
 - `mix_<difficulty>_drums0d` - Enables disco flip on drums. For `difficulty`, 3 is Expert, 0 is Easy, etc.
 - `mix_<difficulty>_drums0` - Disables disco flip on drums. `difficulty` is the same as above.
-  - (Moonscraper includes these events as `[mix <difficulty> drums0d]` and `[mix <difficulty> drums0]` since they're lifted straight from .mid, but since spaces aren't allowed in local events, this will force users to save in .msce and export the chart for it to be playable. The events as written in these docs is how Moonscraper exports the .mid-lifted ones to .chart, and how CH reads them from .chart.)
+  - Moonscraper includes these events as `[mix <difficulty> drums0d]` and `[mix <difficulty> drums0]` since they're lifted straight from .mid, but since spaces aren't allowed in local events, this will force users to save in .msce and export the chart for it to be playable. The events as written in these docs is how Moonscraper exports the .mid-lifted ones to .chart, and is how CH reads them from .chart files.
 
 #### Common Legacy/Unused Local Events
 
