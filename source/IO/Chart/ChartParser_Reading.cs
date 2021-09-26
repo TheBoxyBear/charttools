@@ -14,7 +14,13 @@ namespace ChartTools.IO.Chart
     /// </summary>
     internal static partial class ChartParser
     {
-        internal static readonly ReadingConfiguration DefaultReadConfig = new() { SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert };
+        internal static readonly ReadingConfiguration DefaultReadConfig = new()
+        {
+            DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
+            SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
+            IncompatibleModifierCombinationPolicy = IncompatibleModifierCombinationPolicy.ThrowException,
+        };
+
         private delegate void NoteCase<TChord>(Track<TChord> track, ref TChord? chord, uint position, NoteData data, ref bool newChord, out bool modifiersCompatible, out byte initialModifier) where TChord : Chord;
 
         /// <summary>
@@ -311,7 +317,7 @@ namespace ChartTools.IO.Chart
                     }
                 },
             };
-            Func<TChord, bool, byte, bool> includeChordFromModifier = config.IncompatibleModifierCombinaitionPolicy switch
+            Func<TChord, bool, byte, bool> includeChordFromModifier = config.IncompatibleModifierCombinationPolicy switch
             {
                 IncompatibleModifierCombinationPolicy.IgnoreChord => (_, compatible, _) => compatible,
                 IncompatibleModifierCombinationPolicy.IgnoreModifers => (chord, compatible, initial) =>

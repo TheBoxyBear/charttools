@@ -115,7 +115,7 @@
         /// <inheritdoc cref="IO.DuplicateTrackObjectPolicy"/>
         public DuplicateTrackObjectPolicy DuplicateTrackObjectPolicy { get; init; }
         /// <inheritdoc cref="IO.IncompatibleModifierCombinationPolicy"/>
-        public IncompatibleModifierCombinationPolicy IncompatibleModifierCombinaitionPolicy { get; init; }
+        public IncompatibleModifierCombinationPolicy IncompatibleModifierCombinationPolicy { get; init; }
     }
 
     public class WritingConfiguration
