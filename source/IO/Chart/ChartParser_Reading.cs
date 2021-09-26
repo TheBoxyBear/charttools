@@ -14,7 +14,7 @@ namespace ChartTools.IO.Chart
     /// </summary>
     internal static partial class ChartParser
     {
-        internal static readonly ReadingConfiguration DefaultReadConfig = new() { SoloNoStarPowerRule = SoloNoStarPowerPolicy.Convert };
+        internal static readonly ReadingConfiguration DefaultReadConfig = new() { SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert };
         private delegate void NoteCase<TChord>(Track<TChord> track, ref TChord? chord, uint position, NoteData data, ref bool newChord, out bool modifiersCompatible, out byte initialModifier) where TChord : Chord;
 
         /// <summary>
@@ -303,7 +303,7 @@ namespace ChartTools.IO.Chart
                 DuplicateTrackObjectPolicy.ThrowException => (position, data) =>
                 {
                     if (ignoredNotes.Contains((position, data.NoteIndex)))
-                        throw new Exception("Duplicate chord"); // TODO Make better exception
+                        throw new Exception($"Duplicate note at position {position}");
                     else
                     {
                         ignoredNotes.Add((position, data.NoteIndex));
@@ -311,28 +311,28 @@ namespace ChartTools.IO.Chart
                     }
                 },
             };
-            Func<TChord, bool, byte, bool> includeChordFromModifier = config.IncompatibleModifiersPolicy switch
+            Func<TChord, bool, byte, bool> includeChordFromModifier = config.IncompatibleModifierCombinaitionPolicy switch
             {
-                IncompatibleModifiersPolicy.IgnoreChord => (_, compatible, _) => compatible,
-                IncompatibleModifiersPolicy.IgnoreModifers => (chord, compatible, initial) =>
+                IncompatibleModifierCombinationPolicy.IgnoreChord => (_, compatible, _) => compatible,
+                IncompatibleModifierCombinationPolicy.IgnoreModifers => (chord, compatible, initial) =>
                 {
                     if (!compatible)
                         chord!.ModifierKey = 0;
 
                     return true;
                 },
-                IncompatibleModifiersPolicy.IncludeAll => (_, _, _) => true,
-                IncompatibleModifiersPolicy.IncludeFirst => (chord, compatible, initial) =>
+                IncompatibleModifierCombinationPolicy.IncludeAll => (_, _, _) => true,
+                IncompatibleModifierCombinationPolicy.IncludeFirst => (chord, compatible, initial) =>
                 {
                     if (!compatible)
                         chord!.ModifierKey = initial;
 
                     return true;
                 },
-                IncompatibleModifiersPolicy.ThrowException => (chord, compatible, _) =>
+                IncompatibleModifierCombinationPolicy.ThrowException => (chord, compatible, _) =>
                 {
                     if (!compatible)
-                        throw new Exception("Incompatible modifiers"); // TODO Make better exception
+                        throw new Exception($"Incompatible modifier combination at position {chord.Position}");
 
                     return true;
                 }
@@ -381,7 +381,7 @@ namespace ChartTools.IO.Chart
                         break;
                 }
 
-                if (config.SoloNoStarPowerRule == SoloNoStarPowerPolicy.Convert)
+                if (config.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert)
                     track.StarPower.AddRange(track.SoloToStarPower(true));
             }
 

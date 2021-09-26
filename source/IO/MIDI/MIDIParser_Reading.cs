@@ -289,7 +289,7 @@ namespace ChartTools.IO.MIDI
                 }
 
             // File must be interpreted as old MIDI where solo and soloend events define star power
-            bool convertEvent = midiConfig.SoloNoStarPowerRule == SoloNoStarPowerPolicy.Convert && starPower.Count == 0;
+            bool convertEvent = midiConfig.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && starPower.Count == 0;
 
             // Second pass checking text events
             foreach (TextEvent e in events.OfType<TextEvent>())

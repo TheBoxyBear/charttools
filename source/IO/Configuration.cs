@@ -36,7 +36,7 @@
     /// <summary>
     /// Defines how chords with a set of incompatible modifiers are handled
     /// </summary>
-    public enum IncompatibleModifiersPolicy
+    public enum IncompatibleModifierCombinationPolicy
     {
         /// <summary>
         /// All modifiers are included
@@ -110,22 +110,19 @@
     /// </summary>
     public class ReadingConfiguration
     {
-        /// <inheritdoc cref="SoloNoStarPowerPolicy"/>
-        public SoloNoStarPowerPolicy SoloNoStarPowerRule { get; init; }
-        /// <summary>
-        /// *Unsupported*
-        /// </summary>
+        /// <inheritdoc cref="IO.SoloNoStarPowerPolicy"/>
+        public SoloNoStarPowerPolicy SoloNoStarPowerPolicy { get; init; }
+        /// <inheritdoc cref="IO.DuplicateTrackObjectPolicy"/>
         public DuplicateTrackObjectPolicy DuplicateTrackObjectPolicy { get; init; }
-        public IncompatibleModifiersPolicy IncompatibleModifiersPolicy { get; init; }
+        /// <inheritdoc cref="IO.IncompatibleModifierCombinationPolicy"/>
+        public IncompatibleModifierCombinationPolicy IncompatibleModifierCombinaitionPolicy { get; init; }
     }
 
     public class WritingConfiguration
     {
-        /// <inheritdoc cref="SoloNoStarPowerPolicy">
+        /// <inheritdoc cref="IO.SoloNoStarPowerPolicy"/>
         public SoloNoStarPowerPolicy SoloNoStarPowerPolicy { get; init; }
-        /// <inheritdoc cref="TrackObjectSource">
         public TrackObjectSource EventSource { get; init; }
-        /// <inheritdoc cref="TrackObjectSource"/>
         public TrackObjectSource StarPowerSource { get; init; }
         /// <summary>
         /// *Unsupported*
