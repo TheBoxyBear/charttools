@@ -43,6 +43,10 @@
         /// </summary>
         IncludeAll,
         /// <summary>
+        /// Only the first modifier is included
+        /// </summary>
+        IncludeFirst,
+        /// <summary>
         /// The modifiers are excluded
         /// </summary>
         IgnoreModifers,

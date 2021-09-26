@@ -8,6 +8,9 @@ namespace ChartTools
     /// </summary>
     public abstract class Chord : TrackObject, IEnumerable<Note>
     {
+        protected abstract bool OpenExclusivity { get; }
+        public abstract byte ModifierKey { get; set; }
+
         /// <param name="position">Position of the Chord on the Track</param>
         protected Chord(uint position) : base(position) { }
 
@@ -18,6 +21,7 @@ namespace ChartTools
         internal abstract IEnumerable<string> GetChartData();
 
         public abstract IEnumerable<Note> GetNotes();
+
         public IEnumerator<Note> GetEnumerator() => GetNotes().GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }

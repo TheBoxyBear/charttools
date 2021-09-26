@@ -8,8 +8,24 @@ namespace ChartTools
     /// </summary>
     public class GHLChord : Chord<Note<GHLLane>, GHLLane>
     {
+        private GHLChordModifier _modifier = GHLChordModifier.Natural;
         /// <inheritdoc cref="GHLChordModifier"/>
-        public GHLChordModifier Modifier { get; set; } = GHLChordModifier.Natural;
+        public GHLChordModifier Modifier
+        {
+            get => _modifier;
+            set
+            {
+                if (!Enum.IsDefined(value))
+                    throw CommonExceptions.GetUndefinedException(value);
+
+                _modifier = value;
+            }
+        }
+        public override byte ModifierKey
+        {
+            get => (byte)Modifier;
+            set => Modifier = (GHLChordModifier)value;
+        }
         protected override bool OpenExclusivity => true;
 
         /// <inheritdoc cref="Chord(uint)"/>

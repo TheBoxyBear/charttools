@@ -9,8 +9,25 @@ namespace ChartTools
     /// </summary>
     public class StandardChord : Chord<Note<StandardLane>, StandardLane>
     {
-        /// <inheritdoc cref="StandardChordModifier"/>
-        public StandardChordModifier Modifier { get; set; } = StandardChordModifier.Natural;
+        private StandardChordModifier _modifier = StandardChordModifier.Natural;
+        /// <inheritdoc cref="DrumsChordModifier"/>
+        public StandardChordModifier Modifier
+        {
+            get => _modifier;
+            set
+            {
+                if (!Enum.IsDefined(value))
+                    throw CommonExceptions.GetUndefinedException(value);
+
+                _modifier = value;
+            }
+        }
+        public override byte ModifierKey
+        {
+            get => (byte)Modifier;
+            set => Modifier = (StandardChordModifier)value;
+        }
+
         protected override bool OpenExclusivity => true;
 
         /// <inheritdoc cref="Chord(uint)"/>

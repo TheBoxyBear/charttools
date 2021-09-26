@@ -7,8 +7,6 @@ namespace ChartTools
     /// </summary>
     public abstract class Chord<TNote, TLaneEnum> : Chord where TNote : Note<TLaneEnum> where TLaneEnum : struct, System.Enum
     {
-        protected abstract bool OpenExclusivity { get; }
-
         /// <summary>
         /// Notes in the <see cref="Chord{TNote}"/>
         /// </summary>
