@@ -329,7 +329,8 @@ namespace ChartTools.IO.Chart
 
                     return true;
                 },
-                IncompatibleModifierCombinationPolicy.ThrowException => (chord, compatible, _) => compatible ? true : throw new Exception($"Incompatible modifier combination at position {chord.Position}")
+                IncompatibleModifierCombinationPolicy.ThrowException => (chord, compatible, _) => compatible ? true
+                : throw new Exception($"Incompatible modifier combination at position {chord.Position}")
             };
 
             foreach (string line in part)
