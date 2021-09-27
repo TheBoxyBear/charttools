@@ -40,16 +40,16 @@ namespace ChartTools.IO.Chart
 
             tasks.AddRange((new (Instrument<GHLChord>? instrument, Instruments name)[]
             {
-            (song.GHLBass, Instruments.GHLBass),
-            (song.GHLGuitar, Instruments.GHLGuitar)
+                (song.GHLBass, Instruments.GHLBass),
+                (song.GHLGuitar, Instruments.GHLGuitar)
             }).Select(t => Task.Run(() => GetInstrumentLines(t.instrument, t.name, config))));
             tasks.AddRange((new (Instrument<StandardChord>? instrument, Instruments name)[]
             {
-            (song.LeadGuitar, Instruments.LeadGuitar),
-            (song.RhythmGuitar, Instruments.RhythmGuitar),
-            (song.CoopGuitar, Instruments.CoopGuitar),
-            (song.Bass, Instruments.Bass),
-            (song.Keys, Instruments.Keys)
+                (song.LeadGuitar, Instruments.LeadGuitar),
+                (song.RhythmGuitar, Instruments.RhythmGuitar),
+                (song.CoopGuitar, Instruments.CoopGuitar),
+                (song.Bass, Instruments.Bass),
+                (song.Keys, Instruments.Keys)
             }).Select(t => Task.Run(() => GetInstrumentLines(t.instrument, t.name, config))));
             Task.WaitAll(tasks.ToArray());
 
@@ -314,16 +314,26 @@ namespace ChartTools.IO.Chart
 
             config ??= DefaultWriteConfig;
 
+            HashSet<uint> ignoredTempos = new(), ignoredAnchors = new(), ignoredSignatures = new();
+            Func<uint, HashSet<uint>, string, bool> includeObject = config.DuplicateTrackObjectPolicy switch
+            {
+                DuplicateTrackObjectPolicy.IncludeAll => (_, _, _) => true,
+                DuplicateTrackObjectPolicy.IncludeFirst => IncludeSyncTrackFirstPolicy,
+                DuplicateTrackObjectPolicy.ThrowException => IncludeSyncTrackExceptionPolicy
+            };
+
             // Loop through time signatures and tempo markers, picked using the lowest position
             foreach (TrackObject trackObject in new Collections.Alternating.OrderedAlternatingEnumerable<uint, TrackObject>(t => t.Position, syncTrack.TimeSignatures, syncTrack.Tempo))
             {
                 if (trackObject is TimeSignature ts)
                 {
-                    byte writtenDenominator = (byte)Math.Log2(ts.Denominator);
-
-                    yield return GetLine(trackObject.Position.ToString(), writtenDenominator == 1 ? $"TS {ts.Numerator}" : $"TS {ts.Numerator} {writtenDenominator}");
+                    if (includeObject(ts.Position, ignoredSignatures, "time signature"))
+                    {
+                        byte writtenDenominator = (byte)Math.Log2(ts.Denominator);
+                        yield return GetLine(trackObject.Position.ToString(), writtenDenominator == 1 ? $"TS {ts.Numerator}" : $"TS {ts.Numerator} {writtenDenominator}");
+                    }
                 }
-                else if (trackObject is Tempo tempo)
+                else if (trackObject is Tempo tempo && includeObject(tempo.Position, ignoredTempos, "tempo marker"))
                 {
                     if (tempo.Anchor is not null)
                         yield return GetLine(tempo.Position.ToString(), $"A {GetWrittenFloat((float)tempo.Anchor)}");

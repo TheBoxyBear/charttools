@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ChartTools.SystemExtensions;
+
+using System;
 using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart
@@ -29,5 +31,22 @@ namespace ChartTools.IO.Chart
         private static string GetFullPartName(Instruments instrument, Difficulty difficulty) => Enum.IsDefined(typeof(Difficulty), difficulty)
                 ? $"{difficulty}{partNames[instrument]}"
                 : throw new ArgumentException("Difficulty is undefined.");
+
+        private static bool IncludeSyncTrackFirstPolicy(uint position, ICollection<uint> ignored, string objectName)
+        {
+            if (ignored.Contains(position))
+                return false;
+
+            ignored.Add(position);
+            return true;
+        }
+        private static bool IncludeSyncTrackExceptionPolicy(uint position, ICollection<uint> ignored, string objectName)
+        {
+            if (ignored.Contains(position))
+                throw new Exception($"Duplicate {objectName} on position {position}");
+
+            ignored.Add(position);
+            return true;
+        }
     }
 }

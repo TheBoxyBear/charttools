@@ -717,26 +717,11 @@ namespace ChartTools.IO.Chart
             SyncTrack syncTrack = new();
             HashSet<uint> ignoredTempos = new(), ignoredAnchors = new(), ignoredSignatures = new();
 
-            Func<uint, HashSet<uint>, bool> includeObject = config.DuplicateTrackObjectPolicy switch
+            Func<uint, HashSet<uint>, string, bool> includeObject = config.DuplicateTrackObjectPolicy switch
             {
-                DuplicateTrackObjectPolicy.IncludeAll => (_, _) => true,
-                DuplicateTrackObjectPolicy.IncludeFirst => (position, ignored) =>
-                {
-                    if (ignored.Contains(position))
-                        return false;
-
-                    ignored.Add(position);
-                    return true;
-                }
-                ,
-                DuplicateTrackObjectPolicy.ThrowException => (position, ignored) =>
-                {
-                    if (ignored.Contains(position))
-                        throw new Exception("Duplicate chord"); // TODO Make better exception;
-
-                    ignored.Add(position);
-                    return true;
-                }
+                DuplicateTrackObjectPolicy.IncludeAll => (_, _, _) => true,
+                DuplicateTrackObjectPolicy.IncludeFirst => IncludeSyncTrackFirstPolicy,
+                DuplicateTrackObjectPolicy.ThrowException => IncludeSyncTrackExceptionPolicy
             };
 
             foreach (string line in GetPart(lines, "SyncTrack"))
@@ -751,7 +736,7 @@ namespace ChartTools.IO.Chart
                 {
                     // Time signature
                     case "TS":
-                        if (!includeObject(entry.Position, ignoredSignatures))
+                        if (!includeObject(entry.Position, ignoredSignatures, "time signature"))
                             break;
 
                         string[] split = GetDataSplit(entry.Data);
@@ -777,7 +762,7 @@ namespace ChartTools.IO.Chart
                         break;
                     // Tempo
                     case "B":
-                        if (!includeObject(entry.Position, ignoredTempos))
+                        if (!includeObject(entry.Position, ignoredTempos, "tempo marker"))
                             break;
 
                         // Floats are written by rounding to the 3rd decimal and removing the decimal point
@@ -796,7 +781,7 @@ namespace ChartTools.IO.Chart
                         break;
                     // Anchor
                     case "A":
-                        if (!includeObject(entry.Position, ignoredAnchors))
+                        if (!includeObject(entry.Position, ignoredAnchors, "tempo anchor"))
                             break;
 
                         // Floats are written by rounding to the 3rd decimal and removing the decimal point
