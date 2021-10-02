@@ -233,6 +233,13 @@ namespace ChartTools.IO.Chart
                 track.LocalEvents.RemoveWhere(e => e.EventType is LocalEventType.Solo or LocalEventType.SoloEnd);
             }
 
+            Func<uint, byte, ICollection<(uint, byte)>, bool> includeNote = config.DuplicateTrackObjectPolicy switch
+            {
+                DuplicateTrackObjectPolicy.IncludeAll => IncludeNoteAllPolicy,
+                DuplicateTrackObjectPolicy.IncludeFirst => IncludeNoteFirstPolicy,
+                DuplicateTrackObjectPolicy.ThrowException => IncludeNoteExceptionPolicy
+            };
+
             // Loop through chords, local events and star power, picked using the lowest position
             foreach (TrackObject trackObject in new Collections.Alternating.OrderedAlternatingEnumerable<uint, TrackObject>(t => t.Position, track.Chords, track.LocalEvents, track.StarPower))
                 switch (trackObject)
@@ -314,10 +321,10 @@ namespace ChartTools.IO.Chart
 
             config ??= DefaultWriteConfig;
 
-            HashSet<uint> ignoredTempos = new(), ignoredAnchors = new(), ignoredSignatures = new();
+            HashSet<uint> ignoredTempos = new(), ignoredSignatures = new();
             Func<uint, HashSet<uint>, string, bool> includeObject = config.DuplicateTrackObjectPolicy switch
             {
-                DuplicateTrackObjectPolicy.IncludeAll => (_, _, _) => true,
+                DuplicateTrackObjectPolicy.IncludeAll => IncludeSyncTrackAllPolicy,
                 DuplicateTrackObjectPolicy.IncludeFirst => IncludeSyncTrackFirstPolicy,
                 DuplicateTrackObjectPolicy.ThrowException => IncludeSyncTrackExceptionPolicy
             };

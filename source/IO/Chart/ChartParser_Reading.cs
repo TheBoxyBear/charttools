@@ -295,27 +295,11 @@ namespace ChartTools.IO.Chart
             bool newChord = true;
             HashSet<(uint, byte)> ignoredNotes = new();
 
-            Func<uint, NoteData, bool> includeNote = config.DuplicateTrackObjectPolicy switch
+            Func<uint, byte, ICollection<(uint, byte)>, bool> includeNote = config.DuplicateTrackObjectPolicy switch
             {
-                DuplicateTrackObjectPolicy.IncludeAll => (_, _) => true,
-                DuplicateTrackObjectPolicy.IncludeFirst => (position, data) =>
-                {
-                    if (ignoredNotes.Contains((position, data.NoteIndex)))
-                        return false;
-
-                    ignoredNotes.Add((position, data.NoteIndex));
-                    return true;
-                },
-                DuplicateTrackObjectPolicy.ThrowException => (position, data) =>
-                {
-                    if (ignoredNotes.Contains((position, data.NoteIndex)))
-                        throw new Exception($"Duplicate note at position {position}");
-                    else
-                    {
-                        ignoredNotes.Add((position, data.NoteIndex));
-                        return true;
-                    }
-                },
+                DuplicateTrackObjectPolicy.IncludeAll => IncludeNoteAllPolicy,
+                DuplicateTrackObjectPolicy.IncludeFirst => IncludeNoteFirstPolicy,
+                DuplicateTrackObjectPolicy.ThrowException => IncludeNoteExceptionPolicy
             };
             Func<TChord, bool, byte, bool> includeChordFromModifier = config.IncompatibleModifierCombinationPolicy switch
             {
@@ -361,8 +345,11 @@ namespace ChartTools.IO.Chart
                             data = new(entry.Data);
                             noteCase(track, ref chord, entry.Position, data, ref newChord, out bool modifersCompatible, out byte initialModifier);
 
-                            if (includeNote(entry.Position, data) && newChord && includeChordFromModifier(chord!, modifersCompatible, initialModifier))
+                            if (includeNote(entry.Position, data.NoteIndex, ignoredNotes) && newChord && includeChordFromModifier(chord!, modifersCompatible, initialModifier))
+                            {
                                 track.Chords.Add(chord!);
+                                ignoredNotes.Clear();
+                            }
                         }
                         catch (Exception e) { throw GetLineException(line, e); }
 
@@ -719,7 +706,7 @@ namespace ChartTools.IO.Chart
 
             Func<uint, HashSet<uint>, string, bool> includeObject = config.DuplicateTrackObjectPolicy switch
             {
-                DuplicateTrackObjectPolicy.IncludeAll => (_, _, _) => true,
+                DuplicateTrackObjectPolicy.IncludeAll => IncludeSyncTrackAllPolicy,
                 DuplicateTrackObjectPolicy.IncludeFirst => IncludeSyncTrackFirstPolicy,
                 DuplicateTrackObjectPolicy.ThrowException => IncludeSyncTrackExceptionPolicy
             };

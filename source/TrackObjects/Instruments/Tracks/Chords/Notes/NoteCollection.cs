@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using ChartTools.Collections.Unique;
@@ -8,7 +9,7 @@ namespace ChartTools
     /// <summary>
     /// Set of notes played simultaneously
     /// </summary>
-    public class NoteCollection<TNote, TNoteEnum> : UniqueList<TNote> where TNote : Note<TNoteEnum> where TNoteEnum : struct, Enum
+    public class NoteCollection<TNote, TLaneEnum> : UniqueList<TNote> where TNote : Note<TLaneEnum> where TLaneEnum : struct, Enum
     {
         /// <summary>
         /// If <see langword="true"/>, trying to combine an open note with other notes will remove the current ones.
@@ -38,8 +39,17 @@ namespace ChartTools
 
             base.Add(item);
         }
+        public bool Remove(TLaneEnum note)
+        {
+            TNote? n = this[note];
 
-        public TNote? this[TNoteEnum note] => Enum.IsDefined(note) ? this.FirstOrDefault(n => n.NoteIndex == Convert.ToByte(note)) : throw GetNullNoteException(nameof(note));
+            if (n is not null)
+                return Remove(n);
+
+            return false;
+        }
+
+        public TNote? this[TLaneEnum note] => Enum.IsDefined(note) ? this.FirstOrDefault(n => n.NoteIndex == Convert.ToByte(note)) : throw GetNullNoteException(nameof(note));
 
         public static Exception GetNullNoteException(string paramName) => new ArgumentNullException(paramName, "Note is null.");
     }
