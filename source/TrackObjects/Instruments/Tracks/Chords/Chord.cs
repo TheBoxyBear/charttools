@@ -18,7 +18,7 @@ namespace ChartTools
         /// Gets the data to write in a chart file.
         /// </summary>
         /// <returns>Enumerable of strings containing the data to add to each line</returns>
-        internal abstract IEnumerable<string> GetChartData();
+        internal abstract IEnumerable<string> GetChartData(System.Func<uint, byte, ICollection<byte>, bool> includeNote, ICollection<byte> ignored);
 
         public abstract IEnumerable<Note> GetNotes();
 

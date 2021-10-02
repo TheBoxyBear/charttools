@@ -1,5 +1,6 @@
 ﻿using ChartTools.IO.Chart;
 using System;
+using System.Collections.Generic;
 
 namespace ChartTools
 {
@@ -40,19 +41,20 @@ namespace ChartTools
         }
 
         /// <inheritdoc/>
-        internal override System.Collections.Generic.IEnumerable<string> GetChartData()
+        internal override IEnumerable<string> GetChartData(Func<uint, byte, ICollection<byte>, bool> includeNote, ICollection<byte> ignored)
         {
             foreach (Note<GHLLane> note in Notes)
-                yield return ChartParser.GetNoteData(note.Lane switch
-                {
-                    GHLLane.Open => 7,
-                    GHLLane.Black1 => 3,
-                    GHLLane.Black2 => 4,
-                    GHLLane.Black3 => 8,
-                    GHLLane.White1 => 0,
-                    GHLLane.White2 => 1,
-                    GHLLane.White3 => 2,
-                }, note.SustainLength);
+                if (includeNote(Position, note.NoteIndex, ignored))
+                    yield return ChartParser.GetNoteData(note.Lane switch
+                    {
+                        GHLLane.Open => 7,
+                        GHLLane.Black1 => 3,
+                        GHLLane.Black2 => 4,
+                        GHLLane.Black3 => 8,
+                        GHLLane.White1 => 0,
+                        GHLLane.White2 => 1,
+                        GHLLane.White3 => 2,
+                    }, note.SustainLength);
 
             if (Modifier.HasFlag(GHLChordModifier.Invert))
                 yield return ChartParser.GetNoteData(5, 0);

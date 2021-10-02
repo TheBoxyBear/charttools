@@ -233,19 +233,20 @@ namespace ChartTools.IO.Chart
                 track.LocalEvents.RemoveWhere(e => e.EventType is LocalEventType.Solo or LocalEventType.SoloEnd);
             }
 
-            Func<uint, byte, ICollection<(uint, byte)>, bool> includeNote = config.DuplicateTrackObjectPolicy switch
+            Func<uint, byte, ICollection<byte>, bool> includeNote = config.DuplicateTrackObjectPolicy switch
             {
                 DuplicateTrackObjectPolicy.IncludeAll => IncludeNoteAllPolicy,
                 DuplicateTrackObjectPolicy.IncludeFirst => IncludeNoteFirstPolicy,
                 DuplicateTrackObjectPolicy.ThrowException => IncludeNoteExceptionPolicy
             };
+            HashSet<byte> ignored = new();
 
             // Loop through chords, local events and star power, picked using the lowest position
             foreach (TrackObject trackObject in new Collections.Alternating.OrderedAlternatingEnumerable<uint, TrackObject>(t => t.Position, track.Chords, track.LocalEvents, track.StarPower))
                 switch (trackObject)
                 {
                     case TChord chord:
-                        foreach (string value in chord.GetChartData())
+                        foreach (string value in chord.GetChartData(includeNote, ignored))
                             yield return GetLine(trackObject.Position.ToString(), value);
                         break;
                     case LocalEvent e:

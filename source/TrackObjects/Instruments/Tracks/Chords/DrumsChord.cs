@@ -1,7 +1,6 @@
 ﻿using ChartTools.IO.Chart;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ChartTools
 {
@@ -42,15 +41,16 @@ namespace ChartTools
         }
 
         /// <inheritdoc/>
-        internal override IEnumerable<string> GetChartData()
+        internal override IEnumerable<string> GetChartData(Func<uint, byte, ICollection<byte>, bool> includeNote, ICollection<byte> ignored)
         {
             foreach (DrumsNote note in Notes)
-            {
-                yield return ChartParser.GetNoteData(note.Lane == DrumsLane.DoubleKick ? (byte)32 : note.NoteIndex, note.SustainLength);
+                if (includeNote(Position, note.NoteIndex, ignored))
+                {
+                    yield return ChartParser.GetNoteData(note.Lane == DrumsLane.DoubleKick ? (byte)32 : note.NoteIndex, note.SustainLength);
 
-                if (note.IsCymbal)
-                    yield return ChartParser.GetNoteData((byte)(note.Lane + 64), 0);
-            }
+                    if (note.IsCymbal)
+                        yield return ChartParser.GetNoteData((byte)(note.Lane + 64), 0);
+                }
 
             if (Modifier.HasFlag(DrumsChordModifier.Flam))
                 yield return ChartParser.GetNoteData(109, 0);

@@ -42,10 +42,11 @@ namespace ChartTools
         }
 
         /// <inheritdoc/>
-        internal override IEnumerable<string> GetChartData()
+        internal override IEnumerable<string> GetChartData(Func<uint, byte, ICollection<byte>, bool> includeNote, ICollection<byte> ignored)
         {
             foreach (Note<StandardLane> note in Notes)
-                yield return ChartParser.GetNoteData(note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.SustainLength);
+                if (includeNote(Position, note.NoteIndex, ignored))
+                    yield return ChartParser.GetNoteData(note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.SustainLength);
 
             if (Modifier.HasFlag(StandardChordModifier.Invert))
                 yield return ChartParser.GetNoteData(5, 0);

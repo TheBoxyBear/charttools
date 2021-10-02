@@ -32,22 +32,22 @@ namespace ChartTools.IO.Chart
                 ? $"{difficulty}{partNames[instrument]}"
                 : throw new ArgumentException("Difficulty is undefined.");
 
-        private static bool IncludeNoteAllPolicy(uint position, byte index, ICollection<(uint, byte)> ignored) => true;
-        private static bool IncludeNoteFirstPolicy(uint position, byte index, ICollection<(uint, byte)> ignored)
+        private static bool IncludeNoteAllPolicy(uint position, byte index, ICollection<byte> ignored) => true;
+        private static bool IncludeNoteFirstPolicy(uint position, byte index, ICollection<byte> ignored)
         {
-            if (ignored.Contains((position, index)))
+            if (ignored.Contains(index))
                 return false;
 
-            ignored.Add((position, index));
+            ignored.Add(index);
             return true;
         }
-        private static bool IncludeNoteExceptionPolicy(uint position, byte index, ICollection<(uint, byte)> ignored)
+        private static bool IncludeNoteExceptionPolicy(uint position, byte index, ICollection<byte> ignored)
         {
-            if (ignored.Contains((position, index)))
+            if (ignored.Contains(index))
                 throw new Exception($"Duplicate note at position {position}");
             else
             {
-                ignored.Add((position, index));
+                ignored.Add(index));
                 return true;
             }
         }
