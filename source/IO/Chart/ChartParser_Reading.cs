@@ -1,4 +1,4 @@
-﻿using ChartTools.Lyrics;
+using ChartTools.Lyrics;
 using ChartTools.SystemExtensions.Linq;
 
 using System;
@@ -810,7 +810,7 @@ namespace ChartTools.IO.Chart
                 {
                     string? line = reader.ReadLine();
 
-                    if (line is not null or "")
+                    if (!string.IsnullOrEmpty(line))
                         yield return line;
                 }
         }
