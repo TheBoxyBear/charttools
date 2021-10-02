@@ -290,8 +290,8 @@ Gems/markers:
 - 84  - Hard Green
 - 83  - Hard Open*
   - *Only enabled if there's an `[ENHANCED_OPENS]`/`ENHANCED_OPENS` text event at the start.
-- 78  - Hard Force Strum
-- 77  - Hard Force HOPO
+- 78  - Medium Force Strum
+- 77  - Medium Force HOPO
 - 76  - Medium Orange
 - 75  - Medium Blue
 - 74  - Medium Yellow
