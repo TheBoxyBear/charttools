@@ -207,29 +207,32 @@ TODO:
 
 ### 5-Fret Tracks
 
-This includes:
+These are standard 5-fret tracks that are playable on a guitar controller.
 
 - `PART GUITAR` - Lead Guitar
 - `PART GUITAR COOP` - Co-op Guitar
 - `PART BASS` - Bass Guitar
 - `PART RHYTHM` - Rhythm Guitar
+- `PART KEYS` - 5-Lane Keys
+  - 5-lane keys gets its own section later on because while CH just treats 5-lane keys as another 5-fret track, RB3 most likely does not expect/allow some of the notes listed here.
 
 #### 5-Fret Notes
 
-Notes/markers:
+Gems/markers:
 
 - 127 - Trill Lane Marker
   - Only applies to Expert unless velocity is between 50 and 41, then it will show up on Hard as well
 - 126 - Tremolo Lane Marker
   - Only applies to Expert unless velocity is between 50 and 41, then it will show up on Hard as well
-- 124 - BRE Marker 1
-- 123 - BRE Marker 2
-- 122 - BRE Marker 3
-- 121 - BRE Marker 4
-- 120 - BRE Marker 5
-  - All 5 must be used along with a `[coda]` event on the EVENTS track to initiate a Big Rock Ending.
+- 124 - Big Rock Ending Marker 1
+- 123 - Big Rock Ending Marker 2
+- 122 - Big Rock Ending Marker 3
+- 121 - Big Rock Ending Marker 4
+- 120 - Big Rock Ending Marker 5
+  - All 5 must be used as a chord along with a `[coda]` event on the EVENTS track at the start of the chord to initiate a Big Rock Ending.
 - 116 - Star Power/Overdrive Marker
-- 104 - Tap Note Marker (CH only)
+- 104 - Tap Note Marker*
+  - *Clone Hero only.
 - 103 - Solo Marker, or Star Power if no 116 notes exist (for legacy compatibility)
 - 102 - Expert Force Strum
 - 101 - Expert Force HOPO
@@ -265,12 +268,10 @@ Notes/markers:
 - 62  - Easy Yellow
 - 61  - Easy Red
 - 60  - Easy Green
-- 59  - Easy Open*
-  - *Only enabled if there's an `[ENHANCED_OPENS]`/`ENHANCED_OPENS` text event at the start. Otherwise, part of the left hand position animation data below.
+- 59  - Easy Open**
+  - **Only enabled if there's an `[ENHANCED_OPENS]`/`ENHANCED_OPENS` text event at the start. Otherwise, part of the left hand position animation data below.
 
 Animation:
-
-None of these notes should be expected if there's an `[ENHANCED_OPENS]`/`ENHANCED_OPENS` text event at the start.
 
 - 59  - Animation - Left Hand Position Highest
 - 58  - Animation - Left Hand Position
@@ -305,19 +306,20 @@ Tap Notes: `50 53 00 00 FF 04 <enable/disable>`
 
 ### 6-Fret Tracks
 
-This includes:
+These are 6-fret tracks that are playable on a Guitar Hero Live guitar.
 
-- `PART GUITAR GHL` - Lead Guitar
-- `PART BASS GHL` - Bass Guitar
+- `PART GUITAR GHL` - 6-Fret Lead Guitar
+- `PART BASS GHL` - 6-Fret Bass Guitar
 
 TODO: Reference GHL/GHTV charts
 
 #### 6-Fret Notes
 
-Notes/markers:
+Gems/markers:
 
 - 116 - Star Power/Overdrive Marker
-- 104 - Tap Note Marker (CH only)
+- 104 - Tap Note Marker*
+  - *Clone Hero only.
 - 103 - Solo Marker
 - 102 - Expert Force Strum
 - 101 - Expert Force HOPO
@@ -364,22 +366,25 @@ Tap Notes: `50 53 00 00 FF 04 <enable/disable>`
 
 ### Drums Tracks
 
-This includes `PART DRUMS` and `PART REAL_DRUMS_PS`.
+These are the tracks for drums.
+
+- `PART DRUMS` - Standard 4-Lane, 4-Lane Pro, and 5-Lane Drums
+- `PART REAL_DRUMS_PS` - Phase Shift's Drums Real
 
 #### Drums Notes
 
-Notes/markers:
+Gems/markers:
 
 - 127 - 2-Lane (Special) Roll Marker
   - Only applies to Expert unless velocity is between 50 and 41, then it will show up on Hard as well
 - 126 - 1-Lane (Standard) Roll Marker
   - Only applies to Expert unless velocity is between 50 and 41, then it will show up on Hard as well
-- 124 - BRE/Fill Marker 1
-- 123 - BRE/Fill Marker 2
-- 122 - BRE/Fill Marker 3
-- 121 - BRE/Fill Marker 4
-- 120 - BRE/Fill Marker 5
-  - All 5 must be used to mark an SP activation fill, along with a `[coda]` event on the EVENTS track to initiate a Big Rock Ending instead.
+- 124 - Big Rock Ending/Fill Marker 1
+- 123 - Big Rock Ending/Fill Marker 2
+- 122 - Big Rock Ending/Fill Marker 3
+- 121 - Big Rock Ending/Fill Marker 4
+- 120 - Big Rock Ending/Fill Marker 5
+  - All 5 must be used as a chord to mark an SP activation fill, along with a `[coda]` event on the EVENTS track if this is to initiate a Big Rock Ending instead.
 - 116 - Star Power/Overdrive Marker
 - 112 - Green Tom Marker
 - 111 - Blue Tom Marker
@@ -397,7 +402,7 @@ Notes/markers:
 - 98  - Expert Yellow
 - 97  - Expert Red
 - 96  - Expert Kick
-- 95  - Expert+ / 2x Kick
+- 95  - Expert+ Kick
 - 89  - Hard 5-Lane Orange
 - 88  - Hard 4-Lane Green/5-Lane Orange
 - 87  - Hard Blue
@@ -417,7 +422,7 @@ Notes/markers:
 - 61  - Easy Red
 - 60  - Easy Kick
 
-Animation (not present on `PART REAL_DRUMS_PS`):
+Animation (likely not typically present on `PART REAL_DRUMS_PS`):
 
 - 51  - Animation - Floor Tom Right Hand
 - 50  - Animation - Floor Tom Left Hand
@@ -449,7 +454,8 @@ Animation (not present on `PART REAL_DRUMS_PS`):
 
 Additional Modifications:
 
-- A note at a velocity of 127 is an accent note, and one at a velocity of 1 is a ghost note, though ghost/accent kicks are not supported by anything other than Editor on Fire currently.
+- A note at a velocity of 127 is an accent note, and a note at a velocity of 1 is a ghost note, though ghost/accent kicks are not supported by any chart editors other than Editor on Fire currently.
+  - Clone Hero requires a `[ENABLE_CHART_DYNAMICS]`/`ENABLE_CHART_DYNAMICS` text event to be present in order to parse ghosts/accents, in order to preserve full compatibility with RB charts where velocity doesn't matter in most cases.
 
 #### Drums Real SysEx Events
 
@@ -467,7 +473,12 @@ The same track is used for drums regardless of whether or not it's standard 4-la
 
 ### Vocals Tracks
 
-This includes `PART VOCALS` and `HARM1`-`3`.
+These are the vocals tracks.
+
+- `PART VOCALS` - Standard vocals track
+- `HARM1` - Harmonies track 1
+- `HARM2` - Harmonies track 2
+- `HARM3` - Harmonies track 3
 
 #### Vocals Notes
 
@@ -479,6 +490,7 @@ This includes `PART VOCALS` and `HARM1`-`3`.
 - 97  - Not Displayed Percussion
 - 96  - Displayed Percussion
 - 84  - C5 (Highest)
+  - Does not show up correctly in Rock Band Blitz.
 - 83  - B4
 - 82  - Bb4
 - 81  - A4
@@ -557,20 +569,22 @@ CH-specific stuff:
 - Underscores `_` are replaced with a space by CH.
 - CH's PTB can properly parse [TextMeshPro formatting tags](http://digitalnativestudios.com/textmeshpro/docs/rich-text/), such as `<color=#00FF00>`, and has [a whitelist](https://strikeline.myjetbrains.com/youtrack/issue/CH-226) for tags that it allows. Any tags not matching this whitelist will be stripped out. CH v.23 or earlier will break ones that include symbols that get stripped out.
 
-### 5-Lane Keys Track
+### 5-Lane Keys Track (As Rock Band 3 Expects)
 
-This includes `PART KEYS`.
+This is (most likely) what Rock Band 3 expects from a Keys track.
+
+- `PART KEYS` - 5-Lane Keys
 
 #### 5-Lane Keys Notes
 
-Notes/markers:
+Gems/markers:
 
 - 127 - Trill Lane Marker
-- 124 - BRE Marker 1
-- 123 - BRE Marker 2
-- 122 - BRE Marker 3
-- 121 - BRE Marker 4
-- 120 - BRE Marker 5
+- 124 - Big Rock Ending Marker 1
+- 123 - Big Rock Ending Marker 2
+- 122 - Big Rock Ending Marker 3
+- 121 - Big Rock Ending Marker 4
+- 120 - Big Rock Ending Marker 5
   - All 5 must be used along with a `[coda]` event on the EVENTS track.
 - 116 - Star Power/Overdrive Marker
 - 103 - Solo Marker
@@ -597,7 +611,12 @@ Notes/markers:
 
 ### Pro Keys Tracks
 
-This includes `PART REAL_KEYS_X`, `PART REAL_KEYS_M`, `PART REAL_KEYS_H`, and `PART REAL_KEYS_E`.
+These are the tracks for Rock Band 3's Pro Keys.
+
+- `PART REAL_KEYS_X` - Pro Keys Expert
+- `PART REAL_KEYS_H` - Pro Keys Hard
+- `PART REAL_KEYS_M` - Pro Keys Medium
+- `PART REAL_KEYS_E` - Pro Keys Easy
 
 #### Pro Keys Notes
 
@@ -605,13 +624,19 @@ TODO
 
 #### Pro Keys Animation Notes
 
-This includes `PART KEYS_ANIM_LH`, and `PART KEYS_ANIM_RH`.
+These are for the Pro Keys animation tracks.
 
-TODO
+- `PART KEYS_ANIM_LH` - Character Keys Left Hand Animations
+- `PART KEYS_ANIM_RH` - Character Keys Right Hand Animations
 
 ### Keys Real Tracks
 
-This includes `PART REAL_KEYS_PS_X`, `PART REAL_KEYS_PS_M`, `PART REAL_KEYS_PS_H`, and `PART REAL_KEYS_PS_E`.
+These are for Phase Shift's Real Keys mode.
+
+- `PART REAL_KEYS_PS_X` - Real Keys Expert
+- `PART REAL_KEYS_PS_M` - Real Keys Hard
+- `PART REAL_KEYS_PS_H` - Real Keys Medium
+- `PART REAL_KEYS_PS_E` - Real Keys Easy
 
 #### Keys Real Notes
 
@@ -619,7 +644,13 @@ TODO
 
 ### Pro Guitar/Bass Tracks
 
-This includes `PART REAL_GUITAR`, `PART REAL_GUITAR_22`, `PART REAL_GUITAR_BONUS`, `PART REAL_BASS`, and `PART REAL_BASS_22`.
+These are the tracks for Pro Guitar and Pro Bass.
+
+- `PART REAL_GUITAR` - Pro Guitar (17-Fret)
+- `PART REAL_GUITAR_22` - Pro Guitar (22-Fret)
+- `PART REAL_GUITAR_BONUS` - Pro Guitar (?)
+- `PART REAL_BASS` - Pro Bass (17-Fret)
+- `PART REAL_BASS_22` - Pro Bass (22-Fret)
 
 #### Pro Guitar/Bass 17-Fret Notes
 
@@ -631,12 +662,14 @@ TODO
 
 ### Dance Track
 
-This includes `PART DANCE`.
+This track is a 4-lane Dance mode similar to that of Dance Dance Revolution, In The Groove, and StepMania.
+
+- `PART DANCE` - Dance
 
 #### Dance Notes
 
-- 116 - Star Power
-- 103 - Solo
+- 116 - Star Power/Overdrive Marker
+- 103 - Solo Marker
 - 99  - Challenge Right
 - 98  - Challenge Up
 - 97  - Challenge Down
