@@ -55,13 +55,34 @@ MIDI files are comprised of chunks. There are two types of chunks: header chunks
 
 ### Events
 
-Track chunks contain a series of MIDI events. Events have a delta-time relative to the previous event in the stream, and data related to the event. There are 3 main types of events: standard MIDI messages, System Exclusive (SysEx) messages, and meta-messages.
+Track chunks contain a series of MIDI events (also referred to as messages). Events have a delta-time relative to the previous event in the stream, and data related to the event.
+
+### Bytes
+
+Events are a specific set of bytes. Bytes are split evenly into two categories: data bytes (`0x00`-`0x7F`), and status bytes (`0x80`-`0xFF`). As such, you (typically) cannot have a data byte that has a value above `0x7F`, and you cannot have a status byte with a value lower than `0x80`. (The former can be violated in some System Exclusive events, as mentioned later on.)
+
+The specific formats of events is a little beyond the scope of this guide, so they are not covered here.
+
+### Event Categories
+
+There are three categories of events: Channel, System, and Meta.
+
+- Channel events are encoded with a 4-bit channel number (0-15). There are two types of channel events: Voice and Mode.
+  - Voice events control a channel/instrument's voices.
+  - Mode events control a channel/instrument's response to voice events.
+- System events are not encoded with a channel number. There are three types of system events: Common, Real-Time, and Exclusive (SysEx).
+  - Common events are received on all channels. These don't particularly pertain to chart files, so no specifics will be given on available events.
+  - Real-time events are used for real-time synchronization. These don't particularly pertain to chart files, so no specifics will be given on available events.
+  - Exclusive (SysEx) events are flexible, and aside from the starting and ending bytes (`0xF0` and `0xF7` respectively), their format is vendor-defined.
+    - They can contain any number of data bytes.
+    - Data bytes cannot contain values above `0x7F`, but some SysEx events contain these values anyways. This is the case with the guitar tap note SysEx event, for example.
+- Meta events are events that store non-MIDI data such as text.
 
 #### Event Types
 
-Standard messages:
-
 Most of these don't matter for charts in most cases, but are listed anyways as part of a general overview.
+
+Channel Voice:
 
 - Note On
   - Marks the start point of a note.
@@ -71,11 +92,11 @@ Most of these don't matter for charts in most cases, but are listed anyways as p
   - Marks the end point of a note.
   - Has a note number (0-127) and velocity value (0-127).
 - Control Change
-  - Changes the value of a control setting, such as sustain or pitch bend.
+  - Changes the value of a control channel, such as sustain or pitch bend.
   - Has a controller number (0-119) and a control value (0-127).
   - The values for controllers 0-31 and controllers 32-63 are paired up as most-significant bytes and least significant bytes respectively.
     - For example, controller 2 and 34 are each part of the same value, where 2's value is the most significant byte, and 34's value is the least significant byte.
-  - Controller numbers 120 through 127 are reserved for channel mode messages.
+  - Controller numbers 120 through 127 are reserved for channel mode events, detailed in the next list.
 - Program Change
   - Changes the sound/voicing of the track.
   - Has a program number (0-127).
@@ -90,7 +111,28 @@ Most of these don't matter for charts in most cases, but are listed anyways as p
   - Has a least-significant byte and most-significant byte (both 0-127, forms a 14-bit number.)
   - Max negative is 0, 0, center is 0, 64 (8,192), max positive is 127, 127 (16,383).
 
-Meta-messages:
+Channel Mode:
+
+These are special control change events, using the reserved 120-127 control channels.
+
+- All Sound Off
+  - Disables all notes and sets their volumes to zero. Has controller number 120.
+- Reset All Controllers
+  - Resets all control channels to whatever their ideal state is. Has controller number 121.
+- Local Control
+  - Enables or disables a device's local controls. Has controller number 122. Enabled with a value of 127, disabled with a value of 0.
+- All Notes Off
+  - Turns off all currently active notes. Has controller number 123.
+- Omni Off
+  - Sets a device to only respond to events on its basic channel. Also turns off all currently active notes when switched. Has controller number 124.
+- Omni On
+  - Sets a device to respond to events on all channels. Also turns off all currently active notes when switched. Has controller number 125.
+- Mono On (Poly Off)
+  - Sets a device to monophonic mode. Has controller number 126.
+- Poly On (Mono Off)
+  - Sets a device to polyphonic mode. Has controller number 127.
+
+Meta-events:
 
 - Sequence Number
   - Specifies the number of a sequence.
@@ -123,13 +165,9 @@ Meta-messages:
 - Key Signature
   - Sets a key signature.
 
-SysEx messages:
-
-- TODO
-
 #### Warning For SysEx
 
-Standard SysEx events normally do not allow values above `0x7F`. However, the guitar tap note SysEx event violates this, so this must be accounted for in MIDI parsing.
+As stated in the [Events](#events) section, standard SysEx events normally do not allow values above 127 (`0x7F`). However, some SysEx events violate this, such as the guitar tap note event, so this must be accounted for in MIDI parsing.
 
 ## Using via ChartTools
 
