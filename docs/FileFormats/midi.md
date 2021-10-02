@@ -152,10 +152,6 @@ Standard tracks:
 - `PART VOCALS` - Vocals (used for lyrics in CH)
 - `EVENTS` - Global events
 
-Legacy tracks:
-
-- `T1 GEMS` - GH1/2-era Lead Guitar
-
 Additional tracks (from either Rock Band or Phase Shift):
 
 - `PART REAL_GUITAR` - RB3 Pro Guitar (17-fret)
@@ -180,6 +176,16 @@ Additional tracks (from either Rock Band or Phase Shift):
 - `HARM3` - RB3 Harmony part 3
 - `VENUE` - RB venue camera/lighting effects
 - `BEAT` - RB beat track
+
+Legacy/Other tracks:
+
+- `T1 GEMS` - GH1/2-era version of `PART GUITAR`
+- `Click` - Alternate `PART GUITAR` track that FoFiX supports.
+- `Midi Out` - Same as above.
+- `PART DRUM` - Alternate name for `PART DRUMS` that FoFiX supports in its code.
+- `PART REAL GUITAR` - `PART REAL_GUITAR` as it appears in FoFiX's code.
+- `PART REAL BASS` - `PART REAL_BASS` as it appears in FoFiX's code.
+- `PART REAL DRUM` - Pro Drums as it appears in FoFiX's code.
 
 ## Track Details
 
