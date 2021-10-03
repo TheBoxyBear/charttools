@@ -16,7 +16,7 @@ namespace ChartTools.IO.Chart
     {
         public static readonly ReadingConfiguration DefaultReadConfig = new()
         {
-            DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.IncludeFirst,
+            DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
             SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
             IncompatibleModifierCombinationPolicy = IncompatibleModifierCombinationPolicy.ThrowException,
         };
@@ -24,19 +24,11 @@ namespace ChartTools.IO.Chart
         private class ReadingSession
         {
             public ReadingConfiguration Configuration { get; }
-            public IncludeNotePolicy IncludeNotePolicy { get; }
             public IncludeChordFromModifierPolicy IncludeChordFromModifierPolicy { get; }
 
             public ReadingSession(ReadingConfiguration? config)
             {
                 Configuration = config ?? DefaultReadConfig;
-
-                IncludeNotePolicy = Configuration.DuplicateTrackObjectPolicy switch
-                {
-                    DuplicateTrackObjectPolicy.IncludeAll => IncludeNoteAllPolicy,
-                    DuplicateTrackObjectPolicy.IncludeFirst => IncludeNoteFirstPolicy,
-                    DuplicateTrackObjectPolicy.ThrowException => IncludeNoteExceptionPolicy
-                };
                 IncludeChordFromModifierPolicy = Configuration.IncompatibleModifierCombinationPolicy switch
                 {
                     IncompatibleModifierCombinationPolicy.IgnoreChord => (_, compatible, _) => compatible,
@@ -114,8 +106,6 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="ReadInstrument(string, StandardInstrument, ReadingConfiguration)" path="/exception"/>
         public static Instrument? ReadInstrument(string path, Instruments instrument, ReadingConfiguration config)
         {
-            ReadingSession session = new(config);
-
             if (instrument == Instruments.Drums)
                 return ReadDrums(path, config);
             if (Enum.IsDefined((GHLInstrument)instrument))
@@ -362,7 +352,7 @@ namespace ChartTools.IO.Chart
                             data = new(entry.Data);
                             noteCase(track, ref chord, entry.Position, data, ref newChord, out bool modifersCompatible, out byte initialModifier);
 
-                            if (session.IncludeNotePolicy(entry.Position, data.NoteIndex, ignoredNotes) && newChord && session.IncludeChordFromModifierPolicy(chord!, modifersCompatible, initialModifier))
+                            if (newChord && session.IncludeChordFromModifierPolicy(chord!, modifersCompatible, initialModifier))
                             {
                                 track.Chords.Add(chord!);
                                 ignoredNotes.Clear();

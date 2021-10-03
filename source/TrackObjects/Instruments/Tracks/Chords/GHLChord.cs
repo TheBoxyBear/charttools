@@ -44,17 +44,16 @@ namespace ChartTools
         internal override IEnumerable<string> GetChartData(ChartParser.WritingSession session, ICollection<byte> ignored)
         {
             foreach (Note<GHLLane> note in Notes)
-                if (session.IncludeNotePolicy(Position, note.NoteIndex, ignored))
-                    yield return ChartParser.GetNoteData(note.Lane switch
-                    {
-                        GHLLane.Open => 7,
-                        GHLLane.Black1 => 3,
-                        GHLLane.Black2 => 4,
-                        GHLLane.Black3 => 8,
-                        GHLLane.White1 => 0,
-                        GHLLane.White2 => 1,
-                        GHLLane.White3 => 2,
-                    }, note.SustainLength);
+                yield return ChartParser.GetNoteData(note.Lane switch
+                {
+                    GHLLane.Open => 7,
+                    GHLLane.Black1 => 3,
+                    GHLLane.Black2 => 4,
+                    GHLLane.Black3 => 8,
+                    GHLLane.White1 => 0,
+                    GHLLane.White2 => 1,
+                    GHLLane.White3 => 2,
+                }, note.SustainLength);
 
             if (Modifier.HasFlag(GHLChordModifier.Invert))
                 yield return ChartParser.GetNoteData(5, 0);

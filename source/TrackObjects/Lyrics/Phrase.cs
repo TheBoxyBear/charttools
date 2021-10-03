@@ -65,7 +65,7 @@ namespace ChartTools.Lyrics
         public Phrase(uint position) : base(position) { }
 
         /// <inheritdoc cref="ChartParser.ReadLyrics(string)"/>
-        public static IEnumerable<Phrase> FromFile(string path, ReadingConfiguration? config) => ExtensionHandler.Read(path, (".chart", ChartParser.ReadLyrics));
+        public static IEnumerable<Phrase> FromFile(string path) => ExtensionHandler.Read(path, (".chart", ChartParser.ReadLyrics));
 
         /// <summary>
         /// Gets a set of <see cref="GlobalEvent"/> that make up the <see cref="Phrase"/>

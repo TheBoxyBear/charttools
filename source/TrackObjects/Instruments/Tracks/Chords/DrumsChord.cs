@@ -45,13 +45,12 @@ namespace ChartTools
         internal override IEnumerable<string> GetChartData(ChartParser.WritingSession session, ICollection<byte> ignored)
         {
             foreach (DrumsNote note in Notes)
-                if (session.IncludeNotePolicy(Position, note.NoteIndex, ignored))
-                {
-                    yield return ChartParser.GetNoteData(note.Lane == DrumsLane.DoubleKick ? (byte)32 : note.NoteIndex, note.SustainLength);
+            {
+                yield return ChartParser.GetNoteData(note.Lane == DrumsLane.DoubleKick ? (byte)32 : note.NoteIndex, note.SustainLength);
 
-                    if (note.IsCymbal)
-                        yield return ChartParser.GetNoteData((byte)(note.Lane + 64), 0);
-                }
+                if (note.IsCymbal)
+                    yield return ChartParser.GetNoteData((byte)(note.Lane + 64), 0);
+            }
 
             if (Modifier.HasFlag(DrumsChordModifier.Flam))
                 yield return ChartParser.GetNoteData(109, 0);

@@ -21,19 +21,9 @@ namespace ChartTools.IO.Chart
         internal class WritingSession
         {
             public WritingConfiguration Configuration { get; }
-            public IncludeNotePolicy IncludeNotePolicy { get; }
+            public uint HopoThreshold { get; set; }
 
-            public WritingSession(WritingConfiguration? config)
-            {
-                Configuration = config ?? DefaultWriteConfig;
-
-                IncludeNotePolicy = Configuration.DuplicateTrackObjectPolicy switch
-                {
-                    DuplicateTrackObjectPolicy.IncludeAll => IncludeNoteAllPolicy,
-                    DuplicateTrackObjectPolicy.IncludeFirst => IncludeNoteFirstPolicy,
-                    DuplicateTrackObjectPolicy.ThrowException => IncludeNoteExceptionPolicy
-                };
-            }
+            public WritingSession(WritingConfiguration? config) => Configuration = config ?? DefaultWriteConfig;
         }
 
         /// <summary>
@@ -48,6 +38,14 @@ namespace ChartTools.IO.Chart
                 return;
 
             WritingSession session = new(config);
+
+            if (session.Configuration.HopoThresholdPriority == HopoThresholdPriority.Metadata)
+            {
+                if (song.Metadata?.HopoThreashold is not null)
+                    session.HopoThreshold = song.Metadata.HopoThreashold.Value;
+
+                session.HopoThreshold = session.Configuration.HopoTreshold ?? 5; // Replace 5 with default threshold
+            }
 
             // Add threads for metadata, sync track and global events
             List<Task<IEnumerable<string>>> tasks = new()

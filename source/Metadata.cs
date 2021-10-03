@@ -104,6 +104,7 @@ namespace ChartTools
         /// The song is a modchart
         /// </summary>
         public bool IsModchart { get; set; }
+        public uint? HopoThreashold { get; set; }
         public UniqueList<MetadataItem> UnidentifiedData { get; } = new((a, b) => a.Key == b.Key);
         #endregion
 

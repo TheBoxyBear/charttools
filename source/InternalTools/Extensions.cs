@@ -550,17 +550,6 @@ namespace ChartTools
         public static void ToFile(this Instrument<StandardChord> inst, string path, StandardInstrument instrument, WritingConfiguration config) => ExtensionHandler.Write(path, (inst, instrument), config, (".chart", ChartParser.ReplaceInstrument));
     }
 
-    public static class ChordExtensions
-    {
-        public static void Add(this NoteCollection<DrumsNote, DrumsLane> notes, DrumsLane note) => notes.Add(new DrumsNote(note));
-        public static void Add(this NoteCollection<Note<GHLLane>, GHLLane> notes, GHLLane note) => notes.Add(new Note<GHLLane>(note));
-        public static void Add(this NoteCollection<Note<StandardLane>, StandardLane> notes, StandardLane note) => notes.Add(new Note<StandardLane>(note));
-
-        public static bool Contains(this NoteCollection<DrumsNote, DrumsLane> notes, DrumsLane note) => notes.Any(n => n.Lane == note);
-        public static bool Contains(this NoteCollection<Note<GHLLane>, GHLLane> notes, GHLLane note) => notes.Any(n => n.Lane == note);
-        public static bool Contains(this NoteCollection<Note<StandardLane>, StandardLane> notes, StandardLane note) => notes.Any(n => n.Lane == note);
-    }
-
     /// <summary>
     /// Provides templates for commonly thrown exceptions
     /// </summary>

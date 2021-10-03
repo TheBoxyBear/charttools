@@ -124,20 +124,18 @@
         public SoloNoStarPowerPolicy SoloNoStarPowerPolicy { get; init; }
         public TrackObjectSource EventSource { get; init; }
         public TrackObjectSource StarPowerSource { get; init; }
-        /// <summary>
-        /// *Unsupported*
-        /// </summary>
+        /// <inheritdoc cref="IO.DuplicateTrackObjectPolicy"/>
         public DuplicateTrackObjectPolicy DuplicateTrackObjectPolicy { get; init; }
         /// <summary>
-        /// *Unsupported*
+        /// *Currently unsupported*
         /// </summary>
         public HopoThresholdPriority HopoThresholdPriority { get; init; }
         /// <summary>
-        /// *Unsupported*
+        /// *Currently unsupported*
         /// </summary>
         public uint? HopoTreshold { get; init; } = null;
         /// <summary>
-        /// *Unsupported*
+        /// *Currently unsupported*
         /// </summary>
         public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }
     }

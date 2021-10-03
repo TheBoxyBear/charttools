@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 using ChartTools.Collections.Unique;
@@ -39,17 +38,15 @@ namespace ChartTools
 
             base.Add(item);
         }
-        public bool Remove(TLaneEnum note)
+        public bool Remove(TLaneEnum lane)
         {
-            TNote? n = this[note];
-
-            if (n is not null)
-                return Remove(n);
-
-            return false;
+            TNote? n = this[lane];
+            return n is not null && Remove(n);
         }
 
-        public TNote? this[TLaneEnum note] => Enum.IsDefined(note) ? this.FirstOrDefault(n => n.NoteIndex == Convert.ToByte(note)) : throw GetNullNoteException(nameof(note));
+        public bool Contains(TLaneEnum lane) => Enum.IsDefined(lane) ? this.Any(n => n.Lane.Equals(lane)) : throw CommonExceptions.GetUndefinedException(lane);
+
+        public TNote? this[TLaneEnum lane] => Enum.IsDefined(lane) ? this.FirstOrDefault(n => n.NoteIndex == Convert.ToByte(lane)) : throw CommonExceptions.GetUndefinedException(lane);
 
         public static Exception GetNullNoteException(string paramName) => new ArgumentNullException(paramName, "Note is null.");
     }
