@@ -42,7 +42,6 @@ namespace ChartTools.Tools.Scaling
             foreach (var signature in syncTrack.TimeSignatures)
                 signature.Rescale(scale);
         }
-
         public static void Rescale(this Song song, float scale)
         {
             foreach (var instrument in song.GetInstruments().NonNull())

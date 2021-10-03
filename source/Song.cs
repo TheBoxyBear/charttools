@@ -61,6 +61,7 @@ namespace ChartTools
         /// Set of keyboard tracks
         /// </summary>
         public Instrument<StandardChord>? Keys { get; set; }
+        public Instrument<VocalsChord>? Vocals { get; set; }
         #endregion
 
         /// <summary>
@@ -78,6 +79,7 @@ namespace ChartTools
             Instruments.CoopGuitar => CoopGuitar,
             Instruments.Bass => Bass,
             Instruments.Keys => Keys,
+            Instruments.Vocals => Vocals,
             _ => throw new Exception("Instrument does not exist.")
         };
         /// <summary>
