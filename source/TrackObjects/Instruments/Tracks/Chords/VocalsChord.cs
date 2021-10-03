@@ -17,6 +17,7 @@ namespace ChartTools
             set => _pitch = Enum.IsDefined(value) ? value : throw CommonExceptions.GetUndefinedException(value);
         }
         public Syllable Syllable { get; set; }
+        public uint Length { get; set; }
 
         protected override bool OpenExclusivity => false;
 

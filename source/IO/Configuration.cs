@@ -36,7 +36,7 @@
     /// <summary>
     /// Defines how chords with a set of incompatible modifiers are handled
     /// </summary>
-    public enum IncompatibleModifierCombinationPolicy
+    public enum IncompatibleModifierCombinationPolicy : byte
     {
         /// <summary>
         /// All modifiers are included
@@ -74,7 +74,7 @@
     /// <summary>
     /// Hopo threshold to prioritize if included in the metadata and configuration
     /// </summary>
-    public enum HopoThresholdPriority
+    public enum HopoThresholdPriority : byte
     {
         /// <summary>
         /// Get the threshold from metadata
@@ -88,7 +88,7 @@
     /// <summary>
     /// Defines how to handle chord modifiers not supported by the target format
     /// </summary>
-    public enum UnsupportedModifierPolicy
+    public enum UnsupportedModifierPolicy : byte
     {
         /// <summary>
         /// The modifier is excluded
@@ -103,6 +103,11 @@
         /// </summary>
         Convert,
         ThrowException
+    }
+    public enum UnsupportedVocalsSource : byte
+    {
+        GlobalEvents,
+        Vocals
     }
 
     /// <summary>
@@ -138,5 +143,9 @@
         /// *Currently unsupported*
         /// </summary>
         public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }
+        /// <summary>
+        /// *Currently unsupported*
+        /// </summary>
+        public UnsupportedVocalsSource UnsupportedVocalsSource { get; init; }
     }
 }
