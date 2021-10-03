@@ -92,7 +92,7 @@ namespace ChartTools
         /// <param name="instrument">Instrument to get</param>
         /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="StandardChord"/> from the <see cref="Song"/>.</returns>
         public Instrument<StandardChord>? GetInstrument(StandardInstrument instrument) => GetInstrument((Instruments)instrument) as Instrument<StandardChord>;
-        public IEnumerable<Instrument> GetInstruments() => new Instrument?[] { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys }.NonNull();
+        public IEnumerable<Instrument?> GetInstruments() => new Instrument?[] { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys }.NonNull();
 
         /// <summary>
         /// Reads a <see cref="Song"/> from a file.

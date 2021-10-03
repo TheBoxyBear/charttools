@@ -48,7 +48,7 @@ namespace ChartTools
             DiffEnum.Expert => GetExpert(),
             _ => throw CommonExceptions.GetUndefinedException(difficulty)
         };
-        public IEnumerable<Track> GetTracks()
+        public IEnumerable<Track?> GetTracks()
         {
             foreach (var getter in new Func<Track?>[] { GetEasy, GetMedium, GetHard, GetExpert })
             {
