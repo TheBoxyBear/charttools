@@ -41,10 +41,10 @@ namespace ChartTools
         }
 
         /// <inheritdoc/>
-        internal override IEnumerable<string> GetChartData(Func<uint, byte, ICollection<byte>, bool> includeNote, ICollection<byte> ignored)
+        internal override IEnumerable<string> GetChartData(ChartParser.WritingSession session, ICollection<byte> ignored)
         {
             foreach (Note<GHLLane> note in Notes)
-                if (includeNote(Position, note.NoteIndex, ignored))
+                if (session.IncludeNotePolicy(Position, note.NoteIndex, ignored))
                     yield return ChartParser.GetNoteData(note.Lane switch
                     {
                         GHLLane.Open => 7,
@@ -61,5 +61,7 @@ namespace ChartTools
             if (Modifier.HasFlag(GHLChordModifier.Tap))
                 yield return ChartParser.GetNoteData(6, 0);
         }
+
+        internal override bool ChartModifierSupported() => Modifier is GHLChordModifier.Natural or GHLChordModifier.Invert or GHLChordModifier.Tap;
     }
 }

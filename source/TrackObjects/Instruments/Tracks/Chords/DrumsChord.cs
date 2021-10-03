@@ -1,4 +1,5 @@
-﻿using ChartTools.IO.Chart;
+﻿using ChartTools.IO;
+using ChartTools.IO.Chart;
 using System;
 using System.Collections.Generic;
 
@@ -41,10 +42,10 @@ namespace ChartTools
         }
 
         /// <inheritdoc/>
-        internal override IEnumerable<string> GetChartData(Func<uint, byte, ICollection<byte>, bool> includeNote, ICollection<byte> ignored)
+        internal override IEnumerable<string> GetChartData(ChartParser.WritingSession session, ICollection<byte> ignored)
         {
             foreach (DrumsNote note in Notes)
-                if (includeNote(Position, note.NoteIndex, ignored))
+                if (session.IncludeNotePolicy(Position, note.NoteIndex, ignored))
                 {
                     yield return ChartParser.GetNoteData(note.Lane == DrumsLane.DoubleKick ? (byte)32 : note.NoteIndex, note.SustainLength);
 
@@ -55,5 +56,6 @@ namespace ChartTools
             if (Modifier.HasFlag(DrumsChordModifier.Flam))
                 yield return ChartParser.GetNoteData(109, 0);
         }
+        internal override bool ChartModifierSupported() => Modifier is DrumsChordModifier.None or DrumsChordModifier.Flam;
     }
 }

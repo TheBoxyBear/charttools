@@ -5,8 +5,10 @@ using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart
 {
-    internal static partial class ChartParser
+    public static partial class ChartParser
     {
+        internal delegate bool IncludeNotePolicy(uint position, byte noteIndex, ICollection<byte> ignored);
+
         /// <summary>
         /// Part names of <see cref="Instruments"/> without the difficulty
         /// </summary>
@@ -47,10 +49,12 @@ namespace ChartTools.IO.Chart
                 throw new Exception($"Duplicate note at position {position}");
             else
             {
-                ignored.Add(index));
+                ignored.Add(index);
                 return true;
             }
         }
+
+
 
         private static bool IncludeSyncTrackAllPolicy(uint position, ICollection<uint> ignored, string objectName) => true;
         private static bool IncludeSyncTrackFirstPolicy(uint position, ICollection<uint> ignored, string objectName)

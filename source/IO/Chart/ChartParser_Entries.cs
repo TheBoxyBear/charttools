@@ -5,7 +5,7 @@ namespace ChartTools.IO.Chart
     /// <summary>
     /// Provides methods for reading and writing chart files
     /// </summary>
-    internal static partial class ChartParser
+    public static partial class ChartParser
     {
         /// <summary>
         /// Line of chart file data

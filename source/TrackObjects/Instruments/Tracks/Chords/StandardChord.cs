@@ -42,10 +42,10 @@ namespace ChartTools
         }
 
         /// <inheritdoc/>
-        internal override IEnumerable<string> GetChartData(Func<uint, byte, ICollection<byte>, bool> includeNote, ICollection<byte> ignored)
+        internal override IEnumerable<string> GetChartData(ChartParser.WritingSession session, ICollection<byte> ignored)
         {
             foreach (Note<StandardLane> note in Notes)
-                if (includeNote(Position, note.NoteIndex, ignored))
+                if (session.IncludeNotePolicy(Position, note.NoteIndex, ignored))
                     yield return ChartParser.GetNoteData(note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.SustainLength);
 
             if (Modifier.HasFlag(StandardChordModifier.Invert))
@@ -53,5 +53,7 @@ namespace ChartTools
             if (Modifier.HasFlag(StandardChordModifier.Tap))
                 yield return ChartParser.GetNoteData(6, 0);
         }
+
+        internal override bool ChartModifierSupported() => Modifier is StandardChordModifier.Natural or StandardChordModifier.Invert or StandardChordModifier.Tap;
     }
 }

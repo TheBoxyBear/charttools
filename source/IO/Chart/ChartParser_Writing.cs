@@ -9,14 +9,32 @@ using System.Threading.Tasks;
 
 namespace ChartTools.IO.Chart
 {
-    internal partial class ChartParser
+    public static partial class ChartParser
     {
-        internal static readonly WritingConfiguration DefaultWriteConfig = new()
+        public static readonly WritingConfiguration DefaultWriteConfig = new()
         {
             SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
             EventSource = TrackObjectSource.Seperate,
             StarPowerSource = TrackObjectSource.Seperate
         };
+
+        internal class WritingSession
+        {
+            public WritingConfiguration Configuration { get; }
+            public IncludeNotePolicy IncludeNotePolicy { get; }
+
+            public WritingSession(WritingConfiguration? config)
+            {
+                Configuration = config ?? DefaultWriteConfig;
+
+                IncludeNotePolicy = Configuration.DuplicateTrackObjectPolicy switch
+                {
+                    DuplicateTrackObjectPolicy.IncludeAll => IncludeNoteAllPolicy,
+                    DuplicateTrackObjectPolicy.IncludeFirst => IncludeNoteFirstPolicy,
+                    DuplicateTrackObjectPolicy.ThrowException => IncludeNoteExceptionPolicy
+                };
+            }
+        }
 
         /// <summary>
         /// Writes a song to a chart file
@@ -29,20 +47,22 @@ namespace ChartTools.IO.Chart
             if (song is null)
                 return;
 
+            WritingSession session = new(config);
+
             // Add threads for metadata, sync track and global events
             List<Task<IEnumerable<string>>> tasks = new()
             {
                 Task.Run(() => GetPartLines("Song", GetMetadataLines(song.Metadata))),
-                Task.Run(() => GetPartLines("SyncTrack", GetSyncTrackLines(song.SyncTrack, config))),
+                Task.Run(() => GetPartLines("SyncTrack", GetSyncTrackLines(song.SyncTrack, session))),
                 Task.Run(() => GetPartLines("Events", song.GlobalEvents?.Select(e => GetEventLine(e)))),
-                Task.Run(() => GetInstrumentLines(song.Drums, Instruments.Drums, config))
+                Task.Run(() => GetInstrumentLines(song.Drums, Instruments.Drums, session))
             };
 
             tasks.AddRange((new (Instrument<GHLChord>? instrument, Instruments name)[]
             {
                 (song.GHLBass, Instruments.GHLBass),
                 (song.GHLGuitar, Instruments.GHLGuitar)
-            }).Select(t => Task.Run(() => GetInstrumentLines(t.instrument, t.name, config))));
+            }).Select(t => Task.Run(() => GetInstrumentLines(t.instrument, t.name, session))));
             tasks.AddRange((new (Instrument<StandardChord>? instrument, Instruments name)[]
             {
                 (song.LeadGuitar, Instruments.LeadGuitar),
@@ -50,7 +70,7 @@ namespace ChartTools.IO.Chart
                 (song.CoopGuitar, Instruments.CoopGuitar),
                 (song.Bass, Instruments.Bass),
                 (song.Keys, Instruments.Keys)
-            }).Select(t => Task.Run(() => GetInstrumentLines(t.instrument, t.name, config))));
+            }).Select(t => Task.Run(() => GetInstrumentLines(t.instrument, t.name, session))));
             Task.WaitAll(tasks.ToArray());
 
             using StreamWriter writer = new(new FileStream(path, FileMode.Create));
@@ -69,12 +89,12 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to write</param>
         /// <param name="inst">Instrument object to write</param>
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/exception"/>
-        internal static void ReplaceDrums(string path, Instrument<DrumsChord> inst, WritingConfiguration? config) => ReplaceInstrument(path, inst, Instruments.Drums, config);
+        public static void ReplaceDrums(string path, Instrument<DrumsChord> inst, WritingConfiguration? config) => ReplaceInstrument(path, inst, Instruments.Drums, config);
         /// <summary>Replaces a GHL instrument in a chart file.</summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="data">Tuple containing the Instrument object to write and the instrument to assign it to</param>
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/exception"/>
-        internal static void ReplaceInstrument(string path, (Instrument<GHLChord> inst, GHLInstrument instEnum) data, WritingConfiguration? config)
+        public static void ReplaceInstrument(string path, (Instrument<GHLChord> inst, GHLInstrument instEnum) data, WritingConfiguration? config)
         {
             if (!Enum.IsDefined(data.instEnum))
                 throw CommonExceptions.GetUndefinedException(data.instEnum);
@@ -85,7 +105,7 @@ namespace ChartTools.IO.Chart
         /// <param name="data">Tuple containing the Instrument object to write and the instrument to assign it to</param>
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/param"/>
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/exception"/>
-        internal static void ReplaceInstrument(string path, (Instrument<StandardChord> inst, StandardInstrument instEnum) data, WritingConfiguration? config)
+        public static void ReplaceInstrument(string path, (Instrument<StandardChord> inst, StandardInstrument instEnum) data, WritingConfiguration? config)
         {
             if (!Enum.IsDefined(data.instEnum))
                 throw CommonExceptions.GetUndefinedException(data.instEnum);
@@ -106,7 +126,7 @@ namespace ChartTools.IO.Chart
                 throw new ArgumentNullException(nameof(inst));
 
             // Get the instrument lines, combiner them with the lines from the file not related to the instrument and re-write the file
-            WriteFile(path, GetInstrumentLines(inst, instEnum, config).Concat(ReadFile(path).RemoveSections(Enum.GetValues<Difficulty>().Select(d => ((Predicate<string>)(l => l == $"[{GetFullPartName(instEnum, d)}]"), (Predicate<string>)(l => l == "}"))).ToArray()).ToArray()));
+            WriteFile(path, GetInstrumentLines(inst, instEnum, new(config)).Concat(ReadFile(path).RemoveSections(Enum.GetValues<Difficulty>().Select(d => ((Predicate<string>)(l => l == $"[{GetFullPartName(instEnum, d)}]"), (Predicate<string>)(l => l == "}"))).ToArray()).ToArray()));
         }
 
         /// <summary>
@@ -115,7 +135,7 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to read</param>
         /// <param name="metadata">Metadata to write</param>
         /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-        internal static void ReplaceMetadata(string path, Metadata metadata) => ReplacePart(path, GetMetadataLines(metadata), "Song");
+        public static void ReplaceMetadata(string path, Metadata metadata) => ReplacePart(path, GetMetadataLines(metadata), "Song");
 
         /// <summary>
         /// Replaces the global events in a file.
@@ -123,14 +143,14 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to write</param>
         /// <param name="events">Events to use as a replacement</param>
         /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-        internal static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events, WritingConfiguration? config) => ReplacePart(path, events.Select(e => GetEventLine(e)), "Events");
+        public static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events, WritingConfiguration? config) => ReplacePart(path, events.Select(e => GetEventLine(e)), "Events");
         /// <summary>
         /// Replaces the sync track in a file.
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="syncTrack">Sync track to write</param>
         /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-        internal static void ReplaceSyncTrack(string path, SyncTrack syncTrack, WritingConfiguration? config) => ReplacePart(path, GetSyncTrackLines(syncTrack, config), "SyncTrack");
+        public static void ReplaceSyncTrack(string path, SyncTrack syncTrack, WritingConfiguration? config) => ReplacePart(path, GetSyncTrackLines(syncTrack, new(config)), "SyncTrack");
         /// <summary>
         /// Replaces a track in a file.
         /// </summary>
@@ -138,7 +158,7 @@ namespace ChartTools.IO.Chart
         /// <param name="track">Track to use as a replacement</param>
         /// <param name="partName">Name of the part containing the track to replace</param>
         /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-        internal static void ReplaceTrack<TChord>(string path, (Track<TChord> track, Instruments instrument, Difficulty difficulty) data, WritingConfiguration? config) where TChord : Chord => ReplacePart(path, GetTrackLines(data.track, config), GetFullPartName(data.instrument, data.difficulty));
+        public static void ReplaceTrack<TChord>(string path, (Track<TChord> track, Instruments instrument, Difficulty difficulty) data, WritingConfiguration? config) where TChord : Chord => ReplacePart(path, GetTrackLines(data.track, new(config)), GetFullPartName(data.instrument, data.difficulty));
 
         /// <summary>
         /// Replaces a part in a file.
@@ -148,7 +168,7 @@ namespace ChartTools.IO.Chart
         /// <param name="partName">Name of the part to replace</param>
         /// <inheritdoc cref="File.WriteAllText(string, string?)" path="/exception"/>
         /// <inheritdoc cref="ReadFile(string)" path="/exception"/>
-        internal static void ReplacePart(string path, IEnumerable<string> partContent, string partName)
+        private static void ReplacePart(string path, IEnumerable<string> partContent, string partName)
         {
             IEnumerable<string> part = GetPartLines(partName, partContent);
 
@@ -163,16 +183,14 @@ namespace ChartTools.IO.Chart
         /// <param name="instrument">Instrument to get the lines for</param>
         /// <param name="instEnum">Instrument to define the part names</param>
         /// <returns>Enumerable of all the lines making up the parts for the instrument</returns>
-        private static IEnumerable<string> GetInstrumentLines<TChord>(Instrument<TChord>? instrument, Instruments instEnum, WritingConfiguration? config) where TChord : Chord
+        private static IEnumerable<string> GetInstrumentLines<TChord>(Instrument<TChord>? instrument, Instruments instEnum, WritingSession session) where TChord : Chord
         {
             if (instrument is null)
                 yield break;
 
-            config ??= DefaultWriteConfig;
-
             // Apply sharing policies
-            instrument.ShareLocalEvents(config.EventSource);
-            instrument.ShareStarPower(config.StarPowerSource);
+            instrument.ShareLocalEvents(session.Configuration.EventSource);
+            instrument.ShareStarPower(session.Configuration.StarPowerSource);
 
             foreach (Difficulty diff in Enum.GetValues<Difficulty>())
             {
@@ -180,7 +198,7 @@ namespace ChartTools.IO.Chart
 
                 if (track is not null)
                 {
-                    string[] trackLines = GetTrackLines(track, config).ToArray();
+                    string[] trackLines = GetTrackLines(track, session).ToArray();
 
                     if (trackLines.Any())
                         foreach (string line in GetPartLines(GetFullPartName(instEnum, diff), trackLines))
@@ -194,15 +212,13 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <returns>Enumerable of all the lines making up the inside of the part</returns>
         /// <param name="track">Track to get the lines of</param>
-        private static IEnumerable<string> GetTrackLines<TChord>(Track<TChord> track, WritingConfiguration? config) where TChord : Chord
+        private static IEnumerable<string> GetTrackLines<TChord>(Track<TChord> track, WritingSession session) where TChord : Chord
         {
             if (track is null)
                 yield break;
 
-            config ??= DefaultWriteConfig;
-
             // Convert solo and soloend events into star power
-            if (config.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && track.StarPower.Count == 0)
+            if (session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && track.StarPower.Count == 0)
             {
                 StarPowerPhrase? starPower = null;
 
@@ -233,12 +249,6 @@ namespace ChartTools.IO.Chart
                 track.LocalEvents.RemoveWhere(e => e.EventType is LocalEventType.Solo or LocalEventType.SoloEnd);
             }
 
-            Func<uint, byte, ICollection<byte>, bool> includeNote = config.DuplicateTrackObjectPolicy switch
-            {
-                DuplicateTrackObjectPolicy.IncludeAll => IncludeNoteAllPolicy,
-                DuplicateTrackObjectPolicy.IncludeFirst => IncludeNoteFirstPolicy,
-                DuplicateTrackObjectPolicy.ThrowException => IncludeNoteExceptionPolicy
-            };
             HashSet<byte> ignored = new();
 
             // Loop through chords, local events and star power, picked using the lowest position
@@ -246,7 +256,7 @@ namespace ChartTools.IO.Chart
                 switch (trackObject)
                 {
                     case TChord chord:
-                        foreach (string value in chord.GetChartData(includeNote, ignored))
+                        foreach (string value in chord.GetChartData(session, ignored))
                             yield return GetLine(trackObject.Position.ToString(), value);
                         break;
                     case LocalEvent e:
@@ -315,15 +325,13 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <returns>Enumerable of all the lines</returns>
         /// <param name="syncTrack">Sync track to get the liens of</param>
-        private static IEnumerable<string> GetSyncTrackLines(SyncTrack? syncTrack, WritingConfiguration? config)
+        private static IEnumerable<string> GetSyncTrackLines(SyncTrack? syncTrack, WritingSession session)
         {
             if (syncTrack is null)
                 yield break;
 
-            config ??= DefaultWriteConfig;
-
             HashSet<uint> ignoredTempos = new(), ignoredSignatures = new();
-            Func<uint, HashSet<uint>, string, bool> includeObject = config.DuplicateTrackObjectPolicy switch
+            Func<uint, HashSet<uint>, string, bool> includeObject = session.Configuration.DuplicateTrackObjectPolicy switch
             {
                 DuplicateTrackObjectPolicy.IncludeAll => IncludeSyncTrackAllPolicy,
                 DuplicateTrackObjectPolicy.IncludeFirst => IncludeSyncTrackFirstPolicy,
