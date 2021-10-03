@@ -1,4 +1,5 @@
 ﻿using ChartTools.IO.Chart;
+using ChartTools.Lyrics;
 
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace ChartTools
             get => _pitch;
             set => _pitch = Enum.IsDefined(value) ? value : throw CommonExceptions.GetUndefinedException(value);
         }
+        public Syllable Syllable { get; set; }
 
         protected override bool OpenExclusivity => false;
 
