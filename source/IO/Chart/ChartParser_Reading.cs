@@ -14,7 +14,7 @@ namespace ChartTools.IO.Chart
     /// </summary>
     public static partial class ChartParser
     {
-        public static readonly ReadingConfiguration DefaultReadConfig = new()
+        public static ReadingConfiguration DefaultReadConfig = new()
         {
             DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
             SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,

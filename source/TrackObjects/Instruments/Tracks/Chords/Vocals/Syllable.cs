@@ -3,7 +3,7 @@
     /// <summary>
     /// Karaoke step of a <see cref="Phrase"/>
     /// </summary>
-    public class Syllable : TrackObject
+    public class Syllable
     {
         private string _rawText = string.Empty;
         /// <summary>
@@ -37,10 +37,5 @@
                     RawText += '-';
             }
         }
-
-        /// <summary>
-        /// Creates an instance of <see cref="Syllable"/>.
-        /// </summary>
-        public Syllable(uint position) : base(position) { }
     }
 }

@@ -650,8 +650,41 @@ namespace ChartTools
         /// Gets the lyrics from an enumerable of <see cref="GlobalEvent"/>
         /// </summary>
         /// <returns>Enumerable of <see cref="Phrase"/></returns>
-        public static IEnumerable<Phrase> GetLyrics(this IEnumerable<GlobalEvent> globalEvents)
+        public static IEnumerable<VocalsChord> GetLyrics(this IEnumerable<GlobalEvent> globalEvents)
         {
+            VocalsChord? chord = null;
+
+            foreach (var e in globalEvents.OrderBy(e => e.Position).Distinct())
+            {
+                switch (e.EventType)
+                {
+                    case GlobalEventType.PhraseStart or GlobalEventType.Lyric:
+                        if (chord is not null)
+                        {
+                            chord.Length = e.Position - e.Position;
+                            yield return chord;
+                            chord = new(e.Position) { Syllable = new() { RawText = e.Argument } };
+                        }
+                        break;
+                    case GlobalEventType.PhraseStart:
+                        if (chord is not null)
+                        {
+                            chord.Length = e.Position - e.Position;
+                            yield return chord;
+                            chord = new(e.Position) { Syllable = new() { RawText = e.Argument } };
+                        }
+                        break;
+                    case GlobalEventType.Lyric:
+                        chord = new(e.Position) { Syllable = new() { RawText = e.Argument } };
+                        break;
+                    case GlobalEventType.PhraseEnd:
+                        if (chord is not null)
+
+                        break;
+                }
+            }
+
+
             Phrase? phrase = null;
             Syllable? phraselessFirstSyllable = null;
 

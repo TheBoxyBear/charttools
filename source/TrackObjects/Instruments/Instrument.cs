@@ -12,14 +12,12 @@ namespace ChartTools
     /// <summary>
     /// Base class for instruments
     /// </summary>
-    public abstract class Instrument
+    public abstract class Instrument : Instrument
     {
         /// <summary>
         /// Estimated difficulty
         /// </summary>
         public sbyte? Difficulty { get; set; }
-
-        private const string undefinedInstrumentMessage = "Instrument is not defined.";
 
         /// <summary>
         /// Gets the easy track.

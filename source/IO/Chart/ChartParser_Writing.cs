@@ -11,7 +11,7 @@ namespace ChartTools.IO.Chart
 {
     public static partial class ChartParser
     {
-        public static readonly WritingConfiguration DefaultWriteConfig = new()
+        public static WritingConfiguration DefaultWriteConfig = new()
         {
             SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
             EventSource = TrackObjectSource.Seperate,
