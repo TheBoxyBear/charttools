@@ -332,6 +332,10 @@ Animation:
 - 41  - Animation - Left Hand Position
 - 40  - Animation - Left Hand Position Lowest
 
+Notes get naturally forced as a HOPO if they are within a 1/12th step of the next note. For a 480-resolution .mid, this would be 160 ticks. This can be changed using the `hopo_frequency` song.ini tag.
+
+A 1/12th step is also the sustain cutoff threshold: any sustains shorter than this will be cut off and turned into a normal note. This can be changed using the `sustain_cutoff_threshold` song.ini tag.
+
 #### 5-Fret SysEx Events
 
 Open Notes: `50 53 00 00 <difficulty> 01 <enable/disable>`

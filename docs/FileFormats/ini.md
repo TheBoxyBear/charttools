@@ -71,8 +71,8 @@ There are *many* tags in existence, so listing them all in one place is rather d
 | `delay`                    | Delay time of the chart in milliseconds. A higher value makes the chart start later. This is not recommended to be used by today’s charting standards, and is maintained for backwards compatibility. |  number   |
 | `modchart`                 | Indicates if this song is a modchart.                                                                   |  boolean  |
 | `loading_phrase`           | Text that will be shown during instrument/difficulty/modifier selection.                                |  string   |
-| `sustain_cutoff_threshold` | Overrides the default threshold under which a sustain will get removed.                                 |  number   |
-| `hopo_frequency`           | Overrides the natural HOPO threshold.                                                                   |  number   |
+| `sustain_cutoff_threshold` | Overrides the default threshold under which a sustain will get cut off. Doesn't work for .chart files.  |  number   |
+| `hopo_frequency`           | Overrides the natural HOPO threshold. Doesn't work for .chart files.                                    |  number   |
 | `multiplier_note`          | Overrides the SP phrase note for .mid charts.                                                           |  number   |
 | `end_events`               | Overrides whether or not end events in the chart will be respected.                                     |  boolean  |
 | `playlist`                 | Specifies a playlist that the song will show up in.                                                     |  string   |
