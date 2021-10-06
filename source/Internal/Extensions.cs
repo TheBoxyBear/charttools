@@ -650,41 +650,8 @@ namespace ChartTools
         /// Gets the lyrics from an enumerable of <see cref="GlobalEvent"/>
         /// </summary>
         /// <returns>Enumerable of <see cref="Phrase"/></returns>
-        public static IEnumerable<VocalsChord> GetLyrics(this IEnumerable<GlobalEvent> globalEvents)
+        public static IEnumerable<Phrase> GetLyrics(this IEnumerable<GlobalEvent> globalEvents)
         {
-            VocalsChord? chord = null;
-
-            foreach (var e in globalEvents.OrderBy(e => e.Position).Distinct())
-            {
-                switch (e.EventType)
-                {
-                    case GlobalEventType.PhraseStart or GlobalEventType.Lyric:
-                        if (chord is not null)
-                        {
-                            chord.Length = e.Position - e.Position;
-                            yield return chord;
-                            chord = new(e.Position) { Syllable = new() { RawText = e.Argument } };
-                        }
-                        break;
-                    case GlobalEventType.PhraseStart:
-                        if (chord is not null)
-                        {
-                            chord.Length = e.Position - e.Position;
-                            yield return chord;
-                            chord = new(e.Position) { Syllable = new() { RawText = e.Argument } };
-                        }
-                        break;
-                    case GlobalEventType.Lyric:
-                        chord = new(e.Position) { Syllable = new() { RawText = e.Argument } };
-                        break;
-                    case GlobalEventType.PhraseEnd:
-                        if (chord is not null)
-
-                        break;
-                }
-            }
-
-
             Phrase? phrase = null;
             Syllable? phraselessFirstSyllable = null;
 
@@ -701,19 +668,19 @@ namespace ChartTools
                         // If the stored lyric has the same position as the new phrase, add it to the phrase
                         if (phraselessFirstSyllable is not null && phraselessFirstSyllable.Position == globalEvent.Position)
                         {
-                            phrase.Syllables.Add(phraselessFirstSyllable);
+                            phrase.Notes.Add(phraselessFirstSyllable);
                             phraselessFirstSyllable = null;
                         }
                         break;
                     // Add syllable to the active phrase using the event argument
                     case GlobalEventType.Lyric:
-                        Syllable newSyllable = new(globalEvent.Position) { RawText = globalEvent.Argument };
+                        Syllable newSyllable = new(globalEvent.Position, 0) { RawText = globalEvent.Argument };
 
                         // If the first lyric precedes the first phrase, store it
                         if (phrase is null)
                             phraselessFirstSyllable = newSyllable;
                         else
-                            phrase.Syllables.Add(newSyllable);
+                            phrase.Notes.Add(newSyllable);
                         break;
                     // Set end position of active phrase
                     case GlobalEventType.PhraseEnd:

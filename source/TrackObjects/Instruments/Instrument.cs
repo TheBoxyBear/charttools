@@ -1,6 +1,7 @@
 ﻿using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Ini;
+using ChartTools.SystemExtensions.Linq;
 
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace ChartTools
     /// <summary>
     /// Base class for instruments
     /// </summary>
-    public abstract class Instrument : Instrument
+    public abstract class Instrument
     {
         /// <summary>
         /// Estimated difficulty
@@ -20,42 +21,33 @@ namespace ChartTools
         public sbyte? Difficulty { get; set; }
 
         /// <summary>
-        /// Gets the easy track.
+        /// Easy track
         /// </summary>
-        protected abstract Track? GetEasy();
+        public abstract Track? Easy { get; }
         /// <summary>
-        /// Gets the medium track.
+        /// Medium track
         /// </summary>
-        protected abstract Track? GetMedium();
+        public abstract Track? Medium { get; }
         /// <summary>
-        /// Gets the hard track.
+        /// Hard track
         /// </summary>
-        protected abstract Track? GetHard();
+        public abstract Track? Hard { get; }
         /// <summary>
-        /// Gets the expert track.
+        /// Expert track
         /// </summary>
-        protected abstract Track? GetExpert();
+        public abstract Track? Expert { get; }
         /// <summary>
         /// Gets the track matching a difficulty.
         /// </summary>
         public Track? GetTrack(DiffEnum difficulty) => difficulty switch
         {
-            DiffEnum.Easy => GetEasy(),
-            DiffEnum.Medium => GetMedium(),
-            DiffEnum.Hard => GetHard(),
-            DiffEnum.Expert => GetExpert(),
+            DiffEnum.Easy => Easy,
+            DiffEnum.Medium => Medium,
+            DiffEnum.Hard => Hard,
+            DiffEnum.Expert => Expert,
             _ => throw CommonExceptions.GetUndefinedException(difficulty)
         };
-        public IEnumerable<Track?> GetTracks()
-        {
-            foreach (var getter in new Func<Track?>[] { GetEasy, GetMedium, GetHard, GetExpert })
-            {
-                Track? track = getter();
-
-                if (track is not null)
-                    yield return track;
-            }
-        }
+        public IEnumerable<Track?> GetTracks() => (new Track?[] { Easy, Medium, Hard, Expert }).NonNull();
 
         #region File reading
         /// <summary>
@@ -64,7 +56,7 @@ namespace ChartTools
         /// <inheritdoc cref="ChartParser.ReadInstrument(string, Instruments, ReadingConfiguration)"/>
         public static Instrument FromFile(string path, Instruments instrument, ReadingConfiguration? config = default) => Enum.IsDefined(instrument)
             ? ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadInstrument(p, instrument, config)))
-            : throw new ArgumentException(undefinedInstrumentMessage);
+            : throw CommonExceptions.GetUndefinedException(instrument);
 
         /// <summary>
         /// Reads drums from a file.
@@ -78,7 +70,7 @@ namespace ChartTools
         /// <inheritdoc cref="ChartParser.ReadInstrument(string, GHLInstrument, ReadingConfiguration)" />
         public static Instrument<GHLChord> FromFile(string path, GHLInstrument instrument, ReadingConfiguration? config = default) => Enum.IsDefined(instrument)
             ? ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadInstrument(p, instrument, config)))
-            : throw new ArgumentException(undefinedInstrumentMessage);
+            : throw CommonExceptions.GetUndefinedException(instrument);
 
         /// <summary>
         /// Reads a standard instrument from a file.
@@ -86,7 +78,7 @@ namespace ChartTools
         /// <inheritdoc cref="ChartParser.ReadInstrument(string, StandardInstrument, ReadingConfiguration)"/>
         public static Instrument<StandardChord> FromFile(string path, StandardInstrument instrument, ReadingConfiguration? config = default) => Enum.IsDefined(instrument)
             ? ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartParser.ReadInstrument(p, instrument, config)))
-            : throw new ArgumentException(undefinedInstrumentMessage);
+            : throw CommonExceptions.GetUndefinedException(instrument);
         #endregion
 
         /// <inheritdoc cref="IniParser.ReadDifficulty(string, Instruments)"/>

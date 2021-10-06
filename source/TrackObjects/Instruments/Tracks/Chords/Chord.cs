@@ -13,6 +13,10 @@ namespace ChartTools
     {
         protected abstract bool OpenExclusivity { get; }
         public abstract byte ModifierKey { get; set; }
+        /// <summary>
+        /// Notes in the <see cref="Chord{TNote}"/>
+        /// </summary>
+        public abstract IEnumerable<Note> Notes { get; }
 
         /// <param name="position">Position of the Chord on the Track</param>
         protected Chord(uint position) : base(position) { }
@@ -24,9 +28,7 @@ namespace ChartTools
         internal abstract IEnumerable<string> GetChartData(ChartParser.WritingSession session, ICollection<byte> ignored);
         internal abstract bool ChartModifierSupported();
 
-        public abstract IEnumerable<Note> GetNotes();
-
-        public IEnumerator<Note> GetEnumerator() => GetNotes().GetEnumerator();
+        public IEnumerator<Note> GetEnumerator() => Notes.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

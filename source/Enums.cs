@@ -181,6 +181,6 @@ namespace ChartTools
     /// <summary>
     /// All instruments
     /// </summary>
-    public enum Instruments : byte { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys }
+    public enum Instruments : byte { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys, Vocals }
     public enum FileFormat : byte { Chart, Ini, MIDI }
 }

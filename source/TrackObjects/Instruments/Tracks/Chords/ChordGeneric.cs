@@ -10,11 +10,9 @@ namespace ChartTools
         /// <summary>
         /// Notes in the <see cref="Chord{TNote}"/>
         /// </summary>
-        public NoteCollection<TNote, TLaneEnum> Notes { get; }
+        public override NoteCollection<TNote, TLaneEnum> Notes { get; }
 
         /// <inheritdoc cref="Chord(uint)" path="/param"/>
         protected Chord(uint position) : base(position) => Notes = new(OpenExclusivity);
-
-        public override IEnumerable<Note> GetNotes() => Notes;
     }
 }

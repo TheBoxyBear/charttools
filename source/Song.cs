@@ -61,7 +61,7 @@ namespace ChartTools
         /// Set of keyboard tracks
         /// </summary>
         public Instrument<StandardChord>? Keys { get; set; }
-        public Instrument<VocalsChord>? Vocals { get; set; }
+        public Instrument<Phrase>? Vocals { get; set; }
         #endregion
 
         /// <summary>

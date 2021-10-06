@@ -20,7 +20,10 @@ namespace ChartTools
         /// </summary>
         public UniqueTrackObjectCollection<StarPowerPhrase> StarPower { get; set; } = new();
 
-        public abstract IEnumerable<Chord> GetChords();
+        /// <summary>
+        /// Groups of notes of the same position
+        /// </summary>
+        public abstract IEnumerable<Chord> Chords { get; }
 
         internal IEnumerable<StarPowerPhrase> SoloToStarPower(bool removeEvents)
         {

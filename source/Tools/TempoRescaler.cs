@@ -15,12 +15,12 @@ namespace ChartTools.Tools.Scaling
         {
             chord.Position = (uint)(chord.Position * scale);
 
-            foreach (var note in chord.GetNotes())
+            foreach (var note in chord.Notes)
                 note.Rescale(scale);
         }
         public static void Rescale(this Track track, float scale)
         {
-            foreach (Chord chord in track.GetChords())
+            foreach (Chord chord in track.Chords)
                 Rescale(chord, scale);
 
             if (track.LocalEvents is not null)

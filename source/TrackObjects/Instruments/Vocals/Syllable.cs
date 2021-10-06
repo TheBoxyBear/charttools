@@ -1,11 +1,23 @@
-﻿namespace ChartTools.Lyrics
+﻿using System;
+
+namespace ChartTools.Lyrics
 {
     /// <summary>
     /// Karaoke step of a <see cref="Phrase"/>
     /// </summary>
-    public class Syllable
+    public class Syllable : Note<VocalsPitch>, ITrackObject
     {
+        public uint Position { get; set; }
+
+        private VocalsPitch _pitch;
+        public VocalsPitch Pitch
+        {
+            get => _pitch;
+            set => _pitch = Enum.IsDefined(value) ? value : throw CommonExceptions.GetUndefinedException(value);
+        }
+
         private string _rawText = string.Empty;
+
         /// <summary>
         /// Argument of the native <see cref="GlobalEvent"/>
         /// </summary>
@@ -37,5 +49,17 @@
                     RawText += '-';
             }
         }
+
+        public uint Length { get; set; }
+
+        public Syllable(uint position, VocalsPitch note) : base(note)
+        {
+            if (!Enum.IsDefined(note))
+                throw CommonExceptions.GetUndefinedException(note);
+
+            Position = position;
+        }
+
+        public int CompareTo(ITrackObject? other) => Position.CompareTo(other?.Position);
     }
 }
