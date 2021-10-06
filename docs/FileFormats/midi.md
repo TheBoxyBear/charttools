@@ -229,6 +229,8 @@ Legacy/Other tracks:
 
 This section contains lists of MIDI notes, text events, and SysEx events that lay out the chart itself. Not all of the tracks detailed are available in Clone Hero, this is a broader documentation of all known .mid tracks.
 
+**PLEASE NOTE THAT THERE IS ALMOST CERTAINLY STUFF IN RB1/2 CHARTS THAT ARE NOT DOCUMENTED HERE!** Most of this info is based off of the [C3/Rock Band Network docs](http://docs.c3universe.com/rbndocs/index.php?title=Authoring), which has a focus on RB3.
+
 SysEx events follow this format, for the most part:
 
 `50 53 00 00 <difficulty> <type> <enable/disable>`
@@ -269,9 +271,14 @@ Gems/markers:
 - 120 - Big Rock Ending Marker 5
   - All 5 must be used as a chord along with a `[coda]` event on the EVENTS track at the start of the chord to initiate a Big Rock Ending.
 - 116 - Star Power/Overdrive Marker
+- 106 - Score Duel Player 2 Phrase
+  - Marks a phrase for RB1/2's Score Duel. (Unsure what exactly they do.)
+- 105 - Score Duel Player 1 Phrase
+  - Marks a phrase for RB1/2's Score Duel. (Unsure what exactly they do.)
 - 104 - Tap Note Marker*
   - *Clone Hero only.
 - 103 - Solo Marker, or Star Power if no 116 notes exist (for legacy compatibility)
+- ==========
 - 102 - Expert Force Strum
 - 101 - Expert Force HOPO
 - 100 - Expert Orange
@@ -281,6 +288,7 @@ Gems/markers:
 - 96  - Expert Green
 - 95  - Expert Open*
   - *Only enabled if there's an `[ENHANCED_OPENS]`/`ENHANCED_OPENS` text event at the start.
+- ==========
 - 90  - Hard Force Strum
 - 89  - Hard Force HOPO
 - 88  - Hard Orange
@@ -290,6 +298,7 @@ Gems/markers:
 - 84  - Hard Green
 - 83  - Hard Open*
   - *Only enabled if there's an `[ENHANCED_OPENS]`/`ENHANCED_OPENS` text event at the start.
+- ==========
 - 78  - Medium Force Strum
 - 77  - Medium Force HOPO
 - 76  - Medium Orange
@@ -299,6 +308,7 @@ Gems/markers:
 - 72  - Medium Green
 - 71  - Medium Open*
   - *Only enabled if there's an `[ENHANCED_OPENS]`/`ENHANCED_OPENS` text event at the start.
+- ==========
 - 66  - Easy Force Strum
 - 65  - Easy Force HOPO
 - 64  - Easy Orange
@@ -332,6 +342,10 @@ Animation:
 - 41  - Animation - Left Hand Position
 - 40  - Animation - Left Hand Position Lowest
 
+Notes get naturally forced as a HOPO if they are within a 1/12th step of the next note. For a 480-resolution .mid, this would be 160 ticks. This can be changed using the `hopo_frequency` song.ini tag.
+
+A 1/12th step is also the sustain cutoff threshold: any sustains shorter than this will be cut off and turned into a normal note. This can be changed using the `sustain_cutoff_threshold` song.ini tag.
+
 #### 5-Fret SysEx Events
 
 Open Notes: `50 53 00 00 <difficulty> 01 <enable/disable>`
@@ -359,6 +373,7 @@ Gems/markers:
 - 104 - Tap Note Marker*
   - *Clone Hero only.
 - 103 - Solo Marker
+- ==========
 - 102 - Expert Force Strum
 - 101 - Expert Force HOPO
 - 100 - Expert Black 3
@@ -368,6 +383,7 @@ Gems/markers:
 - 96  - Expert White 2
 - 95  - Expert White 1
 - 94  - Expert Open
+- ==========
 - 90  - Hard Force Strum
 - 89  - Hard Force HOPO
 - 88  - Hard Black 3
@@ -377,6 +393,7 @@ Gems/markers:
 - 84  - Hard White 2
 - 83  - Hard White 1
 - 82  - Hard Open
+- ==========
 - 78  - Medium Force Strum
 - 77  - Medium Force HOPO
 - 76  - Medium Black 3
@@ -386,6 +403,7 @@ Gems/markers:
 - 72  - Medium White 2
 - 71  - Medium White 1
 - 70  - Medium Open
+- ==========
 - 66  - Easy Force Strum
 - 65  - Easy Force HOPO
 - 64  - Easy Black 3
@@ -433,7 +451,12 @@ Gems/markers:
     - Y -> YB
     - B -> YG
     - G -> BG
+- 106 - Score Duel Player 2 Phrase
+  - Marks a phrase for RB1/2's Score Duel. (Unsure what exactly they do.)
+- 105 - Score Duel Player 1 Phrase
+  - Marks a phrase for RB1/2's Score Duel. (Unsure what exactly they do.)
 - 103 - Solo Marker
+- ==========
 - 101 - Expert 5-Lane Orange
 - 100 - Expert 4-Lane Green/5-Lane Orange
 - 99  - Expert Blue
@@ -441,18 +464,21 @@ Gems/markers:
 - 97  - Expert Red
 - 96  - Expert Kick
 - 95  - Expert+ Kick
+- ==========
 - 89  - Hard 5-Lane Orange
 - 88  - Hard 4-Lane Green/5-Lane Orange
 - 87  - Hard Blue
 - 86  - Hard Yellow
 - 85  - Hard Red
 - 84  - Hard Kick
+- ==========
 - 77  - Medium 5-Lane Orange
 - 76  - Medium 4-Lane Green/5-Lane Orange
 - 75  - Medium Blue
 - 74  - Medium Yellow
 - 73  - Medium Red
 - 72  - Medium Kick
+- ==========
 - 65  - Easy 5-Lane Orange
 - 64  - Easy 4-Lane Green/5-Lane Orange
 - 63  - Easy Blue
@@ -522,61 +548,66 @@ These are the vocals tracks.
 
 - 116 - Star Power/Overdrive Marker
   - Standard vocals and Harmonies can have independent overdrive. `HARM2` and `HARM3` get their overdrive from `HARM1`.
-- 105 - Phrase Marker
-  - Marks the duration of a lyrics phrase.
+- 106 - Lyrics Phrase Marker 2/Score Duel Player 2 Phrase
+  - Marks the duration of a lyrics phrase and a phrase for RB1/2's Score Duel. This can appear with the other phrase marker at the same time.
+- 105 - Lyrics Phrase Marker 1/Score Duel Player 1 Phrase
+  - Marks the duration of a lyrics phrase and a phrase for RB1/2's Score Duel. This can appear with the other phrase marker at the same time.
   - The `HARM1` phrase is used for all 3 harmony tracks. The `HARM2` phrase is only used for when harmony 2/3 lyrics shift in static vocals. Not used in `HARM3`.
+- ==========
 - 97  - Not Displayed Percussion
 - 96  - Displayed Percussion
-- 84  - C5 (Highest)
+- ==========
+- 84  - C6 (Highest)
   - Does not show up correctly in Rock Band Blitz.
-- 83  - B4
-- 82  - Bb4
-- 81  - A4
-- 80  - G#4
-- 79  - G4
-- 78  - F#4
-- 77  - F4
-- 76  - E4
-- 75  - Eb4
-- 74  - D4
-- 73  - C#4
-- 72  - C4
-- 71  - B3
-- 70  - Bb3
-- 69  - A3
-- 68  - G#3
-- 67  - G3
-- 66  - F#3
-- 65  - F3
-- 64  - E3
-- 63  - Eb3
-- 62  - D3
-- 61  - C#3
-- 60  - C3
-- 59  - B2
-- 58  - Bb2
-- 57  - A2
-- 56  - G#2
-- 55  - G2
-- 54  - F#2
-- 53  - F2
-- 52  - E2
-- 51  - Eb2
-- 50  - D2
-- 49  - C#2
-- 48  - C2
-- 47  - B1
-- 46  - Bb1
-- 45  - A1
-- 44  - G#1
-- 43  - G1
-- 42  - F#1
-- 41  - F1
-- 40  - E1
-- 39  - Eb1
-- 38  - D1
-- 37  - C#1
-- 36  - C1 (Lowest)
+- 83  - B5
+- 82  - Bb5
+- 81  - A5
+- 80  - G#5
+- 79  - G5
+- 78  - F#5
+- 77  - F5
+- 76  - E5
+- 75  - Eb5
+- 74  - D5
+- 73  - C#5
+- 72  - C5
+- 71  - B4
+- 70  - Bb4
+- 69  - A4
+- 68  - G#4
+- 67  - G4
+- 66  - F#4
+- 65  - F4
+- 64  - E4
+- 63  - Eb4
+- 62  - D4
+- 61  - C#4
+- 60  - C4
+- 59  - B3
+- 58  - Bb3
+- 57  - A3
+- 56  - G#3
+- 55  - G3
+- 54  - F#3
+- 53  - F3
+- 52  - E3
+- 51  - Eb3
+- 50  - D3
+- 49  - C#3
+- 48  - C3
+- 47  - B2
+- 46  - Bb2
+- 45  - A2
+- 44  - G#2
+- 43  - G2
+- 42  - F#2
+- 41  - F2
+- 40  - E2
+- 39  - Eb2
+- 38  - D2
+- 37  - C#2
+- 36  - C2 (Lowest)
+- ==========
 - 1   - Lyric Shift
   - Sets additional shift points for static lyrics.
 - 0   - Range Shift
@@ -626,21 +657,25 @@ Gems/markers:
   - All 5 must be used along with a `[coda]` event on the EVENTS track.
 - 116 - Star Power/Overdrive Marker
 - 103 - Solo Marker
+- ==========
 - 100 - Expert Orange
 - 99  - Expert Blue
 - 98  - Expert Yellow
 - 97  - Expert Red
 - 96  - Expert Green
+- ==========
 - 88  - Hard Orange
 - 87  - Hard Blue
 - 86  - Hard Yellow
 - 85  - Hard Red
 - 84  - Hard Green
+- ==========
 - 76  - Medium Orange
 - 75  - Medium Blue
 - 74  - Medium Yellow
 - 73  - Medium Red
 - 72  - Medium Green
+- ==========
 - 64  - Easy Orange
 - 63  - Easy Blue
 - 62  - Easy Yellow
@@ -708,22 +743,27 @@ This track is a 4-lane Dance mode similar to that of Dance Dance Revolution, In 
 
 - 116 - Star Power/Overdrive Marker
 - 103 - Solo Marker
+- ==========
 - 99  - Challenge Right
 - 98  - Challenge Up
 - 97  - Challenge Down
 - 96  - Challenge Left
+- ==========
 - 87  - Hard Right
 - 86  - Hard Up
 - 85  - Hard Down
 - 84  - Hard Left
+- ==========
 - 75  - Medium Right
 - 74  - Medium Up
 - 73  - Medium Down
 - 72  - Medium Left
+- ==========
 - 63  - Easy Right
 - 62  - Easy Up
 - 61  - Easy Down
 - 60  - Easy Left
+- ==========
 - 51  - Beginner Right
 - 50  - Beginner Up
 - 49  - Beginner Down
@@ -748,4 +788,4 @@ Specifications for the MIDI protocol/format itself are available from the MIDI A
 - [MIDI 1.0 Protocol Specifications](https://www.midi.org/specifications/midi1-specifications)
 - [Standard MIDI File Specifications](https://www.midi.org/specifications/file-format-specifications/standard-midi-files)
 
-Info about creating one of these charts through a DAW such as [REAPER](https://reaper.fm) with a focus on Rock Band 3 can be found [here](http://docs.c3universe.com/rbndocs/index.php?title=Authoring).
+A large amount of the specifications for the tracks comes from the [C3/Rock Band Network docs](http://docs.c3universe.com/rbndocs/index.php?title=Authoring).

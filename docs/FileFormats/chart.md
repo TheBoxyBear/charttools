@@ -317,7 +317,9 @@ Notes and modifiers use the `N` type code and are written like this:
 
 As with tempo anchors, modifiers are applied to notes but are listed as separate objects. A modifier applies to all notes in the same position, so different notes of the same position cannot have different modifiers unless the modifier specifically targets a single color/type.
 
-HOPOs get forced automatically based on the distance to the previous note. The default threshold is 65/192 ticks in a 192 resolution, and this ratio gets recalculated for other resolutions.
+HOPOs get forced automatically based on the distance to the previous note. The default threshold is `(65/192) * <resolution>` ticks, rounded down (192 res = 65 tick threshold, 480 res = 162.5 -> 162 tick threshold). CH does not currently support changing this for .chart files.
+
+Sustains do not get truncated after a certain threshold by default in .chart, unlike .mid. CH does not currently support changing this for .chart files.
 
 #### Note/Modifier Type Divisions
 
