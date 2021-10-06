@@ -70,22 +70,24 @@ namespace ChartTools.IO.Chart
 
             Song song = new();
             Type songType = typeof(Song);
-            ReadingSession session = new(config);
 
-            // Add threads to read metadata, global events, sync track and drums
+            // Add threads to read metadata and global events
             List<Task> tasks = new()
             {
                 Task.Run(() => song.Metadata = GetMetadata(lines)),
-                Task.Run(() => song.GlobalEvents = GetGlobalEvents(lines).ToList()),
-                Task.Run(() => song.SyncTrack = GetSyncTrack(lines, session)),
-                Task.Run(() => song.Drums = GetInstrument(lines, part => GetDrumsTrack(part, session), partNames[Instruments.Drums]))
+                Task.Run(() => song.GlobalEvents = GetGlobalEvents(lines).ToList())
             };
+
+            ReadingSession session = new(config);
+
+            // Add threads to read sync track and drums
+            tasks.Add(Task.Run(() => song.SyncTrack = GetSyncTrack(lines, session)));
+            tasks.Add(Task.Run(() => song.Drums = GetInstrument(lines, part => GetDrumsTrack(part, session), partNames[Instruments.Drums])));
+
             // Add a thread to read each GHL instrument
-            foreach (GHLInstrument instrument in Enum.GetValues<GHLInstrument>())
-                tasks.Add(Task.Run(() => songType.GetProperty($"GHL{instrument}")!.SetValue(song, GetInstrument(lines, part => GetGHLTrack(part, session), partNames[(Instruments)instrument]))));
+            tasks.AddRange(Enum.GetValues<GHLInstrument>().Select(i => Task.Run(() => songType.GetProperty($"GHL{i}")!.SetValue(song, GetInstrument(lines, part => GetGHLTrack(part, session), partNames[(Instruments)i])))));
             // Add a thread to read each standard instrument
-            foreach (StandardInstrument instrument in Enum.GetValues<StandardInstrument>())
-                tasks.Add(Task.Run(() => songType.GetProperty(instrument.ToString())!.SetValue(song, GetInstrument(lines, part => GetStandardTrack(part, session), partNames[(Instruments)instrument]))));
+            tasks.AddRange(Enum.GetValues<StandardInstrument>().Select(i => Task.Run(() => songType.GetProperty(i.ToString())!.SetValue(song, GetInstrument(lines, part => GetStandardTrack(part, session), partNames[(Instruments)i])))));
 
             Task.WaitAll(tasks.ToArray());
 

@@ -1,5 +1,4 @@
-﻿using ChartTools.Collections.Unique;
-using ChartTools.IO;
+﻿using ChartTools.IO;
 using ChartTools.SystemExtensions.Linq;
 
 using System.Collections.Generic;
@@ -15,19 +14,19 @@ namespace ChartTools
         /// <summary>
         /// Easy track
         /// </summary>
-        public override Track<TChord>? Easy { get; } = new();
+        public override Track<TChord> Easy { get; } = new();
         /// <summary>
         /// Medium track
         /// </summary>
-        public override Track<TChord>? Medium { get; } = new();
+        public override Track<TChord> Medium { get; } = new();
         /// <summary>
         /// Hard track
         /// </summary>
-        public override Track<TChord>? Hard { get; } = new();
+        public override Track<TChord> Hard { get; } = new();
         /// <summary>
         /// Expert track
         /// </summary>
-        public override Track<TChord>? Expert { get; } = new();
+        public override Track<TChord> Expert { get; } = new();
 
         /// <summary>
         /// Gets the <see cref="Track{TChord}"/> that matches a <see cref="Difficulty"/>
@@ -44,10 +43,10 @@ namespace ChartTools
 
             LocalEvent?[]? events = ((IEnumerable<LocalEvent?>?)(source switch
             {
-                TrackObjectSource.Easy => Easy?.LocalEvents,
-                TrackObjectSource.Medium => Medium?.LocalEvents,
-                TrackObjectSource.Hard => Hard?.LocalEvents,
-                TrackObjectSource.Expert => Expert?.LocalEvents,
+                TrackObjectSource.Easy => Easy.LocalEvents,
+                TrackObjectSource.Medium => Medium.LocalEvents,
+                TrackObjectSource.Hard => Hard.LocalEvents,
+                TrackObjectSource.Expert => Expert.LocalEvents,
                 TrackObjectSource.Merge => new Track<TChord>?[] { Easy, Medium, Hard, Expert }.NonNull().SelectMany(t => t.LocalEvents!).Distinct(),
                 _ => throw CommonExceptions.GetUndefinedException(source)
             }))?.ToArray();
@@ -55,10 +54,10 @@ namespace ChartTools
             if (events is null || events.Length == 0)
                 return;
 
-            (Easy ??= new()).LocalEvents = new List<LocalEvent>(events!);
-            (Medium ??= new()).LocalEvents = new List<LocalEvent>(events!);
-            (Hard ??= new()).LocalEvents = new List<LocalEvent>(events!);
-            (Expert ??= new()).LocalEvents = new List<LocalEvent>(events!);
+            Easy.LocalEvents = new(events!);
+            Medium.LocalEvents = new(events!);
+            Hard.LocalEvents = new(events!);
+            Expert.LocalEvents = new(events!);
         }
         /// <summary>
         /// Gives all tracks the same star power
@@ -70,10 +69,10 @@ namespace ChartTools
 
             StarPowerPhrase?[]? starPower = (source switch
             {
-                TrackObjectSource.Easy => Easy?.StarPower,
-                TrackObjectSource.Medium => Medium?.StarPower,
-                TrackObjectSource.Hard => Hard?.StarPower,
-                TrackObjectSource.Expert => Expert?.StarPower,
+                TrackObjectSource.Easy => Easy.StarPower,
+                TrackObjectSource.Medium => Medium.StarPower,
+                TrackObjectSource.Hard => Hard.StarPower,
+                TrackObjectSource.Expert => Expert.StarPower,
                 TrackObjectSource.Merge => new Track<TChord>?[] { Easy, Medium, Hard, Expert }.NonNull().SelectMany(t => t.StarPower).Distinct(),
                 _ => throw CommonExceptions.GetUndefinedException(source)
             })?.ToArray();
@@ -81,10 +80,10 @@ namespace ChartTools
             if (starPower is null || starPower.Length == 0)
                 return;
 
-            (Easy ??= new()).StarPower = new(starPower.Length, starPower!);
-            (Medium ??= new()).StarPower = new(starPower.Length, starPower!);
-            (Hard ??= new()).StarPower = new(starPower.Length, starPower!);
-            (Expert ??= new()).StarPower = new(starPower.Length, starPower!);
+            Easy.StarPower = new(starPower.Length, starPower!);
+            Medium.StarPower = new(starPower.Length, starPower!);
+            Hard.StarPower = new(starPower.Length, starPower!);
+            Expert.StarPower = new(starPower.Length, starPower!);
         }
     }
 }

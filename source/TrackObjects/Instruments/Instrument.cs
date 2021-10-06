@@ -23,19 +23,19 @@ namespace ChartTools
         /// <summary>
         /// Easy track
         /// </summary>
-        public abstract Track? Easy { get; }
+        public abstract Track Easy { get; }
         /// <summary>
         /// Medium track
         /// </summary>
-        public abstract Track? Medium { get; }
+        public abstract Track Medium { get; }
         /// <summary>
         /// Hard track
         /// </summary>
-        public abstract Track? Hard { get; }
+        public abstract Track Hard { get; }
         /// <summary>
         /// Expert track
         /// </summary>
-        public abstract Track? Expert { get; }
+        public abstract Track Expert { get; }
         /// <summary>
         /// Gets the track matching a difficulty.
         /// </summary>
