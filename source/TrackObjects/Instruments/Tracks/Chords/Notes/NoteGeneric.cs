@@ -2,14 +2,12 @@
 
 namespace ChartTools
 {
-    public class Note<TLaneEnum> : Note where TLaneEnum : struct, Enum
+    public class Note<TLane> : Note where TLane : struct
     {
-        public TLaneEnum Lane => (TLaneEnum)(object)NoteIndex;
+        public TLane Lane { get; set; }
 
-        public Note(TLaneEnum note) : base(Convert.ToByte(note))
-        {
-            if (!Enum.IsDefined(note))
-                throw new ArgumentException($"Note value is not defined.", nameof(note));
-        }
+        internal override byte NoteIndex => Convert.ToByte(Lane);
+
+        public Note(TLane lane) => Lane = lane;
     }
 }

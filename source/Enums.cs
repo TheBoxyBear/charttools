@@ -178,9 +178,72 @@ namespace ChartTools
     /// </summary>
     public enum StandardLane : byte { Open, Green, Red, Yellow, Blue, Orange }
     [Flags]
-    public enum VocalsPitch : byte // First bit unused, next four for the pitch and rest for number
+    public enum VocalsPitches : byte
     {
-
+        C2 = 0x20 | VocalsKey.C,
+        CSharp2 = 0x20 | VocalsKey.CSharp,
+        D2 = 0x20 | VocalsKey.D,
+        Eb2 = 0x20 | VocalsKey.Eb,
+        E2 = 0x20 | VocalsKey.E,
+        F2 = 0x20 | VocalsKey.F,
+        FSharp2 = 0x20 | VocalsKey.FSharp,
+        G2 = 0x20 | VocalsKey.G,
+        GSharp2 = 0x20 | VocalsKey.GSharp,
+        A2 = 0x20 | VocalsKey.A,
+        Bb2 = 0x20 | VocalsKey.Bb,
+        B2 = 0x20 | VocalsKey.B,
+        C3 = 0x30 | VocalsKey.C,
+        CSharp3 = 0x30 | VocalsKey.CSharp,
+        D3 = 0x30 | VocalsKey.D,
+        Eb3 = 0x30 | VocalsKey.Eb,
+        E3 = 0x30 | VocalsKey.E,
+        F3 = 0x30 | VocalsKey.F,
+        FSharp3 = 0x30 | VocalsKey.FSharp,
+        G3 = 0x30 | VocalsKey.G,
+        GSharp3 = 0x30 | VocalsKey.GSharp,
+        A3 = 0x30 | VocalsKey.A,
+        Bb3 = 0x30 | VocalsKey.Bb,
+        B3 = 0x30 | VocalsKey.B,
+        C4 = 0x40 | VocalsKey.C,
+        CSharp4 = 0x40 | VocalsKey.CSharp,
+        D4 = 0x40 | VocalsKey.D,
+        Eb4 = 0x40 | VocalsKey.Eb,
+        E4 = 0x40 | VocalsKey.E,
+        F4 = 0x40 | VocalsKey.F,
+        FSharp4 = 0x40 | VocalsKey.FSharp,
+        G4 = 0x40 | VocalsKey.G,
+        GSharp4 = 0x40 | VocalsKey.GSharp,
+        A4 = 0x40 | VocalsKey.A,
+        Bb4 = 0x40 | VocalsKey.Bb,
+        B4 = 0x40 | VocalsKey.B,
+        C5 = 0x50 | VocalsKey.C,
+        CSharp5 = 0x50 | VocalsKey.CSharp,
+        D5 = 0x50 | VocalsKey.D,
+        Eb5 = 0x50 | VocalsKey.Eb,
+        E5 = 0x50 | VocalsKey.E,
+        F5 = 0x50 | VocalsKey.F,
+        FSharp5 = 0x50 | VocalsKey.FSharp,
+        G5 = 0x50 | VocalsKey.G,
+        GSharp5 = 0x50 | VocalsKey.GSharp,
+        A5 = 0x50 | VocalsKey.A,
+        Bb5 = 0x50 | VocalsKey.Bb,
+        B5 = 0x50 | VocalsKey.B,
+        C6 = 0x60 | VocalsKey.C
+    }
+    public enum VocalsKey : byte
+    {
+        C,
+        CSharp,
+        D,
+        Eb,
+        E,
+        F,
+        FSharp,
+        G,
+        GSharp,
+        A,
+        Bb,
+        B
     }
     /// <summary>
     /// All instruments

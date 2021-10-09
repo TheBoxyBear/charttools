@@ -9,12 +9,8 @@ namespace ChartTools.Lyrics
     {
         public uint Position { get; set; }
 
-        private VocalsPitch _pitch;
-        public VocalsPitch Pitch
-        {
-            get => _pitch;
-            set => _pitch = Enum.IsDefined(value) ? value : throw CommonExceptions.GetUndefinedException(value);
-        }
+        public VocalsPitch Pitch { get; set; }
+        internal override byte NoteIndex => (byte)Pitch.Pitch;
 
         private string _rawText = string.Empty;
 
@@ -52,10 +48,11 @@ namespace ChartTools.Lyrics
 
         public uint Length { get; set; }
 
-        public Syllable(uint position, VocalsPitch note) : base(note)
+        public Syllable(uint position, VocalsPitches pitch) : this(position, new VocalsPitch(pitch)) { }
+        public Syllable(uint position, VocalsPitch pitch) : base(pitch)
         {
-            if (!Enum.IsDefined(note))
-                throw CommonExceptions.GetUndefinedException(note);
+            if (!Enum.IsDefined(pitch.Pitch))
+                throw CommonExceptions.GetUndefinedException(pitch.Pitch);
 
             Position = position;
         }

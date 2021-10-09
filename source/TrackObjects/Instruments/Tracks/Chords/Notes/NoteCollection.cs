@@ -8,7 +8,7 @@ namespace ChartTools
     /// <summary>
     /// Set of notes played simultaneously
     /// </summary>
-    public class NoteCollection<TNote, TLaneEnum> : UniqueList<TNote> where TNote : Note<TLaneEnum> where TLaneEnum : struct, Enum
+    public class NoteCollection<TNote, TLane> : UniqueList<TNote> where TNote : Note where TLane : struct
     {
         /// <summary>
         /// If <see langword="true"/>, trying to combine an open note with other notes will remove the current ones.
@@ -38,15 +38,15 @@ namespace ChartTools
 
             base.Add(item);
         }
-        public bool Remove(TLaneEnum lane)
+        public bool Remove(TLane lane)
         {
             TNote? n = this[lane];
             return n is not null && Remove(n);
         }
 
-        public bool Contains(TLaneEnum lane) => Enum.IsDefined(lane) ? this.Any(n => n.Lane.Equals(lane)) : throw CommonExceptions.GetUndefinedException(lane);
+        public virtual bool Contains(TLane lane) => this.Any(n => n.NoteIndex.Equals(lane));
 
-        public TNote? this[TLaneEnum lane] => Enum.IsDefined(lane) ? this.FirstOrDefault(n => n.NoteIndex == Convert.ToByte(lane)) : throw CommonExceptions.GetUndefinedException(lane);
+        public virtual TNote? this[TLane lane] => this.FirstOrDefault(n => n.NoteIndex == Convert.ToByte(lane));
 
         public static Exception GetNullNoteException(string paramName) => new ArgumentNullException(paramName, "Note is null.");
     }
