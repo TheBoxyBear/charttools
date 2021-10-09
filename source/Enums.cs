@@ -177,7 +177,11 @@ namespace ChartTools
     /// Frets for a <see cref="StandardNote"/>
     /// </summary>
     public enum StandardLane : byte { Open, Green, Red, Yellow, Blue, Orange }
-    public enum VocalsPitch : byte { }
+    [Flags]
+    public enum VocalsPitch : byte // First bit unused, next four for the pitch and rest for number
+    {
+
+    }
     /// <summary>
     /// All instruments
     /// </summary>

@@ -1,6 +1,7 @@
 ﻿using ChartTools.IO;
 using ChartTools.SystemExtensions.Linq;
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,27 +12,61 @@ namespace ChartTools
     /// </summary>
     public class Instrument<TChord> : Instrument where TChord : Chord
     {
+        private Track<TChord> _easy = new(), _medium = new(), _hard = new(), _expert = new();
         /// <summary>
         /// Easy track
         /// </summary>
-        public override Track<TChord> Easy { get; } = new();
+        public override Track<TChord> Easy => _easy;
         /// <summary>
         /// Medium track
         /// </summary>
-        public override Track<TChord> Medium { get; } = new();
+        public override Track<TChord> Medium => _medium;
         /// <summary>
         /// Hard track
         /// </summary>
-        public override Track<TChord> Hard { get; } = new();
+        public override Track<TChord> Hard => _hard;
         /// <summary>
         /// Expert track
         /// </summary>
-        public override Track<TChord> Expert { get; } = new();
+        public override Track<TChord> Expert => _expert;
 
         /// <summary>
         /// Gets the <see cref="Track{TChord}"/> that matches a <see cref="Difficulty"/>
         /// </summary>
-        public new Track<TChord>? GetTrack(Difficulty difficulty) => GetType().GetProperty(difficulty.ToString())!.GetValue(this) as Track<TChord>;
+        public override Track<TChord> GetTrack(Difficulty difficulty) => difficulty switch
+        {
+            ChartTools.Difficulty.Easy => Easy,
+            ChartTools.Difficulty.Medium => Medium,
+            ChartTools.Difficulty.Hard => Hard,
+            ChartTools.Difficulty.Expert => Expert,
+            _ => throw CommonExceptions.GetUndefinedException(difficulty)
+        };
+
+        /// <summary>
+        /// Sets a track for a given <see cref="Difficulty"/>.
+        /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
+        public void SetTrack(Track<TChord> track, Difficulty difficulty)
+        {
+            if (track is null)
+                throw new ArgumentNullException(nameof(track));
+
+            switch (difficulty)
+            {
+                case ChartTools.Difficulty.Easy:
+                    _easy = track;
+                    break;
+                case ChartTools.Difficulty.Medium:
+                    _medium = track;
+                    break;
+                case ChartTools.Difficulty.Hard:
+                    _hard = track;
+                    break;
+                case ChartTools.Difficulty.Expert:
+                    _expert = track;
+                    break;
+            }
+        }
 
         /// <summary>
         /// Gives all tracks the same local events.

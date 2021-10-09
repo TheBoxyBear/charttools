@@ -21,7 +21,7 @@ namespace ChartTools.Lyrics
         private uint? _endPosition;
         public uint? EndPosition
         {
-            get => EndPosition;
+            get => _endPosition;
             set
             {
                 if (value < Position)

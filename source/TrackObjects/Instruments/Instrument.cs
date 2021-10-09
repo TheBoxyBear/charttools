@@ -39,7 +39,7 @@ namespace ChartTools
         /// <summary>
         /// Gets the track matching a difficulty.
         /// </summary>
-        public Track? GetTrack(DiffEnum difficulty) => difficulty switch
+        public virtual Track GetTrack(DiffEnum difficulty) => difficulty switch
         {
             DiffEnum.Easy => Easy,
             DiffEnum.Medium => Medium,
@@ -47,7 +47,7 @@ namespace ChartTools
             DiffEnum.Expert => Expert,
             _ => throw CommonExceptions.GetUndefinedException(difficulty)
         };
-        public IEnumerable<Track?> GetTracks() => (new Track?[] { Easy, Medium, Hard, Expert }).NonNull();
+        public Track[] GetTracks() => new Track[] { Easy, Medium, Hard, Expert };
 
         #region File reading
         /// <summary>

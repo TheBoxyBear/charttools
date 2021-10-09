@@ -170,13 +170,9 @@ namespace ChartTools.IO.Chart
             if (tasks.Any(t => t.Result is not null))
             {
                 if (tasks.Any(t => t.Result is not null))
-                {
-                    Type instrumentType = typeof(Instrument<TChord>);
-
                     for (int i = 0; i < difficulties.Length; i++)
                         if (tasks[i].Result is not null)
-                            instrumentType.GetProperty(difficulties[i].ToString())!.SetValue(instrument, tasks[i].Result);
-                }
+                            instrument.SetTrack(tasks[i].Result!, difficulties[i]);
 
                 return instrument;
             }
