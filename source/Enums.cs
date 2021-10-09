@@ -177,7 +177,6 @@ namespace ChartTools
     /// Frets for a <see cref="StandardNote"/>
     /// </summary>
     public enum StandardLane : byte { Open, Green, Red, Yellow, Blue, Orange }
-
     public enum VocalsPitches : byte
     {
         C2 = 0x20 | VocalsKey.C,
