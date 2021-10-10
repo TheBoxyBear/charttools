@@ -179,6 +179,7 @@ namespace ChartTools
     public enum StandardLane : byte { Open, Green, Red, Yellow, Blue, Orange }
     public enum VocalsPitches : byte
     {
+        None = 0,
         C2 = 0x20 | VocalsKey.C,
         CSharp2 = 0x20 | VocalsKey.CSharp,
         D2 = 0x20 | VocalsKey.D,

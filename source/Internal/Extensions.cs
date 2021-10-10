@@ -674,7 +674,7 @@ namespace ChartTools
                         break;
                     // Add syllable to the active phrase using the event argument
                     case GlobalEventType.Lyric:
-                        Syllable newSyllable = new(globalEvent.Position, VocalsPitches.C2) { RawText = globalEvent.Argument };
+                        Syllable newSyllable = new(globalEvent.Position, VocalsPitches.None) { RawText = globalEvent.Argument };
 
                         // If the first lyric precedes the first phrase, store it
                         if (phrase is null)
