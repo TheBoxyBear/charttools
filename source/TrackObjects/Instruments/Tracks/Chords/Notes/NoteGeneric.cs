@@ -4,7 +4,7 @@ namespace ChartTools
 {
     public class Note<TLane> : Note where TLane : struct
     {
-        public TLane Lane { get; set; }
+        public TLane Lane { get; }
 
         internal override byte NoteIndex => Convert.ToByte(Lane);
 
