@@ -7,7 +7,7 @@ namespace ChartTools
     /// <summary>
     /// Set of notes played simultaneously by a Guitar Hero Live instrument
     /// </summary>
-    public class GHLChord : Chord<Note<GHLLane>, GHLLane>
+    public class GHLChord : LaneChord<Note<GHLLane>, GHLLane>
     {
         /// <inheritdoc cref="GHLChordModifier"/>
         public GHLChordModifier Modifier { get; set; }

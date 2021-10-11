@@ -8,7 +8,7 @@ namespace ChartTools
     /// <summary>
     /// Set of notes played simultaneously by drums
     /// </summary>
-    public class DrumsChord : Chord<DrumsNote, DrumsLane>
+    public class DrumsChord : LaneChord<DrumsNote, DrumsLane>
     {
         /// <inheritdoc cref="DrumsChordModifier"/>
         public DrumsChordModifier Modifier { get; set; }

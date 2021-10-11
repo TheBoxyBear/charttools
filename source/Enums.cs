@@ -177,6 +177,15 @@ namespace ChartTools
     /// Frets for a <see cref="StandardNote"/>
     /// </summary>
     public enum StandardLane : byte { Open, Green, Red, Yellow, Blue, Orange }
+    /// <summary>
+    /// All instruments
+    /// </summary>
+    public enum Instruments : byte { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys, Vocals }
+    public enum FileFormat : byte { Chart, Ini, MIDI }
+}
+
+namespace ChartTools.Lyrics
+{
     public enum VocalsPitches : byte
     {
         None = 0,
@@ -245,9 +254,4 @@ namespace ChartTools
         Bb,
         B
     }
-    /// <summary>
-    /// All instruments
-    /// </summary>
-    public enum Instruments : byte { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys, Vocals }
-    public enum FileFormat : byte { Chart, Ini, MIDI }
 }

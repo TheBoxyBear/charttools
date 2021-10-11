@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ChartTools
+namespace ChartTools.Lyrics
 {
     public struct VocalsPitch : IEquatable<VocalsPitch>, IEquatable<VocalsPitches>
     {

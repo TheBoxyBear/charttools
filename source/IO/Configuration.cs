@@ -1,6 +1,11 @@
 ﻿namespace ChartTools.IO
 {
-
+    public enum OverlappingStarPowerPolicy : byte
+    {
+        Ignore,
+        Cut,
+        ThrowException
+    }
     /// <summary>
     /// Difficulty of the <see cref="Track"/> to serve as a source of for track objects common to all difficulties to use for all tracks in the same <see cref="Instrument"/>
     /// <para>Common track objects are:<list type="bullet">
@@ -110,27 +115,31 @@
         Vocals
     }
 
-    /// <summary>
-    /// Configuration object to direct the reading of a file
-    /// </summary>
-    public class ReadingConfiguration
+    public class CommonConfiguration
     {
+        /// <summary>
+        /// *Currently unsupported*
+        /// </summary>
+        public OverlappingStarPowerPolicy OverlappingStarPowerPolicy { get; init; }
         /// <inheritdoc cref="IO.SoloNoStarPowerPolicy"/>
         public SoloNoStarPowerPolicy SoloNoStarPowerPolicy { get; init; }
         /// <inheritdoc cref="IO.DuplicateTrackObjectPolicy"/>
         public DuplicateTrackObjectPolicy DuplicateTrackObjectPolicy { get; init; }
+    }
+
+    /// <summary>
+    /// Configuration object to direct the reading of a file
+    /// </summary>
+    public class ReadingConfiguration : CommonConfiguration
+    {
         /// <inheritdoc cref="IO.IncompatibleModifierCombinationPolicy"/>
         public IncompatibleModifierCombinationPolicy IncompatibleModifierCombinationPolicy { get; init; }
     }
 
-    public class WritingConfiguration
+    public class WritingConfiguration : CommonConfiguration
     {
-        /// <inheritdoc cref="IO.SoloNoStarPowerPolicy"/>
-        public SoloNoStarPowerPolicy SoloNoStarPowerPolicy { get; init; }
         public TrackObjectSource EventSource { get; init; }
         public TrackObjectSource StarPowerSource { get; init; }
-        /// <inheritdoc cref="IO.DuplicateTrackObjectPolicy"/>
-        public DuplicateTrackObjectPolicy DuplicateTrackObjectPolicy { get; init; }
         /// <summary>
         /// *Currently unsupported*
         /// </summary>

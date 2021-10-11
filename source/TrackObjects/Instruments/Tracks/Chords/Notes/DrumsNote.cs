@@ -24,7 +24,12 @@ namespace ChartTools
             }
         }
 
-        internal DrumsNote(DrumsLane note) : base(note) { }
+        public DrumsNote() => Lane = DrumsLane.Kick;
+        public DrumsNote(DrumsLane lane) : base(lane)
+        {
+            if (!Enum.IsDefined(lane))
+                throw CommonExceptions.GetUndefinedException(lane);
+        }
 
         public bool IsKick => Lane is DrumsLane.Kick or DrumsLane.DoubleKick;
     }

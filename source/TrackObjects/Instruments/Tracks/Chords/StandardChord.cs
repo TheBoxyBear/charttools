@@ -7,7 +7,7 @@ namespace ChartTools
     /// <summary>
     /// Set of notes played simultaneously by a standard five-fret instrument
     /// </summary>
-    public class StandardChord : Chord<Note<StandardLane>, StandardLane>
+    public class StandardChord : LaneChord<Note<StandardLane>, StandardLane>
     {
         /// <inheritdoc cref="DrumsChordModifier"/>
         public StandardChordModifier Modifier { get; set; }
@@ -18,12 +18,13 @@ namespace ChartTools
         }
 
         protected override bool OpenExclusivity => true;
+        public override LaneNoteCollection<Note<StandardLane>, StandardLane> Notes { get; }
 
         /// <inheritdoc cref="Chord(uint)"/>
-        public StandardChord(uint position) : base(position) { }
+        public StandardChord(uint position) : base(position) => Notes = new(OpenExclusivity);
         /// <inheritdoc cref="StandardChord(uint)"/>
         /// <param name="notes">Notes to add</param>
-        public StandardChord(uint position, params Note<StandardLane>[] notes) : base(position)
+        public StandardChord(uint position, params Note<StandardLane>[] notes) : this(position)
         {
             if (notes is null)
                 throw new ArgumentNullException(nameof(notes));
@@ -32,7 +33,7 @@ namespace ChartTools
                 Notes.Add(note);
         }
         /// <inheritdoc cref="StandardChord(uint, StandardNote[])"/>
-        public StandardChord(uint position, params StandardLane[] notes) : base(position)
+        public StandardChord(uint position, params StandardLane[] notes) : this(position)
         {
             if (notes is null)
                 throw new ArgumentNullException(nameof(notes));

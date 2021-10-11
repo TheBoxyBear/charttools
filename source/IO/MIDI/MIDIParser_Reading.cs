@@ -212,7 +212,7 @@ namespace ChartTools.IO.MIDI
                         GetParentChord(noteOnEvent, position);
                         sustainOrigins[noteEnum] = chord;
 
-                        chord!.Notes.Add(new(noteEnum));
+                        chord!.Notes.Add(new Note<StandardLane>(noteEnum));
 
                         if (newChord)
                             chords.Add(chord);

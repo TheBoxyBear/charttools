@@ -8,6 +8,8 @@ namespace ChartTools.Lyrics
 {
     public class Phrase : Chord<Syllable, VocalsPitch>
     {
+        public override UniqueTrackObjectCollection<Syllable> Notes { get; }
+
         public override uint Position
         {
             get => base.Position;
@@ -30,6 +32,9 @@ namespace ChartTools.Lyrics
             }
         }
 
+        public uint SyllableStart => Notes.Count == 0 ? Position : Notes.MinBy(s => s.Position)!.Position;
+        public uint SyllableEnd => Notes.Count == 0 ? EndPosition ?? Position : Notes.Select(s => s.Position + s.Length).Max();
+
         private const string ModifierUnsupportedMessage = "Vocals do not support a modifier";
         /// <summary>
         /// *Required to inherit from <see cref="Chord{TNote, TLaneEnum}"/> but vocals do not support modifiers*
@@ -42,9 +47,6 @@ namespace ChartTools.Lyrics
             set => throw new NotSupportedException(ModifierUnsupportedMessage);
         }
 
-        public override NoteCollection<Syllable, VocalsPitch> Notes { get; }
-        protected override bool OpenExclusivity => false;
-
         /// <summary>
         /// Gets the raw text of all syllables as a single string with spaces between syllables
         /// </summary>
@@ -53,7 +55,7 @@ namespace ChartTools.Lyrics
         public Phrase(uint position) : base(position)
         {
             EndPosition = position;
-            Notes = new(OpenExclusivity);
+            Notes = new();
         }
 
         internal override bool ChartModifierSupported() => true;

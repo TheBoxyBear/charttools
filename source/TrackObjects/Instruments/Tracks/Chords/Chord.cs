@@ -11,7 +11,6 @@ namespace ChartTools
     /// </summary>
     public abstract class Chord : TrackObject, IEnumerable<Note>
     {
-        protected abstract bool OpenExclusivity { get; }
         public abstract byte ModifierKey { get; set; }
         /// <summary>
         /// Notes in the <see cref="Chord{TNote}"/>

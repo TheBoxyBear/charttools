@@ -15,7 +15,7 @@ namespace ChartTools.Tools.Optimizing
         /// Cuts short sustains that exceed the position of the next identical note.
         /// </summary>
         /// <param name="chords">Chords to cut the sustains of</param>
-        public static void CutSustains<TNote, TNoteEnum>(this IEnumerable<Chord<TNote, TNoteEnum>> chords) where TNote : Note<TNoteEnum> where TNoteEnum : struct, System.Enum => chords.OrderBy(c => c.Position).RelativeLoop((previous, current) =>
+        public static void CutSustains<TNote, TNoteEnum>(this IEnumerable<Chord<TNote, TNoteEnum>> chords) where TNote : Note<TNoteEnum>, new() where TNoteEnum : struct, System.Enum => chords.OrderBy(c => c.Position).RelativeLoop((previous, current) =>
         {
             foreach (TNote note in current!.Notes)
             {

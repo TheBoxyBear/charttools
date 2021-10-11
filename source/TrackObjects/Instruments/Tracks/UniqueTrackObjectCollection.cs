@@ -8,7 +8,7 @@ namespace ChartTools
     /// <summary>
     /// Set of track objects where each one must have a different position
     /// </summary>
-    public class UniqueTrackObjectCollection<T> : UniqueList<T> where T : TrackObject
+    public class UniqueTrackObjectCollection<T> : UniqueList<T> where T : ITrackObject
     {
         static readonly EqualityComparison<T> comparison = (a, b) => a is null || b is null || a.Position == b.Position;
 
