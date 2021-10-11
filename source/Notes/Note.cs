@@ -3,7 +3,7 @@
     /// <summary>
     /// Base class for notes
     /// </summary>
-    public abstract class Note
+    public abstract class Note : ILongObject
     {
         /// <summary>
         /// Numerical value of the note as written in a chart file
@@ -12,6 +12,6 @@
         /// <summary>
         /// Maximum length the note can be held for extra points
         /// </summary>
-        public uint SustainLength { get; set; } = 0;
+        public uint Length { get; set; } = 0;
     }
 }

@@ -46,8 +46,6 @@ namespace ChartTools.Lyrics
             }
         }
 
-        public uint Length { get; set; }
-
         public Syllable() => Pitch = new();
         public Syllable(uint position, VocalsPitches pitch) : this(position, new VocalsPitch(pitch)) { }
         public Syllable(uint position, VocalsPitch pitch) : base(pitch)

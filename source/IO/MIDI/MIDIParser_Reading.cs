@@ -233,7 +233,7 @@ namespace ChartTools.IO.MIDI
                             Note<StandardLane>? note = ch?.Notes[noteEnum];
 
                             if (note is not null)
-                                note.SustainLength = position - ch!.Position;
+                                note.Length = position - ch!.Position;
                         }
                         break;
                 }

@@ -378,11 +378,15 @@ namespace ChartTools.IO.Chart
                     track.StarPower.AddRange(track.SoloToStarPower(true));
             }
 
-            // Return null if no data
-            return track.Chords.Count == 0
-                && track.LocalEvents!.Count == 0
-                && track.StarPower.Count == 0
-                ? null : track;
+            switch (session.Configuration.OverlappingStarPowerPolicy)
+            {
+                case OverlappingStarPowerPolicy.Cut:
+                    break;
+                case OverlappingStarPowerPolicy.ThrowException:
+                    break;
+            }
+
+            return track;
         }
 
         private static void DrumsNoteCase(Track<DrumsChord> track, ref DrumsChord? chord, uint position, NoteData data, ref bool newChord, out bool modifiersCompatible, out byte initialModifier)
@@ -403,7 +407,7 @@ namespace ChartTools.IO.Chart
             {
                 // Note
                 case < 5:
-                    chord!.Notes.Add(new DrumsNote((DrumsLane)data.NoteIndex) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new DrumsNote((DrumsLane)data.NoteIndex) { Length = data.SustainLength });
                     break;
                 // Double kick
                 case 32:
@@ -420,7 +424,7 @@ namespace ChartTools.IO.Chart
 
                     if (returnedDefault)
                     {
-                        chord.Notes.Add(new DrumsNote((DrumsLane)seekedIndex) { IsCymbal = true, SustainLength = data.SustainLength });
+                        chord.Notes.Add(new DrumsNote((DrumsLane)seekedIndex) { IsCymbal = true, Length = data.SustainLength });
                         returnedDefault = false;
                     }
                     else
@@ -448,11 +452,11 @@ namespace ChartTools.IO.Chart
             {
                 // White notes
                 case < 3:
-                    chord!.Notes.Add(new Note<GHLLane>((GHLLane)(data.NoteIndex + 4)) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new Note<GHLLane>((GHLLane)(data.NoteIndex + 4)) { Length = data.SustainLength });
                     break;
                 // Black 1 and 2
                 case < 5:
-                    chord!.Notes.Add(new Note<GHLLane>((GHLLane)(data.NoteIndex - 2)) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new Note<GHLLane>((GHLLane)(data.NoteIndex - 2)) { Length = data.SustainLength });
                     break;
                 case 5:
                     if (modifiersCompatible = !chord!.Modifier.HasFlag(GHLChordModifier.Tap))
@@ -463,10 +467,10 @@ namespace ChartTools.IO.Chart
                         chord!.Modifier |= GHLChordModifier.Tap;
                     return;
                 case 7:
-                    chord!.Notes.Add(new Note<GHLLane>(GHLLane.Open) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new Note<GHLLane>(GHLLane.Open) { Length = data.SustainLength });
                     break;
                 case 8:
-                    chord!.Notes.Add(new Note<GHLLane>(GHLLane.Black3) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new Note<GHLLane>(GHLLane.Black3) { Length = data.SustainLength });
                     break;
             }
 
@@ -488,7 +492,7 @@ namespace ChartTools.IO.Chart
             {
                 // Colored note
                 case < 5:
-                    chord!.Notes.Add(new Note<StandardLane>((StandardLane)(data.NoteIndex + 1)) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new Note<StandardLane>((StandardLane)(data.NoteIndex + 1)) { Length = data.SustainLength });
                     break;
                 case 5:
                     if (modifiersCompatible = !chord!.Modifier.HasFlag(StandardChordModifier.Tap))
@@ -499,7 +503,7 @@ namespace ChartTools.IO.Chart
                         chord!.Modifier |= StandardChordModifier.Tap;
                     return;
                 case 7:
-                    chord!.Notes.Add(new Note<StandardLane>(StandardLane.Open) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new Note<StandardLane>(StandardLane.Open) { Length = data.SustainLength });
                     break;
             }
 

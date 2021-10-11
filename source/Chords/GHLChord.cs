@@ -53,7 +53,7 @@ namespace ChartTools
                     GHLLane.White1 => 0,
                     GHLLane.White2 => 1,
                     GHLLane.White3 => 2,
-                }, note.SustainLength);
+                }, note.Length);
 
             if (Modifier.HasFlag(GHLChordModifier.Invert))
                 yield return ChartParser.GetNoteData(5, 0);

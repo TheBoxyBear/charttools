@@ -46,7 +46,7 @@ namespace ChartTools
         {
             foreach (DrumsNote note in Notes)
             {
-                yield return ChartParser.GetNoteData(note.Lane == DrumsLane.DoubleKick ? (byte)32 : note.NoteIndex, note.SustainLength);
+                yield return ChartParser.GetNoteData(note.Lane == DrumsLane.DoubleKick ? (byte)32 : note.NoteIndex, note.Length);
 
                 if (note.IsCymbal)
                     yield return ChartParser.GetNoteData((byte)(note.Lane + 64), 0);

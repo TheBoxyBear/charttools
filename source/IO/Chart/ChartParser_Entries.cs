@@ -87,7 +87,7 @@ namespace ChartTools.IO.Chart
             /// </summary>
             internal byte NoteIndex { get; }
             /// <summary>
-            /// Value of <see cref="Note.SustainLength"/>
+            /// Value of <see cref="Note.Length"/>
             /// </summary>
             internal uint SustainLength { get; }
 

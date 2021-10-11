@@ -46,7 +46,7 @@ namespace ChartTools
         internal override IEnumerable<string> GetChartData(ChartParser.WritingSession session, ICollection<byte> ignored)
         {
             foreach (Note<StandardLane> note in Notes)
-                yield return ChartParser.GetNoteData(note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.SustainLength);
+                yield return ChartParser.GetNoteData(note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Length);
 
             if (Modifier.HasFlag(StandardChordModifier.Invert))
                 yield return ChartParser.GetNoteData(5, 0);

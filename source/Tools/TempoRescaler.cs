@@ -4,7 +4,7 @@ namespace ChartTools.Tools.Scaling
 {
     public static class TempoRescaler
     {
-        public static void Rescale(this Note note, float scale) => note.SustainLength = (uint)(note.SustainLength * scale);
+        public static void Rescale(this Note note, float scale) => note.Length = (uint)(note.Length * scale);
         public static void Rescale(this TrackObject trackObject, float scale) => trackObject.Position = (uint)(trackObject.Position * scale);
         public static void Rescale(this StarPowerPhrase starPower, float scale)
         {

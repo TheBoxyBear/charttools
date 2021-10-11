@@ -390,7 +390,7 @@ namespace ChartTools.IO.Chart
         /// Gets the written data for a note.
         /// </summary>
         /// <param name="index">Value of <see cref="Note.NoteIndex"/></param>
-        /// <param name="sustain">Value of <see cref="Note.SustainLength"/></param>
+        /// <param name="sustain">Value of <see cref="Note.Length"/></param>
         internal static string GetNoteData(byte index, uint sustain) => $"N {index} {sustain}";
 
         private static void WriteFile(string path, IEnumerable<string> lines)

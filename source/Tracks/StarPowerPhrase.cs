@@ -3,7 +3,7 @@
     /// <summary>
     /// Sequence of chords that gives star power if all the contained chords are played successfully
     /// </summary>
-    public class StarPowerPhrase : TrackObject, System.IEquatable<StarPowerPhrase>
+    public class StarPowerPhrase : TrackObject, System.IEquatable<StarPowerPhrase>, ILongTrackObject
     {
         /// <summary>
         /// Duration of the <see cref="StarPowerPhrase"/>
