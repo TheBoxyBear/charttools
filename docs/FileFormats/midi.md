@@ -24,6 +24,7 @@ Modern MIDI charts originate from Rock Band's MIDI chart format, with some addit
   - [Drums Tracks](#drums-tracks)
     - [Drums Notes](#drums-notes)
     - [Drums Real SysEx Events](#drums-real-sysex-events)
+    - [Drums Text Events](#drums-text-events)
     - [Drums Additional Notes](#drums-additional-notes)
   - [Vocals Tracks](#vocals-tracks)
     - [Vocals Notes](#vocals-notes)
@@ -530,6 +531,28 @@ Additional Modifications:
 - Yellow Cymbal + Tom: `50 53 00 00 <difficulty> 11 <enable/disable>`
 - Blue Cymbal + Tom: `50 53 00 00 <difficulty> 12 <enable/disable>`
 - Green Cymbal + Tom: `50 53 00 00 <difficulty> 13 <enable/disable>`
+
+#### Drums Text Events
+
+Mix events:
+
+- `[mix <difficulty> drums<configuration><flag>]` - Sets a stem configuration for drums.
+  - `difficulty` is a number indicating the difficulty this mix event applies to.
+    - 0 - Easy
+    - 1 - Medium
+    - 2 - Hard
+    - 3 - Expert
+  - `configuration` is a number corresponding to a specific stem configuration for Rock Band.
+    - 0 - One stereo stem for the entire kit.
+    - 1 - Mono kick, mono snare, stereo kit.
+    - 2 - Mono kick, stereo snare, stereo kit.
+    - 3 - Stereo kick, stereo snare, stereo kit.
+    - 4 - Mono kick, stereo kit.
+  - `flag` is an optional additional string added to the end of the mix event that does some form of modification outside of setting up the mix:
+    - `d` - Disco Flip. On standard 4-lane, moves the snare stem to be activated by yellow and makes red activate the kit stem. On Pro Drums, flips yellow cymbal/yellow tom and red notes to restore proper playing of the part with cymbals.
+    - `dnoflip` - Used in sections where the snare stem should be activated by yellow and the kit stem should be activated by red regardless of if it's Pro or standard 4-lane.
+    - `easy` - Used in sections where there are no tom or cymbal gems to unmute the kit stem. Not supported in RB3, the game detects this automatically.
+    - `easynokick` - Used in sections where there are no kick gems to unmute the kick stem. Not supported in RB3, the game detects this automatically.
 
 #### Drums Additional Notes
 

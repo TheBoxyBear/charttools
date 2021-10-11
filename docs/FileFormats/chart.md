@@ -423,9 +423,24 @@ These are local events available on all instruments.
 
 #### Drums Local Events
 
-- `mix_<difficulty>_drums0d` - Enables disco flip on drums. For `difficulty`, 3 is Expert, 0 is Easy, etc.
-- `mix_<difficulty>_drums0` - Disables disco flip on drums. `difficulty` is the same as above.
-  - Moonscraper includes these events as `[mix <difficulty> drums0d]` and `[mix <difficulty> drums0]` since they're lifted straight from .mid, but since spaces aren't allowed in local events, this will force users to save in .msce and export the chart for it to be playable. The events as written in these docs is how Moonscraper exports the .mid-lifted ones to .chart, and is how CH reads them from .chart files.
+- `mix_<difficulty>_drums<configuration><flag>` - Sets a stem configuration for drums.
+  - `difficulty` is a number indicating the difficulty this mix event applies to.
+    - 0 - Easy
+    - 1 - Medium
+    - 2 - Hard
+    - 3 - Expert
+  - `configuration` is a number corresponding to a specific stem configuration for Rock Band.
+    - 0 - One stereo stem for the entire kit.
+    - 1 - Mono kick, mono snare, stereo kit.
+    - 2 - Mono kick, stereo snare, stereo kit.
+    - 3 - Stereo kick, stereo snare, stereo kit.
+    - 4 - Mono kick, stereo kit.
+  - `flag` is an optional additional string added to the end of the mix event that does some form of modification outside of setting up the mix:
+    - `d` - Disco Flip. On standard 4-lane, moves the snare stem to be activated by yellow and makes red activate the kit stem. On Pro Drums, flips yellow cymbal/yellow tom and red notes to restore proper playing of the part with cymbals.
+    - `dnoflip` - Used in sections where the snare stem should be activated by yellow and the kit stem should be activated by red regardless of if it's Pro or standard 4-lane.
+    - `easy` - Used in sections where there are no tom or cymbal gems to unmute the kit stem. Not supported in RB3, the game detects this automatically.
+    - `easynokick` - Used in sections where there are no kick gems to unmute the kick stem. Not supported in RB3, the game detects this automatically.
+  - Moonscraper includes these events as `[mix <difficulty> drums0d]` and `[mix <difficulty> drums0]` since they're lifted straight from .mid, but since spaces aren't allowed in local events, this will force users to save in .msce and export the chart for it to be playable. Moonscraper replaces the spaces with underscores when exporting the chart, and CH will read the event with or without brackets.
 
 #### Common Legacy/Unused Local Events
 
