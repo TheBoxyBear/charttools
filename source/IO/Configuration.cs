@@ -1,8 +1,14 @@
 ﻿namespace ChartTools.IO
 {
+    /// <summary>
+    /// Defines how overlapping star power phrases should be handeled
+    /// </summary>
     public enum OverlappingStarPowerPolicy : byte
     {
         Ignore,
+        /// <summary>
+        /// The length of the phrase is cut short to the start of the next one
+        /// </summary>
         Cut,
         ThrowException
     }
@@ -117,9 +123,7 @@
 
     public class CommonConfiguration
     {
-        /// <summary>
-        /// *Currently unsupported*
-        /// </summary>
+        /// <inheritdoc cref="IO.OverlappingStarPowerPolicy"/>
         public OverlappingStarPowerPolicy OverlappingStarPowerPolicy { get; init; }
         /// <inheritdoc cref="IO.SoloNoStarPowerPolicy"/>
         public SoloNoStarPowerPolicy SoloNoStarPowerPolicy { get; init; }

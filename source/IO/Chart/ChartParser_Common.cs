@@ -1,4 +1,6 @@
 ﻿using ChartTools.SystemExtensions;
+using ChartTools.SystemExtensions.Linq;
+using ChartTools.Tools.Optimizing;
 
 using System;
 using System.Collections.Generic;
@@ -50,6 +52,21 @@ namespace ChartTools.IO.Chart
 
             ignored.Add(position);
             return true;
+        }
+
+        private static void ApplyOverlappingStarPowerPolicy(UniqueTrackObjectCollection<StarPowerPhrase> starPower, OverlappingStarPowerPolicy policy)
+        {
+            switch (policy)
+            {
+                case OverlappingStarPowerPolicy.Cut:
+                    starPower.CutLengths();
+                    break;
+                case OverlappingStarPowerPolicy.ThrowException:
+                    foreach ((var previous, var current) in starPower.RelativeLoop())
+                        if (Optimizer.LengthNeedsCut(previous!, current!))
+                            throw new Exception($"Overlapping star power phrases at position {current!.Position}");
+                    break;
+            }
         }
     }
 }

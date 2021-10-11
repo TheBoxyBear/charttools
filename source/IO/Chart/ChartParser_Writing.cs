@@ -1,4 +1,5 @@
 ﻿using ChartTools.SystemExtensions.Linq;
+using ChartTools.Tools.Optimizing;
 
 using System;
 using System.Collections.Generic;
@@ -212,8 +213,7 @@ namespace ChartTools.IO.Chart
         /// <param name="track">Track to get the lines of</param>
         private static IEnumerable<string> GetTrackLines<TChord>(Track<TChord> track, WritingSession session) where TChord : Chord
         {
-            if (track is null)
-                yield break;
+            ApplyOverlappingStarPowerPolicy(track.StarPower, session.Configuration.OverlappingStarPowerPolicy);
 
             // Convert solo and soloend events into star power
             if (session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && track.StarPower.Count == 0)

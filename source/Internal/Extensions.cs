@@ -339,18 +339,17 @@ namespace ChartTools.SystemExtensions.Linq
                 yield return itemsEnumerator.Current;
         }
         /// <summary>
-        /// Loops through a set of objects and runs a function referencing the previous item
+        /// Loops through a set of objects and returns a set of tuples containing the current object and the previous one.
         /// </summary>
         /// <param name="source">Items to loop through</param>
-        /// <param name="action">Function to run for each item</param>
         /// <param name="firstPrevious">Value of the previous item in the first call of the action</param>
-        public static void RelativeLoop<T>(this IEnumerable<T> source, Action<T?, T?> action, T? firstPrevious = default)
+        public static IEnumerable<(T? previous, T? current)> RelativeLoop<T>(this IEnumerable<T?> source, T? firstPrevious = default)
         {
             T? previousItem = firstPrevious;
 
             foreach (T? item in source)
             {
-                action(previousItem, item);
+                yield return (previousItem, item);
                 previousItem = item;
             }
         }

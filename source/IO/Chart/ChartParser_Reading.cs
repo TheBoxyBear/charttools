@@ -1,5 +1,6 @@
 using ChartTools.Lyrics;
 using ChartTools.SystemExtensions.Linq;
+using ChartTools.Tools.Optimizing;
 
 using System;
 using System.Collections.Generic;
@@ -378,13 +379,7 @@ namespace ChartTools.IO.Chart
                     track.StarPower.AddRange(track.SoloToStarPower(true));
             }
 
-            switch (session.Configuration.OverlappingStarPowerPolicy)
-            {
-                case OverlappingStarPowerPolicy.Cut:
-                    break;
-                case OverlappingStarPowerPolicy.ThrowException:
-                    break;
-            }
+            ApplyOverlappingStarPowerPolicy(track.StarPower, session.Configuration.OverlappingStarPowerPolicy);
 
             return track;
         }
