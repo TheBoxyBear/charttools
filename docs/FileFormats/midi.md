@@ -909,7 +909,14 @@ TODO
 
 ### Beat Track
 
-TODO
+The `BEAT` track is used to determine where upbeats and downbeats in the song are separately from the tempo and time signature. In Rock Band, this drives character animations, lighting, the crowd, and how quickly Overdrive depletes.
+
+For RB, the last note in this track must occur one beat before the `[end]` event.
+
+#### Beat Notes
+
+- 13 - Upbeat
+- 12 - Downbeat (first beat of a measure)
 
 ## Documentation Notes
 
