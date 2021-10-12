@@ -734,6 +734,8 @@ This is (most likely) what Rock Band 3 expects from a Keys track.
 
 #### 5-Lane Keys Notes
 
+Extended sustains are allowed on Keys in RB3.
+
 Gems/markers:
 
 - 127 - Trill Lane Marker
@@ -792,7 +794,51 @@ These are the tracks for Rock Band 3's Pro Keys.
 
 #### Pro Keys Notes
 
-TODO
+For RB3, up to 4 notes are allowed in a chord. Extended sustains are also allowed.
+
+- 127 - Trill Marker
+- 126 - Glissando Marker
+- 120 - Big Rock Ending Marker
+- 116 - Star Power/Overdrive Marker
+  - Only SP/OD placed in the Expert track will work. For RB3, this SP/OD must match with `PART KEYS`.
+- 115 - Solo Marker
+- ==========
+- 72  - C3 (Highest Note)
+- 71  - B2
+- 70  - A#2
+- 69  - A2
+- 68  - G#2
+- 67  - G2
+- 66  - F#2
+- 65  - F2
+- 64  - E2
+- 63  - D#2
+- 62  - D2
+- 61  - C#2
+- 60  - C2
+- 59  - B1
+- 58  - A#1
+- 57  - A1
+- 56  - G#1
+- 55  - G1
+- 54  - F#1
+- 53  - F1
+- 52  - E1
+- 51  - D#1
+- 50  - D1
+- 49  - C#1
+- 48  - C1 (Lowest Note)
+- ==========
+- 9   - A1-C4 Range
+  - The range shift notes will shift the range of the keys shown on the track. In RB3, only a 10th interval (or 17 keys) are shown at a time.
+  - These notes do not last the duration of the shift, they simply mark when the shift happens.
+  - The A2-C4, F2-A3, and C2-E3 ranges are the main recommended ones, as they are easiest to read in-game.
+  - None of the in-between notes to the notes listed here will do range shifts.
+- 7   - G2-B3 Range
+- 5   - F2-A3 Range
+- 4   - E2-G3 Range
+- 2   - D2-F3 Range
+- 0   - C2-E3 Range
 
 #### Pro Keys Animation Notes
 
@@ -800,6 +846,34 @@ These are for the Pro Keys animation tracks.
 
 - `PART KEYS_ANIM_LH` - Character Keys Left Hand Animations
 - `PART KEYS_ANIM_RH` - Character Keys Right Hand Animations
+
+- 72  - C3 (Highest Note)
+- 71  - B2
+- 70  - A#2
+- 69  - A2
+- 68  - G#2
+- 67  - G2
+- 66  - F#2
+- 65  - F2
+- 64  - E2
+- 63  - D#2
+- 62  - D2
+- 61  - C#2
+- 60  - C2
+- 59  - B1
+- 58  - A#1
+- 57  - A1
+- 56  - G#1
+- 55  - G1
+- 54  - F#1
+- 53  - F1
+- 52  - E1
+- 51  - D#1
+- 50  - D1
+- 49  - C#1
+- 48  - C1 (Lowest Note)
+
+The character only gets 3 octaves on the keyboard, so the middle octave is shared between left and right hand.
 
 ### Keys Real Tracks
 
@@ -812,7 +886,105 @@ These are for Phase Shift's Real Keys mode.
 
 #### Keys Real Notes
 
-TODO
+There's no real documentation on how to chart Real Keys, this notes list is taken from a REAPER template for Phase Shift. Some things may be wrong.
+
+- 127 - Trill Marker
+- 126 - Glissando Marker
+- 116 - Star Power/Overdrive Marker
+- 115 - Solo Marker
+- ==========
+- 108 - C8 (Highest Note)
+- 107 - B7
+- 106 - A#7
+- 105 - A7
+- 104 - G#7
+- 103 - G7
+- 102 - F#7
+- 101 - F7
+- 100 - E7
+- 99  - D#7
+- 98  - D7
+- 97  - C#7
+- 96  - C7
+- 95  - B6
+- 94  - A#6
+- 93  - A6
+- 92  - G#6
+- 91  - G6
+- 90  - F#6
+- 89  - F6
+- 88  - E6
+- 87  - D#6
+- 86  - D6
+- 85  - C#6
+- 84  - C6
+- 83  - B5
+- 82  - A#5
+- 81  - A5
+- 80  - G#5
+- 79  - G5
+- 78  - F#5
+- 77  - F5
+- 76  - E5
+- 75  - D#5
+- 74  - D5
+- 73  - C#5
+- 72  - C5
+- 71  - B4
+- 70  - A#4
+- 69  - A4
+- 68  - G#4
+- 67  - G4
+- 66  - F#4
+- 65  - F4
+- 64  - E4
+- 63  - D#4
+- 62  - D4
+- 61  - C#4
+- 60  - C4 (Middle C)
+- 59  - B3
+- 58  - A#3
+- 57  - A3
+- 56  - G#3
+- 55  - G3
+- 54  - F#3
+- 53  - F3
+- 52  - E3
+- 51  - D#3
+- 50  - D3
+- 49  - C#3
+- 48  - C3
+- 47  - B2
+- 46  - A#2
+- 45  - A2
+- 44  - G#2
+- 43  - G2
+- 42  - F#2
+- 41  - F2
+- 40  - E2
+- 39  - D#2
+- 38  - D2
+- 37  - C#2
+- 36  - C2
+- 35  - B1
+- 34  - A#1
+- 33  - A1
+- 32  - G#1
+- 31  - G1
+- 30  - F#1
+- 29  - F1
+- 28  - E1
+- 27  - D#1
+- 26  - D1
+- 25  - C#1
+- 24  - C1
+- 23  - B0
+- 22  - A#0
+- 21  - A0 (Lowest Note)
+- ==========
+- 13  - Right Hand Range
+  - Unsure of how these range markers work.
+- 12  - Left Hand Range
 
 ### Pro Guitar/Bass Tracks
 
