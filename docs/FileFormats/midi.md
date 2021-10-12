@@ -905,7 +905,370 @@ Crowd events:
 
 ### Venue Track
 
-TODO
+Controls camera placement/effects and venue lighting/effects.
+
+Rock Band Network 1 and Rock Band Network 2 have different sets of venue notes and events, so categories are split into RB1/RB2/RBN1 and RB3/RBN2.
+
+#### Venue Notes (RB1/RB2/RBN1)
+
+- 110 - Trails
+- 109 - Security Camera
+- 108 - Black and White
+- 107 - Lines
+- 106 - Blue Tint
+- 105 - Mirror
+- 104 - Bloom B
+- 103 - Bloom A
+- 102 - Photocopy
+- 101 - Negative
+- 100 - Silvertone
+- 99  - Sepia
+- 98  - 16mm
+- 97  - Contrast A
+- 96  - Default Effect
+- ==========
+- 87  - Guitarist Sing Along
+  - Has the guitarist sing along with the vocalist.
+- 86  - Drummer Sing Along
+  - Has the drummer sing along with the vocalist.
+- 85  - Bassist Sing Along
+  - Has the bassist sing along with the vocalist.
+- ==========
+- 73  - No Close Ups
+- 72  - Only Close Ups
+- 71  - Only Far Shots
+- 70  - No Behind Shots
+- 64  - Focus on Vocalist
+- 63  - Focus on Guitarist
+- 62  - Focus on Drummer
+- 61  - Focus on Bassist
+- 60  - Camera Cut
+  - Randomly switches to a new shot of the band. Works in tandem with the 8 notes above. (Speculation) Not used when calling a directed camera cut.
+- 50  - First Keyframe
+  - Goes to the first keyframe of a keyframed venue lighting effect.
+- 49  - Previous Keyframe
+  - Goes to the previous keyframe of a keyframed venue lighting effect.
+- 48  - Next Keyframe
+  - Goes to the next keyframe of a keyframed venue lighting effect.
+- ==========
+- 40  - Spotlight on Vocals
+- 39  - Spotlight on Guitar
+- 38  - Spotlight on Drums
+- 37  - Spotlight on Bass
+
+#### Venue Text Events (RB1/RB2/RBN1)
+
+##### Directed Cuts (RB1/RB2/RBN1)
+
+Directed cuts are special camera cuts which use animations that don't appear in the standard looping animations for basic camera cuts. These have a variable amount of pre-roll, so the event is placed where the "hit" of the animation goes: for example, if the guitarist should jump or kick the camera, the event should be placed at the time the guitarist should land, or when the kick hits the camera.
+
+There are two ways to call a directed cut:
+
+- `[do_directed_cut <cut>]` - Always play the cut.
+- `[do_optional_cut <cut>]` - Only play the cut if the player is doing well.
+
+`cut` is the cut to be called:
+
+- Full band:
+  - `directed_all`
+  - `directed_all_yeah`
+  - `directed_bre` - Band flails around or is otherwise intense for a BRE.
+  - `directed_brej` - Band does an impactful thing like stomp, strum hard, or bang on drums hard on the last BRE note.
+  - `directed_all_lt` - Long shot heading away from the stage.
+  - `directed_all_cam` - Entire band interacts with camera.
+- Individual characters:
+  - `directed_guitar`
+  - `directed_bass`
+  - `directed_drums`
+  - `directed_vocals`
+- Individual idle characters:
+  - `directed_guitar_np`
+  - `directed_bass_np`
+  - `directed_drums_np`
+  - `directed_vocals_np`
+- Individual character camera interactions:
+  - `directed_guitar_cam`
+  - `directed_bass_cam`
+  - `directed_drums_cam`
+  - `directed_vocals_cam`
+- Individual character closeups:
+  - `directed_guitar_cls` - Guitar fretboard closeup.
+  - `directed_bass_cls` - Bass fretboard closeup.
+  - `directed_drums_kd` - Drums kick drum closeup.
+  - `directed_vocals_cls`
+- Character singalongs:
+  - Used in conjunction with the singalong notes.
+  - `directed_duo_guitar` - Guitarist sings along and interacts with vocalist.
+  - `directed_duo_bass` - Bassist sings along and interacts with vocalist.
+  - `directed_duo_drums` - Drummer sings along, no vocalist in shot.
+- Miscellaneous cuts:
+  - `directed_duo_gb` - Guitar and bass interactions.
+  - `directed_drums_lt`- Long shot rotating around the drummer.
+  - `directed_drums_pnt` - Drummer points at camera.
+  - `directed_stagedive` - Vocalist jumps off stage, camera cuts away once they land.
+  - `directed_crowdsurf` - Vocalist jumps off stage, camera cuts to them crowdsurfing.
+  - `directed_crowd_g` - Guitarist interacts with crowd.
+  - `directed_crowd_b` - Bassist interacts with crowd.
+
+##### Venue Lighting (RB1/RB2/RBN1)
+
+- `[verse]` - Marks a verse of a song. One of these must be placed before any other lighting call events to initialize the lighting system.
+- `[chorus]` - Marks a chorus of a song.
+- `[lighting (<descriptor>)]` - Sets a venue lighting cue. `descriptor` is an identifier for which cue to set, listed below.
+  - Keyframed calls:
+    - a
+    - `()` - Setting no descriptor will set the lighting to default.
+    - `()` + `[verse]` - Default verse lighting.
+    - `()` + `[chorus]` - Default chorus lighting.
+    - `manual_cool` - Cool-temperature lighting.
+    - `manual_warm` - Warm-temperature lighting.
+    - `dischord` - Harsh, dissonant lighting.
+    - `stomp` - All lights on or off. The Next Keyframe note toggles this on/off.
+  - Automatic calls:
+    - `loop_cool` - Cool-temperature lighting.
+    - `loop_warm` - Warm-temperature lighting.
+    - `harmony` - Harmonious lighting.
+    - `frenzy` - Frenetic, dissonant lighting.
+    - `silhouettes` - Dark, atmospheric lighting; shows darkened silhouettes of the characters.
+    - `silhouettes_spot` - Same as above, but characters are slightly visible.
+    - `searchlights` - Lights that sweep individually.
+    - `sweep` - Lights that sweep together in banks.
+    - `strobe_slow` - Strobe light that blinks every 16th note/120 ticks.
+    - `strobe_fast` - Strobe light that blinks every 32nd note/60 ticks.
+    - `blackout_fast` - Darken the stage quickly. The event should be placed at the point where full darkness is desired. The game engine will automatically fade out from the previous lighting state over a period of 0.2 seconds.
+    - `blackout_slow` - Darken the stage slowly. The event should be placed at the point where full darkness is desired. The game engine will automatically fade out from the previous lighting state over a period of 2 seconds. Because of the long fade out, the event will not go into effect if the previous lighting state is placed too close to the position of the event.
+    - `flare_slow` - Bright white flare that fades slowly into the next lighting preset.
+    - `flare_fast` - Bright white flare that fades quickly into the next lighting preset.
+    - `bre` - Frenetic lighting used during a Big Rock Ending. Looks like [lighting (frenzy)], only crazier.
+
+##### Pyrotechnics (RB1/RB2/RBN1)
+
+These events trigger an explosion or flamethrowers on the venue. These only work in arena venues.
+
+- `[bonusfx]` - Triggers an explosion effect.
+- `[bonusfx_optional]` - Same as above, but the effect will only be triggered when the player is doing well.
+
+These should not be used during a BRE, as it does this automatically.
+
+#### Venue Notes (RB3/RBN2)
+
+- 87  - Guitarist Sing Along
+  - Has the guitarist sing along with the vocalist. Replaced with keyboardist if guitar is absent.
+- 86  - Drummer Sing Along
+  - Has the drummer sing along with the vocalist.
+- 85  - Bassist Sing Along
+  - Has the bassist sing along with the vocalist. Replaced with keyboardist if bass is absent.
+- ==========
+- 41  - Spotlight on Keys
+- 40  - Spotlight on Vocals
+- 39  - Spotlight on Guitar
+- 38  - Spotlight on Drums
+- 37  - Spotlight on Bass
+
+#### Venue Text Events (RB3/RBN2)
+
+##### Camera Cuts (RB3/RBN2)
+
+These text events specify a camera shot to be used. Only 4 band members can be on-stage at a time out of the 5 possible instrument types, so camera cuts are often stacked on the same point to ensure a proper shot is used. The camera system has a priority list it uses to pick a shot that most closely matches the characters on-stage. If none of the authored cuts match the available parts, it will pick from a list of generic parts.
+
+These cuts are listed roughly in order from most generic (least priority) to most specific (highest priority).
+
+Four-character cuts:
+
+- `[coop_all_behind]`
+- `[coop_all_far]`
+- `[coop_all_near]`
+
+Three-character cuts (no drums):
+
+- `[coop_front_behind]`
+- `[coop_front_near]`
+
+One-character standard cuts:
+
+- `[coop_d_behind]`
+- `[coop_d_near]`
+- `[coop_v_behind]`
+- `[coop_v_near]`
+- `[coop_b_behind]`
+- `[coop_b_near]`
+- `[coop_g_behind]`
+- `[coop_g_near]`
+- `[coop_k_behind]`
+- `[coop_k_near]`
+
+One-character closeups:
+
+- `[coop_d_closeup_hand]`
+- `[coop_d_closeup_head]`
+- `[coop_v_closeup]`
+- `[coop_b_closeup_hand]`
+- `[coop_b_closeup_head]`
+- `[coop_g_closeup_hand]`
+- `[coop_g_closeup_head]`
+- `[coop_k_closeup_hand]`
+- `[coop_k_closeup_head]`
+
+Two-character cuts:
+
+- `[coop_dv_near]`
+- `[coop_bd_near]`
+- `[coop_dg_near]`
+- `[coop_bv_behind]`
+- `[coop_bv_near]`
+- `[coop_gv_behind]`
+- `[coop_gv_near]`
+- `[coop_kv_behind]`
+- `[coop_kv_near]`
+- `[coop_bg_behind]`
+- `[coop_bg_near]`
+- `[coop_bk_behind]`
+- `[coop_bk_near]`
+- `[coop_gk_behind]`
+- `[coop_gk_near]`
+
+##### Directed Camera Cuts (RB3/RBN2)
+
+Directed cuts are special camera cuts which use animations that don't appear in the standard looping animations for basic camera cuts. These are placed where the "hit" of the animation goes: for example, if the guitarist should jump or kick the camera, the event should be placed at the time the guitarist should land, or when the kick hits the camera.
+
+Directed cuts have higher priority than standard camera cuts, and the events listed here are also roughly in priority order.
+
+Full band:
+
+- `[directed_all]`
+- `[directed_all_cam]`
+- `[directed_all_yeah]`
+- `[directed_all_lt]`*
+- `[directed_bre]`
+- `[directed_brej]`
+
+- `[directed_crowd]`
+
+Single character:
+
+- `[directed_drums]`
+- `[directed_drums_pnt]`
+- `[directed_drums_np]`
+- `[directed_drums_lt]`*
+- `[directed_drums_kd]`*
+- `[directed_vocals]`
+- `[directed_vocals_np]`
+- `[directed_vocals_cls]`
+- `[directed_vocals_cam_pr]`
+- `[directed_vocals_cam_pt]`
+- `[directed_stagedive]`
+- `[directed_crowdsurf]`
+- `[directed_bass]`
+- `[directed_crowd_b]`
+- `[directed_bass_np]`
+- `[directed_bass_cam]`
+- `[directed_bass_cls]`*
+- `[directed_guitar]`
+- `[directed_crowd_g]`
+- `[directed_guitar_np]`
+- `[directed_guitar_cls]`*
+- `[directed_guitar_cam_pr]`
+- `[directed_guitar_cam_pt]`
+- `[directed_keys]`
+- `[directed_keys_cam]`
+- `[directed_keys_np]`
+
+Two characters:
+
+- `[directed_duo_drums]`
+- `[directed_duo_guitar]`
+- `[directed_duo_bass]`
+- `[directed_duo_kv]`
+- `[directed_duo_gb]`
+- `[directed_duo_kb]`
+- `[directed_duo_kg]`
+
+*These free directed cut flags only involve unique camera angles while still using looping animation flags authored on the instrument tracks.
+
+##### Post-Processing Effects (RB3/RBN2)
+
+These text events apply post-processing effects to the camera.
+
+Basic post-processing:
+
+- `[ProFilm_a.pp]` - Default, no notable effects
+- `[ProFilm_b.pp]` - Slightly mutes colors
+- `[video_a.pp]` - Slightly grainy video
+- `[film_16mm.pp]` - Grainy video
+- `[shitty_tv.pp]` - Very grainy video, dramatically lightens colors
+- `[bloom.pp]` - Slightly brightens picture and adds a low-FPS effect
+- `[film_sepia_ink.pp]` - Reduces colors to yellowish-gray shades
+- `[film_silvertone.pp]` - Reduces colors to gray shades
+- `[film_b+w.pp]` - Reduces colors to a smaller range of gray shades than `film_silvertone`
+- `[video_bw.pp]` - Reduces colors to a smaller range of gray shades than `film_silvertone`, slightly gritty
+- `[contrast_a.pp]` - Very gritty, somewhat polarized black and white
+- `[photocopy.pp]` - Choppy, low frame-per-second effect
+- `[film_blue_filter.pp]` - Reduces colors to blue shades
+- `[desat_blue.pp]` - Produces slightly grainy images with blue tinge
+- `[video_security.pp]` - Grainy, reduces colors to green shades
+
+Special post-processing:
+
+- `[bright.pp]` - Brightens lights to a bloom-esque effect, lightens darks
+- `[posterize.pp]` - Flattens colors, notable in shadows
+- `[clean_trails.pp]` - Creates a small video feed delay, like a visual "echo"
+- `[video_trails.pp]` - Creates a video feed delay, longer delay than `clean_trails`
+- `[flicker_trails.pp]` - Creates a video feed delay, slightly darkens images and mutes colors
+- `[desat_posterize_trails.pp]` - Creates a long video feed delay, flattens colors
+- `[film_contrast.pp]` - Darkens darks, lightens lights
+- `[film_contrast_blue.pp]` - Darkens darks, lightens lights, slightly blue hues
+- `[film_contrast_green.pp]` - Darkens darks, lightens lights slightly green hues
+- `[film_contrast_red.pp]` - Darkens darks, lightens lights slightly red hues
+- `[horror_movie_special.pp]` - Polarizes colors to either red or black
+- `[photo_negative.pp]` - Inverses colors
+- `[ProFilm_mirror_a.pp]` - Left side of screen mirrors right side, changes colors to variety of oranges, greens, and yellows
+- `[ProFilm_psychedelic_blue_red.pp]` - Polarizes colors to either red or blue
+- `[space_woosh.pp]` - Lightens colors dramatically, creates three small video feed delays in blue, red, and green
+
+##### Venue Lighting (RB3/RBN2)
+
+- `[first]` - Goes to the first keyframe of a keyframed venue lighting effect.
+- `[prev]` - Goes to the previous keyframe of a keyframed venue lighting effect.
+- `[next]` - Goes to the next keyframe of a keyframed venue lighting effect.
+- `[lighting (<descriptor>)]` - Sets a venue lighting cue. `descriptor` is an identifier for which cue to set, listed below.
+  - `intro` - Transitions lighting from the starting state to the authored lighting.
+    - This doesn't seem to be necessary as of RB3.
+  - Keyframed cues:
+    - These use keyframes to cycle through different colors.
+    - `verse` - Soft yet full blends, such as orange and green; varies per venue.
+    - `chorus` - Stark, dramatic colors to invoke a peak state, such as saturated blue and red; varies per venue.
+    - `manual_cool` - Cool-temperature lighting.
+    - `manual_warm` - Warm-temperature lighting.
+    - `dischord` - Harsh lighting, blend of dissonant colors.
+    - `stomp` - All lights on or off; only responds to the `[next]` trigger.
+  - Automatic cues:
+    - `loop_cool` - Blend of cool temperature colors.
+    - `loop_warm` - Blend of warm temperature colors.
+    - `harmony` - Blend of a harmonious color palette.
+    - `frenzy` - Frenetic, dissonant colored lighting that alternates quickly.
+    - `silhouettes` - Dark, atmospheric lighting, shows darkened silhouettes of characters.
+    - `silhouettes_spot` - Same as above, but can be used in conjunction with spotlights. Characters are also visible.
+    - `searchlights` - Lights that sweep individually.
+    - `sweep` - Lights that sweep together in banks.
+    - `strobe_slow` - Strobe light that blinks every 16th note/120 ticks.
+    - `strobe_fast` - Strobe light that blinks every 32nd note/60 ticks.
+    - `blackout_slow` - Darken the stage slowly.
+    - `blackout_fast` - Darken the stage quickly.
+    - `blackout_spot` - Blackout state with an added underlighting (the blackout equivalent of `silhouettes_spot`).
+    - `flare_slow` - Bright white flare that fades slowly into the next lighting preset.
+    - `flare_fast` - Bright white flare that fades quickly into the next lighting preset.
+    - `bre` - Frenetic lighting used during a Big Rock Ending. Looks like `frenzy`, only crazier.
+
+`[lighting ()]`, `[verse]`, and `[chorus]` are not valid events for RBN2.
+
+##### Pyrotechnics (RB3/RBN2)
+
+These events trigger an explosion or flamethrowers on the venue. These only work in arena venues.
+
+- `[bonusfx]` - Triggers an explosion effect.
+- `[bonusfx_optional]` - Same as above, but the effect will only be triggered when the player is doing well.
+
+These should not be used during a BRE, as it does this automatically.
 
 ### Beat Track
 
