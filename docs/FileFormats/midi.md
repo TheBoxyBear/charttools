@@ -9,6 +9,8 @@ Modern MIDI charts originate from Rock Band's MIDI chart format, with some addit
 - [Basic Infrastructure](#basic-infrastructure)
   - [Chunks](#chunks)
   - [Events](#events)
+  - [Bytes](#bytes)
+  - [Event Categories](#event-categories)
     - [Event Types](#event-types)
     - [Warning For SysEx](#warning-for-sysex)
 - [Using via ChartTools](#using-via-charttools)
@@ -44,8 +46,23 @@ Modern MIDI charts originate from Rock Band's MIDI chart format, with some addit
   - [Dance Track](#dance-track)
     - [Dance Notes](#dance-notes)
   - [Events Track](#events-track)
+    - [Events Notes](#events-notes)
+    - [Events Common Text Events](#events-common-text-events)
   - [Venue Track](#venue-track)
+    - [Venue Notes (RB1/RB2/RBN1)](#venue-notes-rb1rb2rbn1)
+    - [Venue Notes (RB3/RBN2)](#venue-notes-rb3rbn2)
+    - [Venue Text Events (RB1/RB2/RBN1)](#venue-text-events-rb1rb2rbn1)
+      - [Directed Cuts (RB1/RB2/RBN1)](#directed-cuts-rb1rb2rbn1)
+      - [Venue Lighting (RB1/RB2/RBN1)](#venue-lighting-rb1rb2rbn1)
+      - [Pyrotechnics (RB1/RB2/RBN1)](#pyrotechnics-rb1rb2rbn1)
+    - [Venue Text Events (RB3/RBN2)](#venue-text-events-rb3rbn2)
+      - [Camera Cuts (RB3/RBN2)](#camera-cuts-rb3rbn2)
+      - [Directed Camera Cuts (RB3/RBN2)](#directed-camera-cuts-rb3rbn2)
+      - [Post-Processing Effects (RB3/RBN2)](#post-processing-effects-rb3rbn2)
+      - [Venue Lighting (RB3/RBN2)](#venue-lighting-rb3rbn2)
+      - [Pyrotechnics (RB3/RBN2)](#pyrotechnics-rb3rbn2)
   - [Beat Track](#beat-track)
+    - [Beat Notes](#beat-notes)
 - [Documentation Notes](#documentation-notes)
 
 ## Basic Infrastructure
@@ -195,6 +212,8 @@ Standard tracks:
 
 Additional tracks (from either Rock Band or Phase Shift):
 
+- `PART DRUMS_2X` - RBN 2x Kick drums chart
+  - Likely not found in any charts as this is meant for generating separate 1x and 2x kick CON files for RB
 - `PART REAL_GUITAR` - RB3 Pro Guitar (17-fret)
 - `PART REAL_GUITAR_22` - RB3 Pro Guitar (22-fret)
 - `PART REAL_GUITAR_BONUS` - a
@@ -393,8 +412,6 @@ These are 6-fret tracks that are playable on a Guitar Hero Live guitar.
 - `PART GUITAR GHL` - 6-Fret Lead Guitar
 - `PART BASS GHL` - 6-Fret Bass Guitar
 
-TODO: Reference GHL/GHTV charts
-
 #### 6-Fret Notes
 
 Gems/markers:
@@ -455,6 +472,7 @@ Tap Notes: `50 53 00 00 FF 04 <enable/disable>`
 These are the tracks for drums.
 
 - `PART DRUMS` - Standard 4-Lane, 4-Lane Pro, and 5-Lane Drums
+- `PART DRUMS_2X` - RBN 2x Kick drums chart
 - `PART REAL_DRUMS_PS` - Phase Shift's Drums Real
 
 #### Drums Notes
@@ -481,6 +499,7 @@ Gems/markers:
     - Y -> YB
     - B -> YG
     - G -> BG
+  - If a flam marker is present on a chord (excluding the presence of kicks), it does nothing to the chord.
 - 106 - Score Duel Player 2 Phrase
   - Marks a phrase for RB1/2's Score Duel. (Unsure what exactly they do.)
 - 105 - Score Duel Player 1 Phrase
@@ -624,16 +643,6 @@ These are the vocals tracks.
 - 83  - B5
 - 82  - Bb5
 - 81  - A5
-Animation:
-
-- `[idle]` - Character idles during a part with no notes
-- `[idle_realtime]` - Character idles in real-time (not synced to the beat).
-- `[idle_intense]` - Character idles intensely.
-- `[play]` - Character starts playing.
-- `[mellow]` - Character plays in a mellow manner.
-- `[intense]` - Character plays in an intense manner.
-- `[ride_side_<enable>]` - Character uses a side-swipe to hit the ride. `enable` is either `true` or `false`.
-
 - 80  - G#5
 - 79  - G5
 - 78  - F#5
