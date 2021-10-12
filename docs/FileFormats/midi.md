@@ -29,8 +29,10 @@ Modern MIDI charts originate from Rock Band's MIDI chart format, with some addit
   - [Vocals Tracks](#vocals-tracks)
     - [Vocals Notes](#vocals-notes)
     - [Vocals Lyrics](#vocals-lyrics)
-  - [5-Lane Keys Track](#5-lane-keys-track)
+    - [Vocals Text Events](#vocals-text-events)
+  - [5-Lane Keys Track (As Rock Band 3 Expects)](#5-lane-keys-track-as-rock-band-3-expects)
     - [5-Lane Keys Notes](#5-lane-keys-notes)
+    - [5-Lane Keys Text Events](#5-lane-keys-text-events)
   - [Pro Keys Tracks](#pro-keys-tracks)
     - [Pro Keys Notes](#pro-keys-notes)
     - [Pro Keys Animation Notes](#pro-keys-animation-notes)
@@ -242,10 +244,6 @@ SysEx events follow this format, for the most part:
 - `Type` is the event type code. These will be specified later on where relevant.
 - `Enable/disable` is a boolean (`00` or `01`) that sets whether open note parsing should be enabled or disabled from this point onward.
 
-TODO:
-
-- Text events for character animations
-
 ### 5-Fret Tracks
 
 These are standard 5-fret tracks that are playable on a guitar controller.
@@ -355,7 +353,38 @@ Tap Notes: `50 53 00 00 FF 04 <enable/disable>`
 
 #### 5-Fret Text Events
 
-- `[ENHANCED_OPENS]`/`ENHANCED_OPENS` - Enables note-based open notes.
+Clone Hero:
+
+- `[ENHANCED_OPENS]`/`ENHANCED_OPENS` - Enables note-based open note marking.
+
+Hand maps:
+
+- `[map <handmap>]` - Specifies a handmap to use from this point onwards. `handmap` is an identifier for which handmap to use.
+  - Left-hand maps:
+    - `HandMap_Default` - Single notes = single-note fingerings, sustains = vibrato, chords = multiple fingers.
+    - `HandMap_NoChords` - No chord fingerings.
+    - `HandMap_AllChords` - Only chord fingerings.
+    - `HandMap_AllBend` - "All ring finger hi vibrato" [sic]
+    - `HandMap_Solo` - Dmaj chord fingering for all chords, vibrato for all chord sustains.
+    - `HandMap_DropD` - Open-fretting (no fingers down) for all green gems, all other gems are chords.
+    - `HandMap_DropD2` - Open-fretting (no fingers down) for all green gems.
+    - `HandMap_Chord_C` - C chord fingering for all notes.
+    - `HandMap_Chord_D` - D chord fingering for all notes.
+    - `HandMap_Chord_A` - A chord fingering for all notes.
+  - Right-hand Hand maps (Bass only):
+    - `StrumMap_Default` - Finger strumming.
+    - `StrumMap_Pick` - Pick strumming/
+    - `StrumMap_SlapBass` - Slap strumming.
+
+Animation:
+
+- `[idle]` - Character idles during a part with no notes
+- `[idle_realtime]` - Character idles in real-time (not synced to the beat).
+- `[idle_intense]` - Character idles intensely.
+- `[play]` - Character starts playing.
+- `[play_solo]` - Character plays fast while showing off.
+- `[mellow]` - Character plays in a mellow manner.
+- `[intense]` - Character plays in an intense manner.
 
 ### 6-Fret Tracks
 
@@ -554,6 +583,16 @@ Mix events:
     - `easy` - Used in sections where there are no tom or cymbal gems to unmute the kit stem. Not supported in RB3, the game detects this automatically.
     - `easynokick` - Used in sections where there are no kick gems to unmute the kick stem. Not supported in RB3, the game detects this automatically.
 
+Animation:
+
+- `[idle]` - Character idles during a part with no notes
+- `[idle_realtime]` - Character idles in real-time (not synced to the beat).
+- `[idle_intense]` - Character idles intensely.
+- `[play]` - Character starts playing.
+- `[mellow]` - Character plays in a mellow manner.
+- `[intense]` - Character plays in an intense manner.
+- `[ride_side_<enable>]` - Character uses a side-swipe to hit the ride. `enable` is either `true` or `false`.
+
 #### Drums Additional Notes
 
 The same track is used for drums regardless of whether or not it's standard 4-lane, 4-lane Pro, or 5-lane. Detecting the type of drums track can can be done through checking for tom flags for Pro Drums and checking for 5-lane Green for 5-lane, and falling back to standard 4-lane if neither are present. There are also tags in the song.ini to force what drums should be parsed as, `pro_drums = True` and `five_lane_drums = True`, if the song is such that there *cannot* be either tom flags or 5-lane Green.
@@ -585,6 +624,16 @@ These are the vocals tracks.
 - 83  - B5
 - 82  - Bb5
 - 81  - A5
+Animation:
+
+- `[idle]` - Character idles during a part with no notes
+- `[idle_realtime]` - Character idles in real-time (not synced to the beat).
+- `[idle_intense]` - Character idles intensely.
+- `[play]` - Character starts playing.
+- `[mellow]` - Character plays in a mellow manner.
+- `[intense]` - Character plays in an intense manner.
+- `[ride_side_<enable>]` - Character uses a side-swipe to hit the ride. `enable` is either `true` or `false`.
+
 - 80  - G#5
 - 79  - G5
 - 78  - F#5
@@ -661,6 +710,22 @@ CH-specific stuff:
 - Underscores `_` are replaced with a space by CH.
 - CH's PTB can properly parse [TextMeshPro formatting tags](http://digitalnativestudios.com/textmeshpro/docs/rich-text/), such as `<color=#00FF00>`, and has [a whitelist](https://strikeline.myjetbrains.com/youtrack/issue/CH-226) for tags that it allows. Any tags not matching this whitelist will be stripped out. CH v.23 or earlier will break ones that include symbols that get stripped out.
 
+#### Vocals Text Events
+
+Animation:
+
+- `[idle]` - Character idles during a part with no notes
+- `[idle_realtime]` - Character idles in real-time (not synced to the beat).
+- `[play]` - Character starts playing.
+- `[mellow]` - Character plays in a mellow manner.
+- `[intense]` - Character plays in an intense manner.
+- `[tambourine_start]` - Character plays a tambourine.
+- `[tambourine_end]` - Character returns from tambourine to vocals.
+- `[cowbell_start]` - Character plays a cowbell.
+- `[cowbell_end]` - Character returns from cowbell to vocals.
+- `[clap_start]` - Character does claps to the beat.
+- `[clap_end]` - Character returns from claps to vocals.
+
 ### 5-Lane Keys Track (As Rock Band 3 Expects)
 
 This is (most likely) what Rock Band 3 expects from a Keys track.
@@ -704,6 +769,17 @@ Gems/markers:
 - 62  - Easy Yellow
 - 61  - Easy Red
 - 60  - Easy Green
+
+#### 5-Lane Keys Text Events
+
+Animation:
+
+- `[idle]` - Character idles during a part with no notes
+- `[idle_realtime]` - Character idles in real-time (not synced to the beat).
+- `[idle_intense]` - Character idles intensely.
+- `[play]` - Character starts playing.
+- `[mellow]` - Character plays in a mellow manner.
+- `[intense]` - Character plays in an intense manner.
 
 ### Pro Keys Tracks
 
