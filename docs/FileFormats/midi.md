@@ -343,7 +343,7 @@ Animation:
 - 41  - Animation - Left Hand Position
 - 40  - Animation - Left Hand Position Lowest
 
-Notes get naturally forced as a HOPO if they are within a 1/12th step of the next note. For a 480-resolution .mid, this would be 160 ticks. This can be changed using the `hopo_frequency` song.ini tag.
+Single notes get naturally forced as a HOPO if they are within a 1/12th step of the next note (this can be changed using the `hopo_frequency` song.ini tag), and are not the same color as the previous note or (.mid only) a note in the preceding chord. For a 480-resolution .mid, this would be 160 ticks.
 
 A 1/12th step is also the sustain cutoff threshold: any sustains shorter than this will be cut off and turned into a normal note. This can be changed using the `sustain_cutoff_threshold` song.ini tag.
 
