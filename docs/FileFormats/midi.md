@@ -870,7 +870,38 @@ This track is a 4-lane Dance mode similar to that of Dance Dance Revolution, In 
 
 ### Events Track
 
-TODO
+The Events track contains text events that do various things.
+
+#### Events Notes
+
+- 26 - Hi-Hat Practice Mode Assist Sample
+- 25 - Snare Practice Mode Assist Sample
+- 24 - Kick Practice Mode Assist Sample
+
+These samples play in Practice Mode in RB3 alongside an isolated stem when the speed is set below 100%.
+
+#### Events Common Text Events
+
+Chart events:
+
+- `[end]` - Marks the end point of the song. For Rock Band, it must be the last event in the chart.
+- `[coda]` - Starts a Big Rock Ending.
+
+Crowd events:
+
+- `[music_start]` - Sets the crowd audio to an active state.
+- `[music_end]` - Sets the crowd audio to an end-of-song state.
+
+- `[crowd_normal]` - Crowd acts in a typical manner.
+- `[crowd_mellow]` - Crowd acts in a more mellow manner.
+- `[crowd_intense]` - Crowd acts intensely.
+- `[crowd_realtime]` - Crowd acts independently of the beat. Default for the beginning of the song.
+
+- `[crowd_clap]` - Crowd will clap along to the beat if the player is doing well. This is the default.
+- `[crowd_noclap]` - Disables the crowd clap.
+
+- `[prc_<name>]` or `[section <name>]` - Marks a practice mode section. `<name>` is the name of the practice mode section.
+  - There is [an *absolute unit* of a list of sections available for RBN2](rbn2_practice_sections.md). Clone Hero can convert the events from this list into their proper section names, plus some additional ones not available to RBN2.
 
 ### Venue Track
 
