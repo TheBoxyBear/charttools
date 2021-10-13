@@ -38,7 +38,7 @@ Modern MIDI charts originate from Rock Band's MIDI chart format, with some addit
     - [5-Lane Keys Text Events](#5-lane-keys-text-events)
   - [Pro Keys Tracks](#pro-keys-tracks)
     - [Pro Keys Notes](#pro-keys-notes)
-    - [Pro Keys Animation Notes](#pro-keys-animation-notes)
+    - [Pro Keys Animation Track Notes](#pro-keys-animation-track-notes)
   - [Keys Real Tracks](#keys-real-tracks)
     - [Keys Real Notes](#keys-real-notes)
   - [Pro Guitar/Bass Tracks](#pro-guitarbass-tracks)
@@ -52,11 +52,11 @@ Modern MIDI charts originate from Rock Band's MIDI chart format, with some addit
     - [Events Common Text Events](#events-common-text-events)
   - [Venue Track](#venue-track)
     - [Venue Notes (RB1/RB2/RBN1)](#venue-notes-rb1rb2rbn1)
-    - [Venue Notes (RB3/RBN2)](#venue-notes-rb3rbn2)
     - [Venue Text Events (RB1/RB2/RBN1)](#venue-text-events-rb1rb2rbn1)
       - [Directed Cuts (RB1/RB2/RBN1)](#directed-cuts-rb1rb2rbn1)
       - [Venue Lighting (RB1/RB2/RBN1)](#venue-lighting-rb1rb2rbn1)
       - [Pyrotechnics (RB1/RB2/RBN1)](#pyrotechnics-rb1rb2rbn1)
+    - [Venue Notes (RB3/RBN2)](#venue-notes-rb3rbn2)
     - [Venue Text Events (RB3/RBN2)](#venue-text-events-rb3rbn2)
       - [Camera Cuts (RB3/RBN2)](#camera-cuts-rb3rbn2)
       - [Directed Camera Cuts (RB3/RBN2)](#directed-camera-cuts-rb3rbn2)
@@ -65,7 +65,7 @@ Modern MIDI charts originate from Rock Band's MIDI chart format, with some addit
       - [Pyrotechnics (RB3/RBN2)](#pyrotechnics-rb3rbn2)
   - [Beat Track](#beat-track)
     - [Beat Notes](#beat-notes)
-- [Documentation Notes](#documentation-notes)
+- [Resources](#resources)
 
 ## Basic Infrastructure
 
@@ -229,7 +229,7 @@ Additional tracks (from either Rock Band or Phase Shift):
   - Likely not found in any charts as this is meant for generating separate 1x and 2x kick CON files for RB
 - `PART REAL_GUITAR` - RB3 Pro Guitar (17-fret)
 - `PART REAL_GUITAR_22` - RB3 Pro Guitar (22-fret)
-- `PART REAL_GUITAR_BONUS` - a
+- `PART REAL_GUITAR_BONUS` - Unsure.
 - `PART REAL_BASS` - RB3 Pro Bass (17-fret)
 - `PART REAL_BASS_22` - RB3 Pro Bass (22-fret)
 - `PART REAL_DRUMS_PS` - PS Drums Real
@@ -270,8 +270,7 @@ SysEx events follow this format, for the most part:
 
 `50 53 00 00 <difficulty> <type> <enable/disable>`
 
-- `50 53` is the hexadecimal ASCII representation of the letters `PS`, which stands for Phase Shift.
-- `00 00` is a constant.
+- `50 53` is the hexadecimal ASCII representation of the letters `PS`, which stands for Phase Shift. The `00 00` following it is a constant.
 - `Difficulty` is the difficulty this event affects as a hexadecimal number, where Easy is `00`, and Expert is `03`. `FF` means it affects all difficulties.
 - `Type` is the event type code. These will be specified later on where relevant.
 - `Enable/disable` is a boolean (`00` or `01`) that sets whether open note parsing should be enabled or disabled from this point onward.
@@ -379,9 +378,8 @@ A 1/12th step is also the sustain cutoff threshold: any sustains shorter than th
 
 #### 5-Fret SysEx Events
 
-Open Notes: `50 53 00 00 <difficulty> 01 <enable/disable>`
-
-Tap Notes: `50 53 00 00 FF 04 <enable/disable>`
+- Open Notes: `50 53 00 00 <difficulty> 01 <enable/disable>`
+- Tap Notes: `50 53 00 00 FF 04 <enable/disable>`
 
 #### 5-Fret Text Events
 
@@ -476,9 +474,8 @@ Gems/markers:
 
 #### 6-Fret SysEx Events
 
-Open Notes: `50 53 00 00 <difficulty> 01 <enable/disable>` (redundant, but still supported by CH)
-
-Tap Notes: `50 53 00 00 FF 04 <enable/disable>`
+- Open Notes: `50 53 00 00 <difficulty> 01 <enable/disable>` (redundant, but still supported by CH)
+- Tap Notes: `50 53 00 00 FF 04 <enable/disable>`
 
 ### Drums Tracks
 
@@ -639,6 +636,8 @@ These are the vocals tracks.
 - `HARM3` - Harmonies track 3
 
 #### Vocals Notes
+
+Notes/markers:
 
 - 116 - Star Power/Overdrive Marker
   - Standard vocals and Harmonies can have independent overdrive. `HARM2` and `HARM3` get their overdrive from `HARM1`.
@@ -818,6 +817,8 @@ These are the tracks for Rock Band 3's Pro Keys.
 
 For RB3, up to 4 notes are allowed in a chord. Extended sustains are also allowed.
 
+Gems/markers:
+
 - 127 - Trill Marker
 - 126 - Glissando Marker
 - 120 - Big Rock Ending Marker
@@ -862,7 +863,7 @@ For RB3, up to 4 notes are allowed in a chord. Extended sustains are also allowe
 - 2   - D2-F3 Range
 - 0   - C2-E3 Range
 
-#### Pro Keys Animation Notes
+#### Pro Keys Animation Track Notes
 
 These are for the Pro Keys animation tracks.
 
@@ -909,6 +910,8 @@ These are for Phase Shift's Real Keys mode.
 #### Keys Real Notes
 
 There's no real documentation on how to chart Real Keys, this notes list is taken from a REAPER template for Phase Shift. Some things may be wrong.
+
+Gems/markers:
 
 - 127 - Trill Marker
 - 126 - Glissando Marker
@@ -1612,7 +1615,7 @@ For RB, the last note in this track must occur one beat before the `[end]` event
 - 13 - Upbeat
 - 12 - Downbeat (first beat of a measure)
 
-## Documentation Notes
+## Resources
 
 Specifications for the MIDI protocol/format itself are available from the MIDI Association here:
 
