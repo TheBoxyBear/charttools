@@ -14,6 +14,7 @@ Modern MIDI charts originate from Rock Band's MIDI chart format, with some addit
     - [Event Types](#event-types)
     - [Warning For SysEx](#warning-for-sysex)
 - [Using via ChartTools](#using-via-charttools)
+- [Notes about Documentation](#notes-about-documentation)
 - [Track Names](#track-names)
 - [Track Details](#track-details)
   - [5-Fret Tracks](#5-fret-tracks)
@@ -192,6 +193,17 @@ As stated in the [Events](#events) section, standard SysEx events normally do no
 ## Using via ChartTools
 
 WIP (Info such as reading, writing, etc. should go here)
+
+## Notes about Documentation
+
+Generally, specific track documentation follows this format:
+
+- Note lists
+- SysEx events
+- Text events
+- Additional notes (if necessary)
+
+Note numbers in the note lists are 0-indexed (0-127), whereas track channel numbers are 1-indexed (1-16).
 
 ## Track Names
 
