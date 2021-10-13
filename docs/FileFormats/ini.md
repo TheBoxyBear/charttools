@@ -12,8 +12,8 @@ Song metadata for .mid files are stored in a song.ini file. Clone Hero also exte
 - [Using via ChartTools](#using-via-charttools)
 - [Available Tags](#available-tags)
   - [Common Tags](#common-tags)
-  - [Legacy/Unused Tags](#legacyunused-tags)
-- [Documentation Notes](#documentation-notes)
+  - [Uncommon/Legacy/Unsupported Tags](#uncommonlegacyunsupported-tags)
+- [Resources](#resources)
 
 ## Basic Structure
 
@@ -130,6 +130,6 @@ Typically, a value of -1 is used in number values to specify that the value does
 | `eof_midi_import_drum_accent_velocity` | Tells Editor on Fire that drum notes at this velocity should be imported as accents. | number | |
 | `eof_midi_import_drum_ghost_velocity`  | Tells Editor on Fire that drum notes at this velocity should be imported as ghosts.  | number | |
 
-## Documentation Notes
+## Resources
 
 All of these tags are referenced from either [grishhung's song.ini guide](https://docs.google.com/document/d/1ped13di4LqDqhaxbCgZEMUoqnyc3gOy3Bw1FCg58FPI/edit#) or existing song.ini files.

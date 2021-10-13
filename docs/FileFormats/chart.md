@@ -40,7 +40,7 @@ Chart is a customs format originating from the GH1/2 era. It is text-based and u
     - [Common Local Events](#common-local-events)
     - [Drums Local Events](#drums-local-events)
     - [Common Legacy/Unused Local Events](#common-legacyunused-local-events)
-- [Documentation Notes](#documentation-notes)
+- [Resources](#resources)
 
 ## Basic Infrastructure
 
@@ -455,6 +455,6 @@ Most of these are from GH1/2, and are included with Moonscraper's default local 
 - `ow_face_on`
 - `ow_face_off`
 
-## Documentation Notes
+## Resources
 
 A large part of this info comes from [Firefox's .chart specifications](https://docs.google.com/document/d/1v2v0U-9HQ5qHeccpExDOLJ5CMPZZ3QytPmAG5WF0Kzs/edit#).
