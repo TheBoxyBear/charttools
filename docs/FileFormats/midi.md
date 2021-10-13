@@ -42,8 +42,9 @@ Modern MIDI charts originate from Rock Band's MIDI chart format, with some addit
   - [Keys Real Tracks](#keys-real-tracks)
     - [Keys Real Notes](#keys-real-notes)
   - [Pro Guitar/Bass Tracks](#pro-guitarbass-tracks)
-    - [Pro Guitar/Bass 17-Fret Notes](#pro-guitarbass-17-fret-notes)
-    - [Pro Guitar/Bass 22-Fret Notes](#pro-guitarbass-22-fret-notes)
+    - [Pro Guitar/Bass Notes](#pro-guitarbass-notes)
+    - [Pro Guitar/Bass SysEx Events](#pro-guitarbass-sysex-events)
+    - [Pro Guitar/Bass Text Events](#pro-guitarbass-text-events)
   - [Dance Track](#dance-track)
     - [Dance Notes](#dance-notes)
   - [Events Track](#events-track)
@@ -1017,13 +1018,150 @@ These are the tracks for Pro Guitar and Pro Bass.
 - `PART REAL_BASS` - Pro Bass (17-Fret)
 - `PART REAL_BASS_22` - Pro Bass (22-Fret)
 
-#### Pro Guitar/Bass 17-Fret Notes
+#### Pro Guitar/Bass Notes
 
-TODO
+Gems/markers:
 
-#### Pro Guitar/Bass 22-Fret Notes
+- 127 - Trill Marker
+- 126 - Tremolo Marker
+- 125 - Big Rock Ending Marker 1
+- 124 - Big Rock Ending Marker 2
+- 123 - Big Rock Ending Marker 3
+- 122 - Big Rock Ending Marker 4
+- 121 - Big Rock Ending Marker 5
+- 120 - Big Rock Ending Marker 6
+- 116 - Star Power/Overdrive Marker
+- 115 - Solo Marker
+- 108 - Left Hand Position
+  - Marks where on the guitar a player's left hand should be, and determines how note numbers get positioned on top of the note.
+  - Applies from the current point onward until a new marker is encountered.
+  - Position determined by note velocity, starting from velocity 101 and going to velocity 114 for 17-fret or 119 for 22-fret.
+- 107 - Force Chord Numbering
+- ==========
+- 105 - Expert Strum Direction Marker
+  - Uses track channel numbers to emphasize a strum direction.
+  - Channel 14 - Emphasize the higher strings.
+  - Channel 15 - Emphasize the middle strings.
+  - Channel 16 - Emphasize the lower strings.
+- 104 - Expert Arpeggio Marker
+  - Requires a note/chord on track channel 2 to use as a ghost note/chord shape in-game.
+- 103 - Expert Slide Marker
+  - Velocity 107 - Slide Up
+  - Velocity 108 - Slide Down
+  - These directions are inconsistent due to some complicated rules.
+  - Placing this note on track channel 12 will reverse the direction.
+- 102 - Expert Force HOPO
+- 101 - Expert Purple (e)
+- 100 - Expert Yellow (B)
+- 99  - Expert Blue (G)
+- 98  - Expert Orange (D)
+- 97  - Expert Green (A)
+- 96  - Expert Red (E)
+- ==========
+- 80  - Hard Arpeggio Marker
+- 79  - Hard Slide Marker
+- 78  - Hard Force HOPO
+- 77  - Hard Purple (e)
+- 76  - Hard Yellow (B)
+- 75  - Hard Blue (G)
+- 74  - Hard Orange (D)
+- 73  - Hard Green (A)
+- 72  - Hard Red (E)
+- ==========
+- 56  - Medium Arpeggio Marker
+- 55  - Medium Slide Marker
+- 54  - Medium Force HOPO
+  - Likely not supported in RB3.
+- 53  - Medium Purple (e)
+- 52  - Medium Yellow (B)
+- 51  - Medium Blue (G)
+- 50  - Medium Orange (D)
+- 49  - Medium Green (A)
+- 48  - Medium Red (E)
+- ==========
+- 32  - Easy Arpeggio Marker
+- 31  - Easy Slide Marker
+- 30  - Easy Force HOPO
+  - Likely not supported in RB3.
+- 29  - Easy Purple (e)
+- 28  - Easy Yellow (B)
+- 27  - Easy Blue (G)
+- 26  - Easy Orange (D)
+- 25  - Easy Green (A)
+- 24  - Easy Red (E)
+- ==========
+- 18  - Sharp/Flat Swap
+- 17  - Hide Chord Names Marker
+- 16  - Slash Chord Marker
+  - Used for chords such as `Fm7/E` or `Am/G`.
+- 15  - Root Note Marker (D#/Eb)
+- 14  - Root Note Marker (D)
+- 13  - Root Note Marker (C#/Db)
+- 12  - Root Note Marker (C)
+- 11  - Root Note Marker (B)
+- 10  - Root Note Marker (A#/Bb)
+- 9   - Root Note Marker (A)
+- 8   - Root Note Marker (G#/Ab)
+- 7   - Root Note Marker (G)
+- 6   - Root Note Marker (F#/Gb)
+- 5   - Root Note Marker (F)
+- 4   - Root Note Marker (E)
 
-TODO
+Fret numbers:
+
+- Fret number is determined by velocity, starting from velocity 100 and going to velocity 117 for 17-fret or 122 for 22-fret.
+
+Track channels:
+
+- Different channel numbers modify the notes in different ways. Ones specific to a marker are listed in the notes list with that marker.
+- 1 - Normal notes and markers
+- 2 - Ghost notes
+- 3 - Bend notes
+- 4 - Muted notes
+- 5 - Tapped notes
+- 6 - Harmonics
+- 7 - Pinch harmonics
+
+Other notes:
+
+- There are separate tracks for 17-fret and 22-fret due to different controller models having a different amount of available frets.
+- Root notes are required for chords, but they don't have to be placed on every chord. It's only necessary to place one when the root note changes.
+- For RB3, overdrive must match that of standard Guitar/Bass.
+
+#### Pro Guitar/Bass SysEx Events
+
+Phase Shift:
+
+- Slide Up: `50 53 00 00 <difficulty> 02 <enable/disable>`
+- Slide Down: `50 53 00 00 <difficulty> 03 <enable/disable>`
+
+#### Pro Guitar/Bass Text Events
+
+RB3 Pro Guitar trainer text events:
+
+- Not usable in RBN2/custom charts, only in custom Pro upgrades:
+- `[begin_pg song_trainer_pg_<number>]` - Marks the start point of a Pro Guitar trainer section.
+  - `number` is a number index for the trainer, starting at 1.
+- `[end_pg song_trainer_pg_<number>]` - Marks the end point of a Pro Guitar trainer section.
+  - `number` is a number index for the trainer, starting at 1.
+- `[pg_norm song_trainer_pg_<number>]` - Marks the loop point of a Pro Guitar trainer section.
+  - `number` is a number index for the trainer, starting at 1.
+
+RB3 Pro Bass trainer text events:
+
+- Not usable in RBN2/custom charts, only in custom Pro upgrades:
+- `[begin_pb song_trainer_pb_<number>]` - Marks the start point of a Pro Bass trainer section.
+  - `number` is a number index for the trainer, starting at 1.
+- `[end_pb song_trainer_pb_<number>]` - Marks the end point of a Pro Bass trainer section.
+  - `number` is a number index for the trainer, starting at 1.
+- `[pb_norm song_trainer_pb_<number>]` - Enables doing a seamless endless loop of the section.
+  - `number` is a number index for the trainer, starting at 1.
+
+Chord names:
+
+- `[chrd<difficulty> <name>]` - Overrides the chord name shown for the current chord.
+  - `difficulty` is a number representing the difficulty.
+  - `name` is the name to be given to the chord. A `<gtr></gtr>` tag pair can be used for superscript in RB3.
 
 ### Dance Track
 
