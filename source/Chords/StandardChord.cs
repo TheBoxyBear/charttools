@@ -43,17 +43,17 @@ namespace ChartTools
         }
 
         /// <inheritdoc/>
-        internal override IEnumerable<string> GetChartData(ChartParser.WritingSession session, ICollection<byte> ignored)
+        internal override IEnumerable<string> GetChartData(Chord previous, ChartParser.WritingSession session, ICollection<byte> ignored)
         {
             foreach (Note<StandardLane> note in Notes)
                 yield return ChartParser.GetNoteData(note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Length);
 
-            if (Modifier.HasFlag(StandardChordModifier.Invert))
+            bool isInvert = Modifier.HasFlag(StandardChordModifier.HopoInvert);
+
+            if (!Modifier.HasFlag(StandardChordModifier.Relative) && (previous is null || previous.Position <= session.HopoThreshold) != isInvert || isInvert)
                 yield return ChartParser.GetNoteData(5, 0);
             if (Modifier.HasFlag(StandardChordModifier.Tap))
                 yield return ChartParser.GetNoteData(6, 0);
         }
-
-        internal override bool ChartModifierSupported() => Modifier is StandardChordModifier.Natural or StandardChordModifier.Invert or StandardChordModifier.Tap;
     }
 }

@@ -25,39 +25,15 @@ namespace ChartTools.IO.Chart
         private class ReadingSession
         {
             public ReadingConfiguration Configuration { get; }
-            public IncludeChordFromModifierPolicy IncludeChordFromModifierPolicy { get; }
 
             public ReadingSession(ReadingConfiguration? config)
             {
                 Configuration = config ?? DefaultReadConfig;
-                IncludeChordFromModifierPolicy = Configuration.IncompatibleModifierCombinationPolicy switch
-                {
-                    IncompatibleModifierCombinationPolicy.IgnoreChord => (_, compatible, _) => compatible,
-                    IncompatibleModifierCombinationPolicy.IgnoreModifers => (chord, compatible, initial) =>
-                    {
-                        if (!compatible)
-                            chord!.ModifierKey = 0;
-
-                        return true;
-                    }
-                    ,
-                    IncompatibleModifierCombinationPolicy.IncludeAll => (_, _, _) => true,
-                    IncompatibleModifierCombinationPolicy.IncludeFirst => (chord, compatible, initial) =>
-                    {
-                        if (!compatible)
-                            chord!.ModifierKey = initial;
-
-                        return true;
-                    }
-                    ,
-                    IncompatibleModifierCombinationPolicy.ThrowException => (chord, compatible, _) => compatible ? true
-                    : throw new Exception($"Incompatible modifier combination at position {chord.Position}")
-                };
             }
         }
 
-        private delegate void NoteCase<TChord>(Track<TChord> track, ref TChord? chord, uint position, NoteData data, ref bool newChord, out bool modifiersCompatible, out byte initialModifier) where TChord : Chord;
-        private delegate bool IncludeChordFromModifierPolicy(Chord chord, bool modifiersCompatible, byte initialModifier);
+        private delegate void NoteCase<TChord>(Track<TChord> track, ref TChord? chord, uint position, NoteData data, ref bool newChord, out byte initialModifier) where TChord : Chord;
+        private delegate bool IncludeChordFromModifierPolicy(Chord chord, byte initialModifier);
 
         /// <summary>
         /// Reads a chart file.
@@ -349,9 +325,9 @@ namespace ChartTools.IO.Chart
                         try
                         {
                             data = new(entry.Data);
-                            noteCase(track, ref chord, entry.Position, data, ref newChord, out bool modifersCompatible, out byte initialModifier);
+                            noteCase(track, ref chord, entry.Position, data, ref newChord, out byte initialModifier);
 
-                            if (newChord && session.IncludeChordFromModifierPolicy(chord!, modifersCompatible, initialModifier))
+                            if (newChord)
                             {
                                 track.Chords.Add(chord!);
                                 ignoredNotes.Clear();
@@ -384,10 +360,8 @@ namespace ChartTools.IO.Chart
             return track;
         }
 
-        private static void DrumsNoteCase(Track<DrumsChord> track, ref DrumsChord? chord, uint position, NoteData data, ref bool newChord, out bool modifiersCompatible, out byte initialModifier)
+        private static void DrumsNoteCase(Track<DrumsChord> track, ref DrumsChord? chord, uint position, NoteData data, ref bool newChord, out byte initialModifier)
         {
-            modifiersCompatible = true;
-
             // Find the parent chord or create it
             if (chord is null)
                 chord = new(position);
@@ -431,7 +405,7 @@ namespace ChartTools.IO.Chart
             }
 
         }
-        private static void GHLNoteCase(Track<GHLChord> track, ref GHLChord? chord, uint position, NoteData data, ref bool newChord, out bool modifiersCompatible, out byte initialModifier)
+        private static void GHLNoteCase(Track<GHLChord> track, ref GHLChord? chord, uint position, NoteData data, ref bool newChord, out byte initialModifier)
         {
             // Find the parent chord or create it
             if (chord is null)
@@ -454,12 +428,10 @@ namespace ChartTools.IO.Chart
                     chord!.Notes.Add(new Note<GHLLane>((GHLLane)(data.NoteIndex - 2)) { Length = data.SustainLength });
                     break;
                 case 5:
-                    if (modifiersCompatible = !chord!.Modifier.HasFlag(GHLChordModifier.Tap))
-                        chord!.Modifier |= GHLChordModifier.Invert;
+                    chord!.Modifier |= GHLChordModifier.HopoInvert;
                     return;
                 case 6:
-                    if (modifiersCompatible = !chord!.Modifier.HasFlag(GHLChordModifier.Invert))
-                        chord!.Modifier |= GHLChordModifier.Tap;
+                    chord!.Modifier |= GHLChordModifier.Tap;
                     return;
                 case 7:
                     chord!.Notes.Add(new Note<GHLLane>(GHLLane.Open) { Length = data.SustainLength });
@@ -468,10 +440,8 @@ namespace ChartTools.IO.Chart
                     chord!.Notes.Add(new Note<GHLLane>(GHLLane.Black3) { Length = data.SustainLength });
                     break;
             }
-
-            modifiersCompatible = true;
         }
-        private static void StandardNoteCase(Track<StandardChord> track, ref StandardChord? chord, uint position, NoteData data, ref bool newChord, out bool modifiersCompatible, out byte initialModifier)
+        private static void StandardNoteCase(Track<StandardChord> track, ref StandardChord? chord, uint position, NoteData data, ref bool newChord, out byte initialModifier)
         {
             // Find the parent chord or create it
             if (chord is null)
@@ -490,19 +460,15 @@ namespace ChartTools.IO.Chart
                     chord!.Notes.Add(new Note<StandardLane>((StandardLane)(data.NoteIndex + 1)) { Length = data.SustainLength });
                     break;
                 case 5:
-                    if (modifiersCompatible = !chord!.Modifier.HasFlag(StandardChordModifier.Tap))
-                        chord!.Modifier |= StandardChordModifier.Invert;
+                    chord!.Modifier |= StandardChordModifier.HopoInvert;
                     return;
                 case 6:
-                    if (modifiersCompatible = !chord!.Modifier.HasFlag(StandardChordModifier.Invert))
-                        chord!.Modifier |= StandardChordModifier.Tap;
+                    chord!.Modifier |= StandardChordModifier.Tap;
                     return;
                 case 7:
                     chord!.Notes.Add(new Note<StandardLane>(StandardLane.Open) { Length = data.SustainLength });
                     break;
             }
-
-            modifiersCompatible = true;
         }
         #endregion
 

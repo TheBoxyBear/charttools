@@ -1,7 +1,7 @@
 ﻿namespace ChartTools.IO
 {
     /// <summary>
-    /// Defines how overlapping star power phrases should be handeled
+    /// Defines how overlapping star power phrases should be handled
     /// </summary>
     public enum OverlappingStarPowerPolicy : byte
     {
@@ -83,7 +83,7 @@
         ThrowException
     }
     /// <summary>
-    /// Hopo threshold to prioritize if included in the metadata and configuration
+    /// Hopo threshold to use if included in the metadata and configuration
     /// </summary>
     public enum HopoThresholdPriority : byte
     {
@@ -109,10 +109,6 @@
         /// The chord is excluded
         /// </summary>
         IgnoreChord,
-        /// <summary>
-        /// The modifier is converted to a compatible one
-        /// </summary>
-        Convert,
         ThrowException
     }
     public enum UnsupportedVocalsSource : byte
@@ -144,9 +140,7 @@
     {
         public TrackObjectSource EventSource { get; init; }
         public TrackObjectSource StarPowerSource { get; init; }
-        /// <summary>
-        /// *Currently unsupported*
-        /// </summary>
+        /// <inheritdoc cref="IO.HopoThresholdPriority"/>
         public HopoThresholdPriority HopoThresholdPriority { get; init; }
         /// <summary>
         /// *Currently unsupported*

@@ -58,9 +58,7 @@ namespace ChartTools.Lyrics
             Notes = new();
         }
 
-        internal override bool ChartModifierSupported() => true;
-
-        internal override IEnumerable<string> GetChartData(ChartParser.WritingSession session, ICollection<byte> ignored) => throw new NotSupportedException("Vocals must be converted to global events to be saved as chart.");
+        internal override IEnumerable<string> GetChartData(Chord previous, ChartParser.WritingSession session, ICollection<byte> ignored) => throw new NotSupportedException("Vocals must be converted to global events to be saved as chart.");
 
         public IEnumerable<GlobalEvent> ToGlobalEvents()
         {

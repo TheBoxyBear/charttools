@@ -42,7 +42,7 @@ namespace ChartTools
         }
 
         /// <inheritdoc/>
-        internal override IEnumerable<string> GetChartData(ChartParser.WritingSession session, ICollection<byte> ignored)
+        internal override IEnumerable<string> GetChartData(Chord previous, ChartParser.WritingSession session, ICollection<byte> ignored)
         {
             foreach (DrumsNote note in Notes)
             {
@@ -55,6 +55,5 @@ namespace ChartTools
             if (Modifier.HasFlag(DrumsChordModifier.Flam))
                 yield return ChartParser.GetNoteData(109, 0);
         }
-        internal override bool ChartModifierSupported() => Modifier is DrumsChordModifier.None or DrumsChordModifier.Flam;
     }
 }

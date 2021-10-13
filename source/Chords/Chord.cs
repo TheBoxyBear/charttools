@@ -24,8 +24,7 @@ namespace ChartTools
         /// Gets the data to write in a chart file.
         /// </summary>
         /// <returns>Enumerable of strings containing the data to add to each line</returns>
-        internal abstract IEnumerable<string> GetChartData(ChartParser.WritingSession session, ICollection<byte> ignored);
-        internal abstract bool ChartModifierSupported();
+        internal abstract IEnumerable<string> GetChartData(Chord? previous, ChartParser.WritingSession session, ICollection<byte> ignored);
 
         public IEnumerator<Note> GetEnumerator() => Notes.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

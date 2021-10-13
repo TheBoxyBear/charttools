@@ -40,13 +40,11 @@ namespace ChartTools.IO.Chart
 
             WritingSession session = new(config);
 
-            if (session.Configuration.HopoThresholdPriority == HopoThresholdPriority.Metadata)
-            {
-                if (song.Metadata?.HopoThreashold is not null)
-                    session.HopoThreshold = song.Metadata.HopoThreashold.Value;
-
-                session.HopoThreshold = session.Configuration.HopoTreshold ?? 5; // Replace 5 with default threshold
-            }
+            session.HopoThreshold = session.Configuration.HopoThresholdPriority == HopoThresholdPriority.Metadata && song.Metadata?.HopoThreashold is not null
+                ? song.Metadata.HopoThreashold.Value
+                : session.Configuration.HopoTreshold is not null
+                ? session.Configuration.HopoTreshold.Value
+                : (song.Metadata?.Resolution ?? (uint)192) / 3;
 
             // Add threads for metadata, sync track and global events
             List<Task<IEnumerable<string>>> tasks = new()
@@ -248,14 +246,16 @@ namespace ChartTools.IO.Chart
             }
 
             HashSet<byte> ignored = new();
+            TChord? previousChord = null;
 
             // Loop through chords, local events and star power, picked using the lowest position
-            foreach (TrackObject trackObject in new Collections.Alternating.OrderedAlternatingEnumerable<uint, TrackObject>(t => t.Position, track.Chords, track.LocalEvents, track.StarPower))
+            foreach (TrackObject trackObject in new Collections.Alternating.OrderedAlternatingEnumerable<uint, TrackObject>(t => t.Position, track.Chords.OrderBy(c => c.Position), track.LocalEvents, track.StarPower))
                 switch (trackObject)
                 {
                     case TChord chord:
-                        foreach (string value in chord.GetChartData(session, ignored))
+                        foreach (string value in chord.GetChartData(previousChord, session, ignored))
                             yield return GetLine(trackObject.Position.ToString(), value);
+                        previousChord = chord;
                         break;
                     case LocalEvent e:
                         yield return GetEventLine(e);
