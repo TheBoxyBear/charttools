@@ -5,7 +5,7 @@ namespace ChartTools.IO.Chart
     /// <summary>
     /// Provides methods for reading and writing chart files
     /// </summary>
-    internal static partial class ChartParser
+    public static partial class ChartParser
     {
         /// <summary>
         /// Line of chart file data
@@ -87,7 +87,7 @@ namespace ChartTools.IO.Chart
             /// </summary>
             internal byte NoteIndex { get; }
             /// <summary>
-            /// Value of <see cref="Note.SustainLength"/>
+            /// Value of <see cref="Note.Length"/>
             /// </summary>
             internal uint SustainLength { get; }
 

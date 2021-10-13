@@ -1,10 +1,16 @@
-﻿using System;
+﻿using ChartTools.SystemExtensions;
+using ChartTools.SystemExtensions.Linq;
+using ChartTools.Tools.Optimizing;
+
+using System;
 using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart
 {
-    internal static partial class ChartParser
+    public static partial class ChartParser
     {
+        internal delegate bool IncludeNotePolicy(uint position, byte noteIndex, ICollection<byte> ignored);
+
         /// <summary>
         /// Part names of <see cref="Instruments"/> without the difficulty
         /// </summary>
@@ -29,5 +35,38 @@ namespace ChartTools.IO.Chart
         private static string GetFullPartName(Instruments instrument, Difficulty difficulty) => Enum.IsDefined(typeof(Difficulty), difficulty)
                 ? $"{difficulty}{partNames[instrument]}"
                 : throw new ArgumentException("Difficulty is undefined.");
+
+        private static bool IncludeSyncTrackAllPolicy(uint position, ICollection<uint> ignored, string objectName) => true;
+        private static bool IncludeSyncTrackFirstPolicy(uint position, ICollection<uint> ignored, string objectName)
+        {
+            if (ignored.Contains(position))
+                return false;
+
+            ignored.Add(position);
+            return true;
+        }
+        private static bool IncludeSyncTrackExceptionPolicy(uint position, ICollection<uint> ignored, string objectName)
+        {
+            if (ignored.Contains(position))
+                throw new Exception($"Duplicate {objectName} on position {position}");
+
+            ignored.Add(position);
+            return true;
+        }
+
+        private static void ApplyOverlappingStarPowerPolicy(UniqueTrackObjectCollection<StarPowerPhrase> starPower, OverlappingStarPowerPolicy policy)
+        {
+            switch (policy)
+            {
+                case OverlappingStarPowerPolicy.Cut:
+                    starPower.CutLengths();
+                    break;
+                case OverlappingStarPowerPolicy.ThrowException:
+                    foreach ((var previous, var current) in starPower.RelativeLoop())
+                        if (Optimizer.LengthNeedsCut(previous!, current!))
+                            throw new Exception($"Overlapping star power phrases at position {current!.Position}");
+                    break;
+            }
+        }
     }
 }

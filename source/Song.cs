@@ -61,6 +61,7 @@ namespace ChartTools
         /// Set of keyboard tracks
         /// </summary>
         public Instrument<StandardChord>? Keys { get; set; }
+        public Instrument<Phrase>? Vocals { get; set; }
         #endregion
 
         /// <summary>
@@ -78,6 +79,7 @@ namespace ChartTools
             Instruments.CoopGuitar => CoopGuitar,
             Instruments.Bass => Bass,
             Instruments.Keys => Keys,
+            Instruments.Vocals => Vocals,
             _ => throw new Exception("Instrument does not exist.")
         };
         /// <summary>
@@ -92,7 +94,7 @@ namespace ChartTools
         /// <param name="instrument">Instrument to get</param>
         /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="StandardChord"/> from the <see cref="Song"/>.</returns>
         public Instrument<StandardChord>? GetInstrument(StandardInstrument instrument) => GetInstrument((Instruments)instrument) as Instrument<StandardChord>;
-        public IEnumerable<Instrument> GetInstruments() => new Instrument?[] { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys }.NonNull();
+        public IEnumerable<Instrument?> GetInstruments() => new Instrument?[] { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys }.NonNull();
 
         /// <summary>
         /// Reads a <see cref="Song"/> from a file.

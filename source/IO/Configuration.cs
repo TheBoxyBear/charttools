@@ -1,6 +1,17 @@
 ﻿namespace ChartTools.IO
 {
-
+    /// <summary>
+    /// Defines how overlapping star power phrases should be handled
+    /// </summary>
+    public enum OverlappingStarPowerPolicy : byte
+    {
+        Ignore,
+        /// <summary>
+        /// The length of the phrase is cut short to the start of the next one
+        /// </summary>
+        Cut,
+        ThrowException
+    }
     /// <summary>
     /// Difficulty of the <see cref="Track"/> to serve as a source of for track objects common to all difficulties to use for all tracks in the same <see cref="Instrument"/>
     /// <para>Common track objects are:<list type="bullet">
@@ -36,12 +47,16 @@
     /// <summary>
     /// Defines how chords with a set of incompatible modifiers are handled
     /// </summary>
-    public enum IncompatibleModifiersPolicy
+    public enum IncompatibleModifierCombinationPolicy : byte
     {
         /// <summary>
         /// All modifiers are included
         /// </summary>
         IncludeAll,
+        /// <summary>
+        /// Only the first modifier is included
+        /// </summary>
+        IncludeFirst,
         /// <summary>
         /// The modifiers are excluded
         /// </summary>
@@ -68,9 +83,9 @@
         ThrowException
     }
     /// <summary>
-    /// Hopo threshold to prioritize if included in the metadata and configuration
+    /// Hopo threshold to use if included in the metadata and configuration
     /// </summary>
-    public enum HopoThresholdPriority
+    public enum HopoThresholdPriority : byte
     {
         /// <summary>
         /// Get the threshold from metadata
@@ -84,7 +99,7 @@
     /// <summary>
     /// Defines how to handle chord modifiers not supported by the target format
     /// </summary>
-    public enum UnsupportedModifierPolicy
+    public enum UnsupportedModifierPolicy : byte
     {
         /// <summary>
         /// The modifier is excluded
@@ -94,50 +109,50 @@
         /// The chord is excluded
         /// </summary>
         IgnoreChord,
-        /// <summary>
-        /// The modifier is converted to a compatible one
-        /// </summary>
-        Convert,
         ThrowException
+    }
+    public enum UnsupportedVocalsSource : byte
+    {
+        GlobalEvents,
+        Vocals
+    }
+
+    public class CommonConfiguration
+    {
+        /// <inheritdoc cref="IO.OverlappingStarPowerPolicy"/>
+        public OverlappingStarPowerPolicy OverlappingStarPowerPolicy { get; init; }
+        /// <inheritdoc cref="IO.SoloNoStarPowerPolicy"/>
+        public SoloNoStarPowerPolicy SoloNoStarPowerPolicy { get; init; }
+        /// <inheritdoc cref="IO.DuplicateTrackObjectPolicy"/>
+        public DuplicateTrackObjectPolicy DuplicateTrackObjectPolicy { get; init; }
     }
 
     /// <summary>
     /// Configuration object to direct the reading of a file
     /// </summary>
-    public class ReadingConfiguration
+    public class ReadingConfiguration : CommonConfiguration
     {
-        /// <inheritdoc cref="SoloNoStarPowerPolicy"/>
-        public SoloNoStarPowerPolicy SoloNoStarPowerRule { get; init; }
-        /// <summary>
-        /// *Unsupported*
-        /// </summary>
-        public DuplicateTrackObjectPolicy DuplicateTrackObjectPolicy { get; init; }
-        public IncompatibleModifiersPolicy IncompatibleModifiersPolicy { get; init; }
+        /// <inheritdoc cref="IO.IncompatibleModifierCombinationPolicy"/>
+        public IncompatibleModifierCombinationPolicy IncompatibleModifierCombinationPolicy { get; init; }
     }
 
-    public class WritingConfiguration
+    public class WritingConfiguration : CommonConfiguration
     {
-        /// <inheritdoc cref="SoloNoStarPowerPolicy">
-        public SoloNoStarPowerPolicy SoloNoStarPowerPolicy { get; init; }
-        /// <inheritdoc cref="TrackObjectSource">
         public TrackObjectSource EventSource { get; init; }
-        /// <inheritdoc cref="TrackObjectSource"/>
         public TrackObjectSource StarPowerSource { get; init; }
-        /// <summary>
-        /// *Unsupported*
-        /// </summary>
-        public DuplicateTrackObjectPolicy DuplicateTrackObjectPolicy { get; init; }
-        /// <summary>
-        /// *Unsupported*
-        /// </summary>
+        /// <inheritdoc cref="IO.HopoThresholdPriority"/>
         public HopoThresholdPriority HopoThresholdPriority { get; init; }
         /// <summary>
-        /// *Unsupported*
+        /// *Currently unsupported*
         /// </summary>
         public uint? HopoTreshold { get; init; } = null;
         /// <summary>
-        /// *Unsupported*
+        /// *Currently unsupported*
         /// </summary>
         public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }
+        /// <summary>
+        /// *Currently unsupported*
+        /// </summary>
+        public UnsupportedVocalsSource UnsupportedVocalsSource { get; init; }
     }
 }

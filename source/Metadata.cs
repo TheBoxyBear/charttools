@@ -79,7 +79,7 @@ namespace ChartTools
         /// <summary>
         /// Number of <see cref="TrackObject.Position"/> values per beat
         /// </summary>
-        public ushort Resolution { get; set; }
+        public ushort? Resolution { get; set; }
         /// <summary>
         /// Offset of the audio track in milliseconds. A higher value makes the audio start sooner.
         /// </summary>
@@ -104,6 +104,7 @@ namespace ChartTools
         /// The song is a modchart
         /// </summary>
         public bool IsModchart { get; set; }
+        public uint? HopoThreashold { get; set; }
         public UniqueList<MetadataItem> UnidentifiedData { get; } = new((a, b) => a.Key == b.Key);
         #endregion
 

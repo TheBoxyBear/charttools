@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31612.314
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChartTools", "source\ChartTools.csproj", "{7EB1F0D4-AAB4-4649-B506-7D98286CE387}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChartToolsNet5", "source\ChartToolsNet5.csproj", "{7EB1F0D4-AAB4-4649-B506-7D98286CE387}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChartTools.Tests", "ChartTools.Tests\ChartTools.Tests.csproj", "{A5A22025-AFC9-49D2-A338-CAE8EA750E18}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Debug", "Debug\Debug.csproj", "{CB6E134F-CF04-485C-B602-987FCE202BEB}"

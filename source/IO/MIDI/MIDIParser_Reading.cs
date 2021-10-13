@@ -212,7 +212,7 @@ namespace ChartTools.IO.MIDI
                         GetParentChord(noteOnEvent, position);
                         sustainOrigins[noteEnum] = chord;
 
-                        chord!.Notes.Add(new(noteEnum));
+                        chord!.Notes.Add(new Note<StandardLane>(noteEnum));
 
                         if (newChord)
                             chords.Add(chord);
@@ -233,7 +233,7 @@ namespace ChartTools.IO.MIDI
                             Note<StandardLane>? note = ch?.Notes[noteEnum];
 
                             if (note is not null)
-                                note.SustainLength = position - ch!.Position;
+                                note.Length = position - ch!.Position;
                         }
                         break;
                 }
@@ -289,7 +289,7 @@ namespace ChartTools.IO.MIDI
                 }
 
             // File must be interpreted as old MIDI where solo and soloend events define star power
-            bool convertEvent = midiConfig.SoloNoStarPowerRule == SoloNoStarPowerPolicy.Convert && starPower.Count == 0;
+            bool convertEvent = midiConfig.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && starPower.Count == 0;
 
             // Second pass checking text events
             foreach (TextEvent e in events.OfType<TextEvent>())

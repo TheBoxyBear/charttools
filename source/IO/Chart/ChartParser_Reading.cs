@@ -1,5 +1,6 @@
-﻿using ChartTools.Lyrics;
+using ChartTools.Lyrics;
 using ChartTools.SystemExtensions.Linq;
+using ChartTools.Tools.Optimizing;
 
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,27 @@ namespace ChartTools.IO.Chart
     /// <summary>
     /// Provides methods for reading chart files
     /// </summary>
-    internal static partial class ChartParser
+    public static partial class ChartParser
     {
-        internal static readonly ReadingConfiguration DefaultReadConfig = new() { SoloNoStarPowerRule = SoloNoStarPowerPolicy.Convert };
-        private delegate void NoteCase<TChord>(Track<TChord> track, ref TChord? chord, uint position, NoteData data, ref bool newChord) where TChord : Chord;
+        public static ReadingConfiguration DefaultReadConfig = new()
+        {
+            DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
+            SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
+            IncompatibleModifierCombinationPolicy = IncompatibleModifierCombinationPolicy.ThrowException,
+        };
+
+        private class ReadingSession
+        {
+            public ReadingConfiguration Configuration { get; }
+
+            public ReadingSession(ReadingConfiguration? config)
+            {
+                Configuration = config ?? DefaultReadConfig;
+            }
+        }
+
+        private delegate void NoteCase<TChord>(Track<TChord> track, ref TChord? chord, uint position, NoteData data, ref bool newChord, out byte initialModifier) where TChord : Chord;
+        private delegate bool IncludeChordFromModifierPolicy(Chord chord, byte initialModifier);
 
         /// <summary>
         /// Reads a chart file.
@@ -30,20 +48,23 @@ namespace ChartTools.IO.Chart
             Song song = new();
             Type songType = typeof(Song);
 
-            // Add threads to read metadata, global events, sync track and drums
+            // Add threads to read metadata and global events
             List<Task> tasks = new()
             {
                 Task.Run(() => song.Metadata = GetMetadata(lines)),
-                Task.Run(() => song.GlobalEvents = GetGlobalEvents(lines, config).ToList()),
-                Task.Run(() => song.SyncTrack = GetSyncTrack(lines, config)),
-                Task.Run(() => song.Drums = GetInstrument(lines, part => GetDrumsTrack(part, config), partNames[Instruments.Drums]))
+                Task.Run(() => song.GlobalEvents = GetGlobalEvents(lines).ToList())
             };
+
+            ReadingSession session = new(config);
+
+            // Add threads to read sync track and drums
+            tasks.Add(Task.Run(() => song.SyncTrack = GetSyncTrack(lines, session)));
+            tasks.Add(Task.Run(() => song.Drums = GetInstrument(lines, part => GetDrumsTrack(part, session), partNames[Instruments.Drums])));
+
             // Add a thread to read each GHL instrument
-            foreach (GHLInstrument instrument in Enum.GetValues<GHLInstrument>())
-                tasks.Add(Task.Run(() => songType.GetProperty($"GHL{instrument}")!.SetValue(song, GetInstrument(lines, part => GetGHLTrack(part, config), partNames[(Instruments)instrument]))));
+            tasks.AddRange(Enum.GetValues<GHLInstrument>().Select(i => Task.Run(() => songType.GetProperty($"GHL{i}")!.SetValue(song, GetInstrument(lines, part => GetGHLTrack(part, session), partNames[(Instruments)i])))));
             // Add a thread to read each standard instrument
-            foreach (StandardInstrument instrument in Enum.GetValues<StandardInstrument>())
-                tasks.Add(Task.Run(() => songType.GetProperty(instrument.ToString())!.SetValue(song, GetInstrument(lines, part => GetStandardTrack(part, config), partNames[(Instruments)instrument]))));
+            tasks.AddRange(Enum.GetValues<StandardInstrument>().Select(i => Task.Run(() => songType.GetProperty(i.ToString())!.SetValue(song, GetInstrument(lines, part => GetStandardTrack(part, session), partNames[(Instruments)i])))));
 
             Task.WaitAll(tasks.ToArray());
 
@@ -83,7 +104,7 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to read</param>
         /// <inheritdoc cref="ReadFile(string)" path="/exception"/>
         /// <inheritdoc cref="GetDrumsTrack(IEnumerable{string}, ReadingConfiguration)(IEnumerable{string}, ReadingConfiguration)" path="/exception"/>
-        public static Instrument<DrumsChord>? ReadDrums(string path, ReadingConfiguration config) => GetInstrument(ReadFile(path).ToArray(), part => GetDrumsTrack(part, config), partNames[Instruments.Drums]);
+        public static Instrument<DrumsChord>? ReadDrums(string path, ReadingConfiguration ?config) => GetInstrument(ReadFile(path).ToArray(), part => GetDrumsTrack(part, new(config)), partNames[Instruments.Drums]);
         /// <summary>
         /// Reads a Guitar Hero Live instrument from a chart file.
         /// </summary>
@@ -93,7 +114,7 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to read</param>
         /// <inheritdoc cref="ReadFile(string)" path="/exception"/>
         /// <inheritdoc cref="GetGHLTrack(IEnumerable{string}, ReadingConfiguration)(IEnumerable{string}, ReadingConfiguration)" path="/exception"/>
-        public static Instrument<GHLChord>? ReadInstrument(string path, GHLInstrument instrument, ReadingConfiguration config) => GetInstrument(ReadFile(path).ToArray(), part => GetGHLTrack(part, config), partNames[(Instruments)instrument]);
+        public static Instrument<GHLChord>? ReadInstrument(string path, GHLInstrument instrument, ReadingConfiguration? config) => GetInstrument(ReadFile(path).ToArray(), part => GetGHLTrack(part, new(config)), partNames[(Instruments)instrument]);
         /// <summary>
         /// Reads a standard instrument from a chart file.
         /// </summary>
@@ -104,7 +125,7 @@ namespace ChartTools.IO.Chart
         /// <param name="instrument">Instrument to read</param>
         /// <inheritdoc cref="ReadFile(string)" path="/exception"/>
         /// <inheritdoc cref="GetStandardTrack(IEnumerable{string}, ReadingConfiguration)" path="/exception"/>
-        public static Instrument<StandardChord>? ReadInstrument(string path, StandardInstrument instrument, ReadingConfiguration config) => GetInstrument(ReadFile(path).ToArray(), part => GetStandardTrack(part, config), partNames[(Instruments)instrument]);
+        public static Instrument<StandardChord>? ReadInstrument(string path, StandardInstrument instrument, ReadingConfiguration? config) => GetInstrument(ReadFile(path).ToArray(), part => GetStandardTrack(part, new(config)), partNames[(Instruments)instrument]);
         /// <summary>
         /// Gets all data for an instrument from the contents of a chart file.
         /// </summary>
@@ -126,13 +147,9 @@ namespace ChartTools.IO.Chart
             if (tasks.Any(t => t.Result is not null))
             {
                 if (tasks.Any(t => t.Result is not null))
-                {
-                    Type instrumentType = typeof(Instrument<TChord>);
-
                     for (int i = 0; i < difficulties.Length; i++)
                         if (tasks[i].Result is not null)
-                            instrumentType.GetProperty(difficulties[i].ToString())!.SetValue(instrument, tasks[i].Result);
-                }
+                            instrument.SetTrack(tasks[i].Result!, difficulties[i]);
 
                 return instrument;
             }
@@ -178,7 +195,7 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="GetDrumsTrack(IEnumerable{string}, Difficulty, ReadingConfiguration), GHLInstrument, Difficulty, ReadingConfiguration)" path="/exception"/>
         /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
         /// <inheritdoc cref="GetFullPartName(Instruments, Difficulty)(IEnumerable{string}, string)" path="/exception"/>
-        public static Track<DrumsChord>? ReadDrumsTrack(string path, Difficulty difficulty, ReadingConfiguration? config) => GetDrumsTrack(ReadFile(path), difficulty, config);
+        public static Track<DrumsChord>? ReadDrumsTrack(string path, Difficulty difficulty, ReadingConfiguration? config) => GetDrumsTrack(ReadFile(path), difficulty, new(config));
         /// <summary>
         /// Gets a drums track from the contents of a chart file.
         /// </summary>
@@ -190,7 +207,7 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="GetDrumsTrack(IEnumerable{string}, ReadingConfiguration)" path="/exception"/>
         /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
         /// <inheritdoc cref="GetFullPartName(Instruments, Difficulty)(IEnumerable{string}, string)" path="/exception"/>
-        public static Track<DrumsChord>? GetDrumsTrack(IEnumerable<string> lines, Difficulty difficulty, ReadingConfiguration? config) => GetDrumsTrack(GetPart(lines, GetFullPartName(Instruments.Drums, difficulty)), config);
+        private static Track<DrumsChord>? GetDrumsTrack(IEnumerable<string> lines, Difficulty difficulty, ReadingSession session) => GetDrumsTrack(GetPart(lines, GetFullPartName(Instruments.Drums, difficulty)), session);
         /// <summary>
         /// Gets all data from a portion of a chart file containing a drums track.
         /// </summary>
@@ -199,7 +216,7 @@ namespace ChartTools.IO.Chart
         /// </returns>
         /// <param name="part">Lines of the file belonging to the track</param>
         /// <inheritdoc cref="GetTrack{TChord}(IEnumerable{string}, Func{Track{TChord}, TChord, TrackObjectEntry, NoteData, bool, TChord}, ReadingConfiguration)" path="/exception"/>
-        public static Track<DrumsChord>? GetDrumsTrack(IEnumerable<string> part, ReadingConfiguration? config) => GetTrack<DrumsChord>(part, DrumsNoteCase, config);
+        private static Track<DrumsChord>? GetDrumsTrack(IEnumerable<string> part, ReadingSession session) => GetTrack<DrumsChord>(part, DrumsNoteCase, session);
 
         /// <summary>
         /// Reads a Guitar Hero Live track from a chart file.
@@ -213,7 +230,7 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="GetGHLTrack(IEnumerable{string}, GHLInstrument, Difficulty, ReadingConfiguration)" path="/exception"/>
         /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
         /// <inheritdoc cref="GetFullPartName(Instruments, Difficulty)(IEnumerable{string}, string)" path="/exception"/>
-        public static Track<GHLChord>? ReadTrack(string path, GHLInstrument instrument, Difficulty difficulty, ReadingConfiguration? config) => GetGHLTrack(ReadFile(path), instrument, difficulty, config);
+        public static Track<GHLChord>? ReadTrack(string path, GHLInstrument instrument, Difficulty difficulty, ReadingConfiguration? config) => GetGHLTrack(ReadFile(path), instrument, difficulty, new(config));
         /// <summary>
         /// Gets a Guitar Hero Live track from the contents of a chart file.
         /// </summary>
@@ -226,7 +243,7 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="GetGHLTrack(IEnumerable{string}, GHLInstrument, Difficulty, ReadingConfiguration)" path="/exception"/>
         /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
         /// <inheritdoc cref="GetFullPartName(Instruments, Difficulty)(IEnumerable{string}, string)" path="/exception"/>
-        private static Track<GHLChord>? GetGHLTrack(IEnumerable<string> lines, GHLInstrument instrument, Difficulty difficulty, ReadingConfiguration? config) => GetGHLTrack(GetPart(lines, GetFullPartName((Instruments)instrument, difficulty)), config);
+        private static Track<GHLChord>? GetGHLTrack(IEnumerable<string> lines, GHLInstrument instrument, Difficulty difficulty, ReadingSession session) => GetGHLTrack(GetPart(lines, GetFullPartName((Instruments)instrument, difficulty)), session);
         /// <summary>
         /// Gets all data from a portion of a chart file containing a Guitar Hero Live track.
         /// </summary>
@@ -235,7 +252,7 @@ namespace ChartTools.IO.Chart
         /// </returns>
         /// <param name="part">Lines in the file belonging to the track</param>
         /// <inheritdoc cref="GetTrack{TChord}(IEnumerable{string}, Func{Track{TChord}, TChord, TrackObjectEntry, NoteData, bool, TChord}, ReadingConfiguration)" path="/exception"/>
-        private static Track<GHLChord>? GetGHLTrack(IEnumerable<string> part, ReadingConfiguration? config) => GetTrack<GHLChord>(part, GHLNoteCase, config);
+        private static Track<GHLChord>? GetGHLTrack(IEnumerable<string> part, ReadingSession session) => GetTrack<GHLChord>(part, GHLNoteCase, session);
 
         /// <summary>
         /// Reads a standard track from a chart file.
@@ -248,7 +265,7 @@ namespace ChartTools.IO.Chart
         /// <param name="difficulty">Difficulty of the track</param>
         /// <inheritdoc cref="GetStandardTrack(IEnumerable{string}, StandardInstrument, Difficulty, ReadingConfiguration)"/>
         /// <inheritdoc cref="ReadFile(string)" path="/exception"/>
-        public static Track<StandardChord>? ReadTrack(string path, StandardInstrument instrument, Difficulty difficulty, ReadingConfiguration config) => GetStandardTrack(ReadFile(path), instrument, difficulty, config);
+        public static Track<StandardChord>? ReadTrack(string path, StandardInstrument instrument, Difficulty difficulty, ReadingConfiguration? config) => GetStandardTrack(ReadFile(path), instrument, difficulty, new(config));
         /// <summary>
         /// Gets a standard track from the contents of a chart file.
         /// </summary>
@@ -261,7 +278,7 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="GetTrack{TChord}(IEnumerable{string}, Func{Track{TChord}, TChord, TrackObjectEntry, NoteData, bool, TChord}, ReadingConfiguration)" path="/exception"/>
         /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
         /// <inheritdoc cref="GetFullPartName(Instruments, Difficulty)(IEnumerable{string}, string)" path="/exception"/>
-        private static Track<StandardChord>? GetStandardTrack(IEnumerable<string> lines, StandardInstrument instrument, Difficulty difficulty, ReadingConfiguration config) => GetStandardTrack(GetPart(lines, GetFullPartName((Instruments)instrument, difficulty)), config);
+        private static Track<StandardChord>? GetStandardTrack(IEnumerable<string> lines, StandardInstrument instrument, Difficulty difficulty, ReadingSession session) => GetStandardTrack(GetPart(lines, GetFullPartName((Instruments)instrument, difficulty)), session);
         /// <summary>
         /// Gets all data from a portion of a chart file containing a standard track.
         /// </summary>
@@ -270,7 +287,7 @@ namespace ChartTools.IO.Chart
         /// </returns>
         /// <param name="part">Lines in the file belonging to the track</param>
         /// <inheritdoc cref="GetTrack{TChord}(IEnumerable{string}, Func{Track{TChord}, TChord, TrackObjectEntry, NoteData, bool, TChord}, ReadingConfiguration)" path="/exception"/>
-        private static Track<StandardChord>? GetStandardTrack(IEnumerable<string> part, ReadingConfiguration? config) => GetTrack<StandardChord>(part, StandardNoteCase, config);
+        private static Track<StandardChord>? GetStandardTrack(IEnumerable<string> part, ReadingSession session) => GetTrack<StandardChord>(part, StandardNoteCase, session);
 
         /// <summary>
         /// Gets a track from a portion of a chart file.
@@ -281,35 +298,12 @@ namespace ChartTools.IO.Chart
         /// <param name="part">Lines in the file belonging to the track</param>
         /// <param name="noteCase">Function that handles entries containing note data. Must return the same chord received as a parameter.</param>
         /// <exception cref="FormatException"/>
-        private static Track<TChord>? GetTrack<TChord>(IEnumerable<string> part, NoteCase<TChord> noteCase, ReadingConfiguration? config) where TChord : Chord
+        private static Track<TChord>? GetTrack<TChord>(IEnumerable<string> part, NoteCase<TChord> noteCase, ReadingSession session) where TChord : Chord
         {
-            config ??= DefaultReadConfig;
             Track<TChord> track = new();
             TChord? chord = null;
             bool newChord = true;
-            HashSet<(uint, byte)> ignoredNotes = new();
-            Func<uint, NoteData, bool> includeNote = config.DuplicateTrackObjectPolicy switch
-            {
-                DuplicateTrackObjectPolicy.IncludeAll => (_, _) => true,
-                DuplicateTrackObjectPolicy.IncludeFirst => (position, data) =>
-                {
-                    if (ignoredNotes.Contains((position, data.NoteIndex)))
-                        return false;
-
-                    ignoredNotes.Add((position, data.NoteIndex));
-                    return true;
-                },
-                DuplicateTrackObjectPolicy.ThrowException => (position, data) =>
-                {
-                    if (ignoredNotes.Contains((position, data.NoteIndex)))
-                        throw new Exception("Duplicate chord"); // TODO Make better exception
-                    else
-                    {
-                        ignoredNotes.Add((position, data.NoteIndex));
-                        return true;
-                    }
-                },
-            };
+            HashSet<byte> ignoredNotes = new();
 
             foreach (string line in part)
             {
@@ -331,10 +325,13 @@ namespace ChartTools.IO.Chart
                         try
                         {
                             data = new(entry.Data);
-                            noteCase(track, ref chord, entry.Position, data, ref newChord);
+                            noteCase(track, ref chord, entry.Position, data, ref newChord, out byte initialModifier);
 
-                            if (includeNote(entry.Position, data) && newChord)
+                            if (newChord)
+                            {
                                 track.Chords.Add(chord!);
+                                ignoredNotes.Clear();
+                            }
                         }
                         catch (Exception e) { throw GetLineException(line, e); }
 
@@ -354,18 +351,16 @@ namespace ChartTools.IO.Chart
                         break;
                 }
 
-                if (config.SoloNoStarPowerRule == SoloNoStarPowerPolicy.Convert)
+                if (session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert)
                     track.StarPower.AddRange(track.SoloToStarPower(true));
             }
 
-            // Return null if no data
-            return track.Chords.Count == 0
-                && track.LocalEvents!.Count == 0
-                && track.StarPower.Count == 0
-                ? null : track;
+            ApplyOverlappingStarPowerPolicy(track.StarPower, session.Configuration.OverlappingStarPowerPolicy);
+
+            return track;
         }
 
-        private static void DrumsNoteCase(Track<DrumsChord> track, ref DrumsChord? chord, uint position, NoteData data, ref bool newChord)
+        private static void DrumsNoteCase(Track<DrumsChord> track, ref DrumsChord? chord, uint position, NoteData data, ref bool newChord, out byte initialModifier)
         {
             // Find the parent chord or create it
             if (chord is null)
@@ -375,15 +370,17 @@ namespace ChartTools.IO.Chart
             else
                 newChord = false;
 
+            initialModifier = chord!.ModifierKey;
+
             switch (data.NoteIndex)
             {
                 // Note
                 case < 5:
-                    chord!.Notes.Add(new((DrumsLane)data.NoteIndex) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new DrumsNote((DrumsLane)data.NoteIndex) { Length = data.SustainLength });
                     break;
                 // Double kick
                 case 32:
-                    chord!.Notes.Add(new(DrumsLane.DoubleKick));
+                    chord!.Notes.Add(new DrumsNote(DrumsLane.DoubleKick));
                     break;
                 // Cymbal
                 case > 65 and < 69:
@@ -396,7 +393,7 @@ namespace ChartTools.IO.Chart
 
                     if (returnedDefault)
                     {
-                        chord.Notes.Add(new((DrumsLane)seekedIndex) { IsCymbal = true, SustainLength = data.SustainLength });
+                        chord.Notes.Add(new DrumsNote((DrumsLane)seekedIndex) { IsCymbal = true, Length = data.SustainLength });
                         returnedDefault = false;
                     }
                     else
@@ -408,7 +405,7 @@ namespace ChartTools.IO.Chart
             }
 
         }
-        private static void GHLNoteCase(Track<GHLChord> track, ref GHLChord? chord, uint position, NoteData data, ref bool newChord)
+        private static void GHLNoteCase(Track<GHLChord> track, ref GHLChord? chord, uint position, NoteData data, ref bool newChord, out byte initialModifier)
         {
             // Find the parent chord or create it
             if (chord is null)
@@ -417,32 +414,34 @@ namespace ChartTools.IO.Chart
                 chord = track.Chords.FirstOrDefault(c => c.Position == position, new(position), out newChord);
             else
                 newChord = false;
+
+            initialModifier = chord!.ModifierKey;
 
             switch (data.NoteIndex)
             {
                 // White notes
                 case < 3:
-                    chord!.Notes.Add(new((GHLLane)(data.NoteIndex + 4)) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new Note<GHLLane>((GHLLane)(data.NoteIndex + 4)) { Length = data.SustainLength });
                     break;
                 // Black 1 and 2
                 case < 5:
-                    chord!.Notes.Add(new((GHLLane)(data.NoteIndex - 2)) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new Note<GHLLane>((GHLLane)(data.NoteIndex - 2)) { Length = data.SustainLength });
                     break;
                 case 5:
-                    chord!.Modifier |= GHLChordModifier.Invert;
-                    break;
+                    chord!.Modifier |= GHLChordModifier.HopoInvert;
+                    return;
                 case 6:
                     chord!.Modifier |= GHLChordModifier.Tap;
-                    break;
+                    return;
                 case 7:
-                    chord!.Notes.Add(new(GHLLane.Open) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new Note<GHLLane>(GHLLane.Open) { Length = data.SustainLength });
                     break;
                 case 8:
-                    chord!.Notes.Add(new(GHLLane.Black3) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new Note<GHLLane>(GHLLane.Black3) { Length = data.SustainLength });
                     break;
             }
         }
-        private static void StandardNoteCase(Track<StandardChord> track, ref StandardChord? chord, uint position, NoteData data, ref bool newChord)
+        private static void StandardNoteCase(Track<StandardChord> track, ref StandardChord? chord, uint position, NoteData data, ref bool newChord, out byte initialModifier)
         {
             // Find the parent chord or create it
             if (chord is null)
@@ -452,20 +451,22 @@ namespace ChartTools.IO.Chart
             else
                 newChord = false;
 
+            initialModifier = chord!.ModifierKey;
+
             switch (data.NoteIndex)
             {
                 // Colored note
                 case < 5:
-                    chord!.Notes.Add(new((StandardLane)(data.NoteIndex + 1)) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new Note<StandardLane>((StandardLane)(data.NoteIndex + 1)) { Length = data.SustainLength });
                     break;
                 case 5:
-                    chord!.Modifier |= StandardChordModifier.Invert;
-                    break;
+                    chord!.Modifier |= StandardChordModifier.HopoInvert;
+                    return;
                 case 6:
                     chord!.Modifier |= StandardChordModifier.Tap;
-                    break;
+                    return;
                 case 7:
-                    chord!.Notes.Add(new(StandardLane.Open) { SustainLength = data.SustainLength });
+                    chord!.Notes.Add(new Note<StandardLane>(StandardLane.Open) { Length = data.SustainLength });
                     break;
             }
         }
@@ -615,7 +616,7 @@ namespace ChartTools.IO.Chart
         /// <returns>Enumerable of <see cref="Phrase"/> containing the lyrics from the file</returns>
         /// <param name="path">Path of the file to read</param>
         /// <inheritdoc cref="ReadGlobalEvents(string)(string[])" path="/exception"/>
-        public static IEnumerable<Phrase> ReadLyrics(string path, ReadingConfiguration? config) => ReadGlobalEvents(path, config).GetLyrics();
+        public static IEnumerable<Phrase> ReadLyrics(string path) => ReadGlobalEvents(path).GetLyrics();
 
         /// <summary>
         /// Reads the global events from a chart file.
@@ -624,7 +625,7 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file the read</param>
         /// <inheritdoc cref="GetGlobalEvents(string[])" path="/exception"/>
         /// <inheritdoc cref="ReadFile(string)" path="/exception"/>
-        public static IEnumerable<GlobalEvent> ReadGlobalEvents(string path, ReadingConfiguration? config) => GetGlobalEvents(ReadFile(path), config);
+        public static IEnumerable<GlobalEvent> ReadGlobalEvents(string path) => GetGlobalEvents(ReadFile(path));
         /// <summary>
         /// Gets the global events from the contents of a chart file.
         /// </summary>
@@ -632,10 +633,8 @@ namespace ChartTools.IO.Chart
         /// <returns>Enumerable of <see cref="GlobalEvent"/></returns>
         /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
         /// <inheritdoc cref="TrackObjectEntry(string)" path="/exception"/>
-        private static IEnumerable<GlobalEvent> GetGlobalEvents(IEnumerable<string> lines, ReadingConfiguration? config)
+        private static IEnumerable<GlobalEvent> GetGlobalEvents(IEnumerable<string> lines)
         {
-            config ??= default;
-
             foreach (string line in GetPart(lines, "Events"))
             {
                 TrackObjectEntry entry;
@@ -656,7 +655,7 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to read</param>
         /// <inheritdoc cref="GetSyncTrack(string[])" path="/exception"/>
         /// <inheritdoc cref="ReadFile(string)" path="/exception"/>
-        public static SyncTrack? ReadSyncTrack(string path, ReadingConfiguration? config) => GetSyncTrack(ReadFile(path).ToArray(), config);
+        public static SyncTrack? ReadSyncTrack(string path, ReadingConfiguration? config) => GetSyncTrack(ReadFile(path).ToArray(), new(config));
         /// <summary>
         /// Gets the sync track from the contents of a chart file.
         /// </summary>
@@ -667,32 +666,16 @@ namespace ChartTools.IO.Chart
         /// <exception cref="FormatException"/>
         /// <inheritdoc cref="TrackObjectEntry(string)" path="/exception"/>
         /// <inheritdoc cref="GetPart(IEnumerable{string}, string)" path="/exception"/>
-        private static SyncTrack? GetSyncTrack(string[] lines, ReadingConfiguration? config)
+        private static SyncTrack? GetSyncTrack(string[] lines, ReadingSession session)
         {
-            config ??= DefaultReadConfig;
             SyncTrack syncTrack = new();
             HashSet<uint> ignoredTempos = new(), ignoredAnchors = new(), ignoredSignatures = new();
 
-            Func<uint, HashSet<uint>, bool> includeObject = config.DuplicateTrackObjectPolicy switch
+            Func<uint, HashSet<uint>, string, bool> includeObject = session.Configuration.DuplicateTrackObjectPolicy switch
             {
-                DuplicateTrackObjectPolicy.IncludeAll => (_, _) => true,
-                DuplicateTrackObjectPolicy.IncludeFirst => (position, ignored) =>
-                {
-                    if (ignored.Contains(position))
-                        return false;
-
-                    ignored.Add(position);
-                    return true;
-                }
-                ,
-                DuplicateTrackObjectPolicy.ThrowException => (position, ignored) =>
-                {
-                    if (ignored.Contains(position))
-                        throw new Exception("Duplicate chord"); // TODO Make better exception;
-
-                    ignored.Add(position);
-                    return true;
-                }
+                DuplicateTrackObjectPolicy.IncludeAll => IncludeSyncTrackAllPolicy,
+                DuplicateTrackObjectPolicy.IncludeFirst => IncludeSyncTrackFirstPolicy,
+                DuplicateTrackObjectPolicy.ThrowException => IncludeSyncTrackExceptionPolicy
             };
 
             foreach (string line in GetPart(lines, "SyncTrack"))
@@ -707,7 +690,7 @@ namespace ChartTools.IO.Chart
                 {
                     // Time signature
                     case "TS":
-                        if (!includeObject(entry.Position, ignoredSignatures))
+                        if (!includeObject(entry.Position, ignoredSignatures, "time signature"))
                             break;
 
                         string[] split = GetDataSplit(entry.Data);
@@ -733,7 +716,7 @@ namespace ChartTools.IO.Chart
                         break;
                     // Tempo
                     case "B":
-                        if (!includeObject(entry.Position, ignoredTempos))
+                        if (!includeObject(entry.Position, ignoredTempos, "tempo marker"))
                             break;
 
                         // Floats are written by rounding to the 3rd decimal and removing the decimal point
@@ -752,7 +735,7 @@ namespace ChartTools.IO.Chart
                         break;
                     // Anchor
                     case "A":
-                        if (!includeObject(entry.Position, ignoredAnchors))
+                        if (!includeObject(entry.Position, ignoredAnchors, "tempo anchor"))
                             break;
 
                         // Floats are written by rounding to the 3rd decimal and removing the decimal point
@@ -794,7 +777,7 @@ namespace ChartTools.IO.Chart
                 {
                     string? line = reader.ReadLine();
 
-                    if (line is not null or "")
+                    if (!string.IsNullOrEmpty(line))
                         yield return line;
                 }
         }
