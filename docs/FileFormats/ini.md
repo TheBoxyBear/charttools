@@ -121,10 +121,10 @@ Typically, a value of -1 is used in number values to specify that the value does
 | `keys_type`                  | Sample sound set for Keyboard.                                                       | number           | |
 | `dance_type`                 | Unsure.                                                                              | number           | |
 | `vocal_gender`               | Specifies a voice type for the singer (male or female voice).                        | string           | |
-| `real_guitar_tuning`         | Specifies a tuning for 17-fret Pro Guitar.                                           | number[4, 5, or 6], string (optional) | `0 0 0 0 0 0 "Standard tuning"` |
-| `real_guitar_22_tuning`      | Specifies a tuning for 22-fret Pro Guitar.                                           | number[4, 5, or 6], string (optional) | `0 2 5 7 10 10` |
-| `real_bass_tuning`           | Specifies a tuning for 17-fret Pro Bass.                                             | number[4, 5, or 6], string (optional) | `-2 0 0 0 "Drop D tuning"` |
-| `real_bass_22_tuning`        | Specifies a tuning for 22-fret Pro Bass.                                             | number[4, 5, or 6], string (optional) | `0 0 0 0 0` |
+| `real_guitar_tuning`         | Specifies a tuning for 17-fret Pro Guitar in semitones higher/lower than standard.   | number[4, 5, or 6], string (optional) | `0 0 0 0 0 0 "Standard tuning"` |
+| `real_guitar_22_tuning`      | Specifies a tuning for 22-fret Pro Guitar in semitones higher/lower than standard.   | number[4, 5, or 6], string (optional) | `0 2 5 7 10 10` |
+| `real_bass_tuning`           | Specifies a tuning for 17-fret Pro Bass in semitones higher/lower than standard.     | number[4, 5, or 6], string (optional) | `-2 0 0 0 "Drop D tuning"` |
+| `real_bass_22_tuning`        | Specifies a tuning for 22-fret Pro Bass in semitones higher/lower than standard.     | number[4, 5, or 6], string (optional) | `0 0 0 0 0` |
 | `real_keys_lane_count_right` | Specifies the number of lanes for the right hand in Real Keys.                       | number           | |
 | `real_keys_lane_count_left`  | Specifies the number of lanes for the left hand in Real Keys.                        | number           | |
 | `eof_midi_import_drum_accent_velocity` | Tells Editor on Fire that drum notes at this velocity should be imported as accents. | number | |
