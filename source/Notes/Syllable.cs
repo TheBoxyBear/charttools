@@ -26,14 +26,14 @@ namespace ChartTools.Lyrics
         /// <summary>
         /// The syllable as it is displayed in-game
         /// </summary>
-        public string DisplayedText => RawText.Replace("-", "").Replace('=', '-');
+        public string DisplayedText => RawText.Replace("-", "").Replace('=', '-').Trim('+', '#', '^', '*');
         /// <summary>
         /// <see langword="true"/> if is the last syllable or the only syllable of its word
         /// </summary>
         public bool IsWordEnd
         {
             // The last character is not - or =
-            get => RawText.Length == 0 || RawText[^1] is not '-' and not '=';
+            get => RawText.Length == 0 || RawText[^1] is '§' or '_' or not '-' and not '=';
             set
             {
                 if (value)
