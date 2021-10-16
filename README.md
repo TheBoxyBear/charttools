@@ -59,11 +59,12 @@ A track is composed of three elements:
 ## Chords and notes
 A chord is a set of notes played at the same time. All supported instruments use the generic version of the Chord class where the generic type defines the type of notes contained. The note types are the same as the types of instruments as listed in the section. The types for notes are:
 
-- Note\<StandardLane>
-- Note\<GHLLane>
+- LaneNote\<StandardLane>
+- LaneNote\<GHLLane>
 - DrumsNote
+- Syllable (Vocals)
 
-Drums is an exception case where a class is specifically defined as it contains exclusive properties. It inherits from Note\<DrumsFret>.
+Drums is an exception case where a class is specifically defined as it contains exclusive properties. It inherits from LaneNote\<DrumsFret>.
 
 The following adds an orange note to every chord on a track:
 ```c#
