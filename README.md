@@ -50,6 +50,7 @@ Notice the use of StandardChord used as a generic type. Instruments are divided 
 - Standard - Five colored notes
 - Drums - Five colored with support for double kick and cymbal flags
 - GHL (Guitar Hero Live) - Three black and three white notes
+- Vocals - Notes with an associated syllable. Onloy one note can be added for the same position.
 
 A track is composed of three elements:
 - Chords (defined by the generic type)
