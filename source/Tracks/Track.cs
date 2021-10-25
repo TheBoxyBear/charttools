@@ -24,7 +24,7 @@ namespace ChartTools
         /// <summary>
         /// Groups of notes of the same position
         /// </summary>
-        public abstract IEnumerable<Chord> Chords { get; }
+        public abstract IReadOnlyList<Chord> Chords { get; }
 
         internal IEnumerable<StarPowerPhrase> SoloToStarPower(bool removeEvents)
         {

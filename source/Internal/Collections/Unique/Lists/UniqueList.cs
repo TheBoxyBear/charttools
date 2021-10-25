@@ -12,7 +12,7 @@ namespace ChartTools.Collections.Unique
     /// List where all <typeparamref name="T"/> items must be unique using a given comparison
     /// </summary>
     /// <typeparam name="T">Type of the contained items</typeparam>
-    public class UniqueList<T> : IList<T>
+    public class UniqueList<T> : IList<T>, IReadOnlyList<T>
     {
         /// <summary>
         /// Source of items
