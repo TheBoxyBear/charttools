@@ -247,7 +247,7 @@ Events use the `E` type code, and are written like this:.
 
 `Event` is a string containing event data.
 
-Global event data should be surrounded by quotation marks. As a result, having quotation marks in global events is disallowed. However, some charters who want quotation marks in their lyrics might work around this by using `/"` or `"/"` if it goes before a syllable, and `"/` if it goes after. The CH PTB is able to parse quotation marks in events without these workarounds.
+Global event data should be surrounded by quotation marks. As a result, having quotation marks in global events is disallowed. However, some charters who want quotation marks in their lyrics might work around this by using `/"` or `"/"` if it goes before a syllable, and `"/` if it goes after. (This workaround was likely *not* intentional, just for the record.) The CH PTB is able to parse quotation marks in events without these workarounds.
 
 #### Common Global Events
 
