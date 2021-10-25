@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\source\ChartTools.csproj" />
+    <ProjectReference Include="..\Net6\Net6.csproj" />
   </ItemGroup>
 
 </Project>
