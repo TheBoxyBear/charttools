@@ -19,7 +19,6 @@ namespace ChartTools.IO.Chart
         {
             DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
             SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
-            IncompatibleModifierCombinationPolicy = IncompatibleModifierCombinationPolicy.ThrowException,
         };
 
         private class ReadingSession
@@ -33,7 +32,6 @@ namespace ChartTools.IO.Chart
         }
 
         private delegate void NoteCase<TChord>(Track<TChord> track, ref TChord? chord, uint position, NoteData data, ref bool newChord, out byte initialModifier) where TChord : Chord;
-        private delegate bool IncludeChordFromModifierPolicy(Chord chord, byte initialModifier);
 
         /// <summary>
         /// Reads a chart file.
@@ -409,7 +407,7 @@ namespace ChartTools.IO.Chart
         {
             // Find the parent chord or create it
             if (chord is null)
-                chord = new(position);
+                chord = new(position) { Modifier = GHLChordModifier.Relative };
             else if (position != chord.Position)
                 chord = track.Chords.FirstOrDefault(c => c.Position == position, new(position), out newChord);
             else
@@ -445,7 +443,7 @@ namespace ChartTools.IO.Chart
         {
             // Find the parent chord or create it
             if (chord is null)
-                chord = new(position);
+                chord = new(position) { Modifier = StandardChordModifier.Relative };
             else if (position != chord.Position)
                 chord = track.Chords.FirstOrDefault(c => c.Position == position, new(position), out newChord);
             else

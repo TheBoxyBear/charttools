@@ -130,11 +130,7 @@
     /// <summary>
     /// Configuration object to direct the reading of a file
     /// </summary>
-    public class ReadingConfiguration : CommonConfiguration
-    {
-        /// <inheritdoc cref="IO.IncompatibleModifierCombinationPolicy"/>
-        public IncompatibleModifierCombinationPolicy IncompatibleModifierCombinationPolicy { get; init; }
-    }
+    public class ReadingConfiguration : CommonConfiguration { }
 
     public class WritingConfiguration : CommonConfiguration
     {
@@ -145,7 +141,7 @@
         /// <summary>
         /// *Currently unsupported*
         /// </summary>
-        public uint? HopoTreshold { get; init; } = null;
+        public uint? HopoTreshold { get; init; }
         /// <summary>
         /// *Currently unsupported*
         /// </summary>
