@@ -7,16 +7,8 @@ namespace ChartTools
     /// <summary>
     /// Set of notes played simultaneously by a standard five-fret instrument
     /// </summary>
-    public class StandardChord : LaneChord<Note<StandardLane>, StandardLane>
+    public class StandardChord : LaneChord<Note<StandardLane>, StandardLane, StandardChordModifier>
     {
-        /// <inheritdoc cref="DrumsChordModifier"/>
-        public StandardChordModifier Modifier { get; set; }
-        public override byte ModifierKey
-        {
-            get => (byte)Modifier;
-            set => Modifier = (StandardChordModifier)value;
-        }
-
         protected override bool OpenExclusivity => true;
         public override LaneNoteCollection<Note<StandardLane>, StandardLane> Notes { get; }
 

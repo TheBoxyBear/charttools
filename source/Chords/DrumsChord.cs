@@ -1,5 +1,4 @@
-﻿using ChartTools.IO;
-using ChartTools.IO.Chart;
+﻿using ChartTools.IO.Chart;
 using System;
 using System.Collections.Generic;
 
@@ -8,15 +7,8 @@ namespace ChartTools
     /// <summary>
     /// Set of notes played simultaneously by drums
     /// </summary>
-    public class DrumsChord : LaneChord<DrumsNote, DrumsLane>
+    public class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModifier>
     {
-        /// <inheritdoc cref="DrumsChordModifier"/>
-        public DrumsChordModifier Modifier { get; set; }
-        public override byte ModifierKey
-        {
-            get => (byte)Modifier;
-            set => Modifier = (DrumsChordModifier)value;
-        }
         protected override bool OpenExclusivity => false;
 
         /// <inheritdoc cref="Chord(uint)"/>

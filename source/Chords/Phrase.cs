@@ -36,18 +36,6 @@ namespace ChartTools.Lyrics
         public uint SyllableStart => Notes.Count == 0 ? Position : Notes.MinBy(s => s.Position)!.Position;
         public uint SyllableEnd => Notes.Count == 0 ? EndPosition ?? Position : Notes.Select(s => s.Position + s.Length).Max();
 
-        private const string ModifierUnsupportedMessage = "Vocals do not support a modifier";
-        /// <summary>
-        /// *Required to inherit from <see cref="Chord{TNote, TLaneEnum}"/> but vocals do not support modifiers*
-        /// </summary>
-        /// <exception cref="NotSupportedException"/>
-        [Obsolete("Leftover from Chord<> inheritance. Vocals do not support modifiers")]
-        public override byte ModifierKey
-        {
-            get => throw new NotSupportedException(ModifierUnsupportedMessage);
-            set => throw new NotSupportedException(ModifierUnsupportedMessage);
-        }
-
         /// <summary>
         /// Gets the raw text of all syllables as a single string with spaces between syllables
         /// </summary>

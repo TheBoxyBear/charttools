@@ -52,15 +52,16 @@ namespace ChartTools
     /// </summary>
     [Flags] public enum GHLChordModifier : byte
     {
+        None = 0,
         /// <summary>
         /// The Hopo state is relative to the previous chord.
         /// </summary>
-        Relative,
+        Relative = 1,
         /// <summary>
         /// Forced Hopo or inverts the natural state if <see cref="Relative"/> is set.
         /// </summary>
-        HopoInvert,
-        Tap
+        HopoInvert = 2,
+        Tap = 4
     }
     /// <summary>
     /// Guitar Hero Live instruments
@@ -172,15 +173,16 @@ namespace ChartTools
     /// <remarks></remarks>
     [Flags] public enum StandardChordModifier : byte
     {
+        None = 0,
         /// <summary>
         /// The Hopo state is relative to the previous chord.
         /// </summary>
-        Relative,
+        Relative = 1,
         /// <summary>
         /// Forced Hopo or inverts the natural state if <see cref="Relative"/> is set.
         /// </summary>
-        HopoInvert,
-        Tap
+        HopoInvert = 2,
+        Tap = 4
     }
     /// <summary>
     /// Standard five-fret instruments

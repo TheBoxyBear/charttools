@@ -45,29 +45,6 @@
         Convert
     }
     /// <summary>
-    /// Defines how chords with a set of incompatible modifiers are handled
-    /// </summary>
-    public enum IncompatibleModifierCombinationPolicy : byte
-    {
-        /// <summary>
-        /// All modifiers are included
-        /// </summary>
-        IncludeAll,
-        /// <summary>
-        /// Only the first modifier is included
-        /// </summary>
-        IncludeFirst,
-        /// <summary>
-        /// The modifiers are excluded
-        /// </summary>
-        IgnoreModifers,
-        /// <summary>
-        /// The chord is excluded
-        /// </summary>
-        IgnoreChord,
-        ThrowException
-    }
-    /// <summary>
     /// Defines how duplicate track objects are handled
     /// </summary>
     public enum DuplicateTrackObjectPolicy : byte

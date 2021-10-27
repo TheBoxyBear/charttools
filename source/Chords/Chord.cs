@@ -1,5 +1,4 @@
-﻿using ChartTools.IO;
-using ChartTools.IO.Chart;
+﻿using ChartTools.IO.Chart;
 
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +10,6 @@ namespace ChartTools
     /// </summary>
     public abstract class Chord : TrackObject, IEnumerable<Note>
     {
-        public abstract byte ModifierKey { get; set; }
         /// <summary>
         /// Notes in the <see cref="Chord{TNote}"/>
         /// </summary>

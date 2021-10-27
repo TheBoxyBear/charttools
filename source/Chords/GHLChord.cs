@@ -1,21 +1,15 @@
 ﻿using ChartTools.IO.Chart;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace ChartTools
 {
     /// <summary>
     /// Set of notes played simultaneously by a Guitar Hero Live instrument
     /// </summary>
-    public class GHLChord : LaneChord<Note<GHLLane>, GHLLane>
+    public class GHLChord : LaneChord<Note<GHLLane>, GHLLane, GHLChordModifier>
     {
-        /// <inheritdoc cref="GHLChordModifier"/>
-        public GHLChordModifier Modifier { get; set; }
-        public override byte ModifierKey
-        {
-            get => (byte)Modifier;
-            set => Modifier = (GHLChordModifier)value;
-        }
         protected override bool OpenExclusivity => true;
 
         /// <inheritdoc cref="Chord(uint)"/>
