@@ -197,6 +197,7 @@ namespace ChartTools
 
 namespace ChartTools.Lyrics
 {
+    public enum VocalChordModifier : byte { None }
     public enum VocalsPitches : byte
     {
         None = 0,

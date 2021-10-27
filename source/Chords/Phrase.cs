@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace ChartTools.Lyrics
 {
-    public class Phrase : Chord<Syllable, VocalsPitch>
+    public class Phrase : Chord<Syllable, VocalsPitch, VocalChordModifier>
     {
         public override UniqueTrackObjectCollection<Syllable> Notes { get; }
 
