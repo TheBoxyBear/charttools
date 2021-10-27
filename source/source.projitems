@@ -24,7 +24,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ILongObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Instruments\Instrument.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Instruments\InstrumentGeneric.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Instruments\Vocals.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Alternating\Ordered\OrderedAlternatingEnumerable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Alternating\Ordered\OrderedAlternatingEnumerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Alternating\Serial\SerialAlternatingEnumerable.cs" />
