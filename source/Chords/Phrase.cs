@@ -41,6 +41,8 @@ namespace ChartTools.Lyrics
         /// </summary>
         public string RawText => string.Concat(Notes.Select(n => n.IsWordEnd ? n.RawText + ' ' : n.RawText));
 
+        internal override bool ChartSupportedMoridier => true;
+
         public Phrase(uint position) : base(position)
         {
             EndPosition = position;

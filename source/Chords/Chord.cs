@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ChartTools
 {
@@ -24,6 +25,8 @@ namespace ChartTools
         /// <returns>Enumerable of strings containing the data to add to each line</returns>
         internal abstract IEnumerable<string> GetChartNoteData();
         internal abstract IEnumerable<string> GetChartModifierData(Chord? previous, ChartParser.WritingSession session);
+        internal IEnumerable<string> GetChartData(Chord? previous, ChartParser.WritingSession session) => GetChartNoteData().Concat(GetChartModifierData(previous, session));
+        internal abstract bool ChartSupportedMoridier { get; }
 
         public IEnumerator<Note> GetEnumerator() => Notes.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

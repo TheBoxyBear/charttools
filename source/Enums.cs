@@ -54,9 +54,9 @@ namespace ChartTools
     {
         None = 0,
         /// <summary>
-        /// The Hopo state is relative to the previous chord.
+        /// The Hopo state is not relative to the previous chord.
         /// </summary>
-        Relative = 1,
+        ExplicitHopo = 1,
         /// <summary>
         /// Forced Hopo or inverts the natural state if <see cref="Relative"/> is set.
         /// </summary>
@@ -175,9 +175,9 @@ namespace ChartTools
     {
         None = 0,
         /// <summary>
-        /// The Hopo state is relative to the previous chord.
+        /// The Hopo state is not relative to the previous chord.
         /// </summary>
-        Relative = 1,
+        ExplicitHopo = 1,
         /// <summary>
         /// Forced Hopo or inverts the natural state if <see cref="Relative"/> is set.
         /// </summary>

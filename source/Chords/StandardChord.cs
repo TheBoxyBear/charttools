@@ -11,10 +11,10 @@ namespace ChartTools
     public class StandardChord : LaneChord<Note<StandardLane>, StandardLane, StandardChordModifier>
     {
         protected override bool OpenExclusivity => true;
-        public override LaneNoteCollection<Note<StandardLane>, StandardLane> Notes { get; }
+        internal override bool ChartSupportedMoridier => !Modifier.HasFlag(StandardChordModifier.ExplicitHopo);
 
         /// <inheritdoc cref="Chord(uint)"/>
-        public StandardChord(uint position) : base(position) => Notes = new(OpenExclusivity);
+        public StandardChord(uint position) : base(position) { }
         /// <inheritdoc cref="StandardChord(uint)"/>
         /// <param name="notes">Notes to add</param>
         public StandardChord(uint position, params Note<StandardLane>[] notes) : this(position)
@@ -41,7 +41,7 @@ namespace ChartTools
         {
             bool isInvert = Modifier.HasFlag(StandardChordModifier.HopoInvert);
 
-            if (!Modifier.HasFlag(StandardChordModifier.Relative) && (previous is null || previous.Position <= session.HopoThreshold) != isInvert || isInvert)
+            if (Modifier.HasFlag(StandardChordModifier.ExplicitHopo) && (previous is null || previous.Position <= session.HopoThreshold) != isInvert || isInvert)
                 yield return ChartParser.GetNoteData(5, 0);
             if (Modifier.HasFlag(StandardChordModifier.Tap))
                 yield return ChartParser.GetNoteData(6, 0);

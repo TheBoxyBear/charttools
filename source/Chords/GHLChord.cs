@@ -11,6 +11,7 @@ namespace ChartTools
     public class GHLChord : LaneChord<Note<GHLLane>, GHLLane, GHLChordModifier>
     {
         protected override bool OpenExclusivity => true;
+        internal override bool ChartSupportedMoridier => !Modifier.HasFlag(GHLChordModifier.ExplicitHopo);
 
         /// <inheritdoc cref="Chord(uint)"/>
         public GHLChord(uint position) : base(position) { }
@@ -49,7 +50,7 @@ namespace ChartTools
         {
             var isInvert = Modifier.HasFlag(GHLChordModifier.HopoInvert);
 
-            if (!Modifier.HasFlag(GHLChordModifier.Relative) && (previous is null || previous.Position <= session.HopoThreshold) != isInvert || isInvert)
+            if (Modifier.HasFlag(GHLChordModifier.ExplicitHopo) && (previous is null || previous.Position <= session.HopoThreshold) != isInvert || isInvert)
                 yield return ChartParser.GetNoteData(5, 0);
             if (Modifier.HasFlag(GHLChordModifier.Tap))
                 yield return ChartParser.GetNoteData(6, 0);

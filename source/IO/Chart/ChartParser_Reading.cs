@@ -405,7 +405,7 @@ namespace ChartTools.IO.Chart
         {
             // Find the parent chord or create it
             if (chord is null)
-                chord = new(position) { Modifier = GHLChordModifier.Relative };
+                chord = new(position);
             else if (position != chord.Position)
                 chord = track.Chords.FirstOrDefault(c => c.Position == position, new(position), out newChord);
             else
@@ -441,7 +441,7 @@ namespace ChartTools.IO.Chart
         {
             // Find the parent chord or create it
             if (chord is null)
-                chord = new(position) { Modifier = StandardChordModifier.Relative };
+                chord = new(position);
             else if (position != chord.Position)
                 chord = track.Chords.FirstOrDefault(c => c.Position == position, new(position), out newChord);
             else

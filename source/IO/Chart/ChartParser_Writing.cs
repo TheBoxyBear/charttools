@@ -33,9 +33,12 @@ namespace ChartTools.IO.Chart
                 GetChordLines = Configuration.UnsupportedModifierPolicy switch
                 {
                     UnsupportedModifierPolicy.IgnoreChord => (_, _) => Enumerable.Empty<string>(),
-                    UnsupportedModifierPolicy.ThrowException => (_, chord) => throw new Exception($"Chord at position {chord.Position} as an unsupported modifier for the chart format. Consider using a different {nameof(UnsupportedModifierPolicy)} to avoid this error."),
+                    UnsupportedModifierPolicy.ThrowException => (_, chord) =>
+                    {
+                        throw new Exception($"Chord at position {chord.Position} as an unsupported modifier for the chart format. Consider using a different {nameof(UnsupportedModifierPolicy)} to avoid this error.");
+                    },
                     UnsupportedModifierPolicy.IgnoreModifier => (_, chord) => chord.GetChartNoteData(),
-                    UnsupportedModifierPolicy.Convert => (previous, chord) => chord.GetChartNoteData().Concat(chord.GetChartModifierData(previous, this))
+                    UnsupportedModifierPolicy.Convert => (previous, chord) => chord.GetChartData(previous, this)
                 };
             }
         }
@@ -266,7 +269,7 @@ namespace ChartTools.IO.Chart
                 switch (trackObject)
                 {
                     case TChord chord:
-                        foreach (var line in session.GetChordLines(previousChord, chord))
+                        foreach (var line in chord.ChartSupportedMoridier ? chord.GetChartData(previousChord, session) : session.GetChordLines(previousChord, chord))
                             yield return line;
                         foreach (string value in chord.GetChartNoteData())
                             yield return GetLine(trackObject.Position.ToString(), value);

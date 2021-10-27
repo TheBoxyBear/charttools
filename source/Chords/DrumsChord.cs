@@ -10,6 +10,7 @@ namespace ChartTools
     public class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModifier>
     {
         protected override bool OpenExclusivity => false;
+        internal override bool ChartSupportedMoridier => true;
 
         /// <inheritdoc cref="Chord(uint)"/>
         public DrumsChord(uint position) : base(position) { }
