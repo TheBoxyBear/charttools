@@ -33,8 +33,7 @@ namespace ChartTools
                 Notes.Add(new DrumsNote(note));
         }
 
-        /// <inheritdoc/>
-        internal override IEnumerable<string> GetChartData(Chord previous, ChartParser.WritingSession session, ICollection<byte> ignored)
+        internal override IEnumerable<string> GetChartNoteData()
         {
             foreach (DrumsNote note in Notes)
             {
@@ -43,7 +42,10 @@ namespace ChartTools
                 if (note.IsCymbal)
                     yield return ChartParser.GetNoteData((byte)(note.Lane + 64), 0);
             }
+        }
 
+        internal override IEnumerable<string> GetChartModifierData(Chord? previous, ChartParser.WritingSession session)
+        {
             if (Modifier.HasFlag(DrumsChordModifier.Flam))
                 yield return ChartParser.GetNoteData(109, 0);
         }

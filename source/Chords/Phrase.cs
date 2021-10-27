@@ -47,8 +47,6 @@ namespace ChartTools.Lyrics
             Notes = new();
         }
 
-        internal override IEnumerable<string> GetChartData(Chord previous, ChartParser.WritingSession session, ICollection<byte> ignored) => throw new NotSupportedException("Vocals must be converted to global events to be saved as chart.");
-
         public IEnumerable<GlobalEvent> ToGlobalEvents()
         {
             yield return new(Position, GlobalEventType.PhraseStart);
@@ -56,5 +54,8 @@ namespace ChartTools.Lyrics
             foreach (var note in Notes)
                 yield return new(note.Position, GlobalEventType.Lyric, note.RawText);
         }
+
+        internal override IEnumerable<string> GetChartNoteData() => Enumerable.Empty<string>();
+        internal override IEnumerable<string> GetChartModifierData(Chord? previous, ChartParser.WritingSession session) => Enumerable.Empty<string>();
     }
 }

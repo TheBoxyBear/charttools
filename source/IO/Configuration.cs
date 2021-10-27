@@ -78,6 +78,7 @@
     /// </summary>
     public enum UnsupportedModifierPolicy : byte
     {
+        Convert,
         /// <summary>
         /// The modifier is excluded
         /// </summary>
@@ -88,6 +89,9 @@
         IgnoreChord,
         ThrowException
     }
+    /// <summary>
+    /// Defines where to get vocal data for file formats that do not support vocals as an instrument
+    /// </summary>
     public enum UnsupportedVocalsSource : byte
     {
         GlobalEvents,
@@ -115,13 +119,9 @@
         public TrackObjectSource StarPowerSource { get; init; }
         /// <inheritdoc cref="IO.HopoThresholdPriority"/>
         public HopoThresholdPriority HopoThresholdPriority { get; init; }
-        /// <summary>
-        /// *Currently unsupported*
-        /// </summary>
+        /// <inheritdoc cref="Metadata.HopoThreashold"/>
         public uint? HopoTreshold { get; init; }
-        /// <summary>
-        /// *Currently unsupported*
-        /// </summary>
+        /// <see cref="IO.UnsupportedModifierPolicy"/>
         public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }
         /// <summary>
         /// *Currently unsupported*

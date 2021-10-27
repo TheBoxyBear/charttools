@@ -1,6 +1,7 @@
 ﻿using ChartTools.IO.Chart;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ChartTools
 {
@@ -34,12 +35,10 @@ namespace ChartTools
                 Notes.Add(new Note<StandardLane>(note));
         }
 
-        /// <inheritdoc/>
-        internal override IEnumerable<string> GetChartData(Chord previous, ChartParser.WritingSession session, ICollection<byte> ignored)
-        {
-            foreach (Note<StandardLane> note in Notes)
-                yield return ChartParser.GetNoteData(note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Length);
+        internal override IEnumerable<string> GetChartNoteData() => Notes.Select(note => ChartParser.GetNoteData(note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Length));
 
+        internal override IEnumerable<string> GetChartModifierData(Chord? previous, ChartParser.WritingSession session)
+        {
             bool isInvert = Modifier.HasFlag(StandardChordModifier.HopoInvert);
 
             if (!Modifier.HasFlag(StandardChordModifier.Relative) && (previous is null || previous.Position <= session.HopoThreshold) != isInvert || isInvert)

@@ -1,7 +1,5 @@
 using ChartTools.Lyrics;
 using ChartTools.SystemExtensions.Linq;
-using ChartTools.Tools.Optimizing;
-
 using System;
 using System.Collections.Generic;
 using System.IO;

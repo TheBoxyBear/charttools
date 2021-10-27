@@ -1,5 +1,4 @@
 ﻿using ChartTools.SystemExtensions.Linq;
-using ChartTools.Tools.Optimizing;
 
 using System;
 using System.Collections.Generic;
@@ -16,15 +15,29 @@ namespace ChartTools.IO.Chart
         {
             SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
             EventSource = TrackObjectSource.Seperate,
-            StarPowerSource = TrackObjectSource.Seperate
+            StarPowerSource = TrackObjectSource.Seperate,
+            UnsupportedModifierPolicy = UnsupportedModifierPolicy.ThrowException
         };
 
         internal class WritingSession
         {
+            public delegate IEnumerable<string> ChordLinesGetter(Chord? previous, Chord current);
+
             public WritingConfiguration Configuration { get; }
+            public ChordLinesGetter GetChordLines { get; }
             public uint HopoThreshold { get; set; }
 
-            public WritingSession(WritingConfiguration? config) => Configuration = config ?? DefaultWriteConfig;
+            public WritingSession(WritingConfiguration? config)
+            {
+                Configuration = config ?? DefaultWriteConfig;
+                GetChordLines = Configuration.UnsupportedModifierPolicy switch
+                {
+                    UnsupportedModifierPolicy.IgnoreChord => (_, _) => Enumerable.Empty<string>(),
+                    UnsupportedModifierPolicy.ThrowException => (_, chord) => throw new Exception($"Chord at position {chord.Position} as an unsupported modifier for the chart format. Consider using a different {nameof(UnsupportedModifierPolicy)} to avoid this error."),
+                    UnsupportedModifierPolicy.IgnoreModifier => (_, chord) => chord.GetChartNoteData(),
+                    UnsupportedModifierPolicy.Convert => (previous, chord) => chord.GetChartNoteData().Concat(chord.GetChartModifierData(previous, this))
+                };
+            }
         }
 
         /// <summary>
@@ -253,7 +266,9 @@ namespace ChartTools.IO.Chart
                 switch (trackObject)
                 {
                     case TChord chord:
-                        foreach (string value in chord.GetChartData(previousChord, session, ignored))
+                        foreach (var line in session.GetChordLines(previousChord, chord))
+                            yield return line;
+                        foreach (string value in chord.GetChartNoteData())
                             yield return GetLine(trackObject.Position.ToString(), value);
                         previousChord = chord;
                         break;
