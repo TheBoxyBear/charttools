@@ -1,8 +1,8 @@
-﻿using ChartTools.IO;
-using ChartTools.IO.Chart;
+﻿using ChartTools.IO.Chart;
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ChartTools
 {
@@ -11,7 +11,6 @@ namespace ChartTools
     /// </summary>
     public abstract class Chord : TrackObject, IEnumerable<Note>
     {
-        public abstract byte ModifierKey { get; set; }
         /// <summary>
         /// Notes in the <see cref="Chord{TNote}"/>
         /// </summary>
@@ -24,7 +23,10 @@ namespace ChartTools
         /// Gets the data to write in a chart file.
         /// </summary>
         /// <returns>Enumerable of strings containing the data to add to each line</returns>
-        internal abstract IEnumerable<string> GetChartData(Chord? previous, ChartParser.WritingSession session, ICollection<byte> ignored);
+        internal abstract IEnumerable<string> GetChartNoteData();
+        internal abstract IEnumerable<string> GetChartModifierData(Chord? previous, ChartParser.WritingSession session);
+        internal IEnumerable<string> GetChartData(Chord? previous, ChartParser.WritingSession session) => GetChartNoteData().Concat(GetChartModifierData(previous, session));
+        internal abstract bool ChartSupportedMoridier { get; }
 
         public IEnumerator<Note> GetEnumerator() => Notes.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

@@ -1,22 +1,17 @@
 ﻿using ChartTools.IO.Chart;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ChartTools
 {
     /// <summary>
     /// Set of notes played simultaneously by a Guitar Hero Live instrument
     /// </summary>
-    public class GHLChord : LaneChord<Note<GHLLane>, GHLLane>
+    public class GHLChord : LaneChord<Note<GHLLane>, GHLLane, GHLChordModifier>
     {
-        /// <inheritdoc cref="GHLChordModifier"/>
-        public GHLChordModifier Modifier { get; set; }
-        public override byte ModifierKey
-        {
-            get => (byte)Modifier;
-            set => Modifier = (GHLChordModifier)value;
-        }
         protected override bool OpenExclusivity => true;
+        internal override bool ChartSupportedMoridier => !Modifier.HasFlag(GHLChordModifier.ExplicitHopo);
 
         /// <inheritdoc cref="Chord(uint)"/>
         public GHLChord(uint position) : base(position) { }
@@ -40,24 +35,22 @@ namespace ChartTools
                 Notes.Add(new Note<GHLLane>(note));
         }
 
-        /// <inheritdoc/>
-        internal override IEnumerable<string> GetChartData(Chord? previous, ChartParser.WritingSession session, ICollection<byte> ignored)
+        internal override IEnumerable<string> GetChartNoteData() => Notes.Select(note => ChartParser.GetNoteData(note.Lane switch
         {
-            foreach (Note<GHLLane> note in Notes)
-                yield return ChartParser.GetNoteData(note.Lane switch
-                {
-                    GHLLane.Open => 7,
-                    GHLLane.Black1 => 3,
-                    GHLLane.Black2 => 4,
-                    GHLLane.Black3 => 8,
-                    GHLLane.White1 => 0,
-                    GHLLane.White2 => 1,
-                    GHLLane.White3 => 2,
-                }, note.Length);
+            GHLLane.Open => 7,
+            GHLLane.Black1 => 3,
+            GHLLane.Black2 => 4,
+            GHLLane.Black3 => 8,
+            GHLLane.White1 => 0,
+            GHLLane.White2 => 1,
+            GHLLane.White3 => 2,
+        }, note.Length));
 
+        internal override IEnumerable<string> GetChartModifierData(Chord? previous, ChartParser.WritingSession session)
+        {
             var isInvert = Modifier.HasFlag(GHLChordModifier.HopoInvert);
 
-            if (!Modifier.HasFlag(GHLChordModifier.Relative) && (previous is null || previous.Position <= session.HopoThreshold) != isInvert || isInvert)
+            if (Modifier.HasFlag(GHLChordModifier.ExplicitHopo) && (previous is null || previous.Position <= session.HopoThreshold) != isInvert || isInvert)
                 yield return ChartParser.GetNoteData(5, 0);
             if (Modifier.HasFlag(GHLChordModifier.Tap))
                 yield return ChartParser.GetNoteData(6, 0);

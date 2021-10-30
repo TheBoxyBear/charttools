@@ -1,7 +1,5 @@
 using ChartTools.Lyrics;
 using ChartTools.SystemExtensions.Linq;
-using ChartTools.Tools.Optimizing;
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +17,6 @@ namespace ChartTools.IO.Chart
         {
             DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
             SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
-            IncompatibleModifierCombinationPolicy = IncompatibleModifierCombinationPolicy.ThrowException,
         };
 
         private class ReadingSession
@@ -32,8 +29,7 @@ namespace ChartTools.IO.Chart
             }
         }
 
-        private delegate void NoteCase<TChord>(Track<TChord> track, ref TChord? chord, uint position, NoteData data, ref bool newChord, out byte initialModifier) where TChord : Chord;
-        private delegate bool IncludeChordFromModifierPolicy(Chord chord, byte initialModifier);
+        private delegate void NoteCase<TChord>(Track<TChord> track, ref TChord? chord, uint position, NoteData data, ref bool newChord, out Enum initialModifier) where TChord : Chord;
 
         /// <summary>
         /// Reads a chart file.
@@ -325,7 +321,7 @@ namespace ChartTools.IO.Chart
                         try
                         {
                             data = new(entry.Data);
-                            noteCase(track, ref chord, entry.Position, data, ref newChord, out byte initialModifier);
+                            noteCase(track, ref chord, entry.Position, data, ref newChord, out Enum initialModifier);
 
                             if (newChord)
                             {
@@ -360,7 +356,7 @@ namespace ChartTools.IO.Chart
             return track;
         }
 
-        private static void DrumsNoteCase(Track<DrumsChord> track, ref DrumsChord? chord, uint position, NoteData data, ref bool newChord, out byte initialModifier)
+        private static void DrumsNoteCase(Track<DrumsChord> track, ref DrumsChord? chord, uint position, NoteData data, ref bool newChord, out Enum initialModifier)
         {
             // Find the parent chord or create it
             if (chord is null)
@@ -370,7 +366,7 @@ namespace ChartTools.IO.Chart
             else
                 newChord = false;
 
-            initialModifier = chord!.ModifierKey;
+            initialModifier = chord!.Modifier;
 
             switch (data.NoteIndex)
             {
@@ -405,7 +401,7 @@ namespace ChartTools.IO.Chart
             }
 
         }
-        private static void GHLNoteCase(Track<GHLChord> track, ref GHLChord? chord, uint position, NoteData data, ref bool newChord, out byte initialModifier)
+        private static void GHLNoteCase(Track<GHLChord> track, ref GHLChord? chord, uint position, NoteData data, ref bool newChord, out Enum initialModifier)
         {
             // Find the parent chord or create it
             if (chord is null)
@@ -415,7 +411,7 @@ namespace ChartTools.IO.Chart
             else
                 newChord = false;
 
-            initialModifier = chord!.ModifierKey;
+            initialModifier = chord!.Modifier;
 
             switch (data.NoteIndex)
             {
@@ -441,7 +437,7 @@ namespace ChartTools.IO.Chart
                     break;
             }
         }
-        private static void StandardNoteCase(Track<StandardChord> track, ref StandardChord? chord, uint position, NoteData data, ref bool newChord, out byte initialModifier)
+        private static void StandardNoteCase(Track<StandardChord> track, ref StandardChord? chord, uint position, NoteData data, ref bool newChord, out Enum initialModifier)
         {
             // Find the parent chord or create it
             if (chord is null)
@@ -451,7 +447,7 @@ namespace ChartTools.IO.Chart
             else
                 newChord = false;
 
-            initialModifier = chord!.ModifierKey;
+            initialModifier = chord!.Modifier;
 
             switch (data.NoteIndex)
             {

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <RootNamespace>ChartTools</RootNamespace>
+    <AssemblyName>ChartTools</AssemblyName>
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <Import Project="..\source\source.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <PackageReference Include="Melanchall.DryWetMidi" Version="6.0.0" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(ProjectDir)bin\Debug\net5.0\ChartTools.dll&quot; &quot;$(ProjectDir)..\build\net5&quot; /y" />
+  </Target>
+</Project>

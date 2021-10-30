@@ -1,5 +1,4 @@
-﻿using ChartTools.IO;
-using ChartTools.IO.Chart;
+﻿using ChartTools.IO.Chart;
 using System;
 using System.Collections.Generic;
 
@@ -8,16 +7,10 @@ namespace ChartTools
     /// <summary>
     /// Set of notes played simultaneously by drums
     /// </summary>
-    public class DrumsChord : LaneChord<DrumsNote, DrumsLane>
+    public class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModifier>
     {
-        /// <inheritdoc cref="DrumsChordModifier"/>
-        public DrumsChordModifier Modifier { get; set; }
-        public override byte ModifierKey
-        {
-            get => (byte)Modifier;
-            set => Modifier = (DrumsChordModifier)value;
-        }
         protected override bool OpenExclusivity => false;
+        internal override bool ChartSupportedMoridier => true;
 
         /// <inheritdoc cref="Chord(uint)"/>
         public DrumsChord(uint position) : base(position) { }
@@ -41,8 +34,7 @@ namespace ChartTools
                 Notes.Add(new DrumsNote(note));
         }
 
-        /// <inheritdoc/>
-        internal override IEnumerable<string> GetChartData(Chord previous, ChartParser.WritingSession session, ICollection<byte> ignored)
+        internal override IEnumerable<string> GetChartNoteData()
         {
             foreach (DrumsNote note in Notes)
             {
@@ -51,7 +43,10 @@ namespace ChartTools
                 if (note.IsCymbal)
                     yield return ChartParser.GetNoteData((byte)(note.Lane + 64), 0);
             }
+        }
 
+        internal override IEnumerable<string> GetChartModifierData(Chord? previous, ChartParser.WritingSession session)
+        {
             if (Modifier.HasFlag(DrumsChordModifier.Flam))
                 yield return ChartParser.GetNoteData(109, 0);
         }

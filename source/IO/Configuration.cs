@@ -45,29 +45,6 @@
         Convert
     }
     /// <summary>
-    /// Defines how chords with a set of incompatible modifiers are handled
-    /// </summary>
-    public enum IncompatibleModifierCombinationPolicy : byte
-    {
-        /// <summary>
-        /// All modifiers are included
-        /// </summary>
-        IncludeAll,
-        /// <summary>
-        /// Only the first modifier is included
-        /// </summary>
-        IncludeFirst,
-        /// <summary>
-        /// The modifiers are excluded
-        /// </summary>
-        IgnoreModifers,
-        /// <summary>
-        /// The chord is excluded
-        /// </summary>
-        IgnoreChord,
-        ThrowException
-    }
-    /// <summary>
     /// Defines how duplicate track objects are handled
     /// </summary>
     public enum DuplicateTrackObjectPolicy : byte
@@ -101,6 +78,7 @@
     /// </summary>
     public enum UnsupportedModifierPolicy : byte
     {
+        Convert,
         /// <summary>
         /// The modifier is excluded
         /// </summary>
@@ -111,7 +89,10 @@
         IgnoreChord,
         ThrowException
     }
-    public enum UnsupportedVocalsSource : byte
+    /// <summary>
+    /// Where to get lyric data from for formats that store lyrics as events
+    /// </summary>
+    public enum LyricEventSource : byte
     {
         GlobalEvents,
         Vocals
@@ -130,11 +111,7 @@
     /// <summary>
     /// Configuration object to direct the reading of a file
     /// </summary>
-    public class ReadingConfiguration : CommonConfiguration
-    {
-        /// <inheritdoc cref="IO.IncompatibleModifierCombinationPolicy"/>
-        public IncompatibleModifierCombinationPolicy IncompatibleModifierCombinationPolicy { get; init; }
-    }
+    public class ReadingConfiguration : CommonConfiguration { }
 
     public class WritingConfiguration : CommonConfiguration
     {
@@ -142,17 +119,13 @@
         public TrackObjectSource StarPowerSource { get; init; }
         /// <inheritdoc cref="IO.HopoThresholdPriority"/>
         public HopoThresholdPriority HopoThresholdPriority { get; init; }
-        /// <summary>
-        /// *Currently unsupported*
-        /// </summary>
-        public uint? HopoTreshold { get; init; } = null;
-        /// <summary>
-        /// *Currently unsupported*
-        /// </summary>
+        /// <inheritdoc cref="Metadata.HopoThreashold"/>
+        public uint? HopoTreshold { get; init; }
+        /// <see cref="IO.UnsupportedModifierPolicy"/>
         public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }
         /// <summary>
         /// *Currently unsupported*
         /// </summary>
-        public UnsupportedVocalsSource UnsupportedVocalsSource { get; init; }
+        public LyricEventSource LyricEventSource { get; init; }
     }
 }

@@ -1,5 +1,5 @@
-﻿using ChartTools.SystemExtensions.Linq;
-using ChartTools.Tools.Optimizing;
+﻿using ChartTools.Lyrics;
+using ChartTools.SystemExtensions.Linq;
 
 using System;
 using System.Collections.Generic;
@@ -16,15 +16,32 @@ namespace ChartTools.IO.Chart
         {
             SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
             EventSource = TrackObjectSource.Seperate,
-            StarPowerSource = TrackObjectSource.Seperate
+            StarPowerSource = TrackObjectSource.Seperate,
+            UnsupportedModifierPolicy = UnsupportedModifierPolicy.ThrowException
         };
 
         internal class WritingSession
         {
+            public delegate IEnumerable<string> ChordLinesGetter(Chord? previous, Chord current);
+
             public WritingConfiguration Configuration { get; }
+            public ChordLinesGetter GetChordLines { get; }
             public uint HopoThreshold { get; set; }
 
-            public WritingSession(WritingConfiguration? config) => Configuration = config ?? DefaultWriteConfig;
+            public WritingSession(WritingConfiguration? config)
+            {
+                Configuration = config ?? DefaultWriteConfig;
+                GetChordLines = Configuration.UnsupportedModifierPolicy switch
+                {
+                    UnsupportedModifierPolicy.IgnoreChord => (_, _) => Enumerable.Empty<string>(),
+                    UnsupportedModifierPolicy.ThrowException => (_, chord) =>
+                    {
+                        throw new Exception($"Chord at position {chord.Position} as an unsupported modifier for the chart format. Consider using a different {nameof(UnsupportedModifierPolicy)} to avoid this error.");
+                    },
+                    UnsupportedModifierPolicy.IgnoreModifier => (_, chord) => chord.GetChartNoteData(),
+                    UnsupportedModifierPolicy.Convert => (previous, chord) => chord.GetChartData(previous, this)
+                };
+            }
         }
 
         /// <summary>
@@ -33,7 +50,7 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to write</param>
         /// <param name="song">Song to write</param>
         /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-        internal static void WriteSong(string path, Song song, WritingConfiguration? config)
+        public static void WriteSong(string path, Song song, WritingConfiguration? config = default)
         {
             if (song is null)
                 return;
@@ -86,12 +103,12 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to write</param>
         /// <param name="inst">Instrument object to write</param>
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/exception"/>
-        public static void ReplaceDrums(string path, Instrument<DrumsChord> inst, WritingConfiguration? config) => ReplaceInstrument(path, inst, Instruments.Drums, config);
+        public static void ReplaceDrums(string path, Instrument<DrumsChord> inst, WritingConfiguration? config = default) => ReplaceInstrument(path, inst, Instruments.Drums, config);
         /// <summary>Replaces a GHL instrument in a chart file.</summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="data">Tuple containing the Instrument object to write and the instrument to assign it to</param>
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/exception"/>
-        public static void ReplaceInstrument(string path, (Instrument<GHLChord> inst, GHLInstrument instEnum) data, WritingConfiguration? config)
+        public static void ReplaceInstrument(string path, (Instrument<GHLChord> inst, GHLInstrument instEnum) data, WritingConfiguration? config = default)
         {
             if (!Enum.IsDefined(data.instEnum))
                 throw CommonExceptions.GetUndefinedException(data.instEnum);
@@ -102,7 +119,7 @@ namespace ChartTools.IO.Chart
         /// <param name="data">Tuple containing the Instrument object to write and the instrument to assign it to</param>
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/param"/>
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/exception"/>
-        public static void ReplaceInstrument(string path, (Instrument<StandardChord> inst, StandardInstrument instEnum) data, WritingConfiguration? config)
+        public static void ReplaceInstrument(string path, (Instrument<StandardChord> inst, StandardInstrument instEnum) data, WritingConfiguration? config = default)
         {
             if (!Enum.IsDefined(data.instEnum))
                 throw CommonExceptions.GetUndefinedException(data.instEnum);
@@ -140,14 +157,14 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to write</param>
         /// <param name="events">Events to use as a replacement</param>
         /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-        public static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events, WritingConfiguration? config) => ReplacePart(path, events.Select(e => GetEventLine(e)), "Events");
+        public static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events, WritingConfiguration? config = default) => ReplacePart(path, events.Select(e => GetEventLine(e)), "Events");
         /// <summary>
         /// Replaces the sync track in a file.
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="syncTrack">Sync track to write</param>
         /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-        public static void ReplaceSyncTrack(string path, SyncTrack syncTrack, WritingConfiguration? config) => ReplacePart(path, GetSyncTrackLines(syncTrack, new(config)), "SyncTrack");
+        public static void ReplaceSyncTrack(string path, SyncTrack syncTrack, WritingConfiguration? config = default) => ReplacePart(path, GetSyncTrackLines(syncTrack, new(config)), "SyncTrack");
         /// <summary>
         /// Replaces a track in a file.
         /// </summary>
@@ -155,7 +172,7 @@ namespace ChartTools.IO.Chart
         /// <param name="track">Track to use as a replacement</param>
         /// <param name="partName">Name of the part containing the track to replace</param>
         /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-        public static void ReplaceTrack<TChord>(string path, (Track<TChord> track, Instruments instrument, Difficulty difficulty) data, WritingConfiguration? config) where TChord : Chord => ReplacePart(path, GetTrackLines(data.track, new(config)), GetFullPartName(data.instrument, data.difficulty));
+        internal static void ReplaceTrack<TChord>(string path, (Track<TChord> track, Instruments instrument, Difficulty difficulty) data, WritingConfiguration? config) where TChord : Chord => ReplacePart(path, GetTrackLines(data.track, new(config)), GetFullPartName(data.instrument, data.difficulty));
 
         /// <summary>
         /// Replaces a part in a file.
@@ -253,7 +270,9 @@ namespace ChartTools.IO.Chart
                 switch (trackObject)
                 {
                     case TChord chord:
-                        foreach (string value in chord.GetChartData(previousChord, session, ignored))
+                        foreach (var line in chord.ChartSupportedMoridier ? chord.GetChartData(previousChord, session) : session.GetChordLines(previousChord, chord))
+                            yield return line;
+                        foreach (string value in chord.GetChartNoteData())
                             yield return GetLine(trackObject.Position.ToString(), value);
                         previousChord = chord;
                         break;
@@ -286,14 +305,15 @@ namespace ChartTools.IO.Chart
             if (metadata.Year is not null)
                 yield return GetLine("Year", $"\", {metadata.Year}\"");
             if (metadata.AudioOffset is not null)
-                yield return GetLine("Offset", metadata.AudioOffset.ToString()!);
-            yield return GetLine("Resolution", metadata.Resolution.ToString());
+                yield return GetLine("Offset", metadata.AudioOffset.ToString());
+            if (metadata.Resolution is not null)
+                yield return GetLine("Resolution", metadata.Resolution.ToString());
             if (metadata.Difficulty is not null)
-                yield return GetLine("Difficulty", metadata.Difficulty.ToString()!);
+                yield return GetLine("Difficulty", metadata.Difficulty.ToString());
             if (metadata.PreviewStart is not null)
-                yield return GetLine("PreviewStart", metadata.PreviewStart.ToString()!);
+                yield return GetLine("PreviewStart", metadata.PreviewStart.ToString());
             if (metadata.PreviewEnd is not null)
-                yield return GetLine("PreviewEnd", metadata.PreviewEnd.ToString()!);
+                yield return GetLine("PreviewEnd", metadata.PreviewEnd.ToString());
             if (metadata.Genre is not null)
                 yield return GetLine("Genre", $"\"{metadata.Genre}\"");
             if (metadata.MediaType is not null)
@@ -385,7 +405,7 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <param name="header">Part of the line before the equal sign</param>
         /// <param name="value">Part of the line after the equal sign</param>
-        private static string GetLine(string header, string value) => value is null ? string.Empty : $"  {header} = {value}";
+        private static string GetLine(string header, string? value) => value is null ? string.Empty : $"  {header} = {value}";
         /// <summary>
         /// Gets the written data for a note.
         /// </summary>

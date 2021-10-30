@@ -48,7 +48,7 @@ namespace ChartTools.IO.Chart
         private static bool IncludeSyncTrackExceptionPolicy(uint position, ICollection<uint> ignored, string objectName)
         {
             if (ignored.Contains(position))
-                throw new Exception($"Duplicate {objectName} on position {position}");
+                throw new Exception($"Duplicate {objectName} on position {position}. Consider using a different {nameof(DuplicateTrackObjectPolicy)} to avoid this error.");
 
             ignored.Add(position);
             return true;
@@ -64,7 +64,7 @@ namespace ChartTools.IO.Chart
                 case OverlappingStarPowerPolicy.ThrowException:
                     foreach ((var previous, var current) in starPower.RelativeLoop())
                         if (Optimizer.LengthNeedsCut(previous!, current!))
-                            throw new Exception($"Overlapping star power phrases at position {current!.Position}");
+                            throw new Exception($"Overlapping star power phrases at position {current!.Position}. Consider using {nameof(OverlappingStarPowerPolicy.Cut)} to avoid this error.");
                     break;
             }
         }

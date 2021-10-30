@@ -152,11 +152,11 @@ namespace ChartTools.IO.MIDI
 
         private static UniqueTrackObjectCollection<DrumsChord> GetDrumsChords(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig)
         {
-            return null;
+            throw new NotImplementedException();
         }
         private static UniqueTrackObjectCollection<GHLChord> GetGHLChords(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig)
         {
-            return null;
+            throw new NotImplementedException();
         }
         private static UniqueTrackObjectCollection<StandardChord> GetStandardChords(IEnumerable<MidiEvent> events, Difficulty difficulty, ReadingConfiguration midiConfig)
         {
