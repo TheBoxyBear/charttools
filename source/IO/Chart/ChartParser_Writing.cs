@@ -57,6 +57,7 @@ namespace ChartTools.IO.Chart
 
             WritingSession session = new(config);
 
+            // Determine whith hopo threshold to use
             session.HopoThreshold = session.Configuration.HopoThresholdPriority == HopoThresholdPriority.Metadata && song.Metadata?.HopoThreashold is not null
                 ? song.Metadata.HopoThreashold.Value
                 : session.Configuration.HopoTreshold is not null
