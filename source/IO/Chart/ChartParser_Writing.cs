@@ -49,7 +49,7 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to write</param>
         /// <param name="song">Song to write</param>
         /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-        internal static void WriteSong(string path, Song song, WritingConfiguration? config)
+        public static void WriteSong(string path, Song song, WritingConfiguration? config)
         {
             if (song is null)
                 return;
@@ -304,14 +304,15 @@ namespace ChartTools.IO.Chart
             if (metadata.Year is not null)
                 yield return GetLine("Year", $"\", {metadata.Year}\"");
             if (metadata.AudioOffset is not null)
-                yield return GetLine("Offset", metadata.AudioOffset.ToString()!);
-            yield return GetLine("Resolution", metadata.Resolution.ToString());
+                yield return GetLine("Offset", metadata.AudioOffset.ToString());
+            if (metadata.Resolution is not null)
+                yield return GetLine("Resolution", metadata.Resolution.ToString());
             if (metadata.Difficulty is not null)
-                yield return GetLine("Difficulty", metadata.Difficulty.ToString()!);
+                yield return GetLine("Difficulty", metadata.Difficulty.ToString());
             if (metadata.PreviewStart is not null)
-                yield return GetLine("PreviewStart", metadata.PreviewStart.ToString()!);
+                yield return GetLine("PreviewStart", metadata.PreviewStart.ToString());
             if (metadata.PreviewEnd is not null)
-                yield return GetLine("PreviewEnd", metadata.PreviewEnd.ToString()!);
+                yield return GetLine("PreviewEnd", metadata.PreviewEnd.ToString());
             if (metadata.Genre is not null)
                 yield return GetLine("Genre", $"\"{metadata.Genre}\"");
             if (metadata.MediaType is not null)
@@ -403,7 +404,7 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <param name="header">Part of the line before the equal sign</param>
         /// <param name="value">Part of the line after the equal sign</param>
-        private static string GetLine(string header, string value) => value is null ? string.Empty : $"  {header} = {value}";
+        private static string GetLine(string header, string? value) => value is null ? string.Empty : $"  {header} = {value}";
         /// <summary>
         /// Gets the written data for a note.
         /// </summary>

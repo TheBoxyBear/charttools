@@ -90,9 +90,9 @@
         ThrowException
     }
     /// <summary>
-    /// Defines where to get vocal data for file formats that do not support vocals as an instrument
+    /// Where to get lyric data from for formats that store lyrics as events
     /// </summary>
-    public enum UnsupportedVocalsSource : byte
+    public enum LyricEventSource : byte
     {
         GlobalEvents,
         Vocals
@@ -126,6 +126,6 @@
         /// <summary>
         /// *Currently unsupported*
         /// </summary>
-        public UnsupportedVocalsSource UnsupportedVocalsSource { get; init; }
+        public LyricEventSource LyricEventSource { get; init; }
     }
 }
