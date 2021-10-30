@@ -1,4 +1,5 @@
-﻿using ChartTools.SystemExtensions.Linq;
+﻿using ChartTools.Lyrics;
+using ChartTools.SystemExtensions.Linq;
 
 using System;
 using System.Collections.Generic;
@@ -49,7 +50,7 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to write</param>
         /// <param name="song">Song to write</param>
         /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-        public static void WriteSong(string path, Song song, WritingConfiguration? config)
+        public static void WriteSong(string path, Song song, WritingConfiguration? config = default)
         {
             if (song is null)
                 return;
@@ -102,12 +103,16 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to write</param>
         /// <param name="inst">Instrument object to write</param>
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/exception"/>
-        public static void ReplaceDrums(string path, Instrument<DrumsChord> inst, WritingConfiguration? config) => ReplaceInstrument(path, inst, Instruments.Drums, config);
+        public static void ReplaceDrums(string path, Instrument<DrumsChord> inst, WritingConfiguration? config = default) => ReplaceInstrument(path, inst, Instruments.Drums, config);
+        public static void ReplaceVocals(string path, Instrument<Phrase> inst, WritingConfiguration? config)
+        {
+          
+        }
         /// <summary>Replaces a GHL instrument in a chart file.</summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="data">Tuple containing the Instrument object to write and the instrument to assign it to</param>
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/exception"/>
-        public static void ReplaceInstrument(string path, (Instrument<GHLChord> inst, GHLInstrument instEnum) data, WritingConfiguration? config)
+        public static void ReplaceInstrument(string path, (Instrument<GHLChord> inst, GHLInstrument instEnum) data, WritingConfiguration? config = default)
         {
             if (!Enum.IsDefined(data.instEnum))
                 throw CommonExceptions.GetUndefinedException(data.instEnum);
@@ -118,7 +123,7 @@ namespace ChartTools.IO.Chart
         /// <param name="data">Tuple containing the Instrument object to write and the instrument to assign it to</param>
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/param"/>
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/exception"/>
-        public static void ReplaceInstrument(string path, (Instrument<StandardChord> inst, StandardInstrument instEnum) data, WritingConfiguration? config)
+        public static void ReplaceInstrument(string path, (Instrument<StandardChord> inst, StandardInstrument instEnum) data, WritingConfiguration? config = default)
         {
             if (!Enum.IsDefined(data.instEnum))
                 throw CommonExceptions.GetUndefinedException(data.instEnum);
@@ -156,14 +161,14 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to write</param>
         /// <param name="events">Events to use as a replacement</param>
         /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-        public static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events, WritingConfiguration? config) => ReplacePart(path, events.Select(e => GetEventLine(e)), "Events");
+        public static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events, WritingConfiguration? config = default) => ReplacePart(path, events.Select(e => GetEventLine(e)), "Events");
         /// <summary>
         /// Replaces the sync track in a file.
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="syncTrack">Sync track to write</param>
         /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-        public static void ReplaceSyncTrack(string path, SyncTrack syncTrack, WritingConfiguration? config) => ReplacePart(path, GetSyncTrackLines(syncTrack, new(config)), "SyncTrack");
+        public static void ReplaceSyncTrack(string path, SyncTrack syncTrack, WritingConfiguration? config = default) => ReplacePart(path, GetSyncTrackLines(syncTrack, new(config)), "SyncTrack");
         /// <summary>
         /// Replaces a track in a file.
         /// </summary>
@@ -171,7 +176,7 @@ namespace ChartTools.IO.Chart
         /// <param name="track">Track to use as a replacement</param>
         /// <param name="partName">Name of the part containing the track to replace</param>
         /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-        public static void ReplaceTrack<TChord>(string path, (Track<TChord> track, Instruments instrument, Difficulty difficulty) data, WritingConfiguration? config) where TChord : Chord => ReplacePart(path, GetTrackLines(data.track, new(config)), GetFullPartName(data.instrument, data.difficulty));
+        internal static void ReplaceTrack<TChord>(string path, (Track<TChord> track, Instruments instrument, Difficulty difficulty) data, WritingConfiguration? config) where TChord : Chord => ReplacePart(path, GetTrackLines(data.track, new(config)), GetFullPartName(data.instrument, data.difficulty));
 
         /// <summary>
         /// Replaces a part in a file.
