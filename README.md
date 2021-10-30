@@ -3,7 +3,7 @@ ChartTools is a C# library with the purpose of modeling song files for the video
 
 NOTE: In order to future-proof the library for features added to Clone Hero, improve code readability and insure long-term support, future development will be made in .NET 6. While .NET 6 is in preview, both .NET versions will be supported, with the solution containing seperate projects for .NET 5 and 6.
 
-Special thanks to [FireFox](https://github.com/FireFox2000000) for making the Moonscraper editor open-source and to members of the [Clone Hero Discord](https://discord.gg/clonehero) and [Moonscraper Discord](https://discord.gg/wdnD83APhE) including but not limited to DarkAngel2096, drumbs, FireFox, Kanske, mdsitton, Spachi and XEntombmentX for their help in researching.
+Special thanks to [FireFox](https://github.com/FireFox2000000) for making the Moonscraper editor open-source, TheNathannator for their direct contributions and to members of the [Clone Hero Discord](https://discord.gg/clonehero) and [Moonscraper Discord](https://discord.gg/wdnD83APhE) including but not limited to DarkAngel2096, drumbs (TheNathannator), FireFox, Kanske, mdsitton, Spachi and XEntombmentX for their help in researching.
 
 This library is an independent project not affiliated with Clone Hero or Moonscraper.
 
@@ -50,6 +50,7 @@ Notice the use of StandardChord used as a generic type. Instruments are divided 
 - Standard - Five colored notes
 - Drums - Five colored with support for double kick and cymbal flags
 - GHL (Guitar Hero Live) - Three black and three white notes
+- Vocals - Notes with an associated syllable. Onloy one note can be added for the same position.
 
 A track is composed of three elements:
 - Chords (defined by the generic type)
@@ -59,11 +60,12 @@ A track is composed of three elements:
 ## Chords and notes
 A chord is a set of notes played at the same time. All supported instruments use the generic version of the Chord class where the generic type defines the type of notes contained. The note types are the same as the types of instruments as listed in the section. The types for notes are:
 
-- Note\<StandardLane>
-- Note\<GHLLane>
+- LaneNote\<StandardLane>
+- LaneNote\<GHLLane>
 - DrumsNote
+- Syllable (Vocals)
 
-Drums is an exception case where a class is specifically defined as it contains exclusive properties. It inherits from Note\<DrumsFret>.
+Drums is an exception case where a class is specifically defined as it contains exclusive properties. It inherits from LaneNote\<DrumsFret>.
 
 The following adds an orange note to every chord on a track:
 ```c#
