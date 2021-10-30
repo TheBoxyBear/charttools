@@ -104,10 +104,6 @@ namespace ChartTools.IO.Chart
         /// <param name="inst">Instrument object to write</param>
         /// <inheritdoc cref="ReplaceInstrument{TChord}(string, Instrument{TChord}, Instruments, WritingConfiguration)" path="/exception"/>
         public static void ReplaceDrums(string path, Instrument<DrumsChord> inst, WritingConfiguration? config = default) => ReplaceInstrument(path, inst, Instruments.Drums, config);
-        public static void ReplaceVocals(string path, Instrument<Phrase> inst, WritingConfiguration? config)
-        {
-          
-        }
         /// <summary>Replaces a GHL instrument in a chart file.</summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="data">Tuple containing the Instrument object to write and the instrument to assign it to</param>
