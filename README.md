@@ -77,6 +77,20 @@ foreach (StandardChord chord in song.LeadGuitar.Expert)
 }
 ```
 
+## Loose syntax
+ChartTools supports loose syntax to retrieve instruments and tracks using enums instead of explucit properties.
+
+```C#
+Instrument guitar = song.GetInstrument(Instruments.LeadGuitar);
+Instrument<StandardChord> bass = song.GetInstrument(StandardInstruments.Bass);
+
+Track easyGuitar = guitar.GetTrack(Difficulty.Easy);
+Track<StandardChord> easyBass = bass.GetTrack(Difficulty.Easy);
+```
+Unless the instrument type is defined through its respective enum, getting an instrument through the loose syntax returns an instance of the base Instrument class. Like with explicit instruments, you can get tracks through either the loose or string syntax. With both approaches, loose instruments will return loose tracks and explicit instruments will return explicit tracks. Loose tracks grant full access to local events and star power. 
+
+You can get chords from a loose track, in which case the chords will be loose and the collection will be read-only. In the same way, getting notes from a loose chords returns a read-only set of loose notes which grant access to their index (the numerical value in the lane enum for the respective note type) and the sustain length.
+
 ## Lyrics
 Lyrics of a song are defined by a collection of phrases. A phrase represents a single line displayed on-screen. It contains syllables, each one representing a section of the text which changes color by the karaoke system. Phrases can either be read from a file:
 ```c#
