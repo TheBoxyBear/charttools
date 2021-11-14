@@ -78,7 +78,7 @@ foreach (StandardChord chord in song.LeadGuitar.Expert)
 ```
 
 ## Loose syntax
-ChartTools supports loose syntax to retrieve instruments and tracks using enums instead of explucit properties.
+ChartTools supports loose syntax to retrieve instruments and tracks using enums instead of explicit properties.
 
 ```C#
 Instrument guitar = song.GetInstrument(Instruments.LeadGuitar);
