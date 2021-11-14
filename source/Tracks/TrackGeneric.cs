@@ -5,7 +5,7 @@ namespace ChartTools
     /// <summary>
     /// Set of chords for a instrument at a certain difficulty
     /// </summary>
-    public class Track<TChord> : Track where TChord : Chord
+    public record Track<TChord> : Track where TChord : Chord
     {
         public override UniqueTrackObjectCollection<TChord> Chords { get; } = new();
     }

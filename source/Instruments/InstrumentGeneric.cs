@@ -10,7 +10,7 @@ namespace ChartTools
     /// <summary>
     /// Set of tracks common to an instrument
     /// </summary>
-    public class Instrument<TChord> : Instrument where TChord : Chord
+    public record Instrument<TChord> : Instrument where TChord : Chord
     {
         private Track<TChord> _easy = new(), _medium = new(), _hard = new(), _expert = new();
         /// <summary>
@@ -54,16 +54,16 @@ namespace ChartTools
             switch (difficulty)
             {
                 case ChartTools.Difficulty.Easy:
-                    _easy = track;
+                    _easy = track with { Difficulty = ChartTools.Difficulty.Easy };
                     break;
                 case ChartTools.Difficulty.Medium:
-                    _medium = track;
+                    _medium = track with { Difficulty = ChartTools.Difficulty.Medium };
                     break;
                 case ChartTools.Difficulty.Hard:
-                    _hard = track;
+                    _hard = track with { Difficulty = ChartTools.Difficulty.Hard };
                     break;
                 case ChartTools.Difficulty.Expert:
-                    _expert = track;
+                    _expert = track with { Difficulty = ChartTools.Difficulty.Expert };
                     break;
             }
         }

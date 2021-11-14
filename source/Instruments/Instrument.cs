@@ -13,8 +13,11 @@ namespace ChartTools
     /// <summary>
     /// Base class for instruments
     /// </summary>
-    public abstract class Instrument
+    public abstract record Instrument
     {
+        public Instruments InstrumentIdentity { get; init; }
+        public InstrumentType InstrumentType { get; init; }
+
         /// <summary>
         /// Estimated difficulty
         /// </summary>
