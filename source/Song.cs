@@ -32,36 +32,117 @@ namespace ChartTools
         /// <summary>
         /// Set of drums tracks
         /// </summary>
-        public Instrument<DrumsChord>? Drums { get; set; }
+        public Instrument<DrumsChord>? Drums
+        {
+            get => _drums;
+            set => _drums = value is null ? value : value with
+            {
+                InstrumentIdentity = Instruments.Drums,
+                InstrumentType = InstrumentType.Drums
+            };
+        }
+        private Instrument<DrumsChord>? _drums;
         /// <summary>
         /// Set of Guitar Hero Live guitar tracks
         /// </summary>
-        public Instrument<GHLChord>? GHLGuitar { get; set; }
+        public Instrument<GHLChord>? GHLGuitar
+        {
+            get => _ghlGuitar;
+            set => _ghlGuitar = value is null ? value : value with
+            {
+                InstrumentIdentity = Instruments.GHLGuitar,
+                InstrumentType = InstrumentType.GHL
+            };
+        }
+        private Instrument<GHLChord>? _ghlGuitar;
         /// <summary>
         /// Set of Guitar Hero Live bass tracks
         /// </summary>
-        public Instrument<GHLChord>? GHLBass { get; set; }
+        public Instrument<GHLChord>? GHLBass
+        {
+            get => _ghlBass;
+            set => _ghlBass = value is null ? value : value with
+            {
+                InstrumentIdentity = Instruments.GHLBass,
+                InstrumentType = InstrumentType.GHL
+            };
+        }
+        private Instrument<GHLChord>? _ghlBass;
         /// <summary>
         /// Set of lead guitar tracks
         /// </summary>
-        public Instrument<StandardChord>? LeadGuitar { get; set; }
+        public Instrument<StandardChord>? LeadGuitar
+        {
+            get => _leadGuitar;
+            set => _leadGuitar = value is null ? value : value with
+            {
+                InstrumentIdentity = Instruments.LeadGuitar,
+                InstrumentType = InstrumentType.Standard
+            };
+        }
+        private Instrument<StandardChord>? _leadGuitar;
         /// <summary>
         /// Set of rhythm guitar tracks
         /// </summary>
-        public Instrument<StandardChord>? RhythmGuitar { get; set; }
+        public Instrument<StandardChord>? RhythmGuitar
+        {
+            get => _rhythmGuitar;
+            set => _rhythmGuitar = value is null ? value : value with
+            {
+                InstrumentIdentity = Instruments.RhythmGuitar,
+                InstrumentType = InstrumentType.Standard
+            };
+        }
+        private Instrument<StandardChord>? _rhythmGuitar;
         /// <summary>
         /// Set of coop guitar tracks
         /// </summary>
-        public Instrument<StandardChord>? CoopGuitar { get; set; }
+        public Instrument<StandardChord>? CoopGuitar
+        {
+            get => _coopGuitar;
+            set => _coopGuitar = value is null ? value : value with
+            {
+                InstrumentIdentity = Instruments.CoopGuitar,
+                InstrumentType = InstrumentType.Standard
+            };
+        }
+        private Instrument<StandardChord>? _coopGuitar;
         /// <summary>
         /// Set of bass tracks
         /// </summary>
-        public Instrument<StandardChord>? Bass { get; set; }
+        public Instrument<StandardChord>? Bass
+        {
+            get => _bass;
+            set => _bass = value is null ? value : value with
+            {
+                InstrumentIdentity = Instruments.Bass,
+                InstrumentType = InstrumentType.Standard
+            };
+        }
+        private Instrument<StandardChord>? _bass;
         /// <summary>
         /// Set of keyboard tracks
         /// </summary>
-        public Instrument<StandardChord>? Keys { get; set; }
-        public Instrument<Phrase>? Vocals { get; set; }
+        public Instrument<StandardChord>? Keys
+        {
+            get => _keys;
+            set => _keys = value is null ? value : value with
+            {
+                InstrumentIdentity = Instruments.Keys,
+                InstrumentType = InstrumentType.Standard
+            };
+        }
+        private Instrument<StandardChord>? _keys;
+        public Instrument<Phrase>? Vocals
+        {
+            get => _vocals;
+            set => _vocals = _vocals is null ? value : value with
+            {
+                InstrumentIdentity = Instruments.Vocals,
+                InstrumentType = InstrumentType.Vocals
+            };
+        }
+        private Instrument<Phrase>? _vocals;
         #endregion
 
         /// <summary>

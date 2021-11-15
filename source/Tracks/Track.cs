@@ -10,8 +10,10 @@ namespace ChartTools
     /// <summary>
     /// Base class for tracks
     /// </summary>
-    public abstract class Track
+    public abstract record Track
     {
+        public Difficulty Difficulty { get; init; }
+
         /// <summary>
         /// Events specific to the <see cref="Track"/>
         /// </summary>
