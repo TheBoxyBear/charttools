@@ -85,10 +85,9 @@ namespace ChartTools.IO.Chart
                 return ReadDrums(path, config);
             if (Enum.IsDefined((GHLInstrument)instrument))
                 return ReadInstrument(path, (GHLInstrument)instrument, config);
-            if (Enum.IsDefined((StandardInstrument)instrument))
-                return ReadInstrument(path, (StandardInstrument)instrument, config);
-
-            throw CommonExceptions.GetUndefinedException(instrument);
+            return Enum.IsDefined((StandardInstrument)instrument)
+                ? ReadInstrument(path, (StandardInstrument)instrument, config)
+                : throw CommonExceptions.GetUndefinedException(instrument);
         }
 
         /// <summary>

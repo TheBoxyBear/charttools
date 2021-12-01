@@ -62,12 +62,9 @@ namespace ChartTools
         /// <inheritdoc cref="Event.EventTypeString"/>
         public GlobalEventType EventType
         {
-            get
-            {
-                if (EventTypeString is "section" or "prc_")
-                    return GlobalEventType.Section;
-
-                return globalTypesDictionary.TryGetFirst(p => p.Value == EventTypeString, out KeyValuePair<GlobalEventType, string> pair)
+            get =>  EventTypeString is "section" or "prc_"
+                    ? GlobalEventType.Section
+                    : globalTypesDictionary.TryGetFirst(p => p.Value == EventTypeString, out KeyValuePair<GlobalEventType, string> pair)
                     ? pair.Key
                     : GlobalEventType.Unknown;
             }

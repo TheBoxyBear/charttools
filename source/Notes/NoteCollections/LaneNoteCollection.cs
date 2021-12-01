@@ -1,14 +1,14 @@
 ﻿using ChartTools.Collections.Unique;
+using ChartTools.SystemExtensions;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ChartTools
 {
     public class LaneNoteCollection<TNote, TLane> : NoteCollection<TNote, TLane> where TNote : Note<TLane>, new() where TLane : struct, Enum
     {
-        protected override ICollection<TNote> Notes { get; }
-
         /// <summary>
         /// If <see langword="true"/>, trying to combine an open note with other notes will remove the current ones.
         /// </summary>
@@ -17,7 +17,6 @@ namespace ChartTools
         public LaneNoteCollection(bool openExclusivity)
         {
             OpenExclusivity = openExclusivity;
-            Notes = new UniqueList<TNote>((a, b) => a.NoteIndex.Equals(b.NoteIndex));
         }
 
         public override void Add(TLane lane)
@@ -43,5 +42,23 @@ namespace ChartTools
         public override bool Remove(TLane lane) => Enum.IsDefined(lane)? base.Remove(lane) : throw CommonExceptions.GetUndefinedException(lane);
 
         public override TNote? this[TLane lane] => Enum.IsDefined(lane) ? base[lane] : throw CommonExceptions.GetUndefinedException(lane);
+
+        /// <summary>
+        /// Adds a note to the <see cref="NoteCollection{TNote}"/>.
+        /// </summary>
+        /// <remarks>Adding a note that already exists will overwrite the existing note.
+        ///     <para>If <see cref="OpenExclusivity"/> is <see langword="true"/>, combining an open note with other notes will remove the current ones.</para>
+        /// </remarks>
+        /// <param name="item">Item to add</param>
+        public override void Add(TNote item)
+        {
+            if (item is null)
+                throw new ArgumentNullException(nameof(item));
+
+            if (OpenExclusivity && (item.NoteIndex == 0 || Count > 0 && this.First().NoteIndex == 0))
+                Clear();
+
+            base.Add(item);
+        }
     }
 }
