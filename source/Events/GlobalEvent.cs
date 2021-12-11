@@ -67,7 +67,7 @@ namespace ChartTools
                     : globalTypesDictionary.TryGetFirst(p => p.Value == EventTypeString, out KeyValuePair<GlobalEventType, string> pair)
                     ? pair.Key
                     : GlobalEventType.Unknown;
-            }
+
             set => EventTypeString = GetEventTypeString(value);
         }
 

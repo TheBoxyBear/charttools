@@ -8,7 +8,6 @@ namespace ChartTools.Lyrics
         public VocalsKey Key => (VocalsKey)((int)Pitch & 0x0F);
         public byte Octave => (byte)(((int)Pitch & 0xF0) >> 4);
 
-        internal override byte NoteIndex => Convert.ToByte(Lane);
 
         public VocalsPitch(VocalsPitches pitch) => Pitch = pitch;
 

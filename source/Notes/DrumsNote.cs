@@ -31,6 +31,9 @@ namespace ChartTools
                 throw CommonExceptions.GetUndefinedException(lane);
         }
 
+        /// <summary>
+        /// Determines if the note is played by kicking
+        /// </summary>
         public bool IsKick => Lane is DrumsLane.Kick or DrumsLane.DoubleKick;
     }
 }

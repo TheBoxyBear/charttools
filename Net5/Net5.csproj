@@ -7,6 +7,9 @@
     <RootNamespace>ChartTools</RootNamespace>
     <AssemblyName>ChartTools</AssemblyName>
     <DebugType>embedded</DebugType>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>E:\Users\Gaming\Documents\GitHub\ChartTools\build\net5\ChartTools.xml</DocumentationFile>
   </PropertyGroup>
 
   <Import Project="..\source\source.projitems" Label="Shared" />
@@ -16,6 +19,6 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir)bin\Debug\net5.0\ChartTools.dll&quot; &quot;$(ProjectDir)..\build\net5&quot; /y" />
+    <Exec Command="xcopy &quot;$(ProjectDir)bin\Release\net5.0\ChartTools.dll&quot; &quot;$(ProjectDir)..\build\net5&quot; /y" />
   </Target>
 </Project>

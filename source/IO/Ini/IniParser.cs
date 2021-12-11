@@ -191,9 +191,10 @@ namespace ChartTools.IO.Ini
                     break;
             }
 
-            return entry == default
-                ? null
-                : sbyte.TryParse(entry.value, out sbyte difficulty)
+            if (entry == default)
+                return null;
+
+            return sbyte.TryParse(entry.value, out sbyte difficulty)
                 ? difficulty
                 : throw new FormatException($"Cannot parse difficulty \"{entry.value}\"");
         }

@@ -2,12 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <LangVersion>preview</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
     <RootNamespace>ChartTools</RootNamespace>
     <AssemblyName>ChartTools</AssemblyName>
     <DebugType>embedded</DebugType>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>E:\Users\Gaming\Documents\GitHub\ChartTools\build\net6\ChartTools.xml</DocumentationFile>
   </PropertyGroup>
 
   <Import Project="..\source\source.projitems" Label="Shared" />
@@ -17,6 +21,6 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir)bin\Debug\net6.0\ChartTools.dll&quot; &quot;$(ProjectDir)..\build\net6&quot; /y" />
+    <Exec Command="xcopy &quot;$(ProjectDir)bin\Release\net6.0\ChartTools.dll&quot; &quot;$(ProjectDir)..\build\net6&quot; /y" />
   </Target>
 </Project>

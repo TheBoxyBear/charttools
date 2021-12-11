@@ -34,7 +34,7 @@ namespace ChartTools.IO
 
             reader.readMethod(path);
         }
-        /// <inheritdoc cref="Read(string, (string extension, Action{string} readMethod)[])"/>
+        /// <inheritdoc cref="Read{T}(string, ValueTuple{string, Func{string, T}}[])"/>
         internal static T Read<T>(string path, params (string extension, Func<string, T> readMethod)[] readers)
         {
             if (!File.Exists(path))
@@ -45,7 +45,7 @@ namespace ChartTools.IO
 
             return reader == default ? throw GetException(extension, readers.Select(r => r.extension)) : reader.readMethod(path);
         }
-        /// <inheritdoc cref="Read(string, (string extension, Action{string} readMethod)[])"/>
+        /// <inheritdoc cref="Read(string, ValueTuple{string, Action{string}}[])"/>
         internal static T Read<T, TConfig>(string path, TConfig config, params (string extension, Func<string, TConfig, T> readMethod)[] readers)
         {
             // Convert the read methods to ones that don't take a configuration
