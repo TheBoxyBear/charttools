@@ -136,7 +136,7 @@ namespace ChartTools
         public Instrument<Phrase>? Vocals
         {
             get => _vocals;
-            set => _vocals = _value is null ? value : value with
+            set => _vocals = value is null ? value : value with
             {
                 InstrumentIdentity = Instruments.Vocals,
                 InstrumentType = InstrumentType.Vocals
@@ -176,6 +176,40 @@ namespace ChartTools
         /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="StandardChord"/> from the <see cref="Song"/>.</returns>
         public Instrument<StandardChord>? GetInstrument(StandardInstrument instrument) => GetInstrument((Instruments)instrument) as Instrument<StandardChord>;
         public IEnumerable<Instrument?> GetInstruments() => new Instrument?[] { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys }.NonNull();
+
+        public void SetInstrument(Instrument<StandardChord> instrument, StandardInstrument identity)
+        {
+            switch (identity)
+            {
+                case StandardInstrument.LeadGuitar:
+                    LeadGuitar = instrument;
+                    break;
+                case StandardInstrument.RhythmGuitar:
+                    RhythmGuitar = instrument;
+                    break;
+                case StandardInstrument.CoopGuitar:
+                    CoopGuitar = instrument;
+                    break;
+                case StandardInstrument.Bass:
+                    Bass = instrument;
+                    break;
+                case StandardInstrument.Keys:
+                    Keys = instrument;
+                    break;
+            }
+        }
+        public void SetInstrument(Instrument<GHLChord> instrument, GHLInstrument identity)
+        {
+            switch (identity)
+            {
+                case GHLInstrument.Guitar:
+                    GHLGuitar = instrument;
+                    break;
+                case GHLInstrument.Bass:
+                    GHLBass = instrument;
+                    break;
+            }
+        }
 
         /// <summary>
         /// Reads a <see cref="Song"/> from a file.

@@ -447,7 +447,7 @@
             <summary>
             Reads drums from a file.
             </summary>
-            <inheritdoc cref="!:ChartParser.ReadDrums(string, ReadingConfiguration)(string, Instruments, ReadingConfiguration)"/>
+            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReadDrums(System.String,ChartTools.IO.ReadingConfiguration)"/>
         </member>
         <member name="M:ChartTools.Instrument.FromFile(System.String,ChartTools.GHLInstrument,ChartTools.IO.ReadingConfiguration)">
             <summary>
@@ -1302,10 +1302,12 @@
         </member>
         <member name="T:ChartTools.IO.Chart.ChartParser">
             <summary>
-            Provides methods for reading and writing chart files
-            </summary>
-            <summary>
             Provides methods for reading chart files
+            </summary>
+        </member>
+        <member name="M:ChartTools.IO.Chart.ChartParser.GetNewEntryException">
+            <summary>
+            Gets the <see cref="T:System.Exception"/> to throw from an entry.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Chart.ChartParser.partNames">
@@ -1321,89 +1323,13 @@
             <param name="instrument">Instrument to include in the part name</param>
             <param name="difficulty">Difficulty to include in the part name</param>
         </member>
-        <member name="T:ChartTools.IO.Chart.ChartParser.ChartEntry">
+        <member name="M:ChartTools.IO.Chart.ChartParser.ReadSongAsync(System.String,ChartTools.IO.ReadingConfiguration,System.Threading.CancellationToken)">
             <summary>
-            Line of chart file data
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.Chart.ChartParser.ChartEntry.Header">
-            <summary>
-            Text before the equal sign
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.Chart.ChartParser.ChartEntry.Data">
-            <summary>
-            Text after the equal sign
-            </summary>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ChartEntry.#ctor(System.String)">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.IO.Chart.ChartParser.ChartEntry"/>.
-            </summary>
-            <param name="line">Line in the file</param>
-            <exception cref="T:System.FormatException"/>
-        </member>
-        <member name="T:ChartTools.IO.Chart.ChartParser.TrackObjectEntry">
-            <summary>
-            Line of chart file data representing a <see cref="T:ChartTools.TrackObject"/>
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.Chart.ChartParser.TrackObjectEntry.Position">
-            <summary>
-            Value of <see cref="P:ChartTools.TrackObject.Position"/>
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.Chart.ChartParser.TrackObjectEntry.Type">
-            <summary>
-            Type code of <see cref="T:ChartTools.TrackObject"/>
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.Chart.ChartParser.TrackObjectEntry.Data">
-            <summary>
-            Additional data
-            </summary>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.TrackObjectEntry.#ctor(System.String)">
-            <summary>
-            Creates an instance of see<see cref="T:ChartTools.IO.Chart.ChartParser.TrackObjectEntry"/>.
-            </summary>
-            <param name="line">Line in the file</param>
-            <exception cref="T:System.FormatException"/>
-        </member>
-        <member name="T:ChartTools.IO.Chart.ChartParser.NoteData">
-            <summary>
-            Line of chart data representing a <see cref="T:ChartTools.Note"/>
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.Chart.ChartParser.NoteData.NoteIndex">
-            <summary>
-            Value of <see cref="P:ChartTools.Note.NoteIndex"/>
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.Chart.ChartParser.NoteData.SustainLength">
-            <summary>
-            Value of <see cref="P:ChartTools.Note.Length"/>
-            </summary>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.NoteData.#ctor(System.String)">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.IO.Chart.ChartParser.NoteData"/>.
-            </summary>
-            <param name="data">Data section of the line in the file</param>
-            <exception cref="T:System.FormatException"/>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetNewEntryException">
-            <summary>
-            Gets the <see cref="T:System.Exception"/> to throw from an entry.
-            </summary>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReadSong(System.String,ChartTools.IO.ReadingConfiguration)">
-            <summary>
-            Reads a chart file.
+            Reads a chart file asynchronously using threads to parse parts.
             </summary>
             <returns>Instance of <see cref="T:ChartTools.Song"/> containing all song data</returns>
             <param name="path">Path of the file to read</param>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReadFile(System.String)" path="/exception"/>
+            <inheritdoc cref="!:ReadFileAsync(string)" path="/exception"/>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartParser.ReadInstrument(System.String,ChartTools.Instruments,ChartTools.IO.ReadingConfiguration)">
             <summary>
@@ -1426,7 +1352,7 @@
                 <para><see langword="null"/> if the file contains no drums data</para>
             </returns>
             <param name="path">Path of the file to read</param>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReadFile(System.String)" path="/exception"/>
+            <inheritdoc cref="!:ReadFileAsync(string)" path="/exception"/>
             <inheritdoc cref="!:GetDrumsTrack(IEnumerable&lt;string&gt;, ReadingConfiguration)(IEnumerable&lt;string&gt;, ReadingConfiguration)" path="/exception"/>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartParser.ReadInstrument(System.String,ChartTools.GHLInstrument,ChartTools.IO.ReadingConfiguration)">
@@ -1437,7 +1363,7 @@
                 <para><see langword="null"/> if the file has no data for the given instrument</para>
             </returns>
             <param name="path">Path of the file to read</param>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReadFile(System.String)" path="/exception"/>
+            <inheritdoc cref="!:ReadFileAsync(string)" path="/exception"/>
             <inheritdoc cref="!:GetGHLTrack(IEnumerable&lt;string&gt;, ReadingConfiguration)(IEnumerable&lt;string&gt;, ReadingConfiguration)" path="/exception"/>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartParser.ReadInstrument(System.String,ChartTools.StandardInstrument,ChartTools.IO.ReadingConfiguration)">
@@ -1449,19 +1375,8 @@
             </returns>
             <param name="path">Path of the file to read</param>
             <param name="instrument">Instrument to read</param>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReadFile(System.String)" path="/exception"/>
+            <inheritdoc cref="!:ReadFileAsync(string)" path="/exception"/>
             <inheritdoc cref="!:GetStandardTrack(IEnumerable&lt;string&gt;, ReadingConfiguration)" path="/exception"/>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetInstrument``1(System.String[],System.Func{System.Collections.Generic.IEnumerable{System.String},ChartTools.Track{``0}},System.String)">
-            <summary>
-            Gets all data for an instrument from the contents of a chart file.
-            </summary>
-            <returns>Instance of <see cref="T:ChartTools.Instrument`1"/> containing all data about the given instrument
-                <para><see langword="null"/> if the file contains no data for the given instrument</para>
-            </returns>
-            <param name="lines">Lines in the file</param>
-            <param name="getTrack">Function that retrieves the track from the lines</param>
-            <param name="instrumentPartName">Part name of the instrument excluding the difficulty</param>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartParser.ReadTrack(System.String,ChartTools.Instruments,ChartTools.Difficulty,ChartTools.IO.ReadingConfiguration)">
             <summary>
@@ -1487,31 +1402,8 @@
             <param name="path">Path of the file to read</param>
             <param name="difficulty">Difficulty of the track to read</param>
             <inheritdoc cref="!:GetDrumsTrack(IEnumerable&lt;string&gt;, Difficulty, ReadingConfiguration), GHLInstrument, Difficulty, ReadingConfiguration)" path="/exception"/>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.GetPart(System.Collections.Generic.IEnumerable{System.String},System.String)" path="/exception"/>
+            <inheritdoc cref="!:GetPart(IEnumerable&lt;string&gt;, string)" path="/exception"/>
             <inheritdoc cref="!:GetFullPartName(Instruments, Difficulty)(IEnumerable&lt;string&gt;, string)" path="/exception"/>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetDrumsTrack(System.Collections.Generic.IEnumerable{System.String},ChartTools.Difficulty,ChartTools.IO.Chart.ChartParser.ReadingSession)">
-            <summary>
-            Gets a drums track from the contents of a chart file.
-            </summary>
-            <returns>Instance of <see cref="T:ChartTools.Track`1"/> where TChord is <see cref="T:ChartTools.DrumsChord"/> containing all drums data for the given difficulty
-                <para><see langword="null"/> if the lines contain no drums data for the given difficulty</para>
-            </returns>
-            <param name="lines">Lines in the file</param>
-            <param name="difficulty">Difficulty of the track</param>
-            <inheritdoc cref="!:GetDrumsTrack(IEnumerable&lt;string&gt;, ReadingConfiguration)" path="/exception"/>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.GetPart(System.Collections.Generic.IEnumerable{System.String},System.String)" path="/exception"/>
-            <inheritdoc cref="!:GetFullPartName(Instruments, Difficulty)(IEnumerable&lt;string&gt;, string)" path="/exception"/>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetDrumsTrack(System.Collections.Generic.IEnumerable{System.String},ChartTools.IO.Chart.ChartParser.ReadingSession)">
-            <summary>
-            Gets all data from a portion of a chart file containing a drums track.
-            </summary>
-            <returns>Instance of <see cref="T:ChartTools.Track`1"/> where TChord is <see cref="T:ChartTools.DrumsChord"/> containing all data in the part
-                <para><see langword="null"/> if the part contains no data</para>
-            </returns>
-            <param name="part">Lines of the file belonging to the track</param>
-            <inheritdoc cref="!:GetTrack&lt;TChord&gt;(IEnumerable&lt;string&gt;, Func&lt;Track&lt;TChord&gt;, TChord, TrackObjectEntry, NoteData, bool, TChord&gt;, ReadingConfiguration)" path="/exception"/>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartParser.ReadTrack(System.String,ChartTools.GHLInstrument,ChartTools.Difficulty,ChartTools.IO.ReadingConfiguration)">
             <summary>
@@ -1524,32 +1416,8 @@
             <param name="instrument">Instrument of the track</param>
             <param name="difficulty">Difficulty of the track</param>
             <inheritdoc cref="!:GetGHLTrack(IEnumerable&lt;string&gt;, GHLInstrument, Difficulty, ReadingConfiguration)" path="/exception"/>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.GetPart(System.Collections.Generic.IEnumerable{System.String},System.String)" path="/exception"/>
+            <inheritdoc cref="!:GetPart(IEnumerable&lt;string&gt;, string)" path="/exception"/>
             <inheritdoc cref="!:GetFullPartName(Instruments, Difficulty)(IEnumerable&lt;string&gt;, string)" path="/exception"/>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetGHLTrack(System.Collections.Generic.IEnumerable{System.String},ChartTools.GHLInstrument,ChartTools.Difficulty,ChartTools.IO.Chart.ChartParser.ReadingSession)">
-            <summary>
-            Gets a Guitar Hero Live track from the contents of a chart file.
-            </summary>
-            <returns>Instance of <see cref="T:ChartTools.Track`1"/> where TChord is <see cref="T:ChartTools.GHLChord"/> containing all data for the given instrument and difficulty
-                <para><see langword="null"/> if the lines contain no data for the given instrument and difficulty</para>
-            </returns>
-            <param name="lines">Lines in the file</param>
-            <param name="instrument">Instrument of the track</param>
-            <param name="difficulty">Difficulty of the track</param>
-            <inheritdoc cref="!:GetGHLTrack(IEnumerable&lt;string&gt;, GHLInstrument, Difficulty, ReadingConfiguration)" path="/exception"/>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.GetPart(System.Collections.Generic.IEnumerable{System.String},System.String)" path="/exception"/>
-            <inheritdoc cref="!:GetFullPartName(Instruments, Difficulty)(IEnumerable&lt;string&gt;, string)" path="/exception"/>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetGHLTrack(System.Collections.Generic.IEnumerable{System.String},ChartTools.IO.Chart.ChartParser.ReadingSession)">
-            <summary>
-            Gets all data from a portion of a chart file containing a Guitar Hero Live track.
-            </summary>
-            <returns>Instance of <see cref="T:ChartTools.Track`1"/> where TChord is <see cref="T:ChartTools.GHLChord"/> containing all data in the part
-                <para><see langword="null"/> if the part contains no data</para>
-            </returns>
-            <param name="part">Lines in the file belonging to the track</param>
-            <inheritdoc cref="!:GetTrack&lt;TChord&gt;(IEnumerable&lt;string&gt;, Func&lt;Track&lt;TChord&gt;, TChord, TrackObjectEntry, NoteData, bool, TChord&gt;, ReadingConfiguration)" path="/exception"/>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartParser.ReadTrack(System.String,ChartTools.StandardInstrument,ChartTools.Difficulty,ChartTools.IO.ReadingConfiguration)">
             <summary>
@@ -1562,56 +1430,7 @@
             <param name="instrument">Instrument of the track</param>
             <param name="difficulty">Difficulty of the track</param>
             <inheritdoc cref="!:GetStandardTrack(IEnumerable&lt;string&gt;, StandardInstrument, Difficulty, ReadingConfiguration)"/>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReadFile(System.String)" path="/exception"/>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetStandardTrack(System.Collections.Generic.IEnumerable{System.String},ChartTools.StandardInstrument,ChartTools.Difficulty,ChartTools.IO.Chart.ChartParser.ReadingSession)">
-            <summary>
-            Gets a standard track from the contents of a chart file.
-            </summary>
-            <returns>Instance of <see cref="T:ChartTools.Track`1"/> where TChord is <see cref="T:ChartTools.StandardChord"/> containing all data for the given instrument and difficulty
-                <para><see langword="null"/> if the lines contain no data for the given instrument and difficulty</para>
-            </returns>
-            <param name="lines">Liens in the file</param>
-            <param name="instrument">Instrument of the track</param>
-            <param name="difficulty">Difficulty of the track</param>
-            <inheritdoc cref="!:GetTrack&lt;TChord&gt;(IEnumerable&lt;string&gt;, Func&lt;Track&lt;TChord&gt;, TChord, TrackObjectEntry, NoteData, bool, TChord&gt;, ReadingConfiguration)" path="/exception"/>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.GetPart(System.Collections.Generic.IEnumerable{System.String},System.String)" path="/exception"/>
-            <inheritdoc cref="!:GetFullPartName(Instruments, Difficulty)(IEnumerable&lt;string&gt;, string)" path="/exception"/>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetStandardTrack(System.Collections.Generic.IEnumerable{System.String},ChartTools.IO.Chart.ChartParser.ReadingSession)">
-            <summary>
-            Gets all data from a portion of a chart file containing a standard track.
-            </summary>
-            <returns>Instance of <see cref="T:ChartTools.Track`1"/> where TChord is <see cref="T:ChartTools.StandardChord"/> containing all data in the part
-                <para><see langword="null"/> if the part contains no data</para>
-            </returns>
-            <param name="part">Lines in the file belonging to the track</param>
-            <inheritdoc cref="!:GetTrack&lt;TChord&gt;(IEnumerable&lt;string&gt;, Func&lt;Track&lt;TChord&gt;, TChord, TrackObjectEntry, NoteData, bool, TChord&gt;, ReadingConfiguration)" path="/exception"/>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetTrack``1(System.Collections.Generic.IEnumerable{System.String},ChartTools.IO.Chart.ChartParser.NoteCase{``0},ChartTools.IO.Chart.ChartParser.ReadingSession)">
-            <summary>
-            Gets a track from a portion of a chart file.
-            </summary>
-            <returns>Instance of <see cref="T:ChartTools.Track`1"/> where TChord containing all data in the part
-                <para><see langword="null"/> if the part contains no data</para>
-            </returns>
-            <param name="part">Lines in the file belonging to the track</param>
-            <param name="noteCase">Function that handles entries containing note data. Must return the same chord received as a parameter.</param>
-            <exception cref="T:System.FormatException"/>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetDataSplit(System.String)">
-            <summary>
-            Splits the data of an entry.
-            </summary>
-            <param name="data">Data portion of a <see cref="T:ChartTools.IO.Chart.ChartParser.TrackObjectEntry"/></param>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetLineException(System.String,System.Exception)">
-            <summary>
-            Generates an exception to throw when a line cannot be converted.
-            </summary>
-            <returns>Instance of <see cref="T:System.Exception"/> to throw</returns>
-            <param name="line">Line that caused the exception</param>
-            <param name="innerException">Exception caught when interpreting the line</param>
+            <inheritdoc cref="!:ReadFileAsync(string)" path="/exception"/>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartParser.ReadMetadata(System.String)">
             <summary>
@@ -1621,27 +1440,8 @@
                 <para>Null if the file contains no metadata</para>
             </returns>
             <param name="path">Path of the file to read</param>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.GetMetadata(System.String[])" path="/exception"/>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReadFile(System.String)" path="/exception"/>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetMetadata(System.String[])">
-            <summary>
-            Gets the metadata from the contents of a chart file.
-            </summary>
-            <returns>Instance of <see cref="T:ChartTools.Metadata"/> containing metadata from the file
-                <para>Null if the lines contain no metadata</para>
-            </returns>
-            <param name="lines">Lines in the file</param>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.GetPart(System.Collections.Generic.IEnumerable{System.String},System.String)" path="/exception"/>
-            <exception cref="T:System.FormatException"/>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReadLyrics(System.String)">
-            <summary>
-            Reads the lyrics from a chart file.
-            </summary>
-            <returns>Enumerable of <see cref="T:ChartTools.Lyrics.Phrase"/> containing the lyrics from the file</returns>
-            <param name="path">Path of the file to read</param>
-            <inheritdoc cref="!:ReadGlobalEvents(string)(string[])" path="/exception"/>
+            <inheritdoc cref="!:GetMetadata(string[])" path="/exception"/>
+            <inheritdoc cref="!:ReadFileAsync(string)" path="/exception"/>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartParser.ReadGlobalEvents(System.String)">
             <summary>
@@ -1650,16 +1450,15 @@
             <returns>Enumerable of <see cref="T:ChartTools.GlobalEvent"/></returns>
             <param name="path">Path of the file the read</param>
             <inheritdoc cref="!:GetGlobalEvents(string[])" path="/exception"/>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReadFile(System.String)" path="/exception"/>
+            <inheritdoc cref="!:ReadFileAsync(string)" path="/exception"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetGlobalEvents(System.Collections.Generic.IEnumerable{System.String})">
+        <member name="M:ChartTools.IO.Chart.ChartParser.ReadLyrics(System.String)">
             <summary>
-            Gets the global events from the contents of a chart file.
+            Reads the lyrics from a chart file.
             </summary>
-            <param name="lines">Lines in the file</param>
-            <returns>Enumerable of <see cref="T:ChartTools.GlobalEvent"/></returns>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.GetPart(System.Collections.Generic.IEnumerable{System.String},System.String)" path="/exception"/>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.TrackObjectEntry.#ctor(System.String)" path="/exception"/>
+            <returns>Enumerable of <see cref="T:ChartTools.Lyrics.Phrase"/> containing the lyrics from the file</returns>
+            <param name="path">Path of the file to read</param>
+            <inheritdoc cref="!:ReadGlobalEvents(string)(string[])" path="/exception"/>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartParser.ReadSyncTrack(System.String,ChartTools.IO.ReadingConfiguration)">
             <summary>
@@ -1670,38 +1469,21 @@
             </returns>
             <param name="path">Path of the file to read</param>
             <inheritdoc cref="!:GetSyncTrack(string[])" path="/exception"/>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReadFile(System.String)" path="/exception"/>
+            <inheritdoc cref="!:ReadFileAsync(string)" path="/exception"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetSyncTrack(System.String[],ChartTools.IO.Chart.ChartParser.ReadingSession)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.GetDataSplit(System.String)">
             <summary>
-            Gets the sync track from the contents of a chart file.
+            Splits the data of an entry.
             </summary>
-            <returns>Instance of <see cref="T:ChartTools.SyncTrack"/>
-                <para><see langword="null"/> if the lines contain no sync track</para>
-            </returns>
-            <param name="lines">Lines in the file</param>
-            <exception cref="T:System.FormatException"/>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.TrackObjectEntry.#ctor(System.String)" path="/exception"/>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.GetPart(System.Collections.Generic.IEnumerable{System.String},System.String)" path="/exception"/>
+            <param name="data">Data portion of a <see cref="!:TrackObjectEntry"/></param>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.ReadFile(System.String)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.GetLineException(System.String,System.Exception)">
             <summary>
-            Gets the lines from a text file.
+            Generates an exception to throw when a line cannot be converted.
             </summary>
-            <returns>Enumerable of all the lines in the file</returns>
-            <param name="path">Path of the file to read</param>
-            <inheritdoc cref="M:System.IO.StreamReader.#ctor(System.String)" path="/exception"/>
-            <inheritdoc cref="M:System.IO.StreamReader.ReadLine" path="/exception"/>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetPart(System.Collections.Generic.IEnumerable{System.String},System.String)">
-            <summary>
-            Gets a part from the contents of a chart file
-            </summary>
-            <returns>Enumerable of all the lines in the part</returns>
-            <param name="lines">Lines in the file</param>
-            <param name="partName">Name of the part to extract</param>
-            <exception cref="T:System.IO.InvalidDataException"/>
-            <exception cref="T:System.InvalidOperationException"/>
+            <returns>Instance of <see cref="T:System.Exception"/> to throw</returns>
+            <param name="line">Line that caused the exception</param>
+            <param name="innerException">Exception caught when interpreting the line</param>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartParser.WriteSong(System.String,ChartTools.Song,ChartTools.IO.WritingConfiguration)">
             <summary>
@@ -1780,7 +1562,7 @@
             <param name="partContent">Lines representing the entries in the part to use as a replacement</param>
             <param name="partName">Name of the part to replace</param>
             <inheritdoc cref="M:System.IO.File.WriteAllText(System.String,System.String)" path="/exception"/>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReadFile(System.String)" path="/exception"/>
+            <inheritdoc cref="!:ReadFileAsync(string)" path="/exception"/>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartParser.GetInstrumentLines``1(ChartTools.Instrument{``0},ChartTools.Instruments,ChartTools.IO.Chart.ChartParser.WritingSession)">
             <summary>
@@ -1845,6 +1627,87 @@
             <param name="index">Value of <see cref="P:ChartTools.Note.NoteIndex"/></param>
             <param name="sustain">Value of <see cref="P:ChartTools.Note.Length"/></param>
         </member>
+        <member name="T:ChartTools.IO.Chart.Entries.ChartEntry">
+            <summary>
+            Line of chart file data
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Chart.Entries.ChartEntry.Header">
+            <summary>
+            Text before the equal sign
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Chart.Entries.ChartEntry.Data">
+            <summary>
+            Text after the equal sign
+            </summary>
+        </member>
+        <member name="M:ChartTools.IO.Chart.Entries.ChartEntry.#ctor(System.String)">
+            <summary>
+            Creates an instance of <see cref="T:ChartTools.IO.Chart.Entries.ChartEntry"/>.
+            </summary>
+            <param name="line">Line in the file</param>
+            <exception cref="T:System.FormatException"/>
+        </member>
+        <member name="T:ChartTools.IO.Chart.Entries.NoteData">
+            <summary>
+            Line of chart data representing a <see cref="T:ChartTools.Note"/>
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Chart.Entries.NoteData.NoteIndex">
+            <summary>
+            Value of <see cref="P:ChartTools.Note.NoteIndex"/>
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Chart.Entries.NoteData.SustainLength">
+            <summary>
+            Value of <see cref="P:ChartTools.Note.Length"/>
+            </summary>
+        </member>
+        <member name="M:ChartTools.IO.Chart.Entries.NoteData.#ctor(System.String)">
+            <summary>
+            Creates an instance of <see cref="T:ChartTools.IO.Chart.Entries.NoteData"/>.
+            </summary>
+            <param name="data">Data section of the line in the file</param>
+            <exception cref="T:System.FormatException"/>
+        </member>
+        <member name="T:ChartTools.IO.Chart.Entries.TrackObjectEntry">
+            <summary>
+            Line of chart file data representing a <see cref="T:ChartTools.TrackObject"/>
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Chart.Entries.TrackObjectEntry.Position">
+            <summary>
+            Value of <see cref="P:ChartTools.TrackObject.Position"/>
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Chart.Entries.TrackObjectEntry.Type">
+            <summary>
+            Type code of <see cref="T:ChartTools.TrackObject"/>
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Chart.Entries.TrackObjectEntry.Data">
+            <summary>
+            Additional data
+            </summary>
+        </member>
+        <member name="M:ChartTools.IO.Chart.Entries.TrackObjectEntry.#ctor(System.String)">
+            <summary>
+            Creates an instance of see<see cref="T:ChartTools.IO.Chart.Entries.TrackObjectEntry"/>.
+            </summary>
+            <param name="line">Line in the file</param>
+            <exception cref="T:System.FormatException"/>
+        </member>
+        <member name="T:ChartTools.IO.Chart.ChartReader">
+            <summary>
+            Reader of text file that sends read lines to subscribers of its events.
+            </summary>
+        </member>
+        <member name="M:ChartTools.IO.Chart.ChartReader.ReadFileAsync">
+            <summary>
+            Enumerates the non-empty lines in the file.
+            </summary>
+        </member>
         <member name="T:ChartTools.IO.OverlappingStarPowerPolicy">
             <summary>
             Defines how overlapping star power phrases should be handled
@@ -1901,6 +1764,11 @@
             Include all objects
             </summary>
         </member>
+        <member name="F:ChartTools.IO.DuplicateTrackObjectPolicy.ThrowException">
+            <summary>
+            Throw an exception
+            </summary>
+        </member>
         <member name="T:ChartTools.IO.HopoThresholdPriority">
             <summary>
             Hopo threshold to use if included in the metadata and configuration
@@ -1931,9 +1799,24 @@
             The chord is excluded
             </summary>
         </member>
+        <member name="F:ChartTools.IO.UnsupportedModifierPolicy.ThrowException">
+            <summary>
+            Throw an exception
+            </summary>
+        </member>
         <member name="T:ChartTools.IO.LyricEventSource">
             <summary>
             Where to get lyric data from for formats that store lyrics as events
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.LyricEventSource.GlobalEvents">
+            <summary>
+            Lyrics are obtained from global events
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.LyricEventSource.Vocals">
+            <summary>
+            Lyrics are obtained from the <see cref="P:ChartTools.Song.Vocals"/> instrument
             </summary>
         </member>
         <member name="P:ChartTools.IO.CommonConfiguration.OverlappingStarPowerPolicy">
@@ -1948,6 +1831,11 @@
         <member name="T:ChartTools.IO.ReadingConfiguration">
             <summary>
             Configuration object to direct the reading of a file
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.WritingConfiguration.EventSource">
+            <summary>
+            Defines which difficulty to get local events from
             </summary>
         </member>
         <member name="P:ChartTools.IO.WritingConfiguration.HopoThresholdPriority">
@@ -1979,10 +1867,10 @@
             <exception cref="T:System.IO.FileNotFoundException"/>
         </member>
         <member name="M:ChartTools.IO.ExtensionHandler.Read``1(System.String,System.ValueTuple{System.String,System.Func{System.String,``0}}[])">
-            <inheritdoc cref="!:Read(string, (string extension, Action&lt;string&gt; readMethod)[])"/>
+            <inheritdoc cref="M:ChartTools.IO.ExtensionHandler.Read``1(System.String,System.ValueTuple{System.String,System.Func{System.String,``0}}[])"/>
         </member>
         <member name="M:ChartTools.IO.ExtensionHandler.Read``2(System.String,``1,System.ValueTuple{System.String,System.Func{System.String,``1,``0}}[])">
-            <inheritdoc cref="!:Read(string, (string extension, Action&lt;string&gt; readMethod)[])"/>
+            <inheritdoc cref="M:ChartTools.IO.ExtensionHandler.Read(System.String,System.ValueTuple{System.String,System.Action{System.String}}[])"/>
         </member>
         <member name="M:ChartTools.IO.ExtensionHandler.Write``1(System.String,``0,System.ValueTuple{System.String,System.Action{System.String,``0}}[])">
             <summary>
@@ -2310,6 +2198,11 @@
             </summary>
             <remarks><see cref="F:ChartTools.DrumsLane.Green5Lane"/> notes cannot be cymbal.</remarks>
         </member>
+        <member name="P:ChartTools.DrumsNote.IsKick">
+            <summary>
+            Determines if the note is played by kicking
+            </summary>
+        </member>
         <member name="T:ChartTools.Note">
             <summary>
             Base class for notes
@@ -2508,10 +2401,10 @@
             </summary>
         </member>
         <member name="M:ChartTools.SyncTrack.FromFile(System.String,ChartTools.IO.ReadingConfiguration)">
-            <inheritdoc cref="!:ChartParser.ReadSyncTrack(string)"/>
+            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReadSyncTrack(System.String,ChartTools.IO.ReadingConfiguration)"/>
         </member>
         <member name="M:ChartTools.SyncTrack.ToFile(System.String,ChartTools.IO.WritingConfiguration)">
-            <inheritdoc cref="!:ChartParser.ReplaceSyncTrack(string, SyncTrack)"/>
+            <inheritdoc cref="M:ChartTools.IO.Chart.ChartParser.ReplaceSyncTrack(System.String,ChartTools.SyncTrack,ChartTools.IO.WritingConfiguration)"/>
         </member>
         <member name="T:ChartTools.Tempo">
             <summary>

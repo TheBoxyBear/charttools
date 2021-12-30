@@ -15,7 +15,8 @@
   <Import Project="..\source\source.projitems" Label="Shared" />
 
   <ItemGroup>
-    <PackageReference Include="Melanchall.DryWetMidi" Version="6.0.0" />
+    <PackageReference Include="Melanchall.DryWetMidi" Version="6.0.1" />
+    <PackageReference Include="System.Linq.Async" Version="5.1.0" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

@@ -11,12 +11,14 @@ namespace ChartTools.IO.Chart
     {
         internal delegate bool IncludeNotePolicy(uint position, byte noteIndex, ICollection<byte> ignored);
 
+        private const string DrumsHeaderName = "Drums";
+
         /// <summary>
         /// Part names of <see cref="Instruments"/> without the difficulty
         /// </summary>
-        private static readonly Dictionary<Instruments, string> partNames = new()
+        private static readonly Dictionary<Instruments, string> instrumentHeaderNames = new()
         {
-            { Instruments.Drums, "Drums" },
+            { Instruments.Drums, DrumsHeaderName },
             { Instruments.GHLGuitar, "GHLGuitar" },
             { Instruments.GHLBass, "GHLBass" },
             { Instruments.LeadGuitar, "Single" },
@@ -33,11 +35,15 @@ namespace ChartTools.IO.Chart
         /// <param name="instrument">Instrument to include in the part name</param>
         /// <param name="difficulty">Difficulty to include in the part name</param>
         private static string GetFullPartName(Instruments instrument, Difficulty difficulty) => Enum.IsDefined(typeof(Difficulty), difficulty)
-                ? $"{difficulty}{partNames[instrument]}"
+                ? $"{difficulty}{instrumentHeaderNames[instrument]}"
                 : throw new ArgumentException("Difficulty is undefined.");
 
-        private static bool IncludeSyncTrackAllPolicy(uint position, ICollection<uint> ignored, string objectName) => true;
-        private static bool IncludeSyncTrackFirstPolicy(uint position, ICollection<uint> ignored, string objectName)
+        private static string CreateHeader(Instruments instrument, Difficulty difficulty) => CreateHeader(instrumentHeaderNames[instrument], difficulty);
+        private static string CreateHeader(string instrumentName, Difficulty difficulty) => CreateHeader(difficulty.ToString() + instrumentName);
+        private static string CreateHeader(string name) => $"[{name}]";
+
+        internal static bool IncludeSyncTrackAllPolicy(uint position, ICollection<uint> ignored, string objectName) => true;
+        internal static bool IncludeSyncTrackFirstPolicy(uint position, ICollection<uint> ignored, string objectName)
         {
             if (ignored.Contains(position))
                 return false;
@@ -45,7 +51,7 @@ namespace ChartTools.IO.Chart
             ignored.Add(position);
             return true;
         }
-        private static bool IncludeSyncTrackExceptionPolicy(uint position, ICollection<uint> ignored, string objectName)
+        internal static bool IncludeSyncTrackExceptionPolicy(uint position, ICollection<uint> ignored, string objectName)
         {
             if (ignored.Contains(position))
                 throw new Exception($"Duplicate {objectName} on position {position}. Consider using a different {nameof(DuplicateTrackObjectPolicy)} to avoid this error.");
@@ -54,7 +60,7 @@ namespace ChartTools.IO.Chart
             return true;
         }
 
-        private static void ApplyOverlappingStarPowerPolicy(UniqueTrackObjectCollection<StarPowerPhrase> starPower, OverlappingStarPowerPolicy policy)
+        internal static void ApplyOverlappingStarPowerPolicy(UniqueTrackObjectCollection<StarPowerPhrase> starPower, OverlappingStarPowerPolicy policy)
         {
             switch (policy)
             {

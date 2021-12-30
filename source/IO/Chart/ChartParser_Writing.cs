@@ -138,7 +138,8 @@ namespace ChartTools.IO.Chart
                 throw new ArgumentNullException(nameof(inst));
 
             // Get the instrument lines, combiner them with the lines from the file not related to the instrument and re-write the file
-            WriteFile(path, GetInstrumentLines(inst, instEnum, new(config)).Concat(ReadFile(path).RemoveSections(Enum.GetValues<Difficulty>().Select(d => ((Predicate<string>)(l => l == $"[{GetFullPartName(instEnum, d)}]"), (Predicate<string>)(l => l == "}"))).ToArray()).ToArray()));
+            throw new NotImplementedException();
+            //WriteFile(path, GetInstrumentLines(inst, instEnum, new(config)).Concat(ReadFileAsync(path).RemoveSections(Enum.GetValues<Difficulty>().Select(d => ((Predicate<string>)(l => l == $"[{GetFullPartName(instEnum, d)}]"), (Predicate<string>)(l => l == "}"))).ToArray()).ToArray()));
         }
 
         /// <summary>
@@ -179,13 +180,13 @@ namespace ChartTools.IO.Chart
         /// <param name="partContent">Lines representing the entries in the part to use as a replacement</param>
         /// <param name="partName">Name of the part to replace</param>
         /// <inheritdoc cref="File.WriteAllText(string, string?)" path="/exception"/>
-        /// <inheritdoc cref="ReadFile(string)" path="/exception"/>
+        /// <inheritdoc cref="ReadFileAsync(string)" path="/exception"/>
         private static void ReplacePart(string path, IEnumerable<string> partContent, string partName)
         {
             IEnumerable<string> part = GetPartLines(partName, partContent);
 
             WriteFile(path, (File.Exists(path)
-                ? ReadFile(path).ReplaceSection(part, l => l == $"[{partName}]", l => l == "}", true)
+                ? throw new NotImplementedException()//ReadFileAsync(path).ReplaceSection(part, l => l == $"[{partName}]", l => l == "}", true)
                 : part).ToArray());
         }
 

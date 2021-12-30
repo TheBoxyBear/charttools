@@ -127,6 +127,9 @@
 
     public class WritingConfiguration : CommonConfiguration
     {
+        /// <summary>
+        /// Defines which difficulty to get local events from
+        /// </summary>
         public TrackObjectSource EventSource { get; init; }
         public TrackObjectSource StarPowerSource { get; init; }
         /// <inheritdoc cref="IO.HopoThresholdPriority"/>

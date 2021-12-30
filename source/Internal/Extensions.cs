@@ -7,6 +7,8 @@ using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.Lyrics;
 using ChartTools.Collections.Alternating;
+using System.Threading.Tasks;
+using System.Collections;
 
 namespace ChartTools.SystemExtensions
 {
@@ -34,6 +36,16 @@ namespace ChartTools.SystemExtensions
             2 => $"{items[0]} {lastItemPreceder} {items[1]}", // "Item1 lastItemPreceder Item2"
             _ => $"{string.Join(", ", items, items.Length - 1)} {lastItemPreceder} {items[^0]}" // "Item1, Item2 lastItemPreceder Item3"
         };
+    }
+
+    internal static class TaskExtensions
+    {
+        // Credit: https://stackoverflow.com/a/46962416/8078210
+        public static T SyncResult<T>(this Task<T> task)
+        {
+            task.RunSynchronously();
+            return task.Result;
+        }
     }
 }
 namespace ChartTools.SystemExtensions.Linq
@@ -404,6 +416,16 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
         public static IEnumerable<T> ManyMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) > 0);
 
+        public static bool TryGetFirst<T>(this IEnumerable<T> source, out T? result)
+        {
+            using var enumerator = source.GetEnumerator();
+            var success = enumerator.MoveNext();
+
+            result = success ? enumerator.Current : default;
+            return success;
+        }
+        public static bool TryGetFirstOfType<TResult>(this IEnumerable source, out TResult? result) => source.OfType<TResult>().TryGetFirst(out result);
+
         // Methods present in .NET 6 but needed for .NET builds
 #if NET5_0
         /// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
@@ -468,6 +490,12 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
         public static T MaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => MinMaxBy(source, selector, (key, mmKey) => key.CompareTo(mmKey) > 0);
 #endif
+
+        public static async IAsyncEnumerable<T> ToAsyncEnumerable<T>(this IEnumerable<T> source)
+        {
+            foreach (var item in source)
+                yield return await Task.FromResult(item);
+        }
     }
 }
 
