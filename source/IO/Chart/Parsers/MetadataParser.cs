@@ -36,7 +36,7 @@ namespace ChartTools.IO.Chart.Parsers
                     catch (Exception e) { throw ChartParser.GetLineException(line, e); }
                     break;
                 case "Offset":
-                    try { preResult!.AudioOffset = int.Parse(entry.Data); }
+                    try { preResult!.AudioOffset = (int)(float.Parse(entry.Data) * 1000); }
                     catch (Exception e) { throw ChartParser.GetLineException(line, e); }
                     break;
                 case "Resolution":
