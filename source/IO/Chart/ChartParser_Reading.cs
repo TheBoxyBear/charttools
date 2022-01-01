@@ -144,7 +144,7 @@ namespace ChartTools.IO.Chart
         }
         #endregion
         #region GHL
-        private static GHLTrackParser? GetAnyGHLTrackParser(string part) => ghlTrackHeaders.TryGetValue(part, out (Difficulty, GHLInstrument) tuple)
+        private static GHLTrackParser? GetAnyGHLTrackParser(string part, GHLInstrument instrument) => ghlTrackHeaders.TryGetValue(part, out (Difficulty, GHLInstrument) tuple) && tuple.Item2 == instrument
             ? new(tuple.Item1, tuple.Item2)
             : null;
         /// <summary>
@@ -158,19 +158,19 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="GetGHLTrack(IEnumerable{string}, ReadingConfiguration)(IEnumerable{string}, ReadingConfiguration)" path="/exception"/>
         public static Instrument<GHLChord>? ReadInstrument(string path, GHLInstrument instrument, ReadingConfiguration? config)
         {
-            var reader = new ChartReader(path, GetAnyStandardTrackParser);
+            var reader = new ChartReader(path, header => GetAnyGHLTrackParser(header, instrument));
             reader.Read(new(config));
             return CreateInstrumentFromReader<GHLChord>(reader);
         }
         public static async Task<Instrument<GHLChord>?> ReadInstrumentAsync(string path, GHLInstrument instrument, ReadingConfiguration? config, CancellationToken cancellationToken)
         {
-            var reader = new ChartReader(path, GetAnyStandardTrackParser);
+            var reader = new ChartReader(path, header => GetAnyGHLTrackParser(header, instrument));
             await reader.ReadAsync(new(config), cancellationToken);
             return CreateInstrumentFromReader<GHLChord>(reader);
         }
         #endregion
         #region Standard
-        private static StandardTrackParser? GetAnyStandardTrackParser(string part) => standardTrackHeaders.TryGetValue(part, out (Difficulty, StandardInstrument) tuple)
+        private static StandardTrackParser? GetAnyStandardTrackParser(string part, StandardInstrument instrument) => standardTrackHeaders.TryGetValue(part, out (Difficulty, StandardInstrument) tuple) && tuple.Item2 == instrument
             ? new(tuple.Item1, tuple.Item2)
             : null;
         /// <summary>
@@ -185,13 +185,13 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="GetStandardTrack(IEnumerable{string}, ReadingConfiguration)" path="/exception"/>
         public static Instrument<StandardChord>? ReadInstrument(string path, StandardInstrument instrument, ReadingConfiguration? config)
         {
-            var reader = new ChartReader(path, GetAnyStandardTrackParser);
+            var reader = new ChartReader(path, header => GetAnyStandardTrackParser(header, instrument));
             reader.Read(new(config));
             return CreateInstrumentFromReader<StandardChord>(reader);
         }
         public static async Task<Instrument<StandardChord>?> ReadInstrumentAsync(string path, StandardInstrument instrument, ReadingConfiguration? config, CancellationToken cancellationToken)
         {
-            var reader = new ChartReader(path, GetAnyStandardTrackParser);
+            var reader = new ChartReader(path, header => GetAnyStandardTrackParser(header, instrument));
             await reader.ReadAsync(new(config), cancellationToken);
             return CreateInstrumentFromReader<StandardChord>(reader);
         }
@@ -256,7 +256,9 @@ namespace ChartTools.IO.Chart
         }
         public static async Task<Track<DrumsChord>?> ReadDrumsTrackAsync(string path, Difficulty difficulty, ReadingConfiguration? config, CancellationToken cancellationToken)
         {
-            var reader = new ChartReader(path, GetAnyDrumsTrackParser);
+            var seekedHeader = CreateHeader(DrumsHeaderName, difficulty);
+            var reader = new ChartReader(path, header => GetDrumsTrackParser(header, seekedHeader, difficulty));
+
             await reader.ReadAsync(new(config), cancellationToken);
             return reader.Parsers.TryGetFirstOfType(out DrumsTrackParser? parser) ? parser!.Result : null;
         }
@@ -294,6 +296,7 @@ namespace ChartTools.IO.Chart
         #endregion
         #region Standard
         private static StandardTrackParser? GetStandardTrackParser(string header, string seekedHeader, StandardInstrument instrument, Difficulty difficulty) => header == seekedHeader ? new(difficulty, instrument) : null;
+
         private static readonly Dictionary<string, (Difficulty, StandardInstrument)> standardTrackHeaders = GetTrackCombinations(Enum.GetValues<StandardInstrument>()).ToDictionary(tuple => CreateHeader((Instruments)tuple.instrument, tuple.difficulty));
 
         /// <summary>

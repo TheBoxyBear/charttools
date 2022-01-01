@@ -7,7 +7,7 @@ namespace ChartTools.IO.Chart.Entries
     /// <summary>
     /// Line of chart data representing a <see cref="Note"/>
     /// </summary>
-    internal struct NoteData
+    internal ref struct NoteData
     {
         /// <summary>
         /// Value of <see cref="Note.NoteIndex"/>

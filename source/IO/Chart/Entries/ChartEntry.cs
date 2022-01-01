@@ -7,7 +7,7 @@ namespace ChartTools.IO.Chart.Entries
     /// <summary>
     /// Line of chart file data
     /// </summary>
-    internal struct ChartEntry
+    internal ref struct ChartEntry
     {
         /// <summary>
         /// Text before the equal sign

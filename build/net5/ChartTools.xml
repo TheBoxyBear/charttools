@@ -1300,6 +1300,24 @@
             <param name="overwriteNonNull">If <see langword="false"/>, only replaces property values that are null in the original instance.</param>
             <param name="newValues">Items to pull new property values from in order of priority</param>
         </member>
+        <member name="F:ChartTools.IO.Chart.ChartFormatting.instrumentHeaderNames">
+            <summary>
+            Part names of <see cref="T:ChartTools.Instruments"/> without the difficulty
+            </summary>
+        </member>
+        <member name="M:ChartTools.IO.Chart.ChartFormatting.NoteData(System.Byte,System.UInt32)">
+            <summary>
+            Gets the written data for a note.
+            </summary>
+            <param name="index">Value of <see cref="P:ChartTools.Note.NoteIndex"/></param>
+            <param name="sustain">Value of <see cref="P:ChartTools.Note.Length"/></param>
+        </member>
+        <member name="M:ChartTools.IO.Chart.ChartFormatting.Float(System.Single)">
+            <summary>
+            Gets the written value of a float.
+            </summary>
+            <param name="value">Value to get the written equivalent of</param>
+        </member>
         <member name="T:ChartTools.IO.Chart.ChartParser">
             <summary>
             Provides methods for reading chart files
