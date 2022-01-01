@@ -136,7 +136,7 @@ namespace ChartTools
         public Instrument<Phrase>? Vocals
         {
             get => _vocals;
-            set => _vocals = _value is null ? value : value with
+            set => _vocals = value is null ? value : value with
             {
                 InstrumentIdentity = Instruments.Vocals,
                 InstrumentType = InstrumentType.Vocals

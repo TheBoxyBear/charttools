@@ -530,7 +530,7 @@ namespace ChartTools.IO.Chart
                         catch (Exception e) { throw GetLineException(line, e); }
                         break;
                     case "Offset":
-                        try { metadata.AudioOffset = int.Parse(entry.Data); }
+                        try { metadata.AudioOffset = (int)(float.Parse(entry.Data) * 1000); }
                         catch (Exception e) { throw GetLineException(line, e); }
                         break;
                     case "Resolution":
