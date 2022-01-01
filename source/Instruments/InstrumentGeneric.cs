@@ -115,10 +115,10 @@ namespace ChartTools
             if (starPower is null || starPower.Length == 0)
                 return;
 
-            Easy.StarPower = new(starPower.Length, starPower!);
-            Medium.StarPower = new(starPower.Length, starPower!);
-            Hard.StarPower = new(starPower.Length, starPower!);
-            Expert.StarPower = new(starPower.Length, starPower!);
+            Easy.StarPower = new(starPower!);
+            Medium.StarPower = new(starPower!);
+            Hard.StarPower = new(starPower!);
+            Expert.StarPower = new(starPower!);
         }
     }
 }

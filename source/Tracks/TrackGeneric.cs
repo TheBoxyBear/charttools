@@ -7,6 +7,6 @@ namespace ChartTools
     /// </summary>
     public record Track<TChord> : Track where TChord : Chord
     {
-        public override UniqueTrackObjectCollection<TChord> Chords { get; } = new();
+        public override List<TChord> Chords { get; } = new();
     }
 }

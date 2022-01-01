@@ -21,7 +21,7 @@ namespace ChartTools
         /// <summary>
         /// Sets of star power phrases
         /// </summary>
-        public UniqueTrackObjectCollection<StarPowerPhrase> StarPower { get; set; } = new();
+        public List<StarPowerPhrase> StarPower { get; set; } = new();
 
         /// <summary>
         /// Groups of notes of the same position

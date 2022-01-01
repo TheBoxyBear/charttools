@@ -61,7 +61,7 @@ namespace ChartTools.IO.Chart
             return true;
         }
 
-        internal static void ApplyOverlappingStarPowerPolicy(UniqueTrackObjectCollection<StarPowerPhrase> starPower, OverlappingStarPowerPolicy policy)
+        internal static void ApplyOverlappingStarPowerPolicy(IEnumerable<StarPowerPhrase> starPower, OverlappingStarPowerPolicy policy)
         {
             switch (policy)
             {

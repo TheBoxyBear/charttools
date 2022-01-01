@@ -63,7 +63,7 @@ namespace ChartTools.IO.Chart.Parsers
                         throw new FormatException(string.Format(parseFloatExceptionMessage, entry.Data));
 
                     // Find the marker matching the position in case it was already added through a mention of anchor
-                    marker = preResult!.Tempo.FirstOrDefault(m => m.Position == entry.Position);
+                    marker = preResult!.Tempo.Find(m => m.Position == entry.Position);
 
                     if (marker is null)
                         preResult.Tempo.Add(new(entry.Position, value));
@@ -82,7 +82,7 @@ namespace ChartTools.IO.Chart.Parsers
                         throw new FormatException(string.Format(parseFloatExceptionMessage, entry.Data));
 
                     // Find the marker matching the position in case it was already added through a mention of value
-                    marker = preResult!.Tempo.FirstOrDefault(m => m.Position == entry.Position);
+                    marker = preResult!.Tempo.Find(m => m.Position == entry.Position);
 
                     if (marker is null)
                         preResult.Tempo.Add(new(entry.Position, 0) { Anchor = anchor });

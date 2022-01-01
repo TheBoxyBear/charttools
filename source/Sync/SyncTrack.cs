@@ -1,6 +1,7 @@
-﻿using ChartTools.Collections.Unique;
-using ChartTools.IO;
+﻿using ChartTools.IO;
 using ChartTools.IO.Chart;
+
+using System.Collections.Generic;
 
 namespace ChartTools
 {
@@ -12,11 +13,11 @@ namespace ChartTools
         /// <summary>
         /// Tempo markers
         /// </summary>
-        public UniqueList<Tempo> Tempo { get; } = new UniqueList<Tempo>((t, other) => t.Equals(other));
+        public List<Tempo> Tempo { get; } = new();
         /// <summary>
         /// Time signature markers
         /// </summary>
-        public UniqueList<TimeSignature> TimeSignatures { get; } = new UniqueList<TimeSignature>((t, other) => t.Equals(other));
+        public List<TimeSignature> TimeSignatures { get; } = new();
 
         /// <inheritdoc cref="ChartParser.ReadSyncTrack(string, ReadingConfiguration)"/>
         public static SyncTrack FromFile(string path, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, config, (".chart", ChartParser.ReadSyncTrack));

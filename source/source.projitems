@@ -56,11 +56,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\SyncTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\TrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\VariableInstrumentTrackParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Providers\IChordProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Providers\DrumsChordProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Providers\GHLChordProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Providers\ChordProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Providers\StarPowerProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Providers\TempoProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Providers\TimeSignatureProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serializers\SyncTrackSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serializers\TrackSerializer.cs" />
     <Compile Include="..\source\IO\Chart\Providers\ITrackObjectProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serializers\ChartSerializer_Generic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Providers\EventProvider.cs" />

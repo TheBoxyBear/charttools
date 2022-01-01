@@ -25,7 +25,7 @@ namespace ChartTools.IO.Chart.Parsers
             if (chord is null)
                 chord = new(position);
             else if (position != chord.Position)
-                chord = track.Chords.FirstOrDefault(c => c.Position == position, new(position), out newChord)!;
+                chord = track.Chords.Find(c => c.Position == position) ?? new(position);
             else
                 newChord = false;
 
