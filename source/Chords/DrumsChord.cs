@@ -1,4 +1,6 @@
 ﻿using ChartTools.IO.Chart;
+using ChartTools.IO.Chart.Sessions;
+
 using System;
 using System.Collections.Generic;
 
@@ -45,7 +47,7 @@ namespace ChartTools
             }
         }
 
-        internal override IEnumerable<string> GetChartModifierData(Chord? previous, ChartParser.WritingSession session)
+        internal override IEnumerable<string> GetChartModifierData(Chord? previous, WritingSession session)
         {
             if (Modifier.HasFlag(DrumsChordModifier.Flam))
                 yield return ChartParser.GetNoteData(109, 0);

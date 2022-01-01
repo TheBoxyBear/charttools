@@ -1,4 +1,6 @@
-﻿using System.Collections.Concurrent;
+﻿using ChartTools.IO.Chart.Sessions;
+
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,10 +22,9 @@ namespace ChartTools.IO.Chart.Parsers
         {
             this.cancellationToken = cancellationToken;
             this.session = session;
+
             PrepareParse();
-
-            await Task.Run(HandleLines);
-
+            await Task.Run(HandleLines, cancellationToken);
             FinaliseParse();
         }
         public void EndAsyncParse() => noMoreLines = true;

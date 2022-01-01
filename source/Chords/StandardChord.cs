@@ -1,4 +1,6 @@
 ﻿using ChartTools.IO.Chart;
+using ChartTools.IO.Chart.Sessions;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +39,7 @@ namespace ChartTools
 
         internal override IEnumerable<string> GetChartNoteData() => Notes.Select(note => ChartParser.GetNoteData(note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Length));
 
-        internal override IEnumerable<string> GetChartModifierData(Chord? previous, ChartParser.WritingSession session)
+        internal override IEnumerable<string> GetChartModifierData(Chord? previous, WritingSession session)
         {
             bool isInvert = Modifier.HasFlag(StandardChordModifier.HopoInvert);
 

@@ -1310,7 +1310,7 @@
             Gets the <see cref="T:System.Exception"/> to throw from an entry.
             </summary>
         </member>
-        <member name="F:ChartTools.IO.Chart.ChartParser.partNames">
+        <member name="F:ChartTools.IO.Chart.ChartParser.instrumentHeaderNames">
             <summary>
             Part names of <see cref="T:ChartTools.Instruments"/> without the difficulty
             </summary>
@@ -1564,7 +1564,7 @@
             <inheritdoc cref="M:System.IO.File.WriteAllText(System.String,System.String)" path="/exception"/>
             <inheritdoc cref="!:ReadFileAsync(string)" path="/exception"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetInstrumentLines``1(ChartTools.Instrument{``0},ChartTools.Instruments,ChartTools.IO.Chart.ChartParser.WritingSession)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.GetInstrumentLines``1(ChartTools.Instrument{``0},ChartTools.Instruments,ChartTools.IO.Chart.Sessions.WritingSession)">
             <summary>
             Gets the lines to write all the parts making up an instrument.
             </summary>
@@ -1572,7 +1572,7 @@
             <param name="instEnum">Instrument to define the part names</param>
             <returns>Enumerable of all the lines making up the parts for the instrument</returns>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetTrackLines``1(ChartTools.Track{``0},ChartTools.IO.Chart.ChartParser.WritingSession)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.GetTrackLines``1(ChartTools.Track{``0},ChartTools.IO.Chart.Sessions.WritingSession)">
             <summary>
             Gets the lines to write for a difficulty track.
             </summary>
@@ -1592,7 +1592,7 @@
             </summary>
             <param name="e">Event to get the line of</param>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartParser.GetSyncTrackLines(ChartTools.SyncTrack,ChartTools.IO.Chart.ChartParser.WritingSession)">
+        <member name="M:ChartTools.IO.Chart.ChartParser.GetSyncTrackLines(ChartTools.SyncTrack,ChartTools.IO.Chart.Sessions.WritingSession)">
             <summary>
             Gets the lines to write for a sync track.
             </summary>

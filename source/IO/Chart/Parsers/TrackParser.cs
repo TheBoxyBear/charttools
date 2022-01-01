@@ -1,4 +1,5 @@
 ﻿using ChartTools.IO.Chart.Entries;
+using ChartTools.IO.Chart.Sessions;
 using ChartTools.SystemExtensions.Linq;
 using ChartTools.Tools.Optimizing;
 

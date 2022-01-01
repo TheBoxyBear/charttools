@@ -38,6 +38,7 @@ namespace ChartTools.IO.Chart
                 ? $"{difficulty}{instrumentHeaderNames[instrument]}"
                 : throw new ArgumentException("Difficulty is undefined.");
 
+        private static string CreateHeader(Enum instrument, Difficulty difficulty) => CreateHeader((Instruments)instrument, difficulty);
         private static string CreateHeader(Instruments instrument, Difficulty difficulty) => CreateHeader(instrumentHeaderNames[instrument], difficulty);
         private static string CreateHeader(string instrumentName, Difficulty difficulty) => CreateHeader(difficulty.ToString() + instrumentName);
         private static string CreateHeader(string name) => $"[{name}]";

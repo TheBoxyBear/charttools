@@ -1,4 +1,4 @@
-﻿namespace ChartTools.IO.Chart
+﻿namespace ChartTools.IO.Chart.Sessions
 {
     internal class ReadingSession
     {

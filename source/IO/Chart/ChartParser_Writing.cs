@@ -1,4 +1,5 @@
-﻿using ChartTools.Lyrics;
+﻿using ChartTools.IO.Chart.Sessions;
+using ChartTools.Lyrics;
 using ChartTools.SystemExtensions.Linq;
 
 using System;
@@ -19,27 +20,6 @@ namespace ChartTools.IO.Chart
             StarPowerSource = TrackObjectSource.Seperate,
             UnsupportedModifierPolicy = UnsupportedModifierPolicy.ThrowException
         };
-
-        internal class WritingSession
-        {
-            public delegate IEnumerable<string> ChordLinesGetter(Chord? previous, Chord current);
-
-            public WritingConfiguration Configuration { get; }
-            public ChordLinesGetter GetChordLines { get; }
-            public uint HopoThreshold { get; set; }
-
-            public WritingSession(WritingConfiguration? config)
-            {
-                Configuration = config ?? DefaultWriteConfig;
-                GetChordLines = Configuration.UnsupportedModifierPolicy switch
-                {
-                    UnsupportedModifierPolicy.IgnoreChord => (_, _) => Enumerable.Empty<string>(),
-                    UnsupportedModifierPolicy.ThrowException => (_, chord) => throw new Exception($"Chord at position {chord.Position} as an unsupported modifier for the chart format. Consider using a different {nameof(UnsupportedModifierPolicy)} to avoid this error."),
-                    UnsupportedModifierPolicy.IgnoreModifier => (_, chord) => chord.GetChartNoteData(),
-                    UnsupportedModifierPolicy.Convert => (previous, chord) => chord.GetChartData(previous, this)
-                };
-            }
-        }
 
         /// <summary>
         /// Writes a song to a chart file

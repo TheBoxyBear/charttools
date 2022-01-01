@@ -1,4 +1,5 @@
 ﻿using ChartTools.IO.Chart;
+using ChartTools.IO.Chart.Sessions;
 using ChartTools.SystemExtensions.Linq;
 
 using System;
@@ -58,6 +59,6 @@ namespace ChartTools.Lyrics
         }
 
         internal override IEnumerable<string> GetChartNoteData() => Enumerable.Empty<string>();
-        internal override IEnumerable<string> GetChartModifierData(Chord? previous, ChartParser.WritingSession session) => Enumerable.Empty<string>();
+        internal override IEnumerable<string> GetChartModifierData(Chord? previous, WritingSession session) => Enumerable.Empty<string>();
     }
 }
