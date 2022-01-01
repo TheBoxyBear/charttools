@@ -85,10 +85,9 @@ namespace ChartTools.IO.Chart
                 return ReadDrums(path, config);
             if (Enum.IsDefined((GHLInstrument)instrument))
                 return ReadInstrument(path, (GHLInstrument)instrument, config);
-            if (Enum.IsDefined((StandardInstrument)instrument))
-                return ReadInstrument(path, (StandardInstrument)instrument, config);
-
-            throw CommonExceptions.GetUndefinedException(instrument);
+            return Enum.IsDefined((StandardInstrument)instrument)
+                ? ReadInstrument(path, (StandardInstrument)instrument, config)
+                : throw CommonExceptions.GetUndefinedException(instrument);
         }
 
         /// <summary>
@@ -531,7 +530,7 @@ namespace ChartTools.IO.Chart
                         catch (Exception e) { throw GetLineException(line, e); }
                         break;
                     case "Offset":
-                        try { metadata.AudioOffset = int.Parse(entry.Data); }
+                        try { metadata.AudioOffset = (int)(float.Parse(entry.Data) * 1000); }
                         catch (Exception e) { throw GetLineException(line, e); }
                         break;
                     case "Resolution":

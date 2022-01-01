@@ -10,7 +10,6 @@ namespace ChartTools
     {
         public override abstract IEnumerable<TNote> Notes { get; }
         public TModifier Modifier { get; set; }
-
         /// <inheritdoc cref="Chord(uint)" path="/param"/>
         protected Chord(uint position) : base(position) { }
     }

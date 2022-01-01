@@ -11,7 +11,7 @@ namespace ChartTools.Tools.Optimizing
     /// </summary>
     public static class Optimizer
     {
-        internal static bool LengthNeedsCut(ILongTrackObject previous, ILongTrackObject current) => previous.Position + previous.Length > current.Position;
+        internal static bool LengthNeedsCut(ILongTrackObject? previous, ILongTrackObject? current) => previous?.Position + previous?.Length > current?.Position;
         internal static void CutLength(ILongTrackObject previous, ILongTrackObject current) => previous.Length = current.Position - previous.Position;
 
         /// <summary>
