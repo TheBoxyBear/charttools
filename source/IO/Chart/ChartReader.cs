@@ -18,8 +18,8 @@ namespace ChartTools.IO.Chart
         public string Path { get; }
         public IReadOnlyList<ChartPartParser> Parsers => parsers;
 
-        private List<ChartPartParser> parsers = new();
-        private List<Task> parseTasks = new();
+        private readonly List<ChartPartParser> parsers = new();
+        private readonly List<Task> parseTasks = new();
         private ChartPartParser? currentParser;
         private readonly Func<string, ChartPartParser?> parserGetter;
         private const string partEndEarlyExceptionMessage = "Part \"{0}\" did not end within the provided lines.";
