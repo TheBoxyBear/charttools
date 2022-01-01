@@ -57,6 +57,9 @@
         /// Include all objects
         /// </summary>
         IncludeAll,
+        /// <summary>
+        /// Throw an exception
+        /// </summary>
         ThrowException
     }
     /// <summary>
@@ -87,6 +90,9 @@
         /// The chord is excluded
         /// </summary>
         IgnoreChord,
+        /// <summary>
+        /// Throw an exception
+        /// </summary>
         ThrowException
     }
     /// <summary>
@@ -94,7 +100,13 @@
     /// </summary>
     public enum LyricEventSource : byte
     {
+        /// <summary>
+        /// Lyrics are obtained from global events
+        /// </summary>
         GlobalEvents,
+        /// <summary>
+        /// Lyrics are obtained from the <see cref="Song.Vocals"/> instrument
+        /// </summary>
         Vocals
     }
 

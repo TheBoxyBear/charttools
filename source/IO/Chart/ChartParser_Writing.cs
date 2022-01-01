@@ -34,10 +34,7 @@ namespace ChartTools.IO.Chart
                 GetChordLines = Configuration.UnsupportedModifierPolicy switch
                 {
                     UnsupportedModifierPolicy.IgnoreChord => (_, _) => Enumerable.Empty<string>(),
-                    UnsupportedModifierPolicy.ThrowException => (_, chord) =>
-                    {
-                        throw new Exception($"Chord at position {chord.Position} as an unsupported modifier for the chart format. Consider using a different {nameof(UnsupportedModifierPolicy)} to avoid this error.");
-                    },
+                    UnsupportedModifierPolicy.ThrowException => (_, chord) => throw new Exception($"Chord at position {chord.Position} as an unsupported modifier for the chart format. Consider using a different {nameof(UnsupportedModifierPolicy)} to avoid this error."),
                     UnsupportedModifierPolicy.IgnoreModifier => (_, chord) => chord.GetChartNoteData(),
                     UnsupportedModifierPolicy.Convert => (previous, chord) => chord.GetChartData(previous, this)
                 };

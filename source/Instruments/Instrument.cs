@@ -64,7 +64,7 @@ namespace ChartTools
         /// <summary>
         /// Reads drums from a file.
         /// </summary>
-        /// <inheritdoc cref="ChartParser.ReadDrums(string, ReadingConfiguration)(string, Instruments, ReadingConfiguration)"/>
+        /// <inheritdoc cref="ChartParser.ReadDrums(string, ReadingConfiguration)"/>
         public static Instrument<DrumsChord> FromFile(string path, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, config, (".chart", ChartParser.ReadDrums));
 
         /// <summary>

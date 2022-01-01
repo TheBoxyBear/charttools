@@ -10,41 +10,17 @@ namespace ChartTools
     /// </summary>
     public class NoteCollection<TNote, TLane> : ICollection<TNote> where TNote : Note<TLane>, new() where TLane : struct
     {
-        protected virtual ICollection<TNote> Notes { get; }
+        protected HashSet<TNote> Notes { get; }
 
         public int Count => Notes.Count;
         public bool IsReadOnly => false;
 
-        public NoteCollection() => Notes = new List<TNote>();
-
-
-        /// <summary>
-        /// Adds a note to the <see cref="NoteCollection{TNote}"/>.
-        /// </summary>
-        /// <remarks>Adding a note that already exists will overwrite the existing note.
-        ///     <para>If <see cref="OpenExclusivity"/> is <see langword="true"/>, combining an open note with other notes will remove the current ones.</para>
-        /// </remarks>
-        /// <param name="item">Item to add</param>
-        //public override void Add(TNote item)
-        //{
-        //    if (item is null)
-        //        throw GetNullNoteException(nameof(item));
-
-        //    if (OpenExclusivity && (item.NoteIndex == 0 || Count > 0 && this[0].NoteIndex == 0))
-        //        Clear();
-
-        //    base.Add(item);
-        //}
-        //public bool Remove(TLane lane)
-        //{
-        //    TNote? n = this[lane];
-        //    return n is not null && Remove(n);
-        //}
+        public NoteCollection() => Notes = new(Enumerable.Empty<TNote>(), new FuncEqualityComparer<TNote>((a, b) => a.NoteIndex == b.NoteIndex));
 
         public virtual void Add(TLane lane) => Notes.Add(new() { Lane = lane });
         /// <summary>Adds a note to the collection.</summary>
         /// <exception cref="ArgumentNullException"/>
-        public void Add(TNote item)
+        public virtual void Add(TNote item)
         {
             if (item is null)
                 throw new ArgumentNullException(nameof(item));
