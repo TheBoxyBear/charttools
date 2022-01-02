@@ -1,5 +1,4 @@
 ﻿using ChartTools.IO.Chart.Sessions;
-using ChartTools.Lyrics;
 using ChartTools.SystemExtensions.Linq;
 
 using System;
