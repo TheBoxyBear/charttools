@@ -45,30 +45,28 @@ namespace ChartTools.IO.Chart
                 string partName = enumerator.Current;
 
                 if ((currentParser = parserGetter(partName)) is not null)
-                {
                     parsers.Add(currentParser);
-                    parseTasks.Add(Task.Run(() => currentParser?.Parse(session)));
-                }
 
                 // Move past the part name and opening bracket
                 for (int i = 0; i < 2; i++)
                     if (!enumerator.MoveNext())
                         return;
 
+                List<string> lines = new();
+
                 // Read until closing bracket
                 while (enumerator.Current != "}")
                 {
                     currentParser?.AddLine(enumerator.Current);
+                    lines.Add(enumerator.Current);
 
                     if (!enumerator.MoveNext())
                         throw new InvalidDataException(string.Format(partEndEarlyExceptionMessage, partName));
                 }
             }
 
-            //foreach (var parser in parsers)
-            //    parser.Parse(session);
-
-            Task.WaitAll(parseTasks.ToArray());
+            foreach (var parser in parsers)
+                parser.Parse(session);
         }
         public async Task ReadAsync(ReadingSession session, CancellationToken cancellationToken)
         {
@@ -93,11 +91,12 @@ namespace ChartTools.IO.Chart
                 while (!currentLine.StartsWith('['));
 
                 string partName = currentLine;
+                List<string> lines = new();
 
                 if ((currentParser = parserGetter(partName)) is not null)
                 {
                     parsers.Add(currentParser);
-                    parseTasks.Add(currentParser.StartAsyncParse(session, cancellationToken));
+                    parseTasks.Add(currentParser.StartAsyncParse(session));
                 }
 
                 // Move past the part name and opening bracket
@@ -111,6 +110,7 @@ namespace ChartTools.IO.Chart
                 do
                 {
                     currentParser?.AddLine(currentLine);
+                    lines.Add(currentLine);
 
                     if (!await readTask || cancellationToken.IsCancellationRequested)
                         throw new InvalidDataException(string.Format(partEndEarlyExceptionMessage, partName));

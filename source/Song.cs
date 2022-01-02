@@ -61,7 +61,7 @@ namespace ChartTools
         public Instrument<GHLChord>? GHLBass
         {
             get => _ghlBass;
-            set => _ghlBass = value is null ? value : value with
+            set => _ghlBass = value with
             {
                 InstrumentIdentity = Instruments.GHLBass,
                 InstrumentType = InstrumentType.GHL

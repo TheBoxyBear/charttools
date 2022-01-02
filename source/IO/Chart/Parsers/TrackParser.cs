@@ -16,6 +16,7 @@ namespace ChartTools.IO.Chart.Parsers
         private TChord? chord;
         private bool newChord = true;
         private HashSet<byte> ignoredNotes = new();
+        protected int count = 0;
 
         public override Track<TChord>? Result => result;
 
@@ -41,6 +42,7 @@ namespace ChartTools.IO.Chart.Parsers
                     try
                     {
                         data = new(entry.Data);
+                        count++;
                         HandleNote(preResult!, ref chord!, entry.Position, data, ref newChord, out Enum initialModifier);
 
                         if (newChord)

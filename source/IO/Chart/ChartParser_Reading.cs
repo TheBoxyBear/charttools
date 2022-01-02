@@ -37,10 +37,10 @@ namespace ChartTools.IO.Chart
                 default:
                     if (drumsTrackHeaders.TryGetValue(part, out Difficulty diff))
                         return new DrumsTrackParser(diff);
-                    else if (ghlTrackHeaders.TryGetValue(part, out (Difficulty, GHLInstrument) standardTuple))
-                        return new GHLTrackParser(standardTuple.Item1, standardTuple.Item2);
-                    else if (standardTrackHeaders.TryGetValue(part, out (Difficulty, StandardInstrument) ghlTuple))
-                        return new StandardTrackParser(ghlTuple.Item1, ghlTuple.Item2);
+                    else if (ghlTrackHeaders.TryGetValue(part, out (Difficulty, GHLInstrument) ghlTuple))
+                        return new GHLTrackParser(ghlTuple.Item1, ghlTuple.Item2);
+                    else if (standardTrackHeaders.TryGetValue(part, out (Difficulty, StandardInstrument) standardTuple))
+                        return new StandardTrackParser(standardTuple.Item1, standardTuple.Item2);
                     else
                         throw new FormatException($"Unknown part: {part}"); // TODO Add support for unknown parts in configuration
             }

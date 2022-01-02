@@ -12,11 +12,15 @@ namespace ChartTools.IO.Chart.Parsers
         public override void ApplyResultToSong(Song song)
         {
             var inst = song.GetInstrument(Instrument);
+            var instrumentExists = inst is not null;
 
-            if (inst is null)
-                song.SetInstrument(inst = new(), Instrument);
+            if (!instrumentExists)
+                inst = new();
 
-            ApplyResultToInstrument(inst);
+            ApplyResultToInstrument(inst!);
+
+            if (!instrumentExists)
+                song.SetInstrument(inst!, Instrument);
         }
 
         protected override void HandleNote(Track<StandardChord> track, ref StandardChord chord, uint position, NoteData data, ref bool newChord, out Enum initialModifier)
@@ -24,10 +28,8 @@ namespace ChartTools.IO.Chart.Parsers
             // Find the parent chord or create it
             if (chord is null)
                 chord = new(position);
-            else if (position != chord.Position)
+            else if (newChord = position != chord!.Position)
                 chord = track.Chords.Find(c => c.Position == position) ?? new(position);
-            else
-                newChord = false;
 
             initialModifier = chord!.Modifier;
 
