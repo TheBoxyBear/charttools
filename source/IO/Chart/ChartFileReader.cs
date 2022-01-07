@@ -114,7 +114,8 @@ namespace ChartTools.IO.Chart
                 // Read until closing bracket
                 do
                 {
-                    currentGroup!.Source.Add(currentLine);
+                    if (currentGroup is not null)
+                        currentGroup.Source.Add(currentLine);
 
                     if (!await readTask || cancellationToken.IsCancellationRequested)
                         throw new InvalidDataException(string.Format(partEndEarlyExceptionMessage, header));
@@ -124,7 +125,8 @@ namespace ChartTools.IO.Chart
                 }
                 while (currentLine != "}");
 
-                currentGroup!.Source.EndAwait();
+                if (currentGroup is not null)
+                    currentGroup!.Source.EndAwait();
             }
             while (await readTask);
 

@@ -31,7 +31,7 @@ namespace ChartTools.IO.Chart
             var writer = GetSongWriter(path, song);
             writer.Write(new(config));
         }
-        public static async Task WriteSongAsybnc(string path, Song song, CancellationToken cancellationToken, WritingConfiguration? config = default)
+        public static async Task WriteSongAsync(string path, Song song, CancellationToken cancellationToken, WritingConfiguration? config = default)
         {
             var writer = GetSongWriter(path, song);
             await writer.WriteAsync(new(config), cancellationToken);
@@ -150,7 +150,7 @@ namespace ChartTools.IO.Chart
             var writer = GetSyncTrackWriter(path, syncTrack);
             writer.Write(new(config));
         }
-        public static async Task ReplaceSyncTrackAsync(string path, SyncTrack syncTrack, CancellationToken cancellationToken, WritingConfiguration config = default)
+        public static async Task ReplaceSyncTrackAsync(string path, SyncTrack syncTrack, CancellationToken cancellationToken, WritingConfiguration? config = default)
         {
             var writer = GetSyncTrackWriter(path, syncTrack);
             await writer.WriteAsync(new(config), cancellationToken);

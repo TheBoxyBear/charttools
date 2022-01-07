@@ -1233,7 +1233,7 @@
             Provides methods for reading chart files
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:ChartTools.IO.Chart.ChartReader.ReadSongAsync(System.String,ChartTools.IO.ReadingConfiguration,System.Threading.CancellationToken)" -->
+        <!-- Badly formed XML comment ignored for member "M:ChartTools.IO.Chart.ChartReader.ReadSongAsync(System.String,System.Threading.CancellationToken,ChartTools.IO.ReadingConfiguration)" -->
         <member name="M:ChartTools.IO.Chart.ChartReader.ReadInstrument(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.ReadingConfiguration)">
             <summary>
             Reads an instrument from a chart file.
@@ -2176,12 +2176,6 @@
             <summary>
             Time signature markers
             </summary>
-        </member>
-        <member name="M:ChartTools.SyncTrack.FromFile(System.String,ChartTools.IO.ReadingConfiguration)">
-            <inheritdoc cref="!:exceptions.ReadSyncTrack(string, ReadingConfiguration)"/>
-        </member>
-        <member name="M:ChartTools.SyncTrack.ToFile(System.String,ChartTools.IO.WritingConfiguration)">
-            <inheritdoc cref="!:exceptions.ReplaceSyncTrack(string, SyncTrack, WritingConfiguration)"/>
         </member>
         <member name="T:ChartTools.Tempo">
             <summary>

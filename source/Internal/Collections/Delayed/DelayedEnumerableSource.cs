@@ -4,7 +4,7 @@ namespace ChartTools.Internal.Collections.Delayed
 {
     public class DelayedEnumerableSource<T>
     {
-        public ConcurrentQueue<T> Buffer { get; }
+        public ConcurrentQueue<T> Buffer { get; } = new();
         public DelayedEnumerable<T> Enumerable { get; }
         public bool AwaitingItems { get; private set; }
 
