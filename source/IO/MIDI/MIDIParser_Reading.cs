@@ -53,7 +53,7 @@ namespace ChartTools.IO.MIDI
             //    tasks.Add(Task.Run(() => songType.GetProperty(inst.ToString())!.SetValue(song, GetInstrument(chunks, inst, midiConfig))));
             //// Tasks for each standard instrument
             //foreach (StandardInstrument inst in Enum.GetValues<StandardInstrument>())
-            tasks.Add(Task.Run(() => songType.GetProperty(StandardInstrument.LeadGuitar.ToString())!.SetValue(song, GetInstrument(chunks, StandardInstrument.LeadGuitar, midiConfig))));
+            tasks.Add(Task.Run(() => songType.GetProperty(StandardInstrumentIdentity.LeadGuitar.ToString())!.SetValue(song, GetInstrument(chunks, StandardInstrumentIdentity.LeadGuitar, midiConfig))));
 
             foreach (Task task in tasks)
             {
@@ -64,19 +64,19 @@ namespace ChartTools.IO.MIDI
             return song;
         }
 
-        public static Instrument? ReadInstrument(string path, Instruments instrument, ReadingConfiguration midiConfig)
+        public static Instrument? ReadInstrument(string path, InstrumentIdentity instrument, ReadingConfiguration midiConfig)
         {
             if (midiConfig is null)
                 throw new ArgumentNullException(nameof(midiConfig));
 
             MidiFile file = MidiFile.Read(path, readingSettings);
 
-            if (instrument == Instruments.Drums)
+            if (instrument == InstrumentIdentity.Drums)
                 return GetDrums(file.Chunks, midiConfig);
-            if (Enum.IsDefined((GHLInstrument)instrument))
-                return GetInstrument(file.Chunks, (GHLInstrument)instrument, midiConfig);
-            if (Enum.IsDefined((GHLInstrument)instrument))
-                return GetInstrument(file.Chunks, (StandardInstrument)instrument, midiConfig);
+            if (Enum.IsDefined((GHLInstrumentIdentity)instrument))
+                return GetInstrument(file.Chunks, (GHLInstrumentIdentity)instrument, midiConfig);
+            if (Enum.IsDefined((GHLInstrumentIdentity)instrument))
+                return GetInstrument(file.Chunks, (StandardInstrumentIdentity)instrument, midiConfig);
 
             throw CommonExceptions.GetUndefinedException(instrument);
         }
@@ -84,17 +84,17 @@ namespace ChartTools.IO.MIDI
         public static Instrument<DrumsChord>? ReadDrums(string path, ReadingConfiguration midiConfig) => midiConfig is null
             ? throw new ArgumentNullException(nameof(midiConfig))
             : GetDrums(MidiFile.Read(path, readingSettings).Chunks, midiConfig);
-        public static Instrument<GHLChord>? ReadInstrument(string path, GHLInstrument instrument, ReadingConfiguration midiConfig) => midiConfig is null
+        public static Instrument<GHLChord>? ReadInstrument(string path, GHLInstrumentIdentity instrument, ReadingConfiguration midiConfig) => midiConfig is null
             ? throw new ArgumentNullException(nameof(midiConfig))
             : GetInstrument(MidiFile.Read(path, readingSettings).Chunks, instrument, midiConfig);
-        public static Instrument<StandardChord>? ReadInstrument(string path, StandardInstrument instrument, ReadingConfiguration midiConfig) => midiConfig is null
+        public static Instrument<StandardChord>? ReadInstrument(string path, StandardInstrumentIdentity instrument, ReadingConfiguration midiConfig) => midiConfig is null
             ? throw new ArgumentNullException(nameof(midiConfig))
             : GetInstrument(MidiFile.Read(path, readingSettings).Chunks, instrument, midiConfig);
 
         private static Instrument<DrumsChord>? GetDrums(ChunksCollection chunks, ReadingConfiguration midiConfig) => CheckTrackChunkPresence(chunks, out Exception? e)
-            ? GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[Instruments.Drums]), GetDrumsChords, midiConfig)
+            ? GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[InstrumentIdentity.Drums]), GetDrumsChords, midiConfig)
             : throw e!;
-        private static Instrument<GHLChord>? GetInstrument(ChunksCollection chunks, GHLInstrument instrument, ReadingConfiguration midiConfig)
+        private static Instrument<GHLChord>? GetInstrument(ChunksCollection chunks, GHLInstrumentIdentity instrument, ReadingConfiguration midiConfig)
         {
             if (!Enum.IsDefined(instrument))
                 throw CommonExceptions.GetUndefinedException(instrument);
@@ -102,9 +102,9 @@ namespace ChartTools.IO.MIDI
             if (!CheckTrackChunkPresence(chunks, out Exception? e))
                 throw e!;
 
-            return GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[(Instruments)instrument]), GetGHLChords, midiConfig);
+            return GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[(InstrumentIdentity)instrument]), GetGHLChords, midiConfig);
         }
-        private static Instrument<StandardChord>? GetInstrument(ChunksCollection chunks, StandardInstrument instrument, ReadingConfiguration midiConfig)
+        private static Instrument<StandardChord>? GetInstrument(ChunksCollection chunks, StandardInstrumentIdentity instrument, ReadingConfiguration midiConfig)
         {
             if (!Enum.IsDefined(instrument))
                 throw CommonExceptions.GetUndefinedException(instrument);
@@ -112,7 +112,7 @@ namespace ChartTools.IO.MIDI
             if (!CheckTrackChunkPresence(chunks, out Exception? e))
                 throw e!;
 
-            return GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[(Instruments)instrument]), GetStandardChords, midiConfig);
+            return GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[(InstrumentIdentity)instrument]), GetStandardChords, midiConfig);
         }
 
         private static Instrument<TChord>? GetInstrument<TChord>(IEnumerable<MidiEvent> events, Func<IEnumerable<MidiEvent>, Difficulty, ReadingConfiguration, UniqueTrackObjectCollection<TChord>> getChords, ReadingConfiguration config) where TChord : Chord
@@ -121,7 +121,7 @@ namespace ChartTools.IO.MIDI
             var difficulties = Enum.GetValues<Difficulty>().ToArray();
             var tasks = new Task<UniqueTrackObjectCollection<TChord>>[] { Task.Run(() => getChords(events, Difficulty.Expert, config)) }; /*difficulties.Select(d => Task.Run(() => getTrack(events, d, config))).ToArray();*/
 
-            (List<LocalEvent> localEvents, List<StarPowerPhrase> starPower) = GetLocalEventsStarPower(events, config);
+            (List<LocalEvent> localEvents, List<SpecicalPhrase> starPower) = GetLocalEventsStarPower(events, config);
             bool eventsOrStarPower = localEvents.Count > 0 || starPower.Count > 0;
 
             Task.WaitAll(tasks);
@@ -263,13 +263,13 @@ namespace ChartTools.IO.MIDI
             })).Where(e => e is not null));
         }
 
-        private static (List<LocalEvent> localEvents, List<StarPowerPhrase> starPower) GetLocalEventsStarPower(IEnumerable<MidiEvent> events, ReadingConfiguration midiConfig)
+        private static (List<LocalEvent> localEvents, List<SpecicalPhrase> starPower) GetLocalEventsStarPower(IEnumerable<MidiEvent> events, ReadingConfiguration midiConfig)
         {
             List<LocalEvent> localEvents = new();
-            List<StarPowerPhrase> starPower = new();
+            List<SpecicalPhrase> starPower = new();
 
             bool unfinishedSolo = false;
-            StarPowerPhrase? sp = null;
+            SpecicalPhrase? sp = null;
 
             const int spNoteNumber = 116;
 
@@ -279,7 +279,7 @@ namespace ChartTools.IO.MIDI
                 {
                     // Starpower start
                     case NoteOnEvent noteOnEvent when noteOnEvent.NoteNumber == spNoteNumber && !unfinishedSolo:
-                        sp = new StarPowerPhrase((uint)e.DeltaTime);
+                        sp = new SpecicalPhrase((uint)e.DeltaTime);
                         unfinishedSolo = true;
                         break;
                     case NoteOffEvent noteOffEvent when sp is not null && noteOffEvent.NoteNumber == spNoteNumber && unfinishedSolo:
@@ -300,7 +300,7 @@ namespace ChartTools.IO.MIDI
                     {
                         // Star power start
                         case "solo" when !unfinishedSolo:
-                            sp = new StarPowerPhrase((uint)e.DeltaTime);
+                            sp = new SpecicalPhrase((uint)e.DeltaTime);
                             unfinishedSolo = true;
                             break;
                         // Star power end

@@ -34,7 +34,7 @@ namespace ChartTools.Tools.Optimizing
         /// Cuts short star power phrases that exceed the start of the next phrase
         /// </summary>
         /// <param name="phrases">Star power phrases to cut the lengths of</param>
-        public static void CutLengths(this UniqueTrackObjectCollection<StarPowerPhrase> phrases)
+        public static void CutLengths(this IEnumerable<SpecicalPhrase> phrases)
         {
             foreach ((var previous, var current) in phrases.OrderBy(p => p.Position).RelativeLoop())
                 if (LengthNeedsCut(previous!, current!))

@@ -6,7 +6,7 @@ namespace ChartTools.Tools.Scaling
     {
         public static void Rescale(this Note note, float scale) => note.Length = (uint)(note.Length * scale);
         public static void Rescale(this TrackObject trackObject, float scale) => trackObject.Position = (uint)(trackObject.Position * scale);
-        public static void Rescale(this StarPowerPhrase starPower, float scale)
+        public static void Rescale(this SpecicalPhrase starPower, float scale)
         {
             starPower.Position = (uint)(starPower.Position * scale);
             starPower.Length = (uint)(starPower.Length * scale);

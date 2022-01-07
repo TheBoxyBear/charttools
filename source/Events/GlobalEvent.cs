@@ -202,7 +202,7 @@ namespace ChartTools
             _ => globalTypesDictionary[type]
         };
 
-        /// <inheritdoc cref="ChartParser.ReplaceGlobalEvents(string, IEnumerable{GlobalEvent})"/>
-        public static void ToFile(string path, IEnumerable<GlobalEvent> events, WritingConfiguration? config = default) => ExtensionHandler.Write(path, events, config, (".chart", ChartParser.ReplaceGlobalEvents));
+        /// <inheritdoc cref="exceptions.ReplaceGlobalEvents(string, IEnumerable{GlobalEvent})"/>
+        public static void ToFile(string path, IEnumerable<GlobalEvent> events, WritingConfiguration? config = default) => ExtensionHandler.Write(path, events, config, (".chart", ChartWriter.ReplaceGlobalEvents));
     }
 }

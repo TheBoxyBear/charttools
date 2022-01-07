@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using ChartTools.SystemExtensions;
 
 namespace ChartTools.IO
 {
+    public delegate T Read<T>(string path, ReadingConfiguration? config);
+    public delegate Task<T> AsyncRead<T>(string path, CancellationToken cancellationToken, ReadingConfiguration? config);
+    public delegate void Write<T>(string path, T content, WritingConfiguration? config);
+    public delegate Task AsyncWrite<T>(string path, T content, CancellationToken cancellationToken, WritingConfiguration? config);
+
     /// <summary>
     /// Provides methods for reading and writing files based on the extension
     /// </summary>
@@ -21,11 +27,8 @@ namespace ChartTools.IO
         /// <param name="readers">Array of tuples representing the supported extensions</param>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FileNotFoundException"/>
-        internal static void Read(string path, params (string extension, Action<string> readMethod)[] readers)
+        public static void Read(string path, params (string extension, Action<string> readMetod)[] readers)
         {
-            if (!File.Exists(path))
-                throw new FileNotFoundException();
-
             string extension = Path.GetExtension(path);
             (string extension, Action<string> readMethod) reader = readers.FirstOrDefault(r => r.extension == extension);
 
@@ -34,52 +37,61 @@ namespace ChartTools.IO
 
             reader.readMethod(path);
         }
+
         /// <inheritdoc cref="Read{T}(string, ValueTuple{string, Func{string, T}}[])"/>
-        internal static T Read<T>(string path, params (string extension, Func<string, T> readMethod)[] readers)
+        public static T Read<T>(string path, ReadingConfiguration? config, params (string extension, Read<T> readMethod)[] readers)
         {
-            if (!File.Exists(path))
-                throw new FileNotFoundException();
-
             string extension = Path.GetExtension(path);
-            (string extension, Func<string, T> readMethod) reader = readers.FirstOrDefault(r => r.extension == extension);
+            (string extension, Read<T> readMethod) reader = readers.FirstOrDefault(r => r.extension == extension);
 
-            return reader == default ? throw GetException(extension, readers.Select(r => r.extension)) : reader.readMethod(path);
+            return reader == default ? throw GetException(extension, readers.Select(r => r.extension)) : reader.readMethod(path, config);
         }
-        /// <inheritdoc cref="Read(string, ValueTuple{string, Action{string}}[])"/>
-        internal static T Read<T, TConfig>(string path, TConfig config, params (string extension, Func<string, TConfig, T> readMethod)[] readers)
+        public static async Task<T> ReadAsync<T>(string path, CancellationToken cancellationToken, ReadingConfiguration? config, params (string extension, AsyncRead<T> readMethod)[] readers)
         {
-            // Convert the read methods to ones that don't take a configuration
-            (string, Func<string, T>)[] convertedReaders = readers.Select<(string extension, Func<string, TConfig, T> readMethod), (string, Func<string, T>)>(r => (r.extension, p => r.readMethod(p, config))).ToArray();
+            string extension = Path.GetExtension(path);
+            (string extension, AsyncRead<T> readMethod) reader = readers.FirstOrDefault(r => r.extension == extension);
 
-            return Read(path, convertedReaders);
+            return reader == default ? throw GetException(extension, readers.Select(r => r.extension)) : await reader.readMethod(path, cancellationToken, config);
         }
         #endregion
 
         #region Writing
-        /// <summary>
-        /// Writes an object to a file using the method that matches the extension.
-        /// </summary>
-        /// <param name="path">Path of the file to write</param>
-        /// <param name="item">Item to write</param>
-        /// <param name="writers">Array of tupples representing the supported extensions</param>
-        /// <exception cref="ArgumentNullException"/>
-        internal static void Write<T>(string path, T item, params (string extension, Action<string, T> writeMethod)[] writers)
+        public static void Write(string path, params (string extension, Action<string> writeMethod)[] writers)
         {
             string extension = Path.GetExtension(path);
-            (string extension, Action<string, T> writeMethod) writer = writers.FirstOrDefault(w => w.extension == extension);
+            (string extension, Action<string> writeMethod) writer = writers.FirstOrDefault(w => w.extension == extension);
 
             if (writer == default)
                 throw GetException(extension, writers.Select(w => w.extension));
 
-            writer.writeMethod(path, item);
+            writer.writeMethod(path);
         }
-        /// <inheritdoc cref="Write{T, TConfig}(string, T, TConfig, (string extension, Action{string, T, TConfig} writeMethod)[])"/>
-        internal static void Write<T, TConfig>(string path, T item, TConfig config, params (string extension, Action<string, T, TConfig> writeMethod)[] writers)
+        /// <summary>
+        /// Writes an object to a file using the method that matches the extension.
+        /// </summary>
+        /// <param name="path">Path of the file to write</param>
+        /// <param name="content">Item to write</param>
+        /// <param name="writers">Array of tupples representing the supported extensions</param>
+        /// <exception cref="ArgumentNullException"/>
+        public static void Write<T>(string path, T content, WritingConfiguration? config, params (string extension, Write<T> writeMethod)[] writers)
         {
-            // Convert the write methods to ones that don't take a configuration
-            (string, Action<string, T>)[] convertedWriters = writers.Select<(string extension, Action<string, T, TConfig> writeMethod), (string, Action<string, T>)>(r => (r.extension, (p, i) => r.writeMethod(p, i, config))).ToArray();
+            string extension = Path.GetExtension(path);
+            (string extension, Write<T> writeMethod) writer = writers.FirstOrDefault(w => w.extension == extension);
 
-            Write(path, item, convertedWriters);
+            if (writer == default)
+                throw GetException(extension, writers.Select(w => w.extension));
+
+            writer.writeMethod(path, content, config);
+        }
+        public static async Task WriteAsync<T>(string path, T content, CancellationToken cancellationToken, WritingConfiguration? config, params (string extension, AsyncWrite<T> writeMethod)[] writers)
+        {
+            string extension = Path.GetExtension(path);
+            (string extension, AsyncWrite<T> writeMethod) writer = writers.FirstOrDefault(w => w.extension == extension);
+
+            if (writer == default)
+                throw GetException(extension, writers.Select(w => w.extension));
+
+            await writer.writeMethod(path, content, cancellationToken, config);
         }
         #endregion
 

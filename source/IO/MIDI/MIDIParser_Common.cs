@@ -4,16 +4,16 @@ namespace ChartTools.IO.MIDI
 {
     internal static partial class MIDIParser
     {
-        private static readonly Dictionary<Instruments, string> sequenceNames = new()
+        private static readonly Dictionary<InstrumentIdentity, string> sequenceNames = new()
         {
-            { Instruments.LeadGuitar, "PART GUITAR" },
-            { Instruments.CoopGuitar, "PART GUITAR COOP" },
-            { Instruments.Bass, "PART BASS" },
-            { Instruments.RhythmGuitar, "PART RHYTHM" },
-            { Instruments.Keys, "PART KEYS" },
-            { Instruments.Drums, "PART DRUMS" },
-            { Instruments.GHLGuitar, "PART GUITAR GHL" },
-            { Instruments.GHLBass, "PART BASS GHL" }
+            { InstrumentIdentity.LeadGuitar, "PART GUITAR" },
+            { InstrumentIdentity.CoopGuitar, "PART GUITAR COOP" },
+            { InstrumentIdentity.Bass, "PART BASS" },
+            { InstrumentIdentity.RhythmGuitar, "PART RHYTHM" },
+            { InstrumentIdentity.Keys, "PART KEYS" },
+            { InstrumentIdentity.Drums, "PART DRUMS" },
+            { InstrumentIdentity.GHLGuitar, "PART GUITAR GHL" },
+            { InstrumentIdentity.GHLBass, "PART BASS GHL" }
         };
 
         private const string globalEventSequenceName = "EVENTS";

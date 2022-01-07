@@ -7,23 +7,25 @@ using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart
 {
-    public static partial class ChartParser
+    public static class common
     {
         internal delegate bool IncludeNotePolicy(uint position, byte noteIndex, ICollection<byte> ignored);
 
+        private const string DrumsHeaderName = "Drums";
+
         /// <summary>
-        /// Part names of <see cref="Instruments"/> without the difficulty
+        /// Part names of <see cref="InstrumentIdentity"/> without the difficulty
         /// </summary>
-        private static readonly Dictionary<Instruments, string> partNames = new()
+        private static readonly Dictionary<InstrumentIdentity, string> instrumentHeaderNames = new()
         {
-            { Instruments.Drums, "Drums" },
-            { Instruments.GHLGuitar, "GHLGuitar" },
-            { Instruments.GHLBass, "GHLBass" },
-            { Instruments.LeadGuitar, "Single" },
-            { Instruments.RhythmGuitar, "DoubleRhythm" },
-            { Instruments.CoopGuitar, "DoubleGuitar" },
-            { Instruments.Bass, "DoubleBass" },
-            { Instruments.Keys, "Keyboard" }
+            { InstrumentIdentity.Drums, DrumsHeaderName },
+            { InstrumentIdentity.GHLGuitar, "GHLGuitar" },
+            { InstrumentIdentity.GHLBass, "GHLBass" },
+            { InstrumentIdentity.LeadGuitar, "Single" },
+            { InstrumentIdentity.RhythmGuitar, "DoubleRhythm" },
+            { InstrumentIdentity.CoopGuitar, "DoubleGuitar" },
+            { InstrumentIdentity.Bass, "DoubleBass" },
+            { InstrumentIdentity.Keys, "Keyboard" }
         };
 
         /// <summary>
@@ -32,12 +34,17 @@ namespace ChartTools.IO.Chart
         /// <exception cref="ArgumentException"/>
         /// <param name="instrument">Instrument to include in the part name</param>
         /// <param name="difficulty">Difficulty to include in the part name</param>
-        private static string GetFullPartName(Instruments instrument, Difficulty difficulty) => Enum.IsDefined(typeof(Difficulty), difficulty)
-                ? $"{difficulty}{partNames[instrument]}"
+        private static string GetFullPartName(InstrumentIdentity instrument, Difficulty difficulty) => Enum.IsDefined(typeof(Difficulty), difficulty)
+                ? $"{difficulty}{instrumentHeaderNames[instrument]}"
                 : throw new ArgumentException("Difficulty is undefined.");
 
-        private static bool IncludeSyncTrackAllPolicy(uint position, ICollection<uint> ignored, string objectName) => true;
-        private static bool IncludeSyncTrackFirstPolicy(uint position, ICollection<uint> ignored, string objectName)
+        private static string CreateHeader(Enum instrument, Difficulty difficulty) => CreateHeader((InstrumentIdentity)instrument, difficulty);
+        private static string CreateHeader(InstrumentIdentity instrument, Difficulty difficulty) => CreateHeader(instrumentHeaderNames[instrument], difficulty);
+        private static string CreateHeader(string instrumentName, Difficulty difficulty) => CreateHeader(difficulty.ToString() + instrumentName);
+        private static string CreateHeader(string name) => $"[{name}]";
+
+        internal static bool IncludeSyncTrackAllPolicy(uint position, ICollection<uint> ignored, string objectName) => true;
+        internal static bool IncludeSyncTrackFirstPolicy(uint position, ICollection<uint> ignored, string objectName)
         {
             if (ignored.Contains(position))
                 return false;
@@ -45,7 +52,7 @@ namespace ChartTools.IO.Chart
             ignored.Add(position);
             return true;
         }
-        private static bool IncludeSyncTrackExceptionPolicy(uint position, ICollection<uint> ignored, string objectName)
+        internal static bool IncludeSyncTrackExceptionPolicy(uint position, ICollection<uint> ignored, string objectName)
         {
             if (ignored.Contains(position))
                 throw new Exception($"Duplicate {objectName} on position {position}. Consider using a different {nameof(DuplicateTrackObjectPolicy)} to avoid this error.");
@@ -54,7 +61,7 @@ namespace ChartTools.IO.Chart
             return true;
         }
 
-        private static void ApplyOverlappingStarPowerPolicy(UniqueTrackObjectCollection<StarPowerPhrase> starPower, OverlappingStarPowerPolicy policy)
+        internal static void ApplyOverlappingStarPowerPolicy(IEnumerable<SpecicalPhrase> starPower, OverlappingStarPowerPolicy policy)
         {
             switch (policy)
             {

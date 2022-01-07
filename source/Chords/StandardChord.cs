@@ -1,4 +1,8 @@
 ﻿using ChartTools.IO.Chart;
+using ChartTools.IO.Chart.Sessions;
+
+using Melanchall.DryWetMidi.Core;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,16 +39,16 @@ namespace ChartTools
                 Notes.Add(new Note<StandardLane>(note));
         }
 
-        internal override IEnumerable<string> GetChartNoteData() => Notes.Select(note => ChartParser.GetNoteData(note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Length));
+        internal override IEnumerable<string> GetChartNoteData() => Notes.Select(note => ChartFormatting.NoteData(note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Length));
 
-        internal override IEnumerable<string> GetChartModifierData(Chord? previous, ChartParser.WritingSession session)
+        internal override IEnumerable<string> GetChartModifierData(Chord? previous, WritingSession session)
         {
             bool isInvert = Modifier.HasFlag(StandardChordModifier.HopoInvert);
 
             if (Modifier.HasFlag(StandardChordModifier.ExplicitHopo) && (previous is null || previous.Position <= session.HopoThreshold) != isInvert || isInvert)
-                yield return ChartParser.GetNoteData(5, 0);
+                yield return ChartFormatting.NoteData(5, 0);
             if (Modifier.HasFlag(StandardChordModifier.Tap))
-                yield return ChartParser.GetNoteData(6, 0);
+                yield return ChartFormatting.NoteData(6, 0);
         }
     }
 }
