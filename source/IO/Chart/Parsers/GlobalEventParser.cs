@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart.Parsers
 {
-    internal class GlobalEventParser : ChartPartParser
+    internal class GlobalEventParser : ChartParser
     {
         private List<GlobalEvent>? preResult, result;
 
@@ -14,7 +14,7 @@ namespace ChartTools.IO.Chart.Parsers
         {
             TrackObjectEntry entry;
             try { entry = new(line); }
-            catch (Exception e) { throw ChartParser.GetLineException(line, e); }
+            catch (Exception e) { throw ChartExceptions.Line(line, e); }
 
             GlobalEvent ev = new(entry.Position, entry.Data.Trim('"'));
             preResult!.Add(ev);

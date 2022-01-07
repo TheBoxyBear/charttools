@@ -1,8 +1,4 @@
-﻿using ChartTools.IO;
-using ChartTools.SystemExtensions.Linq;
-
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 
 namespace ChartTools
@@ -12,7 +8,11 @@ namespace ChartTools
     /// </summary>
     public record Instrument<TChord> : Instrument where TChord : Chord
     {
-        private Track<TChord> _easy = new(), _medium = new(), _hard = new(), _expert = new();
+        private Track<TChord> _easy = new Track<TChord>() with { Difficulty = ChartTools.Difficulty.Easy };
+        private Track<TChord> _medium = new Track<TChord>() with { Difficulty = ChartTools.Difficulty.Medium };
+        private Track<TChord> _hard = new Track<TChord>() with { Difficulty = ChartTools.Difficulty.Hard };
+        private Track<TChord> _expert = new Track<TChord>() with { Difficulty = ChartTools.Difficulty.Expert };
+
         /// <summary>
         /// Easy track
         /// </summary>
@@ -41,6 +41,8 @@ namespace ChartTools
             ChartTools.Difficulty.Expert => Expert,
             _ => throw CommonExceptions.GetUndefinedException(difficulty)
         };
+        public override Track<TChord>[] GetTracks() => base.GetTracks().Cast<Track<TChord>>().ToArray();
+        public override Track<TChord>[] GetNonEmptyTracks() => base.GetNonEmptyTracks().Cast<Track<TChord>>().ToArray();
 
         /// <summary>
         /// Sets a track for a given <see cref="Difficulty"/>.
@@ -54,71 +56,34 @@ namespace ChartTools
             switch (difficulty)
             {
                 case ChartTools.Difficulty.Easy:
-                    _easy = track with { Difficulty = ChartTools.Difficulty.Easy };
+                    _easy = track with
+                    {
+                        Difficulty = ChartTools.Difficulty.Easy,
+                        ParentInstrument = this
+                    };
                     break;
                 case ChartTools.Difficulty.Medium:
-                    _medium = track with { Difficulty = ChartTools.Difficulty.Medium };
+                    _medium = track with
+                    {
+                        Difficulty = ChartTools.Difficulty.Medium,
+                        ParentInstrument = this
+                    };
                     break;
                 case ChartTools.Difficulty.Hard:
-                    _hard = track with { Difficulty = ChartTools.Difficulty.Hard };
+                    _hard = track with
+                    {
+                        Difficulty = ChartTools.Difficulty.Hard,
+                        ParentInstrument = this
+                    };
                     break;
                 case ChartTools.Difficulty.Expert:
-                    _expert = track with { Difficulty = ChartTools.Difficulty.Expert };
+                    _expert = track with
+                    {
+                        Difficulty = ChartTools.Difficulty.Expert,
+                        ParentInstrument = this
+                    };
                     break;
             }
-        }
-
-        /// <summary>
-        /// Gives all tracks the same local events.
-        /// </summary>
-        public void ShareLocalEvents(TrackObjectSource source)
-        {
-            if (source == TrackObjectSource.Seperate)
-                return;
-
-            LocalEvent?[]? events = ((IEnumerable<LocalEvent?>?)(source switch
-            {
-                TrackObjectSource.Easy => Easy.LocalEvents,
-                TrackObjectSource.Medium => Medium.LocalEvents,
-                TrackObjectSource.Hard => Hard.LocalEvents,
-                TrackObjectSource.Expert => Expert.LocalEvents,
-                TrackObjectSource.Merge => new Track<TChord>?[] { Easy, Medium, Hard, Expert }.NonNull().SelectMany(t => t.LocalEvents!).Distinct(),
-                _ => throw CommonExceptions.GetUndefinedException(source)
-            }))?.ToArray();
-
-            if (events is null || events.Length == 0)
-                return;
-
-            Easy.LocalEvents = new(events!);
-            Medium.LocalEvents = new(events!);
-            Hard.LocalEvents = new(events!);
-            Expert.LocalEvents = new(events!);
-        }
-        /// <summary>
-        /// Gives all tracks the same star power
-        /// </summary>
-        public void ShareStarPower(TrackObjectSource source)
-        {
-            if (source == TrackObjectSource.Seperate)
-                return;
-
-            StarPowerPhrase?[]? starPower = (source switch
-            {
-                TrackObjectSource.Easy => Easy.StarPower,
-                TrackObjectSource.Medium => Medium.StarPower,
-                TrackObjectSource.Hard => Hard.StarPower,
-                TrackObjectSource.Expert => Expert.StarPower,
-                TrackObjectSource.Merge => new Track<TChord>?[] { Easy, Medium, Hard, Expert }.NonNull().SelectMany(t => t.StarPower).Distinct(),
-                _ => throw CommonExceptions.GetUndefinedException(source)
-            })?.ToArray();
-
-            if (starPower is null || starPower.Length == 0)
-                return;
-
-            Easy.StarPower = new(starPower!);
-            Medium.StarPower = new(starPower!);
-            Hard.StarPower = new(starPower!);
-            Expert.StarPower = new(starPower!);
         }
     }
 }

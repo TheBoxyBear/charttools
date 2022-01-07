@@ -1,41 +1,42 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace ChartTools.IO.Chart.Serializers
 {
     internal class MetadataSerializer : ChartSerializer<Metadata>
     {
-        public MetadataSerializer(string header, Metadata content) : base(header, content) { }
+        public MetadataSerializer(Metadata content) : base("[Metadata]", content) { }
 
-        protected override void GenerateLines()
+        protected override IEnumerable<string> GenerateLines()
         {
             if (Content is null)
-                return;
+                yield break;
 
             if (Content.Title is not null)
-                preResult!.Add(GetLine("Name", $"\"{Content.Title}\""));
+                yield return GetLine("Name", $"\"{Content.Title}\"");
             if (Content.Artist is not null)
-                preResult!.Add(GetLine("Artist", $"\"{Content.Artist}\""));
+                yield return GetLine("Artist", $"\"{Content.Artist}\"");
             if (Content.Charter is not null && Content.Charter.Name is not null)
-                preResult!.Add(GetLine("Charter", $"\"{Content.Charter.Name}\""));
+                yield return GetLine("Charter", $"\"{Content.Charter.Name}\"");
             if (Content.Album is not null)
-                preResult!.Add(GetLine("Album", $"\"{Content.Album}\""));
+                yield return GetLine("Album", $"\"{Content.Album}\"");
             if (Content.Year is not null)
-                preResult!.Add(GetLine("Year", $"\", {Content.Year}\""));
+                yield return GetLine("Year", $"\", {Content.Year}\"");
             if (Content.AudioOffset is not null)
-                preResult!.Add(GetLine("Offset", Content.AudioOffset.ToString()));
+                yield return GetLine("Offset", Content.AudioOffset.ToString());
             if (Content.Resolution is not null)
-                preResult!.Add(GetLine("Resolution", Content.Resolution.ToString()));
+                yield return GetLine("Resolution", Content.Resolution.ToString());
             if (Content.Difficulty is not null)
-                preResult!.Add(GetLine("Difficulty", Content.Difficulty.ToString()));
+                yield return GetLine("Difficulty", Content.Difficulty.ToString());
             if (Content.PreviewStart is not null)
-                preResult!.Add(GetLine("PreviewStart", Content.PreviewStart.ToString()));
+                yield return GetLine("PreviewStart", Content.PreviewStart.ToString());
             if (Content.PreviewEnd is not null)
-                preResult!.Add(GetLine("PreviewEnd", Content.PreviewEnd.ToString()));
+                yield return GetLine("PreviewEnd", Content.PreviewEnd.ToString());
             if (Content.Genre is not null)
-                preResult!.Add(GetLine("Genre", $"\"{Content.Genre}\""));
+                yield return GetLine("Genre", $"\"{Content.Genre}\"");
             if (Content.MediaType is not null)
-                preResult!.Add(GetLine("MetiaType", $"\"{Content.MediaType}\""));
+                yield return GetLine("MetiaType", $"\"{Content.MediaType}\"");
 
             // Audio streams
             if (Content.Streams is not null)
@@ -44,12 +45,12 @@ namespace ChartTools.IO.Chart.Serializers
                     string value = (string)property.GetValue(Content.Streams)!;
 
                     if (value is not null)
-                        preResult!.Add(GetLine($"{property.Name}Stream", $"\"{value}\""));
+                        yield return GetLine($"{property.Name}Stream", $"\"{value}\"");
                 }
 
             if (Content.UnidentifiedData is not null)
                 foreach (var data in Content.UnidentifiedData.Where(d => d.Origin == FileFormat.Chart))
-                    preResult!.Add(GetLine(data.Key, data.Data));
+                    yield return (GetLine(data.Key, data.Data));
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using ChartTools.IO.Chart.Entries;
-using ChartTools.IO.Chart.Sessions;
 using ChartTools.SystemExtensions.Linq;
 using ChartTools.Tools.Optimizing;
 
@@ -8,7 +7,7 @@ using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart.Parsers
 {
-    internal abstract class TrackParser<TChord> : ChartPartParser where TChord : Chord
+    internal abstract class TrackParser<TChord> : ChartParser where TChord : Chord
     {
         public Difficulty Difficulty { get; }
 
@@ -27,13 +26,13 @@ namespace ChartTools.IO.Chart.Parsers
             TrackObjectEntry entry;
 
             try { entry = new(line); }
-            catch (Exception e) { throw ChartParser.GetLineException(line, e); }
+            catch (Exception e) { throw ChartReader.GetLineException(line, e); }
 
             switch (entry.Type)
             {
                 // Local event
                 case "E":
-                    string[] split = ChartParser.GetDataSplit(entry.Data.Trim('"'));
+                    string[] split = ChartReader.GetDataSplit(entry.Data.Trim('"'));
                     preResult!.LocalEvents!.Add(new(entry.Position, split.Length > 0 ? split[0] : string.Empty));
                     break;
                 // Note or chord modifier
@@ -51,21 +50,24 @@ namespace ChartTools.IO.Chart.Parsers
                             ignoredNotes.Clear();
                         }
                     }
-                    catch (Exception e) { throw ChartParser.GetLineException(line, e); }
+                    catch (Exception e) { throw ChartExceptions.Line(line, e); }
 
                     break;
                 // Star power
                 case "S":
                     try
                     {
-                        split = ChartParser.GetDataSplit(entry.Data);
+                        split = ChartReader.GetDataSplit(entry.Data);
+
+                        if (split[0] != "2")
+                            break;
 
                         if (!uint.TryParse(split[1], out uint length))
-                            throw new FormatException($"Cannot parse length \"{split[0]}\" to uint.");
+                            throw new FormatException($"Cannot parse length \"{split[1]}\" to uint.");
 
                         preResult!.StarPower.Add(new(entry.Position, length));
                     }
-                    catch (Exception e) { throw ChartParser.GetLineException(line, e); }
+                    catch (Exception e) { throw ChartExceptions.Line(line, e); }
                     break;
             }
 
@@ -88,7 +90,7 @@ namespace ChartTools.IO.Chart.Parsers
 
         public void ApplyResultToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(result!, Difficulty);
 
-        private static void ApplyOverlappingStarPowerPolicy(IEnumerable<StarPowerPhrase> starPower, OverlappingStarPowerPolicy policy)
+        private static void ApplyOverlappingStarPowerPolicy(IEnumerable<SpecicalPhrase> starPower, OverlappingStarPowerPolicy policy)
         {
             switch (policy)
             {

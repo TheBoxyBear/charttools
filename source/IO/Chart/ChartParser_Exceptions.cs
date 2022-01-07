@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ChartTools.IO.Chart
 {
-    public partial class ChartParser
+    public static class exception
     {
         /// <summary>
         /// Gets the <see cref="Exception"/> to throw from an entry.

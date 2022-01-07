@@ -1,4 +1,5 @@
 ﻿using ChartTools.Collections.Unique;
+using ChartTools.Internal;
 using ChartTools.InternalTools;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
@@ -6,6 +7,7 @@ using ChartTools.IO.Ini;
 
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ChartTools
 {
@@ -15,18 +17,22 @@ namespace ChartTools
     public class Metadata
     {
         #region Properties
+        [ChartMetadataEntry, IniMetadataEntry]
         /// <summary>
         /// Title of the <see cref="Song"/>
         /// </summary>
         public string? Title { get; set; }
+        [ChartMetadataEntry, IniMetadataEntry]
         /// <summary>
         /// Artist or band behind the <see cref="Song"/>
         /// </summary>
         public string? Artist { get; set; }
+        [ChartMetadataEntry, IniMetadataEntry]
         /// <summary>
         /// Album featuring the <see cref="Song"/>
         /// </summary>
         public string? Album { get; set; }
+        [ChartMetadataEntry, IniMetadataEntry]
         /// <summary>
         /// Track number of the song within the album
         /// </summary>
@@ -46,7 +52,12 @@ namespace ChartTools
         /// <summary>
         /// Creator of the chart
         /// </summary>
-        public Charter Charter { get; set; } = new Charter();
+        public Charter Charter
+        {
+            get => _charter;
+            set => _charter = value ?? throw new ArgumentNullException(nameof(value));
+        }
+        private Charter _charter = new();
         /// <summary>
         /// Start time in milliseconds of the preview in the Clone Hero song browser
         /// </summary>
@@ -87,7 +98,12 @@ namespace ChartTools
         /// <summary>
         /// Paths of audio files
         /// </summary>
-        public StreamCollection Streams { get; set; } = new StreamCollection();
+        public StreamCollection Streams
+        {
+            get => _streams;
+            set => _streams = value ?? throw new ArgumentNullException(nameof(value));
+        }
+        private StreamCollection _streams = new();
         /// <summary>
         /// Offset of the background video in milliseconds. A higher value makes the video start sooner.
         /// </summary>
@@ -106,6 +122,8 @@ namespace ChartTools
         public bool IsModchart { get; set; }
         public uint? HopoThreashold { get; set; }
         public UniqueList<MetadataItem> UnidentifiedData { get; } = new((a, b) => a.Key == b.Key);
+
+
         #endregion
 
         /// <summary>
@@ -117,7 +135,7 @@ namespace ChartTools
         /// <exception cref="FormatException"/>
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="OutOfMemoryException"/>
-        public static Metadata FromFile(string path) => ExtensionHandler.Read(path, (".chart", ChartParser.ReadMetadata), (".ini", IniParser.ReadMetadata));
+        public static Metadata FromFile(string path) => ExtensionHandler.Read<Metadata>(path, null, (".chart", (path, _) => ChartReader.ReadMetadata(path)), (".ini", (path, _) => IniParser.ReadMetadata(path)));
         /// <summary>
         /// Reads the metadata from multiple files.
         /// </summary>
@@ -145,77 +163,7 @@ namespace ChartTools
             return data[0];
         }
         /// <inheritdoc cref="IniParser.WriteMetadata(string, Metadata)"/>
-        public void ToFile(string path) => ExtensionHandler.Write(path, this, (".ini", IniParser.WriteMetadata));
-    }
-
-    /// <summary>
-    /// Creator of the chart
-    /// </summary>
-    public class Charter
-    {
-        /// <summary>
-        /// Name of the creator
-        /// </summary>
-        public string? Name { get; set; }
-        /// <summary>
-        /// Location of the image file to use as an icon in the Clone Hero song browser
-        /// </summary>
-        public string? Icon { get; set; }
-    }
-
-    /// <summary>
-    /// Set of audio files to play and mute during gameplay
-    /// </summary>
-    /// <remarks>Instrument audio may be muted when chords of the respective instrument are missed</remarks>
-    public class StreamCollection
-    {
-        /// <summary>
-        /// Location of the base audio file
-        /// </summary>
-        public string? Music { get; set; }
-        /// <summary>
-        /// Location of the guitar audio file
-        /// </summary>
-        public string? Guitar { get; set; }
-        /// <summary>
-        /// Location of the bass audio
-        /// </summary>
-        public string? Bass { get; set; }
-        /// <summary>
-        /// Location of the rhythm guitar audio file
-        /// </summary>
-        public string? Rhythm { get; set; }
-        /// <summary>
-        /// Location of the keys audio file
-        /// </summary>
-        public string? Keys { get; set; }
-        /// <summary>
-        /// Location of the drums' kicks audio file
-        /// </summary>
-        /// <remarks>Can include all drums audio</remarks>
-        public string? Drum { get; set; }
-        /// <summary>
-        /// Location of the drums' snares audio file
-        /// </summary>
-        /// <remarks>Can include all drums audio except kicks</remarks>
-        public string? Drum2 { get; set; }
-        /// <summary>
-        /// Location of the drum's toms audio file
-        /// </summary>
-        /// <remarks>Can include toms and cymbals</remarks>
-        public string? Drum3 { get; set; }
-        /// <summary>
-        /// Location of the drum's cymbals audio file
-        /// </summary>
-        public string? Drum4 { get; set; }
-        /// <summary>
-        /// Location of the vocals audio file
-        /// </summary>
-        public string? Vocal { get; set; }
-        /// <summary>
-        /// Location of the crowd reaction audio file
-        /// </summary>
-        public string? Crowd { get; set; }
+        public void ToFile(string path) => ExtensionHandler.Write(path, (".ini", path => IniParser.WriteMetadata(path, this)));
     }
 
     public struct MetadataItem
@@ -224,4 +172,7 @@ namespace ChartTools
         public string Data { get; set; }
         public FileFormat Origin { get; set; }
     }
+
+    public class ChartMetadataEntryAttribute : Attribute { }
+    public class IniMetadataEntryAttribute : Attribute { }
 }

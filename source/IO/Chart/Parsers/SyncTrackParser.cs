@@ -2,11 +2,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ChartTools.IO.Chart.Parsers
 {
-    internal class SyncTrackParser : ChartPartParser
+    internal class SyncTrackParser : ChartParser
     {
         private SyncTrack? preResult, result;
         private HashSet<uint> ignoredTempos = new(), ignoredAnchors = new(), ignoredSignatures = new();
@@ -19,7 +18,7 @@ namespace ChartTools.IO.Chart.Parsers
         {
             TrackObjectEntry entry;
             try { entry = new(line); }
-            catch (Exception e) { throw ChartParser.GetLineException(line, e); }
+            catch (Exception e) { throw ChartExceptions.Line(line, e); }
 
             Tempo? marker;
 
@@ -30,7 +29,7 @@ namespace ChartTools.IO.Chart.Parsers
                     if (!includeObject!(entry.Position, ignoredSignatures, "time signature"))
                         break;
 
-                    string[] split = ChartParser.GetDataSplit(entry.Data);
+                    string[] split = ChartReader.GetDataSplit(entry.Data);
 
                     byte denominator;
 
@@ -102,14 +101,32 @@ namespace ChartTools.IO.Chart.Parsers
 
             includeObject = session!.Configuration.DuplicateTrackObjectPolicy switch
             {
-                DuplicateTrackObjectPolicy.IncludeAll => ChartParser.IncludeSyncTrackAllPolicy,
-                DuplicateTrackObjectPolicy.IncludeFirst => ChartParser.IncludeSyncTrackFirstPolicy,
-                DuplicateTrackObjectPolicy.ThrowException => ChartParser.IncludeSyncTrackExceptionPolicy
+                DuplicateTrackObjectPolicy.IncludeAll => IncludeSyncTrackAllPolicy,
+                DuplicateTrackObjectPolicy.IncludeFirst => IncludeSyncTrackFirstPolicy,
+                DuplicateTrackObjectPolicy.ThrowException => IncludeSyncTrackExceptionPolicy
             };
 
         }
         protected override void FinaliseParse() => result = preResult;
 
-        public override void ApplyResultToSong(Song song) => song.SyncTrack = result;
+        public override void ApplyResultToSong(Song song) => song.SyncTrack = result!;
+
+        private static bool IncludeSyncTrackAllPolicy(uint position, ICollection<uint> ignored, string objectName) => true;
+        private static bool IncludeSyncTrackFirstPolicy(uint position, ICollection<uint> ignored, string objectName)
+        {
+            if (ignored.Contains(position))
+                return false;
+
+            ignored.Add(position);
+            return true;
+        }
+        private static bool IncludeSyncTrackExceptionPolicy(uint position, ICollection<uint> ignored, string objectName)
+        {
+            if (ignored.Contains(position))
+                throw new Exception($"Duplicate {objectName} on position {position}. Consider using a different {nameof(DuplicateTrackObjectPolicy)} to avoid this error.");
+
+            ignored.Add(position);
+            return true;
+        }
     }
 }

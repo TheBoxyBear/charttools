@@ -66,8 +66,8 @@ namespace ChartTools
     /// <summary>
     /// Guitar Hero Live instruments
     /// </summary>
-    /// <remarks>Casting to <see cref="Instruments"/> will match the instrument.</remarks>
-    public enum GHLInstrument : byte { Guitar = 1, Bass }
+    /// <remarks>Casting to <see cref="InstrumentIdentity"/> will match the instrument.</remarks>
+    public enum GHLInstrumentIdentity : byte { Guitar = 1, Bass }
     /// <summary>
     /// Frets for a <see cref="GHLNote"/>
     /// </summary>
@@ -119,7 +119,7 @@ namespace ChartTools
     /// <summary>
     /// All instruments
     /// </summary>
-    public enum Instruments : byte { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys, Vocals }
+    public enum InstrumentIdentity : byte { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys, Vocals }
     public enum InstrumentType : byte { Drums, GHL, Standard, Vocals }
     /// <summary>
     /// Lighting effect caused by a <see cref="GlobalEvent"/> of type <see cref="GlobalEventType.Lighting"/>
@@ -188,12 +188,13 @@ namespace ChartTools
     /// <summary>
     /// Standard five-fret instruments
     /// </summary>
-    /// <remarks><inheritdoc cref="GHLInstrument"/></remarks>
-    public enum StandardInstrument : byte { LeadGuitar = 3, RhythmGuitar, CoopGuitar, Bass, Keys }
+    /// <remarks><inheritdoc cref="GHLInstrumentIdentity"/></remarks>
+    public enum StandardInstrumentIdentity : byte { LeadGuitar = 3, RhythmGuitar, CoopGuitar, Bass, Keys }
     /// <summary>
     /// Frets for a <see cref="StandardNote"/>
     /// </summary>
     public enum StandardLane : byte { Open, Green, Red, Yellow, Blue, Orange }
+    public enum SpecialPhraseType : byte { StarPowerGain, StarPowerActivation }
 }
 
 namespace ChartTools.Lyrics

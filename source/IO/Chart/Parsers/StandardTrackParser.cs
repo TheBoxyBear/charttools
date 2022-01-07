@@ -1,13 +1,11 @@
 ﻿using ChartTools.IO.Chart.Entries;
-using ChartTools.SystemExtensions.Linq;
-
 using System;
 
 namespace ChartTools.IO.Chart.Parsers
 {
-    internal class StandardTrackParser : VariableInstrumentTrackParser<StandardChord, StandardInstrument>
+    internal class StandardTrackParser : VariableInstrumentTrackParser<StandardChord, StandardInstrumentIdentity>
     {
-        public StandardTrackParser(Difficulty difficulty, StandardInstrument instrument) : base(difficulty, instrument) { }
+        public StandardTrackParser(Difficulty difficulty, StandardInstrumentIdentity instrument) : base(difficulty, instrument) { }
 
         public override void ApplyResultToSong(Song song)
         {

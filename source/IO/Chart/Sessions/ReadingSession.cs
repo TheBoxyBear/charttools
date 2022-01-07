@@ -6,7 +6,7 @@
 
         public ReadingSession(ReadingConfiguration? config)
         {
-            Configuration = config ?? ChartParser.DefaultReadConfig;
+            Configuration = config ?? ChartReader.DefaultConfig;
         }
     }
 }

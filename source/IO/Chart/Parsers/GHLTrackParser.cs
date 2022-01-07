@@ -5,9 +5,9 @@ using System;
 
 namespace ChartTools.IO.Chart.Parsers
 {
-    internal class GHLTrackParser : VariableInstrumentTrackParser<GHLChord, GHLInstrument>
+    internal class GHLTrackParser : VariableInstrumentTrackParser<GHLChord, GHLInstrumentIdentity>
     {
-        public GHLTrackParser(Difficulty difficulty, GHLInstrument instrument) : base(difficulty, instrument) { }
+        public GHLTrackParser(Difficulty difficulty, GHLInstrumentIdentity instrument) : base(difficulty, instrument) { }
 
         public override void ApplyResultToSong(Song song)
         {

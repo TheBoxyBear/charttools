@@ -32,13 +32,13 @@ namespace ChartTools.IO.Chart.Entries
             string[] split = entry.Data.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
 
             if (split.Length < 2)
-                throw ChartParser.GetNewEntryException();
+                throw ChartExceptions.NewEntry();
 
             Type = split[0];
             Data = split[1];
 
             try { Position = uint.Parse(entry.Header); }
-            catch { throw ChartParser.GetNewEntryException(); }
+            catch { throw ChartExceptions.NewEntry(); }
         }
     }
 }

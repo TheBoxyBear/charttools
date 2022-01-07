@@ -7,25 +7,25 @@ using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart
 {
-    public static partial class ChartParser
+    public static class common
     {
         internal delegate bool IncludeNotePolicy(uint position, byte noteIndex, ICollection<byte> ignored);
 
         private const string DrumsHeaderName = "Drums";
 
         /// <summary>
-        /// Part names of <see cref="Instruments"/> without the difficulty
+        /// Part names of <see cref="InstrumentIdentity"/> without the difficulty
         /// </summary>
-        private static readonly Dictionary<Instruments, string> instrumentHeaderNames = new()
+        private static readonly Dictionary<InstrumentIdentity, string> instrumentHeaderNames = new()
         {
-            { Instruments.Drums, DrumsHeaderName },
-            { Instruments.GHLGuitar, "GHLGuitar" },
-            { Instruments.GHLBass, "GHLBass" },
-            { Instruments.LeadGuitar, "Single" },
-            { Instruments.RhythmGuitar, "DoubleRhythm" },
-            { Instruments.CoopGuitar, "DoubleGuitar" },
-            { Instruments.Bass, "DoubleBass" },
-            { Instruments.Keys, "Keyboard" }
+            { InstrumentIdentity.Drums, DrumsHeaderName },
+            { InstrumentIdentity.GHLGuitar, "GHLGuitar" },
+            { InstrumentIdentity.GHLBass, "GHLBass" },
+            { InstrumentIdentity.LeadGuitar, "Single" },
+            { InstrumentIdentity.RhythmGuitar, "DoubleRhythm" },
+            { InstrumentIdentity.CoopGuitar, "DoubleGuitar" },
+            { InstrumentIdentity.Bass, "DoubleBass" },
+            { InstrumentIdentity.Keys, "Keyboard" }
         };
 
         /// <summary>
@@ -34,12 +34,12 @@ namespace ChartTools.IO.Chart
         /// <exception cref="ArgumentException"/>
         /// <param name="instrument">Instrument to include in the part name</param>
         /// <param name="difficulty">Difficulty to include in the part name</param>
-        private static string GetFullPartName(Instruments instrument, Difficulty difficulty) => Enum.IsDefined(typeof(Difficulty), difficulty)
+        private static string GetFullPartName(InstrumentIdentity instrument, Difficulty difficulty) => Enum.IsDefined(typeof(Difficulty), difficulty)
                 ? $"{difficulty}{instrumentHeaderNames[instrument]}"
                 : throw new ArgumentException("Difficulty is undefined.");
 
-        private static string CreateHeader(Enum instrument, Difficulty difficulty) => CreateHeader((Instruments)instrument, difficulty);
-        private static string CreateHeader(Instruments instrument, Difficulty difficulty) => CreateHeader(instrumentHeaderNames[instrument], difficulty);
+        private static string CreateHeader(Enum instrument, Difficulty difficulty) => CreateHeader((InstrumentIdentity)instrument, difficulty);
+        private static string CreateHeader(InstrumentIdentity instrument, Difficulty difficulty) => CreateHeader(instrumentHeaderNames[instrument], difficulty);
         private static string CreateHeader(string instrumentName, Difficulty difficulty) => CreateHeader(difficulty.ToString() + instrumentName);
         private static string CreateHeader(string name) => $"[{name}]";
 
@@ -61,7 +61,7 @@ namespace ChartTools.IO.Chart
             return true;
         }
 
-        internal static void ApplyOverlappingStarPowerPolicy(IEnumerable<StarPowerPhrase> starPower, OverlappingStarPowerPolicy policy)
+        internal static void ApplyOverlappingStarPowerPolicy(IEnumerable<SpecicalPhrase> starPower, OverlappingStarPowerPolicy policy)
         {
             switch (policy)
             {

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security;
-using System.IO;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.Lyrics;
@@ -50,6 +48,8 @@ namespace ChartTools.SystemExtensions
 }
 namespace ChartTools.SystemExtensions.Linq
 {
+    public record SectionReplacement<T>(Func<IEnumerable<T>> ReplacementGetter, Predicate<T> StartReplace, Predicate<T> EndReplace);
+
     /// <summary>
     /// Provides additional methods to Linq
     /// </summary>
@@ -144,6 +144,7 @@ namespace ChartTools.SystemExtensions.Linq
             foreach (T item in source)
                 yield return predicate(item) ? replacement : item;
         }
+
         /// <summary>
         /// Replaces a section with other items.
         /// </summary>
@@ -208,6 +209,7 @@ namespace ChartTools.SystemExtensions.Linq
             while (itemsEnumerator.MoveNext())
                 yield return itemsEnumerator.Current;
         }
+
         /// <summary>
         /// Replaces multiple sections of items.
         /// </summary>
@@ -215,17 +217,17 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="source">Items to replace sections in</param>
         /// <param name="addIfMissing">Add the replacement to the end of the items if startReplace is never met</param>
         /// <param name="replacements">Array of tuples containing the items to replace the section and functions that determine the start and end of the replacement. Each tuple represents a section to replace</param>
-        public static IEnumerable<T> ReplaceSections<T>(this IEnumerable<T> source, bool addIfMissing, params (IEnumerable<T> replacement, Predicate<T> startReplace, Predicate<T> endReplace)[] replacements)
+        public static IEnumerable<T> ReplaceSections<T>(this IEnumerable<T> source, bool addIfMissing, IEnumerable<SectionReplacement<T>> replacements)
         {
-            if (replacements is null || replacements.Length == 0)
+            if (replacements is null || !replacements.Any())
             {
                 foreach (T item in source)
                     yield return item;
                 yield break;
             }
 
-            IEnumerator<T> itemsEnumerator = source.GetEnumerator();
-            bool[] replacedSections = new bool[replacements.Length];
+            List<SectionReplacement<T>> replacementList = replacements.ToList();
+            using IEnumerator<T> itemsEnumerator = source.GetEnumerator();
 
             do
             {
@@ -233,47 +235,53 @@ namespace ChartTools.SystemExtensions.Linq
                 if (!itemsEnumerator.MoveNext())
                 {
                     if (addIfMissing)
-                        // Return remaining replacements
-                        for (int j = 0; j < replacements.Length; j++)
-                            if (!replacedSections[j])
-                                // Return the replacement
-                                foreach (T item in replacements[j].replacement)
-                                    yield return item;
+                        foreach (var item in ReturnRemaining())
+                            yield return item;
                     yield break;
                 }
 
-                for (int i = 0; i < replacements.Length; i++)
-                    if (!replacedSections[i] && replacements[i].startReplace(itemsEnumerator.Current))
+                for (int i = 0; i < replacementList.Count; i++)
+                    if (replacementList[i].StartReplace(itemsEnumerator.Current))
                     {
-                        replacedSections[i] = true;
+                        var replacement = replacementList[i];
 
                         // Return the replacement
-                        foreach (T item in replacements[i].replacement)
+                        foreach (T item in replacement.ReplacementGetter())
                             yield return item;
 
                         // Move to the end of the section to replace
-                        while (!replacements[i].endReplace(itemsEnumerator.Current))
+                        while (!replacement.EndReplace(itemsEnumerator.Current))
                             if (!itemsEnumerator.MoveNext())
                             {
                                 if (addIfMissing)
-                                    // Return remaining replacements
-                                    for (int j = 0; j < replacements.Length; j++)
-                                        if (!replacedSections[j])
-                                            foreach (T item in replacements[j].replacement)
-                                                yield return item;
+                                    foreach (var item in ReturnRemaining())
+                                        yield return item;
                                 yield break;
                             }
+
+                        replacementList.RemoveAt(i);
+
+                        break;
                     }
                     else
                         yield return itemsEnumerator.Current;
 
             }
             // Continue until all replacements are applied
-            while (replacedSections.Any(r => !r));
+            while (replacementList.Count > 0);
 
             // Return the rest of the items
             while (itemsEnumerator.MoveNext())
                 yield return itemsEnumerator.Current;
+
+            IEnumerable<T> ReturnRemaining()
+            {
+                // Return remaining replacements
+                foreach (var replacement in replacementList)
+                    // Return the replacement
+                    foreach (T item in replacement.ReplacementGetter())
+                        yield return item;
+            }
         }
         /// <summary>
         /// Removes a section of items.
@@ -305,51 +313,7 @@ namespace ChartTools.SystemExtensions.Linq
             while (itemsEnumerator.MoveNext())
                 yield return itemsEnumerator.Current;
         }
-        /// <summary>
-        /// Removes multiple sections of items.
-        /// </summary>
-        /// <remarks>Items that match startRemove or endRemove</remarks>
-        /// <param name="source">Source items to remove a section of</param>
-        /// <param name="startRemove">Function that determines the start of the section to replace</param>
-        /// <param name="endRemove">Function that determines the end of the section to replace</param>
-        public static IEnumerable<T> RemoveSections<T>(this IEnumerable<T> source, params (Predicate<T> startRemove, Predicate<T> endRemove)[] sections)
-        {
-            if (sections is null || sections.Length == 0)
-            {
-                foreach (T item in source)
-                    yield return item;
-                yield break;
-            }
 
-            IEnumerator<T> itemsEnumerator = source.GetEnumerator();
-            bool[] removedSections = new bool[sections.Length];
-
-            do
-            {
-                // Initialize the enumerator or move to the next item
-                if (!itemsEnumerator.MoveNext())
-                    yield break;
-
-                for (int i = 0; i < sections.Length; i++)
-                    if (!removedSections[i] && sections[i].startRemove(itemsEnumerator.Current))
-                    {
-                        removedSections[i] = true;
-
-                        // Move to the end of the section to replace
-                        while (!sections[i].endRemove(itemsEnumerator.Current))
-                            if (!itemsEnumerator.MoveNext())
-                                yield break;
-                    }
-                    else
-                        yield return itemsEnumerator.Current;
-            }
-            // Continue until all replacements are applied
-            while (removedSections.Any(r => !r));
-
-            // Return the rest of the items
-            while (itemsEnumerator.MoveNext())
-                yield return itemsEnumerator.Current;
-        }
         /// <summary>
         /// Loops through a set of objects and returns a set of tuples containing the current object and the previous one.
         /// </summary>
@@ -502,82 +466,6 @@ namespace ChartTools.SystemExtensions.Linq
 namespace ChartTools
 {
     /// <summary>
-    /// Provides additional methods to <see cref="Instrument{TChord}"/>
-    /// </summary>
-    public static class InstrumentExtensions
-    {
-        /// <summary>
-        /// Reads <see cref="Instrument.Difficulty"/> from a file.
-        /// </summary>
-        /// <param name="inst">Instrument to the <see cref="Instrument.Difficulty"/> property of</param>
-        /// <param name="path">Path of the file to read the difficulty from</param>
-        public static void ReadDifficulty(this Instrument<DrumsChord> inst, string path) => inst.Difficulty = Instrument.ReadDifficulty(path, Instruments.Drums);
-        /// <inheritdoc cref="ReadDifficulty(Instrument{DrumsChord}, string)"/>
-        /// <param name="instrument">Instrument to read the difficulty of</param>
-        public static void ReadDifficulty(this Instrument<GHLChord> inst, string path, GHLInstrument instrument)
-        {
-            if (!Enum.IsDefined(instrument))
-                throw CommonExceptions.GetUndefinedException(instrument);
-
-            inst.Difficulty = Instrument.ReadDifficulty(path, (Instruments)instrument);
-        }
-        /// <inheritdoc cref="ReadDifficulty(Instrument{GHLChord}, string)"/>
-        public static void ReadDifficulty(this Instrument<StandardChord> inst, string path, StandardInstrument instrument)
-        {
-            if (!Enum.IsDefined(instrument))
-                throw CommonExceptions.GetUndefinedException(instrument);
-
-            inst.Difficulty = Instrument.ReadDifficulty(path, (Instruments)100);
-        }
-
-        /// <summary>
-        /// Writes <see cref="Instrument.Difficulty"/> to a file.
-        /// </summary>
-        /// <inheritdoc cref="Instrument.WriteDifficulty(string, Instruments, sbyte)"/>
-        public static void WriteDifficulty(this Instrument<DrumsChord> inst, string path)
-        {
-            if (inst.Difficulty is not null)
-                Instrument.WriteDifficulty(path, Instruments.Drums, inst.Difficulty.Value);
-        }
-        /// <inheritdoc cref="WriteDifficulty(Instrument{DrumsChord}, string)"/>
-        /// <param name="instrument">Instrument to assign the difficulty to</param>
-        public static void WriteDifficulty(this Instrument<GHLChord> inst, string path, GHLInstrument instrument)
-        {
-            if (!Enum.IsDefined(instrument))
-                throw CommonExceptions.GetUndefinedException(instrument);
-
-            if (inst.Difficulty is not null)
-                Instrument.WriteDifficulty(path, (Instruments)instrument, inst.Difficulty.Value);
-        }
-        /// <inheritdoc cref="WriteDifficulty(Instrument{DrumsChord}, string)"/>
-        /// <inheritdoc cref="WriteDifficulty(Instrument{GHLChord}, string, GHLInstrument)" path="param"/>
-        public static void WriteDifficulty(this Instrument<StandardChord> inst, string path, StandardInstrument instrument)
-        {
-            if (!Enum.IsDefined(instrument))
-                throw CommonExceptions.GetUndefinedException(instrument);
-
-            if (inst.Difficulty is not null)
-                Instrument.WriteDifficulty(path, (Instruments)instrument, inst.Difficulty.Value);
-        }
-
-        /// <summary>
-        /// Replaces drums in a file.
-        /// </summary>
-        /// <inheritdoc cref="ChartParser.ReplaceDrums(string, Instrument{DrumsChord}, WritingConfiguration)" path="/param"/>
-        /// <inheritdoc cref="ChartParser.ReplaceDrums(string, Instrument{DrumsChord}, WritingConfiguration)" path="/exception"/>
-        /// <inheritdoc cref="ExtensionHandler.Write{T, TConfig}(string, T, TConfig, (string extension, Action{string, T, TConfig} writeMethod)[])" path="/exception"/>
-        public static void ToFile(this Instrument<DrumsChord> inst, string path, WritingConfiguration config) => ExtensionHandler.Write(path, inst, config, (".chart", ChartParser.ReplaceDrums));
-
-        /// <inheritdoc cref="ChartParser.ReplaceInstrument(string, (Instrument{GHLChord} inst, GHLInstrument instEnum), WritingConfiguration)" path="param"/>
-        /// <inheritdoc cref="ChartParser.ReplaceInstrument(string, (Instrument{GHLChord} inst, GHLInstrument instEnum), WritingConfiguration)" path="exception"/>
-        /// <param name="instrument">Instrument to assign the data to</param>
-        public static void ToFile(this Instrument<GHLChord> inst, string path, GHLInstrument instrument, WritingConfiguration config) => ExtensionHandler.Write(path, (inst, instrument), config, (".chart", ChartParser.ReplaceInstrument));
-
-        /// <inheritdoc cref="ToFile(Instrument{GHLChord}, string)"/>
-        public static void ToFile(this Instrument<StandardChord> inst, string path, StandardInstrument instrument, WritingConfiguration config) => ExtensionHandler.Write(path, (inst, instrument), config, (".chart", ChartParser.ReplaceInstrument));
-    }
-
-    /// <summary>
     /// Provides templates for commonly thrown exceptions
     /// </summary>
     public static class CommonExceptions
@@ -629,34 +517,6 @@ namespace ChartTools
     }
 
     /// <summary>
-    /// Provides additional methods to <see cref="Track{TChord}"/>
-    /// </summary>
-    public static class TrackExtensions
-    {
-        /// <summary>
-        /// Writes the <see cref="Track{TChord}"/> to a file.
-        /// </summary>
-        /// <param name="path">Path of the file to write to</param>
-        /// <param name="difficulty">Difficulty to assign the <see cref="Track"/> to</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="PathTooLongException"/>
-        /// <exception cref="DirectoryNotFoundException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="UnauthorizedAccessException"/>
-        /// <exception cref="NotSupportedException"/>
-        /// <exception cref="SecurityException"/>
-        public static void ToFile(this Track<DrumsChord> track, string path, Difficulty difficulty, WritingConfiguration config) => ExtensionHandler.Write(path, (track, Instruments.Drums, difficulty), config, (".chart", ChartParser.ReplaceTrack));
-
-        /// <inheritdoc cref="ToFile(Track{DrumsChord}, string, Difficulty)"/>
-        /// <param name="instrument">Instrument to assign the <see cref="Track{TChord}"/> to</param>
-        public static void ToFile(this Track<GHLChord> track, string path, GHLInstrument instrument, Difficulty difficulty, WritingConfiguration config) => ExtensionHandler.Write(path, (track, (Instruments)instrument, difficulty), config, (".chart", ChartParser.ReplaceTrack));
-
-        /// <inheritdoc cref="ToFile(Track{GHLChord}, string, Difficulty)"/>
-        public static void ToFile(this Track<StandardChord> track, string path, StandardInstrument instrument, Difficulty difficulty, WritingConfiguration config) => ExtensionHandler.Write(path, (track, (Instruments)instrument, difficulty), config, (".chart", ChartParser.ReplaceTrack));
-    }
-
-    /// <summary>
     /// Provides additional methods to <see cref="Event"/>
     /// </summary>
     public static class EventExtensions
@@ -666,7 +526,7 @@ namespace ChartTools
         /// </summary>
         /// <param name="events">Events to write</param>
         /// <param name="path">Path of the file to write</param>
-        public static void ToFile(this IEnumerable<GlobalEvent> events, string path, WritingConfiguration config) => ExtensionHandler.Write(path, events, config, (".chart", ChartParser.ReplaceGlobalEvents));
+        public static void ToFile(this IEnumerable<GlobalEvent> events, string path, WritingConfiguration config) => ExtensionHandler.Write(path, events, config, (".chart", ChartWriter.ReplaceGlobalEvents));
     }
     /// <summary>
     /// Provides additional methods for <see cref="GlobalEvent"/>

@@ -1,4 +1,8 @@
-﻿using System;
+﻿using ChartTools.IO.Chart;
+using ChartTools.IO.Chart.Sessions;
+
+using System;
+using System.Collections.Generic;
 
 namespace ChartTools
 {
@@ -30,6 +34,23 @@ namespace ChartTools
 
             foreach (DrumsLane note in notes)
                 Notes.Add(new DrumsNote(note));
+        }
+
+        internal override IEnumerable<string> GetChartNoteData()
+        {
+            foreach (DrumsNote note in Notes)
+            {
+                yield return ChartFormatting.NoteData(note.Lane == DrumsLane.DoubleKick ? (byte)32 : note.NoteIndex, note.Length);
+
+                if (note.IsCymbal)
+                    yield return ChartFormatting.NoteData((byte)(note.Lane + 64), 0);
+            }
+        }
+
+        internal override IEnumerable<string> GetChartModifierData(Chord? previous, WritingSession session)
+        {
+            if (Modifier.HasFlag(DrumsChordModifier.Flam))
+                yield return ChartFormatting.NoteData(109, 0);
         }
     }
 }

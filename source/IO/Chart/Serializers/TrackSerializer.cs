@@ -1,4 +1,5 @@
-﻿using ChartTools.IO.Chart.Providers;
+﻿using ChartTools.Collections.Alternating;
+using ChartTools.IO.Chart.Providers;
 using ChartTools.SystemExtensions.Linq;
 using ChartTools.Tools.Optimizing;
 
@@ -8,9 +9,11 @@ using System.Linq;
 
 namespace ChartTools.IO.Chart.Serializers
 {
-    internal class TrackSerializer<TChord, TProvider> : TrackObjectSerializer<Track<TChord>> where TChord : Chord where TProvider : ChordProvider<TChord>
+    internal class TrackSerializer : TrackObjectGroupSerializer<Track>
     {
-        public TrackSerializer(string header, Track<TChord> content) : base(header, content) { }
+        public TrackSerializer(Track content) : base(ChartFormatting.Header(content.ParentInstrument.InstrumentIdentity, content.Difficulty), content) { }
+
+        protected override IEnumerable<string> GenerateLines() => new OrderedAlternatingEnumerable<uint, TrackObjectProviderEntry>(entry => entry.Position, LaunchProviders()).Select(entry => entry.Line);
 
         protected override IEnumerable<TrackObjectProviderEntry>[] LaunchProviders()
         {
@@ -19,7 +22,7 @@ namespace ChartTools.IO.Chart.Serializers
             // Convert solo and soloend events into star power
             if (session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && Content.StarPower.Count == 0 && Content.LocalEvents is not null)
             {
-                StarPowerPhrase? starPower = null;
+                SpecicalPhrase? starPower = null;
 
                 foreach (LocalEvent e in Content.LocalEvents)
                     switch (e.EventType)
@@ -53,7 +56,7 @@ namespace ChartTools.IO.Chart.Serializers
             };
         }
 
-        private static void ApplyOverlappingStarPowerPolicy(IEnumerable<StarPowerPhrase> starPower, OverlappingStarPowerPolicy policy)
+        private static void ApplyOverlappingStarPowerPolicy(IEnumerable<SpecicalPhrase> starPower, OverlappingStarPowerPolicy policy)
         {
             switch (policy)
             {

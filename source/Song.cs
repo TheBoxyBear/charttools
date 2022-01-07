@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using ChartTools.SystemExtensions.Linq;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace ChartTools
 {
@@ -20,13 +22,30 @@ namespace ChartTools
         /// <summary>
         /// Set of information about the song not unrelated to instruments, syncing or events
         /// </summary>
-        public Metadata? Metadata { get; set; } = new();
+        public Metadata Metadata
+        {
+            get => _metadata;
+            set => _metadata = value ?? throw new ArgumentNullException(nameof(value));
+        }
+        private Metadata _metadata = new();
+
         /// <inheritdoc cref="ChartTools.SyncTrack"/>
-        public SyncTrack? SyncTrack { get; set; } = new();
+        public SyncTrack SyncTrack
+        {
+            get => _syncTrack;
+            set => _syncTrack = value ?? throw new ArgumentNullException(nameof(value));
+        }
+        private SyncTrack _syncTrack = new();
+
         /// <summary>
         /// List of events common to all instruments
         /// </summary>
-        public List<GlobalEvent>? GlobalEvents { get; set; } = new();
+        public List<GlobalEvent> GlobalEvents
+        {
+            get => _globalEvents;
+            set => _globalEvents = value ?? throw new ArgumentNullException(nameof(value));
+        }
+        private List<GlobalEvent> _globalEvents = new();
 
         #region Instruments
         /// <summary>
@@ -37,7 +56,7 @@ namespace ChartTools
             get => _drums;
             set => _drums = value is null ? value : value with
             {
-                InstrumentIdentity = Instruments.Drums,
+                InstrumentIdentity = InstrumentIdentity.Drums,
                 InstrumentType = InstrumentType.Drums
             };
         }
@@ -50,7 +69,7 @@ namespace ChartTools
             get => _ghlGuitar;
             set => _ghlGuitar = value is null ? value : value with
             {
-                InstrumentIdentity = Instruments.GHLGuitar,
+                InstrumentIdentity = InstrumentIdentity.GHLGuitar,
                 InstrumentType = InstrumentType.GHL
             };
         }
@@ -63,7 +82,7 @@ namespace ChartTools
             get => _ghlBass;
             set => _ghlBass = value with
             {
-                InstrumentIdentity = Instruments.GHLBass,
+                InstrumentIdentity = InstrumentIdentity.GHLBass,
                 InstrumentType = InstrumentType.GHL
             };
         }
@@ -76,7 +95,7 @@ namespace ChartTools
             get => _leadGuitar;
             set => _leadGuitar = value is null ? value : value with
             {
-                InstrumentIdentity = Instruments.LeadGuitar,
+                InstrumentIdentity = InstrumentIdentity.LeadGuitar,
                 InstrumentType = InstrumentType.Standard
             };
         }
@@ -89,7 +108,7 @@ namespace ChartTools
             get => _rhythmGuitar;
             set => _rhythmGuitar = value is null ? value : value with
             {
-                InstrumentIdentity = Instruments.RhythmGuitar,
+                InstrumentIdentity = InstrumentIdentity.RhythmGuitar,
                 InstrumentType = InstrumentType.Standard
             };
         }
@@ -102,7 +121,7 @@ namespace ChartTools
             get => _coopGuitar;
             set => _coopGuitar = value is null ? value : value with
             {
-                InstrumentIdentity = Instruments.CoopGuitar,
+                InstrumentIdentity = InstrumentIdentity.CoopGuitar,
                 InstrumentType = InstrumentType.Standard
             };
         }
@@ -115,7 +134,7 @@ namespace ChartTools
             get => _bass;
             set => _bass = value is null ? value : value with
             {
-                InstrumentIdentity = Instruments.Bass,
+                InstrumentIdentity = InstrumentIdentity.Bass,
                 InstrumentType = InstrumentType.Standard
             };
         }
@@ -128,7 +147,7 @@ namespace ChartTools
             get => _keys;
             set => _keys = value is null ? value : value with
             {
-                InstrumentIdentity = Instruments.Keys,
+                InstrumentIdentity = InstrumentIdentity.Keys,
                 InstrumentType = InstrumentType.Standard
             };
         }
@@ -138,7 +157,7 @@ namespace ChartTools
             get => _vocals;
             set => _vocals = value is null ? value : value with
             {
-                InstrumentIdentity = Instruments.Vocals,
+                InstrumentIdentity = InstrumentIdentity.Vocals,
                 InstrumentType = InstrumentType.Vocals
             };
         }
@@ -146,66 +165,66 @@ namespace ChartTools
         #endregion
 
         /// <summary>
-        /// Gets property value for an <see cref="Instrument"/> from a <see cref="Instruments"/> <see langword="enum"/> value.
+        /// Gets property value for an <see cref="Instrument"/> from a <see cref="InstrumentIdentity"/> <see langword="enum"/> value.
         /// </summary>
         /// <returns>Instance of <see cref="Instrument"/> from the <see cref="Song"/></returns>
         /// <param name="instrument">Instrument to get</param>
-        public Instrument? GetInstrument(Instruments instrument) => instrument switch
+        public Instrument? GetInstrument(InstrumentIdentity instrument) => instrument switch
         {
-            Instruments.Drums => Drums,
-            Instruments.GHLGuitar => GHLGuitar,
-            Instruments.GHLBass => GHLBass,
-            Instruments.LeadGuitar => LeadGuitar,
-            Instruments.RhythmGuitar => RhythmGuitar,
-            Instruments.CoopGuitar => CoopGuitar,
-            Instruments.Bass => Bass,
-            Instruments.Keys => Keys,
-            Instruments.Vocals => Vocals,
+            InstrumentIdentity.Drums => Drums,
+            InstrumentIdentity.GHLGuitar => GHLGuitar,
+            InstrumentIdentity.GHLBass => GHLBass,
+            InstrumentIdentity.LeadGuitar => LeadGuitar,
+            InstrumentIdentity.RhythmGuitar => RhythmGuitar,
+            InstrumentIdentity.CoopGuitar => CoopGuitar,
+            InstrumentIdentity.Bass => Bass,
+            InstrumentIdentity.Keys => Keys,
+            InstrumentIdentity.Vocals => Vocals,
             _ => throw new Exception("Instrument does not exist.")
         };
         /// <summary>
-        /// Gets property value for an <see cref="Instrument{TChord}"/> from a <see cref="GHLInstrument"/> <see langword="enum"/> value.
+        /// Gets property value for an <see cref="Instrument{TChord}"/> from a <see cref="GHLInstrumentIdentity"/> <see langword="enum"/> value.
         /// </summary>
         /// /// <param name="instrument">Instrument to get</param>
         /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="GHLChord"/> from the <see cref="Song"/>.</returns>
-        public Instrument<GHLChord>? GetInstrument(GHLInstrument instrument) => GetInstrument((Instruments)instrument) as Instrument<GHLChord>;
+        public Instrument<GHLChord>? GetInstrument(GHLInstrumentIdentity instrument) => GetInstrument((InstrumentIdentity)instrument) as Instrument<GHLChord>;
         /// <summary>
-        /// Gets property value for an <see cref="Instrument{TChord}"/> from a <see cref="StandardInstrument"/> <see langword="enum"/> value.
+        /// Gets property value for an <see cref="Instrument{TChord}"/> from a <see cref="StandardInstrumentIdentity"/> <see langword="enum"/> value.
         /// </summary>
         /// <param name="instrument">Instrument to get</param>
         /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="StandardChord"/> from the <see cref="Song"/>.</returns>
-        public Instrument<StandardChord>? GetInstrument(StandardInstrument instrument) => GetInstrument((Instruments)instrument) as Instrument<StandardChord>;
+        public Instrument<StandardChord>? GetInstrument(StandardInstrumentIdentity instrument) => GetInstrument((InstrumentIdentity)instrument) as Instrument<StandardChord>;
         public IEnumerable<Instrument?> GetInstruments() => new Instrument?[] { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys }.NonNull();
 
-        public void SetInstrument(Instrument<StandardChord> instrument, StandardInstrument identity)
+        public void SetInstrument(Instrument<StandardChord> instrument, StandardInstrumentIdentity identity)
         {
             switch (identity)
             {
-                case StandardInstrument.LeadGuitar:
+                case StandardInstrumentIdentity.LeadGuitar:
                     LeadGuitar = instrument;
                     break;
-                case StandardInstrument.RhythmGuitar:
+                case StandardInstrumentIdentity.RhythmGuitar:
                     RhythmGuitar = instrument;
                     break;
-                case StandardInstrument.CoopGuitar:
+                case StandardInstrumentIdentity.CoopGuitar:
                     CoopGuitar = instrument;
                     break;
-                case StandardInstrument.Bass:
+                case StandardInstrumentIdentity.Bass:
                     Bass = instrument;
                     break;
-                case StandardInstrument.Keys:
+                case StandardInstrumentIdentity.Keys:
                     Keys = instrument;
                     break;
             }
         }
-        public void SetInstrument(Instrument<GHLChord> instrument, GHLInstrument identity)
+        public void SetInstrument(Instrument<GHLChord> instrument, GHLInstrumentIdentity identity)
         {
             switch (identity)
             {
-                case GHLInstrument.Guitar:
+                case GHLInstrumentIdentity.Guitar:
                     GHLGuitar = instrument;
                     break;
-                case GHLInstrument.Bass:
+                case GHLInstrumentIdentity.Bass:
                     GHLBass = instrument;
                     break;
             }
@@ -221,7 +240,8 @@ namespace ChartTools
         /// <exception cref="IOException"/>
         /// <exception cref="OutOfMemoryException"/>
         /// <exception cref="CommonExceptions.ParameterNullException"/>
-        public static Song FromFile(string path, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, config, (".mid", MIDIParser.ReadSong), (".chart", ChartParser.ReadSong), (".ini", (p, config) => new Song { Metadata = IniParser.ReadMetadata(p) }));
+        public static Song FromFile(string path, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, config, (".chart", ChartReader.ReadSong), (".ini", (p, config) => new Song { Metadata = IniParser.ReadMetadata(p) }));
+        public static async Task<Song> FromFileAsync(string path, CancellationToken cancellationToken, ReadingConfiguration? config = default) => await ExtensionHandler.ReadAsync<Song>(path, cancellationToken, config, (".chart", ChartReader.ReadSongAsync));
 
         /// <summary>
         /// Writes the <see cref="Song"/> to a file.
@@ -234,7 +254,8 @@ namespace ChartTools
         /// <exception cref="UnauthorizedAccessException"/>
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="System.Security.SecurityException"/>
-        public void ToFile(string path, WritingConfiguration? config = default) => ExtensionHandler.Write(path, this, config, (".chart", ChartParser.WriteSong));
+        public void ToFile(string path, WritingConfiguration? config = default) => ExtensionHandler.Write(path, this, config, (".chart", ChartWriter.WriteSong));
+        public async Task ToFileAsync(string path, CancellationToken cancellationToken, WritingConfiguration? config = default) => await ExtensionHandler.WriteAsync(path, this, cancellationToken, config, (".chart", ChartWriter.WriteSongAsync));
 
         /// <summary>
         /// Reads the estimated instrument difficulties from a ini file.
@@ -243,14 +264,14 @@ namespace ChartTools
         /// <exception cref="ArgumentException"/>
         /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
-        public void ReadDifficulties(string path) => ExtensionHandler.Read(path, (".ini", p => IniParser.ReadDifficulties(p, this)));
+        public void ReadDifficulties(string path) => ExtensionHandler.Read(path, (".ini", path => IniParser.ReadDifficulties(path, this)));
         /// <summary>
         /// Writes the estimated instrument difficulties to a ini file.
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="IOException"/>
-        public void WriteDifficulties(string path) => ExtensionHandler.Write(path, this, (".ini", IniParser.WriteDifficulties));
+        public void WriteDifficulties(string path) => ExtensionHandler.Write(path, (".ini", path => IniParser.WriteDifficulties(path, this)));
 
         /// <summary>
         /// Retrieves the lyrics from the global events.

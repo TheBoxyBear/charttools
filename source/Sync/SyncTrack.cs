@@ -1,15 +1,20 @@
-﻿using ChartTools.IO;
+﻿using ChartTools.Internal;
+using ChartTools.IO;
 using ChartTools.IO.Chart;
 
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ChartTools
 {
     /// <summary>
     /// Set of markers that define the time signature and tempo
     /// </summary>
-    public class SyncTrack
+    public class SyncTrack : IEmpty
     {
+        public bool IsEmpty => Tempo.Count == 0 && TimeSignatures.Count == 0;
+
         /// <summary>
         /// Tempo markers
         /// </summary>
@@ -19,9 +24,9 @@ namespace ChartTools
         /// </summary>
         public List<TimeSignature> TimeSignatures { get; } = new();
 
-        /// <inheritdoc cref="ChartParser.ReadSyncTrack(string, ReadingConfiguration)"/>
-        public static SyncTrack FromFile(string path, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, config, (".chart", ChartParser.ReadSyncTrack));
-        /// <inheritdoc cref="ChartParser.ReplaceSyncTrack(string, SyncTrack, WritingConfiguration)"/>
-        public void ToFile(string path, WritingConfiguration? config = default) => ExtensionHandler.Write(path, this, config, (".chart", ChartParser.ReplaceSyncTrack));
+        public static SyncTrack FromFile(string path, ReadingConfiguration? config = default) => ExtensionHandler.Read<SyncTrack>(path, config, (".chart", ChartReader.ReadSyncTrack));
+        public static async Task<SyncTrack> FromFileAsync(string path, CancellationToken cancellationToken, ReadingConfiguration? config) => await ExtensionHandler.ReadAsync<SyncTrack>(path, cancellationToken, config, (".chart", ChartReader.ReadSyncTrackAsync));
+        public void ToFile(string path, WritingConfiguration? config = default) => ExtensionHandler.Write(path, this, config, (".chart", ChartWriter.ReplaceSyncTrack));
+        public async Task ToFileAsync(string path, CancellationToken cancellationToken, WritingConfiguration? config = default) => await ExtensionHandler.WriteAsync(path, this, cancellationToken, config, (".chart", ChartWriter.ReplaceSyncTrackAsync));
     }
 }

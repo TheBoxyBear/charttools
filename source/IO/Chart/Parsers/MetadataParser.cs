@@ -4,7 +4,7 @@ using System;
 
 namespace ChartTools.IO.Chart.Parsers
 {
-    internal class MetadataParser : ChartPartParser
+    internal class MetadataParser : ChartParser
     {
         private Metadata? preResult, result;
         public override Metadata? Result => result;
@@ -13,7 +13,7 @@ namespace ChartTools.IO.Chart.Parsers
         {
             ChartEntry entry;
             try { entry = new(line); }
-            catch (Exception e) { throw ChartParser.GetLineException(line, e); }
+            catch (Exception e) { throw ChartExceptions.Line(line, e); }
 
             string data = entry.Data.Trim('"');
 
@@ -33,27 +33,27 @@ namespace ChartTools.IO.Chart.Parsers
                     break;
                 case "Year":
                     try { preResult!.Year = ushort.Parse(data.TrimStart(',')); }
-                    catch (Exception e) { throw ChartParser.GetLineException(line, e); }
+                    catch (Exception e) { throw ChartExceptions.Line(line, e); }
                     break;
                 case "Offset":
                     try { preResult!.AudioOffset = (int)(float.Parse(entry.Data) * 1000); }
-                    catch (Exception e) { throw ChartParser.GetLineException(line, e); }
+                    catch (Exception e) { throw ChartExceptions.Line(line, e); }
                     break;
                 case "Resolution":
                     try { preResult!.Resolution = ushort.Parse(data); }
-                    catch (Exception e) { throw ChartParser.GetLineException(line, e); }
+                    catch (Exception e) { throw ChartExceptions.Line(line, e); }
                     break;
                 case "Difficulty":
                     try { preResult!.Difficulty = sbyte.Parse(data); }
-                    catch (Exception e) { throw ChartParser.GetLineException(line, e); }
+                    catch (Exception e) { throw ChartExceptions.Line(line, e); }
                     break;
                 case "PreviewStart":
                     try { preResult!.PreviewStart = uint.Parse(data); }
-                    catch (Exception e) { throw ChartParser.GetLineException(line, e); }
+                    catch (Exception e) { throw ChartExceptions.Line(line, e); }
                     break;
                 case "PreviewEnd":
                     try { preResult!.PreviewEnd = uint.Parse(data); }
-                    catch (Exception e) { throw ChartParser.GetLineException(line, e); }
+                    catch (Exception e) { throw ChartExceptions.Line(line, e); }
                     break;
                 case "Genre":
                     preResult!.Genre = data;
