@@ -17,22 +17,18 @@ namespace ChartTools
     public class Metadata
     {
         #region Properties
-        [ChartMetadataEntry, IniMetadataEntry]
         /// <summary>
         /// Title of the <see cref="Song"/>
         /// </summary>
         public string? Title { get; set; }
-        [ChartMetadataEntry, IniMetadataEntry]
         /// <summary>
         /// Artist or band behind the <see cref="Song"/>
         /// </summary>
         public string? Artist { get; set; }
-        [ChartMetadataEntry, IniMetadataEntry]
         /// <summary>
         /// Album featuring the <see cref="Song"/>
         /// </summary>
         public string? Album { get; set; }
-        [ChartMetadataEntry, IniMetadataEntry]
         /// <summary>
         /// Track number of the song within the album
         /// </summary>
@@ -173,7 +169,4 @@ namespace ChartTools
         public string Data { get; set; }
         public FileFormat Origin { get; set; }
     }
-
-    public class ChartMetadataEntryAttribute : Attribute { }
-    public class IniMetadataEntryAttribute : Attribute { }
 }

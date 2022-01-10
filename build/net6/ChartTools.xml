@@ -245,7 +245,7 @@
             Marks the end of a Rock Band style solo section
             </summary>
         </member>
-        <member name="T:ChartTools.RockBandSectionFormat">
+        <member name="T:ChartTools.SectionEventFormat">
             <summary>
             Defines how section global events are written
             </summary>
@@ -287,6 +287,12 @@
             Type of event as it is written in the file
             </summary>
         </member>
+        <member name="P:ChartTools.Event.Argument">
+            <summary>
+            Additional data to modify the outcome of the event
+            </summary>
+            <remarks>A lack of argument is represented as an empty string.</remarks>
+        </member>
         <member name="M:ChartTools.Event.#ctor(System.UInt32,System.String)">
             <summary>
             Creates an instance of <see cref="T:ChartTools.Event"/>.
@@ -322,13 +328,7 @@
             The event controls the crowd
             </summary>
         </member>
-        <member name="P:ChartTools.GlobalEvent.Argument">
-            <summary>
-            Additional data to modify the outcome of the event
-            </summary>
-            <remarks>A lack of argument is represented as an empty string.</remarks>
-        </member>
-        <member name="P:ChartTools.GlobalEvent.RockBandSectionFormat">
+        <member name="P:ChartTools.GlobalEvent.SectionFormat">
             <summary>
             Rock Band format the section event is written in
             </summary>
@@ -351,7 +351,7 @@
             </summary>
             <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
             <param name="type">Value of <see cref="P:ChartTools.GlobalEvent.EventType"/></param>
-            <param name="argument">Value of <see cref="!:Event.Argument"/></param>
+            <param name="argument">Value of <see cref="P:ChartTools.Event.Argument"/></param>
         </member>
         <member name="M:ChartTools.GlobalEvent.#ctor(System.UInt32,System.String,System.String)">
             <summary>
@@ -359,7 +359,7 @@
             </summary>
             <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
             <param name="type">Value of <see cref="!:EventTypeString"/></param>
-            <param name="argument">Value of <see cref="P:ChartTools.GlobalEvent.Argument"/></param>
+            <param name="argument">Value of <see cref="!:Argument"/></param>
         </member>
         <member name="M:ChartTools.GlobalEvent.GetEventTypeString(ChartTools.GlobalEventType)">
             <summary>
@@ -389,7 +389,7 @@
             </summary>
             <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
             <param name="type">Value of <see cref="P:ChartTools.LocalEvent.EventType"/></param>
-            <param name="argument">Value of <see cref="!:Event.Argument"/></param>
+            <param name="argument">Value of <see cref="P:ChartTools.Event.Argument"/></param>
         </member>
         <member name="M:ChartTools.LocalEvent.#ctor(System.UInt32,System.String)">
             <summary>
@@ -1374,14 +1374,6 @@
             Splits the data of an entry.
             </summary>
             <param name="data">Data portion of a <see cref="!:TrackObjectEntry"/></param>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartReader.GetLineException(System.String,System.Exception)">
-            <summary>
-            Generates an exception to throw when a line cannot be converted.
-            </summary>
-            <returns>Instance of <see cref="T:System.Exception"/> to throw</returns>
-            <param name="line">Line that caused the exception</param>
-            <param name="innerException">Exception caught when interpreting the line</param>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartWriter.WriteSong(System.String,ChartTools.Song,ChartTools.IO.Configuration.WritingConfiguration)">
             <summary>
