@@ -5,7 +5,6 @@ using ChartTools.SystemExtensions.Linq;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ChartTools
 {
@@ -87,32 +86,6 @@ namespace ChartTools
         /// The event controls the crowd
         /// </summary>
         public bool IsCrowdEvent => EventTypeString.StartsWith("crowd_");
-
-        /// <summary>
-        /// Additional data to modify the outcome of the event
-        /// </summary>
-        /// <remarks>A lack of argument is represented as an empty string.</remarks>
-        public string Argument
-        {
-            get
-            {
-                string[] split = EventData.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
-                return split.Length > 1 ? split[1] : string.Empty;
-            }
-            set
-            {
-                if (string.IsNullOrEmpty(EventData))
-                {
-                    EventData = $"Default {value}";
-                    return;
-                }
-
-                string[] split = EventData.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
-                split[1] = value;
-
-                EventData = string.Join(' ', split);
-            }
-        }
 
         /// <summary>
         /// Rock Band format the section event is written in

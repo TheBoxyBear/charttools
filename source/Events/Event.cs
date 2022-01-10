@@ -22,6 +22,20 @@ namespace ChartTools
             }
         }
 
+        /// <summary>
+        /// Additional data to modify the outcome of the event
+        /// </summary>
+        /// <remarks>A lack of argument is represented as an empty string.</remarks>
+        public string Argument
+        {
+            get
+            {
+                string[] split = EventData.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
+                return split.Length > 1 ? split[1] : string.Empty;
+            }
+            set => EventData = string.IsNullOrEmpty(value) ? EventTypeString : EventTypeString + ' ' + value;
+        }
+
         internal string EventData { get; set; } = "Default";
 
         /// <summary>
