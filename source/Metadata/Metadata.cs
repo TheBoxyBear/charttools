@@ -116,8 +116,15 @@ namespace ChartTools
         /// The song is a modchart
         /// </summary>
         public bool IsModchart { get; set; }
+        /// <summary>
+        /// Minimum position difference between chords for natural chords to be hopo and forced chords to not be
+        /// </summary>
         public uint? HopoThreashold { get; set; }
-        public UniqueList<MetadataItem> UnidentifiedData { get; } = new((a, b) => a.Key == b.Key);
+        /// <summary>
+        /// Unrecognized metadata
+        /// </summary>
+        /// <remarks>When writing, these will only be written if the target format matches the origin</remarks>
+        public HashSet<MetadataItem> UnidentifiedData { get; } = new(new FuncEqualityComparer<MetadataItem>((a, b) => a.Key == b.Key));
 
 
         #endregion
