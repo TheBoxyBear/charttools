@@ -1,7 +1,7 @@
 ﻿using ChartTools.Internal;
 using ChartTools.Internal.Collections.Delayed;
 using ChartTools.IO.Chart.Parsers;
-using ChartTools.IO.Chart.Sessions;
+using ChartTools.IO.Configuration.Sessions;
 
 using System;
 using System.Collections.Generic;
@@ -33,7 +33,7 @@ namespace ChartTools.IO.Chart
             this.parserGetter = parserGetter;
         }
 
-        public void Read(ReadingSession session)
+        public void Read()
         {
             ParserLinesGroup? currentGroup = null;
             using var enumerator = File.ReadLines(Path).Where(s => !string.IsNullOrEmpty(s)).Select(s => s.Trim()).GetEnumerator();
@@ -69,9 +69,9 @@ namespace ChartTools.IO.Chart
             }
 
             foreach (var group in parserGroups)
-                group.Parser.Parse(group.Source.Enumerable, session);
+                group.Parser.Parse(group.Source.Enumerable);
         }
-        public async Task ReadAsync(ReadingSession session, CancellationToken cancellationToken)
+        public async Task ReadAsync(CancellationToken cancellationToken)
         {
             ParserLinesGroup? currentGroup = null;
             var enumerator = AsyncFileReader.ReadFileAsync(Path).Where(s => !string.IsNullOrEmpty(s)).Select(s => s.Trim()).GetAsyncEnumerator();
@@ -101,7 +101,7 @@ namespace ChartTools.IO.Chart
                     var source = new DelayedEnumerableSource<string>();
 
                     parserGroups.Add(currentGroup = new(parser, source));
-                    parseTasks.Add(parser.StartAsyncParse(source.Enumerable, session));
+                    parseTasks.Add(parser.StartAsyncParse(source.Enumerable));
                 }
 
                 // Move past the part name and opening bracket

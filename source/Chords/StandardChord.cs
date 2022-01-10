@@ -1,5 +1,5 @@
 ﻿using ChartTools.IO.Chart;
-using ChartTools.IO.Chart.Sessions;
+using ChartTools.IO.Configuration.Sessions;
 
 using Melanchall.DryWetMidi.Core;
 
@@ -16,6 +16,8 @@ namespace ChartTools
     {
         protected override bool OpenExclusivity => true;
         internal override bool ChartSupportedMoridier => !Modifier.HasFlag(StandardChordModifier.ExplicitHopo);
+
+        protected override StandardChordModifier DefaultModifier => StandardChordModifier.None;
 
         /// <inheritdoc cref="Chord(uint)"/>
         public StandardChord(uint position) : base(position) { }

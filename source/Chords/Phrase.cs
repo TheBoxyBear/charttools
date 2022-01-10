@@ -1,5 +1,5 @@
 ﻿using ChartTools.IO.Chart;
-using ChartTools.IO.Chart.Sessions;
+using ChartTools.IO.Configuration.Sessions;
 using ChartTools.SystemExtensions.Linq;
 
 using System;
@@ -43,6 +43,8 @@ namespace ChartTools.Lyrics
         public string RawText => string.Concat(Notes.Select(n => n.IsWordEnd ? n.RawText + ' ' : n.RawText));
 
         internal override bool ChartSupportedMoridier => true;
+
+        protected override VocalChordModifier DefaultModifier => VocalChordModifier.None;
 
         public Phrase(uint position) : base(position)
         {

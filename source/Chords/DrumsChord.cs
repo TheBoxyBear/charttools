@@ -1,5 +1,5 @@
 ﻿using ChartTools.IO.Chart;
-using ChartTools.IO.Chart.Sessions;
+using ChartTools.IO.Configuration.Sessions;
 
 using System;
 using System.Collections.Generic;
@@ -13,6 +13,8 @@ namespace ChartTools
     {
         protected override bool OpenExclusivity => false;
         internal override bool ChartSupportedMoridier => true;
+
+        protected override DrumsChordModifier DefaultModifier => DrumsChordModifier.None;
 
         /// <inheritdoc cref="Chord(uint)"/>
         public DrumsChord(uint position) : base(position) { }

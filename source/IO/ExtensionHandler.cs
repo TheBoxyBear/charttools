@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+using ChartTools.IO.Configuration;
 using ChartTools.SystemExtensions;
 
 namespace ChartTools.IO

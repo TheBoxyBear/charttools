@@ -1,4 +1,5 @@
 ﻿using ChartTools.IO.Chart.Entries;
+using ChartTools.IO.Configuration.Sessions;
 using ChartTools.SystemExtensions.Linq;
 
 using System;
@@ -7,7 +8,7 @@ namespace ChartTools.IO.Chart.Parsers
 {
     internal class DrumsTrackParser : TrackParser<DrumsChord>
     {
-        public DrumsTrackParser(Difficulty difficulty) : base(difficulty) { }
+        public DrumsTrackParser(Difficulty difficulty, ReadingSession session) : base(difficulty, session) { }
 
         public override void ApplyResultToSong(Song song) => ApplyResultToInstrument(song.Drums ??= new());
 

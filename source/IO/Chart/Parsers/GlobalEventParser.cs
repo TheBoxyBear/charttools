@@ -1,4 +1,5 @@
 ﻿using ChartTools.IO.Chart.Entries;
+using ChartTools.IO.Configuration.Sessions;
 
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,8 @@ namespace ChartTools.IO.Chart.Parsers
     internal class GlobalEventParser : ChartParser
     {
         private List<GlobalEvent>? preResult, result;
+
+        public GlobalEventParser(ReadingSession session) : base(session) { }
 
         public override List<GlobalEvent>? Result => result;
         protected override void HandleLine(string line)

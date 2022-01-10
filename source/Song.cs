@@ -11,6 +11,7 @@ using System.IO;
 using ChartTools.SystemExtensions.Linq;
 using System.Threading.Tasks;
 using System.Threading;
+using ChartTools.IO.Configuration;
 
 namespace ChartTools
 {

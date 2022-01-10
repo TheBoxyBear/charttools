@@ -1,5 +1,7 @@
 ﻿using ChartTools.Collections.Alternating;
 using ChartTools.IO.Chart.Providers;
+using ChartTools.IO.Configuration;
+using ChartTools.IO.Configuration.Sessions;
 using ChartTools.SystemExtensions.Linq;
 using ChartTools.Tools.Optimizing;
 
@@ -11,13 +13,13 @@ namespace ChartTools.IO.Chart.Serializers
 {
     internal class TrackSerializer : TrackObjectGroupSerializer<Track>
     {
-        public TrackSerializer(Track content) : base(ChartFormatting.Header(content.ParentInstrument.InstrumentIdentity, content.Difficulty), content) { }
+        public TrackSerializer(Track content, WritingSession session) : base(ChartFormatting.Header(content.ParentInstrument.InstrumentIdentity, content.Difficulty), content, session) { }
 
-        protected override IEnumerable<string> GenerateLines() => new OrderedAlternatingEnumerable<uint, TrackObjectProviderEntry>(entry => entry.Position, LaunchProviders()).Select(entry => entry.Line);
+        public override IEnumerable<string> Serialize() => new OrderedAlternatingEnumerable<uint, TrackObjectProviderEntry>(entry => entry.Position, LaunchProviders()).Select(entry => entry.Line);
 
         protected override IEnumerable<TrackObjectProviderEntry>[] LaunchProviders()
         {
-            ApplyOverlappingStarPowerPolicy(Content.StarPower, session!.Configuration.OverlappingStarPowerPolicy);
+            ApplyOverlappingSpecialPhrasePolicy(Content.StarPower, session!.Configuration.OverlappingStarPowerPolicy);
 
             // Convert solo and soloend events into star power
             if (session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && Content.StarPower.Count == 0 && Content.LocalEvents is not null)
@@ -34,7 +36,7 @@ namespace ChartTools.IO.Chart.Serializers
                                 Content.StarPower.Add(starPower);
                             }
 
-                            starPower = new(e.Position);
+                            starPower = new(e.Position, SpecialPhraseType.StarPowerGain);
                             break;
                         case LocalEventType.SoloEnd when starPower is not null:
 
@@ -51,22 +53,22 @@ namespace ChartTools.IO.Chart.Serializers
             return new IEnumerable<TrackObjectProviderEntry>[]
             {
                 null!,
-                new StarPowerProvider().ProvideFor(Content.StarPower, session!),
+                new SpeicalPhraseProvider().ProvideFor(Content.StarPower, session!),
                 Content.LocalEvents is null ? Enumerable.Empty<TrackObjectProviderEntry>() : new EventProvider().ProvideFor(Content.LocalEvents!, session!)
             };
         }
 
-        private static void ApplyOverlappingStarPowerPolicy(IEnumerable<SpecicalPhrase> starPower, OverlappingStarPowerPolicy policy)
+        private static void ApplyOverlappingSpecialPhrasePolicy(IEnumerable<SpecicalPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
         {
             switch (policy)
             {
-                case OverlappingStarPowerPolicy.Cut:
-                    starPower.CutLengths();
+                case OverlappingSpecialPhrasePolicy.Cut:
+                    specialPhrases.CutLengths();
                     break;
-                case OverlappingStarPowerPolicy.ThrowException:
-                    foreach ((var previous, var current) in starPower.RelativeLoop())
+                case OverlappingSpecialPhrasePolicy.ThrowException:
+                    foreach ((var previous, var current) in specialPhrases.RelativeLoop())
                         if (Optimizer.LengthNeedsCut(previous!, current!))
-                            throw new Exception($"Overlapping star power phrases at position {current!.Position}. Consider using {nameof(OverlappingStarPowerPolicy.Cut)} to avoid this error.");
+                            throw new Exception($"Overlapping star power phrases at position {current!.Position}. Consider using {nameof(OverlappingSpecialPhrasePolicy.Cut)} to avoid this error.");
                     break;
             }
         }

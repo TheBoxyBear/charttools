@@ -6,9 +6,9 @@ namespace ChartTools.IO.Chart.Serializers
 {
     internal class MetadataSerializer : ChartSerializer<Metadata>
     {
-        public MetadataSerializer(Metadata content) : base("[Metadata]", content) { }
+        public MetadataSerializer(Metadata content) : base("[Metadata]", content, new(ChartWriter.DefaultConfig)) { }
 
-        protected override IEnumerable<string> GenerateLines()
+        public override IEnumerable<string> Serialize()
         {
             if (Content is null)
                 yield break;

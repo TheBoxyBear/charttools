@@ -1,5 +1,4 @@
 ﻿using ChartTools.Collections.Unique;
-using ChartTools.Internal;
 using ChartTools.InternalTools;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
@@ -7,6 +6,7 @@ using ChartTools.IO.Ini;
 
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ChartTools
@@ -136,6 +136,7 @@ namespace ChartTools
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="OutOfMemoryException"/>
         public static Metadata FromFile(string path) => ExtensionHandler.Read<Metadata>(path, null, (".chart", (path, _) => ChartReader.ReadMetadata(path)), (".ini", (path, _) => IniParser.ReadMetadata(path)));
+        public static async Task<Metadata> FromFileAsync(string path, CancellationToken cancellationToken) => await ExtensionHandler.ReadAsync<Metadata>(path, cancellationToken, null, (".chart", (path, token, _) => ChartReader.ReadMetadataAsync(path, token)), (".ini", (path, _, _) => Task.Run(() => IniParser.ReadMetadata(path))));
         /// <summary>
         /// Reads the metadata from multiple files.
         /// </summary>

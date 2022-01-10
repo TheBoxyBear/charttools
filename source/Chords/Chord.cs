@@ -1,5 +1,5 @@
 ﻿using ChartTools.IO.Chart;
-using ChartTools.IO.Chart.Sessions;
+using ChartTools.IO.Configuration.Sessions;
 
 using System.Collections;
 using System.Collections.Generic;

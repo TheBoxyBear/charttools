@@ -7,6 +7,7 @@ using ChartTools.Lyrics;
 using ChartTools.Collections.Alternating;
 using System.Threading.Tasks;
 using System.Collections;
+using ChartTools.IO.Configuration;
 
 namespace ChartTools.SystemExtensions
 {

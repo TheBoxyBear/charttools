@@ -1,4 +1,5 @@
-﻿using ChartTools.IO.Chart.Sessions;
+﻿using ChartTools.IO.Configuration.Sessions;
+
 using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart.Providers

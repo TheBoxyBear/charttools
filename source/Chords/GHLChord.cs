@@ -1,5 +1,5 @@
 ﻿using ChartTools.IO.Chart;
-using ChartTools.IO.Chart.Sessions;
+using ChartTools.IO.Configuration.Sessions;
 
 using System;
 using System.Collections.Generic;
@@ -14,6 +14,8 @@ namespace ChartTools
     {
         protected override bool OpenExclusivity => true;
         internal override bool ChartSupportedMoridier => !Modifier.HasFlag(GHLChordModifier.ExplicitHopo);
+
+        protected override GHLChordModifier DefaultModifier => GHLChordModifier.None;
 
         /// <inheritdoc cref="Chord(uint)"/>
         public GHLChord(uint position) : base(position) { }

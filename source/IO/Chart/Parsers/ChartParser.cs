@@ -1,4 +1,4 @@
-﻿using ChartTools.IO.Chart.Sessions;
+﻿using ChartTools.IO.Configuration.Sessions;
 
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -12,14 +12,14 @@ namespace ChartTools.IO.Chart.Parsers
         public abstract object? Result { get; }
 
         protected ConcurrentQueue<string> buffer = new();
-        protected ReadingSession? session;
+        protected ReadingSession session;
+
+        public ChartParser(ReadingSession session) => this.session = session;
 
         public void AddLine(string line) => buffer.Enqueue(line);
 
-        public async Task StartAsyncParse(IEnumerable<string> lines, ReadingSession session)
+        public async Task StartAsyncParse(IEnumerable<string> lines)
         {
-            this.session = session;
-
             PrepareParse();
             await Task.Run(() =>
             {
@@ -29,10 +29,8 @@ namespace ChartTools.IO.Chart.Parsers
             FinaliseParse();
         }
 
-        public void Parse(IEnumerable<string> lines, ReadingSession session)
+        public void Parse(IEnumerable<string> lines)
         {
-            this.session = session;
-
             PrepareParse();
 
             foreach (var line in lines)

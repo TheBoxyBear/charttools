@@ -1,6 +1,6 @@
 ﻿using ChartTools.Internal;
 using ChartTools.IO.Chart.Serializers;
-using ChartTools.IO.Chart.Sessions;
+using ChartTools.IO.Configuration.Sessions;
 using ChartTools.SystemExtensions;
 using ChartTools.SystemExtensions.Linq;
 
@@ -29,9 +29,9 @@ namespace ChartTools.IO.Chart
 
         private IEnumerable<SectionReplacement<string>> AddRemoveReplacements(IEnumerable<SectionReplacement<string>> replacements) => removedHeaders is null ? replacements : replacements.Concat(removedHeaders.Select(header => new SectionReplacement<string>(() => Enumerable.Empty<string>(), line => line == header, ChartFormatting.IsSectionEnd)));
 
-        public void Write(WritingSession session)
+        public void Write()
         {
-            var replacements = AddRemoveReplacements(serializers.Select(serializer => new SectionReplacement<string>(() => serializer.Serialize(session), line => line == serializer.Header, ChartFormatting.IsSectionEnd)));
+            var replacements = AddRemoveReplacements(serializers.Select(serializer => new SectionReplacement<string>(() => serializer.Serialize(), line => line == serializer.Header, ChartFormatting.IsSectionEnd)));
             using var writer = new StreamWriter(tempPath);
 
             foreach (var line in File.ReadLines(Path).ReplaceSections(true, replacements))
@@ -41,9 +41,9 @@ namespace ChartTools.IO.Chart
             File.Delete(tempPath);
         }
 
-        public async Task WriteAsync(WritingSession session, CancellationToken cancellationToken)
+        public async Task WriteAsync(CancellationToken cancellationToken)
         {
-            (ChartSerializer serialzier, Task<IEnumerable<string>> task)[] serializerTaskGroups = serializers.Select(serializer => (serializer, serializer.SerializeAsync(session))).ToArray();
+            (ChartSerializer serialzier, Task<IEnumerable<string>> task)[] serializerTaskGroups = serializers.Select(serializer => (serializer, serializer.SerializeAsync())).ToArray();
             var replacements = AddRemoveReplacements(serializerTaskGroups.Select(group => new SectionReplacement<string>(() => group.task.SyncResult(), line => line == group.serialzier.Header, ChartFormatting.IsSectionEnd)));
 
             using var writer = new StreamWriter(tempPath);

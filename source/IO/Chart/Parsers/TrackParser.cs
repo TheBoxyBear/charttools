@@ -1,4 +1,6 @@
 ﻿using ChartTools.IO.Chart.Entries;
+using ChartTools.IO.Configuration;
+using ChartTools.IO.Configuration.Sessions;
 using ChartTools.SystemExtensions.Linq;
 using ChartTools.Tools.Optimizing;
 
@@ -19,7 +21,7 @@ namespace ChartTools.IO.Chart.Parsers
 
         public override Track<TChord>? Result => result;
 
-        public TrackParser(Difficulty difficulty) => Difficulty = difficulty;
+        public TrackParser(Difficulty difficulty, ReadingSession session) : base(session) => Difficulty = difficulty;
 
         protected override void HandleLine(string line)
         {
@@ -59,13 +61,12 @@ namespace ChartTools.IO.Chart.Parsers
                     {
                         split = ChartReader.GetDataSplit(entry.Data);
 
-                        if (split[0] != "2")
-                            break;
-
+                        if (!byte.TryParse(split[0], out byte typeCode))
+                            throw new FormatException($"Cannot parse type code \"{split[0]}\" to byte.");
                         if (!uint.TryParse(split[1], out uint length))
                             throw new FormatException($"Cannot parse length \"{split[1]}\" to uint.");
 
-                        preResult!.StarPower.Add(new(entry.Position, length));
+                        preResult!.StarPower.Add(new(entry.Position, typeCode, length));
                     }
                     catch (Exception e) { throw ChartExceptions.Line(line, e); }
                     break;
@@ -84,23 +85,23 @@ namespace ChartTools.IO.Chart.Parsers
         }
         protected override void FinaliseParse()
         {
-            ApplyOverlappingStarPowerPolicy(preResult!.StarPower, session!.Configuration.OverlappingStarPowerPolicy);
+            ApplyOverlappingSpecialPhrasePolicy(preResult!.StarPower, session!.Configuration.OverlappingStarPowerPolicy);
             result = preResult;
         }
 
         public void ApplyResultToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(result!, Difficulty);
 
-        private static void ApplyOverlappingStarPowerPolicy(IEnumerable<SpecicalPhrase> starPower, OverlappingStarPowerPolicy policy)
+        private static void ApplyOverlappingSpecialPhrasePolicy(IEnumerable<SpecicalPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
         {
             switch (policy)
             {
-                case OverlappingStarPowerPolicy.Cut:
-                    starPower.CutLengths();
+                case OverlappingSpecialPhrasePolicy.Cut:
+                    specialPhrases.CutLengths();
                     break;
-                case OverlappingStarPowerPolicy.ThrowException:
-                    foreach ((var previous, var current) in starPower.RelativeLoop())
+                case OverlappingSpecialPhrasePolicy.ThrowException:
+                    foreach ((var previous, var current) in specialPhrases.RelativeLoop())
                         if (Optimizer.LengthNeedsCut(previous!, current!))
-                            throw new Exception($"Overlapping star power phrases at position {current!.Position}. Consider using {nameof(OverlappingStarPowerPolicy.Cut)} to avoid this error.");
+                            throw new Exception($"Overlapping star power phrases at position {current!.Position}. Consider using {nameof(OverlappingSpecialPhrasePolicy.Cut)} to avoid this error.");
                     break;
             }
         }

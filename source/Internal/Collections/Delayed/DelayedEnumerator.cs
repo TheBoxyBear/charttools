@@ -10,7 +10,7 @@ namespace ChartTools.Internal.Collections.Delayed
         object IEnumerator.Current => Current;
         public bool AwaitingItems => source.AwaitingItems;
 
-        private DelayedEnumerableSource<T> source;
+        private readonly DelayedEnumerableSource<T> source;
 
         internal DelayedEnumerator(DelayedEnumerableSource<T> source) => this.source = source;
 
@@ -32,7 +32,7 @@ namespace ChartTools.Internal.Collections.Delayed
             return true;
         }
 
-        public void Dispose() { }
+        public void Dispose() => GC.SuppressFinalize(this);
 
         public void Reset() => throw new InvalidOperationException();
     }

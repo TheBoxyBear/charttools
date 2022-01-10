@@ -1,4 +1,5 @@
 ﻿using ChartTools.IO.Chart.Entries;
+using ChartTools.IO.Configuration.Sessions;
 
 using System;
 using System.Collections.Generic;
@@ -9,8 +10,9 @@ namespace ChartTools.IO.Chart.Parsers
     {
         private SyncTrack? preResult, result;
         private HashSet<uint> ignoredTempos = new(), ignoredAnchors = new(), ignoredSignatures = new();
-        private Func<uint, HashSet<uint>, string, bool>? includeObject;
         private const string parseFloatExceptionMessage = "Cannot parse value \"{0}\" to float.";
+
+        public SyncTrackParser(ReadingSession session) : base(session) { }
 
         public override SyncTrack? Result => result;
 
@@ -26,7 +28,7 @@ namespace ChartTools.IO.Chart.Parsers
             {
                 // Time signature
                 case "TS":
-                    if (!includeObject!(entry.Position, ignoredSignatures, "time signature"))
+                    if (!session!.DuplicateTrackObjectProcedure!(entry.Position, ignoredSignatures, "time signature"))
                         break;
 
                     string[] split = ChartReader.GetDataSplit(entry.Data);
@@ -52,7 +54,7 @@ namespace ChartTools.IO.Chart.Parsers
                     break;
                 // Tempo
                 case "B":
-                    if (!includeObject!(entry.Position, ignoredTempos, "tempo marker"))
+                    if (!session.DuplicateTrackObjectProcedure!(entry.Position, ignoredTempos, "tempo marker"))
                         break;
 
                     // Floats are written by rounding to the 3rd decimal and removing the decimal point
@@ -71,7 +73,7 @@ namespace ChartTools.IO.Chart.Parsers
                     break;
                 // Anchor
                 case "A":
-                    if (!includeObject!(entry.Position, ignoredAnchors, "tempo anchor"))
+                    if (!session.DuplicateTrackObjectProcedure!(entry.Position, ignoredAnchors, "tempo anchor"))
                         break;
 
                     // Floats are written by rounding to the 3rd decimal and removing the decimal point
@@ -98,35 +100,9 @@ namespace ChartTools.IO.Chart.Parsers
             ignoredTempos = new();
             ignoredAnchors = new();
             ignoredSignatures = new();
-
-            includeObject = session!.Configuration.DuplicateTrackObjectPolicy switch
-            {
-                DuplicateTrackObjectPolicy.IncludeAll => IncludeSyncTrackAllPolicy,
-                DuplicateTrackObjectPolicy.IncludeFirst => IncludeSyncTrackFirstPolicy,
-                DuplicateTrackObjectPolicy.ThrowException => IncludeSyncTrackExceptionPolicy
-            };
-
         }
         protected override void FinaliseParse() => result = preResult;
 
         public override void ApplyResultToSong(Song song) => song.SyncTrack = result!;
-
-        private static bool IncludeSyncTrackAllPolicy(uint position, ICollection<uint> ignored, string objectName) => true;
-        private static bool IncludeSyncTrackFirstPolicy(uint position, ICollection<uint> ignored, string objectName)
-        {
-            if (ignored.Contains(position))
-                return false;
-
-            ignored.Add(position);
-            return true;
-        }
-        private static bool IncludeSyncTrackExceptionPolicy(uint position, ICollection<uint> ignored, string objectName)
-        {
-            if (ignored.Contains(position))
-                throw new Exception($"Duplicate {objectName} on position {position}. Consider using a different {nameof(DuplicateTrackObjectPolicy)} to avoid this error.");
-
-            ignored.Add(position);
-            return true;
-        }
     }
 }

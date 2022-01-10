@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ChartTools.IO.Configuration;
 
 namespace ChartTools.IO.MIDI
 {
@@ -279,7 +280,7 @@ namespace ChartTools.IO.MIDI
                 {
                     // Starpower start
                     case NoteOnEvent noteOnEvent when noteOnEvent.NoteNumber == spNoteNumber && !unfinishedSolo:
-                        sp = new SpecicalPhrase((uint)e.DeltaTime);
+                        sp = new SpecicalPhrase((uint)e.DeltaTime, SpecialPhraseType.StarPowerGain);
                         unfinishedSolo = true;
                         break;
                     case NoteOffEvent noteOffEvent when sp is not null && noteOffEvent.NoteNumber == spNoteNumber && unfinishedSolo:
@@ -300,7 +301,7 @@ namespace ChartTools.IO.MIDI
                     {
                         // Star power start
                         case "solo" when !unfinishedSolo:
-                            sp = new SpecicalPhrase((uint)e.DeltaTime);
+                            sp = new SpecicalPhrase((uint)e.DeltaTime, SpecialPhraseType.StarPowerGain);
                             unfinishedSolo = true;
                             break;
                         // Star power end

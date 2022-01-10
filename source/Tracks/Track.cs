@@ -1,6 +1,7 @@
 ﻿using ChartTools.Internal;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
+using ChartTools.IO.Configuration;
 
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace ChartTools
                 switch (e.EventType)
                 {
                     case LocalEventType.Solo:
-                        phrase = new(e.Position);
+                        phrase = new(e.Position, SpecialPhraseType.StarPowerGain);
                         break;
                     case LocalEventType.SoloEnd:
                         if (phrase is not null)

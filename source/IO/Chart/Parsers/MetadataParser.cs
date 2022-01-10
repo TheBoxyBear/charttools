@@ -1,4 +1,5 @@
 ﻿using ChartTools.IO.Chart.Entries;
+using ChartTools.IO.Configuration.Sessions;
 
 using System;
 
@@ -7,6 +8,9 @@ namespace ChartTools.IO.Chart.Parsers
     internal class MetadataParser : ChartParser
     {
         private Metadata? preResult, result;
+
+        public MetadataParser(ReadingSession session) : base(session) { }
+
         public override Metadata? Result => result;
 
         protected override void HandleLine(string line)

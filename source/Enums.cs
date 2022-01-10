@@ -194,7 +194,7 @@ namespace ChartTools
     /// Frets for a <see cref="StandardNote"/>
     /// </summary>
     public enum StandardLane : byte { Open, Green, Red, Yellow, Blue, Orange }
-    public enum SpecialPhraseType : byte { StarPowerGain, StarPowerActivation }
+    public enum SpecialPhraseType : byte { Unknown, StarPowerGain, StarPowerActivation }
 }
 
 namespace ChartTools.Lyrics

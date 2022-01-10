@@ -1,4 +1,6 @@
 ﻿using ChartTools.IO.Chart.Parsers;
+using ChartTools.IO.Configuration;
+using ChartTools.IO.Configuration.Sessions;
 using ChartTools.Lyrics;
 using ChartTools.SystemExtensions.Linq;
 
@@ -22,25 +24,25 @@ namespace ChartTools.IO.Chart
         };
 
         #region Song
-        private static ChartParser? GetSongParser(string part)
+        private static ChartParser? GetSongParser(string header, ReadingSession session)
         {
-            switch (part)
+            switch (header)
             {
                 case ChartFormatting.MetadataHeader:
-                    return new MetadataParser();
+                    return new MetadataParser(session);
                 case ChartFormatting.GlobalEventHeader:
-                    return new GlobalEventParser();
+                    return new GlobalEventParser(session);
                 case ChartFormatting.SyncTrackHeader:
-                    return new SyncTrackParser();
+                    return new SyncTrackParser(session);
                 default:
-                    if (drumsTrackHeaders.TryGetValue(part, out Difficulty diff))
-                        return new DrumsTrackParser(diff);
-                    else if (ghlTrackHeaders.TryGetValue(part, out (Difficulty, GHLInstrumentIdentity) ghlTuple))
-                        return new GHLTrackParser(ghlTuple.Item1, ghlTuple.Item2);
-                    else if (standardTrackHeaders.TryGetValue(part, out (Difficulty, StandardInstrumentIdentity) standardTuple))
-                        return new StandardTrackParser(standardTuple.Item1, standardTuple.Item2);
+                    if (drumsTrackHeaders.TryGetValue(header, out Difficulty diff))
+                        return new DrumsTrackParser(diff, session);
+                    else if (ghlTrackHeaders.TryGetValue(header, out (Difficulty, GHLInstrumentIdentity) ghlTuple))
+                        return new GHLTrackParser(ghlTuple.Item1, ghlTuple.Item2, session);
+                    else if (standardTrackHeaders.TryGetValue(header, out (Difficulty, StandardInstrumentIdentity) standardTuple))
+                        return new StandardTrackParser(standardTuple.Item1, standardTuple.Item2, session);
                     else
-                        throw new FormatException($"Unknown part: {part}"); // TODO Add support for unknown parts in configuration
+                        throw new FormatException($"Unknown part: {header}"); // TODO Add support for unknown parts in configuration
             }
         }
 
@@ -56,8 +58,8 @@ namespace ChartTools.IO.Chart
 
         public static Song ReadSong(string path, ReadingConfiguration? config = default)
         {
-            var reader = new ChartFileReader(path, GetSongParser);
-            reader.Read(new(config));
+            var reader = new ChartFileReader(path, header => GetSongParser(header, new(config ?? DefaultConfig)));
+            reader.Read();
             return CreateSongFromReader(reader);
         }
         /// <summary>
@@ -68,8 +70,8 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="ReadFileAsync(string)" path="/exception"/>
         public static async Task<Song> ReadSongAsync(string path, CancellationToken cancellationToken, ReadingConfiguration? config)
         {
-            var reader = new ChartFileReader(path, GetSongParser);
-            await reader.ReadAsync(new(config), cancellationToken);
+            var reader = new ChartFileReader(path, header => GetSongParser(header, new(config ?? DefaultConfig)));
+            await reader.ReadAsync(cancellationToken);
             return CreateSongFromReader(reader);
         }
         #endregion
@@ -116,8 +118,8 @@ namespace ChartTools.IO.Chart
                 : throw CommonExceptions.GetUndefinedException(instrument);
         }
         #region Drums
-        private static DrumsTrackParser? GetAnyDrumsTrackParser(string part) => drumsTrackHeaders.TryGetValue(part, out Difficulty difficulty)
-            ? new(difficulty)
+        private static DrumsTrackParser? GetAnyDrumsTrackParser(string header, ReadingSession session) => drumsTrackHeaders.TryGetValue(header, out Difficulty difficulty)
+            ? new(difficulty, session)
             : null;
         /// <summary>
         /// Reads drums from a chart file.
@@ -130,20 +132,20 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="GetDrumsTrack(IEnumerable{string}, ReadingConfiguration)(IEnumerable{string}, ReadingConfiguration)" path="/exception"/>
         public static Instrument<DrumsChord>? ReadDrums(string path, ReadingConfiguration? config = default)
         {
-            var reader = new ChartFileReader(path, GetAnyDrumsTrackParser);
-            reader.Read(new(config));
+            var reader = new ChartFileReader(path, header => GetAnyDrumsTrackParser(header, new(config ?? DefaultConfig)));
+            reader.Read();
             return CreateInstrumentFromReader<DrumsChord>(reader);
         }
         public static async Task<Instrument<DrumsChord>?> ReadDrumsAsync(string path, CancellationToken cancellationToken, ReadingConfiguration? config = default)
         {
-            var reader = new ChartFileReader(path, GetAnyDrumsTrackParser);
-            await reader.ReadAsync(new(config), cancellationToken);
+            var reader = new ChartFileReader(path, header => GetAnyDrumsTrackParser(header, new(config ?? DefaultConfig)));
+            await reader.ReadAsync(cancellationToken);
             return CreateInstrumentFromReader<DrumsChord>(reader);
         }
         #endregion
         #region GHL
-        private static GHLTrackParser? GetAnyGHLTrackParser(string part, GHLInstrumentIdentity instrument) => ghlTrackHeaders.TryGetValue(part, out (Difficulty, GHLInstrumentIdentity) tuple) && tuple.Item2 == instrument
-            ? new(tuple.Item1, tuple.Item2)
+        private static GHLTrackParser? GetAnyGHLTrackParser(string part, GHLInstrumentIdentity instrument, ReadingSession session) => ghlTrackHeaders.TryGetValue(part, out (Difficulty, GHLInstrumentIdentity) tuple) && tuple.Item2 == instrument
+            ? new(tuple.Item1, tuple.Item2, session)
             : null;
         /// <summary>
         /// Reads a Guitar Hero Live instrument from a chart file.
@@ -156,20 +158,20 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="GetGHLTrack(IEnumerable{string}, ReadingConfiguration)(IEnumerable{string}, ReadingConfiguration)" path="/exception"/>
         public static Instrument<GHLChord>? ReadInstrument(string path, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default)
         {
-            var reader = new ChartFileReader(path, header => GetAnyGHLTrackParser(header, instrument));
-            reader.Read(new(config));
+            var reader = new ChartFileReader(path, header => GetAnyGHLTrackParser(header, instrument, new(config ?? DefaultConfig)));
+            reader.Read();
             return CreateInstrumentFromReader<GHLChord>(reader);
         }
         public static async Task<Instrument<GHLChord>?> ReadInstrumentAsync(string path, GHLInstrumentIdentity instrument, CancellationToken cancellationToken, ReadingConfiguration? config = default)
         {
-            var reader = new ChartFileReader(path, header => GetAnyGHLTrackParser(header, instrument));
-            await reader.ReadAsync(new(config), cancellationToken);
+            var reader = new ChartFileReader(path, header => GetAnyGHLTrackParser(header, instrument, new(config ?? DefaultConfig)));
+            await reader.ReadAsync(cancellationToken);
             return CreateInstrumentFromReader<GHLChord>(reader);
         }
         #endregion
         #region Standard
-        private static StandardTrackParser? GetAnyStandardTrackParser(string part, StandardInstrumentIdentity instrument) => standardTrackHeaders.TryGetValue(part, out (Difficulty, StandardInstrumentIdentity) tuple) && tuple.Item2 == instrument
-            ? new(tuple.Item1, tuple.Item2)
+        private static StandardTrackParser? GetAnyStandardTrackParser(string part, StandardInstrumentIdentity instrument, ReadingSession session) => standardTrackHeaders.TryGetValue(part, out (Difficulty, StandardInstrumentIdentity) tuple) && tuple.Item2 == instrument
+            ? new(tuple.Item1, tuple.Item2, session)
             : null;
         /// <summary>
         /// Reads a standard instrument from a chart file.
@@ -183,14 +185,14 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="GetStandardTrack(IEnumerable{string}, ReadingConfiguration)" path="/exception"/>
         public static Instrument<StandardChord>? ReadInstrument(string path, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default)
         {
-            var reader = new ChartFileReader(path, header => GetAnyStandardTrackParser(header, instrument));
-            reader.Read(new(config));
+            var reader = new ChartFileReader(path, header => GetAnyStandardTrackParser(header, instrument, new(config ?? DefaultConfig)));
+            reader.Read();
             return CreateInstrumentFromReader<StandardChord>(reader);
         }
         public static async Task<Instrument<StandardChord>?> ReadInstrumentAsync(string path, StandardInstrumentIdentity instrument, CancellationToken cancellationToken, ReadingConfiguration? config = default)
         {
-            var reader = new ChartFileReader(path, header => GetAnyStandardTrackParser(header, instrument));
-            await reader.ReadAsync(new(config), cancellationToken);
+            var reader = new ChartFileReader(path, header => GetAnyStandardTrackParser(header, instrument, new(config ?? DefaultConfig)));
+            await reader.ReadAsync(cancellationToken);
             return CreateInstrumentFromReader<StandardChord>(reader);
         }
         #endregion
@@ -231,7 +233,7 @@ namespace ChartTools.IO.Chart
             throw CommonExceptions.GetUndefinedException(instrument);
         }
         #region Drums
-        private static DrumsTrackParser? GetDrumsTrackParser(string header, string seekedHeader, Difficulty difficulty) => header == seekedHeader ? new(difficulty) : null;
+        private static DrumsTrackParser? GetDrumsTrackParser(string header, string seekedHeader, Difficulty difficulty, ReadingSession session) => header == seekedHeader ? new(difficulty, session) : null;
         private static readonly Dictionary<string, Difficulty> drumsTrackHeaders = Enum.GetValues<Difficulty>().ToDictionary(diff => ChartFormatting.Header(ChartFormatting.DrumsHeaderName, diff));
         /// <summary>
         /// Reads a drums track from a chart file.
@@ -247,22 +249,22 @@ namespace ChartTools.IO.Chart
         public static Track<DrumsChord> ReadDrumsTrack(string path, Difficulty difficulty, ReadingConfiguration? config = default)
         {
             var seekedHeader = ChartFormatting.Header(InstrumentIdentity.Drums, difficulty);
-            var reader = new ChartFileReader(path, header => GetDrumsTrackParser(header, seekedHeader, difficulty));
+            var reader = new ChartFileReader(path, header => GetDrumsTrackParser(header, seekedHeader, difficulty, new(config ?? DefaultConfig)));
 
-            reader.Read(new(config));
+            reader.Read();
             return reader.Parsers.TryGetFirstOfType(out DrumsTrackParser? parser) ? parser!.Result! : new();
         }
         public static async Task<Track<DrumsChord>> ReadDrumsTrackAsync(string path, Difficulty difficulty, CancellationToken cancellationToken, ReadingConfiguration? config = default)
         {
             var seekedHeader = ChartFormatting.Header(ChartFormatting.DrumsHeaderName, difficulty);
-            var reader = new ChartFileReader(path, header => GetDrumsTrackParser(header, seekedHeader, difficulty));
+            var reader = new ChartFileReader(path, header => GetDrumsTrackParser(header, seekedHeader, difficulty, new(config ?? DefaultConfig)));
 
-            await reader.ReadAsync(new(config), cancellationToken);
+            await reader.ReadAsync(cancellationToken);
             return reader.Parsers.TryGetFirstOfType(out DrumsTrackParser? parser) ? parser!.Result! : new();
         }
         #endregion
         #region GHL
-        private static GHLTrackParser? GetGHLTrackParser(string header, string seekedHeader, GHLInstrumentIdentity instrument, Difficulty difficulty) => header == seekedHeader ? new(difficulty, instrument) : null;
+        private static GHLTrackParser? GetGHLTrackParser(string header, string seekedHeader, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingSession session) => header == seekedHeader ? new(difficulty, instrument, session) : null;
         private static readonly Dictionary<string, (Difficulty, GHLInstrumentIdentity)> ghlTrackHeaders = GetTrackCombinations(Enum.GetValues<GHLInstrumentIdentity>()).ToDictionary(tuple => ChartFormatting.Header(tuple.instrument, tuple.difficulty));
         /// <summary>
         /// Reads a Guitar Hero Live track from a chart file.
@@ -278,22 +280,22 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="GetFullPartName(InstrumentIdentity, Difficulty)(IEnumerable{string}, string)" path="/exception"/>
         public static Track<GHLChord> ReadTrack(string path, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default)
         {
-            var seekedHeder = ChartFormatting.Header(instrument, difficulty);
-            var reader = new ChartFileReader(path, p => p == seekedHeder ? new GHLTrackParser(difficulty, instrument) : null);
-            reader.Read(new(config));
+            var seekedHeader = ChartFormatting.Header(instrument, difficulty);
+            var reader = new ChartFileReader(path, header => GetGHLTrackParser(header, seekedHeader, instrument, difficulty, new(config ?? DefaultConfig)));
+            reader.Read();
             return reader.Parsers.TryGetFirstOfType(out GHLTrackParser? parser) ? parser!.Result! : new();
         }
         public static async Task<Track<GHLChord>> ReadTrackAsync(string path, GHLInstrumentIdentity instrument, Difficulty difficulty, CancellationToken cancellationToken, ReadingConfiguration? config)
         {
             var seekedHeader = ChartFormatting.Header(instrument, difficulty);
-            var reader = new ChartFileReader(path, header => GetGHLTrackParser(header, seekedHeader, instrument, difficulty));
+            var reader = new ChartFileReader(path, header => GetGHLTrackParser(header, seekedHeader, instrument, difficulty, new(config ?? DefaultConfig)));
 
-            await reader.ReadAsync(new(config), cancellationToken);
+            await reader.ReadAsync(cancellationToken);
             return reader.Parsers.TryGetFirstOfType(out GHLTrackParser? parser) ? parser!.Result! : new();
         }
         #endregion
         #region Standard
-        private static StandardTrackParser? GetStandardTrackParser(string header, string seekedHeader, StandardInstrumentIdentity instrument, Difficulty difficulty) => header == seekedHeader ? new(difficulty, instrument) : null;
+        private static StandardTrackParser? GetStandardTrackParser(string header, string seekedHeader, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingSession session) => header == seekedHeader ? new(difficulty, instrument, session) : null;
 
         private static readonly Dictionary<string, (Difficulty, StandardInstrumentIdentity)> standardTrackHeaders = GetTrackCombinations(Enum.GetValues<StandardInstrumentIdentity>()).ToDictionary(tuple => ChartFormatting.Header((InstrumentIdentity)tuple.instrument, tuple.difficulty));
 
@@ -311,23 +313,25 @@ namespace ChartTools.IO.Chart
         public static Track<StandardChord> ReadTrack(string path, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default)
         {
             var seekedHeader = ChartFormatting.Header(instrument, difficulty);
-            var reader = new ChartFileReader(path, header => GetStandardTrackParser(header, seekedHeader, instrument, difficulty));
+            var reader = new ChartFileReader(path, header => GetStandardTrackParser(header, seekedHeader, instrument, difficulty, new(config ?? DefaultConfig)));
 
-            reader.Read(new(config));
+            reader.Read();
             return reader.Parsers.TryGetFirstOfType(out StandardTrackParser? parser) ? parser!.Result! : new();
         }
         public static async Task<Track<StandardChord>> ReadTrackAsync(string path, StandardInstrumentIdentity instrument, Difficulty difficulty, CancellationToken cancellationToken, ReadingConfiguration? config = default)
         {
-            var seekedHeader = ChartFormatting.Header(instrument, difficulty);
-            var reader = new ChartFileReader(path, header => GetStandardTrackParser(header, seekedHeader, instrument, difficulty));
+            config ??= DefaultConfig;
 
-            await reader.ReadAsync(new(config), cancellationToken);
+            var seekedHeader = ChartFormatting.Header(instrument, difficulty);
+            var reader = new ChartFileReader(path, header => GetStandardTrackParser(header, seekedHeader, instrument, difficulty, new(config ?? DefaultConfig)));
+
+            await reader.ReadAsync(cancellationToken);
             return reader.Parsers.TryGetFirstOfType(out StandardTrackParser? parser) ? parser!.Result! : new();
         }
         #endregion
         #endregion
         #region Metadata
-        private static MetadataParser? GetMetadataParser(string part) => part == ChartFormatting.MetadataHeader ? new() : null;
+        private static MetadataParser? GetMetadataParser(string header, ReadingSession session) => header == ChartFormatting.MetadataHeader ? new(session) : null;
         /// <summary>
         /// Reads the metadata from a chart file.
         /// </summary>
@@ -339,19 +343,19 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="ReadFileAsync(string)" path="/exception"/>
         public static Metadata ReadMetadata(string path)
         {
-            var reader = new ChartFileReader(path, GetMetadataParser);
-            reader.Read(new(DefaultConfig));
+            var reader = new ChartFileReader(path, header => GetMetadataParser(header, new(DefaultConfig)));
+            reader.Read();
             return reader.Parsers.TryGetFirstOfType(out MetadataParser? parser) ? parser!.Result! : new();
         }
-        public static async Task<Metadata?> ReadMetadataAsync(string path, CancellationToken cancellationToken)
+        public static async Task<Metadata> ReadMetadataAsync(string path, CancellationToken cancellationToken)
         {
-            var reader = new ChartFileReader(path, GetMetadataParser);
-            await reader.ReadAsync(new(DefaultConfig), cancellationToken);
-            return reader.Parsers.TryGetFirstOfType(out MetadataParser? parser) ? parser!.Result : new();
+            var reader = new ChartFileReader(path, header => GetMetadataParser(header, new(DefaultConfig)));
+            await reader.ReadAsync(cancellationToken);
+            return reader.Parsers.TryGetFirstOfType(out MetadataParser? parser) ? parser!.Result! : new();
         }
         #endregion
         #region Global events
-        private static GlobalEventParser? GetGlobalEventParser(string part) => part == ChartFormatting.GlobalEventHeader ? new() : null;
+        private static GlobalEventParser? GetGlobalEventParser(string header) => header == ChartFormatting.GlobalEventHeader ? new(new(DefaultConfig)) : null;
 
         /// <summary>
         /// Reads the global events from a chart file.
@@ -363,13 +367,13 @@ namespace ChartTools.IO.Chart
         public static List<GlobalEvent> ReadGlobalEvents(string path)
         {
             var reader = new ChartFileReader(path, GetGlobalEventParser);
-            reader.Read(new(DefaultConfig));
+            reader.Read();
             return reader.Parsers.TryGetFirstOfType(out GlobalEventParser? parser) ? parser!.Result! : new();
         }
         public static async Task<List<GlobalEvent>> ReadGlobalEventsAsync(string path, CancellationToken cancellationToken)
         {
             var reader = new ChartFileReader(path, GetGlobalEventParser);
-            await reader.ReadAsync(new(DefaultConfig), cancellationToken);
+            await reader.ReadAsync(cancellationToken);
             return reader.Parsers.TryGetFirstOfType(out GlobalEventParser? parser) ? parser!.Result! : new();
         }
 
@@ -383,7 +387,7 @@ namespace ChartTools.IO.Chart
         private static async Task<IEnumerable<Phrase>> ReadLyricsAsync(string path, CancellationToken cancellationToken) => (await ReadGlobalEventsAsync(path, cancellationToken)).GetLyrics();
         #endregion
         #region Sync track
-        private static SyncTrackParser? GetSyncTrackParser(string part) => part == ChartFormatting.SyncTrackHeader ? new() : null;
+        private static SyncTrackParser? GetSyncTrackParser(string header, ReadingSession session) => header == ChartFormatting.SyncTrackHeader ? new(session) : null;
 
         /// <summary>
         /// Reads the sync track from a chart file.
@@ -396,14 +400,18 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="ReadFileAsync(string)" path="/exception"/>
         public static SyncTrack ReadSyncTrack(string path, ReadingConfiguration? config)
         {
-            var reader = new ChartFileReader(path, GetSyncTrackParser);
-            reader.Read(new(config));
+            config ??= DefaultConfig;
+
+            var reader = new ChartFileReader(path, (header) => GetSyncTrackParser(header, new(config ?? DefaultConfig)));
+            reader.Read();
             return reader.Parsers.TryGetFirstOfType(out SyncTrackParser? syncTrackParser) ? syncTrackParser!.Result! : new();
         }
         public static async Task<SyncTrack> ReadSyncTrackAsync(string path, CancellationToken cancellationToken, ReadingConfiguration? config = default)
         {
-            var reader = new ChartFileReader(path, GetSyncTrackParser);
-            await reader.ReadAsync(new(config), cancellationToken);
+            config ??= DefaultConfig;
+
+            var reader = new ChartFileReader(path, (header) => GetSyncTrackParser(header, new(config ?? DefaultConfig)));
+            await reader.ReadAsync(cancellationToken);
             return reader.Parsers.TryGetFirstOfType(out SyncTrackParser? syncTrackParser) ? syncTrackParser!.Result! : new();
         }
         #endregion
