@@ -167,7 +167,7 @@ namespace ChartTools
     /// <summary>
     /// Defines how section global events are written
     /// </summary>
-    public enum RockBandSectionFormat : byte { RockBand2, RockBand3 }
+    public enum SectionEventFormat : byte { RockBand2CloneHero, RockBand3 }
     /// <summary>
     /// Modifier that affects how a <see cref="StandardChord"/> can be played
     /// </summary>

@@ -16,7 +16,7 @@ namespace ChartTools
         /// <summary>
         /// Format in which events will be written when set to the <see cref="GlobalEventType.Section"/> type
         /// </summary>
-        public static RockBandSectionFormat GlobalRockBandSectionFormat { get; set; }
+        public static SectionEventFormat GlobalRockBandSectionFormat { get; set; }
 
         /// <summary>
         /// <see cref="Event.EventTypeString"/> value for each <see cref="GlobalEventType"/>
@@ -91,12 +91,12 @@ namespace ChartTools
         /// Rock Band format the section event is written in
         /// </summary>
         /// <remarks><see langword="null"/> if the event is not a section.</remarks>
-        public RockBandSectionFormat? RockBandSectionFormat
+        public SectionEventFormat? SectionFormat
         {
             get => EventTypeString switch
             {
-                "section" => ChartTools.RockBandSectionFormat.RockBand2,
-                "prc_" => ChartTools.RockBandSectionFormat.RockBand3,
+                "section" => SectionEventFormat.RockBand2CloneHero,
+                "prc_" => SectionEventFormat.RockBand3,
                 _ => null
             };
             set
@@ -104,8 +104,8 @@ namespace ChartTools
                 if (value is not null)
                     EventTypeString = value switch
                     {
-                        ChartTools.RockBandSectionFormat.RockBand2 => "section",
-                        ChartTools.RockBandSectionFormat.RockBand3 => "prc_",
+                        SectionEventFormat.RockBand2CloneHero => "section",
+                        SectionEventFormat.RockBand3 => "prc_",
                         _ => throw CommonExceptions.GetUndefinedException(value.Value)
                     };
             }
@@ -172,7 +172,6 @@ namespace ChartTools
         internal static string GetEventTypeString(GlobalEventType type) => type switch
         {
             GlobalEventType.Unknown => "Default",
-            GlobalEventType.Section => GlobalRockBandSectionFormat == ChartTools.RockBandSectionFormat.RockBand2 ? "section" : "prc_",
             _ => globalTypesDictionary[type]
         };
 
