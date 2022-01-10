@@ -421,13 +421,6 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <param name="data">Data portion of a <see cref="TrackObjectEntry"/></param>
         internal static string[] GetDataSplit(string data) => data.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
-        /// <summary>
-        /// Generates an exception to throw when a line cannot be converted.
-        /// </summary>
-        /// <returns>Instance of <see cref="Exception"/> to throw</returns>
-        /// <param name="line">Line that caused the exception</param>
-        /// <param name="innerException">Exception caught when interpreting the line</param>
-        internal static Exception GetLineException(string line, Exception innerException) => new FormatException($"Line \"{line}\": {innerException.Message}", innerException);
 
         private static IEnumerable<(Difficulty difficulty, TInstEnum instrument)> GetTrackCombinations<TInstEnum>(IEnumerable<TInstEnum> instruments) => from difficulty in Enum.GetValues<Difficulty>() from instrument in instruments select (difficulty, instrument);
     }
