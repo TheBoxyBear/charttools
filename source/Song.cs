@@ -55,11 +55,7 @@ namespace ChartTools
         public Instrument<DrumsChord>? Drums
         {
             get => _drums;
-            set => _drums = value is null ? value : value with
-            {
-                InstrumentIdentity = InstrumentIdentity.Drums,
-                InstrumentType = InstrumentType.Drums
-            };
+            set => _drums = value is null ? value : value with { InstrumentIdentity = InstrumentIdentity.Drums };
         }
         private Instrument<DrumsChord>? _drums;
         /// <summary>
@@ -68,11 +64,7 @@ namespace ChartTools
         public Instrument<GHLChord>? GHLGuitar
         {
             get => _ghlGuitar;
-            set => _ghlGuitar = value is null ? value : value with
-            {
-                InstrumentIdentity = InstrumentIdentity.GHLGuitar,
-                InstrumentType = InstrumentType.GHL
-            };
+            set => _ghlGuitar = value is null ? value : value with { InstrumentIdentity = InstrumentIdentity.GHLGuitar };
         }
         private Instrument<GHLChord>? _ghlGuitar;
         /// <summary>
@@ -81,11 +73,7 @@ namespace ChartTools
         public Instrument<GHLChord>? GHLBass
         {
             get => _ghlBass;
-            set => _ghlBass = value with
-            {
-                InstrumentIdentity = InstrumentIdentity.GHLBass,
-                InstrumentType = InstrumentType.GHL
-            };
+            set => _ghlBass = value with { InstrumentIdentity = InstrumentIdentity.GHLBass };
         }
         private Instrument<GHLChord>? _ghlBass;
         /// <summary>
@@ -94,11 +82,7 @@ namespace ChartTools
         public Instrument<StandardChord>? LeadGuitar
         {
             get => _leadGuitar;
-            set => _leadGuitar = value is null ? value : value with
-            {
-                InstrumentIdentity = InstrumentIdentity.LeadGuitar,
-                InstrumentType = InstrumentType.Standard
-            };
+            set => _leadGuitar = value is null ? value : value with { InstrumentIdentity = InstrumentIdentity.LeadGuitar };
         }
         private Instrument<StandardChord>? _leadGuitar;
         /// <summary>
@@ -107,11 +91,7 @@ namespace ChartTools
         public Instrument<StandardChord>? RhythmGuitar
         {
             get => _rhythmGuitar;
-            set => _rhythmGuitar = value is null ? value : value with
-            {
-                InstrumentIdentity = InstrumentIdentity.RhythmGuitar,
-                InstrumentType = InstrumentType.Standard
-            };
+            set => _rhythmGuitar = value is null ? value : value with { InstrumentIdentity = InstrumentIdentity.RhythmGuitar };
         }
         private Instrument<StandardChord>? _rhythmGuitar;
         /// <summary>
@@ -120,11 +100,7 @@ namespace ChartTools
         public Instrument<StandardChord>? CoopGuitar
         {
             get => _coopGuitar;
-            set => _coopGuitar = value is null ? value : value with
-            {
-                InstrumentIdentity = InstrumentIdentity.CoopGuitar,
-                InstrumentType = InstrumentType.Standard
-            };
+            set => _coopGuitar = value is null ? value : value with { InstrumentIdentity = InstrumentIdentity.CoopGuitar };
         }
         private Instrument<StandardChord>? _coopGuitar;
         /// <summary>
@@ -133,11 +109,7 @@ namespace ChartTools
         public Instrument<StandardChord>? Bass
         {
             get => _bass;
-            set => _bass = value is null ? value : value with
-            {
-                InstrumentIdentity = InstrumentIdentity.Bass,
-                InstrumentType = InstrumentType.Standard
-            };
+            set => _bass = value is null ? value : value with { InstrumentIdentity = InstrumentIdentity.Bass };
         }
         private Instrument<StandardChord>? _bass;
         /// <summary>
@@ -146,21 +118,13 @@ namespace ChartTools
         public Instrument<StandardChord>? Keys
         {
             get => _keys;
-            set => _keys = value is null ? value : value with
-            {
-                InstrumentIdentity = InstrumentIdentity.Keys,
-                InstrumentType = InstrumentType.Standard
-            };
+            set => _keys = value is null ? value : value with { InstrumentIdentity = InstrumentIdentity.Keys };
         }
         private Instrument<StandardChord>? _keys;
         public Instrument<Phrase>? Vocals
         {
             get => _vocals;
-            set => _vocals = value is null ? value : value with
-            {
-                InstrumentIdentity = InstrumentIdentity.Vocals,
-                InstrumentType = InstrumentType.Vocals
-            };
+            set => _vocals = value is null ? value : value with { InstrumentIdentity = InstrumentIdentity.Vocals };
         }
         private Instrument<Phrase>? _vocals;
         #endregion

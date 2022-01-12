@@ -35,7 +35,7 @@ namespace ChartTools
             InstrumentIdentity.Drums => InstrumentType.Drums,
             InstrumentIdentity.LeadGuitar or InstrumentIdentity.RhythmGuitar or InstrumentIdentity.CoopGuitar or InstrumentIdentity.GHLBass or InstrumentIdentity.Keys => InstrumentType.Standard,
             InstrumentIdentity.GHLGuitar or InstrumentIdentity.GHLBass => InstrumentType.GHL,
-            InstrumentIdentity.Vocals => InstrumentType.Vocals
+            InstrumentIdentity.Vocals => InstrumentType.Vocals,
             _ => throw new InvalidDataException($"Instrument identity {InstrumentIdentity} does not belong to an instrument type.")
         };
 
