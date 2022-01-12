@@ -75,6 +75,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Sessions\Session.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\Charter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\StreamCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\ILongTrackObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\ITrackObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\LongTrackObject.cs" />
     <Compile Include="..\source\IO\Chart\Serializers\TrackObjectGroupSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serializers\TrackSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Providers\ITrackObjectProvider.cs" />
@@ -103,8 +106,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Sync\TimeSignature.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Optimizer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\TempoRescaler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\ILongTrackObject.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\ITrackObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\TrackObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SpecialPhrase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tracks\Track.cs" />

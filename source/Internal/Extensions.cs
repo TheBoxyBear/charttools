@@ -566,7 +566,7 @@ namespace ChartTools
                     // Set end position of active phrase
                     case GlobalEventType.PhraseEnd:
                         if (phrase is not null)
-                            phrase.EndPosition = globalEvent.Position;
+                            phrase.EndPositionOverride = globalEvent.Position;
                         break;
                 }
 

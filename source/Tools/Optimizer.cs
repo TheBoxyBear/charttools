@@ -11,8 +11,8 @@ namespace ChartTools.Tools.Optimizing
     /// </summary>
     public static class Optimizer
     {
-        internal static bool LengthNeedsCut(ILongTrackObject? previous, ILongTrackObject? current) => previous?.Position + previous?.Length > current?.Position;
-        internal static void CutLength(ILongTrackObject previous, ILongTrackObject current) => previous.Length = current.Position - previous.Position;
+        internal static bool LengthNeedsCut(LongTrackObject? previous, LongTrackObject? current) => previous?.Position + previous?.Length > current?.Position;
+        internal static void CutLength(LongTrackObject previous, LongTrackObject current) => previous.Length = current.Position - previous.Position;
 
         /// <summary>
         /// Cuts short sustains that exceed the position of the next identical note.

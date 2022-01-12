@@ -5,11 +5,12 @@ namespace ChartTools.Lyrics
     /// <summary>
     /// Karaoke step of a <see cref="Phrase"/>
     /// </summary>
-    public class Syllable : Note<VocalsPitch>, ITrackObject
+    public class Syllable : Note<VocalsPitch>, ILongTrackObject
     {
         public uint Position { get; set; }
+        public uint EndPosition => (this as ILongTrackObject).EndPosition;
 
-        public VocalsPitch Pitch { get; set; }
+        public VocalsPitch Pitch { get; set; } = new();
         internal override byte NoteIndex => (byte)Pitch.Pitch;
 
         private string _rawText = string.Empty;
@@ -46,7 +47,7 @@ namespace ChartTools.Lyrics
             }
         }
 
-        public Syllable() => Pitch = new();
+        public Syllable() { }
         public Syllable(uint position, VocalsPitches pitch) : this(position, new VocalsPitch(pitch)) { }
         public Syllable(uint position, VocalsPitch pitch) : base(pitch)
         {
@@ -57,5 +58,10 @@ namespace ChartTools.Lyrics
         }
 
         public int CompareTo(ITrackObject? other) => Position.CompareTo(other?.Position);
+
+        public bool Equals(ITrackObject? other)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -235,7 +235,7 @@ namespace ChartTools.IO.Ini
         /// <param name="path">Path of the file to write</param>
         /// <param name="instrument">Instrument to write the difficulty of</param>
         /// <param name="value">Difficulty to write</param>
-        /// <inheritdoc cref="File.ReadAllLines(string))" path="/exception"/>
+        /// <inheritdoc cref="File.ReadAllLines(string)" path="/exception"/>
         /// <inheritdoc cref="File.WriteAllLines(string, IEnumerable{string})" path="/exception"/>
         internal static void WriteDifficulty(string path, Instrument instrument)
         {

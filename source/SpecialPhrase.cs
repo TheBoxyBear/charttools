@@ -5,7 +5,7 @@ namespace ChartTools
     /// <summary>
     /// Sequence of chords that gives star power if all the contained chords are played successfully
     /// </summary>
-    public class SpecicalPhrase : TrackObject, ILongTrackObject
+    public class SpecicalPhrase : LongTrackObject
     {
         /// <summary>
         /// Duration of the <see cref="SpecicalPhrase"/>
