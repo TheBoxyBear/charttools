@@ -5,10 +5,11 @@ namespace ChartTools
     public interface ITrackObject : IEquatable<ITrackObject>
     {
         /// <summary>
-        /// Position in beats from the start of the <see cref="Song"/> multiplied by <see cref="Metadata.Resolution"/>
+        /// Tick number on the track.
         /// </summary>
+        /// <remarks>A tick represents a subdivision of a beat. The number of subdivisions per beat is stored in <see cref="Metadata.Resolution"/>.</remarks>
         public uint Position { get; set; }
 
-        public bool Equals(ITrackObject? other) => other is not null && other.Position == Position;
+        bool IEquatable<ITrackObject>.Equals(ITrackObject? other) => other is not null && other.Position == Position;
     }
 }

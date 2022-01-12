@@ -2021,10 +2021,16 @@
             Location of the crowd reaction audio file
             </summary>
         </member>
+        <member name="P:ChartTools.ILongTrackObject.EndPosition">
+            <summary>
+            Position 
+            </summary>
+        </member>
         <member name="P:ChartTools.ITrackObject.Position">
             <summary>
-            Position in beats from the start of the <see cref="T:ChartTools.Song"/> multiplied by <see cref="P:ChartTools.Metadata.Resolution"/>
+            Tick number on the track.
             </summary>
+            <remarks>A tick represents a subdivision of a beat. The number of subdivisions per beat is stored in <see cref="P:ChartTools.Metadata.Resolution"/>.</remarks>
         </member>
         <member name="T:ChartTools.Metadata">
             <summary>

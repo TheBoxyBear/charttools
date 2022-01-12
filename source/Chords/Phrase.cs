@@ -19,7 +19,13 @@ namespace ChartTools.Lyrics
                 base.Position = value;
             }
         }
+        /// <summary>
+        /// End of the phrase as defined by <see cref="SyllableEnd"/>, unless overridden by <see cref="EndPositionOverride"/>
+        /// </summary>
         public uint EndPosition => EndPositionOverride ?? SyllableEnd;
+        /// <summary>
+        /// Explicit end position overriding the natural one
+        /// </summary>
         public uint? EndPositionOverride
         {
             get => _endPositionOverride;
@@ -50,7 +56,13 @@ namespace ChartTools.Lyrics
             }
         }
 
+        /// <summary>
+        /// Start of the first syllable
+        /// </summary>
         public uint SyllableStart => Notes.Count == 0 ? Position : Notes.Select(s => s.Position).Min();
+        /// <summary>
+        /// Natural end position based on the end of the last syllable
+        /// </summary>
         public uint SyllableEnd => Notes.Count == 0 ?  Position : Notes.Select(s => s.EndPosition).Max();
 
         /// <summary>

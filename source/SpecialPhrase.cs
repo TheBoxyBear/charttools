@@ -7,11 +7,6 @@ namespace ChartTools
     /// </summary>
     public class SpecicalPhrase : LongTrackObject
     {
-        /// <summary>
-        /// Duration of the <see cref="SpecicalPhrase"/>
-        /// </summary>
-        public uint Length { get; set; }
-
         public SpecialPhraseType Type
         {
             get

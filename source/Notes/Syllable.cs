@@ -10,13 +10,17 @@ namespace ChartTools.Lyrics
         public uint Position { get; set; }
         public uint EndPosition => (this as ILongTrackObject).EndPosition;
 
+        /// <summary>
+        /// Pitch to sing
+        /// </summary>
+        /// <remarks>Although the octave is specified, some games only require the player to match the key.<br/><br/>Chart files do not support pitches.</remarks>
         public VocalsPitch Pitch { get; set; } = new();
         internal override byte NoteIndex => (byte)Pitch.Pitch;
 
         private string _rawText = string.Empty;
 
         /// <summary>
-        /// Argument of the native <see cref="GlobalEvent"/>
+        /// Unformatted text data
         /// </summary>
         /// <remarks>Setting to <see langword="null"/> will set to an empty string.</remarks>
         public string RawText
@@ -25,7 +29,7 @@ namespace ChartTools.Lyrics
             set => _rawText = value is null ? string.Empty : value;
         }
         /// <summary>
-        /// The syllable as it is displayed in-game
+        /// Text formatted to its in-game appearance
         /// </summary>
         public string DisplayedText => RawText.Replace("-", "").Replace('=', '-').Trim('+', '#', '^', '*');
         /// <summary>
@@ -33,7 +37,6 @@ namespace ChartTools.Lyrics
         /// </summary>
         public bool IsWordEnd
         {
-            // The last character is not - or =
             get => RawText.Length == 0 || RawText[^1] is '§' or '_' or not '-' and not '=';
             set
             {
