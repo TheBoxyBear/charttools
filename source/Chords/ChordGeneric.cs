@@ -6,7 +6,7 @@ namespace ChartTools
     /// <summary>
     /// Set of notes played simultaneously
     /// </summary>
-    public abstract class Chord<TNote, Tlane, TModifier> : Chord where TNote : Note<Tlane>, new() where Tlane : struct where TModifier : Enum
+    public abstract class Chord<TNote, Tlane, TModifier> : Chord where TNote : Note<Tlane> where Tlane : struct where TModifier : Enum
     {
         public override abstract IEnumerable<TNote> Notes { get; }
         protected abstract TModifier DefaultModifier { get; }

@@ -47,7 +47,7 @@ namespace ChartTools.Lyrics
             }
         }
 
-        public Syllable() { }
+        public Syllable(uint position) => Position = position;
         public Syllable(uint position, VocalsPitches pitch) : this(position, new VocalsPitch(pitch)) { }
         public Syllable(uint position, VocalsPitch pitch) : base(pitch)
         {
@@ -59,9 +59,6 @@ namespace ChartTools.Lyrics
 
         public int CompareTo(ITrackObject? other) => Position.CompareTo(other?.Position);
 
-        public bool Equals(ITrackObject? other)
-        {
-            throw new NotImplementedException();
-        }
+        public bool Equals(ITrackObject? other) => (this as ITrackObject).Equals(other);
     }
 }
