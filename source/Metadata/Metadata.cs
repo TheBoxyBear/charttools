@@ -5,6 +5,7 @@ using ChartTools.IO.Chart;
 using ChartTools.IO.Ini;
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -125,8 +126,6 @@ namespace ChartTools
         /// </summary>
         /// <remarks>When writing, these will only be written if the target format matches the origin</remarks>
         public HashSet<MetadataItem> UnidentifiedData { get; } = new(new FuncEqualityComparer<MetadataItem>((a, b) => a.Key == b.Key));
-
-
         #endregion
 
         /// <summary>
@@ -136,7 +135,7 @@ namespace ChartTools
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FormatException"/>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         /// <exception cref="OutOfMemoryException"/>
         public static Metadata FromFile(string path) => ExtensionHandler.Read<Metadata>(path, null, (".chart", (path, _) => ChartReader.ReadMetadata(path)), (".ini", (path, _) => IniParser.ReadMetadata(path)));
         public static async Task<Metadata> FromFileAsync(string path, CancellationToken cancellationToken) => await ExtensionHandler.ReadAsync<Metadata>(path, cancellationToken, null, (".chart", (path, token, _) => ChartReader.ReadMetadataAsync(path, token)), (".ini", (path, _, _) => Task.Run(() => IniParser.ReadMetadata(path))));

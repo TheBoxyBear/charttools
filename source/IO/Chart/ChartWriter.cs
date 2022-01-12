@@ -127,14 +127,14 @@ namespace ChartTools.IO.Chart
         /// <param name="path">Path of the file to write</param>
         /// <param name="events">Events to use as a replacement</param>
         /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
-        public static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events, WritingConfiguration? config = default)
+        public static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events)
         {
-            var writer = GetGlobalEventWriter(path, events, new(config ?? DefaultConfig));
+            var writer = GetGlobalEventWriter(path, events, new(DefaultConfig));
             writer.Write();
         }
-        public static async Task ReplaceGlobalEventsAsync(string path, IEnumerable<GlobalEvent> events, CancellationToken cancellationToken, WritingConfiguration? config = default)
+        public static async Task ReplaceGlobalEventsAsync(string path, IEnumerable<GlobalEvent> events, CancellationToken cancellationToken)
         {
-            var writer = GetGlobalEventWriter(path, events, new(config ?? DefaultConfig));
+            var writer = GetGlobalEventWriter(path, events, new(DefaultConfig));
             await writer.WriteAsync(cancellationToken);
         }
         private static ChartFileWriter GetGlobalEventWriter(string path, IEnumerable<GlobalEvent> events, WritingSession session) => new(path, null, new GlobalEventSerializer(events, session));

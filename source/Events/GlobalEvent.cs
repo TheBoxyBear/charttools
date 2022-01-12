@@ -1,9 +1,10 @@
 ﻿using ChartTools.IO;
 using ChartTools.IO.Chart;
-using ChartTools.IO.Configuration;
 using ChartTools.SystemExtensions.Linq;
 
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ChartTools
 {
@@ -61,7 +62,7 @@ namespace ChartTools
         /// <inheritdoc cref="Event.EventTypeString"/>
         public GlobalEventType EventType
         {
-            get =>  EventTypeString is "section" or "prc_"
+            get => EventTypeString is "section" or "prc_"
                     ? GlobalEventType.Section
                     : globalTypesDictionary.TryGetFirst(p => p.Value == EventTypeString, out KeyValuePair<GlobalEventType, string> pair)
                     ? pair.Key
@@ -174,7 +175,16 @@ namespace ChartTools
             _ => globalTypesDictionary[type]
         };
 
-        /// <inheritdoc cref="exceptions.ReplaceGlobalEvents(string, IEnumerable{GlobalEvent})"/>
-        public static void ToFile(string path, IEnumerable<GlobalEvent> events, WritingConfiguration? config = default) => ExtensionHandler.Write(path, events, config, (".chart", ChartWriter.ReplaceGlobalEvents));
+        /// <summary>
+        /// Reads global events from a file.
+        /// </summary>
+        /// <param name="path">Path of the file</param>
+        public static IEnumerable<GlobalEvent> FromFile(string path) => ExtensionHandler.Read<IEnumerable<GlobalEvent>>(path, null, (".chart", (path, _) => ChartReader.ReadGlobalEvents(path)));
+        /// <summary>
+        /// Reads global events from a file asynchronously using multitasking.
+        /// </summary>
+        /// <param name="path"><inheritdoc cref="FromFile(string)" path="/param[@name='path']"/></param>
+        /// <param name="cancellationToken">Token to request cancellation</param>
+        public static async Task<List<GlobalEvent>> FromFileAsync(string path, CancellationToken cancellationToken) => await ExtensionHandler.ReadAsync<List<GlobalEvent>>(path, cancellationToken, null, (".chart", (path, token, _) => ChartReader.ReadGlobalEventsAsync(path, token)));
     }
 }

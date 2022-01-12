@@ -232,16 +232,18 @@ namespace ChartTools
         }
 
         /// <summary>
-        /// Reads a <see cref="Song"/> from a file.
+        /// Reads all elements of a <see cref="Song"/> from a file.
         /// </summary>
-        /// <remarks>Supported extensions: chart, ini (mid currently in development)</remarks>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FormatException"/>
-        /// <exception cref="IOException"/>
-        /// <exception cref="OutOfMemoryException"/>
-        /// <exception cref="CommonExceptions.ParameterNullException"/>
+        /// <param name="path">Path of the file</param>
+        /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
         public static Song FromFile(string path, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, config, (".chart", ChartReader.ReadSong), (".ini", (p, config) => new Song { Metadata = IniParser.ReadMetadata(p) }));
+
+        /// <summary>
+        /// Reads all elements of a <see cref="Song"/> from a file asynchronously using multitasking.
+        /// </summary>
+        /// <param name="path"><inheritdoc cref="FromFile(string, ReadingConfiguration?)" path="/param[@name='path']"/></param>
+        /// <param name="cancellationToken">Token to request cancellation</param>
+        /// <param name="config"><inheritdoc cref="FromFile(string, ReadingConfiguration?)" path="/param[@name='config']"/></param>
         public static async Task<Song> FromFileAsync(string path, CancellationToken cancellationToken, ReadingConfiguration? config = default) => await ExtensionHandler.ReadAsync<Song>(path, cancellationToken, config, (".chart", ChartReader.ReadSongAsync));
 
         /// <summary>

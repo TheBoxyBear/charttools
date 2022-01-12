@@ -6,6 +6,7 @@ using ChartTools.IO.Ini;
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,10 +20,24 @@ namespace ChartTools
     /// </summary>
     public abstract record Instrument : IEmpty
     {
+        /// <inheritdoc cref="IEmpty.IsEmpty"/>
         public bool IsEmpty => GetTracks().All(t => t.IsEmpty);
 
+        /// <summary>
+        /// Identity of the instrument the object belongs to
+        /// </summary>
         public InstrumentIdentity InstrumentIdentity { get; init; }
-        public InstrumentType InstrumentType { get; init; }
+        /// <summary>
+        /// Type of instrument
+        /// </summary>
+        public InstrumentType InstrumentType => InstrumentIdentity switch
+        {
+            InstrumentIdentity.Drums => InstrumentType.Drums,
+            InstrumentIdentity.LeadGuitar or InstrumentIdentity.RhythmGuitar or InstrumentIdentity.CoopGuitar or InstrumentIdentity.GHLBass or InstrumentIdentity.Keys => InstrumentType.Standard,
+            InstrumentIdentity.GHLGuitar or InstrumentIdentity.GHLBass => InstrumentType.GHL,
+            InstrumentIdentity.Vocals => InstrumentType.Vocals
+            _ => throw new InvalidDataException($"Instrument identity {InstrumentIdentity} does not belong to an instrument type.")
+        };
 
         /// <summary>
         /// Estimated difficulty
@@ -56,7 +71,14 @@ namespace ChartTools
             DiffEnum.Expert => Expert,
             _ => throw CommonExceptions.GetUndefinedException(difficulty)
         };
+
+        /// <summary>
+        /// Creates an array containing all tracks.
+        /// </summary>
         public virtual Track[] GetTracks() => new Track[] { Easy, Medium, Hard, Expert };
+        /// <summary>
+        /// Creates an array containing all tracks with data.
+        /// </summary>
         public virtual Track[] GetNonEmptyTracks() => GetTracks().Where(t => !t.IsEmpty).ToArray();
 
         /// <summary>
@@ -95,37 +117,53 @@ namespace ChartTools
         /// <summary>
         /// Reads an instrument from a file.
         /// </summary>
-        /// <inheritdoc cref="ChartReader.ReadInstrument(string, InstrumentIdentity, ReadingConfiguration)"/>
-        public static Instrument FromFile(string path, InstrumentIdentity instrument, ReadingConfiguration? config = default) => Enum.IsDefined(instrument)
+        /// <param name="path">Path of the file</param>
+        /// <param name="instrument">Instrument to read</param>
+        /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
+        public static Instrument? FromFile(string path, InstrumentIdentity instrument, ReadingConfiguration? config = default) => Enum.IsDefined(instrument)
             ? ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartReader.ReadInstrument(p, instrument, config)))
             : throw CommonExceptions.GetUndefinedException(instrument);
+        /// <summary>
+        /// Reads an instrument from a file asynchronously using multitasking.
+        /// </summary>
+        /// <param name="path"><inheritdoc cref="FromFile(string, InstrumentIdentity, ReadingConfiguration?)" path="/param[@name='path']"/></param>
+        /// <param name="instrument"><inheritdoc cref="FromFile(string, InstrumentIdentity, ReadingConfiguration?)" path="/param[@name='instrument']"/></param>
+        /// <param name="cancellationToken"><inheritdoc cref="FromFile(string, InstrumentIdentity, ReadingConfiguration?)" path="/param[@name='cancellationToken']"/></param>
+        /// <param name="config"><inheritdoc cref="FromFile(string, InstrumentIdentity, ReadingConfiguration?)" path="/param[@name='config']"/></param>
+        public static async Task<Instrument?> FromFileAsync(string path, InstrumentIdentity instrument, CancellationToken cancellationToken, ReadingConfiguration? config = default) => await ExtensionHandler.ReadAsync(path, cancellationToken, config, (".chart", (path, token, config) => ChartReader.ReadInstrumentAsync(path, instrument, token, config)));
 
         /// <summary>
         /// Reads drums from a file.
         /// </summary>
-        /// <inheritdoc cref="ChartReader.ReadDrums(string, ReadingConfiguration)"/>
         public static Instrument<DrumsChord>? FromFile(string path, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, config, (".chart", ChartReader.ReadDrums));
+        /// <summary>
+        /// Reads drums from a file asynchronously using multitasking.
+        /// </summary>
         public static async Task<Instrument<DrumsChord>?> FromFileAsync(string path, CancellationToken cancellationToken, ReadingConfiguration? config = default) => await ExtensionHandler.ReadAsync<Instrument<DrumsChord>?>(path, cancellationToken, config, (".chart", ChartReader.ReadDrumsAsync));
 
         /// <summary>
         /// Reads a GHL instrument from a file.
         /// </summary>
-        /// <inheritdoc cref="ChartReader.ReadInstrument(string, GHLInstrumentIdentity, ReadingConfiguration)" />
         public static Instrument<GHLChord>? FromFile(string path, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default) => Enum.IsDefined(instrument)
             ? ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartReader.ReadInstrument(p, instrument, config)))
             : throw CommonExceptions.GetUndefinedException(instrument);
-        public static async Task<Instrument<GHLChord>>? FromFileAsync(string path, GHLInstrumentIdentity instrument, CancellationToken cancellationToken, ReadingConfiguration? config = default) => Enum.IsDefined(instrument)
+        /// <summary>
+        /// Reads a GHL instrument from a file asynchronously using multitasking.
+        /// </summary>
+        public static async Task<Instrument<GHLChord>?> FromFileAsync(string path, GHLInstrumentIdentity instrument, CancellationToken cancellationToken, ReadingConfiguration? config = default) => Enum.IsDefined(instrument)
             ? await ExtensionHandler.ReadAsync(path, cancellationToken, config, (".chart", (path, token, config) => ChartReader.ReadInstrumentAsync(path, instrument, token, config)))
             : throw CommonExceptions.GetUndefinedException(instrument);
 
         /// <summary>
         /// Reads a standard instrument from a file.
         /// </summary>
-        /// <inheritdoc cref="ChartReader.ReadInstrument(string, StandardInstrumentIdentity, ReadingConfiguration)"/>
-        public static Instrument<StandardChord> FromFile(string path, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default) => Enum.IsDefined(instrument)
+        public static Instrument<StandardChord>? FromFile(string path, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default) => Enum.IsDefined(instrument)
             ? ExtensionHandler.Read(path, config, (".chart", (p, config) => ChartReader.ReadInstrument(p, instrument, config)))
             : throw CommonExceptions.GetUndefinedException(instrument);
-        public static async Task<Instrument<StandardChord>>? FromFileAsync(string path, StandardInstrumentIdentity instrument, CancellationToken cancellationToken, ReadingConfiguration? config = default) => Enum.IsDefined(instrument)
+        /// <summary>
+        /// Reads a standard instrument from a file asynchronously using multitasking.
+        /// </summary>
+        public static async Task<Instrument<StandardChord>?> FromFileAsync(string path, StandardInstrumentIdentity instrument, CancellationToken cancellationToken, ReadingConfiguration? config = default) => Enum.IsDefined(instrument)
             ? await ExtensionHandler.ReadAsync(path, cancellationToken, config, (".chart", (path, token, config) => ChartReader.ReadInstrumentAsync(path, instrument, token, config)))
             : throw CommonExceptions.GetUndefinedException(instrument);
         #endregion

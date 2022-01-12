@@ -8,6 +8,7 @@ using ChartTools.Collections.Alternating;
 using System.Threading.Tasks;
 using System.Collections;
 using ChartTools.IO.Configuration;
+using System.Threading;
 
 namespace ChartTools.SystemExtensions
 {
@@ -518,22 +519,14 @@ namespace ChartTools
     }
 
     /// <summary>
-    /// Provides additional methods to <see cref="Event"/>
-    /// </summary>
-    public static class EventExtensions
-    {
-        /// <summary>
-        /// Writes the global events to a file
-        /// </summary>
-        /// <param name="events">Events to write</param>
-        /// <param name="path">Path of the file to write</param>
-        public static void ToFile(this IEnumerable<GlobalEvent> events, string path, WritingConfiguration config) => ExtensionHandler.Write(path, events, config, (".chart", ChartWriter.ReplaceGlobalEvents));
-    }
-    /// <summary>
     /// Provides additional methods for <see cref="GlobalEvent"/>
     /// </summary>
     public static class GlobalEventExtensions
     {
+        /// <inheritdoc cref="exceptions.ReplaceGlobalEvents(string, IEnumerable{GlobalEvent})"/>
+        public static void ToFile(string path, IEnumerable<GlobalEvent> events) => ExtensionHandler.Write(path, events, null, (".chart", (path, token, _) => ChartWriter.ReplaceGlobalEvents(path, token)));
+        public static async Task ToFileAsync(string path, IEnumerable<GlobalEvent> events, CancellationToken cancellationToken) => await ExtensionHandler.WriteAsync(path, events, cancellationToken, null, (".chart", (path, events, token, _) => ChartWriter.ReplaceGlobalEventsAsync(path, events, token)));
+
         /// <summary>
         /// Gets the lyrics from an enumerable of <see cref="GlobalEvent"/>
         /// </summary>
