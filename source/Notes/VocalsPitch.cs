@@ -24,5 +24,7 @@ namespace ChartTools.Lyrics
         public static bool operator <(VocalsPitch left, VocalsPitch right) => left.Pitch < right.Pitch;
         public static bool operator >(VocalsPitch left, VocalsPitch right) => left.Pitch > right.Pitch;
         #endregion
+
+        public override int GetHashCode() => (int)Pitch;
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ChartTools
+﻿namespace ChartTools
 {
     /// <summary>
     /// Object located on a track
@@ -24,5 +22,7 @@ namespace ChartTools
 
         public static bool operator ==(TrackObject a, TrackObject b) => a.Equals(b);
         public static bool operator !=(TrackObject a, TrackObject b) => !a.Equals(b);
+
+        public override int GetHashCode() => unchecked((int)Position);
     }
 }

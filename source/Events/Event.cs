@@ -5,7 +5,7 @@ namespace ChartTools
     /// <summary>
     /// Marker that defines an occurrence at a given point in a song.
     /// </summary>
-    public abstract class Event : TrackObject, IEquatable<Event>
+    public abstract class Event : TrackObject
     {
         /// <summary>
         /// Type of event as it is written in the file
@@ -46,10 +46,5 @@ namespace ChartTools
         protected Event(uint position, string eventData) : base(position) => EventData = eventData is null
             ? throw new ArgumentNullException(nameof(eventData))
             : eventData;
-
-        public override bool Equals(ITrackObject? other) => Equals(other as Event);
-        public bool Equals(Event? other) => base.Equals(other) && EventData == other.EventData;
-
-        public override string ToString() => $"Event: {EventData}";
     }
 }

@@ -5,7 +5,7 @@ namespace ChartTools
     /// <summary>
     /// Sequence of chords that gives star power if all the contained chords are played successfully
     /// </summary>
-    public class SpecicalPhrase : TrackObject, System.IEquatable<SpecicalPhrase>, ILongTrackObject
+    public class SpecicalPhrase : TrackObject, ILongTrackObject
     {
         /// <summary>
         /// Duration of the <see cref="SpecicalPhrase"/>
@@ -40,6 +40,8 @@ namespace ChartTools
         }
 
         public override bool Equals(object? obj) => Equals(obj as SpecicalPhrase);
-        public bool Equals(SpecicalPhrase? other) => throw new System.NotImplementedException();
+        public bool Equals(SpecicalPhrase? other) => base.Equals(other);
+
+        public override int GetHashCode() => base.GetHashCode();
     }
 }
