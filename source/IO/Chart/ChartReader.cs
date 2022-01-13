@@ -82,7 +82,7 @@ namespace ChartTools.IO.Chart
         /// <param name="path"><inheritdoc cref="Song.FromFileAsync(string, CancellationToken, ReadingConfiguration?)" path="/param[@='path']"/></param>
         /// <param name="cancellationToken"><inheritdoc cref="Song.FromFileAsync(string, CancellationToken, ReadingConfiguration?)" path="/param[@='cancellationToken']"/></param>
         /// <param name="config"><inheritdoc cref="Song.FromFileAsync(string, CancellationToken, ReadingConfiguration?)" path="/param[@='config']"/></param>
-        public static async Task<Song> ReadSongAsync(string path, CancellationToken cancellationToken, ReadingConfiguration? config)
+        public static async Task<Song> ReadSongAsync(string path, CancellationToken cancellationToken, ReadingConfiguration? config = default)
         {
             var reader = new ChartFileReader(path, header => GetSongParser(header, new(config ?? DefaultConfig)));
             await reader.ReadAsync(cancellationToken);
@@ -111,6 +111,7 @@ namespace ChartTools.IO.Chart
         /// </returns>
         /// <param name="path">Path of the file to read</param>
         /// <param name="instrument">Instrument to read</param>
+        /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
         /// <inheritdoc cref="ReadDrums(string, ReadingConfiguration)" path="/exception"/>
         /// <inheritdoc cref="ReadInstrument(string, GHLInstrumentIdentity, ReadingConfiguration)" path="/exception"/>
         /// <inheritdoc cref="ReadInstrument(string, StandardInstrumentIdentity, ReadingConfiguration)" path="/exception"/>

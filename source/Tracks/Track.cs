@@ -111,7 +111,7 @@ namespace ChartTools
         /// <param name="cancellationToken">Token to request cancellation</param>
         /// <param name="config"></param>
         /// <returns></returns>
-        public static async Task<Track<DrumsChord>> FromFileAsync(string path, Difficulty difficulty, CancellationToken cancellationToken, ReadingConfiguration? config) => await ExtensionHandler.ReadAsync<Track<DrumsChord>>(path, cancellationToken, config, (".chart", (path, token, config) => ChartReader.ReadDrumsTrackAsync(path, difficulty, cancellationToken, config)));
+        public static async Task<Track<DrumsChord>> FromFileAsync(string path, Difficulty difficulty, CancellationToken cancellationToken, ReadingConfiguration? config = default) => await ExtensionHandler.ReadAsync<Track<DrumsChord>>(path, cancellationToken, config, (".chart", (path, token, config) => ChartReader.ReadDrumsTrackAsync(path, difficulty, cancellationToken, config)));
 
         /// <summary>
         /// Reads a GHL track from a file.

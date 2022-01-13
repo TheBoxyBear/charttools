@@ -16,7 +16,7 @@ namespace ChartTools.Internal.Collections.Delayed
 
         private bool WaitForItems()
         {
-            while (source.Buffer.Count == 0)
+            while (source.Buffer.IsEmpty)
                 if (!AwaitingItems)
                     return false;
             return true;
