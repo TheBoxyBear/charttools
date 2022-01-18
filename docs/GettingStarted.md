@@ -84,7 +84,7 @@ Track easyGuitar = guitar.GetTrack(Difficulty.Easy);
 Track<StandardChord> easyBass = bass.GetTrack(Difficulty.Easy);
 ```
 
-Unless the instrument type is defined through its respective enum, getting an instrument through the loose syntax returns an instance of the base Instrument class. Like with getting instruments, you can get tracks through either the loose or strong syntax. With both approaches, the base instrument class returns base tracks while explicit instruments return explicit tracks. Base tracks grant full access to local events and star powe.
+Unless the instrument type is defined through its respective enum, getting an instrument through the loose syntax returns an instance of the base Instrument class. Like with getting instruments, you can get tracks through either the loose or strong syntax. With both approaches, the base instrument class returns base tracks while explicit instruments return explicit tracks. Base tracks grant full access to local events and star power. Some instrument like drums cannot be retrieved using the loose syntax to get a generic instrument as they are the only oe in their category. For those instruments, use the explicit property.
 
 You can get chords from a base track, in which case the chords will be of the base chord class and the collection will be read-only. In the same way, getting notes from a base chord returns a read-only, non-indexable set of base notes which grant access to their index (the numerical value in the lane enum for the respective note type) and the sustain length.
 
