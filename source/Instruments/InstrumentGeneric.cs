@@ -59,7 +59,7 @@ namespace ChartTools
         /// Sets a track for a given <see cref="Difficulty"/>.
         /// </summary>
         /// <exception cref="ArgumentNullException"></exception>
-        public void SetTrack(Track<TChord> track)
+        public void SetTrack(Track<TChord> track, Difficulty difficulty)
         {
             if (track is null)
                 throw new ArgumentNullException(nameof(track));
@@ -67,16 +67,16 @@ namespace ChartTools
             switch (track.Difficulty)
             {
                 case ChartTools.Difficulty.Easy:
-                    base.Easy = track with { ParentInstrument = this };
+                    Easy = track;
                     break;
                 case ChartTools.Difficulty.Medium:
-                    base.Medium = track with { ParentInstrument = this };
+                    Medium = track;
                     break;
                 case ChartTools.Difficulty.Hard:
-                    base.Hard = track with { ParentInstrument = this };
+                    Hard = track;
                     break;
                 case ChartTools.Difficulty.Expert:
-                    base.Expert = track with { ParentInstrument = this };
+                    Expert = track;
                     break;
             }
         }
