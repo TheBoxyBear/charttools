@@ -239,6 +239,9 @@ namespace ChartTools.IO.Ini
         /// <inheritdoc cref="File.WriteAllLines(string, IEnumerable{string})" path="/exception"/>
         internal static void WriteDifficulty(string path, Instrument instrument)
         {
+            if (instrument.InstrumentIdentity == InstrumentIdentity.Unknown)
+                throw new ArgumentException(nameof(instrument), "Instrument difficulty cannot be written because the identity is unknown.");
+
             if (!difficultyKeys.ContainsValue(instrument.InstrumentIdentity))
                 throw new ArgumentException("Ini files do not support difficulty for this instrument.");
 

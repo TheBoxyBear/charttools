@@ -85,6 +85,9 @@ namespace ChartTools.IO.Chart
         }
         private static ChartFileWriter GetInstrumentWriter(string path, Instrument instrument, WritingSession session)
         {
+            if (instrument.InstrumentIdentity == InstrumentIdentity.Unknown)
+                throw new ArgumentException(nameof(instrument), "Instrument cannot be written because its identity is unknown.");
+
             var instrumentName = ChartFormatting.InstrumentHeaderNames[instrument.InstrumentIdentity];
             var tracks = instrument.GetTracks().ToArray();
 
@@ -101,7 +104,15 @@ namespace ChartTools.IO.Chart
             var writer = GetTrackWriter(path, track, new(config ?? DefaultConfig));
             await writer.WriteAsync(cancellationToken);
         }
-        private static ChartFileWriter GetTrackWriter(string path, Track track, WritingSession session) => new(path, null, new TrackSerializer(track, session));
+        private static ChartFileWriter GetTrackWriter(string path, Track track, WritingSession session)
+        {
+            if (track.ParentInstrument is null)
+                throw new ArgumentNullException(nameof(track), "Cannot write track because it does not belong to an instrument.");
+            if (track.ParentInstrument.InstrumentIdentity == InstrumentIdentity.Unknown)
+                throw new ArgumentException(nameof(track), "Cannot write track because the instrument it belongs to is unknown.");
+
+            return new(path, null, new TrackSerializer(track, session));
+        }
 
         /// <summary>
         /// Replaces the metadata in a file.

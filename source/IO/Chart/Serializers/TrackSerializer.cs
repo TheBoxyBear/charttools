@@ -13,7 +13,7 @@ namespace ChartTools.IO.Chart.Serializers
 {
     internal class TrackSerializer : TrackObjectGroupSerializer<Track>
     {
-        public TrackSerializer(Track content, WritingSession session) : base(ChartFormatting.Header(content.ParentInstrument.InstrumentIdentity, content.Difficulty), content, session) { }
+        public TrackSerializer(Track content, WritingSession session) : base(ChartFormatting.Header(content.ParentInstrument!.InstrumentIdentity, content.Difficulty), content, session) { }
 
         public override IEnumerable<string> Serialize() => new OrderedAlternatingEnumerable<uint, TrackObjectProviderEntry>(entry => entry.Position, LaunchProviders()).Select(entry => entry.Line);
 
