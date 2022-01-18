@@ -72,6 +72,7 @@ namespace ChartTools
         /// Expert track
         /// </summary>
         public abstract Track Expert { get; }
+
         /// <summary>
         /// Gets the track matching a difficulty.
         /// </summary>

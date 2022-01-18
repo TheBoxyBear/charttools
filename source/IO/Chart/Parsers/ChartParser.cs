@@ -1,49 +1,10 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
 
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-
-using System.Threading.Tasks;
-
 namespace ChartTools.IO.Chart.Parsers
 {
-    internal abstract class ChartParser
+    internal abstract class ChartParser : FileParser<string>
     {
-        public abstract object? Result { get; }
 
-        protected ConcurrentQueue<string> buffer = new();
-        protected ReadingSession session;
-
-        public ChartParser(ReadingSession session) => this.session = session;
-
-        public void AddLine(string line) => buffer.Enqueue(line);
-
-        public async Task StartAsyncParse(IEnumerable<string> lines)
-        {
-            PrepareParse();
-            await Task.Run(() =>
-            {
-                foreach (var line in lines)
-                    HandleLine(line);
-            });
-            FinaliseParse();
-        }
-
-        public void Parse(IEnumerable<string> lines)
-        {
-            PrepareParse();
-
-            foreach (var line in lines)
-                HandleLine(line);
-
-            FinaliseParse();
-        }
-
-        public abstract void ApplyResultToSong(Song song);
-
-        protected abstract void PrepareParse();
-        protected abstract void FinaliseParse();
-
-        protected abstract void HandleLine(string line);
+        public ChartParser(ReadingSession session) : base(session) { }
     }
 }

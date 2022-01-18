@@ -61,6 +61,26 @@
         <member name="M:ChartTools.GHLChord.#ctor(System.UInt32,ChartTools.GHLLane[])">
             <inheritdoc cref="!:GHLChord(uint, GHLNote[])"/>
         </member>
+        <member name="P:ChartTools.Lyrics.Phrase.EndPosition">
+            <summary>
+            End of the phrase as defined by <see cref="P:ChartTools.Lyrics.Phrase.SyllableEnd"/>, unless overridden by <see cref="P:ChartTools.Lyrics.Phrase.EndPositionOverride"/>
+            </summary>
+        </member>
+        <member name="P:ChartTools.Lyrics.Phrase.EndPositionOverride">
+            <summary>
+            Explicit end position overriding the natural one
+            </summary>
+        </member>
+        <member name="P:ChartTools.Lyrics.Phrase.SyllableStart">
+            <summary>
+            Start of the first syllable
+            </summary>
+        </member>
+        <member name="P:ChartTools.Lyrics.Phrase.SyllableEnd">
+            <summary>
+            Natural end position based on the end of the last syllable
+            </summary>
+        </member>
         <member name="P:ChartTools.Lyrics.Phrase.RawText">
             <summary>
             Gets the raw text of all syllables as a single string with spaces between syllables
@@ -83,15 +103,21 @@
             Karaoke step of a <see cref="T:ChartTools.Lyrics.Phrase"/>
             </summary>
         </member>
+        <member name="P:ChartTools.Lyrics.Syllable.Pitch">
+            <summary>
+            Pitch to sing
+            </summary>
+            <remarks>Although the octave is specified, some games only require the player to match the key.<br/><br/>Chart files do not support pitches.</remarks>
+        </member>
         <member name="P:ChartTools.Lyrics.Syllable.RawText">
             <summary>
-            Argument of the native <see cref="T:ChartTools.GlobalEvent"/>
+            Unformatted text data
             </summary>
             <remarks>Setting to <see langword="null"/> will set to an empty string.</remarks>
         </member>
         <member name="P:ChartTools.Lyrics.Syllable.DisplayedText">
             <summary>
-            The syllable as it is displayed in-game
+            Text formatted to its in-game appearance
             </summary>
         </member>
         <member name="P:ChartTools.Lyrics.Syllable.IsWordEnd">
@@ -1328,6 +1354,7 @@
             </returns>
             <param name="path">Path of the file to read</param>
             <param name="instrument">Instrument to read</param>
+            <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
             <inheritdoc cref="M:ChartTools.IO.Chart.ChartReader.ReadDrums(System.String,ChartTools.IO.Configuration.ReadingConfiguration)" path="/exception"/>
             <inheritdoc cref="M:ChartTools.IO.Chart.ChartReader.ReadInstrument(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration)" path="/exception"/>
             <inheritdoc cref="M:ChartTools.IO.Chart.ChartReader.ReadInstrument(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration)" path="/exception"/>
@@ -1995,7 +2022,7 @@
         </member>
         <member name="P:ChartTools.ILongTrackObject.EndPosition">
             <summary>
-            Position 
+            Tick number marking the end of the object
             </summary>
         </member>
         <member name="P:ChartTools.ITrackObject.Position">
@@ -2472,17 +2499,12 @@
             Sequence of chords that gives star power if all the contained chords are played successfully
             </summary>
         </member>
-        <member name="P:ChartTools.SpecicalPhrase.Length">
-            <summary>
-            Duration of the <see cref="T:ChartTools.SpecicalPhrase"/>
-            </summary>
-        </member>
         <member name="M:ChartTools.SpecicalPhrase.#ctor(System.UInt32,ChartTools.SpecialPhraseType,System.UInt32)">
             <summary>
             Creates an instance of <see cref="T:ChartTools.SpecicalPhrase"/>.
             </summary>
             <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
-            <param name="length">Value of <see cref="P:ChartTools.SpecicalPhrase.Length"/></param>
+            <param name="length">Value of <see cref="!:Length"/></param>
         </member>
         <member name="T:ChartTools.Track">
             <summary>

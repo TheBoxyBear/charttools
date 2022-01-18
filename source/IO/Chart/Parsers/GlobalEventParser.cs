@@ -13,7 +13,7 @@ namespace ChartTools.IO.Chart.Parsers
         public GlobalEventParser(ReadingSession session) : base(session) { }
 
         public override List<GlobalEvent>? Result => result;
-        protected override void HandleLine(string line)
+        protected override void HandleItem(string line)
         {
             TrackObjectEntry entry;
             try { entry = new(line); }

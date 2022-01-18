@@ -13,7 +13,7 @@ namespace ChartTools.IO.Chart.Parsers
 
         public override Metadata? Result => result;
 
-        protected override void HandleLine(string line)
+        protected override void HandleItem(string line)
         {
             ChartEntry entry;
             try { entry = new(line); }

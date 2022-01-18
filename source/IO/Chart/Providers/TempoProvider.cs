@@ -18,5 +18,15 @@ namespace ChartTools.IO.Chart.Providers
                 yield return new(tempo.Position, $"B {ChartFormatting.Float(tempo.Value)}");
             }
         }
+
+        public IEnumerable<TrackObjectProviderEntry> ProvideFor(IEnumerable<Tempo> content, Session session)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IEnumerable<TrackObjectProviderEntry> ProvideFor(IEnumerable<Tempo> source, ReadingSession session)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -73,6 +73,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\ReadingConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\WritingConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Sessions\Session.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\FileParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsers\InstrumentParser.cs" />
+    <Compile Include="..\source\IO\MIDI\MidiFormatting.cs" />
+    <Compile Include="..\source\IO\MIDI\MidiReader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsers\ChunkInstrumentParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsers\ChunkTrackParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsers\MidiParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Providers\MidiProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\Charter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\StreamCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\ILongTrackObject.cs" />
@@ -89,8 +97,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Sessions\WritingSession.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\ExtensionHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\MIDI\MIDIParser_Common.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\MIDI\MIDIParser_Reading.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MIDIParser_Common.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MIDIParser_Reading.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\Metadata.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\DrumsNote.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\EnumNote.cs" />
@@ -111,5 +119,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Tracks\Track.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tracks\TrackGeneric.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tracks\UniqueTrackObjectCollection.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)IO\Midi\Parsers\Partial\" />
   </ItemGroup>
 </Project>

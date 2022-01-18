@@ -16,7 +16,7 @@ namespace ChartTools.IO.Chart.Parsers
 
         public override SyncTrack? Result => result;
 
-        protected override void HandleLine(string line)
+        protected override void HandleItem(string line)
         {
             TrackObjectEntry entry;
             try { entry = new(line); }

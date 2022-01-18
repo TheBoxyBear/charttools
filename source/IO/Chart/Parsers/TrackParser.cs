@@ -22,7 +22,7 @@ namespace ChartTools.IO.Chart.Parsers
 
         public TrackParser(Difficulty difficulty, ReadingSession session) : base(session) => Difficulty = difficulty;
 
-        protected override void HandleLine(string line)
+        protected override void HandleItem(string line)
         {
             TrackObjectEntry entry;
 
@@ -88,7 +88,7 @@ namespace ChartTools.IO.Chart.Parsers
             result = preResult;
         }
 
-        public void ApplyResultToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(result!, Difficulty);
+        protected void ApplyResultToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(result!, Difficulty);
 
         private static void ApplyOverlappingSpecialPhrasePolicy(IEnumerable<SpecicalPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
         {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart.Providers
 {
-    internal interface ITrackObjectProvider<T> where T : TrackObject
+    internal interface ITrackObjectProvider<T>
     {
         public IEnumerable<TrackObjectProviderEntry> ProvideFor(IEnumerable<T> source, WritingSession session);
     }

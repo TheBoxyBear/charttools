@@ -3,7 +3,6 @@ using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -26,13 +25,7 @@ namespace ChartTools
         /// <summary>
         /// Instrument containing the track
         /// </summary>
-        public Instrument ParentInstrument
-        {
-            get => _parentInstrument!;
-            set => _parentInstrument = value ?? throw new ArgumentNullException(nameof(value));
-        }
-        private Instrument? _parentInstrument;
-
+        public Instrument? ParentInstrument { get; protected set; }
         /// <summary>
         /// Events specific to the <see cref="Track"/>
         /// </summary>
