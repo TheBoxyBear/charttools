@@ -74,11 +74,11 @@ A track is composed of three elements:
 
 ### Loose Syntax
 
-ChartTools supports loose syntax to retrieve instruments and tracks using enums instead of explicit properties.
+ChartTools supports a loose syntax to retrieve instruments and tracks using enums instead of explicit properties.
 
 ```C#
-Instrument guitar = song.GetInstrument(Instruments.LeadGuitar);
-Instrument<StandardChord> bass = song.GetInstrument(StandardInstruments.Bass);
+Instrument guitar = song.GetInstrument(InstrumentIdentity.LeadGuitar);
+Instrument<StandardChord> bass = song.GetInstrument(StandardInstrumentIdentity.Bass);
 
 Track easyGuitar = guitar.GetTrack(Difficulty.Easy);
 Track<StandardChord> easyBass = bass.GetTrack(Difficulty.Easy);
