@@ -85,10 +85,10 @@ namespace ChartTools.IO.Chart.Parsers
         protected override void FinaliseParse()
         {
             ApplyOverlappingSpecialPhrasePolicy(preResult!.StarPower, session!.Configuration.OverlappingStarPowerPolicy);
-            result = preResult with { Difficulty = Difficulty };
+            result = preResult;
         }
 
-        protected void ApplyResultToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(result!);
+        protected void ApplyResultToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(result!, Difficulty);
 
         private static void ApplyOverlappingSpecialPhrasePolicy(IEnumerable<SpecicalPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
         {
