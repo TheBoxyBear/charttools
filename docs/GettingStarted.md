@@ -59,7 +59,7 @@ All instruments currently supported are represented using the generic `Instrumen
 Track<StandardChord> track = song.LeadGuitar.Expert;
 ```
 
-Notice the use of StandardChord as a generic type. Instruments are divided into three categories based on the type of chords it uses. These categories are:
+Notice the use of StandardChord as a generic type. Instruments are divided into four categories based on the type of chords it uses. These categories are:
 
 - Standard - Five colored notes
 - Drums - Five colored with support for double kick and cymbal flags
