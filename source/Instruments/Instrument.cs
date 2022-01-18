@@ -59,19 +59,39 @@ namespace ChartTools
         /// <summary>
         /// Easy track
         /// </summary>
-        public abstract Track Easy { get; }
+        public Track Easy
+        {
+            get => _easy;
+            protected set => _easy = value;
+        }
+        private Track _easy;
         /// <summary>
         /// Medium track
         /// </summary>
-        public abstract Track Medium { get; }
+        public Track Medium
+        {
+            get => _medium;
+            protected set => _medium = value;
+        }
+        private Track _medium;
         /// <summary>
         /// Hard track
         /// </summary>
-        public abstract Track Hard { get; }
+        public Track Hard
+        {
+            get => _hard;
+            protected set => _hard = value;
+        }
+        private Track _hard;
         /// <summary>
         /// Expert track
         /// </summary>
-        public abstract Track Expert { get; }
+        public Track Expert
+        {
+            get => _expert;
+            protected set => _expert = value;
+        }
+        private Track _expert;
 
         /// <summary>
         /// Gets the track matching a difficulty.

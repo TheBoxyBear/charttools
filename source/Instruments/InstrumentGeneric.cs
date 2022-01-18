@@ -8,27 +8,38 @@ namespace ChartTools
     /// </summary>
     public record Instrument<TChord> : Instrument where TChord : Chord
     {
-        private Track<TChord> _easy = new Track<TChord>() with { Difficulty = ChartTools.Difficulty.Easy };
-        private Track<TChord> _medium = new Track<TChord>() with { Difficulty = ChartTools.Difficulty.Medium };
-        private Track<TChord> _hard = new Track<TChord>() with { Difficulty = ChartTools.Difficulty.Hard };
-        private Track<TChord> _expert = new Track<TChord>() with { Difficulty = ChartTools.Difficulty.Expert };
-
         /// <summary>
         /// Easy track
         /// </summary>
-        public override Track<TChord> Easy => _easy;
+        public new Track<TChord> Easy
+        {
+            get => (Track<TChord>)base.Easy;
+            set => base.Easy = value with { Difficulty = ChartTools.Difficulty.Easy, ParentInstrument = this };
+        }
         /// <summary>
         /// Medium track
         /// </summary>
-        public override Track<TChord> Medium => _medium;
+        public new Track<TChord> Medium
+        {
+            get => (Track<TChord>)base.Medium;
+            set => base.Medium = value with { Difficulty = ChartTools.Difficulty.Medium, ParentInstrument = this };
+        }
         /// <summary>
         /// Hard track
         /// </summary>
-        public override Track<TChord> Hard => _hard;
+        public new Track<TChord> Hard
+        {
+            get => (Track<TChord>)base.Hard;
+            set => base.Hard = value with { Difficulty = ChartTools.Difficulty.Hard, ParentInstrument = this };
+        }
         /// <summary>
         /// Expert track
         /// </summary>
-        public override Track<TChord> Expert => _expert;
+        public new Track<TChord> Expert
+        {
+            get => (Track<TChord>) base.Expert;
+            set => base.Expert = value with { Difficulty = ChartTools.Difficulty.Expert, ParentInstrument = this };
+        }
 
         /// <summary>
         /// Gets the <see cref="Track{TChord}"/> that matches a <see cref="Difficulty"/>
@@ -48,40 +59,24 @@ namespace ChartTools
         /// Sets a track for a given <see cref="Difficulty"/>.
         /// </summary>
         /// <exception cref="ArgumentNullException"></exception>
-        public void SetTrack(Track<TChord> track, Difficulty difficulty)
+        public void SetTrack(Track<TChord> track)
         {
             if (track is null)
                 throw new ArgumentNullException(nameof(track));
 
-            switch (difficulty)
+            switch (track.Difficulty)
             {
                 case ChartTools.Difficulty.Easy:
-                    _easy = track with
-                    {
-                        Difficulty = ChartTools.Difficulty.Easy,
-                        ParentInstrument = this
-                    };
+                    base.Easy = track with { ParentInstrument = this };
                     break;
                 case ChartTools.Difficulty.Medium:
-                    _medium = track with
-                    {
-                        Difficulty = ChartTools.Difficulty.Medium,
-                        ParentInstrument = this
-                    };
+                    base.Medium = track with { ParentInstrument = this };
                     break;
                 case ChartTools.Difficulty.Hard:
-                    _hard = track with
-                    {
-                        Difficulty = ChartTools.Difficulty.Hard,
-                        ParentInstrument = this
-                    };
+                    base.Hard = track with { ParentInstrument = this };
                     break;
                 case ChartTools.Difficulty.Expert:
-                    _expert = track with
-                    {
-                        Difficulty = ChartTools.Difficulty.Expert,
-                        ParentInstrument = this
-                    };
+                    base.Expert = track with { ParentInstrument = this };
                     break;
             }
         }
