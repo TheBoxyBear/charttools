@@ -59,7 +59,7 @@ All instruments currently supported are represented using the generic `Instrumen
 Track<StandardChord> track = song.LeadGuitar.Expert;
 ```
 
-Notice the use of StandardChord as a generic type. Instruments are divided into three categories based on the type of chords it uses. These categories are:
+Notice the use of StandardChord as a generic type. Instruments are divided into four categories based on the type of chords it uses. These categories are:
 
 - Standard - Five colored notes
 - Drums - Five colored with support for double kick and cymbal flags
@@ -71,24 +71,6 @@ A track is composed of three elements:
 - Chords (defined by the generic type)
 - Star power phrases
 - Local events
-
-### Loose Syntax
-
-ChartTools supports loose syntax to retrieve instruments and tracks using enums instead of explicit properties.
-
-```C#
-Instrument guitar = song.GetInstrument(Instruments.LeadGuitar);
-Instrument<StandardChord> bass = song.GetInstrument(StandardInstruments.Bass);
-
-Track easyGuitar = guitar.GetTrack(Difficulty.Easy);
-Track<StandardChord> easyBass = bass.GetTrack(Difficulty.Easy);
-```
-
-Unless the instrument type is defined through its respective enum, getting an instrument through the loose syntax returns an instance of the base Instrument class. Like with explicit instruments, you can get tracks through either the loose or strong syntax. With both approaches, loose instruments will return loose tracks and explicit instruments will return explicit tracks. Loose tracks grant full access to local events and star power.
-
-You can get chords from a loose track, in which case the chords will be loose and the collection will be read-only. In the same way, getting notes from a loose chords returns a read-only, non-indexable set of loose notes which grant access to their index (the numerical value in the lane enum for the respective note type) and the sustain length. Due to restrictions with covariant types used by the loose syntax, setting tracks requires using the SetTrack method only accessible in explicit instruments.
-
-Any loose type can be cast to an explicit type.
 
 ## Chords and Notes
 
@@ -111,6 +93,24 @@ foreach (StandardChord chord in song.LeadGuitar.Expert)
     chord.Notes.Add(new Note<StandardLane>(StandardLane.Orange));
 }
 ```
+
+### Loose Syntax
+
+ChartTools supports a loose syntax to retrieve instruments and tracks using enums instead of explicit properties.
+
+```C#
+Instrument guitar = song.GetInstrument(InstrumentIdentity.LeadGuitar);
+Instrument<StandardChord> bass = song.GetInstrument(StandardInstrumentIdentity.Bass);
+
+Track easyGuitar = guitar.GetTrack(Difficulty.Easy);
+Track<StandardChord> easyBass = bass.GetTrack(Difficulty.Easy);
+```
+
+Unless the instrument type is defined through its respective enum, getting an instrument through the loose syntax returns an instance of the base Instrument class. Like with getting instruments, you can get tracks through either the loose or strong syntax. With both approaches, the base instrument class returns base tracks while explicit instruments return explicit tracks. Base tracks grant full access to local events and star power.
+
+Some instruments like drums cannot be retrieved using the loose syntax to get a generic instrument as they are the only oe in their category. For those instruments, use the explicit property.
+
+You can get chords from a base track, in which case the chords will be of the base chord class and the collection will be read-only. In the same way, getting notes from a base chord returns a read-only, non-indexable set of base notes which grant access to their index (the numerical value in the lane enum for the respective note type) and the sustain length.
 
 ## Lyrics
 
