@@ -8,8 +8,9 @@ namespace ChartTools.IO.Chart.Parsers
 {
     internal class SyncTrackParser : ChartParser
     {
-        private SyncTrack? preResult, result;
-        private HashSet<uint> ignoredTempos = new(), ignoredAnchors = new(), ignoredSignatures = new();
+        private readonly SyncTrack preResult = new();
+        private SyncTrack? result;
+        private readonly HashSet<uint> ignoredTempos = new(), ignoredAnchors = new(), ignoredSignatures = new();
         private const string parseFloatExceptionMessage = "Cannot parse value \"{0}\" to float.";
 
         public SyncTrackParser(ReadingSession session) : base(session) { }
@@ -94,13 +95,6 @@ namespace ChartTools.IO.Chart.Parsers
             }
         }
 
-        protected override void PrepareParse()
-        {
-            preResult = new();
-            ignoredTempos = new();
-            ignoredAnchors = new();
-            ignoredSignatures = new();
-        }
         protected override void FinaliseParse() => result = preResult;
 
         public override void ApplyResultToSong(Song song) => song.SyncTrack = result!;

@@ -14,7 +14,6 @@ namespace ChartTools.IO
 
         public async Task StartAsyncParse(IEnumerable<T> items)
         {
-            PrepareParse();
             await Task.Run(() =>
             {
                 foreach (var item in items)
@@ -25,8 +24,6 @@ namespace ChartTools.IO
 
         public void Parse(IEnumerable<T> items)
         {
-            PrepareParse();
-
             foreach (var item in items)
                 HandleItem(item);
 
@@ -35,9 +32,8 @@ namespace ChartTools.IO
 
         public abstract void ApplyResultToSong(Song song);
 
-        protected abstract void PrepareParse();
         protected abstract void FinaliseParse();
 
-        protected abstract void HandleItem(T line);
+        protected abstract void HandleItem(T item);
     }
 }

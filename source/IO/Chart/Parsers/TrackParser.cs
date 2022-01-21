@@ -13,10 +13,12 @@ namespace ChartTools.IO.Chart.Parsers
     {
         public Difficulty Difficulty { get; }
 
-        private Track<TChord>? preResult, result;
+        private readonly Track<TChord> preResult = new();
+        private Track<TChord>? result;
+
         private TChord? chord;
         private bool newChord = true;
-        private HashSet<byte> ignoredNotes = new();
+        private readonly HashSet<byte> ignoredNotes = new();
 
         public override Track<TChord>? Result => result;
 
@@ -77,11 +79,6 @@ namespace ChartTools.IO.Chart.Parsers
 
         protected abstract void HandleNote(Track<TChord> track, ref TChord chord, uint position, NoteData data, ref bool newChord, out Enum initialModifier);
 
-        protected override void PrepareParse()
-        {
-            preResult = new();
-            ignoredNotes = new();
-        }
         protected override void FinaliseParse()
         {
             ApplyOverlappingSpecialPhrasePolicy(preResult!.StarPower, session!.Configuration.OverlappingStarPowerPolicy);

@@ -1,37 +1,18 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
 
-using Melanchall.DryWetMidi.Core;
-
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ChartTools.IO.Midi.Parsers
 {
-    internal abstract class InstrumentParser : MidiParser
+    internal abstract class InstrumentParser<TChord, TInstEnum> : MidiParser where TChord : Chord where TInstEnum : Enum
     {
-        protected InstrumentParser(ReadingSession session) : base(session) { }
+        public TInstEnum Instrument { get; }
+        public override Instrument<TChord>? Result => result;
+        protected Instrument<TChord> preResult = new();
+        protected Instrument<TChord>? result;
 
-        public override Instrument? Result { get; }
+        protected InstrumentParser(TInstEnum instrument, ReadingSession session) : base(session) => Instrument = instrument;
 
-        public override void ApplyResultToSong(Song song)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void FinaliseParse()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void HandleItem(TrackChunk line)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void PrepareParse()
-        {
-            throw new NotImplementedException();
-        }
+        protected override void FinaliseParse() => result = preResult;
     }
 }

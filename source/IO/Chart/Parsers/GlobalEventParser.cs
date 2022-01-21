@@ -8,7 +8,8 @@ namespace ChartTools.IO.Chart.Parsers
 {
     internal class GlobalEventParser : ChartParser
     {
-        private List<GlobalEvent>? preResult, result;
+        private readonly List<GlobalEvent> preResult = new();
+        private List<GlobalEvent>? result;
 
         public GlobalEventParser(ReadingSession session) : base(session) { }
 
@@ -23,9 +24,12 @@ namespace ChartTools.IO.Chart.Parsers
             preResult!.Add(ev);
         }
 
-        protected override void PrepareParse() => preResult = new();
         protected override void FinaliseParse() => result = preResult;
 
-        public override void ApplyResultToSong(Song song) => song.GlobalEvents = result;
+        public override void ApplyResultToSong(Song song)
+        {
+            if (result is not null)
+                song.GlobalEvents = result;
+        }
     }
 }

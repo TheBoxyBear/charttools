@@ -7,7 +7,8 @@ namespace ChartTools.IO.Chart.Parsers
 {
     internal class MetadataParser : ChartParser
     {
-        private Metadata? preResult, result;
+        private readonly Metadata preResult = new();
+        private Metadata? result;
 
         public MetadataParser(ReadingSession session) : base(session) { }
 
@@ -111,8 +112,6 @@ namespace ChartTools.IO.Chart.Parsers
                     break;
             }
         }
-
-        protected override void PrepareParse() => preResult = new();
         protected override void FinaliseParse() => result = preResult;
 
         public override void ApplyResultToSong(Song song) => song.Metadata = result;
