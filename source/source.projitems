@@ -20,6 +20,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Events\Event.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\GlobalEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\LocalEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Formatting\FormattingEnums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Formatting\FormattingRules.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ILongObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Instruments\Instrument.cs" />
