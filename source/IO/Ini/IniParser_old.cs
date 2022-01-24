@@ -1,5 +1,4 @@
-﻿using ChartTools.Formatting;
-using ChartTools.SystemExtensions.Linq;
+﻿using ChartTools.SystemExtensions.Linq;
 
 using System;
 using System.Collections.Generic;
@@ -135,7 +134,7 @@ namespace ChartTools.IO.Ini
             Type metadataType = typeof(Metadata);
 
             // Get the value of all properties whose name is in the dictionary and pair with its matching key, filtered to non-null properties
-            foreach ((string key, object value) in metadataKeys.Keys.Select(p => (metadataKeys[p], metadataType.GetProperty(metadataKeys[p])!.GetValue(metadata))).Where(t => t.Item2 is not null))
+            foreach ((string key, object value) in IniFormatting.MetadataKeys.Keys.Select(p => (IniFormatting.MetadataKeys[p], metadataType.GetProperty(IniFormatting.MetadataKeys[p])!.GetValue(metadata))).Where(t => t.Item2 is not null)) //TODO Rework LINQ expression to avoid repetition of dictionary access
                 yield return $"{key} = {value}";
 
             if (metadata.Charter is not null)

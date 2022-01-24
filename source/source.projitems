@@ -20,8 +20,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Events\Event.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\GlobalEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\LocalEvent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Formatting\FormattingEnums.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Formatting\FormattingRules.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Formatting\FormattingEnums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Formatting\FormattingRules.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ILongObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IniKeyAttribute.cs" />
@@ -52,7 +52,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartFileWriter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartWriter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Entries\ChartEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Entries\NoteData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Entries\TrackObjectEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\ChartParser.cs" />
@@ -60,8 +59,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\GHLTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\GlobalEventParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\MetadataParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\FormattedFileParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFormatting.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\Parsers\IniParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\Parsers\MetadataParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\IOExceptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsers\GHGemsParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\TextEntry.cs" />
     <Compile Include="..\source\IO\Chart\Parsers\StandardTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\SyncTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\TrackParser.cs" />
@@ -101,7 +105,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Sessions\ReadingSession.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Sessions\WritingSession.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\ExtensionHandler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniParser_old.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MIDIParser_Common.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MIDIParser_Reading.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\Metadata.cs" />

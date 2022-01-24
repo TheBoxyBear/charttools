@@ -10,10 +10,6 @@ namespace ChartTools.IO.Chart
         /// <returns>Instance of <see cref="Exception"/> to throw</returns>
         /// <param name="line">Line that caused the exception</param>
         /// <param name="innerException">Exception caught when interpreting the line</param>
-        public static Exception Line(string line, Exception innerException) => new FormatException($"Line \"{line}\": {innerException.Message}", innerException);
-        /// <summary>
-        /// Gets the <see cref="Exception"/> to throw from an entry.
-        /// </summary>
-        internal static Exception NewEntry() => new FormatException("Format is invalid.");
+        public static Exception Line(string line, Exception? innerException) => new FormatException($"Line \"{line}\": {innerException.Message}", innerException);
     }
 }

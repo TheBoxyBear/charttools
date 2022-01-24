@@ -16,13 +16,11 @@ namespace ChartTools.IO.Chart.Parsers
 
         protected override void HandleItem(string line)
         {
-            ChartEntry entry;
-            try { entry = new(line); }
-            catch (Exception e) { throw ChartExceptions.Line(line, e); }
+            TextEntry entry = new(line);
 
-            string data = entry.Data.Trim('"');
+            string data = entry.Value.Trim('"');
 
-            switch (entry.Header)
+            switch (entry.Key)
             {
                 case "Name":
                     preResult!.Title = data;
@@ -41,7 +39,7 @@ namespace ChartTools.IO.Chart.Parsers
                     catch (Exception e) { throw ChartExceptions.Line(line, e); }
                     break;
                 case "Offset":
-                    try { preResult!.AudioOffset = (int)(float.Parse(entry.Data) * 1000); }
+                    try { preResult!.AudioOffset = (int)(float.Parse(entry.Value) * 1000); }
                     catch (Exception e) { throw ChartExceptions.Line(line, e); }
                     break;
                 case "Resolution":
@@ -108,7 +106,7 @@ namespace ChartTools.IO.Chart.Parsers
                     preResult.Streams.Crowd = data;
                     break;
                 default:
-                    preResult!.UnidentifiedData.Add(new() { Key = entry.Header, Data = entry.Data, Origin = FileFormat.Chart });
+                    preResult!.UnidentifiedData.Add(new() { Key = entry.Key, Data = entry.Value, Origin = FileFormat.Chart });
                     break;
             }
         }

@@ -28,14 +28,14 @@ namespace ChartTools.IO.Chart.Entries
             string[] split = data.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
 
             if (split.Length < 2)
-                throw ChartExceptions.NewEntry();
+                throw new Exception(); // TODO Replace with common parsing exception
 
             try
             {
                 NoteIndex = byte.Parse(split[0]);
                 SustainLength = uint.Parse(split[1]);
             }
-            catch { throw ChartExceptions.NewEntry(); }
+            catch { throw new Exception(); } // TODO Replace with common parsing exception
         }
     }
 }

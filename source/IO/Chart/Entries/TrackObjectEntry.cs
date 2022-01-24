@@ -27,18 +27,18 @@ namespace ChartTools.IO.Chart.Entries
         /// <exception cref="FormatException"/>
         internal TrackObjectEntry(string line)
         {
-            ChartEntry entry = new(line);
+            TextEntry entry = new(line);
 
-            string[] split = entry.Data.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
+            string[] split = entry.Value.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
 
             if (split.Length < 2)
-                throw ChartExceptions.NewEntry();
+                throw IOExceptions.Entry(line);
 
             Type = split[0];
             Data = split[1];
 
-            try { Position = uint.Parse(entry.Header); }
-            catch { throw ChartExceptions.NewEntry(); }
+            try { Position = uint.Parse(entry.Key); }
+            catch { throw new Exception(); } // TODO Replace with common parsing exception
         }
     }
 }

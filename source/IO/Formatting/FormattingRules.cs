@@ -21,17 +21,14 @@
         /// <summary>
         /// Overrides the natural HOPO threshold with the specified number of ticks.
         /// </summary>
-        [IniKey("hopo_frequency")]
         public uint? HopoFrequency { get; set; }
         /// <summary>
         /// (FoFiX) Overrides the natural HOPO threshold using numbers from 0 to 5.
         /// </summary>
-        [IniKey("hopofreq")]
         public HopoFrequencyStep? HopoFrequencyStep { get; set; }
         /// <summary>
         /// (FoFiX) Overrides the natural HOPO threshold to be a 1/8th step.
         /// </summary>
-        [IniKey("eighthnote_hopo")]
         public bool? ForceEightHopoFrequency { get; set; }
 
         public uint? TrueHopoFrequency
@@ -59,12 +56,10 @@
         /// <summary>
         /// Overrides the Star Power phrase MIDI note for .mid charts.
         /// </summary>
-        [IniKey("multiplier_note")]
         public byte? MultiplierNote { get; set; }
         /// <summary>
         /// (PhaseShift) Overrides the Star Power phrase MIDI note for .mid charts.
         /// </summary>
-        [IniKey("star_power_note")]
         public byte? StarPowerNote { get; set; }
         public byte? TrueStarPowerNote => StarPowerNote ?? MultiplierNote;
         #endregion
