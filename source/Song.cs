@@ -12,6 +12,7 @@ using ChartTools.SystemExtensions.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 using ChartTools.IO.Configuration;
+using ChartTools.Formatting;
 
 namespace ChartTools
 {
@@ -29,6 +30,14 @@ namespace ChartTools
             set => _metadata = value ?? throw new ArgumentNullException(nameof(value));
         }
         private Metadata _metadata = new();
+
+        /// <inheritdoc cref="FormattingRules"/>
+        public FormattingRules Formatting
+        {
+            get => _formatting;
+            set => _formatting = value ?? throw new ArgumentNullException(nameof(value));
+        }
+        private FormattingRules _formatting = new();
 
         /// <inheritdoc cref="ChartTools.SyncTrack"/>
         public SyncTrack SyncTrack

@@ -24,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Formatting\FormattingRules.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ILongObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IniKeyAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Instruments\Instrument.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Instruments\InstrumentGeneric.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Alternating\Ordered\OrderedAlternatingEnumerable.cs" />
