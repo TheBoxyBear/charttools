@@ -2,9 +2,10 @@
 
 namespace ChartTools
 {
+    [AttributeUsage(AttributeTargets.Property)]
     internal class IniKeyAttribute : Attribute
     {
-        public string Key { get; }
-        public IniKeyAttribute(string key) => Key = key;
+        public int Index { get; }
+        public IniKeyAttribute(int index) => Index = index;
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace ChartTools.Formatting
+﻿namespace ChartTools.IO.Formatting
 {
     /// <summary>
     /// Rules defined in song.ini that affect how the song data file is read and written
@@ -6,13 +6,15 @@
     /// <remarks>Property summaries provided by Nathan Hurst.</remarks>
     public class FormattingRules
     {
+        public AlbumTrackKey AlbumTrackKey { get; set; }
+        public CharterKey CharterKey { get; set; }
         public uint? Resolution { get; set; }
         public uint TrueResolution => Resolution ?? 480;
+
         /// <summary>
         /// Overrides the default sustain cutoff threshold with the specified number of ticks.
         /// </summary>
 
-        [IniKey("sustain_cutoff_threshold")]
         public uint? SustainCutoff { get; set; }
 
         #region Hopo frequency
@@ -71,29 +73,23 @@
         /// <summary>
         /// (PhaseShift) Indicates if the chart uses SysEx events for sliders/tap notes.
         /// </summary>
-        [IniKey("sysex_slider")]
         public bool? SysExSliders { get; set; }
         /// <summary>
         /// (PhaseShift) Indicates if the chart uses SysEx events for Drums Real hi-hat pedal control.
         /// </summary>
-        [IniKey("sysex_high_hat_ctrl")]
         public bool? SysExHighHat { get; set; }
         /// <summary>
         /// (PhaseShift) Indicates if the chart uses SysEx events for Drums Real rimshot hits.
         /// </summary>
-        [IniKey("sysex_rimshot")]
         public bool? SysExRimshot { get; set; }
         /// <summary>
         /// (PhaseShift) Indicates if the chart uses SysEx events for open notes.
         /// </summary>
-        [IniKey("sysex_open_bass")]
         public bool? SysExOpenBass { get; set; }
         /// <summary>
         /// (PhaseShift) Indicates if the chart uses SysEx events for Pro Guitar/Bass slide directions.
         /// </summary>
-        [IniKey("sysex_pro_slide")]
         public bool? SysexProSlide { get; set; }
-
         #endregion
     }
 }

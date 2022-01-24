@@ -209,7 +209,7 @@ namespace ChartTools
         /// </summary>
         /// <param name="path">Path of the file</param>
         /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
-        public static Song FromFile(string path, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, config, (".chart", ChartReader.ReadSong), (".ini", (p, config) => new Song { Metadata = IniParser.ReadMetadata(p) }));
+        public static Song FromFile(string path, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, config, (".chart", ChartReader.ReadSong), (".ini", (p, config) => new Song { Metadata = IniParser_old.ReadMetadata(p) }));
 
         /// <summary>
         /// Reads all elements of a <see cref="Song"/> from a file asynchronously using multitasking.
@@ -240,14 +240,14 @@ namespace ChartTools
         /// <exception cref="ArgumentException"/>
         /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
-        public void ReadDifficulties(string path) => ExtensionHandler.Read(path, (".ini", path => IniParser.ReadDifficulties(path, this)));
+        public void ReadDifficulties(string path) => ExtensionHandler.Read(path, (".ini", path => IniParser_old.ReadDifficulties(path, this)));
         /// <summary>
         /// Writes the estimated instrument difficulties to a ini file.
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="IOException"/>
-        public void WriteDifficulties(string path) => ExtensionHandler.Write(path, (".ini", path => IniParser.WriteDifficulties(path, this)));
+        public void WriteDifficulties(string path) => ExtensionHandler.Write(path, (".ini", path => IniParser_old.WriteDifficulties(path, this)));
 
         /// <summary>
         /// Retrieves the lyrics from the global events.
