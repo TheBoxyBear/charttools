@@ -13,14 +13,12 @@ namespace ChartTools.IO.Chart.Parsers
     {
         public Difficulty Difficulty { get; }
 
-        private readonly Track<TChord> preResult = new();
-        private Track<TChord>? result;
-
         private TChord? chord;
         private bool newChord = true;
         private readonly HashSet<byte> ignoredNotes = new();
 
-        public override Track<TChord>? Result => result;
+        public override Track<TChord> Result => GetResult(result);
+        private readonly Track<TChord> result = new();
 
         public TrackParser(Difficulty difficulty, ReadingSession session) : base(session) => Difficulty = difficulty;
 
@@ -36,7 +34,7 @@ namespace ChartTools.IO.Chart.Parsers
                 // Local event
                 case "E":
                     string[] split = ChartReader.GetDataSplit(entry.Data.Trim('"'));
-                    preResult!.LocalEvents!.Add(new(entry.Position, split.Length > 0 ? split[0] : string.Empty));
+                    result.LocalEvents!.Add(new(entry.Position, split.Length > 0 ? split[0] : string.Empty));
                     break;
                 // Note or chord modifier
                 case "N":
@@ -45,11 +43,11 @@ namespace ChartTools.IO.Chart.Parsers
                     {
                         data = new(entry.Data);
 
-                        HandleNote(preResult!, ref chord!, entry.Position, data, ref newChord, out Enum initialModifier);
+                        HandleNote(result, ref chord!, entry.Position, data, ref newChord, out Enum initialModifier);
 
                         if (newChord)
                         {
-                            preResult!.Chords.Add(chord!);
+                            result.Chords.Add(chord!);
                             ignoredNotes.Clear();
                         }
                     }
@@ -67,25 +65,25 @@ namespace ChartTools.IO.Chart.Parsers
                         if (!uint.TryParse(split[1], out uint length))
                             throw new FormatException($"Cannot parse length \"{split[1]}\" to uint.");
 
-                        preResult!.StarPower.Add(new(entry.Position, typeCode, length));
+                        result.StarPower.Add(new(entry.Position, typeCode, length));
                     }
                     catch (Exception e) { throw ChartExceptions.Line(line, e); }
                     break;
             }
 
             if (session!.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert)
-                preResult!.StarPower.AddRange(preResult!.SoloToStarPower(true));
+                result.StarPower.AddRange(result.SoloToStarPower(true));
         }
 
         protected abstract void HandleNote(Track<TChord> track, ref TChord chord, uint position, NoteData data, ref bool newChord, out Enum initialModifier);
 
         protected override void FinaliseParse()
         {
-            ApplyOverlappingSpecialPhrasePolicy(preResult!.StarPower, session!.Configuration.OverlappingStarPowerPolicy);
-            result = preResult;
+            base.FinaliseParse();
+            ApplyOverlappingSpecialPhrasePolicy(result.StarPower, session!.Configuration.OverlappingStarPowerPolicy);
         }
 
-        protected void ApplyResultToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(result!, Difficulty);
+        protected void ApplyResultToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(Result, Difficulty);
 
         private static void ApplyOverlappingSpecialPhrasePolicy(IEnumerable<SpecicalPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
         {
