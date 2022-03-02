@@ -9,9 +9,10 @@ namespace ChartTools.IO
     internal abstract class Serializer<T>
     {
         public string Header { get; }
+        public bool ResultReady { get; private set; }
 
         protected List<T>? preResult;
-        protected DelayedEnumerableSource<string> outputSource = new();
+        protected DelayedEnumerableSource<T> outputSource = new();
         protected WritingSession? session;
 
         public Serializer(string header, WritingSession session)
@@ -20,20 +21,16 @@ namespace ChartTools.IO
             this.session = session;
         }
 
-        public abstract IEnumerable<string> Serialize();
-        public async Task<IEnumerable<string>> SerializeAsync()
+        public abstract IEnumerable<T> Serialize();
+        public async Task<IEnumerable<T>> SerializeAsync()
         {
-            DelayedEnumerableSource<string> linesSource = new();
-
             await Task.Run(() =>
             {
-                foreach (var line in Serialize())
-                    linesSource.Add(line);
+                foreach (var item in Serialize())
+                    outputSource.Add(item);
             });
 
-            return linesSource.Enumerable;
+            return outputSource.Enumerable;
         }
-
-        internal static string GetLine(string header, string? value) => value is null ? string.Empty : $"  {header} = {value}";
     }
 }
