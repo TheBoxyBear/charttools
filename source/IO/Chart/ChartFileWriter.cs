@@ -15,22 +15,22 @@ namespace ChartTools.IO.Chart
     {
         public string Path { get; }
 
-        private readonly List<ChartSerializer> serializers;
+        private readonly List<Serializer<string>> serializers;
         private readonly string tempPath = System.IO.Path.GetTempFileName();
         private readonly IEnumerable<string>? removedHeaders;
 
-        public ChartFileWriter(string path, IEnumerable<string>? removedHeaders, params ChartSerializer[] serializers)
+        public ChartFileWriter(string path, IEnumerable<string>? removedHeaders, params Serializer<string>[] serializers)
         {
             Path = path;
             this.serializers = serializers.ToList();
             this.removedHeaders = removedHeaders;
         }
 
-        private IEnumerable<SectionReplacement<string>> AddRemoveReplacements(IEnumerable<SectionReplacement<string>> replacements) => removedHeaders is null ? replacements : replacements.Concat(removedHeaders.Select(header => new SectionReplacement<string>(() => Enumerable.Empty<string>(), line => line == header, ChartFormatting.IsSectionEnd)));
+        private IEnumerable<SectionReplacement<string>> AddRemoveReplacements(IEnumerable<SectionReplacement<string>> replacements) => removedHeaders is null ? replacements : replacements.Concat(removedHeaders.Select(header => new SectionReplacement<string>(Enumerable.Empty<string>(), line => line == header, ChartFormatting.IsSectionEnd)));
 
         public void Write()
         {
-            var replacements = AddRemoveReplacements(serializers.Select(serializer => new SectionReplacement<string>(() => serializer.Serialize(), line => line == serializer.Header, ChartFormatting.IsSectionEnd)));
+            var replacements = AddRemoveReplacements(serializers.Select(serializer => new SectionReplacement<string>(serializer.Serialize(), line => line == serializer.Header, ChartFormatting.IsSectionEnd)));
             using var writer = new StreamWriter(tempPath);
 
             foreach (var line in File.ReadLines(Path).ReplaceSections(true, replacements))
@@ -42,8 +42,8 @@ namespace ChartTools.IO.Chart
 
         public async Task WriteAsync(CancellationToken cancellationToken)
         {
-            (ChartSerializer serialzier, Task<IEnumerable<string>> task)[] serializerTaskGroups = serializers.Select(serializer => (serializer, serializer.SerializeAsync())).ToArray();
-            var replacements = AddRemoveReplacements(serializerTaskGroups.Select(group => new SectionReplacement<string>(() => group.task.SyncResult(), line => line == group.serialzier.Header, ChartFormatting.IsSectionEnd)));
+            (Serializer<string> serialzier, Task<IEnumerable<string>> task)[] serializerTaskGroups = serializers.Select(serializer => (serializer, serializer.SerializeAsync())).ToArray();
+            var replacements = AddRemoveReplacements(serializerTaskGroups.Select(group => new SectionReplacement<string>(group.task.SyncResult(), line => line == group.serialzier.Header, ChartFormatting.IsSectionEnd)));
 
             using var writer = new StreamWriter(tempPath);
 

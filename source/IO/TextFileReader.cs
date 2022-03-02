@@ -10,19 +10,19 @@ using System.Threading.Tasks;
 
 namespace ChartTools.IO
 {
-    internal abstract class TextFileReader<TParser> where TParser : FileParser<string>
+    internal abstract class TextFileReader
     {
-        private record ParserLinesGroup(TParser Parser, DelayedEnumerableSource<string> Source);
+        private record ParserLinesGroup(FileParser<string> Parser, DelayedEnumerableSource<string> Source);
 
         public string Path { get; }
-        public IEnumerable<TParser> Parsers => parserGroups.Select(g => g.Parser);
+        public IEnumerable<FileParser<string>> Parsers => parserGroups.Select(g => g.Parser);
 
         private readonly List<ParserLinesGroup> parserGroups = new();
         private readonly List<Task> parseTasks = new();
-        private readonly Func<string, TParser?> parserGetter;
+        private readonly Func<string, FileParser<string>?> parserGetter;
         private const string partEndEarlyExceptionMessage = "Part \"{0}\" did not end within the provided lines.";
 
-        public TextFileReader(string path, Func<string, TParser?> parserGetter)
+        public TextFileReader(string path, Func<string, FileParser<string>?> parserGetter)
         {
             Path = path;
             this.parserGetter = parserGetter;

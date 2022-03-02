@@ -4,7 +4,7 @@ using System;
 
 namespace ChartTools.IO.Ini
 {
-    internal class IniFileReader : TextFileReader<ChartParser>
+    internal class IniFileReader : TextFileReader
     {
         public IniFileReader(string path, Func<string, ChartParser?> parserGetter) : base(path, parserGetter) { }
 

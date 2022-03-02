@@ -9,9 +9,6 @@ namespace ChartTools.IO
     internal abstract class Serializer<T>
     {
         public string Header { get; }
-        public bool ResultReady { get; private set; }
-
-        protected List<T>? preResult;
         protected DelayedEnumerableSource<T> outputSource = new();
         protected WritingSession? session;
 
