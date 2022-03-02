@@ -204,9 +204,9 @@ namespace ChartTools
         public void ToFile(string path, WritingConfiguration? config = default) => ExtensionHandler.Write(path, this, config, (".chart", ChartFile.ReplaceInstrument));
         public async Task ToFileAsync(string path, CancellationToken cancellationToken, WritingConfiguration? config = default) => await ExtensionHandler.WriteAsync(path, this, cancellationToken, config, (".chart", ChartFile.ReplaceInstrumentAsync));
 
-        /// <inheritdoc cref="IniParser.ReadDifficulty(string, InstrumentIdentity)"/>
-        public void ReadDifficulty(string path) => ExtensionHandler.Read(path, (".ini", path => IniParser.ReadDifficulty(path, this)));
-        /// <inheritdoc cref="IniParser.WriteDifficulty(string, InstrumentIdentity, sbyte)"/>
-        public void WriteDifficulty(string path) => ExtensionHandler.Write(path, (".ini", path => IniParser.WriteDifficulty(path, this)));
+        /// <inheritdoc cref="IniParser_old.ReadDifficulty(string, InstrumentIdentity)"/>
+        public void ReadDifficulty(string path) => ExtensionHandler.Read(path, (".ini", path => IniParser_old.ReadDifficulty(path, this)));
+        /// <inheritdoc cref="IniParser_old.WriteDifficulty(string, InstrumentIdentity, sbyte)"/>
+        public void WriteDifficulty(string path) => ExtensionHandler.Write(path, (".ini", path => IniParser_old.WriteDifficulty(path, this)));
     }
 }

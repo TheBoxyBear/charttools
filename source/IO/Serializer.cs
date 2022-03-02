@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace ChartTools.IO
 {
-    internal abstract class Serializer<T>
+    internal abstract class Serializer<TResult>
     {
+        protected DelayedEnumerableSource<TResult> outputSource = new();
+        protected WritingSession session;
+
         public string Header { get; }
-        protected DelayedEnumerableSource<T> outputSource = new();
-        protected WritingSession? session;
 
         public Serializer(string header, WritingSession session)
         {
@@ -18,8 +19,8 @@ namespace ChartTools.IO
             this.session = session;
         }
 
-        public abstract IEnumerable<T> Serialize();
-        public async Task<IEnumerable<T>> SerializeAsync()
+        public abstract IEnumerable<TResult> Serialize();
+        public async Task<IEnumerable<TResult>> SerializeAsync()
         {
             await Task.Run(() =>
             {
@@ -29,5 +30,12 @@ namespace ChartTools.IO
 
             return outputSource.Enumerable;
         }
+    }
+
+    internal abstract class Serializer<TContent, TResult> : Serializer<TResult>
+    {
+        public TContent Content { get; }
+
+        public Serializer(string header, TContent content, WritingSession session) : base(header, session) => Content = content;
     }
 }

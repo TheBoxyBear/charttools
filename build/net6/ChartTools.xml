@@ -554,10 +554,10 @@
             </summary>
         </member>
         <member name="M:ChartTools.Instrument.ReadDifficulty(System.String)">
-            <inheritdoc cref="!:IniParser.ReadDifficulty(string, InstrumentIdentity)"/>
+            <inheritdoc cref="!:IniParser_old.ReadDifficulty(string, InstrumentIdentity)"/>
         </member>
         <member name="M:ChartTools.Instrument.WriteDifficulty(System.String)">
-            <inheritdoc cref="!:IniParser.WriteDifficulty(string, InstrumentIdentity, sbyte)"/>
+            <inheritdoc cref="!:IniParser_old.WriteDifficulty(string, InstrumentIdentity, sbyte)"/>
         </member>
         <member name="T:ChartTools.Instrument`1">
             <summary>
@@ -1671,17 +1671,17 @@
             <param name="line">Line in the file</param>
             <exception cref="T:System.FormatException"/>
         </member>
-        <member name="T:ChartTools.IO.Ini.IniParser">
+        <member name="T:ChartTools.IO.Ini.IniParser_old">
             <summary>
             Provides methods for reading and writing ini files
             </summary>
         </member>
-        <member name="F:ChartTools.IO.Ini.IniParser.difficultyKeys">
+        <member name="F:ChartTools.IO.Ini.IniParser_old.difficultyKeys">
             <summary>
             Keys for <see cref="T:ChartTools.Instrument"/> difficulties
             </summary>
         </member>
-        <member name="M:ChartTools.IO.Ini.IniParser.ReadMetadata(System.String)">
+        <member name="M:ChartTools.IO.Ini.IniParser_old.ReadMetadata(System.String)">
             <summary>
             Reads metadata from a ini file.
             </summary>
@@ -1689,14 +1689,14 @@
             <param name="path">Path of the file to read</param>
             <inheritdoc cref="M:System.IO.File.ReadLines(System.String)" path="/exception"/>
         </member>
-        <member name="M:ChartTools.IO.Ini.IniParser.WriteMetadata(System.String,ChartTools.Metadata)">
+        <member name="M:ChartTools.IO.Ini.IniParser_old.WriteMetadata(System.String,ChartTools.Metadata)">
             <summary>
             Writes metadata to a ini file.
             </summary>
             <param name="path">Path of the file to read</param>
             <param name="metadata">Metadata to write</param>
         </member>
-        <member name="M:ChartTools.IO.Ini.IniParser.ReadDifficulty(System.String,ChartTools.Instrument)">
+        <member name="M:ChartTools.IO.Ini.IniParser_old.ReadDifficulty(System.String,ChartTools.Instrument)">
             <summary>
             Reads an <see cref="T:ChartTools.Instrument"/> difficulty from a ini file.
             </summary>
@@ -1707,7 +1707,7 @@
             <param name="instrument">Instrument to read</param>
             <inheritdoc cref="M:System.IO.File.ReadLines(System.String)" path="/exception"/>
         </member>
-        <member name="M:ChartTools.IO.Ini.IniParser.ReadDifficulties(System.String,ChartTools.Song)">
+        <member name="M:ChartTools.IO.Ini.IniParser_old.ReadDifficulties(System.String,ChartTools.Song)">
             <summary>
             Reads <see cref="T:ChartTools.Instrument"/> difficulties from a ini file and assigns them to the instruments in a <see cref="T:ChartTools.Song"/>.
             </summary>
@@ -1715,7 +1715,7 @@
             <param name="song">Song to assign the difficulties to</param>
             <inheritdoc cref="M:System.IO.File.ReadAllLines(System.String)" path="/exception"/>
         </member>
-        <member name="M:ChartTools.IO.Ini.IniParser.WriteDifficulty(System.String,ChartTools.Instrument)">
+        <member name="M:ChartTools.IO.Ini.IniParser_old.WriteDifficulty(System.String,ChartTools.Instrument)">
             <summary>
             Writes an <see cref="T:ChartTools.Instrument"/> difficulty to a ini file.
             </summary>
@@ -1725,7 +1725,7 @@
             <inheritdoc cref="M:System.IO.File.ReadAllLines(System.String)" path="/exception"/>
             <inheritdoc cref="M:System.IO.File.WriteAllLines(System.String,System.Collections.Generic.IEnumerable{System.String})" path="/exception"/>
         </member>
-        <member name="M:ChartTools.IO.Ini.IniParser.WriteDifficulties(System.String,ChartTools.Song)">
+        <member name="M:ChartTools.IO.Ini.IniParser_old.WriteDifficulties(System.String,ChartTools.Song)">
             <summary>
             Writes <see cref="T:ChartTools.Instrument"/> difficulties from a <see cref="T:ChartTools.Song"/> to a ini file.
             </summary>
@@ -2171,7 +2171,7 @@
             <exception cref="T:System.OutOfMemoryException"/>
         </member>
         <member name="M:ChartTools.Metadata.ToFile(System.String)">
-            <inheritdoc cref="M:ChartTools.IO.Ini.IniParser.WriteMetadata(System.String,ChartTools.Metadata)"/>
+            <inheritdoc cref="M:ChartTools.IO.Ini.IniParser_old.WriteMetadata(System.String,ChartTools.Metadata)"/>
         </member>
         <member name="T:ChartTools.DrumsNote">
             <summary>

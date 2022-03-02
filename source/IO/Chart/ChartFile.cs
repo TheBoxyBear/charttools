@@ -499,7 +499,7 @@ namespace ChartTools.IO.Chart
         private static ChartFileWriter GetSongWriter(string path, Song song, WritingSession session)
         {
             var instruments = song.GetInstruments().ToArray();
-            var serializers = new List<ChartSerializer>(instruments.Length + 1);
+            var serializers = new List<Serializer<string>>(instruments.Length + 1);
             var removedHeaders = new List<string>();
 
             serializers.Add(new MetadataSerializer(song.Metadata));

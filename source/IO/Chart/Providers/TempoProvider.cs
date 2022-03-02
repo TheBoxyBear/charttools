@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ChartTools.IO.Chart.Providers
 {
-    internal class TempoProvider : ITrackObjectProvider<Tempo>
+    internal class TempoProvider : ISerializerDataProvider<Tempo, TrackObjectProviderEntry>
     {
         public IEnumerable<TrackObjectProviderEntry> ProvideFor(IEnumerable<Tempo> source, WritingSession session)
         {

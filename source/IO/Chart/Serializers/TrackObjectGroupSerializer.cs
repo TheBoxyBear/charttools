@@ -7,12 +7,10 @@ using System.Linq;
 
 namespace ChartTools.IO.Chart.Serializers
 {
-    internal abstract class TrackObjectGroupSerializer<T> : ChartSerializer<T>
+    internal abstract class TrackObjectGroupSerializer<T> : GroupSerializer<T, string, TrackObjectProviderEntry>
     {
         public TrackObjectGroupSerializer(string header, T content, WritingSession session) : base(header, content, session) { }
 
-        protected abstract IEnumerable<TrackObjectProviderEntry>[] LaunchProviders();
-
-        public override IEnumerable<string> Serialize() => new OrderedAlternatingEnumerable<uint, TrackObjectProviderEntry>(entry => entry.Position, LaunchProviders()).Select(entry => entry.Line);
+        protected override IEnumerable<string> CombineProviderResults(IEnumerable<TrackObjectProviderEntry>[] results) => new OrderedAlternatingEnumerable<uint, TrackObjectProviderEntry>(entry => entry.Position, results).Select(entry => entry.Line);
     }
 }
