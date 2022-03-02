@@ -171,7 +171,7 @@ namespace ChartTools
     public struct MetadataItem
     {
         public string Key { get; init; }
-        public string Data { get; set; }
+        public string Value { get; set; }
         public FileFormat Origin { get; set; }
     }
 }

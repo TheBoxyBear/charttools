@@ -8,7 +8,7 @@ namespace ChartTools.IO
 {
     internal abstract class FileParser<T>
     {
-        protected bool ResultReady { get; private set; }
+        public bool ResultReady { get; private set; }
         public abstract object? Result { get; }
         protected ReadingSession session;
 

@@ -58,7 +58,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\DrumsTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\GHLTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\GlobalEventParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\MetadataParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\MetadataFormattingParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\FormattedFileParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFormatting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\Parsers\IniParser.cs" />

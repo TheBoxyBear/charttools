@@ -36,7 +36,7 @@ namespace ChartTools.IO.Chart
             switch (header)
             {
                 case ChartFormatting.MetadataHeader:
-                    return new MetadataParser(session);
+                    return new MetadataFormattingParser(session);
                 case ChartFormatting.GlobalEventHeader:
                     return new GlobalEventParser(session);
                 case ChartFormatting.SyncTrackHeader:
@@ -311,7 +311,7 @@ namespace ChartTools.IO.Chart
             var seekedHeader = ChartFormatting.Header(instrument, difficulty);
             var reader = new ChartFileReader(path, header => GetGHLTrackParser(header, seekedHeader, instrument, difficulty, new(config ?? DefaultConfig)));
             reader.Read();
-            return reader.Parsers.TryGetFirstOfType(out GHLTrackParser? parser) ? parser!.Result! : new();
+            return reader.Parsers.TryGetFirstOfType(out GHLTrackParser? parser) ? parser!.Result : new();
         }
         /// <inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, CancellationToken, ReadingConfiguration?)"/>
         /// <param name="path"><inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, CancellationToken, ReadingConfiguration?)" path="/param[@name='path']"/></param>
@@ -325,7 +325,7 @@ namespace ChartTools.IO.Chart
             var reader = new ChartFileReader(path, header => GetGHLTrackParser(header, seekedHeader, instrument, difficulty, new(config ?? DefaultConfig)));
 
             await reader.ReadAsync(cancellationToken);
-            return reader.Parsers.TryGetFirstOfType(out GHLTrackParser? parser) ? parser!.Result! : new();
+            return reader.Parsers.TryGetFirstOfType(out GHLTrackParser? parser) ? parser!.Result : new();
         }
         #endregion
         #region Standard
@@ -377,7 +377,7 @@ namespace ChartTools.IO.Chart
         #endregion
         #endregion
         #region Metadata
-        private static MetadataParser? GetMetadataParser(string header, ReadingSession session) => header == ChartFormatting.MetadataHeader ? new(session) : null;
+        private static MetadataFormattingParser? GetMetadataParser(string header, ReadingSession session) => header == ChartFormatting.MetadataHeader ? new(session) : null;
         /// <summary>
         /// Reads metadata from a chart file.
         /// </summary>
@@ -386,7 +386,7 @@ namespace ChartTools.IO.Chart
         {
             var reader = new ChartFileReader(path, header => GetMetadataParser(header, new(DefaultConfig)));
             reader.Read();
-            return reader.Parsers.TryGetFirstOfType(out MetadataParser? parser) ? parser!.Result! : new();
+            return reader.Parsers.TryGetFirstOfType(out MetadataFormattingParser? parser) ? parser!.Result.Metadata : new();
         }
         /// <summary>
         /// Reads metadata from a chart file asynchronously using multitasking.
@@ -397,7 +397,7 @@ namespace ChartTools.IO.Chart
         {
             var reader = new ChartFileReader(path, header => GetMetadataParser(header, new(DefaultConfig)));
             await reader.ReadAsync(cancellationToken);
-            return reader.Parsers.TryGetFirstOfType(out MetadataParser? parser) ? parser!.Result! : new();
+            return reader.Parsers.TryGetFirstOfType(out MetadataFormattingParser? parser) ? parser!.Result.Metadata : new();
         }
         #endregion
         #region Global events

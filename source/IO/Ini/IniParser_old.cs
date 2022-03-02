@@ -103,7 +103,7 @@ namespace ChartTools.IO.Ini
                             : throw new FormatException($"Cannot parse modchart \"{value}\" to bool.");
                         break;
                     default:
-                        metadata.UnidentifiedData.Add(new() { Key = header, Data = value, Origin = FileFormat.Ini });
+                        metadata.UnidentifiedData.Add(new() { Key = header, Value = value, Origin = FileFormat.Ini });
                         break;
                 }
             }
@@ -147,7 +147,7 @@ namespace ChartTools.IO.Ini
 
             if (metadata.UnidentifiedData is not null)
                 foreach (MetadataItem data in metadata.UnidentifiedData.Where(d => d.Origin == FileFormat.Ini))
-                    yield return $"{data.Key} = {data.Data}";
+                    yield return $"{data.Key} = {data.Value}";
         }
 
         /// <summary>

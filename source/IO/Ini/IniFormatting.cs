@@ -1,9 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using ChartTools.IO.Formatting;
+
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace ChartTools.IO.Ini
 {
     internal static class IniFormatting
     {
+        public static readonly Type MetadataType = typeof(Metadata), FormattingType = typeof(FormattingRules);
+
         /// <summary>
         /// Keys for <see cref="Instrument"/> difficulties
         /// </summary>
@@ -33,22 +39,37 @@ namespace ChartTools.IO.Ini
             MetadataLoadingText = "loading_text",
             MetadataModchart = "modchart";
 
-        public static readonly Dictionary<string, string> MetadataKeys = new()
+        public const string
+            FormattingSustianCutoff = "sustain_cutoff_threshold",
+            FormattingHopoFrequency = "hopo_frequency",
+            FormattingHopoFreq = "hopofreq",
+            FormattingEightHopo = "eighthnote_hopo",
+            FormattingMultiplierNote = "multiplier_note",
+            FormattingStarPowerNote = "star_power_note",
+            FormattingSysExSlider = "sysex_slider",
+            FormattingSysExHighHat = "sysex_high_hat_ctrl",
+            FormattingRimshot = "sysex_rimshot",
+            FormattingSysExOpenBass = "sysex_open_bass",
+            FormattingSysExProSlide = "sysex_pro_slide";
+
+        public static readonly Dictionary<PropertyInfo, string> MetadataKeys = new()
         {
-            { nameof(Metadata.Title), MetadataTitle },
-            { nameof(Metadata.Artist), MetadataArtist },
-            { nameof(Metadata.Album), MetadataAlbum },
-            { nameof(Metadata.AlbumTrack), MetadataAlbumTrack },
-            { nameof(Metadata.PlaylistTrack), MetadataGenre },
-            { nameof(Metadata.Year), MetadataYear },
-            { nameof(Metadata.PreviewStart), MetadataPreviewStart },
-            { nameof(Metadata.PreviewEnd), MetadataPreviewEnd },
-            { nameof(Metadata.AudioOffset), MetadataAudioOffset },
-            { nameof(Metadata.VideoOffset), MetadataVideoOffset },
-            { nameof(Metadata.Length), MetadataLength },
-            { nameof(Metadata.LoadingText), MetadataLoadingText },
-            { nameof(Metadata.IsModchart), MetadataModchart }
+            { MetadataType.GetProperty(nameof(Metadata.Title))!, MetadataTitle },
+            { MetadataType.GetProperty(nameof(Metadata.Artist))!, MetadataArtist },
+            { MetadataType.GetProperty(nameof(Metadata.Album))!, MetadataAlbum },
+            { MetadataType.GetProperty(nameof(Metadata.AlbumTrack))!, MetadataAlbumTrack },
+            { MetadataType.GetProperty(nameof(Metadata.Genre))!, MetadataGenre },
+            { MetadataType.GetProperty(nameof(Metadata.Year))!, MetadataYear },
+            { MetadataType.GetProperty(nameof(Metadata.PreviewStart))!, MetadataPreviewStart },
+            { MetadataType.GetProperty(nameof(Metadata.PreviewEnd))!, MetadataPreviewEnd },
+            { MetadataType.GetProperty(nameof(Metadata.AudioOffset))!, MetadataAudioOffset },
+            { MetadataType.GetProperty(nameof(Metadata.VideoOffset))!, MetadataVideoOffset },
+            { MetadataType.GetProperty(nameof(Metadata.Length))!, MetadataLength },
+            { MetadataType.GetProperty(nameof(Metadata.LoadingText))!, MetadataLoadingText },
+            { MetadataType.GetProperty(nameof(Metadata.IsModchart))!, MetadataModchart }
         };
+
+        public static readonly Dictionary<string, string> FormattingKeys = new();
 
         public static string Entry(string key, string value) => $"{key} = {value}";
     }
