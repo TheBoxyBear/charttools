@@ -8,14 +8,13 @@ namespace ChartTools.IO.Chart.Parsers
 {
     internal class SyncTrackParser : ChartParser
     {
-        private readonly SyncTrack preResult = new();
-        private SyncTrack? result;
         private readonly HashSet<uint> ignoredTempos = new(), ignoredAnchors = new(), ignoredSignatures = new();
         private const string parseFloatExceptionMessage = "Cannot parse value \"{0}\" to float.";
 
-        public SyncTrackParser(ReadingSession session) : base(session) { }
+        public override SyncTrack Result => GetResult(result);
+        private SyncTrack result = new();
 
-        public override SyncTrack? Result => result;
+        public SyncTrackParser(ReadingSession session) : base(session) { }
 
         protected override void HandleItem(string line)
         {
@@ -51,7 +50,7 @@ namespace ChartTools.IO.Chart.Parsers
                             throw new FormatException($"Cannot parse denominator \"{split[1]}\" to byte.");
                     }
 
-                    preResult!.TimeSignatures.Add(new(entry.Position, numerator, denominator));
+                    result.TimeSignatures.Add(new(entry.Position, numerator, denominator));
                     break;
                 // Tempo
                 case "B":
@@ -65,10 +64,10 @@ namespace ChartTools.IO.Chart.Parsers
                         throw new FormatException(string.Format(parseFloatExceptionMessage, entry.Data));
 
                     // Find the marker matching the position in case it was already added through a mention of anchor
-                    marker = preResult!.Tempo.Find(m => m.Position == entry.Position);
+                    marker = result.Tempo.Find(m => m.Position == entry.Position);
 
                     if (marker is null)
-                        preResult.Tempo.Add(new(entry.Position, value));
+                        result.Tempo.Add(new(entry.Position, value));
                     else
                         marker.Value = value;
                     break;
@@ -84,18 +83,16 @@ namespace ChartTools.IO.Chart.Parsers
                         throw new FormatException(string.Format(parseFloatExceptionMessage, entry.Data));
 
                     // Find the marker matching the position in case it was already added through a mention of value
-                    marker = preResult!.Tempo.Find(m => m.Position == entry.Position);
+                    marker = result.Tempo.Find(m => m.Position == entry.Position);
 
                     if (marker is null)
-                        preResult.Tempo.Add(new(entry.Position, 0) { Anchor = anchor });
+                        result.Tempo.Add(new(entry.Position, 0) { Anchor = anchor });
                     else
                         marker.Anchor = anchor;
 
                     break;
             }
         }
-
-        protected override void FinaliseParse() => result = preResult;
 
         public override void ApplyResultToSong(Song song) => song.SyncTrack = result!;
     }
