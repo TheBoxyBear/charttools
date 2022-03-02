@@ -1,5 +1,6 @@
 ﻿using ChartTools.SystemExtensions.Linq;
 
+using ChartTools.IO.Configuration.Sessions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,6 +8,7 @@ using System.Linq;
 
 namespace ChartTools.IO.Ini
 {
+<<<<<<<< HEAD:source/IO/Ini/IniParser_old.cs
     /// <summary>
     /// Provides methods for reading and writing ini files
     /// </summary>
@@ -23,6 +25,22 @@ namespace ChartTools.IO.Ini
             { "diff_guitar", InstrumentIdentity.LeadGuitar },
             { "diff_bass", InstrumentIdentity.Bass },
             { "diff_keys", InstrumentIdentity.Keys }
+        };
+        private static readonly Dictionary<string, string> metadataKeys = new()
+        {
+            { nameof(Metadata.Title), "name" },
+            { nameof(Metadata.Artist), "artist" },
+            { nameof(Metadata.Album), "album" },
+            { nameof(Metadata.AlbumTrack), "album_track" },
+            { nameof(Metadata.PlaylistTrack), "playlist_track" },
+            { nameof(Metadata.Genre), "genre" },
+            { nameof(Metadata.Year), "year" },
+            { nameof(Metadata.PreviewStart), "preview_start_time" },
+            { nameof(Metadata.PreviewEnd), "preview_end_time" },
+            { nameof(Metadata.AudioOffset), "delay" },
+            { nameof(Metadata.VideoOffset), "video_start_time" },
+            { nameof(Metadata.Length), "song_length" },
+            { nameof(Metadata.IsModchart), "modchart" }
         };
 
         /// <summary>

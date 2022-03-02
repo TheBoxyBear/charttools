@@ -12,7 +12,5 @@ namespace ChartTools.IO.Midi.Parsers
         protected Instrument<TChord>? result;
 
         protected InstrumentParser(TInstEnum instrument, ReadingSession session) : base(session) => Instrument = instrument;
-
-        protected override void FinaliseParse() => result = preResult;
     }
 }

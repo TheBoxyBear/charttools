@@ -1,5 +1,4 @@
 ﻿using ChartTools.Internal;
-using ChartTools.IO.Chart.Serializers;
 using ChartTools.SystemExtensions;
 using ChartTools.SystemExtensions.Linq;
 
@@ -9,9 +8,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ChartTools.IO.Chart
+namespace ChartTools.IO.Ini
 {
-    internal class ChartFileWriter
+    internal class IniFileWriter
     {
         public string Path { get; }
 
@@ -19,7 +18,7 @@ namespace ChartTools.IO.Chart
         private readonly string tempPath = System.IO.Path.GetTempFileName();
         private readonly IEnumerable<string>? removedHeaders;
 
-        public ChartFileWriter(string path, IEnumerable<string>? removedHeaders, params Serializer<string>[] serializers)
+        public IniFileWriter(string path, IEnumerable<string>? removedHeaders, params Serializer<string>[] serializers)
         {
             Path = path;
             this.serializers = serializers.ToList();

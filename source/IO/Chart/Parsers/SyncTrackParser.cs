@@ -31,7 +31,7 @@ namespace ChartTools.IO.Chart.Parsers
                     if (!session!.DuplicateTrackObjectProcedure!(entry.Position, ignoredSignatures, "time signature"))
                         break;
 
-                    string[] split = ChartReader.GetDataSplit(entry.Data);
+                    string[] split = ChartFile.GetDataSplit(entry.Data);
 
                     byte denominator;
 

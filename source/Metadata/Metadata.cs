@@ -136,8 +136,8 @@ namespace ChartTools
         /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="OutOfMemoryException"/>
-        public static Metadata FromFile(string path) => ExtensionHandler.Read<Metadata>(path, null, (".chart", (path, _) => ChartReader.ReadMetadata(path)), (".ini", (path, _) => IniParser_old.ReadMetadata(path)));
-        public static async Task<Metadata> FromFileAsync(string path, CancellationToken cancellationToken) => await ExtensionHandler.ReadAsync<Metadata>(path, cancellationToken, null, (".chart", (path, token, _) => ChartReader.ReadMetadataAsync(path, token)), (".ini", (path, _, _) => Task.Run(() => IniParser_old.ReadMetadata(path))));
+        public static Metadata FromFile(string path) => ExtensionHandler.Read<Metadata>(path, null, (".chart", (path, _) => ChartFile.ReadMetadata(path)), (".ini", (path, _) => IniParser_old.ReadMetadata(path)));
+        public static async Task<Metadata> FromFileAsync(string path, CancellationToken cancellationToken) => await ExtensionHandler.ReadAsync<Metadata>(path, cancellationToken, null, (".chart", (path, token, _) => ChartFile.ReadMetadataAsync(path, token)), (".ini", (path, _, _) => Task.Run(() => IniParser_old.ReadMetadata(path))));
         /// <summary>
         /// Reads the metadata from multiple files.
         /// </summary>

@@ -33,7 +33,7 @@ namespace ChartTools.IO.Chart.Parsers
             {
                 // Local event
                 case "E":
-                    string[] split = ChartReader.GetDataSplit(entry.Data.Trim('"'));
+                    string[] split = ChartFile.GetDataSplit(entry.Data.Trim('"'));
                     result.LocalEvents!.Add(new(entry.Position, split.Length > 0 ? split[0] : string.Empty));
                     break;
                 // Note or chord modifier
@@ -58,7 +58,7 @@ namespace ChartTools.IO.Chart.Parsers
                 case "S":
                     try
                     {
-                        split = ChartReader.GetDataSplit(entry.Data);
+                        split = ChartFile.GetDataSplit(entry.Data);
 
                         if (!byte.TryParse(split[0], out byte typeCode))
                             throw new FormatException($"Cannot parse type code \"{split[0]}\" to byte.");
@@ -80,6 +80,7 @@ namespace ChartTools.IO.Chart.Parsers
         protected override void FinaliseParse()
         {
             base.FinaliseParse();
+
             ApplyOverlappingSpecialPhrasePolicy(result.StarPower, session!.Configuration.OverlappingStarPowerPolicy);
         }
 
