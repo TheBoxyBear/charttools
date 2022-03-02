@@ -47,8 +47,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartFileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartFormatting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartFileWriter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartReader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartWriter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Entries\ChartEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Entries\NoteData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Entries\TrackObjectEntry.cs" />

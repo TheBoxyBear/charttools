@@ -524,8 +524,8 @@ namespace ChartTools
     public static class GlobalEventExtensions
     {
         /// <inheritdoc cref="exceptions.ReplaceGlobalEvents(string, IEnumerable{GlobalEvent})"/>
-        public static void ToFile(string path, IEnumerable<GlobalEvent> events) => ExtensionHandler.Write(path, events, null, (".chart", (path, token, _) => ChartWriter.ReplaceGlobalEvents(path, token)));
-        public static async Task ToFileAsync(string path, IEnumerable<GlobalEvent> events, CancellationToken cancellationToken) => await ExtensionHandler.WriteAsync(path, events, cancellationToken, null, (".chart", (path, events, token, _) => ChartWriter.ReplaceGlobalEventsAsync(path, events, token)));
+        public static void ToFile(string path, IEnumerable<GlobalEvent> events) => ExtensionHandler.Write(path, events, null, (".chart", (path, token, _) => ChartFile.ReplaceGlobalEvents(path, token)));
+        public static async Task ToFileAsync(string path, IEnumerable<GlobalEvent> events, CancellationToken cancellationToken) => await ExtensionHandler.WriteAsync(path, events, cancellationToken, null, (".chart", (path, events, token, _) => ChartFile.ReplaceGlobalEventsAsync(path, events, token)));
 
         /// <summary>
         /// Gets the lyrics from an enumerable of <see cref="GlobalEvent"/>
