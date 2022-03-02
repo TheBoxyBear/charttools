@@ -58,7 +58,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\MetadataParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsers\GHGemsParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Serializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\TextFileReader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\TextFileWriter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\TextSerializer.cs" />
     <Compile Include="..\source\IO\Chart\Parsers\StandardTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\SyncTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\TrackParser.cs" />

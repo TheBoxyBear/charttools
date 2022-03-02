@@ -94,6 +94,6 @@ namespace ChartTools.IO.Chart.Parsers
             }
         }
 
-        public override void ApplyResultToSong(Song song) => song.SyncTrack = result!;
+        public override void ApplyResultToSong(Song song) => song.SyncTrack = result;
     }
 }
