@@ -8,7 +8,6 @@ using System.Linq;
 
 namespace ChartTools.IO.Ini
 {
-<<<<<<<< HEAD:source/IO/Ini/IniParser_old.cs
     /// <summary>
     /// Provides methods for reading and writing ini files
     /// </summary>

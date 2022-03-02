@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Debug", "Debug\Debug.csproj
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ChartTools", "source\ChartTools.shproj", "{54924BC3-4A10-45AD-AF3C-F17494E403E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net5", "Net5\Net5.csproj", "{5AA97B72-B703-4536-BDC6-98B1A9378B0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net5", "Net5\Net5.csproj", "{5AA97B72-B703-4536-BDC6-98B1A9378B0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net6", "Net6\Net6.csproj", "{965901B2-4DD8-4DAF-836F-A0DFF21DB9E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net6", "Net6\Net6.csproj", "{965901B2-4DD8-4DAF-836F-A0DFF21DB9E4}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

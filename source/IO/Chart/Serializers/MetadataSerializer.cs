@@ -50,7 +50,7 @@ namespace ChartTools.IO.Chart.Serializers
 
             if (Content.UnidentifiedData is not null)
                 foreach (var data in Content.UnidentifiedData.Where(d => d.Origin == FileFormat.Chart))
-                    yield return ChartFormatting.Line(data.Key, data.Data);
+                    yield return ChartFormatting.Line(data.Key, data.Value);
         }
     }
 }

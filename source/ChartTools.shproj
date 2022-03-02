@@ -8,6 +8,15 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.Common.Default.props" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.Common.props" />
   <PropertyGroup />
+  <ItemGroup>
+    <Compile Include="Chords\Chord.cs" />
+    <Compile Include="Chords\ChordGeneric.cs" />
+    <Compile Include="Chords\DrumsChord.cs" />
+    <Compile Include="Chords\GHLChord.cs" />
+    <Compile Include="Chords\LaneChord.cs" />
+    <Compile Include="Chords\Phrase.cs" />
+    <Compile Include="Chords\StandardChord.cs" />
+  </ItemGroup>
   <Import Project="source.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.CSharp.targets" />
 </Project>
