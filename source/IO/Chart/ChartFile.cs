@@ -16,7 +16,7 @@ namespace ChartTools.IO.Chart
     /// <summary>
     /// Provides methods for reading and writing chart files
     /// </summary>
-    public static partial class ChartFile
+    public static class ChartFile
     {
         /// <summary>
         /// Default configuration to use when the provided configuration is <see langword="default"/>
