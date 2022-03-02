@@ -44,7 +44,5 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <param name="value">Value to get the written equivalent of</param>
         public static string Float(float value) => ((int)(value * 1000)).ToString().Replace(".", "").Replace(",", "");
-
-        public static bool IsSectionEnd(string line) => line == "}";
     }
 }
