@@ -1,6 +1,5 @@
 ﻿using ChartTools.Internal;
 using ChartTools.IO.Chart.Serializers;
-using ChartTools.IO.Configuration.Sessions;
 using ChartTools.SystemExtensions;
 using ChartTools.SystemExtensions.Linq;
 

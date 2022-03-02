@@ -19,6 +19,6 @@ namespace ChartTools.IO.Chart
         public ChartFileReader(string path, Func<string, ChartParser?> parserGetter) : base(path, parserGetter) { }
 
         protected override bool IsSectionStart(string line) => line == "{";
-        protected override bool IsSectionEnd(string line) => line == "}";
+        protected override bool IsSectionEnd(string line) => ChartFormatting.IsSectionEnd(line);
     }
 }
