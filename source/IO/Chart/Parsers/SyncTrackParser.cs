@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart.Parsers
 {
-    internal class SyncTrackParser : ChartParser
+    internal class SyncTrackParser : FileParser<string>
     {
         private readonly HashSet<uint> ignoredTempos = new(), ignoredAnchors = new(), ignoredSignatures = new();
         private const string parseFloatExceptionMessage = "Cannot parse value \"{0}\" to float.";

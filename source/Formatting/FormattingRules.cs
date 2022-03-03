@@ -1,4 +1,4 @@
-﻿namespace ChartTools.IO.Formatting
+﻿namespace ChartTools.Formatting
 {
     /// <summary>
     /// Rules defined in song.ini that affect how the song data file is read and written
@@ -14,7 +14,6 @@
         /// <summary>
         /// Overrides the default sustain cutoff threshold with the specified number of ticks.
         /// </summary>
-
         public uint? SustainCutoff { get; set; }
 
         #region Hopo frequency
@@ -44,7 +43,8 @@
                         Formatting.HopoFrequencyStep.Fourth => 4,
                         Formatting.HopoFrequencyStep.Eight => 8,
                         Formatting.HopoFrequencyStep.Twelveth => 12,
-                        Formatting.HopoFrequencyStep.Sixteenth => 16
+                        Formatting.HopoFrequencyStep.Sixteenth => 16,
+                        _ => throw new System.Exception($"{HopoFrequencyStep} is not a valid hopo frequency step.")
                     });
 
                 return ForceEightHopoFrequency is true ? TrueResolution / 8 : null;

@@ -12,7 +12,7 @@ using ChartTools.SystemExtensions.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 using ChartTools.IO.Configuration;
-using ChartTools.IO.Formatting;
+using ChartTools.Formatting;
 
 namespace ChartTools
 {
@@ -38,6 +38,8 @@ namespace ChartTools
             set => _formatting = value ?? throw new ArgumentNullException(nameof(value));
         }
         private FormattingRules _formatting = new();
+
+        public Dictionary<string, string> UnidentifiedData { get; set; } = new();
 
         /// <inheritdoc cref="ChartTools.SyncTrack"/>
         public SyncTrack SyncTrack

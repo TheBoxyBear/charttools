@@ -1,4 +1,4 @@
-﻿using ChartTools.IO.Formatting;
+﻿using ChartTools.Formatting;
 
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ChartTools.IO.Formatting
+namespace ChartTools.Formatting
 {
     [Flags] public enum AlbumTrackKey : byte { AlbumTrack, Track }
     [Flags] public enum CharterKey : byte { Charter, Frets }

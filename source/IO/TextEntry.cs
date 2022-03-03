@@ -5,7 +5,7 @@ namespace ChartTools.IO
     /// <summary>
     /// Line of text file data
     /// </summary>
-    internal ref struct TextEntry
+    internal struct TextEntry
     {
         /// <summary>
         /// Text before the equal sign

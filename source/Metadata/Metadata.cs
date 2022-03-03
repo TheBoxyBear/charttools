@@ -1,4 +1,5 @@
-﻿using ChartTools.InternalTools;
+﻿using ChartTools.Formatting;
+using ChartTools.Internal;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Ini;
@@ -116,15 +117,13 @@ namespace ChartTools
         /// The song is a modchart
         /// </summary>
         public bool IsModchart { get; set; }
-        /// <summary>
-        /// Minimum position difference between chords for natural chords to be hopo and forced chords to not be
-        /// </summary>
-        public uint? HopoThreashold { get; set; }
+        /// <inheritdoc cref="FormattingRules"/>
+        public FormattingRules? Formatting { get; set; }
         /// <summary>
         /// Unrecognized metadata
         /// </summary>
         /// <remarks>When writing, these will only be written if the target format matches the origin</remarks>
-        public HashSet<MetadataItem> UnidentifiedData { get; } = new(new FuncEqualityComparer<MetadataItem>((a, b) => a.Key == b.Key));
+        public HashSet<UnidentifiedMetadata> UnidentifiedData { get; } = new(new FuncEqualityComparer<UnidentifiedMetadata>((a, b) => a.Key == b.Key));
         #endregion
 
         /// <summary>
@@ -166,12 +165,5 @@ namespace ChartTools
         }
         /// <inheritdoc cref="IniParser_old.WriteMetadata(string, Metadata)"/>
         public void ToFile(string path) => ExtensionHandler.Write(path, (".ini", path => IniParser_old.WriteMetadata(path, this)));
-    }
-
-    public struct MetadataItem
-    {
-        public string Key { get; init; }
-        public string Value { get; set; }
-        public FileFormat Origin { get; set; }
     }
 }

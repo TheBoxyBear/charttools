@@ -60,13 +60,13 @@ namespace ChartTools.IO.Ini
 
                 switch (header)
                 {
-                    case IniFormatting.MetadataTitle:
+                    case IniFormatting.Title:
                         metadata.Title = value;
                         break;
-                    case IniFormatting.MetadataArtist:
+                    case IniFormatting.Artist:
                         metadata.Artist = value;
                         break;
-                    case IniFormatting.MetadataAlbum:
+                    case IniFormatting.Album:
                         metadata.Album = value;
                         break;
                     case "album_track" or "track":
@@ -150,9 +150,9 @@ namespace ChartTools.IO.Ini
 
             Type metadataType = typeof(Metadata);
 
-            // Get the value of all properties whose name is in the dictionary and pair with its matching key, filtered to non-null properties
-            foreach ((string key, object value) in IniFormatting.MetadataKeys.Keys.Select(p => (IniFormatting.MetadataKeys[p], metadataType.GetProperty(IniFormatting.MetadataKeys[p])!.GetValue(metadata))).Where(t => t.Item2 is not null)) //TODO Rework LINQ expression to avoid repetition of dictionary access
-                yield return $"{key} = {value}";
+            //// Get the value of all properties whose name is in the dictionary and pair with its matching key, filtered to non-null properties
+            //foreach ((string key, object value) in IniFormatting.MetadataKeys.Keys.Select(p => (IniFormatting.MetadataKeys[p], metadataType.GetProperty(IniFormatting.MetadataKeys[p])!.GetValue(metadata))).Where(t => t.Item2 is not null)) //TODO Rework LINQ expression to avoid repetition of dictionary access
+            //    yield return $"{key} = {value}";
 
             if (metadata.Charter is not null)
             {
@@ -163,7 +163,7 @@ namespace ChartTools.IO.Ini
             }
 
             if (metadata.UnidentifiedData is not null)
-                foreach (MetadataItem data in metadata.UnidentifiedData.Where(d => d.Origin == FileFormat.Ini))
+                foreach (var data in metadata.UnidentifiedData.Where(d => d.Origin == FileFormat.Ini))
                     yield return $"{data.Key} = {data.Value}";
         }
 

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart.Parsers
 {
-    internal class GlobalEventParser : ChartParser
+    internal class GlobalEventParser : FileParser<string>
     {
         public GlobalEventParser(ReadingSession session) : base(session) { }
 

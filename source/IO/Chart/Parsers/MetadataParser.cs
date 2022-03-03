@@ -1,18 +1,16 @@
-﻿using ChartTools.IO.Configuration.Sessions;
-using ChartTools.IO.Formatting;
+﻿using ChartTools.Internal;
+using ChartTools.IO.Configuration.Sessions;
 
 using System;
 
 namespace ChartTools.IO.Chart.Parsers
 {
-    internal class MetadataFormattingParser : ChartParser
+    internal class MetadataParser : FileParser<string>
     {
-        public record ResultGroup(Metadata Metadata, FormattingRules Formatting);
+        public override Metadata Result => GetResult(result);
+        private readonly Metadata result;
 
-        public MetadataFormattingParser(ReadingSession session) : base(session) { }
-
-        public override ResultGroup Result => GetResult(result);
-        private readonly ResultGroup result = new(new(), new());
+        public MetadataParser(ReadingSession session, Metadata? existing = null) : base(session) => result = existing ?? new();
 
         protected override void HandleItem(string line)
         {
@@ -23,92 +21,93 @@ namespace ChartTools.IO.Chart.Parsers
             switch (entry.Key)
             {
                 case "Name":
-                    result.Metadata.Title = data;
+                    result.Title = data;
                     break;
                 case "Artist":
-                    result.Metadata.Artist = data;
+                    result.Artist = data;
                     break;
                 case "Charter":
-                    result.Metadata.Charter = new() { Name = data };
+                    result.Charter = new() { Name = data };
                     break;
                 case "Album":
-                    result.Metadata.Album = data;
+                    result.Album = data;
                     break;
                 case "Year":
-                    try { result.Metadata.Year = ushort.Parse(data.TrimStart(',')); }
+                    try { result.Year = ushort.Parse(data.TrimStart(',')); }
                     catch (Exception e) { throw ChartExceptions.Line(line, e); }
                     break;
                 case "Offset":
-                    try { result.Metadata.AudioOffset = (int)(float.Parse(entry.Value) * 1000); }
+                    try { result.AudioOffset = (int)(float.Parse(entry.Value) * 1000); }
                     catch (Exception e) { throw ChartExceptions.Line(line, e); }
                     break;
                 case "Resolution":
+                    result.Formatting ??= new();
                     try { result.Formatting.Resolution = ushort.Parse(data); }
                     catch (Exception e) { throw ChartExceptions.Line(line, e); }
                     break;
                 case "Difficulty":
-                    try { result.Metadata.Difficulty = sbyte.Parse(data); }
+                    try { result.Difficulty = sbyte.Parse(data); }
                     catch (Exception e) { throw ChartExceptions.Line(line, e); }
                     break;
                 case "PreviewStart":
-                    try { result.Metadata.PreviewStart = uint.Parse(data); }
+                    try { result.PreviewStart = uint.Parse(data); }
                     catch (Exception e) { throw ChartExceptions.Line(line, e); }
                     break;
                 case "PreviewEnd":
-                    try { result.Metadata.PreviewEnd = uint.Parse(data); }
+                    try { result.PreviewEnd = uint.Parse(data); }
                     catch (Exception e) { throw ChartExceptions.Line(line, e); }
                     break;
                 case "Genre":
-                    result.Metadata.Genre = data;
+                    result.Genre = data;
                     break;
                 case "MediaType":
-                    result.Metadata.MediaType = data;
+                    result.MediaType = data;
                     break;
                 case "MusicStream":
-                    result.Metadata.Streams.Music = data;
+                    result.Streams.Music = data;
                     break;
                 case "GuitarStream":
-                    result.Metadata.Streams.Guitar = data;
+                    result.Streams.Guitar = data;
                     break;
                 case "BassStream":
-                    result.Metadata.Streams.Bass = data;
+                    result.Streams.Bass = data;
                     break;
                 case "RhythmStream":
-                    result.Metadata.Streams ??= new() { Rhythm = data };
+                    result.Streams ??= new() { Rhythm = data };
                     break;
                 case "KeysStream":
-                    result.Metadata.Streams ??= new() { Keys = data };
+                    result.Streams ??= new() { Keys = data };
                     break;
                 case "DrumStream":
-                    result.Metadata.Streams ??= new() { Drum = data };
+                    result.Streams ??= new() { Drum = data };
                     break;
                 case "Drum2Stream":
-                    result.Metadata.Streams ??= new() { Drum2 = data };
+                    result.Streams ??= new() { Drum2 = data };
                     break;
                 case "Drum3Stream":
-                    result.Metadata.Streams ??= new() { Drum3 = data };
+                    result.Streams ??= new() { Drum3 = data };
                     break;
                 case "Drum4Stream":
-                    result.Metadata.Streams ??= new() { Drum4 = data };
+                    result.Streams ??= new() { Drum4 = data };
                     break;
                 case "VocalStream":
-                    result.Metadata.Streams ??= new() { Vocal = data };
+                    result.Streams ??= new() { Vocal = data };
                     break;
                 case "CrowdStream":
-                    result.Metadata.Streams ??= new() { Crowd = data };
+                    result.Streams ??= new() { Crowd = data };
                     break;
                 default:
-                    result.Metadata.UnidentifiedData.Add(new() { Key = entry.Key, Value = entry.Value, Origin = FileFormat.Chart });
+                    result.UnidentifiedData.Add(new() { Key = entry.Key, Value = entry.Value, Origin = FileFormat.Chart });
                     break;
             }
         }
 
         public override void ApplyResultToSong(Song song)
         {
-            var res = Result;
-
-            song.Metadata = res.Metadata;
-            song.Formatting = res.Formatting;
+            if (song.Metadata is null)
+                song.Metadata = Result;
+            else
+                PropertyMerger.Merge(song.Metadata, false, Result);
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart.Parsers
 {
-    internal abstract class TrackParser<TChord> : ChartParser where TChord : Chord
+    internal abstract class TrackParser<TChord> : FileParser<string> where TChord : Chord
     {
         public Difficulty Difficulty { get; }
 

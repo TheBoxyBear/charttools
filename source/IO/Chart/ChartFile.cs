@@ -40,12 +40,12 @@ namespace ChartTools.IO.Chart
         /// Creates a <see cref="ChartParser"/> for parsing a section based on the header.
         /// </summary>
         /// <exception cref="FormatException"></exception>
-        private static ChartParser? GetSongParser(string header, ReadingSession session)
+        private static FileParser<string>? GetSongParser(string header, ReadingSession session)
         {
             switch (header)
             {
                 case ChartFormatting.MetadataHeader:
-                    return new MetadataFormattingParser(session);
+                    return new MetadataParser(session);
                 case ChartFormatting.GlobalEventHeader:
                     return new GlobalEventParser(session);
                 case ChartFormatting.SyncTrackHeader:
@@ -386,7 +386,7 @@ namespace ChartTools.IO.Chart
         #endregion
         #endregion
         #region Metadata
-        private static MetadataFormattingParser? GetMetadataParser(string header, ReadingSession session) => header == ChartFormatting.MetadataHeader ? new(session) : null;
+        private static MetadataParser? GetMetadataParser(string header, ReadingSession session) => header == ChartFormatting.MetadataHeader ? new(session) : null;
         /// <summary>
         /// Reads metadata from a chart file.
         /// </summary>
@@ -395,7 +395,7 @@ namespace ChartTools.IO.Chart
         {
             var reader = new ChartFileReader(path, header => GetMetadataParser(header, new(DefaultReadConfig)));
             reader.Read();
-            return reader.Parsers.TryGetFirstOfType(out MetadataFormattingParser? parser) ? parser!.Result.Metadata : new();
+            return reader.Parsers.TryGetFirstOfType(out MetadataParser? parser) ? parser!.Result : new();
         }
         /// <summary>
         /// Reads metadata from a chart file asynchronously using multitasking.
@@ -406,7 +406,7 @@ namespace ChartTools.IO.Chart
         {
             var reader = new ChartFileReader(path, header => GetMetadataParser(header, new(DefaultReadConfig)));
             await reader.ReadAsync(cancellationToken);
-            return reader.Parsers.TryGetFirstOfType(out MetadataFormattingParser? parser) ? parser!.Result.Metadata : new();
+            return reader.Parsers.TryGetFirstOfType(out MetadataParser? parser) ? parser!.Result : new();
         }
         #endregion
         #region Global events

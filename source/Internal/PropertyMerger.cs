@@ -6,7 +6,7 @@ namespace ChartTools.Internal
     /// <summary>
     /// Provides methods to merge properties between two instances
     /// </summary>
-    internal static class ProperyMerger
+    internal static class PropertyMerger
     {
         /// <summary>
         /// Replaces the property values of an instance with the first non-null equivalent from other instances.

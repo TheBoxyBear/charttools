@@ -450,7 +450,7 @@
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetSongParser(System.String,ChartTools.IO.Configuration.Sessions.ReadingSession)">
             <summary>
-            Creates a <see cref="T:ChartTools.IO.Chart.Parsers.ChartParser"/> for parsing a section based on the header.
+            Creates a <see cref="!:ChartParser"/> for parsing a section based on the header.
             </summary>
             <exception cref="T:System.FormatException"></exception>
         </member>
@@ -812,67 +812,6 @@
             <param name="line">Line in the file</param>
             <exception cref="T:System.FormatException"/>
         </member>
-        <member name="T:ChartTools.IO.Formatting.FormattingRules">
-            <summary>
-            Rules defined in song.ini that affect how the song data file is read and written
-            </summary>
-            <remarks>Property summaries provided by Nathan Hurst.</remarks>
-        </member>
-        <member name="P:ChartTools.IO.Formatting.FormattingRules.SustainCutoff">
-            <summary>
-            Overrides the default sustain cutoff threshold with the specified number of ticks.
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.Formatting.FormattingRules.HopoFrequency">
-            <summary>
-            Overrides the natural HOPO threshold with the specified number of ticks.
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.Formatting.FormattingRules.HopoFrequencyStep">
-            <summary>
-            (FoFiX) Overrides the natural HOPO threshold using numbers from 0 to 5.
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.Formatting.FormattingRules.ForceEightHopoFrequency">
-            <summary>
-            (FoFiX) Overrides the natural HOPO threshold to be a 1/8th step.
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.Formatting.FormattingRules.MultiplierNote">
-            <summary>
-            Overrides the Star Power phrase MIDI note for .mid charts.
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.Formatting.FormattingRules.StarPowerNote">
-            <summary>
-            (PhaseShift) Overrides the Star Power phrase MIDI note for .mid charts.
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.Formatting.FormattingRules.SysExSliders">
-            <summary>
-            (PhaseShift) Indicates if the chart uses SysEx events for sliders/tap notes.
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.Formatting.FormattingRules.SysExHighHat">
-            <summary>
-            (PhaseShift) Indicates if the chart uses SysEx events for Drums Real hi-hat pedal control.
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.Formatting.FormattingRules.SysExRimshot">
-            <summary>
-            (PhaseShift) Indicates if the chart uses SysEx events for Drums Real rimshot hits.
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.Formatting.FormattingRules.SysExOpenBass">
-            <summary>
-            (PhaseShift) Indicates if the chart uses SysEx events for open notes.
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.Formatting.FormattingRules.SysexProSlide">
-            <summary>
-            (PhaseShift) Indicates if the chart uses SysEx events for Pro Guitar/Bass slide directions.
-            </summary>
-        </member>
         <member name="F:ChartTools.IO.Ini.IniFormatting.DifficultyKeys">
             <summary>
             Keys for <see cref="T:ChartTools.Instrument"/> difficulties
@@ -1101,7 +1040,7 @@
             <inheritdoc cref="!:IO.HopoThresholdPriority"/>
         </member>
         <member name="P:ChartTools.IO.Configuration.WritingConfiguration.HopoTreshold">
-            <inheritdoc cref="P:ChartTools.Metadata.HopoThreashold"/>
+            <inheritdoc cref="!:Metadata.HopoThreashold"/>
         </member>
         <member name="P:ChartTools.IO.Configuration.WritingConfiguration.UnsupportedModifierPolicy">
             <see cref="!:IO.UnsupportedModifierPolicy"/>
@@ -1167,6 +1106,67 @@
             <param name="chunks">Chunks to check</param>
             <param name="ex">Exception to throw if returned <see langword="false"/></param>
             <returns><see langword="true"/> if the collection contains at least one <see cref="T:Melanchall.DryWetMidi.Core.TrackChunk"/></returns>
+        </member>
+        <member name="T:ChartTools.Formatting.FormattingRules">
+            <summary>
+            Rules defined in song.ini that affect how the song data file is read and written
+            </summary>
+            <remarks>Property summaries provided by Nathan Hurst.</remarks>
+        </member>
+        <member name="P:ChartTools.Formatting.FormattingRules.SustainCutoff">
+            <summary>
+            Overrides the default sustain cutoff threshold with the specified number of ticks.
+            </summary>
+        </member>
+        <member name="P:ChartTools.Formatting.FormattingRules.HopoFrequency">
+            <summary>
+            Overrides the natural HOPO threshold with the specified number of ticks.
+            </summary>
+        </member>
+        <member name="P:ChartTools.Formatting.FormattingRules.HopoFrequencyStep">
+            <summary>
+            (FoFiX) Overrides the natural HOPO threshold using numbers from 0 to 5.
+            </summary>
+        </member>
+        <member name="P:ChartTools.Formatting.FormattingRules.ForceEightHopoFrequency">
+            <summary>
+            (FoFiX) Overrides the natural HOPO threshold to be a 1/8th step.
+            </summary>
+        </member>
+        <member name="P:ChartTools.Formatting.FormattingRules.MultiplierNote">
+            <summary>
+            Overrides the Star Power phrase MIDI note for .mid charts.
+            </summary>
+        </member>
+        <member name="P:ChartTools.Formatting.FormattingRules.StarPowerNote">
+            <summary>
+            (PhaseShift) Overrides the Star Power phrase MIDI note for .mid charts.
+            </summary>
+        </member>
+        <member name="P:ChartTools.Formatting.FormattingRules.SysExSliders">
+            <summary>
+            (PhaseShift) Indicates if the chart uses SysEx events for sliders/tap notes.
+            </summary>
+        </member>
+        <member name="P:ChartTools.Formatting.FormattingRules.SysExHighHat">
+            <summary>
+            (PhaseShift) Indicates if the chart uses SysEx events for Drums Real hi-hat pedal control.
+            </summary>
+        </member>
+        <member name="P:ChartTools.Formatting.FormattingRules.SysExRimshot">
+            <summary>
+            (PhaseShift) Indicates if the chart uses SysEx events for Drums Real rimshot hits.
+            </summary>
+        </member>
+        <member name="P:ChartTools.Formatting.FormattingRules.SysExOpenBass">
+            <summary>
+            (PhaseShift) Indicates if the chart uses SysEx events for open notes.
+            </summary>
+        </member>
+        <member name="P:ChartTools.Formatting.FormattingRules.SysexProSlide">
+            <summary>
+            (PhaseShift) Indicates if the chart uses SysEx events for Pro Guitar/Bass slide directions.
+            </summary>
         </member>
         <member name="T:ChartTools.Instrument">
             <summary>
@@ -1788,6 +1788,20 @@
             <see langword="true"/> if containing no data
             </summary>
         </member>
+        <member name="T:ChartTools.Internal.PropertyMerger">
+            <summary>
+            Provides methods to merge properties between two instances
+            </summary>
+        </member>
+        <member name="M:ChartTools.Internal.PropertyMerger.Merge``1(``0,System.Boolean,``0[])">
+            <summary>
+            Replaces the property values of an instance with the first non-null equivalent from other instances.
+            </summary>
+            <remarks>If overwriteNonNull is <see langword="false"/>, only replaces property values that are null in the original instance.</remarks>
+            <param name="current">Item to assign the property values to</param>
+            <param name="overwriteNonNull">If <see langword="false"/>, only replaces property values that are null in the original instance.</param>
+            <param name="newValues">Items to pull new property values from in order of priority</param>
+        </member>
         <member name="T:ChartTools.SystemExtensions.EqualityComparison`1">
             <summary>
             <see cref="T:System.IEquatable`1"/> equivalent to the <see cref="T:System.IComparable`1"/> <see cref="T:System.Comparison`1"/> delegate
@@ -2014,20 +2028,6 @@
             </summary>
             <param name="comparison">Method used to compare two objects</param>
         </member>
-        <member name="T:ChartTools.InternalTools.ProperyMerger">
-            <summary>
-            Provides methods to merge properties between two instances
-            </summary>
-        </member>
-        <member name="M:ChartTools.InternalTools.ProperyMerger.Merge``1(``0,System.Boolean,``0[])">
-            <summary>
-            Replaces the property values of an instance with the first non-null equivalent from other instances.
-            </summary>
-            <remarks>If overwriteNonNull is <see langword="false"/>, only replaces property values that are null in the original instance.</remarks>
-            <param name="current">Item to assign the property values to</param>
-            <param name="overwriteNonNull">If <see langword="false"/>, only replaces property values that are null in the original instance.</param>
-            <param name="newValues">Items to pull new property values from in order of priority</param>
-        </member>
         <member name="T:ChartTools.Charter">
             <summary>
             Creator of the chart
@@ -2223,10 +2223,8 @@
             The song is a modchart
             </summary>
         </member>
-        <member name="P:ChartTools.Metadata.HopoThreashold">
-            <summary>
-            Minimum position difference between chords for natural chords to be hopo and forced chords to not be
-            </summary>
+        <member name="P:ChartTools.Metadata.Formatting">
+            <inheritdoc cref="T:ChartTools.Formatting.FormattingRules"/>
         </member>
         <member name="P:ChartTools.Metadata.UnidentifiedData">
             <summary>
@@ -2337,7 +2335,7 @@
             </summary>
         </member>
         <member name="P:ChartTools.Song.Formatting">
-            <inheritdoc cref="T:ChartTools.IO.Formatting.FormattingRules"/>
+            <inheritdoc cref="T:ChartTools.Formatting.FormattingRules"/>
         </member>
         <member name="P:ChartTools.Song.SyncTrack">
             <inheritdoc cref="T:ChartTools.SyncTrack"/>
