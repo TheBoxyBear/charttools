@@ -25,8 +25,8 @@ namespace ChartTools.IO.Chart.Serializers
                 yield return ChartFormatting.Line("Year", $"\", {Content.Year}\"");
             if (Content.AudioOffset is not null)
                 yield return ChartFormatting.Line("Offset", Content.AudioOffset.ToString());
-            if (Content.Resolution is not null)
-                yield return ChartFormatting.Line("Resolution", Content.Resolution.ToString());
+            if (Content.Formatting.Resolution is not null)
+                yield return ChartFormatting.Line("Resolution", Content.Formatting.Resolution.ToString());
             if (Content.Difficulty is not null)
                 yield return ChartFormatting.Line("Difficulty", Content.Difficulty.ToString());
             if (Content.PreviewStart is not null)

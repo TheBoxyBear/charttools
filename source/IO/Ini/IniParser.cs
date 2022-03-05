@@ -36,6 +36,12 @@ namespace ChartTools.IO.Ini
                     result.Formatting ??= new();
                     result.Formatting.AlbumTrackKey |= AlbumTrackKey.Track;
                     break;
+                case IniFormatting.Playlist:
+                    result.Playlist = entry.Value;
+                    break;
+                case IniFormatting.SubPlaylist:
+                    result.SubPlaylist = entry.Value;
+                    break;
                 case IniFormatting.PlaylistTrack:
                     result.PlaylistTrack = ushort.TryParse(entry.Value, out ushort ushortValue) ? ushortValue
                         : throw IOExceptions.Parse("playlist track", entry.Value, "ushort");
@@ -80,6 +86,10 @@ namespace ChartTools.IO.Ini
                 case IniFormatting.Length:
                     result.Length = uint.TryParse(entry.Value, out uintValue) ? uintValue
                         : throw IOExceptions.Parse("song length", entry.Value, "uint");
+                    break;
+                case IniFormatting.Difficulty:
+                    result.Difficulty = sbyte.TryParse(entry.Value, out sbyte sbyteValue) ? sbyteValue
+                        : throw IOExceptions.Parse("difficulty", entry.Value, "sbyte");
                     break;
                 case IniFormatting.LoadingText:
                     result.LoadingText = entry.Value;

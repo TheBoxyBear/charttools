@@ -18,9 +18,13 @@ namespace ChartTools.IO.Chart.Parsers
         private readonly HashSet<byte> ignoredNotes = new();
 
         public override Track<TChord> Result => GetResult(result);
-        private readonly Track<TChord> result = new();
+        private readonly Track<TChord> result;
 
-        public TrackParser(Difficulty difficulty, ReadingSession session) : base(session) => Difficulty = difficulty;
+        public TrackParser(Difficulty difficulty, ReadingSession session) : base(session)
+        {
+            Difficulty = difficulty;
+            result = new() { Difficulty = difficulty };
+        }
 
         protected override void HandleItem(string line)
         {
@@ -79,12 +83,11 @@ namespace ChartTools.IO.Chart.Parsers
 
         protected override void FinaliseParse()
         {
-            base.FinaliseParse();
-
             ApplyOverlappingSpecialPhrasePolicy(result.StarPower, session!.Configuration.OverlappingStarPowerPolicy);
+            base.FinaliseParse();
         }
 
-        protected void ApplyResultToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(Result, Difficulty);
+        protected void ApplyResultToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(Result);
 
         private static void ApplyOverlappingSpecialPhrasePolicy(IEnumerable<SpecicalPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
         {

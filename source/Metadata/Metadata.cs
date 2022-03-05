@@ -21,31 +21,56 @@ namespace ChartTools
         /// <summary>
         /// Title of the <see cref="Song"/>
         /// </summary>
+        [IniSimpleSerialize(IniFormatting.Title)]
         public string? Title { get; set; }
+
         /// <summary>
         /// Artist or band behind the <see cref="Song"/>
         /// </summary>
+        [IniSimpleSerialize(IniFormatting.Artist)]
         public string? Artist { get; set; }
+
+        [IniSimpleSerialize(IniFormatting.Album)]
         /// <summary>
         /// Album featuring the <see cref="Song"/>
         /// </summary>
         public string? Album { get; set; }
+
         /// <summary>
         /// Track number of the song within the album
         /// </summary>
         public ushort? AlbumTrack { get; set; }
+
+        /// <summary>
+        /// Playlist that the song should show up in
+        /// </summary>
+        [IniSimpleSerialize(IniFormatting.Playlist)]
+        public string? Playlist { get; set; }
+
+        /// <summary>
+        /// Sub-playlist that the song should show up in
+        /// </summary>
+        [IniSimpleSerialize(IniFormatting.SubPlaylist)]
+        public string? SubPlaylist { get; set; }
+
         /// <summary>
         /// Track number of the song within the playlist/setlist
         /// </summary>
+        [IniSimpleSerialize(IniFormatting.PlaylistTrack)]
         public ushort? PlaylistTrack { get; set; }
+
         /// <summary>
         /// Year of release
         /// </summary>
+        [IniSimpleSerialize(IniFormatting.Year)]
         public ushort? Year { get; set; }
+
         /// <summary>
         /// Genre of the <see cref="Song"/>
         /// </summary>
+        [IniSimpleSerialize(IniFormatting.Genre)]
         public string? Genre { get; set; }
+
         /// <summary>
         /// Creator of the chart
         /// </summary>
@@ -55,14 +80,19 @@ namespace ChartTools
             set => _charter = value ?? throw new ArgumentNullException(nameof(value));
         }
         private Charter _charter = new();
+
         /// <summary>
         /// Start time in milliseconds of the preview in the Clone Hero song browser
         /// </summary>
+        [IniSimpleSerialize(IniFormatting.PreviewStart)]
         public uint? PreviewStart { get; set; }
+
+        [IniSimpleSerialize(IniFormatting.PreviewEnd)]
         /// <summary>
         /// End time in milliseconds of the preview in the Clone Hero song browser
         /// </summary>
         public uint? PreviewEnd { get; set; }
+
         /// <summary>
         /// Duration in milliseconds of the preview in the Clone Hero song browser
         /// </summary>
@@ -76,22 +106,24 @@ namespace ChartTools
                 return PreviewStart is null ? PreviewEnd.Value : PreviewEnd.Value - PreviewStart.Value;
             }
         }
+
         /// <summary>
         /// Overall difficulty of the song
         /// </summary>
+        [IniSimpleSerialize(IniFormatting.Difficulty)]
         public sbyte? Difficulty { get; set; }
+
         /// <summary>
         /// Type of media the audio track comes from
         /// </summary>
         public string? MediaType { get; set; }
-        /// <summary>
-        /// Number of <see cref="TrackObject.Position"/> values per beat
-        /// </summary>
-        public ushort? Resolution { get; set; }
+
         /// <summary>
         /// Offset of the audio track in milliseconds. A higher value makes the audio start sooner.
         /// </summary>
+        [IniSimpleSerialize(IniFormatting.AudioOffset)]
         public int? AudioOffset { get; set; }
+
         /// <summary>
         /// Paths of audio files
         /// </summary>
@@ -101,24 +133,42 @@ namespace ChartTools
             set => _streams = value ?? throw new ArgumentNullException(nameof(value));
         }
         private StreamCollection _streams = new();
+
+        /// <summary>
+        /// Offset of the background video in milliseconds. A higher value makes the video start sooner.
+        /// </summary>
         /// <summary>
         /// Offset of the background video in milliseconds. A higher value makes the video start sooner.
         /// </summary>
         public int? VideoOffset { get; set; }
+
         /// <summary>
         /// Length of the song in milliseconds
         /// </summary>
+        [IniSimpleSerialize(IniFormatting.Length)]
         public uint? Length { get; set; }
+
         /// <summary>
         /// Text to be displayed on the load screen
         /// </summary>
+        [IniSimpleSerialize(IniFormatting.LoadingText)]
         public string? LoadingText { get; set; }
+
+        [IniSimpleSerialize(IniFormatting.Modchart)]
         /// <summary>
         /// The song is a modchart
         /// </summary>
         public bool IsModchart { get; set; }
+
+
+        private FormattingRules _formatting = new();
         /// <inheritdoc cref="FormattingRules"/>
-        public FormattingRules? Formatting { get; set; }
+        public FormattingRules Formatting
+        {
+            get => _formatting;
+            set => _formatting = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
         /// <summary>
         /// Unrecognized metadata
         /// </summary>

@@ -107,7 +107,7 @@ namespace ChartTools.IO.Chart
             Instrument<TChord>? output = null;
 
             foreach (TrackParser<TChord> parser in reader.Parsers)
-                (output ??= new()).SetTrack(parser.Result!, parser.Difficulty);
+                (output ??= new()).SetTrack(parser.Result!);
 
             return output;
         }

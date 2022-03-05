@@ -46,6 +46,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Internal\FuncEqualityComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\IEmpty.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\IInitializable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniSimpleSerializeAttribute.cs" />
     <Compile Include="..\source\Internal\PropertyMerger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\AsyncFileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartExceptions.cs" />

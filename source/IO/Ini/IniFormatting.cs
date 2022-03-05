@@ -23,6 +23,8 @@ namespace ChartTools.IO.Ini
             Album = "album",
             AlbumTrack = "album_track",
             Track = "track",
+            Playlist = "playlist",
+            SubPlaylist = "sub_playlist",
             PlaylistTrack = "playlis_track",
             Genre = "genre",
             Year = "year",
@@ -35,6 +37,7 @@ namespace ChartTools.IO.Ini
             VideoOffset = "video_start_time",
             Length = "song_length",
             LoadingText = "loading_text",
+            Difficulty = "diff_band",
             Modchart = "modchart",
             SustainCutoff = "sustain_cutoff_threshold",
             HopoFrequency = "hopo_frequency",
@@ -42,12 +45,12 @@ namespace ChartTools.IO.Ini
             ForceEightHopoFrequency = "eighthnote_hopo",
             MultiplierNote = "multiplier_note",
             StarPowerNote = "star_power_note",
-            SysExSlider = "sysex_slider",
+            SysExSliders = "sysex_slider",
             SysExHighHat = "sysex_high_hat_ctrl",
             Rimshot = "sysex_rimshot",
             SysExOpenBass = "sysex_open_bass",
             SysExProSlide = "sysex_pro_slide";
 
-        public static string Entry(string key, string value) => $"{key} = {value}";
+        public static string Line(string key, string value) => $"{key} = {value}";
     }
 }

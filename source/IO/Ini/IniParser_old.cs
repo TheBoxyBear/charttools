@@ -1,6 +1,4 @@
 ﻿using ChartTools.SystemExtensions.Linq;
-
-using ChartTools.IO.Configuration.Sessions;
 using System;
 using System.Collections.Generic;
 using System.IO;

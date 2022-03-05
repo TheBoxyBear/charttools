@@ -1,4 +1,6 @@
 ﻿
+using ChartTools.IO.Ini;
+
 namespace ChartTools
 {
     /// <summary>
@@ -10,9 +12,11 @@ namespace ChartTools
         /// Name of the creator
         /// </summary>
         public string? Name { get; set; }
+
         /// <summary>
         /// Location of the image file to use as an icon in the Clone Hero song browser
         /// </summary>
+        [IniSimpleSerialize(IniFormatting.Icon)]
         public string? Icon { get; set; }
     }
 }

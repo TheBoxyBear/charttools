@@ -331,7 +331,7 @@ namespace ChartTools.IO.MIDI
             string title = ((file.Chunks[0] as TrackChunk)!.Events[0] as SequenceTrackNameEvent)!.Text;
 
             return file.TimeDivision is TicksPerQuarterNoteTimeDivision division
-                ? new Metadata { Resolution = (ushort)division.TicksPerQuarterNote, Title = title }
+                ? new() { Formatting = new() { Resolution = (ushort)division.TicksPerQuarterNote }, Title = title }
                 : throw new FormatException("Cannot get resolution from the file.");
         }
 
