@@ -35,8 +35,7 @@ namespace ChartTools.IO.Chart.Parsers
             {
                 // Local event
                 case "E":
-                    string[] split = ChartReader.GetDataSplit(entry.Data.Trim('"'));
-                    preResult!.LocalEvents!.Add(new(entry.Position, split.Length > 0 ? split[0] : string.Empty));
+                    preResult!.LocalEvents.Add(new(entry.Position, entry.Data));
                     break;
                 // Note or chord modifier
                 case "N":
@@ -60,7 +59,7 @@ namespace ChartTools.IO.Chart.Parsers
                 case "S":
                     try
                     {
-                        split = ChartReader.GetDataSplit(entry.Data);
+                        var split = ChartReader.GetDataSplit(entry.Data);
 
                         if (!byte.TryParse(split[0], out byte typeCode))
                             throw new FormatException($"Cannot parse type code \"{split[0]}\" to byte.");

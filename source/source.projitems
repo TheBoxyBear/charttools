@@ -18,7 +18,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Chords\StandardChord.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\Event.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\EventArgumentHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\GlobalEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\EventTypeHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\EventTypeHeaderHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\LocalEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ILongObject.cs" />

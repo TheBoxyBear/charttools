@@ -93,7 +93,7 @@
         </member>
         <member name="M:ChartTools.Lyrics.PhraseExtensions.ToGlobalEvents(System.Collections.Generic.IEnumerable{ChartTools.Lyrics.Phrase})">
             <summary>
-            Converts a set of <see cref="T:ChartTools.Lyrics.Phrase"/> to a set of <see cref="T:ChartTools.GlobalEvent"/> making up the phrases.
+            Converts a set of <see cref="T:ChartTools.Lyrics.Phrase"/> to a set of <see cref="T:ChartTools.Events.GlobalEvent"/> making up the phrases.
             </summary>
             <param name="source">Phrases to convert into global events</param>
             <returns>Global events making up the phrases</returns>
@@ -206,32 +206,32 @@
             Frets for a <see cref="!:GHLNote"/>
             </summary>
         </member>
-        <member name="T:ChartTools.GlobalEventType">
+        <member name="T:ChartTools.GlobalEventTypeEnum">
             <summary>
-            Types of <see cref="T:ChartTools.GlobalEvent"/>
+            Types of <see cref="!:GlobalEvent"/>
             </summary>
         </member>
-        <member name="F:ChartTools.GlobalEventType.Unknown">
+        <member name="F:ChartTools.GlobalEventTypeEnum.Unknown">
             <summary>
-            The backing <see cref="P:ChartTools.Event.EventTypeString"/> property does not match a known event type
+            The backing <see cref="!:Event.EventTypeString"/> property does not match a known event type
             </summary>
         </member>
-        <member name="F:ChartTools.GlobalEventType.PhraseStart">
+        <member name="F:ChartTools.GlobalEventTypeEnum.PhraseStart">
             <summary>
             Marks the start of a new <see cref="T:ChartTools.Lyrics.Phrase"/>
             </summary>
         </member>
-        <member name="F:ChartTools.GlobalEventType.PhraseEnd">
+        <member name="F:ChartTools.GlobalEventTypeEnum.PhraseEnd">
             <summary>
             Marks the end of the current <see cref="T:ChartTools.Lyrics.Phrase"/>
             </summary>
         </member>
-        <member name="F:ChartTools.GlobalEventType.Lyric">
+        <member name="F:ChartTools.GlobalEventTypeEnum.Lyric">
             <summary>
             Marks a <see cref="T:ChartTools.Lyrics.Syllable"/> in the current <see cref="T:ChartTools.Lyrics.Phrase"/>
             </summary>
         </member>
-        <member name="F:ChartTools.GlobalEventType.Section">
+        <member name="F:ChartTools.GlobalEventTypeEnum.Section">
             <summary>
             Marks a new section used by Practice mode and in post-game summary
             </summary>
@@ -243,7 +243,7 @@
         </member>
         <member name="T:ChartTools.LightingEffect">
             <summary>
-            Lighting effect caused by a <see cref="T:ChartTools.GlobalEvent"/> of type <see cref="F:ChartTools.GlobalEventType.Lighting"/>
+            Lighting effect caused by a <see cref="!:GlobalEvent"/> of type <see cref="F:ChartTools.GlobalEventTypeEnum.Lighting"/>
             </summary>
         </member>
         <member name="F:ChartTools.LightingEffect.Unknwon">
@@ -253,12 +253,12 @@
         </member>
         <member name="T:ChartTools.LocalEventType">
             <summary>
-            Types of <see cref="T:ChartTools.LocalEvent"/>
+            Types of <see cref="!:LocalEvent"/>
             </summary>
         </member>
         <member name="F:ChartTools.LocalEventType.Unknown">
             <summary>
-            The backing <see cref="P:ChartTools.Event.EventTypeString"/> property does not match a known event type
+            The backing <see cref="!:Event.EventTypeString"/> property does not match a known event type
             </summary>
         </member>
         <member name="F:ChartTools.LocalEventType.Solo">
@@ -303,140 +303,65 @@
             Frets for a <see cref="!:StandardNote"/>
             </summary>
         </member>
-        <member name="T:ChartTools.Event">
+        <member name="T:ChartTools.Events.Event">
             <summary>
             Marker that defines an occurrence at a given point in a song.
             </summary>
         </member>
-        <member name="P:ChartTools.Event.EventTypeString">
+        <member name="P:ChartTools.Events.Event.EventType">
             <summary>
             Type of event as it is written in the file
             </summary>
         </member>
-        <member name="P:ChartTools.Event.Argument">
+        <member name="P:ChartTools.Events.Event.Argument">
             <summary>
             Additional data to modify the outcome of the event
             </summary>
             <remarks>A lack of argument is represented as an empty string.</remarks>
         </member>
-        <member name="M:ChartTools.Event.#ctor(System.UInt32,System.String)">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.Event"/>.
-            </summary>
-            <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
-            <param name="eventData">Value of <see cref="P:ChartTools.Event.EventData"/></param>
+        <member name="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String)">
+            <param name="position"><inheritdoc cref="P:ChartTools.TrackObject.Position"/></param>
+            <param name="data"><inheritdoc cref="P:ChartTools.Events.Event.EventData"/></param>
         </member>
-        <member name="T:ChartTools.GlobalEvent">
+        <member name="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String,System.String)">
+            <inheritdoc cref="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String)"/>
+            <param name="type"><inheritdoc cref="P:ChartTools.Events.Event.EventType"/></param>
+            <param name="argument"><inheritdoc cref="P:ChartTools.Events.Event.Argument"/></param>
+        </member>
+        <member name="T:ChartTools.Events.GlobalEvent">
             <summary>
             Event common to all instruments
             </summary>
         </member>
-        <member name="P:ChartTools.GlobalEvent.GlobalRockBandSectionFormat">
-            <summary>
-            Format in which events will be written when set to the <see cref="F:ChartTools.GlobalEventType.Section"/> type
-            </summary>
+        <member name="M:ChartTools.Events.GlobalEvent.#ctor(System.UInt32,System.String)">
+            <inheritdoc cref="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String)"/>
         </member>
-        <member name="F:ChartTools.GlobalEvent.globalTypesDictionary">
-            <summary>
-            <see cref="P:ChartTools.Event.EventTypeString"/> value for each <see cref="T:ChartTools.GlobalEventType"/>
-            </summary>
+        <member name="M:ChartTools.Events.GlobalEvent.#ctor(System.UInt32,System.String,System.String)">
+            <inheritdoc cref="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String,System.String)"/>
         </member>
-        <member name="P:ChartTools.GlobalEvent.EventType">
-            <inheritdoc cref="P:ChartTools.Event.EventTypeString"/>
-        </member>
-        <member name="P:ChartTools.GlobalEvent.IsLyricEvent">
-            <summary>
-            The event serves to display lyrics
-            </summary>
-        </member>
-        <member name="P:ChartTools.GlobalEvent.IsCrowdEvent">
-            <summary>
-            The event controls the crowd
-            </summary>
-        </member>
-        <member name="P:ChartTools.GlobalEvent.SectionFormat">
-            <summary>
-            Rock Band format the section event is written in
-            </summary>
-            <remarks><see langword="null"/> if the event is not a section.</remarks>
-        </member>
-        <member name="P:ChartTools.GlobalEvent.LightingEffect">
-            <summary>
-            Effect caused by the event if it is a lighting event
-            </summary>
-            <remarks><see langword="null"/> if the event is not a lighting event</remarks>
-        </member>
-        <member name="P:ChartTools.GlobalEvent.LightingEffectSting">
-            <summary>
-            Lighting effect as it is written in the file
-            </summary>
-        </member>
-        <member name="M:ChartTools.GlobalEvent.#ctor(System.UInt32,ChartTools.GlobalEventType,System.String)">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.GlobalEvent"/>.
-            </summary>
-            <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
-            <param name="type">Value of <see cref="P:ChartTools.GlobalEvent.EventType"/></param>
-            <param name="argument">Value of <see cref="P:ChartTools.Event.Argument"/></param>
-        </member>
-        <member name="M:ChartTools.GlobalEvent.#ctor(System.UInt32,System.String,System.String)">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.GlobalEvent"/>.
-            </summary>
-            <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
-            <param name="type">Value of <see cref="!:EventTypeString"/></param>
-            <param name="argument">Value of <see cref="!:Argument"/></param>
-        </member>
-        <member name="M:ChartTools.GlobalEvent.GetEventTypeString(ChartTools.GlobalEventType)">
-            <summary>
-            Gets the string value to set <see cref="P:ChartTools.Event.EventTypeString"/>.
-            </summary>
-            <param name="type">Event type to get the string value of</param>
-        </member>
-        <member name="M:ChartTools.GlobalEvent.FromFile(System.String)">
+        <member name="M:ChartTools.Events.GlobalEvent.FromFile(System.String)">
             <summary>
             Reads global events from a file.
             </summary>
             <param name="path">Path of the file</param>
         </member>
-        <member name="M:ChartTools.GlobalEvent.FromFileAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:ChartTools.Events.GlobalEvent.FromFileAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Reads global events from a file asynchronously using multitasking.
             </summary>
-            <param name="path"><inheritdoc cref="M:ChartTools.GlobalEvent.FromFile(System.String)" path="/param[@name='path']"/></param>
+            <param name="path"><inheritdoc cref="M:ChartTools.Events.GlobalEvent.FromFile(System.String)" path="/param[@name='path']"/></param>
             <param name="cancellationToken">Token to request cancellation</param>
         </member>
-        <member name="T:ChartTools.LocalEvent">
+        <member name="T:ChartTools.Events.LocalEvent">
             <summary>
             Event specific to an instrument and difficulty
             </summary>
         </member>
-        <member name="F:ChartTools.LocalEvent.localTypesDictionary">
-            <summary>
-            <see cref="P:ChartTools.Event.EventTypeString"/> value for each <see cref="T:ChartTools.LocalEventType"/>
-            </summary>
+        <member name="M:ChartTools.Events.LocalEvent.#ctor(System.UInt32,System.String)">
+            <inheritdoc cref="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String)"/>
         </member>
-        <member name="P:ChartTools.LocalEvent.EventType">
-            <inheritdoc cref="P:ChartTools.Event.EventTypeString"/>
-        </member>
-        <member name="M:ChartTools.LocalEvent.#ctor(System.UInt32,ChartTools.LocalEventType)">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.LocalEvent"/>.
-            </summary>
-            <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
-            <param name="type">Value of <see cref="P:ChartTools.LocalEvent.EventType"/></param>
-            <param name="argument">Value of <see cref="P:ChartTools.Event.Argument"/></param>
-        </member>
-        <member name="M:ChartTools.LocalEvent.#ctor(System.UInt32,System.String)">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.LocalEvent"/>.
-            </summary>
-            <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
-            <param name="type">Value of <see cref="!:EventTypeString"/></param>
-            <param name="argument">Value of <see cref="!:Argument"/></param>
-        </member>
-        <member name="M:ChartTools.LocalEvent.GetEventTypeString(ChartTools.LocalEventType)">
-            <inheritdoc cref="M:ChartTools.GlobalEvent.GetEventTypeString(ChartTools.GlobalEventType)"/>
+        <member name="M:ChartTools.Events.LocalEvent.#ctor(System.UInt32,System.String,System.String)">
+            <inheritdoc cref="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String,System.String)"/>
         </member>
         <member name="T:ChartTools.Instrument">
             <summary>
@@ -1250,23 +1175,20 @@
         </member>
         <member name="T:ChartTools.GlobalEventExtensions">
             <summary>
-            Provides additional methods for <see cref="T:ChartTools.GlobalEvent"/>
+            Provides additional methods for <see cref="T:ChartTools.Events.GlobalEvent"/>
             </summary>
         </member>
-        <member name="M:ChartTools.GlobalEventExtensions.ToFile(System.String,System.Collections.Generic.IEnumerable{ChartTools.GlobalEvent})">
-            <inheritdoc cref="!:exceptions.ReplaceGlobalEvents(string, IEnumerable&lt;GlobalEvent&gt;)"/>
-        </member>
-        <member name="M:ChartTools.GlobalEventExtensions.GetLyrics(System.Collections.Generic.IEnumerable{ChartTools.GlobalEvent})">
+        <member name="M:ChartTools.GlobalEventExtensions.GetLyrics(System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent})">
             <summary>
-            Gets the lyrics from an enumerable of <see cref="T:ChartTools.GlobalEvent"/>
+            Gets the lyrics from an enumerable of <see cref="T:ChartTools.Events.GlobalEvent"/>
             </summary>
             <returns>Enumerable of <see cref="T:ChartTools.Lyrics.Phrase"/></returns>
         </member>
-        <member name="M:ChartTools.GlobalEventExtensions.SetLyrics(System.Collections.Generic.IEnumerable{ChartTools.GlobalEvent},System.Collections.Generic.IEnumerable{ChartTools.Lyrics.Phrase})">
+        <member name="M:ChartTools.GlobalEventExtensions.SetLyrics(System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent},System.Collections.Generic.IEnumerable{ChartTools.Lyrics.Phrase})">
             <summary>
-            Gets a set of <see cref="T:ChartTools.GlobalEvent"/> where phrase and lyric events are replaced with the events making up a set of <see cref="T:ChartTools.Lyrics.Phrase"/>.
+            Gets a set of <see cref="T:ChartTools.Events.GlobalEvent"/> where phrase and lyric events are replaced with the events making up a set of <see cref="T:ChartTools.Lyrics.Phrase"/>.
             </summary>
-            <returns>Enumerable of <see cref="T:ChartTools.GlobalEvent"/></returns>
+            <returns>Enumerable of <see cref="T:ChartTools.Events.GlobalEvent"/></returns>
         </member>
         <member name="T:ChartTools.FuncEqualityComparer`1">
             <summary>
@@ -1537,13 +1459,13 @@
             </summary>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartReader.ReadGlobalEvents(System.String)">
-            <inheritdoc cref="M:ChartTools.GlobalEvent.FromFile(System.String)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.GlobalEvent.FromFile(System.String)" path="/param[@name='path']"/></param>
+            <inheritdoc cref="M:ChartTools.Events.GlobalEvent.FromFile(System.String)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Events.GlobalEvent.FromFile(System.String)" path="/param[@name='path']"/></param>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartReader.ReadGlobalEventsAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc cref="M:ChartTools.GlobalEvent.FromFileAsync(System.String,System.Threading.CancellationToken)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.GlobalEvent.FromFileAsync(System.String,System.Threading.CancellationToken)" path="/param[@name='path']"/></param>
-            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.GlobalEvent.FromFileAsync(System.String,System.Threading.CancellationToken)" path="/param[@name='cancellationToken']"/></param>
+            <inheritdoc cref="M:ChartTools.Events.GlobalEvent.FromFileAsync(System.String,System.Threading.CancellationToken)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Events.GlobalEvent.FromFileAsync(System.String,System.Threading.CancellationToken)" path="/param[@name='path']"/></param>
+            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Events.GlobalEvent.FromFileAsync(System.String,System.Threading.CancellationToken)" path="/param[@name='cancellationToken']"/></param>
             <returns></returns>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartReader.ReadLyrics(System.String)">
@@ -1612,7 +1534,7 @@
             <param name="metadata">Metadata to write</param>
             <inheritdoc cref="!:ReplacePart(string, IEnumerable&lt;string&gt;, string)" path="/exception"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartWriter.ReplaceGlobalEvents(System.String,System.Collections.Generic.IEnumerable{ChartTools.GlobalEvent})">
+        <member name="M:ChartTools.IO.Chart.ChartWriter.ReplaceGlobalEvents(System.String,System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent})">
             <summary>
             Replaces the global events in a file.
             </summary>

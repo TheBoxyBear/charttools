@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Collections;
 using ChartTools.IO.Configuration;
 using System.Threading;
+using ChartTools.Events;
 
 namespace ChartTools.SystemExtensions
 {
@@ -523,7 +524,6 @@ namespace ChartTools
     /// </summary>
     public static class GlobalEventExtensions
     {
-        /// <inheritdoc cref="exceptions.ReplaceGlobalEvents(string, IEnumerable{GlobalEvent})"/>
         public static void ToFile(string path, IEnumerable<GlobalEvent> events) => ExtensionHandler.Write(path, events, null, (".chart", (path, token, _) => ChartWriter.ReplaceGlobalEvents(path, token)));
         public static async Task ToFileAsync(string path, IEnumerable<GlobalEvent> events, CancellationToken cancellationToken) => await ExtensionHandler.WriteAsync(path, events, cancellationToken, null, (".chart", (path, events, token, _) => ChartWriter.ReplaceGlobalEventsAsync(path, events, token)));
 
@@ -540,7 +540,7 @@ namespace ChartTools
                 switch (globalEvent.EventType)
                 {
                     // Change active phrase
-                    case GlobalEventType.PhraseStart:
+                    case EventTypeHelper.Global.PhraseStart:
                         if (phrase is not null)
                             yield return phrase;
 
@@ -554,7 +554,7 @@ namespace ChartTools
                         }
                         break;
                     // Add syllable to the active phrase using the event argument
-                    case GlobalEventType.Lyric:
+                    case EventTypeHelper.Global.Lyric:
                         Syllable newSyllable = new(globalEvent.Position, VocalsPitches.None) { RawText = globalEvent.Argument };
 
                         // If the first lyric precedes the first phrase, store it
@@ -564,7 +564,7 @@ namespace ChartTools
                             phrase.Notes.Add(newSyllable);
                         break;
                     // Set end position of active phrase
-                    case GlobalEventType.PhraseEnd:
+                    case EventTypeHelper.Global.PhraseEnd:
                         if (phrase is not null)
                             phrase.EndPositionOverride = globalEvent.Position;
                         break;

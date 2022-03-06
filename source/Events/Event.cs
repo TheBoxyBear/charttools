@@ -1,50 +1,64 @@
 ﻿using System;
 
-namespace ChartTools
+namespace ChartTools.Events
 {
     /// <summary>
     /// Marker that defines an occurrence at a given point in a song.
     /// </summary>
     public abstract class Event : TrackObject
     {
+        private string _eventType = "Default";
         /// <summary>
         /// Type of event as it is written in the file
         /// </summary>
-        public string EventTypeString
+        public string EventType
         {
-            get => EventData.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries)[0];
+            get => _eventType;
             set
             {
-                string[] split = EventData.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
-                split[0] = value.Trim();
+                if (string.IsNullOrEmpty(value))
+                    throw new FormatException("Event type is empty");
 
-                EventData = string.Join(' ', split);
+                if (value.Contains(' '))
+                    throw new FormatException("Event types cannot contain spaces");
+
+                _eventType = value;
             }
         }
 
+        private string? _argument = null;
         /// <summary>
         /// Additional data to modify the outcome of the event
         /// </summary>
         /// <remarks>A lack of argument is represented as an empty string.</remarks>
-        public string Argument
+        public string? Argument
         {
-            get
-            {
-                string[] split = EventData.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
-                return split.Length > 1 ? split[1] : string.Empty;
-            }
-            set => EventData = string.IsNullOrEmpty(value) ? EventTypeString : EventTypeString + ' ' + value;
+            get => _argument;
+            set => _argument = value ?? string.Empty;
         }
 
-        internal string EventData { get; set; } = "Default";
+        public string EventData
+        {
+            get => Argument is null ? EventType : string.Join(' ', EventType, Argument);
+            set
+            {
+                var split = value.Split(' ', 2, StringSplitOptions.None);
 
-        /// <summary>
-        /// Creates an instance of <see cref="Event"/>.
-        /// </summary>
-        /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
-        /// <param name="eventData">Value of <see cref="EventData"/></param>
-        protected Event(uint position, string eventData) : base(position) => EventData = eventData is null
-            ? throw new ArgumentNullException(nameof(eventData))
-            : eventData;
+                EventType = split[0];
+                Argument = split.Length > 1 ? split[1] : string.Empty;
+            }
+        }
+
+        /// <param name="position"><inheritdoc cref="TrackObject.Position"/></param>
+        /// <param name="data"><inheritdoc cref="EventData"/></param>
+        public Event(uint position, string data) : base(position) => EventData = data;
+        /// <inheritdoc cref="Event(uint, string)"/>
+        /// <param name="type"><inheritdoc cref="EventType"/></param>
+        /// <param name="argument"><inheritdoc cref="Argument"/></param>
+        public Event(uint position, string type, string? argument) : base(position)
+        {
+            EventType = type;
+            Argument = argument;
+        }
     }
 }
