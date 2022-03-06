@@ -21,8 +21,6 @@ namespace ChartTools.IO.Configuration.Sessions
 
         public virtual CommonConfiguration Configuration { get; }
 
-        public Session(CommonConfiguration config) => Configuration = config;
-
         private static bool DuplicateIncludeAll(uint position, ICollection<uint> ignored, string objectType) => true;
         private static bool DuplicateIncludeFirst(uint position, ICollection<uint> ignored, string objectType)
         {
