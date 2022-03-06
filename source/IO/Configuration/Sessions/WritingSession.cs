@@ -25,7 +25,7 @@ namespace ChartTools.IO.Configuration.Sessions
 
         public uint HopoThreshold { get; set; }
 
-        public WritingSession(WritingConfiguration config) : base(config) { }
+        public WritingSession(WritingConfiguration config) => Configuration = config;
     }
 
 }

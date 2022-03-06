@@ -14,15 +14,16 @@ namespace ChartTools.Lyrics
             get => base.Position;
             set
             {
-                if (value > EndPosition)
-                    throw new ArgumentException("Position cannot be larger than the end position.", nameof(Position));
+                if (EndPositionOverride is not null && value > EndPositionOverride)
+                    throw new ArgumentException("Position cannot be larger than the end position override.", nameof(Position));
+
                 base.Position = value;
             }
         }
         /// <summary>
-        /// End of the phrase as defined by <see cref="SyllableEnd"/>, unless overridden by <see cref="EndPositionOverride"/>
+        /// End of the phrase as defined by <see cref="SyllableEndOffset"/>, unless overridden by <see cref="EndPositionOverride"/>
         /// </summary>
-        public uint EndPosition => EndPositionOverride ?? SyllableEnd;
+        public uint EndPosition => EndPositionOverride ?? SyllableEndOffset;
         /// <summary>
         /// Explicit end position overriding the natural one
         /// </summary>
@@ -34,36 +35,45 @@ namespace ChartTools.Lyrics
                 if (value is null || value >= Position)
                     _endPositionOverride = value;
 
-                if (value < SyllableEnd)
+                if (value < SyllableEndOffset)
                     throw new ArgumentException("End position cannot be less than the position of the last syllable.", nameof(value));
 
                 throw new ArgumentException("Pnd position cannot be less than the position.", nameof(value));
             }
         }
         private uint? _endPositionOverride;
-        public uint Length
+
+        public uint Length => LengthOverride ?? SyllableEndOffset;
+        public uint? LengthOverride
         {
-            get => EndPosition - Position;
+            get => _lengthOverride;
             set
             {
-                var syllableEnd = SyllableEnd;
+                if (value is not null && value < SyllableEndOffset)
+                    throw new ArgumentException("Length must be large enough to fit all syllables.", nameof(value));
 
-                if (value < syllableEnd)
-                    throw new ArgumentException("Length must be long enough to fit all syllables.", nameof(value));
-
-                if (value > syllableEnd)
-                    _endPositionOverride = Position + value;
+                _lengthOverride = value;
             }
         }
+        private uint? _lengthOverride;
+
 
         /// <summary>
-        /// Start of the first syllable
+        /// Offset of the first syllable
         /// </summary>
-        public uint SyllableStart => Notes.Count == 0 ? Position : Notes.Select(s => s.Position).Min();
+        public uint SyllableStartOffset => Notes.Count == 0 ? 0 : Notes.Select(s => s.PositionOffset).Min();
         /// <summary>
-        /// Natural end position based on the end of the last syllable
+        /// Offset of the end of the last syllable
         /// </summary>
-        public uint SyllableEnd => Notes.Count == 0 ?  Position : Notes.Select(s => s.EndPosition).Max();
+        public uint SyllableEndOffset => Notes.Count == 0 ? 0 : Notes.Select(s => s.EndPositionOffset).Max();
+        /// <summary>
+        /// Start position of the first syllable
+        /// </summary>
+        public uint SyllableStartPosition => SyllableStartOffset + Position;
+        /// <summary>
+        /// End position of the last syllable
+        /// </summary>
+        public uint SyllableEndPosition => SyllableEndOffset + Position;
 
         /// <summary>
         /// Gets the raw text of all syllables as a single string with spaces between syllables
