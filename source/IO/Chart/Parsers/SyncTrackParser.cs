@@ -14,9 +14,6 @@ namespace ChartTools.IO.Chart.Parsers
         private readonly HashSet<uint> ignoredTempos = new(), ignoredAnchors = new(), ignoredSignatures = new();
         private const string parseFloatExceptionMessage = "Cannot parse value \"{0}\" to float.";
 
-        public override SyncTrack Result => GetResult(result);
-        private SyncTrack result = new();
-
         public SyncTrackParser(ReadingSession session) : base(session) { }
 
         protected override void HandleItem(string line)
@@ -97,6 +94,6 @@ namespace ChartTools.IO.Chart.Parsers
             }
         }
 
-        public override void ApplyResultToSong(Song song) => song.SyncTrack = result;
+        public override void ApplyResultToSong(Song song) => song.SyncTrack = Result;
     }
 }

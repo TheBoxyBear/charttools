@@ -11,6 +11,8 @@ namespace ChartTools.IO.Chart.Parsers
         public override List<GlobalEvent> Result => GetResult(result);
         private List<GlobalEvent> result = new();
 
+        public GlobalEventParser(ReadingSession session) : base(session) { }
+
         protected override void HandleItem(string line)
         {
             TrackObjectEntry entry;
