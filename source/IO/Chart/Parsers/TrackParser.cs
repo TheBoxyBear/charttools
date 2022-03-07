@@ -13,7 +13,7 @@ namespace ChartTools.IO.Chart.Parsers
     {
         public Difficulty Difficulty { get; }
 
-        private readonly Track<TChord> preResult = new();
+        private readonly Track<TChord> preResult;
         private Track<TChord>? result;
 
         private TChord? chord;
@@ -22,7 +22,11 @@ namespace ChartTools.IO.Chart.Parsers
 
         public override Track<TChord>? Result => result;
 
-        public TrackParser(Difficulty difficulty, ReadingSession session) : base(session) => Difficulty = difficulty;
+        public TrackParser(Difficulty difficulty, ReadingSession session) : base(session)
+        {
+            Difficulty = difficulty;
+            preResult = new Track<TChord>() with { Difficulty = difficulty };
+        }
 
         protected override void HandleItem(string line)
         {
@@ -85,7 +89,7 @@ namespace ChartTools.IO.Chart.Parsers
             result = preResult;
         }
 
-        protected void ApplyResultToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(result!, Difficulty);
+        protected void ApplyResultToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(result!);
 
         private static void ApplyOverlappingSpecialPhrasePolicy(IEnumerable<SpecicalPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
         {

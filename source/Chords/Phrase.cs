@@ -7,41 +7,12 @@ namespace ChartTools.Lyrics
 {
     public class Phrase : Chord<Syllable, VocalsPitch, VocalChordModifier>, ILongTrackObject
     {
-        public override UniqueTrackObjectCollection<Syllable> Notes { get; } = new();
-
-        public override uint Position
-        {
-            get => base.Position;
-            set
-            {
-                if (EndPositionOverride is not null && value > EndPositionOverride)
-                    throw new ArgumentException("Position cannot be larger than the end position override.", nameof(Position));
-
-                base.Position = value;
-            }
-        }
+        public override List<Syllable> Notes { get; } = new();
+        public override uint Position { get; set; }
         /// <summary>
         /// End of the phrase as defined by <see cref="SyllableEndOffset"/>, unless overridden by <see cref="EndPositionOverride"/>
         /// </summary>
-        public uint EndPosition => EndPositionOverride ?? SyllableEndOffset;
-        /// <summary>
-        /// Explicit end position overriding the natural one
-        /// </summary>
-        public uint? EndPositionOverride
-        {
-            get => _endPositionOverride;
-            set
-            {
-                if (value is null || value >= Position)
-                    _endPositionOverride = value;
-
-                if (value < SyllableEndOffset)
-                    throw new ArgumentException("End position cannot be less than the position of the last syllable.", nameof(value));
-
-                throw new ArgumentException("Pnd position cannot be less than the position.", nameof(value));
-            }
-        }
-        private uint? _endPositionOverride;
+        public uint EndPosition => Position + Length;
 
         public uint Length => LengthOverride ?? SyllableEndOffset;
         public uint? LengthOverride
@@ -49,8 +20,8 @@ namespace ChartTools.Lyrics
             get => _lengthOverride;
             set
             {
-                if (value is not null && value < SyllableEndOffset)
-                    throw new ArgumentException("Length must be large enough to fit all syllables.", nameof(value));
+                //if (value is not null && value < SyllableEndOffset)
+                //    throw new ArgumentException("Length must be large enough to fit all syllables.", nameof(value));
 
                 _lengthOverride = value;
             }
@@ -91,7 +62,7 @@ namespace ChartTools.Lyrics
             yield return new(Position, GlobalEventType.PhraseStart);
 
             foreach (var note in Notes)
-                yield return new(note.Position, GlobalEventType.Lyric, note.RawText);
+                yield return new(Position + note.PositionOffset, GlobalEventType.Lyric, note.RawText);
         }
 
         internal override IEnumerable<string> GetChartNoteData() => Enumerable.Empty<string>();

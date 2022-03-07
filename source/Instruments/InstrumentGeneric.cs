@@ -59,7 +59,7 @@ namespace ChartTools
         /// Sets a track for a given <see cref="Difficulty"/>.
         /// </summary>
         /// <exception cref="ArgumentNullException"></exception>
-        public void SetTrack(Track<TChord> track, Difficulty difficulty)
+        public void SetTrack(Track<TChord> track)
         {
             if (track is null)
                 throw new ArgumentNullException(nameof(track));

@@ -535,6 +535,7 @@ namespace ChartTools
         {
             Phrase? phrase = null;
             Syllable? phraselessFirstSyllable = null;
+            uint firstPhrasePosition = 0;
 
             foreach (GlobalEvent globalEvent in globalEvents.OrderBy(e => e.Position).Distinct())
                 switch (globalEvent.EventType)
@@ -547,7 +548,7 @@ namespace ChartTools
                         phrase = new Phrase(globalEvent.Position);
 
                         // If the stored lyric has the same position as the new phrase, add it to the phrase
-                        if (phraselessFirstSyllable is not null && phraselessFirstSyllable.Position == globalEvent.Position)
+                        if (phraselessFirstSyllable is not null && firstPhrasePosition == globalEvent.Position)
                         {
                             phrase.Notes.Add(phraselessFirstSyllable);
                             phraselessFirstSyllable = null;
@@ -566,7 +567,7 @@ namespace ChartTools
                     // Set end position of active phrase
                     case GlobalEventType.PhraseEnd:
                         if (phrase is not null)
-                            phrase.EndPositionOverride = globalEvent.Position;
+                            phrase.LengthOverride = globalEvent.Position - phrase.Position;
                         break;
                 }
 

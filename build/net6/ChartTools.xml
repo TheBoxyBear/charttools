@@ -63,22 +63,27 @@
         </member>
         <member name="P:ChartTools.Lyrics.Phrase.EndPosition">
             <summary>
-            End of the phrase as defined by <see cref="P:ChartTools.Lyrics.Phrase.SyllableEnd"/>, unless overridden by <see cref="P:ChartTools.Lyrics.Phrase.EndPositionOverride"/>
+            End of the phrase as defined by <see cref="P:ChartTools.Lyrics.Phrase.SyllableEndOffset"/>, unless overridden by <see cref="!:EndPositionOverride"/>
             </summary>
         </member>
-        <member name="P:ChartTools.Lyrics.Phrase.EndPositionOverride">
+        <member name="P:ChartTools.Lyrics.Phrase.SyllableStartOffset">
             <summary>
-            Explicit end position overriding the natural one
+            Offset of the first syllable
             </summary>
         </member>
-        <member name="P:ChartTools.Lyrics.Phrase.SyllableStart">
+        <member name="P:ChartTools.Lyrics.Phrase.SyllableEndOffset">
             <summary>
-            Start of the first syllable
+            Offset of the end of the last syllable
             </summary>
         </member>
-        <member name="P:ChartTools.Lyrics.Phrase.SyllableEnd">
+        <member name="P:ChartTools.Lyrics.Phrase.SyllableStartPosition">
             <summary>
-            Natural end position based on the end of the last syllable
+            Start position of the first syllable
+            </summary>
+        </member>
+        <member name="P:ChartTools.Lyrics.Phrase.SyllableEndPosition">
+            <summary>
+            End position of the last syllable
             </summary>
         </member>
         <member name="P:ChartTools.Lyrics.Phrase.RawText">
@@ -101,6 +106,16 @@
         <member name="T:ChartTools.Lyrics.Syllable">
             <summary>
             Karaoke step of a <see cref="T:ChartTools.Lyrics.Phrase"/>
+            </summary>
+        </member>
+        <member name="P:ChartTools.Lyrics.Syllable.PositionOffset">
+            <summary>
+            Position offset from the <see cref="T:ChartTools.Lyrics.Phrase"/>
+            </summary>
+        </member>
+        <member name="P:ChartTools.Lyrics.Syllable.EndPositionOffset">
+            <summary>
+            Position offset of the end from the <see cref="T:ChartTools.Lyrics.Phrase"/>
             </summary>
         </member>
         <member name="P:ChartTools.Lyrics.Syllable.Pitch">
@@ -438,6 +453,11 @@
         <member name="M:ChartTools.LocalEvent.GetEventTypeString(ChartTools.LocalEventType)">
             <inheritdoc cref="M:ChartTools.GlobalEvent.GetEventTypeString(ChartTools.GlobalEventType)"/>
         </member>
+        <member name="P:ChartTools.ILongObject.Length">
+            <summary>
+            Length of the object in ticks
+            </summary>
+        </member>
         <member name="T:ChartTools.Instrument">
             <summary>
             Base class for instruments
@@ -589,7 +609,7 @@
             Gets the <see cref="T:ChartTools.Track`1"/> that matches a <see cref="T:ChartTools.Difficulty"/>
             </summary>
         </member>
-        <member name="M:ChartTools.Instrument`1.SetTrack(ChartTools.Track{`0},ChartTools.Difficulty)">
+        <member name="M:ChartTools.Instrument`1.SetTrack(ChartTools.Track{`0})">
             <summary>
             Sets a track for a given <see cref="T:ChartTools.Difficulty"/>.
             </summary>
@@ -1941,6 +1961,11 @@
             <param name="ex">Exception to throw if returned <see langword="false"/></param>
             <returns><see langword="true"/> if the collection contains at least one <see cref="T:Melanchall.DryWetMidi.Core.TrackChunk"/></returns>
         </member>
+        <member name="P:ChartTools.ILongTrackObject.EndPosition">
+            <summary>
+            Tick number marking the end of the object
+            </summary>
+        </member>
         <member name="T:ChartTools.Charter">
             <summary>
             Creator of the chart
@@ -2018,11 +2043,6 @@
         <member name="P:ChartTools.StreamCollection.Crowd">
             <summary>
             Location of the crowd reaction audio file
-            </summary>
-        </member>
-        <member name="P:ChartTools.ILongTrackObject.EndPosition">
-            <summary>
-            Tick number marking the end of the object
             </summary>
         </member>
         <member name="P:ChartTools.ITrackObject.Position">
