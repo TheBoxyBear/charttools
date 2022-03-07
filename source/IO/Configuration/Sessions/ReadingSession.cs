@@ -4,6 +4,6 @@
     {
         public override ReadingConfiguration Configuration { get; }
 
-        public ReadingSession(ReadingConfiguration config) : base(config) { }
+        public ReadingSession(ReadingConfiguration config) => Configuration = config;
     }
 }

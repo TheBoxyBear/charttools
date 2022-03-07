@@ -119,7 +119,7 @@ namespace ChartTools
     /// <summary>
     /// All instruments
     /// </summary>
-    public enum InstrumentIdentity : byte { Unknown, Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys, Vocals }
+    public enum InstrumentIdentity : byte { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys, Vocals }
     public enum InstrumentType : byte { Drums, GHL, Standard, Vocals }
     /// <summary>
     /// Lighting effect caused by a <see cref="GlobalEvent"/> of type <see cref="GlobalEventType.Lighting"/>
