@@ -37,7 +37,7 @@ namespace ChartTools.IO.Chart.Parsers
             {
                 // Local event
                 case "E":
-                    string[] split = ChartReader.GetDataSplit(entry.Data.Trim('"'));
+                    string[] split = ChartFile.GetDataSplit(entry.Data.Trim('"'));
                     result.LocalEvents!.Add(new(entry.Position, split.Length > 0 ? split[0] : string.Empty));
                     break;
                 // Note or chord modifier
@@ -62,7 +62,7 @@ namespace ChartTools.IO.Chart.Parsers
                 case "S":
                     try
                     {
-                        split = ChartReader.GetDataSplit(entry.Data);
+                        split = ChartFile.GetDataSplit(entry.Data);
 
                         if (!byte.TryParse(split[0], out byte typeCode))
                             throw new FormatException($"Cannot parse type code \"{split[0]}\" to byte.");
@@ -76,7 +76,7 @@ namespace ChartTools.IO.Chart.Parsers
             }
 
             if (session!.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert)
-                result.StarPower.AddRange(result!.SoloToStarPower(true));
+                result.StarPower.AddRange(result.SoloToStarPower(true));
         }
 
         protected abstract void HandleNote(Track<TChord> track, ref TChord chord, uint position, NoteData data, ref bool newChord, out Enum initialModifier);
@@ -87,7 +87,7 @@ namespace ChartTools.IO.Chart.Parsers
             base.FinaliseParse();
         }
 
-        protected void ApplyResultToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(result!);
+        protected void ApplyResultToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(Result);
 
         private static void ApplyOverlappingSpecialPhrasePolicy(IEnumerable<SpecicalPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
         {

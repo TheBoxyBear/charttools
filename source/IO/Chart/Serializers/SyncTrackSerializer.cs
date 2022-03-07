@@ -9,6 +9,6 @@ namespace ChartTools.IO.Chart.Serializers
     {
         public SyncTrackSerializer(SyncTrack content, WritingSession session) : base(ChartFormatting.SyncTrackHeader, content, session) { }
 
-        protected override IEnumerable<TrackObjectProviderEntry>[] LaunchProviders() => new IEnumerable<TrackObjectProviderEntry>[] { new TempoProvider().ProvideFor(Content.Tempo, session!), new TimeSignatureProvider().ProvideFor(Content.TimeSignatures, session!) };
+        protected override IEnumerable<TrackObjectProviderEntry>[] LaunchProviders() => new IEnumerable<TrackObjectProviderEntry>[] { new TempoProvider().ProvideFor(Content.Tempo, session), new TimeSignatureProvider().ProvideFor(Content.TimeSignatures, session) };
     }
 }

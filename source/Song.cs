@@ -200,7 +200,7 @@ namespace ChartTools
         /// </summary>
         /// <param name="path">Path of the file</param>
         /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
-        public static Song FromFile(string path, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, config, (".chart", ChartReader.ReadSong), (".ini", (p, config) => new Song { Metadata = IniParser.ReadMetadata(p) }));
+        public static Song FromFile(string path, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, config, (".chart", ChartFile.ReadSong), (".ini", (p, config) => new Song { Metadata = IniParser_old.ReadMetadata(p) }));
 
         /// <summary>
         /// Reads all elements of a <see cref="Song"/> from a file asynchronously using multitasking.
@@ -208,7 +208,7 @@ namespace ChartTools
         /// <param name="path"><inheritdoc cref="FromFile(string, ReadingConfiguration?)" path="/param[@name='path']"/></param>
         /// <param name="cancellationToken">Token to request cancellation</param>
         /// <param name="config"><inheritdoc cref="FromFile(string, ReadingConfiguration?)" path="/param[@name='config']"/></param>
-        public static async Task<Song> FromFileAsync(string path, CancellationToken cancellationToken, ReadingConfiguration? config = default) => await ExtensionHandler.ReadAsync<Song>(path, cancellationToken, config, (".chart", ChartReader.ReadSongAsync));
+        public static async Task<Song> FromFileAsync(string path, CancellationToken cancellationToken, ReadingConfiguration? config = default) => await ExtensionHandler.ReadAsync<Song>(path, cancellationToken, config, (".chart", ChartFile.ReadSongAsync));
 
         /// <summary>
         /// Writes the <see cref="Song"/> to a file.
@@ -221,8 +221,8 @@ namespace ChartTools
         /// <exception cref="UnauthorizedAccessException"/>
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="System.Security.SecurityException"/>
-        public void ToFile(string path, WritingConfiguration? config = default) => ExtensionHandler.Write(path, this, config, (".chart", ChartWriter.WriteSong));
-        public async Task ToFileAsync(string path, CancellationToken cancellationToken, WritingConfiguration? config = default) => await ExtensionHandler.WriteAsync(path, this, cancellationToken, config, (".chart", ChartWriter.WriteSongAsync));
+        public void ToFile(string path, WritingConfiguration? config = default) => ExtensionHandler.Write(path, this, config, (".chart", ChartFile.WriteSong));
+        public async Task ToFileAsync(string path, CancellationToken cancellationToken, WritingConfiguration? config = default) => await ExtensionHandler.WriteAsync(path, this, cancellationToken, config, (".chart", ChartFile.WriteSongAsync));
 
         /// <summary>
         /// Reads the estimated instrument difficulties from a ini file.
@@ -231,14 +231,14 @@ namespace ChartTools
         /// <exception cref="ArgumentException"/>
         /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
-        public void ReadDifficulties(string path) => ExtensionHandler.Read(path, (".ini", path => IniParser.ReadDifficulties(path, this)));
+        public void ReadDifficulties(string path) => ExtensionHandler.Read(path, (".ini", path => IniParser_old.ReadDifficulties(path, this)));
         /// <summary>
         /// Writes the estimated instrument difficulties to a ini file.
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="IOException"/>
-        public void WriteDifficulties(string path) => ExtensionHandler.Write(path, (".ini", path => IniParser.WriteDifficulties(path, this)));
+        public void WriteDifficulties(string path) => ExtensionHandler.Write(path, (".ini", path => IniParser_old.WriteDifficulties(path, this)));
 
         /// <summary>
         /// Retrieves the lyrics from the global events.

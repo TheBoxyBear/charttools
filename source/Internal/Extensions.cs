@@ -50,7 +50,7 @@ namespace ChartTools.SystemExtensions
 }
 namespace ChartTools.SystemExtensions.Linq
 {
-    public record SectionReplacement<T>(Func<IEnumerable<T>> ReplacementGetter, Predicate<T> StartReplace, Predicate<T> EndReplace);
+    public record SectionReplacement<T>(IEnumerable<T> Replacement, Predicate<T> StartReplace, Predicate<T> EndReplace);
 
     /// <summary>
     /// Provides additional methods to Linq
@@ -248,7 +248,7 @@ namespace ChartTools.SystemExtensions.Linq
                         var replacement = replacementList[i];
 
                         // Return the replacement
-                        foreach (T item in replacement.ReplacementGetter())
+                        foreach (T item in replacement.Replacement)
                             yield return item;
 
                         // Move to the end of the section to replace
@@ -281,7 +281,7 @@ namespace ChartTools.SystemExtensions.Linq
                 // Return remaining replacements
                 foreach (var replacement in replacementList)
                     // Return the replacement
-                    foreach (T item in replacement.ReplacementGetter())
+                    foreach (T item in replacement.Replacement)
                         yield return item;
             }
         }
@@ -524,8 +524,8 @@ namespace ChartTools
     public static class GlobalEventExtensions
     {
         /// <inheritdoc cref="exceptions.ReplaceGlobalEvents(string, IEnumerable{GlobalEvent})"/>
-        public static void ToFile(string path, IEnumerable<GlobalEvent> events) => ExtensionHandler.Write(path, events, null, (".chart", (path, token, _) => ChartWriter.ReplaceGlobalEvents(path, token)));
-        public static async Task ToFileAsync(string path, IEnumerable<GlobalEvent> events, CancellationToken cancellationToken) => await ExtensionHandler.WriteAsync(path, events, cancellationToken, null, (".chart", (path, events, token, _) => ChartWriter.ReplaceGlobalEventsAsync(path, events, token)));
+        public static void ToFile(string path, IEnumerable<GlobalEvent> events) => ExtensionHandler.Write(path, events, null, (".chart", (path, token, _) => ChartFile.ReplaceGlobalEvents(path, token)));
+        public static async Task ToFileAsync(string path, IEnumerable<GlobalEvent> events, CancellationToken cancellationToken) => await ExtensionHandler.WriteAsync(path, events, cancellationToken, null, (".chart", (path, events, token, _) => ChartFile.ReplaceGlobalEventsAsync(path, events, token)));
 
         /// <summary>
         /// Gets the lyrics from an enumerable of <see cref="GlobalEvent"/>

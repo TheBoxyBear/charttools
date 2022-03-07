@@ -9,9 +9,7 @@ namespace ChartTools.IO.Chart.Parsers
     internal class GlobalEventParser : ChartParser
     {
         public override List<GlobalEvent> Result => GetResult(result);
-        private readonly List<GlobalEvent> result = new();
-
-        public GlobalEventParser(ReadingSession session) : base(session) { }
+        private List<GlobalEvent> result = new();
 
         protected override void HandleItem(string line)
         {

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ChartTools.IO.Chart.Providers
 {
-    internal class TempoProvider : ITrackObjectProvider<Tempo>
+    internal class TempoProvider : ISerializerDataProvider<Tempo, TrackObjectProviderEntry>
     {
         public IEnumerable<TrackObjectProviderEntry> ProvideFor(IEnumerable<Tempo> source, WritingSession session)
         {
@@ -17,16 +17,6 @@ namespace ChartTools.IO.Chart.Providers
                     yield return new(tempo.Position, $"A {ChartFormatting.Float((float)tempo.Anchor)}");
                 yield return new(tempo.Position, $"B {ChartFormatting.Float(tempo.Value)}");
             }
-        }
-
-        public IEnumerable<TrackObjectProviderEntry> ProvideFor(IEnumerable<Tempo> content, Session session)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<TrackObjectProviderEntry> ProvideFor(IEnumerable<Tempo> source, ReadingSession session)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

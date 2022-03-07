@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart.Providers
 {
-    internal class ChordProvider: ITrackObjectProvider<Chord>
+    internal class ChordProvider: ISerializerDataProvider<Chord, TrackObjectProviderEntry>
     {
         public IEnumerable<TrackObjectProviderEntry> ProvideFor(IEnumerable<Chord> source, WritingSession session)
         {

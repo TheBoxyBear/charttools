@@ -35,6 +35,7 @@ namespace ChartTools.IO
 
         public abstract void ApplyResultToSong(Song song);
         protected virtual void FinaliseParse() => ResultReady = true;
-        protected TResult GetResult<TResult>(TResult result) => ResultReady ? result : throw new Exception("Result is not ready");
+
+        protected TResult GetResult<TResult>(TResult result) => ResultReady ? result : throw new Exception("Result is not ready.");
     }
 }
