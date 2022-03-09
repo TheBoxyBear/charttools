@@ -1,4 +1,5 @@
-﻿using ChartTools.IO.Chart.Providers;
+﻿using ChartTools.Events;
+using ChartTools.IO.Chart.Providers;
 using ChartTools.IO.Configuration.Sessions;
 
 using System.Collections.Generic;

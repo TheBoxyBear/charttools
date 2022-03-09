@@ -1,4 +1,5 @@
 ﻿using ChartTools.Collections.Alternating;
+using ChartTools.Events;
 using ChartTools.IO.Chart.Providers;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
@@ -26,10 +27,10 @@ namespace ChartTools.IO.Chart.Serializers
             {
                 SpecicalPhrase? starPower = null;
 
-                foreach (LocalEvent e in Content.LocalEvents)
+                foreach (var e in Content.LocalEvents)
                     switch (e.EventType)
                     {
-                        case LocalEventType.Solo:
+                        case EventTypeHelper.Local.Solo:
                             if (starPower is not null)
                             {
                                 starPower.Length = e.Position - starPower.Position;
@@ -38,7 +39,7 @@ namespace ChartTools.IO.Chart.Serializers
 
                             starPower = new(e.Position, SpecialPhraseType.StarPowerGain);
                             break;
-                        case LocalEventType.SoloEnd when starPower is not null:
+                        case EventTypeHelper.Local.SoloEnd when starPower is not null:
 
                             starPower.Length = e.Position - starPower.Position;
                             Content.StarPower.Add(starPower);
@@ -47,7 +48,7 @@ namespace ChartTools.IO.Chart.Serializers
                             break;
                     }
 
-                Content.LocalEvents.RemoveWhere(e => e.EventType is LocalEventType.Solo or LocalEventType.SoloEnd);
+                Content.LocalEvents.RemoveWhere(e => e.IsStarPowerEvent);
             }
 
             return new IEnumerable<TrackObjectProviderEntry>[]

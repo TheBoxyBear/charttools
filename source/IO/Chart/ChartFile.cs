@@ -1,4 +1,5 @@
-﻿using ChartTools.IO.Chart.Parsers;
+﻿using ChartTools.Events;
+using ChartTools.IO.Chart.Parsers;
 using ChartTools.IO.Chart.Serializers;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
