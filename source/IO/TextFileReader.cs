@@ -12,16 +12,16 @@ namespace ChartTools.IO
 {
     internal abstract class TextFileReader
     {
-        private record ParserLinesGroup(FileParser<string> Parser, DelayedEnumerableSource<string> Source);
+        private record ParserLinesGroup(TextParser Parser, DelayedEnumerableSource<string> Source);
 
         public string Path { get; }
-        public IEnumerable<FileParser<string>> Parsers => parserGroups.Select(g => g.Parser);
+        public IEnumerable<TextParser> Parsers => parserGroups.Select(g => g.Parser);
 
         private readonly List<ParserLinesGroup> parserGroups = new();
         private readonly List<Task> parseTasks = new();
-        private readonly Func<string, FileParser<string>?> parserGetter;
+        private readonly Func<string, TextParser?> parserGetter;
 
-        public TextFileReader(string path, Func<string, FileParser<string>?> parserGetter)
+        public TextFileReader(string path, Func<string, TextParser?> parserGetter)
         {
             Path = path;
             this.parserGetter = parserGetter;
@@ -43,6 +43,7 @@ namespace ChartTools.IO
                 string header = enumerator.Current;
 
                 var parser = parserGetter(header);
+                parser.SectionHeader = header;
 
                 if (parser is not null)
                     parserGroups.Add(currentGroup = new(parser, new()));
