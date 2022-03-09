@@ -12,6 +12,7 @@ using ChartTools.SystemExtensions.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 using ChartTools.IO.Configuration;
+using ChartTools.Events;
 using ChartTools.Formatting;
 
 namespace ChartTools
@@ -228,7 +229,7 @@ namespace ChartTools
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="PathTooLongException"/>
         /// <exception cref="DirectoryNotFoundException"/>
-        /// <exception cref="IOException"/>
+        /// <exception cref="LineException"/>
         /// <exception cref="UnauthorizedAccessException"/>
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="System.Security.SecurityException"/>
@@ -241,14 +242,14 @@ namespace ChartTools
         /// <param name="path">Path of the file to read</param>
         /// <exception cref="ArgumentException"/>
         /// <exception cref="FormatException"/>
-        /// <exception cref="IOException"/>
+        /// <exception cref="LineException"/>
         public void ReadDifficulties(string path) => ExtensionHandler.Read(path, (".ini", path => IniParser_old.ReadDifficulties(path, this)));
         /// <summary>
         /// Writes the estimated instrument difficulties to a ini file.
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <exception cref="ArgumentException"/>
-        /// <exception cref="IOException"/>
+        /// <exception cref="LineException"/>
         public void WriteDifficulties(string path) => ExtensionHandler.Write(path, (".ini", path => IniParser_old.WriteDifficulties(path, this)));
 
         /// <summary>

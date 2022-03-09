@@ -8,7 +8,7 @@ namespace ChartTools.IO.Chart.Parsers
     internal class MetadataParser : FileParser<string>
     {
         public override Metadata Result => GetResult(result);
-        private readonly Metadata result;
+        private readonly Metadata result = new();
 
         public MetadataParser(ReadingSession session, Metadata? existing = null) : base(session) => result = existing ?? new();
 
@@ -33,29 +33,22 @@ namespace ChartTools.IO.Chart.Parsers
                     result.Album = data;
                     break;
                 case "Year":
-                    try { result.Year = ushort.Parse(data.TrimStart(',')); }
-                    catch (Exception e) { throw ChartExceptions.Line(line, e); }
+                    result.Year = ValueParser.Parse<ushort>(data.TrimStart(','), "year", ushort.TryParse);
                     break;
                 case "Offset":
-                    try { result.AudioOffset = (int)(float.Parse(entry.Value) * 1000); }
-                    catch (Exception e) { throw ChartExceptions.Line(line, e); }
+                    result.AudioOffset = (int)(ValueParser.Parse<float>(data, "audio offset", float.TryParse) * 1000);
                     break;
                 case "Resolution":
-                    result.Formatting ??= new();
-                    try { result.Formatting.Resolution = ushort.Parse(data); }
-                    catch (Exception e) { throw ChartExceptions.Line(line, e); }
+                    result.Resolution = ValueParser.Parse<ushort>(data, "resolution", ushort.TryParse);
                     break;
                 case "Difficulty":
-                    try { result.Difficulty = sbyte.Parse(data); }
-                    catch (Exception e) { throw ChartExceptions.Line(line, e); }
+                    result.Difficulty = ValueParser.Parse<sbyte>(data, "difficulty", sbyte.TryParse);
                     break;
                 case "PreviewStart":
-                    try { result.PreviewStart = uint.Parse(data); }
-                    catch (Exception e) { throw ChartExceptions.Line(line, e); }
+                    result.PreviewStart = ValueParser.Parse<uint>(data, "preview start", uint.TryParse);
                     break;
                 case "PreviewEnd":
-                    try { result.PreviewEnd = uint.Parse(data); }
-                    catch (Exception e) { throw ChartExceptions.Line(line, e); }
+                    result.PreviewEnd = ValueParser.Parse<uint>(data, "preview end", uint.TryParse);
                     break;
                 case "Genre":
                     result.Genre = data;
@@ -109,5 +102,6 @@ namespace ChartTools.IO.Chart.Parsers
             else
                 PropertyMerger.Merge(song.Metadata, false, Result);
         }
+        public override void ApplyResultToSong(Song song) => song.Metadata = result;
     }
 }

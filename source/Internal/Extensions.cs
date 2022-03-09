@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Collections;
 using ChartTools.IO.Configuration;
 using System.Threading;
+using ChartTools.Events;
 
 namespace ChartTools.SystemExtensions
 {
@@ -523,8 +524,7 @@ namespace ChartTools
     /// </summary>
     public static class GlobalEventExtensions
     {
-        /// <inheritdoc cref="exceptions.ReplaceGlobalEvents(string, IEnumerable{GlobalEvent})"/>
-        public static void ToFile(string path, IEnumerable<GlobalEvent> events) => ExtensionHandler.Write(path, events, null, (".chart", (path, token, _) => ChartFile.ReplaceGlobalEvents(path, token)));
+        public static void ToFile(string path, IEnumerable<GlobalEvent> events) => ExtensionHandler.Write(path, events, null, (".chart", (path, events, _) => ChartFile.ReplaceGlobalEvents(path, events)));
         public static async Task ToFileAsync(string path, IEnumerable<GlobalEvent> events, CancellationToken cancellationToken) => await ExtensionHandler.WriteAsync(path, events, cancellationToken, null, (".chart", (path, events, token, _) => ChartFile.ReplaceGlobalEventsAsync(path, events, token)));
 
         /// <summary>
@@ -534,39 +534,26 @@ namespace ChartTools
         public static IEnumerable<Phrase> GetLyrics(this IEnumerable<GlobalEvent> globalEvents)
         {
             Phrase? phrase = null;
-            Syllable? phraselessFirstSyllable = null;
 
-            foreach (GlobalEvent globalEvent in globalEvents.OrderBy(e => e.Position).Distinct())
+            foreach (GlobalEvent globalEvent in globalEvents.OrderBy(e => e.Position))
                 switch (globalEvent.EventType)
                 {
                     // Change active phrase
-                    case GlobalEventType.PhraseStart:
+                    case EventTypeHelper.Global.PhraseStart:
                         if (phrase is not null)
                             yield return phrase;
 
                         phrase = new Phrase(globalEvent.Position);
-
-                        // If the stored lyric has the same position as the new phrase, add it to the phrase
-                        if (phraselessFirstSyllable is not null && phraselessFirstSyllable.Position == globalEvent.Position)
-                        {
-                            phrase.Notes.Add(phraselessFirstSyllable);
-                            phraselessFirstSyllable = null;
-                        }
                         break;
                     // Add syllable to the active phrase using the event argument
-                    case GlobalEventType.Lyric:
-                        Syllable newSyllable = new(globalEvent.Position, VocalsPitches.None) { RawText = globalEvent.Argument };
-
-                        // If the first lyric precedes the first phrase, store it
-                        if (phrase is null)
-                            phraselessFirstSyllable = newSyllable;
-                        else
-                            phrase.Notes.Add(newSyllable);
-                        break;
-                    // Set end position of active phrase
-                    case GlobalEventType.PhraseEnd:
+                    case EventTypeHelper.Global.Lyric:
                         if (phrase is not null)
-                            phrase.EndPositionOverride = globalEvent.Position;
+                            phrase.Notes.Add(new(globalEvent.Position - phrase.Position, VocalsPitches.None) { RawText = globalEvent.Argument ?? string.Empty });
+                        break;
+                    // Set length of active phrase
+                    case EventTypeHelper.Global.PhraseEnd:
+                        if (phrase is not null)
+                            phrase.LengthOverride = globalEvent.Position - phrase.Position;
                         break;
                 }
 

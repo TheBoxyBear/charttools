@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ChartTools.IO.Configuration;
+using ChartTools.Events;
 
 namespace ChartTools.IO.MIDI
 {
@@ -257,9 +258,9 @@ namespace ChartTools.IO.MIDI
             {
                 // For each event, select a new GlobalEvent with DeltaTime as Position and EventData based on the type of MIDIEvent
                 TextEvent textEvent => textEvent.Text,
-                NoteOnEvent => GlobalEvent.GetEventTypeString(GlobalEventType.PhraseStart),
-                NoteOffEvent => GlobalEvent.GetEventTypeString(GlobalEventType.PhraseEnd),
-                LyricEvent lyricEvent => $"{GlobalEvent.GetEventTypeString(GlobalEventType.Lyric)} {lyricEvent.Text}",
+                NoteOnEvent => EventTypeHelper.Global.PhraseStart,
+                NoteOffEvent => EventTypeHelper.Global.PhraseEnd,
+                LyricEvent lyricEvent => $"{EventTypeHelper.Global.Lyric} {lyricEvent.Text}",
                 _ => e.EventType.ToString()
             })).Where(e => e is not null));
         }

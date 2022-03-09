@@ -59,44 +59,24 @@ namespace ChartTools
         /// <summary>
         /// Easy track
         /// </summary>
-        public Track Easy
-        {
-            get => _easy;
-            protected set => _easy = value;
-        }
-        private Track _easy;
+        public Track? Easy => GetEasy();
         /// <summary>
         /// Medium track
         /// </summary>
-        public Track Medium
-        {
-            get => _medium;
-            protected set => _medium = value;
-        }
-        private Track _medium;
+        public Track? Medium => GetMedium();
         /// <summary>
         /// Hard track
         /// </summary>
-        public Track Hard
-        {
-            get => _hard;
-            protected set => _hard = value;
-        }
-        private Track _hard;
+        public Track? Hard => GetHard();
         /// <summary>
         /// Expert track
         /// </summary>
-        public Track Expert
-        {
-            get => _expert;
-            protected set => _expert = value;
-        }
-        private Track _expert;
+        public Track? Expert => GetExpert();
 
         /// <summary>
         /// Gets the track matching a difficulty.
         /// </summary>
-        public virtual Track GetTrack(DiffEnum difficulty) => difficulty switch
+        public virtual Track? GetTrack(DiffEnum difficulty) => difficulty switch
         {
             DiffEnum.Easy => Easy,
             DiffEnum.Medium => Medium,
@@ -105,10 +85,15 @@ namespace ChartTools
             _ => throw CommonExceptions.GetUndefinedException(difficulty)
         };
 
+        protected abstract Track? GetEasy();
+        protected abstract Track? GetMedium();
+        protected abstract Track? GetHard();
+        protected abstract Track? GetExpert();
+
         /// <summary>
         /// Creates an array containing all tracks.
         /// </summary>
-        public virtual Track[] GetTracks() => new Track[] { Easy, Medium, Hard, Expert };
+        public virtual Track?[] GetTracks() => new Track?[] { Easy, Medium, Hard, Expert };
         /// <summary>
         /// Creates an array containing all tracks with data.
         /// </summary>

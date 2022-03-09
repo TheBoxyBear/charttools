@@ -75,7 +75,7 @@ namespace ChartTools
     /// <summary>
     /// Types of <see cref="GlobalEvent"/>
     /// </summary>
-    public enum GlobalEventType : byte
+    public enum GlobalEventTypeEnum : byte
     {
         /// <summary>
         /// The backing <see cref="Event.EventTypeString"/> property does not match a known event type
@@ -119,10 +119,10 @@ namespace ChartTools
     /// <summary>
     /// All instruments
     /// </summary>
-    public enum InstrumentIdentity : byte { Unknown, Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys, Vocals }
+    public enum InstrumentIdentity : byte { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys, Vocals }
     public enum InstrumentType : byte { Drums, GHL, Standard, Vocals }
     /// <summary>
-    /// Lighting effect caused by a <see cref="GlobalEvent"/> of type <see cref="GlobalEventType.Lighting"/>
+    /// Lighting effect caused by a <see cref="GlobalEvent"/> of type <see cref="GlobalEventTypeEnum.Lighting"/>
     /// </summary>
     public enum LightingEffect
     {

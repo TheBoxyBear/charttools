@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace ChartTools.Internal.Collections.Delayed
 {
-    public class DelayedEnumerable<T> : IEnumerable<T>
+    public class DelayedEnumerable<T> : IEnumerable<T>, IDisposable
     {
         private readonly DelayedEnumerator<T> enumerator;
         private readonly DelayedEnumerableSource<T> source;
@@ -16,6 +17,8 @@ namespace ChartTools.Internal.Collections.Delayed
         }
 
         public IEnumerator<T> GetEnumerator() => enumerator;
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => enumerator;
+
+        public void Dispose() => enumerator.Dispose();
     }
 }

@@ -1,5 +1,4 @@
-﻿using ChartTools.Internal;
-using ChartTools.Internal.Collections.Delayed;
+﻿using ChartTools.Internal.Collections.Delayed;
 
 using System;
 using System.Collections.Generic;
@@ -10,29 +9,41 @@ using System.Threading.Tasks;
 
 namespace ChartTools.IO
 {
-    internal abstract class TextFileReader
+    internal abstract class TextFileReader : IDisposable
     {
-        private record ParserLinesGroup(FileParser<string> Parser, DelayedEnumerableSource<string> Source);
+        private record ParserLinesGroup(TextParser Parser, DelayedEnumerableSource<string> Source);
 
         public string Path { get; }
-        public IEnumerable<FileParser<string>> Parsers => parserGroups.Select(g => g.Parser);
+        public IEnumerable<TextParser> Parsers => parserGroups.Select(g => g.Parser);
 
         private readonly List<ParserLinesGroup> parserGroups = new();
         private readonly List<Task> parseTasks = new();
-        private readonly Func<string, FileParser<string>?> parserGetter;
-        private const string partEndEarlyExceptionMessage = "Part \"{0}\" did not end within the provided lines.";
+        private readonly Func<string, TextParser?> parserGetter;
+        private readonly IEnumerator<string> enumerator;
+        private bool disposedValue;
 
-        public TextFileReader(string path, Func<string, FileParser<string>?> parserGetter)
+        public TextFileReader(string path, Func<string, TextParser?> parserGetter)
         {
             Path = path;
             this.parserGetter = parserGetter;
+            enumerator = File.ReadLines(path).Where(s => !string.IsNullOrEmpty(s)).Select(s => s.Trim()).GetEnumerator();
         }
 
         public void Read()
         {
+            BaseRead(false, CancellationToken.None);
+
+            foreach (var group in parserGroups)
+                group.Parser.Parse(group.Source.Enumerable);
+        }
+        public async Task ReadAsync(CancellationToken cancellationToken)
+        {
+            BaseRead(true, cancellationToken);
+            await Task.WhenAll(parseTasks);
+        }
+        private void BaseRead(bool async, CancellationToken cancellationToken)
+        {
             ParserLinesGroup? currentGroup = null;
-            using var enumerator = File.ReadLines(Path).Where(s => !string.IsNullOrEmpty(s)).Select(s => s.Trim()).GetEnumerator();
-            var partLines = new List<string>();
 
             while (enumerator.MoveNext())
             {
@@ -41,98 +52,81 @@ namespace ChartTools.IO
                     if (enumerator.MoveNext())
                         return;
 
-                string header = enumerator.Current;
+                if (async && cancellationToken.IsCancellationRequested)
+                {
+                    Dispose();
+                    return;
+                }
 
+                var header = enumerator.Current;
                 var parser = parserGetter(header);
 
                 if (parser is not null)
-                    parserGroups.Add(currentGroup = new(parser, new()));
+                {
+                    parser.SectionHeader = header;
+
+                    var source = new DelayedEnumerableSource<string>();
+
+                    parserGroups.Add(currentGroup = new(parser, source));
+
+                    if (async)
+                        parseTasks.Add(parser.StartAsyncParse(source.Enumerable));
+                }
 
                 // Move to the start of the entries
-                while (enumerator.MoveNext() && !IsSectionStart(enumerator.Current)) { }
+                do
+                    AdvanceSection();
+                while (!IsSectionStart(enumerator.Current));
+
+                AdvanceSection();
 
                 // Read until end
                 while (!IsSectionEnd(enumerator.Current))
                 {
                     currentGroup?.Source.Add(enumerator.Current);
-
-                    if (!enumerator.MoveNext())
-                        throw new InvalidDataException(string.Format(partEndEarlyExceptionMessage, header));
+                    AdvanceSection();
                 }
-            }
 
-            foreach (var group in parserGroups)
-                group.Parser.Parse(group.Source.Enumerable);
-        }
-        public async Task ReadAsync(CancellationToken cancellationToken)
-        {
-            ParserLinesGroup? currentGroup = null;
-            var enumerator = AsyncFileReader.ReadFileAsync(Path).Where(s => !string.IsNullOrEmpty(s)).Select(s => s.Trim()).GetAsyncEnumerator(cancellationToken);
-            var readTask = enumerator.MoveNextAsync();
-            string? currentLine;
-
-            do
-            {
-                // Find part
-                do
+                if (async)
                 {
-                    if (cancellationToken.IsCancellationRequested || !await readTask)
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        Dispose();
                         return;
+                    }
 
-                    currentLine = enumerator.Current;
-                    readTask = enumerator.MoveNextAsync();
-                }
-                while (!currentLine.StartsWith('['));
-
-                string header = currentLine;
-                var parser = parserGetter(header);
-
-                if (parser is not null)
-                {
-                    var source = new DelayedEnumerableSource<string>();
-
-                    parserGroups.Add(currentGroup = new(parser, source));
-                    parseTasks.Add(parser.StartAsyncParse(source.Enumerable));
-                }
-
-                // Move to the first entry
-                do
-                {
-                    if (cancellationToken.IsCancellationRequested || !await readTask)
-                        return;
-
-                    currentLine = enumerator.Current;
-                    readTask = enumerator.MoveNextAsync();
-                }
-                while (!IsSectionStart(currentLine));
-
-                currentLine = enumerator.Current;
-                readTask = enumerator.MoveNextAsync();
-
-                // Read until closing bracket
-                do
-                {
                     if (currentGroup is not null)
-                        currentGroup.Source.Add(currentLine);
-
-                    if (!await readTask || cancellationToken.IsCancellationRequested)
-                        throw new InvalidDataException(string.Format(partEndEarlyExceptionMessage, header));
-
-                    currentLine = enumerator.Current;
-                    readTask = enumerator.MoveNextAsync();
+                        currentGroup!.Source.EndAwait();
                 }
-                while (!IsSectionEnd(currentLine));
 
-                if (currentGroup is not null)
-                    currentGroup!.Source.EndAwait();
+                void AdvanceSection()
+                {
+                    if (!enumerator.MoveNext())
+                        throw SectionException.EarlyEnd(header);
+                }
             }
-            while (await readTask);
-
-            await enumerator.DisposeAsync();
-            await Task.WhenAll(parseTasks);
         }
 
         protected abstract bool IsSectionStart(string line);
         protected abstract bool IsSectionEnd(string line);
+
+        public virtual async void Dispose()
+        {
+            if (!disposedValue)
+            {
+                enumerator.Dispose();
+
+                foreach (var group in parserGroups)
+                    group.Source.Dispose();
+
+                foreach (var task in parseTasks)
+                {
+                    await task;
+                    task.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
     }
 }

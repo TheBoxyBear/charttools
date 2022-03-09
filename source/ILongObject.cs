@@ -2,6 +2,9 @@
 {
     public interface ILongObject
     {
-        public uint Length { get; set; }
+        /// <summary>
+        /// Length of the object in ticks
+        /// </summary>
+        public uint Length { get; }
     }
 }

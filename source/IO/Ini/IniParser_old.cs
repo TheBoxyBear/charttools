@@ -192,9 +192,7 @@ namespace ChartTools.IO.Ini
                     break;
             }
 
-            instrument.Difficulty = entry == default ? null : sbyte.TryParse(entry.value, out sbyte difficulty)
-                ? difficulty
-                : throw new FormatException($"Cannot parse difficulty \"{entry.value}\"");
+            instrument.Difficulty = entry == default ? null : ValueParser.Parse<sbyte>(entry.value, "difficulty", sbyte.TryParse);
         }
         /// <summary>
         /// Reads <see cref="Instrument"/> difficulties from a ini file and assigns them to the instruments in a <see cref="Song"/>.
@@ -213,8 +211,7 @@ namespace ChartTools.IO.Ini
                     Instrument? inst = song.GetInstrument(difficultyKeys[header]);
 
                     if (inst is not null)
-                        inst.Difficulty = sbyte.TryParse(value, out sbyte difficulty) ? difficulty
-                            : throw new FormatException($"Cannot parse difficulty \"{value}\"");
+                        inst.Difficulty = ValueParser.Parse<sbyte>(value, "difficulty", sbyte.TryParse);
                 }
             }
         }
@@ -238,8 +235,8 @@ namespace ChartTools.IO.Ini
         /// <inheritdoc cref="File.WriteAllLines(string, IEnumerable{string})" path="/exception"/>
         internal static void WriteDifficulty(string path, Instrument instrument)
         {
-            if (instrument.InstrumentIdentity == InstrumentIdentity.Unknown)
-                throw new ArgumentException(nameof(instrument), "Instrument difficulty cannot be written because the identity is unknown.");
+            if (!Enum.IsDefined(instrument.InstrumentIdentity))
+                throw new ArgumentException("Instrument difficulty cannot be written because the identity is unknown.", nameof(instrument));
 
             if (!difficultyKeys.ContainsValue(instrument.InstrumentIdentity))
                 throw new ArgumentException("Ini files do not support difficulty for this instrument.");

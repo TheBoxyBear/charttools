@@ -34,10 +34,10 @@ namespace ChartTools.IO.Midi.Parsers
 
             return intNumber switch
             {
-                > 59 and < 68 => (preResult.Easy, intNumber - 60),
-                > 71 and < 80 => (preResult.Medium, intNumber - 72),
-                > 83 and < 92 => (preResult.Hard, intNumber - 84),
-                > 95 and < 104 => (preResult.Expert, intNumber - 96)
+                > 59 and < 68 => (result.Easy, intNumber - 60),
+                > 71 and < 80 => (result.Medium, intNumber - 72),
+                > 83 and < 92 => (result.Hard, intNumber - 84),
+                > 95 and < 104 => (result.Expert, intNumber - 96)
             };
         }
     }
