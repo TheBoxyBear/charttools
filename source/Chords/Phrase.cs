@@ -3,15 +3,16 @@ using ChartTools.IO.Configuration.Sessions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace ChartTools.Lyrics
 {
-    public class Phrase : Chord<Syllable, VocalsPitch, VocalChordModifier>, ILongTrackObject
+    public class Phrase : Chord<Syllable, VocalsPitch, VocalChordModifier>, ILongObject
     {
         public override List<Syllable> Notes { get; } = new();
         public override uint Position { get; set; }
         /// <summary>
-        /// End of the phrase as defined by <see cref="SyllableEndOffset"/>, unless overridden by <see cref="EndPositionOverride"/>
+        /// End of the phrase as defined by <see cref="Length"/>
         /// </summary>
         public uint EndPosition => Position + Length;
 
@@ -21,8 +22,8 @@ namespace ChartTools.Lyrics
             get => _lengthOverride;
             set
             {
-                //if (value is not null && value < SyllableEndOffset)
-                //    throw new ArgumentException("Length must be large enough to fit all syllables.", nameof(value));
+                if (value is not null && value < SyllableEndOffset)
+                    throw new ArgumentException("Length must be large enough to fit all syllables.", nameof(value));
 
                 _lengthOverride = value;
             }
@@ -50,7 +51,8 @@ namespace ChartTools.Lyrics
         /// <summary>
         /// Gets the raw text of all syllables as a single string with spaces between syllables
         /// </summary>
-        public string RawText => string.Concat(Notes.Select(n => n.IsWordEnd ? n.RawText + ' ' : n.RawText));
+        public string RawText => BuildText(n => n.RawText);
+        public string DisplayedText => BuildText(n => n.DisplayedText);
 
         internal override bool ChartSupportedMoridier => true;
 
@@ -63,8 +65,10 @@ namespace ChartTools.Lyrics
             yield return new(Position, EventTypeHelper.Global.PhraseStart);
 
             foreach (var note in Notes)
-                yield return new(note.Position, EventTypeHelper.Global.Lyric, note.RawText);
+                yield return new(Position + note.PositionOffset, EventTypeHelper.Global.Lyric, note.RawText);
         }
+
+        private string BuildText(Func<Syllable, string> textSelector) => string.Concat(Notes.Select(n => n.IsWordEnd ? textSelector(n) + ' ' : textSelector(n)));
 
         internal override IEnumerable<string> GetChartNoteData() => Enumerable.Empty<string>();
         internal override IEnumerable<string> GetChartModifierData(Chord? previous, WritingSession session) => Enumerable.Empty<string>();

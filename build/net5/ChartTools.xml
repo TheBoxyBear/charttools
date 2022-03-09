@@ -63,7 +63,7 @@
         </member>
         <member name="P:ChartTools.Lyrics.Phrase.EndPosition">
             <summary>
-            End of the phrase as defined by <see cref="P:ChartTools.Lyrics.Phrase.SyllableEndOffset"/>, unless overridden by <see cref="!:EndPositionOverride"/>
+            End of the phrase as defined by <see cref="P:ChartTools.Lyrics.Phrase.Length"/>
             </summary>
         </member>
         <member name="P:ChartTools.Lyrics.Phrase.SyllableStartOffset">
@@ -1910,11 +1910,6 @@
             <param name="chunks">Chunks to check</param>
             <param name="ex">Exception to throw if returned <see langword="false"/></param>
             <returns><see langword="true"/> if the collection contains at least one <see cref="T:Melanchall.DryWetMidi.Core.TrackChunk"/></returns>
-        </member>
-        <member name="P:ChartTools.ILongTrackObject.EndPosition">
-            <summary>
-            Tick number marking the end of the object
-            </summary>
         </member>
         <member name="T:ChartTools.Charter">
             <summary>

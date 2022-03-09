@@ -24,10 +24,6 @@ namespace ChartTools.IO.Chart.Parsers
             result.Add(ev);
         }
 
-        public override void ApplyResultToSong(Song song)
-        {
-            if (result is not null)
-                song.GlobalEvents = result;
-        }
+        public override void ApplyResultToSong(Song song) => song.GlobalEvents = Result;
     }
 }
