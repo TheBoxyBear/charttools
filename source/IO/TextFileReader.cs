@@ -49,6 +49,11 @@ namespace ChartTools.IO
                     parserGroups.Add(currentGroup = new(parser, new()));
 
                 // Move to the start of the entries
+                {
+                    if (!enumerator.MoveNext())
+                        throw new Exception();
+                }
+                while (!IsSectionStart(enumerator.Current))
                 while (enumerator.MoveNext() && !IsSectionStart(enumerator.Current)) { }
 
                 // Read until end

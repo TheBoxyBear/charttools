@@ -28,7 +28,7 @@ namespace ChartTools.IO.Chart.Entries
             string[] split = line.Split('=', 2, StringSplitOptions.RemoveEmptyEntries);
 
             if (split.Length < 2)
-                throw ChartExceptions.NewEntry();
+                throw new EntryException();
 
             Header = split[0].Trim();
             Data = split[1].Trim();

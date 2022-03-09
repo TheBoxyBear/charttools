@@ -28,10 +28,7 @@ namespace ChartTools.IO.Chart.Parsers
 
         protected override void HandleItem(string line)
         {
-            TrackObjectEntry entry;
-
-            try { entry = new(line); }
-            catch (Exception e) { throw ChartExceptions.Line(line, e); }
+            TrackObjectEntry entry = new(line);
 
             switch (entry.Type)
             {
@@ -41,36 +38,25 @@ namespace ChartTools.IO.Chart.Parsers
                     break;
                 // Note or chord modifier
                 case "N":
-                    NoteData data;
-                    try
+                    NoteData data = new(entry.Data);
+
+                    HandleNote(result, ref chord!, entry.Position, data, ref newChord, out Enum initialModifier);
+
+                    if (newChord)
                     {
-                        data = new(entry.Data);
-
-                        HandleNote(result, ref chord!, entry.Position, data, ref newChord, out Enum initialModifier);
-
-                        if (newChord)
-                        {
-                            result.Chords.Add(chord!);
-                            ignoredNotes.Clear();
-                        }
+                        result.Chords.Add(chord!);
+                        ignoredNotes.Clear();
                     }
-                    catch (Exception e) { throw ChartExceptions.Line(line, e); }
 
                     break;
                 // Star power
                 case "S":
-                    try
-                    {
-                        var split = ChartFile.GetDataSplit(entry.Data);
+                    var split = ChartFile.GetDataSplit(entry.Data);
 
-                        if (!byte.TryParse(split[0], out byte typeCode))
-                            throw new FormatException($"Cannot parse type code \"{split[0]}\" to byte.");
-                        if (!uint.TryParse(split[1], out uint length))
-                            throw new FormatException($"Cannot parse length \"{split[1]}\" to uint.");
+                    var typeCode = ValueParser.Parse<byte>(split[0], "type code", byte.TryParse);
+                    var length = ValueParser.Parse<uint>(split[1], "length", uint.TryParse);
 
-                        result.StarPower.Add(new(entry.Position, typeCode, length));
-                    }
-                    catch (Exception e) { throw ChartExceptions.Line(line, e); }
+                    result.StarPower.Add(new(entry.Position, typeCode, length));
                     break;
             }
 

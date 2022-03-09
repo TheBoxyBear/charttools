@@ -16,7 +16,7 @@ namespace ChartTools.Lyrics
             set
             {
                 if (value > EndPosition)
-                    throw new ArgumentException("Position cannot be larger than the end position.", nameof(Position));
+                    //throw new ArgumentException("Position cannot be larger than the end position.", nameof(Position));
                 base.Position = value;
             }
         }

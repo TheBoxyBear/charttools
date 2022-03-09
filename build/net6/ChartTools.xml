@@ -1192,19 +1192,6 @@
             <param name="overwriteNonNull">If <see langword="false"/>, only replaces property values that are null in the original instance.</param>
             <param name="newValues">Items to pull new property values from in order of priority</param>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartExceptions.Line(System.String,System.Exception)">
-            <summary>
-            Generates an exception to throw when a line cannot be converted.
-            </summary>
-            <returns>Instance of <see cref="T:System.Exception"/> to throw</returns>
-            <param name="line">Line that caused the exception</param>
-            <param name="innerException">Exception caught when interpreting the line</param>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartExceptions.NewEntry">
-            <summary>
-            Gets the <see cref="T:System.Exception"/> to throw from an entry.
-            </summary>
-        </member>
         <member name="T:ChartTools.IO.Chart.ChartFileReader">
             <summary>
             Reader of text file that sends read lines to subscribers of its events.
@@ -2077,7 +2064,7 @@
             <exception cref="T:System.ArgumentException"/>
             <exception cref="T:System.ArgumentNullException"/>
             <exception cref="T:System.FormatException"/>
-            <exception cref="T:System.IO.IOException"/>
+            <exception cref="T:ChartTools.IO.LineException"/>
             <exception cref="T:System.OutOfMemoryException"/>
         </member>
         <member name="M:ChartTools.Metadata.FromFiles(System.String[])">
@@ -2263,7 +2250,7 @@
             <exception cref="T:System.ArgumentNullException"/>
             <exception cref="T:System.IO.PathTooLongException"/>
             <exception cref="T:System.IO.DirectoryNotFoundException"/>
-            <exception cref="T:System.IO.IOException"/>
+            <exception cref="T:ChartTools.IO.LineException"/>
             <exception cref="T:System.UnauthorizedAccessException"/>
             <exception cref="T:System.NotSupportedException"/>
             <exception cref="T:System.Security.SecurityException"/>
@@ -2275,7 +2262,7 @@
             <param name="path">Path of the file to read</param>
             <exception cref="T:System.ArgumentException"/>
             <exception cref="T:System.FormatException"/>
-            <exception cref="T:System.IO.IOException"/>
+            <exception cref="T:ChartTools.IO.LineException"/>
         </member>
         <member name="M:ChartTools.Song.WriteDifficulties(System.String)">
             <summary>
@@ -2283,7 +2270,7 @@
             </summary>
             <param name="path">Path of the file to write</param>
             <exception cref="T:System.ArgumentException"/>
-            <exception cref="T:System.IO.IOException"/>
+            <exception cref="T:ChartTools.IO.LineException"/>
         </member>
         <member name="M:ChartTools.Song.GetLyrics">
             <summary>

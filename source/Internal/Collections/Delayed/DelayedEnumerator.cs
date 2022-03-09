@@ -17,8 +17,9 @@ namespace ChartTools.Internal.Collections.Delayed
         private bool WaitForItems()
         {
             while (source.Buffer.IsEmpty)
-                if (!AwaitingItems)
+                if (!AwaitingItems && source.Buffer.IsEmpty)
                     return false;
+
             return true;
         }
         public bool MoveNext()

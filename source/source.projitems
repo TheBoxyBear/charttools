@@ -46,7 +46,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Internal\IInitializable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\ProperyMerger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\AsyncFileReader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartExceptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartFileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartFormatting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartFileWriter.cs" />
@@ -60,6 +59,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\GlobalEventParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\MetadataParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Providers\TrackObjectProviderEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\EntryException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\LineException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\ParseException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\GroupSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniParser.cs" />
@@ -67,6 +69,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\ISerializerDataProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Serializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\TextFileReader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\TextParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\ValueParser.cs" />
     <Compile Include="..\source\IO\Chart\Parsers\StandardTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\SyncTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\TrackParser.cs" />

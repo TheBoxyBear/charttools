@@ -135,7 +135,7 @@ namespace ChartTools
         /// <exception cref="ArgumentException"/>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="FormatException"/>
-        /// <exception cref="IOException"/>
+        /// <exception cref="LineException"/>
         /// <exception cref="OutOfMemoryException"/>
         public static Metadata FromFile(string path) => ExtensionHandler.Read<Metadata>(path, null, (".chart", (path, _) => ChartFile.ReadMetadata(path)), (".ini", (path, _) => IniParser_old.ReadMetadata(path)));
         public static async Task<Metadata> FromFileAsync(string path, CancellationToken cancellationToken) => await ExtensionHandler.ReadAsync<Metadata>(path, cancellationToken, null, (".chart", (path, token, _) => ChartFile.ReadMetadataAsync(path, token)), (".ini", (path, _, _) => Task.Run(() => IniParser_old.ReadMetadata(path))));

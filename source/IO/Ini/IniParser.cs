@@ -3,7 +3,7 @@ using System;
 
 namespace ChartTools.IO.Ini
 {
-    internal class IniParser : FileParser<string>
+    internal class IniParser : TextParser
     {
         public IniParser(ReadingSession session) : base(session) { }
 
