@@ -1,5 +1,6 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace ChartTools
 {
