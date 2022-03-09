@@ -20,7 +20,6 @@ namespace ChartTools.IO
         private readonly List<ParserLinesGroup> parserGroups = new();
         private readonly List<Task> parseTasks = new();
         private readonly Func<string, FileParser<string>?> parserGetter;
-        private const string partEndEarlyExceptionMessage = "Part \"{0}\" did not end within the provided lines.";
 
         public TextFileReader(string path, Func<string, FileParser<string>?> parserGetter)
         {
@@ -62,7 +61,7 @@ namespace ChartTools.IO
                     currentGroup?.Source.Add(enumerator.Current);
 
                     if (!enumerator.MoveNext())
-                        throw new InvalidDataException(string.Format(partEndEarlyExceptionMessage, header));
+                        throw SectionException.EarlyEnd(header);
                 }
             }
 
@@ -121,7 +120,7 @@ namespace ChartTools.IO
                         currentGroup.Source.Add(currentLine);
 
                     if (!await readTask || cancellationToken.IsCancellationRequested)
-                        throw new InvalidDataException(string.Format(partEndEarlyExceptionMessage, header));
+                        throw SectionException.EarlyEnd(header);
 
                     currentLine = enumerator.Current;
                     readTask = enumerator.MoveNextAsync();

@@ -62,6 +62,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\EntryException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\LineException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\ParseException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\SectionException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\GroupSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniParser.cs" />

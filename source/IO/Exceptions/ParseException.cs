@@ -2,7 +2,7 @@
 
 namespace ChartTools.IO
 {
-    public class ParseException : Exception
+    public class ParseException : FormatException
     {
         public string Object { get; }
         public string Target { get; }
