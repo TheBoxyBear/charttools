@@ -55,9 +55,6 @@ namespace ChartTools.IO
 
                 AdvanceSection();
 
-                if (!enumerator.MoveNext())
-                    throw SectionException.EarlyEnd(header);
-
                 // Read until end
                 while (!IsSectionEnd(enumerator.Current))
                 {
