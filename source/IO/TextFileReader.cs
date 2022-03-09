@@ -49,18 +49,24 @@ namespace ChartTools.IO
                     parserGroups.Add(currentGroup = new(parser, new()));
 
                 // Move to the start of the entries
-                {
-                    if (!enumerator.MoveNext())
-                        throw new Exception();
-                }
-                while (!IsSectionStart(enumerator.Current))
-                while (enumerator.MoveNext() && !IsSectionStart(enumerator.Current)) { }
+                do
+                    AdvanceSection();
+                while (!IsSectionStart(enumerator.Current));
+
+                AdvanceSection();
+
+                if (!enumerator.MoveNext())
+                    throw SectionException.EarlyEnd(header);
 
                 // Read until end
                 while (!IsSectionEnd(enumerator.Current))
                 {
                     currentGroup?.Source.Add(enumerator.Current);
+                    AdvanceSection();
+                }
 
+                void AdvanceSection()
+                {
                     if (!enumerator.MoveNext())
                         throw SectionException.EarlyEnd(header);
                 }
@@ -90,7 +96,9 @@ namespace ChartTools.IO
                 while (!currentLine.StartsWith('['));
 
                 string header = currentLine;
+
                 var parser = parserGetter(header);
+                parser.SectionHeader = header;
 
                 if (parser is not null)
                 {

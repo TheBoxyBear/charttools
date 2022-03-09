@@ -60,5 +60,7 @@ namespace ChartTools.Events
             EventType = type;
             Argument = argument;
         }
+
+        public override string ToString() => EventType;
     }
 }
