@@ -19,7 +19,7 @@ namespace ChartTools.IO.Configuration.Sessions
 
         private DuplicateTrackObjectHandler? _duplicateTrackObjectProcedre;
 
-        public virtual CommonConfiguration Configuration { get; }
+        public virtual CommonConfiguration Configuration { get; } = new();
 
         private static bool DuplicateIncludeAll(uint position, ICollection<uint> ignored, string objectType) => true;
         private static bool DuplicateIncludeFirst(uint position, ICollection<uint> ignored, string objectType)

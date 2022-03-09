@@ -534,9 +534,8 @@ namespace ChartTools
         public static IEnumerable<Phrase> GetLyrics(this IEnumerable<GlobalEvent> globalEvents)
         {
             Phrase? phrase = null;
-            Syllable? phraselessFirstSyllable = null;
 
-            foreach (GlobalEvent globalEvent in globalEvents.OrderBy(e => e.Position).Distinct())
+            foreach (GlobalEvent globalEvent in globalEvents.OrderBy(e => e.Position))
                 switch (globalEvent.EventType)
                 {
                     // Change active phrase
@@ -545,28 +544,16 @@ namespace ChartTools
                             yield return phrase;
 
                         phrase = new Phrase(globalEvent.Position);
-
-                        // If the stored lyric has the same position as the new phrase, add it to the phrase
-                        if (phraselessFirstSyllable is not null && phraselessFirstSyllable.Position == globalEvent.Position)
-                        {
-                            phrase.Notes.Add(phraselessFirstSyllable);
-                            phraselessFirstSyllable = null;
-                        }
                         break;
                     // Add syllable to the active phrase using the event argument
                     case EventTypeHelper.Global.Lyric:
-                        Syllable newSyllable = new(globalEvent.Position, VocalsPitches.None) { RawText = globalEvent.Argument };
-
-                        // If the first lyric precedes the first phrase, store it
-                        if (phrase is null)
-                            phraselessFirstSyllable = newSyllable;
-                        else
-                            phrase.Notes.Add(newSyllable);
+                        if (phrase is not null)
+                            phrase.Notes.Add(new(globalEvent.Position - phrase.Position, VocalsPitches.None) { RawText = globalEvent.Argument ?? string.Empty });
                         break;
-                    // Set end position of active phrase
+                    // Set length of active phrase
                     case EventTypeHelper.Global.PhraseEnd:
                         if (phrase is not null)
-                            phrase.EndPositionOverride = globalEvent.Position;
+                            phrase.LengthOverride = globalEvent.Position - phrase.Position;
                         break;
                 }
 

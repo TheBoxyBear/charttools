@@ -5,10 +5,17 @@ namespace ChartTools.Lyrics
     /// <summary>
     /// Karaoke step of a <see cref="Phrase"/>
     /// </summary>
-    public class Syllable : Note<VocalsPitch>, ILongTrackObject
+    public class Syllable : Note<VocalsPitch>, ILongObject
     {
-        public uint Position { get; set; }
-        public uint EndPosition => (this as ILongTrackObject).EndPosition;
+        /// <summary>
+        /// Position offset from the <see cref="Phrase"/>
+        /// </summary>
+        public uint PositionOffset { get; set; }
+        /// <summary>
+        /// Position offset of the end from the <see cref="Phrase"/>
+        /// </summary>
+        public uint EndPositionOffset => PositionOffset + Length;
+        public uint Length { get; set; }
 
         /// <summary>
         /// Pitch to sing
@@ -50,18 +57,13 @@ namespace ChartTools.Lyrics
             }
         }
 
-        public Syllable(uint position) => Position = position;
-        public Syllable(uint position, VocalsPitches pitch) : this(position, new VocalsPitch(pitch)) { }
-        public Syllable(uint position, VocalsPitch pitch) : base(pitch)
+        public Syllable(uint offset) => PositionOffset = offset;
+        public Syllable(uint offset, VocalsPitch pitch) : base(pitch)
         {
             if (!Enum.IsDefined(pitch.Pitch))
                 throw CommonExceptions.GetUndefinedException(pitch.Pitch);
 
-            Position = position;
+            PositionOffset = offset;
         }
-
-        public int CompareTo(ITrackObject? other) => Position.CompareTo(other?.Position);
-
-        public bool Equals(ITrackObject? other) => (this as ITrackObject).Equals(other);
     }
 }

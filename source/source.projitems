@@ -97,7 +97,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Providers\MidiProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\Charter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\StreamCollection.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\ILongTrackObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\ITrackObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\LongTrackObject.cs" />
     <Compile Include="..\source\IO\Chart\Serializers\TrackObjectGroupSerializer.cs" />

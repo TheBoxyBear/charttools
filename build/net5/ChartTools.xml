@@ -63,22 +63,27 @@
         </member>
         <member name="P:ChartTools.Lyrics.Phrase.EndPosition">
             <summary>
-            End of the phrase as defined by <see cref="P:ChartTools.Lyrics.Phrase.SyllableEnd"/>, unless overridden by <see cref="P:ChartTools.Lyrics.Phrase.EndPositionOverride"/>
+            End of the phrase as defined by <see cref="P:ChartTools.Lyrics.Phrase.Length"/>
             </summary>
         </member>
-        <member name="P:ChartTools.Lyrics.Phrase.EndPositionOverride">
+        <member name="P:ChartTools.Lyrics.Phrase.SyllableStartOffset">
             <summary>
-            Explicit end position overriding the natural one
+            Offset of the first syllable
             </summary>
         </member>
-        <member name="P:ChartTools.Lyrics.Phrase.SyllableStart">
+        <member name="P:ChartTools.Lyrics.Phrase.SyllableEndOffset">
             <summary>
-            Start of the first syllable
+            Offset of the end of the last syllable
             </summary>
         </member>
-        <member name="P:ChartTools.Lyrics.Phrase.SyllableEnd">
+        <member name="P:ChartTools.Lyrics.Phrase.SyllableStartPosition">
             <summary>
-            Natural end position based on the end of the last syllable
+            Start position of the first syllable
+            </summary>
+        </member>
+        <member name="P:ChartTools.Lyrics.Phrase.SyllableEndPosition">
+            <summary>
+            End position of the last syllable
             </summary>
         </member>
         <member name="P:ChartTools.Lyrics.Phrase.RawText">
@@ -101,6 +106,16 @@
         <member name="T:ChartTools.Lyrics.Syllable">
             <summary>
             Karaoke step of a <see cref="T:ChartTools.Lyrics.Phrase"/>
+            </summary>
+        </member>
+        <member name="P:ChartTools.Lyrics.Syllable.PositionOffset">
+            <summary>
+            Position offset from the <see cref="T:ChartTools.Lyrics.Phrase"/>
+            </summary>
+        </member>
+        <member name="P:ChartTools.Lyrics.Syllable.EndPositionOffset">
+            <summary>
+            Position offset of the end from the <see cref="T:ChartTools.Lyrics.Phrase"/>
             </summary>
         </member>
         <member name="P:ChartTools.Lyrics.Syllable.Pitch">
@@ -362,6 +377,11 @@
         </member>
         <member name="M:ChartTools.Events.LocalEvent.#ctor(System.UInt32,System.String,System.String)">
             <inheritdoc cref="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String,System.String)"/>
+        </member>
+        <member name="P:ChartTools.ILongObject.Length">
+            <summary>
+            Length of the object in ticks
+            </summary>
         </member>
         <member name="T:ChartTools.Instrument">
             <summary>
@@ -1955,11 +1975,6 @@
         <member name="P:ChartTools.StreamCollection.Crowd">
             <summary>
             Location of the crowd reaction audio file
-            </summary>
-        </member>
-        <member name="P:ChartTools.ILongTrackObject.EndPosition">
-            <summary>
-            Tick number marking the end of the object
             </summary>
         </member>
         <member name="P:ChartTools.ITrackObject.Position">

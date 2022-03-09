@@ -1,6 +1,6 @@
 ﻿namespace ChartTools
 {
-    public class LongTrackObject : TrackObject, ILongTrackObject
+    public class LongTrackObject : TrackObject, ILongObject
     {
         public uint Length { get; set; }
 
