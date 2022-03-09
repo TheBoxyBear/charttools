@@ -1,4 +1,6 @@
-﻿using ChartTools.IO.Configuration.Sessions;
+﻿using ChartTools.Events;
+using ChartTools.IO.Chart.Serializers;
+using ChartTools.IO.Configuration.Sessions;
 
 using System.Collections.Generic;
 using System.Linq;

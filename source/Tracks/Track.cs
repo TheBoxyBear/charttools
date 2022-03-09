@@ -1,4 +1,5 @@
-﻿using ChartTools.Internal;
+﻿using ChartTools.Events;
+using ChartTools.Internal;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
@@ -51,10 +52,10 @@ namespace ChartTools
 
                 switch (e.EventType)
                 {
-                    case LocalEventType.Solo:
+                    case EventTypeHelper.Local.Solo:
                         phrase = new(e.Position, SpecialPhraseType.StarPowerGain);
                         break;
-                    case LocalEventType.SoloEnd:
+                    case EventTypeHelper.Local.SoloEnd:
                         if (phrase is not null)
                         {
                             phrase.Length = e.Position - phrase.Position;

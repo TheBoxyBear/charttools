@@ -1,4 +1,5 @@
-﻿using ChartTools.IO.Configuration.Sessions;
+﻿using ChartTools.Events;
+using ChartTools.IO.Configuration.Sessions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,10 +60,10 @@ namespace ChartTools.Lyrics
 
         public IEnumerable<GlobalEvent> ToGlobalEvents()
         {
-            yield return new(Position, GlobalEventType.PhraseStart);
+            yield return new(Position, EventTypeHelper.Global.PhraseStart);
 
             foreach (var note in Notes)
-                yield return new(Position + note.PositionOffset, GlobalEventType.Lyric, note.RawText);
+                yield return new(note.Position, EventTypeHelper.Global.Lyric, note.RawText);
         }
 
         internal override IEnumerable<string> GetChartNoteData() => Enumerable.Empty<string>();
