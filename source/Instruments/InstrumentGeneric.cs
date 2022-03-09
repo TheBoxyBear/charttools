@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ChartTools.SystemExtensions.Linq;
+
+using System;
 using System.Linq;
 
 namespace ChartTools
@@ -11,40 +13,47 @@ namespace ChartTools
         /// <summary>
         /// Easy track
         /// </summary>
-        public new Track<TChord> Easy
+        public new Track<TChord>? Easy
         {
-            get => (Track<TChord>)base.Easy;
-            set => base.Easy = value with { Difficulty = ChartTools.Difficulty.Easy, ParentInstrument = this };
+            get => _easy;
+            set => _easy = value is null ? null : value with { Difficulty = ChartTools.Difficulty.Easy, ParentInstrument = this };
         }
+        private Track<TChord>? _easy;
+
         /// <summary>
         /// Medium track
         /// </summary>
-        public new Track<TChord> Medium
+        public new Track<TChord>? Medium
         {
-            get => (Track<TChord>)base.Medium;
-            set => base.Medium = value with { Difficulty = ChartTools.Difficulty.Medium, ParentInstrument = this };
+            get => _medium;
+            set => _medium = value is null ? null : value with { Difficulty = ChartTools.Difficulty.Medium, ParentInstrument = this };
         }
+        private Track<TChord>? _medium;
+
         /// <summary>
         /// Hard track
         /// </summary>
-        public new Track<TChord> Hard
+        public new Track<TChord>? Hard
         {
-            get => (Track<TChord>)base.Hard;
-            set => base.Hard = value with { Difficulty = ChartTools.Difficulty.Hard, ParentInstrument = this };
+            get => _hard;
+            set => _hard = value is null ? null : value with { Difficulty = ChartTools.Difficulty.Hard, ParentInstrument = this };
         }
+        private Track<TChord>? _hard;
+
         /// <summary>
         /// Expert track
         /// </summary>
-        public new Track<TChord> Expert
+        public new Track<TChord>? Expert
         {
-            get => (Track<TChord>) base.Expert;
-            set => base.Expert = value with { Difficulty = ChartTools.Difficulty.Expert, ParentInstrument = this };
+            get => _expert;
+            set => _expert = value is null ? null : value with { Difficulty = ChartTools.Difficulty.Expert, ParentInstrument = this };
         }
+        private Track<TChord>? _expert;
 
         /// <summary>
         /// Gets the <see cref="Track{TChord}"/> that matches a <see cref="Difficulty"/>
         /// </summary>
-        public override Track<TChord> GetTrack(Difficulty difficulty) => difficulty switch
+        public override Track<TChord>? GetTrack(Difficulty difficulty) => difficulty switch
         {
             ChartTools.Difficulty.Easy => Easy,
             ChartTools.Difficulty.Medium => Medium,
@@ -52,7 +61,13 @@ namespace ChartTools
             ChartTools.Difficulty.Expert => Expert,
             _ => throw CommonExceptions.GetUndefinedException(difficulty)
         };
-        public override Track<TChord>[] GetTracks() => base.GetTracks().Cast<Track<TChord>>().ToArray();
+
+        protected override Track<TChord>? GetEasy() => Easy;
+        protected override Track<TChord>? GetMedium() => Medium;
+        protected override Track<TChord>? GetHard() => Hard;
+        protected override Track<TChord>? GetExpert() => Expert;
+
+        public override Track<TChord>?[] GetTracks() => new Track<TChord>?[] { Easy, Medium, Hard, Expert };
         public override Track<TChord>[] GetNonEmptyTracks() => base.GetNonEmptyTracks().Cast<Track<TChord>>().ToArray();
 
         /// <summary>

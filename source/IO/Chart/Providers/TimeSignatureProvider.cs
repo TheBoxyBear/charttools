@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ChartTools.IO.Chart.Providers
 {
-    internal class TimeSignatureProvider : ITrackObjectProvider<TimeSignature>
+    internal class TimeSignatureProvider : ISerializerDataProvider<TimeSignature, TrackObjectProviderEntry>
     {
         public IEnumerable<TrackObjectProviderEntry> ProvideFor(IEnumerable<TimeSignature> source, WritingSession session)
         {

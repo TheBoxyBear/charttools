@@ -1,5 +1,6 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace ChartTools.IO
 {
     internal abstract class FileParser<T>
     {
+        public bool ResultReady { get; private set; }
         public abstract object? Result { get; }
         protected ReadingSession session;
 
@@ -29,11 +31,11 @@ namespace ChartTools.IO
 
             FinaliseParse();
         }
+        protected abstract void HandleItem(T item);
 
         public abstract void ApplyResultToSong(Song song);
+        protected virtual void FinaliseParse() => ResultReady = true;
 
-        protected abstract void FinaliseParse();
-
-        protected abstract void HandleItem(T item);
+        protected TResult GetResult<TResult>(TResult result) => ResultReady ? result : throw new Exception("Result is not ready.");
     }
 }

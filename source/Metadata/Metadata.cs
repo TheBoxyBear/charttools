@@ -137,8 +137,8 @@ namespace ChartTools
         /// <exception cref="FormatException"/>
         /// <exception cref="IOException"/>
         /// <exception cref="OutOfMemoryException"/>
-        public static Metadata FromFile(string path) => ExtensionHandler.Read<Metadata>(path, null, (".chart", (path, _) => ChartReader.ReadMetadata(path)), (".ini", (path, _) => IniParser.ReadMetadata(path)));
-        public static async Task<Metadata> FromFileAsync(string path, CancellationToken cancellationToken) => await ExtensionHandler.ReadAsync<Metadata>(path, cancellationToken, null, (".chart", (path, token, _) => ChartReader.ReadMetadataAsync(path, token)), (".ini", (path, _, _) => Task.Run(() => IniParser.ReadMetadata(path))));
+        public static Metadata FromFile(string path) => ExtensionHandler.Read<Metadata>(path, null, (".chart", (path, _) => ChartFile.ReadMetadata(path)), (".ini", (path, _) => IniParser_old.ReadMetadata(path)));
+        public static async Task<Metadata> FromFileAsync(string path, CancellationToken cancellationToken) => await ExtensionHandler.ReadAsync<Metadata>(path, cancellationToken, null, (".chart", (path, token, _) => ChartFile.ReadMetadataAsync(path, token)), (".ini", (path, _, _) => Task.Run(() => IniParser_old.ReadMetadata(path))));
         /// <summary>
         /// Reads the metadata from multiple files.
         /// </summary>
@@ -165,8 +165,8 @@ namespace ChartTools
 
             return data[0];
         }
-        /// <inheritdoc cref="IniParser.WriteMetadata(string, Metadata)"/>
-        public void ToFile(string path) => ExtensionHandler.Write(path, (".ini", path => IniParser.WriteMetadata(path, this)));
+        /// <inheritdoc cref="IniParser_old.WriteMetadata(string, Metadata)"/>
+        public void ToFile(string path) => ExtensionHandler.Write(path, (".ini", path => IniParser_old.WriteMetadata(path, this)));
     }
 
     public struct MetadataItem

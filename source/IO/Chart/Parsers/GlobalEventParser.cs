@@ -8,12 +8,11 @@ namespace ChartTools.IO.Chart.Parsers
 {
     internal class GlobalEventParser : ChartParser
     {
-        private readonly List<GlobalEvent> preResult = new();
-        private List<GlobalEvent>? result;
+        public override List<GlobalEvent> Result => GetResult(result);
+        private List<GlobalEvent> result = new();
 
         public GlobalEventParser(ReadingSession session) : base(session) { }
 
-        public override List<GlobalEvent>? Result => result;
         protected override void HandleItem(string line)
         {
             TrackObjectEntry entry;
@@ -21,10 +20,8 @@ namespace ChartTools.IO.Chart.Parsers
             catch (Exception e) { throw ChartExceptions.Line(line, e); }
 
             GlobalEvent ev = new(entry.Position, entry.Data.Trim('"'));
-            preResult!.Add(ev);
+            result.Add(ev);
         }
-
-        protected override void FinaliseParse() => result = preResult;
 
         public override void ApplyResultToSong(Song song)
         {
