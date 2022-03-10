@@ -31,6 +31,7 @@ namespace ChartTools
         public void Clear() => Notes.Clear();
         /// <summary>
         /// Determines if a note is contained in the collection.
+        /// </summary>
         /// <exception cref="ArgumentNullException"/>
         public bool Contains(TNote item) => item is null ? throw new ArgumentNullException(nameof(item)) : Notes.Contains(item);
         public void CopyTo(TNote[] array, int arrayIndex) => Notes.CopyTo(array, arrayIndex);

@@ -2,7 +2,7 @@
 
 namespace ChartTools.IO.Ini
 {
-    internal static class IniFormatting
+    public static class IniFormatting
     {
         /// <summary>
         /// Keys for <see cref="Instrument"/> difficulties

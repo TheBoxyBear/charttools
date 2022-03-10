@@ -390,7 +390,7 @@
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetSongParser(System.String,ChartTools.IO.Configuration.Sessions.ReadingSession)">
             <summary>
-            Creates a <see cref="!:ChartParser"/> for parsing a section based on the header.
+            Creates a <see cref="T:ChartTools.IO.Chart.Parsers.ChartParser"/> for parsing a section based on the header.
             </summary>
             <exception cref="T:System.FormatException"></exception>
         </member>
@@ -744,15 +744,72 @@
             <param name="line">Line in the file</param>
             <exception cref="T:System.FormatException"/>
         </member>
+        <member name="F:ChartTools.IO.Ini.IniFormatting.DifficultyKeys">
+            <summary>
+            Keys for <see cref="T:ChartTools.Instrument"/> difficulties
+            </summary>
+        </member>
         <member name="T:ChartTools.IO.Ini.IniFile">
             <summary>
             Provides methods for reading and writing ini files
             </summary>
         </member>
-        <member name="F:ChartTools.IO.Ini.IniFormatting.DifficultyKeys">
+        <member name="F:ChartTools.IO.Ini.IniFile.difficultyKeys">
             <summary>
             Keys for <see cref="T:ChartTools.Instrument"/> difficulties
             </summary>
+        </member>
+        <member name="M:ChartTools.IO.Ini.IniFile.ReadMetadata(System.String)">
+            <summary>
+            Reads metadata from a ini file.
+            </summary>
+            <returns>Instance of <see cref="T:ChartTools.Metadata"/> containing the data in the file</returns>
+            <param name="path">Path of the file to read</param>
+            <inheritdoc cref="M:System.IO.File.ReadLines(System.String)" path="/exception"/>
+        </member>
+        <member name="M:ChartTools.IO.Ini.IniFile.WriteMetadata(System.String,ChartTools.Metadata)">
+            <summary>
+            Writes metadata to a ini file.
+            </summary>
+            <param name="path">Path of the file to read</param>
+            <param name="metadata">Metadata to write</param>
+        </member>
+        <member name="M:ChartTools.IO.Ini.IniFile.ReadDifficulty(System.String,ChartTools.Instrument)">
+            <summary>
+            Reads an <see cref="T:ChartTools.Instrument"/> difficulty from a ini file.
+            </summary>
+            <returns>Difficulty read
+                <para><see langword="null"/> if the file does not mention a difficulty for the provided instrument</para>
+            </returns>
+            <param name="path">Path of the file to read</param>
+            <param name="instrument">Instrument to read</param>
+            <inheritdoc cref="M:System.IO.File.ReadLines(System.String)" path="/exception"/>
+        </member>
+        <member name="M:ChartTools.IO.Ini.IniFile.ReadDifficulties(System.String,ChartTools.Song)">
+            <summary>
+            Reads <see cref="T:ChartTools.Instrument"/> difficulties from a ini file and assigns them to the instruments in a <see cref="T:ChartTools.Song"/>.
+            </summary>
+            <param name="path">Path of the file to read</param>
+            <param name="song">Song to assign the difficulties to</param>
+            <inheritdoc cref="M:System.IO.File.ReadAllLines(System.String)" path="/exception"/>
+        </member>
+        <member name="M:ChartTools.IO.Ini.IniFile.WriteDifficulty(System.String,ChartTools.Instrument)">
+            <summary>
+            Writes an <see cref="T:ChartTools.Instrument"/> difficulty to a ini file.
+            </summary>
+            <param name="path">Path of the file to write</param>
+            <param name="instrument">Instrument to write the difficulty of</param>
+            <param name="value">Difficulty to write</param>
+            <inheritdoc cref="M:System.IO.File.ReadAllLines(System.String)" path="/exception"/>
+            <inheritdoc cref="M:System.IO.File.WriteAllLines(System.String,System.Collections.Generic.IEnumerable{System.String})" path="/exception"/>
+        </member>
+        <member name="M:ChartTools.IO.Ini.IniFile.WriteDifficulties(System.String,ChartTools.Song)">
+            <summary>
+            Writes <see cref="T:ChartTools.Instrument"/> difficulties from a <see cref="T:ChartTools.Song"/> to a ini file.
+            </summary>
+            <param name="path">Path of the file to write</param>
+            <param name="song">Song to get the difficulties from</param>
+            <inheritdoc cref="!:WriteDifficulty(string, InstrumentIdentity, sbyte)" path="/exception"/>
         </member>
         <member name="T:ChartTools.IO.Ini.IniParser_old">
             <summary>
@@ -1602,16 +1659,15 @@
             <exception cref="T:System.ArgumentException"/>
             <exception cref="T:System.ArgumentNullException"/>
         </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueEnumerator`1.Dispose">
-            <inheritdoc/>
-        </member>
         <member name="M:ChartTools.Collections.Unique.UniqueEnumerator`1.MoveNext">
             <inheritdoc/>
         </member>
         <member name="M:ChartTools.Collections.Unique.UniqueEnumerator`1.Reset">
             <inheritdoc/>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:ChartTools.Collections.Unique.UniqueEnumerator`1.Initialize" -->
+        <member name="M:ChartTools.Collections.Unique.UniqueEnumerator`1.Initialize">
+            <inheritdoc/>
+        </member>
         <member name="T:ChartTools.Collections.Unique.UniqueList`1">
             <summary>
             List where all <typeparamref name="T"/> items must be unique using a given comparison
@@ -2216,7 +2272,12 @@
             <summary>Adds a note to the collection.</summary>
             <exception cref="T:System.ArgumentNullException"/>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:ChartTools.NoteCollection`2.Contains(`0)" -->
+        <member name="M:ChartTools.NoteCollection`2.Contains(`0)">
+            <summary>
+            Determines if a note is contained in the collection.
+            </summary>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
         <member name="M:ChartTools.NoteCollection`2.Remove(`0)">
             <summary>
             Removes a note from the collection.
@@ -2496,7 +2557,7 @@
             Creates an instance of <see cref="T:ChartTools.SpecicalPhrase"/>.
             </summary>
             <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
-            <param name="length">Value of <see cref="!:Length"/></param>
+            <param name="length">Value of <see cref="P:ChartTools.LongTrackObject.Length"/></param>
         </member>
         <member name="T:ChartTools.Track">
             <summary>

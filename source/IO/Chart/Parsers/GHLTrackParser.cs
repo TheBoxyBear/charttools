@@ -10,14 +10,14 @@ namespace ChartTools.IO.Chart.Parsers
     {
         public GHLTrackParser(Difficulty difficulty, GHLInstrumentIdentity instrument, ReadingSession session) : base(difficulty, instrument, session) { }
 
-        public override void ApplyResultToSong(Song song)
+        public override void ApplyToSong(Song song)
         {
             var inst = song.GetInstrument(Instrument);
 
             if (inst is null)
                 song.SetInstrument(inst = new(), Instrument);
 
-            ApplyResultToInstrument(inst);
+            ApplyToInstrument(inst);
         }
 
         protected override void HandleNote(Track<GHLChord> track, ref GHLChord chord, uint position, NoteData data, ref bool newChord, out Enum initialModifier)

@@ -5,7 +5,7 @@ using System;
 
 namespace ChartTools.IO.Chart.Parsers
 {
-    internal class MetadataParser : TextParser
+    internal class MetadataParser : ChartParser
     {
         public override Metadata Result => GetResult(result);
         private readonly Metadata result = new();
@@ -91,7 +91,7 @@ namespace ChartTools.IO.Chart.Parsers
             }
         }
 
-        public override void ApplyResultToSong(Song song)
+        public override void ApplyToSong(Song song)
         {
             if (song.Metadata is null)
                 song.Metadata = Result;

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart.Parsers
 {
-    internal class GlobalEventParser : TextParser
+    internal class GlobalEventParser : ChartParser
     {
         public override List<GlobalEvent> Result => GetResult(result);
         private readonly List<GlobalEvent> result = new();
@@ -19,6 +19,6 @@ namespace ChartTools.IO.Chart.Parsers
             result.Add(new(entry.Position, entry.Data.Trim('"')));
         }
 
-        public override void ApplyResultToSong(Song song) => song.GlobalEvents = Result;
+        public override void ApplyToSong(Song song) => song.GlobalEvents = Result;
     }
 }

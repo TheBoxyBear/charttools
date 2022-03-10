@@ -14,7 +14,7 @@ namespace ChartTools.IO
         private record ParserLinesGroup(TextParser Parser, DelayedEnumerableSource<string> Source);
 
         public string Path { get; }
-        public IEnumerable<TextParser> Parsers => parserGroups.Select(g => g.Parser);
+        public virtual IEnumerable<TextParser> Parsers => parserGroups.Select(g => g.Parser);
 
         private readonly List<ParserLinesGroup> parserGroups = new();
         private readonly List<Task> parseTasks = new();

@@ -76,16 +76,11 @@
     <Compile Include="IO\Configuration\Sessions\WritingSession.cs" />
     <Compile Include="IO\Configuration\WritingConfiguration.cs" />
     <Compile Include="IO\ExtensionHandler.cs" />
-    <Compile Include="IO\FileParser.cs" />
-    <Compile Include="IO\FormattedFileParser.cs" />
     <Compile Include="Formatting\FormattingEnums.cs" />
     <Compile Include="Formatting\FormattingRules.cs" />
-    <Compile Include="IO\GroupSerializer.cs" />
     <Compile Include="IO\Ini\IniFile.cs" />
     <Compile Include="IO\Ini\IniFileReader.cs" />
     <Compile Include="IO\Ini\IniFileWriter.cs" />
-    <Compile Include="IO\Ini\IniFormatting.cs" />
-    <Compile Include="IO\Ini\IniParser.cs" />
     <Compile Include="IO\Ini\IniParser_old.cs" />
     <Compile Include="IO\ISerializerDataProvider.cs" />
     <Compile Include="IO\Midi\MIDIFormatting.cs" />
@@ -98,7 +93,6 @@
     <Compile Include="IO\Midi\Parsers\StandardInstrumentParser.cs" />
     <Compile Include="IO\Midi\Parsers\TrackParser.cs" />
     <Compile Include="IO\Midi\Providers\MidiProvider.cs" />
-    <Compile Include="IO\Serializer.cs" />
     <Compile Include="IO\TextEntry.cs" />
     <Compile Include="IO\TextFileReader.cs" />
     <Compile Include="Metadata\Charter.cs" />

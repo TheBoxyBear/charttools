@@ -2,14 +2,14 @@
 using ChartTools.Internal;
 using ChartTools.IO.Configuration.Sessions;
 
-namespace ChartTools.IO.Ini
+namespace ChartTools.IO.Ini.Parsers
 {
-    internal abstract class IniParser : FileParser<string>
+    internal class MetadataParser : IniParser
     {
         public override Metadata Result => GetResult(result);
         private readonly Metadata result;
 
-        public IniParser(ReadingSession session, Metadata? existing = null) : base(session) => result = existing ?? new();
+        public MetadataParser(ReadingSession session, Metadata? existing = null) : base(session) => result = existing ?? new();
 
         protected override void HandleItem(string item)
         {
@@ -106,7 +106,8 @@ namespace ChartTools.IO.Ini
                     result.Formatting.ForceEightHopoFrequency = ValueParser.ParseBool(entry.Value, "force eight hopo frequency");
                     break;
                 default:
-                    result.UnidentifiedData.Add(new() { Key = entry.Key, Value = entry.Value, Origin = FileFormat.Ini });
+                    if (!IniFormatting.DifficultyKeys.ContainsKey(entry.Key))
+                        result.UnidentifiedData.Add(new() { Key = entry.Key, Value = entry.Value, Origin = FileFormat.Ini });
                     break;
             }
 
@@ -118,7 +119,7 @@ namespace ChartTools.IO.Ini
             }
         }
 
-        public override void ApplyResultToSong(Song song)
+        public override void ApplyToSong(Song song)
         {
             if (song.Metadata is null)
                 song.Metadata = Result;

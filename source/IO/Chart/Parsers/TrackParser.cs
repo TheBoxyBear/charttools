@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart.Parsers
 {
-    internal abstract class TrackParser<TChord> : TextParser where TChord : Chord
+    internal abstract class TrackParser<TChord> : ChartParser, IInstrumentAppliable<TChord> where TChord : Chord
     {
         public Difficulty Difficulty { get; }
 
@@ -72,7 +72,7 @@ namespace ChartTools.IO.Chart.Parsers
             base.FinaliseParse();
         }
 
-        protected void ApplyResultToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(Result);
+        public void ApplyToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(Result);
 
         private static void ApplyOverlappingSpecialPhrasePolicy(IEnumerable<SpecicalPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
         {

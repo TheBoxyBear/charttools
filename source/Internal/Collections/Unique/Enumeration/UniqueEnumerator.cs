@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-using ChartTools.SystemExtensions;
+﻿using ChartTools.SystemExtensions;
 using ChartTools.SystemExtensions.Linq;
 
 using System;
@@ -62,15 +60,8 @@ namespace ChartTools.Collections.Unique
             Enumerators = enumerators.NonNull().ToArray();
             endsReached = new bool[Enumerators.Length];
         }
-        ~UniqueEnumerator() => Dispose(false);
 
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        public virtual void Dispose(bool disposing)
+        public virtual void Dispose()
         {
             foreach (IEnumerator<T> enumerator in Enumerators)
                 enumerator.Dispose();
@@ -128,7 +119,7 @@ namespace ChartTools.Collections.Unique
                 endsReached[i] = false;
         }
 
-        /// <inheritdoc>/
+        /// <inheritdoc/>
         public bool Initialize()
         {
             if (Initialized)

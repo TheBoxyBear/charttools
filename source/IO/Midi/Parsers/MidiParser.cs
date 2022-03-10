@@ -5,9 +5,11 @@ using System;
 
 namespace ChartTools.IO.Midi.Parsers
 {
-    internal abstract class MidiParser : FileParser<MidiEvent>
+    internal abstract class MidiParser : FileParser<MidiEvent>, ISongAppliable
     {
         public MidiParser(ReadingSession session) : base(session) { }
+
+        public abstract void ApplyToSong(Song song);
 
         protected override Exception GetHandleException(MidiEvent item, Exception innerException)
         {

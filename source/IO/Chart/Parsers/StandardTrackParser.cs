@@ -9,7 +9,7 @@ namespace ChartTools.IO.Chart.Parsers
     {
         public StandardTrackParser(Difficulty difficulty, StandardInstrumentIdentity instrument, ReadingSession session) : base(difficulty, instrument, session) { }
 
-        public override void ApplyResultToSong(Song song)
+        public override void ApplyToSong(Song song)
         {
             var inst = song.GetInstrument(Instrument);
             var instrumentExists = inst is not null;
@@ -17,7 +17,7 @@ namespace ChartTools.IO.Chart.Parsers
             if (!instrumentExists)
                 inst = new();
 
-            ApplyResultToInstrument(inst!);
+            ApplyToInstrument(inst!);
 
             if (!instrumentExists)
                 song.SetInstrument(inst!, Instrument);

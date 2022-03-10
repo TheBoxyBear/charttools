@@ -22,7 +22,7 @@ namespace ChartTools
         /// Creates an instance of <see cref="SpecicalPhrase"/>.
         /// </summary>
         /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
-        /// <param name="length">Value of <see cref="Length"/></param>
+        /// <param name="length">Value of <see cref="LongTrackObject.Length"/></param>
         public SpecicalPhrase(uint position, SpecialPhraseType type, uint length = 0) : base(position)
         {
             Type = type;

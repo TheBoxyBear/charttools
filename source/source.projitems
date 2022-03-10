@@ -24,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Events\GlobalEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\LocalEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\ChartParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\MetadataParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Providers\TrackObjectProviderEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Formatting\FormattingEnums.cs" />
@@ -53,9 +54,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\LineException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\ParseException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\SectionException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Appliables\IInstrumentAppliable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\Parsers\DifficultyParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFormatting.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\Parsers\IniParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniSimpleSerializeAttribute.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\TextParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\Parsers\MetadataParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Appliables\ISongAppliable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\FileParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\FormattedFileParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Serializers\GroupSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Serializers\Serializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\TextParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\ValueParser.cs" />
     <Compile Include="..\source\Internal\PropertyMerger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\AsyncFileReader.cs" />
@@ -67,16 +78,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\DrumsTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\GHLTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\GlobalEventParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\FormattedFileParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\GroupSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFileWriter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFormatting.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\ISerializerDataProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsers\GHGemsParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Serializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\TextEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\TextFileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\UnidentifiedMetadata.cs" />
@@ -95,7 +101,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\ReadingConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\WritingConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Sessions\Session.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\FileParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsers\InstrumentParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsers\StandardInstrumentParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsers\TrackParser.cs" />
@@ -139,5 +144,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Tracks\Track.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tracks\TrackGeneric.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tracks\UniqueTrackObjectCollection.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)IO\Appliables\" />
+    <Folder Include="$(MSBuildThisFileDirectory)IO\Ini\Parsers\" />
   </ItemGroup>
 </Project>

@@ -8,7 +8,7 @@ namespace ChartTools.IO.Midi.Parsers
     {
         public StandardInstrumentParser(StandardInstrumentIdentity instrument, ReadingSession session) : base(instrument, session) { }
 
-        public override void ApplyResultToSong(Song song)
+        public override void ApplyToSong(Song song)
         {
             throw new NotImplementedException();
         }
