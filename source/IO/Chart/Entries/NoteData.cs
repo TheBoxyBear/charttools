@@ -30,8 +30,8 @@ namespace ChartTools.IO.Chart.Entries
             if (split.Length < 2)
                 throw new EntryException();
 
-            NoteIndex = ValueParser.Parse<byte>(split[0], "note index", byte.TryParse);
-            SustainLength = ValueParser.Parse<uint>(split[1], "sustain length", uint.TryParse);
+            NoteIndex = ValueParser.ParseByte(split[0], "note index");
+            SustainLength = ValueParser.ParseUint(split[1], "sustain length");
         }
     }
 }

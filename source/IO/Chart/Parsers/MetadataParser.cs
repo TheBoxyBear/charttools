@@ -33,22 +33,22 @@ namespace ChartTools.IO.Chart.Parsers
                     result.Album = data;
                     break;
                 case "Year":
-                    result.Year = ValueParser.Parse<ushort>(data.TrimStart(','), "year", ushort.TryParse);
+                    result.Year = ValueParser.ParseUshort(data.TrimStart(','), "year");
                     break;
                 case "Offset":
-                    result.AudioOffset = (int)(ValueParser.Parse<float>(data, "audio offset", float.TryParse) * 1000);
+                    result.AudioOffset = (int)(ValueParser.ParseFloat(data, "audio offset") * 1000);
                     break;
                 case "Resolution":
-                    result.Resolution = ValueParser.Parse<ushort>(data, "resolution", ushort.TryParse);
+                    result.Resolution = ValueParser.ParseUshort(data, "resolution");
                     break;
                 case "Difficulty":
-                    result.Difficulty = ValueParser.Parse<sbyte>(data, "difficulty", sbyte.TryParse);
+                    result.Difficulty = ValueParser.ParseSbyte(data, "difficulty");
                     break;
                 case "PreviewStart":
-                    result.PreviewStart = ValueParser.Parse<uint>(data, "preview start", uint.TryParse);
+                    result.PreviewStart = ValueParser.ParseUint(data, "preview start");
                     break;
                 case "PreviewEnd":
-                    result.PreviewEnd = ValueParser.Parse<uint>(data, "preview end", uint.TryParse);
+                    result.PreviewEnd = ValueParser.ParseUint(data, "preview end");
                     break;
                 case "Genre":
                     result.Genre = data;

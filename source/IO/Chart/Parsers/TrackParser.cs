@@ -53,8 +53,8 @@ namespace ChartTools.IO.Chart.Parsers
                 case "S":
                     var split = ChartFile.GetDataSplit(entry.Data);
 
-                    var typeCode = ValueParser.Parse<byte>(split[0], "type code", byte.TryParse);
-                    var length = ValueParser.Parse<uint>(split[1], "length", uint.TryParse);
+                    var typeCode = ValueParser.ParseByte(split[0], "type code");
+                    var length = ValueParser.ParseUint(split[1], "length");
 
                     result.StarPower.Add(new(entry.Position, typeCode, length));
                     break;
