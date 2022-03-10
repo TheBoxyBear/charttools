@@ -63,22 +63,27 @@
         </member>
         <member name="P:ChartTools.Lyrics.Phrase.EndPosition">
             <summary>
-            End of the phrase as defined by <see cref="P:ChartTools.Lyrics.Phrase.SyllableEnd"/>, unless overridden by <see cref="P:ChartTools.Lyrics.Phrase.EndPositionOverride"/>
+            End of the phrase as defined by <see cref="P:ChartTools.Lyrics.Phrase.Length"/>
             </summary>
         </member>
-        <member name="P:ChartTools.Lyrics.Phrase.EndPositionOverride">
+        <member name="P:ChartTools.Lyrics.Phrase.SyllableStartOffset">
             <summary>
-            Explicit end position overriding the natural one
+            Offset of the first syllable
             </summary>
         </member>
-        <member name="P:ChartTools.Lyrics.Phrase.SyllableStart">
+        <member name="P:ChartTools.Lyrics.Phrase.SyllableEndOffset">
             <summary>
-            Start of the first syllable
+            Offset of the end of the last syllable
             </summary>
         </member>
-        <member name="P:ChartTools.Lyrics.Phrase.SyllableEnd">
+        <member name="P:ChartTools.Lyrics.Phrase.SyllableStartPosition">
             <summary>
-            Natural end position based on the end of the last syllable
+            Start position of the first syllable
+            </summary>
+        </member>
+        <member name="P:ChartTools.Lyrics.Phrase.SyllableEndPosition">
+            <summary>
+            End position of the last syllable
             </summary>
         </member>
         <member name="P:ChartTools.Lyrics.Phrase.RawText">
@@ -93,7 +98,7 @@
         </member>
         <member name="M:ChartTools.Lyrics.PhraseExtensions.ToGlobalEvents(System.Collections.Generic.IEnumerable{ChartTools.Lyrics.Phrase})">
             <summary>
-            Converts a set of <see cref="T:ChartTools.Lyrics.Phrase"/> to a set of <see cref="T:ChartTools.GlobalEvent"/> making up the phrases.
+            Converts a set of <see cref="T:ChartTools.Lyrics.Phrase"/> to a set of <see cref="T:ChartTools.Events.GlobalEvent"/> making up the phrases.
             </summary>
             <param name="source">Phrases to convert into global events</param>
             <returns>Global events making up the phrases</returns>
@@ -101,6 +106,16 @@
         <member name="T:ChartTools.Lyrics.Syllable">
             <summary>
             Karaoke step of a <see cref="T:ChartTools.Lyrics.Phrase"/>
+            </summary>
+        </member>
+        <member name="P:ChartTools.Lyrics.Syllable.PositionOffset">
+            <summary>
+            Position offset from the <see cref="T:ChartTools.Lyrics.Phrase"/>
+            </summary>
+        </member>
+        <member name="P:ChartTools.Lyrics.Syllable.EndPositionOffset">
+            <summary>
+            Position offset of the end from the <see cref="T:ChartTools.Lyrics.Phrase"/>
             </summary>
         </member>
         <member name="P:ChartTools.Lyrics.Syllable.Pitch">
@@ -206,32 +221,32 @@
             Frets for a <see cref="!:GHLNote"/>
             </summary>
         </member>
-        <member name="T:ChartTools.GlobalEventType">
+        <member name="T:ChartTools.GlobalEventTypeEnum">
             <summary>
-            Types of <see cref="T:ChartTools.GlobalEvent"/>
+            Types of <see cref="!:GlobalEvent"/>
             </summary>
         </member>
-        <member name="F:ChartTools.GlobalEventType.Unknown">
+        <member name="F:ChartTools.GlobalEventTypeEnum.Unknown">
             <summary>
-            The backing <see cref="P:ChartTools.Event.EventTypeString"/> property does not match a known event type
+            The backing <see cref="!:Event.EventTypeString"/> property does not match a known event type
             </summary>
         </member>
-        <member name="F:ChartTools.GlobalEventType.PhraseStart">
+        <member name="F:ChartTools.GlobalEventTypeEnum.PhraseStart">
             <summary>
             Marks the start of a new <see cref="T:ChartTools.Lyrics.Phrase"/>
             </summary>
         </member>
-        <member name="F:ChartTools.GlobalEventType.PhraseEnd">
+        <member name="F:ChartTools.GlobalEventTypeEnum.PhraseEnd">
             <summary>
             Marks the end of the current <see cref="T:ChartTools.Lyrics.Phrase"/>
             </summary>
         </member>
-        <member name="F:ChartTools.GlobalEventType.Lyric">
+        <member name="F:ChartTools.GlobalEventTypeEnum.Lyric">
             <summary>
             Marks a <see cref="T:ChartTools.Lyrics.Syllable"/> in the current <see cref="T:ChartTools.Lyrics.Phrase"/>
             </summary>
         </member>
-        <member name="F:ChartTools.GlobalEventType.Section">
+        <member name="F:ChartTools.GlobalEventTypeEnum.Section">
             <summary>
             Marks a new section used by Practice mode and in post-game summary
             </summary>
@@ -243,7 +258,7 @@
         </member>
         <member name="T:ChartTools.LightingEffect">
             <summary>
-            Lighting effect caused by a <see cref="T:ChartTools.GlobalEvent"/> of type <see cref="F:ChartTools.GlobalEventType.Lighting"/>
+            Lighting effect caused by a <see cref="!:GlobalEvent"/> of type <see cref="F:ChartTools.GlobalEventTypeEnum.Lighting"/>
             </summary>
         </member>
         <member name="F:ChartTools.LightingEffect.Unknwon">
@@ -253,12 +268,12 @@
         </member>
         <member name="T:ChartTools.LocalEventType">
             <summary>
-            Types of <see cref="T:ChartTools.LocalEvent"/>
+            Types of <see cref="!:LocalEvent"/>
             </summary>
         </member>
         <member name="F:ChartTools.LocalEventType.Unknown">
             <summary>
-            The backing <see cref="P:ChartTools.Event.EventTypeString"/> property does not match a known event type
+            The backing <see cref="!:Event.EventTypeString"/> property does not match a known event type
             </summary>
         </member>
         <member name="F:ChartTools.LocalEventType.Solo">
@@ -303,140 +318,65 @@
             Frets for a <see cref="!:StandardNote"/>
             </summary>
         </member>
-        <member name="T:ChartTools.Event">
+        <member name="T:ChartTools.Events.Event">
             <summary>
             Marker that defines an occurrence at a given point in a song.
             </summary>
         </member>
-        <member name="P:ChartTools.Event.EventTypeString">
+        <member name="P:ChartTools.Events.Event.EventType">
             <summary>
             Type of event as it is written in the file
             </summary>
         </member>
-        <member name="P:ChartTools.Event.Argument">
+        <member name="P:ChartTools.Events.Event.Argument">
             <summary>
             Additional data to modify the outcome of the event
             </summary>
             <remarks>A lack of argument is represented as an empty string.</remarks>
         </member>
-        <member name="M:ChartTools.Event.#ctor(System.UInt32,System.String)">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.Event"/>.
-            </summary>
-            <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
-            <param name="eventData">Value of <see cref="P:ChartTools.Event.EventData"/></param>
+        <member name="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String)">
+            <param name="position"><inheritdoc cref="P:ChartTools.TrackObject.Position"/></param>
+            <param name="data"><inheritdoc cref="P:ChartTools.Events.Event.EventData"/></param>
         </member>
-        <member name="T:ChartTools.GlobalEvent">
+        <member name="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String,System.String)">
+            <inheritdoc cref="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String)"/>
+            <param name="type"><inheritdoc cref="P:ChartTools.Events.Event.EventType"/></param>
+            <param name="argument"><inheritdoc cref="P:ChartTools.Events.Event.Argument"/></param>
+        </member>
+        <member name="T:ChartTools.Events.GlobalEvent">
             <summary>
             Event common to all instruments
             </summary>
         </member>
-        <member name="P:ChartTools.GlobalEvent.GlobalRockBandSectionFormat">
-            <summary>
-            Format in which events will be written when set to the <see cref="F:ChartTools.GlobalEventType.Section"/> type
-            </summary>
+        <member name="M:ChartTools.Events.GlobalEvent.#ctor(System.UInt32,System.String)">
+            <inheritdoc cref="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String)"/>
         </member>
-        <member name="F:ChartTools.GlobalEvent.globalTypesDictionary">
-            <summary>
-            <see cref="P:ChartTools.Event.EventTypeString"/> value for each <see cref="T:ChartTools.GlobalEventType"/>
-            </summary>
+        <member name="M:ChartTools.Events.GlobalEvent.#ctor(System.UInt32,System.String,System.String)">
+            <inheritdoc cref="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String,System.String)"/>
         </member>
-        <member name="P:ChartTools.GlobalEvent.EventType">
-            <inheritdoc cref="P:ChartTools.Event.EventTypeString"/>
-        </member>
-        <member name="P:ChartTools.GlobalEvent.IsLyricEvent">
-            <summary>
-            The event serves to display lyrics
-            </summary>
-        </member>
-        <member name="P:ChartTools.GlobalEvent.IsCrowdEvent">
-            <summary>
-            The event controls the crowd
-            </summary>
-        </member>
-        <member name="P:ChartTools.GlobalEvent.SectionFormat">
-            <summary>
-            Rock Band format the section event is written in
-            </summary>
-            <remarks><see langword="null"/> if the event is not a section.</remarks>
-        </member>
-        <member name="P:ChartTools.GlobalEvent.LightingEffect">
-            <summary>
-            Effect caused by the event if it is a lighting event
-            </summary>
-            <remarks><see langword="null"/> if the event is not a lighting event</remarks>
-        </member>
-        <member name="P:ChartTools.GlobalEvent.LightingEffectSting">
-            <summary>
-            Lighting effect as it is written in the file
-            </summary>
-        </member>
-        <member name="M:ChartTools.GlobalEvent.#ctor(System.UInt32,ChartTools.GlobalEventType,System.String)">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.GlobalEvent"/>.
-            </summary>
-            <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
-            <param name="type">Value of <see cref="P:ChartTools.GlobalEvent.EventType"/></param>
-            <param name="argument">Value of <see cref="P:ChartTools.Event.Argument"/></param>
-        </member>
-        <member name="M:ChartTools.GlobalEvent.#ctor(System.UInt32,System.String,System.String)">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.GlobalEvent"/>.
-            </summary>
-            <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
-            <param name="type">Value of <see cref="!:EventTypeString"/></param>
-            <param name="argument">Value of <see cref="!:Argument"/></param>
-        </member>
-        <member name="M:ChartTools.GlobalEvent.GetEventTypeString(ChartTools.GlobalEventType)">
-            <summary>
-            Gets the string value to set <see cref="P:ChartTools.Event.EventTypeString"/>.
-            </summary>
-            <param name="type">Event type to get the string value of</param>
-        </member>
-        <member name="M:ChartTools.GlobalEvent.FromFile(System.String)">
+        <member name="M:ChartTools.Events.GlobalEvent.FromFile(System.String)">
             <summary>
             Reads global events from a file.
             </summary>
             <param name="path">Path of the file</param>
         </member>
-        <member name="M:ChartTools.GlobalEvent.FromFileAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:ChartTools.Events.GlobalEvent.FromFileAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Reads global events from a file asynchronously using multitasking.
             </summary>
-            <param name="path"><inheritdoc cref="M:ChartTools.GlobalEvent.FromFile(System.String)" path="/param[@name='path']"/></param>
+            <param name="path"><inheritdoc cref="M:ChartTools.Events.GlobalEvent.FromFile(System.String)" path="/param[@name='path']"/></param>
             <param name="cancellationToken">Token to request cancellation</param>
         </member>
-        <member name="T:ChartTools.LocalEvent">
+        <member name="T:ChartTools.Events.LocalEvent">
             <summary>
             Event specific to an instrument and difficulty
             </summary>
         </member>
-        <member name="F:ChartTools.LocalEvent.localTypesDictionary">
-            <summary>
-            <see cref="P:ChartTools.Event.EventTypeString"/> value for each <see cref="T:ChartTools.LocalEventType"/>
-            </summary>
+        <member name="M:ChartTools.Events.LocalEvent.#ctor(System.UInt32,System.String)">
+            <inheritdoc cref="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String)"/>
         </member>
-        <member name="P:ChartTools.LocalEvent.EventType">
-            <inheritdoc cref="P:ChartTools.Event.EventTypeString"/>
-        </member>
-        <member name="M:ChartTools.LocalEvent.#ctor(System.UInt32,ChartTools.LocalEventType)">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.LocalEvent"/>.
-            </summary>
-            <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
-            <param name="type">Value of <see cref="P:ChartTools.LocalEvent.EventType"/></param>
-            <param name="argument">Value of <see cref="P:ChartTools.Event.Argument"/></param>
-        </member>
-        <member name="M:ChartTools.LocalEvent.#ctor(System.UInt32,System.String)">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.LocalEvent"/>.
-            </summary>
-            <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
-            <param name="type">Value of <see cref="!:EventTypeString"/></param>
-            <param name="argument">Value of <see cref="!:Argument"/></param>
-        </member>
-        <member name="M:ChartTools.LocalEvent.GetEventTypeString(ChartTools.LocalEventType)">
-            <inheritdoc cref="M:ChartTools.GlobalEvent.GetEventTypeString(ChartTools.GlobalEventType)"/>
+        <member name="M:ChartTools.Events.LocalEvent.#ctor(System.UInt32,System.String,System.String)">
+            <inheritdoc cref="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String,System.String)"/>
         </member>
         <member name="T:ChartTools.IO.Chart.ChartFile">
             <summary>
@@ -641,13 +581,13 @@
             </summary>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.ReadGlobalEvents(System.String)">
-            <inheritdoc cref="M:ChartTools.GlobalEvent.FromFile(System.String)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.GlobalEvent.FromFile(System.String)" path="/param[@name='path']"/></param>
+            <inheritdoc cref="M:ChartTools.Events.GlobalEvent.FromFile(System.String)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Events.GlobalEvent.FromFile(System.String)" path="/param[@name='path']"/></param>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.ReadGlobalEventsAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc cref="M:ChartTools.GlobalEvent.FromFileAsync(System.String,System.Threading.CancellationToken)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.GlobalEvent.FromFileAsync(System.String,System.Threading.CancellationToken)" path="/param[@name='path']"/></param>
-            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.GlobalEvent.FromFileAsync(System.String,System.Threading.CancellationToken)" path="/param[@name='cancellationToken']"/></param>
+            <inheritdoc cref="M:ChartTools.Events.GlobalEvent.FromFileAsync(System.String,System.Threading.CancellationToken)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Events.GlobalEvent.FromFileAsync(System.String,System.Threading.CancellationToken)" path="/param[@name='path']"/></param>
+            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Events.GlobalEvent.FromFileAsync(System.String,System.Threading.CancellationToken)" path="/param[@name='cancellationToken']"/></param>
             <returns></returns>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.ReadLyrics(System.String)">
@@ -704,7 +644,7 @@
             <param name="metadata">Metadata to write</param>
             <inheritdoc cref="!:ReplacePart(string, IEnumerable&lt;string&gt;, string)" path="/exception"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.ReplaceGlobalEvents(System.String,System.Collections.Generic.IEnumerable{ChartTools.GlobalEvent})">
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReplaceGlobalEvents(System.String,System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent})">
             <summary>
             Replaces the global events in a file.
             </summary>
@@ -731,14 +671,6 @@
             Gets all the combinations of instruments and difficulties.
             </summary>
             <param name="instruments">Enum containing the instruments</param>
-        </member>
-        <member name="M:ChartTools.IO.Chart.ChartExceptions.Line(System.String,System.Exception)">
-            <summary>
-            Generates an exception to throw when a line cannot be converted.
-            </summary>
-            <returns>Instance of <see cref="T:System.Exception"/> to throw</returns>
-            <param name="line">Line that caused the exception</param>
-            <param name="innerException">Exception caught when interpreting the line</param>
         </member>
         <member name="T:ChartTools.IO.Chart.ChartFileReader">
             <summary>
@@ -811,6 +743,11 @@
             </summary>
             <param name="line">Line in the file</param>
             <exception cref="T:System.FormatException"/>
+        </member>
+        <member name="T:ChartTools.IO.Ini.IniFile">
+            <summary>
+            Provides methods for reading and writing ini files
+            </summary>
         </member>
         <member name="F:ChartTools.IO.Ini.IniFormatting.DifficultyKeys">
             <summary>
@@ -1113,6 +1050,11 @@
             </summary>
             <remarks>Property summaries provided by Nathan Hurst.</remarks>
         </member>
+        <member name="P:ChartTools.Formatting.FormattingRules.Resolution">
+            <summary>
+            Number of <see cref="P:ChartTools.TrackObject.Position"/> values per beat
+            </summary>
+        </member>
         <member name="P:ChartTools.Formatting.FormattingRules.SustainCutoff">
             <summary>
             Overrides the default sustain cutoff threshold with the specified number of ticks.
@@ -1166,6 +1108,11 @@
         <member name="P:ChartTools.Formatting.FormattingRules.SysexProSlide">
             <summary>
             (PhaseShift) Indicates if the chart uses SysEx events for Pro Guitar/Bass slide directions.
+            </summary>
+        </member>
+        <member name="P:ChartTools.ILongObject.Length">
+            <summary>
+            Length of the object in ticks
             </summary>
         </member>
         <member name="T:ChartTools.Instrument">
@@ -1319,7 +1266,7 @@
             Gets the <see cref="T:ChartTools.Track`1"/> that matches a <see cref="T:ChartTools.Difficulty"/>
             </summary>
         </member>
-        <member name="M:ChartTools.Instrument`1.SetTrack(ChartTools.Track{`0},ChartTools.Difficulty)">
+        <member name="M:ChartTools.Instrument`1.SetTrack(ChartTools.Track{`0})">
             <summary>
             Sets a track for a given <see cref="T:ChartTools.Difficulty"/>.
             </summary>
@@ -1966,23 +1913,20 @@
         </member>
         <member name="T:ChartTools.GlobalEventExtensions">
             <summary>
-            Provides additional methods for <see cref="T:ChartTools.GlobalEvent"/>
+            Provides additional methods for <see cref="T:ChartTools.Events.GlobalEvent"/>
             </summary>
         </member>
-        <member name="M:ChartTools.GlobalEventExtensions.ToFile(System.String,System.Collections.Generic.IEnumerable{ChartTools.GlobalEvent})">
-            <inheritdoc cref="!:exceptions.ReplaceGlobalEvents(string, IEnumerable&lt;GlobalEvent&gt;)"/>
-        </member>
-        <member name="M:ChartTools.GlobalEventExtensions.GetLyrics(System.Collections.Generic.IEnumerable{ChartTools.GlobalEvent})">
+        <member name="M:ChartTools.GlobalEventExtensions.GetLyrics(System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent})">
             <summary>
-            Gets the lyrics from an enumerable of <see cref="T:ChartTools.GlobalEvent"/>
+            Gets the lyrics from an enumerable of <see cref="T:ChartTools.Events.GlobalEvent"/>
             </summary>
             <returns>Enumerable of <see cref="T:ChartTools.Lyrics.Phrase"/></returns>
         </member>
-        <member name="M:ChartTools.GlobalEventExtensions.SetLyrics(System.Collections.Generic.IEnumerable{ChartTools.GlobalEvent},System.Collections.Generic.IEnumerable{ChartTools.Lyrics.Phrase})">
+        <member name="M:ChartTools.GlobalEventExtensions.SetLyrics(System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent},System.Collections.Generic.IEnumerable{ChartTools.Lyrics.Phrase})">
             <summary>
-            Gets a set of <see cref="T:ChartTools.GlobalEvent"/> where phrase and lyric events are replaced with the events making up a set of <see cref="T:ChartTools.Lyrics.Phrase"/>.
+            Gets a set of <see cref="T:ChartTools.Events.GlobalEvent"/> where phrase and lyric events are replaced with the events making up a set of <see cref="T:ChartTools.Lyrics.Phrase"/>.
             </summary>
-            <returns>Enumerable of <see cref="T:ChartTools.GlobalEvent"/></returns>
+            <returns>Enumerable of <see cref="T:ChartTools.Events.GlobalEvent"/></returns>
         </member>
         <member name="T:ChartTools.FuncEqualityComparer`1">
             <summary>
@@ -2088,7 +2032,7 @@
             <summary>
             Tick number on the track.
             </summary>
-            <remarks>A tick represents a subdivision of a beat. The number of subdivisions per beat is stored in <see cref="P:ChartTools.Metadata.Resolution"/>.</remarks>
+            <remarks>A tick represents a subdivision of a beat. The number of subdivisions per beat is stored in <see cref="!:Metadata.Resolution"/>.</remarks>
         </member>
         <member name="T:ChartTools.Metadata">
             <summary>
@@ -2105,14 +2049,19 @@
             Artist or band behind the <see cref="T:ChartTools.Song"/>
             </summary>
         </member>
-        <member name="P:ChartTools.Metadata.Album">
-            <summary>
-            Album featuring the <see cref="T:ChartTools.Song"/>
-            </summary>
-        </member>
         <member name="P:ChartTools.Metadata.AlbumTrack">
             <summary>
             Track number of the song within the album
+            </summary>
+        </member>
+        <member name="P:ChartTools.Metadata.Playlist">
+            <summary>
+            Playlist that the song should show up in
+            </summary>
+        </member>
+        <member name="P:ChartTools.Metadata.SubPlaylist">
+            <summary>
+            Sub-playlist that the song should show up in
             </summary>
         </member>
         <member name="P:ChartTools.Metadata.PlaylistTrack">
@@ -2140,11 +2089,6 @@
             Start time in milliseconds of the preview in the Clone Hero song browser
             </summary>
         </member>
-        <member name="P:ChartTools.Metadata.PreviewEnd">
-            <summary>
-            End time in milliseconds of the preview in the Clone Hero song browser
-            </summary>
-        </member>
         <member name="P:ChartTools.Metadata.PreviewLength">
             <summary>
             Duration in milliseconds of the preview in the Clone Hero song browser
@@ -2158,11 +2102,6 @@
         <member name="P:ChartTools.Metadata.MediaType">
             <summary>
             Type of media the audio track comes from
-            </summary>
-        </member>
-        <member name="P:ChartTools.Metadata.Resolution">
-            <summary>
-            Number of <see cref="P:ChartTools.TrackObject.Position"/> values per beat
             </summary>
         </member>
         <member name="P:ChartTools.Metadata.AudioOffset">
@@ -2179,6 +2118,9 @@
             <summary>
             Offset of the background video in milliseconds. A higher value makes the video start sooner.
             </summary>
+            <summary>
+            Offset of the background video in milliseconds. A higher value makes the video start sooner.
+            </summary>
         </member>
         <member name="P:ChartTools.Metadata.Length">
             <summary>
@@ -2188,11 +2130,6 @@
         <member name="P:ChartTools.Metadata.LoadingText">
             <summary>
             Text to be displayed on the load screen
-            </summary>
-        </member>
-        <member name="P:ChartTools.Metadata.IsModchart">
-            <summary>
-            The song is a modchart
             </summary>
         </member>
         <member name="P:ChartTools.Metadata.Formatting">
@@ -2212,7 +2149,7 @@
             <exception cref="T:System.ArgumentException"/>
             <exception cref="T:System.ArgumentNullException"/>
             <exception cref="T:System.FormatException"/>
-            <exception cref="T:System.IO.IOException"/>
+            <exception cref="T:ChartTools.IO.LineException"/>
             <exception cref="T:System.OutOfMemoryException"/>
         </member>
         <member name="M:ChartTools.Metadata.FromFiles(System.String[])">
@@ -2401,7 +2338,7 @@
             <exception cref="T:System.ArgumentNullException"/>
             <exception cref="T:System.IO.PathTooLongException"/>
             <exception cref="T:System.IO.DirectoryNotFoundException"/>
-            <exception cref="T:System.IO.IOException"/>
+            <exception cref="T:ChartTools.IO.LineException"/>
             <exception cref="T:System.UnauthorizedAccessException"/>
             <exception cref="T:System.NotSupportedException"/>
             <exception cref="T:System.Security.SecurityException"/>
@@ -2413,7 +2350,7 @@
             <param name="path">Path of the file to read</param>
             <exception cref="T:System.ArgumentException"/>
             <exception cref="T:System.FormatException"/>
-            <exception cref="T:System.IO.IOException"/>
+            <exception cref="T:ChartTools.IO.LineException"/>
         </member>
         <member name="M:ChartTools.Song.WriteDifficulties(System.String)">
             <summary>
@@ -2421,7 +2358,7 @@
             </summary>
             <param name="path">Path of the file to write</param>
             <exception cref="T:System.ArgumentException"/>
-            <exception cref="T:System.IO.IOException"/>
+            <exception cref="T:ChartTools.IO.LineException"/>
         </member>
         <member name="M:ChartTools.Song.GetLyrics">
             <summary>

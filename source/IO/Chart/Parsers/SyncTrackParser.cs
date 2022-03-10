@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart.Parsers
 {
-    internal class SyncTrackParser : FileParser<string>
+    internal class SyncTrackParser : TextParser
     {
         public override SyncTrack Result => GetResult(result);
         private readonly SyncTrack result = new();

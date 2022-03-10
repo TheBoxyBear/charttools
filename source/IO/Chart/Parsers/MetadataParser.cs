@@ -5,7 +5,7 @@ using System;
 
 namespace ChartTools.IO.Chart.Parsers
 {
-    internal class MetadataParser : FileParser<string>
+    internal class MetadataParser : TextParser
     {
         public override Metadata Result => GetResult(result);
         private readonly Metadata result = new();
@@ -37,9 +37,6 @@ namespace ChartTools.IO.Chart.Parsers
                     break;
                 case "Offset":
                     result.AudioOffset = (int)(ValueParser.Parse<float>(data, "audio offset", float.TryParse) * 1000);
-                    break;
-                case "Resolution":
-                    result.Resolution = ValueParser.Parse<ushort>(data, "resolution", ushort.TryParse);
                     break;
                 case "Difficulty":
                     result.Difficulty = ValueParser.Parse<sbyte>(data, "difficulty", sbyte.TryParse);
@@ -102,6 +99,5 @@ namespace ChartTools.IO.Chart.Parsers
             else
                 PropertyMerger.Merge(song.Metadata, false, Result);
         }
-        public override void ApplyResultToSong(Song song) => song.Metadata = result;
     }
 }

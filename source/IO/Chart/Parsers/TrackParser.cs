@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart.Parsers
 {
-    internal abstract class TrackParser<TChord> : FileParser<string> where TChord : Chord
+    internal abstract class TrackParser<TChord> : TextParser where TChord : Chord
     {
         public Difficulty Difficulty { get; }
 
@@ -19,9 +19,6 @@ namespace ChartTools.IO.Chart.Parsers
         private TChord? chord;
         private bool newChord = true;
         private readonly HashSet<byte> ignoredNotes = new();
-
-        public override Track<TChord> Result => GetResult(result);
-        private readonly Track<TChord> result;
 
         public TrackParser(Difficulty difficulty, ReadingSession session) : base(session)
         {

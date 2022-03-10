@@ -8,7 +8,7 @@ namespace ChartTools.IO.Chart
     /// </summary>
     internal class ChartFileReader : TextFileReader
     {
-        public ChartFileReader(string path, Func<string, FileParser<string>?> parserGetter) : base(path, parserGetter) { }
+        public ChartFileReader(string path, Func<string, TextParser?> parserGetter) : base(path, parserGetter) { }
 
         protected override bool IsSectionStart(string line) => line == "{";
         protected override bool IsSectionEnd(string line) => ChartFormatting.IsSectionEnd(line);
