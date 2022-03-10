@@ -15,76 +15,75 @@ namespace ChartTools.IO.Chart.Parsers
         protected override void HandleItem(string line)
         {
             TextEntry entry = new(line);
-
-            string data = entry.Value.Trim('"');
+            var value = entry.Value.Trim('"');
 
             switch (entry.Key)
             {
                 case "Name":
-                    result.Title = data;
+                    result.Title = value;
                     break;
                 case "Artist":
-                    result.Artist = data;
+                    result.Artist = value;
                     break;
                 case "Charter":
-                    result.Charter = new() { Name = data };
+                    result.Charter = new() { Name = value };
                     break;
                 case "Album":
-                    result.Album = data;
+                    result.Album = value;
                     break;
                 case "Year":
-                    result.Year = ValueParser.ParseUshort(data.TrimStart(','), "year");
+                    result.Year = ValueParser.ParseUshort(value.TrimStart(','), "year");
                     break;
                 case "Offset":
-                    result.AudioOffset = (int)(ValueParser.ParseFloat(data, "audio offset") * 1000);
+                    result.AudioOffset = (int)(ValueParser.ParseFloat(value, "audio offset") * 1000);
                     break;
                 case "Difficulty":
-                    result.Difficulty = ValueParser.ParseSbyte(data, "difficulty");
+                    result.Difficulty = ValueParser.ParseSbyte(value, "difficulty");
                     break;
                 case "PreviewStart":
-                    result.PreviewStart = ValueParser.ParseUint(data, "preview start");
+                    result.PreviewStart = ValueParser.ParseUint(value, "preview start");
                     break;
                 case "PreviewEnd":
-                    result.PreviewEnd = ValueParser.ParseUint(data, "preview end");
+                    result.PreviewEnd = ValueParser.ParseUint(value, "preview end");
                     break;
                 case "Genre":
-                    result.Genre = data;
+                    result.Genre = value;
                     break;
                 case "MediaType":
-                    result.MediaType = data;
+                    result.MediaType = value;
                     break;
                 case "MusicStream":
-                    result.Streams.Music = data;
+                    result.Streams.Music = value;
                     break;
                 case "GuitarStream":
-                    result.Streams.Guitar = data;
+                    result.Streams.Guitar = value;
                     break;
                 case "BassStream":
-                    result.Streams.Bass = data;
+                    result.Streams.Bass = value;
                     break;
                 case "RhythmStream":
-                    result.Streams ??= new() { Rhythm = data };
+                    result.Streams ??= new() { Rhythm = value };
                     break;
                 case "KeysStream":
-                    result.Streams ??= new() { Keys = data };
+                    result.Streams ??= new() { Keys = value };
                     break;
                 case "DrumStream":
-                    result.Streams ??= new() { Drum = data };
+                    result.Streams ??= new() { Drum = value };
                     break;
                 case "Drum2Stream":
-                    result.Streams ??= new() { Drum2 = data };
+                    result.Streams ??= new() { Drum2 = value };
                     break;
                 case "Drum3Stream":
-                    result.Streams ??= new() { Drum3 = data };
+                    result.Streams ??= new() { Drum3 = value };
                     break;
                 case "Drum4Stream":
-                    result.Streams ??= new() { Drum4 = data };
+                    result.Streams ??= new() { Drum4 = value };
                     break;
                 case "VocalStream":
-                    result.Streams ??= new() { Vocal = data };
+                    result.Streams ??= new() { Vocal = value };
                     break;
                 case "CrowdStream":
-                    result.Streams ??= new() { Crowd = data };
+                    result.Streams ??= new() { Crowd = value };
                     break;
                 default:
                     result.UnidentifiedData.Add(new() { Key = entry.Key, Value = entry.Value, Origin = FileFormat.Chart });

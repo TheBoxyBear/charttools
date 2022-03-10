@@ -29,7 +29,7 @@ namespace ChartTools.IO
                 throw new EntryException();
 
             Key = split[0].Trim();
-            Value = split[1];
+            Value = split[1].Trim();
         }
     }
 }
