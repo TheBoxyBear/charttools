@@ -192,7 +192,7 @@ namespace ChartTools.IO.Ini
                     break;
             }
 
-            instrument.Difficulty = entry == default ? null : ValueParser.Parse<sbyte>(entry.value, "difficulty", sbyte.TryParse);
+            instrument.Difficulty = entry == default ? null : ValueParser.ParseSbyte(entry.value, "difficulty");
         }
         /// <summary>
         /// Reads <see cref="Instrument"/> difficulties from a ini file and assigns them to the instruments in a <see cref="Song"/>.
@@ -211,7 +211,7 @@ namespace ChartTools.IO.Ini
                     Instrument? inst = song.GetInstrument(difficultyKeys[header]);
 
                     if (inst is not null)
-                        inst.Difficulty = ValueParser.Parse<sbyte>(value, "difficulty", sbyte.TryParse);
+                        inst.Difficulty = ValueParser.ParseSbyte(value, "difficulty");
                 }
             }
         }

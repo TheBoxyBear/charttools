@@ -30,12 +30,12 @@ namespace ChartTools.IO.Chart.Parsers
 
                     string[] split = ChartFile.GetDataSplit(entry.Data);
 
-                    var numerator = ValueParser.Parse<byte>(split[0], "numerator", byte.TryParse);
+                    var numerator = ValueParser.ParseByte(split[0], "numerator");
                     byte denominator = 4;
 
                     // Denominator is only written if not equal to 4
                     if (split.Length >= 2)
-                        denominator = (byte)Math.Pow(2, ValueParser.Parse<byte>(split[1], "denominator", byte.TryParse));
+                        denominator = (byte)Math.Pow(2, ValueParser.ParseByte(split[1], "denominator"));
 
                     result.TimeSignatures.Add(new(entry.Position, numerator, denominator));
                     break;
@@ -45,7 +45,7 @@ namespace ChartTools.IO.Chart.Parsers
                         break;
 
                     // Floats are written by rounding to the 3rd decimal and removing the decimal point
-                    var value = ValueParser.Parse<float>(entry.Data, "value", float.TryParse) / 1000;
+                    var value = ValueParser.ParseFloat(entry.Data, "value") / 1000;
 
                     // Find the marker matching the position in case it was already added through a mention of anchor
                     marker = result.Tempo.Find(m => m.Position == entry.Position);
@@ -61,7 +61,7 @@ namespace ChartTools.IO.Chart.Parsers
                         break;
 
                     // Floats are written by rounding to the 3rd decimal and removing the decimal point
-                    var anchor = ValueParser.Parse<float>(entry.Data, "anchor", float.TryParse) / 1000;
+                    var anchor = ValueParser.ParseFloat(entry.Data, "anchor") / 1000;
 
                     // Find the marker matching the position in case it was already added through a mention of value
                     marker = result.Tempo.Find(m => m.Position == entry.Position);

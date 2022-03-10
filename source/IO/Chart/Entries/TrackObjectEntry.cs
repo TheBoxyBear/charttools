@@ -37,7 +37,7 @@ namespace ChartTools.IO.Chart.Entries
             Type = split[0];
             Data = split[1];
 
-            Position = ValueParser.Parse<uint>(entry.Key, "position", uint.TryParse);
+            Position = ValueParser.ParseUint(entry.Header, "position");
         }
     }
 }
