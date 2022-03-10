@@ -29,7 +29,7 @@ namespace ChartTools
             foreach (Note<GHLLane> note in notes)
                 Notes.Add(note);
         }
-        /// <inheritdoc cref="GHLChord(uint, GHLNote[])"/>
+        /// <inheritdoc cref="GHLChord(uint, Note{GHLLane}[])"/>
         public GHLChord(uint position, params GHLLane[] notes) : base(position)
         {
             if (notes is null)

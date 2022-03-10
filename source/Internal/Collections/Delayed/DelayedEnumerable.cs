@@ -8,6 +8,10 @@ namespace ChartTools.Internal.Collections.Delayed
     {
         private readonly DelayedEnumerator<T> enumerator;
         private readonly DelayedEnumerableSource<T> source;
+
+        /// <summary>
+        /// <see langword="true"/> if there are more items to be received
+        /// </summary>
         public bool AwaitingItems => source.AwaitingItems;
 
         internal DelayedEnumerable(DelayedEnumerableSource<T> source)
@@ -16,8 +20,11 @@ namespace ChartTools.Internal.Collections.Delayed
             enumerator = new(source);
         }
 
+
         public IEnumerator<T> GetEnumerator() => enumerator;
+
         IEnumerator IEnumerable.GetEnumerator() => enumerator;
+
 
         public void Dispose() => enumerator.Dispose();
     }

@@ -15,7 +15,7 @@ namespace ChartTools
         public int Count => Notes.Count;
         public bool IsReadOnly => false;
 
-        public NoteCollection() => Notes = new(Enumerable.Empty<TNote>(), new FuncEqualityComparer<TNote>((a, b) => a.NoteIndex == b.NoteIndex));
+        public NoteCollection() => Notes = new(Enumerable.Empty<TNote>(), new FuncEqualityComparer<TNote>((a, b) => a!.NoteIndex == b!.NoteIndex));
 
         public virtual void Add(TLane lane) => Notes.Add(new() { Lane = lane });
         /// <summary>Adds a note to the collection.</summary>
@@ -31,6 +31,7 @@ namespace ChartTools
         public void Clear() => Notes.Clear();
         /// <summary>
         /// Determines if a note is contained in the collection.
+        /// </summary>
         /// <exception cref="ArgumentNullException"/>
         public bool Contains(TNote item) => item is null ? throw new ArgumentNullException(nameof(item)) : Notes.Contains(item);
         public void CopyTo(TNote[] array, int arrayIndex) => Notes.CopyTo(array, arrayIndex);

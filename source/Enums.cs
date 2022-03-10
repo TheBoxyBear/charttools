@@ -1,18 +1,36 @@
-﻿using ChartTools.Lyrics;
-using System;
+﻿using System;
 
 namespace ChartTools
 {
     /// <summary>
     /// Difficulty levels
     /// </summary>
-    public enum Difficulty : byte { Easy, Medium, Hard, Expert }
+    public enum Difficulty : byte
+    {
+        /// <summary>
+        /// Easy difficulty
+        /// </summary>
+        Easy,
+        /// <summary>
+        /// Medium difficulty
+        /// </summary>
+        Medium,
+        /// <summary>
+        /// Hard difficulty
+        /// </summary>
+        Hard,
+        /// <summary>
+        /// Expert difficulty
+        /// </summary>
+        Expert
+    }
     /// <summary>
     /// Modifier that affects the way the chord can be played
     /// </summary>
     [Flags]
     public enum DrumsChordModifier : byte
     {
+        /// <inheritdoc cref="StandardChordModifier.None"/>
         None,
         /// <summary>
         /// *Unsupported*
@@ -29,9 +47,21 @@ namespace ChartTools
     /// </summary>
     public enum DrumsLane : byte
     {
+        /// <summary>
+        /// Kick note, shown as a purple line
+        /// </summary>
         Kick,
+        /// <summary>
+        /// Red pad
+        /// </summary>
         Red,
+        /// <summary>
+        /// Yellow pad
+        /// </summary>
         Yellow,
+        /// <summary>
+        /// Blue pad
+        /// </summary>
         Blue,
         /// <summary>
         /// Green when playing with four pads, orange when playing with five pads
@@ -52,15 +82,13 @@ namespace ChartTools
     /// </summary>
     [Flags] public enum GHLChordModifier : byte
     {
+        /// <inheritdoc cref="StandardChordModifier.None"/>
         None = 0,
-        /// <summary>
-        /// The Hopo state is not relative to the previous chord.
-        /// </summary>
+        /// <inheritdoc cref="StandardChordModifier.ExplicitHopo"/>
         ExplicitHopo = 1,
-        /// <summary>
-        /// Forced Hopo or inverts the natural state if <see cref="Relative"/> is set.
-        /// </summary>
+        /// <inheritdoc cref="StandardChordModifier.HopoInvert"/>
         HopoInvert = 2,
+        /// <inheritdoc cref="StandardChordModifier.Tap"/>
         Tap = 4
     }
     /// <summary>
@@ -69,120 +97,37 @@ namespace ChartTools
     /// <remarks>Casting to <see cref="InstrumentIdentity"/> will match the instrument.</remarks>
     public enum GHLInstrumentIdentity : byte { Guitar = 1, Bass }
     /// <summary>
-    /// Frets for a <see cref="GHLNote"/>
+    /// Frets for a GHL <see cref="Note"/>
     /// </summary>
     public enum GHLLane : byte { Open, Black1, Black2, Black3, White1, White2, White3 }
-    /// <summary>
-    /// Types of <see cref="GlobalEvent"/>
-    /// </summary>
-    public enum GlobalEventTypeEnum : byte
-    {
-        /// <summary>
-        /// The backing <see cref="Event.EventTypeString"/> property does not match a known event type
-        /// </summary>
-        Unknown,
-        /// <summary>
-        /// Marks the start of a new <see cref="Phrase"/>
-        /// </summary>
-        PhraseStart,
-        /// <summary>
-        /// Marks the end of the current <see cref="Phrase"/>
-        /// </summary>
-        PhraseEnd,
-        /// <summary>
-        /// Marks a <see cref="Syllable"/> in the current <see cref="Phrase"/>
-        /// </summary>
-        Lyric,
-        Idle,
-        Play,
-        HalfTempo,
-        NormalTempo,
-        Verse,
-        Chorus,
-        End,
-        MusicStart,
-        Lighting,
-        CrowdLightersFast,
-        CrowdLightersOff,
-        CrowdLightersSlow,
-        CrowdHalfTempo,
-        CrowdNormalTempo,
-        CrowdDoubleTempo,
-        BandJump,
-        /// <summary>
-        /// Marks a new section used by Practice mode and in post-game summary
-        /// </summary>
-        Section,
-        SyncHeadBang,
-        SyncWag
-    }
+
     /// <summary>
     /// All instruments
     /// </summary>
     public enum InstrumentIdentity : byte { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys, Vocals }
     public enum InstrumentType : byte { Drums, GHL, Standard, Vocals }
-    /// <summary>
-    /// Lighting effect caused by a <see cref="GlobalEvent"/> of type <see cref="GlobalEventTypeEnum.Lighting"/>
-    /// </summary>
-    public enum LightingEffect
-    {
-        /// <summary>
-        /// The backing argument of the event does not match a known lighting effect
-        /// </summary>
-        Unknwon,
-        Flare,
-        Blackout,
-        Chase,
-        Strobe,
-        Color1,
-        Color2,
-        Sweep
-    }
-    /// <summary>
-    /// Types of <see cref="LocalEvent"/>
-    /// </summary>
-    public enum LocalEventType : byte
-    {
-        /// <summary>
-        /// The backing <see cref="Event.EventTypeString"/> property does not match a known event type
-        /// </summary>
-        Unknown,
-        /// <summary>
-        /// Marks the start of a Rock Band style solo section
-        /// </summary>
-        Solo,
-        /// <summary>
-        /// Marks the end of a Rock Band style solo section
-        /// </summary>
-        SoloEnd,
-        GHL6,
-        GHL6Forced,
-        SoloOn,
-        SoloOff,
-        WailOn,
-        WailOff,
-        OwFaceOn,
-        OwFaceOff
-    }
-    /// <summary>
-    /// Defines how section global events are written
-    /// </summary>
-    public enum SectionEventFormat : byte { RockBand2CloneHero, RockBand3 }
+
     /// <summary>
     /// Modifier that affects how a <see cref="StandardChord"/> can be played
     /// </summary>
     /// <remarks></remarks>
     [Flags] public enum StandardChordModifier : byte
     {
+        /// <summary>
+        /// No modifier
+        /// </summary>
         None = 0,
         /// <summary>
         /// The Hopo state is not relative to the previous chord.
         /// </summary>
         ExplicitHopo = 1,
         /// <summary>
-        /// Forced Hopo or inverts the natural state if <see cref="Relative"/> is set.
+        /// Forced Hopo of <see cref="ExplicitHopo"/> is set, otherwise inverts the natural state relative to the previous chord
         /// </summary>
         HopoInvert = 2,
+        /// <summary>
+        /// The chord can be played without strumming
+        /// </summary>
         Tap = 4
     }
     /// <summary>
@@ -191,81 +136,292 @@ namespace ChartTools
     /// <remarks><inheritdoc cref="GHLInstrumentIdentity"/></remarks>
     public enum StandardInstrumentIdentity : byte { LeadGuitar = 3, RhythmGuitar, CoopGuitar, Bass, Keys }
     /// <summary>
-    /// Frets for a <see cref="StandardNote"/>
+    /// Frets for a standard note
     /// </summary>
     public enum StandardLane : byte { Open, Green, Red, Yellow, Blue, Orange }
-    public enum SpecialPhraseType : byte { Unknown, StarPowerGain, StarPowerActivation }
+    /// <summary>
+    /// Types of <see cref="SpecialPhrase"/>
+    /// </summary>
+    public enum SpecialPhraseType : byte
+    {
+        /// <summary>
+        /// The <see cref="SpecialPhrase.TypeCode"/> is not a recognized phrase type
+        /// </summary>
+        Unknown,
+        /// <summary>
+        /// Grants star power if all notes are hit
+        /// </summary>
+        StarPowerGain,
+        /// <summary>
+        /// Allows the activation of star power
+        /// </summary>
+        StarPowerActivation
+    }
 }
 
 namespace ChartTools.Lyrics
 {
     public enum VocalChordModifier : byte { None }
+
+    /// <summary>
+    /// Pitch values for <see cref="VocalsPitch"/>
+    /// </summary>
     public enum VocalsPitches : byte
     {
+        /// <summary>
+        /// No pitch
+        /// </summary>
         None = 0,
+        /// <summary>
+        /// Second C (lowest pitch)
+        /// </summary>
         C2 = 0x20 | VocalsKey.C,
+        /// <summary>
+        /// Second C#
+        /// </summary>
         CSharp2 = 0x20 | VocalsKey.CSharp,
+        /// <summary>
+        /// Second D
+        /// </summary>
         D2 = 0x20 | VocalsKey.D,
+        /// <summary>
+        /// Second E-flat
+        /// </summary>
         Eb2 = 0x20 | VocalsKey.Eb,
+        /// <summary>
+        /// Second E
+        /// </summary>
         E2 = 0x20 | VocalsKey.E,
+        /// <summary>
+        /// Second F
+        /// </summary>
         F2 = 0x20 | VocalsKey.F,
+        /// <summary>
+        /// Second F#
+        /// </summary>
         FSharp2 = 0x20 | VocalsKey.FSharp,
+        /// <summary>
+        /// Second G
+        /// </summary>
         G2 = 0x20 | VocalsKey.G,
+        /// <summary>
+        /// Second G#
+        /// </summary>
         GSharp2 = 0x20 | VocalsKey.GSharp,
+        /// <summary>
+        /// Second A
+        /// </summary>
         A2 = 0x20 | VocalsKey.A,
+        /// <summary>
+        /// Second B-flat
+        /// </summary>
         Bb2 = 0x20 | VocalsKey.Bb,
+        /// <summary>
+        /// Second B
+        /// </summary>
         B2 = 0x20 | VocalsKey.B,
+        /// <summary>
+        /// Third C
+        /// </summary>
         C3 = 0x30 | VocalsKey.C,
+        /// <summary>
+        /// Third C#
+        /// </summary>
         CSharp3 = 0x30 | VocalsKey.CSharp,
+        /// <summary>
+        /// Third D
+        /// </summary>
         D3 = 0x30 | VocalsKey.D,
+        /// <summary>
+        /// Third E-flat
+        /// </summary>
         Eb3 = 0x30 | VocalsKey.Eb,
+        /// <summary>
+        /// Third E
+        /// </summary>
         E3 = 0x30 | VocalsKey.E,
+        /// <summary>
+        /// Third F
+        /// </summary>
         F3 = 0x30 | VocalsKey.F,
+        /// <summary>
+        /// Third F#
+        /// </summary>
         FSharp3 = 0x30 | VocalsKey.FSharp,
+        /// <summary>
+        /// Third G
+        /// </summary>
         G3 = 0x30 | VocalsKey.G,
+        /// <summary>
+        /// Third G#
+        /// </summary>
         GSharp3 = 0x30 | VocalsKey.GSharp,
+        /// <summary>
+        /// Third A
+        /// </summary>
         A3 = 0x30 | VocalsKey.A,
+        /// <summary>
+        /// Third B-flat
+        /// </summary>
         Bb3 = 0x30 | VocalsKey.Bb,
+        /// <summary>
+        /// Third B
+        /// </summary>
         B3 = 0x30 | VocalsKey.B,
+        /// <summary>
+        /// Third C
+        /// </summary>
         C4 = 0x40 | VocalsKey.C,
+        /// <summary>
+        /// Fourth C#
+        /// </summary>
         CSharp4 = 0x40 | VocalsKey.CSharp,
+        /// <summary>
+        /// Fourth D
+        /// </summary>
         D4 = 0x40 | VocalsKey.D,
+        /// <summary>
+        /// Fourth E-flat
+        /// </summary>
         Eb4 = 0x40 | VocalsKey.Eb,
+        /// <summary>
+        /// Fourth E
+        /// </summary>
         E4 = 0x40 | VocalsKey.E,
+        /// <summary>
+        /// Fourth F
+        /// </summary>
         F4 = 0x40 | VocalsKey.F,
+        /// <summary>
+        /// Fourth F#
+        /// </summary>
         FSharp4 = 0x40 | VocalsKey.FSharp,
+        /// <summary>
+        /// Fourth G
+        /// </summary>
         G4 = 0x40 | VocalsKey.G,
+        /// <summary>
+        /// Fourth G#
+        /// </summary>
         GSharp4 = 0x40 | VocalsKey.GSharp,
+        /// <summary>
+        /// Fourth A
+        /// </summary>
         A4 = 0x40 | VocalsKey.A,
+        /// <summary>
+        /// Fourth B-flat
+        /// </summary>
         Bb4 = 0x40 | VocalsKey.Bb,
+        /// <summary>
+        /// Fourth B
+        /// </summary>
         B4 = 0x40 | VocalsKey.B,
+        /// <summary>
+        /// Fifth
+        /// </summary>
         C5 = 0x50 | VocalsKey.C,
+        /// <summary>
+        /// Fifth C#
+        /// </summary>
         CSharp5 = 0x50 | VocalsKey.CSharp,
+        /// <summary>
+        /// Fifth D
+        /// </summary>
         D5 = 0x50 | VocalsKey.D,
+        /// <summary>
+        /// Fifth E-flat
+        /// </summary>
         Eb5 = 0x50 | VocalsKey.Eb,
+        /// <summary>
+        /// Fifth E
+        /// </summary>
         E5 = 0x50 | VocalsKey.E,
+        /// <summary>
+        /// Fifth F
+        /// </summary>
         F5 = 0x50 | VocalsKey.F,
+        /// <summary>
+        /// Fifth F#
+        /// </summary>
         FSharp5 = 0x50 | VocalsKey.FSharp,
+        /// <summary>
+        /// Fifth G
+        /// </summary>
         G5 = 0x50 | VocalsKey.G,
+        /// <summary>
+        /// Fifth G#
+        /// </summary>
         GSharp5 = 0x50 | VocalsKey.GSharp,
+        /// <summary>
+        /// Fifth A
+        /// </summary>
         A5 = 0x50 | VocalsKey.A,
+        /// <summary>
+        /// Fifth B-flat
+        /// </summary>
         Bb5 = 0x50 | VocalsKey.Bb,
+        /// <summary>
+        /// Fifth B
+        /// </summary>
         B5 = 0x50 | VocalsKey.B,
+        /// <summary>
+        /// Sixth C (highest pitch)
+        /// </summary>
         C6 = 0x60 | VocalsKey.C
     }
+
+    /// <summary>
+    /// Keys making up <see cref="VocalsPitches"/> without the octave
+    /// </summary>
     public enum VocalsKey : byte
     {
+        /// <summary>
+        /// C key (Do)
+        /// </summary>
         C,
+        /// <summary>
+        /// C# key
+        /// </summary>
         CSharp,
+        /// <summary>
+        /// D key (Ré)
+        /// </summary>
         D,
+        /// <summary>
+        /// E-flat key
+        /// </summary>
         Eb,
+        /// <summary>
+        /// E key (Mi)
+        /// </summary>
         E,
+        /// <summary>
+        /// F key (Fa)
+        /// </summary>
         F,
+        /// <summary>
+        /// F# key
+        /// </summary>
         FSharp,
+        /// <summary>
+        /// G key (Sol)
+        /// </summary>
         G,
+        /// <summary>
+        /// G# key
+        /// </summary>
         GSharp,
+        /// <summary>
+        /// A key (La)
+        /// </summary>
         A,
+        /// <summary>
+        /// B-flat key
+        /// </summary>
         Bb,
+        /// <summary>
+        /// B key (Si)
+        /// </summary>
         B
     }
 }

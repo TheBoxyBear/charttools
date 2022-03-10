@@ -156,8 +156,6 @@ namespace ChartTools.IO.Chart
         ///     <para><see langword="null"/> if the file contains no drums data</para>
         /// </returns>
         /// <param name="path">Path of the file to read</param>
-        /// <inheritdoc cref="ReadFileAsync(string)" path="/exception"/>
-        /// <inheritdoc cref="GetDrumsTrack(IEnumerable{string}, ReadingConfiguration)(IEnumerable{string}, ReadingConfiguration)" path="/exception"/>
         public static Instrument<DrumsChord>? ReadDrums(string path, ReadingConfiguration? config = default)
         {
             var reader = new ChartFileReader(path, header => GetAnyDrumsTrackParser(header, new(config ?? DefaultReadConfig)));
@@ -182,8 +180,7 @@ namespace ChartTools.IO.Chart
         ///     <para><see langword="null"/> if the file has no data for the given instrument</para>
         /// </returns>
         /// <param name="path">Path of the file to read</param>
-        /// <inheritdoc cref="ReadFileAsync(string)" path="/exception"/>
-        /// <inheritdoc cref="GetGHLTrack(IEnumerable{string}, ReadingConfiguration)(IEnumerable{string}, ReadingConfiguration)" path="/exception"/>
+        /// <inheritdoc cref="GetGHLTrackParser(string, string, GHLInstrumentIdentity, Difficulty, ReadingSession)" path="/exception"/>
         public static Instrument<GHLChord>? ReadInstrument(string path, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default)
         {
             var reader = new ChartFileReader(path, header => GetAnyGHLTrackParser(header, instrument, new(config ?? DefaultReadConfig)));
@@ -325,10 +322,10 @@ namespace ChartTools.IO.Chart
         }
         /// <inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, CancellationToken, ReadingConfiguration?)"/>
         /// <param name="path"><inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, CancellationToken, ReadingConfiguration?)" path="/param[@name='path']"/></param>
-        /// <param name="instrument"><param name="path"><inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, CancellationToken, ReadingConfiguration?)" path="/param[@name='instrument']"/></param>
-        /// <param name="difficulty"><param name="path"><inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, CancellationToken, ReadingConfiguration?)" path="/param[@name='difficulty']"/></param>
-        /// <param name="cancellationToken"><param name="path"><inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, CancellationToken, ReadingConfiguration?)" path="/param[@name='cancellationToken']"/></param>
-        /// <param name="config"><param name="path"><inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, CancellationToken, ReadingConfiguration?)" path="/param[@name='config']"/></param>
+        /// <param name="instrument"><inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, CancellationToken, ReadingConfiguration?)" path="/param[@name='instrument']"/></param>
+        /// <param name="difficulty"><inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, CancellationToken, ReadingConfiguration?)" path="/param[@name='difficulty']"/></param>
+        /// <param name="cancellationToken"><inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, CancellationToken, ReadingConfiguration?)" path="/param[@name='cancellationToken']"/></param>
+        /// <param name="config"><inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, CancellationToken, ReadingConfiguration?)" path="/param[@name='config']"/></param>
         public static async Task<Track<GHLChord>> ReadTrackAsync(string path, GHLInstrumentIdentity instrument, Difficulty difficulty, CancellationToken cancellationToken, ReadingConfiguration? config)
         {
             var seekedHeader = ChartFormatting.Header(instrument, difficulty);
@@ -533,7 +530,6 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <exception cref="ArgumentNullException"/>
-        /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
         public static void ReplaceInstrument(string path, Instrument instrument, WritingConfiguration? config = default)
         {
             var writer = GetInstrumentWriter(path, instrument, new(config ?? DefaultWriteConfig));
@@ -580,7 +576,6 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <param name="path">Path of the file to read</param>
         /// <param name="metadata">Metadata to write</param>
-        /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
         public static void ReplaceMetadata(string path, Metadata metadata)
         {
             var writer = GetMetadataWriter(path, metadata);
@@ -598,7 +593,6 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="events">Events to use as a replacement</param>
-        /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
         public static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events)
         {
             var writer = GetGlobalEventWriter(path, events, new(DefaultWriteConfig));
@@ -616,7 +610,6 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="syncTrack">Sync track to write</param>
-        /// <inheritdoc cref="ReplacePart(string, IEnumerable{string}, string)" path="/exception"/>
         public static void ReplaceSyncTrack(string path, SyncTrack syncTrack, WritingConfiguration? config = default)
         {
             var writer = GetSyncTrackWriter(path, syncTrack, new(config ?? DefaultWriteConfig));

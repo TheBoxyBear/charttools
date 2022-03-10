@@ -231,7 +231,6 @@ namespace ChartTools.IO.Ini
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="instrument">Instrument to write the difficulty of</param>
-        /// <param name="value">Difficulty to write</param>
         /// <inheritdoc cref="File.ReadAllLines(string)" path="/exception"/>
         /// <inheritdoc cref="File.WriteAllLines(string, IEnumerable{string})" path="/exception"/>
         internal static void WriteDifficulty(string path, Instrument instrument)
@@ -252,7 +251,7 @@ namespace ChartTools.IO.Ini
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="song">Song to get the difficulties from</param>
-        /// <inheritdoc cref="WriteDifficulty(string, InstrumentIdentity, sbyte)" path="/exception"/>
+        /// <inheritdoc cref="WriteDifficulty(string, Instrument)" path="/exception"/>
         internal static void WriteDifficulties(string path, Song song)
         {
             // Get all non-difficulty lines based on the non-null instruments

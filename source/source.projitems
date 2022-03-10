@@ -36,8 +36,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Delayed\DelayedEnumerableSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Sorted\IndexableSelfSorted.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Sorted\SelfSorted.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Unique\Enumeration\UniqueEnumerable.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Unique\Enumeration\UniqueEnumerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Unique\Lists\UniqueList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Unique\Lists\UniqueListEquatable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Extensions.cs" />

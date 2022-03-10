@@ -40,7 +40,7 @@ namespace ChartTools
         public override TNote? this[TLane lane] => Enum.IsDefined(lane) ? base[lane] : throw CommonExceptions.GetUndefinedException(lane);
 
         /// <summary>
-        /// Adds a note to the <see cref="NoteCollection{TNote}"/>.
+        /// Adds a note to the <see cref="NoteCollection{TNote, TLane}"/>.
         /// </summary>
         /// <remarks>Adding a note that already exists will overwrite the existing note.
         ///     <para>If <see cref="OpenExclusivity"/> is <see langword="true"/>, combining an open note with other notes will remove the current ones.</para>

@@ -10,9 +10,37 @@ using ChartTools.SystemExtensions;
 
 namespace ChartTools.IO
 {
+    /// <summary>
+    /// Read method that generates an object of the target type
+    /// </summary>
+    /// <typeparam name="T">Output type</typeparam>
+    /// <param name="path">File path</param>
+    /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
     public delegate T Read<T>(string path, ReadingConfiguration? config);
+    /// <summary>
+    /// Asynchronous read method that generates an object of the target type
+    /// </summary>
+    /// <typeparam name="T">Output type</typeparam>
+    /// <param name="path">File path</param>
+    /// <param name="cancellationToken"><inheritdoc cref="CancellationToken" path="/summary"/></param>
+    /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
     public delegate Task<T> AsyncRead<T>(string path, CancellationToken cancellationToken, ReadingConfiguration? config);
+    /// <summary>
+    /// Write method hat takes an object of a target type
+    /// </summary>
+    /// <typeparam name="T">Target type</typeparam>
+    /// <param name="path">File path</param>
+    /// <param name="content">Object to write</param>
+    /// <param name="config"><inheritdoc cref="WritingConfiguration" path="/summary"/></param>
     public delegate void Write<T>(string path, T content, WritingConfiguration? config);
+    /// <summary>
+    /// Write method hat takes an object of a target type
+    /// </summary>
+    /// <typeparam name="T">Target type</typeparam>
+    /// <param name="path">File path</param>
+    /// <param name="content">Object to write</param>
+    /// <param name="cancellationToken"><inheritdoc cref="CancellationToken" path="/summary"/></param>
+    /// <param name="config"><inheritdoc cref="WritingConfiguration" path="/summary"/></param>
     public delegate Task AsyncWrite<T>(string path, T content, CancellationToken cancellationToken, WritingConfiguration? config);
 
     /// <summary>
@@ -26,8 +54,6 @@ namespace ChartTools.IO
         /// </summary>
         /// <param name="path">Path of the file to read</param>
         /// <param name="readers">Array of tuples representing the supported extensions</param>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="FileNotFoundException"/>
         public static void Read(string path, params (string extension, Action<string> readMetod)[] readers)
         {
             string extension = Path.GetExtension(path);
@@ -39,7 +65,13 @@ namespace ChartTools.IO
             reader.readMethod(path);
         }
 
-        /// <inheritdoc cref="Read{T}(string, ValueTuple{string, Func{string, T}}[])"/>
+        /// <summary>
+        /// Reads a file using the method that matches the extension and generates an output object.
+        /// </summary>
+        /// <typeparam name="T">Type of the generated object</typeparam>
+        /// <param name="path">File path</param>
+        /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
+        /// <param name="readers">set of tuples containing the supported extensions and the matching read method</param>
         public static T Read<T>(string path, ReadingConfiguration? config, params (string extension, Read<T> readMethod)[] readers)
         {
             string extension = Path.GetExtension(path);
@@ -47,6 +79,8 @@ namespace ChartTools.IO
 
             return reader == default ? throw GetException(extension, readers.Select(r => r.extension)) : reader.readMethod(path, config);
         }
+        /// <inheritdoc cref="Read{T}(string, ReadingConfiguration?, ValueTuple{string, IO.Read{T}}[])"/>
+        /// <param name="cancellationToken"><inheritdoc cref="CancellationToken" path="/summary"/></param>
         public static async Task<T> ReadAsync<T>(string path, CancellationToken cancellationToken, ReadingConfiguration? config, params (string extension, AsyncRead<T> readMethod)[] readers)
         {
             string extension = Path.GetExtension(path);
