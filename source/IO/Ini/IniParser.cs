@@ -9,7 +9,7 @@ namespace ChartTools.IO.Ini
         public override Metadata Result => GetResult(result);
         private readonly Metadata result;
 
-        public IniParser(ReadingSession session, Metadata? existing = null) : base(session) => result = existing ??= new();
+        public IniParser(ReadingSession session, Metadata? existing = null) : base(session) => result = existing ?? new();
 
         protected override void HandleItem(string item)
         {
