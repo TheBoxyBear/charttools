@@ -15,7 +15,7 @@ namespace ChartTools
         public int Count => Notes.Count;
         public bool IsReadOnly => false;
 
-        public NoteCollection() => Notes = new(Enumerable.Empty<TNote>(), new FuncEqualityComparer<TNote>((a, b) => a.NoteIndex == b.NoteIndex));
+        public NoteCollection() => Notes = new(Enumerable.Empty<TNote>(), new FuncEqualityComparer<TNote>((a, b) => a!.NoteIndex == b!.NoteIndex));
 
         public virtual void Add(TLane lane) => Notes.Add(new() { Lane = lane });
         /// <summary>Adds a note to the collection.</summary>

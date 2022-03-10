@@ -10,7 +10,7 @@ namespace ChartTools
     public abstract class Chord : TrackObject, IEnumerable<Note>
     {
         /// <summary>
-        /// Notes in the <see cref="Chord{TNote}"/>
+        /// Notes in the chord
         /// </summary>
         public abstract IEnumerable<Note> Notes { get; }
         internal abstract bool ChartSupportedMoridier { get; }

@@ -5,7 +5,7 @@ namespace ChartTools.Lyrics
     /// <summary>
     /// Karaoke step of a <see cref="Phrase"/>
     /// </summary>
-    public class Syllable : Note<VocalsPitch>, ILongObject
+    public class Syllable : Note<VocalsPitch>
     {
         /// <summary>
         /// Position offset from the <see cref="Phrase"/>
@@ -15,7 +15,6 @@ namespace ChartTools.Lyrics
         /// Position offset of the end from the <see cref="Phrase"/>
         /// </summary>
         public uint EndPositionOffset => PositionOffset + Length;
-        public uint Length { get; set; }
 
         /// <summary>
         /// Pitch to sing

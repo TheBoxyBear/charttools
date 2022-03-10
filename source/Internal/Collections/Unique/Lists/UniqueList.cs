@@ -89,7 +89,7 @@ namespace ChartTools.Collections.Unique
         /// <summary>
         /// Removes the first duplicate of multiple items
         /// </summary>
-        /// <param name="item">Items to remove the duplicate of</param>
+        /// <param name="collection">Items to remove the duplicate of</param>
         private void RemoveDuplicates(List<T> collection)
         {
             int i = 0;

@@ -34,21 +34,21 @@ namespace ChartTools
         /// <summary>
         /// Sets of star power phrases
         /// </summary>
-        public List<SpecicalPhrase> StarPower { get; } = new();
+        public List<SpecialPhrase> StarPower { get; } = new();
 
         /// <summary>
         /// Groups of notes of the same position
         /// </summary>
         public abstract IReadOnlyList<Chord> Chords { get; }
 
-        internal IEnumerable<SpecicalPhrase> SoloToStarPower(bool removeEvents)
+        internal IEnumerable<SpecialPhrase> SoloToStarPower(bool removeEvents)
         {
             if (LocalEvents is null)
                 yield break;
 
             foreach (LocalEvent e in LocalEvents.OrderBy(e => e.Position))
             {
-                SpecicalPhrase? phrase = null;
+                SpecialPhrase? phrase = null;
 
                 switch (e.EventType)
                 {

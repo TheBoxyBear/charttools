@@ -31,7 +31,7 @@ namespace ChartTools
             foreach (Note<StandardLane> note in notes)
                 Notes.Add(note);
         }
-        /// <inheritdoc cref="StandardChord(uint, StandardNote[])"/>
+        /// <inheritdoc cref="StandardChord(uint, Note{StandardLane}[])"/>
         public StandardChord(uint position, params StandardLane[] notes) : this(position)
         {
             if (notes is null)

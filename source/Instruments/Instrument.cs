@@ -3,6 +3,7 @@ using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Ini;
+using ChartTools.SystemExtensions.Linq;
 
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace ChartTools
     public abstract record Instrument : IEmpty
     {
         /// <inheritdoc cref="IEmpty.IsEmpty"/>
-        public bool IsEmpty => GetTracks().All(t => t.IsEmpty);
+        public bool IsEmpty => GetTracks().NonNull().All(t => t.IsEmpty);
 
         /// <summary>
         /// Identity of the instrument the object belongs to
