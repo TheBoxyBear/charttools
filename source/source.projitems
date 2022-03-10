@@ -74,7 +74,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFileWriter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFormatting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\IOExceptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\ISerializerDataProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsers\GHGemsParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Serializer.cs" />

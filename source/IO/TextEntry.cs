@@ -26,7 +26,7 @@ namespace ChartTools.IO
             string[] split = line.Split('=', 2, StringSplitOptions.RemoveEmptyEntries);
 
             if (split.Length < 2)
-                throw IOExceptions.Entry(line);
+                throw new EntryException();
 
             Key = split[0].Trim();
             Value = split[1];

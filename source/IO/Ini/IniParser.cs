@@ -43,21 +43,21 @@ namespace ChartTools.IO.Ini
                     result.SubPlaylist = entry.Value;
                     break;
                 case IniFormatting.PlaylistTrack:
-                    result.PlaylistTrack = ValueParser.Parse<ushort>(entry.Value, "playlist track", ushort.TryParse);
+                    result.PlaylistTrack = ValueParser.ParseUshort(entry.Value, "playlist track");
                     break;
                 case IniFormatting.Year:
-                    result.Year = ValueParser.Parse<ushort>(entry.Value, "year", ushort.TryParse);
+                    result.Year = ValueParser.ParseUshort(entry.Value, "year");
                     break;
                 case IniFormatting.Genre:
                     result.Genre = entry.Value;
                     break;
                 case IniFormatting.Charter:
-                    ParseCharter(entry.Value);
+                    ParseCharter();
                     result.Formatting ??= new();
                     result.Formatting.CharterKey |= CharterKey.Charter;
                     break;
                 case IniFormatting.Frets:
-                    ParseCharter(entry.Value);
+                    ParseCharter();
                     result.Formatting ??= new();
                     result.Formatting.CharterKey |= CharterKey.Frets;
                     break;
@@ -66,52 +66,52 @@ namespace ChartTools.IO.Ini
                     result.Charter.Icon = entry.Value;
                     break;
                 case IniFormatting.PreviewStart:
-                    result.PreviewStart = ValueParser.Parse<uint>(entry.Value, "preview start", uint.TryParse);
+                    result.PreviewStart = ValueParser.ParseUint(entry.Value, "preview start");
                     break;
                 case IniFormatting.PreviewEnd:
-                    result.PreviewEnd = ValueParser.Parse<uint>(entry.Value, "preview end", uint.TryParse);
+                    result.PreviewEnd = ValueParser.ParseUint(entry.Value, "preview end");
                     break;
                 case IniFormatting.AudioOffset:
-                    result.AudioOffset = ValueParser.Parse<int>(entry.Value, "audio offset", int.TryParse);
+                    result.AudioOffset = ValueParser.ParseInt(entry.Value, "audio offset");
                     break;
                 case IniFormatting.VideoOffset:
-                    result.VideoOffset = ValueParser.Parse<int>(entry.Value, "video offset", int.TryParse);
+                    result.VideoOffset = ValueParser.ParseInt(entry.Value, "video offset");
                     break;
                 case IniFormatting.Length:
-                    result.Length = ValueParser.Parse<uint>(entry.Value, "song length", uint.TryParse);
+                    result.Length = ValueParser.ParseUint(entry.Value, "song length");
                     break;
                 case IniFormatting.Difficulty:
-                    result.Difficulty = ValueParser.Parse<sbyte>(entry.Value, "difficulty", sbyte.TryParse);
+                    result.Difficulty = ValueParser.ParseSbyte(entry.Value, "difficulty");
                     break;
                 case IniFormatting.LoadingText:
                     result.LoadingText = entry.Value;
                     break;
                 case IniFormatting.Modchart:
-                    result.IsModchart = ValueParser.Parse<bool>(entry.Value, "modchart", bool.TryParse);
+                    result.IsModchart = ValueParser.ParseBool(entry.Value, "modchart");
                     break;
                 case IniFormatting.SustainCutoff:
                     result.Formatting ??= new();
-                    result.Formatting.SustainCutoff = ValueParser.Parse<uint>(entry.Value, "sustain cutoff", uint.TryParse);
+                    result.Formatting.SustainCutoff = ValueParser.ParseUint(entry.Value, "sustain cutoff");
                     break;
                 case IniFormatting.HopoFrequency:
                     result.Formatting ??= new();
-                    result.Formatting.HopoFrequency = ValueParser.Parse<uint>(entry.Value, "hopo frequency", uint.TryParse);
+                    result.Formatting.HopoFrequency = ValueParser.ParseUint(entry.Value, "hopo frequency");
                     break;
                 case IniFormatting.HopoFrequencyStep:
                     result.Formatting ??= new();
-                    result.Formatting.HopoFrequencyStep = (HopoFrequencyStep)ValueParser.Parse<byte>(entry.Value, "hopo frequency step", byte.TryParse);
+                    result.Formatting.HopoFrequencyStep = (HopoFrequencyStep)ValueParser.ParseByte(entry.Value, "hopo frequency step");
                     break;
                 case IniFormatting.ForceEightHopoFrequency:
                     result.Formatting ??= new();
-                    result.Formatting.ForceEightHopoFrequency = ValueParser.Parse<bool>(entry.Value, "force eight hopo frequency", bool.TryParse);
+                    result.Formatting.ForceEightHopoFrequency = ValueParser.ParseBool(entry.Value, "force eight hopo frequency");
                     break;
                 default:
                     result.UnidentifiedData.Add(new() { Key = entry.Key, Value = entry.Value, Origin = FileFormat.Ini });
                     break;
             }
 
-            void ParsealbumTrack(string value) => result.AlbumTrack = ValueParser.Parse<ushort>(value, "album track", ushort.TryParse);
-            void ParseCharter(string value)
+            void ParsealbumTrack(string value) => result.AlbumTrack = ValueParser.ParseUshort(value, "album track");
+            void ParseCharter()
             {
                 result.Charter ??= new();
                 result.Charter.Name = entry.Value;

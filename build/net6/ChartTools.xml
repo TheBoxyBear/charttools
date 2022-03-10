@@ -816,11 +816,6 @@
             <param name="song">Song to get the difficulties from</param>
             <inheritdoc cref="!:WriteDifficulty(string, InstrumentIdentity, sbyte)" path="/exception"/>
         </member>
-        <member name="M:ChartTools.IO.IOExceptions.Entry(System.String,System.Exception)">
-            <summary>
-            Gets the <see cref="T:System.Exception"/> to throw when creating a <see cref="T:ChartTools.IO.TextEntry"/> from an invalid line.
-            </summary>
-        </member>
         <member name="T:ChartTools.IO.TextEntry">
             <summary>
             Line of text file data
