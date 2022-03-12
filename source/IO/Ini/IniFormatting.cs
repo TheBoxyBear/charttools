@@ -4,19 +4,6 @@ namespace ChartTools.IO.Ini
 {
     public static class IniFormatting
     {
-        /// <summary>
-        /// Keys for <see cref="Instrument"/> difficulties
-        /// </summary>
-        public static readonly Dictionary<string, InstrumentIdentity> DifficultyKeys = new()
-        {
-            { "diff_drums", InstrumentIdentity.Drums },
-            { "diff_guitarghl", InstrumentIdentity.GHLGuitar },
-            { "diff_bassghl", InstrumentIdentity.GHLBass },
-            { "diff_guitar", InstrumentIdentity.LeadGuitar },
-            { "diff_bass", InstrumentIdentity.Bass },
-            { "diff_keys", InstrumentIdentity.Keys }
-        };
-
         public const string
             Title = "name",
             Artist = "artist",

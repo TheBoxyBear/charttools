@@ -1,7 +1,7 @@
 ﻿using ChartTools.Exceptions;
+using ChartTools.IO;
 using ChartTools.IO.Ini;
 
-using System;
 using System.Reflection;
 
 namespace ChartTools
@@ -14,32 +14,32 @@ namespace ChartTools
         /// <summary>
         /// Difficulty of <see cref="InstrumentIdentity.LeadGuitar"/>, <see cref="InstrumentIdentity.CoopGuitar"/> and <see cref="InstrumentIdentity.RhythmGuitar"/>
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.GuitarDifficulty)]
+        [IniKeySerializable(IniFormatting.GuitarDifficulty)]
         public sbyte? Guitar { get; set; }
         /// <summary>
         /// Difficulty of <see cref="InstrumentIdentity.Bass"/>
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.BassDifficulty)]
+        [IniKeySerializable(IniFormatting.BassDifficulty)]
         public sbyte? Bass { get; set; }
         /// <summary>
         /// Difficulty of <see cref="InstrumentIdentity.Drums"/>
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.DrumsDifficulty)]
+        [IniKeySerializable(IniFormatting.DrumsDifficulty)]
         public sbyte? Drums { get; set; }
         /// <summary>
         /// Difficulty of <see cref="InstrumentIdentity.Keys"/>
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.KeysDifficulty)]
+        [IniKeySerializable(IniFormatting.KeysDifficulty)]
         public sbyte? Keys { get; set; }
         /// <summary>
         /// Difficulty of <see cref="InstrumentIdentity.GHLGuitar"/>
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.GHLGuitarDifficulty)]
+        [IniKeySerializable(IniFormatting.GHLGuitarDifficulty)]
         public sbyte? GHLGuitar { get; set; }
         /// <summary>
         /// Difficulty of <see cref="InstrumentIdentity.GHLBass"/>
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.GHLBassDifficulty)]
+        [IniKeySerializable(IniFormatting.GHLBassDifficulty)]
         public sbyte? GHLBass { get; set; }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using ChartTools.Internal;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
+using ChartTools.IO.Chart.Serializers;
 using ChartTools.IO.Ini;
 
 using System;
@@ -21,19 +22,22 @@ namespace ChartTools
         /// <summary>
         /// Title of the <see cref="Song"/>
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.Title)]
+        [ChartKeySerializable(ChartFormatting.Title)]
+        [IniKeySerializable(IniFormatting.Title)]
         public string? Title { get; set; }
 
         /// <summary>
         /// Artist or band behind the <see cref="Song"/>
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.Artist)]
+        [ChartKeySerializable(ChartFormatting.Artist)]
+        [IniKeySerializable(IniFormatting.Artist)]
         public string? Artist { get; set; }
 
         /// <summary>
         /// Album featuring the <see cref="Song"/>
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.Album)]
+        [ChartKeySerializable(ChartFormatting.Album)]
+        [IniKeySerializable(IniFormatting.Album)]
         public string? Album { get; set; }
 
         /// <summary>
@@ -44,31 +48,32 @@ namespace ChartTools
         /// <summary>
         /// Playlist that the song should show up in
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.Playlist)]
+        [IniKeySerializable(IniFormatting.Playlist)]
         public string? Playlist { get; set; }
 
         /// <summary>
         /// Sub-playlist that the song should show up in
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.SubPlaylist)]
+        [IniKeySerializable(IniFormatting.SubPlaylist)]
         public string? SubPlaylist { get; set; }
 
         /// <summary>
         /// Track number of the song within the playlist/setlist
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.PlaylistTrack)]
+        [IniKeySerializable(IniFormatting.PlaylistTrack)]
         public ushort? PlaylistTrack { get; set; }
 
         /// <summary>
         /// Year of release
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.Year)]
+        [IniKeySerializable(IniFormatting.Year)]
         public ushort? Year { get; set; }
 
         /// <summary>
         /// Genre of the <see cref="Song"/>
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.Genre)]
+        [ChartKeySerializable(ChartFormatting.Genre)]
+        [IniKeySerializable(IniFormatting.Genre)]
         public string? Genre { get; set; }
 
         /// <summary>
@@ -84,13 +89,15 @@ namespace ChartTools
         /// <summary>
         /// Start time in milliseconds of the preview in the Clone Hero song browser
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.PreviewStart)]
+        [ChartKeySerializable(ChartFormatting.PreviewStart)]
+        [IniKeySerializable(IniFormatting.PreviewStart)]
         public uint? PreviewStart { get; set; }
 
         /// <summary>
         /// End time in milliseconds of the preview in the Clone Hero song browser
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.PreviewEnd)]
+        [ChartKeySerializable(ChartFormatting.PreviewEnd)]
+        [IniKeySerializable(IniFormatting.PreviewEnd)]
         public uint? PreviewEnd { get; set; }
 
         /// <summary>
@@ -110,7 +117,8 @@ namespace ChartTools
         /// <summary>
         /// Overall difficulty of the song
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.Difficulty)]
+        [ChartKeySerializable(ChartFormatting.Difficulty)]
+        [IniKeySerializable(IniFormatting.Difficulty)]
         public sbyte? Difficulty { get; set; }
         /// <inheritdoc cref="InstrumentDifficultySet"/>
         public InstrumentDifficultySet InstrumentDifficulties
@@ -122,12 +130,14 @@ namespace ChartTools
         /// <summary>
         /// Type of media the audio track comes from
         /// </summary>
+        [ChartKeySerializable(ChartFormatting.MediaType)]
         public string? MediaType { get; set; }
 
         /// <summary>
         /// Offset of the audio track in milliseconds. A higher value makes the audio start sooner.
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.AudioOffset)]
+        [ChartKeySerializable(ChartFormatting.AudioOffset)]
+        [IniKeySerializable(IniFormatting.AudioOffset)]
         public int? AudioOffset { get; set; }
 
         /// <summary>
@@ -151,19 +161,19 @@ namespace ChartTools
         /// <summary>
         /// Length of the song in milliseconds
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.Length)]
+        [IniKeySerializable(IniFormatting.Length)]
         public uint? Length { get; set; }
 
         /// <summary>
         /// Text to be displayed on the load screen
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.LoadingText)]
+        [IniKeySerializable(IniFormatting.LoadingText)]
         public string? LoadingText { get; set; }
 
         /// <summary>
         /// The song is a modchart
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.Modchart)]
+        [IniKeySerializable(IniFormatting.Modchart)]
         public bool IsModchart { get; set; }
 
 

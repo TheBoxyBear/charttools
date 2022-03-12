@@ -5,10 +5,33 @@ namespace ChartTools.IO.Chart
 {
     internal static class ChartFormatting
     {
-        public const string DrumsHeaderName = "Drums";
-        public const string MetadataHeader = "[Song]";
-        public const string SyncTrackHeader = "[SyncTrack]";
-        public const string GlobalEventHeader = "[Events]";
+        public const string DrumsHeaderName = "Drums",
+            MetadataHeader = "[Song]",
+            SyncTrackHeader = "[SyncTrack]",
+            GlobalEventHeader = "[Events]",
+            Title = "Name",
+            Artist = "Artist",
+            Charter = "Charter",
+            Album = "Album",
+            Year = "Year",
+            AudioOffset = "Offset",
+            Resolution = "Resolution",
+            Difficulty = "Difficulty",
+            PreviewStart = "PreviewStart",
+            PreviewEnd = "PreviewEnd",
+            Genre = "Genre",
+            MediaType = "MediaType",
+            MusicStream = "MusicStream",
+            GuitarStream = "GuitarStream",
+            BassStream = "BassStream",
+            RhythmStream = "RhythmStream",
+            KeysStream = "KeysStream",
+            DrumStream = "DrumStream",
+            Drum2Stream = "Drum2Stream",
+            Drum3Stream = "Drum3Stream",
+            Drum4Stream = "Drum4Stream",
+            VocalStream = "VocalStream",
+            CrowdStream = "CrowdStream";
 
         /// <summary>
         /// Part names of <see cref="InstrumentIdentity"/> without the difficulty

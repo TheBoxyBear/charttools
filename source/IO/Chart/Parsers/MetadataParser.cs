@@ -1,8 +1,6 @@
 ﻿using ChartTools.Internal;
 using ChartTools.IO.Configuration.Sessions;
 
-using System;
-
 namespace ChartTools.IO.Chart.Parsers
 {
     internal class MetadataParser : ChartParser
@@ -19,71 +17,71 @@ namespace ChartTools.IO.Chart.Parsers
 
             switch (entry.Key)
             {
-                case "Name":
+                case ChartFormatting.Title:
                     result.Title = value;
                     break;
-                case "Artist":
+                case ChartFormatting.Artist:
                     result.Artist = value;
                     break;
-                case "Charter":
-                    result.Charter = new() { Name = value };
+                case ChartFormatting.Charter:
+                    result.Charter.Name = value;
                     break;
-                case "Album":
+                case ChartFormatting.Album:
                     result.Album = value;
                     break;
-                case "Year":
+                case ChartFormatting.Year:
                     result.Year = ValueParser.ParseUshort(value.TrimStart(','), "year");
                     break;
-                case "Offset":
+                case ChartFormatting.AudioOffset:
                     result.AudioOffset = (int)(ValueParser.ParseFloat(value, "audio offset") * 1000);
                     break;
-                case "Difficulty":
+                case ChartFormatting.Difficulty:
                     result.Difficulty = ValueParser.ParseSbyte(value, "difficulty");
                     break;
-                case "PreviewStart":
+                case ChartFormatting.PreviewStart:
                     result.PreviewStart = ValueParser.ParseUint(value, "preview start");
                     break;
-                case "PreviewEnd":
+                case ChartFormatting.PreviewEnd:
                     result.PreviewEnd = ValueParser.ParseUint(value, "preview end");
                     break;
-                case "Genre":
+                case ChartFormatting.Genre:
                     result.Genre = value;
                     break;
-                case "MediaType":
+                case ChartFormatting.MediaType:
                     result.MediaType = value;
                     break;
-                case "MusicStream":
+                case ChartFormatting.MusicStream:
                     result.Streams.Music = value;
                     break;
-                case "GuitarStream":
+                case ChartFormatting.GuitarStream:
                     result.Streams.Guitar = value;
                     break;
-                case "BassStream":
+                case ChartFormatting.BassStream:
                     result.Streams.Bass = value;
                     break;
-                case "RhythmStream":
-                    result.Streams ??= new() { Rhythm = value };
+                case ChartFormatting.RhythmStream:
+                    result.Streams.Rhythm = value;
                     break;
-                case "KeysStream":
-                    result.Streams ??= new() { Keys = value };
+                case ChartFormatting.KeysStream:
+                    result.Streams.Keys = value;
                     break;
-                case "DrumStream":
-                    result.Streams ??= new() { Drum = value };
+                case ChartFormatting.DrumStream:
+                    result.Streams.Drum = value;
                     break;
-                case "Drum2Stream":
-                    result.Streams ??= new() { Drum2 = value };
+                case ChartFormatting.Drum2Stream:
+                    result.Streams.Drum2 = value;
                     break;
-                case "Drum3Stream":
-                    result.Streams ??= new() { Drum3 = value };
+                case ChartFormatting.Drum3Stream:
+                    result.Streams.Drum3 = value;
                     break;
-                case "Drum4Stream":
-                    result.Streams ??= new() { Drum4 = value };
+                case ChartFormatting.Drum4Stream:
+                    result.Streams.Drum4 = value;
                     break;
-                case "VocalStream":
-                    result.Streams ??= new() { Vocal = value };
+                case ChartFormatting.VocalStream:
+                    result.Streams.Vocals = value;
                     break;
-                case "CrowdStream":
-                    result.Streams ??= new() { Crowd = value };
+                case ChartFormatting.CrowdStream:
+                    result.Streams.Crowd = value;
                     break;
                 default:
                     result.UnidentifiedData.Add(new() { Key = entry.Key, Value = entry.Value, Origin = FileFormat.Chart });

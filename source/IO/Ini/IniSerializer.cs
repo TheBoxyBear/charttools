@@ -2,7 +2,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace ChartTools.IO.Ini
 {
@@ -12,15 +11,13 @@ namespace ChartTools.IO.Ini
 
         public override IEnumerable<string> Serialize()
         {
-            var props = GetSerializable(Content).Concat(GetSerializable(Content.Formatting)).Concat(GetSerializable(Content.Charter)).Concat(GetSerializable(Content.InstrumentDifficulties));
+            if (Content is null)
+                yield break;
 
-            // Generates groups of non-null property values and their serialization keys
-            static IEnumerable<(string key, string value)> GetSerializable(object source) => from prop in source.GetType().GetProperties()
-                                                                                                       let att = prop.GetCustomAttribute<IniSimpleSerializeAttribute>()
-                                                                                                       where att is not null
-                                                                                                       let value = prop.GetValue(source)?.ToString()
-                                                                                                       where value is not null
-                                                                                                       select (att.Key, value);
+            var props = IniKeySerializableAttribute.GetSerializable(Content)
+                .Concat(IniKeySerializableAttribute.GetSerializable(Content.Formatting))
+                .Concat(IniKeySerializableAttribute.GetSerializable(Content.Charter)
+                .Concat(IniKeySerializableAttribute.GetSerializable(Content.InstrumentDifficulties)));
 
             foreach ((var key, var value) in props)
                 yield return IniFormatting.Line(key, value.ToString());

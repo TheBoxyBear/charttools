@@ -1,4 +1,6 @@
-﻿using ChartTools.IO.Ini;
+﻿using ChartTools.IO.Chart;
+using ChartTools.IO.Chart.Serializers;
+using ChartTools.IO.Ini;
 
 namespace ChartTools.Formatting
 {
@@ -14,30 +16,31 @@ namespace ChartTools.Formatting
         /// <summary>
         /// Number of <see cref="TrackObject.Position"/> values per beat
         /// </summary>
+        [ChartKeySerializable(ChartFormatting.Resolution)]
         public uint? Resolution { get; set; }
         public uint TrueResolution => Resolution ?? 480;
 
         /// <summary>
         /// Overrides the default sustain cutoff threshold with the specified number of ticks.
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.SustainCutoff)]
+        [IniKeySerializable(IniFormatting.SustainCutoff)]
         public uint? SustainCutoff { get; set; }
 
         #region Hopo frequency
         /// <summary>
         /// Overrides the natural HOPO threshold with the specified number of ticks.
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.HopoFrequency)]
+        [IniKeySerializableAttribute(IniFormatting.HopoFrequency)]
         public uint? HopoFrequency { get; set; }
         /// <summary>
         /// (FoFiX) Overrides the natural HOPO threshold using numbers from 0 to 5.
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.HopoFrequencyStep)]
+        [IniKeySerializable(IniFormatting.HopoFrequencyStep)]
         public HopoFrequencyStep? HopoFrequencyStep { get; set; }
         /// <summary>
         /// (FoFiX) Overrides the natural HOPO threshold to be a 1/8th step.
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.ForceEightHopoFrequency)]
+        [IniKeySerializable(IniFormatting.ForceEightHopoFrequency)]
         public bool? ForceEightHopoFrequency { get; set; }
 
         public uint? TrueHopoFrequency
@@ -66,12 +69,12 @@ namespace ChartTools.Formatting
         /// <summary>
         /// Overrides the Star Power phrase MIDI note for .mid charts.
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.MultiplierNote)]
+        [IniKeySerializable(IniFormatting.MultiplierNote)]
         public byte? MultiplierNote { get; set; }
         /// <summary>
         /// (PhaseShift) Overrides the Star Power phrase MIDI note for .mid charts.
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.StarPowerNote)]
+        [IniKeySerializable(IniFormatting.StarPowerNote)]
         public byte? StarPowerNote { get; set; }
         public byte? TrueStarPowerNote => StarPowerNote ?? MultiplierNote;
         #endregion
@@ -80,31 +83,31 @@ namespace ChartTools.Formatting
         /// <summary>
         /// (PhaseShift) Indicates if the chart uses SysEx events for sliders/tap notes.
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.SysExSliders)]
+        [IniKeySerializable(IniFormatting.SysExSliders)]
         public bool? SysExSliders { get; set; }
 
         /// <summary>
         /// (PhaseShift) Indicates if the chart uses SysEx events for Drums Real hi-hat pedal control.
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.SysExHighHat)]
+        [IniKeySerializable(IniFormatting.SysExHighHat)]
         public bool? SysExHighHat { get; set; }
 
         /// <summary>
         /// (PhaseShift) Indicates if the chart uses SysEx events for Drums Real rimshot hits.
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.Rimshot)]
+        [IniKeySerializable(IniFormatting.Rimshot)]
         public bool? SysExRimshot { get; set; }
 
         /// <summary>
         /// (PhaseShift) Indicates if the chart uses SysEx events for open notes.
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.SysExOpenBass)]
+        [IniKeySerializable(IniFormatting.SysExOpenBass)]
         public bool? SysExOpenBass { get; set; }
 
         /// <summary>
         /// (PhaseShift) Indicates if the chart uses SysEx events for Pro Guitar/Bass slide directions.
         /// </summary>
-        [IniSimpleSerialize(IniFormatting.SysExProSlide)]
+        [IniKeySerializable(IniFormatting.SysExProSlide)]
         public bool? SysexProSlide { get; set; }
         #endregion
     }
