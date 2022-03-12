@@ -166,56 +166,6 @@ namespace ChartTools.IO.Ini
                     yield return $"{data.Key} = {data.Data}";
         }
 
-        /// <summary>
-        /// Reads an <see cref="Instrument"/> difficulty from a ini file.
-        /// </summary>
-        /// <returns>Difficulty read
-        ///     <para><see langword="null"/> if the file does not mention a difficulty for the provided instrument</para>
-        /// </returns>
-        /// <param name="path">Path of the file to read</param>
-        /// <param name="instrument">Instrument to read</param>
-        /// <inheritdoc cref="File.ReadLines(string)" path="/exception"/>
-        internal static void ReadDifficulty(string path, Instrument instrument)
-        {
-            var identity = instrument.InstrumentIdentity;
-
-            if (!difficultyKeys.ContainsValue(identity))
-                throw new ArgumentException("Ini files do not support difficulty for this instrument.");
-
-            (string header, string value) entry = default;
-            string key = difficultyKeys.Keys.First(k => difficultyKeys[k] == identity);
-
-            foreach (string line in File.ReadLines(path))
-            {
-                entry = GetEntry(line);
-
-                if (entry.header == key)
-                    break;
-            }
-
-            instrument.Difficulty = entry == default ? null : ValueParser.ParseSbyte(entry.value, "difficulty");
-        }
-        /// <summary>
-        /// Reads <see cref="Instrument"/> difficulties from a ini file and assigns them to the instruments in a <see cref="Song"/>.
-        /// </summary>
-        /// <param name="path">Path of the file to read</param>
-        /// <param name="song">Song to assign the difficulties to</param>
-        /// <inheritdoc cref="File.ReadAllLines(string)" path="/exception"/>
-        internal static void ReadDifficulties(string path, Song song)
-        {
-            foreach (string line in File.ReadAllLines(path))
-            {
-                (string header, string value) = GetEntry(line);
-
-                if (difficultyKeys.ContainsKey(header))
-                {
-                    Instrument? inst = song.GetInstrument(difficultyKeys[header]);
-
-                    if (inst is not null)
-                        inst.Difficulty = ValueParser.ParseSbyte(value, "difficulty");
-                }
-            }
-        }
         private static (string header, string value) GetEntry(string line)
         {
             string[] split = line.Split('=', 2);
@@ -224,42 +174,6 @@ namespace ChartTools.IO.Ini
             split[1] = split[1].Trim();
 
             return (split[0].Trim().ToLower(), split[1].Trim());
-        }
-
-        /// <summary>
-        /// Writes an <see cref="Instrument"/> difficulty to a ini file.
-        /// </summary>
-        /// <param name="path">Path of the file to write</param>
-        /// <param name="instrument">Instrument to write the difficulty of</param>
-        /// <inheritdoc cref="File.ReadAllLines(string)" path="/exception"/>
-        /// <inheritdoc cref="File.WriteAllLines(string, IEnumerable{string})" path="/exception"/>
-        internal static void WriteDifficulty(string path, Instrument instrument)
-        {
-            if (!Enum.IsDefined(instrument.InstrumentIdentity))
-                throw new ArgumentException("Instrument difficulty cannot be written because the identity is unknown.", nameof(instrument));
-
-            if (!difficultyKeys.ContainsValue(instrument.InstrumentIdentity))
-                throw new ArgumentException("Ini files do not support difficulty for this instrument.");
-
-            string key = difficultyKeys.Keys.First(k => difficultyKeys[k] == instrument.InstrumentIdentity);
-
-            // Get all the lines, replace the right one and rewrite the file
-            File.WriteAllLines(path, File.ReadAllLines(path).Replace(l => GetEntry(l).header == key, $"{key} = {instrument.Difficulty}"));
-        }
-        /// <summary>
-        /// Writes <see cref="Instrument"/> difficulties from a <see cref="Song"/> to a ini file.
-        /// </summary>
-        /// <param name="path">Path of the file to write</param>
-        /// <param name="song">Song to get the difficulties from</param>
-        /// <inheritdoc cref="WriteDifficulty(string, Instrument)" path="/exception"/>
-        internal static void WriteDifficulties(string path, Song song)
-        {
-            // Get all non-difficulty lines based on the non-null instruments
-            File.WriteAllLines(path,
-                File.ReadAllLines(path).Where(l => difficultyKeys.ContainsKey(GetEntry(l).header))
-                .Concat(difficultyKeys
-                .Select(p => (p.Key, song.GetInstrument(p.Value)))
-                .Where(t => t.Item2?.Difficulty is not null).Select(p => $"{p.Key} = {p.Item2!.Difficulty}")));
         }
     }
 }

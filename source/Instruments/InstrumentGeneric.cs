@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using ChartTools.Exceptions;
+
 using DiffEnum = ChartTools.Difficulty;
 
 namespace ChartTools
@@ -37,7 +39,7 @@ namespace ChartTools
         public new Track<TChord>? Hard
         {
             get => _hard;
-            set => _hard = value is null ? null : value with { Difficulty = ChartTools.Difficulty.Hard, ParentInstrument = this };
+            set => _hard = value is null ? null : value with { Difficulty = DiffEnum.Hard, ParentInstrument = this };
         }
         private Track<TChord>? _hard;
 
@@ -47,40 +49,40 @@ namespace ChartTools
         public new Track<TChord>? Expert
         {
             get => _expert;
-            set => _expert = value is null ? null : value with { Difficulty = ChartTools.Difficulty.Expert, ParentInstrument = this };
+            set => _expert = value is null ? null : value with { Difficulty = DiffEnum.Expert, ParentInstrument = this };
         }
         private Track<TChord>? _expert;
 
         /// <summary>
         /// Gets the <see cref="Track{TChord}"/> that matches a <see cref="Difficulty"/>
         /// </summary>
-        public override Track<TChord>? GetTrack(Difficulty difficulty) => difficulty switch
+        public override Track<TChord>? GetTrack(DiffEnum difficulty) => difficulty switch
         {
-            ChartTools.Difficulty.Easy => Easy,
-            ChartTools.Difficulty.Medium => Medium,
-            ChartTools.Difficulty.Hard => Hard,
-            ChartTools.Difficulty.Expert => Expert,
-            _ => throw CommonExceptions.GetUndefinedException(difficulty)
+            DiffEnum.Easy => Easy,
+            DiffEnum.Medium => Medium,
+            DiffEnum.Hard => Hard,
+            DiffEnum.Expert => Expert,
+            _ => throw new UndefinedEnumException(difficulty)
         };
 
-        public override void SetTrackNull(Difficulty difficulty)
+        public override void SetTrackNull(DiffEnum difficulty)
         {
             switch (difficulty)
             {
-                case ChartTools.Difficulty.Easy:
+                case DiffEnum.Easy:
                     _easy = null;
                     break;
-                case ChartTools.Difficulty.Medium:
+                case DiffEnum.Medium:
                     _medium = null;
                     break;
-                case ChartTools.Difficulty.Hard:
+                case DiffEnum.Hard:
                     _hard = null;
                     break;
-                case ChartTools.Difficulty.Expert:
+                case DiffEnum.Expert:
                     _expert = null;
                     break;
                 default:
-                    throw CommonExceptions.GetUndefinedException(difficulty);
+                    throw new UndefinedEnumException(difficulty);
             }
         }
 

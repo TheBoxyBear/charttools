@@ -80,6 +80,13 @@ namespace ChartTools
         /// Overall difficulty of the song
         /// </summary>
         public sbyte? Difficulty { get; set; }
+        /// <inheritdoc cref="InstrumentDifficultySet"/>
+        public InstrumentDifficultySet InstrumentDifficulties
+        {
+            get => _instrumentDifficulties;
+            set => _instrumentDifficulties = value ?? throw new ArgumentNullException(nameof(value));
+        }
+        private InstrumentDifficultySet _instrumentDifficulties = new();
         /// <summary>
         /// Type of media the audio track comes from
         /// </summary>

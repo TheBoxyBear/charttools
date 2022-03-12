@@ -226,22 +226,6 @@ namespace ChartTools
         public async Task ToFileAsync(string path, CancellationToken cancellationToken, WritingConfiguration? config = default) => await ExtensionHandler.WriteAsync(path, this, cancellationToken, config, (".chart", ChartFile.WriteSongAsync));
 
         /// <summary>
-        /// Reads the estimated instrument difficulties from a ini file.
-        /// </summary>
-        /// <param name="path">Path of the file to read</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="FormatException"/>
-        /// <exception cref="LineException"/>
-        public void ReadDifficulties(string path) => ExtensionHandler.Read(path, (".ini", path => IniParser_old.ReadDifficulties(path, this)));
-        /// <summary>
-        /// Writes the estimated instrument difficulties to a ini file.
-        /// </summary>
-        /// <param name="path">Path of the file to write</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="LineException"/>
-        public void WriteDifficulties(string path) => ExtensionHandler.Write(path, (".ini", path => IniParser_old.WriteDifficulties(path, this)));
-
-        /// <summary>
         /// Retrieves the lyrics from the global events.
         /// </summary>
         public IEnumerable<Phrase> GetLyrics() => GlobalEvents is null ? Enumerable.Empty<Phrase>() : GlobalEvents.GetLyrics();
