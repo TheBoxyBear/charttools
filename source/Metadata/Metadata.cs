@@ -30,10 +30,10 @@ namespace ChartTools
         [IniSimpleSerialize(IniFormatting.Artist)]
         public string? Artist { get; set; }
 
-        [IniSimpleSerialize(IniFormatting.Album)]
         /// <summary>
         /// Album featuring the <see cref="Song"/>
         /// </summary>
+        [IniSimpleSerialize(IniFormatting.Album)]
         public string? Album { get; set; }
 
         /// <summary>
@@ -87,10 +87,10 @@ namespace ChartTools
         [IniSimpleSerialize(IniFormatting.PreviewStart)]
         public uint? PreviewStart { get; set; }
 
-        [IniSimpleSerialize(IniFormatting.PreviewEnd)]
         /// <summary>
         /// End time in milliseconds of the preview in the Clone Hero song browser
         /// </summary>
+        [IniSimpleSerialize(IniFormatting.PreviewEnd)]
         public uint? PreviewEnd { get; set; }
 
         /// <summary>
@@ -154,10 +154,10 @@ namespace ChartTools
         [IniSimpleSerialize(IniFormatting.LoadingText)]
         public string? LoadingText { get; set; }
 
-        [IniSimpleSerialize(IniFormatting.Modchart)]
         /// <summary>
         /// The song is a modchart
         /// </summary>
+        [IniSimpleSerialize(IniFormatting.Modchart)]
         public bool IsModchart { get; set; }
 
 

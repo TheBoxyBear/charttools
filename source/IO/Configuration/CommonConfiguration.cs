@@ -6,11 +6,11 @@
     /// <remarks>If <see langword="null"/>, the default configuration for the file format will be used.</remarks>
     public class CommonConfiguration
     {
-        /// <inheritdoc cref="IO.OverlappingStarPowerPolicy"/>
+        /// <inheritdoc cref="OverlappingSpecialPhrasePolicy"/>
         public OverlappingSpecialPhrasePolicy OverlappingStarPowerPolicy { get; init; }
-        /// <inheritdoc cref="IO.SoloNoStarPowerPolicy"/>
+        /// <inheritdoc cref="Configuration.SoloNoStarPowerPolicy"/>
         public SoloNoStarPowerPolicy SoloNoStarPowerPolicy { get; init; }
-        /// <inheritdoc cref="IO.DuplicateTrackObjectPolicy"/>
+        /// <inheritdoc cref="Configuration.DuplicateTrackObjectPolicy"/>
         public DuplicateTrackObjectPolicy DuplicateTrackObjectPolicy { get; init; }
     }
 }

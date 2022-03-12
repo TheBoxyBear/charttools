@@ -7,11 +7,11 @@
         /// </summary>
         public TrackObjectSource EventSource { get; init; }
         public TrackObjectSource StarPowerSource { get; init; }
-        /// <inheritdoc cref="IO.HopoThresholdPriority"/>
+        /// <inheritdoc cref="Configuration.UnsupportedModifierPolicy"/>
         public HopoThresholdPriority HopoThresholdPriority { get; init; }
-        /// <inheritdoc cref="Metadata.HopoThreashold"/>
+        /// <inheritdoc cref="Formatting.FormattingRules.TrueHopoFrequency"/>
         public uint? HopoTreshold { get; init; }
-        /// <see cref="IO.UnsupportedModifierPolicy"/>
+        /// <see cref="Configuration.UnsupportedModifierPolicy"/>
         public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }
         /// <summary>
         /// *Currently unsupported*
