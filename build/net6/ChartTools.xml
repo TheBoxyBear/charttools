@@ -723,6 +723,39 @@
         <member name="M:ChartTools.Events.LocalEvent.#ctor(System.UInt32,System.String,System.String)">
             <inheritdoc cref="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String,System.String)"/>
         </member>
+        <member name="T:ChartTools.Events.GlobalEventExtensions">
+            <summary>
+            Provides additional methods for <see cref="T:ChartTools.Events.GlobalEvent"/>
+            </summary>
+        </member>
+        <member name="M:ChartTools.Events.GlobalEventExtensions.GetLyrics(System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent})">
+            <summary>
+            Gets the lyrics from an enumerable of <see cref="T:ChartTools.Events.GlobalEvent"/>
+            </summary>
+            <returns>Enumerable of <see cref="T:ChartTools.Lyrics.Phrase"/></returns>
+        </member>
+        <member name="M:ChartTools.Events.GlobalEventExtensions.SetLyrics(System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent},System.Collections.Generic.IEnumerable{ChartTools.Lyrics.Phrase})">
+            <summary>
+            Gets a set of <see cref="T:ChartTools.Events.GlobalEvent"/> where phrase and lyric events are replaced with the events making up a set of <see cref="T:ChartTools.Lyrics.Phrase"/>.
+            </summary>
+            <returns>Enumerable of <see cref="T:ChartTools.Events.GlobalEvent"/></returns>
+        </member>
+        <member name="T:ChartTools.Exceptions.UndefinedEnumException">
+            <summary>
+            Exception thrown when using an <see cref="T:System.Enum"/> value that is not defined
+            </summary>
+        </member>
+        <member name="P:ChartTools.Exceptions.UndefinedEnumException.Value">
+            <summary>
+            Value used
+            </summary>
+        </member>
+        <member name="M:ChartTools.Exceptions.Validator.ValidateEnum(System.Enum)">
+            <summary>
+            Validates that an <see cref="T:System.Enum"/> value is defined.
+            </summary>
+            <exception cref="T:ChartTools.Exceptions.UndefinedEnumException"></exception>
+        </member>
         <member name="P:ChartTools.ILongObject.Length">
             <summary>
             Length of the object in ticks
@@ -732,9 +765,6 @@
             <summary>
             Base class for instruments
             </summary>
-        </member>
-        <member name="P:ChartTools.Instrument.IsEmpty">
-            <inheritdoc cref="P:ChartTools.Internal.IEmpty.IsEmpty"/>
         </member>
         <member name="P:ChartTools.Instrument.InstrumentIdentity">
             <summary>
@@ -746,10 +776,11 @@
             Type of instrument
             </summary>
         </member>
-        <member name="P:ChartTools.Instrument.Difficulty">
-            <summary>
-            Estimated difficulty
-            </summary>
+        <member name="M:ChartTools.Instrument.GetDifficulty(ChartTools.InstrumentDifficultySet)">
+            <inheritdoc cref="M:ChartTools.InstrumentDifficultySet.GetDifficulty(ChartTools.InstrumentIdentity)"/>
+        </member>
+        <member name="M:ChartTools.Instrument.SetDifficulty(ChartTools.InstrumentDifficultySet,System.Nullable{System.SByte})">
+            <inheritdoc cref="M:ChartTools.InstrumentDifficultySet.GetDifficulty(ChartTools.InstrumentIdentity)"/>
         </member>
         <member name="P:ChartTools.Instrument.Easy">
             <summary>
@@ -775,6 +806,12 @@
             <summary>
             Gets the track matching a difficulty.
             </summary>
+        </member>
+        <member name="M:ChartTools.Instrument.SetTrackNull(ChartTools.Difficulty)">
+            <summary>
+            Sets a track to <see langword="null"/>.
+            </summary>
+            <param name="difficulty">Difficulty of the target track</param>
         </member>
         <member name="M:ChartTools.Instrument.GetTracks">
             <summary>
@@ -843,12 +880,6 @@
             Reads a standard instrument from a file asynchronously using multitasking.
             </summary>
         </member>
-        <member name="M:ChartTools.Instrument.ReadDifficulty(System.String)">
-            <inheritdoc cref="!:IniParser_old.ReadDifficulty(string, InstrumentIdentity)"/>
-        </member>
-        <member name="M:ChartTools.Instrument.WriteDifficulty(System.String)">
-            <inheritdoc cref="!:IniParser_old.WriteDifficulty(string, InstrumentIdentity, sbyte)"/>
-        </member>
         <member name="T:ChartTools.Instrument`1">
             <summary>
             Set of tracks common to an instrument
@@ -883,7 +914,7 @@
             <summary>
             Sets a track for a given <see cref="T:ChartTools.Difficulty"/>.
             </summary>
-            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.ArgumentNullException"/>
         </member>
         <member name="T:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2">
             <summary>
@@ -1258,12 +1289,12 @@
             <see langword="true"/> if there are more items to be received
             </summary>
         </member>
-        <member name="T:ChartTools.Internal.IEmpty">
+        <member name="T:ChartTools.Internal.IEmptyVerifiable">
             <summary>
             Adds support for a property defining if an object is empty
             </summary>
         </member>
-        <member name="P:ChartTools.Internal.IEmpty.IsEmpty">
+        <member name="P:ChartTools.Internal.IEmptyVerifiable.IsEmpty">
             <summary>
             <see langword="true"/> if containing no data
             </summary>
@@ -1389,63 +1420,6 @@
             </summary>
             <param name="source">Items to find the minimum or maximum of</param>
             <param name="selector">Function that gets the key to use in the comparison from an item</param>
-        </member>
-        <member name="T:ChartTools.CommonExceptions">
-            <summary>
-            Provides templates for commonly thrown exceptions
-            </summary>
-        </member>
-        <member name="T:ChartTools.CommonExceptions.ParameterNullException">
-            <summary>
-            The exception that is thrown when a method is called with <see langword="null"/> as a parameter for which <see langword="null"/> is not an accepted value
-            </summary>
-        </member>
-        <member name="F:ChartTools.CommonExceptions.ParameterNullException.DefaultTemplate">
-            <summary>
-            Default value of <see cref="P:ChartTools.CommonExceptions.ParameterNullException.MessageTemplate"/>
-            </summary>
-        </member>
-        <member name="P:ChartTools.CommonExceptions.ParameterNullException.MessageTemplate">
-            <summary>
-            Format of the message where "{position}" and "{name}" will be replaced by the respective values.
-            </summary>
-        </member>
-        <member name="P:ChartTools.CommonExceptions.ParameterNullException.ParameterPosition">
-            <summary>
-            Zero-based position of the parameter in the method signature
-            </summary>
-        </member>
-        <member name="P:ChartTools.CommonExceptions.ParameterNullException.ParameterName">
-            <summary>
-            Name of the parameter in the method signature
-            </summary>
-        </member>
-        <member name="M:ChartTools.CommonExceptions.ParameterNullException.#ctor(System.String,System.Byte)">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.CommonExceptions.ParameterNullException"/> using the previously defined template.
-            </summary>
-        </member>
-        <member name="M:ChartTools.CommonExceptions.ParameterNullException.#ctor(System.String,System.Byte,System.String)">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.CommonExceptions.ParameterNullException"/> using a single-use template.
-            </summary>
-        </member>
-        <member name="T:ChartTools.GlobalEventExtensions">
-            <summary>
-            Provides additional methods for <see cref="T:ChartTools.Events.GlobalEvent"/>
-            </summary>
-        </member>
-        <member name="M:ChartTools.GlobalEventExtensions.GetLyrics(System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent})">
-            <summary>
-            Gets the lyrics from an enumerable of <see cref="T:ChartTools.Events.GlobalEvent"/>
-            </summary>
-            <returns>Enumerable of <see cref="T:ChartTools.Lyrics.Phrase"/></returns>
-        </member>
-        <member name="M:ChartTools.GlobalEventExtensions.SetLyrics(System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent},System.Collections.Generic.IEnumerable{ChartTools.Lyrics.Phrase})">
-            <summary>
-            Gets a set of <see cref="T:ChartTools.Events.GlobalEvent"/> where phrase and lyric events are replaced with the events making up a set of <see cref="T:ChartTools.Lyrics.Phrase"/>.
-            </summary>
-            <returns>Enumerable of <see cref="T:ChartTools.Events.GlobalEvent"/></returns>
         </member>
         <member name="T:ChartTools.FuncEqualityComparer`1">
             <summary>
@@ -1759,7 +1733,6 @@
             Replaces an instrument in a file.
             </summary>
             <param name="path">Path of the file to write</param>
-            <exception cref="T:System.ArgumentNullException"/>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.ReplaceMetadata(System.String,ChartTools.Metadata)">
             <summary>
@@ -1889,42 +1862,6 @@
             </summary>
             <param name="path">Path of the file to read</param>
             <param name="metadata">Metadata to write</param>
-        </member>
-        <member name="M:ChartTools.IO.Ini.IniParser_old.ReadDifficulty(System.String,ChartTools.Instrument)">
-            <summary>
-            Reads an <see cref="T:ChartTools.Instrument"/> difficulty from a ini file.
-            </summary>
-            <returns>Difficulty read
-                <para><see langword="null"/> if the file does not mention a difficulty for the provided instrument</para>
-            </returns>
-            <param name="path">Path of the file to read</param>
-            <param name="instrument">Instrument to read</param>
-            <inheritdoc cref="M:System.IO.File.ReadLines(System.String)" path="/exception"/>
-        </member>
-        <member name="M:ChartTools.IO.Ini.IniParser_old.ReadDifficulties(System.String,ChartTools.Song)">
-            <summary>
-            Reads <see cref="T:ChartTools.Instrument"/> difficulties from a ini file and assigns them to the instruments in a <see cref="T:ChartTools.Song"/>.
-            </summary>
-            <param name="path">Path of the file to read</param>
-            <param name="song">Song to assign the difficulties to</param>
-            <inheritdoc cref="M:System.IO.File.ReadAllLines(System.String)" path="/exception"/>
-        </member>
-        <member name="M:ChartTools.IO.Ini.IniParser_old.WriteDifficulty(System.String,ChartTools.Instrument)">
-            <summary>
-            Writes an <see cref="T:ChartTools.Instrument"/> difficulty to a ini file.
-            </summary>
-            <param name="path">Path of the file to write</param>
-            <param name="instrument">Instrument to write the difficulty of</param>
-            <inheritdoc cref="M:System.IO.File.ReadAllLines(System.String)" path="/exception"/>
-            <inheritdoc cref="M:System.IO.File.WriteAllLines(System.String,System.Collections.Generic.IEnumerable{System.String})" path="/exception"/>
-        </member>
-        <member name="M:ChartTools.IO.Ini.IniParser_old.WriteDifficulties(System.String,ChartTools.Song)">
-            <summary>
-            Writes <see cref="T:ChartTools.Instrument"/> difficulties from a <see cref="T:ChartTools.Song"/> to a ini file.
-            </summary>
-            <param name="path">Path of the file to write</param>
-            <param name="song">Song to get the difficulties from</param>
-            <inheritdoc cref="M:ChartTools.IO.Ini.IniParser_old.WriteDifficulty(System.String,ChartTools.Instrument)" path="/exception"/>
         </member>
         <member name="T:ChartTools.IO.Configuration.CommonConfiguration">
             <summary>
@@ -2178,6 +2115,51 @@
             <param name="ex">Exception to throw if returned <see langword="false"/></param>
             <returns><see langword="true"/> if the collection contains at least one <see cref="T:Melanchall.DryWetMidi.Core.TrackChunk"/></returns>
         </member>
+        <member name="T:ChartTools.InstrumentDifficultySet">
+            <summary>
+            Stores the estimated difficulties for instruments
+            </summary>
+        </member>
+        <member name="P:ChartTools.InstrumentDifficultySet.Guitar">
+            <summary>
+            Difficulty of <see cref="F:ChartTools.InstrumentIdentity.LeadGuitar"/>, <see cref="F:ChartTools.InstrumentIdentity.CoopGuitar"/> and <see cref="F:ChartTools.InstrumentIdentity.RhythmGuitar"/>
+            </summary>
+        </member>
+        <member name="P:ChartTools.InstrumentDifficultySet.Bass">
+            <summary>
+            Difficulty of <see cref="F:ChartTools.InstrumentIdentity.Bass"/>
+            </summary>
+        </member>
+        <member name="P:ChartTools.InstrumentDifficultySet.Drums">
+            <summary>
+            Difficulty of <see cref="F:ChartTools.InstrumentIdentity.Drums"/>
+            </summary>
+        </member>
+        <member name="P:ChartTools.InstrumentDifficultySet.Keys">
+            <summary>
+            Difficulty of <see cref="F:ChartTools.InstrumentIdentity.Keys"/>
+            </summary>
+        </member>
+        <member name="P:ChartTools.InstrumentDifficultySet.GHLGuitar">
+            <summary>
+            Difficulty of <see cref="F:ChartTools.InstrumentIdentity.GHLGuitar"/>
+            </summary>
+        </member>
+        <member name="P:ChartTools.InstrumentDifficultySet.GHLBass">
+            <summary>
+            Difficulty of <see cref="F:ChartTools.InstrumentIdentity.GHLBass"/>
+            </summary>
+        </member>
+        <member name="M:ChartTools.InstrumentDifficultySet.GetDifficulty(ChartTools.InstrumentIdentity)">
+            <summary>
+            Gets the difficulty for an <see cref="T:ChartTools.InstrumentIdentity"/>.
+            </summary>
+        </member>
+        <member name="M:ChartTools.InstrumentDifficultySet.SetDifficulty(ChartTools.InstrumentIdentity,System.Nullable{System.SByte})">
+            <summary>
+            Sets the difficulty for an <see cref="T:ChartTools.InstrumentIdentity"/>.
+            </summary>
+        </member>
         <member name="T:ChartTools.Charter">
             <summary>
             Creator of the chart
@@ -2327,6 +2309,9 @@
             <summary>
             Overall difficulty of the song
             </summary>
+        </member>
+        <member name="P:ChartTools.Metadata.InstrumentDifficulties">
+            <inheritdoc cref="T:ChartTools.InstrumentDifficultySet"/>
         </member>
         <member name="P:ChartTools.Metadata.MediaType">
             <summary>
@@ -2583,23 +2568,6 @@
             <exception cref="T:System.NotSupportedException"/>
             <exception cref="T:System.Security.SecurityException"/>
         </member>
-        <member name="M:ChartTools.Song.ReadDifficulties(System.String)">
-            <summary>
-            Reads the estimated instrument difficulties from a ini file.
-            </summary>
-            <param name="path">Path of the file to read</param>
-            <exception cref="T:System.ArgumentException"/>
-            <exception cref="T:System.FormatException"/>
-            <exception cref="T:ChartTools.IO.LineException"/>
-        </member>
-        <member name="M:ChartTools.Song.WriteDifficulties(System.String)">
-            <summary>
-            Writes the estimated instrument difficulties to a ini file.
-            </summary>
-            <param name="path">Path of the file to write</param>
-            <exception cref="T:System.ArgumentException"/>
-            <exception cref="T:ChartTools.IO.LineException"/>
-        </member>
         <member name="M:ChartTools.Song.GetLyrics">
             <summary>
             Retrieves the lyrics from the global events.
@@ -2617,7 +2585,7 @@
             </summary>
         </member>
         <member name="P:ChartTools.SyncTrack.IsEmpty">
-            <inheritdoc cref="P:ChartTools.Internal.IEmpty.IsEmpty"/>
+            <inheritdoc cref="P:ChartTools.Internal.IEmptyVerifiable.IsEmpty"/>
         </member>
         <member name="P:ChartTools.SyncTrack.Tempo">
             <summary>
@@ -2759,7 +2727,7 @@
             </summary>
         </member>
         <member name="P:ChartTools.Track.IsEmpty">
-            <inheritdoc cref="P:ChartTools.Internal.IEmpty.IsEmpty"/>
+            <inheritdoc cref="P:ChartTools.Internal.IEmptyVerifiable.IsEmpty"/>
         </member>
         <member name="P:ChartTools.Track.Difficulty">
             <summary>

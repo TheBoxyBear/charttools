@@ -23,6 +23,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Events\EventTypeHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\EventTypeHeaderHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\LocalEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\UndefinedEnumException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\Validator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ILongObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Instruments\Instrument.cs" />
@@ -40,7 +42,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Unique\Lists\UniqueListEquatable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\FuncEqualityComparer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Internal\IEmpty.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internal\IEmptyVerifiable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\IInitializable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\ProperyMerger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\AsyncFileReader.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\ParseException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\SectionException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\GroupSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsers\GHGemsParser.cs" />
@@ -70,6 +73,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\TextFileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\TextParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\ValueParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Metadata\InstrumentDifficultySet.cs" />
     <Compile Include="..\source\IO\Chart\Parsers\StandardTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\SyncTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\TrackParser.cs" />
@@ -110,7 +114,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MIDIParser_Reading.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\Metadata.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\DrumsNote.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Notes\EnumNote.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\Note.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\NoteCollections\LaneNoteCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\NoteCollections\NoteCollection.cs" />
