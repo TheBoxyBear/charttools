@@ -2,14 +2,14 @@
 using ChartTools.Internal;
 using ChartTools.IO.Configuration.Sessions;
 
-namespace ChartTools.IO.Ini.Parsers
+namespace ChartTools.IO.Ini
 {
-    internal class MetadataParser : IniParser
+    internal abstract class IniParser : TextParser, ISongAppliable
     {
         public override Metadata Result => GetResult(result);
         private readonly Metadata result;
 
-        public MetadataParser(ReadingSession session, Metadata? existing = null) : base(session) => result = existing ?? new();
+        public IniParser(ReadingSession session, Metadata? existing = null) : base(session) => result = existing ?? new();
 
         protected override void HandleItem(string item)
         {
@@ -119,7 +119,7 @@ namespace ChartTools.IO.Ini.Parsers
             }
         }
 
-        public override void ApplyToSong(Song song)
+        public void ApplyToSong(Song song)
         {
             if (song.Metadata is null)
                 song.Metadata = Result;

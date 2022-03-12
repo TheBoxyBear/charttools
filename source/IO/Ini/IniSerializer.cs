@@ -1,7 +1,5 @@
-﻿using ChartTools.Formatting;
-using ChartTools.IO.Configuration.Sessions;
+﻿using ChartTools.IO.Configuration.Sessions;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -14,18 +12,17 @@ namespace ChartTools.IO.Ini
 
         public override IEnumerable<string> Serialize()
         {
-            var metadataProps = GetSerializable(typeof(Metadata), Content);
-            var formattingProps = GetSerializable(typeof(FormattingRules), Content.Formatting);
-            var charterProps = GetSerializable(typeof(Charter), Content.Charter);
+            var props = GetSerializable(Content).Concat(GetSerializable(Content.Formatting)).Concat(GetSerializable(Content.Charter)).Concat(GetSerializable(Content.InstrumentDifficulties));
 
-            static IEnumerable<(string key, string value)> GetSerializable(Type type, object source) => from prop in type.GetProperties()
-                                                                                                        let att = prop.GetCustomAttribute<IniSimpleSerializeAttribute>()
-                                                                                                        where att is not null
-                                                                                                        let value = prop.GetValue(source)?.ToString()
-                                                                                                        where value is not null
-                                                                                                        select (att.Key, value);
+            // Generates groups of non-null property values and their serialization keys
+            static IEnumerable<(string key, string value)> GetSerializable(object source) => from prop in source.GetType().GetProperties()
+                                                                                                       let att = prop.GetCustomAttribute<IniSimpleSerializeAttribute>()
+                                                                                                       where att is not null
+                                                                                                       let value = prop.GetValue(source)?.ToString()
+                                                                                                       where value is not null
+                                                                                                       select (att.Key, value);
 
-            foreach ((var key, var value) in metadataProps.Concat(formattingProps).Concat(charterProps))
+            foreach ((var key, var value) in props)
                 yield return IniFormatting.Line(key, value.ToString());
 
             foreach (var data in Content.UnidentifiedData)

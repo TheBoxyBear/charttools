@@ -40,7 +40,6 @@
     <Compile Include="Internal\Collections\Unique\Lists\UniqueListEquatable.cs" />
     <Compile Include="Internal\Extensions.cs" />
     <Compile Include="Internal\FuncEqualityComparer.cs" />
-    <Compile Include="Internal\IEmpty.cs" />
     <Compile Include="Internal\IInitializable.cs" />
     <Compile Include="Internal\ProperyMerger.cs" />
     <Compile Include="IO\Chart\ChartFile.cs" />
@@ -100,7 +99,6 @@
     <Compile Include="Metadata\StreamCollection.cs" />
     <Compile Include="Metadata\UnidentifiedMetadata.cs" />
     <Compile Include="Notes\DrumsNote.cs" />
-    <Compile Include="Notes\EnumNote.cs" />
     <Compile Include="Notes\Note.cs" />
     <Compile Include="Notes\NoteCollections\LaneNoteCollection.cs" />
     <Compile Include="Notes\NoteCollections\NoteCollection.cs" />

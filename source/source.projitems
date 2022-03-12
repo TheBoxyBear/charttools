@@ -23,6 +23,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Events\EventTypeHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\GlobalEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\LocalEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\UndefinedEnumException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\Validator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internal\IEmptyVerifiable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\ChartParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\MetadataParser.cs" />
@@ -46,19 +49,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Unique\Lists\UniqueListEquatable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\FuncEqualityComparer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Internal\IEmpty.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\IInitializable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\EntryException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\LineException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\ParseException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\SectionException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Appliables\IInstrumentAppliable.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\Parsers\DifficultyParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFormatting.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\Parsers\IniParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniSimpleSerializeAttribute.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\Parsers\MetadataParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Appliables\ISongAppliable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\FileParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\FormattedFileParser.cs" />
@@ -66,6 +66,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Serializers\Serializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\TextParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\ValueParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Metadata\InstrumentDifficultySet.cs" />
     <Compile Include="..\source\Internal\PropertyMerger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\AsyncFileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartFileReader.cs" />
@@ -124,7 +125,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MIDIParser_Reading.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\Metadata.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\DrumsNote.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Notes\EnumNote.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\Note.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\NoteCollections\LaneNoteCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\NoteCollections\NoteCollection.cs" />
@@ -145,6 +145,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)IO\Appliables\" />
-    <Folder Include="$(MSBuildThisFileDirectory)IO\Ini\Parsers\" />
   </ItemGroup>
 </Project>

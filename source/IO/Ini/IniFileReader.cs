@@ -1,5 +1,5 @@
 ﻿using ChartTools.IO.Chart.Parsers;
-using ChartTools.IO.Ini.Parsers;
+using ChartTools.IO.Ini;
 
 using System;
 
