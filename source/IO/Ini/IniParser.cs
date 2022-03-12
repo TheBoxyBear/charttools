@@ -28,12 +28,10 @@ namespace ChartTools.IO.Ini
                     break;
                 case IniFormatting.AlbumTrack:
                     ParsealbumTrack(entry.Value);
-                    result.Formatting ??= new();
                     result.Formatting.AlbumTrackKey |= AlbumTrackKey.AlbumTrack;
                     break;
                 case IniFormatting.Track:
                     ParsealbumTrack(entry.Value);
-                    result.Formatting ??= new();
                     result.Formatting.AlbumTrackKey |= AlbumTrackKey.Track;
                     break;
                 case IniFormatting.Playlist:
@@ -53,16 +51,13 @@ namespace ChartTools.IO.Ini
                     break;
                 case IniFormatting.Charter:
                     ParseCharter();
-                    result.Formatting ??= new();
                     result.Formatting.CharterKey |= CharterKey.Charter;
                     break;
                 case IniFormatting.Frets:
                     ParseCharter();
-                    result.Formatting ??= new();
                     result.Formatting.CharterKey |= CharterKey.Frets;
                     break;
                 case IniFormatting.Icon:
-                    result.Charter ??= new();
                     result.Charter.Icon = entry.Value;
                     break;
                 case IniFormatting.PreviewStart:
@@ -89,25 +84,38 @@ namespace ChartTools.IO.Ini
                 case IniFormatting.Modchart:
                     result.IsModchart = ValueParser.ParseBool(entry.Value, "modchart");
                     break;
+                case IniFormatting.GuitarDifficulty:
+                    result.InstrumentDifficulties.Guitar = ValueParser.ParseSbyte(entry.Value, "guitar difficulty");
+                    break;
+                case IniFormatting.BassDifficulty:
+                    result.InstrumentDifficulties.Bass = ValueParser.ParseSbyte(entry.Value, "bass difficulty");
+                    break;
+                case IniFormatting.DrumsDifficulty:
+                    result.InstrumentDifficulties.Drums = ValueParser.ParseSbyte(entry.Value, "drums difficulty");
+                    break;
+                case IniFormatting.KeysDifficulty:
+                    result.InstrumentDifficulties.Keys = ValueParser.ParseSbyte(entry.Value, "keys difficulty");
+                    break;
+                case IniFormatting.GHLGuitarDifficulty:
+                    result.InstrumentDifficulties.GHLGuitar = ValueParser.ParseSbyte(entry.Value, "GHL guitar difficulty");
+                    break;
+                case IniFormatting.GHLBassDifficulty:
+                    result.InstrumentDifficulties.GHLBass = ValueParser.ParseSbyte(entry.Value, "GHL bass difficulty");
+                    break;
                 case IniFormatting.SustainCutoff:
-                    result.Formatting ??= new();
                     result.Formatting.SustainCutoff = ValueParser.ParseUint(entry.Value, "sustain cutoff");
                     break;
                 case IniFormatting.HopoFrequency:
-                    result.Formatting ??= new();
                     result.Formatting.HopoFrequency = ValueParser.ParseUint(entry.Value, "hopo frequency");
                     break;
                 case IniFormatting.HopoFrequencyStep:
-                    result.Formatting ??= new();
                     result.Formatting.HopoFrequencyStep = (HopoFrequencyStep)ValueParser.ParseByte(entry.Value, "hopo frequency step");
                     break;
                 case IniFormatting.ForceEightHopoFrequency:
-                    result.Formatting ??= new();
                     result.Formatting.ForceEightHopoFrequency = ValueParser.ParseBool(entry.Value, "force eight hopo frequency");
                     break;
                 default:
-                    if (!IniFormatting.DifficultyKeys.ContainsKey(entry.Key))
-                        result.UnidentifiedData.Add(new() { Key = entry.Key, Value = entry.Value, Origin = FileFormat.Ini });
+                    result.UnidentifiedData.Add(new() { Key = entry.Key, Value = entry.Value, Origin = FileFormat.Ini });
                     break;
             }
 

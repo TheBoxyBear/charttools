@@ -14,32 +14,32 @@ namespace ChartTools
         /// <summary>
         /// Difficulty of <see cref="InstrumentIdentity.LeadGuitar"/>, <see cref="InstrumentIdentity.CoopGuitar"/> and <see cref="InstrumentIdentity.RhythmGuitar"/>
         /// </summary>
-        [IniSimpleSerialize("diff_guitar")]
+        [IniSimpleSerialize(IniFormatting.GuitarDifficulty)]
         public sbyte? Guitar { get; set; }
         /// <summary>
         /// Difficulty of <see cref="InstrumentIdentity.Bass"/>
         /// </summary>
-        [IniSimpleSerialize("diff_bass")]
+        [IniSimpleSerialize(IniFormatting.BassDifficulty)]
         public sbyte? Bass { get; set; }
         /// <summary>
         /// Difficulty of <see cref="InstrumentIdentity.Drums"/>
         /// </summary>
-        [IniSimpleSerialize("diff_drums")]
+        [IniSimpleSerialize(IniFormatting.DrumsDifficulty)]
         public sbyte? Drums { get; set; }
         /// <summary>
         /// Difficulty of <see cref="InstrumentIdentity.Keys"/>
         /// </summary>
-        [IniSimpleSerialize("diff_keys")]
+        [IniSimpleSerialize(IniFormatting.KeysDifficulty)]
         public sbyte? Keys { get; set; }
         /// <summary>
         /// Difficulty of <see cref="InstrumentIdentity.GHLGuitar"/>
         /// </summary>
-        [IniSimpleSerialize("diff_guitarghl")]
+        [IniSimpleSerialize(IniFormatting.GHLGuitarDifficulty)]
         public sbyte? GHLGuitar { get; set; }
         /// <summary>
         /// Difficulty of <see cref="InstrumentIdentity.GHLBass"/>
         /// </summary>
-        [IniSimpleSerialize("diff_bassghl")]
+        [IniSimpleSerialize(IniFormatting.GHLBassDifficulty)]
         public sbyte? GHLBass { get; set; }
 
         /// <summary>

@@ -49,7 +49,13 @@ namespace ChartTools.IO.Ini
             SysExHighHat = "sysex_high_hat_ctrl",
             Rimshot = "sysex_rimshot",
             SysExOpenBass = "sysex_open_bass",
-            SysExProSlide = "sysex_pro_slide";
+            SysExProSlide = "sysex_pro_slide",
+            GuitarDifficulty = "diff_guitar",
+            BassDifficulty = "diff_bass",
+            DrumsDifficulty = "diff_drums",
+            KeysDifficulty = "diff_keys",
+            GHLGuitarDifficulty = "diff_guitarghl",
+            GHLBassDifficulty = "diff_bassghl";
 
         public static string Line(string key, string value) => $"{key} = {value}";
     }
