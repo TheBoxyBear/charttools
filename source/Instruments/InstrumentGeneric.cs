@@ -1,7 +1,10 @@
-﻿using ChartTools.SystemExtensions.Linq;
-
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+
+using ChartTools.Exceptions;
+
+using DiffEnum = ChartTools.Difficulty;
 
 namespace ChartTools
 {
@@ -16,7 +19,7 @@ namespace ChartTools
         public new Track<TChord>? Easy
         {
             get => _easy;
-            set => _easy = value is null ? null : value with { Difficulty = ChartTools.Difficulty.Easy, ParentInstrument = this };
+            set => _easy = value is null ? null : value with { Difficulty = DiffEnum.Easy, ParentInstrument = this };
         }
         private Track<TChord>? _easy;
 
@@ -26,7 +29,7 @@ namespace ChartTools
         public new Track<TChord>? Medium
         {
             get => _medium;
-            set => _medium = value is null ? null : value with { Difficulty = ChartTools.Difficulty.Medium, ParentInstrument = this };
+            set => _medium = value is null ? null : value with { Difficulty = DiffEnum.Medium, ParentInstrument = this };
         }
         private Track<TChord>? _medium;
 
@@ -36,7 +39,7 @@ namespace ChartTools
         public new Track<TChord>? Hard
         {
             get => _hard;
-            set => _hard = value is null ? null : value with { Difficulty = ChartTools.Difficulty.Hard, ParentInstrument = this };
+            set => _hard = value is null ? null : value with { Difficulty = DiffEnum.Hard, ParentInstrument = this };
         }
         private Track<TChord>? _hard;
 
@@ -46,21 +49,42 @@ namespace ChartTools
         public new Track<TChord>? Expert
         {
             get => _expert;
-            set => _expert = value is null ? null : value with { Difficulty = ChartTools.Difficulty.Expert, ParentInstrument = this };
+            set => _expert = value is null ? null : value with { Difficulty = DiffEnum.Expert, ParentInstrument = this };
         }
         private Track<TChord>? _expert;
 
         /// <summary>
         /// Gets the <see cref="Track{TChord}"/> that matches a <see cref="Difficulty"/>
         /// </summary>
-        public override Track<TChord>? GetTrack(Difficulty difficulty) => difficulty switch
+        public override Track<TChord>? GetTrack(DiffEnum difficulty) => difficulty switch
         {
-            ChartTools.Difficulty.Easy => Easy,
-            ChartTools.Difficulty.Medium => Medium,
-            ChartTools.Difficulty.Hard => Hard,
-            ChartTools.Difficulty.Expert => Expert,
-            _ => throw CommonExceptions.GetUndefinedException(difficulty)
+            DiffEnum.Easy => Easy,
+            DiffEnum.Medium => Medium,
+            DiffEnum.Hard => Hard,
+            DiffEnum.Expert => Expert,
+            _ => throw new UndefinedEnumException(difficulty)
         };
+
+        public override void SetTrackNull(DiffEnum difficulty)
+        {
+            switch (difficulty)
+            {
+                case DiffEnum.Easy:
+                    _easy = null;
+                    break;
+                case DiffEnum.Medium:
+                    _medium = null;
+                    break;
+                case DiffEnum.Hard:
+                    _hard = null;
+                    break;
+                case DiffEnum.Expert:
+                    _expert = null;
+                    break;
+                default:
+                    throw new UndefinedEnumException(difficulty);
+            }
+        }
 
         protected override Track<TChord>? GetEasy() => Easy;
         protected override Track<TChord>? GetMedium() => Medium;
@@ -68,12 +92,12 @@ namespace ChartTools
         protected override Track<TChord>? GetExpert() => Expert;
 
         public override Track<TChord>?[] GetTracks() => new Track<TChord>?[] { Easy, Medium, Hard, Expert };
-        public override Track<TChord>[] GetNonEmptyTracks() => base.GetNonEmptyTracks().Cast<Track<TChord>>().ToArray();
+        public override IEnumerable<Track<TChord>> GetNonEmptyTracks() => base.GetNonEmptyTracks().Cast<Track<TChord>>();
 
         /// <summary>
         /// Sets a track for a given <see cref="Difficulty"/>.
         /// </summary>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentNullException"/>
         public void SetTrack(Track<TChord> track)
         {
             if (track is null)

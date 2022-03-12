@@ -14,9 +14,9 @@ namespace ChartTools
     /// <summary>
     /// Base class for tracks
     /// </summary>
-    public abstract record Track : IEmpty
+    public abstract record Track : IEmptyVerifiable
     {
-        /// <inheritdoc cref="IEmpty.IsEmpty"/>
+        /// <inheritdoc cref="IEmptyVerifiable.IsEmpty"/>
         public bool IsEmpty => Chords.Count == 0 && LocalEvents.Count == 0 && StarPower.Count == 0;
 
         /// <summary>

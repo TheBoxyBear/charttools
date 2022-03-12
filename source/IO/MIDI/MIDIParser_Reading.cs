@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ChartTools.IO.Configuration;
 using ChartTools.Events;
+using ChartTools.Exceptions;
 
 namespace ChartTools.IO.MIDI
 {
@@ -80,7 +81,7 @@ namespace ChartTools.IO.MIDI
             if (Enum.IsDefined((GHLInstrumentIdentity)instrument))
                 return GetInstrument(file.Chunks, (StandardInstrumentIdentity)instrument, midiConfig);
 
-            throw CommonExceptions.GetUndefinedException(instrument);
+            throw new UndefinedEnumException(instrument);
         }
 
         public static Instrument<DrumsChord>? ReadDrums(string path, ReadingConfiguration midiConfig) => midiConfig is null
@@ -98,8 +99,7 @@ namespace ChartTools.IO.MIDI
             : throw e!;
         private static Instrument<GHLChord>? GetInstrument(ChunksCollection chunks, GHLInstrumentIdentity instrument, ReadingConfiguration midiConfig)
         {
-            if (!Enum.IsDefined(instrument))
-                throw CommonExceptions.GetUndefinedException(instrument);
+            Validator.ValidateEnum(instrument);
 
             if (!CheckTrackChunkPresence(chunks, out Exception? e))
                 throw e!;
@@ -108,8 +108,7 @@ namespace ChartTools.IO.MIDI
         }
         private static Instrument<StandardChord>? GetInstrument(ChunksCollection chunks, StandardInstrumentIdentity instrument, ReadingConfiguration midiConfig)
         {
-            if (!Enum.IsDefined(instrument))
-                throw CommonExceptions.GetUndefinedException(instrument);
+            Validator.ValidateEnum(instrument);
 
             if (!CheckTrackChunkPresence(chunks, out Exception? e))
                 throw e!;
@@ -171,7 +170,7 @@ namespace ChartTools.IO.MIDI
                 Difficulty.Medium => n => n / 10 == 7,
                 Difficulty.Hard => n => n / 10 == 8,
                 Difficulty.Expert => n => n is > 89 and < 111,
-                _ => throw CommonExceptions.GetUndefinedException(difficulty)
+                _ => throw new UndefinedEnumException(difficulty)
             };
 
             byte difficultyNoteIndexOffset = (byte)(10 * ((int)difficulty + 6) + (int)difficulty * 2);
