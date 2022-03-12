@@ -34,12 +34,6 @@ namespace ChartTools.IO.Ini
                 if (Content.Formatting.AlbumTrackKey.HasFlag(AlbumTrackKey.AlbumTrack))
                     yield return IniFormatting.Line(IniFormatting.AlbumTrack, Content.AlbumTrack.ToString()!);
             }
-
-            var albumTrackKey = Content.Formatting.AlbumTrackKey switch
-            {
-                AlbumTrackKey.Track => IniFormatting.Track,
-                AlbumTrackKey.AlbumTrack => IniFormatting.AlbumTrack
-            };
         }
     }
 }
