@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ChartTools.Exceptions;
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

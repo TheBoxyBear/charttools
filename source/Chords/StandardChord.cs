@@ -1,8 +1,5 @@
 ﻿using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration.Sessions;
-
-using Melanchall.DryWetMidi.Core;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +25,7 @@ namespace ChartTools
             if (notes is null)
                 throw new ArgumentNullException(nameof(notes));
 
-            foreach (Note<StandardLane> note in notes)
+            foreach (var note in notes)
                 Notes.Add(note);
         }
         /// <inheritdoc cref="StandardChord(uint, Note{StandardLane}[])"/>

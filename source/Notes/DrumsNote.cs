@@ -24,12 +24,8 @@ namespace ChartTools
             }
         }
 
-        public DrumsNote() => Lane = DrumsLane.Kick;
-        public DrumsNote(DrumsLane lane) : base(lane)
-        {
-            if (!Enum.IsDefined(lane))
-                throw CommonExceptions.GetUndefinedException(lane);
-        }
+        public DrumsNote() : base() { }
+        public DrumsNote(DrumsLane lane) : base(lane) { }
 
         /// <summary>
         /// Determines if the note is played by kicking

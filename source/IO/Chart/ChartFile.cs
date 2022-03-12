@@ -1,4 +1,5 @@
 ﻿using ChartTools.Events;
+using ChartTools.Exceptions;
 using ChartTools.IO.Chart.Parsers;
 using ChartTools.IO.Chart.Serializers;
 using ChartTools.IO.Configuration;
@@ -133,7 +134,7 @@ namespace ChartTools.IO.Chart
                 return ReadInstrument(path, (GHLInstrumentIdentity)instrument, config);
             return Enum.IsDefined((StandardInstrumentIdentity)instrument)
                 ? ReadInstrument(path, (StandardInstrumentIdentity)instrument, config)
-                : throw CommonExceptions.GetUndefinedException(instrument);
+                : throw new UndefinedEnumException(instrument);
         }
         public static async Task<Instrument?> ReadInstrumentAsync(string path, InstrumentIdentity instrument, CancellationToken cancellationToken, ReadingConfiguration? config = default)
         {
@@ -143,7 +144,7 @@ namespace ChartTools.IO.Chart
                 return await ReadInstrumentAsync(path, (GHLInstrumentIdentity)instrument, cancellationToken, config);
             return Enum.IsDefined((StandardInstrumentIdentity)instrument)
                 ? await ReadInstrumentAsync(path, (StandardInstrumentIdentity)instrument, cancellationToken, config)
-                : throw CommonExceptions.GetUndefinedException(instrument);
+                : throw new UndefinedEnumException(instrument);
         }
         #region Drums
         private static DrumsTrackParser? GetAnyDrumsTrackParser(string header, ReadingSession session) => drumsTrackHeaders.TryGetValue(header, out Difficulty difficulty)
@@ -183,12 +184,16 @@ namespace ChartTools.IO.Chart
         /// <inheritdoc cref="GetGHLTrackParser(string, string, GHLInstrumentIdentity, Difficulty, ReadingSession)" path="/exception"/>
         public static Instrument<GHLChord>? ReadInstrument(string path, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default)
         {
+            Validator.ValidateEnum(instrument);
+
             var reader = new ChartFileReader(path, header => GetAnyGHLTrackParser(header, instrument, new(config ?? DefaultReadConfig)));
             reader.Read();
             return CreateInstrumentFromReader<GHLChord>(reader);
         }
         public static async Task<Instrument<GHLChord>?> ReadInstrumentAsync(string path, GHLInstrumentIdentity instrument, CancellationToken cancellationToken, ReadingConfiguration? config = default)
         {
+            Validator.ValidateEnum(instrument);
+
             var reader = new ChartFileReader(path, header => GetAnyGHLTrackParser(header, instrument, new(config ?? DefaultReadConfig)));
             await reader.ReadAsync(cancellationToken);
             return CreateInstrumentFromReader<GHLChord>(reader);
@@ -204,6 +209,8 @@ namespace ChartTools.IO.Chart
         /// <param name="config"><inheritdoc cref="Instrument.FromFile(string, StandardInstrumentIdentity, ReadingConfiguration?)" path="/param[@name='config']"/></param>
         public static Instrument<StandardChord>? ReadInstrument(string path, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default)
         {
+            Validator.ValidateEnum(instrument);
+
             var reader = new ChartFileReader(path, header => GetAnyStandardTrackParser(header, instrument, new(config ?? DefaultReadConfig)));
             reader.Read();
             return CreateInstrumentFromReader<StandardChord>(reader);
@@ -215,6 +222,8 @@ namespace ChartTools.IO.Chart
         /// <param name="config"><inheritdoc cref="Instrument.FromFileAsync(string, StandardInstrumentIdentity, CancellationToken, ReadingConfiguration?)" path="/param[@name='config']"/></param>
         public static async Task<Instrument<StandardChord>?> ReadInstrumentAsync(string path, StandardInstrumentIdentity instrument, CancellationToken cancellationToken, ReadingConfiguration? config = default)
         {
+            Validator.ValidateEnum(instrument);
+
             var reader = new ChartFileReader(path, header => GetAnyStandardTrackParser(header, instrument, new(config ?? DefaultReadConfig)));
             await reader.ReadAsync(cancellationToken);
             return CreateInstrumentFromReader<StandardChord>(reader);
@@ -236,7 +245,7 @@ namespace ChartTools.IO.Chart
             if (Enum.IsDefined((StandardInstrumentIdentity)instrument))
                 return ReadTrack(path, (StandardInstrumentIdentity)instrument, difficulty, config);
 
-            throw CommonExceptions.GetUndefinedException(instrument);
+            throw new UndefinedEnumException(instrument);
         }
         /// <inheritdoc cref="Track.FromFileAsync(string, InstrumentIdentity, Difficulty, CancellationToken, ReadingConfiguration?)"/>
         /// <param name="path"><inheritdoc cref="Track.FromFileAsync(string, InstrumentIdentity, Difficulty, CancellationToken, ReadingConfiguration?)" path="/param[@name='path']"/></param>
@@ -253,7 +262,7 @@ namespace ChartTools.IO.Chart
             if (Enum.IsDefined((StandardInstrumentIdentity)instrument))
                 return await ReadTrackAsync(path, (StandardInstrumentIdentity)instrument, difficulty, cancellationToken, config);
 
-            throw CommonExceptions.GetUndefinedException(instrument);
+            throw new UndefinedEnumException(instrument);
         }
         #region Drums
         /// <summary>
@@ -274,6 +283,8 @@ namespace ChartTools.IO.Chart
         /// <param name="config"><inheritdoc cref="Track.FromFile(string, Difficulty, ReadingConfiguration?)" path="/param[@name='config']"/></param>
         public static Track<DrumsChord> ReadDrumsTrack(string path, Difficulty difficulty, ReadingConfiguration? config = default)
         {
+            Validator.ValidateEnum(difficulty);
+
             var seekedHeader = ChartFormatting.Header(InstrumentIdentity.Drums, difficulty);
             var reader = new ChartFileReader(path, header => GetDrumsTrackParser(header, seekedHeader, difficulty, new(config ?? DefaultReadConfig)));
 
@@ -287,6 +298,8 @@ namespace ChartTools.IO.Chart
         /// <param name="config"><inheritdoc cref="Track.FromFileAsync(string, Difficulty, CancellationToken, ReadingConfiguration?)" path="/param[@name='config']"/></param>
         public static async Task<Track<DrumsChord>> ReadDrumsTrackAsync(string path, Difficulty difficulty, CancellationToken cancellationToken, ReadingConfiguration? config = default)
         {
+            Validator.ValidateEnum(difficulty);
+
             var seekedHeader = ChartFormatting.Header(ChartFormatting.DrumsHeaderName, difficulty);
             var reader = new ChartFileReader(path, header => GetDrumsTrackParser(header, seekedHeader, difficulty, new(config ?? DefaultReadConfig)));
 
@@ -315,6 +328,9 @@ namespace ChartTools.IO.Chart
         /// <param name="config"><inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, CancellationToken, ReadingConfiguration?)" path="/param[@name='config']"/></param>
         public static Track<GHLChord> ReadTrack(string path, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default)
         {
+            Validator.ValidateEnum(instrument);
+            Validator.ValidateEnum(difficulty);
+
             var seekedHeader = ChartFormatting.Header(instrument, difficulty);
             var reader = new ChartFileReader(path, header => GetGHLTrackParser(header, seekedHeader, instrument, difficulty, new(config ?? DefaultReadConfig)));
             reader.Read();
@@ -328,6 +344,9 @@ namespace ChartTools.IO.Chart
         /// <param name="config"><inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, CancellationToken, ReadingConfiguration?)" path="/param[@name='config']"/></param>
         public static async Task<Track<GHLChord>> ReadTrackAsync(string path, GHLInstrumentIdentity instrument, Difficulty difficulty, CancellationToken cancellationToken, ReadingConfiguration? config)
         {
+            Validator.ValidateEnum(instrument);
+            Validator.ValidateEnum(difficulty);
+
             var seekedHeader = ChartFormatting.Header(instrument, difficulty);
             var reader = new ChartFileReader(path, header => GetGHLTrackParser(header, seekedHeader, instrument, difficulty, new(config ?? DefaultReadConfig)));
 
@@ -358,6 +377,9 @@ namespace ChartTools.IO.Chart
         /// <param name="config"><inheritdoc cref="Track.FromFile(string, StandardInstrumentIdentity, Difficulty, ReadingConfiguration?)" path="/param[@name='config']"/></param>
         public static Track<StandardChord> ReadTrack(string path, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default)
         {
+            Validator.ValidateEnum(instrument);
+            Validator.ValidateEnum(difficulty);
+
             var seekedHeader = ChartFormatting.Header(instrument, difficulty);
             var reader = new ChartFileReader(path, header => GetStandardTrackParser(header, seekedHeader, instrument, difficulty, new(config ?? DefaultReadConfig)));
 
@@ -373,7 +395,8 @@ namespace ChartTools.IO.Chart
         /// <returns></returns>
         public static async Task<Track<StandardChord>> ReadTrackAsync(string path, StandardInstrumentIdentity instrument, Difficulty difficulty, CancellationToken cancellationToken, ReadingConfiguration? config = default)
         {
-            config ??= DefaultReadConfig;
+            Validator.ValidateEnum(instrument);
+            Validator.ValidateEnum(difficulty);
 
             var seekedHeader = ChartFormatting.Header(instrument, difficulty);
             var reader = new ChartFileReader(path, header => GetStandardTrackParser(header, seekedHeader, instrument, difficulty, new(config ?? DefaultReadConfig)));

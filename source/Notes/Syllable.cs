@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ChartTools.Exceptions;
+
+using System;
 
 namespace ChartTools.Lyrics
 {
@@ -59,9 +61,7 @@ namespace ChartTools.Lyrics
         public Syllable(uint offset) => PositionOffset = offset;
         public Syllable(uint offset, VocalsPitch pitch) : base(pitch)
         {
-            if (!Enum.IsDefined(pitch.Pitch))
-                throw CommonExceptions.GetUndefinedException(pitch.Pitch);
-
+            Validator.ValidateEnum(pitch.Pitch);
             PositionOffset = offset;
         }
     }
