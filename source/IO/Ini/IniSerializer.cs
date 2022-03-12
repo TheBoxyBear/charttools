@@ -1,4 +1,5 @@
-﻿using ChartTools.IO.Configuration.Sessions;
+﻿using ChartTools.Formatting;
+using ChartTools.IO.Configuration.Sessions;
 
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,21 @@ namespace ChartTools.IO.Ini
 
             foreach (var data in Content.UnidentifiedData)
                 yield return IniFormatting.Line(data.Key, data.Value);
+
+            if (Content.AlbumTrack is not null)
+            {
+                if (Content.Formatting.AlbumTrackKey.HasFlag(AlbumTrackKey.Track))
+                    yield return IniFormatting.Line(IniFormatting.Track, Content.AlbumTrack.ToString()!);
+
+                if (Content.Formatting.AlbumTrackKey.HasFlag(AlbumTrackKey.AlbumTrack))
+                    yield return IniFormatting.Line(IniFormatting.AlbumTrack, Content.AlbumTrack.ToString()!);
+            }
+
+            var albumTrackKey = Content.Formatting.AlbumTrackKey switch
+            {
+                AlbumTrackKey.Track => IniFormatting.Track,
+                AlbumTrackKey.AlbumTrack => IniFormatting.AlbumTrack
+            };
         }
     }
 }
