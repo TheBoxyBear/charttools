@@ -19,15 +19,15 @@ namespace ChartTools
     /// <summary>
     /// Base class for instruments
     /// </summary>
-    public abstract record Instrument : IEmpty
+    public abstract record Instrument : IEmptyVerifiable
     {
-        /// <inheritdoc cref="IEmpty.IsEmpty"/>
-        public bool IsEmpty => GetTracks().NonNull().All(t => t.IsEmpty);
+        public bool IsEmpty => !GetNonEmptyTracks().Any();
 
         /// <summary>
         /// Identity of the instrument the object belongs to
         /// </summary>
         public InstrumentIdentity InstrumentIdentity { get; init; }
+
         /// <summary>
         /// Type of instrument
         /// </summary>
@@ -90,6 +90,11 @@ namespace ChartTools
         protected abstract Track? GetMedium();
         protected abstract Track? GetHard();
         protected abstract Track? GetExpert();
+        /// <summary>
+        /// Sets a track to <see langword="null"/>.
+        /// </summary>
+        /// <param name="difficulty">Difficulty of the target track</param>
+        public abstract void SetTrackNull(DiffEnum difficulty);
 
         /// <summary>
         /// Creates an array containing all tracks.
@@ -98,7 +103,7 @@ namespace ChartTools
         /// <summary>
         /// Creates an array containing all tracks with data.
         /// </summary>
-        public virtual Track[] GetNonEmptyTracks() => GetTracks().Where(t => !t.IsEmpty).ToArray();
+        public virtual IEnumerable<Track> GetNonEmptyTracks() => GetTracks().NonNull().Where(t => !t.IsEmpty).ToArray();
 
         /// <summary>
         /// Gives all tracks the same local events.
@@ -113,7 +118,7 @@ namespace ChartTools
             if (source == TrackObjectSource.Seperate)
                 return;
 
-            var collections = GetTracks().Select(track => collectionGetter(track)).ToArray();
+            var collections = GetNonEmptyTracks().Select(track => collectionGetter(track)).ToArray();
 
             var objects = (source switch
             {

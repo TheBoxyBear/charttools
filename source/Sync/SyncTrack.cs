@@ -12,9 +12,9 @@ namespace ChartTools
     /// <summary>
     /// Set of markers that define the time signature and tempo
     /// </summary>
-    public class SyncTrack : IEmpty
+    public class SyncTrack : IEmptyVerifiable
     {
-        /// <inheritdoc cref="IEmpty.IsEmpty"/>
+        /// <inheritdoc cref="IEmptyVerifiable.IsEmpty"/>
         public bool IsEmpty => Tempo.Count == 0 && TimeSignatures.Count == 0;
 
         /// <summary>

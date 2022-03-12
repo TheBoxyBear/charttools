@@ -1,7 +1,8 @@
-﻿using ChartTools.SystemExtensions.Linq;
-
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+
+using DiffEnum = ChartTools.Difficulty;
 
 namespace ChartTools
 {
@@ -16,7 +17,7 @@ namespace ChartTools
         public new Track<TChord>? Easy
         {
             get => _easy;
-            set => _easy = value is null ? null : value with { Difficulty = ChartTools.Difficulty.Easy, ParentInstrument = this };
+            set => _easy = value is null ? null : value with { Difficulty = DiffEnum.Easy, ParentInstrument = this };
         }
         private Track<TChord>? _easy;
 
@@ -26,7 +27,7 @@ namespace ChartTools
         public new Track<TChord>? Medium
         {
             get => _medium;
-            set => _medium = value is null ? null : value with { Difficulty = ChartTools.Difficulty.Medium, ParentInstrument = this };
+            set => _medium = value is null ? null : value with { Difficulty = DiffEnum.Medium, ParentInstrument = this };
         }
         private Track<TChord>? _medium;
 
@@ -62,18 +63,39 @@ namespace ChartTools
             _ => throw CommonExceptions.GetUndefinedException(difficulty)
         };
 
+        public override void SetTrackNull(Difficulty difficulty)
+        {
+            switch (difficulty)
+            {
+                case ChartTools.Difficulty.Easy:
+                    _easy = null;
+                    break;
+                case ChartTools.Difficulty.Medium:
+                    _medium = null;
+                    break;
+                case ChartTools.Difficulty.Hard:
+                    _hard = null;
+                    break;
+                case ChartTools.Difficulty.Expert:
+                    _expert = null;
+                    break;
+                default:
+                    throw CommonExceptions.GetUndefinedException(difficulty);
+            }
+        }
+
         protected override Track<TChord>? GetEasy() => Easy;
         protected override Track<TChord>? GetMedium() => Medium;
         protected override Track<TChord>? GetHard() => Hard;
         protected override Track<TChord>? GetExpert() => Expert;
 
         public override Track<TChord>?[] GetTracks() => new Track<TChord>?[] { Easy, Medium, Hard, Expert };
-        public override Track<TChord>[] GetNonEmptyTracks() => base.GetNonEmptyTracks().Cast<Track<TChord>>().ToArray();
+        public override IEnumerable<Track<TChord>> GetNonEmptyTracks() => base.GetNonEmptyTracks().Cast<Track<TChord>>();
 
         /// <summary>
         /// Sets a track for a given <see cref="Difficulty"/>.
         /// </summary>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentNullException"/>
         public void SetTrack(Track<TChord> track)
         {
             if (track is null)

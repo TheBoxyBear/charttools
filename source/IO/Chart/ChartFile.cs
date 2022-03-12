@@ -529,7 +529,6 @@ namespace ChartTools.IO.Chart
         /// Replaces an instrument in a file.
         /// </summary>
         /// <param name="path">Path of the file to write</param>
-        /// <exception cref="ArgumentNullException"/>
         public static void ReplaceInstrument(string path, Instrument instrument, WritingConfiguration? config = default)
         {
             var writer = GetInstrumentWriter(path, instrument, new(config ?? DefaultWriteConfig));
@@ -546,9 +545,10 @@ namespace ChartTools.IO.Chart
                 throw new ArgumentException("Instrument cannot be written because its identity is unknown.", nameof(instrument));
 
             var instrumentName = ChartFormatting.InstrumentHeaderNames[instrument.InstrumentIdentity];
-            var tracks = instrument.GetTracks().ToArray();
+            var tracks = instrument.GetNonEmptyTracks().ToArray();
+            var difficulties = Enum.GetValues<Difficulty>().ToArray();
 
-            return new(path, tracks.Where(t => t is null).Select(t => ChartFormatting.Header(instrumentName, t.Difficulty)), tracks.NonNull().Select(t => new TrackSerializer(t, session)).ToArray());
+            return new(path, difficulties.Where(d => !tracks.Any(t => t.Difficulty == d)).Select(d => ChartFormatting.Header(instrumentName, d)), tracks.NonNull().Select(t => new TrackSerializer(t, session)).ToArray());
         }
 
         public static void ReplaceTrack(string path, Track track, WritingConfiguration? config = default)

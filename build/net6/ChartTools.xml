@@ -1294,7 +1294,7 @@
             </summary>
         </member>
         <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0,System.Boolean@)">
-            <inheritdoc cref="!:FirstOrDefault&lt;T&gt;(IEnumerable&lt;T&gt;, Predicate&lt;T&gt;, T)"/>
+            <inheritdoc cref="M:System.Linq.Enumerable.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Boolean},``0)"/>
             <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
         </member>
         <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.NonNull``1(System.Collections.Generic.IEnumerable{``0})">
@@ -1561,8 +1561,6 @@
                 <para><see langword="null"/> if the file contains no drums data</para>
             </returns>
             <param name="path">Path of the file to read</param>
-            <inheritdoc cref="!:ReadFileAsync(string)" path="/exception"/>
-            <inheritdoc cref="!:GetDrumsTrack(IEnumerable&lt;string&gt;, ReadingConfiguration)(IEnumerable&lt;string&gt;, ReadingConfiguration)" path="/exception"/>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration)">
             <summary>
@@ -1572,7 +1570,6 @@
                 <para><see langword="null"/> if the file has no data for the given instrument</para>
             </returns>
             <param name="path">Path of the file to read</param>
-            <inheritdoc cref="!:ReadFileAsync(string)" path="/exception"/>
             <inheritdoc cref="M:ChartTools.IO.Chart.ChartFile.GetGHLTrackParser(System.String,System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.Sessions.ReadingSession)" path="/exception"/>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration)">
@@ -1763,7 +1760,6 @@
             </summary>
             <param name="path">Path of the file to write</param>
             <exception cref="T:System.ArgumentNullException"/>
-            <inheritdoc cref="!:ReplacePart(string, IEnumerable&lt;string&gt;, string)" path="/exception"/>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.ReplaceMetadata(System.String,ChartTools.Metadata)">
             <summary>
@@ -1771,7 +1767,6 @@
             </summary>
             <param name="path">Path of the file to read</param>
             <param name="metadata">Metadata to write</param>
-            <inheritdoc cref="!:ReplacePart(string, IEnumerable&lt;string&gt;, string)" path="/exception"/>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.ReplaceGlobalEvents(System.String,System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent})">
             <summary>
@@ -1779,7 +1774,6 @@
             </summary>
             <param name="path">Path of the file to write</param>
             <param name="events">Events to use as a replacement</param>
-            <inheritdoc cref="!:ReplacePart(string, IEnumerable&lt;string&gt;, string)" path="/exception"/>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.ReplaceSyncTrack(System.String,ChartTools.SyncTrack,ChartTools.IO.Configuration.WritingConfiguration)">
             <summary>
@@ -1787,7 +1781,6 @@
             </summary>
             <param name="path">Path of the file to write</param>
             <param name="syncTrack">Sync track to write</param>
-            <inheritdoc cref="!:ReplacePart(string, IEnumerable&lt;string&gt;, string)" path="/exception"/>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetDataSplit(System.String)">
             <summary>
@@ -1931,7 +1924,7 @@
             </summary>
             <param name="path">Path of the file to write</param>
             <param name="song">Song to get the difficulties from</param>
-            <inheritdoc cref="!:WriteDifficulty(string, InstrumentIdentity, sbyte)" path="/exception"/>
+            <inheritdoc cref="M:ChartTools.IO.Ini.IniParser_old.WriteDifficulty(System.String,ChartTools.Instrument)" path="/exception"/>
         </member>
         <member name="T:ChartTools.IO.Configuration.CommonConfiguration">
             <summary>
