@@ -5,6 +5,7 @@ namespace ChartTools.IO.Ini
     public static class IniFormatting
     {
         public const string
+            Header = "[song]",
             Title = "name",
             Artist = "artist",
             Album = "album",

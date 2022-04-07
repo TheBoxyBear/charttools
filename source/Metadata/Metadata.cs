@@ -8,8 +8,6 @@ using ChartTools.IO.Ini;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ChartTools
 {
@@ -192,6 +190,7 @@ namespace ChartTools
         public HashSet<UnidentifiedMetadata> UnidentifiedData { get; } = new(new FuncEqualityComparer<UnidentifiedMetadata>((a, b) => a.Key == b.Key));
         #endregion
 
+        public void ReadFile(string path) => Read(path, this);
         /// <summary>
         /// Reads the metadata from a file.
         /// </summary>
@@ -201,8 +200,10 @@ namespace ChartTools
         /// <exception cref="FormatException"/>
         /// <exception cref="LineException"/>
         /// <exception cref="OutOfMemoryException"/>
-        public static Metadata FromFile(string path) => ExtensionHandler.Read<Metadata>(path, null, (".chart", (path, _) => ChartFile.ReadMetadata(path)), (".ini", (path, _) => IniParser_old.ReadMetadata(path)));
-        public static async Task<Metadata> FromFileAsync(string path, CancellationToken cancellationToken) => await ExtensionHandler.ReadAsync<Metadata>(path, cancellationToken, null, (".chart", (path, token, _) => ChartFile.ReadMetadataAsync(path, token)), (".ini", (path, _, _) => Task.Run(() => IniParser_old.ReadMetadata(path))));
+        public static Metadata FromFile(string path) => Read(path);
+
+        private static Metadata? Read(string path, Metadata? existing = null) => ExtensionHandler.Read<Metadata>(path, (".chart", ChartFile.ReadMetadata), (".ini", path => IniFile.ReadMetadata(path, existing)));
+
         /// <summary>
         /// Reads the metadata from multiple files.
         /// </summary>
@@ -213,23 +214,20 @@ namespace ChartTools
         /// <exception cref="FormatException"/>
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="OutOfMemoryException"/>
-        public static Metadata FromFiles(params string[] paths)
+        public static Metadata? FromFiles(params string[] paths)
         {
             // No files provided
             if (paths is null || paths.Length == 0)
                 throw new ArgumentException("No provided paths");
 
-            Metadata[] data = new Metadata[paths.Length];
+            Metadata? data = null;
 
-            // Read all files
-            for (int i = 0; i < paths.Length; i++)
-                data[i] = FromFile(paths[i]);
+            foreach (var path in paths)
+                data = FromFile(path);
 
-            data[0].Merge(false, data.Skip(1).ToArray());
-
-            return data[0];
+            return data;
         }
-        /// <inheritdoc cref="IniParser_old.WriteMetadata(string, Metadata)"/>
-        public void ToFile(string path) => ExtensionHandler.Write(path, (".ini", path => IniParser_old.WriteMetadata(path, this)));
+
+        public void ToFile(string path) => ExtensionHandler.Write<Metadata>(path, this, (".ini", IniFile.WriteMetadata));
     }
 }

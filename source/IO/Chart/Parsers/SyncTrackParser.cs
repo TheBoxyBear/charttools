@@ -28,7 +28,7 @@ namespace ChartTools.IO.Chart.Parsers
                     if (!session!.DuplicateTrackObjectProcedure!(entry.Position, ignoredSignatures, "time signature"))
                         break;
 
-                    string[] split = ChartFile.GetDataSplit(entry.Data);
+                    string[] split = ChartFormatting.SplitData(entry.Data);
 
                     var numerator = ValueParser.ParseByte(split[0], "numerator");
                     byte denominator = 4;

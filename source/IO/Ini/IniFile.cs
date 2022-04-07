@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using ChartTools.IO.Configuration;
+using ChartTools.SystemExtensions.Linq;
+
+using System;
 
 namespace ChartTools.IO.Ini
 {
@@ -11,167 +10,27 @@ namespace ChartTools.IO.Ini
     /// </summary>
     public static class IniFile
     {
-        /// <summary>
-        /// Keys for <see cref="Instrument"/> difficulties
-        /// </summary>
-        private static readonly Dictionary<string, InstrumentIdentity> difficultyKeys = new()
+        /// <inheritdoc cref="Metadata.FromFile(string)"/>
+        /// <param name="path"><inheritdoc cref="Song.FromFile(string, ReadingConfiguration?)" path="/param[@name='path']"/></param>
+        /// <returns>A new instance of <see cref="Metadata"/> if <paramref name="existing"/> is <see langword="null"/>, otherwise the same reference.</returns>
+        public static Metadata ReadMetadata(string path, Metadata? existing = null)
         {
-            { "diff_drums", InstrumentIdentity.Drums },
-            { "diff_guitarghl", InstrumentIdentity.GHLGuitar },
-            { "diff_bassghl", InstrumentIdentity.GHLBass },
-            { "diff_guitar", InstrumentIdentity.LeadGuitar },
-            { "diff_bass", InstrumentIdentity.Bass },
-            { "diff_keys", InstrumentIdentity.Keys }
-        };
-        private static readonly Dictionary<string, string> metadataKeys = new()
-        {
-            { nameof(Metadata.Title), "name" },
-            { nameof(Metadata.Artist), "artist" },
-            { nameof(Metadata.Album), "album" },
-            { nameof(Metadata.AlbumTrack), "album_track" },
-            { nameof(Metadata.PlaylistTrack), "playlist_track" },
-            { nameof(Metadata.Genre), "genre" },
-            { nameof(Metadata.Year), "year" },
-            { nameof(Metadata.PreviewStart), "preview_start_time" },
-            { nameof(Metadata.PreviewEnd), "preview_end_time" },
-            { nameof(Metadata.AudioOffset), "delay" },
-            { nameof(Metadata.VideoOffset), "video_start_time" },
-            { nameof(Metadata.Length), "song_length" },
-            { nameof(Metadata.IsModchart), "modchart" }
-        };
+            var reader = new IniFileReader(path, header => header.Equals(IniFormatting.Header, StringComparison.OrdinalIgnoreCase) ? new(existing) : null);
+            reader.Read();
 
-        /// <summary>
-        /// Reads metadata from a ini file.
-        /// </summary>
-        /// <returns>Instance of <see cref="Metadata"/> containing the data in the file</returns>
-        /// <param name="path">Path of the file to read</param>
-        /// <inheritdoc cref="File.ReadLines(string)" path="/exception"/>
-        internal static Metadata ReadMetadata(string path)
-        {
-            Metadata metadata = new();
-            int intValue;
-            uint uintValue;
-
-            foreach (string line in File.ReadLines(path))
-            {
-                (string header, string value) = GetEntry(line);
-
-                switch (header)
-                {
-                    case IniFormatting.Title:
-                        metadata.Title = value;
-                        break;
-                    case IniFormatting.Artist:
-                        metadata.Artist = value;
-                        break;
-                    case IniFormatting.Album:
-                        metadata.Album = value;
-                        break;
-                    case "album_track" or "track":
-                        metadata.AlbumTrack = ushort.TryParse(value, out ushort ushortValue) ? ushortValue
-                            : throw new FormatException($"Cannot parse album track \"{value}\" to ushort.");
-                        break;
-                    case "playlist_track":
-                        metadata.PlaylistTrack = ushort.TryParse(value, out ushortValue) ? ushortValue
-                            : throw new FormatException($"Cannot parse playlist track \"{value}\" to ushort.");
-                        break;
-                    case "year":
-                        metadata.Year = ushort.TryParse(value, out ushortValue) ? ushortValue
-                            : throw new FormatException($"Cannot parse year \"{value}\" to ushort.");
-                        break;
-                    case "genre":
-                        metadata.Genre = value;
-                        break;
-                    case "charter" or "frets":
-                        metadata.Charter ??= new Charter();
-                        metadata.Charter.Name = value;
-                        break;
-                    case "icon":
-                        metadata.Charter ??= new();
-                        metadata.Charter.Icon = value;
-                        break;
-                    case "preview_start_time":
-                        metadata.PreviewStart = uint.TryParse(value, out uintValue) ? uintValue
-                            : throw new FormatException($"Cannot parse preview start \"{value}\" to uint.");
-                        break;
-                    case "preview_end_time":
-                        metadata.PreviewEnd = uint.TryParse(value, out uintValue) ? uintValue
-                            : throw new FormatException($"Cannot parse preview end \"{value}\" to uint.");
-                        break;
-                    case "delay":
-                        metadata.AudioOffset = int.TryParse(value, out intValue) ? intValue
-                            : throw new FormatException($"Cannot parse audio offset \"{value}\" to int.");
-                        break;
-                    case "video_start_time":
-                        metadata.VideoOffset = int.TryParse(value, out intValue) ? intValue
-                            : throw new FormatException($"Cannot parse video offset \"{value}\" to int.");
-                        break;
-                    case "song_length":
-                        metadata.Length = uint.TryParse(value, out uintValue) ? uintValue
-                            : throw new FormatException($"Cannot parse song length \"{value}\" to uint.");
-                        break;
-                    case "loading_text":
-                        metadata.LoadingText = value;
-                        break;
-                    case "modchart":
-                        metadata.IsModchart = bool.TryParse(value, out bool boolValue) ? boolValue
-                            : throw new FormatException($"Cannot parse modchart \"{value}\" to bool.");
-                        break;
-                    default:
-                        metadata.UnidentifiedData.Add(new() { Key = header, Value = value, Origin = FileFormat.Ini });
-                        break;
-                }
-            }
-
-            return metadata;
+            return reader.Parsers.TryGetFirst(out var parser)
+                ? parser!.Result
+                : throw SectionException.MissingRequired(IniFormatting.Header);
         }
         /// <summary>
-        /// Writes metadata to a ini file.
+        /// Writes the metadata in a file.
         /// </summary>
         /// <param name="path">Path of the file to read</param>
         /// <param name="metadata">Metadata to write</param>
-        internal static void WriteMetadata(string path, Metadata metadata)
+        public static void WriteMetadata(string path, Metadata metadata)
         {
-            using StreamWriter writer = new(new FileStream(path, FileMode.Create));
-
-            foreach (string line in GetLines(metadata))
-                writer.WriteLine(line);
-
-        }
-
-        private static IEnumerable<string> GetLines(Metadata metadata)
-        {
-            yield return "[Song]";
-
-            if (metadata is null)
-                yield break;
-
-            Type metadataType = typeof(Metadata);
-
-            //// Get the value of all properties whose name is in the dictionary and pair with its matching key, filtered to non-null properties
-            //foreach ((string key, object value) in IniFormatting.MetadataKeys.Keys.Select(p => (IniFormatting.MetadataKeys[p], metadataType.GetProperty(IniFormatting.MetadataKeys[p])!.GetValue(metadata))).Where(t => t.Item2 is not null)) //TODO Rework LINQ expression to avoid repetition of dictionary access
-            //    yield return $"{key} = {value}";
-
-            if (metadata.Charter is not null)
-            {
-                if (metadata.Charter.Name is not null)
-                    yield return $"charter = {metadata.Charter.Name}";
-                if (metadata.Charter.Icon is not null)
-                    yield return $"icon = {metadata.Charter.Icon}";
-            }
-
-            if (metadata.UnidentifiedData is not null)
-                foreach (var data in metadata.UnidentifiedData.Where(d => d.Origin == FileFormat.Ini))
-                    yield return $"{data.Key} = {data.Value}";
-        }
-        private static (string header, string value) GetEntry(string line)
-        {
-            string[] split = line.Split('=', 2);
-
-            split[0] = split[0].Trim().ToLower();
-            split[1] = split[1].Trim();
-
-            return (split[0].Trim().ToLower(), split[1].Trim());
+            var writer = new IniFileWriter(path, new IniSerializer(metadata));
+            writer.Write();
         }
     }
 }

@@ -80,7 +80,6 @@
     <Compile Include="IO\Ini\IniFile.cs" />
     <Compile Include="IO\Ini\IniFileReader.cs" />
     <Compile Include="IO\Ini\IniFileWriter.cs" />
-    <Compile Include="IO\Ini\IniParser_old.cs" />
     <Compile Include="IO\ISerializerDataProvider.cs" />
     <Compile Include="IO\Midi\MIDIFormatting.cs" />
     <Compile Include="IO\Midi\MIDIParser_Common.cs" />

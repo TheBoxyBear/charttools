@@ -1,5 +1,4 @@
 ﻿using ChartTools.Formatting;
-using ChartTools.IO.Configuration.Sessions;
 
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace ChartTools.IO.Ini
 {
     internal class IniSerializer : Serializer<Metadata, string>
     {
-        public IniSerializer(string header, Metadata content, WritingSession session) : base(header, content, session) { }
+        public IniSerializer(Metadata content) : base(IniFormatting.Header, content, null!) { }
 
         public override IEnumerable<string> Serialize()
         {

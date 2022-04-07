@@ -1,5 +1,4 @@
 ﻿using ChartTools.Internal;
-using ChartTools.IO.Configuration.Sessions;
 
 namespace ChartTools.IO.Chart.Parsers
 {
@@ -8,7 +7,7 @@ namespace ChartTools.IO.Chart.Parsers
         public override Metadata Result => GetResult(result);
         private readonly Metadata result = new();
 
-        public MetadataParser(ReadingSession session, Metadata? existing = null) : base(session) => result = existing ?? new();
+        public MetadataParser(Metadata? existing = null) : base(null!) => result = existing ?? new();
 
         protected override void HandleItem(string line)
         {

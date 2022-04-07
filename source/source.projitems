@@ -25,6 +25,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Events\LocalEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\UndefinedEnumException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\Validator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\EagerEnumerable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\IEmptyVerifiable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\ChartParser.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\SectionException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Appliables\IInstrumentAppliable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFormatting.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\TextFileWriter.cs" />
     <Compile Include="..\source\IO\Ini\IniKeySerializableAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniSerializer.cs" />
@@ -122,7 +124,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Sessions\ReadingSession.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Sessions\WritingSession.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\ExtensionHandler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniParser_old.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MIDIParser_Common.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MIDIParser_Reading.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\Metadata.cs" />

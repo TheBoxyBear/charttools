@@ -756,6 +756,11 @@
             </summary>
             <exception cref="T:ChartTools.Exceptions.UndefinedEnumException"></exception>
         </member>
+        <member name="P:ChartTools.Internal.Collections.Delayed.DelayedEnumerable`1.AwaitingItems">
+            <summary>
+            <see langword="true"/> if there are more items to be received
+            </summary>
+        </member>
         <member name="T:ChartTools.Internal.IEmptyVerifiable">
             <summary>
             Adds support for a property defining if an object is empty
@@ -764,11 +769,6 @@
         <member name="P:ChartTools.Internal.IEmptyVerifiable.IsEmpty">
             <summary>
             <see langword="true"/> if containing no data
-            </summary>
-        </member>
-        <member name="P:ChartTools.Internal.Collections.Delayed.DelayedEnumerable`1.AwaitingItems">
-            <summary>
-            <see langword="true"/> if there are more items to be received
             </summary>
         </member>
         <member name="T:ChartTools.Internal.PropertyMerger">
@@ -979,13 +979,6 @@
             </summary>
             <param name="path">Path of the file to read</param>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.ReadMetadataAsync(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Reads metadata from a chart file asynchronously using multitasking.
-            </summary>
-            <param name="path"><inheritdoc cref="M:ChartTools.IO.Chart.ChartFile.ReadMetadata(System.String)" path="/param[@name='path']"/></param>
-            <param name="cancellationToken">Token to request cancellation</param>
-        </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetGlobalEventParser(System.String)">
             <summary>
             Creates a <see cref="T:ChartTools.IO.Chart.Parsers.SyncTrackParser"/> if the header matches the sync track header, otherwise <see langword="null"/>.
@@ -1066,12 +1059,6 @@
             <param name="path">Path of the file to write</param>
             <param name="syncTrack">Sync track to write</param>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.GetDataSplit(System.String)">
-            <summary>
-            Splits the data of an entry.
-            </summary>
-            <param name="data">Data portion of a <see cref="T:ChartTools.IO.Chart.Entries.TrackObjectEntry"/></param>
-        </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetTrackCombinations``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>
             Gets all the combinations of instruments and difficulties.
@@ -1100,6 +1087,12 @@
             Gets the written value of a float.
             </summary>
             <param name="value">Value to get the written equivalent of</param>
+        </member>
+        <member name="M:ChartTools.IO.Chart.ChartFormatting.SplitData(System.String)">
+            <summary>
+            Splits the data of an entry.
+            </summary>
+            <param name="data">Data portion of a <see cref="T:ChartTools.IO.Chart.Entries.TrackObjectEntry"/></param>
         </member>
         <member name="T:ChartTools.IO.Chart.Entries.NoteData">
             <summary>
@@ -1155,47 +1148,14 @@
             Provides methods for reading and writing ini files
             </summary>
         </member>
-        <member name="F:ChartTools.IO.Ini.IniFile.difficultyKeys">
-            <summary>
-            Keys for <see cref="T:ChartTools.Instrument"/> difficulties
-            </summary>
-        </member>
-        <member name="M:ChartTools.IO.Ini.IniFile.ReadMetadata(System.String)">
-            <summary>
-            Reads metadata from a ini file.
-            </summary>
-            <returns>Instance of <see cref="T:ChartTools.Metadata"/> containing the data in the file</returns>
-            <param name="path">Path of the file to read</param>
-            <inheritdoc cref="M:System.IO.File.ReadLines(System.String)" path="/exception"/>
+        <member name="M:ChartTools.IO.Ini.IniFile.ReadMetadata(System.String,ChartTools.Metadata)">
+            <inheritdoc cref="M:ChartTools.Metadata.FromFile(System.String)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration)" path="/param[@name='path']"/></param>
+            <returns>A new instance of <see cref="T:ChartTools.Metadata"/> if <paramref name="existing"/> is <see langword="null"/>, otherwise the same reference.</returns>
         </member>
         <member name="M:ChartTools.IO.Ini.IniFile.WriteMetadata(System.String,ChartTools.Metadata)">
             <summary>
-            Writes metadata to a ini file.
-            </summary>
-            <param name="path">Path of the file to read</param>
-            <param name="metadata">Metadata to write</param>
-        </member>
-        <member name="T:ChartTools.IO.Ini.IniParser_old">
-            <summary>
-            Provides methods for reading and writing ini files
-            </summary>
-        </member>
-        <member name="F:ChartTools.IO.Ini.IniParser_old.difficultyKeys">
-            <summary>
-            Keys for <see cref="T:ChartTools.Instrument"/> difficulties
-            </summary>
-        </member>
-        <member name="M:ChartTools.IO.Ini.IniParser_old.ReadMetadata(System.String)">
-            <summary>
-            Reads metadata from a ini file.
-            </summary>
-            <returns>Instance of <see cref="T:ChartTools.Metadata"/> containing the data in the file</returns>
-            <param name="path">Path of the file to read</param>
-            <inheritdoc cref="M:System.IO.File.ReadLines(System.String)" path="/exception"/>
-        </member>
-        <member name="M:ChartTools.IO.Ini.IniParser_old.WriteMetadata(System.String,ChartTools.Metadata)">
-            <summary>
-            Writes metadata to a ini file.
+            Writes the metadata in a file.
             </summary>
             <param name="path">Path of the file to read</param>
             <param name="metadata">Metadata to write</param>
@@ -1413,14 +1373,14 @@
             Provides methods for reading and writing files based on the extension
             </summary>
         </member>
-        <member name="M:ChartTools.IO.ExtensionHandler.Read(System.String,System.ValueTuple{System.String,System.Action{System.String}}[])">
+        <member name="M:ChartTools.IO.ExtensionHandler.Read(System.String,System.ValueTuple{System.String,ChartTools.IO.VoidRead}[])">
             <summary>
             Reads a file using the method that matches the extension.
             </summary>
             <param name="path">Path of the file to read</param>
             <param name="readers">Array of tuples representing the supported extensions</param>
         </member>
-        <member name="M:ChartTools.IO.ExtensionHandler.Read``1(System.String,ChartTools.IO.Configuration.ReadingConfiguration,System.ValueTuple{System.String,ChartTools.IO.Read{``0}}[])">
+        <member name="M:ChartTools.IO.ExtensionHandler.Read``1(System.String,System.ValueTuple{System.String,ChartTools.IO.Read{``0}}[])">
             <summary>
             Reads a file using the method that matches the extension and generates an output object.
             </summary>
@@ -1429,11 +1389,7 @@
             <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
             <param name="readers">set of tuples containing the supported extensions and the matching read method</param>
         </member>
-        <member name="M:ChartTools.IO.ExtensionHandler.ReadAsync``1(System.String,System.Threading.CancellationToken,ChartTools.IO.Configuration.ReadingConfiguration,System.ValueTuple{System.String,ChartTools.IO.AsyncRead{``0}}[])">
-            <inheritdoc cref="M:ChartTools.IO.ExtensionHandler.Read``1(System.String,ChartTools.IO.Configuration.ReadingConfiguration,System.ValueTuple{System.String,ChartTools.IO.Read{``0}}[])"/>
-            <param name="cancellationToken"><inheritdoc cref="T:System.Threading.CancellationToken" path="/summary"/></param>
-        </member>
-        <member name="M:ChartTools.IO.ExtensionHandler.Write``1(System.String,``0,ChartTools.IO.Configuration.WritingConfiguration,System.ValueTuple{System.String,ChartTools.IO.Write{``0}}[])">
+        <member name="M:ChartTools.IO.ExtensionHandler.Write``1(System.String,``0,System.ValueTuple{System.String,ChartTools.IO.Write{``0}}[])">
             <summary>
             Writes an object to a file using the method that matches the extension.
             </summary>
@@ -2515,9 +2471,6 @@
             <exception cref="T:System.FormatException"/>
             <exception cref="T:System.IO.IOException"/>
             <exception cref="T:System.OutOfMemoryException"/>
-        </member>
-        <member name="M:ChartTools.Metadata.ToFile(System.String)">
-            <inheritdoc cref="M:ChartTools.IO.Ini.IniParser_old.WriteMetadata(System.String,ChartTools.Metadata)"/>
         </member>
         <member name="T:ChartTools.DrumsNote">
             <summary>

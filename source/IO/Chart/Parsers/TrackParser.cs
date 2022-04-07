@@ -51,7 +51,7 @@ namespace ChartTools.IO.Chart.Parsers
                     break;
                 // Star power
                 case "S":
-                    var split = ChartFile.GetDataSplit(entry.Data);
+                    var split = ChartFormatting.SplitData(entry.Data);
 
                     var typeCode = ValueParser.ParseByte(split[0], "type code");
                     var length = ValueParser.ParseUint(split[1], "length");

@@ -1,15 +1,14 @@
 ﻿using ChartTools.Formatting;
 using ChartTools.Internal;
-using ChartTools.IO.Configuration.Sessions;
 
 namespace ChartTools.IO.Ini
 {
-    internal abstract class IniParser : TextParser, ISongAppliable
+    internal class IniParser : TextParser, ISongAppliable
     {
         public override Metadata Result => GetResult(result);
         private readonly Metadata result;
 
-        public IniParser(ReadingSession session, Metadata? existing = null) : base(session) => result = existing ?? new();
+        public IniParser(Metadata? existing = null) : base(null!) => result = existing ?? new();
 
         protected override void HandleItem(string item)
         {

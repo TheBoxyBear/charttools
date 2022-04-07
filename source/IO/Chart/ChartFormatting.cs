@@ -69,5 +69,11 @@ namespace ChartTools.IO.Chart
         public static string Float(float value) => ((int)(value * 1000)).ToString().Replace(".", "").Replace(",", "");
 
         public static bool IsSectionEnd(string line) => line == "}";
+
+        /// <summary>
+        /// Splits the data of an entry.
+        /// </summary>
+        /// <param name="data">Data portion of a <see cref="Entries.TrackObjectEntry"/></param>
+        internal static string[] SplitData(string data) => data.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
     }
 }

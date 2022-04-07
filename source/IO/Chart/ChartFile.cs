@@ -47,7 +47,7 @@ namespace ChartTools.IO.Chart
             switch (header)
             {
                 case ChartFormatting.MetadataHeader:
-                    return new MetadataParser(session);
+                    return new MetadataParser();
                 case ChartFormatting.GlobalEventHeader:
                     return new GlobalEventParser(session);
                 case ChartFormatting.SyncTrackHeader:
@@ -407,7 +407,7 @@ namespace ChartTools.IO.Chart
         #endregion
         #endregion
         #region Metadata
-        private static MetadataParser? GetMetadataParser(string header, ReadingSession session) => header == ChartFormatting.MetadataHeader ? new(session) : null;
+        private static MetadataParser? GetMetadataParser(string header, ReadingSession session) => header == ChartFormatting.MetadataHeader ? new() : null;
         /// <summary>
         /// Reads metadata from a chart file.
         /// </summary>
@@ -416,17 +416,6 @@ namespace ChartTools.IO.Chart
         {
             var reader = new ChartFileReader(path, header => GetMetadataParser(header, new(DefaultReadConfig)));
             reader.Read();
-            return reader.Parsers.TryGetFirstOfType(out MetadataParser? parser) ? parser!.Result : new();
-        }
-        /// <summary>
-        /// Reads metadata from a chart file asynchronously using multitasking.
-        /// </summary>
-        /// <param name="path"><inheritdoc cref="ReadMetadata(string)" path="/param[@name='path']"/></param>
-        /// <param name="cancellationToken">Token to request cancellation</param>
-        public static async Task<Metadata> ReadMetadataAsync(string path, CancellationToken cancellationToken)
-        {
-            var reader = new ChartFileReader(path, header => GetMetadataParser(header, new(DefaultReadConfig)));
-            await reader.ReadAsync(cancellationToken);
             return reader.Parsers.TryGetFirstOfType(out MetadataParser? parser) ? parser!.Result : new();
         }
         #endregion
@@ -604,11 +593,6 @@ namespace ChartTools.IO.Chart
             var writer = GetMetadataWriter(path, metadata);
             writer.Write();
         }
-        public static async Task ReplaceMetadataAsync(string path, Metadata metadata, CancellationToken cancellationToken)
-        {
-            var writer = new ChartFileWriter(path, null, new MetadataSerializer(metadata));
-            await writer.WriteAsync(cancellationToken);
-        }
         private static ChartFileWriter GetMetadataWriter(string path, Metadata metadata) => new(path, null, new MetadataSerializer(metadata));
 
         /// <summary>
@@ -646,11 +630,6 @@ namespace ChartTools.IO.Chart
         private static ChartFileWriter GetSyncTrackWriter(string path, SyncTrack syncTrack, WritingSession session) => new(path, null, new SyncTrackSerializer(syncTrack, session));
         #endregion
 
-        /// <summary>
-        /// Splits the data of an entry.
-        /// </summary>
-        /// <param name="data">Data portion of a <see cref="Entries.TrackObjectEntry"/></param>
-        internal static string[] GetDataSplit(string data) => data.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
         /// <summary>
         /// Gets all the combinations of instruments and difficulties.
         /// </summary>

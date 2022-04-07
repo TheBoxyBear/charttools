@@ -22,7 +22,6 @@ namespace ChartTools.Internal.Collections.Delayed
 
 
         public IEnumerator<T> GetEnumerator() => enumerator;
-
         IEnumerator IEnumerable.GetEnumerator() => enumerator;
 
 

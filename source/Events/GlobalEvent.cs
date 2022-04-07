@@ -26,12 +26,12 @@ namespace ChartTools.Events
         /// Reads global events from a file.
         /// </summary>
         /// <param name="path">Path of the file</param>
-        public static IEnumerable<GlobalEvent> FromFile(string path) => ExtensionHandler.Read<IEnumerable<GlobalEvent>>(path, null, (".chart", (path, _) => ChartFile.ReadGlobalEvents(path)));
+        public static IEnumerable<GlobalEvent> FromFile(string path) => ExtensionHandler.Read<IEnumerable<GlobalEvent>>(path, (".chart", ChartFile.ReadGlobalEvents));
         /// <summary>
         /// Reads global events from a file asynchronously using multitasking.
         /// </summary>
         /// <param name="path"><inheritdoc cref="FromFile(string)" path="/param[@name='path']"/></param>
         /// <param name="cancellationToken">Token to request cancellation</param>
-        public static async Task<List<GlobalEvent>> FromFileAsync(string path, CancellationToken cancellationToken) => await ExtensionHandler.ReadAsync<List<GlobalEvent>>(path, cancellationToken, null, (".chart", (path, token, _) => ChartFile.ReadGlobalEventsAsync(path, token)));
+        public static async Task<List<GlobalEvent>> FromFileAsync(string path, CancellationToken cancellationToken) => await ExtensionHandler.ReadAsync<List<GlobalEvent>>(path, (".chart", path => ChartFile.ReadGlobalEventsAsync(path, cancellationToken)));
     }
 }

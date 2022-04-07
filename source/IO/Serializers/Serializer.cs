@@ -2,13 +2,13 @@
 using ChartTools.IO.Configuration.Sessions;
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ChartTools.IO
 {
     internal abstract class Serializer<TResult>
     {
-        protected DelayedEnumerableSource<TResult> outputSource = new();
         protected WritingSession session;
 
         public string Header { get; }
@@ -20,16 +20,7 @@ namespace ChartTools.IO
         }
 
         public abstract IEnumerable<TResult> Serialize();
-        public async Task<IEnumerable<TResult>> SerializeAsync()
-        {
-            await Task.Run(() =>
-            {
-                foreach (var item in Serialize())
-                    outputSource.Add(item);
-            });
-
-            return outputSource.Enumerable;
-        }
+        public async Task<IEnumerable<TResult>> SerializeAsync() => await Task.Run(() => Serialize().ToArray());
     }
 
     internal abstract class Serializer<TContent, TResult> : Serializer<TResult>

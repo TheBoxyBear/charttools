@@ -38,16 +38,6 @@ namespace ChartTools.SystemExtensions
             _ => $"{string.Join(", ", items, items.Length - 1)} {lastItemPreceder} {items[^0]}" // "Item1, Item2 lastItemPreceder Item3"
         };
     }
-
-    internal static class TaskExtensions
-    {
-        // Credit: https://stackoverflow.com/a/46962416/8078210
-        public static T SyncResult<T>(this Task<T> task)
-        {
-            task.RunSynchronously();
-            return task.Result;
-        }
-    }
 }
 namespace ChartTools.SystemExtensions.Linq
 {
@@ -110,7 +100,7 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="predicate">Method that returns <see langword="true"/> if a given item meets the condition</param>
         /// <param name="item">Found item</param>
         /// <returns><see langword="true"/> if an item was found</returns>
-        public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, out T? item)
+        public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, out T item)
         {
             if (predicate is null)
                 throw new ArgumentNullException(nameof(predicate));
@@ -122,7 +112,7 @@ namespace ChartTools.SystemExtensions.Linq
                     return true;
                 }
 
-            item = default;
+            item = default!;
             return false;
         }
 
@@ -169,10 +159,11 @@ namespace ChartTools.SystemExtensions.Linq
             // Initialize the enumerator
             if (!itemsEnumerator.MoveNext())
             {
-                // Return replacement if source is empty
+                // Return the replacement
                 if (addIfMissing)
                     foreach (T item in replacement)
                         yield return item;
+
                 yield break;
             }
 
@@ -195,18 +186,11 @@ namespace ChartTools.SystemExtensions.Linq
             foreach (T item in replacement)
                 yield return item;
 
-            // Move enumerator to the first item after triggering startReplace
-            if (!itemsEnumerator.MoveNext())
-                yield break;
-
             // Find the end of the section to replace
             do
                 if (!itemsEnumerator.MoveNext())
                     yield break;
             while (endReplace(itemsEnumerator.Current));
-
-            // Move to the first item after the replacement
-            itemsEnumerator.MoveNext();
 
             // Return the rest
             while (itemsEnumerator.MoveNext())
@@ -232,43 +216,51 @@ namespace ChartTools.SystemExtensions.Linq
             List<SectionReplacement<T>> replacementList = replacements.ToList();
             using IEnumerator<T> itemsEnumerator = source.GetEnumerator();
 
+            if (!itemsEnumerator.MoveNext())
+            {
+                if (addIfMissing)
+                    foreach(var item in AddMissing())
+                        yield return item;
+
+                yield break;
+            }
+
             do
             {
-                // Initialize the enumerator or move to the next item
-                if (!itemsEnumerator.MoveNext())
+                // Find a matching replacement start
+                if (replacementList.TryGetFirst(r => r.StartReplace(itemsEnumerator.Current), out var replacement))
                 {
-                    if (addIfMissing)
-                        foreach (var item in ReturnRemaining())
-                            yield return item;
-                    yield break;
+                    // Move to the end of the section to replace
+                    do
+                        if (!itemsEnumerator.MoveNext())
+                        {
+                            if (addIfMissing)
+                                foreach (var item in AddMissing())
+                                    yield return item;
+                            yield break;
+                        }
+                    while (!replacement.EndReplace(itemsEnumerator.Current));
+
+                    // Return the replacement
+                    foreach (T item in replacement.Replacement)
+                        yield return item;
+
+                    replacementList.Remove(replacement);
+
+                    break;
                 }
+                else
+                {
+                    yield return itemsEnumerator.Current;
 
-                for (int i = 0; i < replacementList.Count; i++)
-                    if (replacementList[i].StartReplace(itemsEnumerator.Current))
+                    if (!itemsEnumerator.MoveNext())
                     {
-                        var replacement = replacementList[i];
-
-                        // Return the replacement
-                        foreach (T item in replacement.Replacement)
-                            yield return item;
-
-                        // Move to the end of the section to replace
-                        while (!replacement.EndReplace(itemsEnumerator.Current))
-                            if (!itemsEnumerator.MoveNext())
-                            {
-                                if (addIfMissing)
-                                    foreach (var item in ReturnRemaining())
-                                        yield return item;
-                                yield break;
-                            }
-
-                        replacementList.RemoveAt(i);
-
-                        break;
+                        if (addIfMissing)
+                            foreach (var item in AddMissing())
+                                yield return item;
+                        yield break;
                     }
-                    else
-                        yield return itemsEnumerator.Current;
-
+                }
             }
             // Continue until all replacements are applied
             while (replacementList.Count > 0);
@@ -277,7 +269,7 @@ namespace ChartTools.SystemExtensions.Linq
             while (itemsEnumerator.MoveNext())
                 yield return itemsEnumerator.Current;
 
-            IEnumerable<T> ReturnRemaining()
+            IEnumerable<T> AddMissing()
             {
                 // Return remaining replacements
                 foreach (var replacement in replacementList)
@@ -473,8 +465,8 @@ namespace ChartTools.Events
     /// </summary>
     public static class GlobalEventExtensions
     {
-        public static void ToFile(string path, IEnumerable<GlobalEvent> events) => ExtensionHandler.Write(path, events, null, (".chart", (path, events, _) => ChartFile.ReplaceGlobalEvents(path, events)));
-        public static async Task ToFileAsync(string path, IEnumerable<GlobalEvent> events, CancellationToken cancellationToken) => await ExtensionHandler.WriteAsync(path, events, cancellationToken, null, (".chart", (path, events, token, _) => ChartFile.ReplaceGlobalEventsAsync(path, events, token)));
+        public static void ToFile(string path, IEnumerable<GlobalEvent> events) => ExtensionHandler.Write(path, events, (".chart", (path, events) => ChartFile.ReplaceGlobalEvents(path, events)));
+        public static async Task ToFileAsync(string path, IEnumerable<GlobalEvent> events, CancellationToken cancellationToken) => await ExtensionHandler.WriteAsync(path, events, (".chart", (path, events) => ChartFile.ReplaceGlobalEventsAsync(path, events, cancellationToken)));
 
         /// <summary>
         /// Gets the lyrics from an enumerable of <see cref="GlobalEvent"/>
