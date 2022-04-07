@@ -1150,11 +1150,6 @@
             <param name="line">Line in the file</param>
             <exception cref="T:System.FormatException"/>
         </member>
-        <member name="F:ChartTools.IO.Ini.IniFormatting.DifficultyKeys">
-            <summary>
-            Keys for <see cref="T:ChartTools.Instrument"/> difficulties
-            </summary>
-        </member>
         <member name="T:ChartTools.IO.Ini.IniFile">
             <summary>
             Provides methods for reading and writing ini files
@@ -1204,6 +1199,12 @@
             </summary>
             <param name="path">Path of the file to read</param>
             <param name="metadata">Metadata to write</param>
+        </member>
+        <member name="M:ChartTools.IO.KeySerializableAttribute.GetSerializable``1(System.Object)">
+            <summary>
+            Generates groups of non-null property values and their serialization keys.
+            </summary>
+            <param name="source">Object containing the properties</param>
         </member>
         <member name="T:ChartTools.IO.TextEntry">
             <summary>
@@ -2346,7 +2347,7 @@
             Location of the drum's cymbals audio file
             </summary>
         </member>
-        <member name="P:ChartTools.StreamCollection.Vocal">
+        <member name="P:ChartTools.StreamCollection.Vocals">
             <summary>
             Location of the vocals audio file
             </summary>
