@@ -28,9 +28,9 @@ namespace ChartTools
         /// </summary>
         public List<LocalEvent> LocalEvents { get; } = new();
         /// <summary>
-        /// Sets of star power phrases
+        /// Set of special phrases
         /// </summary>
-        public List<SpecialPhrase> StarPower { get; } = new();
+        public List<SpecialPhrase> SpecialPhrases { get; } = new();
 
         /// <summary>
         /// Groups of notes of the same position

@@ -21,7 +21,7 @@ namespace ChartTools.IO.Midi.Parsers
             {
                 case NoteOnEvent:
                     if (adjusted == 6)
-                        track.StarPower.Add(new(previousPosition + (uint)e.DeltaTime, SpecialPhraseType.StarPowerGain));
+                        track.SpecialPhrases.Add(new(previousPosition + (uint)e.DeltaTime, SpecialPhraseType.StarPowerGain));
                     break;
                 case NoteOffEvent:
                     break;

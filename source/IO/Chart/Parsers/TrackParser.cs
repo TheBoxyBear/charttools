@@ -56,19 +56,19 @@ namespace ChartTools.IO.Chart.Parsers
                     var typeCode = ValueParser.ParseByte(split[0], "type code");
                     var length = ValueParser.ParseUint(split[1], "length");
 
-                    result.StarPower.Add(new(entry.Position, typeCode, length));
+                    result.SpecialPhrases.Add(new(entry.Position, typeCode, length));
                     break;
             }
 
             if (session!.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert)
-                result.StarPower.AddRange(result.SoloToStarPower(true));
+                result.SpecialPhrases.AddRange(result.SoloToStarPower(true));
         }
 
         protected abstract void HandleNote(Track<TChord> track, ref TChord chord, uint position, NoteData data, ref bool newChord, out Enum initialModifier);
 
         protected override void FinaliseParse()
         {
-            ApplyOverlappingSpecialPhrasePolicy(result.StarPower, session!.Configuration.OverlappingStarPowerPolicy);
+            ApplyOverlappingSpecialPhrasePolicy(result.SpecialPhrases, session!.Configuration.OverlappingStarPowerPolicy);
             base.FinaliseParse();
         }
 

@@ -20,10 +20,10 @@ namespace ChartTools.IO.Chart.Serializers
 
         protected override IEnumerable<TrackObjectProviderEntry>[] LaunchProviders()
         {
-            ApplyOverlappingSpecialPhrasePolicy(Content.StarPower, session!.Configuration.OverlappingStarPowerPolicy);
+            ApplyOverlappingSpecialPhrasePolicy(Content.SpecialPhrases, session!.Configuration.OverlappingStarPowerPolicy);
 
             // Convert solo and soloend events into star power
-            if (session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && Content.StarPower.Count == 0 && Content.LocalEvents is not null)
+            if (session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && Content.SpecialPhrases.Count == 0 && Content.LocalEvents is not null)
             {
                 SpecialPhrase? starPower = null;
 
@@ -34,7 +34,7 @@ namespace ChartTools.IO.Chart.Serializers
                             if (starPower is not null)
                             {
                                 starPower.Length = e.Position - starPower.Position;
-                                Content.StarPower.Add(starPower);
+                                Content.SpecialPhrases.Add(starPower);
                             }
 
                             starPower = new(e.Position, SpecialPhraseType.StarPowerGain);
@@ -42,7 +42,7 @@ namespace ChartTools.IO.Chart.Serializers
                         case EventTypeHelper.Local.SoloEnd when starPower is not null:
 
                             starPower.Length = e.Position - starPower.Position;
-                            Content.StarPower.Add(starPower);
+                            Content.SpecialPhrases.Add(starPower);
 
                             starPower = null;
                             break;
@@ -54,7 +54,7 @@ namespace ChartTools.IO.Chart.Serializers
             return new IEnumerable<TrackObjectProviderEntry>[]
             {
                 null!,
-                new SpeicalPhraseProvider().ProvideFor(Content.StarPower, session!),
+                new SpeicalPhraseProvider().ProvideFor(Content.SpecialPhrases, session!),
                 Content.LocalEvents is null ? Enumerable.Empty<TrackObjectProviderEntry>() : new EventProvider().ProvideFor(Content.LocalEvents!, session!)
             };
         }

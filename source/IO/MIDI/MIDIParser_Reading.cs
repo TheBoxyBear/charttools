@@ -139,7 +139,7 @@ namespace ChartTools.IO.MIDI
                     {
                         Track<TChord> track = new();
                         track.LocalEvents!.AddRange(localEvents);
-                        track.StarPower.AddRange(starPower);
+                        track.SpecialPhrases.AddRange(starPower);
 
                         instrumentType.GetProperty(difficulties[i].ToString())!.SetValue(instrument, track);
                     }

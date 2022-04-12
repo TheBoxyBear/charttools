@@ -111,7 +111,7 @@ namespace ChartTools
         /// <summary>
         /// Gives all tracks the same star power
         /// </summary>
-        public void ShareStarPower(TrackObjectSource source) => ShareEventsStarPower(source, track => track.StarPower);
+        public void ShareStarPower(TrackObjectSource source) => ShareEventsStarPower(source, track => track.SpecialPhrases);
         private void ShareEventsStarPower<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : TrackObject
         {
             if (source == TrackObjectSource.Seperate)
