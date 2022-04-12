@@ -75,22 +75,28 @@ namespace ChartTools
             _ => throw new UndefinedEnumException(difficulty)
         };
         /// <inheritdoc cref="Instrument.RemoveTrack(DiffEnum)"/>
-        public override void RemoveTrack(DiffEnum difficulty)
+        public override bool RemoveTrack(DiffEnum difficulty)
         {
+            bool found;
+
             switch (difficulty)
             {
                 case DiffEnum.Easy:
+                    found = _easy is not null;
                     _easy = null;
-                    break;
+                    return found;
                 case DiffEnum.Medium:
+                    found = _medium is not null;
                     _medium = null;
-                    break;
+                    return found;
                 case DiffEnum.Hard:
+                    found = _hard is not null;
                     _hard = null;
-                    break;
+                    return found;
                 case DiffEnum.Expert:
+                    found = _expert is not null;
                     _expert = null;
-                    break;
+                    return found;
                 default:
                     throw new UndefinedEnumException(difficulty);
             }

@@ -93,7 +93,7 @@ namespace ChartTools
         /// Removes a track.
         /// </summary>
         /// <param name="difficulty">Difficulty of the target track</param>
-        public abstract void RemoveTrack(DiffEnum difficulty);
+        public abstract bool RemoveTrack(DiffEnum difficulty);
 
         /// <summary>
         /// Creates an array containing all tracks.
