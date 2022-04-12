@@ -93,7 +93,7 @@ namespace ChartTools.IO.Chart.Parsers
             if (song.Metadata is null)
                 song.Metadata = Result;
             else
-                PropertyMerger.Merge(song.Metadata, false, Result);
+                PropertyMerger.Merge(song.Metadata, false, true, Result);
         }
     }
 }

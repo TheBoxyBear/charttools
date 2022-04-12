@@ -39,7 +39,6 @@
     <Compile Include="Internal\Extensions.cs" />
     <Compile Include="Internal\FuncEqualityComparer.cs" />
     <Compile Include="Internal\IInitializable.cs" />
-    <Compile Include="Internal\ProperyMerger.cs" />
     <Compile Include="IO\Chart\ChartFile.cs" />
     <Compile Include="IO\Chart\ChartFileReader.cs" />
     <Compile Include="IO\Chart\ChartFileWriter.cs" />

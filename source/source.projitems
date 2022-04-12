@@ -52,6 +52,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Internal\FuncEqualityComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\IInitializable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serializers\ChartKeySerializableAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\DirectoryHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\EntryException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\LineException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\ParseException.cs" />

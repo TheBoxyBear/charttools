@@ -70,6 +70,7 @@ namespace ChartTools
         protected abstract Instrument? GetInstrument();
 
         #region File reading
+        #region Single file
         /// <summary>
         /// Reads a track from a file.
         /// </summary>
@@ -140,6 +141,21 @@ namespace ChartTools
         /// <param name="cancellationToken">Token to request cancellation</param>
         /// <param name="config"><inheritdoc cref="FromFile(string, StandardInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>
         public static async Task<Track<StandardChord>> FromFileAsync(string path, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync<Track<StandardChord>>(path, (".chart", path => ChartFile.ReadTrackAsync(path, instrument, difficulty, config, formatting, cancellationToken)));
+        #endregion
+
+        #region Directory
+        public static DirectoryResult<Track?> FromDirectory(string directory, InstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, instrument, difficulty, config, formatting));
+        public static async Task<DirectoryResult<Track?>> FromDirectoryAsync(string directory, InstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => await DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, instrument, difficulty, config, formatting, cancellationToken));
+
+        public static DirectoryResult<Track<DrumsChord>?> FromDirectory(string directory, Difficulty difficulty, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, difficulty, config, formatting));
+        public static async Task<DirectoryResult<Track<DrumsChord>?>> FromDirectoryAsync(string directory, Difficulty difficulty, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => await DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, difficulty, config, formatting, cancellationToken));
+
+        public static DirectoryResult<Track<GHLChord>?> FromDirectory(string directory, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, instrument, difficulty, config, formatting));
+        public static async Task<DirectoryResult<Track<GHLChord>?>> FromDirectoryAsync(string directory, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => await DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, instrument, difficulty, config, formatting, cancellationToken));
+
+        public static DirectoryResult<Track<StandardChord>?> FromDirectory(string directory, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, instrument, difficulty, config, formatting));
+        public static async Task<DirectoryResult<Track<StandardChord>?>> FromDirectoryAsync(string directory, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => await DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, instrument, difficulty, config, formatting, cancellationToken));
+        #endregion
         #endregion
 
         public void ToFile(string path, WritingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => ExtensionHandler.Write<Track>(path, this, (".chart", (path, track) => ChartFile.ReplaceTrack(path, track, config, formatting)));

@@ -14,6 +14,7 @@ using System.Threading;
 using ChartTools.IO.Configuration;
 using ChartTools.Events;
 using ChartTools.Formatting;
+using ChartTools.Internal;
 
 namespace ChartTools
 {
@@ -207,13 +208,13 @@ namespace ChartTools
             }
         }
 
+        #region Reading
         /// <summary>
         /// Reads all elements of a <see cref="Song"/> from a file.
         /// </summary>
         /// <param name="path">Path of the file</param>
         /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
         public static Song FromFile(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadSong(path, config, formatting)), (".ini", path => new Song { Metadata = IniFile.ReadMetadata(path) }));
-
         /// <summary>
         /// Reads all elements of a <see cref="Song"/> from a file asynchronously using multitasking.
         /// </summary>
@@ -221,6 +222,26 @@ namespace ChartTools
         /// <param name="cancellationToken">Token to request cancellation</param>
         /// <param name="config"><inheritdoc cref="FromFile(string, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>
         public static async Task<Song> FromFileAsync(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync<Song>(path, (".chart", path => ChartFile.ReadSongAsync(path, config, formatting, cancellationToken)));
+
+        public static Song FromDirectory(string directory, ReadingConfiguration? config = default)
+        {
+            (var song, var metadata) = DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, config, formatting));
+            song ??= new();
+
+            PropertyMerger.Merge(song.Metadata, true, true, metadata);
+
+            return song;
+        }
+        public static async Task<Song> FromDirectoryAsync(string directory, ReadingConfiguration? config = default, CancellationToken cancellationToken = default)
+        {
+            (var song, var metadata) = await DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, config, formatting, cancellationToken));
+            song ??= new();
+
+            PropertyMerger.Merge(song.Metadata, true, true, metadata);
+
+            return song;
+        }
+        #endregion
 
         /// <summary>
         /// Writes the <see cref="Song"/> to a file.
