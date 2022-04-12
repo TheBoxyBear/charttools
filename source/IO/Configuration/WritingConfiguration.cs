@@ -7,9 +7,6 @@
         /// </summary>
         public TrackObjectSource EventSource { get; init; }
         public TrackObjectSource StarPowerSource { get; init; }
-        /// <inheritdoc cref="Configuration.UnsupportedModifierPolicy"/>
-        public HopoThresholdPriority HopoThresholdPriority { get; init; }
-        /// <inheritdoc cref="Formatting.FormattingRules.TrueHopoFrequency"/>
         public uint? HopoTreshold { get; init; }
         /// <see cref="Configuration.UnsupportedModifierPolicy"/>
         public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }

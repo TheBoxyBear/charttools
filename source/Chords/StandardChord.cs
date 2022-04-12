@@ -44,7 +44,7 @@ namespace ChartTools
         {
             bool isInvert = Modifier.HasFlag(StandardChordModifier.HopoInvert);
 
-            if (Modifier.HasFlag(StandardChordModifier.ExplicitHopo) && (previous is null || previous.Position <= session.HopoThreshold) != isInvert || isInvert)
+            if (Modifier.HasFlag(StandardChordModifier.ExplicitHopo) && (previous is null || previous.Position <= session.Formatting!.TrueHopoFrequency) != isInvert || isInvert)
                 yield return ChartFormatting.NoteData(5, 0);
             if (Modifier.HasFlag(StandardChordModifier.Tap))
                 yield return ChartFormatting.NoteData(6, 0);

@@ -8,10 +8,8 @@ namespace ChartTools
     public record Track<TChord> : Track where TChord : Chord
     {
         public override List<TChord> Chords { get; } = new();
-        public new Instrument<TChord>? ParentInstrument
-        {
-            get => (Instrument<TChord>?)base.ParentInstrument;
-            init => base.ParentInstrument = value;
-        }
+        public new Instrument<TChord>? ParentInstrument { get; init; }
+
+        protected override Instrument? GetInstrument() => ParentInstrument;
     }
 }

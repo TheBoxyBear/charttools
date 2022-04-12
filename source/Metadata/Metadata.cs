@@ -202,7 +202,7 @@ namespace ChartTools
         /// <exception cref="OutOfMemoryException"/>
         public static Metadata FromFile(string path) => Read(path);
 
-        private static Metadata? Read(string path, Metadata? existing = null) => ExtensionHandler.Read<Metadata>(path, (".chart", ChartFile.ReadMetadata), (".ini", path => IniFile.ReadMetadata(path, existing)));
+        private static Metadata Read(string path, Metadata? existing = null) => ExtensionHandler.Read<Metadata>(path, (".chart", ChartFile.ReadMetadata), (".ini", path => IniFile.ReadMetadata(path, existing)));
 
         /// <summary>
         /// Reads the metadata from multiple files.

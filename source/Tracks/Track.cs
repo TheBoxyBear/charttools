@@ -1,5 +1,4 @@
 ﻿using ChartTools.Events;
-using ChartTools.Internal;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
@@ -14,11 +13,8 @@ namespace ChartTools
     /// <summary>
     /// Base class for tracks
     /// </summary>
-    public abstract record Track : IEmptyVerifiable
+    public abstract record Track
     {
-        /// <inheritdoc cref="IEmptyVerifiable.IsEmpty"/>
-        public bool IsEmpty => Chords.Count == 0 && LocalEvents.Count == 0 && StarPower.Count == 0;
-
         /// <summary>
         /// Difficulty of the track
         /// </summary>
@@ -26,7 +22,7 @@ namespace ChartTools
         /// <summary>
         /// Instrument containing the track
         /// </summary>
-        public Instrument? ParentInstrument { get; protected set; }
+        public Instrument? ParentInstrument => GetInstrument();
         /// <summary>
         /// Events specific to the <see cref="Track"/>
         /// </summary>
@@ -69,6 +65,8 @@ namespace ChartTools
             if (removeEvents)
                 LocalEvents.RemoveAll(e => e.IsStarPowerEvent);
         }
+
+        protected abstract Instrument? GetInstrument();
 
         #region File reading
         /// <summary>

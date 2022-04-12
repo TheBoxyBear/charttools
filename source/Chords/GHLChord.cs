@@ -54,7 +54,7 @@ namespace ChartTools
         {
             var isInvert = Modifier.HasFlag(GHLChordModifier.HopoInvert);
 
-            if (Modifier.HasFlag(GHLChordModifier.ExplicitHopo) && (previous is null || previous.Position <= session.HopoThreshold) != isInvert || isInvert)
+            if (Modifier.HasFlag(GHLChordModifier.ExplicitHopo) && (previous is null || previous.Position <= session.Formatting!.TrueHopoFrequency) != isInvert || isInvert)
                 yield return ChartFormatting.NoteData(5, 0);
             if (Modifier.HasFlag(GHLChordModifier.Tap))
                 yield return ChartFormatting.NoteData(6, 0);

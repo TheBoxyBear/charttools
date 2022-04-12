@@ -30,7 +30,7 @@ namespace ChartTools.Formatting
         /// <summary>
         /// Overrides the natural HOPO threshold with the specified number of ticks.
         /// </summary>
-        [IniKeySerializableAttribute(IniFormatting.HopoFrequency)]
+        [IniKeySerializable(IniFormatting.HopoFrequency)]
         public uint? HopoFrequency { get; set; }
         /// <summary>
         /// (FoFiX) Overrides the natural HOPO threshold using numbers from 0 to 5.

@@ -1,5 +1,4 @@
-﻿using ChartTools.IO.Configuration;
-using ChartTools.IO.Configuration.Sessions;
+﻿using ChartTools.Formatting;
 
 using System;
 using System.Collections.Generic;
@@ -23,9 +22,7 @@ namespace ChartTools.IO.Configuration.Sessions
         } : _getChordLines;
         private ChordLinesGetter? _getChordLines;
 
-        public uint HopoThreshold { get; set; }
-
-        public WritingSession(WritingConfiguration config) => Configuration = config;
+        public WritingSession(WritingConfiguration config, FormattingRules? formatting) : base(formatting) => Configuration = config;
     }
 
 }

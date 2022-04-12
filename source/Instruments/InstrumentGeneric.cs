@@ -65,7 +65,17 @@ namespace ChartTools
             _ => throw new UndefinedEnumException(difficulty)
         };
 
-        public override void SetTrackNull(DiffEnum difficulty)
+        /// <inheritdoc cref="Instrument.CreateTrack(DiffEnum)"/>
+        public override Track CreateTrack(DiffEnum difficulty) => difficulty switch
+        {
+            DiffEnum.Easy => Easy = new(),
+            DiffEnum.Medium => Medium = new(),
+            DiffEnum.Hard => Hard = new(),
+            DiffEnum.Expert => Expert = new(),
+            _ => throw new UndefinedEnumException(difficulty)
+        };
+        /// <inheritdoc cref="Instrument.RemoveTrack(DiffEnum)"/>
+        public override void RemoveTrack(DiffEnum difficulty)
         {
             switch (difficulty)
             {
@@ -92,7 +102,7 @@ namespace ChartTools
         protected override Track<TChord>? GetExpert() => Expert;
 
         public override Track<TChord>?[] GetTracks() => new Track<TChord>?[] { Easy, Medium, Hard, Expert };
-        public override IEnumerable<Track<TChord>> GetNonEmptyTracks() => base.GetNonEmptyTracks().Cast<Track<TChord>>();
+        public override IEnumerable<Track<TChord>> GetExistingTracks() => base.GetExistingTracks().Cast<Track<TChord>>();
 
         /// <summary>
         /// Sets a track for a given <see cref="Difficulty"/>.

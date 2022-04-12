@@ -20,6 +20,9 @@ namespace ChartTools.IO.Configuration.Sessions
         private DuplicateTrackObjectHandler? _duplicateTrackObjectProcedre;
 
         public virtual CommonConfiguration Configuration { get; } = new();
+        public FormattingRules? Formatting { get; set; }
+
+        public Session(FormattingRules? formatting) => Formatting = formatting;
 
         private static bool DuplicateIncludeAll(uint position, ICollection<uint> ignored, string objectType) => true;
         private static bool DuplicateIncludeFirst(uint position, ICollection<uint> ignored, string objectType)

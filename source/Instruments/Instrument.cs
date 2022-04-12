@@ -21,10 +21,8 @@ namespace ChartTools
     /// <summary>
     /// Base class for instruments
     /// </summary>
-    public abstract record Instrument : IEmptyVerifiable
+    public abstract record Instrument
     {
-        public bool IsEmpty => !GetNonEmptyTracks().Any();
-
         /// <summary>
         /// Identity of the instrument the object belongs to
         /// </summary>
@@ -79,24 +77,23 @@ namespace ChartTools
         /// <summary>
         /// Gets the track matching a difficulty.
         /// </summary>
-        public virtual Track? GetTrack(DiffEnum difficulty) => difficulty switch
-        {
-            DiffEnum.Easy => Easy,
-            DiffEnum.Medium => Medium,
-            DiffEnum.Hard => Hard,
-            DiffEnum.Expert => Expert,
-            _ => throw new UndefinedEnumException(difficulty)
-        };
+        public abstract Track? GetTrack(DiffEnum difficulty);
 
         protected abstract Track? GetEasy();
         protected abstract Track? GetMedium();
         protected abstract Track? GetHard();
         protected abstract Track? GetExpert();
+
         /// <summary>
-        /// Sets a track to <see langword="null"/>.
+        /// Creates a track
+        /// </summary>
+        /// <param name="difficulty">Difficulty of the track</param>
+        public abstract Track CreateTrack(DiffEnum difficulty);
+        /// <summary>
+        /// Removes a track.
         /// </summary>
         /// <param name="difficulty">Difficulty of the target track</param>
-        public abstract void SetTrackNull(DiffEnum difficulty);
+        public abstract void RemoveTrack(DiffEnum difficulty);
 
         /// <summary>
         /// Creates an array containing all tracks.
@@ -105,7 +102,7 @@ namespace ChartTools
         /// <summary>
         /// Creates an array containing all tracks with data.
         /// </summary>
-        public virtual IEnumerable<Track> GetNonEmptyTracks() => GetTracks().NonNull().Where(t => !t.IsEmpty).ToArray();
+        public virtual IEnumerable<Track> GetExistingTracks() => GetTracks().NonNull();
 
         /// <summary>
         /// Gives all tracks the same local events.
@@ -120,7 +117,7 @@ namespace ChartTools
             if (source == TrackObjectSource.Seperate)
                 return;
 
-            var collections = GetNonEmptyTracks().Select(track => collectionGetter(track)).ToArray();
+            var collections = GetExistingTracks().Select(track => collectionGetter(track)).ToArray();
 
             var objects = (source switch
             {
