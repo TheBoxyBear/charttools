@@ -10,7 +10,7 @@ namespace ChartTools.Internal
     /// <summary>
     /// Provides methods to merge properties between two instances
     /// </summary>
-    internal static class PropertyMerger
+    public static class PropertyMerger
     {
         /// <summary>
         /// Replaces the property values of an instance with the first non-null equivalent from other instances.
@@ -19,10 +19,11 @@ namespace ChartTools.Internal
         /// <param name="current">Item to assign the property values to</param>
         /// <param name="overwriteNonNull">If <see langword="false"/>, only replaces property values that are null in the original instance.</param>
         /// <param name="newValues">Items to pull new property values from in order of priority</param>
-        internal static void Merge<T>(T current, bool overwriteNonNull, bool deepMerge, params T[] newValues)
+        public static void Merge<T>(this T current, bool overwriteNonNull, bool deepMerge, params T[] newValues)
         {
             T? newValue = current;
             var stringType = typeof(string);
+            var nullableType = typeof(Nullable);
 
             foreach (var prop in typeof(T).GetProperties())
                 MergeValue(current, prop, GetValues(newValues.Cast<object>(), prop));
@@ -31,18 +32,16 @@ namespace ChartTools.Internal
             {
                 var value = prop.GetValue(source);
 
-                if (value is null || overwriteNonNull)
-                {
-                    if (deepMerge && prop.PropertyType.IsPrimitive && prop.PropertyType != stringType)
+                if (deepMerge && !prop.PropertyType.IsPrimitive && prop.PropertyType != stringType && Nullable.GetUnderlyingType(prop.PropertyType) is null)
+                    if (value is not null)
                         foreach (var deepProp in prop.PropertyType.GetProperties())
-                            MergeValue(deepProp.GetValue(value), deepProp,GetValues(newValues, deepProp));
-                    else
-                    {
-                        var newVal = newValues.FirstOrDefault(newVal => newVal is not null);
+                            MergeValue(value, deepProp, GetValues(newValues, deepProp));
+                else if (value is null || overwriteNonNull)
+                {
+                    var newVal = newValues.FirstOrDefault(newVal => newVal is not null);
 
-                        if (newVal is not null)
-                            prop.SetValue(source, newVal);
-                    }
+                    if (newVal is not null)
+                        prop.SetValue(source, newVal);
                 }
             }
 
