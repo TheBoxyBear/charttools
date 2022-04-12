@@ -40,7 +40,7 @@ namespace ChartTools.IO.Chart.Parsers
                 case "N":
                     NoteData data = new(entry.Data);
 
-                    HandleNote(result, ref chord!, entry.Position, data, ref newChord, out Enum initialModifier);
+                    HandleNote(result, ref chord!, entry.Position, data, ref newChord, out _);
 
                     if (newChord)
                     {

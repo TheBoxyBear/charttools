@@ -6,7 +6,7 @@ namespace ChartTools.IO.Midi.Parsers
 {
     internal class GHGemsParser : StandardInstrumentParser
     {
-        private uint previousPosition = 0;
+        private readonly uint previousPosition = 0;
 
         public GHGemsParser(ReadingSession session) : base(StandardInstrumentIdentity.LeadGuitar, session) { }
 

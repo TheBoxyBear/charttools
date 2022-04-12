@@ -1,4 +1,5 @@
-﻿using ChartTools.IO.Configuration;
+﻿using ChartTools.Formatting;
+using ChartTools.IO.Configuration;
 using ChartTools.SystemExtensions.Linq;
 
 using System;
@@ -11,7 +12,7 @@ namespace ChartTools.IO.Ini
     public static class IniFile
     {
         /// <inheritdoc cref="Metadata.FromFile(string)"/>
-        /// <param name="path"><inheritdoc cref="Song.FromFile(string, ReadingConfiguration?)" path="/param[@name='path']"/></param>
+        /// <param name="path"><inheritdoc cref="Song.FromFile(string, ReadingConfiguration?, FormattingRules?)" path="/param[@name='path']"/></param>
         /// <returns>A new instance of <see cref="Metadata"/> if <paramref name="existing"/> is <see langword="null"/>, otherwise the same reference.</returns>
         public static Metadata ReadMetadata(string path, Metadata? existing = null)
         {

@@ -6,7 +6,7 @@ namespace ChartTools.Internal.Collections.Delayed
 {
     public class DelayedEnumerator<T> : IEnumerator<T>
     {
-        public T? Current { get; private set; }
+        public T Current { get; private set; }
         object? IEnumerator.Current => Current;
         public bool AwaitingItems => source.AwaitingItems;
 

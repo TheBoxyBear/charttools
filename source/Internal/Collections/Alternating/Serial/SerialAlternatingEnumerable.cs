@@ -33,7 +33,7 @@ namespace ChartTools.Collections.Alternating
         }
 
         /// <inheritdoc/>
-        public IEnumerator<T> GetEnumerator() => new SerialAlternatingEnumerator<T>(Enumerables.Select(e => e.GetEnumerator()).ToArray());
+        public IEnumerator<T> GetEnumerator() => new SerialAlternatingEnumerator<T>(Enumerables.Select(e => e.GetEnumerator()).ToArray())!;
         /// <inheritdoc/>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }

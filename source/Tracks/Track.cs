@@ -1,4 +1,5 @@
 ﻿using ChartTools.Events;
+using ChartTools.Formatting;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
@@ -76,17 +77,16 @@ namespace ChartTools
         /// <param name="instrument">Instrument of the track</param>
         /// <param name="difficulty">Difficulty of the track</param>
         /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
-        public static Track FromFile(string path, InstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default) => ExtensionHandler.Read<Track>(path, (".chart", path => ChartFile.ReadTrack(path, instrument, difficulty, config)));
+        public static Track FromFile(string path, InstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read<Track>(path, (".chart", path => ChartFile.ReadTrack(path, instrument, difficulty, config, formatting)));
         /// <summary>
         /// Reads a track from a file asynchronously using multitasking.
         /// </summary>
-        /// <param name="path"><inheritdoc cref="FromFile(string, InstrumentIdentity, Difficulty, ReadingConfiguration?)" path="/param[@name='path']"/></param>
-        /// <param name="instrument"><inheritdoc cref="FromFile(string, InstrumentIdentity, Difficulty, ReadingConfiguration?)" path="/param[@name='instrument']"/></param>
-        /// <param name="difficulty"><inheritdoc cref="FromFile(string, InstrumentIdentity, Difficulty, ReadingConfiguration?)" path="/param[@name='difficulty']"/></param>
+        /// <param name="path"><inheritdoc cref="FromFile(string, InstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='path']"/></param>
+        /// <param name="instrument"><inheritdoc cref="FromFile(string, InstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='instrument']"/></param>
+        /// <param name="difficulty"><inheritdoc cref="FromFile(string, InstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='difficulty']"/></param>
         /// <param name="cancellationToken">Token to request cancellation</param>
-        /// <param name="config"><inheritdoc cref="FromFile(string, InstrumentIdentity, Difficulty, ReadingConfiguration?)" path="/param[@name='config']"/></param>
-        /// <returns></returns>
-        public static async Task<Track> FromFileAsync(string path, InstrumentIdentity instrument, Difficulty difficulty, CancellationToken cancellationToken, ReadingConfiguration? config = default) => await ExtensionHandler.ReadAsync<Track>(path, (".chart", path => ChartFile.ReadTrackAsync(path, instrument, difficulty, cancellationToken, config)));
+        /// <param name="config"><inheritdoc cref="FromFile(string, InstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>
+        public static async Task<Track> FromFileAsync(string path, InstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync<Track>(path, (".chart", path => ChartFile.ReadTrackAsync(path, instrument, difficulty, config, formatting, cancellationToken)));
 
         /// <summary>
         /// Reads a drums track from a file.
@@ -94,16 +94,15 @@ namespace ChartTools
         /// <param name="path">Path of the file</param>
         /// <param name="difficulty">Difficulty of the track</param>
         /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
-        public static Track<DrumsChord> FromFile(string path, Difficulty difficulty, ReadingConfiguration? config = default) => ExtensionHandler.Read<Track<DrumsChord>>(path, (".chart", path => ChartFile.ReadDrumsTrack(path, difficulty, config)));
+        public static Track<DrumsChord> FromFile(string path, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read<Track<DrumsChord>>(path, (".chart", path => ChartFile.ReadDrumsTrack(path, difficulty, config, formatting)));
         /// <summary>
         /// Reads a drums track from a file asynchronously using multitasking.
         /// </summary>
-        /// <param name="path"><inheritdoc cref="FromFile(string, Difficulty, ReadingConfiguration?)" path="/param[@name='path']"/></param>
-        /// <param name="difficulty"><inheritdoc cref="FromFile(string, Difficulty, ReadingConfiguration?)" path="/param[@name='difficulty']"/></param>
+        /// <param name="path"><inheritdoc cref="FromFile(string, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='path']"/></param>
+        /// <param name="difficulty"><inheritdoc cref="FromFile(string, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='difficulty']"/></param>
         /// <param name="cancellationToken">Token to request cancellation</param>
         /// <param name="config"></param>
-        /// <returns></returns>
-        public static async Task<Track<DrumsChord>> FromFileAsync(string path, Difficulty difficulty, CancellationToken cancellationToken, ReadingConfiguration? config = default) => await ExtensionHandler.ReadAsync<Track<DrumsChord>>(path, (".chart", path => ChartFile.ReadDrumsTrackAsync(path, difficulty, cancellationToken, config)));
+        public static async Task<Track<DrumsChord>> FromFileAsync(string path, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync<Track<DrumsChord>>(path, (".chart", path => ChartFile.ReadDrumsTrackAsync(path, difficulty, config, formatting, cancellationToken)));
 
         /// <summary>
         /// Reads a GHL track from a file.
@@ -112,17 +111,17 @@ namespace ChartTools
         /// <param name="instrument">GHL instrument of the track</param>
         /// <param name="difficulty">Difficulty of the track</param>
         /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
-        public static Track<GHLChord> FromFile(string path, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default) => ExtensionHandler.Read<Track<GHLChord>>(path, (".chart", path => ChartFile.ReadTrack(path, instrument, difficulty, config)));
+        public static Track<GHLChord> FromFile(string path, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read<Track<GHLChord>>(path, (".chart", path => ChartFile.ReadTrack(path, instrument, difficulty, config, formatting)));
         /// <summary>
         /// Reads a GHL track from a file asynchronously using multitasking.
         /// </summary>
-        /// <param name="path"><inheritdoc cref="FromFile(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?)" path="/param[@name='path']"/></param>
-        /// <param name="instrument"><inheritdoc cref="FromFile(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?)" path="/param[@name='instrument']"/></param>
-        /// <param name="difficulty"><inheritdoc cref="FromFile(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?)" path="/param[@name='difficulty']"/></param>
-        /// <param name="cancellationToken"><inheritdoc cref="FromFile(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?)" path="/param[@name='cancellationToken']"/></param>
-        /// <param name="config"><inheritdoc cref="FromFile(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?)" path="/param[@name='config']"/></param>
+        /// <param name="path"><inheritdoc cref="FromFile(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='path']"/></param>
+        /// <param name="instrument"><inheritdoc cref="FromFile(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='instrument']"/></param>
+        /// <param name="difficulty"><inheritdoc cref="FromFile(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='difficulty']"/></param>
+        /// <param name="cancellationToken"><inheritdoc cref="FromFile(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='cancellationToken']"/></param>
+        /// <param name="config"><inheritdoc cref="FromFile(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>
         /// <returns></returns>
-        public static async Task<Track<GHLChord>> FromFileAsync(string path, GHLInstrumentIdentity instrument, Difficulty difficulty, CancellationToken cancellationToken, ReadingConfiguration? config = default) => await ExtensionHandler.ReadAsync<Track<GHLChord>>(path, (".chart", path => ChartFile.ReadTrackAsync(path, instrument, difficulty, cancellationToken, config)));
+        public static async Task<Track<GHLChord>> FromFileAsync(string path, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync<Track<GHLChord>>(path, (".chart", path => ChartFile.ReadTrackAsync(path, instrument, difficulty, config, formatting, cancellationToken)));
 
         /// <summary>
         /// Reads a standard track from a file.
@@ -131,19 +130,19 @@ namespace ChartTools
         /// <param name="instrument">Standard instrument of the track</param>
         /// <param name="difficulty">Difficulty of the track</param>
         /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
-        public static Track<StandardChord> FromFile(string path, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default) => ExtensionHandler.Read<Track<StandardChord>>(path, (".chart", path => ChartFile.ReadTrack(path, instrument, difficulty, config)));
+        public static Track<StandardChord> FromFile(string path, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read<Track<StandardChord>>(path, (".chart", path => ChartFile.ReadTrack(path, instrument, difficulty, config, formatting)));
         /// <summary>
         /// Reads a track from a file asynchronously using multitasking.
         /// </summary>
-        /// <param name="path"><inheritdoc cref="FromFile(string, StandardInstrumentIdentity, Difficulty, ReadingConfiguration?)" path="/param[@name='path']"/></param>
-        /// <param name="instrument"><inheritdoc cref="FromFile(string, StandardInstrumentIdentity, Difficulty, ReadingConfiguration?)" path="/param[@name='instrument']"/></param>
-        /// <param name="difficulty"><inheritdoc cref="FromFile(string, StandardInstrumentIdentity, Difficulty, ReadingConfiguration?)" path="/param[@name='difficulty']"/></param>
+        /// <param name="path"><inheritdoc cref="FromFile(string, StandardInstrumentIdentity, Difficulty, ReadingConfiguration, FormattingRules)" path="/param[@name='path']"/></param>
+        /// <param name="instrument"><inheritdoc cref="FromFile(string, StandardInstrumentIdentity, Difficulty, ReadingConfiguration, FormattingRules)" path="/param[@name='instrument']"/></param>
+        /// <param name="difficulty"><inheritdoc cref="FromFile(string, StandardInstrumentIdentity, Difficulty, ReadingConfiguration, FormattingRules)" path="/param[@name='difficulty']"/></param>
         /// <param name="cancellationToken">Token to request cancellation</param>
-        /// <param name="config"><inheritdoc cref="FromFile(string, StandardInstrumentIdentity, Difficulty, ReadingConfiguration?)" path="/param[@name='config']"/></param>
-        public static async Task<Track<StandardChord>> FromFileAsync(string path, StandardInstrumentIdentity instrument, Difficulty difficulty, CancellationToken cancellationToken, ReadingConfiguration? config = default) => await ExtensionHandler.ReadAsync<Track<StandardChord>>(path, (".chart", path => ChartFile.ReadTrackAsync(path, instrument, difficulty, cancellationToken, config)));
+        /// <param name="config"><inheritdoc cref="FromFile(string, StandardInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>
+        public static async Task<Track<StandardChord>> FromFileAsync(string path, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync<Track<StandardChord>>(path, (".chart", path => ChartFile.ReadTrackAsync(path, instrument, difficulty, config, formatting, cancellationToken)));
         #endregion
 
-        public void ToFile(string path, WritingConfiguration? config = default) => ExtensionHandler.Write<Track>(path, this, (".chart", (path, track) => ChartFile.ReplaceTrack(path, track, config)));
-        public async Task ToFileAsync(string path, CancellationToken cancellationToken, WritingConfiguration? config = default) => await ExtensionHandler.WriteAsync<Track>(path, this, (".chart", (path, track) => ChartFile.ReplaceTrackAsync(path, track, cancellationToken, config)));
+        public void ToFile(string path, WritingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => ExtensionHandler.Write<Track>(path, this, (".chart", (path, track) => ChartFile.ReplaceTrack(path, track, config, formatting)));
+        public async Task ToFileAsync(string path, WritingConfiguration? config = default,FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.WriteAsync<Track>(path, this, (".chart", (path, track) => ChartFile.ReplaceTrackAsync(path, track, config, formatting, cancellationToken)));
     }
 }

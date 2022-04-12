@@ -64,7 +64,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Appliables\ISongAppliable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\FileParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\FormattedFileParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Serializers\GroupSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Serializers\Serializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\TextParser.cs" />

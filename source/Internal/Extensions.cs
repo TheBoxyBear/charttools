@@ -71,7 +71,7 @@ namespace ChartTools.SystemExtensions.Linq
             return false;
         }
 
-        /// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool}, TSource)"/>
+        /// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
         /// <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
         public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue, out bool returnedDefault)
         {

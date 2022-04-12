@@ -212,15 +212,15 @@ namespace ChartTools
         /// </summary>
         /// <param name="path">Path of the file</param>
         /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
-        public static Song FromFile(string path, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadSong(path, config)), (".ini", path => new Song { Metadata = IniFile.ReadMetadata(path) }));
+        public static Song FromFile(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadSong(path, config, formatting)), (".ini", path => new Song { Metadata = IniFile.ReadMetadata(path) }));
 
         /// <summary>
         /// Reads all elements of a <see cref="Song"/> from a file asynchronously using multitasking.
         /// </summary>
-        /// <param name="path"><inheritdoc cref="FromFile(string, ReadingConfiguration?)" path="/param[@name='path']"/></param>
+        /// <param name="path"><inheritdoc cref="FromFile(string, ReadingConfiguration?, FormattingRules?)" path="/param[@name='path']"/></param>
         /// <param name="cancellationToken">Token to request cancellation</param>
-        /// <param name="config"><inheritdoc cref="FromFile(string, ReadingConfiguration?)" path="/param[@name='config']"/></param>
-        public static async Task<Song> FromFileAsync(string path, CancellationToken cancellationToken, ReadingConfiguration? config = default) => await ExtensionHandler.ReadAsync<Song>(path, (".chart", path => ChartFile.ReadSongAsync(path, cancellationToken, config)));
+        /// <param name="config"><inheritdoc cref="FromFile(string, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>
+        public static async Task<Song> FromFileAsync(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync<Song>(path, (".chart", path => ChartFile.ReadSongAsync(path, config, formatting, cancellationToken)));
 
         /// <summary>
         /// Writes the <see cref="Song"/> to a file.
@@ -234,7 +234,7 @@ namespace ChartTools
         /// <exception cref="NotSupportedException"/>
         /// <exception cref="System.Security.SecurityException"/>
         public void ToFile(string path, WritingConfiguration? config = default) => ExtensionHandler.Write(path, this, (".chart", (path, song) => ChartFile.WriteSong(path, song, config)));
-        public async Task ToFileAsync(string path, CancellationToken cancellationToken, WritingConfiguration? config = default) => await ExtensionHandler.WriteAsync(path, this, (".chart", (path, song) => ChartFile.WriteSongAsync(path, song, cancellationToken, config)));
+        public async Task ToFileAsync(string path, WritingConfiguration? config = default, CancellationToken cancellationToken = default) => await ExtensionHandler.WriteAsync(path, this, (".chart", (path, song) => ChartFile.WriteSongAsync(path, song, config, cancellationToken)));
 
         /// <summary>
         /// Retrieves the lyrics from the global events.

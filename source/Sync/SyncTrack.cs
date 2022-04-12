@@ -1,4 +1,5 @@
-﻿using ChartTools.Internal;
+﻿using ChartTools.Formatting;
+using ChartTools.Internal;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
@@ -39,8 +40,8 @@ namespace ChartTools
         /// <param name="cancellationToken">Token to request cancellation</param>
         /// <param name="config"><inheritdoc cref="FromFile(string, ReadingConfiguration?)" path="/param[@name='config']"/></param>
         /// <returns></returns>
-        public static async Task<SyncTrack> FromFileAsync(string path, CancellationToken cancellationToken, ReadingConfiguration? config = default) => await ExtensionHandler.ReadAsync<SyncTrack>(path, (".chart", path => ChartFile.ReadSyncTrackAsync(path, cancellationToken, config)));
+        public static async Task<SyncTrack> FromFileAsync(string path, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync<SyncTrack>(path, (".chart", path => ChartFile.ReadSyncTrackAsync(path, config, cancellationToken)));
         public void ToFile(string path, WritingConfiguration? config = default) => ExtensionHandler.Write(path, this, (".chart", (path, track) => ChartFile.ReplaceSyncTrack(path, track, config)));
-        public async Task ToFileAsync(string path, CancellationToken cancellationToken, WritingConfiguration? config = default) => await ExtensionHandler.WriteAsync(path, this, (".chart", (path, track) => ChartFile.ReplaceSyncTrackAsync(path, track, cancellationToken, config)));
+        public async Task ToFileAsync(string path, WritingConfiguration? config = default, CancellationToken cancellationToken = default) => await ExtensionHandler.WriteAsync(path, this, (".chart", (path, track) => ChartFile.ReplaceSyncTrackAsync(path, track, config, cancellationToken)));
     }
 }

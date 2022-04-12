@@ -6,7 +6,7 @@ namespace ChartTools.Internal.Collections
 {
     internal class EagerEnumerable<T> : IEnumerable<T>
     {
-        private IEnumerable<T> items;
+        private IEnumerable<T>? items;
         private readonly Task<IEnumerable<T>> source;
 
         public EagerEnumerable(Task<IEnumerable<T>> source) => this.source = source;

@@ -11,7 +11,7 @@ namespace ChartTools.Collections.Alternating
     /// Enumerator that yields <typeparamref name="T"/> items by alternating through a set of enumerators
     /// </summary>
     /// <typeparam name="T">Type of the enumerated items</typeparam>
-    public class SerialAlternatingEnumerator<T> : IEnumerator<T>
+    public class SerialAlternatingEnumerator<T> : IEnumerator<T?>
     {
         /// <summary>
         /// Enumerators to alternate between
