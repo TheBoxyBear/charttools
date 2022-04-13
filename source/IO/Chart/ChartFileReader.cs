@@ -11,6 +11,7 @@ namespace ChartTools.IO.Chart
     internal class ChartFileReader : TextFileReader
     {
         public override IEnumerable<ChartParser> Parsers => base.Parsers.Cast<ChartParser>();
+        public override bool DefinedSectionEnd => true;
 
         public ChartFileReader(string path, Func<string, ChartParser?> parserGetter) : base(path, parserGetter) { }
 

@@ -12,15 +12,11 @@ namespace ChartTools.IO.Chart.Parsers
         public override void ApplyToSong(Song song)
         {
             var inst = song.Instruments.Get(Instrument);
-            var instrumentExists = inst is not null;
 
-            if (!instrumentExists)
-                inst = new();
+            if (inst is null)
+                song.Instruments.Set(inst = new() { InstrumentIdentity = (InstrumentIdentity)Instrument });
 
-            ApplyToInstrument(inst!);
-
-            if (!instrumentExists)
-                song.Instruments.Set(inst! with { InstrumentIdentity = (InstrumentIdentity)Instrument });
+            ApplyToInstrument(inst);
         }
 
         protected override void HandleNote(Track<StandardChord> track, ref StandardChord chord, uint position, NoteData data, ref bool newChord, out Enum initialModifier)

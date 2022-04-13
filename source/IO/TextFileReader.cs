@@ -14,6 +14,7 @@ namespace ChartTools.IO
         private record ParserLinesGroup(TextParser Parser, DelayedEnumerableSource<string> Source);
 
         public string Path { get; }
+        public virtual bool DefinedSectionEnd { get; } = false;
         public virtual IEnumerable<TextParser> Parsers => parserGroups.Select(g => g.Parser);
 
         private readonly List<ParserLinesGroup> parserGroups = new();
@@ -34,7 +35,7 @@ namespace ChartTools.IO
             BaseRead(false, CancellationToken.None);
 
             foreach (var group in parserGroups)
-                group.Parser.Parse(group.Source.Enumerable);
+                group.Parser.Parse(group.Source.Enumerable.EnumerateSynchronously());
         }
         public async Task ReadAsync(CancellationToken cancellationToken)
         {
@@ -75,7 +76,11 @@ namespace ChartTools.IO
 
                 // Move to the start of the entries
                 do
-                    AdvanceSection();
+                    if (!AdvanceSection())
+                    {
+                        Finish();
+                        return;
+                    }
                 while (!IsSectionStart(enumerator.Current));
 
                 AdvanceSection();
@@ -84,31 +89,37 @@ namespace ChartTools.IO
                 while (!IsSectionEnd(enumerator.Current))
                 {
                     currentGroup?.Source.Add(enumerator.Current);
-                    AdvanceSection();
+
+                    if (!AdvanceSection())
+                    {
+                        Finish();
+                        return;
+                    }
                 }
 
-                if (async)
+                Finish();
+
+                void Finish()
                 {
-                    if (cancellationToken.IsCancellationRequested)
+                    if (async || cancellationToken.IsCancellationRequested)
                     {
-                        Dispose();
-                        return;
+                        if (cancellationToken.IsCancellationRequested)
+                        {
+                            Dispose();
+                            return;
+                        }
                     }
 
                     if (currentGroup is not null)
                         currentGroup!.Source.EndAwait();
                 }
 
-                void AdvanceSection()
-                {
-                    if (!enumerator.MoveNext())
-                        throw SectionException.EarlyEnd(header);
-                }
+                bool AdvanceSection() => enumerator.MoveNext() ? true : (DefinedSectionEnd ? throw SectionException.EarlyEnd(header) : false);
             }
         }
 
         protected abstract bool IsSectionStart(string line);
-        protected abstract bool IsSectionEnd(string line);
+        protected virtual bool IsSectionEnd(string line) => false;
 
         public virtual async void Dispose()
         {

@@ -11,6 +11,5 @@ namespace ChartTools.IO.Ini
         public IniFileReader(string path, Func<string, IniParser?> parserGetter) : base(path, parserGetter) { }
 
         protected override bool IsSectionStart(string line) => !line.StartsWith('[');
-        protected override bool IsSectionEnd(string line) => line.StartsWith(']');
     }
 }

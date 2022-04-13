@@ -88,12 +88,6 @@ namespace ChartTools.IO.Chart.Parsers
             }
         }
 
-        public override void ApplyToSong(Song song)
-        {
-            if (song.Metadata is null)
-                song.Metadata = Result;
-            else
-                PropertyMerger.Merge(song.Metadata, false, true, Result);
-        }
+        public override void ApplyToSong(Song song) => song.Metadata = Result;
     }
 }

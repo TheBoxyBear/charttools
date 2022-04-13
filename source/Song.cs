@@ -94,7 +94,7 @@ namespace ChartTools
         }
         public static async Task<Song> FromDirectoryAsync(string directory, ReadingConfiguration? config = default, CancellationToken cancellationToken = default)
         {
-            (var song, var metadata) = await DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, config, formatting, cancellationToken));
+            (var song, var metadata) = await DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, config, formatting, cancellationToken), cancellationToken);
             song ??= new();
 
             PropertyMerger.Merge(song.Metadata, true, true, metadata);

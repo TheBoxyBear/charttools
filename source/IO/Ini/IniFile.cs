@@ -3,6 +3,8 @@ using ChartTools.IO.Configuration;
 using ChartTools.SystemExtensions.Linq;
 
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ChartTools.IO.Ini
 {
@@ -23,6 +25,19 @@ namespace ChartTools.IO.Ini
                 ? parser!.Result
                 : throw SectionException.MissingRequired(IniFormatting.Header);
         }
+        /// <inheritdoc cref="Metadata.FromFile(string)"/>
+        /// <param name="path"><inheritdoc cref="Song.FromFile(string, ReadingConfiguration?, FormattingRules?)" path="/param[@name='path']"/></param>
+        /// <returns>A new instance of <see cref="Metadata"/> if <paramref name="existing"/> is <see langword="null"/>, otherwise the same reference.</returns>
+        public static async Task<Metadata> ReadMetadataAsync(string path, Metadata? existing = null, CancellationToken cancellationToken = default)
+        {
+            var reader = new IniFileReader(path, header => header.Equals(IniFormatting.Header, StringComparison.OrdinalIgnoreCase) ? new(existing) : null);
+            await reader.ReadAsync(cancellationToken);
+
+            return reader.Parsers.TryGetFirst(out var parser)
+                ? parser!.Result
+                : throw SectionException.MissingRequired(IniFormatting.Header);
+        }
+
         /// <summary>
         /// Writes the metadata in a file.
         /// </summary>

@@ -20,6 +20,11 @@ namespace ChartTools.Internal.Collections.Delayed
             enumerator = new(source);
         }
 
+        public IEnumerable<T> EnumerateSynchronously()
+        {
+            while (AwaitingItems) { }
+            return source.Buffer;
+        }
 
         public IEnumerator<T> GetEnumerator() => enumerator;
         IEnumerator IEnumerable.GetEnumerator() => enumerator;

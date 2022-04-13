@@ -125,19 +125,19 @@ namespace ChartTools
             switch (instrument.InstrumentIdentity)
             {
                 case InstrumentIdentity.LeadGuitar:
-                    LeadGuitar = instrument;
+                    _leadGuitar = instrument;
                     break;
                 case InstrumentIdentity.RhythmGuitar:
-                    RhythmGuitar = instrument;
+                    _rhythmGuitar = instrument;
                     break;
                 case InstrumentIdentity.CoopGuitar:
-                    CoopGuitar = instrument;
+                    _coopGuitar = instrument;
                     break;
                 case InstrumentIdentity.Bass:
-                    Bass = instrument;
+                    _bass = instrument;
                     break;
                 case InstrumentIdentity.Keys:
-                    Keys = instrument;
+                    _keys = instrument;
                     break;
                 default:
                     throw new UndefinedEnumException(instrument.InstrumentIdentity);

@@ -2,7 +2,6 @@
 using System.Linq;
 using System;
 using System.Collections.Generic;
-using System.Collections;
 using ChartTools.SystemExtensions.Linq;
 
 namespace ChartTools.Internal
@@ -25,7 +24,7 @@ namespace ChartTools.Internal
             var stringType = typeof(string);
             var nullableType = typeof(Nullable);
 
-            foreach (var prop in typeof(T).GetProperties())
+            foreach (var prop in GetProperties(typeof(T)))
                 MergeValue(current, prop, GetValues(newValues.Cast<object>(), prop));
 
             void MergeValue(object? source, PropertyInfo prop, IEnumerable<object> newValues)
@@ -33,9 +32,11 @@ namespace ChartTools.Internal
                 var value = prop.GetValue(source);
 
                 if (deepMerge && !prop.PropertyType.IsPrimitive && prop.PropertyType != stringType && Nullable.GetUnderlyingType(prop.PropertyType) is null)
+                {
                     if (value is not null)
-                        foreach (var deepProp in prop.PropertyType.GetProperties())
+                        foreach (var deepProp in GetProperties(prop.PropertyType))
                             MergeValue(value, deepProp, GetValues(newValues, deepProp));
+                }
                 else if (value is null || overwriteNonNull)
                 {
                     var newVal = newValues.FirstOrDefault(newVal => newVal is not null);
@@ -45,6 +46,7 @@ namespace ChartTools.Internal
                 }
             }
 
+            IEnumerable<PropertyInfo> GetProperties(Type type) => type.GetProperties().Where(i => i.CanWrite);
             IEnumerable<object> GetValues(IEnumerable<object> sources, PropertyInfo prop) => sources.Select(s => prop.GetValue(s)).NonNull();
         }
     }
