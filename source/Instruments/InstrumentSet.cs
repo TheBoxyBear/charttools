@@ -5,6 +5,7 @@ using ChartTools.SystemExtensions.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ChartTools
 {
@@ -119,6 +120,8 @@ namespace ChartTools
         /// <param name="instrument">Instrument to get</param>
         /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="StandardChord"/> from the <see cref="Song"/>.</returns>
         public Instrument<StandardChord>? Get(StandardInstrumentIdentity instrument) => Get((InstrumentIdentity)instrument) as Instrument<StandardChord>;
+
+        public IEnumerable<Instrument> Existing() => this.NonNull().Where(instrument => !instrument.IsEmpty);
 
         public void Set(Instrument<StandardChord> instrument)
         {

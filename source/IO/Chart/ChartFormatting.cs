@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ChartTools.IO.Chart.Entries;
+
+using System;
 using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart
@@ -60,7 +62,7 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <param name="index">Value of <see cref="Note.NoteIndex"/></param>
         /// <param name="sustain">Value of <see cref="Note.Length"/></param>
-        public static string NoteData(byte index, uint sustain) => $"N {index} {sustain}";
+        public static TrackObjectEntry NoteEntry(uint position, byte index, uint sustain) => new(position, "N", $"{index} {sustain}");
 
         /// <summary>
         /// Gets the written value of a float.

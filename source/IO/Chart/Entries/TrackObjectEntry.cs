@@ -10,22 +10,22 @@ namespace ChartTools.IO.Chart.Entries
         /// <summary>
         /// Value of <see cref="TrackObject.Position"/>
         /// </summary>
-        internal uint Position { get; }
+        public uint Position { get; }
         /// <summary>
         /// Type code of <see cref="TrackObject"/>
         /// </summary>
-        internal string Type { get; }
+        public string Type { get; }
         /// <summary>
         /// Additional data
         /// </summary>
-        internal string Data { get; }
+        public string Data { get; }
 
         /// <summary>
         /// Creates an instance of see<see cref="TrackObjectEntry"/>.
         /// </summary>
         /// <param name="line">Line in the file</param>
         /// <exception cref="FormatException"/>
-        internal TrackObjectEntry(string line)
+        public TrackObjectEntry(string line)
         {
             TextEntry entry = new(line);
 
@@ -39,5 +39,13 @@ namespace ChartTools.IO.Chart.Entries
 
             Position = ValueParser.ParseUint(entry.Key, "position");
         }
+        public TrackObjectEntry(uint position, string type, string data)
+        {
+            Position = position;
+            Type = type;
+            Data = data;
+        }
+
+        public override string ToString() => ChartFormatting.Line(Position.ToString(), $"{Type} {Data}");
     }
 }

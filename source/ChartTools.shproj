@@ -57,8 +57,6 @@
     <Compile Include="IO\Chart\Providers\SpecialPhraseProvider.cs" />
     <Compile Include="IO\Chart\Providers\TempoProvider.cs" />
     <Compile Include="IO\Chart\Providers\TimeSignatureProvider.cs" />
-    <Compile Include="IO\Chart\Providers\TrackObjectProviderEntry.cs" />
-    <Compile Include="IO\Chart\Serializers\GlobalEventSerializer.cs" />
     <Compile Include="IO\Chart\Serializers\MetadataSerializer.cs" />
     <Compile Include="IO\Chart\Serializers\SyncTrackSerializer.cs" />
     <Compile Include="IO\Chart\Serializers\TrackObjectGroupSerializer.cs" />

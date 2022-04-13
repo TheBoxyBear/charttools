@@ -1,4 +1,5 @@
-﻿using ChartTools.IO.Configuration.Sessions;
+﻿using ChartTools.IO.Chart.Entries;
+using ChartTools.IO.Configuration.Sessions;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -22,8 +23,8 @@ namespace ChartTools
         /// Gets the data to write in a chart file.
         /// </summary>
         /// <returns>Enumerable of strings containing the data to add to each line</returns>
-        internal abstract IEnumerable<string> GetChartNoteData();
-        internal abstract IEnumerable<string> GetChartModifierData(Chord? previous, WritingSession session);
+        internal abstract IEnumerable<TrackObjectEntry> GetChartNoteData();
+        internal abstract IEnumerable<TrackObjectEntry> GetChartModifierData(Chord? previous, WritingSession session);
 
         public IEnumerator<Note> GetEnumerator() => Notes.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

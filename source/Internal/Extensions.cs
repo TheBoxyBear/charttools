@@ -7,7 +7,6 @@ using ChartTools.Lyrics;
 using ChartTools.Collections.Alternating;
 using System.Threading.Tasks;
 using System.Collections;
-using ChartTools.IO.Configuration;
 using System.Threading;
 using ChartTools.Events;
 
@@ -41,7 +40,7 @@ namespace ChartTools.SystemExtensions
 }
 namespace ChartTools.SystemExtensions.Linq
 {
-    public record SectionReplacement<T>(IEnumerable<T> Replacement, Predicate<T> StartReplace, Predicate<T> EndReplace);
+    public record SectionReplacement<T>(IEnumerable<T> Replacement, Predicate<T> StartReplace, Predicate<T> EndReplace, bool AddIfMissing);
 
     /// <summary>
     /// Provides additional methods to Linq
@@ -143,16 +142,12 @@ namespace ChartTools.SystemExtensions.Linq
         /// </summary>
         /// <remarks>Items that match startReplace or endReplace are not included in the returned items.</remarks>
         /// <param name="source">Items to replace a section in</param>
-        /// <param name="replacement">Items to replace the section with</param>
-        /// <param name="startReplace">Function that determines if an item if the first to be replaced</param>
-        /// <param name="endReplace">Function that determines where to stop excluding items from the source</param>
-        /// <param name="addIfMissing">Add the replacement to the end of the items if startReplace is never met</param>
-        public static IEnumerable<T> ReplaceSection<T>(this IEnumerable<T> source, IEnumerable<T> replacement, Predicate<T> startReplace, Predicate<T> endReplace, bool addIfMissing = false)
+        public static IEnumerable<T> ReplaceSection<T>(this IEnumerable<T> source, SectionReplacement<T> replacement)
         {
-            if (startReplace is null)
-                throw new ArgumentNullException(nameof(startReplace));
-            if (endReplace is null)
-                throw new ArgumentNullException(nameof(endReplace));
+            if (replacement.StartReplace is null)
+                throw new ArgumentNullException(nameof(replacement.StartReplace));
+            if (replacement.EndReplace is null)
+                throw new ArgumentNullException(nameof(replacement.EndReplace));
 
             IEnumerator<T> itemsEnumerator = source.GetEnumerator();
 
@@ -160,37 +155,37 @@ namespace ChartTools.SystemExtensions.Linq
             if (!itemsEnumerator.MoveNext())
             {
                 // Return the replacement
-                if (addIfMissing)
-                    foreach (T item in replacement)
+                if (replacement.AddIfMissing)
+                    foreach (T item in replacement.Replacement)
                         yield return item;
 
                 yield break;
             }
 
             // Return original until startReplace
-            while (!startReplace(itemsEnumerator.Current))
+            while (!replacement.StartReplace(itemsEnumerator.Current))
             {
                 yield return itemsEnumerator.Current;
 
                 if (!itemsEnumerator.MoveNext())
                 {
                     // Return the replacement
-                    if (addIfMissing)
-                        foreach (T item in replacement)
+                    if (replacement.AddIfMissing)
+                        foreach (T item in replacement.Replacement)
                             yield return item;
                     yield break;
                 }
             }
 
             // Return replacement
-            foreach (T item in replacement)
+            foreach (T item in replacement.Replacement)
                 yield return item;
 
             // Find the end of the section to replace
             do
                 if (!itemsEnumerator.MoveNext())
                     yield break;
-            while (endReplace(itemsEnumerator.Current));
+            while (replacement.EndReplace(itemsEnumerator.Current));
 
             // Return the rest
             while (itemsEnumerator.MoveNext())
@@ -202,9 +197,7 @@ namespace ChartTools.SystemExtensions.Linq
         /// </summary>
         /// <remarks>Items that match startReplace or endReplace are not included in the returned items.</remarks>
         /// <param name="source">Items to replace sections in</param>
-        /// <param name="addIfMissing">Add the replacement to the end of the items if startReplace is never met</param>
-        /// <param name="replacements">Array of tuples containing the items to replace the section and functions that determine the start and end of the replacement. Each tuple represents a section to replace</param>
-        public static IEnumerable<T> ReplaceSections<T>(this IEnumerable<T> source, bool addIfMissing, IEnumerable<SectionReplacement<T>> replacements)
+        public static IEnumerable<T> ReplaceSections<T>(this IEnumerable<T> source, IEnumerable<SectionReplacement<T>> replacements)
         {
             if (replacements is null || !replacements.Any())
             {
@@ -218,9 +211,8 @@ namespace ChartTools.SystemExtensions.Linq
 
             if (!itemsEnumerator.MoveNext())
             {
-                if (addIfMissing)
-                    foreach(var item in AddMissing())
-                        yield return item;
+                foreach (var item in AddMissing())
+                    yield return item;
 
                 yield break;
             }
@@ -234,9 +226,8 @@ namespace ChartTools.SystemExtensions.Linq
                     do
                         if (!itemsEnumerator.MoveNext())
                         {
-                            if (addIfMissing)
-                                foreach (var item in AddMissing())
-                                    yield return item;
+                            foreach (var item in AddMissing())
+                                yield return item;
                             yield break;
                         }
                     while (!replacement.EndReplace(itemsEnumerator.Current));
@@ -246,8 +237,6 @@ namespace ChartTools.SystemExtensions.Linq
                         yield return item;
 
                     replacementList.Remove(replacement);
-
-                    break;
                 }
                 else
                 {
@@ -255,9 +244,8 @@ namespace ChartTools.SystemExtensions.Linq
 
                     if (!itemsEnumerator.MoveNext())
                     {
-                        if (addIfMissing)
-                            foreach (var item in AddMissing())
-                                yield return item;
+                        foreach (var item in AddMissing())
+                            yield return item;
                         yield break;
                     }
                 }
@@ -272,7 +260,7 @@ namespace ChartTools.SystemExtensions.Linq
             IEnumerable<T> AddMissing()
             {
                 // Return remaining replacements
-                foreach (var replacement in replacementList)
+                foreach (var replacement in replacementList.Where(r => r.AddIfMissing))
                     // Return the replacement
                     foreach (T item in replacement.Replacement)
                         yield return item;

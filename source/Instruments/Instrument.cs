@@ -1,5 +1,6 @@
 ﻿using ChartTools.Exceptions;
 using ChartTools.Formatting;
+using ChartTools.Internal;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
@@ -19,8 +20,11 @@ namespace ChartTools
     /// <summary>
     /// Base class for instruments
     /// </summary>
-    public abstract record Instrument
+    public abstract record Instrument : IEmptyVerifiable
     {
+        /// <inheritdoc cref="IEmptyVerifiable.IsEmpty"/>
+        public bool IsEmpty => GetExistingTracks().All(t => t.IsEmpty);
+
         /// <summary>
         /// Identity of the instrument the object belongs to
         /// </summary>
@@ -100,7 +104,7 @@ namespace ChartTools
         /// <summary>
         /// Creates an array containing all tracks with data.
         /// </summary>
-        public virtual IEnumerable<Track> GetExistingTracks() => GetTracks().NonNull();
+        public virtual IEnumerable<Track> GetExistingTracks() => GetTracks().NonNull().Where(t => !t.IsEmpty);
 
         /// <summary>
         /// Gives all tracks the same local events.

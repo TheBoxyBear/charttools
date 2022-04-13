@@ -1,5 +1,6 @@
 ﻿using ChartTools.Events;
 using ChartTools.Formatting;
+using ChartTools.Internal;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
@@ -14,8 +15,11 @@ namespace ChartTools
     /// <summary>
     /// Base class for tracks
     /// </summary>
-    public abstract record Track
+    public abstract record Track : IEmptyVerifiable
     {
+        /// <inheritdoc cref="IEmptyVerifiable.IsEmpty"/>
+        public bool IsEmpty => Chords.Count == 0 && LocalEvents.Count == 0 && SpecialPhrases.Count == 0;
+
         /// <summary>
         /// Difficulty of the track
         /// </summary>

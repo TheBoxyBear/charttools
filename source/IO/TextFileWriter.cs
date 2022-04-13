@@ -1,6 +1,7 @@
 ﻿using ChartTools.Internal.Collections;
 using ChartTools.SystemExtensions.Linq;
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,10 +27,12 @@ namespace ChartTools.IO
             this.removedHeaders = removedHeaders;
         }
 
-        private IEnumerable<SectionReplacement<string>> AddRemoveReplacements(IEnumerable<SectionReplacement<string>> replacements) => removedHeaders is null ? replacements : replacements.Concat(removedHeaders.Select(header => new SectionReplacement<string>(Enumerable.Empty<string>(), line => line == header, EndReplace)));
+        private IEnumerable<SectionReplacement<string>> AddRemoveReplacements(IEnumerable<SectionReplacement<string>> replacements) => removedHeaders is null ? replacements : replacements.Concat(removedHeaders.Select(header => new SectionReplacement<string>(Enumerable.Empty<string>(), line => line == header, EndReplace, false)));
 
-        private IEnumerable<string> AddWrapper(IEnumerable<string> lines)
+        private IEnumerable<string> Wrap(string header, IEnumerable<string> lines)
         {
+            yield return header;
+
             if (PreSerializerContent is not null)
                 yield return PreSerializerContent;
 
@@ -42,30 +45,29 @@ namespace ChartTools.IO
 
         public void Write()
         {
-            var replacements = AddRemoveReplacements(serializers.Select(serializer => new SectionReplacement<string>(AddWrapper(serializer.Serialize()), line => line == serializer.Header, EndReplace)));
-            using var writer = new StreamWriter(tempPath);
+            using (var writer = new StreamWriter(tempPath))
+                foreach (var line in GetLines(serializer => serializer.Serialize()))
+                    writer.WriteLine(line);
 
-            foreach (var line in File.ReadLines(Path).ReplaceSections(true, replacements))
-                writer.WriteLine(line);
-
-            File.Copy(tempPath, Path);
+            File.Copy(tempPath, Path, true);
             File.Delete(tempPath);
         }
         public async Task WriteAsync(CancellationToken cancellationToken)
         {
-            (Serializer<string> serialzier, IEnumerable<string> lines)[] serializerTaskGroups = serializers.Select(serializer => (serializer, AddWrapper(new EagerEnumerable<string>(serializer.SerializeAsync())))).ToArray();
-            var replacements = AddRemoveReplacements(serializerTaskGroups.Select(group => new SectionReplacement<string>(group.lines, line => line == group.serialzier.Header, EndReplace)));
-
-            using var writer = new StreamWriter(tempPath);
-
-            foreach (var line in File.ReadLines(Path).ReplaceSections(true, replacements))
-                await writer.WriteLineAsync(line);
+            using (var writer = new StreamWriter(tempPath))
+                foreach (var line in GetLines(serializer => new EagerEnumerable<string>(serializer.SerializeAsync())))
+                    await writer.WriteLineAsync(line);
 
             if (!cancellationToken.IsCancellationRequested)
-                File.Copy(tempPath, Path);
+                File.Copy(tempPath, Path, true);
 
             File.Delete(tempPath);
         }
+
+        private IEnumerable<string> GetLines(Func<Serializer<string>, IEnumerable<string>> getSerializerLines) => File.Exists(Path)
+            ? File.ReadAllLines(Path)
+            .ReplaceSections(AddRemoveReplacements(serializers.Select(serializer => new SectionReplacement<string>(Wrap(serializer.Header, getSerializerLines(serializer)), line => line == serializer.Header, EndReplace, true))))
+            : serializers.SelectMany(serializer => Wrap(serializer.Header, serializer.Serialize()));
 
         protected abstract bool EndReplace(string line);
     }

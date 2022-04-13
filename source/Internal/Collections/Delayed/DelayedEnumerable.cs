@@ -22,7 +22,7 @@ namespace ChartTools.Internal.Collections.Delayed
 
         public IEnumerable<T> EnumerateSynchronously()
         {
-            while (AwaitingItems) { }
+            while (AwaitingItems);
             return source.Buffer;
         }
 

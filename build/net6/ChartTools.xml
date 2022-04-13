@@ -1140,7 +1140,7 @@
             Part names of <see cref="T:ChartTools.InstrumentIdentity"/> without the difficulty
             </summary>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFormatting.NoteData(System.Byte,System.UInt32)">
+        <member name="M:ChartTools.IO.Chart.ChartFormatting.NoteEntry(System.UInt32,System.Byte,System.UInt32)">
             <summary>
             Gets the written data for a note.
             </summary>
@@ -1569,6 +1569,9 @@
             Base class for instruments
             </summary>
         </member>
+        <member name="P:ChartTools.Instrument.IsEmpty">
+            <inheritdoc cref="P:ChartTools.Internal.IEmptyVerifiable.IsEmpty"/>
+        </member>
         <member name="P:ChartTools.Instrument.InstrumentIdentity">
             <summary>
             Identity of the instrument the object belongs to
@@ -1729,7 +1732,9 @@
             <summary>
             Sets a track for a given <see cref="T:ChartTools.Difficulty"/>.
             </summary>
+            <returns>Track instance assigned to the instrument. Changed made to the passed reference will not be reflected in the instrument.</returns>
             <exception cref="T:System.ArgumentNullException"/>
+            <exception cref="T:ChartTools.Exceptions.UndefinedEnumException"/>
         </member>
         <member name="T:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2">
             <summary>
@@ -2156,25 +2161,19 @@
             <param name="predicate">A function that determines if an item must be replaced</param>
             <param name="replacement">The item to replace items with</param>
         </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.ReplaceSection``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},System.Predicate{``0},System.Boolean)">
+        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.ReplaceSection``1(System.Collections.Generic.IEnumerable{``0},ChartTools.SystemExtensions.Linq.SectionReplacement{``0})">
             <summary>
             Replaces a section with other items.
             </summary>
             <remarks>Items that match startReplace or endReplace are not included in the returned items.</remarks>
             <param name="source">Items to replace a section in</param>
-            <param name="replacement">Items to replace the section with</param>
-            <param name="startReplace">Function that determines if an item if the first to be replaced</param>
-            <param name="endReplace">Function that determines where to stop excluding items from the source</param>
-            <param name="addIfMissing">Add the replacement to the end of the items if startReplace is never met</param>
         </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.ReplaceSections``1(System.Collections.Generic.IEnumerable{``0},System.Boolean,System.Collections.Generic.IEnumerable{ChartTools.SystemExtensions.Linq.SectionReplacement{``0}})">
+        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.ReplaceSections``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{ChartTools.SystemExtensions.Linq.SectionReplacement{``0}})">
             <summary>
             Replaces multiple sections of items.
             </summary>
             <remarks>Items that match startReplace or endReplace are not included in the returned items.</remarks>
             <param name="source">Items to replace sections in</param>
-            <param name="addIfMissing">Add the replacement to the end of the items if startReplace is never met</param>
-            <param name="replacements">Array of tuples containing the items to replace the section and functions that determine the start and end of the replacement. Each tuple represents a section to replace</param>
         </member>
         <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.RemoveSection``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},System.Predicate{``0})">
             <summary>
@@ -2797,6 +2796,9 @@
             <summary>
             Base class for tracks
             </summary>
+        </member>
+        <member name="P:ChartTools.Track.IsEmpty">
+            <inheritdoc cref="P:ChartTools.Internal.IEmptyVerifiable.IsEmpty"/>
         </member>
         <member name="P:ChartTools.Track.Difficulty">
             <summary>

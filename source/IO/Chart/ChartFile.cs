@@ -511,8 +511,8 @@ namespace ChartTools.IO.Chart
         }
         private static ChartFileWriter GetSongWriter(string path, Song song, WritingSession session)
         {
-            var instruments = song.Instruments.ToArray();
-            var serializers = new List<Serializer<string>>(instruments.Length + 1);
+            var instruments = song.Instruments.NonNull().ToArray();
+            var serializers = new List<Serializer<string>>(instruments.Length + 2);
             var removedHeaders = new List<string>();
 
             serializers.Add(new MetadataSerializer(song.Metadata));
@@ -521,21 +521,29 @@ namespace ChartTools.IO.Chart
                 serializers.Add(new SyncTrackSerializer(song.SyncTrack, session));
             else
                 removedHeaders.Add(ChartFormatting.SyncTrackHeader);
+
             if (song.GlobalEvents.Count > 0)
                 serializers.Add(new GlobalEventSerializer(song.GlobalEvents, session));
             else
                 removedHeaders.Add(ChartFormatting.GlobalEventHeader);
 
-            foreach (var instrument in instruments.NonNull())
+            var difficulties = Enum.GetValues<Difficulty>().ToArray();
+
+            // Remove headers for null instruments
+            removedHeaders.AddRange((from identity in Enum.GetValues<InstrumentIdentity>()
+                                     where instruments.Any(instrument => instrument.InstrumentIdentity == identity)
+                                     let instrumentName = ChartFormatting.InstrumentHeaderNames[identity]
+                                     let headers = from diff in difficulties
+                                                   select ChartFormatting.Header(identity, diff)
+                                     select headers).SelectMany(h => h));
+
+            foreach (var instrument in instruments)
             {
                 var instrumentName = ChartFormatting.InstrumentHeaderNames[instrument.InstrumentIdentity];
-                var tracks = instrument.GetTracks();
+                var tracks = instrument.GetExistingTracks().ToArray();
 
-                for (int i = 0; i < tracks.Length; i++)
-                    if (tracks[i] is null)
-                        removedHeaders.Add(ChartFormatting.Header(instrumentName, (Difficulty)i));
-                    else
-                        serializers.Add(new TrackSerializer(tracks[i]!, session));
+                serializers.AddRange(tracks.Select(t => new TrackSerializer(t, session)));
+                removedHeaders.AddRange(difficulties.Where(diff => !tracks.Any(t => t.Difficulty == diff)).Select(diff => ChartFormatting.Header(instrumentName, diff)));
             }
 
             return new(path, removedHeaders, serializers.ToArray());
@@ -564,7 +572,9 @@ namespace ChartTools.IO.Chart
             var tracks = instrument.GetExistingTracks().ToArray();
             var difficulties = Enum.GetValues<Difficulty>().ToArray();
 
-            return new(path, difficulties.Where(d => !tracks.Any(t => t.Difficulty == d)).Select(d => ChartFormatting.Header(instrumentName, d)), tracks.NonNull().Select(t => new TrackSerializer(t, session)).ToArray());
+            return new(path,
+                difficulties.Where(d => !tracks.Any(t => t.Difficulty == d)).Select(d => ChartFormatting.Header(instrumentName, d)),
+                tracks.Select(t => new TrackSerializer(t, session)).ToArray());
         }
 
         public static void ReplaceTrack(string path, Track track, WritingConfiguration? config = default, FormattingRules? formatting = default)

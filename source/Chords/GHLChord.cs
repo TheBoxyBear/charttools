@@ -1,4 +1,5 @@
 ﻿using ChartTools.IO.Chart;
+using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration.Sessions;
 
 using System;
@@ -39,7 +40,7 @@ namespace ChartTools
                 Notes.Add(new Note<GHLLane>(note));
         }
 
-        internal override IEnumerable<string> GetChartNoteData() => Notes.Select(note => ChartFormatting.NoteData(note.Lane switch
+        internal override IEnumerable<TrackObjectEntry> GetChartNoteData() => Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane switch
         {
             GHLLane.Open => 7,
             GHLLane.Black1 => 3,
@@ -50,14 +51,14 @@ namespace ChartTools
             GHLLane.White3 => 2,
         }, note.Length));
 
-        internal override IEnumerable<string> GetChartModifierData(Chord? previous, WritingSession session)
+        internal override IEnumerable<TrackObjectEntry> GetChartModifierData(Chord? previous, WritingSession session)
         {
             var isInvert = Modifier.HasFlag(GHLChordModifier.HopoInvert);
 
             if (Modifier.HasFlag(GHLChordModifier.ExplicitHopo) && (previous is null || previous.Position <= session.Formatting!.TrueHopoFrequency) != isInvert || isInvert)
-                yield return ChartFormatting.NoteData(5, 0);
+                yield return ChartFormatting.NoteEntry(Position, 5, 0);
             if (Modifier.HasFlag(GHLChordModifier.Tap))
-                yield return ChartFormatting.NoteData(6, 0);
+                yield return ChartFormatting.NoteEntry(Position, 6, 0);
         }
     }
 }
