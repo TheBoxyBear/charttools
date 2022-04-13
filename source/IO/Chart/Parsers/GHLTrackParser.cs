@@ -12,10 +12,10 @@ namespace ChartTools.IO.Chart.Parsers
 
         public override void ApplyToSong(Song song)
         {
-            var inst = song.GetInstrument(Instrument);
+            var inst = song.Instruments.Get(Instrument);
 
             if (inst is null)
-                song.SetInstrument(inst = new(), Instrument);
+                song.Instruments.Set(inst = new() { InstrumentIdentity = (InstrumentIdentity)Instrument });
 
             ApplyToInstrument(inst);
         }

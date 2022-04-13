@@ -511,7 +511,7 @@ namespace ChartTools.IO.Chart
         }
         private static ChartFileWriter GetSongWriter(string path, Song song, WritingSession session)
         {
-            var instruments = song.GetInstruments().ToArray();
+            var instruments = song.Instruments.ToArray();
             var serializers = new List<Serializer<string>>(instruments.Length + 1);
             var removedHeaders = new List<string>();
 

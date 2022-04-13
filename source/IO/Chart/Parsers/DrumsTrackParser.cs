@@ -10,7 +10,7 @@ namespace ChartTools.IO.Chart.Parsers
     {
         public DrumsTrackParser(Difficulty difficulty, ReadingSession session) : base(difficulty, session) { }
 
-        public override void ApplyToSong(Song song) => ApplyToInstrument(song.Drums ??= new());
+        public override void ApplyToSong(Song song) => ApplyToInstrument(song.Instruments.Drums ??= new());
 
         protected override void HandleNote(Track<DrumsChord> track, ref DrumsChord chord, uint position, NoteData data, ref bool newChord, out Enum initialModifier)
         {

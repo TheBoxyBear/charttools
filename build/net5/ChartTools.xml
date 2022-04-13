@@ -756,6 +756,67 @@
             </summary>
             <exception cref="T:ChartTools.Exceptions.UndefinedEnumException"></exception>
         </member>
+        <member name="P:ChartTools.InstrumentSet.Drums">
+            <summary>
+            Set of drums tracks
+            </summary>
+        </member>
+        <member name="P:ChartTools.InstrumentSet.GHLGuitar">
+            <summary>
+            Set of Guitar Hero Live guitar tracks
+            </summary>
+        </member>
+        <member name="P:ChartTools.InstrumentSet.GHLBass">
+            <summary>
+            Set of Guitar Hero Live bass tracks
+            </summary>
+        </member>
+        <member name="P:ChartTools.InstrumentSet.LeadGuitar">
+            <summary>
+            Set of lead guitar tracks
+            </summary>
+        </member>
+        <member name="P:ChartTools.InstrumentSet.RhythmGuitar">
+            <summary>
+            Set of rhythm guitar tracks
+            </summary>
+        </member>
+        <member name="P:ChartTools.InstrumentSet.CoopGuitar">
+            <summary>
+            Set of coop guitar tracks
+            </summary>
+        </member>
+        <member name="P:ChartTools.InstrumentSet.Bass">
+            <summary>
+            Set of bass tracks
+            </summary>
+        </member>
+        <member name="P:ChartTools.InstrumentSet.Keys">
+            <summary>
+            Set of keyboard tracks
+            </summary>
+        </member>
+        <member name="M:ChartTools.InstrumentSet.Get(ChartTools.InstrumentIdentity)">
+            <summary>
+            Gets property value for an <see cref="T:ChartTools.Instrument"/> from a <see cref="T:ChartTools.InstrumentIdentity"/> <see langword="enum"/> value.
+            </summary>
+            <returns>Instance of <see cref="T:ChartTools.Instrument"/> from the <see cref="T:ChartTools.Song"/></returns>
+            <param name="instrument">Instrument to get</param>
+        </member>
+        <member name="M:ChartTools.InstrumentSet.Get(ChartTools.GHLInstrumentIdentity)">
+            <summary>
+            Gets property value for an <see cref="T:ChartTools.Instrument`1"/> from a <see cref="T:ChartTools.GHLInstrumentIdentity"/> <see langword="enum"/> value.
+            </summary>
+            /// <param name="instrument">Instrument to get</param>
+            <returns>Instance of <see cref="T:ChartTools.Instrument`1"/> where TChord is <see cref="T:ChartTools.GHLChord"/> from the <see cref="T:ChartTools.Song"/>.</returns>
+        </member>
+        <member name="M:ChartTools.InstrumentSet.Get(ChartTools.StandardInstrumentIdentity)">
+            <summary>
+            Gets property value for an <see cref="T:ChartTools.Instrument`1"/> from a <see cref="T:ChartTools.StandardInstrumentIdentity"/> <see langword="enum"/> value.
+            </summary>
+            <param name="instrument">Instrument to get</param>
+            <returns>Instance of <see cref="T:ChartTools.Instrument`1"/> where TChord is <see cref="T:ChartTools.StandardChord"/> from the <see cref="T:ChartTools.Song"/>.</returns>
+        </member>
         <member name="P:ChartTools.Internal.Collections.Delayed.DelayedEnumerable`1.AwaitingItems">
             <summary>
             <see langword="true"/> if there are more items to be received
@@ -1308,7 +1369,7 @@
         </member>
         <member name="F:ChartTools.IO.Configuration.LyricEventSource.Vocals">
             <summary>
-            Lyrics are obtained from the <see cref="P:ChartTools.Song.Vocals"/> instrument
+            Lyrics are obtained from the <see cref="!:Song.Vocals"/> instrument
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.ReadingConfiguration">
@@ -2573,67 +2634,6 @@
             <summary>
             List of events common to all instruments
             </summary>
-        </member>
-        <member name="P:ChartTools.Song.Drums">
-            <summary>
-            Set of drums tracks
-            </summary>
-        </member>
-        <member name="P:ChartTools.Song.GHLGuitar">
-            <summary>
-            Set of Guitar Hero Live guitar tracks
-            </summary>
-        </member>
-        <member name="P:ChartTools.Song.GHLBass">
-            <summary>
-            Set of Guitar Hero Live bass tracks
-            </summary>
-        </member>
-        <member name="P:ChartTools.Song.LeadGuitar">
-            <summary>
-            Set of lead guitar tracks
-            </summary>
-        </member>
-        <member name="P:ChartTools.Song.RhythmGuitar">
-            <summary>
-            Set of rhythm guitar tracks
-            </summary>
-        </member>
-        <member name="P:ChartTools.Song.CoopGuitar">
-            <summary>
-            Set of coop guitar tracks
-            </summary>
-        </member>
-        <member name="P:ChartTools.Song.Bass">
-            <summary>
-            Set of bass tracks
-            </summary>
-        </member>
-        <member name="P:ChartTools.Song.Keys">
-            <summary>
-            Set of keyboard tracks
-            </summary>
-        </member>
-        <member name="M:ChartTools.Song.GetInstrument(ChartTools.InstrumentIdentity)">
-            <summary>
-            Gets property value for an <see cref="T:ChartTools.Instrument"/> from a <see cref="T:ChartTools.InstrumentIdentity"/> <see langword="enum"/> value.
-            </summary>
-            <returns>Instance of <see cref="T:ChartTools.Instrument"/> from the <see cref="T:ChartTools.Song"/></returns>
-            <param name="instrument">Instrument to get</param>
-        </member>
-        <member name="M:ChartTools.Song.GetInstrument(ChartTools.GHLInstrumentIdentity)">
-            <summary>
-            Gets property value for an <see cref="T:ChartTools.Instrument`1"/> from a <see cref="T:ChartTools.GHLInstrumentIdentity"/> <see langword="enum"/> value.
-            </summary>
-            /// <param name="instrument">Instrument to get</param>
-            <returns>Instance of <see cref="T:ChartTools.Instrument`1"/> where TChord is <see cref="T:ChartTools.GHLChord"/> from the <see cref="T:ChartTools.Song"/>.</returns>
-        </member>
-        <member name="M:ChartTools.Song.GetInstrument(ChartTools.StandardInstrumentIdentity)">
-            <summary>
-            Gets property value for an <see cref="T:ChartTools.Instrument`1"/> from a <see cref="T:ChartTools.StandardInstrumentIdentity"/> <see langword="enum"/> value.
-            </summary>
-            <param name="instrument">Instrument to get</param>
-            <returns>Instance of <see cref="T:ChartTools.Instrument`1"/> where TChord is <see cref="T:ChartTools.StandardChord"/> from the <see cref="T:ChartTools.Song"/>.</returns>
         </member>
         <member name="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
             <summary>

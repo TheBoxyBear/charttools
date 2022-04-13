@@ -11,7 +11,7 @@ namespace ChartTools.IO.Chart.Parsers
 
         public override void ApplyToSong(Song song)
         {
-            var inst = song.GetInstrument(Instrument);
+            var inst = song.Instruments.Get(Instrument);
             var instrumentExists = inst is not null;
 
             if (!instrumentExists)
@@ -20,7 +20,7 @@ namespace ChartTools.IO.Chart.Parsers
             ApplyToInstrument(inst!);
 
             if (!instrumentExists)
-                song.SetInstrument(inst!, Instrument);
+                song.Instruments.Set(inst! with { InstrumentIdentity = (InstrumentIdentity)Instrument });
         }
 
         protected override void HandleNote(Track<StandardChord> track, ref StandardChord chord, uint position, NoteData data, ref bool newChord, out Enum initialModifier)

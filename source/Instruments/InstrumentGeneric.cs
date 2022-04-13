@@ -121,16 +121,16 @@ namespace ChartTools
 
             switch (track.Difficulty)
             {
-                case ChartTools.Difficulty.Easy:
+                case DiffEnum.Easy:
                     Easy = track;
                     break;
-                case ChartTools.Difficulty.Medium:
+                case DiffEnum.Medium:
                     Medium = track;
                     break;
-                case ChartTools.Difficulty.Hard:
+                case DiffEnum.Hard:
                     Hard = track;
                     break;
-                case ChartTools.Difficulty.Expert:
+                case DiffEnum.Expert:
                     Expert = track;
                     break;
             }

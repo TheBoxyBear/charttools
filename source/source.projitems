@@ -25,6 +25,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Events\LocalEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\UndefinedEnumException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\Validator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Instruments\InstrumentSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\EagerEnumerable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\IEmptyVerifiable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartFile.cs" />
