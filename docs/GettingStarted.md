@@ -2,7 +2,7 @@
 
 This document goes over the basics of parsing a chart through ChartTools. The full documentation can be found [here]().
 
-## Supported File Formats
+## Supported file formats
 
 ChartTools supports parsing of .chart and .ini files, with .mid parsing in the works.
 
