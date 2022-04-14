@@ -91,7 +91,7 @@ A chord is a set of notes played at the same time. All supported instruments use
 - `Note\<StandardLane\>`
 - `Note\<GHLLane\>`
 - `DrumsNote`
-- `Syllable (Vocals)`
+- `Syllable` (Vocals)
 
 The following adds an orange note to every chord on a track:
 
