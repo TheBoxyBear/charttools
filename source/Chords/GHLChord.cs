@@ -1,4 +1,7 @@
 ﻿using ChartTools.IO.Chart;
+using ChartTools.IO.Chart.Entries;
+using ChartTools.IO.Configuration.Sessions;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +16,8 @@ namespace ChartTools
         protected override bool OpenExclusivity => true;
         internal override bool ChartSupportedMoridier => !Modifier.HasFlag(GHLChordModifier.ExplicitHopo);
 
+        protected override GHLChordModifier DefaultModifier => GHLChordModifier.None;
+
         /// <inheritdoc cref="Chord(uint)"/>
         public GHLChord(uint position) : base(position) { }
         /// <inheritdoc cref="GHLChord(uint)"/>
@@ -25,7 +30,7 @@ namespace ChartTools
             foreach (Note<GHLLane> note in notes)
                 Notes.Add(note);
         }
-        /// <inheritdoc cref="GHLChord(uint, GHLNote[])"/>
+        /// <inheritdoc cref="GHLChord(uint, Note{GHLLane}[])"/>
         public GHLChord(uint position, params GHLLane[] notes) : base(position)
         {
             if (notes is null)
@@ -35,7 +40,7 @@ namespace ChartTools
                 Notes.Add(new Note<GHLLane>(note));
         }
 
-        internal override IEnumerable<string> GetChartNoteData() => Notes.Select(note => ChartParser.GetNoteData(note.Lane switch
+        internal override IEnumerable<TrackObjectEntry> GetChartNoteData() => Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane switch
         {
             GHLLane.Open => 7,
             GHLLane.Black1 => 3,
@@ -46,14 +51,14 @@ namespace ChartTools
             GHLLane.White3 => 2,
         }, note.Length));
 
-        internal override IEnumerable<string> GetChartModifierData(Chord? previous, ChartParser.WritingSession session)
+        internal override IEnumerable<TrackObjectEntry> GetChartModifierData(Chord? previous, WritingSession session)
         {
             var isInvert = Modifier.HasFlag(GHLChordModifier.HopoInvert);
 
-            if (Modifier.HasFlag(GHLChordModifier.ExplicitHopo) && (previous is null || previous.Position <= session.HopoThreshold) != isInvert || isInvert)
-                yield return ChartParser.GetNoteData(5, 0);
+            if (Modifier.HasFlag(GHLChordModifier.ExplicitHopo) && (previous is null || previous.Position <= session.Formatting!.TrueHopoFrequency) != isInvert || isInvert)
+                yield return ChartFormatting.NoteEntry(Position, 5, 0);
             if (Modifier.HasFlag(GHLChordModifier.Tap))
-                yield return ChartParser.GetNoteData(6, 0);
+                yield return ChartFormatting.NoteEntry(Position, 6, 0);
         }
     }
 }

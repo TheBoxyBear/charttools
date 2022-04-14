@@ -1,9 +1,10 @@
-﻿using ChartTools.IO;
-using ChartTools.SystemExtensions.Linq;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using ChartTools.Exceptions;
+
+using DiffEnum = ChartTools.Difficulty;
 
 namespace ChartTools
 {
@@ -12,113 +13,127 @@ namespace ChartTools
     /// </summary>
     public record Instrument<TChord> : Instrument where TChord : Chord
     {
-        private Track<TChord> _easy = new(), _medium = new(), _hard = new(), _expert = new();
         /// <summary>
         /// Easy track
         /// </summary>
-        public override Track<TChord> Easy => _easy;
+        public new Track<TChord>? Easy
+        {
+            get => _easy;
+            set => _easy = value is null ? null : value with { Difficulty = DiffEnum.Easy, ParentInstrument = this };
+        }
+        private Track<TChord>? _easy;
+
         /// <summary>
         /// Medium track
         /// </summary>
-        public override Track<TChord> Medium => _medium;
+        public new Track<TChord>? Medium
+        {
+            get => _medium;
+            set => _medium = value is null ? null : value with { Difficulty = DiffEnum.Medium, ParentInstrument = this };
+        }
+        private Track<TChord>? _medium;
+
         /// <summary>
         /// Hard track
         /// </summary>
-        public override Track<TChord> Hard => _hard;
+        public new Track<TChord>? Hard
+        {
+            get => _hard;
+            set => _hard = value is null ? null : value with { Difficulty = DiffEnum.Hard, ParentInstrument = this };
+        }
+        private Track<TChord>? _hard;
+
         /// <summary>
         /// Expert track
         /// </summary>
-        public override Track<TChord> Expert => _expert;
+        public new Track<TChord>? Expert
+        {
+            get => _expert;
+            set => _expert = value is null ? null : value with { Difficulty = DiffEnum.Expert, ParentInstrument = this };
+        }
+        private Track<TChord>? _expert;
 
         /// <summary>
         /// Gets the <see cref="Track{TChord}"/> that matches a <see cref="Difficulty"/>
         /// </summary>
-        public override Track<TChord> GetTrack(Difficulty difficulty) => difficulty switch
+        public override Track<TChord>? GetTrack(DiffEnum difficulty) => difficulty switch
         {
-            ChartTools.Difficulty.Easy => Easy,
-            ChartTools.Difficulty.Medium => Medium,
-            ChartTools.Difficulty.Hard => Hard,
-            ChartTools.Difficulty.Expert => Expert,
-            _ => throw CommonExceptions.GetUndefinedException(difficulty)
+            DiffEnum.Easy => Easy,
+            DiffEnum.Medium => Medium,
+            DiffEnum.Hard => Hard,
+            DiffEnum.Expert => Expert,
+            _ => throw new UndefinedEnumException(difficulty)
         };
+
+        /// <inheritdoc cref="Instrument.CreateTrack(DiffEnum)"/>
+        public override Track CreateTrack(DiffEnum difficulty) => difficulty switch
+        {
+            DiffEnum.Easy => Easy = new(),
+            DiffEnum.Medium => Medium = new(),
+            DiffEnum.Hard => Hard = new(),
+            DiffEnum.Expert => Expert = new(),
+            _ => throw new UndefinedEnumException(difficulty)
+        };
+        /// <inheritdoc cref="Instrument.RemoveTrack(DiffEnum)"/>
+        public override bool RemoveTrack(DiffEnum difficulty)
+        {
+            bool found;
+
+            switch (difficulty)
+            {
+                case DiffEnum.Easy:
+                    found = _easy is not null;
+                    _easy = null;
+                    return found;
+                case DiffEnum.Medium:
+                    found = _medium is not null;
+                    _medium = null;
+                    return found;
+                case DiffEnum.Hard:
+                    found = _hard is not null;
+                    _hard = null;
+                    return found;
+                case DiffEnum.Expert:
+                    found = _expert is not null;
+                    _expert = null;
+                    return found;
+                default:
+                    throw new UndefinedEnumException(difficulty);
+            }
+        }
+
+        protected override Track<TChord>? GetEasy() => Easy;
+        protected override Track<TChord>? GetMedium() => Medium;
+        protected override Track<TChord>? GetHard() => Hard;
+        protected override Track<TChord>? GetExpert() => Expert;
+
+        public override Track<TChord>?[] GetTracks() => new Track<TChord>?[] { Easy, Medium, Hard, Expert };
+        public override IEnumerable<Track<TChord>> GetExistingTracks() => base.GetExistingTracks().Cast<Track<TChord>>();
 
         /// <summary>
         /// Sets a track for a given <see cref="Difficulty"/>.
         /// </summary>
-        /// <exception cref="ArgumentNullException"></exception>
-        public void SetTrack(Track<TChord> track, Difficulty difficulty)
+        /// <returns>Track instance assigned to the instrument. Changed made to the passed reference will not be reflected in the instrument.</returns>
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="UndefinedEnumException"/>
+        public Track<TChord> SetTrack(Track<TChord> track)
         {
             if (track is null)
                 throw new ArgumentNullException(nameof(track));
 
-            switch (difficulty)
+            switch (track.Difficulty)
             {
-                case ChartTools.Difficulty.Easy:
-                    _easy = track with { Difficulty = ChartTools.Difficulty.Easy };
-                    break;
-                case ChartTools.Difficulty.Medium:
-                    _medium = track with { Difficulty = ChartTools.Difficulty.Medium };
-                    break;
-                case ChartTools.Difficulty.Hard:
-                    _hard = track with { Difficulty = ChartTools.Difficulty.Hard };
-                    break;
-                case ChartTools.Difficulty.Expert:
-                    _expert = track with { Difficulty = ChartTools.Difficulty.Expert };
-                    break;
+                case DiffEnum.Easy:
+                    return Easy = track;
+                case DiffEnum.Medium:
+                   return  Medium = track;
+                case DiffEnum.Hard:
+                    return Hard = track;
+                case DiffEnum.Expert:
+                    return Expert = track;
+                default:
+                    throw new UndefinedEnumException(track.Difficulty);
             }
-        }
-
-        /// <summary>
-        /// Gives all tracks the same local events.
-        /// </summary>
-        public void ShareLocalEvents(TrackObjectSource source)
-        {
-            if (source == TrackObjectSource.Seperate)
-                return;
-
-            LocalEvent?[]? events = ((IEnumerable<LocalEvent?>?)(source switch
-            {
-                TrackObjectSource.Easy => Easy.LocalEvents,
-                TrackObjectSource.Medium => Medium.LocalEvents,
-                TrackObjectSource.Hard => Hard.LocalEvents,
-                TrackObjectSource.Expert => Expert.LocalEvents,
-                TrackObjectSource.Merge => new Track<TChord>?[] { Easy, Medium, Hard, Expert }.NonNull().SelectMany(t => t.LocalEvents!).Distinct(),
-                _ => throw CommonExceptions.GetUndefinedException(source)
-            }))?.ToArray();
-
-            if (events is null || events.Length == 0)
-                return;
-
-            Easy.LocalEvents = new(events!);
-            Medium.LocalEvents = new(events!);
-            Hard.LocalEvents = new(events!);
-            Expert.LocalEvents = new(events!);
-        }
-        /// <summary>
-        /// Gives all tracks the same star power
-        /// </summary>
-        public void ShareStarPower(TrackObjectSource source)
-        {
-            if (source == TrackObjectSource.Seperate)
-                return;
-
-            StarPowerPhrase?[]? starPower = (source switch
-            {
-                TrackObjectSource.Easy => Easy.StarPower,
-                TrackObjectSource.Medium => Medium.StarPower,
-                TrackObjectSource.Hard => Hard.StarPower,
-                TrackObjectSource.Expert => Expert.StarPower,
-                TrackObjectSource.Merge => new Track<TChord>?[] { Easy, Medium, Hard, Expert }.NonNull().SelectMany(t => t.StarPower).Distinct(),
-                _ => throw CommonExceptions.GetUndefinedException(source)
-            })?.ToArray();
-
-            if (starPower is null || starPower.Length == 0)
-                return;
-
-            Easy.StarPower = new(starPower.Length, starPower!);
-            Medium.StarPower = new(starPower.Length, starPower!);
-            Hard.StarPower = new(starPower.Length, starPower!);
-            Expert.StarPower = new(starPower.Length, starPower!);
         }
     }
 }

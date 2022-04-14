@@ -1,6 +1,6 @@
 # Getting Started
 
-This document goes over the basics of parsing a chart through ChartTools.
+This document goes over the basics of parsing a chart through ChartTools. The full documentation can be found [here](docs).
 
 ## Supported File Formats
 
@@ -10,33 +10,41 @@ For documentation on the formats themselves, refer to the [GuitarGame_ChartForma
 
 ## Song
 
-Every element of a chart is stored in an instance of the Song class. It can be initialized by reading a file. The file format is detected automatically using the extension:
+Every component of a chart is stored in an instance of the Song class. It can be initialized by reading a file that will be parsed based on the extension.
 
 ```c#
-Song song = Song.FromFile(filePath);
+Song song = Song.FromFile(path);
 ```
 
 A configuration object may also be used to customize the error handling behavior:
 
 ```c#
-Song song = Song.FromFile(filePath, new ReadingConfiguration {});
+Song song = Song.FromFile(path, new ReadingConfiguration());
 ```
 
-A song contains four main elements:
+Note: Some MIDI files may contain formatting information in the song.ini file. In order to account for custom formatting when reading, it is recommended to read from a directory instead:
+
+```c#
+Song song = Song.FromDirectory(path, <ReadingConfiguration>);
+```
+
+When reading from a directory, the metadata will be read from `song.ini`, followed by the rest read from `notes.chart`.
+
+A song contains four main components:
 
 - Metadata - Miscellaneous info about the song, such as title, album, charter etc.
 - Sync track - Markers that define time signature and tempo
 - Global events - Events that are not tied to an instrument.
 - Instruments - The instrument track data.
 
-Each of these elements can be read individually from a file using the non-generic version of the corresponding class, with or without a configuration object.
+Each of these components can be read individually from a file or directory using the non-generic version of the corresponding class, with or without a configuration object.
 
 ## Metadata
 
 Similar to reading a song, metadata is retrieved by reading a file:
 
 ```c#
-Metadata metadata = Metadata.FromFile(filePath);
+Metadata metadata = Metadata.FromFile(path);
 ```
 
 Metadata can be read from either .chart or .ini. Given that most modern charts are made for Clone Hero, it is recommended that you prioritize .ini over .chart metadata, as that will usually be the more accurate metadata.
@@ -44,51 +52,37 @@ Metadata can be read from either .chart or .ini. Given that most modern charts a
 Metadata can also be retrieved from multiple files at once:
 
 ```c#
-Metadata metadata = Metadata.FromFiles(filePath1, filePath2, filePath3...);
+Metadata metadata = Metadata.FromFiles(path1, path2, path3...);
 ```
 
-When reading from multiple files, you can read from multiple file types at the same time, and the first file's information is prioritized: metadata from following files files is only read to fill out missing information, in decreasing order of priority, until either all metadata properties have a value, or until the last file is read. Similarly to reading a single file, it is recommended to read any .ini files first.
+When reading from multiple files, you can mix file types and priority of information is defined by the order of the files.
 
 As a future-proofing method, all unsupported items can be found under UnidentifiedData. This data will only be written to the same file format as the one it was read from.
 
 ## Instruments and Tracks
 
-All instruments currently supported are represented using the generic `Instrument` class. This class contains a `Track` class for every difficulty. A `Track` can be retrieved from a song like this:
+All instruments currently supported are represented using the generic `Instrument` class. This class contains an object of type `Track` class for every difficulty. A track can be retrieved from a song like this:
 
 ```c#
-Track<StandardChord> track = song.LeadGuitar.Expert;
+Track<StandardChord> track = song.Instruments.LeadGuitar.Expert;
 ```
 
-Notice the use of StandardChord as a generic type. Instruments are divided into three categories based on the type of chords it uses. These categories are:
+Notice the use of StandardChord as a generic type. Instruments are divided into four categories based on the type of chords it uses. These categories are:
 
 - Standard - Five colored notes
 - Drums - Five colored with support for double kick and cymbal flags
 - GHL (Guitar Hero Live) - Three black and three white notes
 - Vocals - Notes with an associated syllable. Only one note can be added for the same position.
 
-A track is composed of three elements:
+A track is composed of three components:
 
 - Chords (defined by the generic type)
-- Star power phrases
+- Special phrases (star power)
 - Local events
 
-### Loose Syntax
+> **NOTE**: When setting a track in an instrument, a clone of the track is created which contains the target instrument as the `ParentInstrument` property. In order to have changes made to the track after the assignment be reflected in the instrument, the track must be re-obtained from the instrument rather than using the instance used in the assignment.
 
-ChartTools supports loose syntax to retrieve instruments and tracks using enums instead of explicit properties.
-
-```C#
-Instrument guitar = song.GetInstrument(Instruments.LeadGuitar);
-Instrument<StandardChord> bass = song.GetInstrument(StandardInstruments.Bass);
-
-Track easyGuitar = guitar.GetTrack(Difficulty.Easy);
-Track<StandardChord> easyBass = bass.GetTrack(Difficulty.Easy);
-```
-
-Unless the instrument type is defined through its respective enum, getting an instrument through the loose syntax returns an instance of the base Instrument class. Like with explicit instruments, you can get tracks through either the loose or strong syntax. With both approaches, loose instruments will return loose tracks and explicit instruments will return explicit tracks. Loose tracks grant full access to local events and star power.
-
-You can get chords from a loose track, in which case the chords will be loose and the collection will be read-only. In the same way, getting notes from a loose chords returns a read-only, non-indexable set of loose notes which grant access to their index (the numerical value in the lane enum for the respective note type) and the sustain length. Due to restrictions with covariant types used by the loose syntax, setting tracks requires using the SetTrack method only accessible in explicit instruments.
-
-Any loose type can be cast to an explicit type.
+You can also get instruments from a song dynamically regardless of the type. To learn more, check out [Dynamic Syntax](docs/DynamicSyntax.md)
 
 ## Chords and Notes
 
@@ -99,12 +93,10 @@ A chord is a set of notes played at the same time. All supported instruments use
 - DrumsNote
 - Syllable (Vocals)
 
-Drums is an exception case where a class is specifically defined as it contains exclusive properties. It inherits from Note\<DrumsLane>.
-
 The following adds an orange note to every chord on a track:
 
 ```c#
-foreach (StandardChord chord in song.LeadGuitar.Expert)
+foreach (StandardChord chord in song.Instruments.LeadGuitar.Expert)
 {
     chord.Notes.Add(StandardLane.Orange);
     // or
@@ -121,7 +113,7 @@ Phrases can either be read from a file:
 ```c#
 using ChartTools.Lyrics;
 
-IEnumerable<Phrase> lyrics = Phrase.FromFile(filePath);
+IEnumerable<Phrase> lyrics = Phrase.FromFile(path);
 ```
 
 or using existing global events:
@@ -160,12 +152,15 @@ syncTrack.TimeSignatures.RemoveUnneeded();
 
 ## Writing files
 
-Finally, changes can be saved to a file using the instance or extension `ToFile` method of most components. The format is determined based on the extension of the file. For instruments and tracks, the existing element will be overwritten or added while keeping the rest of the file if it already exists.
+Finally, changes can be saved to a file using the instance or extension `ToFile` method of most components. The format is determined based on the extension of the file. For instruments and tracks, the existing component will be overwritten or added while keeping the rest of the file if it already exists.
 
 ```c#
-song.ToFile(filePath); // .chart file only
-metadata.ToFile(filePath) // .chart or .ini - some properties may not be written depending on the output format
-song.GlobalEvents.ToFile(path) // .chart only
+song.ToFile(path, <WritingConfiguration>); // .chart file only
+metadata.ToFile(path); // .chart or .ini - Some properties may not be written depending on the output format
 ```
 
-Due to strict limitations with the MIDI format, it is recommended to use a custom configuration object when writing files.
+When writing an individual component, it is recommended to pass the formatting to avoid it being read incorrectly in the future.
+
+```c#
+instrument.ToFile(path, <WritingConfiguration>, metadata.Formatting);
+```

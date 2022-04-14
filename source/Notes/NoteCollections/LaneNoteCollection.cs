@@ -1,8 +1,6 @@
-﻿using ChartTools.Collections.Unique;
-using ChartTools.SystemExtensions;
+﻿using ChartTools.Exceptions;
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace ChartTools
@@ -21,30 +19,43 @@ namespace ChartTools
 
         public override void Add(TLane lane)
         {
-            if (Enum.IsDefined(lane))
+            Validator.ValidateEnum(lane);
+
+            base.Add(lane);
+
+            if (OpenExclusivity)
             {
+                if (lane.Equals(0))
+                    Notes.Clear();
+                else
+                    base.Remove(lane);
+
                 base.Add(lane);
-
-                if (OpenExclusivity)
-                {
-                    if (lane.Equals(0))
-                        Notes.Clear();
-                    else
-                        base.Remove(lane);
-
-                    base.Add(lane);
-                }
             }
-            else
-                throw CommonExceptions.GetUndefinedException(lane);
         }
-        public override bool Contains(TLane lane) => Enum.IsDefined(lane) ? base.Contains(lane) : throw CommonExceptions.GetUndefinedException(lane);
-        public override bool Remove(TLane lane) => Enum.IsDefined(lane)? base.Remove(lane) : throw CommonExceptions.GetUndefinedException(lane);
+        public override bool Contains(TLane lane)
+        {
+            Validator.ValidateEnum(lane);
+            return base.Contains(lane);
+        }
 
-        public override TNote? this[TLane lane] => Enum.IsDefined(lane) ? base[lane] : throw CommonExceptions.GetUndefinedException(lane);
+        public override bool Remove(TLane lane)
+        {
+            Validator.ValidateEnum(lane);
+            return base.Remove(lane);
+        }
+
+        public override TNote? this[TLane lane]
+        {
+            get
+            {
+                Validator.ValidateEnum(lane);
+                return base[lane];
+            }
+        }
 
         /// <summary>
-        /// Adds a note to the <see cref="NoteCollection{TNote}"/>.
+        /// Adds a note to the <see cref="NoteCollection{TNote, TLane}"/>.
         /// </summary>
         /// <remarks>Adding a note that already exists will overwrite the existing note.
         ///     <para>If <see cref="OpenExclusivity"/> is <see langword="true"/>, combining an open note with other notes will remove the current ones.</para>

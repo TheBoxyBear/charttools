@@ -4,8 +4,17 @@ namespace ChartTools.Lyrics
 {
     public struct VocalsPitch : IEquatable<VocalsPitch>, IEquatable<VocalsPitches>
     {
+        /// <summary>
+        /// Pitch value
+        /// </summary>
         public VocalsPitches Pitch { get; }
+        /// <summary>
+        /// Key excluding the octave
+        /// </summary>
         public VocalsKey Key => (VocalsKey)((int)Pitch & 0x0F);
+        /// <summary>
+        /// Octave number
+        /// </summary>
         public byte Octave => (byte)(((int)Pitch & 0xF0) >> 4);
 
 
@@ -24,5 +33,7 @@ namespace ChartTools.Lyrics
         public static bool operator <(VocalsPitch left, VocalsPitch right) => left.Pitch < right.Pitch;
         public static bool operator >(VocalsPitch left, VocalsPitch right) => left.Pitch > right.Pitch;
         #endregion
+
+        public override int GetHashCode() => (int)Pitch;
     }
 }

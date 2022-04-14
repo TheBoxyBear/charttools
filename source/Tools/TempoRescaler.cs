@@ -6,7 +6,7 @@ namespace ChartTools.Tools.Scaling
     {
         public static void Rescale(this Note note, float scale) => note.Length = (uint)(note.Length * scale);
         public static void Rescale(this TrackObject trackObject, float scale) => trackObject.Position = (uint)(trackObject.Position * scale);
-        public static void Rescale(this StarPowerPhrase starPower, float scale)
+        public static void Rescale(this SpecialPhrase starPower, float scale)
         {
             starPower.Position = (uint)(starPower.Position * scale);
             starPower.Length = (uint)(starPower.Length * scale);
@@ -44,7 +44,7 @@ namespace ChartTools.Tools.Scaling
         }
         public static void Rescale(this Song song, float scale)
         {
-            foreach (var instrument in song.GetInstruments().NonNull())
+            foreach (var instrument in song.Instruments)
                 instrument.Rescale(scale);
 
             if (song.SyncTrack is not null)

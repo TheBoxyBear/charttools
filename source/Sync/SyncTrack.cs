@@ -1,26 +1,47 @@
-﻿using ChartTools.Collections.Unique;
+﻿using ChartTools.Formatting;
+using ChartTools.Internal;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
+using ChartTools.IO.Configuration;
+
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ChartTools
 {
     /// <summary>
     /// Set of markers that define the time signature and tempo
     /// </summary>
-    public class SyncTrack
+    public class SyncTrack : IEmptyVerifiable
     {
+        /// <inheritdoc cref="IEmptyVerifiable.IsEmpty"/>
+        public bool IsEmpty => Tempo.Count == 0 && TimeSignatures.Count == 0;
+
         /// <summary>
         /// Tempo markers
         /// </summary>
-        public UniqueList<Tempo> Tempo { get; } = new UniqueList<Tempo>((t, other) => t.Equals(other));
+        public List<Tempo> Tempo { get; } = new();
         /// <summary>
         /// Time signature markers
         /// </summary>
-        public UniqueList<TimeSignature> TimeSignatures { get; } = new UniqueList<TimeSignature>((t, other) => t.Equals(other));
+        public List<TimeSignature> TimeSignatures { get; } = new();
 
-        /// <inheritdoc cref="ChartParser.ReadSyncTrack(string, ReadingConfiguration)"/>
-        public static SyncTrack FromFile(string path, ReadingConfiguration? config = default) => ExtensionHandler.Read(path, config, (".chart", ChartParser.ReadSyncTrack));
-        /// <inheritdoc cref="ChartParser.ReplaceSyncTrack(string, SyncTrack, WritingConfiguration)"/>
-        public void ToFile(string path, WritingConfiguration? config = default) => ExtensionHandler.Write(path, this, config, (".chart", ChartParser.ReplaceSyncTrack));
+        /// <summary>
+        /// Reads a <see cref="SyncTrack"/> from a file.
+        /// </summary>
+        /// <param name="path">Path of the file</param>
+        /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
+        public static SyncTrack FromFile(string path, ReadingConfiguration? config = default) => ExtensionHandler.Read<SyncTrack>(path, (".chart", path => ChartFile.ReadSyncTrack(path, config)));
+        /// <summary>
+        /// Reads a <see cref="SyncTrack"/> from a file asynchronously using multitasking.
+        /// </summary>
+        /// <param name="path"><inheritdoc cref="FromFile(string, ReadingConfiguration?)" path="/param[@name='path']"/></param>
+        /// <param name="cancellationToken">Token to request cancellation</param>
+        /// <param name="config"><inheritdoc cref="FromFile(string, ReadingConfiguration?)" path="/param[@name='config']"/></param>
+        /// <returns></returns>
+        public static async Task<SyncTrack> FromFileAsync(string path, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync<SyncTrack>(path, (".chart", path => ChartFile.ReadSyncTrackAsync(path, config, cancellationToken)));
+        public void ToFile(string path, WritingConfiguration? config = default) => ExtensionHandler.Write(path, this, (".chart", (path, track) => ChartFile.ReplaceSyncTrack(path, track, config)));
+        public async Task ToFileAsync(string path, WritingConfiguration? config = default, CancellationToken cancellationToken = default) => await ExtensionHandler.WriteAsync(path, this, (".chart", (path, track) => ChartFile.ReplaceSyncTrackAsync(path, track, config, cancellationToken)));
     }
 }

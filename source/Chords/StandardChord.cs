@@ -1,4 +1,6 @@
 ﻿using ChartTools.IO.Chart;
+using ChartTools.IO.Chart.Entries;
+using ChartTools.IO.Configuration.Sessions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,8 @@ namespace ChartTools
         protected override bool OpenExclusivity => true;
         internal override bool ChartSupportedMoridier => !Modifier.HasFlag(StandardChordModifier.ExplicitHopo);
 
+        protected override StandardChordModifier DefaultModifier => StandardChordModifier.None;
+
         /// <inheritdoc cref="Chord(uint)"/>
         public StandardChord(uint position) : base(position) { }
         /// <inheritdoc cref="StandardChord(uint)"/>
@@ -22,10 +26,10 @@ namespace ChartTools
             if (notes is null)
                 throw new ArgumentNullException(nameof(notes));
 
-            foreach (Note<StandardLane> note in notes)
+            foreach (var note in notes)
                 Notes.Add(note);
         }
-        /// <inheritdoc cref="StandardChord(uint, StandardNote[])"/>
+        /// <inheritdoc cref="StandardChord(uint, Note{StandardLane}[])"/>
         public StandardChord(uint position, params StandardLane[] notes) : this(position)
         {
             if (notes is null)
@@ -35,16 +39,16 @@ namespace ChartTools
                 Notes.Add(new Note<StandardLane>(note));
         }
 
-        internal override IEnumerable<string> GetChartNoteData() => Notes.Select(note => ChartParser.GetNoteData(note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Length));
+        internal override IEnumerable<TrackObjectEntry> GetChartNoteData() => Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Length));
 
-        internal override IEnumerable<string> GetChartModifierData(Chord? previous, ChartParser.WritingSession session)
+        internal override IEnumerable<TrackObjectEntry> GetChartModifierData(Chord? previous, WritingSession session)
         {
             bool isInvert = Modifier.HasFlag(StandardChordModifier.HopoInvert);
 
-            if (Modifier.HasFlag(StandardChordModifier.ExplicitHopo) && (previous is null || previous.Position <= session.HopoThreshold) != isInvert || isInvert)
-                yield return ChartParser.GetNoteData(5, 0);
+            if (Modifier.HasFlag(StandardChordModifier.ExplicitHopo) && (previous is null || previous.Position <= session.Formatting!.TrueHopoFrequency) != isInvert || isInvert)
+                yield return ChartFormatting.NoteEntry(Position, 5, 0);
             if (Modifier.HasFlag(StandardChordModifier.Tap))
-                yield return ChartParser.GetNoteData(6, 0);
+                yield return ChartFormatting.NoteEntry(Position, 6, 0);
         }
     }
 }
