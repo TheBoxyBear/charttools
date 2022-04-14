@@ -1,6 +1,6 @@
 # Getting Started
 
-This document goes over the basics of parsing a chart through ChartTools. The full documentation can be found [here](docs).
+This document goes over the basics of parsing a chart through ChartTools. The full documentation can be found [here]().
 
 ## Supported File Formats
 
