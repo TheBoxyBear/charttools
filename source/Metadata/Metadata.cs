@@ -223,7 +223,7 @@ namespace ChartTools
             Metadata? data = null;
 
             foreach (var path in paths)
-                data = FromFile(path);
+                data.ReadFile(path);
 
             return data;
         }
