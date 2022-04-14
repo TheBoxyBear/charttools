@@ -1,4 +1,4 @@
-# Improving Performance
+# Improving performance
 
 This guide will cover alternate tecniques that will improve performance when using ChartTools.
 
