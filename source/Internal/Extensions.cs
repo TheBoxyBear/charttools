@@ -40,7 +40,11 @@ namespace ChartTools.SystemExtensions
 }
 namespace ChartTools.SystemExtensions.Linq
 {
+#if NET6_0_OR_GREATER
+    public readonly record struct SectionReplacement<T>(IEnumerable<T> Replacement, Predicate<T> StartReplace, Predicate<T> EndReplace, bool AddIfMissing);
+#else
     public record SectionReplacement<T>(IEnumerable<T> Replacement, Predicate<T> StartReplace, Predicate<T> EndReplace, bool AddIfMissing);
+#endif
 
     /// <summary>
     /// Provides additional methods to Linq
