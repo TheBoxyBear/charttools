@@ -116,24 +116,15 @@ namespace ChartTools
         /// <returns>Track instance assigned to the instrument. Changed made to the passed reference will not be reflected in the instrument.</returns>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="UndefinedEnumException"/>
-        public Track<TChord> SetTrack(Track<TChord> track)
-        {
-            if (track is null)
-                throw new ArgumentNullException(nameof(track));
-
-            switch (track.Difficulty)
+        public Track<TChord> SetTrack(Track<TChord> track) => track is null
+            ? throw new ArgumentNullException(nameof(track))
+            : track.Difficulty switch
             {
-                case DiffEnum.Easy:
-                    return Easy = track;
-                case DiffEnum.Medium:
-                   return  Medium = track;
-                case DiffEnum.Hard:
-                    return Hard = track;
-                case DiffEnum.Expert:
-                    return Expert = track;
-                default:
-                    throw new UndefinedEnumException(track.Difficulty);
-            }
-        }
+                DiffEnum.Easy => Easy = track,
+                DiffEnum.Medium => Medium = track,
+                DiffEnum.Hard => Hard = track,
+                DiffEnum.Expert => Expert = track,
+                _ => throw new UndefinedEnumException(track.Difficulty)
+            };
     }
 }

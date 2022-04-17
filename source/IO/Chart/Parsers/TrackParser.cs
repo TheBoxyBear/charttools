@@ -20,7 +20,7 @@ namespace ChartTools.IO.Chart.Parsers
         private bool newChord = true;
         private readonly HashSet<byte> ignoredNotes = new();
 
-        public TrackParser(Difficulty difficulty, ReadingSession session) : base(session)
+        public TrackParser(Difficulty difficulty, ReadingSession session, string header) : base(session, header)
         {
             Difficulty = difficulty;
             result = new() { Difficulty = difficulty };

@@ -3,12 +3,13 @@ using ChartTools.IO.Configuration.Sessions;
 using ChartTools.SystemExtensions.Linq;
 
 using System;
+using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart.Parsers
 {
     internal class DrumsTrackParser : TrackParser<DrumsChord>
     {
-        public DrumsTrackParser(Difficulty difficulty, ReadingSession session) : base(difficulty, session) { }
+        public DrumsTrackParser(Difficulty difficulty, ReadingSession session, string header) : base(difficulty, session, header) { }
 
         public override void ApplyToSong(Song song)
         {

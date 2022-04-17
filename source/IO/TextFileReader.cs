@@ -64,8 +64,6 @@ namespace ChartTools.IO
 
                 if (parser is not null)
                 {
-                    parser.SectionHeader = header;
-
                     var source = new DelayedEnumerableSource<string>();
 
                     parserGroups.Add(currentGroup = new(parser, source));

@@ -13,7 +13,7 @@ namespace ChartTools.IO.Chart.Parsers
 
         private readonly HashSet<uint> ignoredTempos = new(), ignoredAnchors = new(), ignoredSignatures = new();
 
-        public SyncTrackParser(ReadingSession session) : base(session) { }
+        public SyncTrackParser(ReadingSession session) : base(session, ChartFormatting.SyncTrackHeader) { }
 
         protected override void HandleItem(string line)
         {

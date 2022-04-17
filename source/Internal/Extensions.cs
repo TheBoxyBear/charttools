@@ -145,9 +145,9 @@ namespace ChartTools.SystemExtensions.Linq
         public static IEnumerable<T> ReplaceSection<T>(this IEnumerable<T> source, SectionReplacement<T> replacement)
         {
             if (replacement.StartReplace is null)
-                throw new ArgumentNullException(nameof(replacement.StartReplace));
+                throw new NullReferenceException(nameof(replacement.StartReplace));
             if (replacement.EndReplace is null)
-                throw new ArgumentNullException(nameof(replacement.EndReplace));
+                throw new NullReferenceException(nameof(replacement.EndReplace));
 
             IEnumerator<T> itemsEnumerator = source.GetEnumerator();
 

@@ -53,16 +53,16 @@ namespace ChartTools.IO.Chart
                 case ChartFormatting.MetadataHeader:
                     return new MetadataParser();
                 case ChartFormatting.GlobalEventHeader:
-                    return new GlobalEventParser(session);
+                    return new GlobalEventParser(session, header);
                 case ChartFormatting.SyncTrackHeader:
                     return new SyncTrackParser(session);
                 default:
                     if (drumsTrackHeaders.TryGetValue(header, out Difficulty diff))
-                        return new DrumsTrackParser(diff, session);
+                        return new DrumsTrackParser(diff, session, header);
                     else if (ghlTrackHeaders.TryGetValue(header, out (Difficulty, GHLInstrumentIdentity) ghlTuple))
-                        return new GHLTrackParser(ghlTuple.Item1, ghlTuple.Item2, session);
+                        return new GHLTrackParser(ghlTuple.Item1, ghlTuple.Item2, session, header);
                     else if (standardTrackHeaders.TryGetValue(header, out (Difficulty, StandardInstrumentIdentity) standardTuple))
-                        return new StandardTrackParser(standardTuple.Item1, standardTuple.Item2, session);
+                        return new StandardTrackParser(standardTuple.Item1, standardTuple.Item2, session, header);
                     else
                         throw new FormatException($"Unknown part: {header}"); // TODO Add support for unknown parts in configuration
             }
@@ -151,7 +151,7 @@ namespace ChartTools.IO.Chart
         }
         #region Drums
         private static DrumsTrackParser? GetAnyDrumsTrackParser(string header, ReadingSession session) => drumsTrackHeaders.TryGetValue(header, out Difficulty difficulty)
-            ? new(difficulty, session)
+            ? new(difficulty, session, header)
             : null;
         /// <summary>
         /// Reads drums from a chart file.
@@ -174,8 +174,8 @@ namespace ChartTools.IO.Chart
         }
         #endregion
         #region GHL
-        private static GHLTrackParser? GetAnyGHLTrackParser(string part, GHLInstrumentIdentity instrument, ReadingSession session) => ghlTrackHeaders.TryGetValue(part, out (Difficulty, GHLInstrumentIdentity) tuple) && tuple.Item2 == instrument
-            ? new(tuple.Item1, tuple.Item2, session)
+        private static GHLTrackParser? GetAnyGHLTrackParser(string header, GHLInstrumentIdentity instrument, ReadingSession session) => ghlTrackHeaders.TryGetValue(header, out (Difficulty, GHLInstrumentIdentity) tuple) && tuple.Item2 == instrument
+            ? new(tuple.Item1, tuple.Item2, session, header)
             : null;
         /// <summary>
         /// Reads a Guitar Hero Live instrument from a chart file.
@@ -203,8 +203,8 @@ namespace ChartTools.IO.Chart
         }
         #endregion
         #region Standard
-        private static StandardTrackParser? GetAnyStandardTrackParser(string part, StandardInstrumentIdentity instrument, ReadingSession session) => standardTrackHeaders.TryGetValue(part, out (Difficulty, StandardInstrumentIdentity) tuple) && tuple.Item2 == instrument
-            ? new(tuple.Item1, tuple.Item2, session)
+        private static StandardTrackParser? GetAnyStandardTrackParser(string header, StandardInstrumentIdentity instrument, ReadingSession session) => standardTrackHeaders.TryGetValue(header, out (Difficulty, StandardInstrumentIdentity) tuple) && tuple.Item2 == instrument
+            ? new(tuple.Item1, tuple.Item2, session, header)
             : null;
         /// <inheritdoc cref="Instrument.FromFile(string, StandardInstrumentIdentity, ReadingConfiguration?, FormattingRules?)"/>
         /// <param name="path"><inheritdoc cref="Instrument.FromFile(string, StandardInstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/param[@name='path']"/></param>
@@ -275,7 +275,7 @@ namespace ChartTools.IO.Chart
         /// <param name="seekedHeader">Header to compare against</param>
         /// <param name="difficulty">Difficulty identity to provide the parser</param>
         /// <param name="session">Session to provide the parser</param>
-        private static DrumsTrackParser? GetDrumsTrackParser(string header, string seekedHeader, Difficulty difficulty, ReadingSession session) => header == seekedHeader ? new(difficulty, session) : null;
+        private static DrumsTrackParser? GetDrumsTrackParser(string header, string seekedHeader, Difficulty difficulty, ReadingSession session) => header == seekedHeader ? new(difficulty, session, header) : null;
         /// <summary>
         /// Headers for drums tracks
         /// </summary>
@@ -319,7 +319,7 @@ namespace ChartTools.IO.Chart
         /// <param name="instrument">Instrument identity to provide the parser</param>
         /// <param name="difficulty">Difficulty identity to provide the parser</param>
         /// <param name="session">Session to provide the parser</param>
-        private static GHLTrackParser? GetGHLTrackParser(string header, string seekedHeader, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingSession session) => header == seekedHeader ? new(difficulty, instrument, session) : null;
+        private static GHLTrackParser? GetGHLTrackParser(string header, string seekedHeader, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingSession session) => header == seekedHeader ? new(difficulty, instrument, session, header) : null;
         /// <summary>
         /// Headers for GHL tracks
         /// </summary>
@@ -366,7 +366,7 @@ namespace ChartTools.IO.Chart
         /// <param name="instrument">Instrument identity to provide the parser</param>
         /// <param name="difficulty">Difficulty identity to provide the parser</param>
         /// <param name="session">Session to provide the parser</param>
-        private static StandardTrackParser? GetStandardTrackParser(string header, string seekedHeader, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingSession session) => header == seekedHeader ? new(difficulty, instrument, session) : null;
+        private static StandardTrackParser? GetStandardTrackParser(string header, string seekedHeader, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingSession session) => header == seekedHeader ? new(difficulty, instrument, session, header) : null;
 
         /// <summary>
         /// Headers for standard tracks
@@ -410,14 +410,14 @@ namespace ChartTools.IO.Chart
         #endregion
         #endregion
         #region Metadata
-        private static MetadataParser? GetMetadataParser(string header, ReadingSession session) => header == ChartFormatting.MetadataHeader ? new() : null;
+        private static MetadataParser? GetMetadataParser(string header) => header == ChartFormatting.MetadataHeader ? new() : null;
         /// <summary>
         /// Reads metadata from a chart file.
         /// </summary>
         /// <param name="path">Path of the file to read</param>
         public static Metadata ReadMetadata(string path)
         {
-            var reader = new ChartFileReader(path, header => GetMetadataParser(header, new(DefaultReadConfig, null)));
+            var reader = new ChartFileReader(path, header => GetMetadataParser(header));
             reader.Read();
             return reader.Parsers.TryGetFirstOfType(out MetadataParser? parser) ? parser!.Result : new();
         }
@@ -426,7 +426,7 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Creates a <see cref="SyncTrackParser"/> if the header matches the sync track header, otherwise <see langword="null"/>.
         /// </summary>
-        private static GlobalEventParser? GetGlobalEventParser(string header) => header == ChartFormatting.GlobalEventHeader ? new(new(DefaultReadConfig, null)) : null;
+        private static GlobalEventParser? GetGlobalEventParser(string header) => header == ChartFormatting.GlobalEventHeader ? new(null!, header) : null;
 
         /// <inheritdoc cref="GlobalEvent.FromFile(string)"/>
         /// <param name="path"><inheritdoc cref="GlobalEvent.FromFile(string)" path="/param[@name='path']"/></param>
@@ -592,7 +592,7 @@ namespace ChartTools.IO.Chart
             if (track.ParentInstrument is null)
                 throw new ArgumentNullException(nameof(track), "Cannot write track because it does not belong to an instrument.");
             if (!Enum.IsDefined(track.ParentInstrument.InstrumentIdentity))
-                throw new ArgumentException(nameof(track), "Cannot write track because the instrument it belongs to is unknown.");
+                throw new ArgumentException("Cannot write track because the instrument it belongs to is unknown.", nameof(track));
 
             return new(path, null, new TrackSerializer(track, session));
         }

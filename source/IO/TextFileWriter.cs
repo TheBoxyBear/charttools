@@ -58,10 +58,10 @@ namespace ChartTools.IO
                 foreach (var line in GetLines(serializer => new EagerEnumerable<string>(serializer.SerializeAsync())))
                     await writer.WriteLineAsync(line);
 
-            if (!cancellationToken.IsCancellationRequested)
-                File.Copy(tempPath, Path, true);
-
-            File.Delete(tempPath);
+            if (cancellationToken.IsCancellationRequested)
+                File.Delete(tempPath);
+            else
+                File.Move(tempPath, Path, true);
         }
 
         private IEnumerable<string> GetLines(Func<Serializer<string>, IEnumerable<string>> getSerializerLines) => File.Exists(Path)
