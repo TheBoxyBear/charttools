@@ -57,7 +57,7 @@ namespace ChartTools.IO.Chart.Parsers
                     break;
                 // Anchor
                 case "A":
-                    if (existingAnchorPositions.Contains(entry.Position) && !session.DuplicateTrackObjectProcedure(entry.Position, "tempo anchor"))
+                    if (CheckDuplicate(existingAnchorPositions, "tempo anchor"))
                         break;
 
                     // Floats are written by rounding to the 3rd decimal and removing the decimal point
@@ -76,7 +76,7 @@ namespace ChartTools.IO.Chart.Parsers
 
             bool CheckDuplicate(ICollection<uint> existingPositions, string objectType)
             {
-                bool result = existingPositions.Contains(entry.Position) && !session.DuplicateTrackObjectProcedure(entry.Position, objectType);
+                bool result = !session.DuplicateTrackObjectProcedure(entry.Position, objectType, () => existingPositions.Contains(entry.Position));
 
                 existingPositions.Add(entry.Position);
                 return result;

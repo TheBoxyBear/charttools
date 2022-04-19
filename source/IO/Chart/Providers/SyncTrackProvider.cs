@@ -15,7 +15,7 @@ namespace ChartTools.IO.Chart.Providers
 
             foreach (var item in source)
             {
-                if (!existingPositions.Contains(item.Position) || session.DuplicateTrackObjectProcedure(item.Position, ObjectType))
+                if (session.DuplicateTrackObjectProcedure(item.Position, ObjectType, () => existingPositions.Contains(item.Position)))
                     foreach (var entry in GetEntries(item))
                         yield return entry;
 
