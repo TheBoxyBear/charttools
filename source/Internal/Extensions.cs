@@ -119,6 +119,32 @@ namespace ChartTools.SystemExtensions.Linq
             return false;
         }
 
+        public static int BinarySearchIndex<T, TKey>(this IList<T> source, TKey target, Func<T, TKey> keySelector, out bool exactMatch) where TKey : notnull, IComparable<TKey>
+        {
+            int left = 0, right = source.Count - 1, middle = 0, index = 0;
+
+            while (left <= right)
+            {
+                middle = (left + right) / 2;
+
+                switch (keySelector(source[middle]).CompareTo(target))
+                {
+                    case -1:
+                        index = left = middle + 1;
+                        break;
+                    case 0:
+                        exactMatch = true;
+                        return middle;
+                    case 1:
+                        index = right = middle - 1;
+                        break;
+                }
+            }
+
+            exactMatch = false;
+            return index;
+        }
+
         /// <summary>
         /// Returns distinct elements of a sequence using a method to determine the equality of elements
         /// </summary>

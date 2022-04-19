@@ -19,7 +19,7 @@ namespace ChartTools.IO.Chart.Parsers
 
         private TChord? chord;
         private bool newChord = true;
-        private readonly HashSet<byte> ignoredNotes = new();
+        private readonly List<TChord> orderedChords = new();
 
         public TrackParser(Difficulty difficulty, ReadingSession session, string header) : base(session, header)
         {
@@ -39,22 +39,30 @@ namespace ChartTools.IO.Chart.Parsers
                     break;
                 // Note or chord modifier
                 case "N":
+                    var newIndex = 0;
+
                     // Find the parent chord or create it
                     if (chord is null)
+                    {
                         chord = CreateChord(entry.Position);
-                    else if (entry.Position != chord.Position)
-                        chord = result.Chords.FirstOrDefault(c => c.Position == entry.Position, CreateChord(entry.Position), out newChord);
-                    else
+                        newIndex = orderedChords.Count;
+                    }
+                    else if (entry.Position == chord.Position)
                         newChord = false;
+                    else
+                    {
+                        newIndex = orderedChords.BinarySearchIndex(entry.Position, c => c.Position, out bool exactMatch);
 
-                    NoteData data = new(entry.Data);
+                        if (newChord = !exactMatch)
+                            chord = CreateChord(entry.Position);
+                    }
 
-                    HandleNoteEntry(chord!, data);
+                    HandleNoteEntry(chord!, new(entry.Data));
 
                     if (newChord)
                     {
                         result.Chords.Add(chord!);
-                        ignoredNotes.Clear();
+                        orderedChords.Insert(newIndex, chord!);
                     }
 
                     break;
