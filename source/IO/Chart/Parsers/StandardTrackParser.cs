@@ -1,8 +1,6 @@
 ﻿using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration.Sessions;
 
-using System;
-
 namespace ChartTools.IO.Chart.Parsers
 {
     internal class StandardTrackParser : VariableInstrumentTrackParser<StandardChord, StandardInstrumentIdentity>
@@ -19,32 +17,29 @@ namespace ChartTools.IO.Chart.Parsers
             ApplyToInstrument(inst);
         }
 
-        protected override void HandleNote(Track<StandardChord> track, ref StandardChord chord, uint position, NoteData data, ref bool newChord, out Enum initialModifier)
+        protected override void HandleNoteEntry(StandardChord chord, NoteData data)
         {
-            // Find the parent chord or create it
-            if (chord is null)
-                chord = new(position);
-            else if (newChord = position != chord!.Position)
-                chord = track.Chords.Find(c => c.Position == position) ?? new(position);
-
-            initialModifier = chord!.Modifier;
-
             switch (data.NoteIndex)
             {
                 // Colored note
                 case < 5:
-                    chord!.Notes.Add(new Note<StandardLane>((StandardLane)(data.NoteIndex + 1)) { Length = data.SustainLength });
+                    chord.Notes.Add(new Note<StandardLane>((StandardLane)(data.NoteIndex + 1)) { Length = data.SustainLength });
                     break;
                 case 5:
-                    chord!.Modifier |= StandardChordModifier.HopoInvert;
+                    chord.Modifier |= StandardChordModifier.HopoInvert;
                     return;
                 case 6:
-                    chord!.Modifier |= StandardChordModifier.Tap;
+                    chord.Modifier |= StandardChordModifier.Tap;
                     return;
                 case 7:
-                    chord!.Notes.Add(new Note<StandardLane>(StandardLane.Open) { Length = data.SustainLength });
+                    chord.Notes.Add(new Note<StandardLane>(StandardLane.Open) { Length = data.SustainLength });
                     break;
             }
+
+            void AddNote(Note<StandardLane> note) => HandleAddNote(note, () => chord.Notes.Add(note));
+            void AddModifier(StandardChordModifier modifier) => HandleAddModifier(chord.Modifier, modifier, () => chord.Modifier |= modifier);
         }
+
+        protected override StandardChord CreateChord(uint position) => new(position);
     }
 }

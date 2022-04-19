@@ -6,6 +6,7 @@ using ChartTools.Tools.Optimizing;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ChartTools.IO.Chart.Parsers
 {
@@ -38,9 +39,17 @@ namespace ChartTools.IO.Chart.Parsers
                     break;
                 // Note or chord modifier
                 case "N":
+                    // Find the parent chord or create it
+                    if (chord is null)
+                        chord = CreateChord(entry.Position);
+                    else if (entry.Position != chord.Position)
+                        chord = result.Chords.FirstOrDefault(c => c.Position == entry.Position, CreateChord(entry.Position), out newChord);
+                    else
+                        newChord = false;
+
                     NoteData data = new(entry.Data);
 
-                    HandleNote(result, ref chord!, entry.Position, data, ref newChord, out _);
+                    HandleNoteEntry(chord!, data);
 
                     if (newChord)
                     {
@@ -64,7 +73,19 @@ namespace ChartTools.IO.Chart.Parsers
                 result.SpecialPhrases.AddRange(result.SoloToStarPower(true));
         }
 
-        protected abstract void HandleNote(Track<TChord> track, ref TChord chord, uint position, NoteData data, ref bool newChord, out Enum initialModifier);
+        protected abstract void HandleNoteEntry(TChord chord, NoteData data);
+        protected void HandleAddNote(Note note, Action add)
+        {
+            if (session.DuplicateTrackObjectProcedure(chord!.Position, "note", () => chord!.Notes.Any(n => n.NoteIndex == note.NoteIndex)))
+                add();
+        }
+        protected void HandleAddModifier(Enum existingModifier, Enum modifier, Action add)
+        {
+            if (session.DuplicateTrackObjectProcedure(chord!.Position, "chord modifier", () => existingModifier.HasFlag(modifier)))
+                add();
+        }
+
+        protected abstract TChord CreateChord(uint position);
 
         protected override void FinaliseParse()
         {

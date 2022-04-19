@@ -1,6 +1,5 @@
 ﻿using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration.Sessions;
-using ChartTools.SystemExtensions.Linq;
 
 using System;
 
@@ -20,41 +19,36 @@ namespace ChartTools.IO.Chart.Parsers
             ApplyToInstrument(inst);
         }
 
-        protected override void HandleNote(Track<GHLChord> track, ref GHLChord chord, uint position, NoteData data, ref bool newChord, out Enum initialModifier)
+        protected override void HandleNoteEntry(GHLChord chord, NoteData data)
         {
-            // Find the parent chord or create it
-            if (chord is null)
-                chord = new(position);
-            else if (position != chord.Position)
-                chord = track.Chords.FirstOrDefault(c => c.Position == position, new(position), out newChord)!;
-            else
-                newChord = false;
-
-            initialModifier = chord!.Modifier;
-
             switch (data.NoteIndex)
             {
                 // White notes
                 case < 3:
-                    chord!.Notes.Add(new Note<GHLLane>((GHLLane)(data.NoteIndex + 4)) { Length = data.SustainLength });
+                    AddNote(new Note<GHLLane>((GHLLane)(data.NoteIndex + 4)) { Length = data.SustainLength });
                     break;
                 // Black 1 and 2
                 case < 5:
-                    chord!.Notes.Add(new Note<GHLLane>((GHLLane)(data.NoteIndex - 2)) { Length = data.SustainLength });
+                    AddNote(new Note<GHLLane>((GHLLane)(data.NoteIndex - 2)) { Length = data.SustainLength });
                     break;
                 case 5:
-                    chord!.Modifier |= GHLChordModifier.HopoInvert;
+                    AddModifier(GHLChordModifier.HopoInvert);
                     return;
                 case 6:
-                    chord!.Modifier |= GHLChordModifier.Tap;
+                    AddModifier(GHLChordModifier.Tap);
                     return;
                 case 7:
-                    chord!.Notes.Add(new Note<GHLLane>(GHLLane.Open) { Length = data.SustainLength });
+                    AddNote(new Note<GHLLane>(GHLLane.Open) { Length = data.SustainLength });
                     break;
                 case 8:
-                    chord!.Notes.Add(new Note<GHLLane>(GHLLane.Black3) { Length = data.SustainLength });
+                    AddNote(new Note<GHLLane>(GHLLane.Black3) { Length = data.SustainLength });
                     break;
             }
+
+            void AddNote(Note<GHLLane> note) => HandleAddNote(note, () => chord.Notes.Add(note));
+            void AddModifier(GHLChordModifier modifier) => HandleAddModifier(chord.Modifier, modifier, () => chord.Modifier |= modifier);
         }
+
+        protected override GHLChord CreateChord(uint position) => new(position);
     }
 }

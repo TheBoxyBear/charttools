@@ -3,7 +3,6 @@ using ChartTools.IO.Configuration.Sessions;
 using ChartTools.SystemExtensions.Linq;
 
 using System;
-using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart.Parsers
 {
@@ -17,49 +16,40 @@ namespace ChartTools.IO.Chart.Parsers
             ApplyToInstrument(song.Instruments.Drums);
         }
 
-        protected override void HandleNote(Track<DrumsChord> track, ref DrumsChord chord, uint position, NoteData data, ref bool newChord, out Enum initialModifier)
+        protected override void HandleNoteEntry(DrumsChord chord, NoteData data)
         {
-            // Find the parent chord or create it
-            if (chord is null)
-                chord = new(position);
-            else if (position != chord.Position)
-                chord = track.Chords.FirstOrDefault(c => c.Position == position, new(position), out newChord)!;
-            else
-                newChord = false;
-
-            initialModifier = chord!.Modifier;
-
             switch (data.NoteIndex)
             {
                 // Note
                 case < 5:
-                    chord!.Notes.Add(new DrumsNote((DrumsLane)data.NoteIndex) { Length = data.SustainLength });
+                    AddNote(new DrumsNote((DrumsLane)data.NoteIndex) { Length = data.SustainLength });
                     break;
                 // Double kick
                 case 32:
-                    chord!.Notes.Add(new DrumsNote(DrumsLane.DoubleKick));
+                    AddNote(new DrumsNote(DrumsLane.DoubleKick));
                     break;
                 // Cymbal
                 case > 65 and < 69:
-                    DrumsNote? note = null;
                     // NoteIndex of the note to set as cymbal
                     byte seekedIndex = (byte)(data.NoteIndex - 64);
 
-                    // Find matching note
-                    note = chord!.Notes.FirstOrDefault(n => n.NoteIndex == seekedIndex, null, out bool returnedDefault);
-
-                    if (returnedDefault)
+                    if (chord.Notes.TryGetFirst(n => n.NoteIndex == seekedIndex, out DrumsNote note))
                     {
-                        chord.Notes.Add(new DrumsNote((DrumsLane)seekedIndex) { IsCymbal = true, Length = data.SustainLength });
-                        returnedDefault = false;
+                        if (session.DuplicateTrackObjectProcedure(chord.Position, "drums note cymbal marker", () => note.IsCymbal))
+                            note.IsCymbal = true;
                     }
                     else
-                        note!.IsCymbal = true;
+                        AddNote(new DrumsNote((DrumsLane)seekedIndex) { IsCymbal = true, Length = data.SustainLength });
                     break;
                 case 109:
-                    chord!.Modifier |= DrumsChordModifier.Flam;
+                    AddModifier(DrumsChordModifier.Flam);
                     break;
             }
+
+            void AddNote(DrumsNote note) => HandleAddNote(note, () => chord.Notes.Add(note));
+            void AddModifier(DrumsChordModifier modifier) => HandleAddModifier(chord.Modifier, modifier, () => chord.Modifier |= modifier);
         }
+
+        protected override DrumsChord CreateChord(uint position) => new(position);
     }
 }
