@@ -10,15 +10,17 @@ namespace ChartTools.IO.Chart.Providers
     {
         public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<Chord> source, WritingSession session)
         {
-            HashSet<byte> ignored = new();
+            HashSet<uint> existingPositions = new();
             Chord? previousChord = null;
 
             foreach (var chord in source)
             {
-                foreach (var entry in (chord.ChartSupportedMoridier ? chord.GetChartModifierData(previousChord, session) : session.GetChordEntries(previousChord, chord)).Concat(chord.GetChartNoteData()))
-                    yield return entry;
+                if (session.DuplicateTrackObjectProcedure(chord.Position, "chord", () => existingPositions.Contains(chord.Position)))
+                    foreach (var entry in (chord.ChartSupportedMoridier ? chord.GetChartModifierData(previousChord, session) : session.GetChordEntries(previousChord, chord)).Concat(chord.GetChartNoteData()))
+                        yield return entry;
 
                 previousChord = chord;
+                existingPositions.Add(chord.Position);
             }
         }
     }
