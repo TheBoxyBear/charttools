@@ -1,23 +1,17 @@
 ﻿using ChartTools.IO.Chart.Entries;
-using ChartTools.IO.Configuration.Sessions;
-
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ChartTools.IO.Chart.Providers
 {
-    internal class TempoProvider : ISerializerDataProvider<Tempo, TrackObjectEntry>
+    internal class TempoProvider : SyncTrackProvider<Tempo>
     {
-        public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<Tempo> source, WritingSession session)
-        {
-            HashSet<uint> ignored = new();
+        protected override string ObjectType => "tempo marker";
 
-            foreach (var tempo in source.Where(t => session.DuplicateTrackObjectProcedure(t.Position, ignored, "tempo marker")))
-            {
-                if (tempo.Anchor is not null)
-                    yield return new(tempo.Position, "A", ChartFormatting.Float((float)tempo.Anchor));
-                yield return new(tempo.Position, "B", ChartFormatting.Float(tempo.Value));
-            }
+        protected override IEnumerable<TrackObjectEntry> GetEntries(Tempo item)
+        {
+            if (item.Anchor is not null)
+                yield return new(item.Position, "A", ChartFormatting.Float((float)item.Anchor));
+            yield return new(item.Position, "B", ChartFormatting.Float(item.Value));
         }
     }
 }

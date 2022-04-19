@@ -11,7 +11,7 @@ namespace ChartTools.IO.Chart.Parsers
         public override SyncTrack Result => GetResult(result);
         private readonly SyncTrack result = new();
 
-        private readonly HashSet<uint> ignoredTempos = new(), ignoredAnchors = new(), ignoredSignatures = new();
+        private readonly HashSet<uint> existingTempoPositions = new(), existingAnchorPositions = new(), existingSignaturePositions = new();
 
         public SyncTrackParser(ReadingSession session) : base(session, ChartFormatting.SyncTrackHeader) { }
 
@@ -25,7 +25,7 @@ namespace ChartTools.IO.Chart.Parsers
             {
                 // Time signature
                 case "TS":
-                    if (!session!.DuplicateTrackObjectProcedure!(entry.Position, ignoredSignatures, "time signature"))
+                    if (CheckDuplicate(existingSignaturePositions, "time signature"))
                         break;
 
                     string[] split = ChartFormatting.SplitData(entry.Data);
@@ -41,7 +41,7 @@ namespace ChartTools.IO.Chart.Parsers
                     break;
                 // Tempo
                 case "B":
-                    if (!session.DuplicateTrackObjectProcedure!(entry.Position, ignoredTempos, "tempo marker"))
+                    if (CheckDuplicate(existingTempoPositions, "tempo marker"))
                         break;
 
                     // Floats are written by rounding to the 3rd decimal and removing the decimal point
@@ -57,7 +57,7 @@ namespace ChartTools.IO.Chart.Parsers
                     break;
                 // Anchor
                 case "A":
-                    if (!session.DuplicateTrackObjectProcedure!(entry.Position, ignoredAnchors, "tempo anchor"))
+                    if (existingAnchorPositions.Contains(entry.Position) && !session.DuplicateTrackObjectProcedure(entry.Position, "tempo anchor"))
                         break;
 
                     // Floats are written by rounding to the 3rd decimal and removing the decimal point
@@ -72,6 +72,14 @@ namespace ChartTools.IO.Chart.Parsers
                         marker.Anchor = anchor;
 
                     break;
+            }
+
+            bool CheckDuplicate(ICollection<uint> existingPositions, string objectType)
+            {
+                bool result = existingPositions.Contains(entry.Position) && !session.DuplicateTrackObjectProcedure(entry.Position, objectType);
+
+                existingPositions.Add(entry.Position);
+                return result;
             }
         }
 

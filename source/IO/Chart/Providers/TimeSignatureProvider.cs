@@ -1,28 +1,23 @@
 ﻿using ChartTools.IO.Chart.Entries;
-using ChartTools.IO.Configuration.Sessions;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ChartTools.IO.Chart.Providers
 {
-    internal class TimeSignatureProvider : ISerializerDataProvider<TimeSignature, TrackObjectEntry>
+    internal class TimeSignatureProvider : SyncTrackProvider<TimeSignature>
     {
-        public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<TimeSignature> source, WritingSession session)
+        protected override string ObjectType => "time signature";
+
+        protected override IEnumerable<TrackObjectEntry> GetEntries(TimeSignature item)
         {
-            HashSet<uint> ignored = new();
+            byte writtenDenominator = (byte)Math.Log2(item.Denominator);
+            string data = item.Numerator.ToString();
 
-            foreach (var signature in source.Where(ts => session.DuplicateTrackObjectProcedure(ts.Position, ignored, "time signature")))
-            {
-                byte writtenDenominator = (byte)Math.Log2(signature.Denominator);
-                string data = signature.Numerator.ToString();
+            if (writtenDenominator == 1)
+                data += ' ' + writtenDenominator.ToString();
 
-                if (writtenDenominator == 1)
-                    data += ' ' + writtenDenominator.ToString();
-
-                yield return new(signature.Position, "TS", data);
-            }
+            yield return new(item.Position, "TS", data);
         }
     }
 }
