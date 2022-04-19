@@ -2,8 +2,6 @@
 using ChartTools.IO.Configuration.Sessions;
 using ChartTools.SystemExtensions.Linq;
 
-using System;
-
 namespace ChartTools.IO.Chart.Parsers
 {
     internal class DrumsTrackParser : TrackParser<DrumsChord>

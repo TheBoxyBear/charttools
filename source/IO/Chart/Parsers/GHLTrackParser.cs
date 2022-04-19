@@ -1,8 +1,6 @@
 ﻿using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration.Sessions;
 
-using System;
-
 namespace ChartTools.IO.Chart.Parsers
 {
     internal class GHLTrackParser : VariableInstrumentTrackParser<GHLChord, GHLInstrumentIdentity>
