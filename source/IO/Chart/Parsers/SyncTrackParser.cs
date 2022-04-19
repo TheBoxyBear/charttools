@@ -1,5 +1,6 @@
 ﻿using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration.Sessions;
+using ChartTools.SystemExtensions.Linq;
 
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,9 @@ namespace ChartTools.IO.Chart.Parsers
         public override SyncTrack Result => GetResult(result);
         private readonly SyncTrack result = new();
 
-        private readonly HashSet<uint> existingTempoPositions = new(), existingAnchorPositions = new(), existingSignaturePositions = new();
+        private readonly List<Tempo> orderedTempos = new();
+        private readonly List<uint> orderedAnchorPositions = new();
+        private readonly List<TimeSignature> orderedSignatures = new();
 
         public SyncTrackParser(ReadingSession session) : base(session, ChartFormatting.SyncTrackHeader) { }
 
@@ -25,7 +28,7 @@ namespace ChartTools.IO.Chart.Parsers
             {
                 // Time signature
                 case "TS":
-                    if (CheckDuplicate(existingSignaturePositions, "time signature"))
+                    if (CheckDuplicateTrackObject(orderedSignatures, "time signature", out int newIndex))
                         break;
 
                     string[] split = ChartFormatting.SplitData(entry.Data);
@@ -37,11 +40,14 @@ namespace ChartTools.IO.Chart.Parsers
                     if (split.Length >= 2)
                         denominator = (byte)Math.Pow(2, ValueParser.ParseByte(split[1], "denominator"));
 
-                    result.TimeSignatures.Add(new(entry.Position, numerator, denominator));
+                    var signature = new TimeSignature(entry.Position, numerator, denominator);
+
+                    result.TimeSignatures.Add(signature);
+                    orderedSignatures.Insert(newIndex, signature);
                     break;
                 // Tempo
                 case "B":
-                    if (CheckDuplicate(existingTempoPositions, "tempo marker"))
+                    if (CheckDuplicateTrackObject(orderedTempos, "tempo marker", out newIndex))
                         break;
 
                     // Floats are written by rounding to the 3rd decimal and removing the decimal point
@@ -57,28 +63,45 @@ namespace ChartTools.IO.Chart.Parsers
                     break;
                 // Anchor
                 case "A":
-                    if (CheckDuplicate(existingAnchorPositions, "tempo anchor"))
+                    if (CheckDuplicatePosition(orderedAnchorPositions, "tempo anchor", out newIndex))
                         break;
 
                     // Floats are written by rounding to the 3rd decimal and removing the decimal point
                     var anchor = ValueParser.ParseFloat(entry.Data, "anchor") / 1000;
 
                     // Find the marker matching the position in case it was already added through a mention of value
-                    marker = result.Tempo.Find(m => m.Position == entry.Position);
+                    var markerIndex = orderedTempos.BinarySearchIndex(entry.Position, t => t.Position, out bool exactMatch);
+                    marker = orderedTempos[markerIndex];
 
                     if (marker is null)
-                        result.Tempo.Add(new(entry.Position, 0) { Anchor = anchor });
+                    {
+                        var tempo = new Tempo(entry.Position, 0) { Anchor = anchor };
+
+                        result.Tempo.Add(tempo);
+                        orderedTempos.Insert(markerIndex, tempo);
+                    }
                     else
                         marker.Anchor = anchor;
+
+                    orderedAnchorPositions.Insert(newIndex, entry.Position);
 
                     break;
             }
 
-            bool CheckDuplicate(ICollection<uint> existingPositions, string objectType)
+            bool CheckDuplicatePosition(IList<uint> existing, string objectType, out int newIndex) => CheckDuplicate(existing, objectType, p => p, out newIndex);
+            bool CheckDuplicateTrackObject<T>(IList<T> existing, string objecType, out int newIndex) where T : TrackObject => CheckDuplicate(existing, objecType, t => t.Position, out newIndex);
+            bool CheckDuplicate<T>(IList<T> existing, string objectType, Func<T, uint> positionSelector, out int newIndex)
             {
-                bool result = !session.DuplicateTrackObjectProcedure(entry.Position, objectType, () => existingPositions.Contains(entry.Position));
+                var index = 0;
+                var result = !session.DuplicateTrackObjectProcedure(entry.Position, objectType, () =>
+                {
+                    index = existing.BinarySearchIndex<T, uint>(entry.Position, positionSelector, out bool exactMatch);
 
-                existingPositions.Add(entry.Position);
+                    return exactMatch;
+                });
+
+                newIndex = index;
+
                 return result;
             }
         }

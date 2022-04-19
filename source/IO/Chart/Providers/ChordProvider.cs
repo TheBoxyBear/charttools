@@ -1,5 +1,6 @@
 ﻿using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration.Sessions;
+using ChartTools.SystemExtensions.Linq;
 
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +11,24 @@ namespace ChartTools.IO.Chart.Providers
     {
         public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<Chord> source, WritingSession session)
         {
-            HashSet<uint> existingPositions = new();
+            List<uint> orderedPositions = new();
             Chord? previousChord = null;
 
             foreach (var chord in source)
             {
-                if (session.DuplicateTrackObjectProcedure(chord.Position, "chord", () => existingPositions.Contains(chord.Position)))
+                if (session.DuplicateTrackObjectProcedure(chord.Position, "chord", () =>
+                {
+                    var index = orderedPositions.BinarySearchIndex(chord.Position, out bool exactMatch);
+
+                    if (!exactMatch)
+                        orderedPositions.Insert(index, chord.Position);
+
+                    return exactMatch;
+                }))
                     foreach (var entry in (chord.ChartSupportedMoridier ? chord.GetChartModifierData(previousChord, session) : session.GetChordEntries(previousChord, chord)).Concat(chord.GetChartNoteData()))
                         yield return entry;
 
                 previousChord = chord;
-                existingPositions.Add(chord.Position);
             }
         }
     }

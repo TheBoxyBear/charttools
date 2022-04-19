@@ -1,5 +1,6 @@
 ﻿using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration.Sessions;
+using ChartTools.SystemExtensions.Linq;
 
 using System.Collections.Generic;
 
@@ -11,15 +12,23 @@ namespace ChartTools.IO.Chart.Providers
 
         public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<T> source, WritingSession session)
         {
-            HashSet<uint> existingPositions = new();
+            List<uint> orderedPositions = new();
 
             foreach (var item in source)
             {
-                if (session.DuplicateTrackObjectProcedure(item.Position, ObjectType, () => existingPositions.Contains(item.Position)))
+                if (session.DuplicateTrackObjectProcedure(item.Position, ObjectType, () =>
+                {
+                    var index = orderedPositions.BinarySearchIndex(item.Position, out bool exactMatch);
+
+                    if (!exactMatch)
+                        orderedPositions.Insert(index, item.Position);
+
+                    return exactMatch;
+                }))
                     foreach (var entry in GetEntries(item))
                         yield return entry;
 
-                existingPositions.Add(item.Position);
+                orderedPositions.Add(item.Position);
             }
         }
 

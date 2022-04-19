@@ -144,6 +144,7 @@ namespace ChartTools.SystemExtensions.Linq
             exactMatch = false;
             return index;
         }
+        public static int BinarySearchIndex<T>(this IList<T> source, T target, out bool exactMatch) where T : notnull, IComparable<T> => BinarySearchIndex(source, target, t => t, out exactMatch);
 
         /// <summary>
         /// Returns distinct elements of a sequence using a method to determine the equality of elements
