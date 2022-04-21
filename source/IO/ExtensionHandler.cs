@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 using ChartTools.IO.Configuration;
@@ -10,21 +9,21 @@ using ChartTools.SystemExtensions;
 
 namespace ChartTools.IO
 {
+    /// <summary>
+    /// Read method that returns no value.
+    /// </summary>
+    /// <param name="path">File path</param>
     public delegate void VoidRead(string path);
     /// <summary>
     /// Read method that generates an object of the target type
     /// </summary>
-    /// <typeparam name="T">Output type</typeparam>
     /// <param name="path">File path</param>
-    /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
     public delegate T Read<T>(string path);
     /// <summary>
     /// Asynchronous read method that generates an object of the target type
     /// </summary>
     /// <typeparam name="T">Output type</typeparam>
     /// <param name="path">File path</param>
-    /// <param name="cancellationToken"><inheritdoc cref="CancellationToken" path="/summary"/></param>
-    /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
     public delegate Task<T> AsyncRead<T>(string path);
     /// <summary>
     /// Write method hat takes an object of a target type
@@ -32,7 +31,6 @@ namespace ChartTools.IO
     /// <typeparam name="T">Target type</typeparam>
     /// <param name="path">File path</param>
     /// <param name="content">Object to write</param>
-    /// <param name="config"><inheritdoc cref="WritingConfiguration" path="/summary"/></param>
     public delegate void Write<T>(string path, T content);
     /// <summary>
     /// Write method hat takes an object of a target type
@@ -40,8 +38,6 @@ namespace ChartTools.IO
     /// <typeparam name="T">Target type</typeparam>
     /// <param name="path">File path</param>
     /// <param name="content">Object to write</param>
-    /// <param name="cancellationToken"><inheritdoc cref="CancellationToken" path="/summary"/></param>
-    /// <param name="config"><inheritdoc cref="WritingConfiguration" path="/summary"/></param>
     public delegate Task AsyncWrite<T>(string path, T content);
 
     /// <summary>
@@ -70,7 +66,6 @@ namespace ChartTools.IO
         /// </summary>
         /// <typeparam name="T">Type of the generated object</typeparam>
         /// <param name="path">File path</param>
-        /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
         /// <param name="readers">set of tuples containing the supported extensions and the matching read method</param>
         public static T Read<T>(string path, params (string extension, Read<T> readMethod)[] readers)
         {

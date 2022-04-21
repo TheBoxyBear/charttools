@@ -40,6 +40,13 @@ namespace ChartTools.SystemExtensions
 }
 namespace ChartTools.SystemExtensions.Linq
 {
+    /// <summary>
+    /// Replacement for a section of items in a collection
+    /// </summary>
+    /// <param name="Replacement">Items to replace with</param>
+    /// <param name="StartReplace">Method that defines if a source marks the start of the section to replace</param>
+    /// <param name="EndReplace">Method that defines if a source item marks the end of the section to replace</param>
+    /// <param name="AddIfMissing">The replacement should be appended to the collection if the section to replace is not found</param>
 #if NET6_0_OR_GREATER
     public readonly record struct SectionReplacement<T>(IEnumerable<T> Replacement, Predicate<T> StartReplace, Predicate<T> EndReplace, bool AddIfMissing);
 #else
@@ -51,6 +58,11 @@ namespace ChartTools.SystemExtensions.Linq
     /// </summary>
     public static class LinqExtensions
     {
+        /// <summary>
+        /// Checks that all booleans in a collection are <see langword="true"/>.
+        /// </summary>
+        /// <param name="source">Source of booleans</param>
+        /// <returns><see langword="true"/> if all booleans are <see langword="true"/> or the collection is empty</returns>
         public static bool All(this IEnumerable<bool> source)
         {
             bool containsItems = false;
@@ -63,8 +75,13 @@ namespace ChartTools.SystemExtensions.Linq
                     return false;
             }
 
-            return containsItems;
+            return !containsItems;
         }
+
+        /// <summary>
+        /// Checks if any boolean in a collection is <see langword="true"/>.
+        /// </summary>
+        /// <param name="source">Source of booleans</param>
         public static bool Any(this IEnumerable<bool> source)
         {
             foreach (bool b in source)
@@ -394,6 +411,12 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
         public static IEnumerable<T> ManyMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) > 0);
 
+        /// <summary>
+        /// Tries to get the first element of a collection.
+        /// </summary>
+        /// <param name="source">Source of items</param>
+        /// <param name="result">Found item</param>
+        /// <returns><see langword="true"/> if an item was found</returns>
         public static bool TryGetFirst<T>(this IEnumerable<T> source, out T? result)
         {
             using var enumerator = source.GetEnumerator();
@@ -402,6 +425,12 @@ namespace ChartTools.SystemExtensions.Linq
             result = success ? enumerator.Current : default;
             return success;
         }
+        /// <summary>
+        /// Tries to get the first item of a given type in a collection.
+        /// </summary>
+        /// <param name="source">Source of items</param>
+        /// <param name="result">Found item</param>
+        /// <returns><see langword="true"/> if an item was found</returns>
         public static bool TryGetFirstOfType<TResult>(this IEnumerable source, out TResult? result) => source.OfType<TResult>().TryGetFirst(out result);
 
         // Methods present in .NET 6 but needed for .NET builds
