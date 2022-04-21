@@ -61,6 +61,7 @@ namespace ChartTools
         }
         private List<GlobalEvent> _globalEvents = new();
 
+        /// <inheritdoc cref="InstrumentSet"/>
         public InstrumentSet Instruments
         {
             get => _instruments;
@@ -74,13 +75,14 @@ namespace ChartTools
         /// </summary>
         /// <param name="path">Path of the file</param>
         /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
+        /// <param name="formatting"><inheritdoc cref="FormattingRules" path="/summary"/></param>
         public static Song FromFile(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadSong(path, config, formatting)), (".ini", path => new Song { Metadata = IniFile.ReadMetadata(path) }));
         /// <summary>
         /// Reads all elements of a <see cref="Song"/> from a file asynchronously using multitasking.
         /// </summary>
         /// <param name="path"><inheritdoc cref="FromFile(string, ReadingConfiguration?, FormattingRules?)" path="/param[@name='path']"/></param>
+        /// <param name="config"><inheritdoc cref="FromFile(string, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>        /// <param name="formatting"><inheritdoc cref="FormattingRules" path="/summary"/></param>
         /// <param name="cancellationToken">Token to request cancellation</param>
-        /// <param name="config"><inheritdoc cref="FromFile(string, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>
         public static async Task<Song> FromFileAsync(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync<Song>(path, (".chart", path => ChartFile.ReadSongAsync(path, config, formatting, cancellationToken)));
 
         public static Song FromDirectory(string directory, ReadingConfiguration? config = default)

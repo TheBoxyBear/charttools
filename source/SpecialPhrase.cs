@@ -27,8 +27,9 @@ namespace ChartTools
         /// <summary>
         /// Creates an instance of <see cref="SpecialPhrase"/>.
         /// </summary>
-        /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
-        /// <param name="length">Value of <see cref="LongTrackObject.Length"/></param>
+        /// <param name="position">Position of the phrase</param>
+        /// <param name="type">Effect of the phrase</param>
+        /// <param name="length">Duration in ticks</param>
         public SpecialPhrase(uint position, SpecialPhraseType type, uint length = 0) : base(position)
         {
             Type = type;

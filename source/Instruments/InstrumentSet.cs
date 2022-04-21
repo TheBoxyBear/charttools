@@ -9,6 +9,9 @@ using System.Linq;
 
 namespace ChartTools
 {
+    /// <summary>
+    /// Set of all instruments
+    /// </summary>
     public class InstrumentSet : IEnumerable<Instrument>
     {
         /// <summary>
