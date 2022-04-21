@@ -11,8 +11,7 @@ namespace ChartTools.Tools.Optimizing
     /// </summary>
     public static class Optimizer
     {
-        internal static bool LengthNeedsCut(LongTrackObject? previous, LongTrackObject? current) => previous?.Position + previous?.Length > current?.Position;
-        internal static void CutLength(LongTrackObject previous, LongTrackObject current) => previous.Length = current.Position - previous.Position;
+        internal static bool LengthNeedsCut(ILongTrackObject? previous, ILongTrackObject current) => previous?.Position + previous?.Length > current.Position;
 
         /// <summary>
         /// Cuts short sustains that exceed the position of the next identical note.
@@ -21,7 +20,7 @@ namespace ChartTools.Tools.Optimizing
         public static void CutSustains(this IEnumerable<Chord> chords)
         {
             foreach ((var previous, var current) in chords.OrderBy(c => c.Position).RelativeLoop())
-                foreach (var note in current!.Notes)
+                foreach (var note in current.Notes)
                 {
                     var previousNote = previous!.Notes.First(n => n.NoteIndex == note.NoteIndex);
 
@@ -31,14 +30,14 @@ namespace ChartTools.Tools.Optimizing
         }
 
         /// <summary>
-        /// Cuts short star power phrases that exceed the start of the next phrase
+        /// Cuts short long track objects that exceed the start of the next one.
         /// </summary>
         /// <param name="phrases">Star power phrases to cut the lengths of</param>
-        public static void CutLengths(this IEnumerable<SpecialPhrase> phrases)
+        public static void CutLengths(this IEnumerable<ILongTrackObject> phrases)
         {
             foreach ((var previous, var current) in phrases.OrderBy(p => p.Position).RelativeLoop())
-                if (LengthNeedsCut(previous!, current!))
-                    CutLength(previous!, current!);
+                if (LengthNeedsCut(previous!, current))
+                    previous!.Length = current.Position - previous.Position;
         }
 
         /// <summary>
@@ -48,7 +47,7 @@ namespace ChartTools.Tools.Optimizing
         public static void RemoveUneeded(this UniqueTrackObjectCollection<Tempo> markers)
         {
             foreach ((var previous, var current) in markers.OrderBy(p => p.Position).RelativeLoop())
-                if (previous is not null && previous.Anchor is null && current?.Anchor is null && previous.Value == current?.Value)
+                if (previous is not null && previous.Anchor is null && current.Anchor is null && previous.Value == current.Value)
                     markers.Remove(current);
         }
 
@@ -59,7 +58,7 @@ namespace ChartTools.Tools.Optimizing
         public static void RemoveUnneeded(this UniqueTrackObjectCollection<TimeSignature> signatures)
         {
             foreach ((var previous, var current) in signatures.OrderBy(p => p.Position).RelativeLoop())
-                if (previous is not null && previous.Numerator == current?.Numerator && previous.Denominator == current.Denominator)
+                if (previous is not null && previous.Numerator == current.Numerator && previous.Denominator == current.Denominator)
                     signatures.Remove(current);
         }
     }

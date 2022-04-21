@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace ChartTools.Lyrics
 {
-    public class Phrase : Chord<Syllable, VocalsPitch, VocalChordModifier>, ILongObject
+    public class Phrase : Chord<Syllable, VocalsPitch, VocalChordModifier>, ILongTrackObject
     {
         public override List<Syllable> Notes { get; } = new();
         public override uint Position { get; set; }
@@ -31,6 +31,11 @@ namespace ChartTools.Lyrics
         }
         private uint? _lengthOverride;
 
+        uint ILongObject.Length
+        {
+            get => Length;
+            set => LengthOverride = value;
+        }
 
         /// <summary>
         /// Offset of the first syllable

@@ -108,7 +108,6 @@
     <Compile Include="Tools\TempoRescaler.cs" />
     <Compile Include="TrackObjects\ILongTrackObject.cs" />
     <Compile Include="TrackObjects\ITrackObject.cs" />
-    <Compile Include="TrackObjects\LongTrackObject.cs" />
     <Compile Include="TrackObjects\TrackObject.cs" />
     <Compile Include="Tracks\Track.cs" />
     <Compile Include="Tracks\TrackGeneric.cs" />

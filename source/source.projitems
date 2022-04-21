@@ -62,6 +62,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Appliables\IInstrumentAppliable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFormatting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\TextFileWriter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\LongTrackObject.cs" />
     <Compile Include="..\source\IO\Ini\IniKeySerializableAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniSerializer.cs" />
@@ -117,7 +118,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\StreamCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\ILongTrackObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\ITrackObject.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\LongTrackObject.cs" />
     <Compile Include="..\source\IO\Chart\Serializers\TrackObjectGroupSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serializers\TrackSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Providers\EventProvider.cs" />

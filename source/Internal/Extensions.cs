@@ -333,11 +333,11 @@ namespace ChartTools.SystemExtensions.Linq
         /// </summary>
         /// <param name="source">Items to loop through</param>
         /// <param name="firstPrevious">Value of the previous item in the first call of the action</param>
-        public static IEnumerable<(T? previous, T? current)> RelativeLoop<T>(this IEnumerable<T?> source, T? firstPrevious = default)
+        public static IEnumerable<(T? previous, T current)> RelativeLoop<T>(this IEnumerable<T> source, T? firstPrevious = default)
         {
-            T? previousItem = firstPrevious;
+            var previousItem = firstPrevious;
 
-            foreach (T? item in source)
+            foreach (var item in source)
             {
                 yield return (previousItem, item);
                 previousItem = item;

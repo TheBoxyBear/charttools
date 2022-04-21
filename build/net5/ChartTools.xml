@@ -2766,9 +2766,9 @@
             </summary>
             <param name="chords">Chords to cut the sustains of</param>
         </member>
-        <member name="M:ChartTools.Tools.Optimizing.Optimizer.CutLengths(System.Collections.Generic.IEnumerable{ChartTools.SpecialPhrase})">
+        <member name="M:ChartTools.Tools.Optimizing.Optimizer.CutLengths(System.Collections.Generic.IEnumerable{ChartTools.ILongTrackObject})">
             <summary>
-            Cuts short star power phrases that exceed the start of the next phrase
+            Cuts short long track objects that exceed the start of the next one.
             </summary>
             <param name="phrases">Star power phrases to cut the lengths of</param>
         </member>

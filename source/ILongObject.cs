@@ -5,6 +5,6 @@
         /// <summary>
         /// Length of the object in ticks
         /// </summary>
-        public uint Length { get; }
+        public uint Length { get; set; }
     }
 }
