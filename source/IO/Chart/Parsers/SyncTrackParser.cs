@@ -67,7 +67,7 @@ namespace ChartTools.IO.Chart.Parsers
                         break;
 
                     // Floats are written by rounding to the 3rd decimal and removing the decimal point
-                    var anchor = ValueParser.ParseFloat(entry.Data, "anchor") / 1000;
+                    var anchor = TimeSpan.FromSeconds(ValueParser.ParseFloat(entry.Data, "anchor") / 1000);
 
                     // Find the marker matching the position in case it was already added through a mention of value
                     var markerIndex = orderedTempos.BinarySearchIndex(entry.Position, t => t.Position, out bool exactMatch);

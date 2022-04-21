@@ -1,6 +1,8 @@
 ﻿using ChartTools.Formatting;
 using ChartTools.Internal;
 
+using System;
+
 namespace ChartTools.IO.Ini
 {
     internal class IniParser : TextParser, ISongAppliable
@@ -66,10 +68,10 @@ namespace ChartTools.IO.Ini
                     result.PreviewEnd = ValueParser.ParseUint(entry.Value, "preview end");
                     break;
                 case IniFormatting.AudioOffset:
-                    result.AudioOffset = ValueParser.ParseInt(entry.Value, "audio offset");
+                    result.AudioOffset = TimeSpan.FromMilliseconds(ValueParser.ParseInt(entry.Value, "audio offset"));
                     break;
                 case IniFormatting.VideoOffset:
-                    result.VideoOffset = ValueParser.ParseInt(entry.Value, "video offset");
+                    result.VideoOffset = TimeSpan.FromMilliseconds(ValueParser.ParseInt(entry.Value, "video offset"));
                     break;
                 case IniFormatting.Length:
                     result.Length = ValueParser.ParseUint(entry.Value, "song length");

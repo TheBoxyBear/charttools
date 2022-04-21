@@ -132,11 +132,11 @@ namespace ChartTools
         public string? MediaType { get; set; }
 
         /// <summary>
-        /// Offset of the audio track in milliseconds. A higher value makes the audio start sooner.
+        /// Offset of the audio track. A higher value makes the audio start sooner.
         /// </summary>
         [ChartKeySerializable(ChartFormatting.AudioOffset)]
         [IniKeySerializable(IniFormatting.AudioOffset)]
-        public int? AudioOffset { get; set; }
+        public TimeSpan? AudioOffset { get; set; }
 
         /// <summary>
         /// Paths of audio files
@@ -149,12 +149,9 @@ namespace ChartTools
         private StreamCollection _streams = new();
 
         /// <summary>
-        /// Offset of the background video in milliseconds. A higher value makes the video start sooner.
+        /// Offset of the background video. A higher value makes the video start sooner.
         /// </summary>
-        /// <summary>
-        /// Offset of the background video in milliseconds. A higher value makes the video start sooner.
-        /// </summary>
-        public int? VideoOffset { get; set; }
+        public TimeSpan? VideoOffset { get; set; }
 
         /// <summary>
         /// Length of the song in milliseconds

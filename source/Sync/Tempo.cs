@@ -1,4 +1,6 @@
-﻿namespace ChartTools
+﻿using System;
+
+namespace ChartTools
 {
     /// <summary>
     /// Marker that alters the tempo
@@ -10,9 +12,9 @@
         /// </summary>
         public float Value { get; set; }
         /// <summary>
-        /// If not <see langword="null"/>, overrides <see cref="TrackObject.Position"/> with a time in seconds from the start of the song
+        /// Locks the tempo to a specific time in the song independent to the sync track.
         /// </summary>
-        public float? Anchor { get; set; }
+        public TimeSpan? Anchor { get; set; }
 
         /// <summary>
         /// Creates an instance of <see cref="Tempo"/>.

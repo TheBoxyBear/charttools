@@ -1,4 +1,6 @@
-﻿namespace ChartTools.IO.Chart.Parsers
+﻿using System;
+
+namespace ChartTools.IO.Chart.Parsers
 {
     internal class MetadataParser : ChartParser
     {
@@ -30,7 +32,7 @@
                     result.Year = ValueParser.ParseUshort(value.TrimStart(','), "year");
                     break;
                 case ChartFormatting.AudioOffset:
-                    result.AudioOffset = (int)(ValueParser.ParseFloat(value, "audio offset") * 1000);
+                    result.AudioOffset = TimeSpan.FromMilliseconds(ValueParser.ParseFloat(value, "audio offset") * 1000);
                     break;
                 case ChartFormatting.Difficulty:
                     result.Difficulty = ValueParser.ParseSbyte(value, "difficulty");

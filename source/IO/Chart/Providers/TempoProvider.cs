@@ -10,7 +10,7 @@ namespace ChartTools.IO.Chart.Providers
         protected override IEnumerable<TrackObjectEntry> GetEntries(Tempo item)
         {
             if (item.Anchor is not null)
-                yield return new(item.Position, "A", ChartFormatting.Float((float)item.Anchor));
+                yield return new(item.Position, "A", ChartFormatting.Float((float)item.Anchor.Value.TotalSeconds));
             yield return new(item.Position, "B", ChartFormatting.Float(item.Value));
         }
     }
