@@ -18,9 +18,9 @@ namespace ChartTools.IO.MIDI
     internal static partial class MIDIParser
     {
         /// <summary>
-        /// Parameter to use with MIDIFile.Read()
+        /// Settings to customize the initial parsing of the file by DryWetMidi
         /// </summary>
-        private static readonly ReadingSettings readingSettings = new()
+        private static ReadingSettings ReadingSettings { get; set; } = new()
         {
             NotEnoughBytesPolicy = NotEnoughBytesPolicy.Ignore,
             InvalidChunkSizePolicy = InvalidChunkSizePolicy.Ignore,
@@ -37,7 +37,7 @@ namespace ChartTools.IO.MIDI
             if (midiConfig is null)
                 throw new ArgumentNullException(nameof(midiConfig));
 
-            MidiFile file = MidiFile.Read(path, readingSettings);
+            MidiFile file = MidiFile.Read(path, ReadingSettings);
 
             Song song = new();
             Type songType = typeof(Song);
@@ -72,7 +72,7 @@ namespace ChartTools.IO.MIDI
             if (midiConfig is null)
                 throw new ArgumentNullException(nameof(midiConfig));
 
-            MidiFile file = MidiFile.Read(path, readingSettings);
+            MidiFile file = MidiFile.Read(path, ReadingSettings);
 
             if (instrument == InstrumentIdentity.Drums)
                 return GetDrums(file.Chunks, midiConfig);
@@ -86,13 +86,13 @@ namespace ChartTools.IO.MIDI
 
         public static Instrument<DrumsChord>? ReadDrums(string path, ReadingConfiguration midiConfig) => midiConfig is null
             ? throw new ArgumentNullException(nameof(midiConfig))
-            : GetDrums(MidiFile.Read(path, readingSettings).Chunks, midiConfig);
+            : GetDrums(MidiFile.Read(path, ReadingSettings).Chunks, midiConfig);
         public static Instrument<GHLChord>? ReadInstrument(string path, GHLInstrumentIdentity instrument, ReadingConfiguration midiConfig) => midiConfig is null
             ? throw new ArgumentNullException(nameof(midiConfig))
-            : GetInstrument(MidiFile.Read(path, readingSettings).Chunks, instrument, midiConfig);
+            : GetInstrument(MidiFile.Read(path, ReadingSettings).Chunks, instrument, midiConfig);
         public static Instrument<StandardChord>? ReadInstrument(string path, StandardInstrumentIdentity instrument, ReadingConfiguration midiConfig) => midiConfig is null
             ? throw new ArgumentNullException(nameof(midiConfig))
-            : GetInstrument(MidiFile.Read(path, readingSettings).Chunks, instrument, midiConfig);
+            : GetInstrument(MidiFile.Read(path, ReadingSettings).Chunks, instrument, midiConfig);
 
         private static Instrument<DrumsChord>? GetDrums(ChunksCollection chunks, ReadingConfiguration midiConfig) => CheckTrackChunkPresence(chunks, out Exception? e)
             ? GetInstrument(GetSequenceEvents(chunks.OfType<TrackChunk>(), sequenceNames[InstrumentIdentity.Drums]), GetDrumsChords, midiConfig)
@@ -246,7 +246,7 @@ namespace ChartTools.IO.MIDI
             throw new NotImplementedException();
         }
 
-        public static List<GlobalEvent> ReadGlobalEvents(string path) => GetGlobalEvents(MidiFile.Read(path, readingSettings).Chunks);
+        public static List<GlobalEvent> ReadGlobalEvents(string path) => GetGlobalEvents(MidiFile.Read(path, ReadingSettings).Chunks);
         private static List<GlobalEvent> GetGlobalEvents(ChunksCollection chunks)
         {
             if (!CheckTrackChunkPresence(chunks, out Exception? e))
@@ -322,7 +322,7 @@ namespace ChartTools.IO.MIDI
             return (localEvents, starPower);
         }
 
-        public static Metadata ReadMetadata(string path) => GetMetadata(MidiFile.Read(path, readingSettings));
+        public static Metadata ReadMetadata(string path) => GetMetadata(MidiFile.Read(path, ReadingSettings));
         private static Metadata GetMetadata(MidiFile file)
         {
             if (!CheckTrackChunkPresence(file.Chunks, out Exception? e))
@@ -335,7 +335,7 @@ namespace ChartTools.IO.MIDI
                 : throw new FormatException("Cannot get resolution from the file.");
         }
 
-        public static SyncTrack ReadSyncTrack(string path) => GetSyncTrack(MidiFile.Read(path, readingSettings).Chunks);
+        public static SyncTrack ReadSyncTrack(string path) => GetSyncTrack(MidiFile.Read(path, ReadingSettings).Chunks);
         private static SyncTrack GetSyncTrack(ChunksCollection chunks)
         {
             if (!CheckTrackChunkPresence(chunks, out Exception? ex))

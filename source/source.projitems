@@ -60,7 +60,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\ParseException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\SectionException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Appliables\IInstrumentAppliable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\FileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFormatting.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\TextFileWriter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\LongTrackObject.cs" />
     <Compile Include="..\source\IO\Ini\IniKeySerializableAttribute.cs" />

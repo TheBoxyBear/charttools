@@ -9,13 +9,12 @@ using System.Threading.Tasks;
 
 namespace ChartTools.IO
 {
-    internal abstract class TextFileReader : IDisposable
+    internal abstract class TextFileReader : FileReader<string>
     {
         private record ParserLinesGroup(TextParser Parser, DelayedEnumerableSource<string> Source);
 
-        public string Path { get; }
         public virtual bool DefinedSectionEnd { get; } = false;
-        public virtual IEnumerable<TextParser> Parsers => parserGroups.Select(g => g.Parser);
+        public override IEnumerable<TextParser> Parsers => parserGroups.Select(g => g.Parser);
 
         private readonly List<ParserLinesGroup> parserGroups = new();
         private readonly List<Task> parseTasks = new();
@@ -23,21 +22,20 @@ namespace ChartTools.IO
         private readonly IEnumerator<string> enumerator;
         private bool disposedValue;
 
-        public TextFileReader(string path, Func<string, TextParser?> parserGetter)
+        public TextFileReader(string path, Func<string, TextParser?> parserGetter) : base(path)
         {
-            Path = path;
             this.parserGetter = parserGetter;
             enumerator = File.ReadLines(path).Where(s => !string.IsNullOrEmpty(s)).Select(s => s.Trim()).GetEnumerator();
         }
 
-        public void Read()
+        public override void Read()
         {
             BaseRead(false, CancellationToken.None);
 
             foreach (var group in parserGroups)
                 group.Parser.Parse(group.Source.Enumerable.EnumerateSynchronously());
         }
-        public async Task ReadAsync(CancellationToken cancellationToken)
+        public override async Task ReadAsync(CancellationToken cancellationToken)
         {
             BaseRead(true, cancellationToken);
             await Task.WhenAll(parseTasks);
@@ -112,14 +110,14 @@ namespace ChartTools.IO
                         currentGroup!.Source.EndAwait();
                 }
 
-                bool AdvanceSection() => enumerator.MoveNext() ? true : (DefinedSectionEnd ? throw SectionException.EarlyEnd(header) : false);
+                bool AdvanceSection() => enumerator.MoveNext() || (DefinedSectionEnd ? throw SectionException.EarlyEnd(header) : false);
             }
         }
 
         protected abstract bool IsSectionStart(string line);
         protected virtual bool IsSectionEnd(string line) => false;
 
-        public virtual async void Dispose()
+        public override async void Dispose()
         {
             if (!disposedValue)
             {
