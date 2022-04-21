@@ -19,7 +19,7 @@ namespace ChartTools.Tools.Optimizing
         /// <param name="chords">Chords to cut the sustains of</param>
         public static void CutSustains(this IEnumerable<Chord> chords)
         {
-            foreach ((var previous, var current) in chords.OrderBy(c => c.Position).RelativeLoop())
+            foreach ((var previous, var current) in GetTrackObjectPairs(chords))
                 foreach (var note in current.Notes)
                 {
                     var previousNote = previous!.Notes.First(n => n.NoteIndex == note.NoteIndex);
@@ -35,7 +35,7 @@ namespace ChartTools.Tools.Optimizing
         /// <param name="phrases">Star power phrases to cut the lengths of</param>
         public static void CutLengths(this IEnumerable<ILongTrackObject> phrases)
         {
-            foreach ((var previous, var current) in phrases.OrderBy(p => p.Position).RelativeLoop())
+            foreach ((var previous, var current) in GetTrackObjectPairs(phrases))
                 if (LengthNeedsCut(previous!, current))
                     previous!.Length = current.Position - previous.Position;
         }
@@ -46,7 +46,7 @@ namespace ChartTools.Tools.Optimizing
         /// <param name="markers">Tempo markers to remove the unneeded from</param>
         public static void RemoveUneeded(this UniqueTrackObjectCollection<Tempo> markers)
         {
-            foreach ((var previous, var current) in markers.OrderBy(p => p.Position).RelativeLoop())
+            foreach ((var previous, var current) in GetTrackObjectPairs(markers))
                 if (previous is not null && previous.Anchor is null && current.Anchor is null && previous.Value == current.Value)
                     markers.Remove(current);
         }
@@ -57,9 +57,11 @@ namespace ChartTools.Tools.Optimizing
         /// <param name="signatures">Time signatures to remove the unneeded from</param>
         public static void RemoveUnneeded(this UniqueTrackObjectCollection<TimeSignature> signatures)
         {
-            foreach ((var previous, var current) in signatures.OrderBy(p => p.Position).RelativeLoop())
+            foreach ((var previous, var current) in GetTrackObjectPairs(signatures))
                 if (previous is not null && previous.Numerator == current.Numerator && previous.Denominator == current.Denominator)
                     signatures.Remove(current);
         }
+
+        private static IEnumerable<(T?, T)> GetTrackObjectPairs<T>(IEnumerable<T> source) where T : ITrackObject => source.OrderBy(p => p.Position).RelativeLoop();
     }
 }
