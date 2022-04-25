@@ -9,7 +9,8 @@
     <DebugType>embedded</DebugType>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <DocumentationFile>E:\Users\Gaming\Documents\GitHub\ChartTools\build\net5\ChartTools.xml</DocumentationFile>
+    <DocumentationFile>$(OutDir)ChartTools.xml</DocumentationFile>
+    <BaseOutputPath>$(ProjectDir)..\build\net5</BaseOutputPath>
   </PropertyGroup>
 
   <Import Project="..\source\source.projitems" Label="Shared" />
@@ -18,8 +19,4 @@
     <PackageReference Include="Melanchall.DryWetMidi" Version="6.0.1" />
     <PackageReference Include="System.Linq.Async" Version="5.1.0" />
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir)bin\Release\net5.0\ChartTools.dll&quot; &quot;$(ProjectDir)..\build\net5&quot; /y" />
-  </Target>
 </Project>
