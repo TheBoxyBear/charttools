@@ -5,24 +5,19 @@
     <LangVersion>preview</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
     <RootNamespace>ChartTools</RootNamespace>
     <AssemblyName>ChartTools</AssemblyName>
     <DebugType>embedded</DebugType>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <DocumentationFile>E:\Users\Gaming\Documents\GitHub\ChartTools\build\net6\ChartTools.xml</DocumentationFile>
-    <SignAssembly>False</SignAssembly>
+    <DocumentationFile>$(OutDir)ChartTools.xml</DocumentationFile>
+    <BaseOutputPath>$(ProjectDir)..\build\net6</BaseOutputPath>
   </PropertyGroup>
 
   <Import Project="..\source\source.projitems" Label="Shared" />
 
   <ItemGroup>
     <PackageReference Include="Melanchall.DryWetMidi" Version="6.0.1" />
-    <PackageReference Include="System.Linq.Async" Version="5.1.0" />
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir)bin\Release\net6.0\ChartTools.dll&quot; &quot;$(ProjectDir)..\build\net6&quot; /y" />
-  </Target>
 </Project>

@@ -34,7 +34,7 @@ A song contains four main components:
 
 - Metadata - Miscellaneous info about the song, such as title, album, charter etc.
 - Sync track - Markers that define time signature and tempo
-- Global events - Events that are not tied to an instrument.
+- [Global events](Events.md) - Events that are not tied to an instrument.
 - Instruments - The instrument track data.
 
 Each of these components can be read individually from a file or directory using the non-generic version of the corresponding class, with or without a configuration object.
@@ -78,7 +78,7 @@ A track is composed of three components:
 
 - Chords (defined by the generic type)
 - Special phrases (star power)
-- Local events
+- [Local events](Events.md)
 
 > **NOTE**: When setting a track in an instrument, a clone of the track is created which contains the target instrument as the `ParentInstrument` property. In order to have changes made to the track after the assignment be reflected in the instrument, the track must be re-obtained from the instrument rather than using the instance used in the assignment.
 
