@@ -5,7 +5,7 @@ This guide will cover how to use events and their helpers.
 ### Class structure
 Events are stored using `Event` as a base class, containing the position, event type and an optional argument. The type and argument can also be set simultaneously through the `EventData` property.
 
-ChartTools distinguishes between global events (stored under `Song`) and local events (stored under `Track`) using the respective `GlobalEvent` and `LocalEvent` classed, both deriving from `Event`. This allows to know which types are a valid for a given event and for the classes to provide helper properties for some complex event types.
+ChartTools distinguishes between global events (stored under `Song`) and local events (stored under `Track`) using the respective `GlobalEvent` and `LocalEvent` classes, both deriving from `Event`. This allows to know which types are a valid for a given event and for the classes to provide helper properties for some complex event types.
 
 ### Event helpers
 Event types and arguments are stored as `string`, allowing for future-proofing and supporting custom events from sources that are not officially supported.
