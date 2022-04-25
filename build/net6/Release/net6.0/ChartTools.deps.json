@@ -8,8 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "ChartTools/1.0.0": {
         "dependencies": {
-          "Melanchall.DryWetMidi": "6.0.1",
-          "System.Linq.Async": "5.1.0"
+          "Melanchall.DryWetMidi": "6.0.1"
         },
         "runtime": {
           "ChartTools.dll": {}
@@ -20,14 +19,6 @@
           "lib/netstandard2.0/Melanchall.DryWetMidi.dll": {
             "assemblyVersion": "6.0.1.0",
             "fileVersion": "6.0.1.0"
-          }
-        }
-      },
-      "System.Linq.Async/5.1.0": {
-        "runtime": {
-          "lib/netcoreapp3.1/System.Linq.Async.dll": {
-            "assemblyVersion": "5.1.0.0",
-            "fileVersion": "5.1.0.2"
           }
         }
       }
@@ -45,13 +36,6 @@
       "sha512": "sha512-BcZSMCXux3I88SUVWTjYAUsDX4tchGhrfi1imkPmjHc+lR2T6OULhN5rlJrbyYldQUKwOdf+oK/KPTcBMCWmAA==",
       "path": "melanchall.drywetmidi/6.0.1",
       "hashPath": "melanchall.drywetmidi.6.0.1.nupkg.sha512"
-    },
-    "System.Linq.Async/5.1.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-TkDTElj3vvizUnhS4mj0oZW8kX6KOBcsUkj79w/q6IUI7nsW+bXmWZfixknClug/IA+8vTWcArXSjIxn9hIWxQ==",
-      "path": "system.linq.async/5.1.0",
-      "hashPath": "system.linq.async.5.1.0.nupkg.sha512"
     }
   }
 }
