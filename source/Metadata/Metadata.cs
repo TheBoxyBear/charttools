@@ -217,9 +217,9 @@ namespace ChartTools
             if (paths is null || paths.Length == 0)
                 throw new ArgumentException("No provided paths");
 
-            Metadata? data = null;
+            var data = FromFile(paths[0]);
 
-            foreach (var path in paths)
+            foreach (var path in paths[1..])
                 data.ReadFile(path);
 
             return data;
