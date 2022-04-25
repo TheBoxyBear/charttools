@@ -27,6 +27,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\Validator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Instruments\InstrumentSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\EagerEnumerable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Unique\UniqueList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Unique\UniqueListEquatable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\IEmptyVerifiable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\ChartParser.cs" />
@@ -46,8 +48,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Delayed\DelayedEnumerableSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Sorted\IndexableSelfSorted.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Sorted\SelfSorted.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Unique\Lists\UniqueList.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Unique\Lists\UniqueListEquatable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\FuncEqualityComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\IInitializable.cs" />

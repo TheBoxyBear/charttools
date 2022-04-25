@@ -34,8 +34,6 @@
     <Compile Include="Internal\Collections\Delayed\DelayedEnumerator.cs" />
     <Compile Include="Internal\Collections\Sorted\IndexableSelfSorted.cs" />
     <Compile Include="Internal\Collections\Sorted\SelfSorted.cs" />
-    <Compile Include="Internal\Collections\Unique\Lists\UniqueList.cs" />
-    <Compile Include="Internal\Collections\Unique\Lists\UniqueListEquatable.cs" />
     <Compile Include="Internal\Extensions.cs" />
     <Compile Include="Internal\FuncEqualityComparer.cs" />
     <Compile Include="Internal\IInitializable.cs" />
