@@ -28,6 +28,9 @@
             Set of notes played simultaneously
             </summary>
         </member>
+        <member name="P:ChartTools.Chord`3.Notes">
+            <inheritdoc cref="P:ChartTools.Chord.Notes"/>
+        </member>
         <member name="M:ChartTools.Chord`3.#ctor(System.UInt32)">
             <inheritdoc cref="M:ChartTools.Chord.#ctor(System.UInt32)" path="/param"/>
         </member>
@@ -756,6 +759,11 @@
             </summary>
             <exception cref="T:ChartTools.Exceptions.UndefinedEnumException"></exception>
         </member>
+        <member name="T:ChartTools.InstrumentSet">
+            <summary>
+            Set of all instruments
+            </summary>
+        </member>
         <member name="P:ChartTools.InstrumentSet.Drums">
             <summary>
             Set of drums tracks
@@ -1144,6 +1152,7 @@
             <summary>
             Gets the written data for a note.
             </summary>
+            <param name="position">Position of the parent <see cref="T:ChartTools.Chord"/></param>
             <param name="index">Value of <see cref="P:ChartTools.Note.NoteIndex"/></param>
             <param name="sustain">Value of <see cref="P:ChartTools.Note.Length"/></param>
         </member>
@@ -1396,13 +1405,17 @@
             *Currently unsupported*
             </summary>
         </member>
+        <member name="T:ChartTools.IO.VoidRead">
+            <summary>
+            Read method that returns no value.
+            </summary>
+            <param name="path">File path</param>
+        </member>
         <member name="T:ChartTools.IO.Read`1">
             <summary>
             Read method that generates an object of the target type
             </summary>
-            <typeparam name="T">Output type</typeparam>
             <param name="path">File path</param>
-            <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
         </member>
         <member name="T:ChartTools.IO.AsyncRead`1">
             <summary>
@@ -1410,8 +1423,6 @@
             </summary>
             <typeparam name="T">Output type</typeparam>
             <param name="path">File path</param>
-            <param name="cancellationToken"><inheritdoc cref="T:System.Threading.CancellationToken" path="/summary"/></param>
-            <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
         </member>
         <member name="T:ChartTools.IO.Write`1">
             <summary>
@@ -1420,7 +1431,6 @@
             <typeparam name="T">Target type</typeparam>
             <param name="path">File path</param>
             <param name="content">Object to write</param>
-            <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.WritingConfiguration" path="/summary"/></param>
         </member>
         <member name="T:ChartTools.IO.AsyncWrite`1">
             <summary>
@@ -1429,8 +1439,6 @@
             <typeparam name="T">Target type</typeparam>
             <param name="path">File path</param>
             <param name="content">Object to write</param>
-            <param name="cancellationToken"><inheritdoc cref="T:System.Threading.CancellationToken" path="/summary"/></param>
-            <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.WritingConfiguration" path="/summary"/></param>
         </member>
         <member name="T:ChartTools.IO.ExtensionHandler">
             <summary>
@@ -1450,7 +1458,6 @@
             </summary>
             <typeparam name="T">Type of the generated object</typeparam>
             <param name="path">File path</param>
-            <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
             <param name="readers">set of tuples containing the supported extensions and the matching read method</param>
         </member>
         <member name="M:ChartTools.IO.ExtensionHandler.Write``1(System.String,``0,System.ValueTuple{System.String,ChartTools.IO.Write{``0}}[])">
@@ -1473,9 +1480,9 @@
             Provides methods for reading and writing MIDI files
             </summary>
         </member>
-        <member name="F:ChartTools.IO.MIDI.MIDIParser.readingSettings">
+        <member name="P:ChartTools.IO.MIDI.MIDIParser.ReadingSettings">
             <summary>
-            Parameter to use with MIDIFile.Read()
+            Settings to customize the initial parsing of the file by DryWetMidi
             </summary>
         </member>
         <member name="M:ChartTools.IO.MIDI.MIDIParser.ReadSong(System.String,ChartTools.IO.Configuration.ReadingConfiguration)">
@@ -2124,10 +2131,41 @@
             <param name="lastItemPreceder">Word to place before the last item</param>
             <exception cref="T:System.ArgumentNullException"/>
         </member>
+        <member name="T:ChartTools.SystemExtensions.Linq.SectionReplacement`1">
+            <summary>
+            Replacement for a section of items in a collection
+            </summary>
+            <param name="Replacement">Items to replace with</param>
+            <param name="StartReplace">Method that defines if a source marks the start of the section to replace</param>
+            <param name="EndReplace">Method that defines if a source item marks the end of the section to replace</param>
+            <param name="AddIfMissing">The replacement should be appended to the collection if the section to replace is not found</param>
+        </member>
+        <member name="M:ChartTools.SystemExtensions.Linq.SectionReplacement`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Predicate{`0},System.Predicate{`0},System.Boolean)">
+            <summary>
+            Replacement for a section of items in a collection
+            </summary>
+            <param name="Replacement">Items to replace with</param>
+            <param name="StartReplace">Method that defines if a source marks the start of the section to replace</param>
+            <param name="EndReplace">Method that defines if a source item marks the end of the section to replace</param>
+            <param name="AddIfMissing">The replacement should be appended to the collection if the section to replace is not found</param>
+        </member>
         <member name="T:ChartTools.SystemExtensions.Linq.LinqExtensions">
             <summary>
             Provides additional methods to Linq
             </summary>
+        </member>
+        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.All(System.Collections.Generic.IEnumerable{System.Boolean})">
+            <summary>
+            Checks that all booleans in a collection are <see langword="true"/>.
+            </summary>
+            <param name="source">Source of booleans</param>
+            <returns><see langword="true"/> if all booleans are <see langword="true"/> or the collection is empty</returns>
+        </member>
+        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.Any(System.Collections.Generic.IEnumerable{System.Boolean})">
+            <summary>
+            Checks if any boolean in a collection is <see langword="true"/>.
+            </summary>
+            <param name="source">Source of booleans</param>
         </member>
         <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0,System.Boolean@)">
             <inheritdoc cref="M:System.Linq.Enumerable.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Boolean})"/>
@@ -2219,6 +2257,22 @@
             </summary>
             <param name="source">Items to find the minimum or maximum of</param>
             <param name="selector">Function that gets the key to use in the comparison from an item</param>
+        </member>
+        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},``0@)">
+            <summary>
+            Tries to get the first element of a collection.
+            </summary>
+            <param name="source">Source of items</param>
+            <param name="result">Found item</param>
+            <returns><see langword="true"/> if an item was found</returns>
+        </member>
+        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.TryGetFirstOfType``1(System.Collections.IEnumerable,``0@)">
+            <summary>
+            Tries to get the first item of a given type in a collection.
+            </summary>
+            <param name="source">Source of items</param>
+            <param name="result">Found item</param>
+            <returns><see langword="true"/> if an item was found</returns>
         </member>
         <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0)">
             <inheritdoc cref="M:System.Linq.Enumerable.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Boolean})"/>
@@ -2484,7 +2538,7 @@
         </member>
         <member name="P:ChartTools.Metadata.AudioOffset">
             <summary>
-            Offset of the audio track in milliseconds. A higher value makes the audio start sooner.
+            Offset of the audio track. A higher value makes the audio start sooner.
             </summary>
         </member>
         <member name="P:ChartTools.Metadata.Streams">
@@ -2494,10 +2548,7 @@
         </member>
         <member name="P:ChartTools.Metadata.VideoOffset">
             <summary>
-            Offset of the background video in milliseconds. A higher value makes the video start sooner.
-            </summary>
-            <summary>
-            Offset of the background video in milliseconds. A higher value makes the video start sooner.
+            Offset of the background video. A higher value makes the video start sooner.
             </summary>
         </member>
         <member name="P:ChartTools.Metadata.Length">
@@ -2639,20 +2690,24 @@
             List of events common to all instruments
             </summary>
         </member>
+        <member name="P:ChartTools.Song.Instruments">
+            <inheritdoc cref="T:ChartTools.InstrumentSet"/>
+        </member>
         <member name="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
             <summary>
             Reads all elements of a <see cref="T:ChartTools.Song"/> from a file.
             </summary>
             <param name="path">Path of the file</param>
             <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
+            <param name="formatting"><inheritdoc cref="T:ChartTools.Formatting.FormattingRules" path="/summary"/></param>
         </member>
         <member name="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
             <summary>
             Reads all elements of a <see cref="T:ChartTools.Song"/> from a file asynchronously using multitasking.
             </summary>
             <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='config']"/></param>        /// <param name="formatting"><inheritdoc cref="T:ChartTools.Formatting.FormattingRules" path="/summary"/></param>
             <param name="cancellationToken">Token to request cancellation</param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
         </member>
         <member name="M:ChartTools.Song.ToFile(System.String,ChartTools.IO.Configuration.WritingConfiguration)">
             <summary>
@@ -2724,7 +2779,7 @@
         </member>
         <member name="P:ChartTools.Tempo.Anchor">
             <summary>
-            If not <see langword="null"/>, overrides <see cref="P:ChartTools.TrackObject.Position"/> with a time in seconds from the start of the song
+            Locks the tempo to a specific time in the song independent to the sync track.
             </summary>
         </member>
         <member name="M:ChartTools.Tempo.#ctor(System.UInt32,System.Single)">
@@ -2784,6 +2839,69 @@
             </summary>
             <param name="signatures">Time signatures to remove the unneeded from</param>
         </member>
+        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.ILongObject,System.Single)">
+            <summary>
+            Rescales the length a long object.
+            </summary>
+            <param name="obj">Object to rescale</param>
+            <param name="scale">Positive number where 1 is the current scale.</param>
+        </member>
+        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)">
+            <summary>
+            Rescales the position of a track object
+            </summary>
+            <param name="trackObject">Object to rescale</param>
+            <param name="scale">Positive number where 1 is the current scale.</param>
+        </member>
+        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.ILongTrackObject,System.Single)">
+            <summary>
+            Rescales the position and length of a long track object
+            </summary>
+            <param name="trackObject">Object to rescale</param>
+            <param name="scale">Positive number where 1 is the current scale.</param>
+        </member>
+        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.Tempo,System.Single)">
+            <summary>
+            Rescales the position and value of a tempo marker.
+            </summary>
+            <param name="tempo">Marker to rescale</param>
+            <param name="scale">Positive number where 1 is the current scale.</param>
+        </member>
+        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.Chord,System.Single)">
+            <summary>
+            Rescales the position of a chord and sustain of its notes.
+            </summary>
+            <param name="chord">Chord to rescale</param>
+            <param name="scale">Positive number where 1 is the current scale.</param>
+        </member>
+        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.Track,System.Single)">
+            <summary>
+            Rescales the chords in a track.
+            </summary>
+            <param name="track">Source of chords</param>
+            <param name="scale">Positive number where 1 is the current scale.</param>
+        </member>
+        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.Instrument,System.Single)">
+            <summary>
+            Rescales all tracks in an instrument.
+            </summary>
+            <param name="instrument">Source of the tracks</param>
+            <param name="scale">Positive number where 1 is the current scale.</param>
+        </member>
+        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.SyncTrack,System.Single)">
+            <summary>
+            Rescales the tempo and time signatures in a song.
+            </summary>
+            <param name="syncTrack">Source of markers</param>
+            <param name="scale">Positive number where 1 is the current scale.</param>
+        </member>
+        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.Song,System.Single)">
+            <summary>
+            Rescales all instruments, tempo and time signatures.
+            </summary>
+            <param name="song">Source of objects</param>
+            <param name="scale">Positive number where 1 is the current scale.</param>
+        </member>
         <member name="T:ChartTools.TrackObject">
             <summary>
             Object located on a track
@@ -2817,8 +2935,9 @@
             <summary>
             Creates an instance of <see cref="T:ChartTools.SpecialPhrase"/>.
             </summary>
-            <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
-            <param name="length">Value of <see cref="P:ChartTools.LongTrackObject.Length"/></param>
+            <param name="position">Position of the phrase</param>
+            <param name="type">Effect of the phrase</param>
+            <param name="length">Duration in ticks</param>
         </member>
         <member name="T:ChartTools.Track">
             <summary>
@@ -2861,6 +2980,7 @@
             <param name="instrument">Instrument of the track</param>
             <param name="difficulty">Difficulty of the track</param>
             <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
+            <param name="formatting"><inheritdoc cref="T:ChartTools.Formatting.FormattingRules" path="/summary"/></param>
         </member>
         <member name="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
             <summary>
@@ -2869,8 +2989,9 @@
             <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
             <param name="instrument"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='instrument']"/></param>
             <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='difficulty']"/></param>
-            <param name="cancellationToken">Token to request cancellation</param>
             <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
+            <param name="formatting"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='formatting']"/></param>
+            <param name="cancellationToken">Token to request cancellation</param>
         </member>
         <member name="M:ChartTools.Track.FromFile(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
             <summary>
@@ -2879,6 +3000,7 @@
             <param name="path">Path of the file</param>
             <param name="difficulty">Difficulty of the track</param>
             <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
+            <param name="formatting"><inheritdoc cref="T:ChartTools.Formatting.FormattingRules" path="/summary"/></param>
         </member>
         <member name="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
             <summary>
@@ -2886,8 +3008,9 @@
             </summary>
             <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
             <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='difficulty']"/></param>
+            <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
+            <param name="formatting"><inheritdoc cref="T:ChartTools.Formatting.FormattingRules" path="/summary"/></param>
             <param name="cancellationToken">Token to request cancellation</param>
-            <param name="config"></param>
         </member>
         <member name="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
             <summary>
@@ -2897,6 +3020,7 @@
             <param name="instrument">GHL instrument of the track</param>
             <param name="difficulty">Difficulty of the track</param>
             <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
+            <param name="formatting"><inheritdoc cref="T:ChartTools.Formatting.FormattingRules" path="/summary"/></param>
         </member>
         <member name="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
             <summary>

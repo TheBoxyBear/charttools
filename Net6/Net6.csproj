@@ -5,13 +5,14 @@
     <LangVersion>preview</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <RootNamespace>ChartTools</RootNamespace>
     <AssemblyName>ChartTools</AssemblyName>
     <DebugType>embedded</DebugType>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>E:\Users\Gaming\Documents\GitHub\ChartTools\build\net6\ChartTools.xml</DocumentationFile>
+    <SignAssembly>False</SignAssembly>
   </PropertyGroup>
 
   <Import Project="..\source\source.projitems" Label="Shared" />

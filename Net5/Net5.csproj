@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <RootNamespace>ChartTools</RootNamespace>
     <AssemblyName>ChartTools</AssemblyName>
     <DebugType>embedded</DebugType>
