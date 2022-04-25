@@ -1,6 +1,6 @@
 # Improving performance
 
-This guide will cover alternate tecniques that will improve performance when using ChartTools.
+This guide will cover alternate techniques that will improve performance when using ChartTools.
 
 ### Single components
 
