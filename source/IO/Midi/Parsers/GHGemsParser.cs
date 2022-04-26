@@ -3,11 +3,13 @@ using ChartTools.Events;
 using ChartTools.IO.Configuration.Sessions;
 using Melanchall.DryWetMidi.Core;
 
+using System.Collections.Generic;
+
 namespace ChartTools.IO.Midi.Parsers
 {
     internal class GHGemsParser : StandardInstrumentParser
     {
-        private readonly uint previousPosition = 0;
+        private readonly Dictionary<StandardLane, uint> previousNotePositions;
 
         public GHGemsParser(ReadingSession session) : base(StandardInstrumentIdentity.LeadGuitar, session) { }
 

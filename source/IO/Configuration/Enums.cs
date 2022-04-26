@@ -81,8 +81,13 @@
         /// </summary>
         IgnoreChord,
     }
-
-    public enum UnclosedNotePolicy : byte
+    public enum UnopenedTrackObjectPolicy : byte
+    {
+        ThrowException,
+        Create,
+        Ignore
+    }
+    public enum UnclosedTrackObjectPolicy : byte
     {
         ThrowException,
         Include,

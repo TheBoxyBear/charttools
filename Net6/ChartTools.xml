@@ -1646,21 +1646,6 @@
             Include all objects
             </summary>
         </member>
-        <member name="T:ChartTools.IO.Configuration.HopoThresholdPriority">
-            <summary>
-            Hopo threshold to use if included in the metadata and configuration
-            </summary>
-        </member>
-        <member name="F:ChartTools.IO.Configuration.HopoThresholdPriority.Metadata">
-            <summary>
-            Get the threshold from metadata
-            </summary>
-        </member>
-        <member name="F:ChartTools.IO.Configuration.HopoThresholdPriority.Configuration">
-            <summary>
-            Get the threshold from configuration
-            </summary>
-        </member>
         <member name="T:ChartTools.IO.Configuration.UnsupportedModifierPolicy">
             <summary>
             Defines how to handle chord modifiers not supported by the target format

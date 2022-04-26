@@ -6,6 +6,7 @@
     /// <inheritdoc cref="CommonConfiguration" path="/remarks"/>
     public class ReadingConfiguration : CommonConfiguration
     {
-        public UnclosedNotePolicy UnclosedNotePolicy { get; set; }
+        public UnopenedTrackObjectPolicy UnopenedTrackObjectPolicy { get; set; }
+        public UnclosedTrackObjectPolicy UnclosedTracjObjectPolicy { get; set; }
     }
 }
