@@ -5,12 +5,12 @@
     /// </summary>
     public enum OverlappingSpecialPhrasePolicy : byte
     {
+        ThrowException,
         Ignore,
         /// <summary>
         /// The length of the phrase is cut short to the start of the next one
         /// </summary>
-        Cut,
-        ThrowException
+        Cut
     }
     /// <summary>
     /// Difficulty of the <see cref="Track"/> to serve as a source of for track objects common to all difficulties to use for all tracks in the same <see cref="Instrument"/>
@@ -50,6 +50,10 @@
     public enum DuplicateTrackObjectPolicy : byte
     {
         /// <summary>
+        /// Throw an exception
+        /// </summary>
+        ThrowException,
+        /// <summary>
         /// Only include the first object
         /// </summary>
         IncludeFirst,
@@ -57,30 +61,16 @@
         /// Include all objects
         /// </summary>
         IncludeAll,
-        /// <summary>
-        /// Throw an exception
-        /// </summary>
-        ThrowException
-    }
-    /// <summary>
-    /// Hopo threshold to use if included in the metadata and configuration
-    /// </summary>
-    public enum HopoThresholdPriority : byte
-    {
-        /// <summary>
-        /// Get the threshold from metadata
-        /// </summary>
-        Metadata,
-        /// <summary>
-        /// Get the threshold from configuration
-        /// </summary>
-        Configuration
     }
     /// <summary>
     /// Defines how to handle chord modifiers not supported by the target format
     /// </summary>
     public enum UnsupportedModifierPolicy : byte
     {
+        /// <summary>
+        /// Throw an exception
+        /// </summary>
+        ThrowException,
         Convert,
         /// <summary>
         /// The modifier is excluded
@@ -90,23 +80,12 @@
         /// The chord is excluded
         /// </summary>
         IgnoreChord,
-        /// <summary>
-        /// Throw an exception
-        /// </summary>
-        ThrowException
     }
-    /// <summary>
-    /// Where to get lyric data from for formats that store lyrics as events
-    /// </summary>
-    public enum LyricEventSource : byte
+
+    public enum UnclosedNotePolicy : byte
     {
-        /// <summary>
-        /// Lyrics are obtained from global events
-        /// </summary>
-        GlobalEvents,
-        /// <summary>
-        /// Lyrics are obtained from the <see cref="Song.Vocals"/> instrument
-        /// </summary>
-        Vocals
+        ThrowException,
+        Include,
+        Ignore
     }
 }

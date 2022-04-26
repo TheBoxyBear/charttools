@@ -61,7 +61,6 @@
     <Compile Include="IO\Chart\Serializers\TrackSerializer.cs" />
     <Compile Include="IO\Configuration\CommonConfiguration.cs" />
     <Compile Include="IO\Configuration\ConfigurationExceptions.cs" />
-    <Compile Include="IO\Configuration\Enuns.cs" />
     <Compile Include="IO\Configuration\ReadingConfiguration.cs" />
     <Compile Include="IO\Configuration\Sessions\ReadingSession.cs" />
     <Compile Include="IO\Configuration\Sessions\Session.cs" />

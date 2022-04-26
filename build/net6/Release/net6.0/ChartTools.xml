@@ -1585,64 +1585,6 @@
             <param name="line">Line in the file</param>
             <exception cref="T:System.FormatException"/>
         </member>
-        <member name="T:ChartTools.IO.Ini.IniFile">
-            <summary>
-            Provides methods for reading and writing ini files
-            </summary>
-        </member>
-        <member name="M:ChartTools.IO.Ini.IniFile.ReadMetadata(System.String,ChartTools.Metadata)">
-            <inheritdoc cref="M:ChartTools.Metadata.FromFile(System.String)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
-            <returns>A new instance of <see cref="T:ChartTools.Metadata"/> if <paramref name="existing"/> is <see langword="null"/>, otherwise the same reference.</returns>
-        </member>
-        <member name="M:ChartTools.IO.Ini.IniFile.ReadMetadataAsync(System.String,ChartTools.Metadata,System.Threading.CancellationToken)">
-            <inheritdoc cref="M:ChartTools.Metadata.FromFile(System.String)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
-            <returns>A new instance of <see cref="T:ChartTools.Metadata"/> if <paramref name="existing"/> is <see langword="null"/>, otherwise the same reference.</returns>
-        </member>
-        <member name="M:ChartTools.IO.Ini.IniFile.WriteMetadata(System.String,ChartTools.Metadata)">
-            <summary>
-            Writes the metadata in a file.
-            </summary>
-            <param name="path">Path of the file to read</param>
-            <param name="metadata">Metadata to write</param>
-        </member>
-        <member name="M:ChartTools.IO.KeySerializableAttribute.GetSerializable``1(System.Object)">
-            <summary>
-            Generates groups of non-null property values and their serialization keys.
-            </summary>
-            <param name="source">Object containing the properties</param>
-        </member>
-        <member name="T:ChartTools.IO.TextEntry">
-            <summary>
-            Line of text file data
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.TextEntry.Key">
-            <summary>
-            Text before the equal sign
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.TextEntry.Value">
-            <summary>
-            Text after the equal sign
-            </summary>
-        </member>
-        <member name="T:ChartTools.IO.Configuration.CommonConfiguration">
-            <summary>
-            Configuration object to direct the reading or writing of a file
-            </summary>
-            <remarks>If <see langword="null"/>, the default configuration for the file format will be used.</remarks>
-        </member>
-        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.OverlappingStarPowerPolicy">
-            <inheritdoc cref="T:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy"/>
-        </member>
-        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.SoloNoStarPowerPolicy">
-            <inheritdoc cref="T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy"/>
-        </member>
-        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.DuplicateTrackObjectPolicy">
-            <inheritdoc cref="T:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy"/>
-        </member>
         <member name="T:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy">
             <summary>
             Defines how overlapping star power phrases should be handled
@@ -1689,6 +1631,11 @@
             Defines how duplicate track objects are handled
             </summary>
         </member>
+        <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.ThrowException">
+            <summary>
+            Throw an exception
+            </summary>
+        </member>
         <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.IncludeFirst">
             <summary>
             Only include the first object
@@ -1697,11 +1644,6 @@
         <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.IncludeAll">
             <summary>
             Include all objects
-            </summary>
-        </member>
-        <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.ThrowException">
-            <summary>
-            Throw an exception
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.HopoThresholdPriority">
@@ -1724,6 +1666,11 @@
             Defines how to handle chord modifiers not supported by the target format
             </summary>
         </member>
+        <member name="F:ChartTools.IO.Configuration.UnsupportedModifierPolicy.ThrowException">
+            <summary>
+            Throw an exception
+            </summary>
+        </member>
         <member name="F:ChartTools.IO.Configuration.UnsupportedModifierPolicy.IgnoreModifier">
             <summary>
             The modifier is excluded
@@ -1734,25 +1681,20 @@
             The chord is excluded
             </summary>
         </member>
-        <member name="F:ChartTools.IO.Configuration.UnsupportedModifierPolicy.ThrowException">
+        <member name="T:ChartTools.IO.Configuration.CommonConfiguration">
             <summary>
-            Throw an exception
+            Configuration object to direct the reading or writing of a file
             </summary>
+            <remarks>If <see langword="null"/>, the default configuration for the file format will be used.</remarks>
         </member>
-        <member name="T:ChartTools.IO.Configuration.LyricEventSource">
-            <summary>
-            Where to get lyric data from for formats that store lyrics as events
-            </summary>
+        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.OverlappingStarPowerPolicy">
+            <inheritdoc cref="T:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy"/>
         </member>
-        <member name="F:ChartTools.IO.Configuration.LyricEventSource.GlobalEvents">
-            <summary>
-            Lyrics are obtained from global events
-            </summary>
+        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.SoloNoStarPowerPolicy">
+            <inheritdoc cref="T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy"/>
         </member>
-        <member name="F:ChartTools.IO.Configuration.LyricEventSource.Vocals">
-            <summary>
-            Lyrics are obtained from the <see cref="!:Song.Vocals"/> instrument
-            </summary>
+        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.DuplicateTrackObjectPolicy">
+            <inheritdoc cref="T:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy"/>
         </member>
         <member name="T:ChartTools.IO.Configuration.ReadingConfiguration">
             <summary>
@@ -1768,9 +1710,47 @@
         <member name="P:ChartTools.IO.Configuration.WritingConfiguration.UnsupportedModifierPolicy">
             <see cref="T:ChartTools.IO.Configuration.UnsupportedModifierPolicy"/>
         </member>
-        <member name="P:ChartTools.IO.Configuration.WritingConfiguration.LyricEventSource">
+        <member name="T:ChartTools.IO.Ini.IniFile">
             <summary>
-            *Currently unsupported*
+            Provides methods for reading and writing ini files
+            </summary>
+        </member>
+        <member name="M:ChartTools.IO.Ini.IniFile.ReadMetadata(System.String,ChartTools.Metadata)">
+            <inheritdoc cref="M:ChartTools.Metadata.FromFile(System.String)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <returns>A new instance of <see cref="T:ChartTools.Metadata"/> if <paramref name="existing"/> is <see langword="null"/>, otherwise the same reference.</returns>
+        </member>
+        <member name="M:ChartTools.IO.Ini.IniFile.ReadMetadataAsync(System.String,ChartTools.Metadata,System.Threading.CancellationToken)">
+            <inheritdoc cref="M:ChartTools.Metadata.FromFile(System.String)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <returns>A new instance of <see cref="T:ChartTools.Metadata"/> if <paramref name="existing"/> is <see langword="null"/>, otherwise the same reference.</returns>
+        </member>
+        <member name="M:ChartTools.IO.Ini.IniFile.WriteMetadata(System.String,ChartTools.Metadata)">
+            <summary>
+            Writes the metadata in a file.
+            </summary>
+            <param name="path">Path of the file to read</param>
+            <param name="metadata">Metadata to write</param>
+        </member>
+        <member name="M:ChartTools.IO.KeySerializableAttribute.GetSerializable``1(System.Object)">
+            <summary>
+            Generates groups of non-null property values and their serialization keys.
+            </summary>
+            <param name="source">Object containing the properties</param>
+        </member>
+        <member name="T:ChartTools.IO.TextEntry">
+            <summary>
+            Line of text file data
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.TextEntry.Key">
+            <summary>
+            Text before the equal sign
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.TextEntry.Value">
+            <summary>
+            Text after the equal sign
             </summary>
         </member>
         <member name="T:ChartTools.IO.VoidRead">

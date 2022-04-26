@@ -10,9 +10,5 @@
         public uint? HopoTreshold { get; init; }
         /// <see cref="Configuration.UnsupportedModifierPolicy"/>
         public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }
-        /// <summary>
-        /// *Currently unsupported*
-        /// </summary>
-        public LyricEventSource LyricEventSource { get; init; }
     }
 }

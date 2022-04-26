@@ -1,4 +1,5 @@
 ﻿using ChartTools;
+using ChartTools.Events;
 using ChartTools.IO.Configuration.Sessions;
 using Melanchall.DryWetMidi.Core;
 
@@ -15,29 +16,46 @@ namespace ChartTools.IO.Midi.Parsers
             if (item is not NoteEvent e)
                 return;
 
-            (Track<StandardChord> track, int adjusted) = MapNoteEvent(e);
+            (var track, var adjusted) = MapNoteEvent(e);
 
-            switch (e)
+            if (track is null)
+                return;
+
+            if (adjusted < 5) // Note
             {
-                case NoteOnEvent:
-                    if (adjusted == 6)
-                        track.SpecialPhrases.Add(new(previousPosition + (uint)e.DeltaTime, SpecialPhraseType.StarPowerGain));
-                    break;
-                case NoteOffEvent:
-                    break;
+                var lane = (StandardLane)adjusted;
+
+                switch (e)
+                {
+                    case NoteOnEvent:
+                        break;
+                    case NoteOffEvent:
+                        break;
+                }
+            }
+            else if (adjusted < 11) // Special
+            {
+                switch (e)
+                {
+                    case NoteOnEvent:
+                        break;
+                    case NoteOffEvent:
+                        break;
+                }
             }
         }
 
-        protected override (Track<StandardChord> track, int adjustedNoteNumber) MapNoteEvent(NoteEvent e)
+        protected override (Track<StandardChord>? track, int adjustedNoteNumber) MapNoteEvent(NoteEvent e)
         {
             var intNumber = (int)e.NoteNumber;
 
             return intNumber switch
             {
-                > 59 and < 68 => (result.Easy, intNumber - 60),
-                > 71 and < 80 => (result.Medium, intNumber - 72),
-                > 83 and < 92 => (result.Hard, intNumber - 84),
-                > 95 and < 104 => (result.Expert, intNumber - 96)
+                > 59 and < 71 => (result.Easy, intNumber - 60),
+                > 71 and < 83 => (result.Medium, intNumber - 72),
+                > 83 and < 95 => (result.Hard, intNumber - 84),
+                > 95 and < 107 => (result.Expert, intNumber - 96),
+                _ => (null, 0)
             };
         }
     }
