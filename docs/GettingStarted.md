@@ -82,7 +82,7 @@ A track is composed of three components:
 
 > **NOTE**: When setting a track in an instrument, a clone of the track is created which contains the target instrument as the `ParentInstrument` property. In order to have changes made to the track after the assignment be reflected in the instrument, the track must be re-obtained from the instrument rather than using the instance used in the assignment.
 
-You can also get instruments from a song dynamically regardless of the type. To learn more, check out [Dynamic syntax](DynamicSyntax.md).
+Instruments can also be obtained dynamically from a song regardless of the type. To learn more, check out [Dynamic syntax](DynamicSyntax.md).
 
 ## Chords and Notes
 
