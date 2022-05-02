@@ -1,16 +1,62 @@
 ﻿namespace ChartTools.IO.Configuration
 {
     /// <summary>
+    /// Defines how duplicate track objects are handled
+    /// </summary>
+    public enum DuplicateTrackObjectPolicy : byte
+    {
+        /// <summary>
+        /// Throw an exception
+        /// </summary>
+        ThrowException,
+        /// <summary>
+        /// Only include the first object
+        /// </summary>
+        IncludeFirst,
+        /// <summary>
+        /// Include all objects
+        /// </summary>
+        IncludeAll,
+    }
+    /// <summary>
+    /// Where to get lyric data from for formats that store lyrics as events
+    /// </summary>
+    public enum LyricEventSource : byte
+    {
+        /// <summary>
+        /// Lyrics are obtained from global events
+        /// </summary>
+        GlobalEvents,
+        /// <summary>
+        /// Lyrics are obtained from the <see cref="Song.Vocals"/> instrument
+        /// </summary>
+        Vocals
+    }
+    /// <summary>
     /// Defines how overlapping star power phrases should be handled
     /// </summary>
     public enum OverlappingSpecialPhrasePolicy : byte
     {
+        ThrowException,
         Ignore,
         /// <summary>
         /// The length of the phrase is cut short to the start of the next one
         /// </summary>
         Cut,
-        ThrowException
+    }
+    /// <summary>
+    /// Defines how to handle "solo" local events in tracks
+    /// </summary>
+    public enum SoloNoStarPowerPolicy : byte
+    {
+        /// <summary>
+        /// Local events are interpreted as is
+        /// </summary>
+        Ignore,
+        /// <summary>
+        /// If a track has "solo" or "soloend" local events and no star power, convert the events into star power as interpreted by Clone Hero
+        /// </summary>
+        Convert
     }
     /// <summary>
     /// Difficulty of the <see cref="Track"/> to serve as a source of for track objects common to all difficulties to use for all tracks in the same <see cref="Instrument"/>
@@ -30,57 +76,20 @@
         Merge,
         Seperate
     }
-    /// <summary>
-    /// Defines how to handle "solo" local events in tracks
-    /// </summary>
-    public enum SoloNoStarPowerPolicy : byte
+    public enum UnknownSectionPolicy : byte
     {
-        /// <summary>
-        /// Local events are interpreted as is
-        /// </summary>
-        Ignore,
-        /// <summary>
-        /// If a track has "solo" or "soloend" local events and no star power, convert the events into star power as interpreted by Clone Hero
-        /// </summary>
-        Convert
-    }
-    /// <summary>
-    /// Defines how duplicate track objects are handled
-    /// </summary>
-    public enum DuplicateTrackObjectPolicy : byte
-    {
-        /// <summary>
-        /// Only include the first object
-        /// </summary>
-        IncludeFirst,
-        /// <summary>
-        /// Include all objects
-        /// </summary>
-        IncludeAll,
-        /// <summary>
-        /// Throw an exception
-        /// </summary>
-        ThrowException
-    }
-    /// <summary>
-    /// Hopo threshold to use if included in the metadata and configuration
-    /// </summary>
-    public enum HopoThresholdPriority : byte
-    {
-        /// <summary>
-        /// Get the threshold from metadata
-        /// </summary>
-        Metadata,
-        /// <summary>
-        /// Get the threshold from configuration
-        /// </summary>
-        Configuration
+        ThrowException,
+        Store
     }
     /// <summary>
     /// Defines how to handle chord modifiers not supported by the target format
     /// </summary>
     public enum UnsupportedModifierPolicy : byte
     {
+        /// <summary>
+        /// Throw an exception
+        /// </summary>
+        ThrowException,
         Convert,
         /// <summary>
         /// The modifier is excluded
@@ -90,23 +99,5 @@
         /// The chord is excluded
         /// </summary>
         IgnoreChord,
-        /// <summary>
-        /// Throw an exception
-        /// </summary>
-        ThrowException
-    }
-    /// <summary>
-    /// Where to get lyric data from for formats that store lyrics as events
-    /// </summary>
-    public enum LyricEventSource : byte
-    {
-        /// <summary>
-        /// Lyrics are obtained from global events
-        /// </summary>
-        GlobalEvents,
-        /// <summary>
-        /// Lyrics are obtained from the <see cref="Song.Vocals"/> instrument
-        /// </summary>
-        Vocals
     }
 }

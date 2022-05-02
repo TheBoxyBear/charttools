@@ -5,6 +5,7 @@ using ChartTools.IO.Chart.Parsers;
 using ChartTools.IO.Chart.Serializers;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
+using ChartTools.IO.Parsers;
 using ChartTools.Lyrics;
 using ChartTools.SystemExtensions.Linq;
 
@@ -64,7 +65,7 @@ namespace ChartTools.IO.Chart
                     else if (standardTrackHeaders.TryGetValue(header, out (Difficulty, StandardInstrumentIdentity) standardTuple))
                         return new StandardTrackParser(standardTuple.Item1, standardTuple.Item2, session, header);
                     else
-                        throw new FormatException($"Unknown part: {header}"); // TODO Add support for unknown parts in configuration
+                        return new UnknownSectionParser(session, header);
             }
         }
 

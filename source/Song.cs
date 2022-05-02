@@ -15,6 +15,7 @@ using ChartTools.IO.Configuration;
 using ChartTools.Events;
 using ChartTools.Formatting;
 using ChartTools.Internal;
+using ChartTools.IO.Sections;
 
 namespace ChartTools
 {
@@ -68,6 +69,8 @@ namespace ChartTools
             set => _instruments = value ?? throw new ArgumentNullException(nameof(value));
         }
         private InstrumentSet _instruments = new();
+
+        public SectionSet<string>? UnknownChartSections { get; set; }
 
         #region Reading
         /// <summary>
