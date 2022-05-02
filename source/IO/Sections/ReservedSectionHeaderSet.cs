@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ChartTools.IO.Sections
 {
-    public struct ReservedSectionHeaderSet : IEnumerable<ReservedSectionHeader>
+    public class ReservedSectionHeaderSet : IEnumerable<ReservedSectionHeader>
     {
         private readonly IEnumerable<ReservedSectionHeader> _headers;
 

@@ -6,6 +6,7 @@ using ChartTools.IO.Chart.Serializers;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Parsers;
+using ChartTools.IO.Sections;
 using ChartTools.Lyrics;
 using ChartTools.SystemExtensions.Linq;
 
@@ -22,6 +23,8 @@ namespace ChartTools.IO.Chart
     /// </summary>
     public static class ChartFile
     {
+        public static readonly ReservedSectionHeaderSet ReservedHeaders;
+
         /// <summary>
         /// Default configuration to use for reading when the provided configuration is <see langword="default"/>
         /// </summary>
@@ -40,6 +43,32 @@ namespace ChartTools.IO.Chart
             StarPowerSource = TrackObjectSource.Seperate,
             UnsupportedModifierPolicy = UnsupportedModifierPolicy.ThrowException
         };
+
+        static ChartFile()
+        {
+            var headers = new List<ReservedSectionHeader>();
+
+            headers.Add(new(ChartFormatting.MetadataHeader, nameof(Song.Metadata)));
+            headers.Add(new(ChartFormatting.SyncTrackHeader, nameof(Song.SyncTrack)));
+            headers.Add(new(ChartFormatting.GlobalEventHeader, nameof(Song.GlobalEvents)));
+
+            var difficulties = Enum.GetValues<Difficulty>().ToArray();
+            var instrumentSources = new Dictionary<string, string>()
+            {
+                { ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.LeadGuitar], nameof(Song.Instruments.LeadGuitar) },
+                { ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.RhythmGuitar], nameof(Song.Instruments.RhythmGuitar) },
+                { ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.CoopGuitar], nameof(Song.Instruments.CoopGuitar) },
+                { ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.Bass], nameof(Song.Instruments.Bass) },
+                { ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.Keys], nameof(Song.Instruments.Keys) },
+                { ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.GHLGuitar], nameof(Song.Instruments.GHLGuitar) },
+                { ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.GHLBass], nameof(Song.Instruments.GHLBass) },
+                { ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.Drums], nameof(Song.Instruments.Drums) }
+            };
+
+            headers.AddRange(instrumentSources.SelectMany(pair => from diff in difficulties select new ReservedSectionHeader(ChartFormatting.Header(pair.Value, diff), $"{pair.Value}.{diff}")));
+
+            ReservedHeaders = new(headers);
+        }
 
         #region Reading
         #region Song
