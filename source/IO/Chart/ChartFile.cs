@@ -65,7 +65,11 @@ namespace ChartTools.IO.Chart
                     else if (standardTrackHeaders.TryGetValue(header, out (Difficulty, StandardInstrumentIdentity) standardTuple))
                         return new StandardTrackParser(standardTuple.Item1, standardTuple.Item2, session, header);
                     else
-                        return new UnknownSectionParser(session, header);
+                    {
+                        return session.Configuration.UnknownSectionPolicy == UnknownSectionPolicy.ThrowException
+                            ? throw new Exception($"Unknown section with header \"{header}\". Consider using {UnknownSectionPolicy.Store} to avoid this error.")
+                            : new UnknownSectionParser(session, header);
+                    }
             }
         }
 
