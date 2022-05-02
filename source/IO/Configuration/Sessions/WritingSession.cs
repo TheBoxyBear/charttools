@@ -14,8 +14,6 @@ namespace ChartTools.IO.Configuration.Sessions
         public override WritingConfiguration Configuration { get; }
         public ChordEntriesGetter GetChordEntries { get; private set; }
 
-        public ChordEntriesGetter GetChordEntries { get; private set; }
-
         public WritingSession(WritingConfiguration config, FormattingRules? formatting) : base(formatting)
         {
             Configuration = config;
