@@ -2,14 +2,12 @@
 
 using System;
 
-namespace ChartTools.IO
+namespace ChartTools.IO.Parsers
 {
-    internal abstract class TextParser : FileParser<string>
+    internal abstract class TextParser : SectionParser<string>
     {
-        public string SectionHeader { get; }
+        protected TextParser(ReadingSession session, string header) : base(session, header) { }
 
-        protected TextParser(ReadingSession session, string header) : base(session) => SectionHeader = header;
-
-        protected override Exception GetHandleException(string item, Exception innerException) => new SectionException(SectionHeader, new LineException(item, innerException));
+        protected override Exception GetHandleInnerException(string item, Exception innerException) => new LineException(item, innerException);
     }
 }

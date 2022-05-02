@@ -854,374 +854,6 @@
             <param name="overwriteNonNull">If <see langword="false"/>, only replaces property values that are null in the original instance.</param>
             <param name="newValues">Items to pull new property values from in order of priority</param>
         </member>
-        <member name="T:ChartTools.Collections.Unique.UniqueList`1">
-            <summary>
-            List where all <typeparamref name="T"/> items must be unique using a given comparison
-            </summary>
-            <typeparam name="T">Type of the contained items</typeparam>
-        </member>
-        <member name="F:ChartTools.Collections.Unique.UniqueList`1.items">
-            <summary>
-            Source of items
-            </summary>
-        </member>
-        <member name="P:ChartTools.Collections.Unique.UniqueList`1.Comparison">
-            <summary>
-            Method that defines uniqueness of items
-            </summary>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.#ctor(ChartTools.SystemExtensions.EqualityComparison{`0},System.Int32,System.Collections.Generic.IEnumerable{`0})">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.Collections.Unique.UniqueList`1"/> using a comparison to define the uniqueness of items.
-            </summary>
-            <param name="comparison">Method that defines uniqueness of items</param>
-            <param name="capacity">Number of items that the <see cref="T:ChartTools.Collections.Unique.UniqueList`1"/> can initially store</param>
-        </member>
-        <member name="P:ChartTools.Collections.Unique.UniqueList`1.Item(System.Int32)">
-            <inheritdoc/>
-        </member>
-        <member name="P:ChartTools.Collections.Unique.UniqueList`1.IsReadOnly">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.Add(`0)">
-            <summary>
-            Adds an item to the list and overwrites any duplicate.
-            </summary>
-            <param name="item">Item to add</param>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
-            <summary>
-            Adds multiple items to the <see cref="T:System.Collections.Generic.ICollection`1"/>
-            </summary>
-            <param name="collection">Items to add</param>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.RemoveDuplicate(`0)">
-            <summary>
-            Removes the first duplicate of a given item.
-            </summary>
-            <param name="item">Item to remove the duplicate of</param>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.RemoveDuplicates(System.Collections.Generic.List{`0})">
-            <summary>
-            Removes the first duplicate of multiple items
-            </summary>
-            <param name="collection">Items to remove the duplicate of</param>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.Clear">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.Contains(`0)">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.CopyTo(`0[],System.Int32)">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.GetEnumerator">
-            <inheritdoc/>>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.IndexOf(`0)">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.Insert(System.Int32,`0)">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.Remove(`0)">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.RemoveAt(System.Int32)">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.System#Collections#IEnumerable#GetEnumerator">
-            <inheritdoc/>
-        </member>
-        <member name="T:ChartTools.Collections.Unique.UniqueListEquatable`1">
-            <summary>
-            List where all <typeparamref name="T"/> items must be unique using the default <see cref="T:System.IEquatable`1"/> comparison to determine uniqueness
-            </summary>
-            <typeparam name="T">Type of the contained items</typeparam>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueListEquatable`1.#ctor(System.Int32,System.Collections.Generic.IEnumerable{`0})">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.Collections.Unique.UniqueListEquatable`1"/>.
-            </summary>
-            <param name="capacity">Number of items that the <see cref="T:ChartTools.Collections.Unique.UniqueListEquatable`1"/> can initially store</param>
-        </member>
-        <member name="T:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2">
-            <summary>
-            Enumerable where <typeparamref name="T"/> items are pulled from a set of enumerables in order using a <typeparamref name="TKey"/> key
-            </summary>
-            <typeparam name="T">Type of the enumerated items</typeparam>
-            <typeparam name="TKey">Type of the key used to determine the order</typeparam>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2.Enumerables">
-            <summary>
-            Enumerables to alternate between
-            </summary>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2.KeyGetter">
-            <summary>
-            Method that retrieves the key from an item
-            </summary>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2.#ctor(System.Func{`1,`0},System.Collections.Generic.IEnumerable{`1}[])">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2"/>.
-            </summary>
-            <param name="keyGetter">Method that retrieves the key from an item</param>
-            <param name="enumerables">Enumerables to alternate between</param>
-            <exception cref="T:System.ArgumentException"/>
-            <exception cref="T:System.ArgumentNullException"/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2.GetEnumerator">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2.System#Collections#IEnumerable#GetEnumerator">
-            <inheritdoc/>
-        </member>
-        <member name="T:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2">
-            <summary>
-            Enumerator that yields <typeparamref name="T"/> items from a set of enumerators in order using a <typeparamref name="TKey"/> key
-            </summary>
-            <typeparam name="T">Type of the enumerated items</typeparam>
-            <typeparam name="TKey">Type of the key used to determine the order</typeparam>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.KeyGetter">
-            <summary>
-            Method that retrieves the key from an item
-            </summary>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.Initialized">
-            <inheritdoc/>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.Current">
-            <inheritdoc/>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.System#Collections#IEnumerator#Current">
-            <inheritdoc/>
-        </member>
-        <member name="F:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.endsReached">
-            <summary>
-            <see langword="true"/> for indexes where MoveNext previously returned <see langword="false"/>
-            </summary>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.#ctor(System.Func{`0,`1},System.Collections.Generic.IEnumerator{`0}[])">
-            <summary>
-            Creates a new instance of <see cref="T:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2"/>.
-            </summary>
-            <param name="keyGetter">Method that retrieves the key from an item</param>
-            <param name="enumerators">Enumerators to alternate between</param>
-            <exception cref="T:System.ArgumentException"/>
-            <exception cref="T:System.ArgumentNullException"/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.Dispose">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.MoveNext">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.Initialize">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.Reset">
-            <inheritdoc/>
-        </member>
-        <member name="T:ChartTools.Collections.Alternating.SerialAlternatingEnumerable`1">
-            <summary>
-            Enumerable where <typeparamref name="T"/> items are yielded by alternating from a set of enumerables
-            </summary>
-            <typeparam name="T">Type of the enumerated items</typeparam>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.SerialAlternatingEnumerable`1.Enumerables">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerable`1.#ctor(System.Collections.Generic.IEnumerable{`0}[])">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.Collections.Alternating.SerialAlternatingEnumerable`1"/>
-            </summary>
-            <param name="enumerables">Enumerables to pull items from</param>
-            <exception cref="T:System.ArgumentException"/>
-            <exception cref="T:System.ArgumentNullException"/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerable`1.GetEnumerator">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerable`1.System#Collections#IEnumerable#GetEnumerator">
-            <inheritdoc/>
-        </member>
-        <member name="T:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1">
-            <summary>
-            Enumerator that yields <typeparamref name="T"/> items by alternating through a set of enumerators
-            </summary>
-            <typeparam name="T">Type of the enumerated items</typeparam>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.Enumerators">
-            <summary>
-            Enumerators to alternate between
-            </summary>
-        </member>
-        <member name="F:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.index">
-            <summary>
-            Position of the next enumerator to pull from
-            </summary>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.Current">
-            <summary>
-            Item to use in the iteration
-            </summary>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.System#Collections#IEnumerator#Current">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.#ctor(System.Collections.Generic.IEnumerator{`0}[])">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1"/>
-            </summary>
-            <param name="enumerators">Enumerators to alternate between</param>
-            <exception cref="T:System.ArgumentException"/>
-            <exception cref="T:System.ArgumentNullException"/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.Dispose">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.MoveNext">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.Reset">
-            <inheritdoc/>
-        </member>
-        <member name="T:ChartTools.Collections.Sorted.IndexableSelfSorted`2">
-            <summary>
-            *Deprecated* Collection where <typeparamref name="TValue"/> items are always sorted based on a <typeparamref name="TKey"/> key
-            </summary>
-            <typeparam name="TKey">Type of the key to use as in index</typeparam>
-            <typeparam name="TValue">Type of the contained items</typeparam>
-        </member>
-        <member name="F:ChartTools.Collections.Sorted.IndexableSelfSorted`2.GetKey">
-            <summary>
-            Method that retrieves the key from an item
-            </summary>
-        </member>
-        <member name="P:ChartTools.Collections.Sorted.IndexableSelfSorted`2.AllowDuplicates">
-            <summary>
-            <see langword="true"/> if multiple items can have the same key. Items of the same key are sorted using the default <see cref="T:System.IComparable`1"/> comparison of <typeparamref name="TValue"/>.
-            </summary>
-        </member>
-        <member name="P:ChartTools.Collections.Sorted.IndexableSelfSorted`2.KeyCount">
-            <summary>
-            Gets the number of unique keys from the items
-            </summary>
-        </member>
-        <member name="M:ChartTools.Collections.Sorted.IndexableSelfSorted`2.#ctor(System.Func{`1,`0},System.Int32)">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.Collections.Sorted.IndexableSelfSorted`2"/>.
-            </summary>
-            <param name="keyGetter">Method that retrieves the key from an item</param>
-            <param name="capacity">Number of items that the <see cref="T:ChartTools.Collections.Sorted.IndexableSelfSorted`2"/> can initially store</param>
-        </member>
-        <member name="M:ChartTools.Collections.Sorted.IndexableSelfSorted`2.GetValues(`0)">
-            <summary>
-            Gets the items matching a key.
-            </summary>
-            <param name="key">Key to match the items against</param>
-        </member>
-        <member name="M:ChartTools.Collections.Sorted.IndexableSelfSorted`2.Add(`1)">
-            <inheritdoc/>
-            <exception cref="T:System.ArgumentException"/>
-        </member>
-        <member name="M:ChartTools.Collections.Sorted.IndexableSelfSorted`2.AddRange(System.Collections.Generic.IEnumerable{`1})">
-            <inheritdoc/>
-            <param name="items">Items to add</param>
-            <exception cref="T:System.ArgumentException"/>
-        </member>
-        <member name="M:ChartTools.Collections.Sorted.IndexableSelfSorted`2.ContainsDuplicate(`1)">
-            <summary>
-            Determines if the collection contains any item of the same key as the provided item.
-            </summary>
-            <param name="item">Item to search for duplicates of</param>
-        </member>
-        <member name="P:ChartTools.Collections.Sorted.IndexableSelfSorted`2.Item(`0)">
-            <summary>
-            Gets or replaces the items matching a key.
-            </summary>
-            <param name="key">Key to match the items against</param>
-            <returns></returns>
-        </member>
-        <member name="M:ChartTools.Collections.Sorted.IndexableSelfSorted`2.RemoveAt(`0)">
-            <summary>Removes the items matching a key.</summary>
-            <param name="key">Key of items to remove</param>
-        </member>
-        <member name="T:ChartTools.Collections.Sorted.SelfSorted`1">
-            <summary>
-            *Deprecated* Collection where <typeparamref name="T"/> items are always sorted
-            </summary>
-            <typeparam name="T">Type of the contained items</typeparam>
-        </member>
-        <member name="F:ChartTools.Collections.Sorted.SelfSorted`1.items">
-            <summary>
-            Source of non-sorted items
-            </summary>
-        </member>
-        <member name="P:ChartTools.Collections.Sorted.SelfSorted`1.Count">
-            <inheritdoc/>
-        </member>
-        <member name="P:ChartTools.Collections.Sorted.SelfSorted`1.IsReadOnly">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Sorted.SelfSorted`1.#ctor(System.Int32)">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.Collections.Sorted.SelfSorted`1"/>.
-            </summary>
-            <param name="capacity">Number of items that the <see cref="T:ChartTools.Collections.Sorted.IndexableSelfSorted`2"/> can initially store</param>
-        </member>
-        <member name="P:ChartTools.Collections.Sorted.SelfSorted`1.Item(System.Int32)">
-            <summary>
-            Gets or sets the item at the specified index.
-            </summary>
-            <param name="index">Index of the item</param>
-        </member>
-        <member name="M:ChartTools.Collections.Sorted.SelfSorted`1.Add(`0)">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Sorted.SelfSorted`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
-            <summary>
-            Adds multiple items to the <see cref="T:ChartTools.Collections.Sorted.SelfSorted`1"/>.
-            </summary>
-            <param name="items">Items to add</param>
-        </member>
-        <member name="M:ChartTools.Collections.Sorted.SelfSorted`1.Clear">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Sorted.SelfSorted`1.Contains(`0)">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Sorted.SelfSorted`1.CopyTo(`0[],System.Int32)">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Sorted.SelfSorted`1.Remove(`0)">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Sorted.SelfSorted`1.GetEnumerator">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Sorted.SelfSorted`1.System#Collections#IEnumerable#GetEnumerator">
-            <inheritdoc/>
-        </member>
-        <member name="T:ChartTools.Collections.IInitializable">
-            <summary>
-            Defines an object that can be initialized
-            </summary>
-        </member>
-        <member name="P:ChartTools.Collections.IInitializable.Initialized">
-            <summary>
-            Has already been initialized
-            </summary>
-        </member>
-        <member name="M:ChartTools.Collections.IInitializable.Initialize">
-            <summary>
-            Does required initialization if not already done.
-            </summary>
-            <returns><see langword="true"/> if the object was not initialized prior to calling.</returns>
-        </member>
         <member name="T:ChartTools.IO.Chart.ChartFile">
             <summary>
             Provides methods for reading and writing chart files
@@ -1585,116 +1217,6 @@
             <param name="line">Line in the file</param>
             <exception cref="T:System.FormatException"/>
         </member>
-        <member name="T:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy">
-            <summary>
-            Defines how overlapping star power phrases should be handled
-            </summary>
-        </member>
-        <member name="F:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy.Cut">
-            <summary>
-            The length of the phrase is cut short to the start of the next one
-            </summary>
-        </member>
-        <member name="T:ChartTools.IO.Configuration.TrackObjectSource">
-            <summary>
-            Difficulty of the <see cref="T:ChartTools.Track"/> to serve as a source of for track objects common to all difficulties to use for all tracks in the same <see cref="T:ChartTools.Instrument"/>
-            <para>Common track objects are:<list type="bullet">
-            <item>Local events</item>
-            <item>Star power phrases</item>
-            </list>
-            </para>
-            </summary>
-            <remarks>Can be casted from <see cref="T:ChartTools.Difficulty"/>.</remarks>
-        </member>
-        <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Merge">
-            <summary>
-            Each <see cref="T:ChartTools.Track"/> will contain a combination of all unique common track objects in the same <see cref="T:ChartTools.Instrument"/>
-            </summary>
-        </member>
-        <member name="T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy">
-            <summary>
-            Defines how to handle "solo" local events in tracks
-            </summary>
-        </member>
-        <member name="F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.Ignore">
-            <summary>
-            Local events are interpreted as is
-            </summary>
-        </member>
-        <member name="F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.Convert">
-            <summary>
-            If a track has "solo" or "soloend" local events and no star power, convert the events into star power as interpreted by Clone Hero
-            </summary>
-        </member>
-        <member name="T:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy">
-            <summary>
-            Defines how duplicate track objects are handled
-            </summary>
-        </member>
-        <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.ThrowException">
-            <summary>
-            Throw an exception
-            </summary>
-        </member>
-        <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.IncludeFirst">
-            <summary>
-            Only include the first object
-            </summary>
-        </member>
-        <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.IncludeAll">
-            <summary>
-            Include all objects
-            </summary>
-        </member>
-        <member name="T:ChartTools.IO.Configuration.UnsupportedModifierPolicy">
-            <summary>
-            Defines how to handle chord modifiers not supported by the target format
-            </summary>
-        </member>
-        <member name="F:ChartTools.IO.Configuration.UnsupportedModifierPolicy.ThrowException">
-            <summary>
-            Throw an exception
-            </summary>
-        </member>
-        <member name="F:ChartTools.IO.Configuration.UnsupportedModifierPolicy.IgnoreModifier">
-            <summary>
-            The modifier is excluded
-            </summary>
-        </member>
-        <member name="F:ChartTools.IO.Configuration.UnsupportedModifierPolicy.IgnoreChord">
-            <summary>
-            The chord is excluded
-            </summary>
-        </member>
-        <member name="T:ChartTools.IO.Configuration.CommonConfiguration">
-            <summary>
-            Configuration object to direct the reading or writing of a file
-            </summary>
-            <remarks>If <see langword="null"/>, the default configuration for the file format will be used.</remarks>
-        </member>
-        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.OverlappingStarPowerPolicy">
-            <inheritdoc cref="T:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy"/>
-        </member>
-        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.SoloNoStarPowerPolicy">
-            <inheritdoc cref="T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy"/>
-        </member>
-        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.DuplicateTrackObjectPolicy">
-            <inheritdoc cref="T:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy"/>
-        </member>
-        <member name="T:ChartTools.IO.Configuration.ReadingConfiguration">
-            <summary>
-            Configuration object to direct the reading of a file
-            </summary>
-            <inheritdoc cref="T:ChartTools.IO.Configuration.CommonConfiguration" path="/remarks"/>
-        </member>
-        <member name="P:ChartTools.IO.Configuration.WritingConfiguration.EventSource">
-            <summary>
-            Defines which difficulty to get local events from
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.Configuration.WritingConfiguration.UnsupportedModifierPolicy">
-            <see cref="T:ChartTools.IO.Configuration.UnsupportedModifierPolicy"/>
-        </member>
         <member name="T:ChartTools.IO.Ini.IniFile">
             <summary>
             Provides methods for reading and writing ini files
@@ -1736,6 +1258,136 @@
         <member name="P:ChartTools.IO.TextEntry.Value">
             <summary>
             Text after the equal sign
+            </summary>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.CommonConfiguration">
+            <summary>
+            Configuration object to direct the reading or writing of a file
+            </summary>
+            <remarks>If <see langword="null"/>, the default configuration for the file format will be used.</remarks>
+        </member>
+        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.OverlappingStarPowerPolicy">
+            <inheritdoc cref="T:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy"/>
+        </member>
+        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.SoloNoStarPowerPolicy">
+            <inheritdoc cref="T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy"/>
+        </member>
+        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.DuplicateTrackObjectPolicy">
+            <inheritdoc cref="T:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy"/>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy">
+            <summary>
+            Defines how duplicate track objects are handled
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.ThrowException">
+            <summary>
+            Throw an exception
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.IncludeFirst">
+            <summary>
+            Only include the first object
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.IncludeAll">
+            <summary>
+            Include all objects
+            </summary>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.LyricEventSource">
+            <summary>
+            Where to get lyric data from for formats that store lyrics as events
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.LyricEventSource.GlobalEvents">
+            <summary>
+            Lyrics are obtained from global events
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.LyricEventSource.Vocals">
+            <summary>
+            Lyrics are obtained from the <see cref="!:Song.Vocals"/> instrument
+            </summary>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy">
+            <summary>
+            Defines how overlapping star power phrases should be handled
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy.Cut">
+            <summary>
+            The length of the phrase is cut short to the start of the next one
+            </summary>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy">
+            <summary>
+            Defines how to handle "solo" local events in tracks
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.Ignore">
+            <summary>
+            Local events are interpreted as is
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.Convert">
+            <summary>
+            If a track has "solo" or "soloend" local events and no star power, convert the events into star power as interpreted by Clone Hero
+            </summary>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.TrackObjectSource">
+            <summary>
+            Difficulty of the <see cref="T:ChartTools.Track"/> to serve as a source of for track objects common to all difficulties to use for all tracks in the same <see cref="T:ChartTools.Instrument"/>
+            <para>Common track objects are:<list type="bullet">
+            <item>Local events</item>
+            <item>Star power phrases</item>
+            </list>
+            </para>
+            </summary>
+            <remarks>Can be casted from <see cref="T:ChartTools.Difficulty"/>.</remarks>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Merge">
+            <summary>
+            Each <see cref="T:ChartTools.Track"/> will contain a combination of all unique common track objects in the same <see cref="T:ChartTools.Instrument"/>
+            </summary>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.UnsupportedModifierPolicy">
+            <summary>
+            Defines how to handle chord modifiers not supported by the target format
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnsupportedModifierPolicy.ThrowException">
+            <summary>
+            Throw an exception
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnsupportedModifierPolicy.IgnoreModifier">
+            <summary>
+            The modifier is excluded
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnsupportedModifierPolicy.IgnoreChord">
+            <summary>
+            The chord is excluded
+            </summary>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.ReadingConfiguration">
+            <summary>
+            Configuration object to direct the reading of a file
+            </summary>
+            <inheritdoc cref="T:ChartTools.IO.Configuration.CommonConfiguration" path="/remarks"/>
+        </member>
+        <member name="P:ChartTools.IO.Configuration.WritingConfiguration.EventSource">
+            <summary>
+            Defines which difficulty to get local events from
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Configuration.WritingConfiguration.UnsupportedModifierPolicy">
+            <see cref="T:ChartTools.IO.Configuration.UnsupportedModifierPolicy"/>
+        </member>
+        <member name="P:ChartTools.IO.Configuration.WritingConfiguration.LyricEventSource">
+            <summary>
+            *Currently unsupported*
             </summary>
         </member>
         <member name="T:ChartTools.IO.VoidRead">
@@ -1813,9 +1465,9 @@
             Provides methods for reading and writing MIDI files
             </summary>
         </member>
-        <member name="P:ChartTools.IO.MIDI.MIDIParser.ReadingSettings">
+        <member name="F:ChartTools.IO.MIDI.MIDIParser.readingSettings">
             <summary>
-            Settings to customize the initial parsing of the file by DryWetMidi
+            Parameter to use with MIDIFile.Read()
             </summary>
         </member>
         <member name="M:ChartTools.IO.MIDI.MIDIParser.ReadSong(System.String,ChartTools.IO.Configuration.ReadingConfiguration)">
@@ -2075,6 +1727,374 @@
             <returns>Track instance assigned to the instrument. Changed made to the passed reference will not be reflected in the instrument.</returns>
             <exception cref="T:System.ArgumentNullException"/>
             <exception cref="T:ChartTools.Exceptions.UndefinedEnumException"/>
+        </member>
+        <member name="T:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2">
+            <summary>
+            Enumerable where <typeparamref name="T"/> items are pulled from a set of enumerables in order using a <typeparamref name="TKey"/> key
+            </summary>
+            <typeparam name="T">Type of the enumerated items</typeparam>
+            <typeparam name="TKey">Type of the key used to determine the order</typeparam>
+        </member>
+        <member name="P:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2.Enumerables">
+            <summary>
+            Enumerables to alternate between
+            </summary>
+        </member>
+        <member name="P:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2.KeyGetter">
+            <summary>
+            Method that retrieves the key from an item
+            </summary>
+        </member>
+        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2.#ctor(System.Func{`1,`0},System.Collections.Generic.IEnumerable{`1}[])">
+            <summary>
+            Creates an instance of <see cref="T:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2"/>.
+            </summary>
+            <param name="keyGetter">Method that retrieves the key from an item</param>
+            <param name="enumerables">Enumerables to alternate between</param>
+            <exception cref="T:System.ArgumentException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="T:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2">
+            <summary>
+            Enumerator that yields <typeparamref name="T"/> items from a set of enumerators in order using a <typeparamref name="TKey"/> key
+            </summary>
+            <typeparam name="T">Type of the enumerated items</typeparam>
+            <typeparam name="TKey">Type of the key used to determine the order</typeparam>
+        </member>
+        <member name="P:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.KeyGetter">
+            <summary>
+            Method that retrieves the key from an item
+            </summary>
+        </member>
+        <member name="P:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.Initialized">
+            <inheritdoc/>
+        </member>
+        <member name="P:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.Current">
+            <inheritdoc/>
+        </member>
+        <member name="P:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.System#Collections#IEnumerator#Current">
+            <inheritdoc/>
+        </member>
+        <member name="F:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.endsReached">
+            <summary>
+            <see langword="true"/> for indexes where MoveNext previously returned <see langword="false"/>
+            </summary>
+        </member>
+        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.#ctor(System.Func{`0,`1},System.Collections.Generic.IEnumerator{`0}[])">
+            <summary>
+            Creates a new instance of <see cref="T:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2"/>.
+            </summary>
+            <param name="keyGetter">Method that retrieves the key from an item</param>
+            <param name="enumerators">Enumerators to alternate between</param>
+            <exception cref="T:System.ArgumentException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.MoveNext">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.Initialize">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.Reset">
+            <inheritdoc/>
+        </member>
+        <member name="T:ChartTools.Collections.Alternating.SerialAlternatingEnumerable`1">
+            <summary>
+            Enumerable where <typeparamref name="T"/> items are yielded by alternating from a set of enumerables
+            </summary>
+            <typeparam name="T">Type of the enumerated items</typeparam>
+        </member>
+        <member name="P:ChartTools.Collections.Alternating.SerialAlternatingEnumerable`1.Enumerables">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerable`1.#ctor(System.Collections.Generic.IEnumerable{`0}[])">
+            <summary>
+            Creates an instance of <see cref="T:ChartTools.Collections.Alternating.SerialAlternatingEnumerable`1"/>
+            </summary>
+            <param name="enumerables">Enumerables to pull items from</param>
+            <exception cref="T:System.ArgumentException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerable`1.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerable`1.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="T:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1">
+            <summary>
+            Enumerator that yields <typeparamref name="T"/> items by alternating through a set of enumerators
+            </summary>
+            <typeparam name="T">Type of the enumerated items</typeparam>
+        </member>
+        <member name="P:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.Enumerators">
+            <summary>
+            Enumerators to alternate between
+            </summary>
+        </member>
+        <member name="F:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.index">
+            <summary>
+            Position of the next enumerator to pull from
+            </summary>
+        </member>
+        <member name="P:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.Current">
+            <summary>
+            Item to use in the iteration
+            </summary>
+        </member>
+        <member name="P:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.System#Collections#IEnumerator#Current">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.#ctor(System.Collections.Generic.IEnumerator{`0}[])">
+            <summary>
+            Creates an instance of <see cref="T:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1"/>
+            </summary>
+            <param name="enumerators">Enumerators to alternate between</param>
+            <exception cref="T:System.ArgumentException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.MoveNext">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.Reset">
+            <inheritdoc/>
+        </member>
+        <member name="T:ChartTools.Collections.Sorted.IndexableSelfSorted`2">
+            <summary>
+            *Deprecated* Collection where <typeparamref name="TValue"/> items are always sorted based on a <typeparamref name="TKey"/> key
+            </summary>
+            <typeparam name="TKey">Type of the key to use as in index</typeparam>
+            <typeparam name="TValue">Type of the contained items</typeparam>
+        </member>
+        <member name="F:ChartTools.Collections.Sorted.IndexableSelfSorted`2.GetKey">
+            <summary>
+            Method that retrieves the key from an item
+            </summary>
+        </member>
+        <member name="P:ChartTools.Collections.Sorted.IndexableSelfSorted`2.AllowDuplicates">
+            <summary>
+            <see langword="true"/> if multiple items can have the same key. Items of the same key are sorted using the default <see cref="T:System.IComparable`1"/> comparison of <typeparamref name="TValue"/>.
+            </summary>
+        </member>
+        <member name="P:ChartTools.Collections.Sorted.IndexableSelfSorted`2.KeyCount">
+            <summary>
+            Gets the number of unique keys from the items
+            </summary>
+        </member>
+        <member name="M:ChartTools.Collections.Sorted.IndexableSelfSorted`2.#ctor(System.Func{`1,`0},System.Int32)">
+            <summary>
+            Creates an instance of <see cref="T:ChartTools.Collections.Sorted.IndexableSelfSorted`2"/>.
+            </summary>
+            <param name="keyGetter">Method that retrieves the key from an item</param>
+            <param name="capacity">Number of items that the <see cref="T:ChartTools.Collections.Sorted.IndexableSelfSorted`2"/> can initially store</param>
+        </member>
+        <member name="M:ChartTools.Collections.Sorted.IndexableSelfSorted`2.GetValues(`0)">
+            <summary>
+            Gets the items matching a key.
+            </summary>
+            <param name="key">Key to match the items against</param>
+        </member>
+        <member name="M:ChartTools.Collections.Sorted.IndexableSelfSorted`2.Add(`1)">
+            <inheritdoc/>
+            <exception cref="T:System.ArgumentException"/>
+        </member>
+        <member name="M:ChartTools.Collections.Sorted.IndexableSelfSorted`2.AddRange(System.Collections.Generic.IEnumerable{`1})">
+            <inheritdoc/>
+            <param name="items">Items to add</param>
+            <exception cref="T:System.ArgumentException"/>
+        </member>
+        <member name="M:ChartTools.Collections.Sorted.IndexableSelfSorted`2.ContainsDuplicate(`1)">
+            <summary>
+            Determines if the collection contains any item of the same key as the provided item.
+            </summary>
+            <param name="item">Item to search for duplicates of</param>
+        </member>
+        <member name="P:ChartTools.Collections.Sorted.IndexableSelfSorted`2.Item(`0)">
+            <summary>
+            Gets or replaces the items matching a key.
+            </summary>
+            <param name="key">Key to match the items against</param>
+            <returns></returns>
+        </member>
+        <member name="M:ChartTools.Collections.Sorted.IndexableSelfSorted`2.RemoveAt(`0)">
+            <summary>Removes the items matching a key.</summary>
+            <param name="key">Key of items to remove</param>
+        </member>
+        <member name="T:ChartTools.Collections.Sorted.SelfSorted`1">
+            <summary>
+            *Deprecated* Collection where <typeparamref name="T"/> items are always sorted
+            </summary>
+            <typeparam name="T">Type of the contained items</typeparam>
+        </member>
+        <member name="F:ChartTools.Collections.Sorted.SelfSorted`1.items">
+            <summary>
+            Source of non-sorted items
+            </summary>
+        </member>
+        <member name="P:ChartTools.Collections.Sorted.SelfSorted`1.Count">
+            <inheritdoc/>
+        </member>
+        <member name="P:ChartTools.Collections.Sorted.SelfSorted`1.IsReadOnly">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Sorted.SelfSorted`1.#ctor(System.Int32)">
+            <summary>
+            Creates an instance of <see cref="T:ChartTools.Collections.Sorted.SelfSorted`1"/>.
+            </summary>
+            <param name="capacity">Number of items that the <see cref="T:ChartTools.Collections.Sorted.IndexableSelfSorted`2"/> can initially store</param>
+        </member>
+        <member name="P:ChartTools.Collections.Sorted.SelfSorted`1.Item(System.Int32)">
+            <summary>
+            Gets or sets the item at the specified index.
+            </summary>
+            <param name="index">Index of the item</param>
+        </member>
+        <member name="M:ChartTools.Collections.Sorted.SelfSorted`1.Add(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Sorted.SelfSorted`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Adds multiple items to the <see cref="T:ChartTools.Collections.Sorted.SelfSorted`1"/>.
+            </summary>
+            <param name="items">Items to add</param>
+        </member>
+        <member name="M:ChartTools.Collections.Sorted.SelfSorted`1.Clear">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Sorted.SelfSorted`1.Contains(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Sorted.SelfSorted`1.CopyTo(`0[],System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Sorted.SelfSorted`1.Remove(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Sorted.SelfSorted`1.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Sorted.SelfSorted`1.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="T:ChartTools.Collections.Unique.UniqueList`1">
+            <summary>
+            List where all <typeparamref name="T"/> items must be unique using a given comparison
+            </summary>
+            <typeparam name="T">Type of the contained items</typeparam>
+        </member>
+        <member name="F:ChartTools.Collections.Unique.UniqueList`1.items">
+            <summary>
+            Source of items
+            </summary>
+        </member>
+        <member name="P:ChartTools.Collections.Unique.UniqueList`1.Comparison">
+            <summary>
+            Method that defines uniqueness of items
+            </summary>
+        </member>
+        <member name="M:ChartTools.Collections.Unique.UniqueList`1.#ctor(ChartTools.SystemExtensions.EqualityComparison{`0},System.Int32,System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Creates an instance of <see cref="T:ChartTools.Collections.Unique.UniqueList`1"/> using a comparison to define the uniqueness of items.
+            </summary>
+            <param name="comparison">Method that defines uniqueness of items</param>
+            <param name="capacity">Number of items that the <see cref="T:ChartTools.Collections.Unique.UniqueList`1"/> can initially store</param>
+        </member>
+        <member name="P:ChartTools.Collections.Unique.UniqueList`1.Item(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="P:ChartTools.Collections.Unique.UniqueList`1.IsReadOnly">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Unique.UniqueList`1.Add(`0)">
+            <summary>
+            Adds an item to the list and overwrites any duplicate.
+            </summary>
+            <param name="item">Item to add</param>
+        </member>
+        <member name="M:ChartTools.Collections.Unique.UniqueList`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Adds multiple items to the <see cref="T:System.Collections.Generic.ICollection`1"/>
+            </summary>
+            <param name="collection">Items to add</param>
+        </member>
+        <member name="M:ChartTools.Collections.Unique.UniqueList`1.RemoveDuplicate(`0)">
+            <summary>
+            Removes the first duplicate of a given item.
+            </summary>
+            <param name="item">Item to remove the duplicate of</param>
+        </member>
+        <member name="M:ChartTools.Collections.Unique.UniqueList`1.RemoveDuplicates(System.Collections.Generic.List{`0})">
+            <summary>
+            Removes the first duplicate of multiple items
+            </summary>
+            <param name="collection">Items to remove the duplicate of</param>
+        </member>
+        <member name="M:ChartTools.Collections.Unique.UniqueList`1.Clear">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Unique.UniqueList`1.Contains(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Unique.UniqueList`1.CopyTo(`0[],System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Unique.UniqueList`1.GetEnumerator">
+            <inheritdoc/>>
+        </member>
+        <member name="M:ChartTools.Collections.Unique.UniqueList`1.IndexOf(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Unique.UniqueList`1.Insert(System.Int32,`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Unique.UniqueList`1.Remove(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Unique.UniqueList`1.RemoveAt(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Collections.Unique.UniqueList`1.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="T:ChartTools.Collections.Unique.UniqueListEquatable`1">
+            <summary>
+            List where all <typeparamref name="T"/> items must be unique using the default <see cref="T:System.IEquatable`1"/> comparison to determine uniqueness
+            </summary>
+            <typeparam name="T">Type of the contained items</typeparam>
+        </member>
+        <member name="M:ChartTools.Collections.Unique.UniqueListEquatable`1.#ctor(System.Int32,System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Creates an instance of <see cref="T:ChartTools.Collections.Unique.UniqueListEquatable`1"/>.
+            </summary>
+            <param name="capacity">Number of items that the <see cref="T:ChartTools.Collections.Unique.UniqueListEquatable`1"/> can initially store</param>
+        </member>
+        <member name="T:ChartTools.Collections.IInitializable">
+            <summary>
+            Defines an object that can be initialized
+            </summary>
+        </member>
+        <member name="P:ChartTools.Collections.IInitializable.Initialized">
+            <summary>
+            Has already been initialized
+            </summary>
+        </member>
+        <member name="M:ChartTools.Collections.IInitializable.Initialize">
+            <summary>
+            Does required initialization if not already done.
+            </summary>
+            <returns><see langword="true"/> if the object was not initialized prior to calling.</returns>
         </member>
         <member name="T:ChartTools.SystemExtensions.EqualityComparison`1">
             <summary>
@@ -2475,7 +2495,7 @@
         </member>
         <member name="P:ChartTools.Metadata.AudioOffset">
             <summary>
-            Offset of the audio track. A higher value makes the audio start sooner.
+            Offset of the audio track in milliseconds. A higher value makes the audio start sooner.
             </summary>
         </member>
         <member name="P:ChartTools.Metadata.Streams">
@@ -2485,7 +2505,10 @@
         </member>
         <member name="P:ChartTools.Metadata.VideoOffset">
             <summary>
-            Offset of the background video. A higher value makes the video start sooner.
+            Offset of the background video in milliseconds. A higher value makes the video start sooner.
+            </summary>
+            <summary>
+            Offset of the background video in milliseconds. A higher value makes the video start sooner.
             </summary>
         </member>
         <member name="P:ChartTools.Metadata.Length">
@@ -2716,7 +2739,7 @@
         </member>
         <member name="P:ChartTools.Tempo.Anchor">
             <summary>
-            Locks the tempo to a specific time in the song independent to the sync track.
+            If not <see langword="null"/>, overrides <see cref="P:ChartTools.TrackObject.Position"/> with a time in seconds from the start of the song
             </summary>
         </member>
         <member name="M:ChartTools.Tempo.#ctor(System.UInt32,System.Single)">

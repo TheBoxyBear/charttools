@@ -5,6 +5,8 @@ using ChartTools.IO.Chart.Parsers;
 using ChartTools.IO.Chart.Serializers;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
+using ChartTools.IO.Parsers;
+using ChartTools.IO.Sections;
 using ChartTools.Lyrics;
 using ChartTools.SystemExtensions.Linq;
 
@@ -39,7 +41,6 @@ namespace ChartTools.IO.Chart
             StarPowerSource = TrackObjectSource.Seperate,
             UnsupportedModifierPolicy = UnsupportedModifierPolicy.ThrowException
         };
-
         #region Reading
         #region Song
         /// <summary>
@@ -64,7 +65,7 @@ namespace ChartTools.IO.Chart
                     else if (standardTrackHeaders.TryGetValue(header, out (Difficulty, StandardInstrumentIdentity) standardTuple))
                         return new StandardTrackParser(standardTuple.Item1, standardTuple.Item2, session, header);
                     else
-                        throw new FormatException($"Unknown part: {header}"); // TODO Add support for unknown parts in configuration
+                        return new UnknownSectionParser(session, header);
             }
         }
 
@@ -545,6 +546,9 @@ namespace ChartTools.IO.Chart
                 serializers.AddRange(tracks.Select(t => new TrackSerializer(t, session)));
                 removedHeaders.AddRange(difficulties.Where(diff => !tracks.Any(t => t.Difficulty == diff)).Select(diff => ChartFormatting.Header(instrumentName, diff)));
             }
+
+            if (song.UnknownChartSections is not null)
+                serializers.AddRange(song.UnknownChartSections.Select(s => new UnknownSectionSerializer(s.Header, s, session)));
 
             return new(path, removedHeaders, serializers.ToArray());
         }

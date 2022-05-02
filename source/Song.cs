@@ -15,6 +15,7 @@ using ChartTools.IO.Configuration;
 using ChartTools.Events;
 using ChartTools.Formatting;
 using ChartTools.Internal;
+using ChartTools.IO.Sections;
 
 namespace ChartTools
 {
@@ -41,8 +42,6 @@ namespace ChartTools
         }
         private FormattingRules _formatting = new();
 
-        public Dictionary<string, string> UnidentifiedData { get; set; } = new();
-
         /// <inheritdoc cref="ChartTools.SyncTrack"/>
         public SyncTrack SyncTrack
         {
@@ -68,6 +67,8 @@ namespace ChartTools
             set => _instruments = value ?? throw new ArgumentNullException(nameof(value));
         }
         private InstrumentSet _instruments = new();
+
+        public ChartSection? UnknownChartSections { get; set; }
 
         #region Reading
         /// <summary>

@@ -7,7 +7,6 @@
         /// </summary>
         public TrackObjectSource EventSource { get; init; }
         public TrackObjectSource StarPowerSource { get; init; }
-        public uint? HopoTreshold { get; init; }
         /// <see cref="Configuration.UnsupportedModifierPolicy"/>
         public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }
     }
