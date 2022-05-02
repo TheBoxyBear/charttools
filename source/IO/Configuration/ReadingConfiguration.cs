@@ -8,5 +8,6 @@
     {
         public UnopenedTrackObjectPolicy UnopenedTrackObjectPolicy { get; set; }
         public UnclosedTrackObjectPolicy UnclosedTracjObjectPolicy { get; set; }
+        public UnknownSectionPolicy UnknownSectionPolicy { get; set; }
     }
 }
