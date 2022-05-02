@@ -6,6 +6,6 @@
     /// <inheritdoc cref="CommonConfiguration" path="/remarks"/>
     public class ReadingConfiguration : CommonConfiguration
     {
-
+        public UnknownSectionPolicy UnknownSectionPolicy { get; set; }
     }
 }
