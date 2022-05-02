@@ -42,8 +42,6 @@ namespace ChartTools
         }
         private FormattingRules _formatting = new();
 
-        public Dictionary<string, string> UnidentifiedData { get; set; } = new();
-
         /// <inheritdoc cref="ChartTools.SyncTrack"/>
         public SyncTrack SyncTrack
         {
@@ -70,7 +68,7 @@ namespace ChartTools
         }
         private InstrumentSet _instruments = new();
 
-        public SectionSet<string>? UnknownChartSections { get; set; }
+        public ChartSection? UnknownChartSections { get; set; }
 
         #region Reading
         /// <summary>

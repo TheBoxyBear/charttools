@@ -5,11 +5,10 @@ using System.Linq;
 
 namespace ChartTools.IO.Sections
 {
-    public class SectionSet<T> : IList<Section<T>>
+    public abstract class SectionSet<T> : IList<Section<T>>
     {
         private readonly List<Section<T>> _sections = new();
-
-        public ReservedSectionHeaderSet ReservedHeaders { get; init; } = new(Enumerable.Empty<ReservedSectionHeader>());
+        public abstract ReservedSectionHeaderSet ReservedHeaders { get; }
 
         #region IList
         public int Count => _sections.Count;

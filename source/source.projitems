@@ -29,6 +29,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\EagerEnumerable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\IEmptyVerifiable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartSectionSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\ChartParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsers\MetadataParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Formatting\FormattingEnums.cs" />

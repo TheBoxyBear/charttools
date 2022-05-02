@@ -9,7 +9,7 @@ namespace ChartTools.IO.Chart.Parsers
         private readonly Section<string> result;
         public UnknownSectionParser(ReadingSession session, string header) : base(session, header) => result = new(header);
 
-        public override void ApplyToSong(Song song) => (song.UnknownChartSections ??= new() { ReservedHeaders = ChartFile.ReservedHeaders }).Add(Result);
+        public override void ApplyToSong(Song song) => (song.UnknownChartSections ??= new()).Add(Result);
         protected override void HandleItem(string item) => result.Add(item);
     }
 }
