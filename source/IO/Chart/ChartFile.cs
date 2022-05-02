@@ -547,6 +547,9 @@ namespace ChartTools.IO.Chart
                 removedHeaders.AddRange(difficulties.Where(diff => !tracks.Any(t => t.Difficulty == diff)).Select(diff => ChartFormatting.Header(instrumentName, diff)));
             }
 
+            if (song.UnknownChartSections is not null)
+                serializers.AddRange(song.UnknownChartSections.Select(s => new UnknownSectionSerializer(s.Header, s, session)));
+
             return new(path, removedHeaders, serializers.ToArray());
         }
 

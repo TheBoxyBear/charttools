@@ -55,6 +55,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Providers\SyncTrackProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serializers\ChartKeySerializableAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serializers\GlobalEventSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serializers\UnknownSectionSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\DirectoryHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\EntryException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\LineException.cs" />
