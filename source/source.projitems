@@ -66,6 +66,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Appliables\IInstrumentAppliable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\FileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFormatting.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\SectionParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\ReservedSectionHeader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\ReservedSectionHeaderSet.cs" />
