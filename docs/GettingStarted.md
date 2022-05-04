@@ -80,7 +80,7 @@ A track is composed of three components:
 - Special phrases (star power)
 - [Local events](Events.md)
 
-> **NOTE**: When setting a track in an instrument, a clone of the track is created which contains the target instrument as the `ParentInstrument` property. In order to have changes made to the track after the assignment be reflected in the instrument, the track must be re-obtained from the instrument rather than using the instance used in the assignment.
+> **NOTE**: When setting an instrument in an `InstrumentSet` or a track in an instrument, a copy of the object is created which contains information about its indentity. In order to have changes made to the object after the assignement be reflected, a reference must be re-obtained from the parent.
 
 Instruments can also be obtained dynamically from a song regardless of the type. To learn more, check out [Dynamic syntax](DynamicSyntax.md).
 
