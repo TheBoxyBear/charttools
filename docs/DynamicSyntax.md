@@ -38,4 +38,4 @@ song.Instruments.LeadGuitar.SetTrack(new() { Difficulty = Difficulty.Easy });
 
 When setting an instrument, the target is determined by the `InstrumentIdentity` property of the new instrument, which can be overridden using a `with` statement. Similarly, the target difficulty when setting a track is determined by the track's `Difficulty` property, also overridable through `with`. 
 
-> **NOTE**: Like when setting a track explicitly, the instance from the instrument must be used from then on rather than the one passed as the new track. This instance is provided as the return of the `SetTrack` method.
+> **NOTE**: Like when setting an instrument or track explicitely, the instance from the parent must be used from then on. This new instance is provided as the return of `InstrumentSet.Set` and `Instrument.SetTrack`.
