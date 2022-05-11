@@ -138,7 +138,7 @@ namespace ChartTools.SystemExtensions.Linq
 
         public static int BinarySearchIndex<T, TKey>(this IList<T> source, TKey target, Func<T, TKey> keySelector, out bool exactMatch) where TKey : notnull, IComparable<TKey>
         {
-            int left = 0, right = source.Count - 1, middle = 0, index = 0;
+            int left = 0, right = source.Count - 1, middle, index = 0;
 
             while (left <= right)
             {
@@ -417,12 +417,12 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="source">Source of items</param>
         /// <param name="result">Found item</param>
         /// <returns><see langword="true"/> if an item was found</returns>
-        public static bool TryGetFirst<T>(this IEnumerable<T> source, out T? result)
+        public static bool TryGetFirst<T>(this IEnumerable<T> source, out T result)
         {
             using var enumerator = source.GetEnumerator();
             var success = enumerator.MoveNext();
 
-            result = success ? enumerator.Current : default;
+            result = success ? enumerator.Current : default!;
             return success;
         }
         /// <summary>
@@ -431,7 +431,7 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="source">Source of items</param>
         /// <param name="result">Found item</param>
         /// <returns><see langword="true"/> if an item was found</returns>
-        public static bool TryGetFirstOfType<TResult>(this IEnumerable source, out TResult? result) => source.OfType<TResult>().TryGetFirst(out result);
+        public static bool TryGetFirstOfType<TResult>(this IEnumerable source, out TResult result) => source.OfType<TResult>().TryGetFirst(out result);
 
         // Methods present in .NET 6 but needed for .NET builds
 #if NET5_0

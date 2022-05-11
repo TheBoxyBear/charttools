@@ -76,7 +76,6 @@
     <Compile Include="IO\Midi\MIDIFormatting.cs" />
     <Compile Include="IO\Midi\MIDIParser_Common.cs" />
     <Compile Include="IO\Midi\MIDIParser_Reading.cs" />
-    <Compile Include="IO\Midi\MIDIReader.cs" />
     <Compile Include="IO\Midi\Parsers\GHGemsParser.cs" />
     <Compile Include="IO\Midi\Parsers\InstrumentParser.cs" />
     <Compile Include="IO\Midi\Parsers\MidiParser.cs" />

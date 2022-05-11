@@ -1,23 +1,20 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
 using Melanchall.DryWetMidi.Core;
-using System;
 
 namespace ChartTools.IO.Midi.Parsers
 {
-    internal abstract class StandardInstrumentParser : InstrumentParser<StandardChord, StandardInstrumentIdentity>
+    internal abstract class StandardInstrumentParser : InstrumentParser<StandardChord>
     {
-        public StandardInstrumentParser(StandardInstrumentIdentity instrument, ReadingSession session) : base(instrument, session) { }
+        public new StandardInstrumentIdentity Instrument { get; }
 
-        public override void ApplyToSong(Song song)
-        {
-            throw new NotImplementedException();
-        }
+        public StandardInstrumentParser(StandardInstrumentIdentity instrument, ReadingSession session) : base(session) => Instrument = instrument;
 
-        protected override void HandleItem(MidiEvent item)
-        {
-            throw new NotImplementedException();
-        }
+        protected override InstrumentIdentity GetInstrument() => (InstrumentIdentity)Instrument;
 
         protected abstract (Track<StandardChord> track, int adjustedNoteNumber) MapNoteEvent(NoteEvent e);
+
+        public override void ApplyToSong(Song song) => song.Instruments.Set(result);
+
+        protected Track<StandardChord> GetOrCreateTrack(Difficulty difficulty) => tracks[(int)difficulty] ??= new() { Difficulty = difficulty };
     }
 }

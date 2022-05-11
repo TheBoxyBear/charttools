@@ -2,48 +2,22 @@
 using ChartTools.IO.Parsers;
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ChartTools.IO
 {
-    internal abstract class TextFileReader : FileReader<string>
+    internal abstract class TextFileReader : FileReader<string, TextParser>
     {
-        private record ParserLinesGroup(TextParser Parser, DelayedEnumerableSource<string> Source);
-
         public virtual bool DefinedSectionEnd { get; } = false;
-        public override IEnumerable<TextParser> Parsers => parserGroups.Select(g => g.Parser);
 
-        private readonly List<ParserLinesGroup> parserGroups = new();
-        private readonly List<Task> parseTasks = new();
-        private readonly Func<string, TextParser?> parserGetter;
-        private readonly IEnumerator<string> enumerator;
-        private bool disposedValue;
+        public TextFileReader(string path, Func<string, TextParser?> parserGetter) : base(path, parserGetter) { }
 
-        public TextFileReader(string path, Func<string, TextParser?> parserGetter) : base(path)
+        protected override void ReadBase(bool async, CancellationToken cancellationToken)
         {
-            this.parserGetter = parserGetter;
-            enumerator = File.ReadLines(path).Where(s => !string.IsNullOrEmpty(s)).Select(s => s.Trim()).GetEnumerator();
-        }
-
-        public override void Read()
-        {
-            BaseRead(false, CancellationToken.None);
-
-            foreach (var group in parserGroups)
-                group.Parser.Parse(group.Source.Enumerable.EnumerateSynchronously());
-        }
-        public override async Task ReadAsync(CancellationToken cancellationToken)
-        {
-            BaseRead(true, cancellationToken);
-            await Task.WhenAll(parseTasks);
-        }
-        private void BaseRead(bool async, CancellationToken cancellationToken)
-        {
-            ParserLinesGroup? currentGroup = null;
+            ParserContentGroup? currentGroup = null;
+            using var enumerator = File.ReadLines(Path).Where(s => !string.IsNullOrEmpty(s)).Select(s => s.Trim()).GetEnumerator();
 
             while (enumerator.MoveNext())
             {
@@ -68,7 +42,15 @@ namespace ChartTools.IO
                     parserGroups.Add(currentGroup = new(parser, source));
 
                     if (async)
+                    {
+                        if (cancellationToken.IsCancellationRequested)
+                        {
+                            Dispose();
+                            return;
+                        }
+
                         parseTasks.Add(parser.StartAsyncParse(source.Enumerable));
+                    }
                 }
 
                 // Move to the start of the entries
@@ -98,17 +80,13 @@ namespace ChartTools.IO
 
                 void Finish()
                 {
-                    if (async || cancellationToken.IsCancellationRequested)
+                    if (cancellationToken.IsCancellationRequested)
                     {
-                        if (cancellationToken.IsCancellationRequested)
-                        {
-                            Dispose();
-                            return;
-                        }
+                        Dispose();
+                        return;
                     }
 
-                    if (currentGroup is not null)
-                        currentGroup!.Source.EndAwait();
+                    currentGroup?.Source.EndAwait();
                 }
 
                 bool AdvanceSection() => enumerator.MoveNext() || (DefinedSectionEnd ? throw SectionException.EarlyEnd(header) : false);
@@ -117,24 +95,5 @@ namespace ChartTools.IO
 
         protected abstract bool IsSectionStart(string line);
         protected virtual bool IsSectionEnd(string line) => false;
-
-        public override async void Dispose()
-        {
-            if (!disposedValue)
-            {
-                enumerator.Dispose();
-
-                foreach (var group in parserGroups)
-                    group.Source.Dispose();
-
-                foreach (var task in parseTasks)
-                {
-                    await task;
-                    task.Dispose();
-                }
-
-                disposedValue = true;
-            }
-        }
     }
 }

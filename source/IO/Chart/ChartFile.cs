@@ -1,6 +1,7 @@
 ﻿using ChartTools.Events;
 using ChartTools.Exceptions;
 using ChartTools.Formatting;
+using ChartTools.Internal;
 using ChartTools.IO.Chart.Parsers;
 using ChartTools.IO.Chart.Serializers;
 using ChartTools.IO.Configuration;
@@ -41,6 +42,7 @@ namespace ChartTools.IO.Chart
             StarPowerSource = TrackObjectSource.Seperate,
             UnsupportedModifierPolicy = UnsupportedModifierPolicy.ThrowException
         };
+
         #region Reading
         #region Song
         /// <summary>
@@ -284,7 +286,7 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Headers for drums tracks
         /// </summary>
-        private static readonly Dictionary<string, Difficulty> drumsTrackHeaders = Enum.GetValues<Difficulty>().ToDictionary(diff => ChartFormatting.Header(ChartFormatting.DrumsHeaderName, diff));
+        private static readonly Dictionary<string, Difficulty> drumsTrackHeaders = EnumCache<Difficulty>.Values.ToDictionary(diff => ChartFormatting.Header(ChartFormatting.DrumsHeaderName, diff));
         /// <inheritdoc cref="Track.FromFile(string, Difficulty, ReadingConfiguration?, FormattingRules?)"/>
         /// <param name="path"><inheritdoc cref="Track.FromFile(string, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='path']"/></param>
         /// <param name="difficulty"><inheritdoc cref="Track.FromFile(string, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='difficulty']"/></param>
@@ -532,7 +534,7 @@ namespace ChartTools.IO.Chart
             else
                 removedHeaders.Add(ChartFormatting.GlobalEventHeader);
 
-            var difficulties = Enum.GetValues<Difficulty>().ToArray();
+            var difficulties = EnumCache<Difficulty>.Values;
 
             // Remove headers for null instruments
             removedHeaders.AddRange((from identity in Enum.GetValues<InstrumentIdentity>()
@@ -578,10 +580,9 @@ namespace ChartTools.IO.Chart
 
             var instrumentName = ChartFormatting.InstrumentHeaderNames[instrument.InstrumentIdentity];
             var tracks = instrument.GetExistingTracks().ToArray();
-            var difficulties = Enum.GetValues<Difficulty>().ToArray();
 
             return new(path,
-                difficulties.Where(d => !tracks.Any(t => t.Difficulty == d)).Select(d => ChartFormatting.Header(instrumentName, d)),
+                EnumCache<Difficulty>.Values.Where(d => !tracks.Any(t => t.Difficulty == d)).Select(d => ChartFormatting.Header(instrumentName, d)),
                 tracks.Select(t => new TrackSerializer(t, session)).ToArray());
         }
 
@@ -656,6 +657,6 @@ namespace ChartTools.IO.Chart
         /// Gets all the combinations of instruments and difficulties.
         /// </summary>
         /// <param name="instruments">Enum containing the instruments</param>
-        private static IEnumerable<(Difficulty difficulty, TInstEnum instrument)> GetTrackCombinations<TInstEnum>(IEnumerable<TInstEnum> instruments) => from difficulty in Enum.GetValues<Difficulty>() from instrument in instruments select (difficulty, instrument);
+        private static IEnumerable<(Difficulty difficulty, TInstEnum instrument)> GetTrackCombinations<TInstEnum>(IEnumerable<TInstEnum> instruments) => from difficulty in EnumCache<Difficulty>.Values from instrument in instruments select (difficulty, instrument);
     }
 }

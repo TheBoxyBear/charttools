@@ -5,7 +5,7 @@ namespace ChartTools.Internal.Collections.Delayed
 {
     public class DelayedEnumerableSource<T> : IDisposable
     {
-        private bool disposedValue;
+        private bool disposed;
 
         public ConcurrentQueue<T> Buffer { get; } = new();
         public DelayedEnumerable<T> Enumerable { get; }
@@ -18,15 +18,13 @@ namespace ChartTools.Internal.Collections.Delayed
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!disposed)
             {
                 if (disposing)
-                {
                     AwaitingItems = false;
-                }
 
-                Enumerable.Dispose();;
-                disposedValue = true;
+                Enumerable.Dispose();
+                disposed = true;
             }
         }
 

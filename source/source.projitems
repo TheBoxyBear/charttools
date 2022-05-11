@@ -29,6 +29,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\EagerEnumerable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Unique\UniqueList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\Collections\Unique\UniqueListEquatable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internal\EnumCache.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internal\IEmptyVerifiable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartSectionSet.cs" />
@@ -122,7 +123,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsers\StandardInstrumentParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsers\TrackParser.cs" />
     <Compile Include="..\source\IO\MIDI\MidiFormatting.cs" />
-    <Compile Include="..\source\IO\MIDI\MidiReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsers\MidiParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Providers\MidiProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\Charter.cs" />
