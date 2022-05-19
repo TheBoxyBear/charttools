@@ -1702,6 +1702,12 @@
             </summary>
             <inheritdoc cref="T:ChartTools.IO.Configuration.CommonConfiguration" path="/remarks"/>
         </member>
+        <member name="P:ChartTools.IO.Configuration.ReadingConfiguration.MidiFirstPassReadingSettings">
+            <summary>
+            Configuration object to customize how DryWetMidi reads Midi file before being parsed
+            </summary>
+            <remarks>Setting to <see landword="null"/> will use default settings</remarks>
+        </member>
         <member name="P:ChartTools.IO.Configuration.WritingConfiguration.EventSource">
             <summary>
             Defines which difficulty to get local events from
@@ -1731,6 +1737,34 @@
             </summary>
             <param name="path">Path of the file to read</param>
             <param name="metadata">Metadata to write</param>
+        </member>
+        <member name="P:ChartTools.IO.Midi.MidiFile.DefaultReadConfig">
+            <summary>
+            Default configuration to use for reading when the provided configuration is <see langword="default"/>
+            </summary>
+        </member>
+        <member name="M:ChartTools.IO.Midi.MidiFile.GetSongParser(System.String,ChartTools.IO.Configuration.Sessions.ReadingSession)">
+            <summary>
+            Creates a <see cref="T:ChartTools.IO.Midi.Parsers.MidiParser"/> for parsing a section based on the header.
+            </summary>
+            <exception cref="T:System.FormatException"></exception>
+        </member>
+        <member name="M:ChartTools.IO.Midi.MidiFile.CreateSongFromReader(ChartTools.IO.Midi.MidiFileReader)">
+            <summary>
+            Combines the results from the parsers of a <see cref="T:ChartTools.IO.Midi.MidiFileReader"/> into a <see cref="T:ChartTools.Song"/>.
+            </summary>
+            <param name="reader">Reader to get the parsers from</param>
+        </member>
+        <member name="M:ChartTools.IO.Midi.MidiFile.ReadSong(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
+            <inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
+        </member>
+        <member name="M:ChartTools.IO.Midi.MidiFile.ReadSongAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
+            <inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='path']"/></param>
+            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='cancellationToken']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='config']"/></param>
         </member>
         <member name="M:ChartTools.IO.KeySerializableAttribute.GetSerializable``1(System.Object)">
             <summary>

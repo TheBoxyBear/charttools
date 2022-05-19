@@ -15,10 +15,7 @@ namespace ChartTools.IO.Midi
     {
         private readonly ReadingSettings settings;
 
-        public MidiFileReader(string path, ReadingSettings settings, Func<string, MidiParser> parserGetter) : base(path, parserGetter)
-        {
-            this.settings = settings;
-        }
+        public MidiFileReader(string path,Func<string, MidiParser> parserGetter) : base(path, parserGetter) { }
 
         protected override void ReadBase(bool async, CancellationToken cancellationToken)
         {
@@ -29,7 +26,7 @@ namespace ChartTools.IO.Midi
                 using var enumerator = events.GetEnumerator();
                 enumerator.MoveNext();
 
-                if (enumerator.Current is not TextEvent header)
+                if (enumerator.Current is not SequenceTrackNameEvent header)
                 {
                     // TODO Configuration
                     continue;

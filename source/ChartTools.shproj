@@ -73,7 +73,7 @@
     <Compile Include="IO\Ini\IniFileReader.cs" />
     <Compile Include="IO\Ini\IniFileWriter.cs" />
     <Compile Include="IO\ISerializerDataProvider.cs" />
-    <Compile Include="IO\Midi\MIDIFormatting.cs" />
+    <Compile Include="IO\Midi\MidiFormatting.cs" />
     <Compile Include="IO\Midi\MIDIParser_Common.cs" />
     <Compile Include="IO\Midi\MIDIParser_Reading.cs" />
     <Compile Include="IO\Midi\Parsers\GHGemsParser.cs" />

@@ -2,7 +2,7 @@
 
 namespace ChartTools.IO.Midi
 {
-    internal static class MIDIFormatting
+    internal static class MidiFormatting
     {
         private static readonly Dictionary<InstrumentIdentity, string> InstrumentSequenceNames = new()
         {
@@ -16,6 +16,8 @@ namespace ChartTools.IO.Midi
             { InstrumentIdentity.GHLBass, "PART BASS GHL" },
             { InstrumentIdentity.Vocals, "PART VOCALS" }
         };
+
+        public const string GHGemsHeader = "T1 GEMS";
 
         public static string Instrument(InstrumentIdentity instrument) => InstrumentSequenceNames[instrument];
     }

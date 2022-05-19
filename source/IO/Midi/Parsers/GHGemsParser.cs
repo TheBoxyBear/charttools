@@ -1,8 +1,8 @@
 ﻿using ChartTools.Internal;
 using ChartTools.IO.Configuration.Sessions;
+
 using Melanchall.DryWetMidi.Core;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,12 +10,20 @@ namespace ChartTools.IO.Midi.Parsers
 {
     internal class GHGemsParser : StandardInstrumentParser
     {
-        private readonly Dictionary<Difficulty, Dictionary<StandardLane, StandardChord?>> openedNoteSources = new(from difficulty in EnumCache<Difficulty>.Values
-                                                                                                                  let pairs = from lane in EnumCache<StandardLane>.Values
-                                                                                                                              select new KeyValuePair<StandardLane, StandardChord?>(lane, null)
-                                                                                                                  select new KeyValuePair<Difficulty, Dictionary<StandardLane, StandardChord?>>(difficulty, new(pairs)));
+        private readonly Dictionary<Difficulty, Dictionary<StandardLane, StandardChord?>>
+            openedNoteSources = new(from difficulty in EnumCache<Difficulty>.Values
+                                    let pairs = from lane in EnumCache<StandardLane>.Values
+                                                select new KeyValuePair<StandardLane, StandardChord?>(lane, null)
+                                    select new KeyValuePair<Difficulty, Dictionary<StandardLane, StandardChord?>>(difficulty, new(pairs)));
+
         private readonly Dictionary<Difficulty, StandardChord?> previousChords = new(from difficulty in EnumCache<Difficulty>.Values select new KeyValuePair<Difficulty, StandardChord?>(difficulty, null));
-        private readonly Dictionary<Difficulty, uint?> openedStarPowerPositions = new(EnumCache<Difficulty>.Values.Select(difficulty => new KeyValuePair<Difficulty, uint?>(difficulty, null)));
+
+        private readonly Dictionary<Difficulty, Dictionary<SpecialPhraseType, uint?>>
+            openedSpecialPositions = new(from difficulty in EnumCache<Difficulty>.Values
+                                         let pairs = from type in EnumCache<SpecialPhraseType>.Values
+                                                     select new KeyValuePair<SpecialPhraseType, uint?>(type, null)
+                                         select new KeyValuePair<Difficulty, Dictionary<SpecialPhraseType, uint?>>(difficulty, new(pairs)));
+
         private uint globalPosition;
         public GHGemsParser(ReadingSession session) : base(StandardInstrumentIdentity.LeadGuitar, session) { }
 
@@ -31,62 +39,70 @@ namespace ChartTools.IO.Midi.Parsers
 
             globalPosition += (uint)item.DeltaTime;
 
-            if (adjusted < 5) // Note
+            switch (adjusted)
             {
-                var lane = (StandardLane)adjusted;
-                var openedSource = openedNoteSources[track.Difficulty][lane];
+                case < 5: // Note
+                    var lane = (StandardLane)adjusted;
+                    var openedSource = openedNoteSources[track.Difficulty][lane];
 
-                switch (e)
-                {
-                    case NoteOnEvent:
-                        if (openedSource is not null)
-                            session.HandleUnclosed(openedSource.Position, () => openedSource.Notes[lane]!.Length = globalPosition - openedSource.Position);
+                    switch (e)
+                    {
+                        case NoteOnEvent:
+                            if (openedSource is not null)
+                                session.HandleUnclosed(openedSource.Position, () => openedSource.Notes[lane]!.Length = globalPosition - openedSource.Position);
 
-                        var chord = openedNoteSources[track.Difficulty][lane] = GetOrCreateChord(globalPosition);
-                        chord.Notes.Add(lane);
-                        break;
-                    case NoteOffEvent:
-                        if (openedSource is null)
-                            session.HandleUnopened(globalPosition, () => GetOrCreateChord(globalPosition).Notes.Add(lane));
-                        else
-                        {
-                            openedSource.Notes[lane]!.Length = globalPosition - openedSource.Position;
-                            openedNoteSources[track.Difficulty][lane] = null;
-                        }
-                        break;
-                }
+                            var chord = openedNoteSources[track.Difficulty][lane] = GetOrCreateChord(globalPosition);
+                            chord.Notes.Add(lane);
+                            break;
+                        case NoteOffEvent:
+                            if (openedSource is null)
+                                session.HandleUnopened(globalPosition, () => GetOrCreateChord(globalPosition).Notes.Add(lane));
+                            else
+                            {
+                                openedSource.Notes[lane]!.Length = globalPosition - openedSource.Position;
+                                openedNoteSources[track.Difficulty][lane] = null;
+                            }
+                            break;
+                    }
 
-                StandardChord GetOrCreateChord(uint newChordPosition)
-                {
-                    var chord = previousChords[track.Difficulty];
+                    StandardChord GetOrCreateChord(uint newChordPosition)
+                    {
+                        var chord = previousChords[track.Difficulty];
 
-                    if (chord is null)
-                        track.Chords.Add(chord = previousChords[track.Difficulty] = new(newChordPosition));
+                        if (chord is null)
+                            track.Chords.Add(chord = previousChords[track.Difficulty] = new(newChordPosition));
 
-                    return chord;
-                }
-            }
-            else if (adjusted < 11) // Special
-            {
-                var openedPosition = openedStarPowerPositions[track.Difficulty];
+                        return chord;
+                    }
+                    break;
+                case < 11: // Special
+                    var type = adjusted switch
+                    {
+                        6 => SpecialPhraseType.StarPowerGain,
+                        9 => SpecialPhraseType.Player1FaceOff,
+                        10 => SpecialPhraseType.Player2FaceOff
+                        _ => throw new System.Exception($"Invalid note number {e.NoteNumber} at position {globalPosition}"); // TODO Better exception
+                    };
+                    var openedPosition = openedSpecialPositions[track.Difficulty][type];
 
-                switch (e)
-                {
-                    case NoteOnEvent:
-                        if (openedPosition is not null)
-                            session.HandleUnclosed(openedPosition.Value, CloseStarPower);
+                    switch (e)
+                    {
+                        case NoteOnEvent:
+                            if (openedPosition is not null)
+                                session.HandleUnclosed(openedPosition.Value, CloseSpecial);
 
-                        openedStarPowerPositions[track.Difficulty] = globalPosition;
-                        break;
-                    case NoteOffEvent:
-                        if (openedPosition is null)
-                            session.HandleUnopened(globalPosition, () => track.SpecialPhrases.Add(new(globalPosition, SpecialPhraseType.StarPowerGain)));
-                        else
-                            CloseStarPower();
-                        break;
-                }
+                            openedSpecialPositions[track.Difficulty][type] = globalPosition;
+                            break;
+                        case NoteOffEvent:
+                            if (openedPosition is null)
+                                session.HandleUnopened(globalPosition, () => track.SpecialPhrases.Add(new(globalPosition, type)));
+                            else
+                                CloseSpecial();
+                            break;
+                    }
 
-                void CloseStarPower() => track.SpecialPhrases.Add(new(globalPosition, SpecialPhraseType.StarPowerGain, globalPosition - openedPosition!.Value));
+                    void CloseSpecial() => track.SpecialPhrases.Add(new(globalPosition, type, globalPosition - openedPosition!.Value));
+                    break;
             }
         }
 

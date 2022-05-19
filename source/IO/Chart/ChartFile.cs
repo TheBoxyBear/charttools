@@ -30,7 +30,7 @@ namespace ChartTools.IO.Chart
         public static ReadingConfiguration DefaultReadConfig { get; set; } = new()
         {
             DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
-            SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
+            SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert
         };
         /// <summary>
         /// Default configuration to use for writing when the provided configuration is <see langword="default"/>

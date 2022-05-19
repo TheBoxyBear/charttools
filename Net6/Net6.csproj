@@ -18,6 +18,6 @@
   <Import Project="..\source\source.projitems" Label="Shared" />
 
   <ItemGroup>
-    <PackageReference Include="Melanchall.DryWetMidi" Version="6.0.1" />
+    <PackageReference Include="Melanchall.DryWetMidi" Version="6.1.0" />
   </ItemGroup>
 </Project>

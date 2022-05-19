@@ -155,7 +155,9 @@ namespace ChartTools
         /// <summary>
         /// Allows the activation of star power
         /// </summary>
-        StarPowerActivation
+        StarPowerActivation,
+        Player1FaceOff,
+        Player2FaceOff
     }
 }
 

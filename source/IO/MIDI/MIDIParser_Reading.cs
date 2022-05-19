@@ -20,12 +20,7 @@ namespace ChartTools.IO.MIDI
         /// <summary>
         /// Settings to customize the initial parsing of the file by DryWetMidi
         /// </summary>
-        private static ReadingSettings ReadingSettings { get; set; } = new()
-        {
-            NotEnoughBytesPolicy = NotEnoughBytesPolicy.Ignore,
-            InvalidChunkSizePolicy = InvalidChunkSizePolicy.Ignore,
-            NoHeaderChunkPolicy = NoHeaderChunkPolicy.Ignore
-        };
+        private static ReadingSettings ReadingSettings { get; set; } 
 
         /// <summary>
         /// Reads a MIDI file.
