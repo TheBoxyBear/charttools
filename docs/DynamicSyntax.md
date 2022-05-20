@@ -22,7 +22,7 @@ When an instrument is obtained dynamically using the `InstrumentIdentity` enum, 
 
 When working with a non-generic track, the following rules apply:
 - Chords cannot be added or removed. The position of existing chords can be modified.
-- Notes cannot be added or removed, and a note's identity through the read-only `NoteIndex` property, the numerical representation of the identity enum. The sustain can be modified.
+- Notes cannot be added or removed, and a note's identity can be obtained through the read-only `NoteIndex` property, the numerical representation of the identity enum. The sustain can be modified.
 - Local events and special phrases have no restrictions.
 
 Being the base types of the generic counterparts, non-generic instruments, tracks, chords and notes can be cast to a generic version.
