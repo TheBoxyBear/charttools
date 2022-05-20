@@ -6,8 +6,6 @@ In order to future-proof the library for features added to Clone Hero, improve c
 
 Special thanks to [FireFox](https://github.com/FireFox2000000) for making the Moonscraper editor open-source, [TheNathannator](https://github.com/TheNathannator) for their direct contributions, and to members of the [Clone Hero Discord](https://discord.gg/clonehero) and [Moonscraper Discord](https://discord.gg/wdnD83APhE), including but not limited to DarkAngel2096, drumbs (TheNathannator), FireFox, Kanske, mdsitton, Spachi, and XEntombmentX for their help in researching.
 
-This library is an independent project not affiliated with Clone Hero or Moonscraper.
-
 ## Installation
 
 To add ChartTools to your project using Visual Studio, right-click on Dependencies under your project from the solution explorer and select "Add Project References...". Click on "Browse" and select ChartTools.dll from the build folder of the repository. If you move the DLL, make sure to include ChartTools.xml to preserve the built-in documentation.
