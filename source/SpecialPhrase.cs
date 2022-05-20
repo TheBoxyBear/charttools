@@ -24,6 +24,8 @@ namespace ChartTools
         /// </summary>
         public byte TypeCode { get; set; }
 
+        public bool IsFaceOff => Type is SpecialPhraseType.Player1FaceOff or SpecialPhraseType.Player2FaceOff;
+
         /// <summary>
         /// Creates an instance of <see cref="SpecialPhrase"/>.
         /// </summary>

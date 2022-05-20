@@ -95,7 +95,7 @@ namespace ChartTools
     /// Guitar Hero Live instruments
     /// </summary>
     /// <remarks>Casting to <see cref="InstrumentIdentity"/> will match the instrument.</remarks>
-    public enum GHLInstrumentIdentity : byte { Guitar, Bass }
+    public enum GHLInstrumentIdentity : byte { Guitar = 1, Bass }
     /// <summary>
     /// Frets for a GHL <see cref="Note"/>
     /// </summary>
@@ -134,7 +134,7 @@ namespace ChartTools
     /// Standard five-fret instruments
     /// </summary>
     /// <remarks><inheritdoc cref="GHLInstrumentIdentity"/></remarks>
-    public enum StandardInstrumentIdentity : byte { LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys }
+    public enum StandardInstrumentIdentity : byte { LeadGuitar = 3, RhythmGuitar, CoopGuitar, Bass, Keys }
     /// <summary>
     /// Frets for a standard note
     /// </summary>

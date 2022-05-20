@@ -1,20 +1,20 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
 
-using System;
-
 namespace ChartTools.IO.Midi.Parsers
 {
     internal abstract class InstrumentParser<TChord> : MidiParser where TChord : Chord
     {
-        public InstrumentIdentity Instrument => GetInstrument();
+        public InstrumentIdentity Instrument { get; }
         protected readonly Track<TChord>[] tracks = new Track<TChord>[4];
 
         public override Instrument<TChord> Result => GetResult(result);
-        protected readonly Instrument<TChord> result = new();
+        protected readonly Instrument<TChord> result;
 
-        protected InstrumentParser(ReadingSession session) : base(session) { }
-
-        protected abstract InstrumentIdentity GetInstrument();
+        protected InstrumentParser(InstrumentIdentity instrument, ReadingSession session) : base(session)
+        {
+            Instrument = instrument;
+            result = new() { InstrumentIdentity = Instrument };
+        }
 
         protected override void FinaliseParse()
         {

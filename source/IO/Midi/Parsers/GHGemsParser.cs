@@ -78,10 +78,10 @@ namespace ChartTools.IO.Midi.Parsers
                 case < 11: // Special
                     var type = adjusted switch
                     {
-                        6 => SpecialPhraseType.StarPowerGain,
+                        7 => SpecialPhraseType.StarPowerGain,
                         9 => SpecialPhraseType.Player1FaceOff,
-                        10 => SpecialPhraseType.Player2FaceOff
-                        _ => throw new System.Exception($"Invalid note number {e.NoteNumber} at position {globalPosition}"); // TODO Better exception
+                        10 => SpecialPhraseType.Player2FaceOff,
+                        _ => throw new System.Exception($"Invalid note number {e.NoteNumber} at position {globalPosition}") // TODO Better exception
                     };
                     var openedPosition = openedSpecialPositions[track.Difficulty][type];
 
@@ -97,7 +97,10 @@ namespace ChartTools.IO.Midi.Parsers
                             if (openedPosition is null)
                                 session.HandleUnopened(globalPosition, () => track.SpecialPhrases.Add(new(globalPosition, type)));
                             else
+                            {
                                 CloseSpecial();
+                                openedSpecialPositions[track.Difficulty][type] = null;
+                            }
                             break;
                     }
 

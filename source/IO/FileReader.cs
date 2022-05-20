@@ -50,7 +50,6 @@ namespace ChartTools.IO
             foreach (var group in parserGroups)
                 group.Parser.Parse(group.Source.Enumerable.EnumerateSynchronously());
 
-            Reset();
             IsReading = false;
         }
         public override async Task ReadAsync(CancellationToken cancellationToken)
@@ -61,7 +60,6 @@ namespace ChartTools.IO
             ReadBase(true, cancellationToken);
             await Task.WhenAll(parseTasks);
 
-            Reset();
             IsReading = false;
         }
 

@@ -5,11 +5,10 @@ namespace ChartTools.IO.Midi.Parsers
 {
     internal abstract class StandardInstrumentParser : InstrumentParser<StandardChord>
     {
-        public new StandardInstrumentIdentity Instrument { get; }
+        public new StandardInstrumentIdentity Instrument => (StandardInstrumentIdentity)base.Instrument;
 
-        public StandardInstrumentParser(StandardInstrumentIdentity instrument, ReadingSession session) : base(session) => Instrument = instrument;
+        public StandardInstrumentParser(StandardInstrumentIdentity instrument, ReadingSession session) : base((InstrumentIdentity)instrument, session) { }
 
-        protected override InstrumentIdentity GetInstrument() => (InstrumentIdentity)Instrument;
 
         protected abstract (Track<StandardChord> track, int adjustedNoteNumber) MapNoteEvent(NoteEvent e);
 
