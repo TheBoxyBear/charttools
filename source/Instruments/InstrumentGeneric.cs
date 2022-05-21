@@ -120,10 +120,10 @@ namespace ChartTools
             ? throw new ArgumentNullException(nameof(track))
             : track.Difficulty switch
             {
-                DiffEnum.Easy => Easy = track,
-                DiffEnum.Medium => Medium = track,
-                DiffEnum.Hard => Hard = track,
-                DiffEnum.Expert => Expert = track,
+                DiffEnum.Easy => _easy = track with { ParentInstrument = this },
+                DiffEnum.Medium => _medium = track with { ParentInstrument = this },
+                DiffEnum.Hard => _hard = track with { ParentInstrument = this },
+                DiffEnum.Expert => _expert = track with { ParentInstrument = this },
                 _ => throw new UndefinedEnumException(track.Difficulty)
             };
     }
