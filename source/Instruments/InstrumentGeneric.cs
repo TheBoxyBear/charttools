@@ -123,7 +123,7 @@ namespace ChartTools
                 DiffEnum.Easy => _easy = track with { ParentInstrument = this },
                 DiffEnum.Medium => _medium = track with { ParentInstrument = this },
                 DiffEnum.Hard => _hard = track with { ParentInstrument = this },
-                DiffEnum.Expert => _hard = track with { ParentInstrument = this },
+                DiffEnum.Expert => _expert = track with { ParentInstrument = this },
                 _ => throw new UndefinedEnumException(track.Difficulty)
             };
     }
