@@ -22,7 +22,7 @@ When an instrument is obtained dynamically using the `InstrumentIdentity` enum, 
 
 When working with a non-generic track, the following rules apply:
 - Chords cannot be added or removed. The position of existing chords can be modified.
-- Notes cannot be added or removed, and a note's identity through the read-only `NoteIndex` property, the numerical representation of the identity enum. The sustain can be modified.
+- Notes cannot be added or removed, and a note's identity can be obtained through the read-only `NoteIndex` property, the numerical representation of the identity enum. The sustain can be modified.
 - Local events and special phrases have no restrictions.
 
 Being the base types of the generic counterparts, non-generic instruments, tracks, chords and notes can be cast to a generic version.
@@ -38,4 +38,4 @@ song.Instruments.LeadGuitar.SetTrack(new() { Difficulty = Difficulty.Easy });
 
 When setting an instrument, the target is determined by the `InstrumentIdentity` property of the new instrument, which can be overridden using a `with` statement. Similarly, the target difficulty when setting a track is determined by the track's `Difficulty` property, also overridable through `with`. 
 
-> **NOTE**: Like when setting a track explicitly, the instance from the instrument must be used from then on rather than the one passed as the new track. This instance is provided as the return of the `SetTrack` method.
+> **NOTE**: Unlike when setting an instrument explicitely, the existing identity is used when setting dynamically. This makes it safe to reuse the previous reference after the assignement unless a `with` statement is used. Tracks still need to be re-obtained when using the dynamic syntax as a copy is created to assign its `ParentInstrument`. In cases where a reference to an instrument or track needs to be re-obtained, this reference is passed through as the return of `InstrumentSet.Set` and `Instrument.SetTrack`.
