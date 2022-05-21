@@ -41,7 +41,7 @@ namespace ChartTools.IO.Midi.Parsers
 
             switch (adjusted)
             {
-                case < 5: // Note
+                case < 6: // Note
                     var lane = (StandardLane)adjusted;
                     var openedSource = openedNoteSources[track.Difficulty][lane];
 
@@ -69,18 +69,18 @@ namespace ChartTools.IO.Midi.Parsers
                     {
                         var chord = previousChords[track.Difficulty];
 
-                        if (chord is null)
+                        if (chord is null || chord.Position != newChordPosition)
                             track.Chords.Add(chord = previousChords[track.Difficulty] = new(newChordPosition));
 
                         return chord;
                     }
                     break;
-                case < 11: // Special
+                case < 12: // Special
                     var type = adjusted switch
                     {
-                        7 => SpecialPhraseType.StarPowerGain,
-                        9 => SpecialPhraseType.Player1FaceOff,
-                        10 => SpecialPhraseType.Player2FaceOff,
+                        8 => SpecialPhraseType.StarPowerGain,
+                        10 => SpecialPhraseType.Player1FaceOff,
+                        11 => SpecialPhraseType.Player2FaceOff,
                         _ => throw new System.Exception($"Invalid note number {e.NoteNumber} at position {globalPosition}") // TODO Better exception
                     };
                     var openedPosition = openedSpecialPositions[track.Difficulty][type];
@@ -115,10 +115,10 @@ namespace ChartTools.IO.Midi.Parsers
 
             return intNumber switch
             {
-                > 59 and < 71 => (GetOrCreateTrack(Difficulty.Easy), intNumber - 60),
-                > 71 and < 83 => (GetOrCreateTrack(Difficulty.Medium), intNumber - 72),
-                > 83 and < 95 => (GetOrCreateTrack(Difficulty.Hard), intNumber - 84),
-                > 95 and < 107 => (GetOrCreateTrack(Difficulty.Expert), intNumber - 96),
+                > 59 and < 71 => (GetOrCreateTrack(Difficulty.Easy), intNumber - 59),
+                > 71 and < 83 => (GetOrCreateTrack(Difficulty.Medium), intNumber - 71),
+                > 83 and < 95 => (GetOrCreateTrack(Difficulty.Hard), intNumber - 83),
+                > 95 and < 107 => (GetOrCreateTrack(Difficulty.Expert), intNumber - 95),
                 _ => (null, 0)
             };
         }
