@@ -6,8 +6,6 @@ using ChartTools.IO.Chart.Parsers;
 using ChartTools.IO.Chart.Serializers;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
-using ChartTools.IO.Parsers;
-using ChartTools.IO.Sections;
 using ChartTools.Lyrics;
 using ChartTools.SystemExtensions.Linq;
 
