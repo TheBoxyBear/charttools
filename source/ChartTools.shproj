@@ -24,7 +24,6 @@
     <Compile Include="ILongObject.cs" />
     <Compile Include="Instruments\Instrument.cs" />
     <Compile Include="Instruments\InstrumentGeneric.cs" />
-    <Compile Include="Internal\AsyncFileReader.cs" />
     <Compile Include="Internal\Collections\Alternating\Ordered\OrderedAlternatingEnumerable.cs" />
     <Compile Include="Internal\Collections\Alternating\Ordered\OrderedAlternatingEnumerator.cs" />
     <Compile Include="Internal\Collections\Alternating\Serial\SerialAlternatingEnumerable.cs" />
