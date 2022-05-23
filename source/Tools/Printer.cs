@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 
 namespace ChartTools.Tools
 {
-    public static class Printer
+    static class Printer
     {
         private readonly struct ConsoleContent
         {
