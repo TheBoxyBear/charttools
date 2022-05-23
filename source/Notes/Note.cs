@@ -10,7 +10,7 @@
         /// </summary>
         internal abstract byte NoteIndex { get; }
         /// <summary>
-        /// Maximum length the note can be held for extra points
+        /// Maximum length the note can be held for extra points (sustain)
         /// </summary>
         public uint Length { get; set; } = 0;
     }
