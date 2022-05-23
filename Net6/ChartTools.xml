@@ -2304,6 +2304,98 @@
             </summary>
             <param name="comparison">Method used to compare two objects</param>
         </member>
+        <member name="T:ChartTools.Tools.Optimizing.Optimizer">
+            <summary>
+            Provides methods for simplifying songs
+            </summary>
+        </member>
+        <member name="M:ChartTools.Tools.Optimizing.Optimizer.CutSustains(System.Collections.Generic.IEnumerable{ChartTools.Chord})">
+            <summary>
+            Cuts short sustains that exceed the position of the next identical note.
+            </summary>
+            <param name="chords">Chords to cut the sustains of</param>
+        </member>
+        <member name="M:ChartTools.Tools.Optimizing.Optimizer.CutLengths(System.Collections.Generic.IEnumerable{ChartTools.ILongTrackObject})">
+            <summary>
+            Cuts short long track objects that exceed the start of the next one.
+            </summary>
+            <param name="phrases">Star power phrases to cut the lengths of</param>
+        </member>
+        <member name="M:ChartTools.Tools.Optimizing.Optimizer.RemoveUneeded(ChartTools.UniqueTrackObjectCollection{ChartTools.Tempo})">
+            <summary>
+            Sorts tempo markers and removes redundant ones.
+            </summary>
+            <param name="markers">Tempo markers to remove the unneeded from</param>
+        </member>
+        <member name="M:ChartTools.Tools.Optimizing.Optimizer.RemoveUnneeded(ChartTools.UniqueTrackObjectCollection{ChartTools.TimeSignature})">
+            <summary>
+            Sorts time signatures and removes redundant ones.
+            </summary>
+            <param name="signatures">Time signatures to remove the unneeded from</param>
+        </member>
+        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.ILongObject,System.Single)">
+            <summary>
+            Rescales the length a long object.
+            </summary>
+            <param name="obj">Object to rescale</param>
+            <param name="scale">Positive number where 1 is the current scale.</param>
+        </member>
+        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)">
+            <summary>
+            Rescales the position of a track object
+            </summary>
+            <param name="trackObject">Object to rescale</param>
+            <param name="scale">Positive number where 1 is the current scale.</param>
+        </member>
+        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.ILongTrackObject,System.Single)">
+            <summary>
+            Rescales the position and length of a long track object
+            </summary>
+            <param name="trackObject">Object to rescale</param>
+            <param name="scale">Positive number where 1 is the current scale.</param>
+        </member>
+        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.Tempo,System.Single)">
+            <summary>
+            Rescales the position and value of a tempo marker.
+            </summary>
+            <param name="tempo">Marker to rescale</param>
+            <param name="scale">Positive number where 1 is the current scale.</param>
+        </member>
+        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.Chord,System.Single)">
+            <summary>
+            Rescales the position of a chord and sustain of its notes.
+            </summary>
+            <param name="chord">Chord to rescale</param>
+            <param name="scale">Positive number where 1 is the current scale.</param>
+        </member>
+        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.Track,System.Single)">
+            <summary>
+            Rescales the chords in a track.
+            </summary>
+            <param name="track">Source of chords</param>
+            <param name="scale">Positive number where 1 is the current scale.</param>
+        </member>
+        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.Instrument,System.Single)">
+            <summary>
+            Rescales all tracks in an instrument.
+            </summary>
+            <param name="instrument">Source of the tracks</param>
+            <param name="scale">Positive number where 1 is the current scale.</param>
+        </member>
+        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.SyncTrack,System.Single)">
+            <summary>
+            Rescales the tempo and time signatures in a song.
+            </summary>
+            <param name="syncTrack">Source of markers</param>
+            <param name="scale">Positive number where 1 is the current scale.</param>
+        </member>
+        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.Song,System.Single)">
+            <summary>
+            Rescales all instruments, tempo and time signatures.
+            </summary>
+            <param name="song">Source of objects</param>
+            <param name="scale">Positive number where 1 is the current scale.</param>
+        </member>
         <member name="T:ChartTools.InstrumentDifficultySet">
             <summary>
             Stores the estimated difficulties for instruments
@@ -2612,7 +2704,7 @@
         </member>
         <member name="P:ChartTools.Note.Length">
             <summary>
-            Maximum length the note can be held for extra points
+            Maximum length the note can be held for extra points (sustain)
             </summary>
         </member>
         <member name="P:ChartTools.LaneNoteCollection`2.OpenExclusivity">
@@ -2795,98 +2887,6 @@
             <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
             <param name="numerator">Value of <see cref="P:ChartTools.TimeSignature.Numerator"/></param>
             <param name="denominator">Value of <see cref="P:ChartTools.TimeSignature.Denominator"/></param>
-        </member>
-        <member name="T:ChartTools.Tools.Optimizing.Optimizer">
-            <summary>
-            Provides methods for simplifying songs
-            </summary>
-        </member>
-        <member name="M:ChartTools.Tools.Optimizing.Optimizer.CutSustains(System.Collections.Generic.IEnumerable{ChartTools.Chord})">
-            <summary>
-            Cuts short sustains that exceed the position of the next identical note.
-            </summary>
-            <param name="chords">Chords to cut the sustains of</param>
-        </member>
-        <member name="M:ChartTools.Tools.Optimizing.Optimizer.CutLengths(System.Collections.Generic.IEnumerable{ChartTools.ILongTrackObject})">
-            <summary>
-            Cuts short long track objects that exceed the start of the next one.
-            </summary>
-            <param name="phrases">Star power phrases to cut the lengths of</param>
-        </member>
-        <member name="M:ChartTools.Tools.Optimizing.Optimizer.RemoveUneeded(ChartTools.UniqueTrackObjectCollection{ChartTools.Tempo})">
-            <summary>
-            Sorts tempo markers and removes redundant ones.
-            </summary>
-            <param name="markers">Tempo markers to remove the unneeded from</param>
-        </member>
-        <member name="M:ChartTools.Tools.Optimizing.Optimizer.RemoveUnneeded(ChartTools.UniqueTrackObjectCollection{ChartTools.TimeSignature})">
-            <summary>
-            Sorts time signatures and removes redundant ones.
-            </summary>
-            <param name="signatures">Time signatures to remove the unneeded from</param>
-        </member>
-        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.ILongObject,System.Single)">
-            <summary>
-            Rescales the length a long object.
-            </summary>
-            <param name="obj">Object to rescale</param>
-            <param name="scale">Positive number where 1 is the current scale.</param>
-        </member>
-        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)">
-            <summary>
-            Rescales the position of a track object
-            </summary>
-            <param name="trackObject">Object to rescale</param>
-            <param name="scale">Positive number where 1 is the current scale.</param>
-        </member>
-        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.ILongTrackObject,System.Single)">
-            <summary>
-            Rescales the position and length of a long track object
-            </summary>
-            <param name="trackObject">Object to rescale</param>
-            <param name="scale">Positive number where 1 is the current scale.</param>
-        </member>
-        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.Tempo,System.Single)">
-            <summary>
-            Rescales the position and value of a tempo marker.
-            </summary>
-            <param name="tempo">Marker to rescale</param>
-            <param name="scale">Positive number where 1 is the current scale.</param>
-        </member>
-        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.Chord,System.Single)">
-            <summary>
-            Rescales the position of a chord and sustain of its notes.
-            </summary>
-            <param name="chord">Chord to rescale</param>
-            <param name="scale">Positive number where 1 is the current scale.</param>
-        </member>
-        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.Track,System.Single)">
-            <summary>
-            Rescales the chords in a track.
-            </summary>
-            <param name="track">Source of chords</param>
-            <param name="scale">Positive number where 1 is the current scale.</param>
-        </member>
-        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.Instrument,System.Single)">
-            <summary>
-            Rescales all tracks in an instrument.
-            </summary>
-            <param name="instrument">Source of the tracks</param>
-            <param name="scale">Positive number where 1 is the current scale.</param>
-        </member>
-        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.SyncTrack,System.Single)">
-            <summary>
-            Rescales the tempo and time signatures in a song.
-            </summary>
-            <param name="syncTrack">Source of markers</param>
-            <param name="scale">Positive number where 1 is the current scale.</param>
-        </member>
-        <member name="M:ChartTools.Tools.Scaling.TempoRescaler.Rescale(ChartTools.Song,System.Single)">
-            <summary>
-            Rescales all instruments, tempo and time signatures.
-            </summary>
-            <param name="song">Source of objects</param>
-            <param name="scale">Positive number where 1 is the current scale.</param>
         </member>
         <member name="T:ChartTools.TrackObject">
             <summary>

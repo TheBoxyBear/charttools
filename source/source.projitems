@@ -75,6 +75,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\Section.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\SectionSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\TextFileWriter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\Printer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\LongTrackObject.cs" />
     <Compile Include="..\source\IO\Ini\IniKeySerializableAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniParser.cs" />
