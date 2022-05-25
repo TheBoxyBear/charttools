@@ -6,7 +6,7 @@ This document goes over the basics of parsing a chart through ChartTools. The fu
 
 The repository includes a sandbox environment where you can explore the library and perform various tests. To use the sandbox environment, open Program.cs from the Debug project. The project targets .NET 6 and references the Net6 project.
 
-> **NOTE**: This project is for personal testing and experimenting purposes only. Any pull requests that includes changes to the Debug project will be rejected.
+> **NOTE**: This project is for personal testing and experimenting purposes only. Any pull requests that includes changes to the Debug project will be rejected. Make sure to exclude changes to the project before commiting to your branch.
 
 ## Supported file formats
 
