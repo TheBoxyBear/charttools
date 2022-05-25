@@ -1,5 +1,5 @@
-﻿using ChartTools.Internal.Collections.Delayed;
-using ChartTools.IO.Parsers;
+﻿using ChartTools.Collections.Delayed;
+using ChartTools.IO.Parsing;
 
 using System;
 using System.Collections.Generic;

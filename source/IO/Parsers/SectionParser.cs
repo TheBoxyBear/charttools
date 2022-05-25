@@ -1,7 +1,7 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
 using System;
 
-namespace ChartTools.IO.Parsers
+namespace ChartTools.IO.Parsing
 {
     internal abstract class SectionParser<T> : FileParser<T>
     {

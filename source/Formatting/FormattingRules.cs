@@ -1,5 +1,5 @@
 ﻿using ChartTools.IO.Chart;
-using ChartTools.IO.Chart.Serializers;
+using ChartTools.IO.Chart.Serializing;
 using ChartTools.IO.Ini;
 
 namespace ChartTools.Formatting

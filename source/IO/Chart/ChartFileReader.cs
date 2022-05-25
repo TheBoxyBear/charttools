@@ -1,4 +1,4 @@
-﻿using ChartTools.IO.Chart.Parsers;
+﻿using ChartTools.IO.Chart.Parsing;
 using System;
 using System.Collections.Generic;
 using System.Linq;

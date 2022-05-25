@@ -1,6 +1,6 @@
 ﻿using ChartTools.Formatting;
-using ChartTools.Internal;
-using ChartTools.IO.Parsers;
+using ChartTools.IO.Parsing;
+using ChartTools.Tools;
 
 namespace ChartTools.IO.Ini
 {

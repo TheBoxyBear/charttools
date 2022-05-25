@@ -2,7 +2,7 @@
 
 using System;
 
-namespace ChartTools.IO.Parsers
+namespace ChartTools.IO.Parsing
 {
     internal abstract class TextParser : SectionParser<string>
     {
