@@ -749,16 +749,6 @@
             </summary>
             <returns><see langword="true"/> if the object was not initialized prior to calling.</returns>
         </member>
-        <member name="T:ChartTools.Internal.IEmptyVerifiable">
-            <summary>
-            Adds support for a property defining if an object is empty
-            </summary>
-        </member>
-        <member name="P:ChartTools.Internal.IEmptyVerifiable.IsEmpty">
-            <summary>
-            <see langword="true"/> if containing no data
-            </summary>
-        </member>
         <member name="T:ChartTools.Difficulty">
             <summary>
             Difficulty levels
@@ -1091,6 +1081,16 @@
             <param name="instrument">Instrument to get</param>
             <returns>Instance of <see cref="T:ChartTools.Instrument`1"/> where TChord is <see cref="T:ChartTools.StandardChord"/> from the <see cref="T:ChartTools.Song"/>.</returns>
         </member>
+        <member name="T:ChartTools.IEmptyVerifiable">
+            <summary>
+            Adds support for a property defining if an object is empty
+            </summary>
+        </member>
+        <member name="P:ChartTools.IEmptyVerifiable.IsEmpty">
+            <summary>
+            <see langword="true"/> if containing no data
+            </summary>
+        </member>
         <member name="T:ChartTools.IO.Chart.ChartFile">
             <summary>
             Provides methods for reading and writing chart files
@@ -1108,7 +1108,7 @@
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetSongParser(System.String,ChartTools.IO.Configuration.Sessions.ReadingSession)">
             <summary>
-            Creates a <see cref="T:ChartTools.IO.Chart.Parsers.ChartParser"/> for parsing a section based on the header.
+            Creates a <see cref="T:ChartTools.IO.Chart.Parsing.ChartParser"/> for parsing a section based on the header.
             </summary>
             <exception cref="T:System.FormatException"></exception>
         </member>
@@ -1197,7 +1197,7 @@
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetDrumsTrackParser(System.String,System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.Sessions.ReadingSession)">
             <summary>
-            Creates a <see cref="T:ChartTools.IO.Chart.Parsers.DrumsTrackParser"/> is the header matches the requested standard track, otherwise <see langword="null"/>.
+            Creates a <see cref="T:ChartTools.IO.Chart.Parsing.DrumsTrackParser"/> is the header matches the requested standard track, otherwise <see langword="null"/>.
             </summary>
             <param name="header">Header of the part</param>
             <param name="seekedHeader">Header to compare against</param>
@@ -1224,7 +1224,7 @@
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetGHLTrackParser(System.String,System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.Sessions.ReadingSession)">
             <summary>
-            Creates a <see cref="T:ChartTools.IO.Chart.Parsers.GHLTrackParser"/> is the header matches the requested standard track, otherwise <see langword="null"/>.
+            Creates a <see cref="T:ChartTools.IO.Chart.Parsing.GHLTrackParser"/> is the header matches the requested standard track, otherwise <see langword="null"/>.
             </summary>
             <param name="header">Header of the part</param>
             <param name="seekedHeader">Header to compare against</param>
@@ -1254,7 +1254,7 @@
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetStandardTrackParser(System.String,System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.Sessions.ReadingSession)">
             <summary>
-            Creates a <see cref="T:ChartTools.IO.Chart.Parsers.StandardTrackParser"/> is the header matches the requested standard track, otherwise <see langword="null"/>.
+            Creates a <see cref="T:ChartTools.IO.Chart.Parsing.StandardTrackParser"/> is the header matches the requested standard track, otherwise <see langword="null"/>.
             </summary>
             <param name="header">Header of the part</param>
             <param name="seekedHeader">Header to compare against</param>
@@ -1291,7 +1291,7 @@
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetGlobalEventParser(System.String)">
             <summary>
-            Creates a <see cref="T:ChartTools.IO.Chart.Parsers.SyncTrackParser"/> if the header matches the sync track header, otherwise <see langword="null"/>.
+            Creates a <see cref="T:ChartTools.IO.Chart.Parsing.SyncTrackParser"/> if the header matches the sync track header, otherwise <see langword="null"/>.
             </summary>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.ReadGlobalEvents(System.String)">
@@ -1321,7 +1321,7 @@
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetSyncTrackParser(System.String,ChartTools.IO.Configuration.Sessions.ReadingSession)">
             <summary>
-            Creates a <see cref="T:ChartTools.IO.Chart.Parsers.SyncTrackParser"/> if the header matches the sync track header, otherwise <see langword="null"/>.
+            Creates a <see cref="T:ChartTools.IO.Chart.Parsing.SyncTrackParser"/> if the header matches the sync track header, otherwise <see langword="null"/>.
             </summary>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.ReadSyncTrack(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
@@ -1454,64 +1454,6 @@
             <param name="line">Line in the file</param>
             <exception cref="T:System.FormatException"/>
         </member>
-        <member name="T:ChartTools.IO.Ini.IniFile">
-            <summary>
-            Provides methods for reading and writing ini files
-            </summary>
-        </member>
-        <member name="M:ChartTools.IO.Ini.IniFile.ReadMetadata(System.String,ChartTools.Metadata)">
-            <inheritdoc cref="M:ChartTools.Metadata.FromFile(System.String)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
-            <returns>A new instance of <see cref="T:ChartTools.Metadata"/> if <paramref name="existing"/> is <see langword="null"/>, otherwise the same reference.</returns>
-        </member>
-        <member name="M:ChartTools.IO.Ini.IniFile.ReadMetadataAsync(System.String,ChartTools.Metadata,System.Threading.CancellationToken)">
-            <inheritdoc cref="M:ChartTools.Metadata.FromFile(System.String)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
-            <returns>A new instance of <see cref="T:ChartTools.Metadata"/> if <paramref name="existing"/> is <see langword="null"/>, otherwise the same reference.</returns>
-        </member>
-        <member name="M:ChartTools.IO.Ini.IniFile.WriteMetadata(System.String,ChartTools.Metadata)">
-            <summary>
-            Writes the metadata in a file.
-            </summary>
-            <param name="path">Path of the file to read</param>
-            <param name="metadata">Metadata to write</param>
-        </member>
-        <member name="M:ChartTools.IO.KeySerializableAttribute.GetSerializable``1(System.Object)">
-            <summary>
-            Generates groups of non-null property values and their serialization keys.
-            </summary>
-            <param name="source">Object containing the properties</param>
-        </member>
-        <member name="T:ChartTools.IO.TextEntry">
-            <summary>
-            Line of text file data
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.TextEntry.Key">
-            <summary>
-            Text before the equal sign
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.TextEntry.Value">
-            <summary>
-            Text after the equal sign
-            </summary>
-        </member>
-        <member name="T:ChartTools.IO.Configuration.CommonConfiguration">
-            <summary>
-            Configuration object to direct the reading or writing of a file
-            </summary>
-            <remarks>If <see langword="null"/>, the default configuration for the file format will be used.</remarks>
-        </member>
-        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.OverlappingStarPowerPolicy">
-            <inheritdoc cref="T:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy"/>
-        </member>
-        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.SoloNoStarPowerPolicy">
-            <inheritdoc cref="T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy"/>
-        </member>
-        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.DuplicateTrackObjectPolicy">
-            <inheritdoc cref="T:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy"/>
-        </member>
         <member name="T:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy">
             <summary>
             Defines how duplicate track objects are handled
@@ -1608,11 +1550,32 @@
             The chord is excluded
             </summary>
         </member>
+        <member name="T:ChartTools.IO.Configuration.CommonConfiguration">
+            <summary>
+            Configuration object to direct the reading or writing of a file
+            </summary>
+            <remarks>If <see langword="null"/>, the default configuration for the file format will be used.</remarks>
+        </member>
+        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.OverlappingStarPowerPolicy">
+            <inheritdoc cref="T:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy"/>
+        </member>
+        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.SoloNoStarPowerPolicy">
+            <inheritdoc cref="T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy"/>
+        </member>
+        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.DuplicateTrackObjectPolicy">
+            <inheritdoc cref="T:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy"/>
+        </member>
         <member name="T:ChartTools.IO.Configuration.ReadingConfiguration">
             <summary>
             Configuration object to direct the reading of a file
             </summary>
             <inheritdoc cref="T:ChartTools.IO.Configuration.CommonConfiguration" path="/remarks"/>
+        </member>
+        <member name="P:ChartTools.IO.Configuration.ReadingConfiguration.MidiFirstPassReadingSettings">
+            <summary>
+            Configuration object to customize how DryWetMidi reads Midi file before being parsed
+            </summary>
+            <remarks>Setting to <see landword="null"/> will use default settings</remarks>
         </member>
         <member name="P:ChartTools.IO.Configuration.WritingConfiguration.EventSource">
             <summary>
@@ -1622,9 +1585,75 @@
         <member name="P:ChartTools.IO.Configuration.WritingConfiguration.UnsupportedModifierPolicy">
             <see cref="T:ChartTools.IO.Configuration.UnsupportedModifierPolicy"/>
         </member>
-        <member name="P:ChartTools.IO.Configuration.WritingConfiguration.LyricEventSource">
+        <member name="T:ChartTools.IO.Ini.IniFile">
             <summary>
-            *Currently unsupported*
+            Provides methods for reading and writing ini files
+            </summary>
+        </member>
+        <member name="M:ChartTools.IO.Ini.IniFile.ReadMetadata(System.String,ChartTools.Metadata)">
+            <inheritdoc cref="M:ChartTools.Metadata.FromFile(System.String)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <returns>A new instance of <see cref="T:ChartTools.Metadata"/> if <paramref name="existing"/> is <see langword="null"/>, otherwise the same reference.</returns>
+        </member>
+        <member name="M:ChartTools.IO.Ini.IniFile.ReadMetadataAsync(System.String,ChartTools.Metadata,System.Threading.CancellationToken)">
+            <inheritdoc cref="M:ChartTools.Metadata.FromFile(System.String)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <returns>A new instance of <see cref="T:ChartTools.Metadata"/> if <paramref name="existing"/> is <see langword="null"/>, otherwise the same reference.</returns>
+        </member>
+        <member name="M:ChartTools.IO.Ini.IniFile.WriteMetadata(System.String,ChartTools.Metadata)">
+            <summary>
+            Writes the metadata in a file.
+            </summary>
+            <param name="path">Path of the file to read</param>
+            <param name="metadata">Metadata to write</param>
+        </member>
+        <member name="P:ChartTools.IO.Midi.MidiFile.DefaultReadConfig">
+            <summary>
+            Default configuration to use for reading when the provided configuration is <see langword="default"/>
+            </summary>
+        </member>
+        <member name="M:ChartTools.IO.Midi.MidiFile.GetSongParser(System.String,ChartTools.IO.Configuration.Sessions.ReadingSession)">
+            <summary>
+            Creates a <see cref="T:ChartTools.IO.Midi.Parsing.MidiParser"/> for parsing a section based on the header.
+            </summary>
+            <exception cref="T:System.FormatException"></exception>
+        </member>
+        <member name="M:ChartTools.IO.Midi.MidiFile.CreateSongFromReader(ChartTools.IO.Midi.MidiFileReader)">
+            <summary>
+            Combines the results from the parsers of a <see cref="T:ChartTools.IO.Midi.MidiFileReader"/> into a <see cref="T:ChartTools.Song"/>.
+            </summary>
+            <param name="reader">Reader to get the parsers from</param>
+        </member>
+        <member name="M:ChartTools.IO.Midi.MidiFile.ReadSong(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
+            <inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
+        </member>
+        <member name="M:ChartTools.IO.Midi.MidiFile.ReadSongAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
+            <inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='path']"/></param>
+            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='cancellationToken']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='config']"/></param>
+        </member>
+        <member name="M:ChartTools.IO.KeySerializableAttribute.GetSerializable``1(System.Object)">
+            <summary>
+            Generates groups of non-null property values and their serialization keys.
+            </summary>
+            <param name="source">Object containing the properties</param>
+        </member>
+        <member name="T:ChartTools.IO.TextEntry">
+            <summary>
+            Line of text file data
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.TextEntry.Key">
+            <summary>
+            Text before the equal sign
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.TextEntry.Value">
+            <summary>
+            Text after the equal sign
             </summary>
         </member>
         <member name="T:ChartTools.IO.VoidRead">
@@ -1702,9 +1731,9 @@
             Provides methods for reading and writing MIDI files
             </summary>
         </member>
-        <member name="F:ChartTools.IO.MIDI.MIDIParser.readingSettings">
+        <member name="P:ChartTools.IO.MIDI.MIDIParser.ReadingSettings">
             <summary>
-            Parameter to use with MIDIFile.Read()
+            Settings to customize the initial parsing of the file by DryWetMidi
             </summary>
         </member>
         <member name="M:ChartTools.IO.MIDI.MIDIParser.ReadSong(System.String,ChartTools.IO.Configuration.ReadingConfiguration)">
@@ -1799,7 +1828,7 @@
             </summary>
         </member>
         <member name="P:ChartTools.Instrument.IsEmpty">
-            <inheritdoc cref="P:ChartTools.Internal.IEmptyVerifiable.IsEmpty"/>
+            <inheritdoc cref="P:ChartTools.IEmptyVerifiable.IsEmpty"/>
         </member>
         <member name="P:ChartTools.Instrument.InstrumentIdentity">
             <summary>
@@ -2498,7 +2527,7 @@
         </member>
         <member name="P:ChartTools.Metadata.AudioOffset">
             <summary>
-            Offset of the audio track in milliseconds. A higher value makes the audio start sooner.
+            Offset of the audio track. A higher value makes the audio start sooner.
             </summary>
         </member>
         <member name="P:ChartTools.Metadata.Streams">
@@ -2508,10 +2537,7 @@
         </member>
         <member name="P:ChartTools.Metadata.VideoOffset">
             <summary>
-            Offset of the background video in milliseconds. A higher value makes the video start sooner.
-            </summary>
-            <summary>
-            Offset of the background video in milliseconds. A higher value makes the video start sooner.
+            Offset of the background video. A higher value makes the video start sooner.
             </summary>
         </member>
         <member name="P:ChartTools.Metadata.Length">
@@ -2702,7 +2728,7 @@
             </summary>
         </member>
         <member name="P:ChartTools.SyncTrack.IsEmpty">
-            <inheritdoc cref="P:ChartTools.Internal.IEmptyVerifiable.IsEmpty"/>
+            <inheritdoc cref="P:ChartTools.IEmptyVerifiable.IsEmpty"/>
         </member>
         <member name="P:ChartTools.SyncTrack.Tempo">
             <summary>
@@ -2742,7 +2768,7 @@
         </member>
         <member name="P:ChartTools.Tempo.Anchor">
             <summary>
-            If not <see langword="null"/>, overrides <see cref="P:ChartTools.TrackObject.Position"/> with a time in seconds from the start of the song
+            Locks the tempo to a specific time in the song independent to the sync track.
             </summary>
         </member>
         <member name="M:ChartTools.Tempo.#ctor(System.UInt32,System.Single)">
@@ -2816,7 +2842,7 @@
             </summary>
         </member>
         <member name="P:ChartTools.Track.IsEmpty">
-            <inheritdoc cref="P:ChartTools.Internal.IEmptyVerifiable.IsEmpty"/>
+            <inheritdoc cref="P:ChartTools.IEmptyVerifiable.IsEmpty"/>
         </member>
         <member name="P:ChartTools.Track.Difficulty">
             <summary>

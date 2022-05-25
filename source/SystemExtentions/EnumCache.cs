@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace ChartTools.Internal
+namespace ChartTools.SystemExtensions
 {
     internal static class EnumCache<T> where T : struct, Enum
     {

@@ -9,7 +9,7 @@ namespace ChartTools.IO.Midi.Parsing
     {
         public ReadingSettings ReadingSettings { get; }
 
-        public MidiParser(ReadingSession session) : base(session) => ReadingSettings = session.Configuration.MidiFirstPassReadingSettings ?? MidiFile.DefaultDryWetReadingSettings;
+        public MidiParser(ReadingSession session) : base(session) => ReadingSettings = session.Configuration.MidiFirstPassReadingSettings ?? Midi.MidiFile.DefaultDryWetReadingSettings;
 
         public abstract void ApplyToSong(Song song);
 

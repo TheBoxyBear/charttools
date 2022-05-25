@@ -8,6 +8,7 @@ using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Parsing;
 using ChartTools.IO.Sections;
 using ChartTools.Lyrics;
+using ChartTools.SystemExtensions;
 using ChartTools.SystemExtensions.Linq;
 
 using System;

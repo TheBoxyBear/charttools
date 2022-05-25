@@ -1,5 +1,7 @@
-﻿using ChartTools.Formatting;
-using System;
+﻿using System;
+
+using ChartTools.Formatting;
+using ChartTools.SystemExtensions;
 
 namespace ChartTools.IO.Configuration.Sessions
 {

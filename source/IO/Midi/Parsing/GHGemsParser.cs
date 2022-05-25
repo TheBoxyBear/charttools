@@ -1,5 +1,5 @@
-﻿using ChartTools.Internal;
-using ChartTools.IO.Configuration.Sessions;
+﻿using ChartTools.IO.Configuration.Sessions;
+using ChartTools.SystemExtensions;
 
 using Melanchall.DryWetMidi.Core;
 

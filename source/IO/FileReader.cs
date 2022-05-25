@@ -1,4 +1,4 @@
-﻿using ChartTools.Internal.Collections.Delayed;
+﻿using ChartTools.Collections.Delayed;
 
 using System;
 using System.Collections.Generic;

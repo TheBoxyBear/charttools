@@ -1,7 +1,7 @@
 ﻿using ChartTools.Formatting;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
-using ChartTools.IO.Midi.Parsers;
+using ChartTools.IO.Midi.Parsing;
 
 using Melanchall.DryWetMidi.Core;
 

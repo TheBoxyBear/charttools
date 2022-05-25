@@ -48,7 +48,6 @@
     <Compile Include="IO\Chart\Serializing\TrackSerializer.cs" />
     <Compile Include="IO\Configuration\CommonConfiguration.cs" />
     <Compile Include="IO\Configuration\ConfigurationExceptions.cs" />
-    <Compile Include="IO\Configuration\Enuns.cs" />
     <Compile Include="IO\Configuration\ReadingConfiguration.cs" />
     <Compile Include="IO\Configuration\Sessions\ReadingSession.cs" />
     <Compile Include="IO\Configuration\Sessions\Session.cs" />
@@ -64,7 +63,6 @@
     <Compile Include="IO\Midi\MIDIFormatting.cs" />
     <Compile Include="IO\Midi\MIDIParser_Common.cs" />
     <Compile Include="IO\Midi\MIDIParser_Reading.cs" />
-    <Compile Include="IO\Midi\MIDIReader.cs" />
     <Compile Include="IO\Midi\Parsing\GHGemsParser.cs" />
     <Compile Include="IO\Midi\Parsing\InstrumentParser.cs" />
     <Compile Include="IO\Midi\Parsing\MidiParser.cs" />

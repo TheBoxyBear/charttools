@@ -1,5 +1,5 @@
-﻿using ChartTools.Internal.Collections.Delayed;
-using ChartTools.IO.Midi.Parsers;
+﻿using ChartTools.Collections.Delayed;
+using ChartTools.IO.Midi.Parsing;
 
 using Melanchall.DryWetMidi.Core;
 

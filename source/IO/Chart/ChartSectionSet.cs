@@ -1,5 +1,5 @@
-﻿using ChartTools.Internal;
-using ChartTools.IO.Sections;
+﻿using ChartTools.IO.Sections;
+using ChartTools.SystemExtensions;
 
 using System.Collections.Generic;
 using System.Linq;
