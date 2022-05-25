@@ -1,8 +1,7 @@
 ﻿using ChartTools.Formatting;
-using ChartTools.Internal;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
-using ChartTools.IO.Chart.Serializers;
+using ChartTools.IO.Chart.Serializing;
 using ChartTools.IO.Ini;
 
 using System;

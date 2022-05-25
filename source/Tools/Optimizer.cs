@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace ChartTools.Tools.Optimizing
+namespace ChartTools.Tools
 {
     /// <summary>
     /// Provides methods for simplifying songs

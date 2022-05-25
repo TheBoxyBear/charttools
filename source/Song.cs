@@ -14,8 +14,8 @@ using System.Threading;
 using ChartTools.IO.Configuration;
 using ChartTools.Events;
 using ChartTools.Formatting;
-using ChartTools.Internal;
 using ChartTools.IO.Sections;
+using ChartTools.Tools;
 
 namespace ChartTools
 {
