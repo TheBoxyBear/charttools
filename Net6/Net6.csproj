@@ -20,8 +20,8 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/theboxybear/charttools</RepositoryUrl>
     <NeutralLanguage>en-001</NeutralLanguage>
-    <PackageLicenseFile>E:\Users\Gaming\Documents\GitHub\ChartTools\LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
   </PropertyGroup>
 
   <Import Project="..\source\source.projitems" Label="Shared" />
