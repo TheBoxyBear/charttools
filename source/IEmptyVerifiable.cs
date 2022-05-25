@@ -1,4 +1,4 @@
-﻿namespace ChartTools.Internal
+﻿namespace ChartTools
 {
     /// <summary>
     /// Adds support for a property defining if an object is empty
