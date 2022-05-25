@@ -13,9 +13,25 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>$(OutDir)ChartTools.xml</DocumentationFile>
     <BaseOutputPath>$(ProjectDir)..\build\net6</BaseOutputPath>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Authors>TheBoxyBear</Authors>
+    <Description>Library for working with song files from plastic guitar games like Guitar Hero</Description>
+    <PackageProjectUrl>https://github.com/theboxybear/charttools</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/theboxybear/charttools</RepositoryUrl>
+    <NeutralLanguage>en-001</NeutralLanguage>
+    <PackageLicenseFile>E:\Users\Gaming\Documents\GitHub\ChartTools\LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <Import Project="..\source\source.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Melanchall.DryWetMidi" Version="6.0.1" />

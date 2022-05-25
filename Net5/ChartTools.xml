@@ -749,16 +749,6 @@
             </summary>
             <returns><see langword="true"/> if the object was not initialized prior to calling.</returns>
         </member>
-        <member name="T:ChartTools.Internal.IEmptyVerifiable">
-            <summary>
-            Adds support for a property defining if an object is empty
-            </summary>
-        </member>
-        <member name="P:ChartTools.Internal.IEmptyVerifiable.IsEmpty">
-            <summary>
-            <see langword="true"/> if containing no data
-            </summary>
-        </member>
         <member name="T:ChartTools.Difficulty">
             <summary>
             Difficulty levels
@@ -1091,6 +1081,16 @@
             <param name="instrument">Instrument to get</param>
             <returns>Instance of <see cref="T:ChartTools.Instrument`1"/> where TChord is <see cref="T:ChartTools.StandardChord"/> from the <see cref="T:ChartTools.Song"/>.</returns>
         </member>
+        <member name="T:ChartTools.IEmptyVerifiable">
+            <summary>
+            Adds support for a property defining if an object is empty
+            </summary>
+        </member>
+        <member name="P:ChartTools.IEmptyVerifiable.IsEmpty">
+            <summary>
+            <see langword="true"/> if containing no data
+            </summary>
+        </member>
         <member name="T:ChartTools.IO.Chart.ChartFile">
             <summary>
             Provides methods for reading and writing chart files
@@ -1108,7 +1108,7 @@
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetSongParser(System.String,ChartTools.IO.Configuration.Sessions.ReadingSession)">
             <summary>
-            Creates a <see cref="T:ChartTools.IO.Chart.Parsers.ChartParser"/> for parsing a section based on the header.
+            Creates a <see cref="T:ChartTools.IO.Chart.Parsing.ChartParser"/> for parsing a section based on the header.
             </summary>
             <exception cref="T:System.FormatException"></exception>
         </member>
@@ -1197,7 +1197,7 @@
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetDrumsTrackParser(System.String,System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.Sessions.ReadingSession)">
             <summary>
-            Creates a <see cref="T:ChartTools.IO.Chart.Parsers.DrumsTrackParser"/> is the header matches the requested standard track, otherwise <see langword="null"/>.
+            Creates a <see cref="T:ChartTools.IO.Chart.Parsing.DrumsTrackParser"/> is the header matches the requested standard track, otherwise <see langword="null"/>.
             </summary>
             <param name="header">Header of the part</param>
             <param name="seekedHeader">Header to compare against</param>
@@ -1224,7 +1224,7 @@
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetGHLTrackParser(System.String,System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.Sessions.ReadingSession)">
             <summary>
-            Creates a <see cref="T:ChartTools.IO.Chart.Parsers.GHLTrackParser"/> is the header matches the requested standard track, otherwise <see langword="null"/>.
+            Creates a <see cref="T:ChartTools.IO.Chart.Parsing.GHLTrackParser"/> is the header matches the requested standard track, otherwise <see langword="null"/>.
             </summary>
             <param name="header">Header of the part</param>
             <param name="seekedHeader">Header to compare against</param>
@@ -1254,7 +1254,7 @@
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetStandardTrackParser(System.String,System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.Sessions.ReadingSession)">
             <summary>
-            Creates a <see cref="T:ChartTools.IO.Chart.Parsers.StandardTrackParser"/> is the header matches the requested standard track, otherwise <see langword="null"/>.
+            Creates a <see cref="T:ChartTools.IO.Chart.Parsing.StandardTrackParser"/> is the header matches the requested standard track, otherwise <see langword="null"/>.
             </summary>
             <param name="header">Header of the part</param>
             <param name="seekedHeader">Header to compare against</param>
@@ -1291,7 +1291,7 @@
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetGlobalEventParser(System.String)">
             <summary>
-            Creates a <see cref="T:ChartTools.IO.Chart.Parsers.SyncTrackParser"/> if the header matches the sync track header, otherwise <see langword="null"/>.
+            Creates a <see cref="T:ChartTools.IO.Chart.Parsing.SyncTrackParser"/> if the header matches the sync track header, otherwise <see langword="null"/>.
             </summary>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.ReadGlobalEvents(System.String)">
@@ -1321,7 +1321,7 @@
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetSyncTrackParser(System.String,ChartTools.IO.Configuration.Sessions.ReadingSession)">
             <summary>
-            Creates a <see cref="T:ChartTools.IO.Chart.Parsers.SyncTrackParser"/> if the header matches the sync track header, otherwise <see langword="null"/>.
+            Creates a <see cref="T:ChartTools.IO.Chart.Parsing.SyncTrackParser"/> if the header matches the sync track header, otherwise <see langword="null"/>.
             </summary>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.ReadSyncTrack(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
@@ -1799,7 +1799,7 @@
             </summary>
         </member>
         <member name="P:ChartTools.Instrument.IsEmpty">
-            <inheritdoc cref="P:ChartTools.Internal.IEmptyVerifiable.IsEmpty"/>
+            <inheritdoc cref="P:ChartTools.IEmptyVerifiable.IsEmpty"/>
         </member>
         <member name="P:ChartTools.Instrument.InstrumentIdentity">
             <summary>
@@ -2702,7 +2702,7 @@
             </summary>
         </member>
         <member name="P:ChartTools.SyncTrack.IsEmpty">
-            <inheritdoc cref="P:ChartTools.Internal.IEmptyVerifiable.IsEmpty"/>
+            <inheritdoc cref="P:ChartTools.IEmptyVerifiable.IsEmpty"/>
         </member>
         <member name="P:ChartTools.SyncTrack.Tempo">
             <summary>
@@ -2816,7 +2816,7 @@
             </summary>
         </member>
         <member name="P:ChartTools.Track.IsEmpty">
-            <inheritdoc cref="P:ChartTools.Internal.IEmptyVerifiable.IsEmpty"/>
+            <inheritdoc cref="P:ChartTools.IEmptyVerifiable.IsEmpty"/>
         </member>
         <member name="P:ChartTools.Track.Difficulty">
             <summary>
