@@ -25,8 +25,10 @@ namespace ChartTools.IO.Midi
         /// Creates a <see cref="MidiParser"/> for parsing a section based on the header.
         /// </summary>
         /// <exception cref="FormatException"></exception>
-        private static MidiParser GetSongParser(string header, ReadingSession session)
+        private static MidiParser GetSongParser(string header, ReadingSession session, ref byte index)
         {
+            index++;
+
             switch (header)
             {
                 case MidiFormatting.GHGemsHeader:
@@ -57,7 +59,8 @@ namespace ChartTools.IO.Midi
         {
             config ??= DefaultReadConfig;
 
-            var reader = new MidiFileReader(path, header => GetSongParser(header, new(config, formatting ?? new())), config.MidiFirstPassReadingSettings);
+            var count;
+            var reader = new MidiFileReader(path, header => GetSongParser(header, new(config, formatting ?? new()), ref count), config.MidiFirstPassReadingSettings);
 
             reader.Read();
             return CreateSongFromReader(reader);
