@@ -65,7 +65,7 @@ namespace ChartTools.IO
 
         protected abstract void ReadBase(bool read, CancellationToken cancellationToken);
 
-        private void Reset()
+        public void Reset()
         {
             parseTasks.Clear();
             parserGroups.Clear();
