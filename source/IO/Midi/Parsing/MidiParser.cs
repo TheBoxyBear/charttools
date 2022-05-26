@@ -7,9 +7,7 @@ namespace ChartTools.IO.Midi.Parsing
 {
     internal abstract class MidiParser : FileParser<MidiEvent>, ISongAppliable
     {
-        public ReadingSettings ReadingSettings { get; }
-
-        public MidiParser(ReadingSession session) : base(session) => ReadingSettings = session.Configuration.MidiFirstPassReadingSettings ?? Midi.MidiFile.DefaultDryWetReadingSettings;
+        public MidiParser(ReadingSession session) : base(session) { }
 
         public abstract void ApplyToSong(Song song);
 
