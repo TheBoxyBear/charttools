@@ -3,8 +3,6 @@ using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Midi.Parsing;
 
-using Melanchall.DryWetMidi.Core;
-
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,12 +19,6 @@ namespace ChartTools.IO.Midi
             DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
             SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
             MidiFirstPassReadingSettings = null
-        };
-        public static ReadingSettings DefaultDryWetReadingSettings = new()
-        {
-            NotEnoughBytesPolicy = NotEnoughBytesPolicy.Ignore,
-            InvalidChunkSizePolicy = InvalidChunkSizePolicy.Ignore,
-            NoHeaderChunkPolicy = NoHeaderChunkPolicy.Ignore
         };
 
         /// <summary>
@@ -63,7 +55,10 @@ namespace ChartTools.IO.Midi
         /// <param name="config"><inheritdoc cref="Song.FromFile(string, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>
         public static Song ReadSong(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default)
         {
-            var reader = new MidiFileReader(path, header => GetSongParser(header, new(config ?? DefaultReadConfig, formatting ?? new())));
+            config ??= DefaultReadConfig;
+
+            var reader = new MidiFileReader(path, header => GetSongParser(header, new(config, formatting ?? new())), config.MidiFirstPassReadingSettings);
+
             reader.Read();
             return CreateSongFromReader(reader);
         }
@@ -73,7 +68,10 @@ namespace ChartTools.IO.Midi
         /// <param name="config"><inheritdoc cref="Song.FromFileAsync(string, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@='config']"/></param>
         public static async Task<Song> ReadSongAsync(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
         {
-            var reader = new MidiFileReader(path, header => GetSongParser(header, new(config ?? DefaultReadConfig, formatting ?? new())));
+            config ??= DefaultReadConfig;
+
+            var reader = new MidiFileReader(path, header => GetSongParser(header, new(config, formatting ?? new())), config.MidiFirstPassReadingSettings);
+
             await reader.ReadAsync(cancellationToken);
             return CreateSongFromReader(reader);
         }

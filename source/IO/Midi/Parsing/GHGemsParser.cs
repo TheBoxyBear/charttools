@@ -52,6 +52,9 @@ namespace ChartTools.IO.Midi.Parsing
                                 session.HandleUnclosed(openedSource.Position, () => openedSource.Notes[lane]!.Length = globalPosition - openedSource.Position);
 
                             var chord = openedNoteSources[track.Difficulty][lane] = GetOrCreateChord(globalPosition);
+
+                            session.DuplicateTrackObjectProcedure(chord.Position, "note", () => chord.Notes.Contains(lane));
+
                             chord.Notes.Add(lane);
                             break;
                         case NoteOffEvent:
@@ -59,7 +62,12 @@ namespace ChartTools.IO.Midi.Parsing
                                 session.HandleUnopened(globalPosition, () => GetOrCreateChord(globalPosition).Notes.Add(lane));
                             else
                             {
-                                openedSource.Notes[lane]!.Length = globalPosition - openedSource.Position;
+                                var length = globalPosition - openedSource.Position;
+
+                                if (length < session.Formatting?.SustainCutoff)
+                                    length = 0;
+
+                                openedSource.Notes[lane]!.Length = length;
                                 openedNoteSources[track.Difficulty][lane] = null;
                             }
                             break;

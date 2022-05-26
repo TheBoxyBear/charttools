@@ -13,9 +13,9 @@ namespace ChartTools.IO.Midi
 {
     internal class MidiFileReader : FileReader<MidiEvent, MidiParser>
     {
-        private readonly ReadingSettings settings;
+        private readonly ReadingSettings? settings;
 
-        public MidiFileReader(string path,Func<string, MidiParser> parserGetter) : base(path, parserGetter) { }
+        public MidiFileReader(string path,Func<string, MidiParser> parserGetter, ReadingSettings? settings) : base(path, parserGetter) { }
 
         protected override void ReadBase(bool async, CancellationToken cancellationToken)
         {
