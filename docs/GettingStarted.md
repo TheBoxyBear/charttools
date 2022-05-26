@@ -2,6 +2,12 @@
 
 This document goes over the basics of parsing a chart through ChartTools. The full documentation can be found [here]().
 
+## Sandbox environment
+
+The repository includes a sandbox environment where you can explore the library and perform various tests. To use the sandbox environment, open Program.cs from the Debug project. The project targets .NET 6 and references the Net6 project.
+
+> **NOTE**: This project is for personal testing and experimenting purposes only, so make sure to exclude changes to the project before commiting to your branch. Any pull requests that includes changes to the Debug project will be rejected.
+
 ## Supported file formats
 
 ChartTools supports parsing of .chart and .ini files, with .mid parsing in the works.
