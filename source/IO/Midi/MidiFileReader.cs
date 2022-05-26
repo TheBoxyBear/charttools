@@ -15,7 +15,7 @@ namespace ChartTools.IO.Midi
     {
         private readonly ReadingSettings? settings;
 
-        public MidiFileReader(string path,Func<string, MidiParser> parserGetter, ReadingSettings? settings) : base(path, parserGetter) { }
+        public MidiFileReader(string path,Func<string, MidiParser?> parserGetter, ReadingSettings? settings) : base(path, parserGetter) { }
 
         protected override void ReadBase(bool async, CancellationToken cancellationToken)
         {

@@ -1612,7 +1612,7 @@
             Default configuration to use for reading when the provided configuration is <see langword="default"/>
             </summary>
         </member>
-        <member name="M:ChartTools.IO.Midi.MidiFile.GetSongParser(System.String,ChartTools.IO.Configuration.Sessions.ReadingSession)">
+        <member name="M:ChartTools.IO.Midi.MidiFile.GetSongParser(System.String,ChartTools.IO.Configuration.Sessions.ReadingSession,System.Byte@)">
             <summary>
             Creates a <see cref="T:ChartTools.IO.Midi.Parsing.MidiParser"/> for parsing a section based on the header.
             </summary>

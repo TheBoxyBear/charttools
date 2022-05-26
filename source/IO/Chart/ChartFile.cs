@@ -49,7 +49,7 @@ namespace ChartTools.IO.Chart
         /// Creates a <see cref="ChartParser"/> for parsing a section based on the header.
         /// </summary>
         /// <exception cref="FormatException"></exception>
-        private static ChartParser? GetSongParser(string header, ReadingSession session)
+        private static ChartParser GetSongParser(string header, ReadingSession session)
         {
             switch (header)
             {

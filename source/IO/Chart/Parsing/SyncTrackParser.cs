@@ -26,8 +26,7 @@ namespace ChartTools.IO.Chart.Parsing
 
             switch (entry.Type)
             {
-                // Time signature
-                case "TS":
+                case "TS": // Time signature
                     if (CheckDuplicateTrackObject(orderedSignatures, "time signature", out int newIndex))
                         break;
 
@@ -45,8 +44,7 @@ namespace ChartTools.IO.Chart.Parsing
                     result.TimeSignatures.Add(signature);
                     orderedSignatures.Insert(newIndex, signature);
                     break;
-                // Tempo
-                case "B":
+                case "B": // Tempo
                     if (CheckDuplicateTrackObject(orderedTempos, "tempo marker", out newIndex))
                         break;
 
@@ -61,8 +59,7 @@ namespace ChartTools.IO.Chart.Parsing
                     else
                         marker.Value = value;
                     break;
-                // Anchor
-                case "A":
+                case "A": // Anchor
                     if (CheckDuplicatePosition(orderedAnchorPositions, "tempo anchor", out newIndex))
                         break;
 

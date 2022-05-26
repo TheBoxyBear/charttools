@@ -64,6 +64,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFormatting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFileReader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\TitleSyncTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\SectionParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\ReservedSectionHeader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\ReservedSectionHeaderSet.cs" />
@@ -119,7 +120,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Sessions\Session.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\InstrumentParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\StandardInstrumentParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\TrackParser.cs" />
     <Compile Include="..\source\IO\MIDI\MidiFormatting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\MidiParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Providers\MidiProvider.cs" />

@@ -9,7 +9,6 @@ namespace ChartTools.IO.Midi.Parsing
 
         public StandardInstrumentParser(StandardInstrumentIdentity instrument, ReadingSession session) : base((InstrumentIdentity)instrument, session) { }
 
-
         protected abstract (Track<StandardChord> track, int adjustedNoteNumber) MapNoteEvent(NoteEvent e);
 
         public override void ApplyToSong(Song song) => song.Instruments.Set(result);

@@ -67,7 +67,6 @@
     <Compile Include="IO\Midi\Parsing\InstrumentParser.cs" />
     <Compile Include="IO\Midi\Parsing\MidiParser.cs" />
     <Compile Include="IO\Midi\Parsing\StandardInstrumentParser.cs" />
-    <Compile Include="IO\Midi\Parsing\TrackParser.cs" />
     <Compile Include="IO\Midi\Providers\MidiProvider.cs" />
     <Compile Include="IO\TextEntry.cs" />
     <Compile Include="IO\TextFileReader.cs" />
