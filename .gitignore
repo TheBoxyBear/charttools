@@ -3,6 +3,7 @@
 debug/bin
 debug/obj
 bin/
+build/*
 obj/
 ChartTools/
 ChartTools.Test/
