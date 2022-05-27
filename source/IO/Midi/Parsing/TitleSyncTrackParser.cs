@@ -15,6 +15,7 @@ namespace ChartTools.IO.Midi.Parsing
         public override TitleSyncTraskResult Result => GetResult(result);
         protected readonly TitleSyncTraskResult result;
         private uint globalPosition;
+        private uint? previousSignaturePosition, previousTempoPosition;
 
         public TitleSyncTrackParser(string header, ReadingSession session) : base(session) => result = new(header, new());
 
@@ -25,10 +26,18 @@ namespace ChartTools.IO.Midi.Parsing
             switch (item)
             {
                 case TimeSignatureEvent ts:
-                    result.SyncTrack.TimeSignatures.Add(new TimeSignature(globalPosition, ts.Numerator, ts.Denominator));
+                    if (session.DuplicateTrackObjectProcedure(globalPosition, "time signature", () => previousSignaturePosition == globalPosition))
+                    {
+                        result.SyncTrack.TimeSignatures.Add(new TimeSignature(globalPosition, ts.Numerator, ts.Denominator));
+                        previousSignaturePosition = globalPosition;
+                    }
                     break;
                 case SetTempoEvent tempo:
-                    result.SyncTrack.Tempo.Add(new Tempo(globalPosition, 60000000 / tempo.MicrosecondsPerQuarterNote));
+                    if (session.DuplicateTrackObjectProcedure(globalPosition, "tempo marker", () => previousTempoPosition == globalPosition))
+                    {
+                        result.SyncTrack.Tempo.Add(new Tempo(globalPosition, 60000000 / tempo.MicrosecondsPerQuarterNote));
+                        previousTempoPosition = globalPosition;
+                    }
                     break;
             }
         }

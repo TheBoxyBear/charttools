@@ -23,8 +23,7 @@ namespace ChartTools.IO.Configuration.Sessions
             HandleUnopened = (position, create) => (HandleUnopened = Configuration.UnopenedTrackObjectPolicy switch
             {
                 UnopenedTrackObjectPolicy.ThrowException => (position, _) => throw new Exception($"Object at position {position} closed before being opened."), // TODO Create exception
-                UnopenedTrackObjectPolicy.Ignore => (_, _) => { }
-                ,
+                UnopenedTrackObjectPolicy.Ignore => (_, _) => { },
                 UnopenedTrackObjectPolicy.Create => (_, create) => create(),
                 _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.UnopenedTrackObjectPolicy)
             })(position, create);
