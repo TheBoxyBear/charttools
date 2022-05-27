@@ -32,7 +32,7 @@ namespace ChartTools.IO.Midi
             switch (header)
             {
                 case MidiFormatting.GHGemsHeader:
-                    return new GHGemsParser(session);
+                    return new GHGemParser(session);
                 default:
                     return index == 1 ? new TitleSyncTrackParser(header, session) : null;
             }

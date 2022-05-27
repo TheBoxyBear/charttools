@@ -1499,6 +1499,11 @@
             The length of the phrase is cut short to the start of the next one
             </summary>
         </member>
+        <member name="T:ChartTools.IO.Configuration.TempolessAnchorPolicy">
+            <summary>
+            Defines how a tempo anchor with no parent marker is handled
+            </summary>
+        </member>
         <member name="T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy">
             <summary>
             Defines how to handle "solo" local events in tracks
@@ -1514,17 +1519,7 @@
             If a track has "solo" or "soloend" local events and no star power, convert the events into star power as interpreted by Clone Hero
             </summary>
         </member>
-        <member name="T:ChartTools.IO.Configuration.TrackObjectSource">
-            <summary>
-            Difficulty of the <see cref="T:ChartTools.Track"/> to serve as a source of for track objects common to all difficulties to use for all tracks in the same <see cref="T:ChartTools.Instrument"/>
-            <para>Common track objects are:<list type="bullet">
-            <item>Local events</item>
-            <item>Star power phrases</item>
-            </list>
-            </para>
-            </summary>
-            <remarks>Can be casted from <see cref="T:ChartTools.Difficulty"/>.</remarks>
-        </member>
+        <!-- Badly formed XML comment ignored for member "T:ChartTools.IO.Configuration.TrackObjectSource" -->
         <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Merge">
             <summary>
             Each <see cref="T:ChartTools.Track"/> will contain a combination of all unique common track objects in the same <see cref="T:ChartTools.Instrument"/>
@@ -2279,6 +2274,12 @@
             <param name="song">Source of objects</param>
             <param name="scale">Positive number where 1 is the current scale.</param>
         </member>
+        <member name="P:ChartTools.IReadOnlyTrackObject.Position">
+            <summary>
+            Tick number on the track.
+            </summary>
+            <remarks>A tick represents a subdivision of a beat. The number of subdivisions per beat is stored in <see cref="P:ChartTools.Formatting.FormattingRules.Resolution"/>.</remarks>
+        </member>
         <member name="T:ChartTools.InstrumentDifficultySet">
             <summary>
             Stores the estimated difficulties for instruments
@@ -2409,10 +2410,7 @@
             </summary>
         </member>
         <member name="P:ChartTools.ITrackObject.Position">
-            <summary>
-            Tick number on the track.
-            </summary>
-            <remarks>A tick represents a subdivision of a beat. The number of subdivisions per beat is stored in <see cref="P:ChartTools.Formatting.FormattingRules.Resolution"/>.</remarks>
+            <inheritdoc cref="P:ChartTools.IReadOnlyTrackObject.Position"/>
         </member>
         <member name="T:ChartTools.Metadata">
             <summary>

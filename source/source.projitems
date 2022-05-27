@@ -65,6 +65,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFormatting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFileReader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GHGemParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GHGlobalEventParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\TitleSyncTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\SectionParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\ReservedSectionHeader.cs" />
@@ -102,7 +104,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFileWriter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\ISerializerDataProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GHGemsParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\TextEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\TextFileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\UnidentifiedMetadata.cs" />

@@ -15,6 +15,7 @@ namespace ChartTools.IO.Configuration.Sessions
         public Session(FormattingRules? formatting)
         {
             Formatting = formatting;
+
             DuplicateTrackObjectProcedure = (position, objectType, checkDuplicate) => (DuplicateTrackObjectProcedure = Configuration.DuplicateTrackObjectPolicy switch
             {
                 DuplicateTrackObjectPolicy.IncludeAll => (_, _, _) => true,

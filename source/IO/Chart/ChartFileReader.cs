@@ -13,7 +13,7 @@ namespace ChartTools.IO.Chart
         public override IEnumerable<ChartParser> Parsers => base.Parsers.Cast<ChartParser>();
         public override bool DefinedSectionEnd => true;
 
-        public ChartFileReader(string path, Func<string, ChartParser> parserGetter) : base(path, parserGetter) { }
+        public ChartFileReader(string path, Func<string, ChartParser?> parserGetter) : base(path, parserGetter) { }
 
         protected override bool IsSectionStart(string line) => line == "{";
         protected override bool IsSectionEnd(string line) => ChartFormatting.IsSectionEnd(line);

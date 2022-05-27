@@ -35,8 +35,10 @@ namespace ChartTools.IO.Midi.Parsing
 
         public override void ApplyToSong(Song song)
         {
-            song.Metadata = new() { Title = result.Title };
-            song.SyncTrack = result.SyncTrack;
+            var res = Result;
+
+            song.Metadata = new() { Title = res.Title };
+            song.SyncTrack = res.SyncTrack;
         }
     }
 }

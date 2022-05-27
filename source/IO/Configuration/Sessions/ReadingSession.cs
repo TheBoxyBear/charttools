@@ -38,7 +38,8 @@ namespace ChartTools.IO.Configuration.Sessions
             {
                 TempolessAnchorPolicy.ThrowException => anchor => throw new Exception($"Tempo anchor at position {anchor.Position} does not have a parent tempo marker."),
                 TempolessAnchorPolicy.Ignore => anchor => false,
-                TempolessAnchorPolicy.Create => anchor => true
+                TempolessAnchorPolicy.Create => anchor => true,
+                _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.TempolessAnchorPolicy)
             })(anchor);
          }
     }

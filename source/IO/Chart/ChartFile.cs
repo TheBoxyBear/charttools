@@ -56,7 +56,7 @@ namespace ChartTools.IO.Chart
                 case ChartFormatting.MetadataHeader:
                     return new MetadataParser();
                 case ChartFormatting.GlobalEventHeader:
-                    return new GlobalEventParser(session, header);
+                    return new GlobalEventParser(session);
                 case ChartFormatting.SyncTrackHeader:
                     return new SyncTrackParser(session);
                 default:
@@ -456,7 +456,7 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Creates a <see cref="SyncTrackParser"/> if the header matches the sync track header, otherwise <see langword="null"/>.
         /// </summary>
-        private static GlobalEventParser? GetGlobalEventParser(string header) => header == ChartFormatting.GlobalEventHeader ? new(null!, header) : null;
+        private static GlobalEventParser? GetGlobalEventParser(string header) => header == ChartFormatting.GlobalEventHeader ? new(null!) : null;
 
         /// <inheritdoc cref="GlobalEvent.FromFile(string)"/>
         /// <param name="path"><inheritdoc cref="GlobalEvent.FromFile(string)" path="/param[@name='path']"/></param>

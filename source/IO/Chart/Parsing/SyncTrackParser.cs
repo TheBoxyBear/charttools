@@ -22,8 +22,6 @@ namespace ChartTools.IO.Chart.Parsing
         {
             TrackObjectEntry entry = new(line);
 
-            Tempo? marker;
-
             switch (entry.Type)
             {
                 case "TS": // Time signature

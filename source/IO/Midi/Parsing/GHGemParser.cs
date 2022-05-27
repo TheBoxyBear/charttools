@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace ChartTools.IO.Midi.Parsing
 {
-    internal class GHGemsParser : StandardInstrumentParser
+    internal class GHGemParser : StandardInstrumentParser
     {
         private readonly Dictionary<Difficulty, Dictionary<StandardLane, StandardChord?>>
             openedNoteSources = new(from difficulty in EnumCache<Difficulty>.Values
@@ -25,7 +25,7 @@ namespace ChartTools.IO.Midi.Parsing
                                          select new KeyValuePair<Difficulty, Dictionary<SpecialPhraseType, uint?>>(difficulty, new(pairs)));
 
         private uint globalPosition;
-        public GHGemsParser(ReadingSession session) : base(StandardInstrumentIdentity.LeadGuitar, session) { }
+        public GHGemParser(ReadingSession session) : base(StandardInstrumentIdentity.LeadGuitar, session) { }
 
         protected override void HandleItem(MidiEvent item)
         {

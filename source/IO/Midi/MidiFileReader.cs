@@ -13,15 +13,15 @@ namespace ChartTools.IO.Midi
 {
     internal class MidiFileReader : FileReader<MidiEvent, MidiParser>
     {
-        private readonly ReadingSettings? settings;
+        public ReadingSettings? Settings { get; }
 
-        public MidiFileReader(string path,Func<string, MidiParser?> parserGetter, ReadingSettings? settings) : base(path, parserGetter) { }
+        public MidiFileReader(string path, Func<string, MidiParser?> parserGetter, ReadingSettings? settings) : base(path, parserGetter) => Settings = settings;
 
         protected override void ReadBase(bool async, CancellationToken cancellationToken)
         {
             ParserContentGroup? currentGroup = null;
 
-            foreach (var events in DryWetFile.Read(Path, settings).GetTrackChunks().Select(c => c.Events))
+            foreach (var events in DryWetFile.Read(Path, Settings).GetTrackChunks().Select(c => c.Events))
             {
                 using var enumerator = events.GetEnumerator();
                 enumerator.MoveNext();
