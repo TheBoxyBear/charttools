@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using ChartTools.Formatting;
+using ChartTools.IO.Chart;
 using ChartTools.SystemExtensions;
 
 namespace ChartTools.IO.Configuration.Sessions
@@ -8,10 +10,12 @@ namespace ChartTools.IO.Configuration.Sessions
     internal class ReadingSession : Session
     {
         public delegate void UnopenedUnclosedObjectHandler(uint position, Action createOrInclude);
+        public delegate bool TempolessAnchorHandler(Anchor anchor);
 
         public override ReadingConfiguration Configuration { get; }
         public UnopenedUnclosedObjectHandler HandleUnopened { get; private set; }
         public UnopenedUnclosedObjectHandler HandleUnclosed { get; private set; }
+        public TempolessAnchorHandler TempolessAnchorProcedure { get; private set; }
 
         public ReadingSession(ReadingConfiguration config, FormattingRules? formatting) : base(formatting)
         {
@@ -30,6 +34,12 @@ namespace ChartTools.IO.Configuration.Sessions
                 UnclosedTrackObjectPolicy.Ignore => (_, _) => { },
                 UnclosedTrackObjectPolicy.Include => (_, include) => include()
             })(position, include);
+            TempolessAnchorProcedure = anchor => (TempolessAnchorProcedure = Configuration.TempolessAnchorPolicy switch
+            {
+                TempolessAnchorPolicy.ThrowException => anchor => throw new Exception($"Tempo anchor at position {anchor.Position} does not have a parent tempo marker."),
+                TempolessAnchorPolicy.Ignore => anchor => false,
+                TempolessAnchorPolicy.Create => anchor => true
+            })(anchor);
          }
     }
 }

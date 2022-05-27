@@ -45,6 +45,15 @@
         Cut,
     }
     /// <summary>
+    /// Defines how a tempo anchor with no parent marker is handled
+    /// </summary>
+    public enum TempolessAnchorPolicy
+    {
+        ThrowException,
+        Ignore,
+        Create
+    }
+    /// <summary>
     /// Defines how to handle "solo" local events in tracks
     /// </summary>
     public enum SoloNoStarPowerPolicy : byte
@@ -60,12 +69,6 @@
     }
     /// <summary>
     /// Difficulty of the <see cref="Track"/> to serve as a source of for track objects common to all difficulties to use for all tracks in the same <see cref="Instrument"/>
-    /// <para>Common track objects are:<list type="bullet">
-    /// <item>Local events</item>
-    /// <item>Star power phrases</item>
-    /// </list>
-    /// </para>
-    /// </summary>
     /// <remarks>Can be casted from <see cref="Difficulty"/>.</remarks>
     public enum TrackObjectSource : byte
     {

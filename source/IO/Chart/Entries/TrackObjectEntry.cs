@@ -5,7 +5,7 @@ namespace ChartTools.IO.Chart.Entries
     /// <summary>
     /// Line of chart file data representing a <see cref="TrackObject"/>
     /// </summary>
-    internal struct TrackObjectEntry
+    internal struct TrackObjectEntry : IReadOnlyTrackObject
     {
         /// <summary>
         /// Value of <see cref="TrackObject.Position"/>

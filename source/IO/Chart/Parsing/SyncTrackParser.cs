@@ -13,7 +13,7 @@ namespace ChartTools.IO.Chart.Parsing
         private readonly SyncTrack result = new();
 
         private readonly List<Tempo> orderedTempos = new();
-        private readonly List<uint> orderedAnchorPositions = new();
+        private readonly List<Anchor> orderedAnchors = new();
         private readonly List<TimeSignature> orderedSignatures = new();
 
         public SyncTrackParser(ReadingSession session) : base(session, ChartFormatting.SyncTrackHeader) { }
@@ -27,7 +27,7 @@ namespace ChartTools.IO.Chart.Parsing
             switch (entry.Type)
             {
                 case "TS": // Time signature
-                    if (CheckDuplicateTrackObject(orderedSignatures, "time signature", out int newIndex))
+                    if (CheckDuplicate(orderedSignatures, "time signature", out int newIndex))
                         break;
 
                     string[] split = ChartFormatting.SplitData(entry.Data);
@@ -45,54 +45,33 @@ namespace ChartTools.IO.Chart.Parsing
                     orderedSignatures.Insert(newIndex, signature);
                     break;
                 case "B": // Tempo
-                    if (CheckDuplicateTrackObject(orderedTempos, "tempo marker", out newIndex))
+                    if (CheckDuplicate(orderedTempos, "tempo marker", out newIndex))
                         break;
 
                     // Floats are written by rounding to the 3rd decimal and removing the decimal point
                     var value = ValueParser.ParseFloat(entry.Data, "value") / 1000;
+                    var tempo = new Tempo(entry.Position, value);
 
-                    // Find the marker matching the position in case it was already added through a mention of anchor
-                    marker = result.Tempo.Find(m => m.Position == entry.Position);
-
-                    if (marker is null)
-                        result.Tempo.Add(new(entry.Position, value));
-                    else
-                        marker.Value = value;
+                    result.Tempo.Add(tempo);
+                    orderedTempos.Add(tempo);
                     break;
                 case "A": // Anchor
-                    if (CheckDuplicatePosition(orderedAnchorPositions, "tempo anchor", out newIndex))
+                    if (CheckDuplicate(orderedAnchors, "tempo anchor", out newIndex))
                         break;
 
                     // Floats are written by rounding to the 3rd decimal and removing the decimal point
                     var anchor = TimeSpan.FromSeconds(ValueParser.ParseFloat(entry.Data, "anchor") / 1000);
 
-                    // Find the marker matching the position in case it was already added through a mention of value
-                    var markerIndex = orderedTempos.BinarySearchIndex(entry.Position, t => t.Position, out bool exactMatch);
-                    marker = orderedTempos[markerIndex];
-
-                    if (marker is null)
-                    {
-                        var tempo = new Tempo(entry.Position, 0) { Anchor = anchor };
-
-                        result.Tempo.Add(tempo);
-                        orderedTempos.Insert(markerIndex, tempo);
-                    }
-                    else
-                        marker.Anchor = anchor;
-
-                    orderedAnchorPositions.Insert(newIndex, entry.Position);
-
+                    orderedAnchors.Insert(newIndex, new(entry.Position, anchor));
                     break;
             }
 
-            bool CheckDuplicatePosition(IList<uint> existing, string objectType, out int newIndex) => CheckDuplicate(existing, objectType, p => p, out newIndex);
-            bool CheckDuplicateTrackObject<T>(IList<T> existing, string objecType, out int newIndex) where T : TrackObject => CheckDuplicate(existing, objecType, t => t.Position, out newIndex);
-            bool CheckDuplicate<T>(IList<T> existing, string objectType, Func<T, uint> positionSelector, out int newIndex)
+            bool CheckDuplicate<T>(IList<T> existing, string objectType, out int newIndex) where T : IReadOnlyTrackObject
             {
                 var index = 0;
                 var result = !session.DuplicateTrackObjectProcedure(entry.Position, objectType, () =>
                 {
-                    index = existing.BinarySearchIndex<T, uint>(entry.Position, positionSelector, out bool exactMatch);
+                    index = existing.BinarySearchIndex<T, uint>(entry.Position, t => t.Position, out bool exactMatch);
 
                     return exactMatch;
                 });
@@ -100,6 +79,23 @@ namespace ChartTools.IO.Chart.Parsing
                 newIndex = index;
 
                 return result;
+            }
+        }
+
+        protected override void FinaliseParse()
+        {
+            foreach (var anchor in orderedAnchors)
+            {
+                // Find the marker matching the position in case it was already added through a mention of value
+                var markerIndex = orderedTempos.BinarySearchIndex(anchor.Position, t => t.Position, out bool markerFound);
+
+                if (markerFound)
+                {
+                    orderedTempos[markerIndex].Anchor = anchor.Value;
+                    orderedTempos.RemoveAt(markerIndex);
+                }
+                else if (session.TempolessAnchorProcedure(anchor))
+                    result.Tempo.Add(new(anchor.Position, 0) { Anchor = anchor.Value });
             }
         }
 

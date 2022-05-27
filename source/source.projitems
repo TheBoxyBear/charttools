@@ -37,6 +37,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\Validator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Instruments\InstrumentSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IEmptyVerifiable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Anchor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartSectionSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsing\ChartParser.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)SystemExtentions\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SystemExtentions\FuncEqualityComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Printer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\IReadOnlyTrackObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\LongTrackObject.cs" />
     <Compile Include="..\source\IO\Ini\IniKeySerializableAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniParser.cs" />
