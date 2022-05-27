@@ -29,13 +29,12 @@ namespace ChartTools.IO.Midi
         {
             index++;
 
-            switch (header)
+            return header switch
             {
-                case MidiFormatting.GHGemsHeader:
-                    return new GHGemParser(session);
-                default:
-                    return index == 1 ? new TitleSyncTrackParser(header, session) : null;
-            }
+                MidiFormatting.GHGemsHeader => new GHGemParser(session),
+                MidiFormatting.GlobalEventHeader => new GlobalEventParser(session),
+                _ => index == 1 ? new TitleSyncTrackParser(header, session) : null,
+            };
         }
 
         /// <summary>

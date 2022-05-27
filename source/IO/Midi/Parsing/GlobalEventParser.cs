@@ -9,12 +9,12 @@ using System.Text;
 
 namespace ChartTools.IO.Midi.Parsing
 {
-    internal class GHGlobalEventParser : MidiParser
+    internal class GlobalEventParser : MidiParser
     {
         public override List<GlobalEvent> Result => GetResult(result);
         private readonly List<GlobalEvent> result = new();
 
-        public GHGlobalEventParser(ReadingSession session) : base(session) { }
+        public GlobalEventParser(ReadingSession session) : base(session) { }
 
         protected override void HandleItem(MidiEvent item)
         {

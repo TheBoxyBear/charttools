@@ -18,6 +18,7 @@ namespace ChartTools.IO.Midi
         };
 
         public const string GHGemsHeader = "T1 GEMS";
+        public const string GlobalEventHeader = "EVENTS";
 
         public static string Instrument(InstrumentIdentity instrument) => InstrumentSequenceNames[instrument];
     }
