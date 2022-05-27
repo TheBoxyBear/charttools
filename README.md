@@ -10,7 +10,7 @@ Special thanks to [FireFox](https://github.com/FireFox2000000) for making the Mo
 
 To add ChartTools to your project, you must first compile the assembly. The repository contains two main projects: Net5 and Net6. Compile the project that matches your target .NET version with either the Debug or Release profile. The compiled files can be found in the build folder of the repository.
 
-Visual Studio: Right-click on your from the solution explorer and select "Add Project References...". Click on "Browse" and select ChartTools.dll that was generated. If you move this file, make sure to also move ChartTools.xml to preserve the built-in documentation.
+Visual Studio: Right-click on your from the solution explorer and select "Add Project References...". Click on "Browse" and select ChartTools.dll that was generated.
 
 If you find any bugs, you can report them in the [Issues section](https://github.com/TheBoxyBear/ChartTools/issues) of the repository. Make sure to use the "bug" label.
 
