@@ -11,7 +11,6 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>$(OutDir)ChartTools.xml</DocumentationFile>
     <BaseOutputPath>$(ProjectDir)..\build\net5</BaseOutputPath>
-    <Configurations>Debug;Release;Docs</Configurations>
   </PropertyGroup>
 
   <Import Project="..\source\source.projitems" Label="Shared" />
@@ -27,6 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Melanchall.DryWetMidi.Nativeless" Version="6.1.2" />
+    <PackageReference Include="Melanchall.DryWetMidi" Version="6.1.0" />
   </ItemGroup>
 </Project>
