@@ -16,6 +16,7 @@ namespace ChartTools.Events
         public bool IsCrowdEvent => EventType.StartsWith(EventTypeHeaderHelper.Global.Crowd);
         public bool IsDrummerMovementEvent => EventType.StartsWith(EventTypeHeaderHelper.Global.DrummerMovement);
         public bool IsGuitaristMovementEvent => EventType.StartsWith(EventTypeHeaderHelper.Global.GuitaristMovement) || EventType.StartsWith(EventTypeHeaderHelper.Global.GuitaristSolo);
+        public bool IsGuitaristSoloEvent => EventType.StartsWith(EventTypeHeaderHelper.Global.GuitaristSolo);
         public bool IsKeyboardMovementEvent => EventType.StartsWith(EventTypeHeaderHelper.Global.KeyboardMovement);
         public bool IsLyricEvent => IsPhraseEvent || EventType == EventTypeHelper.Global.Lyric;
         public bool IsPhraseEvent => EventType.StartsWith(EventTypeHeaderHelper.Global.Phrase);
