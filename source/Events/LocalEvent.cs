@@ -5,8 +5,7 @@
     /// </summary>
     public class LocalEvent : Event
     {
-        public bool IsStarPowerEvent => EventType is EventTypeHelper.Local.Solo or EventTypeHelper.Local.SoloEnd;
-        public bool IsSoloEvent => EventType is EventTypeHelper.Local.SoloOn or EventTypeHelper.Local.SoloOff;
+        public bool IsSoloEvent => EventType is EventTypeHelper.Local.Solo or EventTypeHelper.Local.SoloEnd;
         public bool IsOwFaceEvent => EventType.StartsWith(EventTypeHeaderHelper.Local.OwFace);
 
         /// <inheritdoc cref="Event(uint, string)"/>

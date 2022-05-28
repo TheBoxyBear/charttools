@@ -68,7 +68,7 @@ namespace ChartTools
             }
 
             if (removeEvents)
-                LocalEvents.RemoveAll(e => e.IsStarPowerEvent);
+                LocalEvents.RemoveAll(e => e.IsSoloEvent);
         }
 
         protected abstract Instrument? GetInstrument();

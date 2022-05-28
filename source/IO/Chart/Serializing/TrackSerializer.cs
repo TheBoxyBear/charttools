@@ -49,7 +49,7 @@ namespace ChartTools.IO.Chart.Serializing
                             break;
                     }
 
-                Content.LocalEvents.RemoveWhere(e => e.IsStarPowerEvent);
+                Content.LocalEvents.RemoveWhere(e => e.IsSoloEvent);
             }
 
             return new IEnumerable<TrackObjectEntry>[]
