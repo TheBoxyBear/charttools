@@ -1,6 +1,6 @@
 ﻿namespace ChartTools.IO.Configuration
 {
-    public class WritingConfiguration : CommonConfiguration
+    public record WritingConfiguration : CommonConfiguration
     {
         /// <summary>
         /// Defines which difficulty to get local events from

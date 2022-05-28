@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ChartTools.Exceptions
+namespace ChartTools
 {
     /// <summary>
     /// Exception thrown when using an <see cref="Enum"/> value that is not defined

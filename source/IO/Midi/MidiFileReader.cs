@@ -4,6 +4,7 @@ using ChartTools.IO.Midi.Parsing;
 using Melanchall.DryWetMidi.Core;
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 

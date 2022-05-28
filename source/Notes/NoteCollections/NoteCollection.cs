@@ -1,6 +1,4 @@
-﻿using ChartTools.Exceptions;
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,12 +28,13 @@ namespace ChartTools
             Notes.Add(item);
         }
         public virtual bool Contains(TLane lane) => Notes.Any(n => n.Lane.Equals(lane));
-        public void Clear() => Notes.Clear();
+        public bool Contains(byte noteIndex) => Notes.Any(n => n.NoteIndex.Equals(noteIndex));
         /// <summary>
         /// Determines if a note is contained in the collection.
         /// </summary>
         /// <exception cref="ArgumentNullException"/>
         public bool Contains(TNote item) => item is null ? throw new ArgumentNullException(nameof(item)) : Notes.Contains(item);
+        public void Clear() => Notes.Clear();
         public void CopyTo(TNote[] array, int arrayIndex) => Notes.CopyTo(array, arrayIndex);
         /// <summary>
         /// Removes a note from the collection.

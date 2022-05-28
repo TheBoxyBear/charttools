@@ -19,6 +19,14 @@
         IncludeAll,
     }
     /// <summary>
+    /// Defines how invalid Midi event types are handled
+    /// </summary>
+    public enum InvalidMidiEventTypePolicy : byte
+    {
+        ThrowException,
+        Ignore
+    }
+    /// <summary>
     /// Where to get lyric data from for formats that store lyrics as events
     /// </summary>
     public enum LyricEventSource : byte

@@ -1,6 +1,4 @@
-﻿using ChartTools.Exceptions;
-using ChartTools.Formatting;
-using ChartTools.Internal;
+﻿using ChartTools.Formatting;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;

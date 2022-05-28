@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ChartTools.Exceptions
+namespace ChartTools
 {
     internal static class Validator
     {

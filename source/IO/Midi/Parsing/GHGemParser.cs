@@ -29,15 +29,18 @@ namespace ChartTools.IO.Midi.Parsing
 
         protected override void HandleItem(MidiEvent item)
         {
+            globalPosition += (uint)item.DeltaTime;
+
             if (item is not NoteEvent e)
+            {
+                session.HandleInvalidMidiEventType(globalPosition, item);
                 return;
+            }
 
             (var track, var adjusted) = MapNoteEvent(e);
 
             if (track is null)
                 return;
-
-            globalPosition += (uint)item.DeltaTime;
 
             switch (adjusted)
             {
@@ -53,7 +56,7 @@ namespace ChartTools.IO.Midi.Parsing
 
                             var chord = openedNoteSources[track.Difficulty][lane] = GetOrCreateChord(globalPosition);
 
-                            session.DuplicateTrackObjectProcedure(chord.Position, "note", () => chord.Notes.Contains(lane));
+                            session.DuplicateTrackObjectProcedure(chord.Position, "note", () => chord.Notes.Contains((byte)lane));
 
                             chord.Notes.Add(lane);
                             break;

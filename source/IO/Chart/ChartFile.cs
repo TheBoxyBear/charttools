@@ -1,5 +1,4 @@
 ﻿using ChartTools.Events;
-using ChartTools.Exceptions;
 using ChartTools.Formatting;
 using ChartTools.IO.Chart.Parsing;
 using ChartTools.IO.Chart.Serializing;

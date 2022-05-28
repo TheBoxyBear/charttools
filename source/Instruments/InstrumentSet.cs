@@ -1,5 +1,4 @@
-﻿using ChartTools.Exceptions;
-using ChartTools.Lyrics;
+﻿using ChartTools.Lyrics;
 using ChartTools.SystemExtensions.Linq;
 
 using System;

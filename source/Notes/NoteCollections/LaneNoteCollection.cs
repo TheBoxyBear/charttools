@@ -1,6 +1,4 @@
-﻿using ChartTools.Exceptions;
-
-using System;
+﻿using System;
 using System.Linq;
 
 namespace ChartTools

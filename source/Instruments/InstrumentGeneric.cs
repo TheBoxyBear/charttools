@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using ChartTools.Exceptions;
-
 using DiffEnum = ChartTools.Difficulty;
 
 namespace ChartTools

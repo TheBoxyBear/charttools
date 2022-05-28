@@ -20,7 +20,7 @@ namespace ChartTools.IO.Configuration.Sessions
             GetChordEntries = (previous, chord) => (GetChordEntries = Configuration.UnsupportedModifierPolicy switch
             {
                 UnsupportedModifierPolicy.IgnoreChord => (_, _) => Enumerable.Empty<TrackObjectEntry>(),
-                UnsupportedModifierPolicy.ThrowException => (_, chord) => throw new Exception($"Chord at position {chord.Position} as an unsupported modifier for the chart format. Consider using a different {nameof(UnsupportedModifierPolicy)} to avoid this error."),
+                UnsupportedModifierPolicy.ThrowException => (_, chord) => throw new Exception($"Chord at position {chord.Position} as an unsupported modifier for the chart format."),
                 UnsupportedModifierPolicy.IgnoreModifier => (_, chord) => chord.GetChartNoteData(),
                 UnsupportedModifierPolicy.Convert => (previous, chord) => chord.GetChartModifierData(previous, this),
                 _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.UnsupportedModifierPolicy)

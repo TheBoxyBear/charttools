@@ -1,5 +1,4 @@
-﻿using ChartTools.Exceptions;
-using ChartTools.IO;
+﻿using ChartTools.IO;
 using ChartTools.IO.Ini;
 
 using System.Reflection;

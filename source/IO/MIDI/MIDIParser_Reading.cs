@@ -8,7 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using ChartTools.IO.Configuration;
 using ChartTools.Events;
-using ChartTools.Exceptions;
 
 namespace ChartTools.IO.MIDI
 {
@@ -20,7 +19,7 @@ namespace ChartTools.IO.MIDI
         /// <summary>
         /// Settings to customize the initial parsing of the file by DryWetMidi
         /// </summary>
-        private static ReadingSettings ReadingSettings { get; set; } 
+        private static ReadingSettings ReadingSettings { get; set; }
 
         /// <summary>
         /// Reads a MIDI file.

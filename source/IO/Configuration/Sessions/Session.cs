@@ -19,7 +19,7 @@ namespace ChartTools.IO.Configuration.Sessions
             DuplicateTrackObjectProcedure = (position, objectType, checkDuplicate) => (DuplicateTrackObjectProcedure = Configuration.DuplicateTrackObjectPolicy switch
             {
                 DuplicateTrackObjectPolicy.ThrowException => (position, objectType, checkDuplicate) => checkDuplicate()
-                ? throw new Exception($"Duplicate {objectType} on position {position}. Consider using a different {nameof(DuplicateTrackObjectPolicy)} to avoid this error.") : true,
+                ? throw new Exception($"Duplicate {objectType} on position {position}.") : true,
                 DuplicateTrackObjectPolicy.IncludeAll => (_, _, _) => true,
                 DuplicateTrackObjectPolicy.IncludeFirst => (_, _, checkDuplicate) => !checkDuplicate(),
                 _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.DuplicateTrackObjectPolicy)
