@@ -4,16 +4,23 @@
     {
         public static class Global
         {
-            public const string Crowd = "crowd_";
-            public const string Sync = "sync_";
+            public const string
+                BassistMovement = "bass_",
+                Crowd = "crowd_",
+                DrummerMovement = "drum_",
+                GuitaristMovement = "gtr_",
+                GuitaristSolo = "solo_",
+                GuitaristWail = "wail_",
+                KeyboardMovement = "keys_",
+                Phrase = "phrase_",
+                SingerMovement = "sing_",
+                Sync = "sync_";
         }
 
         public static class Local
         {
             public const string
                 GHL6 = "ghl_6",
-                Solo = "solo",
-                Wail = "wail_",
                 OwFace = "ow_face_";
         }
     }

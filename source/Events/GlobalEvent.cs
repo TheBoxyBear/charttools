@@ -12,10 +12,16 @@ namespace ChartTools.Events
     /// </summary>
     public class GlobalEvent : Event
     {
-        public bool IsSectionEvent => EventType is EventTypeHelper.Global.RB2CHSection or EventTypeHelper.Global.RB3Section;
-        public bool IsLyricEvent => EventType is EventTypeHelper.Global.PhraseStart or EventTypeHelper.Global.PhraseEnd or EventTypeHelper.Global.Lyric;
+        public bool IsBassistMovementEvent => EventType.StartsWith(EventTypeHeaderHelper.Global.BassistMovement);
         public bool IsCrowdEvent => EventType.StartsWith(EventTypeHeaderHelper.Global.Crowd);
+        public bool IsDrummerMovementEvent => EventType.StartsWith(EventTypeHeaderHelper.Global.DrummerMovement);
+        public bool IsGuitaristMovementEvent => EventType.StartsWith(EventTypeHeaderHelper.Global.GuitaristMovement) || EventType.StartsWith(EventTypeHeaderHelper.Global.GuitaristSolo);
+        public bool IsKeyboardMovementEvent => EventType.StartsWith(EventTypeHeaderHelper.Global.KeyboardMovement);
+        public bool IsLyricEvent => IsPhraseEvent || EventType == EventTypeHelper.Global.Lyric;
+        public bool IsPhraseEvent => EventType.StartsWith(EventTypeHeaderHelper.Global.Phrase);
+        public bool IsSectionEvent => EventType is EventTypeHelper.Global.RB2CHSection or EventTypeHelper.Global.RB3Section;
         public bool IsSyncEvent => EventType.StartsWith(EventTypeHeaderHelper.Global.Sync);
+        public bool IsWailEvent => EventType.StartsWith(EventTypeHeaderHelper.Global.GuitaristWail);
 
         /// <inheritdoc cref="Event(uint, string)"/>
         public GlobalEvent(uint position, string data) : base(position, data) { }

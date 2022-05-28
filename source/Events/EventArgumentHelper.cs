@@ -7,12 +7,12 @@
             public static class Lighting
             {
                 public const string
-                    Flare = "(flare)",
                     Blackout = "(blackout)",
                     Chase = "(chase)",
-                    Strobe = "(strobe)",
                     Color1 = "(color1)",
                     Color2 = "(color2)",
+                    Flare = "(flare)",
+                    Strobe = "(strobe)",
                     Sweep = "(sweep)";
             }
         }
