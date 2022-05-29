@@ -68,6 +68,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GHGemParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GlobalEventParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\LeadGuitarParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\MappingResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\TitleSyncTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\SectionParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\ReservedSectionHeader.cs" />

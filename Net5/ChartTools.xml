@@ -999,21 +999,21 @@
             </summary>
             <returns>Enumerable of <see cref="T:ChartTools.Events.GlobalEvent"/></returns>
         </member>
-        <member name="T:ChartTools.Exceptions.UndefinedEnumException">
+        <member name="T:ChartTools.UndefinedEnumException">
             <summary>
             Exception thrown when using an <see cref="T:System.Enum"/> value that is not defined
             </summary>
         </member>
-        <member name="P:ChartTools.Exceptions.UndefinedEnumException.Value">
+        <member name="P:ChartTools.UndefinedEnumException.Value">
             <summary>
             Value used
             </summary>
         </member>
-        <member name="M:ChartTools.Exceptions.Validator.ValidateEnum(System.Enum)">
+        <member name="M:ChartTools.Validator.ValidateEnum(System.Enum)">
             <summary>
             Validates that an <see cref="T:System.Enum"/> value is defined.
             </summary>
-            <exception cref="T:ChartTools.Exceptions.UndefinedEnumException"></exception>
+            <exception cref="T:ChartTools.UndefinedEnumException"></exception>
         </member>
         <member name="T:ChartTools.InstrumentSet">
             <summary>
@@ -1472,6 +1472,11 @@
         <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.IncludeAll">
             <summary>
             Include all objects
+            </summary>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.InvalidMidiEventTypePolicy">
+            <summary>
+            Defines how invalid Midi event types are handled
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.LyricEventSource">
@@ -1987,7 +1992,7 @@
             </summary>
             <returns>Track instance assigned to the instrument. Changed made to the passed reference will not be reflected in the instrument.</returns>
             <exception cref="T:System.ArgumentNullException"/>
-            <exception cref="T:ChartTools.Exceptions.UndefinedEnumException"/>
+            <exception cref="T:ChartTools.UndefinedEnumException"/>
         </member>
         <member name="T:ChartTools.SystemExtensions.EqualityComparison`1">
             <summary>

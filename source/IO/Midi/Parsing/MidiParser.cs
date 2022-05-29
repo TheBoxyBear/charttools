@@ -7,6 +7,8 @@ namespace ChartTools.IO.Midi.Parsing
 {
     internal abstract class MidiParser : FileParser<MidiEvent>, ISongAppliable
     {
+        protected uint globalPosition;
+
         public MidiParser(ReadingSession session) : base(session) { }
 
         public abstract void ApplyToSong(Song song);

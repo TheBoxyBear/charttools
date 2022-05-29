@@ -6,19 +6,31 @@ namespace ChartTools.IO.Midi
     {
         private static readonly Dictionary<InstrumentIdentity, string> InstrumentSequenceNames = new()
         {
-            { InstrumentIdentity.LeadGuitar, "PART GUITAR" },
-            { InstrumentIdentity.CoopGuitar, "PART GUITAR COOP" },
-            { InstrumentIdentity.Bass, "PART BASS" },
-            { InstrumentIdentity.RhythmGuitar, "PART RHYTHM" },
-            { InstrumentIdentity.Keys, "PART KEYS" },
-            { InstrumentIdentity.Drums, "PART DRUMS" },
-            { InstrumentIdentity.GHLGuitar, "PART GUITAR GHL" },
-            { InstrumentIdentity.GHLBass, "PART BASS GHL" },
-            { InstrumentIdentity.Vocals, "PART VOCALS" }
+            { InstrumentIdentity.LeadGuitar, LeadGuitarHeader },
+            { InstrumentIdentity.CoopGuitar, CoopGuitarHeader },
+            { InstrumentIdentity.Bass, BassHeader },
+            { InstrumentIdentity.RhythmGuitar, RhythmGuitarHeader },
+            { InstrumentIdentity.Keys, KeysHeader },
+            { InstrumentIdentity.Drums, DrumsHeader },
+            { InstrumentIdentity.GHLGuitar, GHLGuitarHeader },
+            { InstrumentIdentity.GHLBass, GHLBassHeader },
+            { InstrumentIdentity.Vocals, VocalsHeader }
         };
 
-        public const string GHGemsHeader = "T1 GEMS";
-        public const string GlobalEventHeader = "EVENTS";
+        public const string
+            BassHeader = "PART BASS",
+            CoopGuitarHeader = "PART GUITAR COOP",
+            DrumsHeader = "PART DRUMS",
+            GHGemsHeader = "T1 GEMS",
+            GlobalEventHeader = "EVENTS",
+            GHLGuitarHeader = "PART GUITAR GHL",
+            GHLBassHeader = "PART BASS GHL",
+            KeysHeader = "PART KEYS",
+            LeadGuitarHeader = "PART GUITAR",
+            RhythmGuitarHeader = "PART RHYTHM",
+            VocalsHeader = "PART VOCALS";
+
+
 
         public static string Instrument(InstrumentIdentity instrument) => InstrumentSequenceNames[instrument];
     }

@@ -10,9 +10,6 @@ namespace ChartTools.IO.Midi.Parsing
     {
         public override List<GlobalEvent> Result => GetResult(result);
         private readonly List<GlobalEvent> result = new();
-
-        private uint globalPosition;
-
         public GlobalEventParser(ReadingSession session) : base(session) { }
 
         protected override void HandleItem(MidiEvent item)

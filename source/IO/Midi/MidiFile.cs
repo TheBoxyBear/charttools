@@ -2,6 +2,7 @@
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Midi.Parsing;
+using ChartTools.SystemExtensions;
 
 using System;
 using System.Threading;
@@ -31,8 +32,9 @@ namespace ChartTools.IO.Midi
 
             return header switch
             {
-                MidiFormatting.GHGemsHeader => new GHGemParser(session),
                 MidiFormatting.GlobalEventHeader => new GlobalEventParser(session),
+                MidiFormatting.GHGemsHeader => new GHGemParser(session),
+                MidiFormatting.LeadGuitarHeader => new LeadGuitarParser(session),
                 _ => index == 1 ? new TitleSyncTrackParser(header, session) : null,
             };
         }

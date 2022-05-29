@@ -21,7 +21,7 @@ namespace ChartTools.IO.Chart.Serializing
 
         protected override IEnumerable<TrackObjectEntry>[] LaunchProviders()
         {
-            ApplyOverlappingSpecialPhrasePolicy(Content.SpecialPhrases, session!.Configuration.OverlappingStarPowerPolicy);
+            ApplyOverlappingSpecialPhrasePolicy(Content.SpecialPhrases, session.Configuration.OverlappingStarPowerPolicy);
 
             // Convert solo and soloend events into star power
             if (session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && Content.SpecialPhrases.Count == 0 && Content.LocalEvents is not null)
@@ -70,7 +70,7 @@ namespace ChartTools.IO.Chart.Serializing
                 case OverlappingSpecialPhrasePolicy.ThrowException:
                     foreach ((var previous, var current) in specialPhrases.RelativeLoop())
                         if (Optimizer.LengthNeedsCut(previous!, current!))
-                            throw new Exception($"Overlapping star power phrases at position {current!.Position}. Consider using {nameof(OverlappingSpecialPhrasePolicy.Cut)} to avoid this error.");
+                            throw new Exception($"Overlapping star power phrases at position {current!.Position}.");
                     break;
             }
         }

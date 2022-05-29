@@ -128,7 +128,8 @@ namespace ChartTools
         /// <summary>
         /// The chord can be played without strumming
         /// </summary>
-        Tap = 4
+        Tap = 4,
+        Big = 8
     }
     /// <summary>
     /// Standard five-fret instruments

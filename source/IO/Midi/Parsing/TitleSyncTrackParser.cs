@@ -14,7 +14,7 @@ namespace ChartTools.IO.Midi.Parsing
     {
         public override TitleSyncTraskResult Result => GetResult(result);
         protected readonly TitleSyncTraskResult result;
-        private uint globalPosition;
+
         private uint? previousSignaturePosition, previousTempoPosition;
 
         public TitleSyncTrackParser(string header, ReadingSession session) : base(session) => result = new(header, new());

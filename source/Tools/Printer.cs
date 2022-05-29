@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ChartTools.Tools
 {
-    static class Printer
+    public static class Printer
     {
         private readonly struct ConsoleContent
         {

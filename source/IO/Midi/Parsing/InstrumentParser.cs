@@ -1,6 +1,5 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
-
-using System;
+using Melanchall.DryWetMidi.Core;
 
 namespace ChartTools.IO.Midi.Parsing
 {
@@ -17,6 +16,7 @@ namespace ChartTools.IO.Midi.Parsing
             Instrument = instrument;
             result = new() { InstrumentIdentity = Instrument };
         }
+        protected abstract MappingResult<TChord> MapNoteEvent(NoteEvent e);
 
         protected override void FinaliseParse()
         {
