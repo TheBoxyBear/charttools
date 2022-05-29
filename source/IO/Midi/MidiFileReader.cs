@@ -4,7 +4,6 @@ using ChartTools.IO.Midi.Parsing;
 using Melanchall.DryWetMidi.Core;
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
@@ -15,6 +14,7 @@ namespace ChartTools.IO.Midi
     internal class MidiFileReader : FileReader<MidiEvent, MidiParser>
     {
         public ReadingSettings? Settings { get; }
+        public uint Resolution { get; private set; }
 
         public MidiFileReader(string path, Func<string, MidiParser?> parserGetter, ReadingSettings? settings) : base(path, parserGetter) => Settings = settings;
 
@@ -22,7 +22,14 @@ namespace ChartTools.IO.Midi
         {
             ParserContentGroup? currentGroup = null;
 
-            foreach (var events in DryWetFile.Read(Path, Settings).GetTrackChunks().Select(c => c.Events))
+            var file = DryWetFile.Read(Path, Settings);
+
+            if (file.TimeDivision is not TicksPerQuarterNoteTimeDivision ticks)
+                throw new Exception($"Time division must be of type {nameof(TicksPerQuarterNoteTimeDivision)}.");
+
+            Resolution = (uint)ticks.TicksPerQuarterNote;
+
+            foreach (var events in file.GetTrackChunks().Select(c => c.Events))
             {
                 using var enumerator = events.GetEnumerator();
                 enumerator.MoveNext();

@@ -50,6 +50,8 @@ namespace ChartTools.IO.Midi
             foreach (var parser in reader.Parsers)
                 parser.ApplyToSong(song);
 
+            song.Metadata.Formatting.Resolution = reader.Resolution;
+
             return song;
         }
 
