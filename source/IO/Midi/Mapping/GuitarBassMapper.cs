@@ -32,7 +32,6 @@ namespace ChartTools.IO.Midi.Mapping
                 yield return CreateMapping(null, MappingType.Animation, 0); // TODO Map animation indexes
                 yield break;
             }
-                yield return CreateMapping(null, MappingType.Animation, 0); // TODO Map animation indexes
             if (intNumber is 116)
             {
                 yield return CreateMapping(null, MappingType.Special, (byte)SpecialPhraseType.StarPowerGain);
