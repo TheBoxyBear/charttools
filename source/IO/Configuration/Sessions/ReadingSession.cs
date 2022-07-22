@@ -15,6 +15,7 @@ namespace ChartTools.IO.Configuration.Sessions
         public delegate void InvalidMidiEventTypeHandler(uint position, MidiEvent e);
         public delegate void UnopenedUnclosedObjectHandler(uint position, Action createOrInclude);
         public delegate bool TempolessAnchorHandler(Anchor anchor);
+        public delegate GuitarBassFormat UncertainGuitarBassFormatHandler(StandardInstrumentIdentity instrument);
 
         public override ReadingConfiguration Configuration { get; }
 
@@ -22,6 +23,8 @@ namespace ChartTools.IO.Configuration.Sessions
         public UnopenedUnclosedObjectHandler HandleUnopened { get; private set; }
         public UnopenedUnclosedObjectHandler HandleUnclosed { get; private set; }
         public TempolessAnchorHandler TempolessAnchorProcedure { get; private set; }
+        public UncertainGuitarBassFormatHandler UncertainGuitarBassFormatProcedure { get; private set; }
+
 
         public ReadingSession(ReadingConfiguration config, FormattingRules? formatting) : base(formatting)
         {
@@ -53,6 +56,13 @@ namespace ChartTools.IO.Configuration.Sessions
                 TempolessAnchorPolicy.Create => anchor => true,
                 _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.TempolessAnchorPolicy)
             })(anchor);
+            UncertainGuitarBassFormatProcedure = instrument => (UncertainGuitarBassFormatProcedure = Configuration.UncertainGuitarBassFormatPolicy switch
+            {
+                UncertainGuitarBassFormatPolicy.UseGuitarHero2 => _ => GuitarBassFormat.GuitarHero2Uncertain,
+                UncertainGuitarBassFormatPolicy.UseRockBand => _ => GuitarBassFormat.RockBandUncertain,
+                UncertainGuitarBassFormatPolicy.ThrowException => instrument => throw new Exception($"{instrument} has an unknown or conflicting format that cannot be mapped from Midi."),
+                _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.InvalidMidiEventTypePolicy)
+            })(instrument);
          }
     }
 }

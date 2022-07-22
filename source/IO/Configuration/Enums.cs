@@ -87,6 +87,26 @@
         Merge,
         Seperate
     }
+    /// <summary>
+    /// Defines how lead guitar and bass and handled when the Midi mapping is uncertain.
+    /// </summary>
+    public enum UncertainGuitarBassFormatPolicy : byte
+    {
+        /// <summary>
+        /// The format defaulted to when reading id used.
+        /// </summary>
+        /// <remarks>Policy is invalid when reading</remarks>
+        UseReadingDefault,
+        /// <summary>
+        /// The Guitar Hero 2 format is used.
+        /// </summary>
+        UseGuitarHero2,
+        /// <summary>
+        /// The Rock Band format is used.
+        /// </summary>
+        UseRockBand,
+        ThrowException
+    }
     public enum UnknownSectionPolicy : byte
     {
         ThrowException,

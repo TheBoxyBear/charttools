@@ -860,6 +860,16 @@
             Frets for a GHL <see cref="T:ChartTools.Note"/>
             </summary>
         </member>
+        <member name="T:ChartTools.GuitarBassFormat">
+            <summary>
+            Origins of a Midi guitar or bass chunk
+            </summary>
+        </member>
+        <member name="F:ChartTools.GuitarBassFormat.NAUnknown">
+            <summary>
+            Not applicable or unknown
+            </summary>
+        </member>
         <member name="T:ChartTools.InstrumentIdentity">
             <summary>
             All instruments
@@ -883,7 +893,7 @@
         </member>
         <member name="F:ChartTools.StandardChordModifier.HopoInvert">
             <summary>
-            Forced Hopo of <see cref="F:ChartTools.StandardChordModifier.ExplicitHopo"/> is set, otherwise inverts the natural state relative to the previous chord
+            Forced Hopo if <see cref="F:ChartTools.StandardChordModifier.ExplicitHopo"/> is set, otherwise inverts the natural state relative to the previous chord
             </summary>
         </member>
         <member name="F:ChartTools.StandardChordModifier.Tap">
@@ -1530,6 +1540,27 @@
             Each <see cref="T:ChartTools.Track"/> will contain a combination of all unique common track objects in the same <see cref="T:ChartTools.Instrument"/>
             </summary>
         </member>
+        <member name="T:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy">
+            <summary>
+            Defines how lead guitar and bass and handled when the Midi mapping is uncertain.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy.UseReadingDefault">
+            <summary>
+            The format defaulted to when reading id used.
+            </summary>
+            <remarks>Policy is invalid when reading</remarks>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy.UseGuitarHero2">
+            <summary>
+            The Guitar Hero 2 format is used.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy.UseRockBand">
+            <summary>
+            The Rock Band format is used.
+            </summary>
+        </member>
         <member name="T:ChartTools.IO.Configuration.UnsupportedModifierPolicy">
             <summary>
             Defines how to handle chord modifiers not supported by the target format
@@ -2031,6 +2062,18 @@
             <param name="StartReplace">Method that defines if a source marks the start of the section to replace</param>
             <param name="EndReplace">Method that defines if a source item marks the end of the section to replace</param>
             <param name="AddIfMissing">The replacement should be appended to the collection if the section to replace is not found</param>
+        </member>
+        <member name="P:ChartTools.SystemExtensions.Linq.SectionReplacement`1.Replacement">
+            <summary>Items to replace with</summary>
+        </member>
+        <member name="P:ChartTools.SystemExtensions.Linq.SectionReplacement`1.StartReplace">
+            <summary>Method that defines if a source marks the start of the section to replace</summary>
+        </member>
+        <member name="P:ChartTools.SystemExtensions.Linq.SectionReplacement`1.EndReplace">
+            <summary>Method that defines if a source item marks the end of the section to replace</summary>
+        </member>
+        <member name="P:ChartTools.SystemExtensions.Linq.SectionReplacement`1.AddIfMissing">
+            <summary>The replacement should be appended to the collection if the section to replace is not found</summary>
         </member>
         <member name="T:ChartTools.SystemExtensions.Linq.LinqExtensions">
             <summary>

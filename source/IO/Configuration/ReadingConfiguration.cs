@@ -13,6 +13,7 @@ namespace ChartTools.IO.Configuration
         public UnclosedTrackObjectPolicy UnclosedTracjObjectPolicy { get; set; }
         public UnknownSectionPolicy UnknownSectionPolicy { get; set; }
         public TempolessAnchorPolicy TempolessAnchorPolicy { get; set; }
+        public UncertainGuitarBassFormatPolicy UncertainGuitarBassFormatPolicy { get; set; }
 
         /// <summary>
         /// Configuration object to customize how DryWetMidi reads Midi file before being parsed

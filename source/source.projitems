@@ -64,13 +64,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\FileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFormatting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Exceptions\InvalidMidiEventTypeException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\GHGemsMapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\GuitarBassMapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\InstrumentMapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\MidiMapping.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\TrackObjectMappingResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\MidiMappingResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFileReader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GHGemParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GlobalEventParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GuitarBassParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\LaneInstrumentParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\LeadGuitarParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\MappingResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\TitleSyncTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\SectionParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\ReservedSectionHeader.cs" />
@@ -165,5 +169,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)IO\Appliables\" />
+    <Folder Include="$(MSBuildThisFileDirectory)IO\Midi\Serializing\" />
   </ItemGroup>
 </Project>

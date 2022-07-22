@@ -102,6 +102,21 @@ namespace ChartTools
     public enum GHLLane : byte { Open, Black1, Black2, Black3, White1, White2, White3 }
 
     /// <summary>
+    /// Origins of a Midi guitar or bass chunk
+    /// </summary>
+    public enum GuitarBassFormat : byte
+    {
+        /// <summary>
+        /// Not applicable or unknown
+        /// </summary>
+        NAUnknown = 1,
+        GuitarHero2,
+        GuitarHero2Uncertain = NAUnknown | GuitarHero2,
+        RockBand,
+        RockBandUncertain = NAUnknown | RockBand
+    }
+
+    /// <summary>
     /// All instruments
     /// </summary>
     public enum InstrumentIdentity : byte { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys, Vocals }
@@ -122,9 +137,11 @@ namespace ChartTools
         /// </summary>
         ExplicitHopo = 1,
         /// <summary>
-        /// Forced Hopo of <see cref="ExplicitHopo"/> is set, otherwise inverts the natural state relative to the previous chord
+        /// Forced Hopo if <see cref="ExplicitHopo"/> is set, otherwise inverts the natural state relative to the previous chord
         /// </summary>
         HopoInvert = 2,
+        ForcedHopo = ExplicitHopo | HopoInvert,
+        ForcedStrum = ExplicitHopo,
         /// <summary>
         /// The chord can be played without strumming
         /// </summary>
@@ -158,7 +175,9 @@ namespace ChartTools
         /// </summary>
         StarPowerActivation,
         Player1FaceOff,
-        Player2FaceOff
+        Player2FaceOff,
+        Trill,
+        Tremolo
     }
 }
 

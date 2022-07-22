@@ -1,5 +1,5 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
-using Melanchall.DryWetMidi.Core;
+using ChartTools.IO.Midi.Mapping;
 
 namespace ChartTools.IO.Midi.Parsing
 {
@@ -11,12 +11,14 @@ namespace ChartTools.IO.Midi.Parsing
         public override Instrument<TChord> Result => GetResult(result);
         protected readonly Instrument<TChord> result;
 
-        protected InstrumentParser(InstrumentIdentity instrument, ReadingSession session) : base(session)
+        protected readonly InstrumentMapper<TChord> mapper;
+
+        protected InstrumentParser(InstrumentIdentity instrument, InstrumentMapper<TChord> mapper, ReadingSession session) : base(session)
         {
             Instrument = instrument;
             result = new() { InstrumentIdentity = Instrument };
+            this.mapper = mapper;
         }
-        protected abstract MappingResult<TChord> MapNoteEvent(NoteEvent e);
 
         protected override void FinaliseParse()
         {

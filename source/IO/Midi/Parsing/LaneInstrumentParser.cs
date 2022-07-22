@@ -1,4 +1,5 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
+using ChartTools.IO.Midi.Mapping;
 using ChartTools.SystemExtensions;
 
 using Melanchall.DryWetMidi.Core;
@@ -9,6 +10,14 @@ using System.Linq;
 
 namespace ChartTools.IO.Midi.Parsing
 {
+    internal abstract class LaneInstrumentParser<TChord, TLane, TModifier> : LaneInstrumentParser<TChord, Note<TLane>, TLane, TModifier> where TChord :
+        LaneChord<Note<TLane>, TLane, TModifier>
+        where TLane : struct, Enum
+        where TModifier : struct, Enum
+    {
+        protected LaneInstrumentParser(InstrumentIdentity instrument, InstrumentMapper<TChord> mapper, ReadingSession session) : base(instrument, mapper, session) { }
+    }
+
     internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : InstrumentParser<TChord>
         where TChord : LaneChord<TNote, TLane, TModifier>
         where TNote : Note<TLane>, new()
@@ -31,7 +40,7 @@ namespace ChartTools.IO.Midi.Parsing
 
         protected readonly Dictionary<SpecialPhraseType, uint?> openedSharedSpecialPositions = new(from type in EnumCache<SpecialPhraseType>.Values select new KeyValuePair<SpecialPhraseType, uint?>(type, null));
 
-        public LaneInstrumentParser(InstrumentIdentity instrument, ReadingSession session) : base(instrument, session) { }
+        public LaneInstrumentParser(InstrumentIdentity instrument, InstrumentMapper<TChord> mapper, ReadingSession session) : base(instrument, mapper, session) { }
 
         protected override void HandleItem(MidiEvent item)
         {
@@ -50,11 +59,13 @@ namespace ChartTools.IO.Midi.Parsing
                 return;
             }
 
-            if (CustomHandle(note))
-                return;
-
-            var mapping = MapNoteEvent(note);
-            var track = mapping.Track;
+            if (!CustomHandle(note))
+                foreach (var mapping in mapper.MapNoteEvent(globalPosition, note))
+                    BaseHandle(mapping);
+        }
+        protected void BaseHandle(MidiMappingResult mapping)
+        {
+            var track = GetOrCreateTrack(mapping.Difficulty);
 
             switch (mapping.Type)
             {
@@ -62,9 +73,9 @@ namespace ChartTools.IO.Midi.Parsing
                     var type = (SpecialPhraseType)mapping.Index;
                     var openedPosition = track is null ? openedSharedSpecialPositions[type] : openedSpecialPositions[track.Difficulty][type];
 
-                    switch (note)
+                    switch (mapping.State)
                     {
-                        case NoteOnEvent:
+                        case NoteState.Open:
                             if (track is null)
                             {
                                 if (openedPosition is not null)
@@ -74,37 +85,37 @@ namespace ChartTools.IO.Midi.Parsing
                                             CloseSpecial(track);
                                     });
 
-                                openedSharedSpecialPositions[type] = globalPosition;
+                                openedSharedSpecialPositions[type] = mapping.Position;
                             }
                             else
                             {
                                 if (openedPosition is not null)
                                     session.HandleUnclosed(openedPosition.Value, () => CloseSpecial(track));
 
-                                openedSpecialPositions[track.Difficulty][type] = globalPosition;
+                                openedSpecialPositions[track.Difficulty][type] = mapping.Position;
                             }
                             break;
-                        case NoteOffEvent:
+                        case NoteState.Close:
                             if (track is null)
                             {
                                 if (openedPosition is null)
-                                    session.HandleUnopened(globalPosition, () =>
+                                    session.HandleUnopened(mapping.Position, () =>
                                     {
                                         foreach (var track in tracks)
-                                            track.SpecialPhrases.Add(new(globalPosition, type));
+                                            track.SpecialPhrases.Add(new(mapping.Position, type));
                                     });
                                 else
                                 {
                                     foreach (var t in tracks)
                                         CloseSpecial(t);
 
-                                    openedSharedSpecialPositions[type] = globalPosition;
+                                    openedSharedSpecialPositions[type] = mapping.Position;
                                 }
                             }
                             else
                             {
                                 if (openedPosition is null)
-                                    session.HandleUnopened(globalPosition, () => track.SpecialPhrases.Add(new(globalPosition, type)));
+                                    session.HandleUnopened(mapping.Position, () => track.SpecialPhrases.Add(new(mapping.Position, type)));
                                 else
                                 {
                                     CloseSpecial(track);
@@ -114,7 +125,7 @@ namespace ChartTools.IO.Midi.Parsing
                             break;
                     }
 
-                    void CloseSpecial(Track<TChord> track) => track.SpecialPhrases.Add(new(globalPosition, type, globalPosition - openedPosition!.Value));
+                    void CloseSpecial(Track<TChord> track) => track.SpecialPhrases.Add(new(mapping.Position, type, mapping.Position - openedPosition!.Value));
                     break;
                 case MappingType.Modifier:
                     var modifierIndex = mapping.Index;
@@ -127,7 +138,7 @@ namespace ChartTools.IO.Midi.Parsing
 
                     void ApplyModifier(Track<TChord> track)
                     {
-                        var chord = GetOrCreateChord(globalPosition, track);
+                        var chord = GetOrCreateChord(mapping.Position, track);
                         AddModifier(chord, modifierIndex);
                     }
                     break;
@@ -138,24 +149,24 @@ namespace ChartTools.IO.Midi.Parsing
                     var lane = ToLane(mapping.Index);
                     var openedSource = openedNoteSources[track.Difficulty][lane];
 
-                    switch (note)
+                    switch (mapping.State)
                     {
-                        case NoteOnEvent:
+                        case NoteState.Open:
                             if (openedSource is not null)
-                                session.HandleUnclosed(openedSource.Position, () => openedSource.Notes[lane]!.Length = globalPosition - openedSource.Position);
+                                session.HandleUnclosed(openedSource.Position, () => openedSource.Notes[lane]!.Length = mapping.Position - openedSource.Position);
 
-                            var chord = openedNoteSources[track.Difficulty][lane] = GetOrCreateChord(globalPosition, track);
+                            var chord = openedNoteSources[track.Difficulty][lane] = GetOrCreateChord(mapping.Position, track);
 
                             session.DuplicateTrackObjectProcedure(chord.Position, "note", () => chord.Notes.Contains(lane));
 
                             chord.Notes.Add(lane);
                             break;
-                        case NoteOffEvent:
+                        case NoteState.Close:
                             if (openedSource is null)
-                                session.HandleUnopened(globalPosition, () => GetOrCreateChord(globalPosition, track).Notes.Add(lane));
+                                session.HandleUnopened(mapping.Position, () => GetOrCreateChord(mapping.Position, track).Notes.Add(lane));
                             else
                             {
-                                var length = globalPosition - openedSource.Position;
+                                var length = mapping.Position - openedSource.Position;
 
                                 if (length < session.Formatting?.SustainCutoff)
                                     length = 0;
@@ -186,7 +197,6 @@ namespace ChartTools.IO.Midi.Parsing
         protected abstract void AddModifier(TChord chord, byte index);
         protected abstract TChord CreateChord(uint position);
 
-
-        protected Track<TChord> GetOrCreateTrack(Difficulty difficulty) => tracks[(int)difficulty] ??= new() { Difficulty = difficulty };
+        protected Track<TChord>? GetOrCreateTrack(Difficulty? difficulty) => difficulty is null ? null : (tracks[(int)difficulty] ??= new() { Difficulty = difficulty.Value });
     }
 }
