@@ -26,7 +26,7 @@ namespace ChartTools.IO.Chart.Serializing
             // Convert solo and soloend events into star power
             if (session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && Content.SpecialPhrases.Count == 0 && Content.LocalEvents is not null)
             {
-                SpecialPhrase? starPower = null;
+                TrackSpecialPhrase? starPower = null;
 
                 foreach (var e in Content.LocalEvents)
                     switch (e.EventType)
@@ -38,7 +38,7 @@ namespace ChartTools.IO.Chart.Serializing
                                 Content.SpecialPhrases.Add(starPower);
                             }
 
-                            starPower = new(e.Position, SpecialPhraseType.StarPowerGain);
+                            starPower = new(e.Position, TrackSpecialPhraseType.StarPowerGain);
                             break;
                         case EventTypeHelper.Local.SoloEnd when starPower is not null:
 
@@ -60,7 +60,7 @@ namespace ChartTools.IO.Chart.Serializing
             };
         }
 
-        private static void ApplyOverlappingSpecialPhrasePolicy(IEnumerable<SpecialPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
+        private static void ApplyOverlappingSpecialPhrasePolicy(IEnumerable<TrackSpecialPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
         {
             switch (policy)
             {

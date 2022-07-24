@@ -35,7 +35,7 @@ namespace ChartTools.IO.Midi
             {
                 MidiFormatting.GlobalEventHeader => new GlobalEventParser(session),
                 MidiFormatting.GHGemsHeader => new StandardInstrumentParser(StandardInstrumentIdentity.LeadGuitar, new GHGemsMapper(), session),
-                MidiFormatting.LeadGuitarHeader => new StandardInstrumentParser(StandardInstrumentIdentity.LeadGuitar, new GuitarBassMapper(), session),
+                MidiFormatting.LeadGuitarHeader => new GHGemsParser(StandardInstrumentIdentity.LeadGuitar, session),
                 _ => index == 1 ? new TitleSyncTrackParser(header, session) : null,
             };
         }

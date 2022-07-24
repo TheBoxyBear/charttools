@@ -1,6 +1,6 @@
 ﻿namespace ChartTools.IO.Midi.Mapping
 {
-    internal enum MappingType : byte { Note, Modifier, Special, Animation }
+    internal enum MappingType : byte { Note, Modifier, Special, Animation, BigRock }
     internal enum NoteState : byte { Open, Close }
 
     internal struct MidiMappingResult

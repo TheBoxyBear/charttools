@@ -103,7 +103,7 @@ namespace ChartTools.IO.Chart.Parsing
 
         public void ApplyToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(Result);
 
-        private static void ApplyOverlappingSpecialPhrasePolicy(IEnumerable<SpecialPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
+        private static void ApplyOverlappingSpecialPhrasePolicy(IEnumerable<TrackSpecialPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
         {
             switch (policy)
             {

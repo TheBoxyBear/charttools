@@ -35,26 +35,26 @@ namespace ChartTools
         /// <summary>
         /// Set of special phrases
         /// </summary>
-        public List<SpecialPhrase> SpecialPhrases { get; } = new();
+        public List<TrackSpecialPhrase> SpecialPhrases { get; } = new();
 
         /// <summary>
         /// Groups of notes of the same position
         /// </summary>
         public abstract IReadOnlyList<Chord> Chords { get; }
 
-        internal IEnumerable<SpecialPhrase> SoloToStarPower(bool removeEvents)
+        internal IEnumerable<TrackSpecialPhrase> SoloToStarPower(bool removeEvents)
         {
             if (LocalEvents is null)
                 yield break;
 
             foreach (LocalEvent e in LocalEvents.OrderBy(e => e.Position))
             {
-                SpecialPhrase? phrase = null;
+                TrackSpecialPhrase? phrase = null;
 
                 switch (e.EventType)
                 {
                     case EventTypeHelper.Local.Solo:
-                        phrase = new(e.Position, SpecialPhraseType.StarPowerGain);
+                        phrase = new(e.Position, TrackSpecialPhraseType.StarPowerGain);
                         break;
                     case EventTypeHelper.Local.SoloEnd:
                         if (phrase is not null)

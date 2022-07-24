@@ -31,18 +31,18 @@ namespace ChartTools
         /// <summary>
         /// Format of lead guitar and bass. Not applicable to other instruments.
         /// </summary>
-        public GuitarBassFormat GuitarBassFormat
+        public MidiInstrumentOrigin MidiOrigin
         {
-            get => guitarBassFormat;
+            get => midiOrigin;
             set
             {
-                if (InstrumentIdentity is not InstrumentIdentity.LeadGuitar or InstrumentIdentity.Bass)
-                    throw new Exception($"{nameof(guitarBassFormat)} can only be used with lead guitar or bass.");
+                if (value is MidiInstrumentOrigin.GuitarHero1 && InstrumentIdentity is not InstrumentIdentity.LeadGuitar)
+                    throw new ArgumentException($"{InstrumentIdentity} is not supported by Guitar Hero 1.", nameof(value));
 
-                guitarBassFormat = value;
+                midiOrigin = value;
             }
         }
-        private GuitarBassFormat guitarBassFormat;
+        private MidiInstrumentOrigin midiOrigin;
 
         /// <summary>
         /// Type of instrument
@@ -67,6 +67,11 @@ namespace ChartTools
             }
         }
         private InstrumentType? _instrumentType;
+
+        /// <summary>
+        /// Set of special phrases
+        /// </summary>
+        public List<InstrumentSpecialPhrase> SpecialPhrases { get; set; }
 
         /// <inheritdoc cref="InstrumentDifficultySet.GetDifficulty(InstrumentIdentity)"/>
         public sbyte? GetDifficulty(InstrumentDifficultySet difficulties) => difficulties.GetDifficulty(InstrumentIdentity);

@@ -26,9 +26,9 @@ namespace ChartTools.IO.Midi.Mapping
             };
             (var type, var newAdjusted) = adjusted switch
             {
-                8 => (MappingType.Special, (int)SpecialPhraseType.StarPowerGain),
-                10 => (MappingType.Special, (int)SpecialPhraseType.Player1FaceOff),
-                11 => (MappingType.Special, (int)SpecialPhraseType.Player2FaceOff),
+                8 => (MappingType.Special, (int)TrackSpecialPhraseType.StarPowerGain),
+                10 => (MappingType.Special, (int)TrackSpecialPhraseType.Player1FaceOff),
+                11 => (MappingType.Special, (int)TrackSpecialPhraseType.Player2FaceOff),
                 _ => (MappingType.Note, adjusted)
             };
 

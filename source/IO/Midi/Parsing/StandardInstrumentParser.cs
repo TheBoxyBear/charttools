@@ -6,6 +6,9 @@ namespace ChartTools.IO.Midi.Parsing
     internal class StandardInstrumentParser : LaneInstrumentParser<StandardChord, StandardLane, StandardChordModifier>
     {
         public new StandardInstrumentIdentity Instrument => (StandardInstrumentIdentity)base.Instrument;
+        public override MidiInstrumentOrigin Origin => MidiInstrumentOrigin.RockBand;
+
+        protected override byte MaxBigRockIndex => 0;
 
         public StandardInstrumentParser(StandardInstrumentIdentity instrument, InstrumentMapper<StandardChord> mapper, ReadingSession session) : base((InstrumentIdentity)instrument, mapper, session) { }
 

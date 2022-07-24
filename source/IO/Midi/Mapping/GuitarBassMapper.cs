@@ -15,8 +15,8 @@ namespace ChartTools.IO.Midi.Mapping
             {
                 var specialType = intNumber switch
                 {
-                    126 => (byte)SpecialPhraseType.Trill,
-                    127 => (byte)SpecialPhraseType.Tremolo
+                    126 => (byte)TrackSpecialPhraseType.Trill,
+                    127 => (byte)TrackSpecialPhraseType.Tremolo
                 };
 
                 yield return CreateMapping(Difficulty.Expert, MappingType.Special, specialType);
@@ -27,6 +27,12 @@ namespace ChartTools.IO.Midi.Mapping
                 yield break;
             }
 
+            if (intNumber is > 119 and < 125)
+            {
+                yield return CreateMapping(null, MappingType.BigRock, (byte)(125 - intNumber));
+                yield break;
+            }
+
             if (intNumber is < 60)
             {
                 yield return CreateMapping(null, MappingType.Animation, 0); // TODO Map animation indexes
@@ -34,7 +40,7 @@ namespace ChartTools.IO.Midi.Mapping
             }
             if (intNumber is 116)
             {
-                yield return CreateMapping(null, MappingType.Special, (byte)SpecialPhraseType.StarPowerGain);
+                yield return CreateMapping(null, MappingType.Special, (byte)TrackSpecialPhraseType.StarPowerGain);
                 yield break;
             }
 
@@ -51,9 +57,9 @@ namespace ChartTools.IO.Midi.Mapping
             {
                 6 => (MappingType.Modifier, (int)StandardChordModifier.ForcedHopo),
                 7 => (MappingType.Modifier, (int)StandardChordModifier.ForcedStrum),
-                8 => (MappingType.Special, (int)SpecialPhraseType.StarPowerGain),
-                10 => (MappingType.Special, (int)SpecialPhraseType.Player1FaceOff),
-                11 => (MappingType.Special, (int)SpecialPhraseType.Player2FaceOff),
+                8 => (MappingType.Special, (int)TrackSpecialPhraseType.StarPowerGain),
+                10 => (MappingType.Special, (int)TrackSpecialPhraseType.Player1FaceOff),
+                11 => (MappingType.Special, (int)TrackSpecialPhraseType.Player2FaceOff),
                 110 => (MappingType.Modifier, (int)StandardChordModifier.Big),
                 _ => (MappingType.Note, adjusted)
             };

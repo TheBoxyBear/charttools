@@ -5,38 +5,44 @@ using Melanchall.DryWetMidi.Core;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ChartTools.IO.Midi.Parsing
 {
     internal class GuitarBassParser : StandardInstrumentParser
     {
-        private GuitarBassFormat format;
+        private MidiInstrumentOrigin format;
         private readonly List<MidiMappingResult> mappings = new();
+        private readonly Dictionary<int, uint?> openedBigRockPosition = new(from index in Enumerable.Range(1, 5) select new KeyValuePair<int, uint?>(index, null));
+
+        public override MidiInstrumentOrigin Origin => format;
 
         public GuitarBassParser(StandardInstrumentIdentity instrument, ReadingSession session) : base(instrument, new GuitarBassMapper(), session)
         {
             if (instrument is not StandardInstrumentIdentity.LeadGuitar or StandardInstrumentIdentity.Bass)
-                throw new ArgumentException("Instrument must be lead guitar or bass.", nameof(instrument));
+                throw new ArgumentException($"Instrument must be lead guitar or bass to use to use {nameof(GuitarBassParser)}.", nameof(instrument));
         }
 
         protected override bool CustomHandle(NoteEvent note)
         {
-            var newFormat = GuitarBassFormat.NAUnknown;
+            var newFormat = MidiInstrumentOrigin.Unknown;
             var newMappings = mapper.MapNoteEvent(globalPosition, note);
 
             foreach (var mapping in mapper.MapNoteEvent(globalPosition, note))
             {
-                if (mapping.Type is MappingType.Animation || (note.NoteNumber == 116))
-                    newFormat = GuitarBassFormat.RockBand;
+                if (mapping.Type is MappingType.Animation || note.NoteNumber == 116)
+                    newFormat = MidiInstrumentOrigin.RockBand;
                 else if (mapping.Type is MappingType.Special)
                 {
-                    if (mapping.Index is (byte)SpecialPhraseType.Trill or (byte)SpecialPhraseType.Tremolo)
-                        newFormat = GuitarBassFormat.RockBand;
+                    if (mapping.Index is (byte)TrackSpecialPhraseType.Trill or (byte)TrackSpecialPhraseType.Tremolo)
+                        newFormat = MidiInstrumentOrigin.RockBand;
                     else if (mapping.Difficulty is not Difficulty.Expert)
-                        newFormat = GuitarBassFormat.GuitarHero2;
+                        newFormat = MidiInstrumentOrigin.GuitarHero2;
                 }
+                else if (mapping.Type is MappingType.BigRock)
+                    newFormat = MidiInstrumentOrigin.RockBand;
 
-                if (format is GuitarBassFormat.NAUnknown)
+                if (format is MidiInstrumentOrigin.Unknown)
                     format = newFormat;
                 else if (format != newFormat)
                     format = session.UncertainGuitarBassFormatProcedure(Instrument);
@@ -49,7 +55,7 @@ namespace ChartTools.IO.Midi.Parsing
 
         protected override void FinaliseParse()
         {
-            if (format is GuitarBassFormat.NAUnknown)
+            if (format is MidiInstrumentOrigin.Unknown)
                 format = session.UncertainGuitarBassFormatProcedure(Instrument);
 
             foreach (var mapping in mappings)
@@ -57,22 +63,27 @@ namespace ChartTools.IO.Midi.Parsing
                 switch (mapping.Type)
                 {
                     case MappingType.Note:
-                        BaseHandle(mapping);
+                        HandleNote(mapping);
                         break;
                     case MappingType.Modifier:
-                        if (format.HasFlag(GuitarBassFormat.RockBand) && mapping.Difficulty == Difficulty.Expert)
-                            BaseHandle(mapping);
+                        if (format.HasFlag(MidiInstrumentOrigin.RockBand) && mapping.Difficulty == Difficulty.Expert)
+                            HandleModifier(mapping);
                         break;
-                    case MappingType.Special when format.HasFlag(GuitarBassFormat.RockBand):
-                        if (mapping.Index is (byte)SpecialPhraseType.Trill or (byte)SpecialPhraseType.Tremolo || mapping.Difficulty is null)
-                            BaseHandle(mapping);
+                    case MappingType.Special when format.HasFlag(MidiInstrumentOrigin.RockBand):
+                        if (mapping.Index is (byte)TrackSpecialPhraseType.Trill or (byte)TrackSpecialPhraseType.Tremolo || mapping.Difficulty is null)
+                            HandleSpecial(mapping);
                         break;
-                    case MappingType.Special when format.HasFlag(GuitarBassFormat.GuitarHero2):
-                        if (mapping.Index is not (byte)SpecialPhraseType.Trill or (byte)SpecialPhraseType.Tremolo)
-                            BaseHandle(mapping);
+                    case MappingType.Special when format.HasFlag(MidiInstrumentOrigin.GuitarHero2):
+                        if (mapping.Index is not (byte)TrackSpecialPhraseType.Trill or (byte)TrackSpecialPhraseType.Tremolo)
+                            HandleSpecial(mapping);
+                        break;
+                    case MappingType.BigRock:
+                        HandleBigRock(mapping);
                         break;
                 }
             }
+
+            base.FinaliseParse();
         }
     }
 }

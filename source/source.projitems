@@ -72,6 +72,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\MidiMappingResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFileReader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GHGemsParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GlobalEventParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GuitarBassParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\LaneInstrumentParser.cs" />
@@ -82,6 +83,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\Section.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\SectionSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\TextFileWriter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Special\InstrumentSpecialPhrase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Special\TrackSpecialPhrase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SystemExtentions\EnumCache.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SystemExtentions\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SystemExtentions\FuncEqualityComparer.cs" />
@@ -162,7 +165,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Optimizer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\TempoRescaler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\TrackObject.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SpecialPhrase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tracks\Track.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tracks\TrackGeneric.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tracks\UniqueTrackObjectCollection.cs" />

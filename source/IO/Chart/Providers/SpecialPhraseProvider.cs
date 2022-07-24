@@ -6,8 +6,8 @@ using System.Linq;
 
 namespace ChartTools.IO.Chart.Providers
 {
-    internal class SpeicalPhraseProvider : ISerializerDataProvider<SpecialPhrase, TrackObjectEntry>
+    internal class SpeicalPhraseProvider : ISerializerDataProvider<TrackSpecialPhrase, TrackObjectEntry>
     {
-        public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<SpecialPhrase> source, WritingSession session) => source.Select(sp => new TrackObjectEntry(sp.Position, "S", $"{sp.TypeCode} {sp.Length}"));
+        public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<TrackSpecialPhrase> source, WritingSession session) => source.Select(sp => new TrackObjectEntry(sp.Position, "S", $"{sp.TypeCode} {sp.Length}"));
     }
 }

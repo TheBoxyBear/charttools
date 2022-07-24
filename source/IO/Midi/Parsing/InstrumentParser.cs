@@ -11,6 +11,8 @@ namespace ChartTools.IO.Midi.Parsing
         public override Instrument<TChord> Result => GetResult(result);
         protected readonly Instrument<TChord> result;
 
+        public abstract MidiInstrumentOrigin Origin { get; }
+
         protected readonly InstrumentMapper<TChord> mapper;
 
         protected InstrumentParser(InstrumentIdentity instrument, InstrumentMapper<TChord> mapper, ReadingSession session) : base(session)
@@ -22,10 +24,19 @@ namespace ChartTools.IO.Midi.Parsing
 
         protected override void FinaliseParse()
         {
+            result.MidiOrigin = Origin;
+
             foreach (var track in tracks)
                 result.SetTrack(track);
 
             base.FinaliseParse();
+        }
+
+        protected uint GetSustain(uint start, uint end)
+        {
+            var length = end - start;
+
+            return length < session.Formatting?.SustainCutoff ? 0 : length;
         }
     }
 }

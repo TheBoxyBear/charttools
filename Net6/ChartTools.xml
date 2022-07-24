@@ -860,14 +860,9 @@
             Frets for a GHL <see cref="T:ChartTools.Note"/>
             </summary>
         </member>
-        <member name="T:ChartTools.GuitarBassFormat">
+        <member name="T:ChartTools.MidiInstrumentOrigin">
             <summary>
-            Origins of a Midi guitar or bass chunk
-            </summary>
-        </member>
-        <member name="F:ChartTools.GuitarBassFormat.NAUnknown">
-            <summary>
-            Not applicable or unknown
+            Origins of an instrument
             </summary>
         </member>
         <member name="T:ChartTools.InstrumentIdentity">
@@ -912,24 +907,29 @@
             Frets for a standard note
             </summary>
         </member>
-        <member name="T:ChartTools.SpecialPhraseType">
+        <member name="T:ChartTools.TrackSpecialPhraseType">
             <summary>
-            Types of <see cref="T:ChartTools.SpecialPhrase"/>
+            Types of <see cref="T:ChartTools.TrackSpecialPhrase"/>
             </summary>
         </member>
-        <member name="F:ChartTools.SpecialPhraseType.Unknown">
+        <member name="F:ChartTools.TrackSpecialPhraseType.Unknown">
             <summary>
-            The <see cref="P:ChartTools.SpecialPhrase.TypeCode"/> is not a recognized phrase type
+            The <see cref="P:ChartTools.TrackSpecialPhrase.TypeCode"/> is not a recognized phrase type
             </summary>
         </member>
-        <member name="F:ChartTools.SpecialPhraseType.StarPowerGain">
+        <member name="F:ChartTools.TrackSpecialPhraseType.StarPowerGain">
             <summary>
             Grants star power if all notes are hit
             </summary>
         </member>
-        <member name="F:ChartTools.SpecialPhraseType.StarPowerActivation">
+        <member name="F:ChartTools.TrackSpecialPhraseType.StarPowerActivation">
             <summary>
             Allows the activation of star power
+            </summary>
+        </member>
+        <member name="T:ChartTools.InstrumentSpecialPhraseType">
+            <summary>
+            Types of <see cref="T:ChartTools.InstrumentSpecialPhrase"/>
             </summary>
         </member>
         <member name="T:ChartTools.Events.Event">
@@ -1866,9 +1866,19 @@
             Identity of the instrument the object belongs to
             </summary>
         </member>
+        <member name="P:ChartTools.Instrument.MidiOrigin">
+            <summary>
+            Format of lead guitar and bass. Not applicable to other instruments.
+            </summary>
+        </member>
         <member name="P:ChartTools.Instrument.InstrumentType">
             <summary>
             Type of instrument
+            </summary>
+        </member>
+        <member name="P:ChartTools.Instrument.SpecialPhrases">
+            <summary>
+            Set of special phrases
             </summary>
         </member>
         <member name="M:ChartTools.Instrument.GetDifficulty(ChartTools.InstrumentDifficultySet)">
@@ -2024,6 +2034,60 @@
             <returns>Track instance assigned to the instrument. Changed made to the passed reference will not be reflected in the instrument.</returns>
             <exception cref="T:System.ArgumentNullException"/>
             <exception cref="T:ChartTools.UndefinedEnumException"/>
+        </member>
+        <member name="T:ChartTools.InstrumentSpecialPhrase">
+            <summary>
+            Phrase related to an instrument that triggers an in-game event.
+            </summary>
+        </member>
+        <member name="P:ChartTools.InstrumentSpecialPhrase.Type">
+            <summary>
+            Type of the phrase that drives the gameplay effect
+            </summary>
+        </member>
+        <member name="P:ChartTools.InstrumentSpecialPhrase.TypeCode">
+            <summary>
+            Numerical value of the phrase type
+            </summary>
+        </member>
+        <member name="M:ChartTools.InstrumentSpecialPhrase.#ctor(System.UInt32,ChartTools.InstrumentSpecialPhraseType,System.UInt32)">
+            <summary>
+            Creates an instance of <see cref="T:ChartTools.InstrumentSpecialPhrase"/>.
+            </summary>
+            <param name="position">Position of the phrase</param>
+            <param name="type">Effect of the phrase</param>
+            <param name="length">Duration in ticks</param>
+        </member>
+        <member name="M:ChartTools.InstrumentSpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)">
+            <inheritdoc cref="M:ChartTools.InstrumentSpecialPhrase.#ctor(System.UInt32,ChartTools.InstrumentSpecialPhraseType,System.UInt32)"/>
+            <param name="typeCode">Numeric value of the phrase type. Can be used to define custom phrases.</param>
+        </member>
+        <member name="T:ChartTools.TrackSpecialPhrase">
+            <summary>
+            Phrase related to a track that triggers an in-game event.
+            </summary>
+        </member>
+        <member name="P:ChartTools.TrackSpecialPhrase.Type">
+            <summary>
+            Type of the phrase that drives the gameplay effect
+            </summary>
+        </member>
+        <member name="P:ChartTools.TrackSpecialPhrase.TypeCode">
+            <summary>
+            Numerical value of the phrase type
+            </summary>
+        </member>
+        <member name="M:ChartTools.TrackSpecialPhrase.#ctor(System.UInt32,ChartTools.TrackSpecialPhraseType,System.UInt32)">
+            <summary>
+            Creates an instance of <see cref="T:ChartTools.TrackSpecialPhrase"/>.
+            </summary>
+            <param name="position">Position of the phrase</param>
+            <param name="type">Effect of the phrase</param>
+            <param name="length">Duration in ticks</param>
+        </member>
+        <member name="M:ChartTools.TrackSpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)">
+            <inheritdoc cref="M:ChartTools.TrackSpecialPhrase.#ctor(System.UInt32,ChartTools.TrackSpecialPhraseType,System.UInt32)"/>
+            <param name="typeCode">Numeric value of the phrase type. Can be used to define custom phrases.</param>
         </member>
         <member name="T:ChartTools.SystemExtensions.EqualityComparison`1">
             <summary>
@@ -2830,29 +2894,6 @@
             Creates a new instance of <see cref="T:ChartTools.TrackObject"/>.
             </summary>
             <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
-        </member>
-        <member name="T:ChartTools.SpecialPhrase">
-            <summary>
-            Sequence of chords that gives star power if all the contained chords are played successfully
-            </summary>
-        </member>
-        <member name="P:ChartTools.SpecialPhrase.Type">
-            <summary>
-            Type of the phrase that drives the gameplay effect
-            </summary>
-        </member>
-        <member name="P:ChartTools.SpecialPhrase.TypeCode">
-            <summary>
-            Numerical value of the phrase type
-            </summary>
-        </member>
-        <member name="M:ChartTools.SpecialPhrase.#ctor(System.UInt32,ChartTools.SpecialPhraseType,System.UInt32)">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.SpecialPhrase"/>.
-            </summary>
-            <param name="position">Position of the phrase</param>
-            <param name="type">Effect of the phrase</param>
-            <param name="length">Duration in ticks</param>
         </member>
         <member name="T:ChartTools.Track">
             <summary>

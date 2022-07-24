@@ -30,17 +30,23 @@ namespace ChartTools.IO.Midi.Parsing
                                                 select new KeyValuePair<TLane, TChord?>(lane, null)
                                     select new KeyValuePair<Difficulty, Dictionary<TLane, TChord?>>(difficulty, new(pairs)));
 
-        protected readonly Dictionary<Difficulty, TChord?> previousChords = new(from difficulty in EnumCache<Difficulty>.Values select new KeyValuePair<Difficulty, TChord?>(difficulty, null));
+        protected readonly Dictionary<Difficulty, TChord?> previousChords = new(from difficulty in EnumCache<Difficulty>.Values
+                                                                                select new KeyValuePair<Difficulty, TChord?>(difficulty, null));
 
-        protected readonly Dictionary<Difficulty, Dictionary<SpecialPhraseType, uint?>>
+        protected readonly Dictionary<Difficulty, Dictionary<TrackSpecialPhraseType, uint?>>
             openedSpecialPositions = new(from difficulty in EnumCache<Difficulty>.Values
-                                         let pairs = from type in EnumCache<SpecialPhraseType>.Values
-                                                     select new KeyValuePair<SpecialPhraseType, uint?>(type, null)
-                                         select new KeyValuePair<Difficulty, Dictionary<SpecialPhraseType, uint?>>(difficulty, new(pairs)));
+                                         let pairs = from type in EnumCache<TrackSpecialPhraseType>.Values
+                                                     select new KeyValuePair<TrackSpecialPhraseType, uint?>(type, null)
+                                         select new KeyValuePair<Difficulty, Dictionary<TrackSpecialPhraseType, uint?>>(difficulty, new(pairs)));
 
-        protected readonly Dictionary<SpecialPhraseType, uint?> openedSharedSpecialPositions = new(from type in EnumCache<SpecialPhraseType>.Values select new KeyValuePair<SpecialPhraseType, uint?>(type, null));
+        protected readonly Dictionary<TrackSpecialPhraseType, uint?> openedSharedTrackSpecialPositions = new(from type in EnumCache<TrackSpecialPhraseType>.Values
+                                                                                                             select new KeyValuePair<TrackSpecialPhraseType, uint?>(type, null));
+        protected readonly Dictionary<int, uint?> openedBigRockPositions;
 
-        public LaneInstrumentParser(InstrumentIdentity instrument, InstrumentMapper<TChord> mapper, ReadingSession session) : base(instrument, mapper, session) { }
+        protected abstract byte MaxBigRockIndex { get; }
+
+        public LaneInstrumentParser(InstrumentIdentity instrument, InstrumentMapper<TChord> mapper, ReadingSession session) : base(instrument, mapper, session) => openedBigRockPositions = new(from index in Enumerable.Range(1, MaxBigRockIndex)
+                                                                                                                                                                                                select new KeyValuePair<int, uint?>(index, null));
 
         protected override void HandleItem(MidiEvent item)
         {
@@ -65,131 +71,167 @@ namespace ChartTools.IO.Midi.Parsing
         }
         protected void BaseHandle(MidiMappingResult mapping)
         {
-            var track = GetOrCreateTrack(mapping.Difficulty);
-
             switch (mapping.Type)
             {
                 case MappingType.Special:
-                    var type = (SpecialPhraseType)mapping.Index;
-                    var openedPosition = track is null ? openedSharedSpecialPositions[type] : openedSpecialPositions[track.Difficulty][type];
-
-                    switch (mapping.State)
-                    {
-                        case NoteState.Open:
-                            if (track is null)
-                            {
-                                if (openedPosition is not null)
-                                    session.HandleUnclosed(openedPosition.Value, () =>
-                                    {
-                                        foreach (var track in tracks)
-                                            CloseSpecial(track);
-                                    });
-
-                                openedSharedSpecialPositions[type] = mapping.Position;
-                            }
-                            else
-                            {
-                                if (openedPosition is not null)
-                                    session.HandleUnclosed(openedPosition.Value, () => CloseSpecial(track));
-
-                                openedSpecialPositions[track.Difficulty][type] = mapping.Position;
-                            }
-                            break;
-                        case NoteState.Close:
-                            if (track is null)
-                            {
-                                if (openedPosition is null)
-                                    session.HandleUnopened(mapping.Position, () =>
-                                    {
-                                        foreach (var track in tracks)
-                                            track.SpecialPhrases.Add(new(mapping.Position, type));
-                                    });
-                                else
-                                {
-                                    foreach (var t in tracks)
-                                        CloseSpecial(t);
-
-                                    openedSharedSpecialPositions[type] = mapping.Position;
-                                }
-                            }
-                            else
-                            {
-                                if (openedPosition is null)
-                                    session.HandleUnopened(mapping.Position, () => track.SpecialPhrases.Add(new(mapping.Position, type)));
-                                else
-                                {
-                                    CloseSpecial(track);
-                                    openedSpecialPositions[track.Difficulty][type] = null;
-                                }
-                            }
-                            break;
-                    }
-
-                    void CloseSpecial(Track<TChord> track) => track.SpecialPhrases.Add(new(mapping.Position, type, GetSustain(openedPosition!.Value, mapping.Position)));
+                    HandleSpecial(mapping);
                     break;
                 case MappingType.Modifier:
-                    var modifierIndex = mapping.Index;
-
-                    if (track is null)
-                        foreach (var t in tracks)
-                            ApplyModifier(t);
-                    else
-                        ApplyModifier(track);
-
-                    void ApplyModifier(Track<TChord> track)
-                    {
-                        var chord = GetOrCreateChord(mapping.Position, track);
-                        AddModifier(chord, modifierIndex);
-                    }
+                    HandleModifier(mapping);
                     break;
                 case MappingType.Note:
+                    HandleNote(mapping);
+                    break;
+                case MappingType.BigRock:
+                    HandleBigRock(mapping);
+                    break;
+            }
+        }
+
+        protected virtual void HandleSpecial(MidiMappingResult mapping)
+        {
+            var track = GetOrCreateTrack(mapping.Difficulty);
+            var type = (TrackSpecialPhraseType)mapping.Index;
+            var openedPosition = track is null ? openedSharedTrackSpecialPositions[type] : openedSpecialPositions[track.Difficulty][type];
+
+            switch (mapping.State)
+            {
+                case NoteState.Open:
                     if (track is null)
-                        return;
-
-                    var lane = ToLane(mapping.Index);
-                    var openedSource = openedNoteSources[track.Difficulty][lane];
-
-                    switch (mapping.State)
                     {
-                        case NoteState.Open:
-                            if (openedSource is not null)
-                                session.HandleUnclosed(openedSource.Position, () => openedSource.Notes[lane]!.Length = GetSustain(openedSource.Position, mapping.Position));
-
-                            var chord = openedNoteSources[track.Difficulty][lane] = GetOrCreateChord(mapping.Position, track);
-
-                            session.DuplicateTrackObjectProcedure(chord.Position, "note", () => chord.Notes.Contains(lane));
-
-                            chord.Notes.Add(lane);
-                            break;
-                        case NoteState.Close:
-                            if (openedSource is null)
-                                session.HandleUnopened(mapping.Position, () => GetOrCreateChord(mapping.Position, track).Notes.Add(lane));
-                            else
+                        if (openedPosition is not null)
+                            session.HandleUnclosed(openedPosition.Value, () =>
                             {
-                                openedSource.Notes[lane]!.Length = GetSustain(openedSource.Position, mapping.Position);
-                                openedNoteSources[track.Difficulty][lane] = null;
-                            }
-                            break;
+                                foreach (var track in tracks)
+                                    CloseSpecial(track);
+                            });
+
+                        openedSharedTrackSpecialPositions[type] = mapping.Position;
+                    }
+                    else
+                    {
+                        if (openedPosition is not null)
+                            session.HandleUnclosed(openedPosition.Value, () => CloseSpecial(track));
+
+                        openedSpecialPositions[track.Difficulty][type] = mapping.Position;
+                    }
+                    break;
+                case NoteState.Close:
+                    if (track is null)
+                    {
+                        if (openedPosition is null)
+                            session.HandleUnopened(mapping.Position, () =>
+                            {
+                                foreach (var track in tracks)
+                                    track.SpecialPhrases.Add(new(mapping.Position, type));
+                            });
+                        else
+                        {
+                            foreach (var t in tracks)
+                                CloseSpecial(t);
+
+                            openedSharedTrackSpecialPositions[type] = mapping.Position;
+                        }
+                    }
+                    else
+                    {
+                        if (openedPosition is null)
+                            session.HandleUnopened(mapping.Position, () => track.SpecialPhrases.Add(new(mapping.Position, type)));
+                        else
+                        {
+                            CloseSpecial(track);
+                            openedSpecialPositions[track.Difficulty][type] = null;
+                        }
                     }
                     break;
             }
 
-            TChord GetOrCreateChord(uint newChordPosition, Track<TChord> track)
+            void CloseSpecial(Track<TChord> track) => track.SpecialPhrases.Add(new(mapping.Position, type, GetSustain(openedPosition!.Value, mapping.Position)));
+        }
+        protected virtual void HandleModifier(MidiMappingResult mapping)
+        {
+            var track = GetOrCreateTrack(mapping.Difficulty);
+            var modifierIndex = mapping.Index;
+
+            if (track is null)
+                foreach (var t in tracks)
+                    ApplyModifier(t);
+            else
+                ApplyModifier(track);
+
+            void ApplyModifier(Track<TChord> track)
             {
-                var chord = previousChords[track.Difficulty];
-
-                if (chord is null || chord.Position != newChordPosition)
-                    track.Chords.Add(chord = previousChords[track.Difficulty] = CreateChord(newChordPosition));
-
-                return chord;
+                var chord = GetOrCreateChord(mapping.Position, track);
+                AddModifier(chord, modifierIndex);
             }
+        }
+        protected virtual void HandleNote(MidiMappingResult mapping)
+        {
+            var track = GetOrCreateTrack(mapping.Difficulty);
 
-            uint GetSustain(uint start, uint end)
+            if (track is null)
+                return;
+
+            var lane = ToLane(mapping.Index);
+            var openedSource = openedNoteSources[track.Difficulty][lane];
+
+            switch (mapping.State)
             {
-                var length = end - start;
+                case NoteState.Open:
+                    if (openedSource is not null)
+                        session.HandleUnclosed(openedSource.Position, () => openedSource.Notes[lane]!.Length = GetSustain(openedSource.Position, mapping.Position));
 
-                return length < session.Formatting?.SustainCutoff ? 0 : length;
+                    var chord = openedNoteSources[track.Difficulty][lane] = GetOrCreateChord(mapping.Position, track);
+
+                    session.DuplicateTrackObjectProcedure(chord.Position, "note", () => chord.Notes.Contains(lane));
+
+                    chord.Notes.Add(lane);
+                    break;
+                case NoteState.Close:
+                    if (openedSource is null)
+                        session.HandleUnopened(mapping.Position, () => GetOrCreateChord(mapping.Position, track).Notes.Add(lane));
+                    else
+                    {
+                        openedSource.Notes[lane]!.Length = GetSustain(openedSource.Position, mapping.Position);
+                        openedNoteSources[track.Difficulty][lane] = null;
+                    }
+                    break;
             }
+        }
+        protected virtual void HandleBigRock(MidiMappingResult mapping)
+        {
+            if (!Origin.HasFlag(MidiInstrumentOrigin.RockBand))
+                return;
+
+            var openedBigRockPosition = openedBigRockPositions[mapping.Index];
+
+            switch (mapping.State)
+            {
+                case NoteState.Open:
+                    if (openedBigRockPosition is not null)
+                        throw new Exception($"Big rock ending {mapping.Index} is already present for {Instrument}."); // TODO Custom exception
+
+                    openedBigRockPositions[mapping.Index] = mapping.Position;
+                    break;
+                case NoteState.Close:
+                    if (openedBigRockPosition is null)
+                        session.HandleUnopened(mapping.Position, () => result.SpecialPhrases.Add(new(mapping.Position, InstrumentSpecialPhraseType.BigRockEnding)));
+                    else
+                    {
+                        result.SpecialPhrases.Add(new(mapping.Position, InstrumentSpecialPhraseType.BigRockEnding, GetSustain(openedBigRockPosition!.Value, mapping.Position)));
+                        openedBigRockPositions[mapping.Index] = null;
+                    }
+                    break;
+            }
+        }
+        private TChord GetOrCreateChord(uint newChordPosition, Track<TChord> track)
+        {
+            var chord = previousChords[track.Difficulty];
+
+            if (chord is null || chord.Position != newChordPosition)
+                track.Chords.Add(chord = previousChords[track.Difficulty] = CreateChord(newChordPosition));
+
+            return chord;
         }
 
         protected virtual bool CustomHandle(NoteEvent note) => false;

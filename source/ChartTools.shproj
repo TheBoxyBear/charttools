@@ -81,7 +81,6 @@
     <Compile Include="Notes\Syllable.cs" />
     <Compile Include="Notes\VocalsPitch.cs" />
     <Compile Include="Song.cs" />
-    <Compile Include="SpecialPhrase.cs" />
     <Compile Include="Sync\SyncTrack.cs" />
     <Compile Include="Sync\Tempo.cs" />
     <Compile Include="Sync\TimeSignature.cs" />

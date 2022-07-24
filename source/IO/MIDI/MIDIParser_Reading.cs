@@ -116,7 +116,7 @@ namespace ChartTools.IO.MIDI
             var difficulties = Enum.GetValues<Difficulty>().ToArray();
             var tasks = new Task<UniqueTrackObjectCollection<TChord>>[] { Task.Run(() => getChords(events, Difficulty.Expert, config)) }; /*difficulties.Select(d => Task.Run(() => getTrack(events, d, config))).ToArray();*/
 
-            (List<LocalEvent> localEvents, List<SpecialPhrase> starPower) = GetLocalEventsStarPower(events, config);
+            (List<LocalEvent> localEvents, List<TrackSpecialPhrase> starPower) = GetLocalEventsStarPower(events, config);
             bool eventsOrStarPower = localEvents.Count > 0 || starPower.Count > 0;
 
             Task.WaitAll(tasks);
@@ -258,13 +258,13 @@ namespace ChartTools.IO.MIDI
             })).Where(e => e is not null));
         }
 
-        private static (List<LocalEvent> localEvents, List<SpecialPhrase> starPower) GetLocalEventsStarPower(IEnumerable<MidiEvent> events, ReadingConfiguration midiConfig)
+        private static (List<LocalEvent> localEvents, List<TrackSpecialPhrase> starPower) GetLocalEventsStarPower(IEnumerable<MidiEvent> events, ReadingConfiguration midiConfig)
         {
             List<LocalEvent> localEvents = new();
-            List<SpecialPhrase> starPower = new();
+            List<TrackSpecialPhrase> starPower = new();
 
             bool unfinishedSolo = false;
-            SpecialPhrase? sp = null;
+            TrackSpecialPhrase? sp = null;
 
             const int spNoteNumber = 116;
 
@@ -274,7 +274,7 @@ namespace ChartTools.IO.MIDI
                 {
                     // Starpower start
                     case NoteOnEvent noteOnEvent when noteOnEvent.NoteNumber == spNoteNumber && !unfinishedSolo:
-                        sp = new SpecialPhrase((uint)e.DeltaTime, SpecialPhraseType.StarPowerGain);
+                        sp = new TrackSpecialPhrase((uint)e.DeltaTime, TrackSpecialPhraseType.StarPowerGain);
                         unfinishedSolo = true;
                         break;
                     case NoteOffEvent noteOffEvent when sp is not null && noteOffEvent.NoteNumber == spNoteNumber && unfinishedSolo:
@@ -295,7 +295,7 @@ namespace ChartTools.IO.MIDI
                     {
                         // Star power start
                         case "solo" when !unfinishedSolo:
-                            sp = new SpecialPhrase((uint)e.DeltaTime, SpecialPhraseType.StarPowerGain);
+                            sp = new TrackSpecialPhrase((uint)e.DeltaTime, TrackSpecialPhraseType.StarPowerGain);
                             unfinishedSolo = true;
                             break;
                         // Star power end

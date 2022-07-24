@@ -102,18 +102,17 @@ namespace ChartTools
     public enum GHLLane : byte { Open, Black1, Black2, Black3, White1, White2, White3 }
 
     /// <summary>
-    /// Origins of a Midi guitar or bass chunk
+    /// Origins of an instrument
     /// </summary>
-    public enum GuitarBassFormat : byte
+    public enum MidiInstrumentOrigin : byte
     {
-        /// <summary>
-        /// Not applicable or unknown
-        /// </summary>
-        NAUnknown = 1,
-        GuitarHero2,
-        GuitarHero2Uncertain = NAUnknown | GuitarHero2,
-        RockBand,
-        RockBandUncertain = NAUnknown | RockBand
+        NA,
+        Unknown,
+        GuitarHero1,
+        GuitarHero2 = 4,
+        GuitarHero2Uncertain = Unknown | GuitarHero2,
+        RockBand = 6,
+        RockBandUncertain = Unknown | RockBand,
     }
 
     /// <summary>
@@ -158,12 +157,12 @@ namespace ChartTools
     /// </summary>
     public enum StandardLane : byte { Open, Green, Red, Yellow, Blue, Orange }
     /// <summary>
-    /// Types of <see cref="SpecialPhrase"/>
+    /// Types of <see cref="TrackSpecialPhrase"/>
     /// </summary>
-    public enum SpecialPhraseType : byte
+    public enum TrackSpecialPhraseType : byte
     {
         /// <summary>
-        /// The <see cref="SpecialPhrase.TypeCode"/> is not a recognized phrase type
+        /// The <see cref="TrackSpecialPhrase.TypeCode"/> is not a recognized phrase type
         /// </summary>
         Unknown,
         /// <summary>
@@ -178,6 +177,14 @@ namespace ChartTools
         Player2FaceOff,
         Trill,
         Tremolo
+    }
+    /// <summary>
+    /// Types of <see cref="InstrumentSpecialPhrase"/>
+    /// </summary>
+    public enum InstrumentSpecialPhraseType : byte
+    {
+        Unknown,
+        BigRockEnding
     }
 }
 
