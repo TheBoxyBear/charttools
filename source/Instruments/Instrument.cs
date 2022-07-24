@@ -29,6 +29,22 @@ namespace ChartTools
         public InstrumentIdentity InstrumentIdentity { get; init; }
 
         /// <summary>
+        /// Format of lead guitar and bass. Not applicable to other instruments.
+        /// </summary>
+        public GuitarBassFormat GuitarBassFormat
+        {
+            get => guitarBassFormat;
+            set
+            {
+                if (InstrumentIdentity is not InstrumentIdentity.LeadGuitar or InstrumentIdentity.Bass)
+                    throw new Exception($"{nameof(guitarBassFormat)} can only be used with lead guitar or bass.");
+
+                guitarBassFormat = value;
+            }
+        }
+        private GuitarBassFormat guitarBassFormat;
+
+        /// <summary>
         /// Type of instrument
         /// </summary>
         public InstrumentType InstrumentType
