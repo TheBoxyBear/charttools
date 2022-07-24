@@ -125,7 +125,7 @@ namespace ChartTools.IO.Midi.Parsing
                             break;
                     }
 
-                    void CloseSpecial(Track<TChord> track) => track.SpecialPhrases.Add(new(mapping.Position, type, mapping.Position - openedPosition!.Value));
+                    void CloseSpecial(Track<TChord> track) => track.SpecialPhrases.Add(new(mapping.Position, type, GetSustain(openedPosition!.Value, mapping.Position)));
                     break;
                 case MappingType.Modifier:
                     var modifierIndex = mapping.Index;
@@ -153,7 +153,7 @@ namespace ChartTools.IO.Midi.Parsing
                     {
                         case NoteState.Open:
                             if (openedSource is not null)
-                                session.HandleUnclosed(openedSource.Position, () => openedSource.Notes[lane]!.Length = mapping.Position - openedSource.Position);
+                                session.HandleUnclosed(openedSource.Position, () => openedSource.Notes[lane]!.Length = GetSustain(openedSource.Position, mapping.Position));
 
                             var chord = openedNoteSources[track.Difficulty][lane] = GetOrCreateChord(mapping.Position, track);
 
@@ -166,12 +166,7 @@ namespace ChartTools.IO.Midi.Parsing
                                 session.HandleUnopened(mapping.Position, () => GetOrCreateChord(mapping.Position, track).Notes.Add(lane));
                             else
                             {
-                                var length = mapping.Position - openedSource.Position;
-
-                                if (length < session.Formatting?.SustainCutoff)
-                                    length = 0;
-
-                                openedSource.Notes[lane]!.Length = length;
+                                openedSource.Notes[lane]!.Length = GetSustain(openedSource.Position, mapping.Position);
                                 openedNoteSources[track.Difficulty][lane] = null;
                             }
                             break;
@@ -187,6 +182,13 @@ namespace ChartTools.IO.Midi.Parsing
                     track.Chords.Add(chord = previousChords[track.Difficulty] = CreateChord(newChordPosition));
 
                 return chord;
+            }
+
+            uint GetSustain(uint start, uint end)
+            {
+                var length = end - start;
+
+                return length < session.Formatting?.SustainCutoff ? 0 : length;
             }
         }
 
