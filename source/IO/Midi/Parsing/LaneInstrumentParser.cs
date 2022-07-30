@@ -41,11 +41,13 @@ namespace ChartTools.IO.Midi.Parsing
 
         protected readonly Dictionary<TrackSpecialPhraseType, uint?> openedSharedTrackSpecialPositions = new(from type in EnumCache<TrackSpecialPhraseType>.Values
                                                                                                              select new KeyValuePair<TrackSpecialPhraseType, uint?>(type, null));
-        protected readonly Dictionary<int, uint?> openedBigRockPositions;
 
-        protected abstract byte MaxBigRockIndex { get; }
+        private readonly Dictionary<int, uint?> openedBigRockPositions;
+        private readonly List<InstrumentSpecialPhrase> bigRockEndings = new();
 
-        public LaneInstrumentParser(InstrumentIdentity instrument, InstrumentMapper<TChord> mapper, ReadingSession session) : base(instrument, mapper, session) => openedBigRockPositions = new(from index in Enumerable.Range(1, MaxBigRockIndex)
+        protected abstract byte BigRockCount { get; }
+
+        public LaneInstrumentParser(InstrumentIdentity instrument, InstrumentMapper<TChord> mapper, ReadingSession session) : base(instrument, mapper, session) => openedBigRockPositions = new(from index in Enumerable.Range(1, BigRockCount)
                                                                                                                                                                                                 select new KeyValuePair<int, uint?>(index, null));
 
         protected override void HandleItem(MidiEvent item)
@@ -218,7 +220,7 @@ namespace ChartTools.IO.Midi.Parsing
                         session.HandleUnopened(mapping.Position, () => result.SpecialPhrases.Add(new(mapping.Position, InstrumentSpecialPhraseType.BigRockEnding)));
                     else
                     {
-                        result.SpecialPhrases.Add(new(mapping.Position, InstrumentSpecialPhraseType.BigRockEnding, GetSustain(openedBigRockPosition!.Value, mapping.Position)));
+                        bigRockEndings.Add(new(mapping.Position, InstrumentSpecialPhraseType.BigRockEnding, GetSustain(openedBigRockPosition!.Value, mapping.Position)));
                         openedBigRockPositions[mapping.Index] = null;
                     }
                     break;
@@ -236,6 +238,23 @@ namespace ChartTools.IO.Midi.Parsing
 
         protected virtual bool CustomHandle(NoteEvent note) => false;
         protected virtual bool CustomTextHandle(TextEvent text) => false;
+
+        protected override void FinaliseParse()
+        {
+            if (bigRockEndings.Count > 0 && bigRockEndings.Count < BigRockCount && !session.HandleMissingBigRock())
+                return;
+
+            if (bigRockEndings.Select(e => e.Position).Distinct().Skip(1).Any())
+            {
+
+            }
+            if (bigRockEndings.Select(e => e.Length).Distinct().Skip(1).Any())
+            {
+
+            }
+
+            result.SpecialPhrases.AddRange(bigRockEndings);
+        }
 
         protected abstract TLane ToLane(byte index);
         protected abstract void AddModifier(TChord chord, byte index);

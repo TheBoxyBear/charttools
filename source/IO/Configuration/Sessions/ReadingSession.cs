@@ -20,22 +20,26 @@ namespace ChartTools.IO.Configuration.Sessions
         public override ReadingConfiguration Configuration { get; }
 
         public InvalidMidiEventTypeHandler HandleInvalidMidiEventType { get; private set; }
+        public Func<bool> HandleMissingBigRock { get; private set; }
         public UnopenedUnclosedObjectHandler HandleUnopened { get; private set; }
         public UnopenedUnclosedObjectHandler HandleUnclosed { get; private set; }
         public TempolessAnchorHandler TempolessAnchorProcedure { get; private set; }
         public UncertainGuitarBassFormatHandler UncertainGuitarBassFormatProcedure { get; private set; }
 
-
         public ReadingSession(ReadingConfiguration config, FormattingRules? formatting) : base(formatting)
         {
             Configuration = config;
 
-            HandleInvalidMidiEventType = (position, e) => (HandleInvalidMidiEventType = Configuration.InvalidMidiEventTypePolicy switch
+            HandleInvalidMidiEventType = (position, e) => (HandleInvalidMidiEventType = Configuration.IgnoreInvalidMidiEventType
+            ? (position, e) => throw new InvalidMidiEventTypeException(position, e)
+            : (_, _) => { })(position, e);
+            HandleMissingBigRock = () => (HandleMissingBigRock = Configuration.MissingBigRockMarkerPolicy switch
             {
-                InvalidMidiEventTypePolicy.ThrowException => (position, e) => throw new InvalidMidiEventTypeException(position, e),
-                InvalidMidiEventTypePolicy.Ignore => (_, _) => { },
-                _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.InvalidMidiEventTypePolicy)
-            })(position, e);
+                MissingBigRockMarkerPolicy.ThrowException => () => throw new Exception("One or more big rock ending marker is missing."),
+                MissingBigRockMarkerPolicy.IgnoreAll => () => false,
+                MissingBigRockMarkerPolicy.IgnoreMissing => () => true,
+                _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.MissingBigRockMarkerPolicy)
+            })();
             HandleUnopened = (position, create) => (HandleUnopened = Configuration.UnopenedTrackObjectPolicy switch
             {
                 UnopenedTrackObjectPolicy.ThrowException => (position, _) => throw new Exception($"Object at position {position} closed before being opened."), // TODO Create exception
@@ -61,7 +65,7 @@ namespace ChartTools.IO.Configuration.Sessions
                 UncertainGuitarBassFormatPolicy.UseGuitarHero2 => _ => MidiInstrumentOrigin.GuitarHero2Uncertain,
                 UncertainGuitarBassFormatPolicy.UseRockBand => _ => MidiInstrumentOrigin.RockBandUncertain,
                 UncertainGuitarBassFormatPolicy.ThrowException => instrument => throw new Exception($"{instrument} has an unknown or conflicting format that cannot be mapped from Midi."),
-                _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.InvalidMidiEventTypePolicy)
+                _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.UncertainGuitarBassFormatPolicy)
             })(instrument);
          }
     }

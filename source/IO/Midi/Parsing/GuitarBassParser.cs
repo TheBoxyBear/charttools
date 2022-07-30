@@ -16,6 +16,7 @@ namespace ChartTools.IO.Midi.Parsing
         private readonly Dictionary<int, uint?> openedBigRockPosition = new(from index in Enumerable.Range(1, 5) select new KeyValuePair<int, uint?>(index, null));
 
         public override MidiInstrumentOrigin Origin => format;
+        protected override byte BigRockCount => 5;
 
         public GuitarBassParser(StandardInstrumentIdentity instrument, ReadingSession session) : base(instrument, new GuitarBassMapper(), session)
         {
