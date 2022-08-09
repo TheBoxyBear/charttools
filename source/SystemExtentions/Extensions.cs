@@ -371,6 +371,17 @@ namespace ChartTools.SystemExtensions.Linq
                 source.Remove(item);
         }
 
+        public static bool Unique<T>(this IEnumerable<T> source) => UniqueFromDistinct(source.Distinct());
+        public static bool UniqueBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector)
+        {
+#if NET6_0_OR_GREATER
+            return UniqueFromDistinct(source.DistinctBy(selector));
+#else
+            return UniqueFromDistinct(source.Select(selector));
+#endif
+        }
+        private static bool UniqueFromDistinct<T>(IEnumerable<T> distinct) => !distinct.Skip(1).Any();
+
         /// <summary>
         /// Finds the items for which a function returns the smallest or greatest value based on a comparison.
         /// </summary>
@@ -433,7 +444,7 @@ namespace ChartTools.SystemExtensions.Linq
         /// <returns><see langword="true"/> if an item was found</returns>
         public static bool TryGetFirstOfType<TResult>(this IEnumerable source, out TResult result) => source.OfType<TResult>().TryGetFirst(out result);
 
-        // Methods present in .NET 6 but needed for .NET builds
+        // Methods present in .NET 6 but needed for .NET 5 builds
 #if NET5_0
         /// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
         /// <param name="defaultValue">Value to return if no item meets the condition</param>

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using ChartTools.Formatting;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Midi;
 using ChartTools.SystemExtensions;
+using ChartTools.Tools;
 
 using Melanchall.DryWetMidi.Core;
 
@@ -13,13 +15,14 @@ namespace ChartTools.IO.Configuration.Sessions
     internal class ReadingSession : Session
     {
         public delegate void InvalidMidiEventTypeHandler(uint position, MidiEvent e);
-        public delegate void UnopenedUnclosedObjectHandler(uint position, Action createOrInclude);
+        public delegate InstrumentSpecialPhrase? MisalignedBigRockHandler(IEnumerable<InstrumentSpecialPhrase> endings);
         public delegate bool TempolessAnchorHandler(Anchor anchor);
+        public delegate void UnopenedUnclosedObjectHandler(uint position, Action createOrInclude);
         public delegate MidiInstrumentOrigin UncertainGuitarBassFormatHandler(StandardInstrumentIdentity instrument);
 
         public override ReadingConfiguration Configuration { get; }
-
         public InvalidMidiEventTypeHandler HandleInvalidMidiEventType { get; private set; }
+        public MisalignedBigRockHandler HandleMisalignedBigRock { get; private set; }
         public Func<bool> HandleMissingBigRock { get; private set; }
         public UnopenedUnclosedObjectHandler HandleUnopened { get; private set; }
         public UnopenedUnclosedObjectHandler HandleUnclosed { get; private set; }
@@ -33,6 +36,13 @@ namespace ChartTools.IO.Configuration.Sessions
             HandleInvalidMidiEventType = (position, e) => (HandleInvalidMidiEventType = Configuration.IgnoreInvalidMidiEventType
             ? (position, e) => throw new InvalidMidiEventTypeException(position, e)
             : (_, _) => { })(position, e);
+            HandleMisalignedBigRock = (endings) => (HandleMisalignedBigRock = Configuration.MisalignedBigRockMarkersPolicy switch
+            {
+                MisalignedBigRockMarkersPolicy.ThrowException => _ => throw new Exception("Big rock endings are misaligned."),
+                MisalignedBigRockMarkersPolicy.IgnoreAll => _ => null,
+                MisalignedBigRockMarkersPolicy.IncludeFirst => endings => endings.First(),
+                MisalignedBigRockMarkersPolicy.Combine => endings => LengthMerger.MergeLengths(endings)
+            })(endings);
             HandleMissingBigRock = () => (HandleMissingBigRock = Configuration.MissingBigRockMarkerPolicy switch
             {
                 MissingBigRockMarkerPolicy.ThrowException => () => throw new Exception("One or more big rock ending marker is missing."),

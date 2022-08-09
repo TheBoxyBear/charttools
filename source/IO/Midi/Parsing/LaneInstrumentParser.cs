@@ -1,6 +1,7 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Midi.Mapping;
 using ChartTools.SystemExtensions;
+using ChartTools.SystemExtensions.Linq;
 
 using Melanchall.DryWetMidi.Core;
 
@@ -244,16 +245,12 @@ namespace ChartTools.IO.Midi.Parsing
             if (bigRockEndings.Count > 0 && bigRockEndings.Count < BigRockCount && !session.HandleMissingBigRock())
                 return;
 
-            if (bigRockEndings.Select(e => e.Position).Distinct().Skip(1).Any())
-            {
+            var ending = bigRockEndings.UniqueBy(e => e.Position) || !bigRockEndings.UniqueBy(e => e.Length)
+                ? bigRockEndings.First()
+                : session.HandleMisalignedBigRock(bigRockEndings);
 
-            }
-            if (bigRockEndings.Select(e => e.Length).Distinct().Skip(1).Any())
-            {
-
-            }
-
-            result.SpecialPhrases.AddRange(bigRockEndings);
+            if (ending is not null)
+                result.SpecialPhrases.Add(ending);
         }
 
         protected abstract TLane ToLane(byte index);
