@@ -1484,11 +1484,6 @@
             Include all objects
             </summary>
         </member>
-        <member name="T:ChartTools.IO.Configuration.InvalidMidiEventTypePolicy">
-            <summary>
-            Defines how invalid Midi event types are handled
-            </summary>
-        </member>
         <member name="T:ChartTools.IO.Configuration.LyricEventSource">
             <summary>
             Where to get lyric data from for formats that store lyrics as events

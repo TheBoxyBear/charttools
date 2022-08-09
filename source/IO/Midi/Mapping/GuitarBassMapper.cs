@@ -1,4 +1,6 @@
-﻿using Melanchall.DryWetMidi.Core;
+﻿using ChartTools.IO.Configuration.Sessions;
+
+using Melanchall.DryWetMidi.Core;
 
 using System;
 using System.Collections.Generic;
@@ -7,7 +9,7 @@ namespace ChartTools.IO.Midi.Mapping
 {
     internal class GuitarBassMapper : InstrumentMapper<StandardChord>
     {
-        public override IEnumerable<MidiMappingResult> MapNoteEvent(uint position, NoteEvent e)
+        public override IEnumerable<MidiMappingResult> MapNoteEvent(uint position, NoteEvent e, ReadingSession session)
         {
             var intNumber = (int)e.NoteNumber;
 
@@ -51,7 +53,7 @@ namespace ChartTools.IO.Midi.Mapping
                 > 83 and < 95 => (Difficulty.Hard, intNumber - 83),
                 > 95 and < 107 => (Difficulty.Expert, intNumber - 95),
                 110 => (default(Difficulty?), intNumber),
-                _ => (default(Difficulty?), 0)
+                _ => HandleInvalidMidiEvent<(Difficulty?, int)>(position, e, session)
             };
             (var type, var newAdjusted) = adjusted switch
             {

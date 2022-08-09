@@ -32,6 +32,13 @@
         /// </summary>
         Vocals
     }
+    public enum MisalignedBigRockMarkersPolicy : byte
+    {
+        ThrowException,
+        IgnoreAll,
+        IncludeFirst,
+        Combine
+    }
     public enum MissingBigRockMarkerPolicy : byte
     {
         ThrowException,

@@ -1,4 +1,5 @@
-﻿using Melanchall.DryWetMidi.Core;
+﻿using ChartTools.IO.Configuration.Sessions;
+using Melanchall.DryWetMidi.Core;
 
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace ChartTools.IO.Midi.Mapping
             throw new NotImplementedException();
         }
 
-        public override IEnumerable<MidiMappingResult> MapNoteEvent(uint position, NoteEvent e)
+        public override IEnumerable<MidiMappingResult> MapNoteEvent(uint position, NoteEvent e, ReadingSession session)
         {
             var intNumber = (int)e.NoteNumber;
 
@@ -22,8 +23,9 @@ namespace ChartTools.IO.Midi.Mapping
                 > 71 and < 83 => (Difficulty.Medium, intNumber - 71),
                 > 83 and < 95 => (Difficulty.Hard, intNumber - 83),
                 > 95 and < 107 => (Difficulty.Expert, intNumber - 95),
-                _ => (default(Difficulty?), 0)
+                _ => HandleInvalidMidiEvent<(Difficulty?, int)>(position, e, session)
             };
+
             (var type, var newAdjusted) = adjusted switch
             {
                 8 => (MappingType.Special, (int)TrackSpecialPhraseType.StarPowerGain),

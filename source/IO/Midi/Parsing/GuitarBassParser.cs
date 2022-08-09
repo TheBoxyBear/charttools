@@ -27,9 +27,9 @@ namespace ChartTools.IO.Midi.Parsing
         protected override bool CustomHandle(NoteEvent note)
         {
             var newFormat = MidiInstrumentOrigin.Unknown;
-            var newMappings = mapper.MapNoteEvent(globalPosition, note);
+            var newMappings = mapper.MapNoteEvent(globalPosition, note, session);
 
-            foreach (var mapping in mapper.MapNoteEvent(globalPosition, note))
+            foreach (var mapping in mapper.MapNoteEvent(globalPosition, note, session))
             {
                 if (mapping.Type is MappingType.Animation || note.NoteNumber == 116)
                     newFormat = MidiInstrumentOrigin.RockBand;

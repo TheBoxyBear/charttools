@@ -68,7 +68,7 @@ namespace ChartTools.IO.Midi.Parsing
             }
 
             if (!CustomHandle(note))
-                foreach (var mapping in mapper.MapNoteEvent(globalPosition, note))
+                foreach (var mapping in mapper.MapNoteEvent(globalPosition, note, session))
                     BaseHandle(mapping);
         }
         protected void BaseHandle(MidiMappingResult mapping)
