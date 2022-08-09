@@ -88,6 +88,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)SystemExtentions\EnumCache.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SystemExtentions\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SystemExtentions\FuncEqualityComparer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\LengthMerger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Printer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\IReadOnlyTrackObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\LongTrackObject.cs" />
