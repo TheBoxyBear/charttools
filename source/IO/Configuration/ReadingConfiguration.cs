@@ -9,6 +9,7 @@ namespace ChartTools.IO.Configuration
     public record ReadingConfiguration : CommonConfiguration
     {
         public bool IgnoreInvalidMidiEventType { get; set; }
+        public MisalignedBigRockMarkersPolicy MisalignedBigRockMarkersPolicy { get; set; }
         public MissingBigRockMarkerPolicy MissingBigRockMarkerPolicy { get; set; }
         public UnopenedTrackObjectPolicy UnopenedTrackObjectPolicy { get; set; }
         public UnclosedTrackObjectPolicy UnclosedTracjObjectPolicy { get; set; }
