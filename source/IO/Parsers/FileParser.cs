@@ -18,21 +18,34 @@ namespace ChartTools.IO
         {
             await Task.Run(() => ParseBase(items));
 
+#if CRASH_SOURCE
+            FinaliseParse();
+#else
             try { FinaliseParse(); }
             catch (Exception e) { throw GetFinalizeException(e); }
+#endif
         }
         public void Parse(IEnumerable<T> items)
         {
             ParseBase(items);
 
+#if CRASH_SOURCE
+            FinaliseParse();
+
+#else
             try { FinaliseParse(); }
             catch (Exception e) { throw GetFinalizeException(e); }
+#endif
         }
         private void ParseBase(IEnumerable<T> items)
         {
             foreach (var item in items)
-                try { HandleItem(item); }
-                catch (Exception e) { throw GetHandleException(item, e); }
+#if CRASH_SOURCE
+                HandleItem(item);
+#else
+            //try { HandleItem(item); }
+            //catch (Exception e) { throw GetHandleException(item, e); }
+#endif
         }
 
         protected abstract void HandleItem(T item);
