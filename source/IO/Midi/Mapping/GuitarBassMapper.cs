@@ -11,6 +11,9 @@ namespace ChartTools.IO.Midi.Mapping
     {
         public override IEnumerable<MidiMappingResult> MapNoteEvent(uint position, NoteEvent e, ReadingSession session)
         {
+            if (position == 9984)
+                Console.WriteLine($"Delta: {e.DeltaTime} | Global: {position} {e.GetType().Name} {e.NoteNumber}");
+
             var intNumber = (int)e.NoteNumber;
 
             if (intNumber is 126 or 127)

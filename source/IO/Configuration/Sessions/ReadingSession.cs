@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using ChartTools.Formatting;
-using ChartTools.IO.Chart;
 using ChartTools.IO.Midi;
-using ChartTools.SystemExtensions;
 using ChartTools.Tools;
 
 using Melanchall.DryWetMidi.Core;

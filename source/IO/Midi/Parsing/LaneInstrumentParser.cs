@@ -105,6 +105,8 @@ namespace ChartTools.IO.Midi.Parsing
                         if (openedPosition is not null)
                             session.HandleUnclosed(openedPosition.Value, () =>
                             {
+                                InitTracks();
+
                                 foreach (var track in tracks)
                                     CloseSpecial(track);
                             });
@@ -125,15 +127,22 @@ namespace ChartTools.IO.Midi.Parsing
                         if (openedPosition is null)
                             session.HandleUnopened(mapping.Position, () =>
                             {
+                                InitTracks();
+
                                 foreach (var track in tracks)
                                     track.SpecialPhrases.Add(new(mapping.Position, type));
+
+                                for (int i = 0; i < tracks.Length; i++)
+                                    (tracks[i] ??= new() { Difficulty = (Difficulty)i }).SpecialPhrases.Add(new(mapping.Position, type));
                             });
                         else
                         {
+                            InitTracks();
+
                             foreach (var t in tracks)
                                 CloseSpecial(t);
 
-                            openedSharedTrackSpecialPositions[type] = mapping.Position;
+                            openedSharedTrackSpecialPositions[type] = null;
                         }
                     }
                     else
@@ -150,6 +159,11 @@ namespace ChartTools.IO.Midi.Parsing
             }
 
             void CloseSpecial(Track<TChord> track) => track.SpecialPhrases.Add(new(mapping.Position, type, GetSustain(openedPosition!.Value, mapping.Position)));
+            void InitTracks()
+            {
+                for (int i = 0; i < tracks.Length; i++)
+                    tracks[i] ??= new() { Difficulty = (Difficulty)i };
+            }
         }
         protected virtual void HandleModifier(MidiMappingResult mapping)
         {
@@ -242,15 +256,20 @@ namespace ChartTools.IO.Midi.Parsing
 
         protected override void FinaliseParse()
         {
-            if (bigRockEndings.Count > 0 && bigRockEndings.Count < BigRockCount && !session.HandleMissingBigRock())
-                return;
+            if (bigRockEndings.Count > 0)
+            {
+                if (bigRockEndings.Count < BigRockCount && !session.HandleMissingBigRock())
+                    return;
 
-            var ending = bigRockEndings.UniqueBy(e => e.Position) || !bigRockEndings.UniqueBy(e => e.Length)
-                ? bigRockEndings.First()
-                : session.HandleMisalignedBigRock(bigRockEndings);
+                var ending = bigRockEndings.UniqueBy(e => e.Position) || !bigRockEndings.UniqueBy(e => e.Length)
+                    ? bigRockEndings.First()
+                    : session.HandleMisalignedBigRock(bigRockEndings);
 
-            if (ending is not null)
-                result.SpecialPhrases.Add(ending);
+                if (ending is not null)
+                    result.SpecialPhrases.Add(ending);
+            }
+
+            base.FinaliseParse();
         }
 
         protected abstract TLane ToLane(byte index);

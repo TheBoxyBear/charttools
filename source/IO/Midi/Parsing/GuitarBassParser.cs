@@ -11,7 +11,7 @@ namespace ChartTools.IO.Midi.Parsing
 {
     internal class GuitarBassParser : StandardInstrumentParser
     {
-        private MidiInstrumentOrigin format;
+        private MidiInstrumentOrigin format = MidiInstrumentOrigin.Unknown;
         private readonly List<MidiMappingResult> mappings = new();
         private readonly Dictionary<int, uint?> openedBigRockPosition = new(from index in Enumerable.Range(1, 5) select new KeyValuePair<int, uint?>(index, null));
 
@@ -45,7 +45,7 @@ namespace ChartTools.IO.Midi.Parsing
 
                 if (format is MidiInstrumentOrigin.Unknown)
                     format = newFormat;
-                else if (format != newFormat)
+                else if (newFormat is not MidiInstrumentOrigin.Unknown && format != newFormat)
                     format = session.UncertainGuitarBassFormatProcedure(Instrument);
 
                 mappings.AddRange(newMappings);
