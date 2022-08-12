@@ -36,7 +36,7 @@ namespace ChartTools.IO.Configuration.Sessions
             HandleInvalidMidiEventType = (position, e) => (HandleInvalidMidiEventType = Configuration.IgnoreInvalidMidiEventType
             ? (position, e) => throw new InvalidMidiEventTypeException(position, e)
             : (_, _) => { })(position, e);
-            HandleMisalignedBigRock = (endings) => (HandleMisalignedBigRock = Configuration.MisalignedBigRockMarkersPolicy switch
+            HandleMisalignedBigRock = endings => (HandleMisalignedBigRock = Configuration.MisalignedBigRockMarkersPolicy switch
             {
                 MisalignedBigRockMarkersPolicy.ThrowException => _ => throw new Exception("Big rock endings are misaligned."),
                 MisalignedBigRockMarkersPolicy.IgnoreAll => _ => null,
