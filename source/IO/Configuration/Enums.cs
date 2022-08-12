@@ -97,6 +97,7 @@
     /// </summary>
     public enum UncertainGuitarBassFormatPolicy : byte
     {
+        ThrowException,
         /// <summary>
         /// The format defaulted to when reading id used.
         /// </summary>
@@ -109,8 +110,7 @@
         /// <summary>
         /// The Rock Band format is used.
         /// </summary>
-        UseRockBand,
-        ThrowException
+        UseRockBand
     }
     public enum UnknownSectionPolicy : byte
     {

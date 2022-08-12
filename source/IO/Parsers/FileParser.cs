@@ -1,4 +1,6 @@
-﻿using ChartTools.IO.Configuration.Sessions;
+﻿#define CRASH_SOURCE
+
+using ChartTools.IO.Configuration.Sessions;
 
 using System;
 using System.Collections.Generic;
@@ -31,7 +33,6 @@ namespace ChartTools.IO
 
 #if CRASH_SOURCE
             FinaliseParse();
-
 #else
             try { FinaliseParse(); }
             catch (Exception e) { throw GetFinalizeException(e); }
@@ -43,8 +44,8 @@ namespace ChartTools.IO
 #if CRASH_SOURCE
                 HandleItem(item);
 #else
-            //try { HandleItem(item); }
-            //catch (Exception e) { throw GetHandleException(item, e); }
+                try { HandleItem(item); }
+                catch (Exception e) { throw GetHandleException(item, e); }
 #endif
         }
 
