@@ -11,5 +11,6 @@ namespace ChartTools.IO.Parsing
 
         protected override Exception GetHandleException(T item, Exception innerException) => new SectionException(Header, GetHandleInnerException(item, innerException));
         protected abstract Exception GetHandleInnerException(T item, Exception innerException);
+        protected override Exception GetFinalizeException(Exception innerException) => new SectionException(Header, innerException);
     }
 }

@@ -15,7 +15,11 @@ namespace ChartTools.IO.Midi.Parsing
 
         protected override Exception GetHandleException(MidiEvent item, Exception innerException)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Midi does not yet implement exception handling.", innerException);
+        }
+        protected override Exception GetFinalizeException(Exception innerException)
+        {
+            throw new NotImplementedException("Midi does not yet implement exception handling.", innerException);
         }
     }
 }
