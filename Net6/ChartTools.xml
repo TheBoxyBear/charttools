@@ -2003,6 +2003,18 @@
             <param name="EndReplace">Method that defines if a source item marks the end of the section to replace</param>
             <param name="AddIfMissing">The replacement should be appended to the collection if the section to replace is not found</param>
         </member>
+        <member name="P:ChartTools.SystemExtensions.Linq.SectionReplacement`1.Replacement">
+            <summary>Items to replace with</summary>
+        </member>
+        <member name="P:ChartTools.SystemExtensions.Linq.SectionReplacement`1.StartReplace">
+            <summary>Method that defines if a source marks the start of the section to replace</summary>
+        </member>
+        <member name="P:ChartTools.SystemExtensions.Linq.SectionReplacement`1.EndReplace">
+            <summary>Method that defines if a source item marks the end of the section to replace</summary>
+        </member>
+        <member name="P:ChartTools.SystemExtensions.Linq.SectionReplacement`1.AddIfMissing">
+            <summary>The replacement should be appended to the collection if the section to replace is not found</summary>
+        </member>
         <member name="T:ChartTools.SystemExtensions.Linq.LinqExtensions">
             <summary>
             Provides additional methods to Linq
