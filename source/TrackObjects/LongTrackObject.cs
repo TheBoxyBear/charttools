@@ -1,10 +1,12 @@
 ﻿namespace ChartTools
 {
-    public class LongTrackObject : TrackObject, ILongTrackObject
+    public abstract class LongTrackObject : TrackObject, ILongTrackObject
     {
         public uint Length { get; set; }
         public uint EndPosition => Position + Length;
 
-        public LongTrackObject(uint position) : base(position) { }
+        protected LongTrackObject() : base() { }
+        /// <inheritdoc cref="TrackObject(uint)"/>
+        protected LongTrackObject(uint position) : base(position) { }
     }
 }

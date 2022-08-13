@@ -19,7 +19,7 @@ namespace ChartTools
 
         /// <inheritdoc cref="Chord(uint)"/>
         public StandardChord(uint position) : base(position) { }
-        /// <inheritdoc cref="StandardChord(uint)"/>
+        /// <inheritdoc cref="LaneChord{TNote, TLane, TModifier}(uint)"/>
         /// <param name="notes">Notes to add</param>
         public StandardChord(uint position, params Note<StandardLane>[] notes) : this(position)
         {

@@ -7,7 +7,7 @@ namespace ChartTools
         public TLane Lane { get; init; }
         internal override byte NoteIndex => Convert.ToByte(Lane);
 
-        public Note() => Lane = default;
+        public Note() { }
         public Note(TLane lane) => Lane = lane;
     }
 }

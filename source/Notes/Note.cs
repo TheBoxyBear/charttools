@@ -13,5 +13,7 @@
         /// Maximum length the note can be held for extra points (sustain)
         /// </summary>
         public uint Length { get; set; } = 0;
+
+        protected Note() { }
     }
 }

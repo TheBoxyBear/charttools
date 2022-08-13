@@ -16,7 +16,8 @@ namespace ChartTools
         public abstract IEnumerable<Note> Notes { get; }
         internal abstract bool ChartSupportedMoridier { get; }
 
-        /// <param name="position">Position of the Chord on the Track</param>
+        protected Chord() : base() { }
+        /// <inheritdoc cref="TrackObject(uint)"/>
         protected Chord(uint position) : base(position) { }
 
         /// <summary>

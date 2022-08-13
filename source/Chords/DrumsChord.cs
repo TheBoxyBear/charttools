@@ -17,6 +17,8 @@ namespace ChartTools
 
         protected override DrumsChordModifier DefaultModifier => DrumsChordModifier.None;
 
+        public DrumsChord() : base() { }
+
         /// <inheritdoc cref="Chord(uint)"/>
         public DrumsChord(uint position) : base(position) { }
         /// <inheritdoc cref="DrumsChord(uint)"/>

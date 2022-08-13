@@ -18,7 +18,8 @@ namespace ChartTools
 
         protected override GHLChordModifier DefaultModifier => GHLChordModifier.None;
 
-        /// <inheritdoc cref="Chord(uint)"/>
+        public GHLChord() : base() { }
+        /// <inheritdoc cref="LaneChord{TNote, TLane, TModifier}(uint)"/>
         public GHLChord(uint position) : base(position) { }
         /// <inheritdoc cref="GHLChord(uint)"/>
         /// <param name="notes">Notes to add</param>

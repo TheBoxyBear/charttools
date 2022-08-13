@@ -15,7 +15,7 @@
             </summary>
         </member>
         <member name="M:ChartTools.Chord.#ctor(System.UInt32)">
-            <param name="position">Position of the Chord on the Track</param>
+            <inheritdoc cref="M:ChartTools.TrackObject.#ctor(System.UInt32)"/>
         </member>
         <member name="M:ChartTools.Chord.GetChartNoteData">
             <summary>
@@ -32,7 +32,7 @@
             <inheritdoc cref="P:ChartTools.Chord.Notes"/>
         </member>
         <member name="M:ChartTools.Chord`3.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.Chord.#ctor(System.UInt32)" path="/param"/>
+            <inheritdoc cref="M:ChartTools.Chord.#ctor(System.UInt32)"/>
         </member>
         <member name="T:ChartTools.DrumsChord">
             <summary>
@@ -63,6 +63,9 @@
         </member>
         <member name="M:ChartTools.GHLChord.#ctor(System.UInt32,ChartTools.GHLLane[])">
             <inheritdoc cref="M:ChartTools.GHLChord.#ctor(System.UInt32,ChartTools.Note{ChartTools.GHLLane}[])"/>
+        </member>
+        <member name="M:ChartTools.LaneChord`3.#ctor(System.UInt32)">
+            <inheritdoc cref="M:ChartTools.Chord`3.#ctor(System.UInt32)"/>
         </member>
         <member name="P:ChartTools.Lyrics.Phrase.EndPosition">
             <summary>
@@ -2885,10 +2888,7 @@
             <inheritdoc cref="P:ChartTools.ITrackObject.Position"/>
         </member>
         <member name="M:ChartTools.TrackObject.#ctor(System.UInt32)">
-            <summary>
-            Creates a new instance of <see cref="T:ChartTools.TrackObject"/>.
-            </summary>
-            <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
+            <param name="position">Position of the object</param>
         </member>
         <member name="T:ChartTools.Track">
             <summary>
