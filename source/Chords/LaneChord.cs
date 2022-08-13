@@ -7,7 +7,7 @@ namespace ChartTools
         protected abstract bool OpenExclusivity { get; }
         public override LaneNoteCollection<TNote, TLane> Notes { get; }
 
-        protected LaneChord() : base() { }
+        protected LaneChord() : base() => Notes = new(OpenExclusivity);
         /// <inheritdoc cref="Chord{TNote, Tlane, TModifier}(uint)"/>
         protected LaneChord(uint position) : base(position) => Notes = new(OpenExclusivity);
     }

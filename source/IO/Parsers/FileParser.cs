@@ -1,6 +1,4 @@
-﻿#define CRASH_SOURCE
-
-using ChartTools.IO.Configuration.Sessions;
+﻿using ChartTools.IO.Configuration.Sessions;
 
 using System;
 using System.Collections.Generic;
