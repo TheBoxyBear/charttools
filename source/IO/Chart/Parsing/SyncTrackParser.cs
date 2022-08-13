@@ -95,6 +95,8 @@ namespace ChartTools.IO.Chart.Parsing
                 else if (session.TempolessAnchorProcedure(anchor))
                     result.Tempo.Add(new(anchor.Position, 0) { Anchor = anchor.Value });
             }
+
+            base.FinaliseParse();
         }
 
         public override void ApplyToSong(Song song) => song.SyncTrack = Result;
