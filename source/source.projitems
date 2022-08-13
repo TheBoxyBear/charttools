@@ -149,8 +149,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Sessions\ReadingSession.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Sessions\WritingSession.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\ExtensionHandler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MIDIParser_Common.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MIDIParser_Reading.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\Metadata.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\DrumsNote.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\Note.cs" />

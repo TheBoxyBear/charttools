@@ -1755,31 +1755,6 @@
             </summary>
             <returns>Instance of <see cref="T:System.Exception"/> to throw</returns>
         </member>
-        <member name="T:ChartTools.IO.MIDI.MIDIParser">
-            <summary>
-            Provides methods for reading and writing MIDI files
-            </summary>
-        </member>
-        <member name="P:ChartTools.IO.MIDI.MIDIParser.ReadingSettings">
-            <summary>
-            Settings to customize the initial parsing of the file by DryWetMidi
-            </summary>
-        </member>
-        <member name="M:ChartTools.IO.MIDI.MIDIParser.ReadSong(System.String,ChartTools.IO.Configuration.ReadingConfiguration)">
-            <summary>
-            Reads a MIDI file.
-            </summary>
-            <param name="path">Path of the file to read</param>
-            <param name="midiConfig">Parameters used to interpret the file</param>
-        </member>
-        <member name="M:ChartTools.IO.MIDI.MIDIParser.CheckTrackChunkPresence(Melanchall.DryWetMidi.Core.ChunksCollection,System.Exception@)">
-            <summary>
-            Checks if a <see cref="T:Melanchall.DryWetMidi.Core.ChunksCollection"/> contains any <see cref="T:Melanchall.DryWetMidi.Core.TrackChunk"/>.
-            </summary>
-            <param name="chunks">Chunks to check</param>
-            <param name="ex">Exception to throw if returned <see langword="false"/></param>
-            <returns><see langword="true"/> if the collection contains at least one <see cref="T:Melanchall.DryWetMidi.Core.TrackChunk"/></returns>
-        </member>
         <member name="T:ChartTools.Formatting.FormattingRules">
             <summary>
             Rules defined in song.ini that affect how the song data file is read and written
