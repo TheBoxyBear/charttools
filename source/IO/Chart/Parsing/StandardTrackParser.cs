@@ -39,7 +39,5 @@ namespace ChartTools.IO.Chart.Parsing
             void AddNote(Note<StandardLane> note) => HandleAddNote(note, () => chord.Notes.Add(note));
             void AddModifier(StandardChordModifier modifier) => HandleAddModifier(chord.Modifier, modifier, () => chord.Modifier |= modifier);
         }
-
-        protected override StandardChord CreateChord(uint position) => new(position);
     }
 }

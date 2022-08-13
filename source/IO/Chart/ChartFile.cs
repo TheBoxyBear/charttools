@@ -117,7 +117,7 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Combines the results from the parsers in a <see cref="ChartFileReader"/> into an instrument.
         /// </summary>
-        private static Instrument<TChord>? CreateInstrumentFromReader<TChord>(ChartFileReader reader) where TChord : Chord
+        private static Instrument<TChord>? CreateInstrumentFromReader<TChord>(ChartFileReader reader) where TChord : Chord, new()
         {
             Instrument<TChord>? output = null;
 

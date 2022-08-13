@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace ChartTools.IO.Chart.Parsing
 {
-    internal abstract class TrackParser<TChord> : ChartParser, IInstrumentAppliable<TChord> where TChord : Chord
+    internal abstract class TrackParser<TChord> : ChartParser, IInstrumentAppliable<TChord> where TChord : Chord, new()
     {
         public Difficulty Difficulty { get; }
 
@@ -44,7 +44,7 @@ namespace ChartTools.IO.Chart.Parsing
                     // Find the parent chord or create it
                     if (chord is null)
                     {
-                        chord = CreateChord(entry.Position);
+                        chord = new() { Position = entry.Position };
                         newIndex = orderedChords.Count;
                     }
                     else if (entry.Position == chord.Position)
@@ -54,7 +54,7 @@ namespace ChartTools.IO.Chart.Parsing
                         newIndex = orderedChords.BinarySearchIndex(entry.Position, c => c.Position, out bool exactMatch);
 
                         if (newChord = !exactMatch)
-                            chord = CreateChord(entry.Position);
+                            chord = new() { Position = entry.Position };
                     }
 
                     HandleNoteEntry(chord!, new(entry.Data));
@@ -92,8 +92,6 @@ namespace ChartTools.IO.Chart.Parsing
             if (session.DuplicateTrackObjectProcedure(chord!.Position, "chord modifier", () => existingModifier.HasFlag(modifier)))
                 add();
         }
-
-        protected abstract TChord CreateChord(uint position);
 
         protected override void FinaliseParse()
         {

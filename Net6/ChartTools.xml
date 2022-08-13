@@ -55,7 +55,7 @@
             </summary>
         </member>
         <member name="M:ChartTools.GHLChord.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.Chord.#ctor(System.UInt32)"/>
+            <inheritdoc cref="M:ChartTools.LaneChord`3.#ctor(System.UInt32)"/>
         </member>
         <member name="M:ChartTools.GHLChord.#ctor(System.UInt32,ChartTools.Note{ChartTools.GHLLane}[])">
             <inheritdoc cref="M:ChartTools.GHLChord.#ctor(System.UInt32)"/>
@@ -490,7 +490,7 @@
             <inheritdoc cref="M:ChartTools.Chord.#ctor(System.UInt32)"/>
         </member>
         <member name="M:ChartTools.StandardChord.#ctor(System.UInt32,ChartTools.Note{ChartTools.StandardLane}[])">
-            <inheritdoc cref="M:ChartTools.StandardChord.#ctor(System.UInt32)"/>
+            <inheritdoc cref="M:ChartTools.LaneChord`3.#ctor(System.UInt32)"/>
             <param name="notes">Notes to add</param>
         </member>
         <member name="M:ChartTools.StandardChord.#ctor(System.UInt32,ChartTools.StandardLane[])">
@@ -2389,6 +2389,9 @@
             Tick number on the track.
             </summary>
             <remarks>A tick represents a subdivision of a beat. The number of subdivisions per beat is stored in <see cref="P:ChartTools.Formatting.FormattingRules.Resolution"/>.</remarks>
+        </member>
+        <member name="M:ChartTools.LongTrackObject.#ctor(System.UInt32)">
+            <inheritdoc cref="M:ChartTools.TrackObject.#ctor(System.UInt32)"/>
         </member>
         <member name="T:ChartTools.InstrumentDifficultySet">
             <summary>

@@ -17,6 +17,7 @@ namespace ChartTools
 
         protected override StandardChordModifier DefaultModifier => StandardChordModifier.None;
 
+        public StandardChord() : base() { }
         /// <inheritdoc cref="Chord(uint)"/>
         public StandardChord(uint position) : base(position) { }
         /// <inheritdoc cref="LaneChord{TNote, TLane, TModifier}(uint)"/>

@@ -46,7 +46,5 @@ namespace ChartTools.IO.Chart.Parsing
             void AddNote(Note<GHLLane> note) => HandleAddNote(note, () => chord.Notes.Add(note));
             void AddModifier(GHLChordModifier modifier) => HandleAddModifier(chord.Modifier, modifier, () => chord.Modifier |= modifier);
         }
-
-        protected override GHLChord CreateChord(uint position) => new(position);
     }
 }
