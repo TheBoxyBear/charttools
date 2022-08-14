@@ -67,6 +67,21 @@
         Create
     }
     /// <summary>
+    /// Defines how notes within ticks of each other are handled during a Midi operation
+    /// </summary>
+    public enum SnappedNotesPolicy : byte
+    {
+        ThrowException,
+        /// <summary>
+        /// Notes are combines as a single chord at the position of the earlier note
+        /// </summary>
+        Snap,
+        /// <summary>
+        /// Each note is left as its own chord
+        /// </summary>
+        Ignore
+    }
+    /// <summary>
     /// Defines how to handle "solo" local events in tracks
     /// </summary>
     public enum SoloNoStarPowerPolicy : byte

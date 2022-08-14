@@ -248,7 +248,7 @@ namespace ChartTools.IO.Midi.Parsing
             if (chord is null)
                 return Create();
             else if (chord.Position + 10 >= newChordPosition)
-                return chord;
+                return session.SnappedNotesProcedure(chord.Position, newChordPosition) ? chord : Create();
             else
                 return Create();
 
