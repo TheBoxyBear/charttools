@@ -10,15 +10,10 @@ namespace ChartTools
         /// </summary>
         public bool OpenExclusivity { get; }
 
-        public LaneNoteCollection(bool openExclusivity)
-        {
-            OpenExclusivity = openExclusivity;
-        }
+        public LaneNoteCollection(bool openExclusivity) => OpenExclusivity = openExclusivity;
 
         public override void Add(TLane lane)
         {
-            Validator.ValidateEnum(lane);
-
             base.Add(lane);
 
             if (OpenExclusivity)
@@ -29,26 +24,6 @@ namespace ChartTools
                     base.Remove(lane);
 
                 base.Add(lane);
-            }
-        }
-        public override bool Contains(TLane lane)
-        {
-            Validator.ValidateEnum(lane);
-            return base.Contains(lane);
-        }
-
-        public override bool Remove(TLane lane)
-        {
-            Validator.ValidateEnum(lane);
-            return base.Remove(lane);
-        }
-
-        public override TNote? this[TLane lane]
-        {
-            get
-            {
-                Validator.ValidateEnum(lane);
-                return base[lane];
             }
         }
 

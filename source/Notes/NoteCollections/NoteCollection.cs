@@ -53,5 +53,6 @@ namespace ChartTools
         /// Gets the note matching a lane.
         /// </summary>
         public virtual TNote? this[TLane lane] => Notes.FirstOrDefault(n => n.Lane.Equals(lane));
+        public override string ToString() => $"Count = {Notes.Count}";
     }
 }

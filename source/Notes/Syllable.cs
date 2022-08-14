@@ -57,10 +57,6 @@ namespace ChartTools.Lyrics
         }
 
         public Syllable(uint offset) => PositionOffset = offset;
-        public Syllable(uint offset, VocalsPitch pitch) : base(pitch)
-        {
-            Validator.ValidateEnum(pitch.Pitch);
-            PositionOffset = offset;
-        }
+        public Syllable(uint offset, VocalsPitch pitch) : base(pitch) => PositionOffset = offset;
     }
 }

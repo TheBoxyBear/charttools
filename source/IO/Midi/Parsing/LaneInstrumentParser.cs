@@ -11,8 +11,8 @@ using System.Linq;
 
 namespace ChartTools.IO.Midi.Parsing
 {
-    internal abstract class LaneInstrumentParser<TChord, TLane, TModifier> : LaneInstrumentParser<TChord, Note<TLane>, TLane, TModifier> where TChord :
-        LaneChord<Note<TLane>, TLane, TModifier>
+    internal abstract class LaneInstrumentParser<TChord, TLane, TModifier> : LaneInstrumentParser<TChord, Note<TLane>, TLane, TModifier>
+        where TChord : LaneChord<Note<TLane>, TLane, TModifier>, new()
         where TLane : struct, Enum
         where TModifier : struct, Enum
     {
@@ -20,7 +20,7 @@ namespace ChartTools.IO.Midi.Parsing
     }
 
     internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : InstrumentParser<TChord>
-        where TChord : LaneChord<TNote, TLane, TModifier>
+        where TChord : LaneChord<TNote, TLane, TModifier>, new()
         where TNote : Note<TLane>, new()
         where TLane : struct, Enum
         where TModifier : struct, Enum
@@ -202,7 +202,7 @@ namespace ChartTools.IO.Midi.Parsing
 
                     session.DuplicateTrackObjectProcedure(chord.Position, "note", () => chord.Notes.Contains(lane));
 
-                    chord.Notes.Add(lane);
+                    chord.Notes.Add(new TNote() { Lane = lane });
                     break;
                 case NoteState.Close:
                     if (openedSource is null)
@@ -245,10 +245,23 @@ namespace ChartTools.IO.Midi.Parsing
         {
             var chord = previousChords[track.Difficulty];
 
-            if (chord is null || chord.Position != newChordPosition)
-                track.Chords.Add(chord = previousChords[track.Difficulty] = CreateChord(newChordPosition));
+            if (chord is null)
+                return Create(newChordPosition);
+            else if (chord.Position + 10 <= newChordPosition) // TODO Snap configuration
+            {
+                return chord;
+            }
+            else
+            {
+                return chord;
+            }
 
-            return chord;
+            TChord Create(uint position)
+            {
+                var newChord = new TChord() { Position = position };
+                track.Chords.Add(previousChords[track.Difficulty] = newChord);
+                return newChord;
+            }
         }
 
         protected virtual bool CustomHandle(NoteEvent note) => false;
