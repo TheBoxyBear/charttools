@@ -34,7 +34,7 @@ namespace ChartTools
             if (OpenExclusivity && (item.NoteIndex == 0 || Count == 1 && this.First().NoteIndex == 0)) // An open note is present and needs to be removed
                 Clear();
 
-            base.Add(item);
+            Notes.Add(item);
         }
     }
 }
