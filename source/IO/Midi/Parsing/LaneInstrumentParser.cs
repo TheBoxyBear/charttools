@@ -158,7 +158,7 @@ namespace ChartTools.IO.Midi.Parsing
                     break;
             }
 
-            void CloseSpecial(Track<TChord> track) => track.SpecialPhrases.Add(new(mapping.Position, type, GetSustain(openedPosition!.Value, mapping.Position)));
+            void CloseSpecial(Track<TChord> track) => track.SpecialPhrases.Add(new(openedPosition.Value, type, GetSustain(openedPosition!.Value, mapping.Position)));
             void InitTracks()
             {
                 for (int i = 0; i < tracks.Length; i++)
