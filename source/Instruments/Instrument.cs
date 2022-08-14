@@ -224,5 +224,7 @@ namespace ChartTools
 
         public void ToFile(string path, WritingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Write(path, this, (".chart", (path, inst) => ChartFile.ReplaceInstrument(path, inst, config, formatting)));
         public async Task ToFileAsync(string path, WritingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.WriteAsync(path, this, (".chart", (path, inst) => ChartFile.ReplaceInstrumentAsync(path, inst, config, formatting, cancellationToken)));
+
+        public override string ToString() => InstrumentIdentity.ToString();
     }
 }
