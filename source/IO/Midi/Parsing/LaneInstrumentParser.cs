@@ -246,19 +246,15 @@ namespace ChartTools.IO.Midi.Parsing
             var chord = previousChords[track.Difficulty];
 
             if (chord is null)
-                return Create(newChordPosition);
-            else if (chord.Position + 10 <= newChordPosition) // TODO Snap configuration
-            {
+                return Create();
+            else if (chord.Position + 10 >= newChordPosition)
                 return chord;
-            }
             else
-            {
-                return chord;
-            }
+                return Create();
 
-            TChord Create(uint position)
+            TChord Create()
             {
-                var newChord = new TChord() { Position = position };
+                var newChord = new TChord() { Position = newChordPosition };
                 track.Chords.Add(previousChords[track.Difficulty] = newChord);
                 return newChord;
             }
