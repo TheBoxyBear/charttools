@@ -21,13 +21,7 @@ namespace ChartTools
         ///     <para>If <see cref="OpenExclusivity"/> is <see langword="true"/>, combining an open note with other notes will remove the current ones.</para>
         /// </remarks>
         /// <param name="item">Item to add</param>
-        public override void Add(TNote item)
-        {
-            if (item is null)
-                throw new ArgumentNullException(nameof(item));
-
-            AddNonNull(item);
-        }
+        public override void Add(TNote item) => AddNonNull(item ?? throw new ArgumentNullException(nameof(item)));
 
         private void AddNonNull(TNote item)
         {
