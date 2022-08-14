@@ -12,20 +12,7 @@ namespace ChartTools
 
         public LaneNoteCollection(bool openExclusivity) => OpenExclusivity = openExclusivity;
 
-        public override void Add(TLane lane)
-        {
-            base.Add(lane);
-
-            if (OpenExclusivity)
-            {
-                if (lane.Equals(0))
-                    Notes.Clear();
-                else
-                    base.Remove(lane);
-
-                base.Add(lane);
-            }
-        }
+        public override void Add(TLane lane) => AddNonNull(new TNote() { Lane = lane });
 
         /// <summary>
         /// Adds a note to the <see cref="NoteCollection{TNote, TLane}"/>.
@@ -39,7 +26,12 @@ namespace ChartTools
             if (item is null)
                 throw new ArgumentNullException(nameof(item));
 
-            if (OpenExclusivity && (item.NoteIndex == 0 || Count > 0 && this.First().NoteIndex == 0))
+            AddNonNull(item);
+        }
+
+        private void AddNonNull(TNote item)
+        {
+            if (OpenExclusivity && (item.NoteIndex == 0 || Count == 1 && this.First().NoteIndex == 0)) // An open note is present and needs to be removed
                 Clear();
 
             base.Add(item);
