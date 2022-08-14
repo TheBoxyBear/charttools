@@ -21,5 +21,7 @@ namespace ChartTools
         /// </summary>
         [IniKeySerializable(IniFormatting.Icon)]
         public string? Icon { get; set; }
+
+        public override string ToString() => Name ?? string.Empty;
     }
 }
