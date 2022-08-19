@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ChartTools.IO.Chart.Serializing
+namespace ChartTools.IO.Chart.Serialization
 {
     internal class TrackSerializer : TrackObjectGroupSerializer<Track>
     {
@@ -55,8 +55,12 @@ namespace ChartTools.IO.Chart.Serializing
             return new IEnumerable<TrackObjectEntry>[]
             {
                 new ChordMapper().Map(Content.Chords, session),
-                new SpecialPhraseMapper().Map(Content.SpecialPhrases, session),
-                Content.LocalEvents is null ? Enumerable.Empty<TrackObjectEntry>() : new EventMapper().Map(Content.LocalEvents, session)
+                from phrase in Content.SpecialPhrases
+                    let mapper = new SpecialPhraseMapper()
+                    select mapper.Map(phrase, session),
+                Content.LocalEvents is null ? Enumerable.Empty<TrackObjectEntry>() : from e in Content.LocalEvents
+                                                                                     let mapper = new EventMapper()
+                                                                                     select mapper.Map(e, session)
             };
         }
 

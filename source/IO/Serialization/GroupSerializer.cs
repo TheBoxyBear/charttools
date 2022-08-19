@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-namespace ChartTools.IO
+namespace ChartTools.IO.Serializaiton
 {
     internal abstract class GroupSerializer<TContent, TResult, TProviderResult> : Serializer<TContent, TResult>
     {

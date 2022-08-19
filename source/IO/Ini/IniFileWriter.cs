@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using ChartTools.IO.Serializaiton;
+using System.Linq;
 
 namespace ChartTools.IO.Ini
 {

@@ -1,11 +1,10 @@
 ﻿using ChartTools.Events;
 using ChartTools.Formatting;
 using ChartTools.IO.Chart.Parsing;
-using ChartTools.IO.Chart.Serializing;
+using ChartTools.IO.Chart.Serialization;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
-using ChartTools.IO.Parsing;
-using ChartTools.IO.Sections;
+using ChartTools.IO.Serializaiton;
 using ChartTools.Lyrics;
 using ChartTools.SystemExtensions;
 using ChartTools.SystemExtensions.Linq;

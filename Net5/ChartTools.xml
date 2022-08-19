@@ -1682,7 +1682,7 @@
             <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='cancellationToken']"/></param>
             <param name="config"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='config']"/></param>
         </member>
-        <member name="M:ChartTools.IO.KeySerializableAttribute.GetSerializable``1(System.Object)">
+        <member name="M:ChartTools.IO.Serializaiton.KeySerializableAttribute.GetSerializable``1(System.Object)">
             <summary>
             Generates groups of non-null property values and their serialization keys.
             </summary>

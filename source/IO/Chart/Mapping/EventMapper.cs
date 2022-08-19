@@ -3,13 +3,10 @@ using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Mapping;
 
-using System.Collections.Generic;
-using System.Linq;
-
 namespace ChartTools.IO.Chart.Mapping
 {
-    internal class EventMapper : IWriteMapper<IEnumerable<Event>, TrackObjectEntry>
+    internal class EventMapper : IWriteMapper<Event, TrackObjectEntry>
     {
-        public IEnumerable<TrackObjectEntry> Map(IEnumerable<Event> source, WritingSession session) => source.Select(e => new TrackObjectEntry(e.Position, "E", e.EventData));
+        public TrackObjectEntry Map(Event e, WritingSession session) => new(e.Position, "E", e.EventData);
     }
 }

@@ -28,10 +28,10 @@ namespace ChartTools.IO.Midi.Mapping
                 _ => (MappingType.Note, adjusted)
             };
 
-            yield return new NoteEventMapping(e.Position, GetState(e.Event), difficulty, type, (byte)newAdjusted);
+            yield return new(e, difficulty, type, (byte)newAdjusted);
         }
 
-        public override IEnumerable<TrackObjectMapping> Map(Instrument<StandardChord> instrument, WritingSession session)
+        public override IEnumerable<NoteMapping> Map(Instrument<StandardChord> instrument, WritingSession session)
         {
             throw new NotImplementedException();
         }

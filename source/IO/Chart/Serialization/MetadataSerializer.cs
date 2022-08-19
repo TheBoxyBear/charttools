@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using ChartTools.IO.Serializaiton;
+
+using System.Collections.Generic;
 using System.Linq;
 
-namespace ChartTools.IO.Chart.Serializing
+namespace ChartTools.IO.Chart.Serialization
 {
     internal class MetadataSerializer : Serializer<Metadata, string>
     {
