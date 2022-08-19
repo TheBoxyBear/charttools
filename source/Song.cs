@@ -33,14 +33,6 @@ namespace ChartTools
         }
         private Metadata _metadata = new();
 
-        /// <inheritdoc cref="FormattingRules"/>
-        public FormattingRules Formatting
-        {
-            get => _formatting;
-            set => _formatting = value ?? throw new ArgumentNullException(nameof(value));
-        }
-        private FormattingRules _formatting = new();
-
         /// <inheritdoc cref="ChartTools.SyncTrack"/>
         public SyncTrack SyncTrack
         {
