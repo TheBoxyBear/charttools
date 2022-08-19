@@ -51,7 +51,8 @@ namespace ChartTools.Events
 
         public bool? ToggleState => EventType.EndsWith(EventTypeHelper.Common.ToggleOn) ? true : (EventType.EndsWith(EventTypeHelper.Common.ToggleOff) ? false : null);
 
-        /// <param name="position"><inheritdoc cref="TrackObjectBase.Position"/></param>
+        public Event() : base() { }
+        /// <param name="position"><inheritdoc cref="TrackObject.Position"/></param>
         /// <param name="data"><inheritdoc cref="EventData"/></param>
         public Event(uint position, string data) : base(position) => EventData = data;
         /// <inheritdoc cref="Event(uint, string)"/>

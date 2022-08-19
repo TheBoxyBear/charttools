@@ -3,9 +3,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace ChartTools.IO.Chart.Providers
+namespace ChartTools.IO.Chart.Mapping
 {
-    internal class TimeSignatureProvider : SyncTrackProvider<TimeSignature>
+    internal class TimeSignatureMapper : UniqueTrackObjectMapper<TimeSignature>
     {
         protected override string ObjectType => "time signature";
 

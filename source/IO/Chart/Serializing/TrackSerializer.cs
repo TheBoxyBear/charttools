@@ -2,7 +2,7 @@
 using ChartTools.Extensions.Collections;
 using ChartTools.Extensions.Linq;
 using ChartTools.IO.Chart.Entries;
-using ChartTools.IO.Chart.Providers;
+using ChartTools.IO.Chart.Mapping;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
 using ChartTools.Tools;
@@ -17,9 +17,9 @@ namespace ChartTools.IO.Chart.Serializing
     {
         public TrackSerializer(Track content, WritingSession session) : base(ChartFormatting.Header(content.ParentInstrument!.InstrumentIdentity, content.Difficulty), content, session) { }
 
-        public override IEnumerable<string> Serialize() => new OrderedAlternatingEnumerable<TrackObjectEntry, uint>(entry => entry.Position, LaunchProviders()).Select(entry => entry.ToString());
+        public override IEnumerable<string> Serialize() => new OrderedAlternatingEnumerable<uint, TrackObjectEntry>(entry => entry.Position, LaunchMappers()).Select(entry => entry.ToString());
 
-        protected override IEnumerable<TrackObjectEntry>[] LaunchProviders()
+        protected override IEnumerable<TrackObjectEntry>[] LaunchMappers()
         {
             ApplyOverlappingSpecialPhrasePolicy(Content.SpecialPhrases, session.Configuration.OverlappingStarPowerPolicy);
 
@@ -54,9 +54,9 @@ namespace ChartTools.IO.Chart.Serializing
 
             return new IEnumerable<TrackObjectEntry>[]
             {
-                new ChordProvider().ProvideFor(Content.Chords.Cast<LaneChord>(), session),
-                new SpeicalPhraseProvider().ProvideFor(Content.SpecialPhrases, session!),
-                Content.LocalEvents is null ? Enumerable.Empty<TrackObjectEntry>() : new EventProvider().ProvideFor(Content.LocalEvents!, session!)
+                new ChordMapper().Map(Content.Chords, session),
+                new SpecialPhraseMapper().Map(Content.SpecialPhrases, session),
+                Content.LocalEvents is null ? Enumerable.Empty<TrackObjectEntry>() : new EventMapper().Map(Content.LocalEvents, session)
             };
         }
 

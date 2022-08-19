@@ -1,16 +1,17 @@
 ﻿using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration.Sessions;
-using ChartTools.Extensions.Linq;
+using ChartTools.IO.Mapping;
+using ChartTools.SystemExtensions.Linq;
 
 using System.Collections.Generic;
 
-namespace ChartTools.IO.Chart.Providers
+namespace ChartTools.IO.Chart.Mapping
 {
-    internal abstract class SyncTrackProvider<T> : ISerializerDataProvider<T, TrackObjectEntry> where T : TrackObjectBase
+    internal abstract class UniqueTrackObjectMapper<T> : IWriteMapper<IEnumerable<T>, TrackObjectEntry> where T : TrackObject
     {
         protected abstract string ObjectType { get; }
 
-        public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<T> source, WritingSession session)
+        public IEnumerable<TrackObjectEntry> Map(IEnumerable<T> source, WritingSession session)
         {
             List<uint> orderedPositions = new();
 

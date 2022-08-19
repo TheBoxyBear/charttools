@@ -9,8 +9,11 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.Common.props" />
   <PropertyGroup />
   <ItemGroup>
+    <Compile Include="Chords\Chord.cs" />
+    <Compile Include="Chords\ChordGeneric.cs" />
     <Compile Include="Chords\DrumsChord.cs" />
     <Compile Include="Chords\GHLChord.cs" />
+    <Compile Include="Chords\LaneChord.cs" />
     <Compile Include="Chords\Phrase.cs" />
     <Compile Include="Chords\StandardChord.cs" />
     <Compile Include="Enums.cs" />
@@ -34,11 +37,6 @@
     <Compile Include="IO\Chart\Parsing\SyncTrackParser.cs" />
     <Compile Include="IO\Chart\Parsing\TrackParser.cs" />
     <Compile Include="IO\Chart\Parsing\VariableInstrumentTrackParser.cs" />
-    <Compile Include="IO\Chart\Providers\ChordProvider.cs" />
-    <Compile Include="IO\Chart\Providers\EventProvider.cs" />
-    <Compile Include="IO\Chart\Providers\SpecialPhraseProvider.cs" />
-    <Compile Include="IO\Chart\Providers\TempoProvider.cs" />
-    <Compile Include="IO\Chart\Providers\TimeSignatureProvider.cs" />
     <Compile Include="IO\Chart\Serializing\MetadataSerializer.cs" />
     <Compile Include="IO\Chart\Serializing\SyncTrackSerializer.cs" />
     <Compile Include="IO\Chart\Serializing\TrackObjectGroupSerializer.cs" />
@@ -51,10 +49,15 @@
     <Compile Include="IO\Configuration\Sessions\WritingSession.cs" />
     <Compile Include="IO\Configuration\WritingConfiguration.cs" />
     <Compile Include="IO\ExtensionHandler.cs" />
+    <Compile Include="Formatting\FormattingEnums.cs" />
+    <Compile Include="Formatting\FormattingRules.cs" />
     <Compile Include="IO\Ini\IniFile.cs" />
     <Compile Include="IO\Ini\IniFileReader.cs" />
     <Compile Include="IO\Ini\IniFileWriter.cs" />
-    <Compile Include="IO\ISerializerDataProvider.cs" />
+    <Compile Include="IO\Midi\MIDIFormatting.cs" />
+    <Compile Include="IO\Midi\Parsing\InstrumentParser.cs" />
+    <Compile Include="IO\Midi\Parsing\MidiParser.cs" />
+    <Compile Include="IO\Midi\Parsing\StandardInstrumentParser.cs" />
     <Compile Include="IO\TextEntry.cs" />
     <Compile Include="IO\TextFileReader.cs" />
     <Compile Include="Metadata\Charter.cs" />
@@ -62,6 +65,10 @@
     <Compile Include="Metadata\StreamCollection.cs" />
     <Compile Include="Metadata\UnidentifiedMetadata.cs" />
     <Compile Include="Notes\DrumsNote.cs" />
+    <Compile Include="Notes\Note.cs" />
+    <Compile Include="Notes\NoteCollections\LaneNoteCollection.cs" />
+    <Compile Include="Notes\NoteCollections\NoteCollection.cs" />
+    <Compile Include="Notes\NoteGeneric.cs" />
     <Compile Include="Notes\Syllable.cs" />
     <Compile Include="Notes\VocalsPitch.cs" />
     <Compile Include="Song.cs" />
@@ -72,6 +79,8 @@
     <Compile Include="Tools\TempoRescaler.cs" />
     <Compile Include="TrackObjects\ILongTrackObject.cs" />
     <Compile Include="TrackObjects\ITrackObject.cs" />
+    <Compile Include="TrackObjects\LongTrackObject.cs" />
+    <Compile Include="TrackObjects\TrackObject.cs" />
     <Compile Include="Tracks\Track.cs" />
     <Compile Include="Tracks\TrackGeneric.cs" />
     <Compile Include="Tracks\UniqueTrackObjectCollection.cs" />

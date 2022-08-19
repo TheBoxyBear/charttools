@@ -1881,6 +1881,21 @@
             Leave each note as its own chord.
             </summary>
         </member>
+        <member name="T:ChartTools.IO.Configuration.SnappedNotesPolicy">
+            <summary>
+            Defines how notes within ticks of each other are handled during a Midi operation
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.SnappedNotesPolicy.Snap">
+            <summary>
+            Notes are combines as a single chord at the position of the earlier note
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.SnappedNotesPolicy.Ignore">
+            <summary>
+            Each note is left as its own chord
+            </summary>
+        </member>
         <member name="T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy">
             <summary>
             Defines how <see cref="F:ChartTools.Events.EventTypeHelper.Local.Solo"/> or <see cref="F:ChartTools.Events.EventTypeHelper.Local.SoloEnd"/> events are handled when there are no star power phrases.
