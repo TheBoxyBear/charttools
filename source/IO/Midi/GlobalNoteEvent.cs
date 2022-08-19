@@ -7,10 +7,10 @@ namespace ChartTools.IO.Midi
         public uint Position { get; }
         public NoteEvent Event { get; }
 
-        public GlobalNoteEvent(uint position, NoteEvent ev)
+        public GlobalNoteEvent(uint position, NoteEvent e)
         {
             Position = position;
-            Event = ev;
+            Event = e;
         }
     }
 }

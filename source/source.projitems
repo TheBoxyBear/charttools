@@ -56,9 +56,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Collections\IInitializable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsing\UnknownSectionParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Mapping\UniqueTrackObjectMapper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serializing\ChartKeySerializableAttribute.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serializing\GlobalEventSerializer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serializing\UnknownSectionSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\ChartKeySerializableAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\GlobalEventSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\UnknownSectionSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Enums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\DirectoryHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\EntryException.cs" />
@@ -73,11 +73,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Mapping\IWriteMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Exceptions\InvalidMidiEventTypeException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\GlobalNoteEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\EventMapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\EventMapping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\GHGemsMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\GuitarBassMapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\IMidiEventMapping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\InstrumentMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\NoteState.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\TrackObjectMapping.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\NoteMapping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\NoteEventMapping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFileReader.cs" />
@@ -106,10 +109,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Appliables\ISongAppliable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\FileParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Serializers\GroupSerializer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Serializers\Serializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Serialization\GroupSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Serialization\Serializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\TextParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Serializers\KeySerializable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Serialization\KeySerializable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\ValueParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\InstrumentDifficultySet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\PropertyMerger.cs" />
@@ -131,7 +134,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsing\SyncTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsing\TrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsing\VariableInstrumentTrackParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serializing\SyncTrackSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\SyncTrackSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\CommonConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\ConfigurationExceptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\ReadingConfiguration.cs" />
@@ -145,9 +148,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\StreamCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\ILongTrackObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\ITrackObject.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serializing\TrackObjectGroupSerializer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serializing\TrackSerializer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serializing\MetadataSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\TrackObjectGroupSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\TrackSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\MetadataSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Sessions\ReadingSession.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Sessions\WritingSession.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\ExtensionHandler.cs" />
@@ -172,6 +175,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)IO\Appliables\" />
-    <Folder Include="$(MSBuildThisFileDirectory)IO\Midi\Serializing\" />
+    <Folder Include="$(MSBuildThisFileDirectory)IO\Midi\Serialization\" />
   </ItemGroup>
 </Project>

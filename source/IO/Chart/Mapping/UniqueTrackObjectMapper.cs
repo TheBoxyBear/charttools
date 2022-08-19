@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart.Mapping
 {
-    internal abstract class UniqueTrackObjectMapper<T> : IWriteMapper<IEnumerable<T>, TrackObjectEntry> where T : TrackObject
+    internal abstract class UniqueTrackObjectMapper<T> : IWriteMapper<IEnumerable<T>, IEnumerable<TrackObjectEntry>> where T : TrackObject
     {
         protected abstract string ObjectType { get; }
 

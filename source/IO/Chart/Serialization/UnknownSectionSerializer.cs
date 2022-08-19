@@ -1,8 +1,10 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Sections;
+using ChartTools.IO.Serializaiton;
+
 using System.Collections.Generic;
 
-namespace ChartTools.IO.Chart.Serializing
+namespace ChartTools.IO.Chart.Serialization
 {
     internal class UnknownSectionSerializer : Serializer<Section<string>, string>
     {

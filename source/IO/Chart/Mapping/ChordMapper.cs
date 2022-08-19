@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace ChartTools.IO.Chart.Mapping
 {
-    internal class ChordMapper : IWriteMapper<IEnumerable<Chord>, TrackObjectEntry>
+    internal class ChordMapper : IWriteMapper<IEnumerable<Chord>, IEnumerable<TrackObjectEntry>>
     {
         public IEnumerable<TrackObjectEntry> Map(IEnumerable<Chord> source, WritingSession session)
         {

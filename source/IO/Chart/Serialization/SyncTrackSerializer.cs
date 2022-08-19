@@ -4,7 +4,7 @@ using ChartTools.IO.Configuration.Sessions;
 
 using System.Collections.Generic;
 
-namespace ChartTools.IO.Chart.Serializing
+namespace ChartTools.IO.Chart.Serialization
 {
     internal class SyncTrackSerializer : TrackObjectGroupSerializer<SyncTrack>
     {

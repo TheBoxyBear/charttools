@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ChartTools.Internal.Collections
+namespace ChartTools.Collections
 {
     internal class EagerEnumerable<T> : IEnumerable<T>
     {

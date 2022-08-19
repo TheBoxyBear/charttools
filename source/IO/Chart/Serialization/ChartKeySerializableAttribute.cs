@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using ChartTools.IO.Serializaiton;
+using System.Collections.Generic;
 
-namespace ChartTools.IO.Chart.Serializing
+namespace ChartTools.IO.Chart.Serialization
 {
     public class ChartKeySerializableAttribute : KeySerializableAttribute
     {

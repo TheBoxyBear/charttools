@@ -1,11 +1,12 @@
-﻿using ChartTools.Extensions.Collections;
+﻿using ChartTools.Collections.Alternating;
+using ChartTools.IO.Serializaiton;
 using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration.Sessions;
 
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ChartTools.IO.Chart.Serializing
+namespace ChartTools.IO.Chart.Serialization
 {
     internal abstract class TrackObjectGroupSerializer<T> : GroupSerializer<T, string, TrackObjectEntry>
     {
