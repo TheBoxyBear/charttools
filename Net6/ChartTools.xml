@@ -1517,6 +1517,21 @@
             Defines how a tempo anchor with no parent marker is handled
             </summary>
         </member>
+        <member name="T:ChartTools.IO.Configuration.SnappedNotesPolicy">
+            <summary>
+            Defines how notes within ticks of each other are handled during a Midi operation
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.SnappedNotesPolicy.Snap">
+            <summary>
+            Notes are combines as a single chord at the position of the earlier note
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.SnappedNotesPolicy.Ignore">
+            <summary>
+            Each note is left as its own chord
+            </summary>
+        </member>
         <member name="T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy">
             <summary>
             Defines how to handle "solo" local events in tracks
@@ -1585,14 +1600,17 @@
             </summary>
             <remarks>If <see langword="null"/>, the default configuration for the file format will be used.</remarks>
         </member>
+        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.DuplicateTrackObjectPolicy">
+            <inheritdoc cref="T:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy"/>
+        </member>
         <member name="P:ChartTools.IO.Configuration.CommonConfiguration.OverlappingStarPowerPolicy">
             <inheritdoc cref="T:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy"/>
         </member>
+        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.SnappedNotesPolicy">
+            <inheritdoc cref="T:ChartTools.IO.Configuration.SnappedNotesPolicy"/>
+        </member>
         <member name="P:ChartTools.IO.Configuration.CommonConfiguration.SoloNoStarPowerPolicy">
             <inheritdoc cref="T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy"/>
-        </member>
-        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.DuplicateTrackObjectPolicy">
-            <inheritdoc cref="T:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy"/>
         </member>
         <member name="T:ChartTools.IO.Configuration.ReadingConfiguration">
             <summary>

@@ -1,9 +1,8 @@
 ﻿namespace ChartTools.IO.Midi.Mapping
 {
     internal enum MappingType : byte { Note, Modifier, Special, Animation, BigRock }
-    internal enum NoteState : byte { Open, Close }
 
-    internal struct MidiMappingResult
+    internal struct NoteEventMapping
     {
         public uint Position { get; }
         public NoteState State { get; }
@@ -11,7 +10,7 @@
         public MappingType Type { get; }
         public byte Index { get; }
 
-        public MidiMappingResult(uint position, NoteState state, Difficulty? difficulty, MappingType type, byte index)
+        public NoteEventMapping(uint position, NoteState state, Difficulty? difficulty, MappingType type, byte index)
         {
             Position = position;
             State = state;

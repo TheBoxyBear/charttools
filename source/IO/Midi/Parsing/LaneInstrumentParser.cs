@@ -69,10 +69,10 @@ namespace ChartTools.IO.Midi.Parsing
             }
 
             if (!CustomHandle(note))
-                foreach (var mapping in mapper.MapNoteEvent(globalPosition, note, session))
+                foreach (var mapping in mapper.Map(new(globalPosition, note), session))
                     BaseHandle(mapping);
         }
-        protected void BaseHandle(MidiMappingResult mapping)
+        protected void BaseHandle(NoteEventMapping mapping)
         {
             switch (mapping.Type)
             {
@@ -91,7 +91,7 @@ namespace ChartTools.IO.Midi.Parsing
             }
         }
 
-        protected virtual void HandleSpecial(MidiMappingResult mapping)
+        protected virtual void HandleSpecial(NoteEventMapping mapping)
         {
             var track = GetOrCreateTrack(mapping.Difficulty);
             var type = (TrackSpecialPhraseType)mapping.Index;
@@ -165,7 +165,7 @@ namespace ChartTools.IO.Midi.Parsing
                     tracks[i] ??= new() { Difficulty = (Difficulty)i };
             }
         }
-        protected virtual void HandleModifier(MidiMappingResult mapping)
+        protected virtual void HandleModifier(NoteEventMapping mapping)
         {
             var track = GetOrCreateTrack(mapping.Difficulty);
             var modifierIndex = mapping.Index;
@@ -182,7 +182,7 @@ namespace ChartTools.IO.Midi.Parsing
                 AddModifier(chord, modifierIndex);
             }
         }
-        protected virtual void HandleNote(MidiMappingResult mapping)
+        protected virtual void HandleNote(NoteEventMapping mapping)
         {
             var track = GetOrCreateTrack(mapping.Difficulty);
 
@@ -215,7 +215,7 @@ namespace ChartTools.IO.Midi.Parsing
                     break;
             }
         }
-        protected virtual void HandleBigRock(MidiMappingResult mapping)
+        protected virtual void HandleBigRock(NoteEventMapping mapping)
         {
             if (!Origin.HasFlag(MidiInstrumentOrigin.RockBand))
                 return;

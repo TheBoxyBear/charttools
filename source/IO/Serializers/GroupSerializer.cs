@@ -8,9 +8,9 @@ namespace ChartTools.IO
     {
         public GroupSerializer(string header, TContent content, WritingSession session) : base(header, content, session) { }
 
-        protected abstract IEnumerable<TProviderResult>[] LaunchProviders();
-        protected abstract IEnumerable<TResult> CombineProviderResults(IEnumerable<TProviderResult>[] results);
+        protected abstract IEnumerable<TProviderResult>[] LaunchMappers();
+        protected abstract IEnumerable<TResult> CombineMapperResults(IEnumerable<TProviderResult>[] results);
 
-        public override IEnumerable<TResult> Serialize() => CombineProviderResults(LaunchProviders());
+        public override IEnumerable<TResult> Serialize() => CombineMapperResults(LaunchMappers());
     }
 }

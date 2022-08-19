@@ -1,7 +1,5 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
 
-using Melanchall.DryWetMidi.Core;
-
 using System;
 using System.Collections.Generic;
 
@@ -9,9 +7,9 @@ namespace ChartTools.IO.Midi.Mapping
 {
     internal class GuitarBassMapper : InstrumentMapper<StandardChord>
     {
-        public override IEnumerable<MidiMappingResult> MapNoteEvent(uint position, NoteEvent e, ReadingSession session)
+        public override IEnumerable<NoteEventMapping> Map(GlobalNoteEvent e, ReadingSession session)
         {
-            var intNumber = (int)e.NoteNumber;
+            var intNumber = (int)e.Event.NoteNumber;
 
             if (intNumber is 126 or 127)
             {
@@ -23,7 +21,7 @@ namespace ChartTools.IO.Midi.Mapping
 
                 yield return CreateMapping(Difficulty.Expert, MappingType.Special, specialType);
 
-                if ((byte)e.Velocity is > 40 and < 51)
+                if ((byte)e.Event.Velocity is > 40 and < 51)
                     yield return CreateMapping(Difficulty.Hard, MappingType.Special, specialType);
 
                 yield break;
@@ -53,7 +51,7 @@ namespace ChartTools.IO.Midi.Mapping
                 > 83 and < 95 => (Difficulty.Hard, intNumber - 83),
                 > 95 and < 107 => (Difficulty.Expert, intNumber - 95),
                 110 => (default(Difficulty?), intNumber),
-                _ => HandleInvalidMidiEvent<(Difficulty?, int)>(position, e, session)
+                _ => HandleInvalidMidiEvent<(Difficulty?, int)>(e, session)
             };
             (var type, var newAdjusted) = adjusted switch
             {
@@ -68,10 +66,10 @@ namespace ChartTools.IO.Midi.Mapping
 
             yield return CreateMapping(difficulty, type, (byte)newAdjusted);
 
-            MidiMappingResult CreateMapping(Difficulty? difficulty, MappingType type, byte index) => new(position, GetState(e), difficulty, type, index);
+            NoteEventMapping CreateMapping(Difficulty? difficulty, MappingType type, byte index) => new(e.Position, GetState(e.Event), difficulty, type, index);
         }
 
-        public override IEnumerable<TrackObjectMappingResult> MapInstrument(Instrument<StandardChord> instrument)
+        public override IEnumerable<TrackObjectMapping> Map(Instrument<StandardChord> instrument, WritingSession session)
         {
             throw new NotImplementedException();
         }

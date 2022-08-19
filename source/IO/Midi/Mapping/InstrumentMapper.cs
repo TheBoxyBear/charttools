@@ -1,21 +1,23 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
+using ChartTools.IO.Mapping;
 
 using Melanchall.DryWetMidi.Core;
 using System.Collections.Generic;
 
 namespace ChartTools.IO.Midi.Mapping
 {
-    internal abstract class InstrumentMapper<TChord> where TChord : Chord
+    internal abstract class InstrumentMapper<TChord> : IReadMapper<GlobalNoteEvent, NoteEventMapping>, IWriteMapper<Instrument<TChord>, TrackObjectMapping> where TChord : Chord
     {
-        public abstract IEnumerable<MidiMappingResult> MapNoteEvent(uint position, NoteEvent e, ReadingSession session);
-        public abstract IEnumerable<TrackObjectMappingResult> MapInstrument(Instrument<TChord> instrument);
+        public abstract IEnumerable<NoteEventMapping> Map(GlobalNoteEvent e, ReadingSession session);
+        public abstract IEnumerable<TrackObjectMapping> Map(Instrument<TChord> instrument, WritingSession session);
 
         protected static NoteState GetState(NoteEvent note) => note is NoteOnEvent ? NoteState.Open : NoteState.Close;
 
-        protected static T? HandleInvalidMidiEvent<T>(uint position, MidiEvent e, ReadingSession session)
+        protected static T? HandleInvalidMidiEvent<T>(GlobalNoteEvent e, ReadingSession session)
         {
-            session.HandleInvalidMidiEventType(position, e);
+            session.HandleInvalidMidiEventType(e.Position, e.Event);
             return default;
         }
+
     }
 }

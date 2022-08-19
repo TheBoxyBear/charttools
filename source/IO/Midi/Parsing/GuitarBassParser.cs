@@ -12,7 +12,7 @@ namespace ChartTools.IO.Midi.Parsing
     internal class GuitarBassParser : StandardInstrumentParser
     {
         private MidiInstrumentOrigin format = MidiInstrumentOrigin.Unknown;
-        private readonly List<MidiMappingResult> mappings = new();
+        private readonly List<NoteEventMapping> mappings = new();
         private readonly Dictionary<int, uint?> openedBigRockPosition = new(from index in Enumerable.Range(1, 5) select new KeyValuePair<int, uint?>(index, null));
 
         public override MidiInstrumentOrigin Origin => format;
@@ -27,9 +27,9 @@ namespace ChartTools.IO.Midi.Parsing
         protected override bool CustomHandle(NoteEvent note)
         {
             var newFormat = MidiInstrumentOrigin.Unknown;
-            var newMappings = mapper.MapNoteEvent(globalPosition, note, session);
+            var newMappings = mapper.Map(new(globalPosition, note), session);
 
-            foreach (var mapping in mapper.MapNoteEvent(globalPosition, note, session))
+            foreach (var mapping in newMappings)
             {
                 if (mapping.Type is MappingType.Animation || note.NoteNumber == 116)
                     newFormat = MidiInstrumentOrigin.RockBand;
@@ -50,6 +50,8 @@ namespace ChartTools.IO.Midi.Parsing
 
                 mappings.AddRange(newMappings);
             }
+
+            mappings.AddRange(newMappings);
 
             return true;
         }

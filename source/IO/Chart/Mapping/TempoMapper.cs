@@ -1,9 +1,9 @@
 ﻿using ChartTools.IO.Chart.Entries;
 using System.Collections.Generic;
 
-namespace ChartTools.IO.Chart.Providers
+namespace ChartTools.IO.Chart.Mapping
 {
-    internal class TempoProvider : SyncTrackProvider<Tempo>
+    internal class TempoMapper : UniqueTrackObjectMapper<Tempo>
     {
         protected override string ObjectType => "tempo marker";
 

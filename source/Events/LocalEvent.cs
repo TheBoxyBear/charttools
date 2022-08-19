@@ -8,6 +8,7 @@
         public bool IsSoloEvent => EventType is EventTypeHelper.Local.Solo or EventTypeHelper.Local.SoloEnd;
         public bool IsOwFaceEvent => EventType.StartsWith(EventTypeHeaderHelper.Local.OwFace);
 
+        public LocalEvent() : base() { }
         /// <inheritdoc cref="Event(uint, string)"/>
         public LocalEvent(uint position, string data) : base(position, data) { }
         /// <inheritdoc cref="Event(uint, string, string?)"/>

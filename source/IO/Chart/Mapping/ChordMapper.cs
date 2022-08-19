@@ -1,15 +1,16 @@
 ﻿using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration.Sessions;
+using ChartTools.IO.Mapping;
 using ChartTools.SystemExtensions.Linq;
 
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ChartTools.IO.Chart.Providers
+namespace ChartTools.IO.Chart.Mapping
 {
-    internal class ChordProvider: ISerializerDataProvider<Chord, TrackObjectEntry>
+    internal class ChordMapper : IWriteMapper<IEnumerable<Chord>, TrackObjectEntry>
     {
-        public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<Chord> source, WritingSession session)
+        public IEnumerable<TrackObjectEntry> Map(IEnumerable<Chord> source, WritingSession session)
         {
             List<uint> orderedPositions = new();
             Chord? previousChord = null;
