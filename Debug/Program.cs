@@ -16,8 +16,6 @@ using ChartTools.IO.Ini;
 using ChartTools.IO.Midi;
 using ChartTools.IO.Sections;
 using ChartTools.Lyrics;
-using ChartTools.SystemExtensions;
-using ChartTools.SystemExtensions.Linq;
 using ChartTools.Tools;
 
 namespace Debug
