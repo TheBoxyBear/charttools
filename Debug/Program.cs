@@ -1,34 +1,38 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 using ChartTools;
-using ChartTools.Collections;
-using ChartTools.Collections.Alternating;
-using ChartTools.Collections.Delayed;
-using ChartTools.Collections.Unique;
+using ChartTools.Extensions;
+using ChartTools.Extensions.Collections;
+using ChartTools.Extensions.Linq;
 using ChartTools.Events;
-using ChartTools.Exceptions;
 using ChartTools.Formatting;
 using ChartTools.IO;
+using ChartTools.IO.Serializaiton;
 using ChartTools.IO.Chart;
-using ChartTools.IO.Chart.Serializing;
+using ChartTools.IO.Chart.Serialization;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Ini;
 using ChartTools.IO.Midi;
 using ChartTools.IO.Sections;
 using ChartTools.Lyrics;
-using ChartTools.SystemExtensions;
-using ChartTools.SystemExtensions.Linq;
 using ChartTools.Tools;
 
 namespace Debug
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             // You can use this project to perform manual tests and experiment. Pull requests that include changes to this project will be rejected.
             // To make sure changes to this file are not committed, run the command "git update-index --assume-unchanged Debug/Program.cs" on your local repository.
             // This project targets .NET 6 with the matching debug build of ChartTools.
+
+            var baseDirectory = @"E:\Users\Gaming\Desktop\Moonscraper\Diamante\Bulletproof\";
+            var song = MidiFile.ReadSong(baseDirectory + "bulletproof.mid");
+
         }
     }
 }
