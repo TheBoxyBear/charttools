@@ -1,62 +1,14 @@
-﻿using System;
+﻿using ChartTools.Extensions.Collections;
+
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using ChartTools.IO;
-using ChartTools.IO.Chart;
-using ChartTools.Lyrics;
-using ChartTools.Collections.Alternating;
 using System.Threading.Tasks;
-using System.Collections;
-using System.Threading;
-using ChartTools.Events;
 
-namespace ChartTools.SystemExtensions
+namespace ChartTools.Extensions.Linq
 {
-    /// <summary>
-    /// <see cref="IEquatable{T}"/> equivalent to the <see cref="IComparable{T}"/> <see cref="Comparison{T}"/> delegate
-    /// </summary>
-    public delegate bool EqualityComparison<in T>(T a, T b);
-
-    /// <summary>
-    /// Provides additional methods to string
-    /// </summary>
-    internal static class StringExtensions
-    {
-        /// <inheritdoc cref="VerbalEnumerate(string, string[])"/>
-        public static string VerbalEnumerate(this IEnumerable<string> items, string lastItemPreceder) => VerbalEnumerate(lastItemPreceder, items.ToArray());
-        /// <summary>
-        /// Enumerates items with commas and a set word preceding the last item.
-        /// </summary>
-        /// <param name="lastItemPreceder">Word to place before the last item</param>
-        /// <exception cref="ArgumentNullException"/>
-        public static string VerbalEnumerate(string lastItemPreceder, params string[] items) => items is null ? throw new ArgumentNullException(nameof(items)) : items.Length switch
-        {
-            0 => string.Empty, // ""
-            1 => items[0], // "Item1"
-            2 => $"{items[0]} {lastItemPreceder} {items[1]}", // "Item1 lastItemPreceder Item2"
-            _ => $"{string.Join(", ", items, items.Length - 1)} {lastItemPreceder} {items[^0]}" // "Item1, Item2 lastItemPreceder Item3"
-        };
-    }
-}
-namespace ChartTools.SystemExtensions.Linq
-{
-    /// <summary>
-    /// Replacement for a section of items in a collection
-    /// </summary>
-    /// <param name="Replacement">Items to replace with</param>
-    /// <param name="StartReplace">Method that defines if a source marks the start of the section to replace</param>
-    /// <param name="EndReplace">Method that defines if a source item marks the end of the section to replace</param>
-    /// <param name="AddIfMissing">The replacement should be appended to the collection if the section to replace is not found</param>
-#if NET6_0_OR_GREATER
-    public readonly record struct SectionReplacement<T>(IEnumerable<T> Replacement, Predicate<T> StartReplace, Predicate<T> EndReplace, bool AddIfMissing);
-#else
-    public record SectionReplacement<T>(IEnumerable<T> Replacement, Predicate<T> StartReplace, Predicate<T> EndReplace, bool AddIfMissing);
-#endif
-
-    /// <summary>
-    /// Provides additional methods to Linq
-    /// </summary>
-    public static class LinqExtensions
+    public static class EnumerableExtensions
     {
         /// <summary>
         /// Checks that all booleans in a collection are <see langword="true"/>.
@@ -91,7 +43,8 @@ namespace ChartTools.SystemExtensions.Linq
             return false;
         }
 
-        /// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
+        #region First
+        /// <inheritdoc cref="EnumerableExtensions.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
         /// <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
         public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue, out bool returnedDefault)
         {
@@ -108,12 +61,6 @@ namespace ChartTools.SystemExtensions.Linq
             returnedDefault = true;
             return defaultValue;
         }
-
-        /// <summary>
-        /// Excludes <see langword="null"/> items.
-        /// </summary>
-        public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) => source.Where(t => t is not null)!;
-
         /// <summary>
         /// Tries to get the first item that meet a condition from en enumerable.
         /// </summary>
@@ -135,41 +82,35 @@ namespace ChartTools.SystemExtensions.Linq
             item = default!;
             return false;
         }
-
-        public static int BinarySearchIndex<T, TKey>(this IList<T> source, TKey target, Func<T, TKey> keySelector, out bool exactMatch) where TKey : notnull, IComparable<TKey>
+        /// <summary>
+        /// Tries to get the first element of a collection.
+        /// </summary>
+        /// <param name="source">Source of items</param>
+        /// <param name="result">Found item</param>
+        /// <returns><see langword="true"/> if an item was found</returns>
+        public static bool TryGetFirst<T>(this IEnumerable<T> source, out T result)
         {
-            int left = 0, right = source.Count - 1, middle, index = 0;
+            using var enumerator = source.GetEnumerator();
+            var success = enumerator.MoveNext();
 
-            while (left <= right)
-            {
-                middle = (left + right) / 2;
-
-                switch (keySelector(source[middle]).CompareTo(target))
-                {
-                    case -1:
-                        index = left = middle + 1;
-                        break;
-                    case 0:
-                        exactMatch = true;
-                        return middle;
-                    case 1:
-                        index = right = middle - 1;
-                        break;
-                }
-            }
-
-            exactMatch = false;
-            return index;
+            result = success ? enumerator.Current : default!;
+            return success;
         }
-        public static int BinarySearchIndex<T>(this IList<T> source, T target, out bool exactMatch) where T : notnull, IComparable<T> => BinarySearchIndex(source, target, t => t, out exactMatch);
+        /// <summary>
+        /// Tries to get the first item of a given type in a collection.
+        /// </summary>
+        /// <param name="source">Source of items</param>
+        /// <param name="result">Found item</param>
+        /// <returns><see langword="true"/> if an item was found</returns>
+        public static bool TryGetFirstOfType<TResult>(this IEnumerable source, out TResult result) => source.OfType<TResult>().TryGetFirst(out result);
+        #endregion
 
         /// <summary>
-        /// Returns distinct elements of a sequence using a method to determine the equality of elements
+        /// Excludes <see langword="null"/> items.
         /// </summary>
-        /// <param name="comparison">Method that determines if two elements are the same</param>
-        /// <inheritdoc cref="Enumerable.Distinct{TSource}(IEnumerable{TSource})" path="/exception"/>
-        public static IEnumerable<T> Distinct<T>(this IEnumerable<T> source, EqualityComparison<T?> comparison) => source.Distinct(new FuncEqualityComparer<T>(comparison));
+        public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) => source.Where(t => t is not null)!;
 
+        #region Replace
         /// <summary>
         /// Replaces items that meet a condition with another item.
         /// </summary>
@@ -344,6 +285,7 @@ namespace ChartTools.SystemExtensions.Linq
             while (itemsEnumerator.MoveNext())
                 yield return itemsEnumerator.Current;
         }
+        #endregion
 
         /// <summary>
         /// Loops through a set of objects and returns a set of tuples containing the current object and the previous one.
@@ -360,17 +302,13 @@ namespace ChartTools.SystemExtensions.Linq
                 previousItem = item;
             }
         }
-        /// <summary>
-        /// Removes all items in a <see cref="ICollection{T}"/> that meet a condition
-        /// </summary>
-        /// <param name="source">Collection to remove items from</param>
-        /// <param name="predicate">Function that determines which items to remove</param>
-        public static void RemoveWhere<T>(this ICollection<T> source, Predicate<T> predicate)
-        {
-            foreach (T item in source.Where(i => predicate(i)))
-                source.Remove(item);
-        }
 
+        #region Unique
+        /// <summary>
+        /// Returns distinct elements of a sequence using a method to determine the equality of elements
+        /// </summary>
+        /// <param name="comparison">Method that determines if two elements are the same</param>
+        public static IEnumerable<T> Distinct<T>(this IEnumerable<T> source, EqualityComparison<T?> comparison) => source.Distinct(new FuncEqualityComparer<T>(comparison));
         public static bool Unique<T>(this IEnumerable<T> source) => UniqueFromDistinct(source.Distinct());
         public static bool UniqueBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector)
         {
@@ -381,7 +319,9 @@ namespace ChartTools.SystemExtensions.Linq
 #endif
         }
         private static bool UniqueFromDistinct<T>(IEnumerable<T> distinct) => !distinct.Skip(1).Any();
+        #endregion
 
+        #region MinMax
         /// <summary>
         /// Finds the items for which a function returns the smallest or greatest value based on a comparison.
         /// </summary>
@@ -421,32 +361,11 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="source">Items to find the minimum or maximum of</param>
         /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
         public static IEnumerable<T> ManyMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) > 0);
-
-        /// <summary>
-        /// Tries to get the first element of a collection.
-        /// </summary>
-        /// <param name="source">Source of items</param>
-        /// <param name="result">Found item</param>
-        /// <returns><see langword="true"/> if an item was found</returns>
-        public static bool TryGetFirst<T>(this IEnumerable<T> source, out T result)
-        {
-            using var enumerator = source.GetEnumerator();
-            var success = enumerator.MoveNext();
-
-            result = success ? enumerator.Current : default!;
-            return success;
-        }
-        /// <summary>
-        /// Tries to get the first item of a given type in a collection.
-        /// </summary>
-        /// <param name="source">Source of items</param>
-        /// <param name="result">Found item</param>
-        /// <returns><see langword="true"/> if an item was found</returns>
-        public static bool TryGetFirstOfType<TResult>(this IEnumerable source, out TResult result) => source.OfType<TResult>().TryGetFirst(out result);
+        #endregion
 
         // Methods present in .NET 6 but needed for .NET 5 builds
 #if NET5_0
-        /// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
+        /// <inheritdoc cref="EnumerableExtensions.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
         /// <param name="defaultValue">Value to return if no item meets the condition</param>
         public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue)
         {
@@ -459,6 +378,7 @@ namespace ChartTools.SystemExtensions.Linq
             return defaultValue;
         }
 
+        #region MinMax
         /// <summary>
         /// Finds the item for which a function returns the smallest or greatest value based on a comparison.
         /// </summary>
@@ -507,6 +427,7 @@ namespace ChartTools.SystemExtensions.Linq
         /// <param name="source">Items to find the minimum or maximum of</param>
         /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
         public static T MaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => MinMaxBy(source, selector, (key, mmKey) => key.CompareTo(mmKey) > 0);
+        #endregion
 #endif
 
         public static async IAsyncEnumerable<T> ToAsyncEnumerable<T>(this IEnumerable<T> source)
@@ -514,76 +435,10 @@ namespace ChartTools.SystemExtensions.Linq
             foreach (var item in source)
                 yield return await Task.FromResult(item);
         }
-    }
-}
 
-namespace ChartTools.Events
-{
-    /// <summary>
-    /// Provides additional methods for <see cref="GlobalEvent"/>
-    /// </summary>
-    public static class GlobalEventExtensions
-    {
-        public static void ToFile(this IEnumerable<GlobalEvent> events, string path) => ExtensionHandler.Write(path, events, (".chart", (path, events) => ChartFile.ReplaceGlobalEvents(path, events)));
-        public static async Task ToFileAsync(this IEnumerable<GlobalEvent> events, string path, CancellationToken cancellationToken) => await ExtensionHandler.WriteAsync(path, events, (".chart", (path, events) => ChartFile.ReplaceGlobalEventsAsync(path, events, cancellationToken)));
-
-        /// <summary>
-        /// Gets the lyrics from an enumerable of <see cref="GlobalEvent"/>
-        /// </summary>
-        /// <returns>Enumerable of <see cref="Phrase"/></returns>
-        public static IEnumerable<Phrase> GetLyrics(this IEnumerable<GlobalEvent> globalEvents)
-        {
-            Phrase? phrase = null;
-
-            foreach (GlobalEvent globalEvent in globalEvents.OrderBy(e => e.Position))
-                switch (globalEvent.EventType)
-                {
-                    // Change active phrase
-                    case EventTypeHelper.Global.PhraseStart:
-                        if (phrase is not null)
-                            yield return phrase;
-
-                        phrase = new Phrase(globalEvent.Position);
-                        break;
-                    // Add syllable to the active phrase using the event argument
-                    case EventTypeHelper.Global.Lyric:
-                        if (phrase is not null)
-                            phrase.Notes.Add(new(globalEvent.Position - phrase.Position, VocalsPitches.None) { RawText = globalEvent.Argument ?? string.Empty });
-                        break;
-                    // Set length of active phrase
-                    case EventTypeHelper.Global.PhraseEnd:
-                        if (phrase is not null)
-                            phrase.LengthOverride = globalEvent.Position - phrase.Position;
-                        break;
-                }
-
-            if (phrase is not null)
-                yield return phrase;
-        }
-        /// <summary>
-        /// Gets a set of <see cref="GlobalEvent"/> where phrase and lyric events are replaced with the events making up a set of <see cref="Phrase"/>.
-        /// </summary>
-        /// <returns>Enumerable of <see cref="GlobalEvent"/></returns>
-        public static IEnumerable<GlobalEvent> SetLyrics(this IEnumerable<GlobalEvent> events, IEnumerable<Phrase> lyrics)
-        {
-            foreach (GlobalEvent globalEvent in new OrderedAlternatingEnumerable<uint, GlobalEvent>(i => i.Position, events.Where(e => !e.IsLyricEvent), lyrics.SelectMany(p => p.ToGlobalEvents())))
-                yield return globalEvent;
-        }
-    }
-}
-
-namespace ChartTools.Lyrics
-{
-    /// <summary>
-    /// Provides additional methods to <see cref="Phrase"/>
-    /// </summary>
-    public static class PhraseExtensions
-    {
-        /// <summary>
-        /// Converts a set of <see cref="Phrase"/> to a set of <see cref="GlobalEvent"/> making up the phrases.
-        /// </summary>
-        /// <param name="source">Phrases to convert into global events</param>
-        /// <returns>Global events making up the phrases</returns>
-        public static IEnumerable<GlobalEvent> ToGlobalEvents(this IEnumerable<Phrase> source) => source.SelectMany(p => p.ToGlobalEvents());
+        #region Collections
+        public static IEnumerable<T> Alternate<T>(this IEnumerable<IEnumerable<T>> source) => new SerialAlternatingEnumerable<T>(source.ToArray());
+        public static IEnumerable<T> AlternateBy<T, TKey>(this IEnumerable<IEnumerable<T>> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => new OrderedAlternatingEnumerable<T, TKey>(selector, source.ToArray());
+        #endregion
     }
 }

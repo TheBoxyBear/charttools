@@ -1,18 +1,18 @@
-﻿using System;
+﻿using ChartTools.Extensions.Linq;
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-using ChartTools.SystemExtensions.Linq;
-
-namespace ChartTools.Collections.Alternating
+namespace ChartTools.Extensions.Collections
 {
     /// <summary>
     /// Enumerable where <typeparamref name="T"/> items are pulled from a set of enumerables in order using a <typeparamref name="TKey"/> key
     /// </summary>
     /// <typeparam name="T">Type of the enumerated items</typeparam>
     /// <typeparam name="TKey">Type of the key used to determine the order</typeparam>
-    internal class OrderedAlternatingEnumerable<TKey, T> : IEnumerable<T> where TKey : IComparable<TKey>
+    public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey : IComparable<TKey>
     {
         /// <summary>
         /// Enumerables to alternate between

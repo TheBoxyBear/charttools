@@ -1,12 +1,11 @@
-﻿using ChartTools.SystemExtensions;
-using ChartTools.SystemExtensions.Linq;
+﻿using ChartTools.Extensions.Linq;
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ChartTools.Collections.Unique
+namespace ChartTools.Extensions.Collections
 {
     /// <summary>
     /// List where all <typeparamref name="T"/> items must be unique using a given comparison

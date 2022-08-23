@@ -3,15 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-using ChartTools.SystemExtensions.Linq;
+using ChartTools.Extensions.Linq;
 
-namespace ChartTools.Collections.Alternating
+namespace ChartTools.Extensions.Collections
 {
     /// <summary>
     /// Enumerator that yields <typeparamref name="T"/> items by alternating through a set of enumerators
     /// </summary>
     /// <typeparam name="T">Type of the enumerated items</typeparam>
-    public class SerialAlternatingEnumerator<T> : IEnumerator<T?>
+    internal class SerialAlternatingEnumerator<T> : IEnumerator<T?>
     {
         /// <summary>
         /// Enumerators to alternate between

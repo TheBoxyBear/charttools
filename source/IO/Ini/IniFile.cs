@@ -1,6 +1,6 @@
-﻿using ChartTools.Formatting;
+﻿using ChartTools.Extensions.Linq;
+using ChartTools.Formatting;
 using ChartTools.IO.Configuration;
-using ChartTools.SystemExtensions.Linq;
 
 using System;
 using System.Threading;

@@ -4,8 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-using ChartTools.IO.Configuration;
-using ChartTools.SystemExtensions;
+using ChartTools.Extensions;
 
 namespace ChartTools.IO
 {

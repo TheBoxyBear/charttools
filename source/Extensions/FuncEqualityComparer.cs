@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using ChartTools.SystemExtensions;
-
-namespace ChartTools
+namespace ChartTools.Extensions
 {
     /// <summary>
     /// Delegate-based <see cref="IEqualityComparer{T}"/>

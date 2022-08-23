@@ -1,5 +1,4 @@
-﻿using ChartTools.SystemExtensions.Linq;
-
+﻿using ChartTools.Extensions.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using System;

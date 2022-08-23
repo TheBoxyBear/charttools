@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using ChartTools.Extensions;
+using ChartTools.Extensions.Collections;
 
-using ChartTools.Collections.Unique;
-using ChartTools.SystemExtensions;
+using System.Collections.Generic;
 
 namespace ChartTools
 {

@@ -1,7 +1,7 @@
 ﻿using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
-using ChartTools.SystemExtensions.Linq;
+using ChartTools.Extensions.Linq;
 using ChartTools.Tools;
 
 using System;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 
-namespace ChartTools.Collections.Delayed
+namespace ChartTools.Extensions.Collections
 {
     public class DelayedEnumerableSource<T> : IDisposable
     {

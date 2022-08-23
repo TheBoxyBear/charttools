@@ -2,7 +2,7 @@
 using System.Linq;
 using System;
 using System.Collections.Generic;
-using ChartTools.SystemExtensions.Linq;
+using ChartTools.Extensions.Linq;
 
 namespace ChartTools.Tools
 {

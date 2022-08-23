@@ -1,4 +1,4 @@
-﻿using ChartTools.Collections.Delayed;
+﻿using ChartTools.Extensions.Collections;
 using ChartTools.IO.Midi.Parsing;
 
 using Melanchall.DryWetMidi.Core;
