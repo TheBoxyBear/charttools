@@ -12,7 +12,7 @@ namespace ChartTools.IO.Midi.Mapping
         public MappingType Type { get; }
         public byte Index { get; }
 
-        public NoteEventMapping(GlobalNoteEvent e, Difficulty? difficulty, MappingType type, byte index) : this(e.Position, GetState(e.Event), difficulty, type, index) { }
+        public NoteEventMapping(uint position, NoteEvent e, Difficulty? difficulty, MappingType type, byte index) : this(position, GetState(e), difficulty, type, index) { }
         public NoteEventMapping(uint position, NoteState state, Difficulty? difficulty, MappingType type, byte index)
         {
             Position = position;

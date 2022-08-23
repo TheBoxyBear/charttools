@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Chords\Phrase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Chords\StandardChord.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\EventExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\GlobalEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Collections\Alternating\Ordered\OrderedAlternatingEnumerable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Collections\Alternating\Ordered\OrderedAlternatingEnumerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Collections\Alternating\Serial\SerialAlternatingEnumerable.cs" />
@@ -32,7 +33,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Events\EventArgumentHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\EventTypeHeaderHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\EventTypeHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Events\GlobalEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\LocalEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\UndefinedEnumException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\Validator.cs" />
@@ -40,7 +40,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\FuncEqualityComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\IInitializable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Linq\CollectionExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\Linq\EnumerableExtentions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\Linq\EnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Linq\SectionReplacement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Instruments\InstrumentSet.cs" />
@@ -53,6 +53,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Mapping\SpecialPhraseMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Mapping\TempoMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Mapping\TimeSignatureMapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Mapping\UniqueTrackObjectMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsing\ChartParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsing\MetadataParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Formatting\FormattingEnums.cs" />
@@ -63,9 +64,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Instruments\InstrumentGeneric.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Collections\IInitializable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsing\UnknownSectionParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Mapping\UniqueTrackObjectMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\ChartKeySerializableAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\GlobalEventSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\MetadataSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\SyncTrackSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\TrackObjectGroupSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\TrackSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\UnknownSectionSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Enums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\DirectoryHandler.cs" />
@@ -77,15 +81,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\FileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFormatting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Exceptions\InvalidMidiEventTypeException.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\GlobalNoteEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\EventMapping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\GHGemsMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\GuitarBassMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\IMidiEventMapping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\InstrumentMapper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\NoteState.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\NoteMapping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\NoteEventMapping.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\NoteMapping.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\NoteState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GHGemsParser.cs" />
@@ -100,6 +103,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\ReservedSectionHeaderSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\Section.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\SectionSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Serialization\GroupSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Serialization\KeySerializable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Serialization\Serializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\TextFileWriter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Special\InstrumentSpecialPhrase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Special\TrackSpecialPhrase.cs" />
@@ -113,10 +119,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Appliables\ISongAppliable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\FileParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Serialization\GroupSerializer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Serialization\Serializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\TextParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Serialization\KeySerializable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\ValueParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\InstrumentDifficultySet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\PropertyMerger.cs" />
@@ -138,7 +141,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsing\SyncTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsing\TrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsing\VariableInstrumentTrackParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\SyncTrackSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\CommonConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\ConfigurationExceptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\ReadingConfiguration.cs" />
@@ -152,9 +154,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\StreamCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\ILongTrackObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\ITrackObject.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\TrackObjectGroupSerializer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\TrackSerializer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\MetadataSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Sessions\ReadingSession.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Sessions\WritingSession.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\ExtensionHandler.cs" />

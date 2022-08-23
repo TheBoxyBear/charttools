@@ -27,7 +27,7 @@ namespace ChartTools.IO.Midi.Parsing
         protected override bool CustomHandle(NoteEvent note)
         {
             var newFormat = MidiInstrumentOrigin.Unknown;
-            var newMappings = mapper.Map(new(globalPosition, note), session);
+            var newMappings = mapper.Map(globalPosition, note, session);
 
             foreach (var mapping in newMappings)
             {

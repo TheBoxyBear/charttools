@@ -513,6 +513,30 @@
             </summary>
             <returns>Enumerable of <see cref="T:ChartTools.Events.GlobalEvent"/></returns>
         </member>
+        <member name="T:ChartTools.Events.GlobalEvent">
+            <summary>
+            Event common to all instruments
+            </summary>
+        </member>
+        <member name="M:ChartTools.Events.GlobalEvent.#ctor(System.UInt32,System.String)">
+            <inheritdoc cref="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String)"/>
+        </member>
+        <member name="M:ChartTools.Events.GlobalEvent.#ctor(System.UInt32,System.String,System.String)">
+            <inheritdoc cref="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String,System.String)"/>
+        </member>
+        <member name="M:ChartTools.Events.GlobalEvent.FromFile(System.String)">
+            <summary>
+            Reads global events from a file.
+            </summary>
+            <param name="path">Path of the file</param>
+        </member>
+        <member name="M:ChartTools.Events.GlobalEvent.FromFileAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Reads global events from a file asynchronously using multitasking.
+            </summary>
+            <param name="path"><inheritdoc cref="M:ChartTools.Events.GlobalEvent.FromFile(System.String)" path="/param[@name='path']"/></param>
+            <param name="cancellationToken">Token to request cancellation</param>
+        </member>
         <member name="T:ChartTools.Events.Event">
             <summary>
             Marker that defines an occurrence at a given point in a song.
@@ -537,30 +561,6 @@
             <inheritdoc cref="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String)"/>
             <param name="type"><inheritdoc cref="P:ChartTools.Events.Event.EventType"/></param>
             <param name="argument"><inheritdoc cref="P:ChartTools.Events.Event.Argument"/></param>
-        </member>
-        <member name="T:ChartTools.Events.GlobalEvent">
-            <summary>
-            Event common to all instruments
-            </summary>
-        </member>
-        <member name="M:ChartTools.Events.GlobalEvent.#ctor(System.UInt32,System.String)">
-            <inheritdoc cref="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String)"/>
-        </member>
-        <member name="M:ChartTools.Events.GlobalEvent.#ctor(System.UInt32,System.String,System.String)">
-            <inheritdoc cref="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String,System.String)"/>
-        </member>
-        <member name="M:ChartTools.Events.GlobalEvent.FromFile(System.String)">
-            <summary>
-            Reads global events from a file.
-            </summary>
-            <param name="path">Path of the file</param>
-        </member>
-        <member name="M:ChartTools.Events.GlobalEvent.FromFileAsync(System.String,System.Threading.CancellationToken)">
-            <summary>
-            Reads global events from a file asynchronously using multitasking.
-            </summary>
-            <param name="path"><inheritdoc cref="M:ChartTools.Events.GlobalEvent.FromFile(System.String)" path="/param[@name='path']"/></param>
-            <param name="cancellationToken">Token to request cancellation</param>
         </member>
         <member name="T:ChartTools.Events.LocalEvent">
             <summary>
@@ -2781,9 +2781,6 @@
             <summary>
             Set of information about the song not unrelated to instruments, syncing or events
             </summary>
-        </member>
-        <member name="P:ChartTools.Song.Formatting">
-            <inheritdoc cref="T:ChartTools.Formatting.FormattingRules"/>
         </member>
         <member name="P:ChartTools.Song.SyncTrack">
             <inheritdoc cref="T:ChartTools.SyncTrack"/>
