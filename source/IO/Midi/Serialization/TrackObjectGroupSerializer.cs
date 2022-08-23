@@ -1,4 +1,4 @@
-﻿using ChartTools.Collections.Alternating;
+﻿using ChartTools.Extensions.Linq;
 using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Midi.Mapping;
 using ChartTools.IO.Serializaiton;
@@ -14,6 +14,6 @@ namespace ChartTools.IO.Midi.Serialization
     {
         public TrackObjectGroupSerializer(string header, T content, WritingSession session) : base(header, content, session) { }
 
-        protected override IEnumerable<MidiEvent> CombineMapperResults(IEnumerable<IMidiEventMapping<MidiEvent>>[] mappings) => new OrderedAlternatingEnumerable<uint, IMidiEventMapping<MidiEvent>>(mapper => mapper.Position, mappings).Select(mapping => mapping.ToMidiEvent(0));
+        protected override IEnumerable<MidiEvent> CombineMapperResults(IEnumerable<IMidiEventMapping<MidiEvent>>[] mappings) => mappings.AlternateBy(mapping => mapping.Position).Select(mapping => mapping.ToMidiEvent(0));
     }
 }

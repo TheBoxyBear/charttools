@@ -1,4 +1,7 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
+
+using Melanchall.DryWetMidi.Core;
+
 using System;
 using System.Collections.Generic;
 
@@ -6,9 +9,9 @@ namespace ChartTools.IO.Midi.Mapping
 {
     internal class GuitarBassMapper : InstrumentMapper<StandardChord>
     {
-        public override IEnumerable<NoteEventMapping> Map(GlobalNoteEvent e, ReadingSession session)
+        public override IEnumerable<NoteEventMapping> Map(uint position, NoteEvent e, ReadingSession session)
         {
-            var intNumber = (int)e.Event.NoteNumber;
+            var intNumber = (int)e.NoteNumber;
 
             if (intNumber is 126 or 127)
             {
@@ -18,28 +21,28 @@ namespace ChartTools.IO.Midi.Mapping
                     127 => (byte)TrackSpecialPhraseType.Tremolo
                 };
 
-                yield return new(e, Difficulty.Expert, MappingType.Special, specialType);
+                yield return CreateMapping( Difficulty.Expert, MappingType.Special, specialType);
 
-                if ((byte)e.Event.Velocity is > 40 and < 51)
-                    yield return new(e, Difficulty.Hard, MappingType.Special, specialType);
+                if ((byte)e.Velocity is > 40 and < 51)
+                    yield return CreateMapping(Difficulty.Hard, MappingType.Special, specialType);
 
                 yield break;
             }
 
             if (intNumber is > 119 and < 125)
             {
-                yield return new(e, null, MappingType.BigRock, (byte)(125 - intNumber));
+                yield return CreateMapping( null, MappingType.BigRock, (byte)(125 - intNumber));
                 yield break;
             }
 
             if (intNumber is < 60)
             {
-                yield return new(e, null, MappingType.Animation, 0); // TODO Map animation indexes
+                yield return CreateMapping(null, MappingType.Animation, 0); // TODO Map animation indexes
                 yield break;
             }
             if (intNumber is 116)
             {
-                yield return new(e, null, MappingType.Special, (byte)TrackSpecialPhraseType.StarPowerGain);
+                yield return CreateMapping(null, MappingType.Special, (byte)TrackSpecialPhraseType.StarPowerGain);
                 yield break;
             }
 
@@ -50,7 +53,7 @@ namespace ChartTools.IO.Midi.Mapping
                 > 83 and < 95 => (Difficulty.Hard, intNumber - 83),
                 > 95 and < 107 => (Difficulty.Expert, intNumber - 95),
                 110 => (default(Difficulty?), intNumber),
-                _ => HandleInvalidMidiEvent<(Difficulty?, int)>(e, session)
+                _ => HandleInvalidMidiEvent<(Difficulty?, int)>(position, e, session)
             };
             (var type, var newAdjusted) = adjusted switch
             {
@@ -63,7 +66,10 @@ namespace ChartTools.IO.Midi.Mapping
                 _ => (MappingType.Note, adjusted)
             };
 
-            yield return new(e, difficulty, type, (byte)newAdjusted);
+            yield return CreateMapping(difficulty, type, (byte)newAdjusted);
+
+
+            NoteEventMapping CreateMapping(Difficulty? diff, MappingType type, byte index) => new(position, e, diff, type, index);
         }
 
         public override IEnumerable<NoteMapping> Map(Instrument<StandardChord> instrument, WritingSession session)

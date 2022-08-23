@@ -18,7 +18,6 @@
     <Compile Include="Chords\StandardChord.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Events\Event.cs" />
-    <Compile Include="Events\GlobalEvent.cs" />
     <Compile Include="Events\LocalEvent.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ILongObject.cs" />
@@ -37,10 +36,6 @@
     <Compile Include="IO\Chart\Parsing\SyncTrackParser.cs" />
     <Compile Include="IO\Chart\Parsing\TrackParser.cs" />
     <Compile Include="IO\Chart\Parsing\VariableInstrumentTrackParser.cs" />
-    <Compile Include="IO\Chart\Serialization\MetadataSerializer.cs" />
-    <Compile Include="IO\Chart\Serialization\SyncTrackSerializer.cs" />
-    <Compile Include="IO\Chart\Serialization\TrackObjectGroupSerializer.cs" />
-    <Compile Include="IO\Chart\Serialization\TrackSerializer.cs" />
     <Compile Include="IO\Configuration\CommonConfiguration.cs" />
     <Compile Include="IO\Configuration\ConfigurationExceptions.cs" />
     <Compile Include="IO\Configuration\ReadingConfiguration.cs" />

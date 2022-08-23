@@ -17,7 +17,7 @@ namespace ChartTools.IO.Chart.Serialization
     {
         public TrackSerializer(Track content, WritingSession session) : base(ChartFormatting.Header(content.ParentInstrument!.InstrumentIdentity, content.Difficulty), content, session) { }
 
-        public override IEnumerable<string> Serialize() => new OrderedAlternatingEnumerable<uint, TrackObjectEntry>(entry => entry.Position, LaunchMappers()).Select(entry => entry.ToString());
+        public override IEnumerable<string> Serialize() => new OrderedAlternatingEnumerable<TrackObjectEntry, uint>(entry => entry.Position, LaunchMappers()).Select(entry => entry.ToString());
 
         protected override IEnumerable<TrackObjectEntry>[] LaunchMappers()
         {
