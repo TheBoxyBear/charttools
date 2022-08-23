@@ -28,9 +28,6 @@ namespace Debug
             // To make sure changes to this file are not committed, run the command "git update-index --assume-unchanged Debug/Program.cs" on your local repository.
             // This project targets .NET 6 with the matching debug build of ChartTools.
 
-            var baseDirectory = @"E:\Users\Gaming\Desktop\Moonscraper\Diamante\Bulletproof\";
-            var song = MidiFile.ReadSong(baseDirectory + "bulletproof.mid");
-
         }
     }
 }
