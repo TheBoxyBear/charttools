@@ -590,7 +590,7 @@
             Method that retrieves the key from an item
             </summary>
         </member>
-        <member name="M:ChartTools.Extensions.Collections.OrderedAlternatingEnumerable`2.#ctor(System.Func{`1,`0},System.Collections.Generic.IEnumerable{`1}[])">
+        <member name="M:ChartTools.Extensions.Collections.OrderedAlternatingEnumerable`2.#ctor(System.Func{`0,`1},System.Collections.Generic.IEnumerable{`0}[])">
             <summary>
             Creates an instance of <see cref="T:ChartTools.Extensions.Collections.OrderedAlternatingEnumerable`2"/>.
             </summary>
@@ -866,29 +866,31 @@
             </summary>
             <returns><see langword="true"/> if the object was not initialized prior to calling.</returns>
         </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.All(System.Collections.Generic.IEnumerable{System.Boolean})">
+        <member name="M:ChartTools.Extensions.Linq.CollectionExtensions.RemoveWhere``1(System.Collections.Generic.ICollection{``0},System.Predicate{``0})">
+            <summary>
+            Removes all items in a <see cref="T:System.Collections.Generic.ICollection`1"/> that meet a condition
+            </summary>
+            <param name="source">Collection to remove items from</param>
+            <param name="predicate">Function that determines which items to remove</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.All(System.Collections.Generic.IEnumerable{System.Boolean})">
             <summary>
             Checks that all booleans in a collection are <see langword="true"/>.
             </summary>
             <param name="source">Source of booleans</param>
             <returns><see langword="true"/> if all booleans are <see langword="true"/> or the collection is empty</returns>
         </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.Any(System.Collections.Generic.IEnumerable{System.Boolean})">
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.Any(System.Collections.Generic.IEnumerable{System.Boolean})">
             <summary>
             Checks if any boolean in a collection is <see langword="true"/>.
             </summary>
             <param name="source">Source of booleans</param>
         </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0,System.Boolean@)">
-            <inheritdoc cref="!:LinqExtensiosn.FirstOrDefault&lt;TSource&gt;(IEnumerable&lt;TSource&gt;, Func&lt;TSource, bool&gt;)"/>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0,System.Boolean@)">
+            <inheritdoc cref="!:EnumerableExtensions.FirstOrDefault&lt;TSource&gt;(IEnumerable&lt;TSource&gt;, Func&lt;TSource, bool&gt;)"/>
             <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
         </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.NonNull``1(System.Collections.Generic.IEnumerable{``0})">
-            <summary>
-            Excludes <see langword="null"/> items.
-            </summary>
-        </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0@)">
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0@)">
             <summary>
             Tries to get the first item that meet a condition from en enumerable.
             </summary>
@@ -896,14 +898,28 @@
             <param name="item">Found item</param>
             <returns><see langword="true"/> if an item was found</returns>
         </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.Distinct``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.EqualityComparison{``0})">
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},``0@)">
             <summary>
-            Returns distinct elements of a sequence using a method to determine the equality of elements
+            Tries to get the first element of a collection.
             </summary>
-            <param name="comparison">Method that determines if two elements are the same</param>
-            <inheritdoc cref="!:LinqExtensiosn.Distinct&lt;TSource&gt;(IEnumerable&lt;TSource&gt;)" path="/exception"/>
+            <param name="source">Source of items</param>
+            <param name="result">Found item</param>
+            <returns><see langword="true"/> if an item was found</returns>
         </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.Replace``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0)">
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirstOfType``1(System.Collections.IEnumerable,``0@)">
+            <summary>
+            Tries to get the first item of a given type in a collection.
+            </summary>
+            <param name="source">Source of items</param>
+            <param name="result">Found item</param>
+            <returns><see langword="true"/> if an item was found</returns>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.NonNull``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Excludes <see langword="null"/> items.
+            </summary>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.Replace``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0)">
             <summary>
             Replaces items that meet a condition with another item.
             </summary>
@@ -911,21 +927,21 @@
             <param name="predicate">A function that determines if an item must be replaced</param>
             <param name="replacement">The item to replace items with</param>
         </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.ReplaceSection``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.Linq.SectionReplacement{``0})">
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSection``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.Linq.SectionReplacement{``0})">
             <summary>
             Replaces a section with other items.
             </summary>
             <remarks>Items that match startReplace or endReplace are not included in the returned items.</remarks>
             <param name="source">Items to replace a section in</param>
         </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.ReplaceSections``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{ChartTools.Extensions.Linq.SectionReplacement{``0}})">
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSections``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{ChartTools.Extensions.Linq.SectionReplacement{``0}})">
             <summary>
             Replaces multiple sections of items.
             </summary>
             <remarks>Items that match startReplace or endReplace are not included in the returned items.</remarks>
             <param name="source">Items to replace sections in</param>
         </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.RemoveSection``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},System.Predicate{``0})">
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.RemoveSection``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},System.Predicate{``0})">
             <summary>
             Removes a section of items.
             </summary>
@@ -934,21 +950,20 @@
             <param name="startRemove">Function that determines the start of the section to replace</param>
             <param name="endRemove">Function that determines the end of the section to replace</param>
         </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.RelativeLoop``1(System.Collections.Generic.IEnumerable{``0},``0)">
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoop``1(System.Collections.Generic.IEnumerable{``0},``0)">
             <summary>
             Loops through a set of objects and returns a set of tuples containing the current object and the previous one.
             </summary>
             <param name="source">Items to loop through</param>
             <param name="firstPrevious">Value of the previous item in the first call of the action</param>
         </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.RemoveWhere``1(System.Collections.Generic.ICollection{``0},System.Predicate{``0})">
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.Distinct``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.EqualityComparison{``0})">
             <summary>
-            Removes all items in a <see cref="T:System.Collections.Generic.ICollection`1"/> that meet a condition
+            Returns distinct elements of a sequence using a method to determine the equality of elements
             </summary>
-            <param name="source">Collection to remove items from</param>
-            <param name="predicate">Function that determines which items to remove</param>
+            <param name="comparison">Method that determines if two elements are the same</param>
         </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.ManyMinMaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Func{``1,``1,System.Boolean})">
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinMaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Func{``1,``1,System.Boolean})">
             <summary>
             Finds the items for which a function returns the smallest or greatest value based on a comparison.
             </summary>
@@ -956,41 +971,25 @@
             <param name="selector">Function that gets the key to use in the comparison from an item</param>
             <param name="comparison">Function that returns <see langword="true"/> if the second item defeats the first</param>
         </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.ManyMinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>
             Finds the items for which a function returns the smallest value.
             </summary>
             <param name="source">Items to find the minimum or maximum of</param>
             <param name="selector">Function that gets the key to use in the comparison from an item</param>
         </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.ManyMaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.ManyMaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>
             Finds the items for which a function returns the greatest value.
             </summary>
             <param name="source">Items to find the minimum or maximum of</param>
             <param name="selector">Function that gets the key to use in the comparison from an item</param>
         </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},``0@)">
-            <summary>
-            Tries to get the first element of a collection.
-            </summary>
-            <param name="source">Source of items</param>
-            <param name="result">Found item</param>
-            <returns><see langword="true"/> if an item was found</returns>
-        </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.TryGetFirstOfType``1(System.Collections.IEnumerable,``0@)">
-            <summary>
-            Tries to get the first item of a given type in a collection.
-            </summary>
-            <param name="source">Source of items</param>
-            <param name="result">Found item</param>
-            <returns><see langword="true"/> if an item was found</returns>
-        </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0)">
-            <inheritdoc cref="!:LinqExtensiosn.FirstOrDefault&lt;TSource&gt;(IEnumerable&lt;TSource&gt;, Func&lt;TSource, bool&gt;)"/>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0)">
+            <inheritdoc cref="!:EnumerableExtensions.FirstOrDefault&lt;TSource&gt;(IEnumerable&lt;TSource&gt;, Func&lt;TSource, bool&gt;)"/>
             <param name="defaultValue">Value to return if no item meets the condition</param>
         </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.MinMaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Func{``1,``1,System.Boolean})">
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.MinMaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Func{``1,``1,System.Boolean})">
             <summary>
             Finds the item for which a function returns the smallest or greatest value based on a comparison.
             </summary>
@@ -998,7 +997,7 @@
             <param name="selector">Function that gets the key to use in the comparison from an item</param>
             <param name="comparison">Function that returns <see langword="true"/> if the second item defeats the first</param>
         </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.MinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.MinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>
             Finds the item for which a function returns the smallest value.
             </summary>
@@ -1006,7 +1005,7 @@
             <param name="source">Items to find the minimum or maximum of</param>
             <param name="selector">Function that gets the key to use in the comparison from an item</param>
         </member>
-        <member name="M:ChartTools.Extensions.Linq.LinqExtensiosn.MaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.MaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>
             Finds the item for which a function returns the greatest value.
             </summary>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ChartTools.Extensions.Collections;
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ChartTools.Extensions.Linq
 {
-    public static class LinqExtensiosn
+    public static class EnumerableExtensions
     {
         /// <summary>
         /// Checks that all booleans in a collection are <see langword="true"/>.
@@ -41,7 +43,8 @@ namespace ChartTools.Extensions.Linq
             return false;
         }
 
-        /// <inheritdoc cref="LinqExtensiosn.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
+        #region First
+        /// <inheritdoc cref="EnumerableExtensions.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
         /// <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
         public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue, out bool returnedDefault)
         {
@@ -58,12 +61,6 @@ namespace ChartTools.Extensions.Linq
             returnedDefault = true;
             return defaultValue;
         }
-
-        /// <summary>
-        /// Excludes <see langword="null"/> items.
-        /// </summary>
-        public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) => source.Where(t => t is not null)!;
-
         /// <summary>
         /// Tries to get the first item that meet a condition from en enumerable.
         /// </summary>
@@ -85,41 +82,35 @@ namespace ChartTools.Extensions.Linq
             item = default!;
             return false;
         }
-
-        public static int BinarySearchIndex<T, TKey>(this IList<T> source, TKey target, Func<T, TKey> keySelector, out bool exactMatch) where TKey : notnull, IComparable<TKey>
+        /// <summary>
+        /// Tries to get the first element of a collection.
+        /// </summary>
+        /// <param name="source">Source of items</param>
+        /// <param name="result">Found item</param>
+        /// <returns><see langword="true"/> if an item was found</returns>
+        public static bool TryGetFirst<T>(this IEnumerable<T> source, out T result)
         {
-            int left = 0, right = source.Count - 1, middle, index = 0;
+            using var enumerator = source.GetEnumerator();
+            var success = enumerator.MoveNext();
 
-            while (left <= right)
-            {
-                middle = (left + right) / 2;
-
-                switch (keySelector(source[middle]).CompareTo(target))
-                {
-                    case -1:
-                        index = left = middle + 1;
-                        break;
-                    case 0:
-                        exactMatch = true;
-                        return middle;
-                    case 1:
-                        index = right = middle - 1;
-                        break;
-                }
-            }
-
-            exactMatch = false;
-            return index;
+            result = success ? enumerator.Current : default!;
+            return success;
         }
-        public static int BinarySearchIndex<T>(this IList<T> source, T target, out bool exactMatch) where T : notnull, IComparable<T> => BinarySearchIndex(source, target, t => t, out exactMatch);
+        /// <summary>
+        /// Tries to get the first item of a given type in a collection.
+        /// </summary>
+        /// <param name="source">Source of items</param>
+        /// <param name="result">Found item</param>
+        /// <returns><see langword="true"/> if an item was found</returns>
+        public static bool TryGetFirstOfType<TResult>(this IEnumerable source, out TResult result) => source.OfType<TResult>().TryGetFirst(out result);
+        #endregion
 
         /// <summary>
-        /// Returns distinct elements of a sequence using a method to determine the equality of elements
+        /// Excludes <see langword="null"/> items.
         /// </summary>
-        /// <param name="comparison">Method that determines if two elements are the same</param>
-        /// <inheritdoc cref="LinqExtensiosn.Distinct{TSource}(IEnumerable{TSource})" path="/exception"/>
-        public static IEnumerable<T> Distinct<T>(this IEnumerable<T> source, EqualityComparison<T?> comparison) => source.Distinct(new FuncEqualityComparer<T>(comparison));
+        public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) => source.Where(t => t is not null)!;
 
+        #region Replace
         /// <summary>
         /// Replaces items that meet a condition with another item.
         /// </summary>
@@ -294,6 +285,7 @@ namespace ChartTools.Extensions.Linq
             while (itemsEnumerator.MoveNext())
                 yield return itemsEnumerator.Current;
         }
+        #endregion
 
         /// <summary>
         /// Loops through a set of objects and returns a set of tuples containing the current object and the previous one.
@@ -310,17 +302,13 @@ namespace ChartTools.Extensions.Linq
                 previousItem = item;
             }
         }
-        /// <summary>
-        /// Removes all items in a <see cref="ICollection{T}"/> that meet a condition
-        /// </summary>
-        /// <param name="source">Collection to remove items from</param>
-        /// <param name="predicate">Function that determines which items to remove</param>
-        public static void RemoveWhere<T>(this ICollection<T> source, Predicate<T> predicate)
-        {
-            foreach (T item in source.Where(i => predicate(i)))
-                source.Remove(item);
-        }
 
+        #region Unique
+        /// <summary>
+        /// Returns distinct elements of a sequence using a method to determine the equality of elements
+        /// </summary>
+        /// <param name="comparison">Method that determines if two elements are the same</param>
+        public static IEnumerable<T> Distinct<T>(this IEnumerable<T> source, EqualityComparison<T?> comparison) => source.Distinct(new FuncEqualityComparer<T>(comparison));
         public static bool Unique<T>(this IEnumerable<T> source) => UniqueFromDistinct(source.Distinct());
         public static bool UniqueBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector)
         {
@@ -331,7 +319,9 @@ namespace ChartTools.Extensions.Linq
 #endif
         }
         private static bool UniqueFromDistinct<T>(IEnumerable<T> distinct) => !distinct.Skip(1).Any();
+        #endregion
 
+        #region MinMax
         /// <summary>
         /// Finds the items for which a function returns the smallest or greatest value based on a comparison.
         /// </summary>
@@ -371,32 +361,11 @@ namespace ChartTools.Extensions.Linq
         /// <param name="source">Items to find the minimum or maximum of</param>
         /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
         public static IEnumerable<T> ManyMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) > 0);
-
-        /// <summary>
-        /// Tries to get the first element of a collection.
-        /// </summary>
-        /// <param name="source">Source of items</param>
-        /// <param name="result">Found item</param>
-        /// <returns><see langword="true"/> if an item was found</returns>
-        public static bool TryGetFirst<T>(this IEnumerable<T> source, out T result)
-        {
-            using var enumerator = source.GetEnumerator();
-            var success = enumerator.MoveNext();
-
-            result = success ? enumerator.Current : default!;
-            return success;
-        }
-        /// <summary>
-        /// Tries to get the first item of a given type in a collection.
-        /// </summary>
-        /// <param name="source">Source of items</param>
-        /// <param name="result">Found item</param>
-        /// <returns><see langword="true"/> if an item was found</returns>
-        public static bool TryGetFirstOfType<TResult>(this IEnumerable source, out TResult result) => source.OfType<TResult>().TryGetFirst(out result);
+        #endregion
 
         // Methods present in .NET 6 but needed for .NET 5 builds
 #if NET5_0
-        /// <inheritdoc cref="LinqExtensiosn.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
+        /// <inheritdoc cref="EnumerableExtensions.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
         /// <param name="defaultValue">Value to return if no item meets the condition</param>
         public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue)
         {
@@ -409,6 +378,7 @@ namespace ChartTools.Extensions.Linq
             return defaultValue;
         }
 
+        #region MinMax
         /// <summary>
         /// Finds the item for which a function returns the smallest or greatest value based on a comparison.
         /// </summary>
@@ -457,6 +427,7 @@ namespace ChartTools.Extensions.Linq
         /// <param name="source">Items to find the minimum or maximum of</param>
         /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
         public static T MaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => MinMaxBy(source, selector, (key, mmKey) => key.CompareTo(mmKey) > 0);
+        #endregion
 #endif
 
         public static async IAsyncEnumerable<T> ToAsyncEnumerable<T>(this IEnumerable<T> source)
@@ -464,5 +435,10 @@ namespace ChartTools.Extensions.Linq
             foreach (var item in source)
                 yield return await Task.FromResult(item);
         }
+
+        #region Collections
+        public static IEnumerable<T> Alternate<T>(this IEnumerable<IEnumerable<T>> source) => new SerialAlternatingEnumerable<T>(source.ToArray());
+        public static IEnumerable<T> AlternateBy<T, TKey>(this IEnumerable<IEnumerable<T>> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => new OrderedAlternatingEnumerable<T, TKey>(selector, source.ToArray());
+        #endregion
     }
 }

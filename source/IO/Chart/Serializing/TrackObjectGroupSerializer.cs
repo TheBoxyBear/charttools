@@ -11,6 +11,6 @@ namespace ChartTools.IO.Chart.Serializing
     {
         public TrackObjectGroupSerializer(string header, T content, WritingSession session) : base(header, content, session) { }
 
-        protected override IEnumerable<string> CombineProviderResults(IEnumerable<TrackObjectEntry>[] results) => new OrderedAlternatingEnumerable<uint, TrackObjectEntry>(entry => entry.Position, results).Select(entry => entry.ToString());
+        protected override IEnumerable<string> CombineProviderResults(IEnumerable<TrackObjectEntry>[] results) => new OrderedAlternatingEnumerable<TrackObjectEntry, uint>(entry => entry.Position, results).Select(entry => entry.ToString());
     }
 }
