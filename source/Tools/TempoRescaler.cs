@@ -1,4 +1,4 @@
-﻿using ChartTools.SystemExtensions.Linq;
+﻿using ChartTools.Extensions.Linq;
 
 namespace ChartTools.Tools
 {

@@ -1,62 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using ChartTools.IO;
-using ChartTools.IO.Chart;
-using ChartTools.Lyrics;
-using ChartTools.Collections.Alternating;
 using System.Threading.Tasks;
-using System.Collections;
-using System.Threading;
-using ChartTools.Events;
 
-namespace ChartTools.SystemExtensions
+namespace ChartTools.Extensions.Linq
 {
-    /// <summary>
-    /// <see cref="IEquatable{T}"/> equivalent to the <see cref="IComparable{T}"/> <see cref="Comparison{T}"/> delegate
-    /// </summary>
-    public delegate bool EqualityComparison<in T>(T a, T b);
-
-    /// <summary>
-    /// Provides additional methods to string
-    /// </summary>
-    internal static class StringExtensions
-    {
-        /// <inheritdoc cref="VerbalEnumerate(string, string[])"/>
-        public static string VerbalEnumerate(this IEnumerable<string> items, string lastItemPreceder) => VerbalEnumerate(lastItemPreceder, items.ToArray());
-        /// <summary>
-        /// Enumerates items with commas and a set word preceding the last item.
-        /// </summary>
-        /// <param name="lastItemPreceder">Word to place before the last item</param>
-        /// <exception cref="ArgumentNullException"/>
-        public static string VerbalEnumerate(string lastItemPreceder, params string[] items) => items is null ? throw new ArgumentNullException(nameof(items)) : items.Length switch
-        {
-            0 => string.Empty, // ""
-            1 => items[0], // "Item1"
-            2 => $"{items[0]} {lastItemPreceder} {items[1]}", // "Item1 lastItemPreceder Item2"
-            _ => $"{string.Join(", ", items, items.Length - 1)} {lastItemPreceder} {items[^0]}" // "Item1, Item2 lastItemPreceder Item3"
-        };
-    }
-}
-namespace ChartTools.SystemExtensions.Linq
-{
-    /// <summary>
-    /// Replacement for a section of items in a collection
-    /// </summary>
-    /// <param name="Replacement">Items to replace with</param>
-    /// <param name="StartReplace">Method that defines if a source marks the start of the section to replace</param>
-    /// <param name="EndReplace">Method that defines if a source item marks the end of the section to replace</param>
-    /// <param name="AddIfMissing">The replacement should be appended to the collection if the section to replace is not found</param>
-#if NET6_0_OR_GREATER
-    public readonly record struct SectionReplacement<T>(IEnumerable<T> Replacement, Predicate<T> StartReplace, Predicate<T> EndReplace, bool AddIfMissing);
-#else
-    public record SectionReplacement<T>(IEnumerable<T> Replacement, Predicate<T> StartReplace, Predicate<T> EndReplace, bool AddIfMissing);
-#endif
-
-    /// <summary>
-    /// Provides additional methods to Linq
-    /// </summary>
-    public static class LinqExtensions
+    public static class LinqExtensiosn
     {
         /// <summary>
         /// Checks that all booleans in a collection are <see langword="true"/>.
@@ -91,7 +41,7 @@ namespace ChartTools.SystemExtensions.Linq
             return false;
         }
 
-        /// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
+        /// <inheritdoc cref="LinqExtensiosn.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
         /// <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
         public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue, out bool returnedDefault)
         {
@@ -167,7 +117,7 @@ namespace ChartTools.SystemExtensions.Linq
         /// Returns distinct elements of a sequence using a method to determine the equality of elements
         /// </summary>
         /// <param name="comparison">Method that determines if two elements are the same</param>
-        /// <inheritdoc cref="Enumerable.Distinct{TSource}(IEnumerable{TSource})" path="/exception"/>
+        /// <inheritdoc cref="LinqExtensiosn.Distinct{TSource}(IEnumerable{TSource})" path="/exception"/>
         public static IEnumerable<T> Distinct<T>(this IEnumerable<T> source, EqualityComparison<T?> comparison) => source.Distinct(new FuncEqualityComparer<T>(comparison));
 
         /// <summary>
@@ -446,7 +396,7 @@ namespace ChartTools.SystemExtensions.Linq
 
         // Methods present in .NET 6 but needed for .NET 5 builds
 #if NET5_0
-        /// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
+        /// <inheritdoc cref="LinqExtensiosn.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
         /// <param name="defaultValue">Value to return if no item meets the condition</param>
         public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue)
         {
@@ -514,76 +464,5 @@ namespace ChartTools.SystemExtensions.Linq
             foreach (var item in source)
                 yield return await Task.FromResult(item);
         }
-    }
-}
-
-namespace ChartTools.Events
-{
-    /// <summary>
-    /// Provides additional methods for <see cref="GlobalEvent"/>
-    /// </summary>
-    public static class GlobalEventExtensions
-    {
-        public static void ToFile(this IEnumerable<GlobalEvent> events, string path) => ExtensionHandler.Write(path, events, (".chart", (path, events) => ChartFile.ReplaceGlobalEvents(path, events)));
-        public static async Task ToFileAsync(this IEnumerable<GlobalEvent> events, string path, CancellationToken cancellationToken) => await ExtensionHandler.WriteAsync(path, events, (".chart", (path, events) => ChartFile.ReplaceGlobalEventsAsync(path, events, cancellationToken)));
-
-        /// <summary>
-        /// Gets the lyrics from an enumerable of <see cref="GlobalEvent"/>
-        /// </summary>
-        /// <returns>Enumerable of <see cref="Phrase"/></returns>
-        public static IEnumerable<Phrase> GetLyrics(this IEnumerable<GlobalEvent> globalEvents)
-        {
-            Phrase? phrase = null;
-
-            foreach (GlobalEvent globalEvent in globalEvents.OrderBy(e => e.Position))
-                switch (globalEvent.EventType)
-                {
-                    // Change active phrase
-                    case EventTypeHelper.Global.PhraseStart:
-                        if (phrase is not null)
-                            yield return phrase;
-
-                        phrase = new Phrase(globalEvent.Position);
-                        break;
-                    // Add syllable to the active phrase using the event argument
-                    case EventTypeHelper.Global.Lyric:
-                        if (phrase is not null)
-                            phrase.Notes.Add(new(globalEvent.Position - phrase.Position, VocalsPitches.None) { RawText = globalEvent.Argument ?? string.Empty });
-                        break;
-                    // Set length of active phrase
-                    case EventTypeHelper.Global.PhraseEnd:
-                        if (phrase is not null)
-                            phrase.LengthOverride = globalEvent.Position - phrase.Position;
-                        break;
-                }
-
-            if (phrase is not null)
-                yield return phrase;
-        }
-        /// <summary>
-        /// Gets a set of <see cref="GlobalEvent"/> where phrase and lyric events are replaced with the events making up a set of <see cref="Phrase"/>.
-        /// </summary>
-        /// <returns>Enumerable of <see cref="GlobalEvent"/></returns>
-        public static IEnumerable<GlobalEvent> SetLyrics(this IEnumerable<GlobalEvent> events, IEnumerable<Phrase> lyrics)
-        {
-            foreach (GlobalEvent globalEvent in new OrderedAlternatingEnumerable<uint, GlobalEvent>(i => i.Position, events.Where(e => !e.IsLyricEvent), lyrics.SelectMany(p => p.ToGlobalEvents())))
-                yield return globalEvent;
-        }
-    }
-}
-
-namespace ChartTools.Lyrics
-{
-    /// <summary>
-    /// Provides additional methods to <see cref="Phrase"/>
-    /// </summary>
-    public static class PhraseExtensions
-    {
-        /// <summary>
-        /// Converts a set of <see cref="Phrase"/> to a set of <see cref="GlobalEvent"/> making up the phrases.
-        /// </summary>
-        /// <param name="source">Phrases to convert into global events</param>
-        /// <returns>Global events making up the phrases</returns>
-        public static IEnumerable<GlobalEvent> ToGlobalEvents(this IEnumerable<Phrase> source) => source.SelectMany(p => p.ToGlobalEvents());
     }
 }

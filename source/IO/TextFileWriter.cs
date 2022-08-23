@@ -1,5 +1,5 @@
-﻿using ChartTools.Internal.Collections;
-using ChartTools.SystemExtensions.Linq;
+﻿using ChartTools.Extensions.Linq;
+using ChartTools.Internal.Collections;
 
 using System;
 using System.Collections.Generic;

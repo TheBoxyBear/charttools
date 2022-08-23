@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace ChartTools.Collections.Delayed
+namespace ChartTools.Extensions.Collections
 {
-    public class DelayedEnumerator<T> : IEnumerator<T>
+    internal class DelayedEnumerator<T> : IEnumerator<T>
     {
         public T Current { get; private set; }
         object? IEnumerator.Current => Current;

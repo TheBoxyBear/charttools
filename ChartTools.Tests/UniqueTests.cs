@@ -1,5 +1,6 @@
-﻿using ChartTools.Collections.Unique;
-using ChartTools.SystemExtensions;
+﻿using ChartTools.Extensions;
+using ChartTools.Extensions.Collections;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using System;

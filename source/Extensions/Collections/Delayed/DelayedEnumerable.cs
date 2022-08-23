@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace ChartTools.Collections.Delayed
+namespace ChartTools.Extensions.Collections
 {
     public class DelayedEnumerable<T> : IEnumerable<T>, IDisposable
     {

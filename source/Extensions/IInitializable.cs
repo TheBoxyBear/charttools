@@ -1,4 +1,8 @@
-﻿namespace ChartTools.Collections
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ChartTools.Extensions
 {
     /// <summary>
     /// Defines an object that can be initialized

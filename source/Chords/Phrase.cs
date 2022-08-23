@@ -79,4 +79,17 @@ namespace ChartTools.Lyrics
         internal override IEnumerable<TrackObjectEntry> GetChartNoteData() => throw new InvalidOperationException("Phrases must be converted to events to be written to chart.");
         internal override IEnumerable<TrackObjectEntry> GetChartModifierData(Chord? previous, WritingSession session) => GetChartNoteData();
     }
+
+    /// <summary>
+    /// Provides additional methods to <see cref="Phrase"/>
+    /// </summary>
+    public static class PhraseExtensions
+    {
+        /// <summary>
+        /// Converts a set of <see cref="Phrase"/> to a set of <see cref="GlobalEvent"/> making up the phrases.
+        /// </summary>
+        /// <param name="source">Phrases to convert into global events</param>
+        /// <returns>Global events making up the phrases</returns>
+        public static IEnumerable<GlobalEvent> ToGlobalEvents(this IEnumerable<Phrase> source) => source.SelectMany(p => p.ToGlobalEvents());
+    }
 }

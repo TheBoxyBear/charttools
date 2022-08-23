@@ -1,8 +1,8 @@
-﻿using ChartTools.Formatting;
+﻿using ChartTools.Extensions.Linq;
+using ChartTools.Formatting;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
-using ChartTools.SystemExtensions.Linq;
 
 using System;
 using System.Collections.Generic;

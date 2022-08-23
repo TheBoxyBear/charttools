@@ -1,4 +1,5 @@
-using ChartTools.Collections.Alternating;
+using ChartTools.Extensions.Collections;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using System;

@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-using ChartTools.SystemExtensions.Linq;
+using ChartTools.Extensions.Linq;
 
-namespace ChartTools.Collections.Alternating
+namespace ChartTools.Extensions.Collections
 {
     /// <summary>
     /// Enumerator that yields <typeparamref name="T"/> items from a set of enumerators in order using a <typeparamref name="TKey"/> key
     /// </summary>
     /// <typeparam name="T">Type of the enumerated items</typeparam>
     /// <typeparam name="TKey">Type of the key used to determine the order</typeparam>
-    public class OrderedAlternatingEnumerator<T, TKey> : IInitializable, IEnumerator<T> where TKey : IComparable<TKey>
+    internal class OrderedAlternatingEnumerator<T, TKey> : IInitializable, IEnumerator<T> where TKey : IComparable<TKey>
     {
         private IEnumerator<T>[] Enumerators { get; }
         /// <summary>

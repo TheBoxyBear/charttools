@@ -1,6 +1,6 @@
-﻿using ChartTools.IO.Chart.Entries;
+﻿using ChartTools.Extensions.Linq;
+using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration.Sessions;
-using ChartTools.SystemExtensions.Linq;
 
 namespace ChartTools.IO.Chart.Parsing
 {

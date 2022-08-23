@@ -1,4 +1,5 @@
-﻿using ChartTools.Formatting;
+﻿using ChartTools.Extensions;
+using ChartTools.Formatting;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Chart.Serializing;

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using ChartTools.Extensions.Linq;
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-using ChartTools.SystemExtensions.Linq;
-
-namespace ChartTools.Collections.Alternating
+namespace ChartTools.Extensions.Collections
 {
     /// <summary>
     /// Enumerable where <typeparamref name="T"/> items are yielded by alternating from a set of enumerables

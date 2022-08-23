@@ -1,4 +1,4 @@
-﻿using ChartTools.Collections.Alternating;
+﻿using ChartTools.Extensions.Collections;
 using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration.Sessions;
 

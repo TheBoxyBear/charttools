@@ -1,4 +1,4 @@
-﻿using ChartTools.Collections.Delayed;
+﻿using ChartTools.Extensions.Collections;
 using ChartTools.IO.Parsing;
 
 using System;
