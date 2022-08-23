@@ -40,7 +40,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\FuncEqualityComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\IInitializable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Linq\CollectionExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\Linq\EnumerableExtentions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\Linq\EnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Linq\SectionReplacement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Instruments\InstrumentSet.cs" />
