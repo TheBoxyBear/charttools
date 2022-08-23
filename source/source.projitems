@@ -67,13 +67,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\SectionException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Appliables\IInstrumentAppliable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\FileReader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Mapping\IMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFormatting.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Mapping\IReadMapper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Mapping\IWriteMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Exceptions\InvalidMidiEventTypeException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\GlobalNoteEvent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\EventMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\EventMapping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\GHGemsMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\GuitarBassMapper.cs" />
@@ -89,6 +85,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GuitarBassParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\LaneInstrumentParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\TitleSyncTrackParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Serialization\InstrumentSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Serialization\TrackObjectGroupSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\SectionParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\ReservedSectionHeader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\ReservedSectionHeaderSet.cs" />
@@ -175,6 +173,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)IO\Appliables\" />
-    <Folder Include="$(MSBuildThisFileDirectory)IO\Midi\Serialization\" />
   </ItemGroup>
 </Project>

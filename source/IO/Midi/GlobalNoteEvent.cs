@@ -2,7 +2,7 @@
 
 namespace ChartTools.IO.Midi
 {
-    internal struct GlobalNoteEvent : IReadOnlyTrackObject
+    internal ref struct GlobalNoteEvent
     {
         public uint Position { get; }
         public NoteEvent Event { get; }

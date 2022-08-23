@@ -1,13 +1,12 @@
 ﻿using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration.Sessions;
-using ChartTools.IO.Mapping;
 using ChartTools.SystemExtensions.Linq;
 
 using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart.Mapping
 {
-    internal abstract class UniqueTrackObjectMapper<T> : IWriteMapper<IEnumerable<T>, IEnumerable<TrackObjectEntry>> where T : TrackObject
+    internal abstract class UniqueTrackObjectMapper<T> where T : TrackObject
     {
         protected abstract string ObjectType { get; }
 

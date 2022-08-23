@@ -12,10 +12,6 @@ namespace ChartTools.IO.Chart.Serialization
     {
         public GlobalEventSerializer(IEnumerable<GlobalEvent> content, WritingSession session) : base(ChartFormatting.GlobalEventHeader, content, session) { }
 
-        protected override IEnumerable<TrackObjectEntry>[] LaunchMappers()
-        {
-            var mapper = new EventMapper();
-            return new IEnumerable<TrackObjectEntry>[] { Content.Select(e => mapper.Map(e, session)) };
-        }
+        protected override IEnumerable<TrackObjectEntry>[] LaunchMappers() => new IEnumerable<TrackObjectEntry>[] { Content.Select(e => EventMapper.Map(e)) };
     }
 }
