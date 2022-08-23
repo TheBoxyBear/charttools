@@ -1,6 +1,4 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
-using Melanchall.DryWetMidi.Core;
-
 using System;
 using System.Collections.Generic;
 

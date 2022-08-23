@@ -4,7 +4,7 @@ namespace ChartTools.IO.Midi.Mapping
 {
     internal enum MappingType : byte { Note, Modifier, Special, Animation, BigRock }
 
-    internal struct NoteEventMapping
+    internal readonly struct NoteEventMapping
     {
         public uint Position { get; }
         public NoteState State { get; }

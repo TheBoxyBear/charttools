@@ -1,6 +1,5 @@
 ﻿using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration.Sessions;
-using ChartTools.IO.Mapping;
 using ChartTools.SystemExtensions.Linq;
 
 using System.Collections.Generic;
@@ -8,9 +7,9 @@ using System.Linq;
 
 namespace ChartTools.IO.Chart.Mapping
 {
-    internal class ChordMapper : IWriteMapper<IEnumerable<Chord>, IEnumerable<TrackObjectEntry>>
+    internal static class ChordMapper
     {
-        public IEnumerable<TrackObjectEntry> Map(IEnumerable<Chord> source, WritingSession session)
+        public static IEnumerable<TrackObjectEntry> Map(IEnumerable<Chord> source, WritingSession session)
         {
             List<uint> orderedPositions = new();
             LaneChord? previousChord = null;

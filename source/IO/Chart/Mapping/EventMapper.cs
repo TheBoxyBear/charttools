@@ -1,12 +1,10 @@
 ﻿using ChartTools.Events;
 using ChartTools.IO.Chart.Entries;
-using ChartTools.IO.Configuration.Sessions;
-using ChartTools.IO.Mapping;
 
 namespace ChartTools.IO.Chart.Mapping
 {
-    internal class EventMapper : IWriteMapper<Event, TrackObjectEntry>
+    internal static class EventMapper
     {
-        public TrackObjectEntry Map(Event e, WritingSession session) => new(e.Position, "E", e.EventData);
+        public static TrackObjectEntry Map(Event e) => new(e.Position, "E", e.EventData);
     }
 }

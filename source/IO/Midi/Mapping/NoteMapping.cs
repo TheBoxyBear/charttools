@@ -2,7 +2,7 @@
 
 namespace ChartTools.IO.Midi.Mapping
 {
-    internal struct NoteMapping : IMidiEventMapping<NoteEvent>
+    internal readonly struct NoteMapping : IMidiEventMapping<NoteEvent>
     {
         public uint Position { get; }
         public Difficulty Difficulty { get; }
