@@ -1,10 +1,6 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
-using ChartTools.Extensions.Linq;
 using ChartTools.IO.Midi.Mapping;
 
-using Melanchall.DryWetMidi.Core;
-
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
