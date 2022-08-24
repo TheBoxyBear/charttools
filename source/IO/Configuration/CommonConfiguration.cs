@@ -14,5 +14,7 @@
         public SnappedNotesPolicy SnappedNotesPolicy { get; init; }
         /// <inheritdoc cref="Configuration.SoloNoStarPowerPolicy"/>
         public SoloNoStarPowerPolicy SoloNoStarPowerPolicy { get; init; }
+        /// <inheritdoc cref="Configuration.UncertainGuitarBassFormatPolicy"/>
+        public UncertainGuitarBassFormatPolicy UncertainGuitarBassFormatPolicy { get; set; }
     }
 }

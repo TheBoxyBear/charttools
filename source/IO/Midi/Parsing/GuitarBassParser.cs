@@ -18,7 +18,7 @@ namespace ChartTools.IO.Midi.Parsing
         public override MidiInstrumentOrigin Origin => format;
         protected override byte BigRockCount => 5;
 
-        public GuitarBassParser(StandardInstrumentIdentity instrument, ReadingSession session) : base(instrument, new GuitarBassMapper(), session)
+        public GuitarBassParser(StandardInstrumentIdentity instrument, ReadingSession session) : base(instrument, new GuitarBassMapper(MidiInstrumentOrigin.Unknown), session)
         {
             if (instrument is not StandardInstrumentIdentity.LeadGuitar or StandardInstrumentIdentity.Bass)
                 throw new ArgumentException($"Instrument must be lead guitar or bass to use to use {nameof(GuitarBassParser)}.", nameof(instrument));
@@ -27,7 +27,7 @@ namespace ChartTools.IO.Midi.Parsing
         protected override bool CustomHandle(NoteEvent note)
         {
             var newFormat = MidiInstrumentOrigin.Unknown;
-            var newMappings = mapper.Map(globalPosition, note, session);
+            var newMappings = mapper.Map(globalPosition, note);
 
             foreach (var mapping in newMappings)
             {
@@ -46,7 +46,7 @@ namespace ChartTools.IO.Midi.Parsing
                 if (format is MidiInstrumentOrigin.Unknown)
                     format = newFormat;
                 else if (newFormat is not MidiInstrumentOrigin.Unknown && format != newFormat)
-                    format = session.UncertainGuitarBassFormatProcedure(Instrument);
+                    format = session.UncertainGuitarBassFormatProcedure(Instrument, newFormat);
 
                 mappings.AddRange(newMappings);
             }
@@ -59,7 +59,7 @@ namespace ChartTools.IO.Midi.Parsing
         protected override void FinaliseParse()
         {
             if (format is MidiInstrumentOrigin.Unknown)
-                format = session.UncertainGuitarBassFormatProcedure(Instrument);
+                format = session.UncertainGuitarBassFormatProcedure(Instrument, format);
 
             foreach (var mapping in mappings)
             {

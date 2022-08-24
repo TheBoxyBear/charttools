@@ -64,12 +64,12 @@ namespace ChartTools.IO.Midi.Parsing
             }
             if (item is not NoteEvent note)
             {
-                session.HandleInvalidMidiEventType(globalPosition, item);
+                session.InvalidMidiEventTypeProcedure(globalPosition, item);
                 return;
             }
 
             if (!CustomHandle(note))
-                foreach (var mapping in mapper.Map(globalPosition, note, session))
+                foreach (var mapping in mapper.Map(globalPosition, note))
                     BaseHandle(mapping);
         }
         protected void BaseHandle(NoteEventMapping mapping)
@@ -103,7 +103,7 @@ namespace ChartTools.IO.Midi.Parsing
                     if (track is null)
                     {
                         if (openedPosition is not null)
-                            session.HandleUnclosed(openedPosition.Value, () =>
+                            session.UnclosedProcedure(openedPosition.Value, () =>
                             {
                                 InitTracks();
 
@@ -116,7 +116,7 @@ namespace ChartTools.IO.Midi.Parsing
                     else
                     {
                         if (openedPosition is not null)
-                            session.HandleUnclosed(openedPosition.Value, () => CloseSpecial(track));
+                            session.UnclosedProcedure(openedPosition.Value, () => CloseSpecial(track));
 
                         openedSpecialPositions[track.Difficulty][type] = mapping.Position;
                     }
@@ -125,7 +125,7 @@ namespace ChartTools.IO.Midi.Parsing
                     if (track is null)
                     {
                         if (openedPosition is null)
-                            session.HandleUnopened(mapping.Position, () =>
+                            session.UnopenedProcedure(mapping.Position, () =>
                             {
                                 InitTracks();
 
@@ -148,7 +148,7 @@ namespace ChartTools.IO.Midi.Parsing
                     else
                     {
                         if (openedPosition is null)
-                            session.HandleUnopened(mapping.Position, () => track.SpecialPhrases.Add(new(mapping.Position, type)));
+                            session.UnopenedProcedure(mapping.Position, () => track.SpecialPhrases.Add(new(mapping.Position, type)));
                         else
                         {
                             CloseSpecial(track);
@@ -196,7 +196,7 @@ namespace ChartTools.IO.Midi.Parsing
             {
                 case NoteState.Open:
                     if (openedSource is not null)
-                        session.HandleUnclosed(openedSource.Position, () => openedSource.Notes[lane]!.Length = GetSustain(openedSource.Position, mapping.Position));
+                        session.UnclosedProcedure(openedSource.Position, () => openedSource.Notes[lane]!.Length = GetSustain(openedSource.Position, mapping.Position));
 
                     var chord = openedNoteSources[track.Difficulty][lane] = GetOrCreateChord(mapping.Position, track);
 
@@ -206,7 +206,7 @@ namespace ChartTools.IO.Midi.Parsing
                     break;
                 case NoteState.Close:
                     if (openedSource is null)
-                        session.HandleUnopened(mapping.Position, () => GetOrCreateChord(mapping.Position, track).Notes.Add(lane));
+                        session.UnopenedProcedure(mapping.Position, () => GetOrCreateChord(mapping.Position, track).Notes.Add(lane));
                     else
                     {
                         openedSource.Notes[lane]!.Length = GetSustain(openedSource.Position, mapping.Position);
@@ -232,7 +232,7 @@ namespace ChartTools.IO.Midi.Parsing
                     break;
                 case NoteState.Close:
                     if (openedBigRockPosition is null)
-                        session.HandleUnopened(mapping.Position, () => result.SpecialPhrases.Add(new(mapping.Position, InstrumentSpecialPhraseType.BigRockEnding)));
+                        session.UnopenedProcedure(mapping.Position, () => result.SpecialPhrases.Add(new(mapping.Position, InstrumentSpecialPhraseType.BigRockEnding)));
                     else
                     {
                         bigRockEndings.Add(new(mapping.Position, InstrumentSpecialPhraseType.BigRockEnding, GetSustain(openedBigRockPosition!.Value, mapping.Position)));
@@ -267,12 +267,12 @@ namespace ChartTools.IO.Midi.Parsing
         {
             if (bigRockEndings.Count > 0)
             {
-                if (bigRockEndings.Count < BigRockCount && !session.HandleMissingBigRock())
+                if (bigRockEndings.Count < BigRockCount && !session.MissingBigRockProcedure())
                     return;
 
                 var ending = bigRockEndings.UniqueBy(e => e.Position) || !bigRockEndings.UniqueBy(e => e.Length)
                     ? bigRockEndings.First()
-                    : session.HandleMisalignedBigRock(bigRockEndings);
+                    : session.MisalignedBigRockProcedure(bigRockEndings);
 
                 if (ending is not null)
                     result.SpecialPhrases.Add(ending);

@@ -2,7 +2,7 @@
 
 namespace ChartTools.IO.Midi.Mapping
 {
-    internal readonly struct NoteMapping : IMidiEventMapping<NoteEvent>
+    internal readonly struct NoteMapping : IMidiEventMapping
     {
         public uint Position { get; }
         public Difficulty Difficulty { get; }
@@ -17,7 +17,7 @@ namespace ChartTools.IO.Midi.Mapping
             NoteNumber = noteNumber;
         }
 
-        public NoteEvent ToMidiEvent(uint delta)
+        public MidiEvent ToMidiEvent(uint delta)
         {
             var e = State switch
             {

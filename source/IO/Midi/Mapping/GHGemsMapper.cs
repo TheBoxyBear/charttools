@@ -1,5 +1,4 @@
-﻿using ChartTools.IO.Configuration.Sessions;
-using Melanchall.DryWetMidi.Core;
+﻿using Melanchall.DryWetMidi.Core;
 
 using System;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ namespace ChartTools.IO.Midi.Mapping
 {
     internal class GHGemsMapper : InstrumentMapper<StandardChord>
     {
-        public override IEnumerable<NoteEventMapping> Map(uint position, NoteEvent e, ReadingSession session)
+        public override IEnumerable<NoteEventMapping> Map(uint position, NoteEvent e)
         {
             var intNumber = (int)e.NoteNumber;
 
@@ -18,7 +17,7 @@ namespace ChartTools.IO.Midi.Mapping
                 > 71 and < 83 => (Difficulty.Medium, intNumber - 71),
                 > 83 and < 95 => (Difficulty.Hard, intNumber - 83),
                 > 95 and < 107 => (Difficulty.Expert, intNumber - 95),
-                _ => HandleInvalidMidiEvent<(Difficulty?, int)>(position, e, session)
+                _ => HandleInvalidMidiEvent<(Difficulty?, int)>(position, e)
             };
 
             (var type, var newAdjusted) = adjusted switch
@@ -32,7 +31,7 @@ namespace ChartTools.IO.Midi.Mapping
             yield return new(position, e, difficulty, type, (byte)newAdjusted);
         }
 
-        public override IEnumerable<NoteMapping> Map(Instrument<StandardChord> instrument, WritingSession session)
+        public override IEnumerable<NoteMapping> Map(Instrument<StandardChord> instrument)
         {
             throw new NotImplementedException();
         }
