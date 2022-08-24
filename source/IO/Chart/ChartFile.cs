@@ -36,8 +36,8 @@ namespace ChartTools.IO.Chart
         public static WritingConfiguration DefaultWriteConfig { get; set; } = new()
         {
             SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
-            EventSource = TrackObjectSource.Seperate,
-            StarPowerSource = TrackObjectSource.Seperate,
+            EventSource = TrackObjectSource.Merge,
+            StarPowerSource = TrackObjectSource.Merge,
             UnsupportedModifierPolicy = UnsupportedModifierPolicy.ThrowException
         };
 

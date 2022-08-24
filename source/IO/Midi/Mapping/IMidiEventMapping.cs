@@ -2,8 +2,8 @@
 
 namespace ChartTools.IO.Midi.Mapping
 {
-    internal interface IMidiEventMapping<out T> : IReadOnlyTrackObject where T : MidiEvent
+    internal interface IMidiEventMapping : IReadOnlyTrackObject
     {
-        public T ToMidiEvent(uint delta);
+        public MidiEvent ToMidiEvent(uint delta);
     }
 }

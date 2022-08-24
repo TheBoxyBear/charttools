@@ -9,7 +9,11 @@ namespace ChartTools.IO.Midi.Mapping
 {
     internal class GuitarBassMapper : InstrumentMapper<StandardChord>
     {
-        public override IEnumerable<NoteEventMapping> Map(uint position, NoteEvent e, ReadingSession session)
+        public MidiInstrumentOrigin WritingFormat { get; }
+
+        public GuitarBassMapper(MidiInstrumentOrigin writingFormat) => WritingFormat = writingFormat;
+
+        public override IEnumerable<NoteEventMapping> Map(uint position, NoteEvent e)
         {
             var intNumber = (int)e.NoteNumber;
 
@@ -31,7 +35,7 @@ namespace ChartTools.IO.Midi.Mapping
 
             if (intNumber is > 119 and < 125)
             {
-                yield return CreateMapping( null, MappingType.BigRock, (byte)(125 - intNumber));
+                yield return CreateMapping(null, MappingType.BigRock, (byte)(125 - intNumber));
                 yield break;
             }
 
@@ -53,7 +57,7 @@ namespace ChartTools.IO.Midi.Mapping
                 > 83 and < 95 => (Difficulty.Hard, intNumber - 83),
                 > 95 and < 107 => (Difficulty.Expert, intNumber - 95),
                 110 => (default(Difficulty?), intNumber),
-                _ => HandleInvalidMidiEvent<(Difficulty?, int)>(position, e, session)
+                _ => HandleInvalidMidiEvent<(Difficulty?, int)>(position, e)
             };
             (var type, var newAdjusted) = adjusted switch
             {
@@ -72,7 +76,7 @@ namespace ChartTools.IO.Midi.Mapping
             NoteEventMapping CreateMapping(Difficulty? diff, MappingType type, byte index) => new(position, e, diff, type, index);
         }
 
-        public override IEnumerable<NoteMapping> Map(Instrument<StandardChord> instrument, WritingSession session)
+        public override IEnumerable<NoteMapping> Map(Instrument<StandardChord> instrument)
         {
             throw new NotImplementedException();
         }

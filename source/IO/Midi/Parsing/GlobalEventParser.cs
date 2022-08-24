@@ -18,7 +18,7 @@ namespace ChartTools.IO.Midi.Parsing
 
             if (item is not TextEvent e)
             {
-                session.HandleInvalidMidiEventType(globalPosition, item);
+                session.InvalidMidiEventTypeProcedure(globalPosition, item);
                 return;
             }
 

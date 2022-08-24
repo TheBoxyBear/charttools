@@ -25,6 +25,14 @@ namespace ChartTools.IO.Configuration.Sessions
                 UnsupportedModifierPolicy.Convert => (previous, chord) => chord.GetChartModifierData(previous, this),
                 _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.UnsupportedModifierPolicy)
             })(previous, chord);
+            UncertainGuitarBassFormatProcedure = (instrument, format) => (UncertainGuitarBassFormatProcedure = Configuration.UncertainGuitarBassFormatPolicy switch
+            {
+                UncertainGuitarBassFormatPolicy.ThrowException => (instrument, format) => throw new Exception($"{instrument} has the unknown or conflicting format {format} that cannot be mapped to Midi."),
+                UncertainGuitarBassFormatPolicy.UseReadingDefault => (_, format) => format & (MidiInstrumentOrigin)(byte.MaxValue & (byte)MidiInstrumentOrigin.Unknown),
+                UncertainGuitarBassFormatPolicy.UseGuitarHero2 => (_, _) => MidiInstrumentOrigin.GuitarHero2Uncertain,
+                UncertainGuitarBassFormatPolicy.UseRockBand => (_, _) => MidiInstrumentOrigin.RockBandUncertain,
+                _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.UncertainGuitarBassFormatPolicy)
+            })(instrument, format);
         }
     }
 

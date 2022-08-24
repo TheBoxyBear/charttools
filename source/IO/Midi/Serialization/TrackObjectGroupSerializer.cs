@@ -10,10 +10,14 @@ using System.Linq;
 
 namespace ChartTools.IO.Midi.Serialization
 {
-    internal abstract class TrackObjectGroupSerializer<T> : GroupSerializer<T, MidiEvent, IMidiEventMapping<MidiEvent>>
+    internal abstract class TrackObjectGroupSerializer<T> : GroupSerializer<T, MidiEvent, IMidiEventMapping>
     {
         public TrackObjectGroupSerializer(string header, T content, WritingSession session) : base(header, content, session) { }
 
-        protected override IEnumerable<MidiEvent> CombineMapperResults(IEnumerable<IMidiEventMapping<MidiEvent>>[] mappings) => mappings.AlternateBy(mapping => mapping.Position).Select(mapping => mapping.ToMidiEvent(0));
+        protected override IEnumerable<MidiEvent> CombineMapperResults(IEnumerable<IMidiEventMapping>[] mappings) => mappings.AlternateBy(mapping => mapping.Position).RelativeLoop().Select(pair =>
+        {
+            var previousPosition = pair.previous is null ? 0 : pair.previous.Position;
+            return pair.current.ToMidiEvent(pair.current.Position - previousPosition);
+        });
     }
 }

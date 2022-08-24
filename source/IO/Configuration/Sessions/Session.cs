@@ -8,11 +8,14 @@ namespace ChartTools.IO.Configuration.Sessions
     {
         public delegate bool DuplicateTrackObjectHandler(uint position, string objectType, Func<bool> checkDuplciate);
         public delegate bool SnappedNotesHandler(uint origin, uint position);
+        public delegate MidiInstrumentOrigin UncertainGuitarBassFormatHandler(StandardInstrumentIdentity instrument, MidiInstrumentOrigin format);
+
+        public virtual CommonConfiguration Configuration { get; } = new();
+        public FormattingRules? Formatting { get; set; }
 
         public DuplicateTrackObjectHandler DuplicateTrackObjectProcedure { get; private set; }
         public SnappedNotesHandler SnappedNotesProcedure { get; private set; }
-        public virtual CommonConfiguration Configuration { get; } = new();
-        public FormattingRules? Formatting { get; set; }
+        public UncertainGuitarBassFormatHandler UncertainGuitarBassFormatProcedure { get; protected set; }
 
         public Session(FormattingRules? formatting)
         {

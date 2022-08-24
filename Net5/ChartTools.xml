@@ -1841,6 +1841,9 @@
         <member name="P:ChartTools.IO.Configuration.CommonConfiguration.SoloNoStarPowerPolicy">
             <inheritdoc cref="T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy"/>
         </member>
+        <member name="P:ChartTools.IO.Configuration.CommonConfiguration.UncertainGuitarBassFormatPolicy">
+            <inheritdoc cref="T:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy"/>
+        </member>
         <member name="T:ChartTools.IO.Configuration.ReadingConfiguration">
             <summary>
             Configuration object to direct the reading of a file
@@ -2159,9 +2162,9 @@
             Gives all tracks the same local events.
             </summary>
         </member>
-        <member name="M:ChartTools.Instrument.ShareStarPower(ChartTools.IO.Configuration.TrackObjectSource)">
+        <member name="M:ChartTools.Instrument.ShareSpecialPhrases(ChartTools.IO.Configuration.TrackObjectSource)">
             <summary>
-            Gives all tracks the same star power
+            Gives all tracks the special phrases
             </summary>
         </member>
         <member name="M:ChartTools.Instrument.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">

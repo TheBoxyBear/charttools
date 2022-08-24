@@ -105,7 +105,7 @@
         /// Each <see cref="Track"/> will contain a combination of all unique common track objects in the same <see cref="Instrument"/>
         /// </summary>
         Merge,
-        Seperate
+
     }
     /// <summary>
     /// Defines how lead guitar and bass and handled when the Midi mapping is uncertain.

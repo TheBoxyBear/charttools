@@ -81,7 +81,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\FileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFormatting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Exceptions\InvalidMidiEventTypeException.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\EventMapping.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\EventMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\GHGemsMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\GuitarBassMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\IMidiEventMapping.cs" />

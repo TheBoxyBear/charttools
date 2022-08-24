@@ -1,4 +1,5 @@
-﻿using ChartTools.Extensions.Linq;
+﻿using ChartTools.Events;
+using ChartTools.Extensions.Linq;
 using ChartTools.Formatting;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
@@ -128,16 +129,13 @@ namespace ChartTools
         /// <summary>
         /// Gives all tracks the same local events.
         /// </summary>
-        public void ShareLocalEvents(TrackObjectSource source) => ShareEventsStarPower(source, track => track.LocalEvents);
+        public IEnumerable<LocalEvent> ShareLocalEvents(TrackObjectSource source) => ShareEventsSpecialPhrases(source, track => track.LocalEvents);
         /// <summary>
-        /// Gives all tracks the same star power
+        /// Gives all tracks the special phrases
         /// </summary>
-        public void ShareStarPower(TrackObjectSource source) => ShareEventsStarPower(source, track => track.SpecialPhrases);
-        private void ShareEventsStarPower<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : TrackObject
+        public IEnumerable<TrackSpecialPhrase> ShareSpecialPhrases(TrackObjectSource source) => ShareEventsSpecialPhrases(source, track => track.SpecialPhrases);
+        private IEnumerable<T> ShareEventsSpecialPhrases<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : TrackObject
         {
-            if (source == TrackObjectSource.Seperate)
-                return;
-
             var collections = GetExistingTracks().Select(track => collectionGetter(track)).ToArray();
 
             var objects = (source switch
@@ -155,6 +153,8 @@ namespace ChartTools
                 collection.Clear();
                 collection.AddRange(objects);
             }
+
+            return objects;
         }
 
         #region File reading
