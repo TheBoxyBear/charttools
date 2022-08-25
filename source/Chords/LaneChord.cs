@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace ChartTools
 {
@@ -10,5 +11,17 @@ namespace ChartTools
         protected LaneChord() : base() => Notes = new(OpenExclusivity);
         /// <inheritdoc cref="Chord{TNote, Tlane, TModifier}(uint)"/>
         protected LaneChord(uint position) : base(position) => Notes = new(OpenExclusivity);
+
+        public override Note<TLane> CreateNote(byte index, uint length = 0)
+        {
+            var note = new TNote()
+            {
+                Lane = Unsafe.As<byte, TLane>(ref index),
+                Length = length
+            };
+
+            Notes.Add(note);
+            return note;
+        }
     }
 }

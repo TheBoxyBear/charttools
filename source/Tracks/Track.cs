@@ -41,6 +41,8 @@ namespace ChartTools
         /// </summary>
         public abstract IReadOnlyList<Chord> Chords { get; }
 
+        public abstract Chord CreateChord(uint position);
+
         internal IEnumerable<TrackSpecialPhrase> SoloToStarPower(bool removeEvents)
         {
             if (LocalEvents is null)

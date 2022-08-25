@@ -20,6 +20,8 @@ namespace ChartTools
         /// <inheritdoc cref="TrackObject(uint)"/>
         protected Chord(uint position) : base(position) { }
 
+        public abstract Note CreateNote(byte index, uint length = 0);
+
         /// <summary>
         /// Gets the data to write in a chart file.
         /// </summary>

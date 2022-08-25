@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ChartTools.Lyrics
+﻿namespace ChartTools.Lyrics
 {
     /// <summary>
     /// Karaoke step of a <see cref="Phrase"/>

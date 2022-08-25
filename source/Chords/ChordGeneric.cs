@@ -16,5 +16,6 @@ namespace ChartTools
         protected Chord() : base() { }
         /// <inheritdoc cref="Chord(uint)"/>
         protected Chord(uint position) : base(position) => Modifiers = DefaultModifiers;
+
     }
 }

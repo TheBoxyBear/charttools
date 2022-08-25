@@ -64,7 +64,15 @@ namespace ChartTools.Lyrics
 
         protected override VocalChordModifier DefaultModifiers => VocalChordModifier.None;
 
+        public Phrase() : base() { }
         public Phrase(uint position) : base(position) { }
+
+        public override Syllable CreateNote(byte index, uint length = 0)
+        {
+            var syllable = new Syllable(0, VocalsPitches.A2) { Length = length };
+            Notes.Add(syllable);
+            return syllable;
+        }
 
         public IEnumerable<GlobalEvent> ToGlobalEvents()
         {
