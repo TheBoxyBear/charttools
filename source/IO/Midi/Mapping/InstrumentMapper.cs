@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace ChartTools.IO.Midi.Mapping
 {
-    internal abstract class InstrumentMapper<TChord> where TChord : Chord
+    internal abstract class InstrumentMapper<TChord> where TChord : Chord, new()
     {
         public ReadingSession? ReadingSession { get; }
         public WritingSession? WritingSession { get; }
