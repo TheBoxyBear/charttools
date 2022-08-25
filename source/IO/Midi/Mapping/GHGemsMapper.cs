@@ -33,7 +33,45 @@ namespace ChartTools.IO.Midi.Mapping
 
         public override IEnumerable<NoteMapping> Map(Instrument<StandardChord> instrument)
         {
-            throw new NotImplementedException();
+            foreach (var track in instrument.GetExistingTracks())
+            {
+                var offset = track.Difficulty switch
+                {
+                    Difficulty.Easy => 60,
+                    Difficulty.Medium => 72,
+                    Difficulty.Hard => 84,
+                    Difficulty.Expert => 96,
+                    _ => throw new UndefinedEnumException(track.Difficulty)
+                };
+
+                foreach (var chord in track.Chords)
+                    foreach (var note in chord.Notes)
+                    {
+                        var offsetIndex = (byte)(note.NoteIndex + offset);
+
+                        yield return new(chord.Position, track.Difficulty, NoteState.Open, offsetIndex);
+                        yield return new(chord.Position + note.Length, track.Difficulty, NoteState.Close, offsetIndex);
+                    }
+
+                foreach (var special in track.SpecialPhrases)
+                {
+                    var index = special.Type switch
+                    {
+                        TrackSpecialPhraseType.StarPowerGain => 8,
+                        TrackSpecialPhraseType.Player1FaceOff => 10,
+                        TrackSpecialPhraseType.Player2FaceOff => 11,
+                        _ => -1
+                    };
+
+                    if (index is not -1)
+                    {
+                        var offsetIndex = (byte)(index + offset);
+
+                        yield return new(special.Position, track.Difficulty, NoteState.Open, offsetIndex);
+                        yield return new(special.EndPosition, track.Difficulty, NoteState.Close, offsetIndex);
+                    }
+                }
+            }
         }
     }
 }
