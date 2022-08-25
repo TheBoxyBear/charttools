@@ -13,9 +13,9 @@ namespace ChartTools
     public class StandardChord : LaneChord<Note<StandardLane>, StandardLane, StandardChordModifier>
     {
         protected override bool OpenExclusivity => true;
-        internal override bool ChartSupportedMoridier => !Modifier.HasFlag(StandardChordModifier.ExplicitHopo);
+        internal override bool ChartSupportedMoridier => !Modifiers.HasFlag(StandardChordModifier.ExplicitHopo);
 
-        protected override StandardChordModifier DefaultModifier => StandardChordModifier.None;
+        protected override StandardChordModifier DefaultModifiers => StandardChordModifier.None;
 
         public StandardChord() : base() { }
         /// <inheritdoc cref="Chord(uint)"/>
@@ -44,11 +44,11 @@ namespace ChartTools
 
         internal override IEnumerable<TrackObjectEntry> GetChartModifierData(Chord? previous, WritingSession session)
         {
-            bool isInvert = Modifier.HasFlag(StandardChordModifier.HopoInvert);
+            bool isInvert = Modifiers.HasFlag(StandardChordModifier.HopoInvert);
 
-            if (Modifier.HasFlag(StandardChordModifier.ExplicitHopo) && (previous is null || previous.Position <= session.Formatting!.TrueHopoFrequency) != isInvert || isInvert)
+            if (Modifiers.HasFlag(StandardChordModifier.ExplicitHopo) && (previous is null || previous.Position <= session.Formatting!.TrueHopoFrequency) != isInvert || isInvert)
                 yield return ChartFormatting.NoteEntry(Position, 5, 0);
-            if (Modifier.HasFlag(StandardChordModifier.Tap))
+            if (Modifiers.HasFlag(StandardChordModifier.Tap))
                 yield return ChartFormatting.NoteEntry(Position, 6, 0);
         }
     }

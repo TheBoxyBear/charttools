@@ -14,9 +14,9 @@ namespace ChartTools
     public class GHLChord : LaneChord<Note<GHLLane>, GHLLane, GHLChordModifier>
     {
         protected override bool OpenExclusivity => true;
-        internal override bool ChartSupportedMoridier => !Modifier.HasFlag(GHLChordModifier.ExplicitHopo);
+        internal override bool ChartSupportedMoridier => !Modifiers.HasFlag(GHLChordModifier.ExplicitHopo);
 
-        protected override GHLChordModifier DefaultModifier => GHLChordModifier.None;
+        protected override GHLChordModifier DefaultModifiers => GHLChordModifier.None;
 
         public GHLChord() : base() { }
         /// <inheritdoc cref="LaneChord{TNote, TLane, TModifier}(uint)"/>
@@ -54,11 +54,11 @@ namespace ChartTools
 
         internal override IEnumerable<TrackObjectEntry> GetChartModifierData(Chord? previous, WritingSession session)
         {
-            var isInvert = Modifier.HasFlag(GHLChordModifier.HopoInvert);
+            var isInvert = Modifiers.HasFlag(GHLChordModifier.HopoInvert);
 
-            if (Modifier.HasFlag(GHLChordModifier.ExplicitHopo) && (previous is null || previous.Position <= session.Formatting!.TrueHopoFrequency) != isInvert || isInvert)
+            if (Modifiers.HasFlag(GHLChordModifier.ExplicitHopo) && (previous is null || previous.Position <= session.Formatting!.TrueHopoFrequency) != isInvert || isInvert)
                 yield return ChartFormatting.NoteEntry(Position, 5, 0);
-            if (Modifier.HasFlag(GHLChordModifier.Tap))
+            if (Modifiers.HasFlag(GHLChordModifier.Tap))
                 yield return ChartFormatting.NoteEntry(Position, 6, 0);
         }
     }

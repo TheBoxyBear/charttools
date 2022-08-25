@@ -26,10 +26,10 @@ namespace ChartTools.IO.Chart.Parsing
                     chord.Notes.Add(new Note<StandardLane>((StandardLane)(data.NoteIndex + 1)) { Length = data.SustainLength });
                     break;
                 case 5:
-                    chord.Modifier |= StandardChordModifier.HopoInvert;
+                    chord.Modifiers |= StandardChordModifier.HopoInvert;
                     return;
                 case 6:
-                    chord.Modifier |= StandardChordModifier.Tap;
+                    chord.Modifiers |= StandardChordModifier.Tap;
                     return;
                 case 7:
                     chord.Notes.Add(new Note<StandardLane>(StandardLane.Open) { Length = data.SustainLength });
@@ -37,7 +37,7 @@ namespace ChartTools.IO.Chart.Parsing
             }
 
             void AddNote(Note<StandardLane> note) => HandleAddNote(note, () => chord.Notes.Add(note));
-            void AddModifier(StandardChordModifier modifier) => HandleAddModifier(chord.Modifier, modifier, () => chord.Modifier |= modifier);
+            void AddModifier(StandardChordModifier modifier) => HandleAddModifier(chord.Modifiers, modifier, () => chord.Modifiers |= modifier);
         }
     }
 }

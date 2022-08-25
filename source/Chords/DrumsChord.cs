@@ -15,7 +15,7 @@ namespace ChartTools
         protected override bool OpenExclusivity => false;
         internal override bool ChartSupportedMoridier => true;
 
-        protected override DrumsChordModifier DefaultModifier => DrumsChordModifier.None;
+        protected override DrumsChordModifier DefaultModifiers => DrumsChordModifier.None;
 
         public DrumsChord() : base() { }
 
@@ -54,7 +54,7 @@ namespace ChartTools
 
         internal override IEnumerable<TrackObjectEntry> GetChartModifierData(Chord? previous, WritingSession session)
         {
-            if (Modifier.HasFlag(DrumsChordModifier.Flam))
+            if (Modifiers.HasFlag(DrumsChordModifier.Flam))
                 yield return ChartFormatting.NoteEntry(Position, 109, 0);
         }
     }

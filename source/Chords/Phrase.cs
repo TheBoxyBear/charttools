@@ -62,7 +62,7 @@ namespace ChartTools.Lyrics
 
         internal override bool ChartSupportedMoridier => true;
 
-        protected override VocalChordModifier DefaultModifier => VocalChordModifier.None;
+        protected override VocalChordModifier DefaultModifiers => VocalChordModifier.None;
 
         public Phrase(uint position) : base(position) { }
 

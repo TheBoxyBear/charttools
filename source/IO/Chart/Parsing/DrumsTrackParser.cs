@@ -45,7 +45,7 @@ namespace ChartTools.IO.Chart.Parsing
             }
 
             void AddNote(DrumsNote note) => HandleAddNote(note, () => chord.Notes.Add(note));
-            void AddModifier(DrumsChordModifier modifier) => HandleAddModifier(chord.Modifier, modifier, () => chord.Modifier |= modifier);
+            void AddModifier(DrumsChordModifier modifier) => HandleAddModifier(chord.Modifiers, modifier, () => chord.Modifiers |= modifier);
         }
     }
 }
