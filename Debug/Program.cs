@@ -11,6 +11,7 @@ using ChartTools.Events;
 using ChartTools.IO.Formatting;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
+using ChartTools.IO.Chart.Serialization;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Ini;
 using ChartTools.IO.Midi;
