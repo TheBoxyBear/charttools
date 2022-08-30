@@ -6,6 +6,5 @@ debug/obj
 bin/
 build/*
 obj/
-ChartTools/
 ChartTools.Test/
 TestResults/
