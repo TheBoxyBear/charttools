@@ -43,16 +43,16 @@ namespace ChartTools
 
         internal override IEnumerable<TrackObjectEntry> GetChartData(Chord? previous, bool modifiers, FormattingRules formatting)
         {
-            var entries = Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Length)); Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Length));
+            var entries = Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Length));
 
             if (modifiers)
             {
                 bool isInvert = Modifiers.HasFlag(StandardChordModifier.HopoInvert);
 
                 if (Modifiers.HasFlag(StandardChordModifier.ExplicitHopo) && (previous is null || previous.Position <= formatting.TrueHopoFrequency) != isInvert || isInvert)
-                    entries.Append(ChartFormatting.NoteEntry(Position, 5, 0));
+                    entries = entries.Append(ChartFormatting.NoteEntry(Position, 5, 0));
                 if (Modifiers.HasFlag(StandardChordModifier.Tap))
-                    entries.Append(ChartFormatting.NoteEntry(Position, 6, 0));
+                    entries = entries.Append(ChartFormatting.NoteEntry(Position, 6, 0));
             }
 
             return entries;

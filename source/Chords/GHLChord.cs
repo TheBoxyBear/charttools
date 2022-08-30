@@ -60,9 +60,9 @@ namespace ChartTools
                 var isInvert = Modifiers.HasFlag(GHLChordModifier.HopoInvert);
 
                 if (Modifiers.HasFlag(GHLChordModifier.ExplicitHopo) && (previous is null || previous.Position <= formatting.TrueHopoFrequency) != isInvert || isInvert)
-                    entries.Append(ChartFormatting.NoteEntry(Position, 5, 0));
+                    entries = entries.Append(ChartFormatting.NoteEntry(Position, 5, 0));
                 if (Modifiers.HasFlag(GHLChordModifier.Tap))
-                    entries.Append(ChartFormatting.NoteEntry(Position, 6, 0));
+                    entries = entries.Append(ChartFormatting.NoteEntry(Position, 6, 0));
             }
 
             return entries;
