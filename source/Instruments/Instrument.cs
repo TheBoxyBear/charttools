@@ -1,9 +1,9 @@
 ﻿using ChartTools.Events;
 using ChartTools.Extensions.Linq;
-using ChartTools.Formatting;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
+using ChartTools.IO.Formatting;
 
 using System;
 using System.Collections.Generic;

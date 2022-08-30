@@ -1,9 +1,9 @@
-﻿using ChartTools.IO.Chart.Entries;
+﻿using ChartTools.Extensions.Linq;
+using ChartTools.IO.Chart.Entries;
+using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
-using ChartTools.Extensions.Linq;
 
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ChartTools.IO.Chart.Mapping
 {
@@ -25,7 +25,7 @@ namespace ChartTools.IO.Chart.Mapping
 
                     return exactMatch;
                 }))
-                    foreach (var entry in (chord.ChartSupportedMoridier ? chord.GetChartModifierData(previousChord, session) : session.GetChordEntries(previousChord, chord)).Concat(chord.GetChartNoteData()))
+                    foreach (var entry in chord.GetChartData(previousChord, (chord.ChartSupportedMoridier ? UnsupportedModifiersResults.Modifier : session.UnsupportedModifiersProcedure(chord)).HasFlag(UnsupportedModifiersResults.Modifier), session.Formatting!))
                         yield return entry;
 
                 previousChord = chord;

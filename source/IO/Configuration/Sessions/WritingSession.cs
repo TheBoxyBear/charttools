@@ -1,30 +1,26 @@
-﻿using ChartTools.Formatting;
-using ChartTools.IO.Chart.Entries;
-
+﻿using ChartTools.IO.Formatting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ChartTools.IO.Configuration.Sessions
 {
     internal class WritingSession : Session
     {
-        public delegate IEnumerable<TrackObjectEntry> ChordEntriesGetter(Chord? previous, Chord current);
+        public delegate UnsupportedModifiersResults UnsupportedModifiersHandler(Chord chord);
 
         public override WritingConfiguration Configuration { get; }
-        public ChordEntriesGetter GetChordEntries { get; private set; }
+        public UnsupportedModifiersHandler UnsupportedModifiersProcedure { get; private set; }
 
         public WritingSession(WritingConfiguration config, FormattingRules? formatting) : base(formatting)
         {
             Configuration = config;
-            GetChordEntries = (previous, chord) => (GetChordEntries = Configuration.UnsupportedModifierPolicy switch
+            UnsupportedModifiersProcedure = chord => (UnsupportedModifiersProcedure = Configuration.UnsupportedModifierPolicy switch
             {
-                UnsupportedModifierPolicy.IgnoreChord => (_, _) => Enumerable.Empty<TrackObjectEntry>(),
-                UnsupportedModifierPolicy.ThrowException => (_, chord) => throw new Exception($"Chord at position {chord.Position} as an unsupported modifier for the chart format."),
-                UnsupportedModifierPolicy.IgnoreModifier => (_, chord) => chord.GetChartNoteData(),
-                UnsupportedModifierPolicy.Convert => (previous, chord) => chord.GetChartModifierData(previous, this),
+                UnsupportedModifiersPolicy.ThrowException => chord => throw new Exception($"Chord at position {chord.Position} has modifiers not supported by the target format."),
+                UnsupportedModifiersPolicy.IgnoreChord => _ => UnsupportedModifiersResults.None,
+                UnsupportedModifiersPolicy.IgnoreModifier => chord => UnsupportedModifiersResults.Chord,
+                UnsupportedModifiersPolicy.Convert => chord => UnsupportedModifiersResults.Modifier,
                 _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.UnsupportedModifierPolicy)
-            })(previous, chord);
+            })(chord);
             UncertainGuitarBassFormatProcedure = (instrument, format) => (UncertainGuitarBassFormatProcedure = Configuration.UncertainGuitarBassFormatPolicy switch
             {
                 UncertainGuitarBassFormatPolicy.ThrowException => (instrument, format) => throw new Exception($"{instrument} has the unknown or conflicting format {format} that cannot be mapped to Midi."),

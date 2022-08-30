@@ -1,6 +1,7 @@
 ﻿using ChartTools.Events;
 using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration.Sessions;
+using ChartTools.IO.Formatting;
 
 using System;
 using System.Collections.Generic;
@@ -84,8 +85,7 @@ namespace ChartTools.Lyrics
 
         private string BuildText(Func<Syllable, string> textSelector) => string.Concat(Notes.Select(n => n.IsWordEnd ? textSelector(n) + ' ' : textSelector(n)));
 
-        internal override IEnumerable<TrackObjectEntry> GetChartNoteData() => throw new InvalidOperationException("Phrases must be converted to events to be written to chart.");
-        internal override IEnumerable<TrackObjectEntry> GetChartModifierData(Chord? previous, WritingSession session) => GetChartNoteData();
+        internal override IEnumerable<TrackObjectEntry> GetChartData(Chord? previous, bool modifiers, FormattingRules formatting) => throw new InvalidOperationException("Phrases must be converted to events to be written to chart.");
     }
 
     /// <summary>

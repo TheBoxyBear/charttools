@@ -7,7 +7,7 @@
         /// </summary>
         public TrackObjectSource EventSource { get; init; }
         public TrackObjectSource StarPowerSource { get; init; }
-        /// <see cref="Configuration.UnsupportedModifierPolicy"/>
-        public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }
+        /// <see cref="Configuration.UnsupportedModifiersPolicy"/>
+        public UnsupportedModifiersPolicy UnsupportedModifierPolicy { get; init; }
     }
 }

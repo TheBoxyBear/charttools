@@ -1,4 +1,6 @@
-﻿namespace ChartTools.IO.Configuration
+﻿using System;
+
+namespace ChartTools.IO.Configuration
 {
     /// <summary>
     /// Defines how duplicate track objects are handled
@@ -135,7 +137,7 @@
     /// <summary>
     /// Defines how to handle chord modifiers not supported by the target format
     /// </summary>
-    public enum UnsupportedModifierPolicy : byte
+    public enum UnsupportedModifiersPolicy : byte
     {
         /// <summary>
         /// Throw an exception
@@ -151,6 +153,14 @@
         /// </summary>
         IgnoreChord,
     }
+
+    [Flags] internal enum UnsupportedModifiersResults
+    {
+        None,
+        Chord = 1,
+        Modifier
+    }
+
     public enum UnopenedTrackObjectPolicy : byte
     {
         ThrowException,

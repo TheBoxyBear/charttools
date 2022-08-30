@@ -2,7 +2,7 @@
 using ChartTools.IO.Chart.Serialization;
 using ChartTools.IO.Ini;
 
-namespace ChartTools.Formatting
+namespace ChartTools.IO.Formatting
 {
     /// <summary>
     /// Rules defined in song.ini that affect how the song data file is read and written

@@ -1,5 +1,5 @@
 ﻿using ChartTools.Extensions.Linq;
-using ChartTools.Formatting;
+using ChartTools.IO.Formatting;
 using ChartTools.IO.Configuration;
 
 using System;

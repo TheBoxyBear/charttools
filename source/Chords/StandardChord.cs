@@ -1,6 +1,7 @@
 ﻿using ChartTools.IO.Chart;
 using ChartTools.IO.Chart.Entries;
-using ChartTools.IO.Configuration.Sessions;
+using ChartTools.IO.Formatting;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,16 +41,21 @@ namespace ChartTools
                 Notes.Add(new Note<StandardLane>(note));
         }
 
-        internal override IEnumerable<TrackObjectEntry> GetChartNoteData() => Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Length));
-
-        internal override IEnumerable<TrackObjectEntry> GetChartModifierData(Chord? previous, WritingSession session)
+        internal override IEnumerable<TrackObjectEntry> GetChartData(Chord? previous, bool modifiers, FormattingRules formatting)
         {
-            bool isInvert = Modifiers.HasFlag(StandardChordModifier.HopoInvert);
+            var entries = Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Length)); Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Length));
 
-            if (Modifiers.HasFlag(StandardChordModifier.ExplicitHopo) && (previous is null || previous.Position <= session.Formatting!.TrueHopoFrequency) != isInvert || isInvert)
-                yield return ChartFormatting.NoteEntry(Position, 5, 0);
-            if (Modifiers.HasFlag(StandardChordModifier.Tap))
-                yield return ChartFormatting.NoteEntry(Position, 6, 0);
+            if (modifiers)
+            {
+                bool isInvert = Modifiers.HasFlag(StandardChordModifier.HopoInvert);
+
+                if (Modifiers.HasFlag(StandardChordModifier.ExplicitHopo) && (previous is null || previous.Position <= formatting.TrueHopoFrequency) != isInvert || isInvert)
+                    entries.Append(ChartFormatting.NoteEntry(Position, 5, 0));
+                if (Modifiers.HasFlag(StandardChordModifier.Tap))
+                    entries.Append(ChartFormatting.NoteEntry(Position, 6, 0));
+            }
+
+            return entries;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using ChartTools.Extensions;
-using ChartTools.Formatting;
+using ChartTools.IO.Formatting;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Chart.Serialization;
@@ -7,7 +7,6 @@ using ChartTools.IO.Ini;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ChartTools
 {
