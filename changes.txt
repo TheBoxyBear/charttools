@@ -1,0 +1,7 @@
+Chords and notes can be created from non generic objects.
+
+-- Breaking --
+
+FormattingRules and enums relocated from ChartTools.Formatting to ChartTools.IO.Formatting
+
+Chord.Modifier renamed to Chord.Modifiers

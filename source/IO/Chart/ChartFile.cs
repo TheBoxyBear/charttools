@@ -5,6 +5,7 @@ using ChartTools.IO.Chart.Parsing;
 using ChartTools.IO.Chart.Serialization;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
+using ChartTools.IO.Formatting;
 using ChartTools.IO.Serializaiton;
 using ChartTools.Lyrics;
 
@@ -37,7 +38,7 @@ namespace ChartTools.IO.Chart
             SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
             EventSource = TrackObjectSource.Merge,
             StarPowerSource = TrackObjectSource.Merge,
-            UnsupportedModifierPolicy = UnsupportedModifierPolicy.ThrowException
+            UnsupportedModifierPolicy = UnsupportedModifiersPolicy.ThrowException
         };
 
         #region Reading

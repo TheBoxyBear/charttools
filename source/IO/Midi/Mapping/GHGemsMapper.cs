@@ -1,7 +1,7 @@
 ﻿using Melanchall.DryWetMidi.Core;
 
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ChartTools.IO.Midi.Mapping
 {
@@ -44,7 +44,7 @@ namespace ChartTools.IO.Midi.Mapping
                     _ => throw new UndefinedEnumException(track.Difficulty)
                 };
 
-                foreach (var chord in track.Chords)
+                foreach (var chord in track.Chords.Where(c => c.Modifiers == StandardChordModifier.None || WritingSession!.UnsupportedModifiersProcedure(c).HasFlag(Configuration.UnsupportedModifiersResults.Chord)))
                     foreach (var note in chord.Notes)
                     {
                         var offsetIndex = (byte)(note.NoteIndex + offset);
