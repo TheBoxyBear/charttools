@@ -1,4 +1,4 @@
-﻿using ChartTools.Formatting;
+﻿using ChartTools.IO.Formatting;
 using ChartTools.Internal;
 using ChartTools.IO;
 using ChartTools.IO.Chart;

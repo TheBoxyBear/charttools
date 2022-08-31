@@ -1,20 +1,18 @@
-﻿using ChartTools.IO;
+﻿using ChartTools.Events;
+using ChartTools.IO;
 using ChartTools.IO.Chart;
+using ChartTools.IO.Configuration;
+using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
 using ChartTools.Lyrics;
+using ChartTools.Tools;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
-using ChartTools.Extensions.Linq;
-using System.Threading.Tasks;
+using System.Linq;
 using System.Threading;
-using ChartTools.IO.Configuration;
-using ChartTools.Events;
-using ChartTools.Formatting;
-using ChartTools.IO.Sections;
-using ChartTools.Tools;
+using System.Threading.Tasks;
 
 namespace ChartTools
 {

@@ -50,8 +50,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartSectionSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsing\ChartParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Parsing\MetadataParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Formatting\FormattingEnums.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Formatting\FormattingRules.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Formatting\FormattingEnums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Formatting\FormattingRules.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ILongObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Instruments\Instrument.cs" />
@@ -176,6 +176,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)IO\Appliables\" />
-    <Folder Include="$(MSBuildThisFileDirectory)IO\Midi\Serializing\" />
   </ItemGroup>
 </Project>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using ChartTools.Formatting;
+using ChartTools.IO.Formatting;
 using ChartTools.IO.Midi;
 using ChartTools.Tools;
 

@@ -54,8 +54,8 @@
     <Compile Include="IO\Configuration\Sessions\WritingSession.cs" />
     <Compile Include="IO\Configuration\WritingConfiguration.cs" />
     <Compile Include="IO\ExtensionHandler.cs" />
-    <Compile Include="Formatting\FormattingEnums.cs" />
-    <Compile Include="Formatting\FormattingRules.cs" />
+    <Compile Include="IO\Formatting\FormattingEnums.cs" />
+    <Compile Include="IO\Formatting\FormattingRules.cs" />
     <Compile Include="IO\Ini\IniFile.cs" />
     <Compile Include="IO\Ini\IniFileReader.cs" />
     <Compile Include="IO\Ini\IniFileWriter.cs" />
