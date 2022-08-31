@@ -1,9 +1,9 @@
 ﻿namespace ChartTools.IO.Configuration
 {
     /// <summary>
-    /// Configuration object to direct the reading or writing of a file
+    /// Set of policies defining how errors in IO operations are handled
     /// </summary>
-    /// <remarks>If <see langword="null"/>, the default configuration for the file format will be used.</remarks>
+    /// <remarks>If <see langword="null"/>, the default configuration for the target format will be used.</remarks>
     public record CommonConfiguration
     {
         /// <inheritdoc cref="Configuration.DuplicateTrackObjectPolicy"/>
