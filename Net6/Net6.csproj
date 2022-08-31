@@ -13,6 +13,7 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>$(OutDir)ChartTools.xml</DocumentationFile>
     <BaseOutputPath>$(ProjectDir)..\build\net6</BaseOutputPath>
+    <Configurations>Debug;Release;Docs</Configurations>
   </PropertyGroup>
 
   <Import Project="..\source\source.projitems" Label="Shared" />

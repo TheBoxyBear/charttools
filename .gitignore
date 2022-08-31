@@ -1,10 +1,11 @@
 .vs/
 .vscode/
 ignore/
-debug/bin
-debug/obj
-bin/
 build/*
-obj/
-ChartTools.Test/
+*/obj
+*/bin
 TestResults/
+Docs/DROP/
+Docs/TEMP/
+Docs/packages/
+Docs/_site
