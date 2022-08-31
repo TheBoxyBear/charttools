@@ -1,5 +1,4 @@
-﻿
-using ChartTools.IO.Chart;
+﻿using ChartTools.IO.Chart;
 using ChartTools.IO.Chart.Serialization;
 using ChartTools.IO.Ini;
 
@@ -22,6 +21,10 @@ namespace ChartTools
         [IniKeySerializable(IniFormatting.Icon)]
         public string? Icon { get; set; }
 
+        /// <summary>
+        /// Represents the charter through its <see cref="Name"/>.
+        /// </summary>
+        /// <returns><see cref="Name"/></returns>
         public override string ToString() => Name ?? string.Empty;
     }
 }

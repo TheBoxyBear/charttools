@@ -76,7 +76,7 @@ namespace ChartTools
         /// </summary>
         DoubleKick
     }
-    public enum FileFormat : byte { Chart, Ini, MIDI }
+    public enum FileType : byte { Chart, Ini, MIDI }
     /// <summary>
     /// Modifier that affects how a <see cref="GHLChord"/> can be played
     /// </summary>

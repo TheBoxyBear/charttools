@@ -5,9 +5,17 @@ using System.Linq;
 
 namespace ChartTools.IO.Sections
 {
+    /// <summary>
+    /// Set of sections contained in a file that cannot be mapped to the model
+    /// </summary>
+    /// <typeparam name="T">Type of content in the sections depending on the file type</typeparam>
     public abstract class SectionSet<T> : IList<Section<T>>
     {
         private readonly List<Section<T>> _sections = new();
+        /// <summary>
+        /// Headers used by the model
+        /// </summary>
+        /// <remarks>Adding a section with a reserved header will cause an <see cref="Exception"/>.</remarks>
         public abstract ReservedSectionHeaderSet ReservedHeaders { get; }
 
         #region IList

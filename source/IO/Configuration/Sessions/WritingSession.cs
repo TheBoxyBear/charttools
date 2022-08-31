@@ -15,7 +15,7 @@ namespace ChartTools.IO.Configuration.Sessions
             Configuration = config;
             UnsupportedModifiersProcedure = chord => (UnsupportedModifiersProcedure = Configuration.UnsupportedModifierPolicy switch
             {
-                UnsupportedModifiersPolicy.ThrowException => chord => throw new Exception($"Chord at position {chord.Position} has modifiers not supported by the target format."),
+                UnsupportedModifiersPolicy.ThrowException => chord => throw new Exception($"Chord at position {chord.Position} has modifiers not supported by the target file type."),
                 UnsupportedModifiersPolicy.IgnoreChord => _ => UnsupportedModifiersResults.None,
                 UnsupportedModifiersPolicy.IgnoreModifier => chord => UnsupportedModifiersResults.Chord,
                 UnsupportedModifiersPolicy.Convert => chord => UnsupportedModifiersResults.Modifier,

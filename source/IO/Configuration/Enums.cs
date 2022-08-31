@@ -136,7 +136,7 @@ namespace ChartTools.IO.Configuration
         Store
     }
     /// <summary>
-    /// Defines how to handle chord modifiers not supported by the target format
+    /// Defines how to handle chord modifiers not supported by the target file type
     /// </summary>
     public enum UnsupportedModifiersPolicy : byte
     {
