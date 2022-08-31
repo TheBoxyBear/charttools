@@ -8,5 +8,5 @@ TestResults/
 Docs/DROP/
 Docs/TEMP/
 Docs/packages/
-Docs/_site/
+Docs/_site/*
 Docs/log.txt
