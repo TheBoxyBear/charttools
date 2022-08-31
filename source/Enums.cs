@@ -193,9 +193,9 @@ namespace ChartTools.Lyrics
     public enum VocalChordModifier : byte { None }
 
     /// <summary>
-    /// Pitch values for <see cref="VocalsPitch"/>
+    /// Values for <see cref="VocalPitch"/>
     /// </summary>
-    public enum VocalsPitches : byte
+    public enum VocalPitchValue : byte
     {
         /// <summary>
         /// No pitch
@@ -400,7 +400,7 @@ namespace ChartTools.Lyrics
     }
 
     /// <summary>
-    /// Keys making up <see cref="VocalsPitches"/> without the octave
+    /// Keys making up <see cref="VocalPitchValue"/> without the octave
     /// </summary>
     public enum VocalsKey : byte
     {

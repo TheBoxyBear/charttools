@@ -99,6 +99,7 @@ namespace ChartTools.IO.Configuration
     }
     /// <summary>
     /// Difficulty of the <see cref="Track"/> to serve as a source of for track objects common to all difficulties to use for all tracks in the same <see cref="Instrument"/>
+    /// </summary>
     /// <remarks>Can be casted from <see cref="Difficulty"/>.</remarks>
     public enum TrackObjectSource : byte
     {

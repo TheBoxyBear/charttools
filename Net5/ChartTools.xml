@@ -109,264 +109,264 @@
             <param name="source">Phrases to convert into global events</param>
             <returns>Global events making up the phrases</returns>
         </member>
-        <member name="T:ChartTools.Lyrics.VocalsPitches">
+        <member name="T:ChartTools.Lyrics.VocalPitchValue">
             <summary>
-            Pitch values for <see cref="T:ChartTools.Lyrics.VocalsPitch"/>
+            Values for <see cref="!:VocalPitch"/>
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.None">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.None">
             <summary>
             No pitch
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.C2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.C2">
             <summary>
             Second C (lowest pitch)
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.CSharp2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.CSharp2">
             <summary>
             Second C#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.D2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.D2">
             <summary>
             Second D
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.Eb2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.Eb2">
             <summary>
             Second E-flat
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.E2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.E2">
             <summary>
             Second E
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.F2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.F2">
             <summary>
             Second F
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.FSharp2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.FSharp2">
             <summary>
             Second F#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.G2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.G2">
             <summary>
             Second G
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.GSharp2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.GSharp2">
             <summary>
             Second G#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.A2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.A2">
             <summary>
             Second A
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.Bb2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.Bb2">
             <summary>
             Second B-flat
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.B2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.B2">
             <summary>
             Second B
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.C3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.C3">
             <summary>
             Third C
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.CSharp3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.CSharp3">
             <summary>
             Third C#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.D3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.D3">
             <summary>
             Third D
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.Eb3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.Eb3">
             <summary>
             Third E-flat
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.E3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.E3">
             <summary>
             Third E
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.F3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.F3">
             <summary>
             Third F
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.FSharp3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.FSharp3">
             <summary>
             Third F#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.G3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.G3">
             <summary>
             Third G
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.GSharp3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.GSharp3">
             <summary>
             Third G#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.A3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.A3">
             <summary>
             Third A
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.Bb3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.Bb3">
             <summary>
             Third B-flat
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.B3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.B3">
             <summary>
             Third B
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.C4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.C4">
             <summary>
             Third C
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.CSharp4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.CSharp4">
             <summary>
             Fourth C#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.D4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.D4">
             <summary>
             Fourth D
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.Eb4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.Eb4">
             <summary>
             Fourth E-flat
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.E4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.E4">
             <summary>
             Fourth E
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.F4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.F4">
             <summary>
             Fourth F
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.FSharp4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.FSharp4">
             <summary>
             Fourth F#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.G4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.G4">
             <summary>
             Fourth G
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.GSharp4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.GSharp4">
             <summary>
             Fourth G#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.A4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.A4">
             <summary>
             Fourth A
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.Bb4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.Bb4">
             <summary>
             Fourth B-flat
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.B4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.B4">
             <summary>
             Fourth B
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.C5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.C5">
             <summary>
             Fifth
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.CSharp5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.CSharp5">
             <summary>
             Fifth C#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.D5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.D5">
             <summary>
             Fifth D
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.Eb5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.Eb5">
             <summary>
             Fifth E-flat
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.E5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.E5">
             <summary>
             Fifth E
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.F5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.F5">
             <summary>
             Fifth F
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.FSharp5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.FSharp5">
             <summary>
             Fifth F#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.G5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.G5">
             <summary>
             Fifth G
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.GSharp5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.GSharp5">
             <summary>
             Fifth G#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.A5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.A5">
             <summary>
             Fifth A
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.Bb5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.Bb5">
             <summary>
             Fifth B-flat
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.B5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.B5">
             <summary>
             Fifth B
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.C6">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.C6">
             <summary>
             Sixth C (highest pitch)
             </summary>
         </member>
         <member name="T:ChartTools.Lyrics.VocalsKey">
             <summary>
-            Keys making up <see cref="T:ChartTools.Lyrics.VocalsPitches"/> without the octave
+            Keys making up <see cref="T:ChartTools.Lyrics.VocalPitchValue"/> without the octave
             </summary>
         </member>
         <member name="F:ChartTools.Lyrics.VocalsKey.C">
@@ -466,9 +466,15 @@
             <see langword="true"/> if is the last syllable or the only syllable of its word
             </summary>
         </member>
+        <member name="T:ChartTools.Lyrics.VocalsPitch">
+            <summary>
+            Note pitch for a <see cref="T:ChartTools.Lyrics.Syllable"/>
+            </summary>
+            <remarks>Wrapper type for <see cref="T:ChartTools.Lyrics.VocalPitchValue"/> helping in obtaining the key and octave</remarks>
+        </member>
         <member name="P:ChartTools.Lyrics.VocalsPitch.Pitch">
             <summary>
-            Pitch value
+            Raw pitch value
             </summary>
         </member>
         <member name="P:ChartTools.Lyrics.VocalsPitch.Key">
@@ -480,6 +486,12 @@
             <summary>
             Octave number
             </summary>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.#ctor(ChartTools.Lyrics.VocalPitchValue)">
+            <summary>
+            Create a <see cref="T:ChartTools.Lyrics.VocalsPitch"/> from a <see cref="T:ChartTools.Lyrics.VocalPitchValue"/>.
+            </summary>
+            <param name="pitch"></param>
         </member>
         <member name="T:ChartTools.StandardChord">
             <summary>
@@ -1610,6 +1622,7 @@
             </summary>
             <param name="path">Path of the file to write</param>
             <param name="syncTrack">Sync track to write</param>
+            <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.WritingConfiguration" path="/summary"/></param>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetTrackCombinations``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>
@@ -1842,7 +1855,12 @@
             If a track has "solo" or "soloend" local events and no star power, convert the events into star power as interpreted by Clone Hero
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:ChartTools.IO.Configuration.TrackObjectSource" -->
+        <member name="T:ChartTools.IO.Configuration.TrackObjectSource">
+            <summary>
+            Difficulty of the <see cref="T:ChartTools.Track"/> to serve as a source of for track objects common to all difficulties to use for all tracks in the same <see cref="T:ChartTools.Instrument"/>
+            </summary>
+            <remarks>Can be casted from <see cref="T:ChartTools.Difficulty"/>.</remarks>
+        </member>
         <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Merge">
             <summary>
             Each <see cref="T:ChartTools.Track"/> will contain a combination of all unique common track objects in the same <see cref="T:ChartTools.Instrument"/>
@@ -1891,9 +1909,9 @@
         </member>
         <member name="T:ChartTools.IO.Configuration.CommonConfiguration">
             <summary>
-            Configuration object to direct the reading or writing of a file
+            Set of policies defining how errors in IO operations are handled
             </summary>
-            <remarks>If <see langword="null"/>, the default configuration for the file format will be used.</remarks>
+            <remarks>If <see langword="null"/>, the default configuration for the target format will be used.</remarks>
         </member>
         <member name="P:ChartTools.IO.Configuration.CommonConfiguration.DuplicateTrackObjectPolicy">
             <inheritdoc cref="T:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy"/>
@@ -1921,6 +1939,12 @@
             Configuration object to customize how DryWetMidi reads Midi file before being parsed
             </summary>
             <remarks>Setting to <see landword="null"/> will use default settings</remarks>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.WritingConfiguration">
+            <summary>
+            Set of policies defining how errors during write operations are handled
+            </summary>
+            <inheritdoc cref="T:ChartTools.IO.Configuration.CommonConfiguration"/>
         </member>
         <member name="P:ChartTools.IO.Configuration.WritingConfiguration.EventSource">
             <summary>

@@ -70,7 +70,7 @@ namespace ChartTools.Lyrics
 
         public override Syllable CreateNote(byte index, uint length = 0)
         {
-            var syllable = new Syllable(SyllableEndOffset, VocalsPitches.A2) { Length = length };
+            var syllable = new Syllable(SyllableEndOffset, VocalPitchValue.A2) { Length = length };
             Notes.Add(syllable);
             return syllable;
         }

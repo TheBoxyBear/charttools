@@ -35,9 +35,6 @@ namespace ChartTools.IO.Chart.Parsing
                     chord.Notes.Add(new Note<StandardLane>(StandardLane.Open) { Length = data.SustainLength });
                     break;
             }
-
-            void AddNote(Note<StandardLane> note) => HandleAddNote(note, () => chord.Notes.Add(note));
-            void AddModifier(StandardChordModifier modifier) => HandleAddModifier(chord.Modifiers, modifier, () => chord.Modifiers |= modifier);
         }
     }
 }

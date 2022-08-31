@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace ChartTools.IO.Ini
+﻿namespace ChartTools.IO.Ini
 {
-    public static class IniFormatting
+    internal static class IniFormatting
     {
         public const string
             Header = "[song]",
