@@ -2748,7 +2748,7 @@
             </summary>
         </member>
         <member name="P:ChartTools.Song.Formatting">
-            <inheritdoc cref="T:ChartTools.Formatting.FormattingRules"/>
+            <inheritdoc cref="T:ChartTools.IO.Formatting.FormattingRules"/>
         </member>
         <member name="P:ChartTools.Song.SyncTrack">
             <inheritdoc cref="T:ChartTools.SyncTrack"/>
