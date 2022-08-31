@@ -22,6 +22,12 @@ namespace ChartTools
         /// <inheritdoc cref="TrackObject(uint)"/>
         protected Chord(uint position) : base(position) { }
 
+        /// <summary>
+        /// Creates a note of type used by the chord.
+        /// </summary>
+        /// <param name="index"><inheritdoc cref="Note.NoteIndex" path="/summary"/></param>
+        /// <param name="length"><inheritdoc cref="Note.Length" path="/summary"/></param>
+        /// <returns>Created note</returns>
         public abstract Note CreateNote(byte index, uint length = 0);
 
         /// <summary>
