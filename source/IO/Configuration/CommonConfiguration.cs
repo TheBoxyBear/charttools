@@ -3,7 +3,7 @@
     /// <summary>
     /// Set of policies defining how errors in IO operations are handled
     /// </summary>
-    /// <remarks>If <see langword="null"/>, the default configuration for the target format will be used.</remarks>
+    /// <remarks>If <see langword="null"/>, the default configuration for the target file type will be used.</remarks>
     public record CommonConfiguration
     {
         /// <inheritdoc cref="Configuration.DuplicateTrackObjectPolicy"/>

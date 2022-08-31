@@ -182,7 +182,7 @@ namespace ChartTools
         /// <summary>
         /// Unrecognized metadata
         /// </summary>
-        /// <remarks>When writing, these will only be written if the target format matches the origin</remarks>
+        /// <remarks>When writing, these will only be written if the target file type matches the origin</remarks>
         public HashSet<UnidentifiedMetadata> UnidentifiedData { get; } = new(new FuncEqualityComparer<UnidentifiedMetadata>((a, b) => a.Key == b.Key));
         #endregion
 
