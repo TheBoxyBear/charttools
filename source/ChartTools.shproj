@@ -60,11 +60,6 @@
     <Compile Include="IO\Ini\IniFileReader.cs" />
     <Compile Include="IO\Ini\IniFileWriter.cs" />
     <Compile Include="IO\ISerializerDataProvider.cs" />
-    <Compile Include="IO\Midi\MIDIFormatting.cs" />
-    <Compile Include="IO\Midi\Parsing\InstrumentParser.cs" />
-    <Compile Include="IO\Midi\Parsing\MidiParser.cs" />
-    <Compile Include="IO\Midi\Parsing\StandardInstrumentParser.cs" />
-    <Compile Include="IO\Midi\Providers\MidiProvider.cs" />
     <Compile Include="IO\TextEntry.cs" />
     <Compile Include="IO\TextFileReader.cs" />
     <Compile Include="Metadata\Charter.cs" />
