@@ -15,10 +15,10 @@ namespace ChartTools.IO.Sections
         /// <summary>
         /// Headers used by the model
         /// </summary>
-        /// <remarks>Adding a section with a reserved header will cause an <see cref="Exception"/>.</remarks>
+        /// <remarks>Using a reserved header will cause an <see cref="Exception"/>.</remarks>
         public abstract ReservedSectionHeaderSet ReservedHeaders { get; }
 
-        #region IList
+        #region IList implementation
         public int Count => _sections.Count;
         public bool IsReadOnly => false;
 
@@ -52,6 +52,11 @@ namespace ChartTools.IO.Sections
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         #endregion
 
+        /// <summary>
+        /// Gets a section based on its header
+        /// </summary>
+        /// <param name="header">Header of the section to search</param>
+        /// <returns>Section with the matching header. <see langword="null"/> if none found.</returns>
         public Section<T>? Get(string header)
         {
             CheckHeader(header);
