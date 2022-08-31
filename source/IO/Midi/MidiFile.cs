@@ -1,6 +1,6 @@
-﻿using ChartTools.IO.Configuration;
+﻿using ChartTools.IO.Formatting;
+using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
-using ChartTools.IO.Formatting;
 using ChartTools.IO.Midi.Parsing;
 
 using System;

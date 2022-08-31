@@ -1,7 +1,12 @@
 .vs/
 .vscode/
+ignore/
 build/*
-**/obj
-**/bin
+*/obj
+*/bin
 TestResults/
-Docs/_site
+Docs/DROP/
+Docs/TEMP/
+Docs/packages/
+Docs/_site/*
+Docs/log.txt
