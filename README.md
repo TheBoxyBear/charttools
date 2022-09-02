@@ -16,7 +16,7 @@ If you find any bugs, you can report them in the [Issues section](https://github
 
 ## Getting Started
 
-For an overview on getting started, see [Getting Started](docs/articles/GettingStarted.md).
+For an overview on getting started, see [Getting Started](Docs/articles/GettingStarted.md).
 
 ## License and Attribution
 
