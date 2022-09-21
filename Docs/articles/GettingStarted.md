@@ -1,21 +1,24 @@
-# Getting started
+# Getting Started
+This document goes over the basics of parsing a chart through ChartTools.
 
-This document goes over the basics of parsing a chart through ChartTools. The full documentation can be found [here]().
+## Installation
+To add ChartTools to your project, you must first compile the assembly. The repository contains two main projects: Net5 and Net6. Compile the project that matches your target .NET version with either the Debug or Release profile. The compiled files can be found in the build folder of the repository.
+
+Visual Studio: Right-click on your from the solution explorer and select "Add Project References...". Click on "Browse" and select ChartTools.dll that was generated.
+
+If you find any bugs, you can report them in the [Issues section](https://github.com/TheBoxyBear/ChartTools/issues) of the repository. Make sure to use the "bug" label.
 
 ## Sandbox environment
-
 The repository includes a sandbox environment where you can explore the library and perform various tests. To use the sandbox environment, open Program.cs from the Debug project. The project targets .NET 6 and references the Net6 project.
 
-> **NOTE**: This project is for personal testing and experimenting purposes only, so make sure to exclude changes to the project before commiting to your branch. Any pull requests that includes changes to the Debug project will be rejected.
+> **NOTE**: This project is for personal testing and experimenting purposes only, so make sure to exclude changes to the project before commiting to your branch. Any pull requests that includes changes to the Debug project will be rejected. After cloning the repo, run the command "git update-index --assume-unchanged Debug/" to ensure changes 
 
 ## Supported file formats
-
 ChartTools supports parsing of .chart and .ini files, with .mid parsing in the works.
 
 For documentation on the formats themselves, refer to the [GuitarGame_ChartFormats](https://github.com/TheNathannator/GuitarGame_ChartFormats) repository.
 
 ## Song
-
 Every component of a chart is stored in an instance of the Song class. It can be initialized by reading a file that will be parsed based on the extension.
 
 ```c#
@@ -46,7 +49,6 @@ A song contains four main components:
 Each of these components can be read individually from a file or directory using the non-generic version of the corresponding class, with or without a configuration object.
 
 ## Metadata
-
 Similar to reading a song, metadata is retrieved by reading a file:
 
 ```c#
@@ -66,7 +68,6 @@ When reading from multiple files, you can mix file types and priority of informa
 As a future-proofing method, all unsupported items can be found under UnidentifiedData. This data will only be written to the same file format as the one it was read from.
 
 ## Instruments and Tracks
-
 All instruments currently supported are represented using the generic `Instrument` class. This class contains an object of type `Track` class for every difficulty. A track can be retrieved from a song like this:
 
 ```c#
@@ -91,7 +92,6 @@ A track is composed of three components:
 Instruments can also be obtained dynamically from a song regardless of the type. To learn more, check out [Dynamic syntax](DynamicSyntax.md).
 
 ## Chords and Notes
-
 A chord is a set of notes played at the same time. All supported instruments use the generic version of the Chord class where the generic type defines the type of notes contained. The note types are the same as the types of instruments as listed in the section. The types for notes are:
 
 - `Note<StandardLane>`
@@ -111,7 +111,6 @@ foreach (StandardChord chord in song.Instruments.LeadGuitar.Expert)
 ```
 
 ## Lyrics
-
 Lyrics of a song are defined by a collection of phrases. A phrase represents a single line of lyrics, which are split up into syllables.
 
 Phrases can either be read from a file:
@@ -142,7 +141,6 @@ events.SetLyrics(lyrics); // Replaces existing lyric-related events with new eve
 It is also possible to edit lyrics directly from the global events. The use of phrase and syllable objects are intended to simplify the editing of lyrics, and any changes to these objects are only applied to the song once they are converted back into global events.
 
 ## Optimizing
-
 Although still functional, some files may contain data that slow down the reading process or in worse cases, may result in non-functional files when saved in certain formats. ChartTools provides various utilities to fix such issues:
 
 ```c#
@@ -157,7 +155,6 @@ syncTrack.TimeSignatures.RemoveUnneeded();
 ```
 
 ## Writing files
-
 Finally, changes can be saved to a file using the instance or extension `ToFile` method of most components. The format is determined based on the extension of the file. For instruments and tracks, the existing component will be overwritten or added while keeping the rest of the file if it already exists.
 
 ```c#
