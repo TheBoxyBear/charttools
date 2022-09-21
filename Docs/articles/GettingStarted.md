@@ -11,7 +11,7 @@ If you find any bugs, you can report them in the [Issues section](https://github
 ## Sandbox environment
 The repository includes a sandbox environment where you can explore the library and perform various tests. To use the sandbox environment, open Program.cs from the Debug project. The project targets .NET 6 and references the Net6 project.
 
-> **NOTE**: This project is for personal testing and experimenting purposes only, so make sure to exclude changes to the project before commiting to your branch. Any pull requests that includes changes to the Debug project will be rejected. After cloning the repo, run the command "git update-index --assume-unchanged Debug/" to ensure changes 
+> **NOTE**: This project is for personal testing and experimenting purposes only, so make sure to exclude changes to the project before commiting to your branch. Any pull requests that includes changes to the Debug project will be rejected. After cloning the repo, run the command "git update-index --assume-unchanged Debug/" to ensure changes are not included in commits.
 
 ## Supported file formats
 ChartTools supports parsing of .chart and .ini files, with .mid parsing in the works.
