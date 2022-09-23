@@ -39,7 +39,7 @@ namespace ChartTools.Events
                     // Add syllable to the active phrase using the event argument
                     case EventTypeHelper.Global.Lyric:
                         if (phrase is not null)
-                            phrase.Notes.Add(new(globalEvent.Position - phrase.Position, VocalsPitches.None) { RawText = globalEvent.Argument ?? string.Empty });
+                            phrase.Syllables.Add(new(globalEvent.Position - phrase.Position, VocalsPitches.None) { RawText = globalEvent.Argument ?? string.Empty });
                         break;
                     // Set length of active phrase
                     case EventTypeHelper.Global.PhraseEnd:

@@ -128,8 +128,6 @@ namespace ChartTools.IO.Configuration
         /// Combine the unique track objects from all the tracks in the instrument.
         /// </summary>
         Merge,
-        [Obsolete]
-        Seperate
     }
     /// <summary>
     /// Defines how lead guitar and bass and handled when the Midi mapping is uncertain.

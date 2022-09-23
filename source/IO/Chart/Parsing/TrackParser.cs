@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace ChartTools.IO.Chart.Parsing
 {
-    internal abstract class TrackParser<TChord> : ChartParser, IInstrumentAppliable<TChord> where TChord : Chord, new()
+    internal abstract class TrackParser<TChord> : ChartParser, IInstrumentAppliable<TChord> where TChord : IChord, new()
     {
         public Difficulty Difficulty { get; }
 
@@ -82,9 +82,9 @@ namespace ChartTools.IO.Chart.Parsing
         }
 
         protected abstract void HandleNoteEntry(TChord chord, NoteData data);
-        protected void HandleAddNote(Note note, Action add)
+        protected void HandleAddNote(INote note, Action add)
         {
-            if (session.DuplicateTrackObjectProcedure(chord!.Position, "note", () => chord!.Notes.Any(n => n.NoteIndex == note.NoteIndex)))
+            if (session.DuplicateTrackObjectProcedure(chord!.Position, "note", () => chord!.Notes.Any(n => n.Index == note.Index)))
                 add();
         }
         protected void HandleAddModifier(Enum existingModifier, Enum modifier, Action add)

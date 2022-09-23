@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace ChartTools.Lyrics
+﻿namespace ChartTools.Lyrics
 {
     /// <summary>
     /// Karaoke step of a <see cref="Phrase"/>
     /// </summary>
-    public class Syllable : Note<VocalsPitch>
+    public class Syllable : ILongObject, INote
     {
         /// <summary>
         /// Position offset from the <see cref="Phrase"/>
@@ -15,16 +13,16 @@ namespace ChartTools.Lyrics
         /// Position offset of the end from the <see cref="Phrase"/>
         /// </summary>
         public uint EndPositionOffset => PositionOffset + Length;
+        public uint Length { get; set; }
 
         /// <summary>
         /// Pitch to sing
         /// </summary>
         /// <remarks>Although the octave is specified, some games only require the player to match the key.<br/><br/>Chart files do not support pitches.</remarks>
         public VocalsPitch Pitch { get; set; } = new();
-        internal override byte NoteIndex => (byte)Pitch.Pitch;
+        public byte Index => (byte)Pitch.Pitch;
 
         private string _rawText = string.Empty;
-
         /// <summary>
         /// Unformatted text data
         /// </summary>
@@ -57,6 +55,6 @@ namespace ChartTools.Lyrics
         }
 
         public Syllable(uint offset) => PositionOffset = offset;
-        public Syllable(uint offset, VocalsPitch pitch) : base(pitch) => PositionOffset = offset;
+        public Syllable(uint offset, VocalsPitch pitch) : this(offset) => Pitch = pitch;
     }
 }

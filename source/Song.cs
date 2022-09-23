@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 using System.Threading;
 using ChartTools.IO.Configuration;
 using ChartTools.Events;
-using ChartTools.Formatting;
 using ChartTools.IO.Sections;
 using ChartTools.Tools;
+using ChartTools.IO.Formatting;
 
 namespace ChartTools
 {

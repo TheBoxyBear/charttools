@@ -1,8 +1,8 @@
 ﻿using ChartTools.Events;
-using ChartTools.Formatting;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
+using ChartTools.IO.Formatting;
 
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +39,9 @@ namespace ChartTools
         /// <summary>
         /// Groups of notes of the same position
         /// </summary>
-        public abstract IReadOnlyList<Chord> Chords { get; }
+        public IReadOnlyList<IChord> Chords => GetChords();
+
+        protected abstract IReadOnlyList<IChord> GetChords();
 
         internal IEnumerable<TrackSpecialPhrase> SoloToStarPower(bool removeEvents)
         {

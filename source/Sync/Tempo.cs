@@ -5,7 +5,7 @@ namespace ChartTools
     /// <summary>
     /// Marker that alters the tempo
     /// </summary>
-    public class Tempo : TrackObject
+    public class Tempo : TrackObjectBase
     {
         /// <summary>
         /// New tempo

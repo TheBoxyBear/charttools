@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace ChartTools.IO.Chart.Providers
 {
-    internal abstract class SyncTrackProvider<T> : ISerializerDataProvider<T, TrackObjectEntry> where T : TrackObject
+    internal abstract class SyncTrackProvider<T> : ISerializerDataProvider<T, TrackObjectEntry> where T : TrackObjectBase
     {
         protected abstract string ObjectType { get; }
 

@@ -11,35 +11,37 @@ namespace ChartTools
     /// <summary>
     /// Set of notes played simultaneously by a Guitar Hero Live instrument
     /// </summary>
-    public class GHLChord : LaneChord<Note<GHLLane>, GHLLane, GHLChordModifier>
+    public class GHLChord : LaneChord<LaneNote<GHLLane>, GHLLane, GHLChordModifiers>
     {
         protected override bool OpenExclusivity => true;
-        internal override bool ChartSupportedMoridier => !Modifier.HasFlag(GHLChordModifier.ExplicitHopo);
 
-        protected override GHLChordModifier DefaultModifier => GHLChordModifier.None;
+        internal override GHLChordModifiers DefaultModifiers => GHLChordModifiers.None;
+        internal override bool ChartSupportedModifiers => !Modifiers.HasFlag(GHLChordModifiers.ExplicitHopo);
 
         public GHLChord() : base() { }
         /// <inheritdoc cref="LaneChord{TNote, TLane, TModifier}(uint)"/>
         public GHLChord(uint position) : base(position) { }
         /// <inheritdoc cref="GHLChord(uint)"/>
         /// <param name="notes">Notes to add</param>
-        public GHLChord(uint position, params Note<GHLLane>[] notes) : base(position)
+        public GHLChord(uint position, params LaneNote<GHLLane>[] notes) : base(position)
         {
             if (notes is null)
                 throw new ArgumentNullException(nameof(notes));
 
-            foreach (Note<GHLLane> note in notes)
+            foreach (var note in notes)
                 Notes.Add(note);
         }
-        /// <inheritdoc cref="GHLChord(uint, Note{GHLLane}[])"/>
+        /// <inheritdoc cref="GHLChord(uint, LaneNote{GHLLane}[])"/>
         public GHLChord(uint position, params GHLLane[] notes) : base(position)
         {
             if (notes is null)
                 throw new ArgumentNullException(nameof(notes));
 
             foreach (GHLLane note in notes)
-                Notes.Add(new Note<GHLLane>(note));
+                Notes.Add(new LaneNote<GHLLane>(note));
         }
+
+        protected override IEnumerable<INote> GetNotes() => Notes;
 
         internal override IEnumerable<TrackObjectEntry> GetChartNoteData() => Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane switch
         {
@@ -52,13 +54,13 @@ namespace ChartTools
             GHLLane.White3 => 2,
         }, note.Length));
 
-        internal override IEnumerable<TrackObjectEntry> GetChartModifierData(Chord? previous, WritingSession session)
+        internal override IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, WritingSession session)
         {
-            var isInvert = Modifier.HasFlag(GHLChordModifier.HopoInvert);
+            var isInvert = Modifiers.HasFlag(GHLChordModifiers.HopoInvert);
 
-            if (Modifier.HasFlag(GHLChordModifier.ExplicitHopo) && (previous is null || previous.Position <= session.Formatting!.TrueHopoFrequency) != isInvert || isInvert)
+            if (Modifiers.HasFlag(GHLChordModifiers.ExplicitHopo) && (previous is null || previous.Position <= session.Formatting!.TrueHopoFrequency) != isInvert || isInvert)
                 yield return ChartFormatting.NoteEntry(Position, 5, 0);
-            if (Modifier.HasFlag(GHLChordModifier.Tap))
+            if (Modifiers.HasFlag(GHLChordModifiers.Tap))
                 yield return ChartFormatting.NoteEntry(Position, 6, 0);
         }
     }

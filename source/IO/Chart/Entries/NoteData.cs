@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ChartTools.IO.Chart.Entries
 {
@@ -12,7 +10,7 @@ namespace ChartTools.IO.Chart.Entries
         /// <summary>
         /// Value of <see cref="Note.NoteIndex"/>
         /// </summary>
-        internal byte NoteIndex { get; }
+        internal byte Index { get; }
         /// <summary>
         /// Value of <see cref="Note.Length"/>
         /// </summary>
@@ -30,7 +28,7 @@ namespace ChartTools.IO.Chart.Entries
             if (split.Length < 2)
                 throw new EntryException();
 
-            NoteIndex = ValueParser.ParseByte(split[0], "note index");
+            Index = ValueParser.ParseByte(split[0], "note index");
             SustainLength = ValueParser.ParseUint(split[1], "sustain length");
         }
     }

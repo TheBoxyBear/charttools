@@ -1,6 +1,4 @@
 ﻿using ChartTools.Events;
-using ChartTools.IO.Chart.Entries;
-using ChartTools.IO.Configuration.Sessions;
 
 using System;
 using System.Collections.Generic;
@@ -8,16 +6,24 @@ using System.Linq;
 
 namespace ChartTools.Lyrics
 {
-    public class Phrase : Chord<Syllable, VocalsPitch, VocalChordModifier>, ILongTrackObject
+    public class Phrase : TrackObjectBase, IChord, ILongTrackObject
     {
-        public override List<Syllable> Notes { get; } = new();
-        public override uint Position { get; set; }
+        public List<Syllable> Syllables { get; } = new();
+        IEnumerable<INote> IChord.Notes => Syllables;
+
+        public uint Position { get; set; }
         /// <summary>
         /// End of the phrase as defined by <see cref="Length"/>
         /// </summary>
         public uint EndPosition => Position + Length;
 
         public uint Length => LengthOverride ?? SyllableEndOffset;
+        uint ILongTrackObject.Length
+        {
+            get => Length;
+            set => LengthOverride = value;
+        }
+
         public uint? LengthOverride
         {
             get => _lengthOverride;
@@ -31,20 +37,14 @@ namespace ChartTools.Lyrics
         }
         private uint? _lengthOverride;
 
-        uint ILongObject.Length
-        {
-            get => Length;
-            set => LengthOverride = value;
-        }
-
         /// <summary>
         /// Offset of the first syllable
         /// </summary>
-        public uint SyllableStartOffset => Notes.Count == 0 ? 0 : Notes.Select(s => s.PositionOffset).Min();
+        public uint SyllableStartOffset => Syllables.Count == 0 ? 0 : Syllables.Select(s => s.PositionOffset).Min();
         /// <summary>
         /// Offset of the end of the last syllable
         /// </summary>
-        public uint SyllableEndOffset => Notes.Count == 0 ? 0 : Notes.Select(s => s.EndPositionOffset).Max();
+        public uint SyllableEndOffset => Syllables.Count == 0 ? 0 : Syllables.Select(s => s.EndPositionOffset).Max();
         /// <summary>
         /// Start position of the first syllable
         /// </summary>
@@ -60,24 +60,17 @@ namespace ChartTools.Lyrics
         public string RawText => BuildText(n => n.RawText);
         public string DisplayedText => BuildText(n => n.DisplayedText);
 
-        internal override bool ChartSupportedMoridier => true;
-
-        protected override VocalChordModifier DefaultModifier => VocalChordModifier.None;
-
         public Phrase(uint position) : base(position) { }
 
         public IEnumerable<GlobalEvent> ToGlobalEvents()
         {
             yield return new(Position, EventTypeHelper.Global.PhraseStart);
 
-            foreach (var note in Notes)
-                yield return new(Position + note.PositionOffset, EventTypeHelper.Global.Lyric, note.RawText);
+            foreach (var syllable in Syllables)
+                yield return new(Position + syllable.PositionOffset, EventTypeHelper.Global.Lyric, syllable.RawText);
         }
 
-        private string BuildText(Func<Syllable, string> textSelector) => string.Concat(Notes.Select(n => n.IsWordEnd ? textSelector(n) + ' ' : textSelector(n)));
-
-        internal override IEnumerable<TrackObjectEntry> GetChartNoteData() => throw new InvalidOperationException("Phrases must be converted to events to be written to chart.");
-        internal override IEnumerable<TrackObjectEntry> GetChartModifierData(Chord? previous, WritingSession session) => GetChartNoteData();
+        private string BuildText(Func<Syllable, string> textSelector) => string.Concat(Syllables.Select(n => n.IsWordEnd ? textSelector(n) + ' ' : textSelector(n)));
     }
 
     /// <summary>

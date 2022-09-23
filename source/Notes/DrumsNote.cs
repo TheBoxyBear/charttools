@@ -5,7 +5,7 @@ namespace ChartTools
     /// <summary>
     /// Note played by drums
     /// </summary>
-    public class DrumsNote : Note<DrumsLane>
+    public class DrumsNote : LaneNote<DrumsLane>
     {
         private bool _isCymbal = false;
         /// <summary>

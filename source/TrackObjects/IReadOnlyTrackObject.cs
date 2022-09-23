@@ -3,6 +3,9 @@ using System;
 
 namespace ChartTools
 {
+    /// <summary>
+    /// Object located on a track
+    /// </summary>
     public interface IReadOnlyTrackObject : IEquatable<IReadOnlyTrackObject>
     {
         /// <summary>

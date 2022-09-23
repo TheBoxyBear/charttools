@@ -1,6 +1,4 @@
-﻿using ChartTools.Special;
-
-using System;
+﻿using System;
 
 namespace ChartTools
 {

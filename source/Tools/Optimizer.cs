@@ -17,12 +17,12 @@ namespace ChartTools.Tools
         /// Cuts short sustains that exceed the position of the next identical note.
         /// </summary>
         /// <param name="chords">Chords to cut the sustains of</param>
-        public static void CutSustains(this IEnumerable<Chord> chords)
+        public static void CutSustains(this IEnumerable<IChord> chords)
         {
             foreach ((var previous, var current) in GetTrackObjectPairs(chords))
                 foreach (var note in current.Notes)
                 {
-                    var previousNote = previous!.Notes.First(n => n.NoteIndex == note.NoteIndex);
+                    var previousNote = previous!.Notes.First(n => n.Index == note.Index);
 
                     if (previousNote is not null && previous.Position + previousNote.Length > current.Position)
                         previousNote.Length = current.Position - previous.Position;

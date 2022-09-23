@@ -42,7 +42,7 @@ namespace ChartTools.Tools
         /// </summary>
         /// <param name="chord">Chord to rescale</param>
         /// <param name="scale">Positive number where 1 is the current scale.</param>
-        public static void Rescale(this Chord chord, float scale)
+        public static void Rescale(this IChord chord, float scale)
         {
             chord.Position = (uint)(chord.Position * scale);
 
@@ -56,7 +56,7 @@ namespace ChartTools.Tools
         /// <param name="scale">Positive number where 1 is the current scale.</param>
         public static void Rescale(this Track track, float scale)
         {
-            foreach (Chord chord in track.Chords)
+            foreach (var chord in track.Chords)
                 Rescale(chord, scale);
 
             if (track.LocalEvents is not null)

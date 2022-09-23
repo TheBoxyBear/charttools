@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using ChartTools.IO.Formatting;
 
-using ChartTools.Formatting;
-using ChartTools.Tools;
-
-using Melanchall.DryWetMidi.Core;
+using System;
 
 namespace ChartTools.IO.Configuration.Sessions
 {
@@ -25,6 +20,6 @@ namespace ChartTools.IO.Configuration.Sessions
                 TempolessAnchorPolicy.Create => anchor => true,
                 _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.TempolessAnchorPolicy)
             })(anchor);
-         }
+        }
     }
 }

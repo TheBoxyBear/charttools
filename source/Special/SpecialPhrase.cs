@@ -1,11 +1,12 @@
 ﻿namespace ChartTools
 {
-    public abstract class SpecialPhrase : LongTrackObject
+    public abstract class SpecialPhrase : TrackObjectBase, ILongTrackObject
     {
         /// <summary>
         /// Numerical value of the phrase type
         /// </summary>
         public byte TypeCode { get; set; }
+        public uint Length { get; set; }
 
         /// <summary>
         /// Base constructor of special phrases.
