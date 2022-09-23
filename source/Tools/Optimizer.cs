@@ -1,4 +1,5 @@
 ﻿using ChartTools.Extensions.Linq;
+using ChartTools.Lyrics;
 
 using System.Collections.Generic;
 using System.Data;
@@ -17,7 +18,7 @@ namespace ChartTools.Tools
         /// Cuts short sustains that exceed the position of the next identical note.
         /// </summary>
         /// <param name="chords">Chords to cut the sustains of</param>
-        public static void CutSustains(this IEnumerable<IChord> chords)
+        public static void CutSustains(this IEnumerable<LaneChord> chords)
         {
             foreach ((var previous, var current) in GetTrackObjectPairs(chords))
                 foreach (var note in current.Notes)
