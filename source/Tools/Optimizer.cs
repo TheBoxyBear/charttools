@@ -1,4 +1,6 @@
 ﻿using ChartTools.Extensions.Linq;
+using ChartTools.Lyrics;
+using ChartTools.Special;
 
 using System.Collections.Generic;
 using System.Data;
@@ -27,6 +29,12 @@ namespace ChartTools.Tools
                     if (previousNote is not null && previous.Position + previousNote.Length > current.Position)
                         previousNote.Length = current.Position - previous.Position;
                 }
+        }
+
+        public static void CutLenghts(IEnumerable<SpecialPhrase> phrases)
+        {
+            foreach (var grouping in phrases.GroupBy(p => p.TypeCode))
+                grouping.CutLengths();
         }
 
         /// <summary>

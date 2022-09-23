@@ -466,6 +466,11 @@
             <see langword="true"/> if is the last syllable or the only syllable of its word
             </summary>
         </member>
+        <member name="T:ChartTools.Lyrics.VocalsPitch">
+            <summary>
+            Wrapper type for <see cref="T:ChartTools.Lyrics.VocalsPitches"/> with helper properties to get the pitch and key
+            </summary>
+        </member>
         <member name="P:ChartTools.Lyrics.VocalsPitch.Pitch">
             <summary>
             Pitch value
@@ -479,6 +484,59 @@
         <member name="P:ChartTools.Lyrics.VocalsPitch.Octave">
             <summary>
             Octave number
+            </summary>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.#ctor(ChartTools.Lyrics.VocalsPitches)">
+            <summary>
+            Creates a pitch from a raw pitch value.
+            </summary>
+            <param name="pitch"></param>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.Equals(ChartTools.Lyrics.VocalsPitch)">
+            <summary>
+            Indicates if two pitches have the same value.
+            </summary>
+            <param name="other">Pitch to compare</param>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.Equals(ChartTools.Lyrics.VocalsPitches)">
+            <summary>
+            Indicates if a pitch has a value equal to a raw pitch value.
+            </summary>
+            <param name="other">Value to compare</param>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.Equals(System.Object)">
+            <summary>
+            Indicates if an object is a raw pitch value or wrapper and the value is equal.
+            </summary>
+            <param name="obj">Source of value</param>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.op_Implicit(ChartTools.Lyrics.VocalsPitches)~ChartTools.Lyrics.VocalsPitch">
+            <summary>
+            Converts a raw pitch value to a matching wrapper.
+            </summary>
+            <param name="pitch">Pitch value</param>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.op_Equality(ChartTools.Lyrics.VocalsPitch,ChartTools.Lyrics.VocalsPitch)">
+            <inheritdoc cref="M:ChartTools.Lyrics.VocalsPitch.Equals(ChartTools.Lyrics.VocalsPitch)"/>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.op_Inequality(ChartTools.Lyrics.VocalsPitch,ChartTools.Lyrics.VocalsPitch)">
+            <summary>
+            Indicates if two pitches don't have the same value.
+            </summary>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.op_LessThan(ChartTools.Lyrics.VocalsPitch,ChartTools.Lyrics.VocalsPitch)">
+            <summary>
+            Indicates if the left pitch has a lower value than the right pitch according to music theory.
+            </summary>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.op_GreaterThan(ChartTools.Lyrics.VocalsPitch,ChartTools.Lyrics.VocalsPitch)">
+            <summary>
+            Indicates if the left pitch has a higher value than the right pitch according to music theory.
+            </summary>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.GetHashCode">
+            <summary>
+            Returns the hash code for the pitch value.
             </summary>
         </member>
         <member name="T:ChartTools.StandardChord">
@@ -1398,6 +1456,8 @@
                 <para><see langword="null"/> if the file contains no drums data</para>
             </returns>
             <param name="path">Path of the file to read</param>
+            <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
+            <param name="formatting"><inheritdoc cref="T:ChartTools.Formatting.FormattingRules" path="/summary"/></param>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
             <summary>
@@ -1728,7 +1788,7 @@
         </member>
         <member name="F:ChartTools.IO.Configuration.LyricEventSource.Vocals">
             <summary>
-            Lyrics are obtained from the <see cref="!:Song.Vocals"/> instrument
+            Lyrics are obtained from the <see cref="P:ChartTools.InstrumentSet.Vocals"/> instrument
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy">
@@ -1763,23 +1823,43 @@
         </member>
         <member name="T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy">
             <summary>
-            Defines how to handle "solo" local events in tracks
+            Defines how <see cref="F:ChartTools.Events.EventTypeHelper.Local.Solo"/> or <see cref="F:ChartTools.Events.EventTypeHelper.Local.SoloEnd"/> events are handled when there are no star power phrases.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.Ignore">
             <summary>
-            Local events are interpreted as is
+            Store the events under <see cref="P:ChartTools.Track.LocalEvents"/>
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.Convert">
             <summary>
-            If a track has "solo" or "soloend" local events and no star power, convert the events into star power as interpreted by Clone Hero
+            Convert the space between the <see cref="F:ChartTools.Events.EventTypeHelper.Local.Solo"/> and <see cref="F:ChartTools.Events.EventTypeHelper.Local.SoloEnd"/>
             </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "T:ChartTools.IO.Configuration.TrackObjectSource" -->
+        <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Easy">
+            <summary>
+            Use the objects from the <see cref="F:ChartTools.Difficulty.Easy"/> track.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Medium">
+            <summary>
+            Use the objects from the <see cref="F:ChartTools.Difficulty.Medium"/> track.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Hard">
+            <summary>
+            Use the objects from the <see cref="F:ChartTools.Difficulty.Hard"/> track.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Expert">
+            <summary>
+            Use the objects from the <see cref="F:ChartTools.Difficulty.Expert"/> track.
+            </summary>
+        </member>
         <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Merge">
             <summary>
-            Each <see cref="T:ChartTools.Track"/> will contain a combination of all unique common track objects in the same <see cref="T:ChartTools.Instrument"/>
+            Combine the unique track objects from all the tracks in the instrument.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy">
@@ -1787,40 +1867,106 @@
             Defines how lead guitar and bass and handled when the Midi mapping is uncertain.
             </summary>
         </member>
+        <member name="F:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy.ThrowException">
+            <summary>
+            Throw an exception.
+            </summary>
+        </member>
         <member name="F:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy.UseReadingDefault">
             <summary>
-            The format defaulted to when reading id used.
+            Use the format that was defaulted to when reading.
             </summary>
-            <remarks>Policy is invalid when reading</remarks>
+            <remarks>Policy is invalid when reading.</remarks>
         </member>
         <member name="F:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy.UseGuitarHero2">
             <summary>
-            The Guitar Hero 2 format is used.
+            Default to the Guitar Hero 2 format.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy.UseRockBand">
             <summary>
-            The Rock Band format is used.
+            Default to the Rock Band format.
+            </summary>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.UnknownSectionPolicy">
+            <summary>
+            Defines how unknown sections or Midi chunks are handled.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnknownSectionPolicy.ThrowException">
+            <summary>
+            Throw an exception with the section or chunk header.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnknownSectionPolicy.Store">
+            <summary>
+            Store the raw data to be included when writing.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.UnsupportedModifierPolicy">
             <summary>
-            Defines how to handle chord modifiers not supported by the target format
+            Defines chord modifiers not supported by the target format are handled.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.UnsupportedModifierPolicy.ThrowException">
             <summary>
-            Throw an exception
+            Throw an exception with the modifier index.
             </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnsupportedModifierPolicy.Convert">
+            <summary>
+            Convert the modifier to one supported by the format.
+            </summary>
+            <remarks>Will throw an exception if the modifier cannot be converted.</remarks>
         </member>
         <member name="F:ChartTools.IO.Configuration.UnsupportedModifierPolicy.IgnoreModifier">
             <summary>
-            The modifier is excluded
+            Ignore the modifier.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.UnsupportedModifierPolicy.IgnoreChord">
             <summary>
-            The chord is excluded
+            Ignore the chord containing the modifier.
+            </summary>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.UnopenedTrackObjectPolicy">
+            <summary>
+            Defines how track object defined with a <see cref="T:Melanchall.DryWetMidi.Core.NoteOffEvent"/> with no matching <see cref="T:Melanchall.DryWetMidi.Core.NoteOnEvent"/> are handled when reading Midi.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnopenedTrackObjectPolicy.ThrowException">
+            <summary>
+            Throw an exception with the event position and index.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnopenedTrackObjectPolicy.Create">
+            <summary>
+            Create a track object at the position of the closing event and a length of 0.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnopenedTrackObjectPolicy.Ignore">
+            <summary>
+            Ignore the event.
+            </summary>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.UnclosedTrackObjectPolicy">
+            <summary>
+            Defines how track object defined with a <see cref="T:Melanchall.DryWetMidi.Core.NoteOnEvent"/> with no matching <see cref="T:Melanchall.DryWetMidi.Core.NoteOffEvent"/> are handled when reading Midi.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnclosedTrackObjectPolicy.ThrowException">
+            <summary>
+            Throw an exception with the event position and index.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnclosedTrackObjectPolicy.Include">
+            <summary>
+            Include the track object with a length going up to the next track object opening of the same index.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnclosedTrackObjectPolicy.Ignore">
+            <summary>
+            Ignore the event and track object.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.CommonConfiguration">
@@ -1882,34 +2028,6 @@
             </summary>
             <param name="path">Path of the file to read</param>
             <param name="metadata">Metadata to write</param>
-        </member>
-        <member name="P:ChartTools.IO.Midi.MidiFile.DefaultReadConfig">
-            <summary>
-            Default configuration to use for reading when the provided configuration is <see langword="default"/>
-            </summary>
-        </member>
-        <member name="M:ChartTools.IO.Midi.MidiFile.GetSongParser(System.String,ChartTools.IO.Configuration.Sessions.ReadingSession,System.Byte@)">
-            <summary>
-            Creates a <see cref="T:ChartTools.IO.Midi.Parsing.MidiParser"/> for parsing a section based on the header.
-            </summary>
-            <exception cref="T:System.FormatException"></exception>
-        </member>
-        <member name="M:ChartTools.IO.Midi.MidiFile.CreateSongFromReader(ChartTools.IO.Midi.MidiFileReader)">
-            <summary>
-            Combines the results from the parsers of a <see cref="T:ChartTools.IO.Midi.MidiFileReader"/> into a <see cref="T:ChartTools.Song"/>.
-            </summary>
-            <param name="reader">Reader to get the parsers from</param>
-        </member>
-        <member name="M:ChartTools.IO.Midi.MidiFile.ReadSong(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
-            <inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
-        </member>
-        <member name="M:ChartTools.IO.Midi.MidiFile.ReadSongAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
-            <inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='path']"/></param>
-            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='cancellationToken']"/></param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='config']"/></param>
         </member>
         <member name="M:ChartTools.IO.KeySerializableAttribute.GetSerializable``1(System.Object)">
             <summary>

@@ -170,6 +170,8 @@ namespace ChartTools.IO.Chart
         ///     <para><see langword="null"/> if the file contains no drums data</para>
         /// </returns>
         /// <param name="path">Path of the file to read</param>
+        /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
+        /// <param name="formatting"><inheritdoc cref="FormattingRules" path="/summary"/></param>
         public static Instrument<DrumsChord>? ReadDrums(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default)
         {
             var session = new ReadingSession(config ?? DefaultReadConfig, formatting ?? new());

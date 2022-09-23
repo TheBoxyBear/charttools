@@ -13,5 +13,6 @@ This project makes use of one or more third-party libraries to aid in functional
 
 ## Special Thanks
 - [FireFox](https://github.com/FireFox2000000) for making the Moonscraper editor open-source
-- [TheNathannator](https://github.com/TheNathannator) for their direct contributions
+- [TheNathannator](https://github.com/TheNathannator) for their direct contributions.
+- [mdsitton](https://github.com/mdsitton), lead developer of Clone Hero for sharing their in-depth knowledge and general programming wisdom.
 - Members of the [Clone Hero Discord](https://discord.gg/clonehero) and [Moonscraper Discord](https://discord.gg/wdnD83APhE), including but not limited to DarkAngel2096, drumbs (TheNathannator), FireFox, Kanske, mdsitton, Spachi, and XEntombmentX for their help in researching.
