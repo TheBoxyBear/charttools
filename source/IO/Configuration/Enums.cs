@@ -1,34 +1,40 @@
-﻿namespace ChartTools.IO.Configuration
+﻿using ChartTools.Events;
+using ChartTools.Lyrics;
+using Melanchall.DryWetMidi.Core;
+
+using System;
+
+namespace ChartTools.IO.Configuration
 {
     /// <summary>
-    /// Defines how duplicate track objects are handled
+    /// Defines how duplicate track objects are handled.
     /// </summary>
     public enum DuplicateTrackObjectPolicy : byte
     {
         /// <summary>
-        /// Throw an exception
+        /// Throw an exception with the position.
         /// </summary>
         ThrowException,
         /// <summary>
-        /// Only include the first object
+        /// Include only the first object
         /// </summary>
         IncludeFirst,
         /// <summary>
-        /// Include all objects
+        /// Include all objects.
         /// </summary>
         IncludeAll,
     }
     /// <summary>
-    /// Where to get lyric data from for formats that store lyrics as events
+    /// Define where lyrics are obtained when writing a format that defines lyrics as events.
     /// </summary>
     public enum LyricEventSource : byte
     {
         /// <summary>
-        /// Lyrics are obtained from global events
+        /// Obtain lyrics from <see cref="Song.GlobalEvents"/>.
         /// </summary>
         GlobalEvents,
         /// <summary>
-        /// Lyrics are obtained from the <see cref="Song.Vocals"/> instrument
+        /// Obtain lyrics from the <see cref="InstrumentSet.Vocals"/> instrument.
         /// </summary>
         Vocals
     }
@@ -82,29 +88,47 @@
         Ignore
     }
     /// <summary>
-    /// Defines how to handle "solo" local events in tracks
+    /// Defines how <see cref="EventTypeHelper.Local.Solo"/> or <see cref="EventTypeHelper.Local.SoloEnd"/> events are handled when there are no star power phrases.
     /// </summary>
+    /// <remarks><see cref="StoreAsEvents"/> is always used when star power phrases are present.</remarks>
     public enum SoloNoStarPowerPolicy : byte
     {
         /// <summary>
-        /// Local events are interpreted as is
+        /// Store the events under <see cref="Track.LocalEvents"/>.
         /// </summary>
-        Ignore,
+        StoreAsEvents,
         /// <summary>
-        /// If a track has "solo" or "soloend" local events and no star power, convert the events into star power as interpreted by Clone Hero
+        /// Convert the space between the <see cref="EventTypeHelper.Local.Solo"/> and <see cref="EventTypeHelper.Local.SoloEnd"/> event to a star power phrase.
         /// </summary>
         Convert
     }
     /// <summary>
-    /// Difficulty of the <see cref="Track"/> to serve as a source of for track objects common to all difficulties to use for all tracks in the same <see cref="Instrument"/>
-    /// <remarks>Can be casted from <see cref="Difficulty"/>.</remarks>
+    /// Difficulty of the <see cref="Track"/> to serve as a source of for track objects for which the target format requires these objects to be the same across all difficulties.
+    /// </summary>
+    /// <remarks>Can be cast from <see cref="Difficulty"/>.</remarks>
     public enum TrackObjectSource : byte
     {
-        Easy, Medium, Hard, Expert,
         /// <summary>
-        /// Each <see cref="Track"/> will contain a combination of all unique common track objects in the same <see cref="Instrument"/>
+        /// Use the objects from the <see cref="Difficulty.Easy"/> track.
+        /// </summary>
+        Easy,
+        /// <summary>
+        /// Use the objects from the <see cref="Difficulty.Medium"/> track.
+        /// </summary>
+        Medium,
+        /// <summary>
+        /// Use the objects from the <see cref="Difficulty.Hard"/> track.
+        /// </summary>
+        Hard,
+        /// <summary>
+        /// Use the objects from the <see cref="Difficulty.Expert"/> track.
+        /// </summary>
+        Expert,
+        /// <summary>
+        /// Combine the unique track objects from all the tracks in the instrument.
         /// </summary>
         Merge,
+        [Obsolete]
         Seperate
     }
     /// <summary>
@@ -112,55 +136,95 @@
     /// </summary>
     public enum UncertainGuitarBassFormatPolicy : byte
     {
+        /// <summary>
+        /// Throw an exception.
+        /// </summary>
         ThrowException,
         /// <summary>
-        /// The format defaulted to when reading id used.
+        /// Use the format that was defaulted to when reading.
         /// </summary>
-        /// <remarks>Policy is invalid when reading</remarks>
+        /// <remarks>Policy is invalid when reading.</remarks>
         UseReadingDefault,
         /// <summary>
-        /// The Guitar Hero 2 format is used.
+        /// Default to the Guitar Hero 2 format.
         /// </summary>
         UseGuitarHero2,
         /// <summary>
-        /// The Rock Band format is used.
+        /// Default to the Rock Band format.
         /// </summary>
         UseRockBand
     }
+    /// <summary>
+    /// Defines how unknown sections or Midi chunks are handled.
+    /// </summary>
     public enum UnknownSectionPolicy : byte
     {
+        /// <summary>
+        /// Throw an exception with the section or chunk header.
+        /// </summary>
         ThrowException,
+        /// <summary>
+        /// Store the raw data to be included when writing.
+        /// </summary>
         Store
     }
     /// <summary>
-    /// Defines how to handle chord modifiers not supported by the target format
+    /// Defines chord modifiers not supported by the target format are handled.
     /// </summary>
     public enum UnsupportedModifierPolicy : byte
     {
         /// <summary>
-        /// Throw an exception
+        /// Throw an exception with the modifier index.
         /// </summary>
         ThrowException,
+        /// <summary>
+        /// Convert the modifier to one supported by the format.
+        /// </summary>
+        /// <remarks>Will throw an exception if the modifier cannot be converted.</remarks>
         Convert,
         /// <summary>
-        /// The modifier is excluded
+        /// Ignore the modifier.
         /// </summary>
         IgnoreModifier,
         /// <summary>
-        /// The chord is excluded
+        /// Ignore the chord containing the modifier.
         /// </summary>
         IgnoreChord,
     }
+    /// <summary>
+    /// Defines how track object defined with a <see cref="NoteOffEvent"/> with no matching <see cref="NoteOnEvent"/> are handled when reading Midi.
+    /// </summary>
     public enum UnopenedTrackObjectPolicy : byte
     {
+        /// <summary>
+        /// Throw an exception with the event position and index.
+        /// </summary>
         ThrowException,
+        /// <summary>
+        /// Create a track object at the position of the closing event and a length of 0.
+        /// </summary>
         Create,
+        /// <summary>
+        /// Ignore the event.
+        /// </summary>
         Ignore
     }
+    /// <summary>
+    /// Defines how track object defined with a <see cref="NoteOnEvent"/> with no matching <see cref="NoteOffEvent"/> are handled when reading Midi.
+    /// </summary>
     public enum UnclosedTrackObjectPolicy : byte
     {
+        /// <summary>
+        /// Throw an exception with the event position and index.
+        /// </summary>
         ThrowException,
+        /// <summary>
+        /// Include the track object with a length going up to the next track object opening of the same index.
+        /// </summary>
         Include,
+        /// <summary>
+        /// Ignore the event and track object.
+        /// </summary>
         Ignore
     }
 }

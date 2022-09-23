@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using ChartTools.Special;
+
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ChartTools.Tools
@@ -15,6 +17,8 @@ namespace ChartTools.Tools
             target.Length = end - start;
 
             return target;
+
+            IEnumerable<SpecialPhrase> phrases;
         }
     }
 }
