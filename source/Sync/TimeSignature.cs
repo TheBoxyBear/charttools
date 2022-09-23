@@ -3,7 +3,7 @@
     /// <summary>
     /// Marker that alters the time signature
     /// </summary>
-    public class TimeSignature : TrackObject
+    public class TimeSignature : TrackObjectBase
     {
         /// <summary>
         /// Value of a beat
@@ -17,7 +17,7 @@
         /// <summary>
         /// Creates an instance of <see cref="TimeSignature"/>.
         /// </summary>
-        /// <param name="position">Value of <see cref="TrackObject.Position"/></param>
+        /// <param name="position">Value of <see cref="TrackObjectBase.Position"/></param>
         /// <param name="numerator">Value of <see cref="Numerator"/></param>
         /// <param name="denominator">Value of <see cref="Denominator"/></param>
         public TimeSignature(uint position, byte numerator, byte denominator) : base(position)

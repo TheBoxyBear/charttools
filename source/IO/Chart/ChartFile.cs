@@ -6,6 +6,7 @@ using ChartTools.IO.Chart.Parsing;
 using ChartTools.IO.Chart.Serializing;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
+using ChartTools.IO.Formatting;
 using ChartTools.IO.Parsing;
 using ChartTools.IO.Sections;
 using ChartTools.Lyrics;
@@ -37,8 +38,8 @@ namespace ChartTools.IO.Chart
         public static WritingConfiguration DefaultWriteConfig { get; set; } = new()
         {
             SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
-            EventSource = TrackObjectSource.Seperate,
-            StarPowerSource = TrackObjectSource.Seperate,
+            EventSource = TrackObjectSource.Merge,
+            StarPowerSource = TrackObjectSource.Merge,
             UnsupportedModifierPolicy = UnsupportedModifierPolicy.ThrowException
         };
 
@@ -117,7 +118,7 @@ namespace ChartTools.IO.Chart
         /// <summary>
         /// Combines the results from the parsers in a <see cref="ChartFileReader"/> into an instrument.
         /// </summary>
-        private static Instrument<TChord>? CreateInstrumentFromReader<TChord>(ChartFileReader reader) where TChord : Chord, new()
+        private static Instrument<TChord>? CreateInstrumentFromReader<TChord>(ChartFileReader reader) where TChord : IChord, new()
         {
             Instrument<TChord>? output = null;
 

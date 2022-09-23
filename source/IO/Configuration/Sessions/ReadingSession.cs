@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using ChartTools.IO.Formatting;
 
 using ChartTools.IO.Formatting;
 using ChartTools.IO.Midi;

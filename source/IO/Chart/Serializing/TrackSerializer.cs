@@ -54,7 +54,7 @@ namespace ChartTools.IO.Chart.Serializing
 
             return new IEnumerable<TrackObjectEntry>[]
             {
-                new ChordProvider().ProvideFor(Content.Chords, session),
+                new ChordProvider().ProvideFor(Content.Chords.Cast<LaneChord>(), session),
                 new SpeicalPhraseProvider().ProvideFor(Content.SpecialPhrases, session!),
                 Content.LocalEvents is null ? Enumerable.Empty<TrackObjectEntry>() : new EventProvider().ProvideFor(Content.LocalEvents!, session!)
             };

@@ -9,11 +9,11 @@
     <Import_RootNamespace>ChartTools</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Chords\Chord.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Chords\ChordGeneric.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Chords\DrumsChord.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Chords\GHLChord.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Chords\IChord.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Chords\LaneChord.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Chords\LaneChordGeneric.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Chords\Phrase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Chords\StandardChord.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\EventExtensions.cs" />
@@ -91,13 +91,18 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\Section.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\SectionSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\TextFileWriter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IReadOnlyLongObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Notes\INote.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Notes\LaneNote.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Notes\LaneNoteCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Special\InstrumentSpecialPhrase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Special\SpecialPhrase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Special\TrackSpecialPhrase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\EnumCache.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\LengthMerger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Printer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\IReadOnlyTrackObject.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\LongTrackObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\TrackObjectBase.cs" />
     <Compile Include="..\source\IO\Ini\IniKeySerializableAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniSerializer.cs" />
@@ -157,10 +162,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\ExtensionHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\Metadata.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\DrumsNote.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Notes\Note.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Notes\NoteCollections\LaneNoteCollection.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Notes\NoteCollections\NoteCollection.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Notes\NoteGeneric.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\Syllable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\VocalsPitch.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Song.cs" />
@@ -169,7 +170,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Sync\TimeSignature.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Optimizer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\TempoRescaler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\TrackObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tracks\Track.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tracks\TrackGeneric.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tracks\UniqueTrackObjectCollection.cs" />

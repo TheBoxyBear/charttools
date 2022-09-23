@@ -3,6 +3,7 @@ using ChartTools.IO.Formatting;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
+using ChartTools.IO.Formatting;
 
 using System;
 using System.Collections.Generic;
@@ -133,11 +134,8 @@ namespace ChartTools
         /// Gives all tracks the same star power
         /// </summary>
         public void ShareStarPower(TrackObjectSource source) => ShareEventsStarPower(source, track => track.SpecialPhrases);
-        private void ShareEventsStarPower<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : TrackObject
+        private void ShareEventsStarPower<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : TrackObjectBase
         {
-            if (source == TrackObjectSource.Seperate)
-                return;
-
             var collections = GetExistingTracks().Select(track => collectionGetter(track)).ToArray();
 
             var objects = (source switch

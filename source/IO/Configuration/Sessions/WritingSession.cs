@@ -9,7 +9,7 @@ namespace ChartTools.IO.Configuration.Sessions
 {
     internal class WritingSession : Session
     {
-        public delegate IEnumerable<TrackObjectEntry> ChordEntriesGetter(Chord? previous, Chord current);
+        public delegate IEnumerable<TrackObjectEntry> ChordEntriesGetter(LaneChord? previous, LaneChord current);
 
         public override WritingConfiguration Configuration { get; }
         public ChordEntriesGetter GetChordEntries { get; private set; }

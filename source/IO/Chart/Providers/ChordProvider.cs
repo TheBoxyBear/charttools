@@ -7,12 +7,12 @@ using System.Linq;
 
 namespace ChartTools.IO.Chart.Providers
 {
-    internal class ChordProvider: ISerializerDataProvider<Chord, TrackObjectEntry>
+    internal class ChordProvider: ISerializerDataProvider<LaneChord, TrackObjectEntry>
     {
-        public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<Chord> source, WritingSession session)
+        public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<LaneChord> source, WritingSession session)
         {
             List<uint> orderedPositions = new();
-            Chord? previousChord = null;
+            LaneChord? previousChord = null;
 
             foreach (var chord in source)
             {
@@ -25,7 +25,7 @@ namespace ChartTools.IO.Chart.Providers
 
                     return exactMatch;
                 }))
-                    foreach (var entry in (chord.ChartSupportedMoridier ? chord.GetChartModifierData(previousChord, session) : session.GetChordEntries(previousChord, chord)).Concat(chord.GetChartNoteData()))
+                    foreach (var entry in (chord.ChartSupportedModifiers ? chord.GetChartModifierData(previousChord, session) : session.GetChordEntries(previousChord, chord)).Concat(chord.GetChartNoteData()))
                         yield return entry;
 
                 previousChord = chord;

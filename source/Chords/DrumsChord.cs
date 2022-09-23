@@ -10,16 +10,16 @@ namespace ChartTools
     /// <summary>
     /// Set of notes played simultaneously by drums
     /// </summary>
-    public class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModifier>
+    public class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModifiers>
     {
         protected override bool OpenExclusivity => false;
-        internal override bool ChartSupportedMoridier => true;
 
-        protected override DrumsChordModifier DefaultModifier => DrumsChordModifier.None;
+        internal override DrumsChordModifiers DefaultModifiers => DrumsChordModifiers.None;
+        internal override bool ChartSupportedModifiers => true;
 
         public DrumsChord() : base() { }
 
-        /// <inheritdoc cref="Chord(uint)"/>
+        /// <inheritdoc cref="LaneChord(uint)"/>
         public DrumsChord(uint position) : base(position) { }
         /// <inheritdoc cref="DrumsChord(uint)"/>
         /// <param name="notes">Notes to add</param>
@@ -41,20 +41,22 @@ namespace ChartTools
                 Notes.Add(new DrumsNote(note));
         }
 
+        protected override IEnumerable<INote> GetNotes() => Notes;
+
         internal override IEnumerable<TrackObjectEntry> GetChartNoteData()
         {
             foreach (DrumsNote note in Notes)
             {
-                yield return ChartFormatting.NoteEntry(Position, note.Lane == DrumsLane.DoubleKick ? (byte)32 : note.NoteIndex, note.Length);
+                yield return ChartFormatting.NoteEntry(Position, note.Lane == DrumsLane.DoubleKick ? (byte)32 : note.Index, note.Length);
 
                 if (note.IsCymbal)
                     yield return ChartFormatting.NoteEntry(Position, (byte)(note.Lane + 64), 0);
             }
         }
 
-        internal override IEnumerable<TrackObjectEntry> GetChartModifierData(Chord? previous, WritingSession session)
+        internal override IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, WritingSession session)
         {
-            if (Modifier.HasFlag(DrumsChordModifier.Flam))
+            if (Modifiers.HasFlag(DrumsChordModifiers.Flam))
                 yield return ChartFormatting.NoteEntry(Position, 109, 0);
         }
     }
