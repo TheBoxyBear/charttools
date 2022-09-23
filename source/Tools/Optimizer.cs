@@ -1,6 +1,4 @@
 ﻿using ChartTools.Extensions.Linq;
-using ChartTools.Lyrics;
-using ChartTools.Special;
 
 using System.Collections.Generic;
 using System.Data;

@@ -1,4 +1,4 @@
-﻿namespace ChartTools.Special
+﻿namespace ChartTools
 {
     public abstract class SpecialPhrase : LongTrackObject
     {
