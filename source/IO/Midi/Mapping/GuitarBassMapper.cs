@@ -59,12 +59,12 @@ namespace ChartTools.IO.Midi.Mapping
             };
             (var type, var newAdjusted) = adjusted switch
             {
-                6 => (MappingType.Modifier, (int)StandardChordModifier.ForcedHopo),
-                7 => (MappingType.Modifier, (int)StandardChordModifier.ForcedStrum),
+                6 => (MappingType.Modifier, (int)StandardChordModifiers.ForcedHopo),
+                7 => (MappingType.Modifier, (int)StandardChordModifiers.ForcedStrum),
                 8 => (MappingType.Special, (int)TrackSpecialPhraseType.StarPowerGain),
                 10 => (MappingType.Special, (int)TrackSpecialPhraseType.Player1FaceOff),
                 11 => (MappingType.Special, (int)TrackSpecialPhraseType.Player2FaceOff),
-                110 => (MappingType.Modifier, (int)StandardChordModifier.Big),
+                110 => (MappingType.Modifier, (int)StandardChordModifiers.Big),
                 _ => (MappingType.Note, adjusted)
             };
 
