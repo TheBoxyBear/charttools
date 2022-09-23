@@ -9,8 +9,6 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.Common.props" />
   <PropertyGroup />
   <ItemGroup>
-    <Compile Include="Chords\Chord.cs" />
-    <Compile Include="Chords\ChordGeneric.cs" />
     <Compile Include="Chords\DrumsChord.cs" />
     <Compile Include="Chords\GHLChord.cs" />
     <Compile Include="Chords\LaneChord.cs" />
@@ -22,7 +20,6 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ILongObject.cs" />
     <Compile Include="Instruments\Instrument.cs" />
-    <Compile Include="Instruments\InstrumentGeneric.cs" />
     <Compile Include="IO\Chart\ChartFile.cs" />
     <Compile Include="IO\Chart\ChartFileReader.cs" />
     <Compile Include="IO\Chart\ChartFileWriter.cs" />

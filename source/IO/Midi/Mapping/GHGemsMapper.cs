@@ -44,13 +44,13 @@ namespace ChartTools.IO.Midi.Mapping
                     _ => throw new UndefinedEnumException(track.Difficulty)
                 };
 
-                foreach (var chord in track.Chords.Where(c => c.Modifiers == StandardChordModifier.None || WritingSession!.UnsupportedModifiersProcedure(c).HasFlag(Configuration.UnsupportedModifiersResults.Chord)))
+                foreach (var chord in track.Chords.Where(c => c.Modifiers == StandardChordModifiers.None || WritingSession!.UnsupportedModifiersProcedure(c).HasFlag(Configuration.UnsupportedModifiersResults.Chord)))
                     foreach (var note in chord.Notes)
                     {
-                        var offsetIndex = (byte)(note.NoteIndex + offset);
+                        var offsetIndex = (byte)(note.Index + offset);
 
                         yield return new(chord.Position, track.Difficulty, NoteState.Open, offsetIndex);
-                        yield return new(chord.Position + note.Length, track.Difficulty, NoteState.Close, offsetIndex);
+                        yield return new(chord.Position + note.Sustain, track.Difficulty, NoteState.Close, offsetIndex);
                     }
 
                 foreach (var special in track.SpecialPhrases)

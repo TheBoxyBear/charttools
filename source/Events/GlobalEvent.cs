@@ -24,7 +24,6 @@ namespace ChartTools.Events
         public bool IsSyncEvent => EventType.StartsWith(EventTypeHeaderHelper.Global.Sync);
         public bool IsWailEvent => EventType.StartsWith(EventTypeHeaderHelper.Global.GuitaristWail);
 
-        public GlobalEvent() : base() { }
         /// <inheritdoc cref="Event(uint, string)"/>
         public GlobalEvent(uint position, string data) : base(position, data) { }
         /// <inheritdoc cref="Event(uint, string, string?)"/>

@@ -10,6 +10,8 @@ namespace ChartTools
         public new List<TChord> Chords { get; } = new();
         public new Instrument<TChord>? ParentInstrument { get; init; }
 
+        public override IChord CreateChord(uint position) => new TChord() { Position = position };
+
         protected override IReadOnlyList<IChord> GetChords() => (IReadOnlyList<IChord>)Chords;
         protected override Instrument? GetInstrument() => ParentInstrument;
     }

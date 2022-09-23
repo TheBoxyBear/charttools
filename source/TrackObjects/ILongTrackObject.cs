@@ -5,7 +5,7 @@
         /// <summary>
         /// Tick number marking the end of the object
         /// </summary>
-        public uint EndPosition => Position + Length;
+        public uint EndPosition { get; }
         public uint Length { get; set; }
     }
 }

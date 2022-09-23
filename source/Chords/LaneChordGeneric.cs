@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace ChartTools
 {
@@ -12,9 +13,21 @@ namespace ChartTools
         public new LaneNoteCollection<TNote, TLane> Notes { get; }
 
         public TModifiers Modifiers { get; set; }
-        internal abstract TModifiers DefaultModifiers { get; }
+        protected abstract TModifiers DefaultModifiers { get; }
 
-        protected LaneChord() : base() => Notes = new(OpenExclusivity);
+        protected override INote CreateNote(byte index, uint sustain = 0)
+        {
+            var note = new TNote()
+            {
+                Lane = Unsafe.As<byte, TLane>(ref index),
+                Sustain = sustain
+            };
+
+            Notes.Add(note);
+            return note;
+        }
+
+        public LaneChord() : base() => Notes = new(OpenExclusivity);
         protected LaneChord(uint position) : base(position) => Notes = new(OpenExclusivity);
     }
 }

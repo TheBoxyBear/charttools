@@ -5,7 +5,7 @@ namespace ChartTools.IO.Configuration.Sessions
 {
     internal class WritingSession : Session
     {
-        public delegate UnsupportedModifiersResults UnsupportedModifiersHandler(Chord chord);
+        public delegate UnsupportedModifiersResults UnsupportedModifiersHandler(LaneChord chord);
 
         public override WritingConfiguration Configuration { get; }
         public UnsupportedModifiersHandler UnsupportedModifiersProcedure { get; private set; }

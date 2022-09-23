@@ -7,6 +7,7 @@
         /// </summary>
         public byte TypeCode { get; set; }
         public uint Length { get; set; }
+        public uint EndPosition => Position + Length;
 
         /// <summary>
         /// Base constructor of special phrases.

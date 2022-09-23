@@ -1,6 +1,5 @@
 ﻿using ChartTools.IO.Chart;
 using ChartTools.IO.Chart.Entries;
-using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Formatting;
 
 using System;
@@ -15,7 +14,7 @@ namespace ChartTools
     {
         protected override bool OpenExclusivity => false;
 
-        internal override DrumsChordModifiers DefaultModifiers => DrumsChordModifiers.None;
+        protected override DrumsChordModifiers DefaultModifiers => DrumsChordModifiers.None;
         internal override bool ChartSupportedModifiers => true;
 
         public DrumsChord() : base() { }
@@ -44,17 +43,16 @@ namespace ChartTools
 
         protected override IEnumerable<INote> GetNotes() => Notes;
 
-        internal override IEnumerable<TrackObjectEntry> GetChartNoteData()
+        internal override IEnumerable<TrackObjectEntry> GetChartData(LaneChord? previous, bool modifiers, FormattingRules formatting)
         {
             foreach (var note in Notes)
             {
-                yield return ChartFormatting.NoteEntry(Position, note.Lane == DrumsLane.DoubleKick ? (byte)32 : note.Index, note.Length);
+                yield return ChartFormatting.NoteEntry(Position, note.Lane == DrumsLane.DoubleKick ? (byte)32 : note.Index, note.Sustain);
 
                 if (note.IsCymbal)
                     yield return ChartFormatting.NoteEntry(Position, (byte)(note.Lane + 64), 0);
+            }
 
-        internal override IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, WritingSession session)
-        {
             if (Modifiers.HasFlag(DrumsChordModifiers.Flam))
                 yield return ChartFormatting.NoteEntry(Position, 109, 0);
         }

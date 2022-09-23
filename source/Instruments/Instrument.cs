@@ -1,6 +1,5 @@
 ﻿using ChartTools.Events;
 using ChartTools.Extensions.Linq;
-using ChartTools.IO.Formatting;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
@@ -135,7 +134,7 @@ namespace ChartTools
         /// Gives all tracks the special phrases
         /// </summary>
         public IEnumerable<TrackSpecialPhrase> ShareSpecialPhrases(TrackObjectSource source) => ShareEventsSpecialPhrases(source, track => track.SpecialPhrases);
-        private IEnumerable<T> ShareEventsSpecialPhrases<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : TrackObject
+        private IEnumerable<T> ShareEventsSpecialPhrases<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : TrackObjectBase
         {
             var collections = GetExistingTracks().Select(track => collectionGetter(track)).ToArray();
 

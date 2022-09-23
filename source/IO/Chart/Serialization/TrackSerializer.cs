@@ -54,7 +54,7 @@ namespace ChartTools.IO.Chart.Serialization
 
             return new IEnumerable<TrackObjectEntry>[]
             {
-                ChordMapper.Map(Content.Chords, session),
+                ChordMapper.Map(Content.Chords.Cast<LaneChord>(), session),
                 Content.SpecialPhrases.Select(p => SpecialPhraseMapper.Map(p)),
                 Content.LocalEvents is null ? Enumerable.Empty<TrackObjectEntry>() : Content.LocalEvents.Select(e => EventMapper.Map(e))
             };
