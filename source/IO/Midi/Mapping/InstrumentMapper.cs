@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ChartTools.IO.Midi.Mapping
 {
-    internal abstract class InstrumentMapper<TChord> where TChord : Chord
+    internal abstract class InstrumentMapper<TChord> where TChord : IChord
     {
         public abstract IEnumerable<MidiMappingResult> MapNoteEvent(uint position, NoteEvent e, ReadingSession session);
         public abstract IEnumerable<TrackObjectMappingResult> MapInstrument(Instrument<TChord> instrument);

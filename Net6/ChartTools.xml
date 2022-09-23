@@ -4,43 +4,13 @@
         <name>ChartTools</name>
     </assembly>
     <members>
-        <member name="T:ChartTools.Chord">
-            <summary>
-            Base class for chords
-            </summary>
-        </member>
-        <member name="P:ChartTools.Chord.Notes">
-            <summary>
-            Notes in the chord
-            </summary>
-        </member>
-        <member name="M:ChartTools.Chord.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.TrackObject.#ctor(System.UInt32)"/>
-        </member>
-        <member name="M:ChartTools.Chord.GetChartNoteData">
-            <summary>
-            Gets the data to write in a chart file.
-            </summary>
-            <returns>Enumerable of strings containing the data to add to each line</returns>
-        </member>
-        <member name="T:ChartTools.Chord`3">
-            <summary>
-            Set of notes played simultaneously
-            </summary>
-        </member>
-        <member name="P:ChartTools.Chord`3.Notes">
-            <inheritdoc cref="P:ChartTools.Chord.Notes"/>
-        </member>
-        <member name="M:ChartTools.Chord`3.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.Chord.#ctor(System.UInt32)"/>
-        </member>
         <member name="T:ChartTools.DrumsChord">
             <summary>
             Set of notes played simultaneously by drums
             </summary>
         </member>
         <member name="M:ChartTools.DrumsChord.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.Chord.#ctor(System.UInt32)"/>
+            <inheritdoc cref="M:ChartTools.LaneChord.#ctor(System.UInt32)"/>
         </member>
         <member name="M:ChartTools.DrumsChord.#ctor(System.UInt32,ChartTools.DrumsNote[])">
             <inheritdoc cref="M:ChartTools.DrumsChord.#ctor(System.UInt32)"/>
@@ -57,15 +27,12 @@
         <member name="M:ChartTools.GHLChord.#ctor(System.UInt32)">
             <inheritdoc cref="M:ChartTools.LaneChord`3.#ctor(System.UInt32)"/>
         </member>
-        <member name="M:ChartTools.GHLChord.#ctor(System.UInt32,ChartTools.Note{ChartTools.GHLLane}[])">
+        <member name="M:ChartTools.GHLChord.#ctor(System.UInt32,ChartTools.LaneNote{ChartTools.GHLLane}[])">
             <inheritdoc cref="M:ChartTools.GHLChord.#ctor(System.UInt32)"/>
             <param name="notes">Notes to add</param>
         </member>
         <member name="M:ChartTools.GHLChord.#ctor(System.UInt32,ChartTools.GHLLane[])">
-            <inheritdoc cref="M:ChartTools.GHLChord.#ctor(System.UInt32,ChartTools.Note{ChartTools.GHLLane}[])"/>
-        </member>
-        <member name="M:ChartTools.LaneChord`3.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.Chord`3.#ctor(System.UInt32)"/>
+            <inheritdoc cref="M:ChartTools.GHLChord.#ctor(System.UInt32,ChartTools.LaneNote{ChartTools.GHLLane}[])"/>
         </member>
         <member name="P:ChartTools.Lyrics.Phrase.EndPosition">
             <summary>
@@ -466,6 +433,11 @@
             <see langword="true"/> if is the last syllable or the only syllable of its word
             </summary>
         </member>
+        <member name="T:ChartTools.Lyrics.VocalsPitch">
+            <summary>
+            Wrapper type for <see cref="T:ChartTools.Lyrics.VocalsPitches"/> with helper properties to get the pitch and key
+            </summary>
+        </member>
         <member name="P:ChartTools.Lyrics.VocalsPitch.Pitch">
             <summary>
             Pitch value
@@ -481,20 +453,73 @@
             Octave number
             </summary>
         </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.#ctor(ChartTools.Lyrics.VocalsPitches)">
+            <summary>
+            Creates a pitch from a raw pitch value.
+            </summary>
+            <param name="pitch"></param>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.Equals(ChartTools.Lyrics.VocalsPitch)">
+            <summary>
+            Indicates if two pitches have the same value.
+            </summary>
+            <param name="other">Pitch to compare</param>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.Equals(ChartTools.Lyrics.VocalsPitches)">
+            <summary>
+            Indicates if a pitch has a value equal to a raw pitch value.
+            </summary>
+            <param name="other">Value to compare</param>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.Equals(System.Object)">
+            <summary>
+            Indicates if an object is a raw pitch value or wrapper and the value is equal.
+            </summary>
+            <param name="obj">Source of value</param>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.op_Implicit(ChartTools.Lyrics.VocalsPitches)~ChartTools.Lyrics.VocalsPitch">
+            <summary>
+            Converts a raw pitch value to a matching wrapper.
+            </summary>
+            <param name="pitch">Pitch value</param>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.op_Equality(ChartTools.Lyrics.VocalsPitch,ChartTools.Lyrics.VocalsPitch)">
+            <inheritdoc cref="M:ChartTools.Lyrics.VocalsPitch.Equals(ChartTools.Lyrics.VocalsPitch)"/>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.op_Inequality(ChartTools.Lyrics.VocalsPitch,ChartTools.Lyrics.VocalsPitch)">
+            <summary>
+            Indicates if two pitches don't have the same value.
+            </summary>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.op_LessThan(ChartTools.Lyrics.VocalsPitch,ChartTools.Lyrics.VocalsPitch)">
+            <summary>
+            Indicates if the left pitch has a lower value than the right pitch according to music theory.
+            </summary>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.op_GreaterThan(ChartTools.Lyrics.VocalsPitch,ChartTools.Lyrics.VocalsPitch)">
+            <summary>
+            Indicates if the left pitch has a higher value than the right pitch according to music theory.
+            </summary>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.GetHashCode">
+            <summary>
+            Returns the hash code for the pitch value.
+            </summary>
+        </member>
         <member name="T:ChartTools.StandardChord">
             <summary>
             Set of notes played simultaneously by a standard five-fret instrument
             </summary>
         </member>
         <member name="M:ChartTools.StandardChord.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.Chord.#ctor(System.UInt32)"/>
+            <inheritdoc cref="!:Chord(uint)"/>
         </member>
-        <member name="M:ChartTools.StandardChord.#ctor(System.UInt32,ChartTools.Note{ChartTools.StandardLane}[])">
+        <member name="M:ChartTools.StandardChord.#ctor(System.UInt32,ChartTools.LaneNote{ChartTools.StandardLane}[])">
             <inheritdoc cref="M:ChartTools.LaneChord`3.#ctor(System.UInt32)"/>
             <param name="notes">Notes to add</param>
         </member>
         <member name="M:ChartTools.StandardChord.#ctor(System.UInt32,ChartTools.StandardLane[])">
-            <inheritdoc cref="M:ChartTools.StandardChord.#ctor(System.UInt32,ChartTools.Note{ChartTools.StandardLane}[])"/>
+            <inheritdoc cref="!:StandardChord(uint, Note&lt;StandardLane&gt;[])"/>
         </member>
         <member name="T:ChartTools.Events.EventExtensions">
             <summary>
@@ -530,7 +555,7 @@
             <remarks>A lack of argument is represented as an empty string.</remarks>
         </member>
         <member name="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String)">
-            <param name="position"><inheritdoc cref="P:ChartTools.TrackObject.Position"/></param>
+            <param name="position"><inheritdoc cref="P:ChartTools.TrackObjectBase.Position"/></param>
             <param name="data"><inheritdoc cref="P:ChartTools.Events.Event.EventData"/></param>
         </member>
         <member name="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String,System.String)">
@@ -1055,20 +1080,20 @@
             Expert difficulty
             </summary>
         </member>
-        <member name="T:ChartTools.DrumsChordModifier">
+        <member name="T:ChartTools.DrumsChordModifiers">
             <summary>
             Modifier that affects the way the chord can be played
             </summary>
         </member>
-        <member name="F:ChartTools.DrumsChordModifier.None">
-            <inheritdoc cref="F:ChartTools.StandardChordModifier.None"/>
+        <member name="F:ChartTools.DrumsChordModifiers.None">
+            <inheritdoc cref="!:StandardChordModifier.None"/>
         </member>
-        <member name="F:ChartTools.DrumsChordModifier.Accent">
+        <member name="F:ChartTools.DrumsChordModifiers.Accent">
             <summary>
             *Unsupported*
             </summary>
         </member>
-        <member name="F:ChartTools.DrumsChordModifier.Ghost">
+        <member name="F:ChartTools.DrumsChordModifiers.Ghost">
             <summary>
             *Unsupported*
             </summary>
@@ -1113,22 +1138,22 @@
             <see cref="F:ChartTools.DrumsLane.Kick"/> that only appears when playing with multiple pedals
             </summary>
         </member>
-        <member name="T:ChartTools.GHLChordModifier">
+        <member name="T:ChartTools.GHLChordModifiers">
             <summary>
             Modifier that affects how a <see cref="T:ChartTools.GHLChord"/> can be played
             </summary>
         </member>
-        <member name="F:ChartTools.GHLChordModifier.None">
-            <inheritdoc cref="F:ChartTools.StandardChordModifier.None"/>
+        <member name="F:ChartTools.GHLChordModifiers.None">
+            <inheritdoc cref="!:StandardChordModifier.None"/>
         </member>
-        <member name="F:ChartTools.GHLChordModifier.ExplicitHopo">
-            <inheritdoc cref="F:ChartTools.StandardChordModifier.ExplicitHopo"/>
+        <member name="F:ChartTools.GHLChordModifiers.ExplicitHopo">
+            <inheritdoc cref="!:StandardChordModifier.ExplicitHopo"/>
         </member>
-        <member name="F:ChartTools.GHLChordModifier.HopoInvert">
-            <inheritdoc cref="F:ChartTools.StandardChordModifier.HopoInvert"/>
+        <member name="F:ChartTools.GHLChordModifiers.HopoInvert">
+            <inheritdoc cref="!:StandardChordModifier.HopoInvert"/>
         </member>
-        <member name="F:ChartTools.GHLChordModifier.Tap">
-            <inheritdoc cref="F:ChartTools.StandardChordModifier.Tap"/>
+        <member name="F:ChartTools.GHLChordModifiers.Tap">
+            <inheritdoc cref="!:StandardChordModifier.Tap"/>
         </member>
         <member name="T:ChartTools.GHLInstrumentIdentity">
             <summary>
@@ -1138,7 +1163,7 @@
         </member>
         <member name="T:ChartTools.GHLLane">
             <summary>
-            Frets for a GHL <see cref="T:ChartTools.Note"/>
+            Frets for a GHL <see cref="!:Note"/>
             </summary>
         </member>
         <member name="T:ChartTools.MidiInstrumentOrigin">
@@ -1151,28 +1176,28 @@
             All instruments
             </summary>
         </member>
-        <member name="T:ChartTools.StandardChordModifier">
+        <member name="T:ChartTools.StandardChordModifiers">
             <summary>
             Modifier that affects how a <see cref="T:ChartTools.StandardChord"/> can be played
             </summary>
             <remarks></remarks>
         </member>
-        <member name="F:ChartTools.StandardChordModifier.None">
+        <member name="F:ChartTools.StandardChordModifiers.None">
             <summary>
             No modifier
             </summary>
         </member>
-        <member name="F:ChartTools.StandardChordModifier.ExplicitHopo">
+        <member name="F:ChartTools.StandardChordModifiers.ExplicitHopo">
             <summary>
             The Hopo state is not relative to the previous chord.
             </summary>
         </member>
-        <member name="F:ChartTools.StandardChordModifier.HopoInvert">
+        <member name="F:ChartTools.StandardChordModifiers.HopoInvert">
             <summary>
-            Forced Hopo if <see cref="F:ChartTools.StandardChordModifier.ExplicitHopo"/> is set, otherwise inverts the natural state relative to the previous chord
+            Forced Hopo if <see cref="F:ChartTools.StandardChordModifiers.ExplicitHopo"/> is set, otherwise inverts the natural state relative to the previous chord
             </summary>
         </member>
-        <member name="F:ChartTools.StandardChordModifier.Tap">
+        <member name="F:ChartTools.StandardChordModifiers.Tap">
             <summary>
             The chord can be played without strumming
             </summary>
@@ -1195,7 +1220,7 @@
         </member>
         <member name="F:ChartTools.TrackSpecialPhraseType.Unknown">
             <summary>
-            The <see cref="P:ChartTools.TrackSpecialPhrase.TypeCode"/> is not a recognized phrase type
+            The <see cref="!:TrackSpecialPhrase.TypeCode"/> is not a recognized phrase type
             </summary>
         </member>
         <member name="F:ChartTools.TrackSpecialPhraseType.StarPowerGain">
@@ -1370,6 +1395,8 @@
                 <para><see langword="null"/> if the file contains no drums data</para>
             </returns>
             <param name="path">Path of the file to read</param>
+            <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
+            <param name="formatting"><inheritdoc cref="T:ChartTools.IO.Formatting.FormattingRules" path="/summary"/></param>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
             <summary>
@@ -1603,9 +1630,9 @@
             <summary>
             Gets the written data for a note.
             </summary>
-            <param name="position">Position of the parent <see cref="T:ChartTools.Chord"/></param>
-            <param name="index">Value of <see cref="P:ChartTools.Note.NoteIndex"/></param>
-            <param name="sustain">Value of <see cref="P:ChartTools.Note.Length"/></param>
+            <param name="position">Position of the parent <see cref="T:ChartTools.LaneChord"/></param>
+            <param name="index">Value of <see cref="!:LaneNote.NoteIndex"/></param>
+            <param name="sustain">Value of <see cref="!:LaneNote.Length"/></param>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFormatting.Float(System.Single)">
             <summary>
@@ -1621,17 +1648,17 @@
         </member>
         <member name="T:ChartTools.IO.Chart.Entries.NoteData">
             <summary>
-            Line of chart data representing a <see cref="T:ChartTools.Note"/>
+            Line of chart data representing a <see cref="!:Note"/>
             </summary>
         </member>
-        <member name="P:ChartTools.IO.Chart.Entries.NoteData.NoteIndex">
+        <member name="P:ChartTools.IO.Chart.Entries.NoteData.Index">
             <summary>
-            Value of <see cref="P:ChartTools.Note.NoteIndex"/>
+            Value of <see cref="!:Note.NoteIndex"/>
             </summary>
         </member>
         <member name="P:ChartTools.IO.Chart.Entries.NoteData.SustainLength">
             <summary>
-            Value of <see cref="P:ChartTools.Note.Length"/>
+            Value of <see cref="!:Note.Length"/>
             </summary>
         </member>
         <member name="M:ChartTools.IO.Chart.Entries.NoteData.#ctor(System.String)">
@@ -1643,17 +1670,17 @@
         </member>
         <member name="T:ChartTools.IO.Chart.Entries.TrackObjectEntry">
             <summary>
-            Line of chart file data representing a <see cref="T:ChartTools.TrackObject"/>
+            Line of chart file data representing a <see cref="!:TrackObject"/>
             </summary>
         </member>
         <member name="P:ChartTools.IO.Chart.Entries.TrackObjectEntry.Position">
             <summary>
-            Value of <see cref="P:ChartTools.TrackObject.Position"/>
+            Value of <see cref="!:TrackObject.Position"/>
             </summary>
         </member>
         <member name="P:ChartTools.IO.Chart.Entries.TrackObjectEntry.Type">
             <summary>
-            Type code of <see cref="T:ChartTools.TrackObject"/>
+            Type code of <see cref="!:TrackObject"/>
             </summary>
         </member>
         <member name="P:ChartTools.IO.Chart.Entries.TrackObjectEntry.Data">
@@ -1676,7 +1703,7 @@
         </member>
         <member name="P:ChartTools.IO.Formatting.FormattingRules.Resolution">
             <summary>
-            Number of <see cref="P:ChartTools.TrackObject.Position"/> values per beat
+            Number of <see cref="!:TrackObject.Position"/> values per beat
             </summary>
         </member>
         <member name="P:ChartTools.IO.Formatting.FormattingRules.SustainCutoff">
@@ -1736,37 +1763,37 @@
         </member>
         <member name="T:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy">
             <summary>
-            Defines how duplicate track objects are handled
+            Defines how duplicate track objects are handled.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.ThrowException">
             <summary>
-            Throw an exception
+            Throw an exception with the position.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.IncludeFirst">
             <summary>
-            Only include the first object
+            Include only the first object
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.IncludeAll">
             <summary>
-            Include all objects
+            Include all objects.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.LyricEventSource">
             <summary>
-            Where to get lyric data from for formats that store lyrics as events
+            Define where lyrics are obtained when writing a format that defines lyrics as events.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.LyricEventSource.GlobalEvents">
             <summary>
-            Lyrics are obtained from global events
+            Obtain lyrics from <see cref="P:ChartTools.Song.GlobalEvents"/>.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.LyricEventSource.Vocals">
             <summary>
-            Lyrics are obtained from the <see cref="!:Song.Vocals"/> instrument
+            Obtain lyrics from the <see cref="P:ChartTools.InstrumentSet.Vocals"/> instrument.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy">
@@ -1801,23 +1828,49 @@
         </member>
         <member name="T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy">
             <summary>
-            Defines how to handle "solo" local events in tracks
+            Defines how <see cref="F:ChartTools.Events.EventTypeHelper.Local.Solo"/> or <see cref="F:ChartTools.Events.EventTypeHelper.Local.SoloEnd"/> events are handled when there are no star power phrases.
             </summary>
+            <remarks><see cref="F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.StoreAsEvents"/> is always used when star power phrases are present.</remarks>
         </member>
-        <member name="F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.Ignore">
+        <member name="F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.StoreAsEvents">
             <summary>
-            Local events are interpreted as is
+            Store the events under <see cref="P:ChartTools.Track.LocalEvents"/>.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.Convert">
             <summary>
-            If a track has "solo" or "soloend" local events and no star power, convert the events into star power as interpreted by Clone Hero
+            Convert the space between the <see cref="F:ChartTools.Events.EventTypeHelper.Local.Solo"/> and <see cref="F:ChartTools.Events.EventTypeHelper.Local.SoloEnd"/> event to a star power phrase.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:ChartTools.IO.Configuration.TrackObjectSource" -->
+        <member name="T:ChartTools.IO.Configuration.TrackObjectSource">
+            <summary>
+            Difficulty of the <see cref="T:ChartTools.Track"/> to serve as a source of for track objects for which the target format requires these objects to be the same across all difficulties.
+            </summary>
+            <remarks>Can be cast from <see cref="T:ChartTools.Difficulty"/>.</remarks>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Easy">
+            <summary>
+            Use the objects from the <see cref="F:ChartTools.Difficulty.Easy"/> track.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Medium">
+            <summary>
+            Use the objects from the <see cref="F:ChartTools.Difficulty.Medium"/> track.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Hard">
+            <summary>
+            Use the objects from the <see cref="F:ChartTools.Difficulty.Hard"/> track.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Expert">
+            <summary>
+            Use the objects from the <see cref="F:ChartTools.Difficulty.Expert"/> track.
+            </summary>
+        </member>
         <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Merge">
             <summary>
-            Each <see cref="T:ChartTools.Track"/> will contain a combination of all unique common track objects in the same <see cref="T:ChartTools.Instrument"/>
+            Combine the unique track objects from all the tracks in the instrument.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy">
@@ -1825,40 +1878,106 @@
             Defines how lead guitar and bass and handled when the Midi mapping is uncertain.
             </summary>
         </member>
+        <member name="F:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy.ThrowException">
+            <summary>
+            Throw an exception.
+            </summary>
+        </member>
         <member name="F:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy.UseReadingDefault">
             <summary>
-            The format defaulted to when reading id used.
+            Use the format that was defaulted to when reading.
             </summary>
-            <remarks>Policy is invalid when reading</remarks>
+            <remarks>Policy is invalid when reading.</remarks>
         </member>
         <member name="F:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy.UseGuitarHero2">
             <summary>
-            The Guitar Hero 2 format is used.
+            Default to the Guitar Hero 2 format.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy.UseRockBand">
             <summary>
-            The Rock Band format is used.
+            Default to the Rock Band format.
+            </summary>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.UnknownSectionPolicy">
+            <summary>
+            Defines how unknown sections or Midi chunks are handled.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnknownSectionPolicy.ThrowException">
+            <summary>
+            Throw an exception with the section or chunk header.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnknownSectionPolicy.Store">
+            <summary>
+            Store the raw data to be included when writing.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.UnsupportedModifierPolicy">
             <summary>
-            Defines how to handle chord modifiers not supported by the target format
+            Defines chord modifiers not supported by the target format are handled.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.UnsupportedModifierPolicy.ThrowException">
             <summary>
-            Throw an exception
+            Throw an exception with the modifier index.
             </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnsupportedModifierPolicy.Convert">
+            <summary>
+            Convert the modifier to one supported by the format.
+            </summary>
+            <remarks>Will throw an exception if the modifier cannot be converted.</remarks>
         </member>
         <member name="F:ChartTools.IO.Configuration.UnsupportedModifierPolicy.IgnoreModifier">
             <summary>
-            The modifier is excluded
+            Ignore the modifier.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.UnsupportedModifierPolicy.IgnoreChord">
             <summary>
-            The chord is excluded
+            Ignore the chord containing the modifier.
+            </summary>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.UnopenedTrackObjectPolicy">
+            <summary>
+            Defines how track object defined with a <see cref="T:Melanchall.DryWetMidi.Core.NoteOffEvent"/> with no matching <see cref="T:Melanchall.DryWetMidi.Core.NoteOnEvent"/> are handled when reading Midi.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnopenedTrackObjectPolicy.ThrowException">
+            <summary>
+            Throw an exception with the event position and index.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnopenedTrackObjectPolicy.Create">
+            <summary>
+            Create a track object at the position of the closing event and a length of 0.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnopenedTrackObjectPolicy.Ignore">
+            <summary>
+            Ignore the event.
+            </summary>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.UnclosedTrackObjectPolicy">
+            <summary>
+            Defines how track object defined with a <see cref="T:Melanchall.DryWetMidi.Core.NoteOnEvent"/> with no matching <see cref="T:Melanchall.DryWetMidi.Core.NoteOffEvent"/> are handled when reading Midi.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnclosedTrackObjectPolicy.ThrowException">
+            <summary>
+            Throw an exception with the event position and index.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnclosedTrackObjectPolicy.Include">
+            <summary>
+            Include the track object with a length going up to the next track object opening of the same index.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnclosedTrackObjectPolicy.Ignore">
+            <summary>
+            Ignore the event and track object.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.CommonConfiguration">
@@ -2041,9 +2160,7 @@
             <returns>Instance of <see cref="T:System.Exception"/> to throw</returns>
         </member>
         <member name="P:ChartTools.ILongObject.Length">
-            <summary>
-            Length of the object in ticks
-            </summary>
+            <inheritdoc cref="P:ChartTools.IReadOnlyTrackObject.Position"/>
         </member>
         <member name="T:ChartTools.Instrument">
             <summary>
@@ -2227,6 +2344,74 @@
             <exception cref="T:System.ArgumentNullException"/>
             <exception cref="T:ChartTools.UndefinedEnumException"/>
         </member>
+        <member name="P:ChartTools.IReadOnlyLongObject.Length">
+            <summary>
+            Length of the object in ticks
+            </summary>
+        </member>
+        <member name="P:ChartTools.INote.Index">
+            <summary>
+            Numerical value of the note identity
+            </summary>
+        </member>
+        <member name="T:ChartTools.LaneNote`1">
+            <summary>
+            Base class for notes
+            </summary>
+        </member>
+        <member name="P:ChartTools.LaneNote`1.Length">
+            <summary>
+            Maximum length the note can be held for extra points (sustain)
+            </summary>
+        </member>
+        <member name="P:ChartTools.LaneNoteCollection`2.OpenExclusivity">
+            <summary>
+            If <see langword="true"/>, trying to combine an open note with other notes will remove the current ones.
+            </summary>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Add(`0)">
+            <summary>
+            Adds a note to the <see cref="!:NoteCollection&lt;TNote, TLane&gt;"/>.
+            </summary>
+            <remarks>Adding a note that already exists will overwrite the existing note.
+                <para>If <see cref="P:ChartTools.LaneNoteCollection`2.OpenExclusivity"/> is <see langword="true"/>, combining an open note with other notes will remove the current ones.</para>
+            </remarks>
+            <param name="item">Item to add</param>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Contains(`0)">
+            <summary>
+            Determines if any note matches the lane of a given note.
+            </summary>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Contains(`1)">
+            <summary>
+            Determines if any note matches a given lane.
+            </summary>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Contains(System.Byte)">
+            <summary>
+            Determines if any note matches a given index.
+            </summary>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Remove(`0)">
+            <summary>
+            Removes the note that matches the lane of a given note.
+            </summary>
+            <returns><see langword="true"/> if a matching note was found.</returns>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Remove(`1)">
+            <summary>
+            Removes the note that matches a given lane.
+            </summary>
+            <returns><see langword="true"/> if a matching note was found.</returns>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Remove(System.Byte)">
+            <summary>
+            Removes the note that matches a given index.
+            </summary>
+            <returns><see langword="true"/> if a matching note was found.</returns>
+        </member>
         <member name="T:ChartTools.InstrumentSpecialPhrase">
             <summary>
             Phrase related to an instrument that triggers an in-game event.
@@ -2237,22 +2422,31 @@
             Type of the phrase that drives the gameplay effect
             </summary>
         </member>
-        <member name="P:ChartTools.InstrumentSpecialPhrase.TypeCode">
-            <summary>
-            Numerical value of the phrase type
-            </summary>
-        </member>
         <member name="M:ChartTools.InstrumentSpecialPhrase.#ctor(System.UInt32,ChartTools.InstrumentSpecialPhraseType,System.UInt32)">
             <summary>
             Creates an instance of <see cref="T:ChartTools.InstrumentSpecialPhrase"/>.
             </summary>
-            <param name="position">Position of the phrase</param>
             <param name="type">Effect of the phrase</param>
-            <param name="length">Duration in ticks</param>
+            <inheritdoc cref="M:ChartTools.SpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)"/>
         </member>
         <member name="M:ChartTools.InstrumentSpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)">
+            <summary>
             <inheritdoc cref="M:ChartTools.InstrumentSpecialPhrase.#ctor(System.UInt32,ChartTools.InstrumentSpecialPhraseType,System.UInt32)"/>
-            <param name="typeCode">Numeric value of the phrase type. Can be used to define custom phrases.</param>
+            </summary>
+            <inheritdoc cref="M:ChartTools.SpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)"/>
+        </member>
+        <member name="P:ChartTools.SpecialPhrase.TypeCode">
+            <summary>
+            Numerical value of the phrase type
+            </summary>
+        </member>
+        <member name="M:ChartTools.SpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)">
+            <summary>
+            Base constructor of special phrases.
+            </summary>
+            <param name="position">Position of the phrase</param>
+            <param name="typeCode">Effect of the phrase</param>
+            <param name="length">Duration in ticks</param>
         </member>
         <member name="T:ChartTools.TrackSpecialPhrase">
             <summary>
@@ -2264,22 +2458,18 @@
             Type of the phrase that drives the gameplay effect
             </summary>
         </member>
-        <member name="P:ChartTools.TrackSpecialPhrase.TypeCode">
-            <summary>
-            Numerical value of the phrase type
-            </summary>
-        </member>
         <member name="M:ChartTools.TrackSpecialPhrase.#ctor(System.UInt32,ChartTools.TrackSpecialPhraseType,System.UInt32)">
             <summary>
             Creates an instance of <see cref="T:ChartTools.TrackSpecialPhrase"/>.
             </summary>
-            <param name="position">Position of the phrase</param>
             <param name="type">Effect of the phrase</param>
-            <param name="length">Duration in ticks</param>
+            <inheritdoc cref="M:ChartTools.SpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)"/>
         </member>
         <member name="M:ChartTools.TrackSpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)">
+            <summary>
             <inheritdoc cref="M:ChartTools.TrackSpecialPhrase.#ctor(System.UInt32,ChartTools.TrackSpecialPhraseType,System.UInt32)"/>
-            <param name="typeCode">Numeric value of the phrase type. Can be used to define custom phrases.</param>
+            </summary>
+            <inheritdoc cref="M:ChartTools.SpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)"/>
         </member>
         <member name="T:ChartTools.Tools.PropertyMerger">
             <summary>
@@ -2300,7 +2490,7 @@
             Provides methods for simplifying songs
             </summary>
         </member>
-        <member name="M:ChartTools.Tools.Optimizer.CutSustains(System.Collections.Generic.IEnumerable{ChartTools.Chord})">
+        <member name="M:ChartTools.Tools.Optimizer.CutSustains(System.Collections.Generic.IEnumerable{ChartTools.LaneChord})">
             <summary>
             Cuts short sustains that exceed the position of the next identical note.
             </summary>
@@ -2352,7 +2542,7 @@
             <param name="tempo">Marker to rescale</param>
             <param name="scale">Positive number where 1 is the current scale.</param>
         </member>
-        <member name="M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.Chord,System.Single)">
+        <member name="M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.IChord,System.Single)">
             <summary>
             Rescales the position of a chord and sustain of its notes.
             </summary>
@@ -2387,14 +2577,16 @@
             <param name="song">Source of objects</param>
             <param name="scale">Positive number where 1 is the current scale.</param>
         </member>
+        <member name="T:ChartTools.IReadOnlyTrackObject">
+            <summary>
+            Object located on a track
+            </summary>
+        </member>
         <member name="P:ChartTools.IReadOnlyTrackObject.Position">
             <summary>
             Tick number on the track.
             </summary>
             <remarks>A tick represents a subdivision of a beat. The number of subdivisions per beat is stored in <see cref="!:Formatting.FormattingRules.Resolution"/>.</remarks>
-        </member>
-        <member name="M:ChartTools.LongTrackObject.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.TrackObject.#ctor(System.UInt32)"/>
         </member>
         <member name="T:ChartTools.InstrumentDifficultySet">
             <summary>
@@ -2524,6 +2716,9 @@
             <summary>
             Tick number marking the end of the object
             </summary>
+        </member>
+        <member name="T:ChartTools.ITrackObject">
+            <inheritdoc cref="T:ChartTools.IReadOnlyTrackObject"/>
         </member>
         <member name="P:ChartTools.ITrackObject.Position">
             <inheritdoc cref="P:ChartTools.IReadOnlyTrackObject.Position"/>
@@ -2689,61 +2884,6 @@
             Determines if the note is played by kicking
             </summary>
         </member>
-        <member name="T:ChartTools.Note">
-            <summary>
-            Base class for notes
-            </summary>
-        </member>
-        <member name="P:ChartTools.Note.NoteIndex">
-            <summary>
-            Numerical value of the note as written in a chart file
-            </summary>
-        </member>
-        <member name="P:ChartTools.Note.Length">
-            <summary>
-            Maximum length the note can be held for extra points (sustain)
-            </summary>
-        </member>
-        <member name="P:ChartTools.LaneNoteCollection`2.OpenExclusivity">
-            <summary>
-            If <see langword="true"/>, trying to combine an open note with other notes will remove the current ones.
-            </summary>
-        </member>
-        <member name="M:ChartTools.LaneNoteCollection`2.Add(`0)">
-            <summary>
-            Adds a note to the <see cref="T:ChartTools.NoteCollection`2"/>.
-            </summary>
-            <remarks>Adding a note that already exists will overwrite the existing note.
-                <para>If <see cref="P:ChartTools.LaneNoteCollection`2.OpenExclusivity"/> is <see langword="true"/>, combining an open note with other notes will remove the current ones.</para>
-            </remarks>
-            <param name="item">Item to add</param>
-        </member>
-        <member name="T:ChartTools.NoteCollection`2">
-            <summary>
-            Set of notes played simultaneously
-            </summary>
-        </member>
-        <member name="M:ChartTools.NoteCollection`2.Add(`0)">
-            <summary>Adds a note to the collection.</summary>
-            <exception cref="T:System.ArgumentNullException"/>
-        </member>
-        <member name="M:ChartTools.NoteCollection`2.Contains(`0)">
-            <summary>
-            Determines if a note is contained in the collection.
-            </summary>
-            <exception cref="T:System.ArgumentNullException"/>
-        </member>
-        <member name="M:ChartTools.NoteCollection`2.Remove(`0)">
-            <summary>
-            Removes a note from the collection.
-            </summary>
-            <exception cref="T:System.ArgumentNullException"/>
-        </member>
-        <member name="P:ChartTools.NoteCollection`2.Item(`1)">
-            <summary>
-            Gets the note matching a lane.
-            </summary>
-        </member>
         <member name="T:ChartTools.Song">
             <summary>
             Song playable in Clone Hero
@@ -2881,20 +3021,9 @@
             <summary>
             Creates an instance of <see cref="T:ChartTools.TimeSignature"/>.
             </summary>
-            <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
+            <param name="position">Value of <see cref="P:ChartTools.TrackObjectBase.Position"/></param>
             <param name="numerator">Value of <see cref="P:ChartTools.TimeSignature.Numerator"/></param>
             <param name="denominator">Value of <see cref="P:ChartTools.TimeSignature.Denominator"/></param>
-        </member>
-        <member name="T:ChartTools.TrackObject">
-            <summary>
-            Object located on a track
-            </summary>
-        </member>
-        <member name="P:ChartTools.TrackObject.Position">
-            <inheritdoc cref="P:ChartTools.ITrackObject.Position"/>
-        </member>
-        <member name="M:ChartTools.TrackObject.#ctor(System.UInt32)">
-            <param name="position">Position of the object</param>
         </member>
         <member name="T:ChartTools.Track">
             <summary>

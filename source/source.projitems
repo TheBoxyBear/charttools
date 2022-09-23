@@ -83,6 +83,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GHGemsParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GlobalEventParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GuitarBassParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\InstrumentParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\LaneInstrumentParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\TitleSyncTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\SectionParser.cs" />
@@ -144,7 +145,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\ReadingConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\WritingConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Sessions\Session.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\InstrumentParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\StandardInstrumentParser.cs" />
     <Compile Include="..\source\IO\MIDI\MidiFormatting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\MidiParser.cs" />
