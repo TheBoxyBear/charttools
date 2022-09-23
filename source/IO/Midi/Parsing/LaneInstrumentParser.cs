@@ -196,7 +196,7 @@ namespace ChartTools.IO.Midi.Parsing
             {
                 case NoteState.Open:
                     if (openedSource is not null)
-                        session.UnclosedProcedure(openedSource.Position, () => openedSource.Notes[lane]!.Length = GetSustain(openedSource.Position, mapping.Position));
+                        session.UnclosedProcedure(openedSource.Position, () => openedSource.Notes[lane]!.Sustain = GetSustain(openedSource.Position, mapping.Position));
 
                     var chord = openedNoteSources[track.Difficulty][lane] = GetOrCreateChord(mapping.Position, track);
 
@@ -209,7 +209,7 @@ namespace ChartTools.IO.Midi.Parsing
                         session.UnopenedProcedure(mapping.Position, () => GetOrCreateChord(mapping.Position, track).Notes.Add(lane));
                     else
                     {
-                        openedSource.Notes[lane]!.Length = GetSustain(openedSource.Position, mapping.Position);
+                        openedSource.Notes[lane]!.Sustain = GetSustain(openedSource.Position, mapping.Position);
                         openedNoteSources[track.Difficulty][lane] = null;
                     }
                     break;

@@ -23,11 +23,11 @@ namespace ChartTools.IO.Chart.Parsing
             {
                 // White notes
                 case < 3:
-                    AddNote(new LaneNote<GHLLane>((GHLLane)(data.Index + 4)) { Length = data.SustainLength });
+                    AddNote(new LaneNote<GHLLane>((GHLLane)(data.Index + 4)) { Sustain = data.SustainLength });
                     break;
                 // Black 1 and 2
                 case < 5:
-                    AddNote(new LaneNote<GHLLane>((GHLLane)(data.Index - 2)) { Length = data.SustainLength });
+                    AddNote(new LaneNote<GHLLane>((GHLLane)(data.Index - 2)) { Sustain = data.SustainLength });
                     break;
                 case 5:
                     AddModifier(GHLChordModifiers.HopoInvert);
@@ -36,10 +36,10 @@ namespace ChartTools.IO.Chart.Parsing
                     AddModifier(GHLChordModifiers.Tap);
                     return;
                 case 7:
-                    AddNote(new LaneNote<GHLLane>(GHLLane.Open) { Length = data.SustainLength });
+                    AddNote(new LaneNote<GHLLane>(GHLLane.Open) { Sustain = data.SustainLength });
                     break;
                 case 8:
-                    AddNote(new LaneNote<GHLLane>(GHLLane.Black3) { Length = data.SustainLength });
+                    AddNote(new LaneNote<GHLLane>(GHLLane.Black3) { Sustain = data.SustainLength });
                     break;
             }
 

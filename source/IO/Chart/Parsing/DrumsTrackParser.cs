@@ -20,7 +20,7 @@ namespace ChartTools.IO.Chart.Parsing
             {
                 // Note
                 case < 5:
-                    AddNote(new DrumsNote((DrumsLane)data.Index) { Length = data.SustainLength });
+                    AddNote(new DrumsNote((DrumsLane)data.Index) { Sustain = data.SustainLength });
                     break;
                 // Double kick
                 case 32:
@@ -37,7 +37,7 @@ namespace ChartTools.IO.Chart.Parsing
                             note.IsCymbal = true;
                     }
                     else
-                        AddNote(new DrumsNote((DrumsLane)seekedIndex) { IsCymbal = true, Length = data.SustainLength });
+                        AddNote(new DrumsNote((DrumsLane)seekedIndex) { IsCymbal = true, Sustain = data.SustainLength });
                     break;
                 case 109:
                     AddModifier(DrumsChordModifiers.Flam);

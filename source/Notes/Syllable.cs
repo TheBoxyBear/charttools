@@ -20,7 +20,7 @@
         /// </summary>
         /// <remarks>Although the octave is specified, some games only require the player to match the key.<br/><br/>Chart files do not support pitches.</remarks>
         public VocalsPitch Pitch { get; set; } = new();
-        public byte Index => (byte)Pitch.Pitch;
+        public byte Index => (byte)Pitch.Value;
 
         private string _rawText = string.Empty;
         /// <summary>

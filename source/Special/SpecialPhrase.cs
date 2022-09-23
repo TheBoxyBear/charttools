@@ -13,6 +13,7 @@
         /// Duration of the phrase in ticks
         /// </summary>
         public uint Length { get; set; }
+        public uint EndPosition => Position + Length;
 
         /// <summary>
         /// Base constructor of special phrases.
