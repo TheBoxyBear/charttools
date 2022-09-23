@@ -1,12 +1,13 @@
-﻿using System;
+﻿using ChartTools.Internal.Collections;
+
+using System;
 
 namespace ChartTools.Lyrics
 {
     /// <summary>
-    /// Note pitch for a <see cref="Syllable"/>
+    /// Wrapper type for <see cref="VocalsPitches"/> with helper properties to get the pitch and key
     /// </summary>
-    /// <remarks>Wrapper type for <see cref="VocalPitchValue"/> helping in obtaining the key and octave</remarks>
-    public struct VocalsPitch : IEquatable<VocalsPitch>, IEquatable<VocalPitchValue>
+    public struct VocalsPitch : IEquatable<VocalsPitch>, IEquatable<VocalsPitches>
     {
         /// <summary>
         /// Raw pitch value
@@ -22,25 +23,55 @@ namespace ChartTools.Lyrics
         public byte Octave => (byte)(((int)Pitch & 0xF0) >> 4);
 
         /// <summary>
-        /// Create a <see cref="VocalsPitch"/> from a <see cref="VocalPitchValue"/>.
+        /// Creates a pitch from a raw pitch value.
         /// </summary>
         /// <param name="pitch"></param>
-        public VocalsPitch(VocalPitchValue pitch) => Pitch = pitch;
+        public VocalsPitch(VocalsPitches pitch) => Pitch = pitch;
 
         #region Equals
+        /// <summary>
+        /// Indicates if two pitches have the same value.
+        /// </summary>
+        /// <param name="other">Pitch to compare</param>
         public bool Equals(VocalsPitch other) => Pitch == other.Pitch;
-        public bool Equals(VocalPitchValue other) => Pitch == other;
-        public override bool Equals(object? obj) => obj is VocalsPitch pitch && Equals(pitch);
+        /// <summary>
+        /// Indicates if a pitch has a value equal to a raw pitch value.
+        /// </summary>
+        /// <param name="other">Value to compare</param>
+        public bool Equals(VocalsPitches other) => Pitch == other;
+        /// <summary>
+        /// Indicates if an object is a raw pitch value or wrapper and the value is equal.
+        /// </summary>
+        /// <param name="obj">Source of value</param>
+        public override bool Equals(object? obj) => obj is VocalsPitches raw && Equals(raw) || obj is VocalsPitch wrapper && Equals(wrapper);
         #endregion
 
         #region Operators
-        public static implicit operator VocalsPitch(VocalPitchValue pitch) => new(pitch);
+        /// <summary>
+        /// Converts a raw pitch value to a matching wrapper.
+        /// </summary>
+        /// <param name="pitch">Pitch value</param>
+        public static implicit operator VocalsPitch(VocalsPitches pitch) => new(pitch);
+
+        /// <inheritdoc cref="Equals(VocalsPitch)"/>
         public static bool operator ==(VocalsPitch left, VocalsPitch right) => left.Equals(right);
+        /// <summary>
+        /// Indicates if two pitches don't have the same value.
+        /// </summary>
         public static bool operator !=(VocalsPitch left, VocalsPitch right) => !(left == right);
+        /// <summary>
+        /// Indicates if the left pitch has a lower value than the right pitch according to music theory.
+        /// </summary>
         public static bool operator <(VocalsPitch left, VocalsPitch right) => left.Pitch < right.Pitch;
+        /// <summary>
+        /// Indicates if the left pitch has a higher value than the right pitch according to music theory.
+        /// </summary>
         public static bool operator >(VocalsPitch left, VocalsPitch right) => left.Pitch > right.Pitch;
         #endregion
 
+        /// <summary>
+        /// Returns the hash code for the pitch value.
+        /// </summary>
         public override int GetHashCode() => (int)Pitch;
     }
 }

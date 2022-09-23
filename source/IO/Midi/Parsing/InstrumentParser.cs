@@ -3,7 +3,7 @@ using ChartTools.IO.Midi.Mapping;
 
 namespace ChartTools.IO.Midi.Parsing
 {
-    internal abstract class InstrumentParser<TChord> : MidiParser where TChord : Chord, new()
+    internal abstract class InstrumentParser<TChord> : MidiParser where TChord : IChord, new()
     {
         public InstrumentIdentity Instrument { get; }
         protected readonly Track<TChord>[] tracks = new Track<TChord>[4];

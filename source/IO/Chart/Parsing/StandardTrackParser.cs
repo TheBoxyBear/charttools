@@ -19,22 +19,25 @@ namespace ChartTools.IO.Chart.Parsing
 
         protected override void HandleNoteEntry(StandardChord chord, NoteData data)
         {
-            switch (data.NoteIndex)
+            switch (data.Index)
             {
                 // Colored note
                 case < 5:
-                    chord.Notes.Add(new Note<StandardLane>((StandardLane)(data.NoteIndex + 1)) { Length = data.SustainLength });
+                    chord.Notes.Add(new LaneNote<StandardLane>((StandardLane)(data.Index + 1)) { Length = data.SustainLength });
                     break;
                 case 5:
-                    chord.Modifiers |= StandardChordModifier.HopoInvert;
+                    chord.Modifiers |= StandardChordModifiers.HopoInvert;
                     return;
                 case 6:
-                    chord.Modifiers |= StandardChordModifier.Tap;
+                    chord.Modifiers |= StandardChordModifiers.Tap;
                     return;
                 case 7:
-                    chord.Notes.Add(new Note<StandardLane>(StandardLane.Open) { Length = data.SustainLength });
+                    chord.Notes.Add(new LaneNote<StandardLane>(StandardLane.Open) { Length = data.SustainLength });
                     break;
             }
+
+            void AddNote(LaneNote<StandardLane> note) => HandleAddNote(note, () => chord.Notes.Add(note));
+            void AddModifier(StandardChordModifiers modifier) => HandleAddModifier(chord.Modifiers, modifier, () => chord.Modifiers |= modifier);
         }
     }
 }

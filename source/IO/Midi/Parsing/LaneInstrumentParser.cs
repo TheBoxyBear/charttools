@@ -11,8 +11,8 @@ using System.Linq;
 
 namespace ChartTools.IO.Midi.Parsing
 {
-    internal abstract class LaneInstrumentParser<TChord, TLane, TModifier> : LaneInstrumentParser<TChord, Note<TLane>, TLane, TModifier>
-        where TChord : LaneChord<Note<TLane>, TLane, TModifier>, new()
+    internal abstract class LaneInstrumentParser<TChord, TLane, TModifier> : LaneInstrumentParser<TChord, LaneNote<TLane>, TLane, TModifier>
+        where TChord : LaneChord<LaneNote<TLane>, TLane, TModifier>, new()
         where TLane : struct, Enum
         where TModifier : struct, Enum
     {
@@ -21,7 +21,7 @@ namespace ChartTools.IO.Midi.Parsing
 
     internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : InstrumentParser<TChord>
         where TChord : LaneChord<TNote, TLane, TModifier>, new()
-        where TNote : Note<TLane>, new()
+        where TNote : LaneNote<TLane>, new()
         where TLane : struct, Enum
         where TModifier : struct, Enum
     {

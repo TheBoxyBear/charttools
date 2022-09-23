@@ -19,32 +19,32 @@ namespace ChartTools.IO.Chart.Parsing
 
         protected override void HandleNoteEntry(GHLChord chord, NoteData data)
         {
-            switch (data.NoteIndex)
+            switch (data.Index)
             {
                 // White notes
                 case < 3:
-                    AddNote(new Note<GHLLane>((GHLLane)(data.NoteIndex + 4)) { Length = data.SustainLength });
+                    AddNote(new LaneNote<GHLLane>((GHLLane)(data.Index + 4)) { Length = data.SustainLength });
                     break;
                 // Black 1 and 2
                 case < 5:
-                    AddNote(new Note<GHLLane>((GHLLane)(data.NoteIndex - 2)) { Length = data.SustainLength });
+                    AddNote(new LaneNote<GHLLane>((GHLLane)(data.Index - 2)) { Length = data.SustainLength });
                     break;
                 case 5:
-                    AddModifier(GHLChordModifier.HopoInvert);
+                    AddModifier(GHLChordModifiers.HopoInvert);
                     return;
                 case 6:
-                    AddModifier(GHLChordModifier.Tap);
+                    AddModifier(GHLChordModifiers.Tap);
                     return;
                 case 7:
-                    AddNote(new Note<GHLLane>(GHLLane.Open) { Length = data.SustainLength });
+                    AddNote(new LaneNote<GHLLane>(GHLLane.Open) { Length = data.SustainLength });
                     break;
                 case 8:
-                    AddNote(new Note<GHLLane>(GHLLane.Black3) { Length = data.SustainLength });
+                    AddNote(new LaneNote<GHLLane>(GHLLane.Black3) { Length = data.SustainLength });
                     break;
             }
 
-            void AddNote(Note<GHLLane> note) => HandleAddNote(note, () => chord.Notes.Add(note));
-            void AddModifier(GHLChordModifier modifier) => HandleAddModifier(chord.Modifiers, modifier, () => chord.Modifiers |= modifier);
+            void AddNote(LaneNote<GHLLane> note) => HandleAddNote(note, () => chord.Notes.Add(note));
+            void AddModifier(GHLChordModifiers modifier) => HandleAddModifier(chord.Modifiers, modifier, () => chord.Modifiers |= modifier);
         }
     }
 }

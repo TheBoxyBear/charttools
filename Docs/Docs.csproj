@@ -10,16 +10,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="docfx.console" Version="2.59.3">
+    <Compile Remove="_site\**" />
+    <EmbeddedResource Remove="_site\**" />
+    <None Remove="_site\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="docfx.console" Version="2.59.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties docfx_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
-
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="xcopy /y &quot;$(ProjectDir)\..\readme.md&quot; &quot;$(ProjectDir)\index.md&quot;" />
-  </Target>
 
 </Project>

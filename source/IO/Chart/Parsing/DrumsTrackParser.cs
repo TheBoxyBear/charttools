@@ -16,11 +16,11 @@ namespace ChartTools.IO.Chart.Parsing
 
         protected override void HandleNoteEntry(DrumsChord chord, NoteData data)
         {
-            switch (data.NoteIndex)
+            switch (data.Index)
             {
                 // Note
                 case < 5:
-                    AddNote(new DrumsNote((DrumsLane)data.NoteIndex) { Length = data.SustainLength });
+                    AddNote(new DrumsNote((DrumsLane)data.Index) { Length = data.SustainLength });
                     break;
                 // Double kick
                 case 32:
@@ -29,9 +29,9 @@ namespace ChartTools.IO.Chart.Parsing
                 // Cymbal
                 case > 65 and < 69:
                     // NoteIndex of the note to set as cymbal
-                    byte seekedIndex = (byte)(data.NoteIndex - 64);
+                    byte seekedIndex = (byte)(data.Index - 64);
 
-                    if (chord.Notes.TryGetFirst(n => n.NoteIndex == seekedIndex, out DrumsNote note))
+                    if (chord.Notes.TryGetFirst(n => n.Index == seekedIndex, out DrumsNote note))
                     {
                         if (session.DuplicateTrackObjectProcedure(chord.Position, "drums note cymbal marker", () => note.IsCymbal))
                             note.IsCymbal = true;
@@ -40,12 +40,12 @@ namespace ChartTools.IO.Chart.Parsing
                         AddNote(new DrumsNote((DrumsLane)seekedIndex) { IsCymbal = true, Length = data.SustainLength });
                     break;
                 case 109:
-                    AddModifier(DrumsChordModifier.Flam);
+                    AddModifier(DrumsChordModifiers.Flam);
                     break;
             }
 
             void AddNote(DrumsNote note) => HandleAddNote(note, () => chord.Notes.Add(note));
-            void AddModifier(DrumsChordModifier modifier) => HandleAddModifier(chord.Modifiers, modifier, () => chord.Modifiers |= modifier);
+            void AddModifier(DrumsChordModifiers modifier) => HandleAddModifier(chord.Modifiers, modifier, () => chord.Modifiers |= modifier);
         }
     }
 }

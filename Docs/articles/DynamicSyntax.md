@@ -1,5 +1,7 @@
-# Dynamic syntax
+# Dynamic Syntax
+This guide will cover an alternate and more flexible syntax for accessing components.
 
+## Using the dynamic syntax
 ChartTools supports a dynamic syntax to retrieve instruments and tracks using identity enums instead of explicit properties.
 
 ```C#
@@ -18,12 +20,13 @@ The dynamic syntax uses three enums to get instruments:
 
 Drums and vocals do not have an enum for their chord types as they are the only instrument using their respective chords.
 
+## Generic vs. non-generic
 When an instrument is obtained dynamically using the `InstrumentIdentity` enum, the returned object is of type `Instrument`. When a track is obtained from a non-generic instrument, either dynamically or explicitly through a property, the track will be of type `Track`. This concept extends to chords and notes.
 
 When working with a non-generic track, the following rules apply:
 - Chords cannot be added or removed. The position of existing chords can be modified.
-- Notes cannot be added or removed, and a note's identity can be obtained through the read-only `NoteIndex` property, the numerical representation of the identity enum. The sustain can be modified.
 - Local events and special phrases have no restrictions.
+- A note's identity can be obtaines through the read-only `NoteIndex` property. In a future version, notes will be able to be added from a non-generic track.
 
 Being the base types of the generic counterparts, non-generic instruments, tracks, chords and notes can be cast to a generic version.
 

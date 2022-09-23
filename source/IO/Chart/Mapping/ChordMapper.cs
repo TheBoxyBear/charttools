@@ -12,7 +12,7 @@ namespace ChartTools.IO.Chart.Mapping
         public static IEnumerable<TrackObjectEntry> Map(IEnumerable<Chord> source, WritingSession session)
         {
             List<uint> orderedPositions = new();
-            Chord? previousChord = null;
+            LaneChord? previousChord = null;
 
             foreach (var chord in source)
             {

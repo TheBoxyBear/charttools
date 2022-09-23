@@ -28,7 +28,7 @@ namespace ChartTools
     /// Modifier that affects the way the chord can be played
     /// </summary>
     [Flags]
-    public enum DrumsChordModifier : byte
+    public enum DrumsChordModifiers : byte
     {
         /// <inheritdoc cref="StandardChordModifier.None"/>
         None,
@@ -80,7 +80,8 @@ namespace ChartTools
     /// <summary>
     /// Modifier that affects how a <see cref="GHLChord"/> can be played
     /// </summary>
-    [Flags] public enum GHLChordModifier : byte
+    [Flags]
+    public enum GHLChordModifiers : byte
     {
         /// <inheritdoc cref="StandardChordModifier.None"/>
         None = 0,
@@ -125,7 +126,8 @@ namespace ChartTools
     /// Modifier that affects how a <see cref="StandardChord"/> can be played
     /// </summary>
     /// <remarks></remarks>
-    [Flags] public enum StandardChordModifier : byte
+    [Flags]
+    public enum StandardChordModifiers : byte
     {
         /// <summary>
         /// No modifier
@@ -190,8 +192,6 @@ namespace ChartTools
 
 namespace ChartTools.Lyrics
 {
-    public enum VocalChordModifier : byte { None }
-
     /// <summary>
     /// Values for <see cref="VocalPitch"/>
     /// </summary>

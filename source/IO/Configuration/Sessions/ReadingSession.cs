@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using ChartTools.IO.Formatting;
+﻿using ChartTools.IO.Formatting;
 using ChartTools.IO.Midi;
 using ChartTools.Tools;
 
 using Melanchall.DryWetMidi.Core;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ChartTools.IO.Configuration.Sessions
 {

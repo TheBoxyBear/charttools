@@ -1,12 +1,19 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using ChartTools.IO.Chart.Entries;
+using ChartTools.IO.Configuration.Sessions;
+
+using System.Collections.Generic;
 
 namespace ChartTools
 {
-    public abstract class LaneChord<TNote, TLane, TModifier> : Chord<TNote, TLane, TModifier> where TNote : Note<TLane>, new() where TLane : struct, Enum where TModifier : struct, Enum
+    public abstract class LaneChord : TrackObjectBase, IChord
     {
-        protected abstract bool OpenExclusivity { get; }
-        public override LaneNoteCollection<TNote, TLane> Notes { get; }
+        public IEnumerable<INote> Notes => GetNotes();
+        internal abstract bool ChartSupportedModifiers { get; }
+
+        public LaneChord() : base() { }
+        public LaneChord(uint position) : base(position) { }
+
+        protected abstract IEnumerable<INote> GetNotes();
 
         protected LaneChord() : base() => Notes = new(OpenExclusivity);
         /// <inheritdoc cref="Chord{TNote, Tlane, TModifier}(uint)"/>
@@ -23,5 +30,7 @@ namespace ChartTools
             Notes.Add(note);
             return note;
         }
+        internal abstract IEnumerable<TrackObjectEntry> GetChartNoteData();
+        internal abstract IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, WritingSession session);
     }
 }
