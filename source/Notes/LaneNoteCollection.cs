@@ -20,12 +20,12 @@ namespace ChartTools
 
         public void Add(TLane lane) => AddNonNull(new TNote() { Lane = lane });
         /// <summary>
-        /// Adds a note to the <see cref="NoteCollection{TNote, TLane}"/>.
+        /// Adds a note to the <see cref="LaneNoteCollection{TNote, TLane}"/>.
         /// </summary>
         /// <remarks>Adding a note that already exists will overwrite the existing note.
         ///     <para>If <see cref="OpenExclusivity"/> is <see langword="true"/>, combining an open note with other notes will remove the current ones.</para>
         /// </remarks>
-        /// <param name="item">Item to add</param>
+        /// <param name="note">Note to add</param>
         public void Add(TNote note) => AddNonNull(note ?? throw new ArgumentNullException(nameof(note)));
         private void AddNonNull(TNote note)
         {

@@ -1,11 +1,10 @@
 ﻿namespace ChartTools
 {
-    public interface ILongTrackObject : ITrackObject, IReadOnlyLongObject
+    public interface ILongTrackObject : ITrackObject, ILongObject
     {
         /// <summary>
         /// Tick number marking the end of the object
         /// </summary>
         public uint EndPosition => Position + Length;
-        public uint Length { get; set; }
     }
 }

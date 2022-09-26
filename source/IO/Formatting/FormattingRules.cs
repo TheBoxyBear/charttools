@@ -14,7 +14,7 @@ namespace ChartTools.IO.Formatting
         public CharterKey CharterKey { get; set; }
 
         /// <summary>
-        /// Number of <see cref="TrackObject.Position"/> values per beat
+        /// Number of <see cref="ITrackObject.Position"/> values per beat
         /// </summary>
         [ChartKeySerializable(ChartFormatting.Resolution)]
         public uint? Resolution { get; set; }

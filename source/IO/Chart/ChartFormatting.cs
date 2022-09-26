@@ -61,7 +61,7 @@ namespace ChartTools.IO.Chart
         /// Gets the written data for a note.
         /// </summary>
          /// <param name="position">Position of the parent <see cref="LaneChord"/></param>
-        /// <param name="index">Value of <see cref="LaneNote.NoteIndex"/></param>
+        /// <param name="index">Value of <see cref="LaneNote.Index"/></param>
         /// <param name="sustain">Value of <see cref="LaneNote.Length"/></param>
         public static TrackObjectEntry NoteEntry(uint position, byte index, uint sustain) => new(position, "N", $"{index} {sustain}");
 

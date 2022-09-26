@@ -7,14 +7,20 @@ namespace ChartTools
         where TLane : struct, Enum
         where TModifiers : struct, Enum
     {
+        /// <summary>
+        /// Defines if open notes can be mixed with other notes for this chord type. <see langword="true"/> indicated open notes cannot be mixed.
+        /// </summary>
         protected abstract bool OpenExclusivity { get; }
 
+        /// <summary>
+        /// Notes in the chord
+        /// </summary>
         public new LaneNoteCollection<TNote, TLane> Notes { get; }
 
         public TModifiers Modifiers { get; set; }
         internal abstract TModifiers DefaultModifiers { get; }
 
-        protected LaneChord() : base() => Notes = new(OpenExclusivity);
-        protected LaneChord(uint position) : base(position) => Notes = new(OpenExclusivity);
+        public LaneChord() : base() => Notes = new(OpenExclusivity);
+        public LaneChord(uint position) : base(position) => Notes = new(OpenExclusivity);
     }
 }

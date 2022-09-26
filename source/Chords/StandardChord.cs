@@ -18,7 +18,7 @@ namespace ChartTools
         internal override bool ChartSupportedModifiers => !Modifiers.HasFlag(StandardChordModifiers.ExplicitHopo);
 
         public StandardChord() : base() { }
-        /// <inheritdoc cref="Chord(uint)"/>
+        /// <inheritdoc cref="LaneChord(uint)"/>
         public StandardChord(uint position) : base(position) { }
         /// <inheritdoc cref="LaneChord{TNote, TLane, TModifier}(uint)"/>
         /// <param name="notes">Notes to add</param>
@@ -30,7 +30,7 @@ namespace ChartTools
             foreach (var note in notes)
                 Notes.Add(note);
         }
-        /// <inheritdoc cref="StandardChord(uint, Note{StandardLane}[])"/>
+        /// <inheritdoc cref="StandardChord(uint, LaneNote{StandardLane}[])"/>
         public StandardChord(uint position, params StandardLane[] notes) : this(position)
         {
             if (notes is null)
