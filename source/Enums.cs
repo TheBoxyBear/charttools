@@ -30,7 +30,7 @@ namespace ChartTools
     [Flags]
     public enum DrumsChordModifiers : byte
     {
-        /// <inheritdoc cref="StandardChordModifier.None"/>
+        /// <inheritdoc cref="StandardChordModifiers.None"/>
         None,
         /// <summary>
         /// *Unsupported*
@@ -83,13 +83,13 @@ namespace ChartTools
     [Flags]
     public enum GHLChordModifiers : byte
     {
-        /// <inheritdoc cref="StandardChordModifier.None"/>
+        /// <inheritdoc cref="StandardChordModifiers.None"/>
         None = 0,
-        /// <inheritdoc cref="StandardChordModifier.ExplicitHopo"/>
+        /// <inheritdoc cref="StandardChordModifiers.ExplicitHopo"/>
         ExplicitHopo = 1,
-        /// <inheritdoc cref="StandardChordModifier.HopoInvert"/>
+        /// <inheritdoc cref="StandardChordModifiers.HopoInvert"/>
         HopoInvert = 2,
-        /// <inheritdoc cref="StandardChordModifier.Tap"/>
+        /// <inheritdoc cref="StandardChordModifiers.Tap"/>
         Tap = 4
     }
     /// <summary>
@@ -164,7 +164,7 @@ namespace ChartTools
     public enum TrackSpecialPhraseType : byte
     {
         /// <summary>
-        /// The <see cref="TrackSpecialPhrase.TypeCode"/> is not a recognized phrase type
+        /// The <see cref="TrackSpecialPhrase.Type"/> is not a recognized phrase type
         /// </summary>
         Unknown,
         /// <summary>

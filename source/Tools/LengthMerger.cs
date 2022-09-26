@@ -15,8 +15,6 @@ namespace ChartTools.Tools
             target.Length = end - start;
 
             return target;
-
-            IEnumerable<SpecialPhrase> phrases;
         }
     }
 }

@@ -3,16 +3,16 @@
 namespace ChartTools.IO.Chart.Entries
 {
     /// <summary>
-    /// Line of chart file data representing a <see cref="TrackObject"/>
+    /// Line of chart file data representing a <see cref="TrackObjectBase"/>
     /// </summary>
     internal readonly struct TrackObjectEntry : IReadOnlyTrackObject
     {
         /// <summary>
-        /// Value of <see cref="TrackObject.Position"/>
+        /// Value of <see cref="ITrackObject.Position"/>
         /// </summary>
         public uint Position { get; }
         /// <summary>
-        /// Type code of <see cref="TrackObject"/>
+        /// Type code of <see cref="ITrackObject"/>
         /// </summary>
         public string Type { get; }
         /// <summary>

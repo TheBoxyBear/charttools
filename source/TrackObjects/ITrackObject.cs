@@ -5,5 +5,7 @@
     {
         /// <inheritdoc cref="IReadOnlyTrackObject.Position"/>
         public new uint Position { get; set; }
+
+        uint IReadOnlyTrackObject.Position => Position;
     }
 }

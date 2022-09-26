@@ -70,9 +70,9 @@ namespace ChartTools
         private InstrumentType? _instrumentType;
 
         /// <summary>
-        /// Set of special phrases
+        /// Set of special phrases applied to all difficulties
         /// </summary>
-        public List<InstrumentSpecialPhrase> SpecialPhrases { get; set; }
+        public List<InstrumentSpecialPhrase> SpecialPhrases { get; set; } = new();
 
         /// <inheritdoc cref="InstrumentDifficultySet.GetDifficulty(InstrumentIdentity)"/>
         public sbyte? GetDifficulty(InstrumentDifficultySet difficulties) => difficulties.GetDifficulty(InstrumentIdentity);

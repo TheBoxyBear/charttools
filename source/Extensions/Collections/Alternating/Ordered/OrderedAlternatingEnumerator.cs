@@ -22,7 +22,7 @@ namespace ChartTools.Extensions.Collections
         /// <inheritdoc/>
         public bool Initialized { get; private set; }
 
-        /// <inheritdoc/>
+        /// Currently alternated item following a <see cref="MoveNext"/> call
         public T Current { get; private set; }
         /// <inheritdoc/>
         object? IEnumerator.Current => Current;
