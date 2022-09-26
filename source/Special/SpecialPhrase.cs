@@ -1,11 +1,17 @@
 ﻿namespace ChartTools
 {
+    /// <summary>
+    /// Base class for phrases that define an in-game event with a duration such as star power.
+    /// </summary>
     public abstract class SpecialPhrase : TrackObjectBase, ILongTrackObject
     {
         /// <summary>
         /// Numerical value of the phrase type
         /// </summary>
         public byte TypeCode { get; set; }
+        /// <summary>
+        /// Duration of the phrase in ticks
+        /// </summary>
         public uint Length { get; set; }
 
         /// <summary>

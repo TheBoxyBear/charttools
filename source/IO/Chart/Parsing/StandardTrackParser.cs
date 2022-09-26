@@ -23,16 +23,16 @@ namespace ChartTools.IO.Chart.Parsing
             {
                 // Colored note
                 case < 5:
-                    chord.Notes.Add(new LaneNote<StandardLane>((StandardLane)(data.Index + 1)) { Length = data.SustainLength });
+                    AddNote(new((StandardLane)(data.Index + 1)) { Length = data.SustainLength });
                     break;
                 case 5:
-                    chord.Modifiers |= StandardChordModifiers.HopoInvert;
+                    AddModifier(StandardChordModifiers.HopoInvert);
                     return;
                 case 6:
-                    chord.Modifiers |= StandardChordModifiers.Tap;
+                    AddModifier(StandardChordModifiers.Tap);
                     return;
                 case 7:
-                    chord.Notes.Add(new LaneNote<StandardLane>(StandardLane.Open) { Length = data.SustainLength });
+                    AddNote(new(StandardLane.Open) { Length = data.SustainLength });
                     break;
             }
 

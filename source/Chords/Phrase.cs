@@ -11,14 +11,13 @@ namespace ChartTools.Lyrics
         public List<Syllable> Syllables { get; } = new();
         IEnumerable<INote> IChord.Notes => Syllables;
 
-        public uint Position { get; set; }
         /// <summary>
         /// End of the phrase as defined by <see cref="Length"/>
         /// </summary>
         public uint EndPosition => Position + Length;
 
         public uint Length => LengthOverride ?? SyllableEndOffset;
-        uint ILongTrackObject.Length
+        uint ILongObject.Length
         {
             get => Length;
             set => LengthOverride = value;

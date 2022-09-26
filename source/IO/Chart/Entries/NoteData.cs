@@ -3,16 +3,16 @@
 namespace ChartTools.IO.Chart.Entries
 {
     /// <summary>
-    /// Line of chart data representing a <see cref="Note"/>
+    /// Line of chart data representing a <see cref="LaneNote{TLane}"/>
     /// </summary>
     internal ref struct NoteData
     {
         /// <summary>
-        /// Value of <see cref="Note.NoteIndex"/>
+        /// Value of <see cref="LaneNote{TLane}.Index"/>
         /// </summary>
         internal byte Index { get; }
         /// <summary>
-        /// Value of <see cref="Note.Length"/>
+        /// Value of <see cref="LaneNote{TLane}.Length"/>
         /// </summary>
         internal uint SustainLength { get; }
 

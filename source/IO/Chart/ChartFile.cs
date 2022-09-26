@@ -122,8 +122,8 @@ namespace ChartTools.IO.Chart
         {
             Instrument<TChord>? output = null;
 
-            foreach (TrackParser<TChord> parser in reader.Parsers)
-                (output ??= new()).SetTrack(parser.Result!);
+            foreach (var parser in reader.Parsers)
+                (output ??= new()).SetTrack(((TrackParser<TChord>)parser).Result!);
 
             return output;
         }
@@ -665,11 +665,13 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="syncTrack">Sync track to write</param>
+        /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
         public static void ReplaceSyncTrack(string path, SyncTrack syncTrack, WritingConfiguration? config = default)
         {
             var writer = GetSyncTrackWriter(path, syncTrack, new(config ?? DefaultWriteConfig, null));
             writer.Write();
         }
+        /// <inheritdoc cref="ReplaceSyncTrack(string, SyncTrack, WritingConfiguration?)"/>
         public static async Task ReplaceSyncTrackAsync(string path, SyncTrack syncTrack, WritingConfiguration? config = default, CancellationToken cancellationToken = default)
         {
             var writer = GetSyncTrackWriter(path, syncTrack, new(config ?? DefaultWriteConfig, null));
