@@ -117,7 +117,8 @@ namespace ChartTools.IO.Ini
                     result.Formatting.ForceEightHopoFrequency = ParseNullable(ValueParser.ParseBool, "force eight hopo frequency");
                     break;
                 default:
-                    result.UnidentifiedData.Add(new() { Key = entry.Key, Value = entry.Value, Origin = FileFormat.Ini });
+                    if (entry.Value is not null)
+                        result.UnidentifiedData.Add(new() { Key = entry.Key, Value = entry.Value, Origin = FileFormat.Ini });
                     break;
             }
 
