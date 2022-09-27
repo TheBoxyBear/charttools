@@ -14,7 +14,7 @@ namespace ChartTools.IO
         /// <summary>
         /// Text after the equal sign
         /// </summary>
-        public string Value { get; }
+        public string? Value { get; }
 
         public TextEntry(string key, string value)
         {
@@ -25,11 +25,11 @@ namespace ChartTools.IO
         {
             string[] split = line.Split('=', 2, StringSplitOptions.RemoveEmptyEntries);
 
-            if (split.Length < 2)
+            if (split.Length < 1)
                 throw new EntryException();
 
             Key = split[0].Trim();
-            Value = split[1].Trim();
+            Value = split.Length < 2 ? null : split[1].Trim();
         }
     }
 }
