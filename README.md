@@ -6,7 +6,7 @@ In order to future-proof the library for features added to Clone Hero, improve c
 If you find any bugs, you can report them in the [Issues section](https://github.com/TheBoxyBear/ChartTools/issues) of the repository. Make sure to use the "bug" label.
 
 ## Getting Started
-For an overview on getting started, see [Getting Started](Docs/articles/GettingStarted.md). A new website is currently in the works with more detailed articles and full API documentation.
+For an overview on installation and taking your first steps with ChartTools, see [Getting Started](Docs/articles/GettingStarted.md). A new website is currently in the works with more detailed articles and full API documentation.
 
 ## License and Attribution
 This project is licensed under the GNU General Public License 3.0. See [LICENSE](LICENSE) for details.
