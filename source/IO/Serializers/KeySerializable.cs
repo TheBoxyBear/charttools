@@ -7,7 +7,7 @@ namespace ChartTools.IO
 {
     public abstract class KeySerializableAttribute : Attribute
     {
-        public abstract FileFormat Format { get; }
+        public abstract FileType Format { get; }
         public string Key { get; }
 
         public KeySerializableAttribute(string key) => Key = key;

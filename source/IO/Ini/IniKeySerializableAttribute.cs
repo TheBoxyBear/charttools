@@ -4,7 +4,7 @@ namespace ChartTools.IO.Ini
 {
     public class IniKeySerializableAttribute : KeySerializableAttribute
     {
-        public override FileFormat Format => FileFormat.Ini;
+        public override FileType Format => FileType.Ini;
 
         public IniKeySerializableAttribute(string key) : base(key) { }
 

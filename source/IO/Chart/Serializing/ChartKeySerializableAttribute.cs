@@ -4,7 +4,7 @@ namespace ChartTools.IO.Chart.Serializing
 {
     public class ChartKeySerializableAttribute : KeySerializableAttribute
     {
-        public override FileFormat Format => FileFormat.Chart;
+        public override FileType Format => FileType.Chart;
 
         public ChartKeySerializableAttribute(string key) : base(key) { }
 

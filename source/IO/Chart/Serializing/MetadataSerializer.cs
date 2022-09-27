@@ -24,7 +24,7 @@ namespace ChartTools.IO.Chart.Serializing
             if (Content.Year is not null)
                 yield return ChartFormatting.Line("Year", $"\", {Content.Year}\"");
 
-            foreach (var data in Content.UnidentifiedData.Where(d => d.Origin == FileFormat.Chart))
+            foreach (var data in Content.UnidentifiedData.Where(d => d.Origin == FileType.Chart))
                 yield return ChartFormatting.Line(data.Key, data.Value);
         }
     }
