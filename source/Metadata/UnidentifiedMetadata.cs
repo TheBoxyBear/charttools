@@ -4,6 +4,6 @@
     {
         public string Key { get; init; }
         public string? Value { get; set; }
-        public FileType Origin { get; set; }
+        public FileFormat Origin { get; set; }
     }
 }

@@ -4,43 +4,13 @@
         <name>ChartTools</name>
     </assembly>
     <members>
-        <member name="T:ChartTools.Chord">
-            <summary>
-            Base class for chords
-            </summary>
-        </member>
-        <member name="P:ChartTools.Chord.Notes">
-            <summary>
-            Notes in the chord
-            </summary>
-        </member>
-        <member name="M:ChartTools.Chord.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.TrackObject.#ctor(System.UInt32)"/>
-        </member>
-        <member name="M:ChartTools.Chord.GetChartNoteData">
-            <summary>
-            Gets the data to write in a chart file.
-            </summary>
-            <returns>Enumerable of strings containing the data to add to each line</returns>
-        </member>
-        <member name="T:ChartTools.Chord`3">
-            <summary>
-            Set of notes played simultaneously
-            </summary>
-        </member>
-        <member name="P:ChartTools.Chord`3.Notes">
-            <inheritdoc cref="P:ChartTools.Chord.Notes"/>
-        </member>
-        <member name="M:ChartTools.Chord`3.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.Chord.#ctor(System.UInt32)"/>
-        </member>
         <member name="T:ChartTools.DrumsChord">
             <summary>
             Set of notes played simultaneously by drums
             </summary>
         </member>
         <member name="M:ChartTools.DrumsChord.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.Chord.#ctor(System.UInt32)"/>
+            <inheritdoc cref="M:ChartTools.LaneChord.#ctor(System.UInt32)"/>
         </member>
         <member name="M:ChartTools.DrumsChord.#ctor(System.UInt32,ChartTools.DrumsNote[])">
             <inheritdoc cref="M:ChartTools.DrumsChord.#ctor(System.UInt32)"/>
@@ -57,15 +27,33 @@
         <member name="M:ChartTools.GHLChord.#ctor(System.UInt32)">
             <inheritdoc cref="M:ChartTools.LaneChord`3.#ctor(System.UInt32)"/>
         </member>
-        <member name="M:ChartTools.GHLChord.#ctor(System.UInt32,ChartTools.Note{ChartTools.GHLLane}[])">
+        <member name="M:ChartTools.GHLChord.#ctor(System.UInt32,ChartTools.LaneNote{ChartTools.GHLLane}[])">
             <inheritdoc cref="M:ChartTools.GHLChord.#ctor(System.UInt32)"/>
             <param name="notes">Notes to add</param>
         </member>
         <member name="M:ChartTools.GHLChord.#ctor(System.UInt32,ChartTools.GHLLane[])">
-            <inheritdoc cref="M:ChartTools.GHLChord.#ctor(System.UInt32,ChartTools.Note{ChartTools.GHLLane}[])"/>
+            <inheritdoc cref="M:ChartTools.GHLChord.#ctor(System.UInt32,ChartTools.LaneNote{ChartTools.GHLLane}[])"/>
         </member>
-        <member name="M:ChartTools.LaneChord`3.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.Chord`3.#ctor(System.UInt32)"/>
+        <member name="T:ChartTools.IChord">
+            <summary>
+            Set of notes tied together.
+            </summary>
+            <remarks>Depending on the chord type, notes will be on the same position or in sequence.</remarks>
+        </member>
+        <member name="P:ChartTools.IChord.Notes">
+            <summary>
+            Read-only set of the notes in the chord.
+            </summary>
+        </member>
+        <member name="P:ChartTools.LaneChord`3.OpenExclusivity">
+            <summary>
+            Defines if open notes can be mixed with other notes for this chord type. <see langword="true"/> indicated open notes cannot be mixed.
+            </summary>
+        </member>
+        <member name="P:ChartTools.LaneChord`3.Notes">
+            <summary>
+            Notes in the chord
+            </summary>
         </member>
         <member name="P:ChartTools.Lyrics.Phrase.EndPosition">
             <summary>
@@ -545,14 +533,14 @@
             </summary>
         </member>
         <member name="M:ChartTools.StandardChord.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.Chord.#ctor(System.UInt32)"/>
+            <inheritdoc cref="M:ChartTools.LaneChord.#ctor(System.UInt32)"/>
         </member>
-        <member name="M:ChartTools.StandardChord.#ctor(System.UInt32,ChartTools.Note{ChartTools.StandardLane}[])">
+        <member name="M:ChartTools.StandardChord.#ctor(System.UInt32,ChartTools.LaneNote{ChartTools.StandardLane}[])">
             <inheritdoc cref="M:ChartTools.LaneChord`3.#ctor(System.UInt32)"/>
             <param name="notes">Notes to add</param>
         </member>
         <member name="M:ChartTools.StandardChord.#ctor(System.UInt32,ChartTools.StandardLane[])">
-            <inheritdoc cref="M:ChartTools.StandardChord.#ctor(System.UInt32,ChartTools.Note{ChartTools.StandardLane}[])"/>
+            <inheritdoc cref="M:ChartTools.StandardChord.#ctor(System.UInt32,ChartTools.LaneNote{ChartTools.StandardLane}[])"/>
         </member>
         <member name="T:ChartTools.Events.EventExtensions">
             <summary>
@@ -588,7 +576,7 @@
             <remarks>A lack of argument is represented as an empty string.</remarks>
         </member>
         <member name="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String)">
-            <param name="position"><inheritdoc cref="P:ChartTools.TrackObject.Position"/></param>
+            <param name="position"><inheritdoc cref="P:ChartTools.TrackObjectBase.Position"/></param>
             <param name="data"><inheritdoc cref="P:ChartTools.Events.Event.EventData"/></param>
         </member>
         <member name="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String,System.String)">
@@ -679,7 +667,7 @@
             <inheritdoc/>
         </member>
         <member name="P:ChartTools.Extensions.Collections.OrderedAlternatingEnumerator`2.Current">
-            <inheritdoc/>
+            Currently alternated item following a <see cref="M:ChartTools.Extensions.Collections.OrderedAlternatingEnumerator`2.MoveNext"/> call
         </member>
         <member name="P:ChartTools.Extensions.Collections.OrderedAlternatingEnumerator`2.System#Collections#IEnumerator#Current">
             <inheritdoc/>
@@ -1141,20 +1129,20 @@
             Expert difficulty
             </summary>
         </member>
-        <member name="T:ChartTools.DrumsChordModifier">
+        <member name="T:ChartTools.DrumsChordModifiers">
             <summary>
             Modifier that affects the way the chord can be played
             </summary>
         </member>
-        <member name="F:ChartTools.DrumsChordModifier.None">
-            <inheritdoc cref="F:ChartTools.StandardChordModifier.None"/>
+        <member name="F:ChartTools.DrumsChordModifiers.None">
+            <inheritdoc cref="F:ChartTools.StandardChordModifiers.None"/>
         </member>
-        <member name="F:ChartTools.DrumsChordModifier.Accent">
+        <member name="F:ChartTools.DrumsChordModifiers.Accent">
             <summary>
             *Unsupported*
             </summary>
         </member>
-        <member name="F:ChartTools.DrumsChordModifier.Ghost">
+        <member name="F:ChartTools.DrumsChordModifiers.Ghost">
             <summary>
             *Unsupported*
             </summary>
@@ -1199,22 +1187,22 @@
             <see cref="F:ChartTools.DrumsLane.Kick"/> that only appears when playing with multiple pedals
             </summary>
         </member>
-        <member name="T:ChartTools.GHLChordModifier">
+        <member name="T:ChartTools.GHLChordModifiers">
             <summary>
             Modifier that affects how a <see cref="T:ChartTools.GHLChord"/> can be played
             </summary>
         </member>
-        <member name="F:ChartTools.GHLChordModifier.None">
-            <inheritdoc cref="F:ChartTools.StandardChordModifier.None"/>
+        <member name="F:ChartTools.GHLChordModifiers.None">
+            <inheritdoc cref="F:ChartTools.StandardChordModifiers.None"/>
         </member>
-        <member name="F:ChartTools.GHLChordModifier.ExplicitHopo">
-            <inheritdoc cref="F:ChartTools.StandardChordModifier.ExplicitHopo"/>
+        <member name="F:ChartTools.GHLChordModifiers.ExplicitHopo">
+            <inheritdoc cref="F:ChartTools.StandardChordModifiers.ExplicitHopo"/>
         </member>
-        <member name="F:ChartTools.GHLChordModifier.HopoInvert">
-            <inheritdoc cref="F:ChartTools.StandardChordModifier.HopoInvert"/>
+        <member name="F:ChartTools.GHLChordModifiers.HopoInvert">
+            <inheritdoc cref="F:ChartTools.StandardChordModifiers.HopoInvert"/>
         </member>
-        <member name="F:ChartTools.GHLChordModifier.Tap">
-            <inheritdoc cref="F:ChartTools.StandardChordModifier.Tap"/>
+        <member name="F:ChartTools.GHLChordModifiers.Tap">
+            <inheritdoc cref="F:ChartTools.StandardChordModifiers.Tap"/>
         </member>
         <member name="T:ChartTools.GHLInstrumentIdentity">
             <summary>
@@ -1224,7 +1212,7 @@
         </member>
         <member name="T:ChartTools.GHLLane">
             <summary>
-            Frets for a GHL <see cref="T:ChartTools.Note"/>
+            Frets for a GHL <see cref="!:Note"/>
             </summary>
         </member>
         <member name="T:ChartTools.MidiInstrumentOrigin">
@@ -1237,28 +1225,28 @@
             All instruments
             </summary>
         </member>
-        <member name="T:ChartTools.StandardChordModifier">
+        <member name="T:ChartTools.StandardChordModifiers">
             <summary>
             Modifier that affects how a <see cref="T:ChartTools.StandardChord"/> can be played
             </summary>
             <remarks></remarks>
         </member>
-        <member name="F:ChartTools.StandardChordModifier.None">
+        <member name="F:ChartTools.StandardChordModifiers.None">
             <summary>
             No modifier
             </summary>
         </member>
-        <member name="F:ChartTools.StandardChordModifier.ExplicitHopo">
+        <member name="F:ChartTools.StandardChordModifiers.ExplicitHopo">
             <summary>
             The Hopo state is not relative to the previous chord.
             </summary>
         </member>
-        <member name="F:ChartTools.StandardChordModifier.HopoInvert">
+        <member name="F:ChartTools.StandardChordModifiers.HopoInvert">
             <summary>
-            Forced Hopo if <see cref="F:ChartTools.StandardChordModifier.ExplicitHopo"/> is set, otherwise inverts the natural state relative to the previous chord
+            Forced Hopo if <see cref="F:ChartTools.StandardChordModifiers.ExplicitHopo"/> is set, otherwise inverts the natural state relative to the previous chord
             </summary>
         </member>
-        <member name="F:ChartTools.StandardChordModifier.Tap">
+        <member name="F:ChartTools.StandardChordModifiers.Tap">
             <summary>
             The chord can be played without strumming
             </summary>
@@ -1281,7 +1269,7 @@
         </member>
         <member name="F:ChartTools.TrackSpecialPhraseType.Unknown">
             <summary>
-            The <see cref="P:ChartTools.TrackSpecialPhrase.TypeCode"/> is not a recognized phrase type
+            The <see cref="P:ChartTools.TrackSpecialPhrase.Type"/> is not a recognized phrase type
             </summary>
         </member>
         <member name="F:ChartTools.TrackSpecialPhraseType.StarPowerGain">
@@ -1418,23 +1406,23 @@
             </summary>
             <param name="reader">Reader to get the parsers from</param>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.ReadSong(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
-            <inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReadSong(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
+            <inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.ReadSongAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
-            <inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='path']"/></param>
-            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='cancellationToken']"/></param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='config']"/></param>
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReadSongAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
+            <inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='path']"/></param>
+            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='cancellationToken']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='config']"/></param>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.CreateInstrumentFromReader``1(ChartTools.IO.Chart.ChartFileReader)">
             <summary>
             Combines the results from the parsers in a <see cref="T:ChartTools.IO.Chart.ChartFileReader"/> into an instrument.
             </summary>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
             <summary>
             Reads an instrument from a chart file.
             </summary>
@@ -1444,11 +1432,11 @@
             <param name="path">Path of the file to read</param>
             <param name="instrument">Instrument to read</param>
             <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartFile.ReadDrums(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/exception"/>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/exception"/>
-            <inheritdoc cref="M:ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/exception"/>
+            <inheritdoc cref="M:ChartTools.IO.Chart.ChartFile.ReadDrums(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/exception"/>
+            <inheritdoc cref="M:ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/exception"/>
+            <inheritdoc cref="M:ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/exception"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.ReadDrums(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReadDrums(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
             <summary>
             Reads drums from a chart file.
             </summary>
@@ -1457,9 +1445,9 @@
             </returns>
             <param name="path">Path of the file to read</param>
             <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
-            <param name="formatting"><inheritdoc cref="T:ChartTools.Formatting.FormattingRules" path="/summary"/></param>
+            <param name="formatting"><inheritdoc cref="T:ChartTools.IO.Formatting.FormattingRules" path="/summary"/></param>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
             <summary>
             Reads a Guitar Hero Live instrument from a chart file.
             </summary>
@@ -1469,33 +1457,33 @@
             <param name="path">Path of the file to read</param>
             <inheritdoc cref="M:ChartTools.IO.Chart.ChartFile.GetGHLTrackParser(System.String,System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.Sessions.ReadingSession)" path="/exception"/>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
-            <inheritdoc cref="M:ChartTools.Instrument.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Instrument.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
-            <param name="instrument"><inheritdoc cref="M:ChartTools.Instrument.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='instrument']"/></param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Instrument.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
+            <inheritdoc cref="M:ChartTools.Instrument.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Instrument.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <param name="instrument"><inheritdoc cref="M:ChartTools.Instrument.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='instrument']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Instrument.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
-            <inheritdoc cref="M:ChartTools.Instrument.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Instrument.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='path']"/></param>
-            <param name="instrument"><inheritdoc cref="M:ChartTools.Instrument.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='instrument']"/></param>
-            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Instrument.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='cancellationToken']"/></param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Instrument.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='config']"/></param>
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
+            <inheritdoc cref="M:ChartTools.Instrument.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Instrument.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='path']"/></param>
+            <param name="instrument"><inheritdoc cref="M:ChartTools.Instrument.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='instrument']"/></param>
+            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Instrument.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='cancellationToken']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Instrument.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='config']"/></param>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.ReadTrack(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
-            <inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
-            <param name="instrument"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='instrument']"/></param>
-            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='difficulty']"/></param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReadTrack(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
+            <inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <param name="instrument"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='instrument']"/></param>
+            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='difficulty']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.ReadTrackAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
-            <inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='path']"/></param>
-            <param name="instrument"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='instrument']"/></param>
-            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='difficulty']"/></param>
-            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='cancellationToken']"/></param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='config']"/></param>
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReadTrackAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
+            <inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='path']"/></param>
+            <param name="instrument"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='instrument']"/></param>
+            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='difficulty']"/></param>
+            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='cancellationToken']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='config']"/></param>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetDrumsTrackParser(System.String,System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.Sessions.ReadingSession)">
             <summary>
@@ -1511,18 +1499,18 @@
             Headers for drums tracks
             </summary>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.ReadDrumsTrack(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
-            <inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
-            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='difficulty']"/></param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReadDrumsTrack(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
+            <inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='difficulty']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.ReadDrumsTrackAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
-            <inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='path']"/></param>
-            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='difficulty']"/></param>
-            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='cancellationToken']"/></param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='config']"/></param>
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReadDrumsTrackAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
+            <inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='path']"/></param>
+            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='difficulty']"/></param>
+            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='cancellationToken']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='config']"/></param>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetGHLTrackParser(System.String,System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.Sessions.ReadingSession)">
             <summary>
@@ -1539,20 +1527,20 @@
             Headers for GHL tracks
             </summary>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.ReadTrack(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
-            <inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='path']"/></param>
-            <param name="instrument"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='instrument']"/></param>
-            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='difficulty']"/></param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='config']"/></param>
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReadTrack(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
+            <inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='path']"/></param>
+            <param name="instrument"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='instrument']"/></param>
+            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='difficulty']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='config']"/></param>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.ReadTrackAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
-            <inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='path']"/></param>
-            <param name="instrument"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='instrument']"/></param>
-            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='difficulty']"/></param>
-            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='cancellationToken']"/></param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='config']"/></param>
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReadTrackAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
+            <inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='path']"/></param>
+            <param name="instrument"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='instrument']"/></param>
+            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='difficulty']"/></param>
+            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='cancellationToken']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='config']"/></param>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetStandardTrackParser(System.String,System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.Sessions.ReadingSession)">
             <summary>
@@ -1569,20 +1557,20 @@
             Headers for standard tracks
             </summary>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.ReadTrack(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
-            <inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
-            <param name="instrument"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='instrument']"/></param>
-            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='difficulty']"/></param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReadTrack(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
+            <inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <param name="instrument"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='instrument']"/></param>
+            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='difficulty']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.ReadTrackAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
-            <inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='path']"/></param>
-            <param name="instrument"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='instrument']"/></param>
-            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='difficulty']"/></param>
-            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='cancellationToken']"/></param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='config']"/></param>
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReadTrackAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
+            <inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)"/>
+            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='path']"/></param>
+            <param name="instrument"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='instrument']"/></param>
+            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='difficulty']"/></param>
+            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='cancellationToken']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@name='config']"/></param>
             <returns></returns>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.ReadMetadata(System.String)">
@@ -1626,7 +1614,7 @@
             Creates a <see cref="T:ChartTools.IO.Chart.Parsing.SyncTrackParser"/> if the header matches the sync track header, otherwise <see langword="null"/>.
             </summary>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.ReadSyncTrack(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReadSyncTrack(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
             <inheritdoc cref="M:ChartTools.SyncTrack.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration)"/>
             <param name="path"><inheritdoc cref="M:ChartTools.SyncTrack.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration)" path="/param[@name='path']"/></param>
             <param name="config"><inheritdoc cref="M:ChartTools.SyncTrack.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration)" path="/param[@name='config']"/></param>
@@ -1644,7 +1632,7 @@
             <param name="path">Path of the file to write</param>
             <param name="song">Song to write</param>
         </member>
-        <member name="M:ChartTools.IO.Chart.ChartFile.ReplaceInstrument(System.String,ChartTools.Instrument,ChartTools.IO.Configuration.WritingConfiguration,ChartTools.Formatting.FormattingRules)">
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReplaceInstrument(System.String,ChartTools.Instrument,ChartTools.IO.Configuration.WritingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
             <summary>
             Replaces an instrument in a file.
             </summary>
@@ -1670,6 +1658,10 @@
             </summary>
             <param name="path">Path of the file to write</param>
             <param name="syncTrack">Sync track to write</param>
+            <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
+        </member>
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReplaceSyncTrackAsync(System.String,ChartTools.SyncTrack,ChartTools.IO.Configuration.WritingConfiguration,System.Threading.CancellationToken)">
+            <inheritdoc cref="M:ChartTools.IO.Chart.ChartFile.ReplaceSyncTrack(System.String,ChartTools.SyncTrack,ChartTools.IO.Configuration.WritingConfiguration)"/>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetTrackCombinations``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>
@@ -1691,9 +1683,9 @@
             <summary>
             Gets the written data for a note.
             </summary>
-            <param name="position">Position of the parent <see cref="T:ChartTools.Chord"/></param>
-            <param name="index">Value of <see cref="P:ChartTools.Note.NoteIndex"/></param>
-            <param name="sustain">Value of <see cref="P:ChartTools.Note.Length"/></param>
+            <param name="position">Position of the parent <see cref="T:ChartTools.LaneChord"/></param>
+            <param name="index">Value of <see cref="!:LaneNote.Index"/></param>
+            <param name="sustain">Value of <see cref="!:LaneNote.Length"/></param>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFormatting.Float(System.Single)">
             <summary>
@@ -1709,17 +1701,17 @@
         </member>
         <member name="T:ChartTools.IO.Chart.Entries.NoteData">
             <summary>
-            Line of chart data representing a <see cref="T:ChartTools.Note"/>
+            Line of chart data representing a <see cref="T:ChartTools.LaneNote`1"/>
             </summary>
         </member>
-        <member name="P:ChartTools.IO.Chart.Entries.NoteData.NoteIndex">
+        <member name="P:ChartTools.IO.Chart.Entries.NoteData.Index">
             <summary>
-            Value of <see cref="P:ChartTools.Note.NoteIndex"/>
+            Value of <see cref="P:ChartTools.LaneNote`1.Index"/>
             </summary>
         </member>
         <member name="P:ChartTools.IO.Chart.Entries.NoteData.SustainLength">
             <summary>
-            Value of <see cref="P:ChartTools.Note.Length"/>
+            Value of <see cref="P:ChartTools.LaneNote`1.Length"/>
             </summary>
         </member>
         <member name="M:ChartTools.IO.Chart.Entries.NoteData.#ctor(System.String)">
@@ -1731,17 +1723,17 @@
         </member>
         <member name="T:ChartTools.IO.Chart.Entries.TrackObjectEntry">
             <summary>
-            Line of chart file data representing a <see cref="T:ChartTools.TrackObject"/>
+            Line of chart file data representing a <see cref="T:ChartTools.TrackObjectBase"/>
             </summary>
         </member>
         <member name="P:ChartTools.IO.Chart.Entries.TrackObjectEntry.Position">
             <summary>
-            Value of <see cref="P:ChartTools.TrackObject.Position"/>
+            Value of <see cref="P:ChartTools.ITrackObject.Position"/>
             </summary>
         </member>
         <member name="P:ChartTools.IO.Chart.Entries.TrackObjectEntry.Type">
             <summary>
-            Type code of <see cref="T:ChartTools.TrackObject"/>
+            Type code of <see cref="T:ChartTools.ITrackObject"/>
             </summary>
         </member>
         <member name="P:ChartTools.IO.Chart.Entries.TrackObjectEntry.Data">
@@ -1756,87 +1748,189 @@
             <param name="line">Line in the file</param>
             <exception cref="T:System.FormatException"/>
         </member>
+        <member name="T:ChartTools.IO.Formatting.FormattingRules">
+            <summary>
+            Rules defined in song.ini that affect how the song data file is read and written
+            </summary>
+            <remarks>Property summaries provided by Nathan Hurst.</remarks>
+        </member>
+        <member name="P:ChartTools.IO.Formatting.FormattingRules.Resolution">
+            <summary>
+            Number of <see cref="P:ChartTools.ITrackObject.Position"/> values per beat
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Formatting.FormattingRules.SustainCutoff">
+            <summary>
+            Overrides the default sustain cutoff threshold with the specified number of ticks.
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Formatting.FormattingRules.HopoFrequency">
+            <summary>
+            Overrides the natural HOPO threshold with the specified number of ticks.
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Formatting.FormattingRules.HopoFrequencyStep">
+            <summary>
+            (FoFiX) Overrides the natural HOPO threshold using numbers from 0 to 5.
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Formatting.FormattingRules.ForceEightHopoFrequency">
+            <summary>
+            (FoFiX) Overrides the natural HOPO threshold to be a 1/8th step.
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Formatting.FormattingRules.MultiplierNote">
+            <summary>
+            Overrides the Star Power phrase MIDI note for .mid charts.
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Formatting.FormattingRules.StarPowerNote">
+            <summary>
+            (PhaseShift) Overrides the Star Power phrase MIDI note for .mid charts.
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Formatting.FormattingRules.SysExSliders">
+            <summary>
+            (PhaseShift) Indicates if the chart uses SysEx events for sliders/tap notes.
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Formatting.FormattingRules.SysExHighHat">
+            <summary>
+            (PhaseShift) Indicates if the chart uses SysEx events for Drums Real hi-hat pedal control.
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Formatting.FormattingRules.SysExRimshot">
+            <summary>
+            (PhaseShift) Indicates if the chart uses SysEx events for Drums Real rimshot hits.
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Formatting.FormattingRules.SysExOpenBass">
+            <summary>
+            (PhaseShift) Indicates if the chart uses SysEx events for open notes.
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Formatting.FormattingRules.SysexProSlide">
+            <summary>
+            (PhaseShift) Indicates if the chart uses SysEx events for Pro Guitar/Bass slide directions.
+            </summary>
+        </member>
         <member name="T:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy">
             <summary>
-            Defines how duplicate track objects are handled
+            Defines how duplicate track objects are handled.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.ThrowException">
             <summary>
-            Throw an exception
+            Throw an exception with the position.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.IncludeFirst">
             <summary>
-            Only include the first object
+            Include only the first object
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.IncludeAll">
             <summary>
-            Include all objects
+            Include all objects.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.LyricEventSource">
             <summary>
-            Where to get lyric data from for formats that store lyrics as events
+            Define where lyrics are obtained when writing a format that defines lyrics as events.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.LyricEventSource.GlobalEvents">
             <summary>
-            Lyrics are obtained from global events
+            Obtain lyrics from <see cref="P:ChartTools.Song.GlobalEvents"/>.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.LyricEventSource.Vocals">
             <summary>
-            Lyrics are obtained from the <see cref="P:ChartTools.InstrumentSet.Vocals"/> instrument
+            Obtain lyrics from the <see cref="P:ChartTools.InstrumentSet.Vocals"/> instrument.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy">
             <summary>
-            Defines how overlapping star power phrases should be handled
+            Defines how overlapping star power phrases should be handled.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy.ThrowException">
+            <summary>
+            Throw an exception.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy.Ignore">
+            <summary>
+            Ignore the overlapping phrase.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy.Cut">
             <summary>
-            The length of the phrase is cut short to the start of the next one
+            Cut the length of the first phrase to the start of the next one.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.TempolessAnchorPolicy">
             <summary>
-            Defines how a tempo anchor with no parent marker is handled
+            Defines how a tempo anchor with no parent marker is handled.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.TempolessAnchorPolicy.ThrowException">
+            <summary>
+            Throw an exception.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.TempolessAnchorPolicy.Ignore">
+            <summary>
+            Ignore the anchor.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.TempolessAnchorPolicy.Create">
+            <summary>
+            Create a tempo marker with the anchor.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.SnappedNotesPolicy">
             <summary>
-            Defines how notes within ticks of each other are handled during a Midi operation
+            Defines how notes within ticks of each other are handled during a Midi operation.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.SnappedNotesPolicy.ThrowException">
+            <summary>
+            Throw an exception.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.SnappedNotesPolicy.Snap">
             <summary>
-            Notes are combines as a single chord at the position of the earlier note
+            Combine the notes as a single chord at the position of the earlier note.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.SnappedNotesPolicy.Ignore">
             <summary>
-            Each note is left as its own chord
+            Leave each note as its own chord.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy">
             <summary>
             Defines how <see cref="F:ChartTools.Events.EventTypeHelper.Local.Solo"/> or <see cref="F:ChartTools.Events.EventTypeHelper.Local.SoloEnd"/> events are handled when there are no star power phrases.
             </summary>
+            <remarks><see cref="F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.StoreAsEvents"/> is always used when star power phrases are present.</remarks>
         </member>
-        <member name="F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.Ignore">
+        <member name="F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.StoreAsEvents">
             <summary>
-            Store the events under <see cref="P:ChartTools.Track.LocalEvents"/>
+            Store the events under <see cref="P:ChartTools.Track.LocalEvents"/>.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.Convert">
             <summary>
-            Convert the space between the <see cref="F:ChartTools.Events.EventTypeHelper.Local.Solo"/> and <see cref="F:ChartTools.Events.EventTypeHelper.Local.SoloEnd"/>
+            Convert the space between the <see cref="F:ChartTools.Events.EventTypeHelper.Local.Solo"/> and <see cref="F:ChartTools.Events.EventTypeHelper.Local.SoloEnd"/> event to a star power phrase.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:ChartTools.IO.Configuration.TrackObjectSource" -->
+        <member name="T:ChartTools.IO.Configuration.TrackObjectSource">
+            <summary>
+            Difficulty of the <see cref="T:ChartTools.Track"/> to serve as a source of for track objects for which the target format requires these objects to be the same across all difficulties.
+            </summary>
+            <remarks>Can be cast from <see cref="T:ChartTools.Difficulty"/>.</remarks>
+        </member>
         <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Easy">
             <summary>
             Use the objects from the <see cref="F:ChartTools.Difficulty.Easy"/> track.
@@ -2014,12 +2108,12 @@
         </member>
         <member name="M:ChartTools.IO.Ini.IniFile.ReadMetadata(System.String,ChartTools.Metadata)">
             <inheritdoc cref="M:ChartTools.Metadata.FromFile(System.String)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
             <returns>A new instance of <see cref="T:ChartTools.Metadata"/> if <paramref name="existing"/> is <see langword="null"/>, otherwise the same reference.</returns>
         </member>
         <member name="M:ChartTools.IO.Ini.IniFile.ReadMetadataAsync(System.String,ChartTools.Metadata,System.Threading.CancellationToken)">
             <inheritdoc cref="M:ChartTools.Metadata.FromFile(System.String)"/>
-            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
             <returns>A new instance of <see cref="T:ChartTools.Metadata"/> if <paramref name="existing"/> is <see langword="null"/>, otherwise the same reference.</returns>
         </member>
         <member name="M:ChartTools.IO.Ini.IniFile.WriteMetadata(System.String,ChartTools.Metadata)">
@@ -2120,76 +2214,8 @@
             </summary>
             <returns>Instance of <see cref="T:System.Exception"/> to throw</returns>
         </member>
-        <member name="T:ChartTools.Formatting.FormattingRules">
-            <summary>
-            Rules defined in song.ini that affect how the song data file is read and written
-            </summary>
-            <remarks>Property summaries provided by Nathan Hurst.</remarks>
-        </member>
-        <member name="P:ChartTools.Formatting.FormattingRules.Resolution">
-            <summary>
-            Number of <see cref="P:ChartTools.TrackObject.Position"/> values per beat
-            </summary>
-        </member>
-        <member name="P:ChartTools.Formatting.FormattingRules.SustainCutoff">
-            <summary>
-            Overrides the default sustain cutoff threshold with the specified number of ticks.
-            </summary>
-        </member>
-        <member name="P:ChartTools.Formatting.FormattingRules.HopoFrequency">
-            <summary>
-            Overrides the natural HOPO threshold with the specified number of ticks.
-            </summary>
-        </member>
-        <member name="P:ChartTools.Formatting.FormattingRules.HopoFrequencyStep">
-            <summary>
-            (FoFiX) Overrides the natural HOPO threshold using numbers from 0 to 5.
-            </summary>
-        </member>
-        <member name="P:ChartTools.Formatting.FormattingRules.ForceEightHopoFrequency">
-            <summary>
-            (FoFiX) Overrides the natural HOPO threshold to be a 1/8th step.
-            </summary>
-        </member>
-        <member name="P:ChartTools.Formatting.FormattingRules.MultiplierNote">
-            <summary>
-            Overrides the Star Power phrase MIDI note for .mid charts.
-            </summary>
-        </member>
-        <member name="P:ChartTools.Formatting.FormattingRules.StarPowerNote">
-            <summary>
-            (PhaseShift) Overrides the Star Power phrase MIDI note for .mid charts.
-            </summary>
-        </member>
-        <member name="P:ChartTools.Formatting.FormattingRules.SysExSliders">
-            <summary>
-            (PhaseShift) Indicates if the chart uses SysEx events for sliders/tap notes.
-            </summary>
-        </member>
-        <member name="P:ChartTools.Formatting.FormattingRules.SysExHighHat">
-            <summary>
-            (PhaseShift) Indicates if the chart uses SysEx events for Drums Real hi-hat pedal control.
-            </summary>
-        </member>
-        <member name="P:ChartTools.Formatting.FormattingRules.SysExRimshot">
-            <summary>
-            (PhaseShift) Indicates if the chart uses SysEx events for Drums Real rimshot hits.
-            </summary>
-        </member>
-        <member name="P:ChartTools.Formatting.FormattingRules.SysExOpenBass">
-            <summary>
-            (PhaseShift) Indicates if the chart uses SysEx events for open notes.
-            </summary>
-        </member>
-        <member name="P:ChartTools.Formatting.FormattingRules.SysexProSlide">
-            <summary>
-            (PhaseShift) Indicates if the chart uses SysEx events for Pro Guitar/Bass slide directions.
-            </summary>
-        </member>
         <member name="P:ChartTools.ILongObject.Length">
-            <summary>
-            Length of the object in ticks
-            </summary>
+            <inheritdoc cref="P:ChartTools.IReadOnlyTrackObject.Position"/>
         </member>
         <member name="T:ChartTools.Instrument">
             <summary>
@@ -2216,7 +2242,7 @@
         </member>
         <member name="P:ChartTools.Instrument.SpecialPhrases">
             <summary>
-            Set of special phrases
+            Set of special phrases applied to all difficulties
             </summary>
         </member>
         <member name="M:ChartTools.Instrument.GetDifficulty(ChartTools.InstrumentDifficultySet)">
@@ -2282,7 +2308,7 @@
             Gives all tracks the same star power
             </summary>
         </member>
-        <member name="M:ChartTools.Instrument.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
+        <member name="M:ChartTools.Instrument.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
             <summary>
             Reads an instrument from a file.
             </summary>
@@ -2290,41 +2316,41 @@
             <param name="instrument">Instrument to read</param>
             <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
         </member>
-        <member name="M:ChartTools.Instrument.FromFileAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
+        <member name="M:ChartTools.Instrument.FromFileAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
             <summary>
             Reads an instrument from a file asynchronously using multitasking.
             </summary>
-            <param name="path"><inheritdoc cref="M:ChartTools.Instrument.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
-            <param name="instrument"><inheritdoc cref="M:ChartTools.Instrument.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='instrument']"/></param>
-            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Instrument.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='cancellationToken']"/></param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Instrument.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
+            <param name="path"><inheritdoc cref="M:ChartTools.Instrument.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <param name="instrument"><inheritdoc cref="M:ChartTools.Instrument.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='instrument']"/></param>
+            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Instrument.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='cancellationToken']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Instrument.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
         </member>
-        <member name="M:ChartTools.Instrument.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
+        <member name="M:ChartTools.Instrument.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
             <summary>
             Reads drums from a file.
             </summary>
         </member>
-        <member name="M:ChartTools.Instrument.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
+        <member name="M:ChartTools.Instrument.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
             <summary>
             Reads drums from a file asynchronously using multitasking.
             </summary>
         </member>
-        <member name="M:ChartTools.Instrument.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
+        <member name="M:ChartTools.Instrument.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
             <summary>
             Reads a GHL instrument from a file.
             </summary>
         </member>
-        <member name="M:ChartTools.Instrument.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
+        <member name="M:ChartTools.Instrument.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
             <summary>
             Reads a GHL instrument from a file asynchronously using multitasking.
             </summary>
         </member>
-        <member name="M:ChartTools.Instrument.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
+        <member name="M:ChartTools.Instrument.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
             <summary>
             Reads a standard instrument from a file.
             </summary>
         </member>
-        <member name="M:ChartTools.Instrument.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
+        <member name="M:ChartTools.Instrument.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
             <summary>
             Reads a standard instrument from a file asynchronously using multitasking.
             </summary>
@@ -2373,6 +2399,74 @@
             <exception cref="T:System.ArgumentNullException"/>
             <exception cref="T:ChartTools.UndefinedEnumException"/>
         </member>
+        <member name="P:ChartTools.IReadOnlyLongObject.Length">
+            <summary>
+            Length of the object in ticks
+            </summary>
+        </member>
+        <member name="P:ChartTools.INote.Index">
+            <summary>
+            Numerical value of the note identity
+            </summary>
+        </member>
+        <member name="T:ChartTools.LaneNote`1">
+            <summary>
+            Base class for notes
+            </summary>
+        </member>
+        <member name="P:ChartTools.LaneNote`1.Length">
+            <summary>
+            Maximum length the note can be held for extra points (sustain)
+            </summary>
+        </member>
+        <member name="P:ChartTools.LaneNoteCollection`2.OpenExclusivity">
+            <summary>
+            If <see langword="true"/>, trying to combine an open note with other notes will remove the current ones.
+            </summary>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Add(`0)">
+            <summary>
+            Adds a note to the <see cref="T:ChartTools.LaneNoteCollection`2"/>.
+            </summary>
+            <remarks>Adding a note that already exists will overwrite the existing note.
+                <para>If <see cref="P:ChartTools.LaneNoteCollection`2.OpenExclusivity"/> is <see langword="true"/>, combining an open note with other notes will remove the current ones.</para>
+            </remarks>
+            <param name="note">Note to add</param>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Contains(`0)">
+            <summary>
+            Determines if any note matches the lane of a given note.
+            </summary>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Contains(`1)">
+            <summary>
+            Determines if any note matches a given lane.
+            </summary>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Contains(System.Byte)">
+            <summary>
+            Determines if any note matches a given index.
+            </summary>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Remove(`0)">
+            <summary>
+            Removes the note that matches the lane of a given note.
+            </summary>
+            <returns><see langword="true"/> if a matching note was found.</returns>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Remove(`1)">
+            <summary>
+            Removes the note that matches a given lane.
+            </summary>
+            <returns><see langword="true"/> if a matching note was found.</returns>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Remove(System.Byte)">
+            <summary>
+            Removes the note that matches a given index.
+            </summary>
+            <returns><see langword="true"/> if a matching note was found.</returns>
+        </member>
         <member name="T:ChartTools.InstrumentSpecialPhrase">
             <summary>
             Phrase related to an instrument that triggers an in-game event.
@@ -2383,22 +2477,41 @@
             Type of the phrase that drives the gameplay effect
             </summary>
         </member>
-        <member name="P:ChartTools.InstrumentSpecialPhrase.TypeCode">
-            <summary>
-            Numerical value of the phrase type
-            </summary>
-        </member>
         <member name="M:ChartTools.InstrumentSpecialPhrase.#ctor(System.UInt32,ChartTools.InstrumentSpecialPhraseType,System.UInt32)">
             <summary>
             Creates an instance of <see cref="T:ChartTools.InstrumentSpecialPhrase"/>.
             </summary>
-            <param name="position">Position of the phrase</param>
             <param name="type">Effect of the phrase</param>
-            <param name="length">Duration in ticks</param>
+            <inheritdoc cref="M:ChartTools.SpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)"/>
         </member>
         <member name="M:ChartTools.InstrumentSpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)">
+            <summary>
             <inheritdoc cref="M:ChartTools.InstrumentSpecialPhrase.#ctor(System.UInt32,ChartTools.InstrumentSpecialPhraseType,System.UInt32)"/>
-            <param name="typeCode">Numeric value of the phrase type. Can be used to define custom phrases.</param>
+            </summary>
+            <inheritdoc cref="M:ChartTools.SpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)"/>
+        </member>
+        <member name="T:ChartTools.SpecialPhrase">
+            <summary>
+            Base class for phrases that define an in-game event with a duration such as star power.
+            </summary>
+        </member>
+        <member name="P:ChartTools.SpecialPhrase.TypeCode">
+            <summary>
+            Numerical value of the phrase type
+            </summary>
+        </member>
+        <member name="P:ChartTools.SpecialPhrase.Length">
+            <summary>
+            Duration of the phrase in ticks
+            </summary>
+        </member>
+        <member name="M:ChartTools.SpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)">
+            <summary>
+            Base constructor of special phrases.
+            </summary>
+            <param name="position">Position of the phrase</param>
+            <param name="typeCode">Effect of the phrase</param>
+            <param name="length">Duration in ticks</param>
         </member>
         <member name="T:ChartTools.TrackSpecialPhrase">
             <summary>
@@ -2410,22 +2523,18 @@
             Type of the phrase that drives the gameplay effect
             </summary>
         </member>
-        <member name="P:ChartTools.TrackSpecialPhrase.TypeCode">
-            <summary>
-            Numerical value of the phrase type
-            </summary>
-        </member>
         <member name="M:ChartTools.TrackSpecialPhrase.#ctor(System.UInt32,ChartTools.TrackSpecialPhraseType,System.UInt32)">
             <summary>
             Creates an instance of <see cref="T:ChartTools.TrackSpecialPhrase"/>.
             </summary>
-            <param name="position">Position of the phrase</param>
             <param name="type">Effect of the phrase</param>
-            <param name="length">Duration in ticks</param>
+            <inheritdoc cref="M:ChartTools.SpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)"/>
         </member>
         <member name="M:ChartTools.TrackSpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)">
+            <summary>
             <inheritdoc cref="M:ChartTools.TrackSpecialPhrase.#ctor(System.UInt32,ChartTools.TrackSpecialPhraseType,System.UInt32)"/>
-            <param name="typeCode">Numeric value of the phrase type. Can be used to define custom phrases.</param>
+            </summary>
+            <inheritdoc cref="M:ChartTools.SpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)"/>
         </member>
         <member name="T:ChartTools.Tools.PropertyMerger">
             <summary>
@@ -2446,7 +2555,7 @@
             Provides methods for simplifying songs
             </summary>
         </member>
-        <member name="M:ChartTools.Tools.Optimizer.CutSustains(System.Collections.Generic.IEnumerable{ChartTools.Chord})">
+        <member name="M:ChartTools.Tools.Optimizer.CutSustains(System.Collections.Generic.IEnumerable{ChartTools.LaneChord})">
             <summary>
             Cuts short sustains that exceed the position of the next identical note.
             </summary>
@@ -2498,7 +2607,7 @@
             <param name="tempo">Marker to rescale</param>
             <param name="scale">Positive number where 1 is the current scale.</param>
         </member>
-        <member name="M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.Chord,System.Single)">
+        <member name="M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.IChord,System.Single)">
             <summary>
             Rescales the position of a chord and sustain of its notes.
             </summary>
@@ -2533,14 +2642,16 @@
             <param name="song">Source of objects</param>
             <param name="scale">Positive number where 1 is the current scale.</param>
         </member>
+        <member name="T:ChartTools.IReadOnlyTrackObject">
+            <summary>
+            Object located on a track
+            </summary>
+        </member>
         <member name="P:ChartTools.IReadOnlyTrackObject.Position">
             <summary>
             Tick number on the track.
             </summary>
-            <remarks>A tick represents a subdivision of a beat. The number of subdivisions per beat is stored in <see cref="P:ChartTools.Formatting.FormattingRules.Resolution"/>.</remarks>
-        </member>
-        <member name="M:ChartTools.LongTrackObject.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.TrackObject.#ctor(System.UInt32)"/>
+            <remarks>A tick represents a subdivision of a beat. The number of subdivisions per beat is stored in <see cref="P:ChartTools.IO.Formatting.FormattingRules.Resolution"/>.</remarks>
         </member>
         <member name="T:ChartTools.InstrumentDifficultySet">
             <summary>
@@ -2671,6 +2782,9 @@
             Tick number marking the end of the object
             </summary>
         </member>
+        <member name="T:ChartTools.ITrackObject">
+            <inheritdoc cref="T:ChartTools.IReadOnlyTrackObject"/>
+        </member>
         <member name="P:ChartTools.ITrackObject.Position">
             <inheritdoc cref="P:ChartTools.IReadOnlyTrackObject.Position"/>
         </member>
@@ -2788,7 +2902,7 @@
             </summary>
         </member>
         <member name="P:ChartTools.Metadata.Formatting">
-            <inheritdoc cref="T:ChartTools.Formatting.FormattingRules"/>
+            <inheritdoc cref="T:ChartTools.IO.Formatting.FormattingRules"/>
         </member>
         <member name="P:ChartTools.Metadata.UnidentifiedData">
             <summary>
@@ -2835,61 +2949,6 @@
             Determines if the note is played by kicking
             </summary>
         </member>
-        <member name="T:ChartTools.Note">
-            <summary>
-            Base class for notes
-            </summary>
-        </member>
-        <member name="P:ChartTools.Note.NoteIndex">
-            <summary>
-            Numerical value of the note as written in a chart file
-            </summary>
-        </member>
-        <member name="P:ChartTools.Note.Length">
-            <summary>
-            Maximum length the note can be held for extra points (sustain)
-            </summary>
-        </member>
-        <member name="P:ChartTools.LaneNoteCollection`2.OpenExclusivity">
-            <summary>
-            If <see langword="true"/>, trying to combine an open note with other notes will remove the current ones.
-            </summary>
-        </member>
-        <member name="M:ChartTools.LaneNoteCollection`2.Add(`0)">
-            <summary>
-            Adds a note to the <see cref="T:ChartTools.NoteCollection`2"/>.
-            </summary>
-            <remarks>Adding a note that already exists will overwrite the existing note.
-                <para>If <see cref="P:ChartTools.LaneNoteCollection`2.OpenExclusivity"/> is <see langword="true"/>, combining an open note with other notes will remove the current ones.</para>
-            </remarks>
-            <param name="item">Item to add</param>
-        </member>
-        <member name="T:ChartTools.NoteCollection`2">
-            <summary>
-            Set of notes played simultaneously
-            </summary>
-        </member>
-        <member name="M:ChartTools.NoteCollection`2.Add(`0)">
-            <summary>Adds a note to the collection.</summary>
-            <exception cref="T:System.ArgumentNullException"/>
-        </member>
-        <member name="M:ChartTools.NoteCollection`2.Contains(`0)">
-            <summary>
-            Determines if a note is contained in the collection.
-            </summary>
-            <exception cref="T:System.ArgumentNullException"/>
-        </member>
-        <member name="M:ChartTools.NoteCollection`2.Remove(`0)">
-            <summary>
-            Removes a note from the collection.
-            </summary>
-            <exception cref="T:System.ArgumentNullException"/>
-        </member>
-        <member name="P:ChartTools.NoteCollection`2.Item(`1)">
-            <summary>
-            Gets the note matching a lane.
-            </summary>
-        </member>
         <member name="T:ChartTools.Song">
             <summary>
             Song playable in Clone Hero
@@ -2901,7 +2960,7 @@
             </summary>
         </member>
         <member name="P:ChartTools.Song.Formatting">
-            <inheritdoc cref="T:ChartTools.Formatting.FormattingRules"/>
+            <inheritdoc cref="T:ChartTools.IO.Formatting.FormattingRules"/>
         </member>
         <member name="P:ChartTools.Song.SyncTrack">
             <inheritdoc cref="T:ChartTools.SyncTrack"/>
@@ -2914,20 +2973,20 @@
         <member name="P:ChartTools.Song.Instruments">
             <inheritdoc cref="T:ChartTools.InstrumentSet"/>
         </member>
-        <member name="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
+        <member name="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
             <summary>
             Reads all elements of a <see cref="T:ChartTools.Song"/> from a file.
             </summary>
             <param name="path">Path of the file</param>
             <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
-            <param name="formatting"><inheritdoc cref="T:ChartTools.Formatting.FormattingRules" path="/summary"/></param>
+            <param name="formatting"><inheritdoc cref="T:ChartTools.IO.Formatting.FormattingRules" path="/summary"/></param>
         </member>
-        <member name="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
+        <member name="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
             <summary>
             Reads all elements of a <see cref="T:ChartTools.Song"/> from a file asynchronously using multitasking.
             </summary>
-            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='config']"/></param>        /// <param name="formatting"><inheritdoc cref="T:ChartTools.Formatting.FormattingRules" path="/summary"/></param>
+            <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Song.FromFile(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='config']"/></param>        /// <param name="formatting"><inheritdoc cref="T:ChartTools.IO.Formatting.FormattingRules" path="/summary"/></param>
             <param name="cancellationToken">Token to request cancellation</param>
         </member>
         <member name="M:ChartTools.Song.ToFile(System.String,ChartTools.IO.Configuration.WritingConfiguration)">
@@ -3027,20 +3086,9 @@
             <summary>
             Creates an instance of <see cref="T:ChartTools.TimeSignature"/>.
             </summary>
-            <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
+            <param name="position">Value of <see cref="P:ChartTools.TrackObjectBase.Position"/></param>
             <param name="numerator">Value of <see cref="P:ChartTools.TimeSignature.Numerator"/></param>
             <param name="denominator">Value of <see cref="P:ChartTools.TimeSignature.Denominator"/></param>
-        </member>
-        <member name="T:ChartTools.TrackObject">
-            <summary>
-            Object located on a track
-            </summary>
-        </member>
-        <member name="P:ChartTools.TrackObject.Position">
-            <inheritdoc cref="P:ChartTools.ITrackObject.Position"/>
-        </member>
-        <member name="M:ChartTools.TrackObject.#ctor(System.UInt32)">
-            <param name="position">Position of the object</param>
         </member>
         <member name="T:ChartTools.Track">
             <summary>
@@ -3075,7 +3123,7 @@
             Groups of notes of the same position
             </summary>
         </member>
-        <member name="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
+        <member name="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
             <summary>
             Reads a track from a file.
             </summary>
@@ -3083,39 +3131,39 @@
             <param name="instrument">Instrument of the track</param>
             <param name="difficulty">Difficulty of the track</param>
             <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
-            <param name="formatting"><inheritdoc cref="T:ChartTools.Formatting.FormattingRules" path="/summary"/></param>
+            <param name="formatting"><inheritdoc cref="T:ChartTools.IO.Formatting.FormattingRules" path="/summary"/></param>
         </member>
-        <member name="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
+        <member name="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
             <summary>
             Reads a track from a file asynchronously using multitasking.
             </summary>
-            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
-            <param name="instrument"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='instrument']"/></param>
-            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='difficulty']"/></param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
-            <param name="formatting"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='formatting']"/></param>
+            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <param name="instrument"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='instrument']"/></param>
+            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='difficulty']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
+            <param name="formatting"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='formatting']"/></param>
             <param name="cancellationToken">Token to request cancellation</param>
         </member>
-        <member name="M:ChartTools.Track.FromFile(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
+        <member name="M:ChartTools.Track.FromFile(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
             <summary>
             Reads a drums track from a file.
             </summary>
             <param name="path">Path of the file</param>
             <param name="difficulty">Difficulty of the track</param>
             <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
-            <param name="formatting"><inheritdoc cref="T:ChartTools.Formatting.FormattingRules" path="/summary"/></param>
+            <param name="formatting"><inheritdoc cref="T:ChartTools.IO.Formatting.FormattingRules" path="/summary"/></param>
         </member>
-        <member name="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
+        <member name="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
             <summary>
             Reads a drums track from a file asynchronously using multitasking.
             </summary>
-            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
-            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='difficulty']"/></param>
+            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='difficulty']"/></param>
             <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
-            <param name="formatting"><inheritdoc cref="T:ChartTools.Formatting.FormattingRules" path="/summary"/></param>
+            <param name="formatting"><inheritdoc cref="T:ChartTools.IO.Formatting.FormattingRules" path="/summary"/></param>
             <param name="cancellationToken">Token to request cancellation</param>
         </member>
-        <member name="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
+        <member name="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
             <summary>
             Reads a GHL track from a file.
             </summary>
@@ -3123,20 +3171,21 @@
             <param name="instrument">GHL instrument of the track</param>
             <param name="difficulty">Difficulty of the track</param>
             <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
-            <param name="formatting"><inheritdoc cref="T:ChartTools.Formatting.FormattingRules" path="/summary"/></param>
+            <param name="formatting"><inheritdoc cref="T:ChartTools.IO.Formatting.FormattingRules" path="/summary"/></param>
         </member>
-        <member name="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
+        <member name="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
             <summary>
             Reads a GHL track from a file asynchronously using multitasking.
             </summary>
-            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
-            <param name="instrument"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='instrument']"/></param>
-            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='difficulty']"/></param>
-            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='cancellationToken']"/></param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
+            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <param name="instrument"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='instrument']"/></param>
+            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='difficulty']"/></param>
+            <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='cancellationToken']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
+            <param name="formatting"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='formatting']"/></param>
             <returns></returns>
         </member>
-        <member name="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)">
+        <member name="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
             <summary>
             Reads a standard track from a file.
             </summary>
@@ -3145,19 +3194,40 @@
             <param name="difficulty">Difficulty of the track</param>
             <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
         </member>
-        <member name="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules,System.Threading.CancellationToken)">
+        <member name="M:ChartTools.Track.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
             <summary>
             Reads a track from a file asynchronously using multitasking.
             </summary>
-            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
-            <param name="instrument"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='instrument']"/></param>
-            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='difficulty']"/></param>
+            <param name="path"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='path']"/></param>
+            <param name="instrument"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='instrument']"/></param>
+            <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='difficulty']"/></param>
             <param name="cancellationToken">Token to request cancellation</param>
-            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
+            <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
         </member>
         <member name="T:ChartTools.Track`1">
             <summary>
             Set of chords for a instrument at a certain difficulty
+            </summary>
+        </member>
+        <member name="P:ChartTools.Track`1.Chords">
+            <summary>
+            Chords making up the difficulty track.
+            </summary>
+        </member>
+        <member name="P:ChartTools.Track`1.ParentInstrument">
+            <summary>
+            Instrument the track is held in.
+            </summary>
+        </member>
+        <member name="M:ChartTools.Track`1.GetChords">
+            <summary>
+            Gets the chords as a read-only list of the base interface.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ChartTools.Track`1.GetInstrument">
+            <summary>
+            Gets the parent instrument as an instance of the base type.
             </summary>
         </member>
         <member name="T:ChartTools.UniqueTrackObjectCollection`1">
