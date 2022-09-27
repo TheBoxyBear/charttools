@@ -121,7 +121,7 @@ namespace ChartTools.IO.Ini
                     break;
                 default:
                     if (entry.Value is not null)
-                        result.UnidentifiedData.Add(new() { Key = entry.Key, Value = entry.Value, Origin = FileFormat.Ini });
+                        result.UnidentifiedData.Add(new() { Key = entry.Key, Value = entry.Value, Origin = FileType.Ini });
                     break;
             }
 

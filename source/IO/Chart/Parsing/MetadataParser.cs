@@ -83,7 +83,7 @@ namespace ChartTools.IO.Chart.Parsing
                     result.Streams.Crowd = value;
                     break;
                 default:
-                    result.UnidentifiedData.Add(new() { Key = entry.Key, Value = entry.Value, Origin = FileFormat.Chart });
+                    result.UnidentifiedData.Add(new() { Key = entry.Key, Value = entry.Value, Origin = FileType.Chart });
                     break;
             }
         }
