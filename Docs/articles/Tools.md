@@ -32,9 +32,13 @@ target = LengthMerger.MergeLengths<T>(longTrackObjects, target);
 If a sequence has an object covering positions 10-20 and another covering 22-30, the resulting object will have a start position of 10 and end position of 30.
 
 ## Cutting lengths and sustains
-In some cases, tracks may be in a broken state where objects define lenghts going part the start of the next matching objects. Such overlaps can be eliminated by cutting the lenghts down to the start of the next matching object. Matching objects can be defined as any vocal phrases, special phrases of the same type and notes of the same lane or index.
+In some cases, tracks may be in a broken state where objects define lengths going part the start of the next matching objects. Such overlaps can be eliminated by cutting the lengths down to the start of the next matching object. Matching objects can be defined as any vocal phrases, special phrases of the same type and notes of the same lane or index.
 
 ```csharp
-Optimizer.CutLenghts(vocals.Expert.Chords); // Syllables are not modified. The new end position of the phrase might result in syllable bieng missing in-game.
-Optimizer.CutLenghts(specialPhrases);
+Optimizer.CutLengths(vocals.Expert.Chords); // Syllables are not modified. The new end position of the phrase might result in syllable bieng missing in-game.
+Optimizer.CutLengths(specialPhrases); // Cuts the lengths by considering phrases of the same type.
+Optimizer.CutSustains(laneChords); // Cuts the sustains of each note by considering notes of the same index.
 ```
+
+> **NOTE**: When cutting lengths of special phrases, type grouping will only take place if the collection is of type SpecialPhrase or a derived type. Mixing instruments and track special phrases will result in the grouping being based on the numeric value of the type.
+
