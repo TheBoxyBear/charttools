@@ -14,13 +14,12 @@ song.AwesomeUtility();
 ```
 
 ## Utilities
-### Length merging
+### Merging lenths
 Some track objects define a length, such as special phrases and vocal phrases. `LengthMerger` takes a set of such objects and sets the first object in the sequence to cover the entire duration from the start position of the earliest object to the end position of the last.
 
 ```csharp
 // T is the type of objects in the collection.
 T modified = LengthMerger.MergeLengths<T>(longTrackObjects);
-T modified = longTrackObjects.MergeLenghts<T>();
 ```
 
 The object to modify can be changed by providing it as a target.
@@ -42,3 +41,10 @@ Optimizer.CutSustains(laneChords); // Cuts the sustains of each note by consider
 
 > **NOTE**: When cutting lengths of special phrases, type grouping will only take place if the collection is of type SpecialPhrase or a derived type. Mixing instruments and track special phrases will result in the grouping being based on the numeric value of the type.
 
+## Removing redundant sync track markers
+If tempo or time signature markers define the same value as the previous marker, their existence is redundant in gameplay and can be removed. The Optimizer class defines methods for this purpose.
+
+```csharp
+Optimizer.RemoveUneeded(tempoMarkers);
+Optimizer.RemoveUneeded(timeSignatures);
+```

@@ -29,7 +29,7 @@ namespace ChartTools.Tools
                 }
         }
 
-        public static void CutLenghts(IEnumerable<SpecialPhrase> phrases)
+        public static void CutLengths(IEnumerable<SpecialPhrase> phrases)
         {
             foreach (var grouping in phrases.GroupBy(p => p.TypeCode))
                 grouping.CutLengths();
@@ -47,10 +47,10 @@ namespace ChartTools.Tools
         }
 
         /// <summary>
-        /// Sorts tempo markers and removes redundant ones.
+        /// Removes redundant tempo markers.
         /// </summary>
         /// <param name="markers">Tempo markers to remove the unneeded from</param>
-        public static void RemoveUneeded(this UniqueTrackObjectCollection<Tempo> markers)
+        public static void RemoveUneeded(this ICollection<Tempo> markers)
         {
             foreach ((var previous, var current) in GetTrackObjectPairs(markers))
                 if (previous is not null && previous.Anchor is null && current.Anchor is null && previous.Value == current.Value)
@@ -58,10 +58,10 @@ namespace ChartTools.Tools
         }
 
         /// <summary>
-        /// Sorts time signatures and removes redundant ones.
+        /// Removes redundant time signature markers ones.
         /// </summary>
         /// <param name="signatures">Time signatures to remove the unneeded from</param>
-        public static void RemoveUnneeded(this UniqueTrackObjectCollection<TimeSignature> signatures)
+        public static void RemoveUnneeded(this ICollection<TimeSignature> signatures)
         {
             foreach ((var previous, var current) in GetTrackObjectPairs(signatures))
                 if (previous is not null && previous.Numerator == current.Numerator && previous.Denominator == current.Denominator)
