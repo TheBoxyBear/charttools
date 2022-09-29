@@ -2527,27 +2527,39 @@
             Provides methods for simplifying songs
             </summary>
         </member>
-        <member name="M:ChartTools.Tools.Optimizer.CutSustains(System.Collections.Generic.IEnumerable{ChartTools.LaneChord})">
+        <member name="M:ChartTools.Tools.Optimizer.CutSustains(System.Collections.Generic.IEnumerable{ChartTools.LaneChord},System.Boolean)">
             <summary>
             Cuts short sustains that exceed the position of the next identical note.
             </summary>
             <param name="chords">Chords to cut the sustains of</param>
+            <returns>Passed chords, ordered by position</returns>
         </member>
-        <member name="M:ChartTools.Tools.Optimizer.CutLengths(System.Collections.Generic.IEnumerable{ChartTools.ILongTrackObject})">
+        <member name="M:ChartTools.Tools.Optimizer.CutLengths(System.Collections.Generic.IEnumerable{ChartTools.SpecialPhrase},System.Boolean)">
+            <summary>
+            Cuts lengths of special phrases based on the numeric value of the type.
+            </summary>
+            <param name="phrases">Set of phrases</param>
+            <param name="preOrdered">If <see langword="true"/>, skips sorting phrases by position.</param>
+            <returns>Passed phrases ordered by position and grouped by type</returns>
+        </member>
+        <member name="M:ChartTools.Tools.Optimizer.CutLengths(System.Collections.Generic.IEnumerable{ChartTools.ILongTrackObject},System.Boolean)">
             <summary>
             Cuts short long track objects that exceed the start of the next one.
             </summary>
-            <param name="phrases">Star power phrases to cut the lengths of</param>
+            <param name="objects">Set of long track objects</param>
+            <returns>Passed objects, ordered by position</returns>
         </member>
-        <member name="M:ChartTools.Tools.Optimizer.RemoveUneeded(ChartTools.UniqueTrackObjectCollection{ChartTools.Tempo})">
+        <member name="M:ChartTools.Tools.Optimizer.RemoveUneeded(System.Collections.Generic.ICollection{ChartTools.Tempo},System.Boolean)">
             <summary>
-            Sorts tempo markers and removes redundant ones.
+            Removes redundant tempo markers.
             </summary>
             <param name="markers">Tempo markers to remove the unneeded from</param>
+            <exception cref="T:System.InvalidOperationException"/>
+            <remarks>Only use if certain that no tempo marker contain an anchor, otherwise use <see cref="M:ChartTools.Tools.Optimizer.RemoveUneeded(System.Collections.Generic.ICollection{ChartTools.Tempo},System.UInt32,System.Boolean)"/></remarks>
         </member>
-        <member name="M:ChartTools.Tools.Optimizer.RemoveUnneeded(ChartTools.UniqueTrackObjectCollection{ChartTools.TimeSignature})">
+        <member name="M:ChartTools.Tools.Optimizer.RemoveUnneeded(System.Collections.Generic.ICollection{ChartTools.TimeSignature},System.Boolean)">
             <summary>
-            Sorts time signatures and removes redundant ones.
+            Removes redundant time signature markers ones.
             </summary>
             <param name="signatures">Time signatures to remove the unneeded from</param>
         </member>
@@ -3024,6 +3036,10 @@
             Marker that alters the tempo
             </summary>
         </member>
+        <member name="P:ChartTools.Tempo.Position">
+            <inheritdoc cref="P:ChartTools.TrackObjectBase.Position" path="/summary"/>
+            <remarks>If <see cref="P:ChartTools.Tempo.Anchor"/> is not <see langword="null"/>, only refer to the position if <see cref="P:ChartTools.Tempo.PositionSynced"/> is <see langword="true"/>.</remarks>
+        </member>
         <member name="P:ChartTools.Tempo.Value">
             <summary>
             New tempo
@@ -3033,6 +3049,12 @@
             <summary>
             Locks the tempo to a specific time in the song independent to the sync track.
             </summary>
+        </member>
+        <member name="P:ChartTools.Tempo.PositionSynced">
+            <summary>
+            Indicates if the tick position is up to date with <see cref="P:ChartTools.Tempo.Anchor"/>.
+            </summary>
+            <remarks><see langword="true"/> if the marker has no anchor.</remarks>
         </member>
         <member name="M:ChartTools.Tempo.#ctor(System.UInt32,System.Single)">
             <summary>

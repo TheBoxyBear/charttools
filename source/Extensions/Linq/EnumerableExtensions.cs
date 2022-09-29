@@ -302,6 +302,18 @@ namespace ChartTools.Extensions.Linq
                 previousItem = item;
             }
         }
+        public static IEnumerable<(T previous, T current)> RelativeLoopSkipFirst<T>(this IEnumerable<T> source)
+        {
+            using var enumerator = source.GetEnumerator();
+
+            if (enumerator.MoveNext())
+                yield break;
+
+            var previous = enumerator.Current;
+
+            while (enumerator.MoveNext())
+                yield return (previous, enumerator.Current);
+        }
 
         #region Unique
         /// <summary>

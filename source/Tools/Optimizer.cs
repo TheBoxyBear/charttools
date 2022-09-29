@@ -1,4 +1,5 @@
 ﻿using ChartTools.Extensions.Linq;
+using ChartTools.Tools.RealTime;
 
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace ChartTools.Tools
     /// </summary>
     public static class Optimizer
     {
-        internal static bool LengthNeedsCut(ILongTrackObject? previous, ILongTrackObject current) => previous?.Position + previous?.Length > current.Position;
+        internal static bool LengthNeedsCut(ILongTrackObject previous, ILongTrackObject current) => previous.Position + previous.Length > current.Position;
 
         /// <summary>
         /// Cuts short sustains that exceed the position of the next identical note.
@@ -59,8 +60,8 @@ namespace ChartTools.Tools
         {
             foreach ((var previous, var current) in GetTrackObjectPairs(objects, preOrdered))
             {
-                if (LengthNeedsCut(previous!, current))
-                    previous!.Length = current.Position - previous.Position;
+                if (LengthNeedsCut(previous, current))
+                    previous.Length = current.Position - previous.Position;
 
                 yield return current;
             }
@@ -74,30 +75,18 @@ namespace ChartTools.Tools
         /// <remarks>Only use if certain that no tempo marker contain an anchor, otherwise use <see cref="RemoveUneeded(ICollection{Tempo}, uint, bool)"/></remarks>
         public static void RemoveUneeded(this ICollection<Tempo> markers, bool preOrdered = false)
         {
-            foreach ((var previous, var current) in GetTrackObjectPairs(markers, preOrdered))
-            {
-                if (current.Anchor is not null)
-                    throw new InvalidOperationException($"Collection contains tempo marker with anchor at {current.Anchor}. Use the overload with a resolution.");
+            if (markers.TryGetFirst(m => m.Anchor is not null, out var anchor))
+                throw new InvalidOperationException($"Collection contains tempo marker with anchor at {anchor.Anchor}. Use the overload with a resolution.");
 
-                if (previous is not null && previous.Value == current.Value)
+            foreach ((var previous, var current) in GetTrackObjectPairs(markers, preOrdered))
+                if (previous.Value == current.Value)
                     markers.Remove(current);
-            }
         }
         public static void RemoveUneeded(this ICollection<Tempo> markers, uint resolution, bool ticksPreOrdered = false)
         {
-            var syncked = new List<Tempo>();
-            var unsynched = new List<Tempo>();
-
-            foreach (var tempo in markers)
-            {
-                var list = tempo.PositionSynced ? syncked : unsynched;
-                list.Add(tempo);
-            }
-
-            if (!ticksPreOrdered)
-                syncked.Sort((a, b) => a.Position.CompareTo(b.Position));
-
-            unsynched.Sort((a, b) => a.Anchor!.Value.CompareTo(b.Anchor!.Value));
+            foreach ((var previous, var current) in markers.SyncAnchors(resolution, ticksPreOrdered).RelativeLoopSkipFirst())
+                if (current.Value == previous!.Value)
+                    markers.Remove(current);
         }
 
         /// <summary>
@@ -107,14 +96,14 @@ namespace ChartTools.Tools
         public static void RemoveUnneeded(this ICollection<TimeSignature> signatures, bool preOrdered = false)
         {
             foreach ((var previous, var current) in GetTrackObjectPairs(signatures, preOrdered))
-                if (previous is not null && previous.Numerator == current.Numerator && previous.Denominator == current.Denominator)
+                if (previous.Numerator == current.Numerator && previous.Denominator == current.Denominator)
                     signatures.Remove(current);
         }
 
-        private static IEnumerable<(T?, T)> GetTrackObjectPairs<T>(IEnumerable<T> source, bool preOrdered) where T : ITrackObject
+        private static IEnumerable<(T, T)> GetTrackObjectPairs<T>(IEnumerable<T> source, bool preOrdered) where T : ITrackObject
         {
             var ordered = preOrdered ? source : source.OrderBy(o => o.Position);
-            return ordered.RelativeLoop();
+            return ordered.RelativeLoopSkipFirst();
         }
     }
 }

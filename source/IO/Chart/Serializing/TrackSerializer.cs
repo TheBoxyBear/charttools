@@ -68,8 +68,8 @@ namespace ChartTools.IO.Chart.Serializing
                     specialPhrases.CutLengths();
                     break;
                 case OverlappingSpecialPhrasePolicy.ThrowException:
-                    foreach ((var previous, var current) in specialPhrases.RelativeLoop())
-                        if (Optimizer.LengthNeedsCut(previous!, current!))
+                    foreach ((var previous, var current) in specialPhrases.RelativeLoopSkipFirst())
+                        if (Optimizer.LengthNeedsCut(previous, current))
                             throw new Exception($"Overlapping star power phrases at position {current!.Position}.");
                     break;
             }

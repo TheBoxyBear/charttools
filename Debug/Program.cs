@@ -26,6 +26,16 @@ namespace Debug
             // You can use this project to perform manual tests and experiment. Pull requests that include changes to this project will be rejected.
             // To make sure changes to this file are not committed, run the command "git update-index --assume-unchanged Debug/" on your local repository.
             // This project targets .NET 6 with the matching debug build of ChartTools.
+
+            var temp = new Tempo[]
+            {
+                new(0, 120),
+                new(5000, 60),
+                new(TimeSpan.FromSeconds(3), 100)
+            };
+
+            foreach (var tempo in temp.SyncAnchors(192))
+                Console.WriteLine($"Position: {tempo.Position} Value: {tempo.Value}");
         }
     }
 }
