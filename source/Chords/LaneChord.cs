@@ -1,5 +1,4 @@
 ﻿using ChartTools.IO.Chart.Entries;
-using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Formatting;
 
 using System.Collections.Generic;
@@ -11,8 +10,10 @@ namespace ChartTools
         public IEnumerable<INote> Notes => GetNotes();
         internal abstract bool ChartSupportedModifiers { get; }
 
+        protected abstract IEnumerable<INote> GetNotes();
+
         public LaneChord() : base() { }
-        public LaneChord(uint position) : base(position) { }
+        protected LaneChord(uint position) : base(position) { }
 
         INote IChord.CreateNote(byte index, uint sustain) => CreateNote(index, sustain);
         protected abstract INote CreateNote(byte index, uint sustain = 0);

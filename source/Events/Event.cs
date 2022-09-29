@@ -1,11 +1,13 @@
-﻿using System;
+﻿using ChartTools.IO.Midi.Mapping;
+using Melanchall.DryWetMidi.Core;
+using System;
 
 namespace ChartTools.Events
 {
     /// <summary>
     /// Marker that defines an occurrence at a given point in a song.
     /// </summary>
-    public abstract class Event : TrackObjectBase
+    public abstract class Event : TrackObjectBase, IMidiEventMapping
     {
         private string _eventType = "Default";
         /// <summary>
@@ -65,5 +67,7 @@ namespace ChartTools.Events
         }
 
         public override string ToString() => EventData;
+
+        MidiEvent IMidiEventMapping.ToMidiEvent(uint delta) => new TextEvent(EventData) { DeltaTime = delta };
     }
 }

@@ -21,7 +21,6 @@ namespace ChartTools
         /// <summary>
         /// Gets the chords as a read-only list of the base interface.
         /// </summary>
-        /// <returns></returns>
         protected override IReadOnlyList<IChord> GetChords() => (IReadOnlyList<IChord>)Chords;
         /// <summary>
         /// Gets the parent instrument as an instance of the base type.

@@ -2,6 +2,8 @@
 using ChartTools.IO.Midi.Mapping;
 using ChartTools.Extensions;
 using ChartTools.Extensions.Linq;
+using ChartTools.IO.Configuration.Sessions;
+using ChartTools.IO.Midi.Mapping;
 
 using Melanchall.DryWetMidi.Core;
 

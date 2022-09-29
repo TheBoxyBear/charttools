@@ -1,6 +1,7 @@
 ﻿using ChartTools.Events;
 using ChartTools.Extensions;
 using ChartTools.Extensions.Linq;
+using ChartTools.IO.Formatting;
 using ChartTools.IO.Chart.Parsing;
 using ChartTools.IO.Chart.Serialization;
 using ChartTools.IO.Configuration;
@@ -663,7 +664,7 @@ namespace ChartTools.IO.Chart
         /// </summary>
         /// <param name="path">Path of the file to write</param>
         /// <param name="syncTrack">Sync track to write</param>
-        /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
+        /// <param name="config"><inheritdoc cref="WritingConfiguration" path="/summary"/></param>
         public static void ReplaceSyncTrack(string path, SyncTrack syncTrack, WritingConfiguration? config = default)
         {
             var writer = GetSyncTrackWriter(path, syncTrack, new(config ?? DefaultWriteConfig, null));

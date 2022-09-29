@@ -1,5 +1,4 @@
 ﻿using ChartTools.IO.Formatting;
-
 using System;
 
 namespace ChartTools.IO.Configuration.Sessions

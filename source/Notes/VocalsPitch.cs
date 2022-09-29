@@ -8,7 +8,7 @@ namespace ChartTools.Lyrics
     public struct VocalsPitch : IEquatable<VocalsPitch>, IEquatable<VocalPitchValue>
     {
         /// <summary>
-        /// Pitch value
+        /// Raw pitch value
         /// </summary>
         public VocalPitchValue Value { get; }
         /// <summary>

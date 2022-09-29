@@ -5,9 +5,15 @@ using System.Reflection;
 
 namespace ChartTools.IO.Serializaiton
 {
+    /// <summary>
+    /// Marks a property as metadata mappable to a file type
+    /// </summary>
     public abstract class KeySerializableAttribute : Attribute
     {
-        public abstract FileType Format { get; }
+        /// <summary>
+        /// File type
+        /// </summary>
+        public abstract FileType FileType { get; }
         public string Key { get; }
 
         public KeySerializableAttribute(string key) => Key = key;

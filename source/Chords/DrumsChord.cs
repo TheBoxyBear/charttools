@@ -14,7 +14,7 @@ namespace ChartTools
     {
         protected override bool OpenExclusivity => false;
 
-        internal override DrumsChordModifiers DefaultModifiers => DrumsChordModifiers.None;
+        protected override DrumsChordModifiers DefaultModifiers => DrumsChordModifiers.None;
         internal override bool ChartSupportedModifiers => true;
 
         public DrumsChord() : base() { }

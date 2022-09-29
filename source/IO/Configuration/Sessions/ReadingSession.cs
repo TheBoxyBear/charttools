@@ -49,16 +49,14 @@ namespace ChartTools.IO.Configuration.Sessions
             UnopenedProcedure = (position, create) => (UnopenedProcedure = Configuration.UnopenedTrackObjectPolicy switch
             {
                 UnopenedTrackObjectPolicy.ThrowException => (position, _) => throw new Exception($"Object at position {position} closed before being opened."), // TODO Create exception
-                UnopenedTrackObjectPolicy.Ignore => (_, _) => { }
-                ,
+                UnopenedTrackObjectPolicy.Ignore => (_, _) => { },
                 UnopenedTrackObjectPolicy.Create => (_, create) => create(),
                 _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.UnopenedTrackObjectPolicy)
             })(position, create);
             UnclosedProcedure = (position, include) => (UnclosedProcedure = Configuration.UnclosedTracjObjectPolicy switch
             {
                 UnclosedTrackObjectPolicy.ThrowException => throw new Exception($"Object at position {position} opened but never closed."), // TODO Create exception
-                UnclosedTrackObjectPolicy.Ignore => (_, _) => { }
-                ,
+                UnclosedTrackObjectPolicy.Ignore => (_, _) => { },
                 UnclosedTrackObjectPolicy.Include => (_, include) => include()
             })(position, include);
             TempolessAnchorProcedure = anchor => (TempolessAnchorProcedure = Configuration.TempolessAnchorPolicy switch
@@ -68,13 +66,13 @@ namespace ChartTools.IO.Configuration.Sessions
                 TempolessAnchorPolicy.Create => anchor => true,
                 _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.TempolessAnchorPolicy)
             })(anchor);
-            UncertainGuitarBassFormatProcedure = (instrument, format) => (UncertainGuitarBassFormatProcedure = Configuration.UncertainGuitarBassFormatPolicy switch
+            UncertainGuitarBassFormatProcedure = (instrument, format)=> (UncertainGuitarBassFormatProcedure = Configuration.UncertainGuitarBassFormatPolicy switch
             {
                 UncertainGuitarBassFormatPolicy.ThrowException => (instrument, format) => throw new Exception($"{instrument} has the unknown or conflicting format {format} that cannot be mapped from Midi."),
                 UncertainGuitarBassFormatPolicy.UseGuitarHero2 => (_, _) => MidiInstrumentOrigin.GuitarHero2Uncertain,
                 UncertainGuitarBassFormatPolicy.UseRockBand => (_, _) => MidiInstrumentOrigin.RockBandUncertain,
                 _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.UncertainGuitarBassFormatPolicy)
             })(instrument, format);
-        }
+         }
     }
 }

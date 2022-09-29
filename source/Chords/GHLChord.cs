@@ -15,7 +15,7 @@ namespace ChartTools
     {
         protected override bool OpenExclusivity => true;
 
-        internal override GHLChordModifiers DefaultModifiers => GHLChordModifiers.None;
+        protected override GHLChordModifiers DefaultModifiers => GHLChordModifiers.None;
         internal override bool ChartSupportedModifiers => !Modifiers.HasFlag(GHLChordModifiers.ExplicitHopo);
 
         public GHLChord() : base() { }

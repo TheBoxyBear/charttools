@@ -15,7 +15,7 @@ namespace ChartTools
     {
         protected override bool OpenExclusivity => true;
 
-        internal override StandardChordModifiers DefaultModifiers => StandardChordModifiers.None;
+        protected override StandardChordModifiers DefaultModifiers => StandardChordModifiers.None;
         internal override bool ChartSupportedModifiers => !Modifiers.HasFlag(StandardChordModifiers.ExplicitHopo);
 
         public StandardChord() : base() { }

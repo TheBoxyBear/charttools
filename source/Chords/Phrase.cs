@@ -1,5 +1,7 @@
 ﻿using ChartTools.Events;
 
+using Melanchall.DryWetMidi.MusicTheory;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,6 +63,13 @@ namespace ChartTools.Lyrics
 
         public Phrase() : base() { }
         public Phrase(uint position) : base(position) { }
+
+        INote IChord.CreateNote(byte index, uint length)
+        {
+            var syllable = new Syllable(SyllableEndOffset, VocalPitchValue.A2) { Length = length };
+            Syllables.Add(syllable);
+            return syllable;
+        }
 
         public IEnumerable<GlobalEvent> ToGlobalEvents()
         {
