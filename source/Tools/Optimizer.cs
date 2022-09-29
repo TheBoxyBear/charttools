@@ -1,5 +1,8 @@
 ﻿using ChartTools.Extensions.Linq;
 
+using Melanchall.DryWetMidi.Multimedia;
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -50,11 +53,22 @@ namespace ChartTools.Tools
         /// Removes redundant tempo markers.
         /// </summary>
         /// <param name="markers">Tempo markers to remove the unneeded from</param>
+        /// <exception cref="InvalidOperationException"/>
+        /// <remarks>Only use if certain that no tempo marker contain an anchor, otherwise use <see cref="RemoveUneeded(ICollection{Tempo}, uint)"/></remarks>
         public static void RemoveUneeded(this ICollection<Tempo> markers)
         {
             foreach ((var previous, var current) in GetTrackObjectPairs(markers))
-                if (previous is not null && previous.Anchor is null && current.Anchor is null && previous.Value == current.Value)
+            {
+                if (current.Anchor is not null)
+                    throw new InvalidOperationException($"Collection contains tempo marker with anchor at {current.Anchor}. Use the overload with a resolution.");
+
+                if (previous is not null && previous.Value == current.Value)
                     markers.Remove(current);
+            }
+        }
+        public static void RemoveUneeded(this ICollection<Tempo> markers, uint resolution)
+        {
+
         }
 
         /// <summary>
