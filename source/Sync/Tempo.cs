@@ -15,7 +15,9 @@ namespace ChartTools
             set
             {
                 _position = value;
-                PositionSynced = false;
+
+                if (Anchor is not null)
+                    PositionSynced = false;
             }
         }
         private uint _position;
@@ -51,6 +53,7 @@ namespace ChartTools
         /// Creates an instance of <see cref="Tempo"/>.
         /// </summary>
         public Tempo(uint position, float value) : base(position) => Value = value;
+        public Tempo(TimeSpan anchor, float value) : this(0, value) => Anchor = anchor;
 
         internal void SyncPosition(uint position)
         {

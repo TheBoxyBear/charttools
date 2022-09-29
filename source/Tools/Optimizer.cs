@@ -18,9 +18,11 @@ namespace ChartTools.Tools
         /// Cuts short sustains that exceed the position of the next identical note.
         /// </summary>
         /// <param name="chords">Chords to cut the sustains of</param>
-        public static void CutSustains(this IEnumerable<LaneChord> chords, bool preOrdered = false)
+        /// <returns>Passed chords, ordered by position</returns>
+        public static IEnumerable<LaneChord> CutSustains(this IEnumerable<LaneChord> chords, bool preOrdered = false)
         {
             foreach ((var previous, var current) in GetTrackObjectPairs(chords, preOrdered))
+            {
                 foreach (var note in current.Notes)
                 {
                     var previousNote = previous!.Notes.First(n => n.Index == note.Index);
@@ -28,23 +30,40 @@ namespace ChartTools.Tools
                     if (previousNote is not null && previous.Position + previousNote.Length > current.Position)
                         previousNote.Length = current.Position - previous.Position;
                 }
+
+                yield return current;
+            }
         }
 
-        public static void CutLengths(IEnumerable<SpecialPhrase> phrases)
+        /// <summary>
+        /// Cuts lengths of special phrases based on the numeric value of the type.
+        /// </summary>
+        /// <param name="phrases">Set of phrases</param>
+        /// <param name="preOrdered">If <see langword="true"/>, skips sorting phrases by position.</param>
+        /// <returns>Passed phrases ordered by position and grouped by type</returns>
+        public static IEnumerable<IGrouping<byte, SpecialPhrase>> CutLengths(IEnumerable<SpecialPhrase> phrases, bool preOrdered = false)
         {
             foreach (var grouping in phrases.GroupBy(p => p.TypeCode))
-                grouping.CutLengths();
+            {
+                grouping.CutLengths(preOrdered);
+                yield return grouping;
+            }
         }
 
         /// <summary>
         /// Cuts short long track objects that exceed the start of the next one.
         /// </summary>
-        /// <param name="phrases">Star power phrases to cut the lengths of</param>
-        public static void CutLengths(this IEnumerable<ILongTrackObject> phrases, bool preOrdered = false)
+        /// <param name="objects">Set of long track objects</param>
+        /// <returns>Passed objects, ordered by position</returns>
+        public static IEnumerable<ILongTrackObject> CutLengths(this IEnumerable<ILongTrackObject> objects, bool preOrdered = false)
         {
-            foreach ((var previous, var current) in GetTrackObjectPairs(phrases, preOrdered))
+            foreach ((var previous, var current) in GetTrackObjectPairs(objects, preOrdered))
+            {
                 if (LengthNeedsCut(previous!, current))
                     previous!.Length = current.Position - previous.Position;
+
+                yield return current;
+            }
         }
 
         /// <summary>

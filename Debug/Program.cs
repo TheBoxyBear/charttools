@@ -15,6 +15,7 @@ using ChartTools.IO.Ini;
 using ChartTools.IO.Sections;
 using ChartTools.Lyrics;
 using ChartTools.Tools;
+using ChartTools.Tools.RealTime;
 
 namespace Debug
 {
@@ -25,7 +26,6 @@ namespace Debug
             // You can use this project to perform manual tests and experiment. Pull requests that include changes to this project will be rejected.
             // To make sure changes to this file are not committed, run the command "git update-index --assume-unchanged Debug/" on your local repository.
             // This project targets .NET 6 with the matching debug build of ChartTools.
-
         }
     }
 }
