@@ -27,6 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Melanchall.DryWetMidi" Version="6.1.0" />
+    <PackageReference Include="Melanchall.DryWetMidi.Nativeless" Version="6.1.2" />
   </ItemGroup>
 </Project>
