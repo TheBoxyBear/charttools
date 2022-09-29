@@ -57,10 +57,6 @@
     <Compile Include="Metadata\StreamCollection.cs" />
     <Compile Include="Metadata\UnidentifiedMetadata.cs" />
     <Compile Include="Notes\DrumsNote.cs" />
-    <Compile Include="Notes\Note.cs" />
-    <Compile Include="Notes\NoteCollections\LaneNoteCollection.cs" />
-    <Compile Include="Notes\NoteCollections\NoteCollection.cs" />
-    <Compile Include="Notes\NoteGeneric.cs" />
     <Compile Include="Notes\Syllable.cs" />
     <Compile Include="Notes\VocalsPitch.cs" />
     <Compile Include="Song.cs" />
@@ -71,8 +67,6 @@
     <Compile Include="Tools\TempoRescaler.cs" />
     <Compile Include="TrackObjects\ILongTrackObject.cs" />
     <Compile Include="TrackObjects\ITrackObject.cs" />
-    <Compile Include="TrackObjects\LongTrackObject.cs" />
-    <Compile Include="TrackObjects\TrackObject.cs" />
     <Compile Include="Tracks\Track.cs" />
     <Compile Include="Tracks\TrackGeneric.cs" />
     <Compile Include="Tracks\UniqueTrackObjectCollection.cs" />

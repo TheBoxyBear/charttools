@@ -1,6 +1,7 @@
 ﻿using ChartTools.IO.Chart;
 using ChartTools.IO.Chart.Entries;
-using ChartTools.IO.Configuration.Sessions;
+using ChartTools.IO.Formatting;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,16 +43,20 @@ namespace ChartTools
 
         protected override IEnumerable<INote> GetNotes() => Notes;
 
-        internal override IEnumerable<TrackObjectEntry> GetChartNoteData() => Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Length));
-
-        internal override IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, WritingSession session)
+        internal override IEnumerable<TrackObjectEntry> GetChartData(LaneChord? previous, bool modifiers, FormattingRules formatting)
         {
-            bool isInvert = Modifiers.HasFlag(StandardChordModifiers.HopoInvert);
+            foreach (var entry in Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Sustain)))
+                yield return entry;
 
-            if (Modifiers.HasFlag(StandardChordModifiers.ExplicitHopo) && (previous is null || previous.Position <= session.Formatting!.TrueHopoFrequency) != isInvert || isInvert)
-                yield return ChartFormatting.NoteEntry(Position, 5, 0);
-            if (Modifiers.HasFlag(StandardChordModifiers.Tap))
-                yield return ChartFormatting.NoteEntry(Position, 6, 0);
+            if (modifiers)
+            {
+                bool isInvert = Modifiers.HasFlag(StandardChordModifiers.HopoInvert);
+
+                if (Modifiers.HasFlag(StandardChordModifiers.ExplicitHopo) && (previous is null || previous.Position <= formatting.TrueHopoFrequency) != isInvert || isInvert)
+                    yield return ChartFormatting.NoteEntry(Position, 5, 0);
+                if (Modifiers.HasFlag(StandardChordModifiers.Tap))
+                    yield return ChartFormatting.NoteEntry(Position, 6, 0);
+            }
         }
     }
 }

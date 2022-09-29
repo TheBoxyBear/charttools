@@ -59,6 +59,7 @@ namespace ChartTools.Lyrics
         public string RawText => BuildText(n => n.RawText);
         public string DisplayedText => BuildText(n => n.DisplayedText);
 
+        public Phrase() : base() { }
         public Phrase(uint position) : base(position) { }
 
         public IEnumerable<GlobalEvent> ToGlobalEvents()
@@ -70,6 +71,8 @@ namespace ChartTools.Lyrics
         }
 
         private string BuildText(Func<Syllable, string> textSelector) => string.Concat(Syllables.Select(n => n.IsWordEnd ? textSelector(n) + ' ' : textSelector(n)));
+
+        public INote CreateNote(byte index, uint length = 0) => new Syllable(0, (VocalPitchValue)index) { Length = length };
     }
 
     /// <summary>

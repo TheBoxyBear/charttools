@@ -1,12 +1,12 @@
-﻿using ChartTools.Formatting;
+﻿using ChartTools.Extensions;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Chart.Serialization;
+using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ChartTools
 {

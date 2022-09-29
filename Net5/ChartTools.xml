@@ -4,43 +4,13 @@
         <name>ChartTools</name>
     </assembly>
     <members>
-        <member name="T:ChartTools.Chord">
-            <summary>
-            Base class for chords
-            </summary>
-        </member>
-        <member name="P:ChartTools.Chord.Notes">
-            <summary>
-            Notes in the chord
-            </summary>
-        </member>
-        <member name="M:ChartTools.Chord.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.TrackObject.#ctor(System.UInt32)"/>
-        </member>
-        <member name="M:ChartTools.Chord.GetChartData(ChartTools.Chord,System.Boolean,ChartTools.IO.Formatting.FormattingRules)">
-            <summary>
-            Gets the data to write in a chart file.
-            </summary>
-            <returns>Enumerable of strings containing the data to add to each line</returns>
-        </member>
-        <member name="T:ChartTools.Chord`3">
-            <summary>
-            Set of notes played simultaneously
-            </summary>
-        </member>
-        <member name="P:ChartTools.Chord`3.Notes">
-            <inheritdoc cref="P:ChartTools.Chord.Notes"/>
-        </member>
-        <member name="M:ChartTools.Chord`3.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.Chord.#ctor(System.UInt32)"/>
-        </member>
         <member name="T:ChartTools.DrumsChord">
             <summary>
             Set of notes played simultaneously by drums
             </summary>
         </member>
         <member name="M:ChartTools.DrumsChord.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.Chord.#ctor(System.UInt32)"/>
+            <inheritdoc cref="M:ChartTools.LaneChord.#ctor(System.UInt32)"/>
         </member>
         <member name="M:ChartTools.DrumsChord.#ctor(System.UInt32,ChartTools.DrumsNote[])">
             <inheritdoc cref="M:ChartTools.DrumsChord.#ctor(System.UInt32)"/>
@@ -57,15 +27,33 @@
         <member name="M:ChartTools.GHLChord.#ctor(System.UInt32)">
             <inheritdoc cref="M:ChartTools.LaneChord`3.#ctor(System.UInt32)"/>
         </member>
-        <member name="M:ChartTools.GHLChord.#ctor(System.UInt32,ChartTools.Note{ChartTools.GHLLane}[])">
+        <member name="M:ChartTools.GHLChord.#ctor(System.UInt32,ChartTools.LaneNote{ChartTools.GHLLane}[])">
             <inheritdoc cref="M:ChartTools.GHLChord.#ctor(System.UInt32)"/>
             <param name="notes">Notes to add</param>
         </member>
         <member name="M:ChartTools.GHLChord.#ctor(System.UInt32,ChartTools.GHLLane[])">
-            <inheritdoc cref="M:ChartTools.GHLChord.#ctor(System.UInt32,ChartTools.Note{ChartTools.GHLLane}[])"/>
+            <inheritdoc cref="M:ChartTools.GHLChord.#ctor(System.UInt32,ChartTools.LaneNote{ChartTools.GHLLane}[])"/>
         </member>
-        <member name="M:ChartTools.LaneChord`3.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.Chord`3.#ctor(System.UInt32)"/>
+        <member name="T:ChartTools.IChord">
+            <summary>
+            Set of notes tied together.
+            </summary>
+            <remarks>Depending on the chord type, notes will be on the same position or in sequence.</remarks>
+        </member>
+        <member name="P:ChartTools.IChord.Notes">
+            <summary>
+            Read-only set of the notes in the chord.
+            </summary>
+        </member>
+        <member name="P:ChartTools.LaneChord`3.OpenExclusivity">
+            <summary>
+            Defines if open notes can be mixed with other notes for this chord type. <see langword="true"/> indicated open notes cannot be mixed.
+            </summary>
+        </member>
+        <member name="P:ChartTools.LaneChord`3.Notes">
+            <summary>
+            Notes in the chord
+            </summary>
         </member>
         <member name="P:ChartTools.Lyrics.Phrase.EndPosition">
             <summary>
@@ -97,264 +85,276 @@
             Gets the raw text of all syllables as a single string with spaces between syllables
             </summary>
         </member>
-        <member name="T:ChartTools.Lyrics.VocalsPitches">
+        <member name="T:ChartTools.Lyrics.PhraseExtensions">
             <summary>
-            Pitch values for <see cref="T:ChartTools.Lyrics.VocalsPitch"/>
+            Provides additional methods to <see cref="T:ChartTools.Lyrics.Phrase"/>
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.None">
+        <member name="M:ChartTools.Lyrics.PhraseExtensions.ToGlobalEvents(System.Collections.Generic.IEnumerable{ChartTools.Lyrics.Phrase})">
+            <summary>
+            Converts a set of <see cref="T:ChartTools.Lyrics.Phrase"/> to a set of <see cref="T:ChartTools.Events.GlobalEvent"/> making up the phrases.
+            </summary>
+            <param name="source">Phrases to convert into global events</param>
+            <returns>Global events making up the phrases</returns>
+        </member>
+        <member name="T:ChartTools.Lyrics.VocalPitchValue">
+            <summary>
+            Values for <see cref="!:VocalPitch"/>
+            </summary>
+        </member>
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.None">
             <summary>
             No pitch
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.C2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.C2">
             <summary>
             Second C (lowest pitch)
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.CSharp2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.CSharp2">
             <summary>
             Second C#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.D2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.D2">
             <summary>
             Second D
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.Eb2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.Eb2">
             <summary>
             Second E-flat
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.E2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.E2">
             <summary>
             Second E
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.F2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.F2">
             <summary>
             Second F
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.FSharp2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.FSharp2">
             <summary>
             Second F#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.G2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.G2">
             <summary>
             Second G
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.GSharp2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.GSharp2">
             <summary>
             Second G#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.A2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.A2">
             <summary>
             Second A
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.Bb2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.Bb2">
             <summary>
             Second B-flat
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.B2">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.B2">
             <summary>
             Second B
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.C3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.C3">
             <summary>
             Third C
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.CSharp3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.CSharp3">
             <summary>
             Third C#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.D3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.D3">
             <summary>
             Third D
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.Eb3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.Eb3">
             <summary>
             Third E-flat
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.E3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.E3">
             <summary>
             Third E
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.F3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.F3">
             <summary>
             Third F
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.FSharp3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.FSharp3">
             <summary>
             Third F#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.G3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.G3">
             <summary>
             Third G
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.GSharp3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.GSharp3">
             <summary>
             Third G#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.A3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.A3">
             <summary>
             Third A
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.Bb3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.Bb3">
             <summary>
             Third B-flat
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.B3">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.B3">
             <summary>
             Third B
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.C4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.C4">
             <summary>
             Third C
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.CSharp4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.CSharp4">
             <summary>
             Fourth C#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.D4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.D4">
             <summary>
             Fourth D
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.Eb4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.Eb4">
             <summary>
             Fourth E-flat
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.E4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.E4">
             <summary>
             Fourth E
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.F4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.F4">
             <summary>
             Fourth F
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.FSharp4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.FSharp4">
             <summary>
             Fourth F#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.G4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.G4">
             <summary>
             Fourth G
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.GSharp4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.GSharp4">
             <summary>
             Fourth G#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.A4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.A4">
             <summary>
             Fourth A
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.Bb4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.Bb4">
             <summary>
             Fourth B-flat
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.B4">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.B4">
             <summary>
             Fourth B
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.C5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.C5">
             <summary>
             Fifth
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.CSharp5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.CSharp5">
             <summary>
             Fifth C#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.D5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.D5">
             <summary>
             Fifth D
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.Eb5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.Eb5">
             <summary>
             Fifth E-flat
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.E5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.E5">
             <summary>
             Fifth E
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.F5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.F5">
             <summary>
             Fifth F
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.FSharp5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.FSharp5">
             <summary>
             Fifth F#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.G5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.G5">
             <summary>
             Fifth G
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.GSharp5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.GSharp5">
             <summary>
             Fifth G#
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.A5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.A5">
             <summary>
             Fifth A
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.Bb5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.Bb5">
             <summary>
             Fifth B-flat
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.B5">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.B5">
             <summary>
             Fifth B
             </summary>
         </member>
-        <member name="F:ChartTools.Lyrics.VocalsPitches.C6">
+        <member name="F:ChartTools.Lyrics.VocalPitchValue.C6">
             <summary>
             Sixth C (highest pitch)
             </summary>
         </member>
         <member name="T:ChartTools.Lyrics.VocalsKey">
             <summary>
-            Keys making up <see cref="T:ChartTools.Lyrics.VocalsPitches"/> without the octave
+            Keys making up <see cref="T:ChartTools.Lyrics.VocalPitchValue"/> without the octave
             </summary>
         </member>
         <member name="F:ChartTools.Lyrics.VocalsKey.C">
@@ -417,18 +417,6 @@
             B key (Si)
             </summary>
         </member>
-        <member name="T:ChartTools.Lyrics.PhraseExtensions">
-            <summary>
-            Provides additional methods to <see cref="T:ChartTools.Lyrics.Phrase"/>
-            </summary>
-        </member>
-        <member name="M:ChartTools.Lyrics.PhraseExtensions.ToGlobalEvents(System.Collections.Generic.IEnumerable{ChartTools.Lyrics.Phrase})">
-            <summary>
-            Converts a set of <see cref="T:ChartTools.Lyrics.Phrase"/> to a set of <see cref="T:ChartTools.Events.GlobalEvent"/> making up the phrases.
-            </summary>
-            <param name="source">Phrases to convert into global events</param>
-            <returns>Global events making up the phrases</returns>
-        </member>
         <member name="T:ChartTools.Lyrics.Syllable">
             <summary>
             Karaoke step of a <see cref="T:ChartTools.Lyrics.Phrase"/>
@@ -466,7 +454,12 @@
             <see langword="true"/> if is the last syllable or the only syllable of its word
             </summary>
         </member>
-        <member name="P:ChartTools.Lyrics.VocalsPitch.Pitch">
+        <member name="T:ChartTools.Lyrics.VocalsPitch">
+            <summary>
+            Wrapper type for <see cref="T:ChartTools.Lyrics.VocalPitchValue"/> with helper properties to get the pitch and key
+            </summary>
+        </member>
+        <member name="P:ChartTools.Lyrics.VocalsPitch.Value">
             <summary>
             Pitch value
             </summary>
@@ -481,276 +474,73 @@
             Octave number
             </summary>
         </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.#ctor(ChartTools.Lyrics.VocalPitchValue)">
+            <summary>
+            Creates a pitch from a raw pitch value.
+            </summary>
+            <param name="pitch"></param>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.Equals(ChartTools.Lyrics.VocalsPitch)">
+            <summary>
+            Indicates if two pitches have the same value.
+            </summary>
+            <param name="other">Pitch to compare</param>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.Equals(ChartTools.Lyrics.VocalPitchValue)">
+            <summary>
+            Indicates if a pitch has a value equal to a raw pitch value.
+            </summary>
+            <param name="other">Value to compare</param>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.Equals(System.Object)">
+            <summary>
+            Indicates if an object is a raw pitch value or wrapper and the value is equal.
+            </summary>
+            <param name="obj">Source of value</param>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.op_Implicit(ChartTools.Lyrics.VocalPitchValue)~ChartTools.Lyrics.VocalsPitch">
+            <summary>
+            Converts a raw pitch value to a matching wrapper.
+            </summary>
+            <param name="pitch">Pitch value</param>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.op_Equality(ChartTools.Lyrics.VocalsPitch,ChartTools.Lyrics.VocalsPitch)">
+            <inheritdoc cref="M:ChartTools.Lyrics.VocalsPitch.Equals(ChartTools.Lyrics.VocalsPitch)"/>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.op_Inequality(ChartTools.Lyrics.VocalsPitch,ChartTools.Lyrics.VocalsPitch)">
+            <summary>
+            Indicates if two pitches don't have the same value.
+            </summary>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.op_LessThan(ChartTools.Lyrics.VocalsPitch,ChartTools.Lyrics.VocalsPitch)">
+            <summary>
+            Indicates if the left pitch has a lower value than the right pitch according to music theory.
+            </summary>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.op_GreaterThan(ChartTools.Lyrics.VocalsPitch,ChartTools.Lyrics.VocalsPitch)">
+            <summary>
+            Indicates if the left pitch has a higher value than the right pitch according to music theory.
+            </summary>
+        </member>
+        <member name="M:ChartTools.Lyrics.VocalsPitch.GetHashCode">
+            <summary>
+            Returns the hash code for the pitch value.
+            </summary>
+        </member>
         <member name="T:ChartTools.StandardChord">
             <summary>
             Set of notes played simultaneously by a standard five-fret instrument
             </summary>
         </member>
         <member name="M:ChartTools.StandardChord.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.Chord.#ctor(System.UInt32)"/>
+            <inheritdoc cref="M:ChartTools.LaneChord.#ctor(System.UInt32)"/>
         </member>
-        <member name="M:ChartTools.StandardChord.#ctor(System.UInt32,ChartTools.Note{ChartTools.StandardLane}[])">
+        <member name="M:ChartTools.StandardChord.#ctor(System.UInt32,ChartTools.LaneNote{ChartTools.StandardLane}[])">
             <inheritdoc cref="M:ChartTools.LaneChord`3.#ctor(System.UInt32)"/>
             <param name="notes">Notes to add</param>
         </member>
         <member name="M:ChartTools.StandardChord.#ctor(System.UInt32,ChartTools.StandardLane[])">
-            <inheritdoc cref="M:ChartTools.StandardChord.#ctor(System.UInt32,ChartTools.Note{ChartTools.StandardLane}[])"/>
-        </member>
-        <member name="T:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2">
-            <summary>
-            Enumerable where <typeparamref name="T"/> items are pulled from a set of enumerables in order using a <typeparamref name="TKey"/> key
-            </summary>
-            <typeparam name="T">Type of the enumerated items</typeparam>
-            <typeparam name="TKey">Type of the key used to determine the order</typeparam>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2.Enumerables">
-            <summary>
-            Enumerables to alternate between
-            </summary>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2.KeyGetter">
-            <summary>
-            Method that retrieves the key from an item
-            </summary>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2.#ctor(System.Func{`1,`0},System.Collections.Generic.IEnumerable{`1}[])">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2"/>.
-            </summary>
-            <param name="keyGetter">Method that retrieves the key from an item</param>
-            <param name="enumerables">Enumerables to alternate between</param>
-            <exception cref="T:System.ArgumentException"/>
-            <exception cref="T:System.ArgumentNullException"/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2.GetEnumerator">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerable`2.System#Collections#IEnumerable#GetEnumerator">
-            <inheritdoc/>
-        </member>
-        <member name="T:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2">
-            <summary>
-            Enumerator that yields <typeparamref name="T"/> items from a set of enumerators in order using a <typeparamref name="TKey"/> key
-            </summary>
-            <typeparam name="T">Type of the enumerated items</typeparam>
-            <typeparam name="TKey">Type of the key used to determine the order</typeparam>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.KeyGetter">
-            <summary>
-            Method that retrieves the key from an item
-            </summary>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.Initialized">
-            <inheritdoc/>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.Current">
-            <inheritdoc/>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.System#Collections#IEnumerator#Current">
-            <inheritdoc/>
-        </member>
-        <member name="F:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.endsReached">
-            <summary>
-            <see langword="true"/> for indexes where MoveNext previously returned <see langword="false"/>
-            </summary>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.#ctor(System.Func{`0,`1},System.Collections.Generic.IEnumerator{`0}[])">
-            <summary>
-            Creates a new instance of <see cref="T:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2"/>.
-            </summary>
-            <param name="keyGetter">Method that retrieves the key from an item</param>
-            <param name="enumerators">Enumerators to alternate between</param>
-            <exception cref="T:System.ArgumentException"/>
-            <exception cref="T:System.ArgumentNullException"/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.Dispose">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.MoveNext">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.Initialize">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.OrderedAlternatingEnumerator`2.Reset">
-            <inheritdoc/>
-        </member>
-        <member name="T:ChartTools.Collections.Alternating.SerialAlternatingEnumerable`1">
-            <summary>
-            Enumerable where <typeparamref name="T"/> items are yielded by alternating from a set of enumerables
-            </summary>
-            <typeparam name="T">Type of the enumerated items</typeparam>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.SerialAlternatingEnumerable`1.Enumerables">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerable`1.#ctor(System.Collections.Generic.IEnumerable{`0}[])">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.Collections.Alternating.SerialAlternatingEnumerable`1"/>
-            </summary>
-            <param name="enumerables">Enumerables to pull items from</param>
-            <exception cref="T:System.ArgumentException"/>
-            <exception cref="T:System.ArgumentNullException"/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerable`1.GetEnumerator">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerable`1.System#Collections#IEnumerable#GetEnumerator">
-            <inheritdoc/>
-        </member>
-        <member name="T:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1">
-            <summary>
-            Enumerator that yields <typeparamref name="T"/> items by alternating through a set of enumerators
-            </summary>
-            <typeparam name="T">Type of the enumerated items</typeparam>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.Enumerators">
-            <summary>
-            Enumerators to alternate between
-            </summary>
-        </member>
-        <member name="F:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.index">
-            <summary>
-            Position of the next enumerator to pull from
-            </summary>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.Current">
-            <summary>
-            Item to use in the iteration
-            </summary>
-        </member>
-        <member name="P:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.System#Collections#IEnumerator#Current">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.#ctor(System.Collections.Generic.IEnumerator{`0}[])">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1"/>
-            </summary>
-            <param name="enumerators">Enumerators to alternate between</param>
-            <exception cref="T:System.ArgumentException"/>
-            <exception cref="T:System.ArgumentNullException"/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.Dispose">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.MoveNext">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Alternating.SerialAlternatingEnumerator`1.Reset">
-            <inheritdoc/>
-        </member>
-        <member name="P:ChartTools.Collections.Delayed.DelayedEnumerable`1.AwaitingItems">
-            <summary>
-            <see langword="true"/> if there are more items to be received
-            </summary>
-        </member>
-        <member name="T:ChartTools.Collections.Unique.UniqueList`1">
-            <summary>
-            List where all <typeparamref name="T"/> items must be unique using a given comparison
-            </summary>
-            <typeparam name="T">Type of the contained items</typeparam>
-        </member>
-        <member name="F:ChartTools.Collections.Unique.UniqueList`1.items">
-            <summary>
-            Source of items
-            </summary>
-        </member>
-        <member name="P:ChartTools.Collections.Unique.UniqueList`1.Comparison">
-            <summary>
-            Method that defines uniqueness of items
-            </summary>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.#ctor(ChartTools.SystemExtensions.EqualityComparison{`0},System.Int32,System.Collections.Generic.IEnumerable{`0})">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.Collections.Unique.UniqueList`1"/> using a comparison to define the uniqueness of items.
-            </summary>
-            <param name="comparison">Method that defines uniqueness of items</param>
-            <param name="capacity">Number of items that the <see cref="T:ChartTools.Collections.Unique.UniqueList`1"/> can initially store</param>
-        </member>
-        <member name="P:ChartTools.Collections.Unique.UniqueList`1.Item(System.Int32)">
-            <inheritdoc/>
-        </member>
-        <member name="P:ChartTools.Collections.Unique.UniqueList`1.IsReadOnly">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.Add(`0)">
-            <summary>
-            Adds an item to the list and overwrites any duplicate.
-            </summary>
-            <param name="item">Item to add</param>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
-            <summary>
-            Adds multiple items to the <see cref="T:System.Collections.Generic.ICollection`1"/>
-            </summary>
-            <param name="collection">Items to add</param>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.RemoveDuplicate(`0)">
-            <summary>
-            Removes the first duplicate of a given item.
-            </summary>
-            <param name="item">Item to remove the duplicate of</param>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.RemoveDuplicates(System.Collections.Generic.List{`0})">
-            <summary>
-            Removes the first duplicate of multiple items
-            </summary>
-            <param name="collection">Items to remove the duplicate of</param>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.Clear">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.Contains(`0)">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.CopyTo(`0[],System.Int32)">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.GetEnumerator">
-            <inheritdoc/>>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.IndexOf(`0)">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.Insert(System.Int32,`0)">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.Remove(`0)">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.RemoveAt(System.Int32)">
-            <inheritdoc/>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueList`1.System#Collections#IEnumerable#GetEnumerator">
-            <inheritdoc/>
-        </member>
-        <member name="T:ChartTools.Collections.Unique.UniqueListEquatable`1">
-            <summary>
-            List where all <typeparamref name="T"/> items must be unique using the default <see cref="T:System.IEquatable`1"/> comparison to determine uniqueness
-            </summary>
-            <typeparam name="T">Type of the contained items</typeparam>
-        </member>
-        <member name="M:ChartTools.Collections.Unique.UniqueListEquatable`1.#ctor(System.Int32,System.Collections.Generic.IEnumerable{`0})">
-            <summary>
-            Creates an instance of <see cref="T:ChartTools.Collections.Unique.UniqueListEquatable`1"/>.
-            </summary>
-            <param name="capacity">Number of items that the <see cref="T:ChartTools.Collections.Unique.UniqueListEquatable`1"/> can initially store</param>
-        </member>
-        <member name="T:ChartTools.Collections.IInitializable">
-            <summary>
-            Defines an object that can be initialized
-            </summary>
-        </member>
-        <member name="P:ChartTools.Collections.IInitializable.Initialized">
-            <summary>
-            Has already been initialized
-            </summary>
-        </member>
-        <member name="M:ChartTools.Collections.IInitializable.Initialize">
-            <summary>
-            Does required initialization if not already done.
-            </summary>
-            <returns><see langword="true"/> if the object was not initialized prior to calling.</returns>
+            <inheritdoc cref="M:ChartTools.StandardChord.#ctor(System.UInt32,ChartTools.LaneNote{ChartTools.StandardLane}[])"/>
         </member>
         <member name="T:ChartTools.Difficulty">
             <summary>
@@ -777,20 +567,20 @@
             Expert difficulty
             </summary>
         </member>
-        <member name="T:ChartTools.DrumsChordModifier">
+        <member name="T:ChartTools.DrumsChordModifiers">
             <summary>
             Modifier that affects the way the chord can be played
             </summary>
         </member>
-        <member name="F:ChartTools.DrumsChordModifier.None">
-            <inheritdoc cref="F:ChartTools.StandardChordModifier.None"/>
+        <member name="F:ChartTools.DrumsChordModifiers.None">
+            <inheritdoc cref="F:ChartTools.StandardChordModifiers.None"/>
         </member>
-        <member name="F:ChartTools.DrumsChordModifier.Accent">
+        <member name="F:ChartTools.DrumsChordModifiers.Accent">
             <summary>
             *Unsupported*
             </summary>
         </member>
-        <member name="F:ChartTools.DrumsChordModifier.Ghost">
+        <member name="F:ChartTools.DrumsChordModifiers.Ghost">
             <summary>
             *Unsupported*
             </summary>
@@ -835,22 +625,22 @@
             <see cref="F:ChartTools.DrumsLane.Kick"/> that only appears when playing with multiple pedals
             </summary>
         </member>
-        <member name="T:ChartTools.GHLChordModifier">
+        <member name="T:ChartTools.GHLChordModifiers">
             <summary>
             Modifier that affects how a <see cref="T:ChartTools.GHLChord"/> can be played
             </summary>
         </member>
-        <member name="F:ChartTools.GHLChordModifier.None">
-            <inheritdoc cref="F:ChartTools.StandardChordModifier.None"/>
+        <member name="F:ChartTools.GHLChordModifiers.None">
+            <inheritdoc cref="F:ChartTools.StandardChordModifiers.None"/>
         </member>
-        <member name="F:ChartTools.GHLChordModifier.ExplicitHopo">
-            <inheritdoc cref="F:ChartTools.StandardChordModifier.ExplicitHopo"/>
+        <member name="F:ChartTools.GHLChordModifiers.ExplicitHopo">
+            <inheritdoc cref="F:ChartTools.StandardChordModifiers.ExplicitHopo"/>
         </member>
-        <member name="F:ChartTools.GHLChordModifier.HopoInvert">
-            <inheritdoc cref="F:ChartTools.StandardChordModifier.HopoInvert"/>
+        <member name="F:ChartTools.GHLChordModifiers.HopoInvert">
+            <inheritdoc cref="F:ChartTools.StandardChordModifiers.HopoInvert"/>
         </member>
-        <member name="F:ChartTools.GHLChordModifier.Tap">
-            <inheritdoc cref="F:ChartTools.StandardChordModifier.Tap"/>
+        <member name="F:ChartTools.GHLChordModifiers.Tap">
+            <inheritdoc cref="F:ChartTools.StandardChordModifiers.Tap"/>
         </member>
         <member name="T:ChartTools.GHLInstrumentIdentity">
             <summary>
@@ -860,7 +650,7 @@
         </member>
         <member name="T:ChartTools.GHLLane">
             <summary>
-            Frets for a GHL <see cref="T:ChartTools.Note"/>
+            Frets for a GHL <see cref="!:Note"/>
             </summary>
         </member>
         <member name="T:ChartTools.MidiInstrumentOrigin">
@@ -873,28 +663,28 @@
             All instruments
             </summary>
         </member>
-        <member name="T:ChartTools.StandardChordModifier">
+        <member name="T:ChartTools.StandardChordModifiers">
             <summary>
             Modifier that affects how a <see cref="T:ChartTools.StandardChord"/> can be played
             </summary>
             <remarks></remarks>
         </member>
-        <member name="F:ChartTools.StandardChordModifier.None">
+        <member name="F:ChartTools.StandardChordModifiers.None">
             <summary>
             No modifier
             </summary>
         </member>
-        <member name="F:ChartTools.StandardChordModifier.ExplicitHopo">
+        <member name="F:ChartTools.StandardChordModifiers.ExplicitHopo">
             <summary>
             The Hopo state is not relative to the previous chord.
             </summary>
         </member>
-        <member name="F:ChartTools.StandardChordModifier.HopoInvert">
+        <member name="F:ChartTools.StandardChordModifiers.HopoInvert">
             <summary>
-            Forced Hopo if <see cref="F:ChartTools.StandardChordModifier.ExplicitHopo"/> is set, otherwise inverts the natural state relative to the previous chord
+            Forced Hopo if <see cref="F:ChartTools.StandardChordModifiers.ExplicitHopo"/> is set, otherwise inverts the natural state relative to the previous chord
             </summary>
         </member>
-        <member name="F:ChartTools.StandardChordModifier.Tap">
+        <member name="F:ChartTools.StandardChordModifiers.Tap">
             <summary>
             The chord can be played without strumming
             </summary>
@@ -917,7 +707,7 @@
         </member>
         <member name="F:ChartTools.TrackSpecialPhraseType.Unknown">
             <summary>
-            The <see cref="P:ChartTools.TrackSpecialPhrase.TypeCode"/> is not a recognized phrase type
+            The <see cref="P:ChartTools.TrackSpecialPhrase.Type"/> is not a recognized phrase type
             </summary>
         </member>
         <member name="F:ChartTools.TrackSpecialPhraseType.StarPowerGain">
@@ -952,13 +742,30 @@
             <remarks>A lack of argument is represented as an empty string.</remarks>
         </member>
         <member name="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String)">
-            <param name="position"><inheritdoc cref="P:ChartTools.TrackObject.Position"/></param>
+            <param name="position"><inheritdoc cref="!:TrackObject.Position"/></param>
             <param name="data"><inheritdoc cref="P:ChartTools.Events.Event.EventData"/></param>
         </member>
         <member name="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String,System.String)">
             <inheritdoc cref="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String)"/>
             <param name="type"><inheritdoc cref="P:ChartTools.Events.Event.EventType"/></param>
             <param name="argument"><inheritdoc cref="P:ChartTools.Events.Event.Argument"/></param>
+        </member>
+        <member name="T:ChartTools.Events.EventExtensions">
+            <summary>
+            Provides additional methods for events.
+            </summary>
+        </member>
+        <member name="M:ChartTools.Events.EventExtensions.GetLyrics(System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent})">
+            <summary>
+            Gets the lyrics from an enumerable of <see cref="T:ChartTools.Events.GlobalEvent"/>
+            </summary>
+            <returns>Enumerable of <see cref="T:ChartTools.Lyrics.Phrase"/></returns>
+        </member>
+        <member name="M:ChartTools.Events.EventExtensions.SetLyrics(System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent},System.Collections.Generic.IEnumerable{ChartTools.Lyrics.Phrase})">
+            <summary>
+            Gets a set of <see cref="T:ChartTools.Events.GlobalEvent"/> where phrase and lyric events are replaced with the events making up a set of <see cref="T:ChartTools.Lyrics.Phrase"/>.
+            </summary>
+            <returns>Enumerable of <see cref="T:ChartTools.Events.GlobalEvent"/></returns>
         </member>
         <member name="T:ChartTools.Events.GlobalEvent">
             <summary>
@@ -995,23 +802,6 @@
         <member name="M:ChartTools.Events.LocalEvent.#ctor(System.UInt32,System.String,System.String)">
             <inheritdoc cref="M:ChartTools.Events.Event.#ctor(System.UInt32,System.String,System.String)"/>
         </member>
-        <member name="T:ChartTools.Events.GlobalEventExtensions">
-            <summary>
-            Provides additional methods for <see cref="T:ChartTools.Events.GlobalEvent"/>
-            </summary>
-        </member>
-        <member name="M:ChartTools.Events.GlobalEventExtensions.GetLyrics(System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent})">
-            <summary>
-            Gets the lyrics from an enumerable of <see cref="T:ChartTools.Events.GlobalEvent"/>
-            </summary>
-            <returns>Enumerable of <see cref="T:ChartTools.Lyrics.Phrase"/></returns>
-        </member>
-        <member name="M:ChartTools.Events.GlobalEventExtensions.SetLyrics(System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent},System.Collections.Generic.IEnumerable{ChartTools.Lyrics.Phrase})">
-            <summary>
-            Gets a set of <see cref="T:ChartTools.Events.GlobalEvent"/> where phrase and lyric events are replaced with the events making up a set of <see cref="T:ChartTools.Lyrics.Phrase"/>.
-            </summary>
-            <returns>Enumerable of <see cref="T:ChartTools.Events.GlobalEvent"/></returns>
-        </member>
         <member name="T:ChartTools.UndefinedEnumException">
             <summary>
             Exception thrown when using an <see cref="T:System.Enum"/> value that is not defined
@@ -1027,6 +817,491 @@
             Validates that an <see cref="T:System.Enum"/> value is defined.
             </summary>
             <exception cref="T:ChartTools.UndefinedEnumException"></exception>
+        </member>
+        <member name="T:ChartTools.Extensions.Collections.OrderedAlternatingEnumerable`2">
+            <summary>
+            Enumerable where <typeparamref name="T"/> items are pulled from a set of enumerables in order using a <typeparamref name="TKey"/> key
+            </summary>
+            <typeparam name="T">Type of the enumerated items</typeparam>
+            <typeparam name="TKey">Type of the key used to determine the order</typeparam>
+        </member>
+        <member name="P:ChartTools.Extensions.Collections.OrderedAlternatingEnumerable`2.Enumerables">
+            <summary>
+            Enumerables to alternate between
+            </summary>
+        </member>
+        <member name="P:ChartTools.Extensions.Collections.OrderedAlternatingEnumerable`2.KeyGetter">
+            <summary>
+            Method that retrieves the key from an item
+            </summary>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.OrderedAlternatingEnumerable`2.#ctor(System.Func{`0,`1},System.Collections.Generic.IEnumerable{`0}[])">
+            <summary>
+            Creates an instance of <see cref="T:ChartTools.Extensions.Collections.OrderedAlternatingEnumerable`2"/>.
+            </summary>
+            <param name="keyGetter">Method that retrieves the key from an item</param>
+            <param name="enumerables">Enumerables to alternate between</param>
+            <exception cref="T:System.ArgumentException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.OrderedAlternatingEnumerable`2.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.OrderedAlternatingEnumerable`2.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="T:ChartTools.Extensions.Collections.OrderedAlternatingEnumerator`2">
+            <summary>
+            Enumerator that yields <typeparamref name="T"/> items from a set of enumerators in order using a <typeparamref name="TKey"/> key
+            </summary>
+            <typeparam name="T">Type of the enumerated items</typeparam>
+            <typeparam name="TKey">Type of the key used to determine the order</typeparam>
+        </member>
+        <member name="P:ChartTools.Extensions.Collections.OrderedAlternatingEnumerator`2.KeyGetter">
+            <summary>
+            Method that retrieves the key from an item
+            </summary>
+        </member>
+        <member name="P:ChartTools.Extensions.Collections.OrderedAlternatingEnumerator`2.Initialized">
+            <inheritdoc/>
+        </member>
+        <member name="P:ChartTools.Extensions.Collections.OrderedAlternatingEnumerator`2.Current">
+            Currently alternated item following a <see cref="M:ChartTools.Extensions.Collections.OrderedAlternatingEnumerator`2.MoveNext"/> call
+        </member>
+        <member name="P:ChartTools.Extensions.Collections.OrderedAlternatingEnumerator`2.System#Collections#IEnumerator#Current">
+            <inheritdoc/>
+        </member>
+        <member name="F:ChartTools.Extensions.Collections.OrderedAlternatingEnumerator`2.endsReached">
+            <summary>
+            <see langword="true"/> for indexes where MoveNext previously returned <see langword="false"/>
+            </summary>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.OrderedAlternatingEnumerator`2.#ctor(System.Func{`0,`1},System.Collections.Generic.IEnumerator{`0}[])">
+            <summary>
+            Creates a new instance of <see cref="T:ChartTools.Extensions.Collections.OrderedAlternatingEnumerator`2"/>.
+            </summary>
+            <param name="keyGetter">Method that retrieves the key from an item</param>
+            <param name="enumerators">Enumerators to alternate between</param>
+            <exception cref="T:System.ArgumentException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.OrderedAlternatingEnumerator`2.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.OrderedAlternatingEnumerator`2.MoveNext">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.OrderedAlternatingEnumerator`2.Initialize">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.OrderedAlternatingEnumerator`2.Reset">
+            <inheritdoc/>
+        </member>
+        <member name="T:ChartTools.Extensions.Collections.SerialAlternatingEnumerable`1">
+            <summary>
+            Enumerable where <typeparamref name="T"/> items are yielded by alternating from a set of enumerables
+            </summary>
+            <typeparam name="T">Type of the enumerated items</typeparam>
+        </member>
+        <member name="P:ChartTools.Extensions.Collections.SerialAlternatingEnumerable`1.Enumerables">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.SerialAlternatingEnumerable`1.#ctor(System.Collections.Generic.IEnumerable{`0}[])">
+            <summary>
+            Creates an instance of <see cref="T:ChartTools.Extensions.Collections.SerialAlternatingEnumerable`1"/>
+            </summary>
+            <param name="enumerables">Enumerables to pull items from</param>
+            <exception cref="T:System.ArgumentException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.SerialAlternatingEnumerable`1.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.SerialAlternatingEnumerable`1.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="T:ChartTools.Extensions.Collections.SerialAlternatingEnumerator`1">
+            <summary>
+            Enumerator that yields <typeparamref name="T"/> items by alternating through a set of enumerators
+            </summary>
+            <typeparam name="T">Type of the enumerated items</typeparam>
+        </member>
+        <member name="P:ChartTools.Extensions.Collections.SerialAlternatingEnumerator`1.Enumerators">
+            <summary>
+            Enumerators to alternate between
+            </summary>
+        </member>
+        <member name="F:ChartTools.Extensions.Collections.SerialAlternatingEnumerator`1.index">
+            <summary>
+            Position of the next enumerator to pull from
+            </summary>
+        </member>
+        <member name="P:ChartTools.Extensions.Collections.SerialAlternatingEnumerator`1.Current">
+            <summary>
+            Item to use in the iteration
+            </summary>
+        </member>
+        <member name="P:ChartTools.Extensions.Collections.SerialAlternatingEnumerator`1.System#Collections#IEnumerator#Current">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.SerialAlternatingEnumerator`1.#ctor(System.Collections.Generic.IEnumerator{`0}[])">
+            <summary>
+            Creates an instance of <see cref="T:ChartTools.Extensions.Collections.SerialAlternatingEnumerator`1"/>
+            </summary>
+            <param name="enumerators">Enumerators to alternate between</param>
+            <exception cref="T:System.ArgumentException"/>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.SerialAlternatingEnumerator`1.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.SerialAlternatingEnumerator`1.MoveNext">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.SerialAlternatingEnumerator`1.Reset">
+            <inheritdoc/>
+        </member>
+        <member name="P:ChartTools.Extensions.Collections.DelayedEnumerable`1.AwaitingItems">
+            <summary>
+            <see langword="true"/> if there are more items to be received
+            </summary>
+        </member>
+        <member name="T:ChartTools.Extensions.Collections.IInitializable">
+            <summary>
+            Defines an object that can be initialized
+            </summary>
+        </member>
+        <member name="P:ChartTools.Extensions.Collections.IInitializable.Initialized">
+            <summary>
+            Has already been initialized
+            </summary>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.IInitializable.Initialize">
+            <summary>
+            Does required initialization if not already done.
+            </summary>
+            <returns><see langword="true"/> if the object was not initialized prior to calling.</returns>
+        </member>
+        <member name="T:ChartTools.Extensions.Collections.UniqueList`1">
+            <summary>
+            List where all <typeparamref name="T"/> items must be unique using a given comparison
+            </summary>
+            <typeparam name="T">Type of the contained items</typeparam>
+        </member>
+        <member name="F:ChartTools.Extensions.Collections.UniqueList`1.items">
+            <summary>
+            Source of items
+            </summary>
+        </member>
+        <member name="P:ChartTools.Extensions.Collections.UniqueList`1.Comparison">
+            <summary>
+            Method that defines uniqueness of items
+            </summary>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.UniqueList`1.#ctor(ChartTools.Extensions.EqualityComparison{`0},System.Int32,System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Creates an instance of <see cref="T:ChartTools.Extensions.Collections.UniqueList`1"/> using a comparison to define the uniqueness of items.
+            </summary>
+            <param name="comparison">Method that defines uniqueness of items</param>
+            <param name="capacity">Number of items that the <see cref="T:ChartTools.Extensions.Collections.UniqueList`1"/> can initially store</param>
+        </member>
+        <member name="P:ChartTools.Extensions.Collections.UniqueList`1.Item(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="P:ChartTools.Extensions.Collections.UniqueList`1.IsReadOnly">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.UniqueList`1.Add(`0)">
+            <summary>
+            Adds an item to the list and overwrites any duplicate.
+            </summary>
+            <param name="item">Item to add</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.UniqueList`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Adds multiple items to the <see cref="T:System.Collections.Generic.ICollection`1"/>
+            </summary>
+            <param name="collection">Items to add</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.UniqueList`1.RemoveDuplicate(`0)">
+            <summary>
+            Removes the first duplicate of a given item.
+            </summary>
+            <param name="item">Item to remove the duplicate of</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.UniqueList`1.RemoveDuplicates(System.Collections.Generic.List{`0})">
+            <summary>
+            Removes the first duplicate of multiple items
+            </summary>
+            <param name="collection">Items to remove the duplicate of</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.UniqueList`1.Clear">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.UniqueList`1.Contains(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.UniqueList`1.CopyTo(`0[],System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.UniqueList`1.GetEnumerator">
+            <inheritdoc/>>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.UniqueList`1.IndexOf(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.UniqueList`1.Insert(System.Int32,`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.UniqueList`1.Remove(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.UniqueList`1.RemoveAt(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.UniqueList`1.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="T:ChartTools.Extensions.Collections.UniqueListEquatable`1">
+            <summary>
+            List where all <typeparamref name="T"/> items must be unique using the default <see cref="T:System.IEquatable`1"/> comparison to determine uniqueness
+            </summary>
+            <typeparam name="T">Type of the contained items</typeparam>
+        </member>
+        <member name="M:ChartTools.Extensions.Collections.UniqueListEquatable`1.#ctor(System.Int32,System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Creates an instance of <see cref="T:ChartTools.Extensions.Collections.UniqueListEquatable`1"/>.
+            </summary>
+            <param name="capacity">Number of items that the <see cref="T:ChartTools.Extensions.Collections.UniqueListEquatable`1"/> can initially store</param>
+        </member>
+        <member name="T:ChartTools.Extensions.EqualityComparison`1">
+            <summary>
+            <see cref="T:System.IEquatable`1"/> equivalent to the <see cref="T:System.IComparable`1"/> <see cref="T:System.Comparison`1"/> delegate
+            </summary>
+        </member>
+        <member name="T:ChartTools.Extensions.FuncEqualityComparer`1">
+            <summary>
+            Delegate-based <see cref="T:System.Collections.Generic.IEqualityComparer`1"/>
+            </summary>
+        </member>
+        <member name="P:ChartTools.Extensions.FuncEqualityComparer`1.Comparison">
+            <summary>
+            Method used to compare two objects
+            </summary>
+        </member>
+        <member name="M:ChartTools.Extensions.FuncEqualityComparer`1.#ctor(ChartTools.Extensions.EqualityComparison{`0})">
+            <summary>
+            Creates a new instance.
+            </summary>
+            <param name="comparison">Method used to compare two objects</param>
+        </member>
+        <member name="T:ChartTools.Extensions.IInitializable">
+            <summary>
+            Defines an object that can be initialized
+            </summary>
+        </member>
+        <member name="P:ChartTools.Extensions.IInitializable.Initialized">
+            <summary>
+            Has already been initialized
+            </summary>
+        </member>
+        <member name="M:ChartTools.Extensions.IInitializable.Initialize">
+            <summary>
+            Does required initialization if not already done.
+            </summary>
+            <returns><see langword="true"/> if the object was not initialized prior to calling.</returns>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.CollectionExtensions.RemoveWhere``1(System.Collections.Generic.ICollection{``0},System.Predicate{``0})">
+            <summary>
+            Removes all items in a <see cref="T:System.Collections.Generic.ICollection`1"/> that meet a condition
+            </summary>
+            <param name="source">Collection to remove items from</param>
+            <param name="predicate">Function that determines which items to remove</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.All(System.Collections.Generic.IEnumerable{System.Boolean})">
+            <summary>
+            Checks that all booleans in a collection are <see langword="true"/>.
+            </summary>
+            <param name="source">Source of booleans</param>
+            <returns><see langword="true"/> if all booleans are <see langword="true"/> or the collection is empty</returns>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.Any(System.Collections.Generic.IEnumerable{System.Boolean})">
+            <summary>
+            Checks if any boolean in a collection is <see langword="true"/>.
+            </summary>
+            <param name="source">Source of booleans</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0,System.Boolean@)">
+            <inheritdoc cref="!:EnumerableExtensions.FirstOrDefault&lt;TSource&gt;(IEnumerable&lt;TSource&gt;, Func&lt;TSource, bool&gt;)"/>
+            <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0@)">
+            <summary>
+            Tries to get the first item that meet a condition from en enumerable.
+            </summary>
+            <param name="predicate">Method that returns <see langword="true"/> if a given item meets the condition</param>
+            <param name="item">Found item</param>
+            <returns><see langword="true"/> if an item was found</returns>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},``0@)">
+            <summary>
+            Tries to get the first element of a collection.
+            </summary>
+            <param name="source">Source of items</param>
+            <param name="result">Found item</param>
+            <returns><see langword="true"/> if an item was found</returns>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirstOfType``1(System.Collections.IEnumerable,``0@)">
+            <summary>
+            Tries to get the first item of a given type in a collection.
+            </summary>
+            <param name="source">Source of items</param>
+            <param name="result">Found item</param>
+            <returns><see langword="true"/> if an item was found</returns>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.NonNull``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Excludes <see langword="null"/> items.
+            </summary>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.Replace``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0)">
+            <summary>
+            Replaces items that meet a condition with another item.
+            </summary>
+            <param name="source">The IEnumerable&lt;out T&gt; to replace the items of</param>
+            <param name="predicate">A function that determines if an item must be replaced</param>
+            <param name="replacement">The item to replace items with</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSection``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.Linq.SectionReplacement{``0})">
+            <summary>
+            Replaces a section with other items.
+            </summary>
+            <remarks>Items that match startReplace or endReplace are not included in the returned items.</remarks>
+            <param name="source">Items to replace a section in</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSections``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{ChartTools.Extensions.Linq.SectionReplacement{``0}})">
+            <summary>
+            Replaces multiple sections of items.
+            </summary>
+            <remarks>Items that match startReplace or endReplace are not included in the returned items.</remarks>
+            <param name="source">Items to replace sections in</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.RemoveSection``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},System.Predicate{``0})">
+            <summary>
+            Removes a section of items.
+            </summary>
+            <remarks>Items that match startRemove or endRemove</remarks>
+            <param name="source">Source items to remove a section of</param>
+            <param name="startRemove">Function that determines the start of the section to replace</param>
+            <param name="endRemove">Function that determines the end of the section to replace</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoop``1(System.Collections.Generic.IEnumerable{``0},``0)">
+            <summary>
+            Loops through a set of objects and returns a set of tuples containing the current object and the previous one.
+            </summary>
+            <param name="source">Items to loop through</param>
+            <param name="firstPrevious">Value of the previous item in the first call of the action</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.Distinct``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.EqualityComparison{``0})">
+            <summary>
+            Returns distinct elements of a sequence using a method to determine the equality of elements
+            </summary>
+            <param name="comparison">Method that determines if two elements are the same</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinMaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Func{``1,``1,System.Boolean})">
+            <summary>
+            Finds the items for which a function returns the smallest or greatest value based on a comparison.
+            </summary>
+            <param name="source">Items to find the minimum or maximum of</param>
+            <param name="selector">Function that gets the key to use in the comparison from an item</param>
+            <param name="comparison">Function that returns <see langword="true"/> if the second item defeats the first</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Finds the items for which a function returns the smallest value.
+            </summary>
+            <param name="source">Items to find the minimum or maximum of</param>
+            <param name="selector">Function that gets the key to use in the comparison from an item</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.ManyMaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Finds the items for which a function returns the greatest value.
+            </summary>
+            <param name="source">Items to find the minimum or maximum of</param>
+            <param name="selector">Function that gets the key to use in the comparison from an item</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0)">
+            <inheritdoc cref="!:EnumerableExtensions.FirstOrDefault&lt;TSource&gt;(IEnumerable&lt;TSource&gt;, Func&lt;TSource, bool&gt;)"/>
+            <param name="defaultValue">Value to return if no item meets the condition</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.MinMaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Func{``1,``1,System.Boolean})">
+            <summary>
+            Finds the item for which a function returns the smallest or greatest value based on a comparison.
+            </summary>
+            <param name="source">Items to find the minimum or maximum of</param>
+            <param name="selector">Function that gets the key to use in the comparison from an item</param>
+            <param name="comparison">Function that returns <see langword="true"/> if the second item defeats the first</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.MinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Finds the item for which a function returns the smallest value.
+            </summary>
+            <remarks>If the smallest value is obtained from multiple items, the first item to do so will be returned.</remarks>
+            <param name="source">Items to find the minimum or maximum of</param>
+            <param name="selector">Function that gets the key to use in the comparison from an item</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.EnumerableExtensions.MaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Finds the item for which a function returns the greatest value.
+            </summary>
+            <remarks>If the greatest value is obtained from multiple items, the first item to do so will be returned.</remarks>
+            <param name="source">Items to find the minimum or maximum of</param>
+            <param name="selector">Function that gets the key to use in the comparison from an item</param>
+        </member>
+        <member name="T:ChartTools.Extensions.Linq.SectionReplacement`1">
+            <summary>
+            Replacement for a section of items in a collection
+            </summary>
+            <param name="Replacement">Items to replace with</param>
+            <param name="StartReplace">Method that defines if a source marks the start of the section to replace</param>
+            <param name="EndReplace">Method that defines if a source item marks the end of the section to replace</param>
+            <param name="AddIfMissing">The replacement should be appended to the collection if the section to replace is not found</param>
+        </member>
+        <member name="M:ChartTools.Extensions.Linq.SectionReplacement`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Predicate{`0},System.Predicate{`0},System.Boolean)">
+            <summary>
+            Replacement for a section of items in a collection
+            </summary>
+            <param name="Replacement">Items to replace with</param>
+            <param name="StartReplace">Method that defines if a source marks the start of the section to replace</param>
+            <param name="EndReplace">Method that defines if a source item marks the end of the section to replace</param>
+            <param name="AddIfMissing">The replacement should be appended to the collection if the section to replace is not found</param>
+        </member>
+        <member name="P:ChartTools.Extensions.Linq.SectionReplacement`1.Replacement">
+            <summary>Items to replace with</summary>
+        </member>
+        <member name="P:ChartTools.Extensions.Linq.SectionReplacement`1.StartReplace">
+            <summary>Method that defines if a source marks the start of the section to replace</summary>
+        </member>
+        <member name="P:ChartTools.Extensions.Linq.SectionReplacement`1.EndReplace">
+            <summary>Method that defines if a source item marks the end of the section to replace</summary>
+        </member>
+        <member name="P:ChartTools.Extensions.Linq.SectionReplacement`1.AddIfMissing">
+            <summary>The replacement should be appended to the collection if the section to replace is not found</summary>
+        </member>
+        <member name="T:ChartTools.Extensions.StringExtensions">
+            <summary>
+            Provides additional methods to string
+            </summary>
+        </member>
+        <member name="M:ChartTools.Extensions.StringExtensions.VerbalEnumerate(System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <inheritdoc cref="M:ChartTools.Extensions.StringExtensions.VerbalEnumerate(System.String,System.String[])"/>
+        </member>
+        <member name="M:ChartTools.Extensions.StringExtensions.VerbalEnumerate(System.String,System.String[])">
+            <summary>
+            Enumerates items with commas and a set word preceding the last item.
+            </summary>
+            <param name="lastItemPreceder">Word to place before the last item</param>
+            <exception cref="T:System.ArgumentNullException"/>
         </member>
         <member name="T:ChartTools.InstrumentSet">
             <summary>
@@ -1169,6 +1444,8 @@
                 <para><see langword="null"/> if the file contains no drums data</para>
             </returns>
             <param name="path">Path of the file to read</param>
+            <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
+            <param name="formatting"><inheritdoc cref="T:ChartTools.IO.Formatting.FormattingRules" path="/summary"/></param>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
             <summary>
@@ -1381,6 +1658,10 @@
             </summary>
             <param name="path">Path of the file to write</param>
             <param name="syncTrack">Sync track to write</param>
+            <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
+        </member>
+        <member name="M:ChartTools.IO.Chart.ChartFile.ReplaceSyncTrackAsync(System.String,ChartTools.SyncTrack,ChartTools.IO.Configuration.WritingConfiguration,System.Threading.CancellationToken)">
+            <inheritdoc cref="M:ChartTools.IO.Chart.ChartFile.ReplaceSyncTrack(System.String,ChartTools.SyncTrack,ChartTools.IO.Configuration.WritingConfiguration)"/>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.GetTrackCombinations``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>
@@ -1402,9 +1683,9 @@
             <summary>
             Gets the written data for a note.
             </summary>
-            <param name="position">Position of the parent <see cref="T:ChartTools.Chord"/></param>
-            <param name="index">Value of <see cref="P:ChartTools.Note.NoteIndex"/></param>
-            <param name="sustain">Value of <see cref="P:ChartTools.Note.Length"/></param>
+            <param name="position">Position of the parent <see cref="T:ChartTools.LaneChord"/></param>
+            <param name="index">Value of <see cref="!:LaneNote.Index"/></param>
+            <param name="sustain">Value of <see cref="!:LaneNote.Length"/></param>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFormatting.Float(System.Single)">
             <summary>
@@ -1420,17 +1701,17 @@
         </member>
         <member name="T:ChartTools.IO.Chart.Entries.NoteData">
             <summary>
-            Line of chart data representing a <see cref="T:ChartTools.Note"/>
+            Line of chart data representing a <see cref="T:ChartTools.LaneNote`1"/>
             </summary>
         </member>
-        <member name="P:ChartTools.IO.Chart.Entries.NoteData.NoteIndex">
+        <member name="P:ChartTools.IO.Chart.Entries.NoteData.Index">
             <summary>
-            Value of <see cref="P:ChartTools.Note.NoteIndex"/>
+            Value of <see cref="P:ChartTools.LaneNote`1.Index"/>
             </summary>
         </member>
         <member name="P:ChartTools.IO.Chart.Entries.NoteData.SustainLength">
             <summary>
-            Value of <see cref="P:ChartTools.Note.Length"/>
+            Value of <see cref="!:LaneNote&lt;TLane&gt;.Length"/>
             </summary>
         </member>
         <member name="M:ChartTools.IO.Chart.Entries.NoteData.#ctor(System.String)">
@@ -1442,17 +1723,17 @@
         </member>
         <member name="T:ChartTools.IO.Chart.Entries.TrackObjectEntry">
             <summary>
-            Line of chart file data representing a <see cref="T:ChartTools.TrackObject"/>
+            Line of chart file data representing a <see cref="T:ChartTools.TrackObjectBase"/>
             </summary>
         </member>
         <member name="P:ChartTools.IO.Chart.Entries.TrackObjectEntry.Position">
             <summary>
-            Value of <see cref="P:ChartTools.TrackObject.Position"/>
+            Value of <see cref="P:ChartTools.ITrackObject.Position"/>
             </summary>
         </member>
         <member name="P:ChartTools.IO.Chart.Entries.TrackObjectEntry.Type">
             <summary>
-            Type code of <see cref="T:ChartTools.TrackObject"/>
+            Type code of <see cref="T:ChartTools.ITrackObject"/>
             </summary>
         </member>
         <member name="P:ChartTools.IO.Chart.Entries.TrackObjectEntry.Data">
@@ -1475,7 +1756,7 @@
         </member>
         <member name="P:ChartTools.IO.Formatting.FormattingRules.Resolution">
             <summary>
-            Number of <see cref="P:ChartTools.TrackObject.Position"/> values per beat
+            Number of <see cref="P:ChartTools.ITrackObject.Position"/> values per beat
             </summary>
         </member>
         <member name="P:ChartTools.IO.Formatting.FormattingRules.SustainCutoff">
@@ -1535,88 +1816,144 @@
         </member>
         <member name="T:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy">
             <summary>
-            Defines how duplicate track objects are handled
+            Defines how duplicate track objects are handled.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.ThrowException">
             <summary>
-            Throw an exception
+            Throw an exception with the position.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.IncludeFirst">
             <summary>
-            Only include the first object
+            Include only the first object
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.IncludeAll">
             <summary>
-            Include all objects
+            Include all objects.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.LyricEventSource">
             <summary>
-            Where to get lyric data from for formats that store lyrics as events
+            Define where lyrics are obtained when writing a format that defines lyrics as events.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.LyricEventSource.GlobalEvents">
             <summary>
-            Lyrics are obtained from global events
+            Obtain lyrics from <see cref="P:ChartTools.Song.GlobalEvents"/>.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.LyricEventSource.Vocals">
             <summary>
-            Lyrics are obtained from the <see cref="!:Song.Vocals"/> instrument
+            Obtain lyrics from the <see cref="P:ChartTools.InstrumentSet.Vocals"/> instrument.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy">
             <summary>
-            Defines how overlapping star power phrases should be handled
+            Defines how overlapping star power phrases should be handled.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy.ThrowException">
+            <summary>
+            Throw an exception.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy.Ignore">
+            <summary>
+            Ignore the overlapping phrase.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy.Cut">
             <summary>
-            The length of the phrase is cut short to the start of the next one
+            Cut the length of the first phrase to the start of the next one.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.TempolessAnchorPolicy">
             <summary>
-            Defines how a tempo anchor with no parent marker is handled
+            Defines how a tempo anchor with no parent marker is handled.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.TempolessAnchorPolicy.ThrowException">
+            <summary>
+            Throw an exception.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.TempolessAnchorPolicy.Ignore">
+            <summary>
+            Ignore the anchor.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.TempolessAnchorPolicy.Create">
+            <summary>
+            Create a tempo marker with the anchor.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.SnappedNotesPolicy">
             <summary>
-            Defines how notes within ticks of each other are handled during a Midi operation
+            Defines how notes within ticks of each other are handled during a Midi operation.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.SnappedNotesPolicy.ThrowException">
+            <summary>
+            Throw an exception.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.SnappedNotesPolicy.Snap">
             <summary>
-            Notes are combines as a single chord at the position of the earlier note
+            Combine the notes as a single chord at the position of the earlier note.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.SnappedNotesPolicy.Ignore">
             <summary>
-            Each note is left as its own chord
+            Leave each note as its own chord.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy">
             <summary>
-            Defines how to handle "solo" local events in tracks
+            Defines how <see cref="F:ChartTools.Events.EventTypeHelper.Local.Solo"/> or <see cref="F:ChartTools.Events.EventTypeHelper.Local.SoloEnd"/> events are handled when there are no star power phrases.
             </summary>
+            <remarks><see cref="F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.StoreAsEvents"/> is always used when star power phrases are present.</remarks>
         </member>
-        <member name="F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.Ignore">
+        <member name="F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.StoreAsEvents">
             <summary>
-            Local events are interpreted as is
+            Store the events under <see cref="P:ChartTools.Track.LocalEvents"/>.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.Convert">
             <summary>
-            If a track has "solo" or "soloend" local events and no star power, convert the events into star power as interpreted by Clone Hero
+            Convert the space between the <see cref="F:ChartTools.Events.EventTypeHelper.Local.Solo"/> and <see cref="F:ChartTools.Events.EventTypeHelper.Local.SoloEnd"/> event to a star power phrase.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:ChartTools.IO.Configuration.TrackObjectSource" -->
+        <member name="T:ChartTools.IO.Configuration.TrackObjectSource">
+            <summary>
+            Difficulty of the <see cref="T:ChartTools.Track"/> to serve as a source of for track objects for which the target format requires these objects to be the same across all difficulties.
+            </summary>
+            <remarks>Can be cast from <see cref="T:ChartTools.Difficulty"/>.</remarks>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Easy">
+            <summary>
+            Use the objects from the <see cref="F:ChartTools.Difficulty.Easy"/> track.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Medium">
+            <summary>
+            Use the objects from the <see cref="F:ChartTools.Difficulty.Medium"/> track.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Hard">
+            <summary>
+            Use the objects from the <see cref="F:ChartTools.Difficulty.Hard"/> track.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Expert">
+            <summary>
+            Use the objects from the <see cref="F:ChartTools.Difficulty.Expert"/> track.
+            </summary>
+        </member>
         <member name="F:ChartTools.IO.Configuration.TrackObjectSource.Merge">
             <summary>
-            Each <see cref="T:ChartTools.Track"/> will contain a combination of all unique common track objects in the same <see cref="T:ChartTools.Instrument"/>
+            Combine the unique track objects from all the tracks in the instrument.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy">
@@ -1624,47 +1961,113 @@
             Defines how lead guitar and bass and handled when the Midi mapping is uncertain.
             </summary>
         </member>
+        <member name="F:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy.ThrowException">
+            <summary>
+            Throw an exception.
+            </summary>
+        </member>
         <member name="F:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy.UseReadingDefault">
             <summary>
-            The format defaulted to when reading id used.
+            Use the format that was defaulted to when reading.
             </summary>
-            <remarks>Policy is invalid when reading</remarks>
+            <remarks>Policy is invalid when reading.</remarks>
         </member>
         <member name="F:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy.UseGuitarHero2">
             <summary>
-            The Guitar Hero 2 format is used.
+            Default to the Guitar Hero 2 format.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.UncertainGuitarBassFormatPolicy.UseRockBand">
             <summary>
-            The Rock Band format is used.
+            Default to the Rock Band format.
+            </summary>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.UnknownSectionPolicy">
+            <summary>
+            Defines how unknown sections or Midi chunks are handled.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnknownSectionPolicy.ThrowException">
+            <summary>
+            Throw an exception with the section or chunk header.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnknownSectionPolicy.Store">
+            <summary>
+            Store the raw data to be included when writing.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.UnsupportedModifiersPolicy">
             <summary>
-            Defines how to handle chord modifiers not supported by the target format
+            Defines chord modifiers not supported by the target format are handled.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.UnsupportedModifiersPolicy.ThrowException">
             <summary>
-            Throw an exception
+            Throw an exception with the modifier index.
             </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnsupportedModifiersPolicy.Convert">
+            <summary>
+            Convert the modifier to one supported by the format.
+            </summary>
+            <remarks>Will throw an exception if the modifier cannot be converted.</remarks>
         </member>
         <member name="F:ChartTools.IO.Configuration.UnsupportedModifiersPolicy.IgnoreModifier">
             <summary>
-            The modifier is excluded
+            Ignore the modifier.
             </summary>
         </member>
         <member name="F:ChartTools.IO.Configuration.UnsupportedModifiersPolicy.IgnoreChord">
             <summary>
-            The chord is excluded
+            Ignore the chord containing the modifier.
+            </summary>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.UnopenedTrackObjectPolicy">
+            <summary>
+            Defines how track object defined with a <see cref="T:Melanchall.DryWetMidi.Core.NoteOffEvent"/> with no matching <see cref="T:Melanchall.DryWetMidi.Core.NoteOnEvent"/> are handled when reading Midi.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnopenedTrackObjectPolicy.ThrowException">
+            <summary>
+            Throw an exception with the event position and index.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnopenedTrackObjectPolicy.Create">
+            <summary>
+            Create a track object at the position of the closing event and a length of 0.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnopenedTrackObjectPolicy.Ignore">
+            <summary>
+            Ignore the event.
+            </summary>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.UnclosedTrackObjectPolicy">
+            <summary>
+            Defines how track object defined with a <see cref="T:Melanchall.DryWetMidi.Core.NoteOnEvent"/> with no matching <see cref="T:Melanchall.DryWetMidi.Core.NoteOffEvent"/> are handled when reading Midi.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnclosedTrackObjectPolicy.ThrowException">
+            <summary>
+            Throw an exception with the event position and index.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnclosedTrackObjectPolicy.Include">
+            <summary>
+            Include the track object with a length going up to the next track object opening of the same index.
+            </summary>
+        </member>
+        <member name="F:ChartTools.IO.Configuration.UnclosedTrackObjectPolicy.Ignore">
+            <summary>
+            Ignore the event and track object.
             </summary>
         </member>
         <member name="T:ChartTools.IO.Configuration.CommonConfiguration">
             <summary>
-            Configuration object to direct the reading or writing of a file
+            Set of policies defining how errors in IO operations are handled
             </summary>
-            <remarks>If <see langword="null"/>, the default configuration for the file format will be used.</remarks>
+            <remarks>If <see langword="null"/>, the default configuration for the target file type will be used.</remarks>
         </member>
         <member name="P:ChartTools.IO.Configuration.CommonConfiguration.DuplicateTrackObjectPolicy">
             <inheritdoc cref="T:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy"/>
@@ -1692,6 +2095,12 @@
             Configuration object to customize how DryWetMidi reads Midi file before being parsed
             </summary>
             <remarks>Setting to <see landword="null"/> will use default settings</remarks>
+        </member>
+        <member name="T:ChartTools.IO.Configuration.WritingConfiguration">
+            <summary>
+            Set of policies defining how errors during write operations are handled
+            </summary>
+            <inheritdoc cref="T:ChartTools.IO.Configuration.CommonConfiguration"/>
         </member>
         <member name="P:ChartTools.IO.Configuration.WritingConfiguration.EventSource">
             <summary>
@@ -1750,6 +2159,25 @@
             <param name="path"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='path']"/></param>
             <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='cancellationToken']"/></param>
             <param name="config"><inheritdoc cref="M:ChartTools.Song.FromFileAsync(System.String,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)" path="/param[@='config']"/></param>
+        </member>
+        <member name="T:ChartTools.IO.Sections.SectionSet`1">
+            <summary>
+            Set of sections contained in a file that cannot be mapped to the model
+            </summary>
+            <typeparam name="T">Type of content in the sections depending on the file type</typeparam>
+        </member>
+        <member name="P:ChartTools.IO.Sections.SectionSet`1.ReservedHeaders">
+            <summary>
+            Headers used by the model
+            </summary>
+            <remarks>Using a reserved header will cause an <see cref="T:System.Exception"/>.</remarks>
+        </member>
+        <member name="M:ChartTools.IO.Sections.SectionSet`1.Get(System.String)">
+            <summary>
+            Gets a section based on its header
+            </summary>
+            <param name="header">Header of the section to search</param>
+            <returns>Section with the matching header. <see langword="null"/> if none found.</returns>
         </member>
         <member name="M:ChartTools.IO.Serializaiton.KeySerializableAttribute.GetSerializable``1(System.Object)">
             <summary>
@@ -1843,9 +2271,7 @@
             <returns>Instance of <see cref="T:System.Exception"/> to throw</returns>
         </member>
         <member name="P:ChartTools.ILongObject.Length">
-            <summary>
-            Length of the object in ticks
-            </summary>
+            <inheritdoc cref="P:ChartTools.IReadOnlyTrackObject.Position"/>
         </member>
         <member name="T:ChartTools.Instrument">
             <summary>
@@ -1872,7 +2298,7 @@
         </member>
         <member name="P:ChartTools.Instrument.SpecialPhrases">
             <summary>
-            Set of special phrases
+            Set of special phrases applied to all difficulties
             </summary>
         </member>
         <member name="M:ChartTools.Instrument.GetDifficulty(ChartTools.InstrumentDifficultySet)">
@@ -2029,6 +2455,74 @@
             <exception cref="T:System.ArgumentNullException"/>
             <exception cref="T:ChartTools.UndefinedEnumException"/>
         </member>
+        <member name="P:ChartTools.IReadOnlyLongObject.Length">
+            <summary>
+            Length of the object in ticks
+            </summary>
+        </member>
+        <member name="P:ChartTools.INote.Index">
+            <summary>
+            Numerical value of the note identity
+            </summary>
+        </member>
+        <member name="T:ChartTools.LaneNote`1">
+            <summary>
+            Base class for notes
+            </summary>
+        </member>
+        <member name="P:ChartTools.LaneNote`1.Sustain">
+            <summary>
+            Maximum length the note can be held for extra points (sustain)
+            </summary>
+        </member>
+        <member name="P:ChartTools.LaneNoteCollection`2.OpenExclusivity">
+            <summary>
+            If <see langword="true"/>, trying to combine an open note with other notes will remove the current ones.
+            </summary>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Add(`0)">
+            <summary>
+            Adds a note to the <see cref="T:ChartTools.LaneNoteCollection`2"/>.
+            </summary>
+            <remarks>Adding a note that already exists will overwrite the existing note.
+                <para>If <see cref="P:ChartTools.LaneNoteCollection`2.OpenExclusivity"/> is <see langword="true"/>, combining an open note with other notes will remove the current ones.</para>
+            </remarks>
+            <param name="note">Note to add</param>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Contains(`0)">
+            <summary>
+            Determines if any note matches the lane of a given note.
+            </summary>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Contains(`1)">
+            <summary>
+            Determines if any note matches a given lane.
+            </summary>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Contains(System.Byte)">
+            <summary>
+            Determines if any note matches a given index.
+            </summary>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Remove(`0)">
+            <summary>
+            Removes the note that matches the lane of a given note.
+            </summary>
+            <returns><see langword="true"/> if a matching note was found.</returns>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Remove(`1)">
+            <summary>
+            Removes the note that matches a given lane.
+            </summary>
+            <returns><see langword="true"/> if a matching note was found.</returns>
+        </member>
+        <member name="M:ChartTools.LaneNoteCollection`2.Remove(System.Byte)">
+            <summary>
+            Removes the note that matches a given index.
+            </summary>
+            <returns><see langword="true"/> if a matching note was found.</returns>
+        </member>
         <member name="T:ChartTools.InstrumentSpecialPhrase">
             <summary>
             Phrase related to an instrument that triggers an in-game event.
@@ -2039,22 +2533,41 @@
             Type of the phrase that drives the gameplay effect
             </summary>
         </member>
-        <member name="P:ChartTools.InstrumentSpecialPhrase.TypeCode">
-            <summary>
-            Numerical value of the phrase type
-            </summary>
-        </member>
         <member name="M:ChartTools.InstrumentSpecialPhrase.#ctor(System.UInt32,ChartTools.InstrumentSpecialPhraseType,System.UInt32)">
             <summary>
             Creates an instance of <see cref="T:ChartTools.InstrumentSpecialPhrase"/>.
             </summary>
-            <param name="position">Position of the phrase</param>
             <param name="type">Effect of the phrase</param>
-            <param name="length">Duration in ticks</param>
+            <inheritdoc cref="M:ChartTools.SpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)"/>
         </member>
         <member name="M:ChartTools.InstrumentSpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)">
+            <summary>
             <inheritdoc cref="M:ChartTools.InstrumentSpecialPhrase.#ctor(System.UInt32,ChartTools.InstrumentSpecialPhraseType,System.UInt32)"/>
-            <param name="typeCode">Numeric value of the phrase type. Can be used to define custom phrases.</param>
+            </summary>
+            <inheritdoc cref="M:ChartTools.SpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)"/>
+        </member>
+        <member name="T:ChartTools.SpecialPhrase">
+            <summary>
+            Base class for phrases that define an in-game event with a duration such as star power.
+            </summary>
+        </member>
+        <member name="P:ChartTools.SpecialPhrase.TypeCode">
+            <summary>
+            Numerical value of the phrase type
+            </summary>
+        </member>
+        <member name="P:ChartTools.SpecialPhrase.Length">
+            <summary>
+            Duration of the phrase in ticks
+            </summary>
+        </member>
+        <member name="M:ChartTools.SpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)">
+            <summary>
+            Base constructor of special phrases.
+            </summary>
+            <param name="position">Position of the phrase</param>
+            <param name="typeCode">Effect of the phrase</param>
+            <param name="length">Duration in ticks</param>
         </member>
         <member name="T:ChartTools.TrackSpecialPhrase">
             <summary>
@@ -2066,241 +2579,18 @@
             Type of the phrase that drives the gameplay effect
             </summary>
         </member>
-        <member name="P:ChartTools.TrackSpecialPhrase.TypeCode">
-            <summary>
-            Numerical value of the phrase type
-            </summary>
-        </member>
         <member name="M:ChartTools.TrackSpecialPhrase.#ctor(System.UInt32,ChartTools.TrackSpecialPhraseType,System.UInt32)">
             <summary>
             Creates an instance of <see cref="T:ChartTools.TrackSpecialPhrase"/>.
             </summary>
-            <param name="position">Position of the phrase</param>
             <param name="type">Effect of the phrase</param>
-            <param name="length">Duration in ticks</param>
+            <inheritdoc cref="M:ChartTools.SpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)"/>
         </member>
         <member name="M:ChartTools.TrackSpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)">
+            <summary>
             <inheritdoc cref="M:ChartTools.TrackSpecialPhrase.#ctor(System.UInt32,ChartTools.TrackSpecialPhraseType,System.UInt32)"/>
-            <param name="typeCode">Numeric value of the phrase type. Can be used to define custom phrases.</param>
-        </member>
-        <member name="T:ChartTools.SystemExtensions.EqualityComparison`1">
-            <summary>
-            <see cref="T:System.IEquatable`1"/> equivalent to the <see cref="T:System.IComparable`1"/> <see cref="T:System.Comparison`1"/> delegate
             </summary>
-        </member>
-        <member name="T:ChartTools.SystemExtensions.StringExtensions">
-            <summary>
-            Provides additional methods to string
-            </summary>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.StringExtensions.VerbalEnumerate(System.Collections.Generic.IEnumerable{System.String},System.String)">
-            <inheritdoc cref="M:ChartTools.SystemExtensions.StringExtensions.VerbalEnumerate(System.String,System.String[])"/>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.StringExtensions.VerbalEnumerate(System.String,System.String[])">
-            <summary>
-            Enumerates items with commas and a set word preceding the last item.
-            </summary>
-            <param name="lastItemPreceder">Word to place before the last item</param>
-            <exception cref="T:System.ArgumentNullException"/>
-        </member>
-        <member name="T:ChartTools.SystemExtensions.Linq.SectionReplacement`1">
-            <summary>
-            Replacement for a section of items in a collection
-            </summary>
-            <param name="Replacement">Items to replace with</param>
-            <param name="StartReplace">Method that defines if a source marks the start of the section to replace</param>
-            <param name="EndReplace">Method that defines if a source item marks the end of the section to replace</param>
-            <param name="AddIfMissing">The replacement should be appended to the collection if the section to replace is not found</param>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.SectionReplacement`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Predicate{`0},System.Predicate{`0},System.Boolean)">
-            <summary>
-            Replacement for a section of items in a collection
-            </summary>
-            <param name="Replacement">Items to replace with</param>
-            <param name="StartReplace">Method that defines if a source marks the start of the section to replace</param>
-            <param name="EndReplace">Method that defines if a source item marks the end of the section to replace</param>
-            <param name="AddIfMissing">The replacement should be appended to the collection if the section to replace is not found</param>
-        </member>
-        <member name="P:ChartTools.SystemExtensions.Linq.SectionReplacement`1.Replacement">
-            <summary>Items to replace with</summary>
-        </member>
-        <member name="P:ChartTools.SystemExtensions.Linq.SectionReplacement`1.StartReplace">
-            <summary>Method that defines if a source marks the start of the section to replace</summary>
-        </member>
-        <member name="P:ChartTools.SystemExtensions.Linq.SectionReplacement`1.EndReplace">
-            <summary>Method that defines if a source item marks the end of the section to replace</summary>
-        </member>
-        <member name="P:ChartTools.SystemExtensions.Linq.SectionReplacement`1.AddIfMissing">
-            <summary>The replacement should be appended to the collection if the section to replace is not found</summary>
-        </member>
-        <member name="T:ChartTools.SystemExtensions.Linq.LinqExtensions">
-            <summary>
-            Provides additional methods to Linq
-            </summary>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.All(System.Collections.Generic.IEnumerable{System.Boolean})">
-            <summary>
-            Checks that all booleans in a collection are <see langword="true"/>.
-            </summary>
-            <param name="source">Source of booleans</param>
-            <returns><see langword="true"/> if all booleans are <see langword="true"/> or the collection is empty</returns>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.Any(System.Collections.Generic.IEnumerable{System.Boolean})">
-            <summary>
-            Checks if any boolean in a collection is <see langword="true"/>.
-            </summary>
-            <param name="source">Source of booleans</param>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0,System.Boolean@)">
-            <inheritdoc cref="M:System.Linq.Enumerable.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Boolean})"/>
-            <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.NonNull``1(System.Collections.Generic.IEnumerable{``0})">
-            <summary>
-            Excludes <see langword="null"/> items.
-            </summary>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0@)">
-            <summary>
-            Tries to get the first item that meet a condition from en enumerable.
-            </summary>
-            <param name="predicate">Method that returns <see langword="true"/> if a given item meets the condition</param>
-            <param name="item">Found item</param>
-            <returns><see langword="true"/> if an item was found</returns>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.Distinct``1(System.Collections.Generic.IEnumerable{``0},ChartTools.SystemExtensions.EqualityComparison{``0})">
-            <summary>
-            Returns distinct elements of a sequence using a method to determine the equality of elements
-            </summary>
-            <param name="comparison">Method that determines if two elements are the same</param>
-            <inheritdoc cref="M:System.Linq.Enumerable.Distinct``1(System.Collections.Generic.IEnumerable{``0})" path="/exception"/>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.Replace``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0)">
-            <summary>
-            Replaces items that meet a condition with another item.
-            </summary>
-            <param name="source">The IEnumerable&lt;out T&gt; to replace the items of</param>
-            <param name="predicate">A function that determines if an item must be replaced</param>
-            <param name="replacement">The item to replace items with</param>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.ReplaceSection``1(System.Collections.Generic.IEnumerable{``0},ChartTools.SystemExtensions.Linq.SectionReplacement{``0})">
-            <summary>
-            Replaces a section with other items.
-            </summary>
-            <remarks>Items that match startReplace or endReplace are not included in the returned items.</remarks>
-            <param name="source">Items to replace a section in</param>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.ReplaceSections``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{ChartTools.SystemExtensions.Linq.SectionReplacement{``0}})">
-            <summary>
-            Replaces multiple sections of items.
-            </summary>
-            <remarks>Items that match startReplace or endReplace are not included in the returned items.</remarks>
-            <param name="source">Items to replace sections in</param>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.RemoveSection``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},System.Predicate{``0})">
-            <summary>
-            Removes a section of items.
-            </summary>
-            <remarks>Items that match startRemove or endRemove</remarks>
-            <param name="source">Source items to remove a section of</param>
-            <param name="startRemove">Function that determines the start of the section to replace</param>
-            <param name="endRemove">Function that determines the end of the section to replace</param>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.RelativeLoop``1(System.Collections.Generic.IEnumerable{``0},``0)">
-            <summary>
-            Loops through a set of objects and returns a set of tuples containing the current object and the previous one.
-            </summary>
-            <param name="source">Items to loop through</param>
-            <param name="firstPrevious">Value of the previous item in the first call of the action</param>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.RemoveWhere``1(System.Collections.Generic.ICollection{``0},System.Predicate{``0})">
-            <summary>
-            Removes all items in a <see cref="T:System.Collections.Generic.ICollection`1"/> that meet a condition
-            </summary>
-            <param name="source">Collection to remove items from</param>
-            <param name="predicate">Function that determines which items to remove</param>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.ManyMinMaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Func{``1,``1,System.Boolean})">
-            <summary>
-            Finds the items for which a function returns the smallest or greatest value based on a comparison.
-            </summary>
-            <param name="source">Items to find the minimum or maximum of</param>
-            <param name="selector">Function that gets the key to use in the comparison from an item</param>
-            <param name="comparison">Function that returns <see langword="true"/> if the second item defeats the first</param>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.ManyMinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
-            <summary>
-            Finds the items for which a function returns the smallest value.
-            </summary>
-            <param name="source">Items to find the minimum or maximum of</param>
-            <param name="selector">Function that gets the key to use in the comparison from an item</param>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.ManyMaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
-            <summary>
-            Finds the items for which a function returns the greatest value.
-            </summary>
-            <param name="source">Items to find the minimum or maximum of</param>
-            <param name="selector">Function that gets the key to use in the comparison from an item</param>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},``0@)">
-            <summary>
-            Tries to get the first element of a collection.
-            </summary>
-            <param name="source">Source of items</param>
-            <param name="result">Found item</param>
-            <returns><see langword="true"/> if an item was found</returns>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.TryGetFirstOfType``1(System.Collections.IEnumerable,``0@)">
-            <summary>
-            Tries to get the first item of a given type in a collection.
-            </summary>
-            <param name="source">Source of items</param>
-            <param name="result">Found item</param>
-            <returns><see langword="true"/> if an item was found</returns>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0)">
-            <inheritdoc cref="M:System.Linq.Enumerable.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Boolean})"/>
-            <param name="defaultValue">Value to return if no item meets the condition</param>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.MinMaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Func{``1,``1,System.Boolean})">
-            <summary>
-            Finds the item for which a function returns the smallest or greatest value based on a comparison.
-            </summary>
-            <param name="source">Items to find the minimum or maximum of</param>
-            <param name="selector">Function that gets the key to use in the comparison from an item</param>
-            <param name="comparison">Function that returns <see langword="true"/> if the second item defeats the first</param>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.MinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
-            <summary>
-            Finds the item for which a function returns the smallest value.
-            </summary>
-            <remarks>If the smallest value is obtained from multiple items, the first item to do so will be returned.</remarks>
-            <param name="source">Items to find the minimum or maximum of</param>
-            <param name="selector">Function that gets the key to use in the comparison from an item</param>
-        </member>
-        <member name="M:ChartTools.SystemExtensions.Linq.LinqExtensions.MaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
-            <summary>
-            Finds the item for which a function returns the greatest value.
-            </summary>
-            <remarks>If the greatest value is obtained from multiple items, the first item to do so will be returned.</remarks>
-            <param name="source">Items to find the minimum or maximum of</param>
-            <param name="selector">Function that gets the key to use in the comparison from an item</param>
-        </member>
-        <member name="T:ChartTools.FuncEqualityComparer`1">
-            <summary>
-            Delegate-based <see cref="T:System.Collections.Generic.IEqualityComparer`1"/>
-            </summary>
-        </member>
-        <member name="P:ChartTools.FuncEqualityComparer`1.Comparison">
-            <summary>
-            Method used to compare two objects
-            </summary>
-        </member>
-        <member name="M:ChartTools.FuncEqualityComparer`1.#ctor(ChartTools.SystemExtensions.EqualityComparison{`0})">
-            <summary>
-            Creates a new instance.
-            </summary>
-            <param name="comparison">Method used to compare two objects</param>
+            <inheritdoc cref="M:ChartTools.SpecialPhrase.#ctor(System.UInt32,System.Byte,System.UInt32)"/>
         </member>
         <member name="T:ChartTools.Tools.PropertyMerger">
             <summary>
@@ -2321,7 +2611,7 @@
             Provides methods for simplifying songs
             </summary>
         </member>
-        <member name="M:ChartTools.Tools.Optimizer.CutSustains(System.Collections.Generic.IEnumerable{ChartTools.Chord})">
+        <member name="M:ChartTools.Tools.Optimizer.CutSustains(System.Collections.Generic.IEnumerable{ChartTools.LaneChord})">
             <summary>
             Cuts short sustains that exceed the position of the next identical note.
             </summary>
@@ -2333,15 +2623,15 @@
             </summary>
             <param name="phrases">Star power phrases to cut the lengths of</param>
         </member>
-        <member name="M:ChartTools.Tools.Optimizer.RemoveUneeded(ChartTools.UniqueTrackObjectCollection{ChartTools.Tempo})">
+        <member name="M:ChartTools.Tools.Optimizer.RemoveUneeded(System.Collections.Generic.ICollection{ChartTools.Tempo})">
             <summary>
-            Sorts tempo markers and removes redundant ones.
+            Removes redundant tempo markers.
             </summary>
             <param name="markers">Tempo markers to remove the unneeded from</param>
         </member>
-        <member name="M:ChartTools.Tools.Optimizer.RemoveUnneeded(ChartTools.UniqueTrackObjectCollection{ChartTools.TimeSignature})">
+        <member name="M:ChartTools.Tools.Optimizer.RemoveUnneeded(System.Collections.Generic.ICollection{ChartTools.TimeSignature})">
             <summary>
-            Sorts time signatures and removes redundant ones.
+            Removes redundant time signature markers ones.
             </summary>
             <param name="signatures">Time signatures to remove the unneeded from</param>
         </member>
@@ -2373,7 +2663,7 @@
             <param name="tempo">Marker to rescale</param>
             <param name="scale">Positive number where 1 is the current scale.</param>
         </member>
-        <member name="M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.Chord,System.Single)">
+        <member name="M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.IChord,System.Single)">
             <summary>
             Rescales the position of a chord and sustain of its notes.
             </summary>
@@ -2408,14 +2698,16 @@
             <param name="song">Source of objects</param>
             <param name="scale">Positive number where 1 is the current scale.</param>
         </member>
+        <member name="T:ChartTools.IReadOnlyTrackObject">
+            <summary>
+            Object located on a track
+            </summary>
+        </member>
         <member name="P:ChartTools.IReadOnlyTrackObject.Position">
             <summary>
             Tick number on the track.
             </summary>
-            <remarks>A tick represents a subdivision of a beat. The number of subdivisions per beat is stored in <see cref="!:Formatting.FormattingRules.Resolution"/>.</remarks>
-        </member>
-        <member name="M:ChartTools.LongTrackObject.#ctor(System.UInt32)">
-            <inheritdoc cref="M:ChartTools.TrackObject.#ctor(System.UInt32)"/>
+            <remarks>A tick represents a subdivision of a beat. The number of subdivisions per beat is stored in <see cref="P:ChartTools.IO.Formatting.FormattingRules.Resolution"/>.</remarks>
         </member>
         <member name="T:ChartTools.InstrumentDifficultySet">
             <summary>
@@ -2476,6 +2768,12 @@
             <summary>
             Location of the image file to use as an icon in the Clone Hero song browser
             </summary>
+        </member>
+        <member name="M:ChartTools.Charter.ToString">
+            <summary>
+            Represents the charter through its <see cref="P:ChartTools.Charter.Name"/>.
+            </summary>
+            <returns><see cref="P:ChartTools.Charter.Name"/></returns>
         </member>
         <member name="T:ChartTools.StreamCollection">
             <summary>
@@ -2545,6 +2843,9 @@
             <summary>
             Tick number marking the end of the object
             </summary>
+        </member>
+        <member name="T:ChartTools.ITrackObject">
+            <inheritdoc cref="T:ChartTools.IReadOnlyTrackObject"/>
         </member>
         <member name="P:ChartTools.ITrackObject.Position">
             <inheritdoc cref="P:ChartTools.IReadOnlyTrackObject.Position"/>
@@ -2669,7 +2970,7 @@
             <summary>
             Unrecognized metadata
             </summary>
-            <remarks>When writing, these will only be written if the target format matches the origin</remarks>
+            <remarks>When writing, these will only be written if the target file type matches the origin</remarks>
         </member>
         <member name="M:ChartTools.Metadata.FromFile(System.String)">
             <summary>
@@ -2710,61 +3011,6 @@
             Determines if the note is played by kicking
             </summary>
         </member>
-        <member name="T:ChartTools.Note">
-            <summary>
-            Base class for notes
-            </summary>
-        </member>
-        <member name="P:ChartTools.Note.NoteIndex">
-            <summary>
-            Numerical value of the note as written in a chart file
-            </summary>
-        </member>
-        <member name="P:ChartTools.Note.Length">
-            <summary>
-            Maximum length the note can be held for extra points (sustain)
-            </summary>
-        </member>
-        <member name="P:ChartTools.LaneNoteCollection`2.OpenExclusivity">
-            <summary>
-            If <see langword="true"/>, trying to combine an open note with other notes will remove the current ones.
-            </summary>
-        </member>
-        <member name="M:ChartTools.LaneNoteCollection`2.Add(`0)">
-            <summary>
-            Adds a note to the <see cref="T:ChartTools.NoteCollection`2"/>.
-            </summary>
-            <remarks>Adding a note that already exists will overwrite the existing note.
-                <para>If <see cref="P:ChartTools.LaneNoteCollection`2.OpenExclusivity"/> is <see langword="true"/>, combining an open note with other notes will remove the current ones.</para>
-            </remarks>
-            <param name="item">Item to add</param>
-        </member>
-        <member name="T:ChartTools.NoteCollection`2">
-            <summary>
-            Set of notes played simultaneously
-            </summary>
-        </member>
-        <member name="M:ChartTools.NoteCollection`2.Add(`0)">
-            <summary>Adds a note to the collection.</summary>
-            <exception cref="T:System.ArgumentNullException"/>
-        </member>
-        <member name="M:ChartTools.NoteCollection`2.Contains(`0)">
-            <summary>
-            Determines if a note is contained in the collection.
-            </summary>
-            <exception cref="T:System.ArgumentNullException"/>
-        </member>
-        <member name="M:ChartTools.NoteCollection`2.Remove(`0)">
-            <summary>
-            Removes a note from the collection.
-            </summary>
-            <exception cref="T:System.ArgumentNullException"/>
-        </member>
-        <member name="P:ChartTools.NoteCollection`2.Item(`1)">
-            <summary>
-            Gets the note matching a lane.
-            </summary>
-        </member>
         <member name="T:ChartTools.Song">
             <summary>
             Song playable in Clone Hero
@@ -2774,9 +3020,6 @@
             <summary>
             Set of information about the song not unrelated to instruments, syncing or events
             </summary>
-        </member>
-        <member name="P:ChartTools.Song.Formatting">
-            <inheritdoc cref="T:ChartTools.IO.Formatting.FormattingRules"/>
         </member>
         <member name="P:ChartTools.Song.SyncTrack">
             <inheritdoc cref="T:ChartTools.SyncTrack"/>
@@ -2902,20 +3145,9 @@
             <summary>
             Creates an instance of <see cref="T:ChartTools.TimeSignature"/>.
             </summary>
-            <param name="position">Value of <see cref="P:ChartTools.TrackObject.Position"/></param>
+            <param name="position">Value of <see cref="P:ChartTools.TrackObjectBase.Position"/></param>
             <param name="numerator">Value of <see cref="P:ChartTools.TimeSignature.Numerator"/></param>
             <param name="denominator">Value of <see cref="P:ChartTools.TimeSignature.Denominator"/></param>
-        </member>
-        <member name="T:ChartTools.TrackObject">
-            <summary>
-            Object located on a track
-            </summary>
-        </member>
-        <member name="P:ChartTools.TrackObject.Position">
-            <inheritdoc cref="P:ChartTools.ITrackObject.Position"/>
-        </member>
-        <member name="M:ChartTools.TrackObject.#ctor(System.UInt32)">
-            <param name="position">Position of the object</param>
         </member>
         <member name="T:ChartTools.Track">
             <summary>
@@ -3009,6 +3241,7 @@
             <param name="difficulty"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='difficulty']"/></param>
             <param name="cancellationToken"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='cancellationToken']"/></param>
             <param name="config"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='config']"/></param>
+            <param name="formatting"><inheritdoc cref="M:ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)" path="/param[@name='formatting']"/></param>
             <returns></returns>
         </member>
         <member name="M:ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
@@ -3033,6 +3266,27 @@
         <member name="T:ChartTools.Track`1">
             <summary>
             Set of chords for a instrument at a certain difficulty
+            </summary>
+        </member>
+        <member name="P:ChartTools.Track`1.Chords">
+            <summary>
+            Chords making up the difficulty track.
+            </summary>
+        </member>
+        <member name="P:ChartTools.Track`1.ParentInstrument">
+            <summary>
+            Instrument the track is held in.
+            </summary>
+        </member>
+        <member name="M:ChartTools.Track`1.GetChords">
+            <summary>
+            Gets the chords as a read-only list of the base interface.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ChartTools.Track`1.GetInstrument">
+            <summary>
+            Gets the parent instrument as an instance of the base type.
             </summary>
         </member>
         <member name="T:ChartTools.UniqueTrackObjectCollection`1">

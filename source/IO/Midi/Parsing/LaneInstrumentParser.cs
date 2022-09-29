@@ -1,7 +1,7 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Midi.Mapping;
-using ChartTools.SystemExtensions;
-using ChartTools.SystemExtensions.Linq;
+using ChartTools.Extensions;
+using ChartTools.Extensions.Linq;
 
 using Melanchall.DryWetMidi.Core;
 

@@ -1,15 +1,15 @@
-﻿using ChartTools.IO.Chart.Entries;
+﻿using ChartTools.Extensions.Linq;
+using ChartTools.IO.Chart.Entries;
+using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
-using ChartTools.SystemExtensions.Linq;
 
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ChartTools.IO.Chart.Mapping
 {
     internal static class ChordMapper
     {
-        public static IEnumerable<TrackObjectEntry> Map(IEnumerable<Chord> source, WritingSession session)
+        public static IEnumerable<TrackObjectEntry> Map(IEnumerable<LaneChord> source, WritingSession session)
         {
             List<uint> orderedPositions = new();
             LaneChord? previousChord = null;
@@ -25,7 +25,7 @@ namespace ChartTools.IO.Chart.Mapping
 
                     return exactMatch;
                 }))
-                    foreach (var entry in (chord.ChartSupportedModifiers ? chord.GetChartModifierData(previousChord, session) : session.GetChordEntries(previousChord, chord)).Concat(chord.GetChartNoteData()))
+                    foreach (var entry in chord.GetChartData(previousChord, (chord.ChartSupportedModifiers ? UnsupportedModifiersResults.Modifier : session.UnsupportedModifiersProcedure(chord)).HasFlag(UnsupportedModifiersResults.Modifier), session.Formatting!))
                         yield return entry;
 
                 previousChord = chord;

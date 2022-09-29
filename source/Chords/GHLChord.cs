@@ -1,6 +1,6 @@
 ﻿using ChartTools.IO.Chart;
 using ChartTools.IO.Chart.Entries;
-using ChartTools.IO.Configuration.Sessions;
+using ChartTools.IO.Formatting;
 
 using System;
 using System.Collections.Generic;
@@ -43,22 +43,23 @@ namespace ChartTools
 
         protected override IEnumerable<INote> GetNotes() => Notes;
 
-        internal override IEnumerable<TrackObjectEntry> GetChartNoteData() => Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane switch
+        internal override IEnumerable<TrackObjectEntry> GetChartData(LaneChord? previous, bool modifiers, FormattingRules formatting)
         {
-            GHLLane.Open => 7,
-            GHLLane.Black1 => 3,
-            GHLLane.Black2 => 4,
-            GHLLane.Black3 => 8,
-            GHLLane.White1 => 0,
-            GHLLane.White2 => 1,
-            GHLLane.White3 => 2,
-        }, note.Length));
+            foreach (var entry in Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane switch
+            {
+                GHLLane.Open => 7,
+                GHLLane.Black1 => 3,
+                GHLLane.Black2 => 4,
+                GHLLane.Black3 => 8,
+                GHLLane.White1 => 0,
+                GHLLane.White2 => 1,
+                GHLLane.White3 => 2
+            }, note.Sustain)))
+                yield return entry;
 
-        internal override IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, WritingSession session)
-        {
             var isInvert = Modifiers.HasFlag(GHLChordModifiers.HopoInvert);
 
-            if (Modifiers.HasFlag(GHLChordModifiers.ExplicitHopo) && (previous is null || previous.Position <= session.Formatting!.TrueHopoFrequency) != isInvert || isInvert)
+            if (Modifiers.HasFlag(GHLChordModifiers.ExplicitHopo) && (previous is null || previous.Position <= formatting.TrueHopoFrequency) != isInvert || isInvert)
                 yield return ChartFormatting.NoteEntry(Position, 5, 0);
             if (Modifiers.HasFlag(GHLChordModifiers.Tap))
                 yield return ChartFormatting.NoteEntry(Position, 6, 0);

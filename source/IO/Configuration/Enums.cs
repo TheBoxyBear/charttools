@@ -1,5 +1,6 @@
 ﻿using ChartTools.Events;
 using ChartTools.Lyrics;
+
 using Melanchall.DryWetMidi.Core;
 
 using System;
@@ -187,7 +188,7 @@ namespace ChartTools.IO.Configuration
     /// <summary>
     /// Defines chord modifiers not supported by the target format are handled.
     /// </summary>
-    public enum UnsupportedModifierPolicy : byte
+    public enum UnsupportedModifiersPolicy : byte
     {
         /// <summary>
         /// Throw an exception with the modifier index.
@@ -207,6 +208,15 @@ namespace ChartTools.IO.Configuration
         /// </summary>
         IgnoreChord,
     }
+
+    [Flags]
+    internal enum UnsupportedModifiersResults
+    {
+        None,
+        Chord = 1,
+        Modifier
+    }
+
     /// <summary>
     /// Defines how track object defined with a <see cref="NoteOffEvent"/> with no matching <see cref="NoteOnEvent"/> are handled when reading Midi.
     /// </summary>
