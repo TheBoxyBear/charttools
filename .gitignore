@@ -4,6 +4,7 @@ ignore/
 build/*
 */obj
 */bin
+*/ChartTools.xml
 TestResults/
 Docs/DROP/
 Docs/TEMP/
