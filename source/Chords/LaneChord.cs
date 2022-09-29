@@ -10,8 +10,6 @@ namespace ChartTools
         public IEnumerable<INote> Notes => GetNotes();
         internal abstract bool ChartSupportedModifiers { get; }
 
-        protected abstract IEnumerable<INote> GetNotes();
-
         public LaneChord() : base() { }
         protected LaneChord(uint position) : base(position) { }
 

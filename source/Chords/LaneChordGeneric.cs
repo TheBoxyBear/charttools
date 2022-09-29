@@ -21,18 +21,6 @@ namespace ChartTools
         public TModifiers Modifiers { get; set; }
         protected abstract TModifiers DefaultModifiers { get; }
 
-        protected override INote CreateNote(byte index, uint sustain = 0)
-        {
-            var note = new TNote()
-            {
-                Lane = Unsafe.As<byte, TLane>(ref index),
-                Sustain = sustain
-            };
-
-            Notes.Add(note);
-            return note;
-        }
-
         public LaneChord() : base() => Notes = new(OpenExclusivity);
         public LaneChord(uint position) : base(position) => Notes = new(OpenExclusivity);
 

@@ -461,7 +461,7 @@
         </member>
         <member name="P:ChartTools.Lyrics.VocalsPitch.Value">
             <summary>
-            Pitch value
+            Raw pitch value
             </summary>
         </member>
         <member name="P:ChartTools.Lyrics.VocalsPitch.Key">
@@ -1658,7 +1658,7 @@
             </summary>
             <param name="path">Path of the file to write</param>
             <param name="syncTrack">Sync track to write</param>
-            <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.ReadingConfiguration" path="/summary"/></param>
+            <param name="config"><inheritdoc cref="T:ChartTools.IO.Configuration.WritingConfiguration" path="/summary"/></param>
         </member>
         <member name="M:ChartTools.IO.Chart.ChartFile.ReplaceSyncTrackAsync(System.String,ChartTools.SyncTrack,ChartTools.IO.Configuration.WritingConfiguration,System.Threading.CancellationToken)">
             <inheritdoc cref="M:ChartTools.IO.Chart.ChartFile.ReplaceSyncTrack(System.String,ChartTools.SyncTrack,ChartTools.IO.Configuration.WritingConfiguration)"/>
@@ -2178,6 +2178,16 @@
             </summary>
             <param name="header">Header of the section to search</param>
             <returns>Section with the matching header. <see langword="null"/> if none found.</returns>
+        </member>
+        <member name="T:ChartTools.IO.Serializaiton.KeySerializableAttribute">
+            <summary>
+            Marks a property as metadata mappable to a file type
+            </summary>
+        </member>
+        <member name="P:ChartTools.IO.Serializaiton.KeySerializableAttribute.FileType">
+            <summary>
+            File type
+            </summary>
         </member>
         <member name="M:ChartTools.IO.Serializaiton.KeySerializableAttribute.GetSerializable``1(System.Object)">
             <summary>
@@ -3282,7 +3292,6 @@
             <summary>
             Gets the chords as a read-only list of the base interface.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:ChartTools.Track`1.GetInstrument">
             <summary>
