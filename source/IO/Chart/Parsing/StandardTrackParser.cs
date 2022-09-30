@@ -23,7 +23,7 @@ namespace ChartTools.IO.Chart.Parsing
             {
                 // Colored note
                 case < 5:
-                    AddNote(new((StandardLane)(data.Index + 1)) { Length = data.SustainLength });
+                    AddNote(new((StandardLane)(data.Index + 1)) { Sustain = data.SustainLength });
                     break;
                 case 5:
                     AddModifier(StandardChordModifiers.HopoInvert);
@@ -32,7 +32,7 @@ namespace ChartTools.IO.Chart.Parsing
                     AddModifier(StandardChordModifiers.Tap);
                     return;
                 case 7:
-                    AddNote(new(StandardLane.Open) { Length = data.SustainLength });
+                    AddNote(new(StandardLane.Open) { Sustain = data.SustainLength });
                     break;
             }
 

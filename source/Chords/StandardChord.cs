@@ -40,9 +40,9 @@ namespace ChartTools
                 Notes.Add(new LaneNote<StandardLane>(note));
         }
 
-        protected override IEnumerable<INote> GetNotes() => Notes;
+        protected override IEnumerable<LaneNote> GetNotes() => Notes;
 
-        internal override IEnumerable<TrackObjectEntry> GetChartNoteData() => Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Length));
+        internal override IEnumerable<TrackObjectEntry> GetChartNoteData() => Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Sustain));
 
         internal override IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, WritingSession session)
         {

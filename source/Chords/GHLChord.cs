@@ -41,7 +41,7 @@ namespace ChartTools
                 Notes.Add(new LaneNote<GHLLane>(note));
         }
 
-        protected override IEnumerable<INote> GetNotes() => Notes;
+        protected override IEnumerable<LaneNote> GetNotes() => Notes;
 
         internal override IEnumerable<TrackObjectEntry> GetChartNoteData() => Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane switch
         {
@@ -52,7 +52,7 @@ namespace ChartTools
             GHLLane.White1 => 0,
             GHLLane.White2 => 1,
             GHLLane.White3 => 2,
-        }, note.Length));
+        }, note.Sustain));
 
         internal override IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, WritingSession session)
         {
