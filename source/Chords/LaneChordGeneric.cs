@@ -22,5 +22,7 @@ namespace ChartTools
 
         public LaneChord() : base() => Notes = new(OpenExclusivity);
         public LaneChord(uint position) : base(position) => Notes = new(OpenExclusivity);
+
+        public override LaneNote CreateNote(byte index) => new TNote() { Lane = (TLane)(object)index };
     }
 }
