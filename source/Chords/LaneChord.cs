@@ -10,6 +10,11 @@ namespace ChartTools
         public IEnumerable<LaneNote> Notes => GetNotes();
         IEnumerable<INote> IChord.Notes => GetNotes();
 
+        /// <summary>
+        /// Defines if open notes can be mixed with other notes for this chord type. <see langword="true"/> indicated open notes cannot be mixed.
+        /// </summary>
+        public abstract bool OpenExclusivity { get; }
+
         internal abstract bool ChartSupportedModifiers { get; }
 
         public LaneChord() : base() { }

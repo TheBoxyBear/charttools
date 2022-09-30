@@ -12,7 +12,7 @@ namespace ChartTools
     /// </summary>
     public class StandardChord : LaneChord<LaneNote<StandardLane>, StandardLane, StandardChordModifiers>
     {
-        protected override bool OpenExclusivity => true;
+        public override bool OpenExclusivity => true;
 
         internal override StandardChordModifiers DefaultModifiers => StandardChordModifiers.None;
         internal override bool ChartSupportedModifiers => !Modifiers.HasFlag(StandardChordModifiers.ExplicitHopo);

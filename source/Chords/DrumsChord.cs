@@ -12,7 +12,7 @@ namespace ChartTools
     /// </summary>
     public class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModifiers>
     {
-        protected override bool OpenExclusivity => false;
+        public override bool OpenExclusivity => false;
 
         internal override DrumsChordModifiers DefaultModifiers => DrumsChordModifiers.None;
         internal override bool ChartSupportedModifiers => true;

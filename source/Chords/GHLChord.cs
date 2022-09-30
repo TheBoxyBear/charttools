@@ -13,7 +13,7 @@ namespace ChartTools
     /// </summary>
     public class GHLChord : LaneChord<LaneNote<GHLLane>, GHLLane, GHLChordModifiers>
     {
-        protected override bool OpenExclusivity => true;
+        public override bool OpenExclusivity => true;
 
         internal override GHLChordModifiers DefaultModifiers => GHLChordModifiers.None;
         internal override bool ChartSupportedModifiers => !Modifiers.HasFlag(GHLChordModifiers.ExplicitHopo);
