@@ -81,6 +81,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Notes\INote.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\LaneNote.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\LaneNoteCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Notes\LaneNoteGeneric.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Special\InstrumentSpecialPhrase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Special\SpecialPhrase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Special\TrackSpecialPhrase.cs" />
