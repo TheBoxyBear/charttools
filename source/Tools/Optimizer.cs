@@ -17,25 +17,68 @@ namespace ChartTools.Tools
         internal static bool LengthNeedsCut(ILongTrackObject current, ILongTrackObject next) => current.Position + current.Length > next.Position;
 
         /// <summary>
-        /// Cuts short sustains that exceed the position of the next identical note.
+        /// Cuts short sustains that exceed the position of the next note preventing the sustain from continuing.
         /// </summary>
         /// <param name="chords">Chords to cut the sustains of</param>
         /// <param name="preOrdered">Skip ordering of chords by position</param>
         /// <returns>Passed chords, ordered by position</returns>
-        [Obsolete("Currently broken. Fix in the works as highest priority.")]
         public static IEnumerable<LaneChord> CutSustains(this IEnumerable<LaneChord> chords, bool preOrdered = false)
         {
-            foreach ((var previous, var current) in GetTrackObjectPairs(chords, preOrdered))
-            {
-                foreach (var note in current!.Notes)
-                {
-                    var previousNote = previous!.Notes.First(n => n.Index == note.Index);
+            var sustains = new Dictionary<byte, (uint, LaneNote)>();
 
-                    if (previousNote is not null && previous.Position + previousNote.Sustain > current.Position)
-                        previousNote.Sustain = current.Position - previous.Position;
+            foreach (var chord in chords)
+            {
+                using var noteEnumerator = chord.Notes.GetEnumerator();
+
+                if (!noteEnumerator.MoveNext())
+                {
+                    yield return chord;
+                    continue;
                 }
 
-                yield return current;
+                var note = noteEnumerator.Current;
+
+                if (chord.OpenExclusivity)
+                {
+                    if (noteEnumerator.Current.Index == 0) // Open stops all sustains
+                        foreach ((var position, var sustained) in sustains.Values)
+                        {
+                            if (position + sustained.Sustain > chord.Position)
+                                sustained.Sustain = chord.Position;
+
+                            sustains.Remove(noteEnumerator.Current.Index);
+                        }
+                    else
+                        RemoveSustain(0); // Non-opens stops open sustain
+                }
+                else
+                    RemoveSustain(note.Index);
+
+                AddSustain();
+
+                while (noteEnumerator.MoveNext())
+                {
+                    note = noteEnumerator.Current;
+
+                    RemoveSustain(note.Index);
+                    AddSustain();
+                }
+
+                yield return chord;
+
+                void AddSustain()
+                {
+                    if (noteEnumerator.Current.Sustain > 0)
+                        sustains[noteEnumerator.Current.Index] = (chord.Position, noteEnumerator.Current);
+                }
+                void RemoveSustain(byte index)
+                {
+                    if (sustains.TryGetValue(index, out var sustained))
+                    {
+                        sustained.Item2.Sustain = chord.Position;
+                        sustains.Remove(index);
+                    }
+                }
             }
         }
 
