@@ -41,7 +41,6 @@ namespace ChartTools.Tools.RealTime
             syncedEnumerator.MoveNext();
             desyncedEnumerator.MoveNext();
 
-            var ticksPerBeat = resolution / 4d;
             var previous = syncedEnumerator.Current;
             var previousMs = 0ul;
 
@@ -74,8 +73,7 @@ namespace ChartTools.Tools.RealTime
 
             bool TryInsertDesynced(Tempo next)
             {
-                var msPerBeat = GetMsPerBeat();
-                var deltaMs = msPerBeat * ((next.Position - previous.Position) / ticksPerBeat);
+                var deltaMs = previous.Value * 50 / 3 * ((next.Position - previous.Position) / resolution);
 
                 if (desyncedEnumerator.Current.Anchor!.Value.TotalMilliseconds - previousMs <= deltaMs)
                 {
@@ -89,11 +87,10 @@ namespace ChartTools.Tools.RealTime
             void SyncAnchor()
             {
                 var desynced = desyncedEnumerator.Current;
-                desynced.SyncPosition((uint)((desynced.Anchor!.Value.TotalMilliseconds - previous.Position) / GetMsPerBeat() * ticksPerBeat));
+                desynced.SyncPosition((uint)((desynced.Anchor!.Value.TotalMilliseconds - previousMs) * previous.Value * resolution / 240000));
 
                 previous = desynced;
             }
-            double GetMsPerBeat() => previous.Value * 60 / 3d;
         }
     }
 }
