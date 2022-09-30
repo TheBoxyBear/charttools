@@ -113,6 +113,7 @@ namespace ChartTools.Tools
         /// </summary>
         /// <param name="signatures">Time signatures to remove the unneeded from</param>
         /// <param name="preOrdered">Skip ordering of markers by position</param>
+        /// <returns>Passes markers, ordered by position</returns>
         public static IEnumerable<TimeSignature> RemoveUnneeded(this ICollection<TimeSignature> signatures, bool preOrdered = false)
         {
             foreach ((var previous, var current) in GetTrackObjectPairs(signatures, preOrdered))
