@@ -69,7 +69,7 @@ namespace ChartTools.Tools
 
                 content.Add(lineContent);
 
-                void SetSustainEnd(LaneNote<StandardLane> note) => sustainEnds[(int)note.Lane] = chord.Position + note.Length;
+                void SetSustainEnd(LaneNote<StandardLane> note) => sustainEnds[(int)note.Lane] = chord.Position + note.Sustain;
             }
 
             PrintLines(content);

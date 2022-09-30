@@ -41,13 +41,13 @@ namespace ChartTools
                 Notes.Add(new DrumsNote(note));
         }
 
-        protected override IEnumerable<INote> GetNotes() => Notes;
+        protected override IEnumerable<LaneNote> GetNotes() => Notes;
 
         internal override IEnumerable<TrackObjectEntry> GetChartNoteData()
         {
             foreach (DrumsNote note in Notes)
             {
-                yield return ChartFormatting.NoteEntry(Position, note.Lane == DrumsLane.DoubleKick ? (byte)32 : note.Index, note.Length);
+                yield return ChartFormatting.NoteEntry(Position, note.Lane == DrumsLane.DoubleKick ? (byte)32 : note.Index, note.Sustain);
 
                 if (note.IsCymbal)
                     yield return ChartFormatting.NoteEntry(Position, (byte)(note.Lane + 64), 0);

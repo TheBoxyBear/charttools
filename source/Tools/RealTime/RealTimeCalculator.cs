@@ -9,15 +9,21 @@ namespace ChartTools.Tools.RealTime
         public static IEnumerable<Tempo> SyncAnchors(this IEnumerable<Tempo> tempos, uint resolution, bool desyncedPreOrdered = false)
         {
             List<Tempo> synced = new(), desynced = new();
+            var zeroCount = 0;
 
             foreach (Tempo tempo in tempos)
             {
                 if (tempo.PositionSynced)
-                    synced.Add(tempo);
+                {
+                    if (tempo.Position == 0)
+                        synced.Insert(zeroCount++, tempo);
+                    else
+                        synced.Add(tempo);
+                }
                 else if (tempo.Anchor == TimeSpan.Zero)
                 {
                     tempo.SyncPosition(0);
-                    synced.Add(tempo);
+                    synced.Insert(zeroCount++, tempo);
                 }
                 else
                     desynced.Add(tempo);
