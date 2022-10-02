@@ -6,7 +6,15 @@ namespace ChartTools.Tools.RealTime
 {
     public static class RealTimeCalculator
     {
-        public static IEnumerable<Tempo> SyncAnchors(this IEnumerable<Tempo> tempos, uint resolution, bool desyncedPreOrdered = false)
+        /// <summary>
+        /// Synchronizes anchored tempo markers by calculating the matching tempo position.
+        /// </summary>
+        /// <param name="tempos"></param>
+        /// <param name="resolution"></param>
+        /// <param name="desyncedPreOrdered"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static List<Tempo> SyncAnchors(this IEnumerable<Tempo> tempos, uint resolution, bool desyncedPreOrdered = false)
         {
             List<Tempo> synced = new(), desynced = new();
             var zeroCount = 0;
@@ -30,46 +38,38 @@ namespace ChartTools.Tools.RealTime
             }
 
             if (desynced.Count == 0)
-                foreach (var tempo in synced)
-                    yield return tempo;
+                return synced;
             if (synced.Count == 0 || synced[0].Position != 0)
                 throw new Exception("A tempo marker at position or anchor zero is required to sync anchors.");
 
             using var desyncedEnumerator = desynced.OrderBy(t => t.Anchor!.Value).GetEnumerator();
             using var syncedEnumerator = (desyncedPreOrdered ? (IEnumerable<Tempo>)synced : synced.OrderBy(t => t.Position)).GetEnumerator();
+            var reSynced = new List<(int, Tempo)>();
 
             syncedEnumerator.MoveNext();
             desyncedEnumerator.MoveNext();
 
             var previous = syncedEnumerator.Current;
             var previousMs = 0ul;
-
-            yield return syncedEnumerator.Current;
+            var index = 1;
 
             while (syncedEnumerator.MoveNext())
             {
-                while (TryInsertDesynced(syncedEnumerator.Current))
-                {
-                    yield return desyncedEnumerator.Current;
+                index++;
 
+                while (TryInsertDesynced(syncedEnumerator.Current))
                     if (!desyncedEnumerator.MoveNext())
                     {
-                        do
-                            yield return syncedEnumerator.Current;
-                        while (syncedEnumerator.MoveNext());
-
-                        yield break;
+                        InsertResynced();
+                        return synced;
                     }
-                }
-
-                yield return syncedEnumerator.Current;
             }
 
             while (desyncedEnumerator.MoveNext())
-            {
                 SyncAnchor();
-                yield return desyncedEnumerator.Current;
-            }
+
+            InsertResynced();
+            return synced;
 
             bool TryInsertDesynced(Tempo next)
             {
@@ -90,6 +90,13 @@ namespace ChartTools.Tools.RealTime
                 desynced.SyncPosition((uint)((desynced.Anchor!.Value.TotalMilliseconds - previousMs) * previous.Value * resolution / 240000));
 
                 previous = desynced;
+                reSynced.Add((index, desynced));
+                index++;
+            }
+            void InsertResynced()
+            {
+                foreach ((var i, var tempo) in reSynced)
+                    synced.Insert(i, tempo);
             }
         }
     }

@@ -146,12 +146,13 @@ namespace ChartTools.Tools
         /// <returns>Passed markers, ordered by position</returns>
         public static IEnumerable<Tempo> RemoveUneeded(this ICollection<Tempo> markers, uint resolution, bool desyncedPreOrdered = false)
         {
-            foreach ((var previous, var current) in markers.SyncAnchors(resolution, desyncedPreOrdered).RelativeLoop())
-                if (previous is not null)
-                    if (current.Value == previous!.Value)
-                        markers.Remove(current);
-                    else
-                        yield return current;
+            var synced = markers.SyncAnchors(resolution, desyncedPreOrdered);
+
+            foreach ((var previous, var current) in synced.RelativeLoopSkipFirst())
+                if (current.Value == previous!.Value)
+                    markers.Remove(current);
+
+            return synced;
         }
 
         /// <summary>
