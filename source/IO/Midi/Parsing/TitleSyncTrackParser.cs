@@ -14,6 +14,7 @@ namespace ChartTools.IO.Midi.Parsing
     {
         public override TitleSyncTraskResult Result => GetResult(result);
         protected readonly TitleSyncTraskResult result;
+        private List<Tempo> tempos = new();
 
         private uint? previousSignaturePosition, previousTempoPosition;
 
@@ -35,7 +36,7 @@ namespace ChartTools.IO.Midi.Parsing
                 case SetTempoEvent tempo:
                     if (session.DuplicateTrackObjectProcedure(globalPosition, "tempo marker", () => previousTempoPosition == globalPosition))
                     {
-                        result.SyncTrack.Tempo.Add(new Tempo(globalPosition, 60000000 / tempo.MicrosecondsPerQuarterNote));
+                        tempos.Add(new Tempo(globalPosition, 60000000 / tempo.MicrosecondsPerQuarterNote));
                         previousTempoPosition = globalPosition;
                     }
                     break;
@@ -48,6 +49,7 @@ namespace ChartTools.IO.Midi.Parsing
 
             song.Metadata = new() { Title = res.Title };
             song.SyncTrack = res.SyncTrack;
+            song.SyncTrack.Tempo.AddRange(tempos);
         }
     }
 }
