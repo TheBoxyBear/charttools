@@ -7,7 +7,7 @@
         /// <summary>
         /// Maximum length the note can be held for extra points
         /// </summary>
-        public uint Sustain { get; set; };
+        public uint Sustain { get; set; }
         uint ILongObject.Length
         {
             get => Sustain;
@@ -16,10 +16,5 @@
         uint IReadOnlyLongObject.Length => Sustain;
 
         public LaneNote() { }
-        public LaneNote(TLane lane, uint sustain = 0)
-        {
-            Lane = lane;
-            Sustain = sustain;
-        }
     }
 }

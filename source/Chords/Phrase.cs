@@ -64,9 +64,9 @@ namespace ChartTools.Lyrics
         public Phrase() : base() { }
         public Phrase(uint position) : base(position) { }
 
-        INote IChord.CreateNote(byte index, uint length)
+        INote IChord.CreateNote(byte index)
         {
-            var syllable = new Syllable(SyllableEndOffset, VocalPitchValue.A2) { Length = length };
+            var syllable = new Syllable(SyllableEndOffset, VocalPitchValue.A2);
             Syllables.Add(syllable);
             return syllable;
         }
@@ -80,8 +80,6 @@ namespace ChartTools.Lyrics
         }
 
         private string BuildText(Func<Syllable, string> textSelector) => string.Concat(Syllables.Select(n => n.IsWordEnd ? textSelector(n) + ' ' : textSelector(n)));
-
-        INote IChord.CreateNote(byte index, uint length = 0) => new Syllable(0, (VocalPitchValue)index) { Length = length };
     }
 
     /// <summary>
