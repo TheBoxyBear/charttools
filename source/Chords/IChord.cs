@@ -11,8 +11,8 @@ namespace ChartTools
         /// <summary>
         /// Read-only set of the notes in the chord.
         /// </summary>
-        public IEnumerable<INote> Notes { get; }
+        public IReadOnlyCollection<INote> Notes { get; }
 
-        public INote CreateNote(byte index, uint sustain = 0);
+        public INote CreateNote(byte index);
     }
 }

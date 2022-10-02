@@ -23,8 +23,8 @@ namespace ChartTools.Lyrics
         /// <summary>
         /// Creates a pitch from a raw pitch value.
         /// </summary>
-        /// <param name="pitch"></param>
-        public VocalsPitch(VocalPitchValue pitch) => Value = pitch;
+        /// <param name="value"></param>
+        public VocalsPitch(VocalPitchValue value) => Value = value;
 
         #region Equals
         /// <summary>
@@ -41,7 +41,7 @@ namespace ChartTools.Lyrics
         /// Indicates if an object is a raw pitch value or wrapper and the value is equal.
         /// </summary>
         /// <param name="obj">Source of value</param>
-        public override bool Equals(object? obj) => obj is VocalPitchValue raw && Equals(raw) || obj is VocalsPitch wrapper && Equals(wrapper);
+        public override bool Equals(object? obj) => obj is VocalPitchValue value && Equals(value) || obj is VocalsPitch wrapper && Equals(wrapper);
         #endregion
 
         #region Operators

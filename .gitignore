@@ -4,8 +4,10 @@ ignore/
 build/*
 */obj
 */bin
-*/ChartTools.xml
+Net?/*
+!Net?/*.csproj
 TestResults/
+Debug/*
 Docs/DROP/
 Docs/TEMP/
 Docs/packages/

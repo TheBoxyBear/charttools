@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace ChartTools
 {
-    public class LaneNoteCollection<TNote, TLane> : ICollection<TNote> where TNote : LaneNote<TLane>, new() where TLane : struct, Enum
+    public class LaneNoteCollection<TNote, TLane> : ICollection<TNote>, IReadOnlyList<TNote> where TNote : LaneNote<TLane>, new() where TLane : struct, Enum
     {
         private readonly List<TNote> _notes = new();
 
@@ -31,7 +33,10 @@ namespace ChartTools
         {
             if (OpenExclusivity && (note.Index == 0 || Count == 1 && this.First().Index == 0)) // An open note is present and needs to be removed
                 Clear();
+            float f = 1;
+            int i = 1;
 
+            var r = f / i;
             _notes.Add(note);
         }
 
@@ -79,7 +84,19 @@ namespace ChartTools
             return true;
         }
 
-        public LaneNote<TLane>? this[TLane lane] => _notes.FirstOrDefault(n => n.Lane.Equals(lane));
+        /// <summary>
+        /// Gets the note matching a given lane.
+        /// </summary>
+        /// <param name="lane">Lane of the note</param>
+        /// <returns>Note with the lane if present, otherwise <see langword="null"/>.</returns>
+        public TNote? this[TLane lane] => _notes.FirstOrDefault(n => n.Lane.Equals(lane));
+        /// <summary>
+        /// Gets the note at a given index based on order or addition.
+        /// </summary>
+        /// <param name="index">Index of the note in the collection, not to be confused with <see cref="INote.Index"/>.</param>
+        /// <returns>Note at the </returns>
+        /// <exception cref=""</remarks>
+        public TNote this[int index] => _notes[index];
 
         public IEnumerator<TNote> GetEnumerator() => _notes.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => _notes.GetEnumerator();

@@ -13,7 +13,7 @@ namespace ChartTools
     /// </summary>
     public class StandardChord : LaneChord<LaneNote<StandardLane>, StandardLane, StandardChordModifiers>
     {
-        protected override bool OpenExclusivity => true;
+        public override bool OpenExclusivity => true;
 
         protected override StandardChordModifiers DefaultModifiers => StandardChordModifiers.None;
         internal override bool ChartSupportedModifiers => !Modifiers.HasFlag(StandardChordModifiers.ExplicitHopo);
@@ -41,7 +41,7 @@ namespace ChartTools
                 Notes.Add(new LaneNote<StandardLane>(note));
         }
 
-        protected override IEnumerable<INote> GetNotes() => Notes;
+        protected override IReadOnlyCollection<LaneNote> GetNotes() => Notes;
 
         internal override IEnumerable<TrackObjectEntry> GetChartData(LaneChord? previous, bool modifiers, FormattingRules formatting)
         {

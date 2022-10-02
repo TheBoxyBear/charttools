@@ -3,7 +3,7 @@
     /// <summary>
     /// Karaoke step of a <see cref="Phrase"/>
     /// </summary>
-    public class Syllable : ILongObject, INote
+    public class Syllable : INote
     {
         /// <summary>
         /// Position offset from the <see cref="Phrase"/>
@@ -13,6 +13,9 @@
         /// Position offset of the end from the <see cref="Phrase"/>
         /// </summary>
         public uint EndPositionOffset => PositionOffset + Length;
+        /// <summary>
+        /// Duration of the syllable in ticks
+        /// </summary>
         public uint Length { get; set; }
 
         /// <summary>
@@ -53,7 +56,6 @@
                     RawText += '-';
             }
         }
-
         public Syllable(uint offset) => PositionOffset = offset;
         public Syllable(uint offset, VocalsPitch pitch) : this(offset) => Pitch = pitch;
     }

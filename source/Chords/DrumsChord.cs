@@ -12,7 +12,7 @@ namespace ChartTools
     /// </summary>
     public class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModifiers>
     {
-        protected override bool OpenExclusivity => false;
+        public override bool OpenExclusivity => false;
 
         protected override DrumsChordModifiers DefaultModifiers => DrumsChordModifiers.None;
         internal override bool ChartSupportedModifiers => true;
@@ -41,7 +41,7 @@ namespace ChartTools
                 Notes.Add(new DrumsNote(note));
         }
 
-        protected override IEnumerable<INote> GetNotes() => Notes;
+        protected override IReadOnlyCollection<LaneNote> GetNotes() => Notes;
 
         internal override IEnumerable<TrackObjectEntry> GetChartData(LaneChord? previous, bool modifiers, FormattingRules formatting)
         {

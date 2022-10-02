@@ -11,7 +11,7 @@ namespace ChartTools.Lyrics
     public class Phrase : TrackObjectBase, IChord, ILongTrackObject
     {
         public List<Syllable> Syllables { get; } = new();
-        IEnumerable<INote> IChord.Notes => Syllables;
+        IReadOnlyCollection<INote> IChord.Notes => Syllables;
 
         /// <summary>
         /// End of the phrase as defined by <see cref="Length"/>
@@ -81,7 +81,7 @@ namespace ChartTools.Lyrics
 
         private string BuildText(Func<Syllable, string> textSelector) => string.Concat(Syllables.Select(n => n.IsWordEnd ? textSelector(n) + ' ' : textSelector(n)));
 
-        public INote CreateNote(byte index, uint length = 0) => new Syllable(0, (VocalPitchValue)index) { Length = length };
+        INote IChord.CreateNote(byte index, uint length = 0) => new Syllable(0, (VocalPitchValue)index) { Length = length };
     }
 
     /// <summary>
