@@ -1,13 +1,10 @@
 ﻿using ChartTools.Extensions.Linq;
 using ChartTools.IO.Formatting;
-using ChartTools.Tools.RealTime;
 
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ChartTools.Tools
 {
@@ -89,9 +86,9 @@ namespace ChartTools.Tools
         /// <param name="phrases">Set of phrases</param>
         /// <param name="preOrdered">Skip ordering of phrases by position</param>
         /// <returns>Passed phrases ordered by position and grouped by type</returns>
-        public static IGrouping<byte, T>[] CutSpecialLengths<T>(IEnumerable<T> phrases, bool preOrdered = false) where T : SpecialPhrase
+        public static List<T>[] CutSpecialLengths<T>(IEnumerable<T> phrases, bool preOrdered = false) where T : SpecialPhrase
         {
-            var output = phrases.GroupBy(p => p.TypeCode).ToArray();
+            var output = phrases.GroupBy(p => p.TypeCode).Select(g => g.ToList()).ToArray();
 
             foreach (var grouping in output)
                 grouping.CutLengths(preOrdered);
@@ -143,16 +140,13 @@ namespace ChartTools.Tools
         /// <param name="markers">Set of markers</param>
         /// <param name="resolution">Resolution from <see cref="FormattingRules.TrueResolution"/></param>
         /// <param name="desyncedPreOrdered">Skip ordering of desynced markers by position</param>
-        /// <returns>Passed markers, ordered by position</returns>
-        public static IEnumerable<Tempo> RemoveUneeded(this ICollection<Tempo> markers, uint resolution, bool desyncedPreOrdered = false)
+        public static void RemoveUneeded(this TempoMap markers, uint resolution, bool desyncedPreOrdered = false)
         {
-            var synced = markers.SyncAnchors(resolution, desyncedPreOrdered);
+            markers.Synchronize(resolution, desyncedPreOrdered);
 
-            foreach ((var previous, var current) in synced.RelativeLoopSkipFirst())
+            foreach ((var previous, var current) in markers.RelativeLoopSkipFirst())
                 if (current.Value == previous!.Value)
                     markers.Remove(current);
-
-            return synced;
         }
 
         /// <summary>

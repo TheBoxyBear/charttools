@@ -19,7 +19,7 @@ namespace ChartTools
         /// <summary>
         /// Tempo markers
         /// </summary>
-        public List<Tempo> Tempo { get; } = new();
+        public TempoMap Tempo { get; } = new();
         /// <summary>
         /// Time signature markers
         /// </summary>

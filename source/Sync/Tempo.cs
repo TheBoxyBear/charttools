@@ -7,6 +7,22 @@ namespace ChartTools
     /// </summary>
     public class Tempo : TrackObjectBase
     {
+        /// <summary>
+        /// Parent map the marker is contained
+        /// </summary>
+        public TempoMap? Map
+        {
+            get => _map;
+            internal set
+            {
+                if (value is not null)
+                    PositionSynced = false;
+
+                _map = value;
+            }
+        }
+        private TempoMap? _map;
+
         /// <inheritdoc cref="TrackObjectBase.Position" path="/summary"/>
         /// <remarks>If <see cref="Anchor"/> is not <see langword="null"/>, only refer to the position if <see cref="PositionSynced"/> is <see langword="true"/>.</remarks>
         public override uint Position
@@ -60,5 +76,6 @@ namespace ChartTools
             _position = position;
             PositionSynced = true;
         }
+        public void DesyncPosition() => PositionSynced = false;
     }
 }

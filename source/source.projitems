@@ -86,9 +86,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Special\SpecialPhrase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Special\TrackSpecialPhrase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\EnumCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sync\TempoMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\LengthMerger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Printer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Tools\RealTime\RealTimeCalculator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\IReadOnlyTrackObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\TrackObjectBase.cs" />
     <Compile Include="..\source\IO\Ini\IniKeySerializableAttribute.cs" />

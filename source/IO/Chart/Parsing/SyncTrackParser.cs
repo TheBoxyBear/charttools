@@ -12,7 +12,7 @@ namespace ChartTools.IO.Chart.Parsing
         public override SyncTrack Result => GetResult(result);
         private readonly SyncTrack result = new();
 
-        private readonly List<Tempo> orderedTempos = new();
+        private readonly List<Tempo> tempos = new(), orderedTempos = new();
         private readonly List<Anchor> orderedAnchors = new();
         private readonly List<TimeSignature> orderedSignatures = new();
 
@@ -50,7 +50,7 @@ namespace ChartTools.IO.Chart.Parsing
                     var value = ValueParser.ParseFloat(entry.Data, "value") / 1000;
                     var tempo = new Tempo(entry.Position, value);
 
-                    result.Tempo.Add(tempo);
+                    tempos.Add(tempo);
                     orderedTempos.Add(tempo);
                     break;
                 case "A": // Anchor
@@ -99,6 +99,10 @@ namespace ChartTools.IO.Chart.Parsing
             base.FinaliseParse();
         }
 
-        public override void ApplyToSong(Song song) => song.SyncTrack = Result;
+        public override void ApplyToSong(Song song)
+        {
+            song.SyncTrack = Result;
+            song.SyncTrack.Tempo.AddRange(tempos);
+        }
     }
 }

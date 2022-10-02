@@ -15,7 +15,6 @@ using ChartTools.IO.Ini;
 using ChartTools.IO.Sections;
 using ChartTools.Lyrics;
 using ChartTools.Tools;
-using ChartTools.Tools.RealTime;
 
 namespace Debug
 {
