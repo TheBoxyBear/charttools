@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
+using static System.Net.Mime.MediaTypeNames;
+
 namespace ChartTools.Tools
 {
     /// <summary>
@@ -21,20 +23,19 @@ namespace ChartTools.Tools
         /// </summary>
         /// <param name="chords">Chords to cut the sustains of</param>
         /// <param name="preOrdered">Skip ordering of chords by position</param>
-        /// <returns>Passed chords, ordered by position</returns>
-        public static IEnumerable<T> CutSustains<T>(this IEnumerable<T> chords, bool preOrdered = false) where T : LaneChord
+        /// <returns>Passed chords, ordered by position. Same instance if <paramref name="preOrdered"/> is <see langword="true"/> and <paramref name="chords"/> is <see cref="List{T}"/>.</returns>
+        public static List<T> CutSustains<T>(this IEnumerable<T> chords, bool preOrdered = false) where T : LaneChord
         {
             var sustains = new Dictionary<byte, (uint, LaneNote)>();
+            var output = GetOrderedList(chords, preOrdered);
 
-            foreach (var chord in chords)
+            foreach (var chord in output)
             {
-                using var noteEnumerator = chord.Notes.GetEnumerator();
-
-                if (!noteEnumerator.MoveNext())
-                {
-                    yield return chord;
+                if (chord.Notes.Count == 0)
                     continue;
-                }
+
+                using var noteEnumerator = chord.Notes.GetEnumerator();
+                noteEnumerator.MoveNext();
 
                 var note = noteEnumerator.Current;
 
@@ -64,8 +65,6 @@ namespace ChartTools.Tools
                     AddSustain();
                 }
 
-                yield return chord;
-
                 void AddSustain()
                 {
                     if (noteEnumerator.Current.Sustain > 0)
@@ -80,6 +79,8 @@ namespace ChartTools.Tools
                     }
                 }
             }
+
+            return output;
         }
 
         /// <summary>
@@ -88,13 +89,14 @@ namespace ChartTools.Tools
         /// <param name="phrases">Set of phrases</param>
         /// <param name="preOrdered">Skip ordering of phrases by position</param>
         /// <returns>Passed phrases ordered by position and grouped by type</returns>
-        public static IEnumerable<IGrouping<byte, T>> CutSpecialLengths<T>(IEnumerable<T> phrases, bool preOrdered = false) where T : SpecialPhrase
+        public static IGrouping<byte, T>[] CutSpecialLengths<T>(IEnumerable<T> phrases, bool preOrdered = false) where T : SpecialPhrase
         {
-            foreach (var grouping in phrases.GroupBy(p => p.TypeCode))
-            {
+            var output = phrases.GroupBy(p => p.TypeCode).ToArray();
+
+            foreach (var grouping in output)
                 grouping.CutLengths(preOrdered);
-                yield return grouping;
-            }
+
+            return output;
         }
 
         /// <summary>
@@ -102,17 +104,16 @@ namespace ChartTools.Tools
         /// </summary>
         /// <param name="objects">Set of long track objects</param>
         /// <param name="preOrdered">Skip ordering of objects by position</param>
-        /// <returns>Passed objects, ordered by position</returns>
-        public static IEnumerable<T> CutLengths<T>(this IEnumerable<T> objects, bool preOrdered = false) where T : ILongTrackObject
+        /// <returns>Passed objects, ordered by position. Same instance if <paramref name="preOrdered"/> is <see langword="true"/> and <paramref name="objects"/> is <see cref="List{T}"/>.</returns>
+        public static List<T> CutLengths<T>(this IEnumerable<T> objects, bool preOrdered = false) where T : ILongTrackObject
         {
-            foreach ((var current, var next) in GetTrackObjectPairs(objects, preOrdered))
-                if (current is not null)
-                {
-                    if (LengthNeedsCut(current, next))
-                        next.Length = current.Position - current.Position;
+            var output = GetOrderedList(objects, preOrdered);
 
-                    yield return current;
-                }
+            foreach ((var current, var next) in output.RelativeLoopSkipFirst())
+                if (LengthNeedsCut(current, next))
+                    next.Length = current.Position - current.Position;
+
+            return output;
         }
 
         /// <summary>
@@ -121,18 +122,20 @@ namespace ChartTools.Tools
         /// <param name="markers">Tempo markers without anchors.</param>
         /// <param name="preOrdered">Skip ordering of markers by position.</param>
         /// <exception cref="InvalidOperationException"/>
-        /// <returns></returns>
+        /// <returns>Passed tempos, ordered by position. Same instance if <paramref name="preOrdered"/> is <see langword="true"/> and <paramref name="markers"/> is <see cref="List{T}"/>.</returns>
         /// <remarks>If some markers may be anchored, use the overload with a resolution.</remarks>
-        public static IEnumerable<Tempo> RemoveUneeded(this ICollection<Tempo> markers, bool preOrdered = false)
+        public static List<Tempo> RemoveUneeded(this ICollection<Tempo> markers, bool preOrdered = false)
         {
             if (markers.TryGetFirst(m => m.Anchor is not null, out var anchor))
                 throw new InvalidOperationException($"Collection contains tempo marker with anchor at {anchor.Anchor}. Resolution needed compare tempo markers.");
 
-            foreach ((var previous, var current) in GetTrackObjectPairs(markers, preOrdered))
-                if (previous is not null && previous.Value == current.Value)
+            var output = GetOrderedList(markers, preOrdered);
+
+            foreach ((var previous, var current) in output.RelativeLoopSkipFirst())
+                if (previous.Value == current.Value)
                     markers.Remove(current);
-                else
-                    yield return current;
+
+            return output;
         }
         /// <summary>
         /// Removes redundant tempo markers by syncing the position of anchored markers.
@@ -152,24 +155,22 @@ namespace ChartTools.Tools
         }
 
         /// <summary>
-        /// Removes redundant time signature markers ones.
+        /// Removes redundant time signature markers.
         /// </summary>
         /// <param name="signatures">Time signatures to remove the unneeded from</param>
         /// <param name="preOrdered">Skip ordering of markers by position</param>
-        /// <returns>Passes markers, ordered by position</returns>
-        public static IEnumerable<TimeSignature> RemoveUnneeded(this ICollection<TimeSignature> signatures, bool preOrdered = false)
+        /// <returns>Passed markers, ordered by position. Same instance if <paramref name="preOrdered"/> is <see langword="true"/> and <paramref name="signatures"/> is <see cref="List{T}"/>.</returns>
+        public static List<TimeSignature> RemoveUnneeded(this ICollection<TimeSignature> signatures, bool preOrdered = false)
         {
-            foreach ((var previous, var current) in GetTrackObjectPairs(signatures, preOrdered))
-                if (previous is not null && previous.Numerator == current.Numerator && previous.Denominator == current.Denominator)
+            var output = GetOrderedList(signatures, preOrdered);
+
+            foreach ((var previous, var current) in output.RelativeLoopSkipFirst())
+                if (previous.Numerator == current.Numerator && previous.Denominator == current.Denominator)
                     signatures.Remove(current);
-                else
-                    yield return current;
+
+            return output;
         }
 
-        private static IEnumerable<(T?, T)> GetTrackObjectPairs<T>(IEnumerable<T> source, bool preOrdered) where T : ITrackObject
-        {
-            var ordered = preOrdered ? source : source.OrderBy(o => o.Position);
-            return ordered.RelativeLoop();
-        }
+        private static List<T> GetOrderedList<T>(IEnumerable<T> items, bool preOredered) where T : ITrackObject => (preOredered ? items : items.OrderBy(i => i.Position)).ToList();
     }
 }
