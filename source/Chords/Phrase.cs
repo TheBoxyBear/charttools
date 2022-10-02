@@ -71,7 +71,7 @@ namespace ChartTools.Lyrics
 
         private string BuildText(Func<Syllable, string> textSelector) => string.Concat(Syllables.Select(n => n.IsWordEnd ? textSelector(n) + ' ' : textSelector(n)));
 
-        INote IChord.CreateNote(byte index) => new Syllable(0, (VocalPitchValue)index);
+        INote IChord.CreateNote(byte index, uint length) => new Syllable(0, (VocalPitchValue)index) { Length = length };
     }
 
     /// <summary>

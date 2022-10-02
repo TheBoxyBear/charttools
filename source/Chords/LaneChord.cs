@@ -20,8 +20,8 @@ namespace ChartTools
         public LaneChord() : base() { }
         public LaneChord(uint position) : base(position) { }
 
-        public abstract LaneNote CreateNote(byte index);
-        INote IChord.CreateNote(byte index) => CreateNote(index);
+        public abstract LaneNote CreateNote(byte index, uint sustain = 0);
+        INote IChord.CreateNote(byte index, uint sustain) => CreateNote(index, sustain);
 
         protected abstract IReadOnlyCollection<LaneNote> GetNotes();
 
