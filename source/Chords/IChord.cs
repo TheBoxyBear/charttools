@@ -13,6 +13,6 @@ namespace ChartTools
         /// </summary>
         public IReadOnlyCollection<INote> Notes { get; }
 
-        public INote CreateNote(byte index);
+        public INote CreateNote(byte index, uint length = 0);
     }
 }

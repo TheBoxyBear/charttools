@@ -19,15 +19,11 @@ namespace ChartTools
         public LaneChord() : base() => Notes = new(OpenExclusivity);
         public LaneChord(uint position) : base(position) => Notes = new(OpenExclusivity);
 
-        public override LaneNote CreateNote(byte index)
+        public override LaneNote CreateNote(byte index, uint sustain = 0) => new TNote()
         {
-            var note = new TNote()
-            {
-                Lane = Unsafe.As<byte, TLane>(ref index)
-            };
+            Lane = Unsafe.As<byte, TLane>(ref index),
+            Sustain = sustain
+        };
 
-            Notes.Add(note);
-            return note;
-        }
     }
 }
