@@ -41,7 +41,7 @@ namespace ChartTools
                 Notes.Add(new DrumsNote(note));
         }
 
-        protected override IEnumerable<LaneNote> GetNotes() => Notes;
+        protected override IReadOnlyCollection<LaneNote> GetNotes() => Notes;
 
         internal override IEnumerable<TrackObjectEntry> GetChartNoteData()
         {

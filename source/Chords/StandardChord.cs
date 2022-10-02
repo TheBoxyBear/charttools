@@ -40,7 +40,7 @@ namespace ChartTools
                 Notes.Add(new LaneNote<StandardLane>(note));
         }
 
-        protected override IEnumerable<LaneNote> GetNotes() => Notes;
+        protected override IReadOnlyCollection<LaneNote> GetNotes() => Notes;
 
         internal override IEnumerable<TrackObjectEntry> GetChartNoteData() => Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Sustain));
 

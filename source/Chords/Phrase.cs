@@ -9,7 +9,7 @@ namespace ChartTools.Lyrics
     public class Phrase : TrackObjectBase, IChord, ILongTrackObject
     {
         public List<Syllable> Syllables { get; } = new();
-        IEnumerable<INote> IChord.Notes => Syllables;
+        IReadOnlyCollection<INote> IChord.Notes => Syllables;
 
         /// <summary>
         /// End of the phrase as defined by <see cref="Length"/>

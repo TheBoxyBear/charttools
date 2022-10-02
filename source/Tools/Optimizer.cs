@@ -22,7 +22,7 @@ namespace ChartTools.Tools
         /// <param name="chords">Chords to cut the sustains of</param>
         /// <param name="preOrdered">Skip ordering of chords by position</param>
         /// <returns>Passed chords, ordered by position</returns>
-        public static IEnumerable<LaneChord> CutSustains(this IEnumerable<LaneChord> chords, bool preOrdered = false)
+        public static IEnumerable<T> CutSustains<T>(this IEnumerable<T> chords, bool preOrdered = false) where T : LaneChord
         {
             var sustains = new Dictionary<byte, (uint, LaneNote)>();
 
@@ -88,7 +88,7 @@ namespace ChartTools.Tools
         /// <param name="phrases">Set of phrases</param>
         /// <param name="preOrdered">Skip ordering of phrases by position</param>
         /// <returns>Passed phrases ordered by position and grouped by type</returns>
-        public static IEnumerable<IGrouping<byte, SpecialPhrase>> CutLengths(IEnumerable<SpecialPhrase> phrases, bool preOrdered = false)
+        public static IEnumerable<IGrouping<byte, T>> CutSpecialLengths<T>(IEnumerable<T> phrases, bool preOrdered = false) where T : SpecialPhrase
         {
             foreach (var grouping in phrases.GroupBy(p => p.TypeCode))
             {
@@ -103,7 +103,7 @@ namespace ChartTools.Tools
         /// <param name="objects">Set of long track objects</param>
         /// <param name="preOrdered">Skip ordering of objects by position</param>
         /// <returns>Passed objects, ordered by position</returns>
-        public static IEnumerable<ILongTrackObject> CutLengths(this IEnumerable<ILongTrackObject> objects, bool preOrdered = false)
+        public static IEnumerable<T> CutLengths<T>(this IEnumerable<T> objects, bool preOrdered = false) where T : ILongTrackObject
         {
             foreach ((var current, var next) in GetTrackObjectPairs(objects, preOrdered))
                 if (current is not null)

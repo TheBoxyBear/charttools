@@ -26,6 +26,13 @@ namespace Debug
             // You can use this project to perform manual tests and experiment. Pull requests that include changes to this project will be rejected.
             // To make sure changes to this project are not included in commits, run the command go in the Debug directory in Git Bash and run "git ls-files -z | xargs -0 git update-index --assume-unchanged". This command only needs to be ran once after cloning and if a pull includes commits with the DEBUG prefix..
             // This project targets .NET 6 with the matching debug build of ChartTools.
+
+            var song = await Song.FromFileAsync(@"samples\notes.chart");
+
+            foreach (var chord in song.Instruments.LeadGuitar.Expert.Chords.CutSustains())
+            {
+                Console.WriteLine(chord.Notes.Count);
+            }
         }
     }
 }

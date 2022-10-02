@@ -7,8 +7,8 @@ namespace ChartTools
 {
     public abstract class LaneChord : TrackObjectBase, IChord
     {
-        public IEnumerable<LaneNote> Notes => GetNotes();
-        IEnumerable<INote> IChord.Notes => GetNotes();
+        public IReadOnlyCollection<LaneNote> Notes => GetNotes();
+        IReadOnlyCollection<INote> IChord.Notes => GetNotes();
 
         /// <summary>
         /// Defines if open notes can be mixed with other notes for this chord type. <see langword="true"/> indicated open notes cannot be mixed.
@@ -23,7 +23,7 @@ namespace ChartTools
         public abstract LaneNote CreateNote(byte index);
         INote IChord.CreateNote(byte index) => CreateNote(index);
 
-        protected abstract IEnumerable<LaneNote> GetNotes();
+        protected abstract IReadOnlyCollection<LaneNote> GetNotes();
 
         internal abstract IEnumerable<TrackObjectEntry> GetChartNoteData();
         internal abstract IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, WritingSession session);

@@ -41,7 +41,7 @@ namespace ChartTools
                 Notes.Add(new LaneNote<GHLLane>(note));
         }
 
-        protected override IEnumerable<LaneNote> GetNotes() => Notes;
+        protected override IReadOnlyCollection<LaneNote> GetNotes() => Notes;
 
         internal override IEnumerable<TrackObjectEntry> GetChartNoteData() => Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane switch
         {
