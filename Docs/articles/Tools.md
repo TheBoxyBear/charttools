@@ -69,3 +69,18 @@ The method for removing tempo markers cannot work with anchored markers for whic
 ```csharp
 List<Tempo> orderedMarkers = Optimizer.RemoveUneeded(tempoMap, resolution, <skipSyncedOrdering>);
 ```
+
+## Tempo rescaling
+The TempoRescaler class provides scaling methods for various groups of track objects.
+
+```csharp
+TempoRescaler.Rescale(longObject, scale);
+TempoRescaler.Rescale(trackObject, scale);
+TempoRescaler.Rescale(longTrackObject, scale)
+TempoRescaler.Rescale(tempo, scale);
+TempoRescaler.Rescale(chord, scale);
+TempoRescaler.Rescale(track, scale);
+TempoRescaler.Rescale(instrument, scale);
+TempoRescaler.Rescale(syncTrack, scale);
+TempoRescaler.Rescale(song, scale);
+```
