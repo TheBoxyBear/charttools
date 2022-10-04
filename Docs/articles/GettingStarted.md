@@ -115,8 +115,8 @@ Although still functional, some files may contain data that slow down the readin
 ```csharp
 using ChartTools.Optimization;
 
-chords.CutSustains() // Cuts short sustains that exceed the position of the next identical note
-chords.CutLengths() // Cuts short star power phrases that exceed the start of the next phrase
+chords.CutSustains() // Cuts short sustains go past what is applicable in-game.
+specialPhrases.CutSpecialLenghts.CutLengths() // Cuts short special phrases that exceed the start of the next phrase based on type.
 
 // Sorts and removes redundant markers
 syncTrack.Tempo.RemoveUnneeded();

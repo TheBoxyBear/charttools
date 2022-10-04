@@ -86,8 +86,12 @@ namespace ChartTools.Tools
         /// <param name="phrases">Set of phrases</param>
         /// <param name="preOrdered">Skip ordering of phrases by position</param>
         /// <returns>Passed phrases ordered by position and grouped by type</returns>
+        /// <exception cref="InvalidOperationException"/>
         public static List<T>[] CutSpecialLengths<T>(IEnumerable<T> phrases, bool preOrdered = false) where T : SpecialPhrase
         {
+            if (typeof(T) == typeof(SpecialPhrase))
+                throw new InvalidOperationException($"Collection must be of a type deriving from {nameof(SpecialPhrase)}.")
+
             var output = phrases.GroupBy(p => p.TypeCode).Select(g => g.ToList()).ToArray();
 
             foreach (var grouping in output)
