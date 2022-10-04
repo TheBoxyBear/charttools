@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Chords\Phrase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Chords\StandardChord.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\EventExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\DesynchronizedAnchorException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Collections\Alternating\Ordered\OrderedAlternatingEnumerable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Collections\Alternating\Ordered\OrderedAlternatingEnumerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Collections\Alternating\Serial\SerialAlternatingEnumerable.cs" />
