@@ -90,7 +90,7 @@ namespace ChartTools.Tools
         public static List<T>[] CutSpecialLengths<T>(IEnumerable<T> phrases, bool preOrdered = false) where T : SpecialPhrase
         {
             if (typeof(T) == typeof(SpecialPhrase))
-                throw new InvalidOperationException($"Collection must be of a type deriving from {nameof(SpecialPhrase)}.")
+                throw new InvalidOperationException($"Collection must be of a type deriving from {nameof(SpecialPhrase)}.");
 
             var output = phrases.GroupBy(p => p.TypeCode).Select(g => g.ToList()).ToArray();
 
@@ -127,8 +127,8 @@ namespace ChartTools.Tools
         /// <remarks>If some markers may be anchored, use the overload with a resolution.</remarks>
         public static List<Tempo> RemoveUneeded(this ICollection<Tempo> markers, bool preOrdered = false)
         {
-            if (markers.TryGetFirst(m => m.Anchor is not null, out var anchor))
-                throw new InvalidOperationException($"Collection contains tempo marker with anchor at {anchor.Anchor}. Resolution needed compare tempo markers.");
+            if (markers.TryGetFirst(m => !m.PositionSynced, out var marker))
+                throw new InvalidOperationException($"Collection contains tempo marker with desynced anchor at {marker.Anchor}. Resolution needed to synchronize anchors.");
 
             var output = GetOrderedList(markers, preOrdered);
 
@@ -144,13 +144,17 @@ namespace ChartTools.Tools
         /// <param name="markers">Set of markers</param>
         /// <param name="resolution">Resolution from <see cref="FormattingRules.TrueResolution"/></param>
         /// <param name="desyncedPreOrdered">Skip ordering of desynced markers by position</param>
-        public static void RemoveUneeded(this TempoMap markers, uint resolution, bool desyncedPreOrdered = false)
+        public static List<Tempo> RemoveUneeded(this TempoMap markers, uint resolution, bool desyncedPreOrdered = false)
         {
             markers.Synchronize(resolution, desyncedPreOrdered);
 
-            foreach ((var previous, var current) in markers.RelativeLoopSkipFirst())
+            var output = markers.OrderBy(m => m.Position).ToList();
+
+            foreach ((var previous, var current) in output.RelativeLoopSkipFirst())
                 if (current.Value == previous!.Value)
                     markers.Remove(current);
+
+            return output;
         }
 
         /// <summary>
