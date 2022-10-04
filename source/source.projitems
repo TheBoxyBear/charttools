@@ -24,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Events\EventTypeHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\GlobalEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\LocalEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\DesynchronizedAnchorException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\UndefinedEnumException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\Validator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Collections\Alternating\Ordered\OrderedAlternatingEnumerable.cs" />
