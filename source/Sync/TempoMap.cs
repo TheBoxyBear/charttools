@@ -5,9 +5,13 @@ using System.Linq;
 
 namespace ChartTools
 {
+    /// <summary>
+    /// Set of tempo markers that handles synchronism of anchored tempos.
+    /// </summary>
     public class TempoMap : IList<Tempo>
     {
-        private readonly List<Tempo> _items;
+        private readonly List<Tempo> _items = new();
+        private readonly List<Tempo> _anchors = new();
 
         public Tempo this[int index]
         {
@@ -21,21 +25,32 @@ namespace ChartTools
         /// </summary>
         public bool Synchronized { get; private set; }
 
+        private void AddBase(Tempo item)
+        {
+            item.Map = this;
+
+            if (item.Anchor is not null)
+                _anchors.Add(item);
+        }
         public void Add(Tempo item)
         {
-            Desync();
+            if (item is null)
+                throw new ArgumentNullException(nameof(item));
+
             _items.Add(item);
-            item.Map = this;
+
+            AddBase(item);
+            Desync();
         }
         public void AddRange(IEnumerable<Tempo> items)
         {
-            Desync();
-
             foreach (var item in items)
             {
                 _items.Add(item);
-                item.Map = this;
+                AddBase(item);
             }
+
+            Desync();
         }
         public void Clear() => _items.Clear();
         public void Clear(bool detachMap)
@@ -51,25 +66,29 @@ namespace ChartTools
         public int IndexOf(Tempo item) => _items.IndexOf(item);
         public void Insert(int index, Tempo item)
         {
-            Desync();
             _items.Insert(index, item);
-            item.Map = this;
+
+            AddBase(item);
+            Desync();
         }
         public void InsertRange(int index, IEnumerable<Tempo> items)
         {
-            Desync();
-
             foreach (var item in items)
             {
                 _items.Insert(index, item);
-                item.Map = this;
+                AddBase(item);
             }
+
+            Desync();
         }
         public bool Remove(Tempo item) => Remove(item, false);
         public bool Remove(Tempo item, bool detachMap)
         {
             if (detachMap)
                 item.Map = null;
+
+            if (item.Anchor is not null)
+                _anchors.Remove(item);
 
             var found = _items.Remove(item);
             Desync();
@@ -78,6 +97,11 @@ namespace ChartTools
         public void RemoveAt(int index)
         {
             _items.RemoveAt(index);
+
+            var item = _items[index];
+            if (item.Anchor is not null)
+                _anchors.Remove(item);
+
             Desync();
         }
         public void RemoveAt(int index, bool detachMap)
@@ -89,6 +113,11 @@ namespace ChartTools
             }
 
             _items.RemoveAt(index);
+
+            var item = _items[index];
+            if (item.Anchor is not null)
+                _anchors.Remove(item);
+
             Desync();
         }
 
@@ -106,23 +135,18 @@ namespace ChartTools
             if (Synchronized)
                 return;
 
-            List<Tempo> synced = new(), desynced = new();
-            var zeroCount = 0;
+            List<Tempo> synced = new();
+            List<Tempo> desynced = new();
 
             // Split synced and desynced. Sync 0 anchors.
-            foreach (Tempo tempo in _items)
+            foreach (var tempo in _items)
             {
                 if (tempo.PositionSynced)
-                {
-                    if (tempo.Position == 0)
-                        synced.Insert(zeroCount++, tempo);
-                    else
-                        synced.Add(tempo);
-                }
-                else if (tempo.Anchor == TimeSpan.Zero)
+                    synced.Add(tempo);
+                else if (tempo.Anchor!.Value == TimeSpan.Zero)
                 {
                     tempo.SyncPosition(0);
-                    synced.Insert(zeroCount++, tempo);
+                    synced.Add(tempo);
                 }
                 else
                     desynced.Add(tempo);
@@ -136,7 +160,7 @@ namespace ChartTools
             if (!syncedEnumerator.MoveNext() || syncedEnumerator.Current.Position != 0)
                 throw new Exception("A tempo marker at position or anchor zero is required to sync anchors.");
 
-            using var desyncedEnumerator = desynced.OrderBy(t => t.Anchor!.Value).GetEnumerator();
+            using var desyncedEnumerator = desynced.OrderBy(t => t.Anchor).GetEnumerator();
 
             syncedEnumerator.MoveNext();
             desyncedEnumerator.MoveNext();
@@ -176,10 +200,13 @@ namespace ChartTools
         }
         internal void Desync()
         {
-            foreach (var tempo in _items)
+            foreach (var tempo in _anchors)
                 tempo.DesyncPosition();
 
             Synchronized = false;
         }
+
+        internal void AddAnchor(Tempo item) => _anchors.Add(item);
+        internal void RemoveAnchor(Tempo item) => _anchors.Remove(item);
     }
 }

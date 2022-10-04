@@ -1,6 +1,4 @@
-﻿using ChartTools.Extensions.Linq;
-
-namespace ChartTools.Tools
+﻿namespace ChartTools.Tools
 {
     public static class TempoRescaler
     {

@@ -24,7 +24,7 @@ namespace ChartTools
         private TempoMap? _map;
 
         /// <inheritdoc cref="TrackObjectBase.Position" path="/summary"/>
-        /// <remarks>If <see cref="Anchor"/> is not <see langword="null"/>, only refer to the position if <see cref="PositionSynced"/> is <see langword="true"/>.</remarks>
+        /// <remarks>Only refer to the position if <see cref="PositionSynced"/> is <see langword="true"/>.</remarks>
         public override uint Position
         {
             get => _position;
@@ -39,22 +39,30 @@ namespace ChartTools
         private uint _position;
 
         /// <summary>
-        /// New tempo
+        /// New tempo in beats per minute
         /// </summary>
         public float Value { get; set; }
 
         /// <summary>
-        /// Locks the tempo to a specific time in the song independent to the sync track.
+        /// Locks the tempo to a specific real-time position independent of the sync track.
         /// </summary>
         public TimeSpan? Anchor
         {
             get => _anchor;
             set
             {
-                _anchor = value;
+                var valueNull = value is null;
 
-                if (value is not null)
-                    PositionSynced = false;
+                if (valueNull)
+                {
+                    if (_anchor is not null)
+                        Map?.RemoveAnchor(this);
+                }
+                else if (_anchor is null)
+                        Map?.AddAnchor(this);
+
+                _anchor = value;
+                PositionSynced = valueNull;
             }
         }
         private TimeSpan? _anchor;
@@ -76,6 +84,6 @@ namespace ChartTools
             _position = position;
             PositionSynced = true;
         }
-        public void DesyncPosition() => PositionSynced = false;
+        internal void DesyncPosition() => PositionSynced = false;
     }
 }
