@@ -55,7 +55,7 @@ When the type of long objects is not known, a base method using the `ILongTrackO
 List<ILongTrackObject> oredredObjects = Optimizer.CutLenghts<ILongTrackObject>(obejcts, <skipOrdering>);
 ```
 
-# Removing redundant sync track markers
+## Removing redundant sync track markers
 The Optimizer class provides methods for removing tempo and time signature markers that have no effect on gameplay. Like with length cutting, the objects are ordered by position and provided as a return value. The ordering can also be skipped with an optional parameter.
 
 ```csharp
@@ -63,5 +63,9 @@ List<TimeSignature> orderedSignatures = Optimizer.RemoveUneeded(tempoMarkers, <s
 List<Tempo> orderedTempos = Optimizer.RemoveUneeded(timeSignatures, <skipOrdering>);
 ```
 
-## Anchored tempos
-The method for removing tempo markers can only work with non-anchored markers.
+### Anchored tempos
+The method for removing tempo markers cannot work with anchored markers for which the tempo position is desynchronized and will throw an exception. An overload is provided which calculates the tick positions for such markers. This overload requires the temporal resolution obtained from the song's formatting. The optional parameter for skipping the ordering only applies to the ordering of synchronized markers.
+
+```csharp
+List<Tempo> orderedMarkers = Optimizer.RemoveUneeded(tempoMap, resolution, <skipSyncedOrdering>);
+```

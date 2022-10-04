@@ -128,7 +128,7 @@ namespace ChartTools.Tools
         public static List<Tempo> RemoveUneeded(this ICollection<Tempo> markers, bool preOrdered = false)
         {
             if (markers.TryGetFirst(m => !m.PositionSynced, out var marker))
-                throw new InvalidOperationException($"Collection contains tempo marker with desynced anchor at {marker.Anchor}. Resolution needed to synchronize anchors.");
+                throw new DesynchronizedAnchorException(marker.Anchor!.Value, $"Collection contains a desynchronized anchored tempo at {marker.Anchor}. Resolution needed to synchronize anchors.");
 
             var output = GetOrderedList(markers, preOrdered);
 
