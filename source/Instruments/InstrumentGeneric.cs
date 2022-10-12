@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DiffEnum = ChartTools.Difficulty;
-
 namespace ChartTools
 {
     /// <summary>
@@ -17,7 +15,7 @@ namespace ChartTools
         public new Track<TChord>? Easy
         {
             get => _easy;
-            set => _easy = value is null ? null : value with { Difficulty = DiffEnum.Easy, ParentInstrument = this };
+            set => _easy = value is null ? null : value with { Difficulty = Difficulty.Easy, ParentInstrument = this };
         }
         private Track<TChord>? _easy;
 
@@ -27,7 +25,7 @@ namespace ChartTools
         public new Track<TChord>? Medium
         {
             get => _medium;
-            set => _medium = value is null ? null : value with { Difficulty = DiffEnum.Medium, ParentInstrument = this };
+            set => _medium = value is null ? null : value with { Difficulty = Difficulty.Medium, ParentInstrument = this };
         }
         private Track<TChord>? _medium;
 
@@ -37,7 +35,7 @@ namespace ChartTools
         public new Track<TChord>? Hard
         {
             get => _hard;
-            set => _hard = value is null ? null : value with { Difficulty = DiffEnum.Hard, ParentInstrument = this };
+            set => _hard = value is null ? null : value with { Difficulty = Difficulty.Hard, ParentInstrument = this };
         }
         private Track<TChord>? _hard;
 
@@ -47,51 +45,51 @@ namespace ChartTools
         public new Track<TChord>? Expert
         {
             get => _expert;
-            set => _expert = value is null ? null : value with { Difficulty = DiffEnum.Expert, ParentInstrument = this };
+            set => _expert = value is null ? null : value with { Difficulty = Difficulty.Expert, ParentInstrument = this };
         }
         private Track<TChord>? _expert;
 
         /// <summary>
         /// Gets the <see cref="Track{TChord}"/> that matches a <see cref="Difficulty"/>
         /// </summary>
-        public override Track<TChord>? GetTrack(DiffEnum difficulty) => difficulty switch
+        public override Track<TChord>? GetTrack(Difficulty difficulty) => difficulty switch
         {
-            DiffEnum.Easy => Easy,
-            DiffEnum.Medium => Medium,
-            DiffEnum.Hard => Hard,
-            DiffEnum.Expert => Expert,
+            Difficulty.Easy => Easy,
+            Difficulty.Medium => Medium,
+            Difficulty.Hard => Hard,
+            ChartTools.Difficulty.Expert => Expert,
             _ => throw new UndefinedEnumException(difficulty)
         };
 
-        /// <inheritdoc cref="Instrument.CreateTrack(DiffEnum)"/>
-        public override Track CreateTrack(DiffEnum difficulty) => difficulty switch
+        /// <inheritdoc cref="Instrument.CreateTrack(Difficulty)"/>
+        public override Track<TChord> CreateTrack(Difficulty difficulty) => difficulty switch
         {
-            DiffEnum.Easy => Easy = new(),
-            DiffEnum.Medium => Medium = new(),
-            DiffEnum.Hard => Hard = new(),
-            DiffEnum.Expert => Expert = new(),
+            Difficulty.Easy => Easy = new(),
+            Difficulty.Medium => Medium = new(),
+            Difficulty.Hard => Hard = new(),
+            Difficulty.Expert => Expert = new(),
             _ => throw new UndefinedEnumException(difficulty)
         };
-        /// <inheritdoc cref="Instrument.RemoveTrack(DiffEnum)"/>
-        public override bool RemoveTrack(DiffEnum difficulty)
+        /// <inheritdoc cref="Instrument.RemoveTrack(Difficulty)"/>
+        public override bool RemoveTrack(Difficulty difficulty)
         {
             bool found;
 
             switch (difficulty)
             {
-                case DiffEnum.Easy:
+                case Difficulty.Easy:
                     found = _easy is not null;
                     _easy = null;
                     return found;
-                case DiffEnum.Medium:
+                case Difficulty.Medium:
                     found = _medium is not null;
                     _medium = null;
                     return found;
-                case DiffEnum.Hard:
+                case Difficulty.Hard:
                     found = _hard is not null;
                     _hard = null;
                     return found;
-                case DiffEnum.Expert:
+                case Difficulty.Expert:
                     found = _expert is not null;
                     _expert = null;
                     return found;
@@ -118,10 +116,10 @@ namespace ChartTools
             ? throw new ArgumentNullException(nameof(track))
             : track.Difficulty switch
             {
-                DiffEnum.Easy => _easy = track with { ParentInstrument = this },
-                DiffEnum.Medium => _medium = track with { ParentInstrument = this },
-                DiffEnum.Hard => _hard = track with { ParentInstrument = this },
-                DiffEnum.Expert => _expert = track with { ParentInstrument = this },
+                Difficulty.Easy => _easy = track with { ParentInstrument = this },
+                Difficulty.Medium => _medium = track with { ParentInstrument = this },
+                Difficulty.Hard => _hard = track with { ParentInstrument = this },
+                Difficulty.Expert => _expert = track with { ParentInstrument = this },
                 _ => throw new UndefinedEnumException(track.Difficulty)
             };
     }

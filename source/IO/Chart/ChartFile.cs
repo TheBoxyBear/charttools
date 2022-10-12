@@ -159,6 +159,34 @@ namespace ChartTools.IO.Chart
                 ? await ReadInstrumentAsync(path, (StandardInstrumentIdentity)instrument, config, formatting, cancellationToken)
                 : throw new UndefinedEnumException(instrument);
         }
+        #region Vocals
+        /// <summary>
+        /// Reads vocals from the global events in a chart file.
+        /// </summary>
+        /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="Phrase"/> containing lyric and timing data
+        ///     <para><see langword="null"/> if the file contains no drums data</para>
+        /// </returns>
+        /// <param name="path">Path of the file to read</param>
+        public static Instrument<Phrase>? ReadVocals(string path) => BuildVocals(ReadGlobalEvents(path));
+        public static async Task<Instrument<Phrase>?> ReadVocalsAsync(string path, CancellationToken cancellationToken = default) => BuildVocals(await ReadGlobalEventsAsync(path));
+        private static Instrument<Phrase>? BuildVocals(List<GlobalEvent> events)
+        {
+            var lyrics = events.GetLyrics().ToArray();
+
+            if (lyrics.Length == 0)
+                return null;
+
+            var instument = new Instrument<Phrase>();
+
+            foreach (var diff in EnumCache<Difficulty>.Values)
+            {
+                var track = instument.CreateTrack(diff);
+                track.Chords.AddRange(lyrics);
+            }
+
+            return instument;
+        }
+        #endregion
         #region Drums
         private static DrumsTrackParser? GetAnyDrumsTrackParser(string header, ReadingSession session) => drumsTrackHeaders.TryGetValue(header, out Difficulty difficulty)
             ? new(difficulty, session, header)
