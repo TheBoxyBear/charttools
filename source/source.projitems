@@ -44,8 +44,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Linq\EnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Linq\SectionReplacement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Instruments\Drums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Instruments\GHLInstrument.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Instruments\InstrumentSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IEmptyVerifiable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Instruments\StandardInstrument.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Instruments\Vocals.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Anchor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\ChartSectionSet.cs" />

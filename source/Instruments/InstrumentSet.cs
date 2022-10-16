@@ -16,81 +16,71 @@ namespace ChartTools
         /// <summary>
         /// Set of drums tracks
         /// </summary>
-        public Instrument<DrumsChord>? Drums
-        {
-            get => _drums;
-            set => _drums = value is null ? value : value with { InstrumentIdentity = InstrumentIdentity.Drums };
-        }
-        private Instrument<DrumsChord>? _drums;
+        public Drums? Drums { get; set; }
         /// <summary>
         /// Set of Guitar Hero Live guitar tracks
         /// </summary>
-        public Instrument<GHLChord>? GHLGuitar
+        public GHLInstrument? GHLGuitar
         {
             get => _ghlGuitar;
-            set => _ghlGuitar = value is null ? value : value with { InstrumentIdentity = InstrumentIdentity.GHLGuitar };
+            set => _ghlGuitar = value is null ? value : value with { InstrumentIdentity = GHLInstrumentIdentity.Guitar };
         }
-        private Instrument<GHLChord>? _ghlGuitar;
+        private GHLInstrument? _ghlGuitar;
         /// <summary>
         /// Set of Guitar Hero Live bass tracks
         /// </summary>
-        public Instrument<GHLChord>? GHLBass
+        public GHLInstrument? GHLBass
         {
             get => _ghlBass;
-            set => _ghlBass = value is null ? value : value with { InstrumentIdentity = InstrumentIdentity.GHLBass };
+            set => _ghlBass = value is null ? value : value with { InstrumentIdentity = GHLInstrumentIdentity.Bass };
         }
-        private Instrument<GHLChord>? _ghlBass;
+        private GHLInstrument? _ghlBass;
         /// <summary>
         /// Set of lead guitar tracks
         /// </summary>
-        public Instrument<StandardChord>? LeadGuitar
+        public StandardInstrument? LeadGuitar
         {
             get => _leadGuitar;
-            set => _leadGuitar = value is null ? value : value with { InstrumentIdentity = InstrumentIdentity.LeadGuitar };
+            set => _leadGuitar = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.LeadGuitar };
         }
-        private Instrument<StandardChord>? _leadGuitar;
+        private StandardInstrument? _leadGuitar;
         /// <summary>
         /// Set of rhythm guitar tracks
         /// </summary>
-        public Instrument<StandardChord>? RhythmGuitar
+        public StandardInstrument? RhythmGuitar
         {
             get => _rhythmGuitar;
-            set => _rhythmGuitar = value is null ? value : value with { InstrumentIdentity = InstrumentIdentity.RhythmGuitar };
+            set => _rhythmGuitar = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.RhythmGuitar };
         }
-        private Instrument<StandardChord>? _rhythmGuitar;
+        private StandardInstrument? _rhythmGuitar;
         /// <summary>
         /// Set of coop guitar tracks
         /// </summary>
-        public Instrument<StandardChord>? CoopGuitar
+        public StandardInstrument? CoopGuitar
         {
             get => _coopGuitar;
-            set => _coopGuitar = value is null ? value : value with { InstrumentIdentity = InstrumentIdentity.CoopGuitar };
+            set => _coopGuitar = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.CoopGuitar };
         }
-        private Instrument<StandardChord>? _coopGuitar;
+        private StandardInstrument? _coopGuitar;
         /// <summary>
         /// Set of bass tracks
         /// </summary>
-        public Instrument<StandardChord>? Bass
+        public StandardInstrument? Bass
         {
             get => _bass;
-            set => _bass = value is null ? value : value with { InstrumentIdentity = InstrumentIdentity.Bass };
+            set => _bass = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.Bass };
         }
-        private Instrument<StandardChord>? _bass;
+        private StandardInstrument? _bass;
         /// <summary>
         /// Set of keyboard tracks
         /// </summary>
-        public Instrument<StandardChord>? Keys
+        public StandardInstrument? Keys
         {
             get => _keys;
-            set => _keys = value is null ? value : value with { InstrumentIdentity = InstrumentIdentity.Keys };
+            set => _keys = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.Keys };
         }
-        private Instrument<StandardChord>? _keys;
-        public Instrument<Phrase>? Vocals
-        {
-            get => _vocals;
-            set => _vocals = value is null ? value : value with { InstrumentIdentity = InstrumentIdentity.Vocals };
-        }
-        private Instrument<Phrase>? _vocals;
+        private StandardInstrument? _keys;
+        public Vocals? Vocals { get; set; }
 
         /// <summary>
         /// Gets property value for an <see cref="Instrument"/> from a <see cref="InstrumentIdentity"/> <see langword="enum"/> value.
@@ -108,54 +98,62 @@ namespace ChartTools
             InstrumentIdentity.Bass => Bass,
             InstrumentIdentity.Keys => Keys,
             InstrumentIdentity.Vocals => Vocals,
-            _ => throw new Exception("Instrument does not exist.")
+            _ => throw new UndefinedEnumException(instrument)
         };
         /// <summary>
         /// Gets property value for an <see cref="Instrument{TChord}"/> from a <see cref="GHLInstrumentIdentity"/> <see langword="enum"/> value.
         /// </summary>
         /// /// <param name="instrument">Instrument to get</param>
         /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="GHLChord"/> from the <see cref="Song"/>.</returns>
-        public Instrument<GHLChord>? Get(GHLInstrumentIdentity instrument) => Get((InstrumentIdentity)instrument) as Instrument<GHLChord>;
+        public GHLInstrument? Get(GHLInstrumentIdentity instrument)
+        {
+            Validator.ValidateEnum(instrument);
+            return Get((InstrumentIdentity)instrument) as GHLInstrument;
+        }
         /// <summary>
         /// Gets property value for an <see cref="Instrument{TChord}"/> from a <see cref="StandardInstrumentIdentity"/> <see langword="enum"/> value.
         /// </summary>
         /// <param name="instrument">Instrument to get</param>
         /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="StandardChord"/> from the <see cref="Song"/>.</returns>
-        public Instrument<StandardChord>? Get(StandardInstrumentIdentity instrument) => Get((InstrumentIdentity)instrument) as Instrument<StandardChord>;
+        public StandardInstrument? Get(StandardInstrumentIdentity instrument)
+        {
+            Validator.ValidateEnum(instrument);
+            return Get((InstrumentIdentity)instrument) as StandardInstrument;
+        }
 
         public IEnumerable<Instrument> Existing() => this.NonNull().Where(instrument => !instrument.IsEmpty);
 
-        public void Set(Instrument<StandardChord> instrument)
+        public void Set(StandardInstrument instrument)
         {
             switch (instrument.InstrumentIdentity)
             {
-                case InstrumentIdentity.LeadGuitar:
+                case StandardInstrumentIdentity.LeadGuitar:
                     _leadGuitar = instrument;
                     break;
-                case InstrumentIdentity.RhythmGuitar:
+                case StandardInstrumentIdentity.RhythmGuitar:
                     _rhythmGuitar = instrument;
                     break;
-                case InstrumentIdentity.CoopGuitar:
+                case StandardInstrumentIdentity.CoopGuitar:
                     _coopGuitar = instrument;
                     break;
-                case InstrumentIdentity.Bass:
+                case StandardInstrumentIdentity.Bass:
                     _bass = instrument;
                     break;
-                case InstrumentIdentity.Keys:
+                case StandardInstrumentIdentity.Keys:
                     _keys = instrument;
                     break;
                 default:
                     throw new UndefinedEnumException(instrument.InstrumentIdentity);
             }
         }
-        public void Set(Instrument<GHLChord> instrument)
+        public void Set(GHLInstrument instrument)
         {
             switch (instrument.InstrumentIdentity)
             {
-                case InstrumentIdentity.GHLGuitar:
+                case GHLInstrumentIdentity.Guitar:
                     GHLGuitar = instrument;
                     break;
-                case InstrumentIdentity.GHLBass:
+                case GHLInstrumentIdentity.Bass:
                     GHLBass = instrument;
                     break;
                 default:

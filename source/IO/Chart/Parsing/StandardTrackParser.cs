@@ -12,7 +12,7 @@ namespace ChartTools.IO.Chart.Parsing
             var inst = song.Instruments.Get(Instrument);
 
             if (inst is null)
-                song.Instruments.Set(inst = new() { InstrumentIdentity = (InstrumentIdentity)Instrument });
+                song.Instruments.Set(inst = new(Instrument));
 
             ApplyToInstrument(inst);
         }

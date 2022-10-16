@@ -7,7 +7,7 @@ namespace ChartTools
     /// <summary>
     /// Set of tracks common to an instrument
     /// </summary>
-    public record Instrument<TChord> : Instrument where TChord : IChord
+    public abstract record Instrument<TChord> : Instrument where TChord : IChord
     {
         /// <summary>
         /// Easy track

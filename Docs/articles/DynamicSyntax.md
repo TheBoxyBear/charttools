@@ -5,7 +5,7 @@ This guide will cover an alternate and more flexible syntax for accessing compon
 ChartTools supports a dynamic syntax to retrieve instruments and tracks using identity enums instead of explicit properties.
 
 ```C#
-Instrument<StandardChord> guitar = song.Instruments.Get(StandardInstrumentIdentity.LeadGuitar);
+StandardInstrument guitar = song.Instruments.Get(StandardInstrumentIdentity.LeadGuitar);
 Instrument bass = song.Instruments.Get(InstrumentIdentity.Bass);
 
 Track<StandardChord> easyGuitar = guitar.GetTrack(Difficulty.Easy);
@@ -30,13 +30,21 @@ When working with a non-generic track, the following rules apply:
 
 Being the base types of the generic counterparts, non-generic instruments, tracks, chords and notes can be cast to a generic version.
 
-The dynamic syntax can also be used to set instruments and tracks.
+The dynamic syntax can also be used to set amd read instruments and tracks.
 
 ```C#
+// Setting components
 song.Instruments.Set(guitar);
 song.Instruments.Set(guitar with { InstrumentIdentity = InstrumentIdentity.Bass });
 
 song.Instruments.LeadGuitar.SetTrack(new() { Difficulty = Difficulty.Easy });
+
+// Reading components
+StandardInstrument coop = StandardInstrument.FromFile(path, StandardInstrumentIdentity.CoopGuitar, <ReadingConfiguration>, metadata.Formatting);
+Instrument keys = Instrument.FromFile(path, InstrumentIdentity.Keys, <ReadingConfiguration>, metadata.Formatting);
+
+Track<StandardChord> easyCoop = Track.FromFile(path, StandardInstrumentIdentity.CoopGuitar, Difficulty.Easy, <ReadingConfiguration>, metadata.Formatting);
+Track easyKeys = Track.FromFile(path, InsturmentIdentity.Keys, Difficulty.Easy, <ReadingConfiguration>, metadata.Formatting);
 ```
 
 When setting an instrument, the target is determined by the `InstrumentIdentity` property of the new instrument, which can be overridden using a `with` statement. Similarly, the target difficulty when setting a track is determined by the track's `Difficulty` property, also overridable through `with`. 
