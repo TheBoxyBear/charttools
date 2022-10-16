@@ -10,7 +10,7 @@ namespace ChartTools
 {
     public record GHLInstrument : Instrument<GHLChord>
     {
-        public GHLInstrumentIdentity InstrumentIdentity { get; init; }
+        public new GHLInstrumentIdentity InstrumentIdentity { get; init; }
 
         public GHLInstrument() { }
         public GHLInstrument(GHLInstrumentIdentity identity) => InstrumentIdentity = identity;

@@ -23,8 +23,8 @@ namespace ChartTools.Tests
         [TestMethod] public void AnyNoTrue() => Assert.AreEqual(false, falseArray.Any());
         [TestMethod] public void AnyMix() => Assert.AreEqual(true, mixBoolArray.Any());
 
-        [TestMethod] public void FirstOrDefaultNullPredicate() => Assert.ThrowsException<ArgumentNullException>(() => trueArray.FirstOrDefault(null, false));
-        [TestMethod] public void OutFirstOrDefaultNullPredicate() => Assert.ThrowsException<ArgumentNullException>(() => trueArray.FirstOrDefault(null, false, out bool returnedDefault));
+        [TestMethod] public void FirstOrDefaultNullPredicate() => Assert.ThrowsException<ArgumentNullException>(() => trueArray.FirstOrDefault(null!, false));
+        [TestMethod] public void OutFirstOrDefaultNullPredicate() => Assert.ThrowsException<ArgumentNullException>(() => trueArray.FirstOrDefault(null!, false, out bool returnedDefault));
         [TestMethod] public void FirstOrDefaultExistingItem() => Assert.AreEqual(true, trueArray.FirstOrDefault(b => b, false));
         [TestMethod] public void OutFirstOrDefaultExistingItem()
         {
@@ -38,7 +38,7 @@ namespace ChartTools.Tests
             Assert.IsTrue(returnedDefault);
         }
 
-        [TestMethod] public void TryGetFirstNullPredicate() => Assert.ThrowsException<ArgumentNullException>(() => trueArray.TryGetFirst(null, out bool b));
+        [TestMethod] public void TryGetFirstNullPredicate() => Assert.ThrowsException<ArgumentNullException>(() => trueArray.TryGetFirst(null!, out bool b));
         [TestMethod] public void TryGetFirstNoItems()
         {
             Assert.IsFalse(Array.Empty<bool>().TryGetFirst(b => b, out bool item));
@@ -55,7 +55,7 @@ namespace ChartTools.Tests
             Assert.AreEqual(true, item);
         }
 
-        [TestMethod] public void ReplaceNullPredicate() => Assert.ThrowsException<ArgumentNullException>(() => trueArray.Replace(null, false).ToArray());
+        [TestMethod] public void ReplaceNullPredicate() => Assert.ThrowsException<ArgumentNullException>(() => trueArray.Replace(null!, false).ToArray());
         [TestMethod] public void ReplaceNoMatch() => Assert.AreEqual(string.Join(' ', falseArray), string.Join(' ', falseArray.Replace(b => b, true)));
         [TestMethod] public void ReplaceMatch()
         {
@@ -63,8 +63,8 @@ namespace ChartTools.Tests
             Assert.AreEqual("0 1 2 3 4 5 0 0 0 0", string.Join(' ', numbers.Replace(n => n > 5, 0)));
         }
 
-        [TestMethod] public void ReplaceSectionNullStartReplace() => Assert.ThrowsException<ArgumentNullException>(() => trueArray.ReplaceSection(new(Enumerable.Empty<bool>(), null, b => true, true)).ToArray());
-        [TestMethod] public void ReplaceSectionNullEndReplace() => Assert.ThrowsException<ArgumentNullException>(() => trueArray.ReplaceSection(new(Enumerable.Empty<bool>(), b => true, null, true)).ToArray());
+        [TestMethod] public void ReplaceSectionNullStartReplace() => Assert.ThrowsException<ArgumentNullException>(() => trueArray.ReplaceSection(new(Enumerable.Empty<bool>(), null!, b => true, true)).ToArray());
+        [TestMethod] public void ReplaceSectionNullEndReplace() => Assert.ThrowsException<ArgumentNullException>(() => trueArray.ReplaceSection(new(Enumerable.Empty<bool>(), b => true, null!, true)).ToArray());
         [TestMethod] public void ReplaceSectioNeverStart() => Assert.AreEqual(Formatting.FormatCollection(trueArray), Formatting.FormatCollection(trueArray.ReplaceSection(new(falseArray, b => false, b => true, false))));
     }
 }

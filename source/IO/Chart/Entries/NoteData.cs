@@ -12,7 +12,7 @@ namespace ChartTools.IO.Chart.Entries
         /// </summary>
         internal byte Index { get; }
         /// <summary>
-        /// Value of <see cref="LaneNote{TLane}.Length"/>
+        /// Value of <see cref="LaneNote.Sustain"/>
         /// </summary>
         internal uint SustainLength { get; }
 

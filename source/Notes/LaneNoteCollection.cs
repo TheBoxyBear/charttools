@@ -94,8 +94,8 @@ namespace ChartTools
         /// Gets the note at a given index based on order or addition.
         /// </summary>
         /// <param name="index">Index of the note in the collection, not to be confused with <see cref="INote.Index"/>.</param>
-        /// <returns>Note at the </returns>
-        /// <exception cref=""</remarks>
+        /// <returns>Note at the index</returns>
+        /// <exception cref="ArgumentOutOfRangeException"/>
         public TNote this[int index] => _notes[index];
 
         public IEnumerator<TNote> GetEnumerator() => _notes.GetEnumerator();
