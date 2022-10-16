@@ -1,6 +1,4 @@
-﻿using ChartTools.Extensions;
-using ChartTools.Events;
-using ChartTools.Extensions.Linq;
+﻿using ChartTools.Extensions.Linq;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
@@ -29,23 +27,7 @@ namespace ChartTools
         /// <summary>
         /// Identity of the instrument the object belongs to
         /// </summary>
-        public InstrumentIdentity InstrumentIdentity { get; init; }
-
-        /// <summary>
-        /// Format of lead guitar and bass. Not applicable to other instruments.
-        /// </summary>
-        public MidiInstrumentOrigin MidiOrigin
-        {
-            get => midiOrigin;
-            set
-            {
-                if (value is MidiInstrumentOrigin.GuitarHero1 && InstrumentIdentity is not InstrumentIdentity.LeadGuitar)
-                    throw new ArgumentException($"{InstrumentIdentity} is not supported by Guitar Hero 1.", nameof(value));
-
-                midiOrigin = value;
-            }
-        }
-        private MidiInstrumentOrigin midiOrigin;
+        public InstrumentIdentity InstrumentIdentity => GetIdentity();
 
         /// <summary>
         /// Type of instrument
@@ -128,6 +110,8 @@ namespace ChartTools
         /// </summary>
         public virtual IEnumerable<Track> GetExistingTracks() => GetTracks().NonNull().Where(t => !t.IsEmpty);
 
+        protected abstract InstrumentIdentity GetIdentity();
+
         /// <summary>
         /// Gives all tracks the same local events.
         /// </summary>
@@ -159,8 +143,8 @@ namespace ChartTools
             return objects;
         }
 
-        #region File reading
-        #region Single file
+        #region IO
+        #region Reading
         /// <summary>
         /// Reads an instrument from a file.
         /// </summary>
@@ -177,64 +161,13 @@ namespace ChartTools
         /// <param name="config"><inheritdoc cref="FromFile(string, InstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>
         public static async Task<Instrument?> FromFileAsync(string path, InstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync(path, (".chart", path => ChartFile.ReadInstrumentAsync(path, instrument, config, formatting, cancellationToken)));
 
-        /// <summary>
-        /// Reads vocals from a file
-        /// </summary>
-        public static Instrument<Phrase>? VocalsFromFile(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadVocals(path)));
-        /// <summary>
-        /// Reads vocals from a file asynchronously using multitasking.
-        /// </summary>
-        public static async Task<Instrument<Phrase>?> VocalsFromFileAsync(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync<Instrument<Phrase>?>(path, (".chart", path => ChartFile.ReadVocalsAsync(path)));
-
-        /// <summary>
-        /// Reads drums from a file.
-        /// </summary>
-        public static Instrument<DrumsChord>? DrumsFromFile(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadDrums(path, config, formatting)));
-        /// <summary>
-        /// Reads drums from a file asynchronously using multitasking.
-        /// </summary>
-        public static async Task<Instrument<DrumsChord>?> DrumsFromFileAsync(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync<Instrument<DrumsChord>?>(path, (".chart", path => ChartFile.ReadDrumsAsync(path, config, formatting, cancellationToken)));
-
-        /// <summary>
-        /// Reads a GHL instrument from a file.
-        /// </summary>
-        public static Instrument<GHLChord>? FromFile(string path, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadInstrument(path, instrument, config, formatting)));
-        /// <summary>
-        /// Reads a GHL instrument from a file asynchronously using multitasking.
-        /// </summary>
-        public static async Task<Instrument<GHLChord>?> FromFileAsync(string path, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync(path, (".chart", path => ChartFile.ReadInstrumentAsync(path, instrument, config, formatting, cancellationToken)));
-
-        /// <summary>
-        /// Reads a standard instrument from a file.
-        /// </summary>
-        public static Instrument<StandardChord>? FromFile(string path, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default)
-        {
-            Validator.ValidateEnum(instrument);
-            return ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadInstrument(path, instrument, config, formatting)));
-        }
-        /// <summary>
-        /// Reads a standard instrument from a file asynchronously using multitasking.
-        /// </summary>
-        public static async Task<Instrument<StandardChord>?> FromFileAsync(string path, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync(path, (".chart", path => ChartFile.ReadInstrumentAsync(path, instrument, config, formatting, cancellationToken)));
-        #endregion
-
-        #region Directory
         public static DirectoryResult<Instrument?> FromDirectory(string directory, InstrumentIdentity instrument, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, instrument, config, formatting));
         public static Task<DirectoryResult<Instrument?>> FromDirectoryAsync(string directory, InstrumentIdentity instrument, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, instrument, config, formatting, cancellationToken), cancellationToken);
-
-        public static DirectoryResult<Instrument<DrumsChord>?> DrumsFromDirectory(string directory, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => DrumsFromFile(path, config, formatting));
-        public static Task<DirectoryResult<Instrument<DrumsChord>?>> DrumsFromDirectoryAsync(string directory, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await DrumsFromFileAsync(path, config, formatting, cancellationToken), cancellationToken);
-
-        public static DirectoryResult<Instrument<GHLChord>?> FromDirectory(string directory, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, instrument, config, formatting));
-        public static Task<DirectoryResult<Instrument<GHLChord>?>> FromDirectoryAsync(string directory, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, instrument, config, formatting, cancellationToken), cancellationToken);
-
-        public static DirectoryResult<Instrument<StandardChord>?> FromDirectory(string directory, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, instrument, config, formatting));
-        public static Task<DirectoryResult<Instrument<StandardChord>?>> FromDirectoryAsync(string directory, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, instrument, config, formatting, cancellationToken), cancellationToken);
-        #endregion
         #endregion
 
         public void ToFile(string path, WritingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Write(path, this, (".chart", (path, inst) => ChartFile.ReplaceInstrument(path, inst, config, formatting)));
         public async Task ToFileAsync(string path, WritingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.WriteAsync(path, this, (".chart", (path, inst) => ChartFile.ReplaceInstrumentAsync(path, inst, config, formatting, cancellationToken)));
+        #endregion
 
         public override string ToString() => InstrumentIdentity.ToString();
     }

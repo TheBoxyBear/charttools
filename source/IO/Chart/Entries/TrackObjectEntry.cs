@@ -24,15 +24,18 @@ namespace ChartTools.IO.Chart.Entries
         /// Creates an instance of see<see cref="TrackObjectEntry"/>.
         /// </summary>
         /// <param name="line">Line in the file</param>
-        /// <exception cref="FormatException"/>
+        /// <exception cref="LineException"/>
         public TrackObjectEntry(string line)
         {
             TextEntry entry = new(line);
 
+            if (entry.Value is null)
+                throw new LineException(line, new FormatException("Line has no object data."));
+
             string[] split = entry.Value.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
 
             if (split.Length < 2)
-                throw new EntryException();
+                throw new LineException(line, new EntryException());
 
             Type = split[0];
             Data = split[1];

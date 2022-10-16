@@ -15,10 +15,10 @@ namespace ChartTools.Tests
         static readonly byte[] testArrayB = new byte[] { 3, 5, 6 };
         const string expected = "1 3 6 5 2 6";
 
-        [TestMethod] public void CreateEnumerableNull() => Assert.ThrowsException<ArgumentNullException>(() => new SerialAlternatingEnumerable<byte>(null));
+        [TestMethod] public void CreateEnumerableNull() => Assert.ThrowsException<ArgumentNullException>(() => new SerialAlternatingEnumerable<byte>(null!));
         [TestMethod] public void CreateEnumerableEmpty() => Assert.ThrowsException<ArgumentException>(() => new SerialAlternatingEnumerable<byte>());
 
-        [TestMethod] public void CreateEnumeratorNull() => Assert.ThrowsException<ArgumentNullException>(() => new SerialAlternatingEnumerator<byte>(null));
+        [TestMethod] public void CreateEnumeratorNull() => Assert.ThrowsException<ArgumentNullException>(() => new SerialAlternatingEnumerator<byte>(null!));
         [TestMethod] public void CreateEnumeratorEmpty() => Assert.ThrowsException<ArgumentException>(() => new SerialAlternatingEnumerator<byte>());
 
         [TestMethod] public void EnumerateFromEnumerable() => Assert.AreEqual(expected,  Formatting.FormatCollection(new SerialAlternatingEnumerable<byte>(testArrayA, testArrayB)));
@@ -46,9 +46,9 @@ namespace ChartTools.Tests
         static readonly byte[] testArrayB = new byte[] { 3, 5, 6 };
         const string expected = "1 3 5 6 2 6";
 
-        [TestMethod] public void CreateEnumerableNullKeyGetter() => Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<byte, byte>(null, null));
+        [TestMethod] public void CreateEnumerableNullKeyGetter() => Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<byte, byte>(null!, null!));
 
-        [TestMethod] public void CreateEnumerableNullEnumerables() => Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<byte, byte>(null, null));
+        [TestMethod] public void CreateEnumerableNullEnumerables() => Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<byte, byte>(null!, null!));
         [TestMethod] public void CreateEnumerableEmptyEnumerables() => Assert.ThrowsException<ArgumentException>(() => new OrderedAlternatingEnumerable<byte, byte>(keyGetter));
 
         [TestMethod] public void EnumerateFromEnumerable() => Assert.AreEqual(expected, Formatting.FormatCollection(new OrderedAlternatingEnumerable<byte, byte>(keyGetter, testArrayA, testArrayB)));

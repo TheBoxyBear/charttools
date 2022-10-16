@@ -5,7 +5,7 @@ This guide will cover alternate techniques that will improve performance when us
 Rather than performing IO operation on entire songs, such operations can be made on individual components.
 
 ```c#
-(Instrument<StandardChord> guitar, Metadata metadata) = Insrument.FromDirectory(directory, StandardInstrumentIdentity.LeadGuitar);
+(StandardInstrument guitar, Metadata metadata) = StandardInstrument.FromDirectory(directory, StandardInstrumentIdentity.LeadGuitar);
 guitar.ToFile(path, <WritingConfiguration>, metadata.Formatting);
 ```
 
@@ -14,7 +14,7 @@ When writing a component to an existing file, the parts of the file regarding th
 When reading a component of a chart whose metadata has already been read, you may use the `FromFile` method along with the existing formatting.
 
 ```c#
-Instrument<StandardChord> guitar = Instrument.FromFile(path, StandardInstrumentIdentity.LeadGuitar, <ReadingConfiguration>, metadata.Formatting);
+StandardInstrument guitar = StandardInstrument.FromFile(path, StandardInstrumentIdentity.LeadGuitar, <ReadingConfiguration>, metadata.Formatting);
 ```
 
 ## Configuration

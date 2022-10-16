@@ -3,7 +3,7 @@
 namespace ChartTools
 {
     /// <summary>
-    /// Exception thrown when an invalid operation is performed on a desynchronized <see cref="AnchoredTempo"/>.
+    /// Exception thrown when an invalid operation is performed on a desynchronized anchored <see cref="Tempo"/>.
     /// </summary>
     public class DesynchronizedAnchorException : Exception
     {

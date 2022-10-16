@@ -12,7 +12,7 @@ namespace ChartTools.IO.Chart.Parsing
         protected override void HandleItem(string line)
         {
             TextEntry entry = new(line);
-            var value = entry.Value.Trim('"');
+            var value = entry.Value?.Trim('"');
 
             switch (entry.Key)
             {
@@ -29,7 +29,7 @@ namespace ChartTools.IO.Chart.Parsing
                     result.Album = value;
                     break;
                 case ChartFormatting.Year:
-                    result.Year = ValueParser.ParseUshort(value.TrimStart(','), "year");
+                    result.Year = ValueParser.ParseUshort(value?.TrimStart(','), "year");
                     break;
                 case ChartFormatting.AudioOffset:
                     result.AudioOffset = TimeSpan.FromMilliseconds(ValueParser.ParseFloat(value, "audio offset") * 1000);

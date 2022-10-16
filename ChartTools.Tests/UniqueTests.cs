@@ -27,7 +27,7 @@ namespace ChartTools.Tests
             Assert.AreEqual("1 5 7", Formatting.FormatCollection(list));
         }
 
-        [TestMethod] public void CreateListNullComparison() => Assert.ThrowsException<ArgumentNullException>(() => new UniqueList<byte>(null));
+        [TestMethod] public void CreateListNullComparison() => Assert.ThrowsException<ArgumentNullException>(() => new UniqueList<byte>(null!));
         [TestMethod] public void CreateListNegativeCapacity() => Assert.ThrowsException<ArgumentOutOfRangeException>(() => new UniqueList<byte>(comparison, -1));
         [TestMethod] public void CreateListStartingItems() => Assert.AreEqual(expectedString, Formatting.FormatCollection(new UniqueList<byte>(comparison, testItems.Length, testItems)));
 

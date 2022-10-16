@@ -98,7 +98,7 @@ namespace ChartTools
     /// <remarks>Casting to <see cref="InstrumentIdentity"/> will match the instrument.</remarks>
     public enum GHLInstrumentIdentity : byte { Guitar = 1, Bass }
     /// <summary>
-    /// Frets for a GHL <see cref="Note"/>
+    /// Frets for a GHL note
     /// </summary>
     public enum GHLLane : byte { Open, Black1, Black2, Black3, White1, White2, White3 }
 
