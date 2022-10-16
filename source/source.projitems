@@ -104,6 +104,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Providers\MidiProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Serialization\InstrumentSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Serialization\TrackObjectGroupSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Serialization\TrackSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\SectionParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\ReservedSectionHeader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\ReservedSectionHeaderSet.cs" />
