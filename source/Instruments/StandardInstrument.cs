@@ -22,8 +22,17 @@ namespace ChartTools
             get => midiOrigin;
             set
             {
-                if (value is MidiInstrumentOrigin.GuitarHero1 && InstrumentIdentity is not StandardInstrumentIdentity.LeadGuitar)
-                    throw new ArgumentException($"{InstrumentIdentity} is not supported by Guitar Hero 1.", nameof(value));
+                Validator.ValidateEnum(value);
+
+                if (InstrumentIdentity is StandardInstrumentIdentity.LeadGuitar)
+                {
+                    if (value.HasFlag(MidiInstrumentOrigin.GuitarHero1))
+                        Error("Guitar Hero 1");
+                }
+                else if (value.HasFlag(MidiInstrumentOrigin.GuitarHero2) && InstrumentIdentity is not StandardInstrumentIdentity.RhythmGuitar or StandardInstrumentIdentity.CoopGuitar or StandardInstrumentIdentity.Bass)
+                    Error("Guitar Hero 2");
+
+                void Error(string origin) => throw new ArgumentException($"{InstrumentIdentity} is not supported by {origin}.", nameof(value));
 
                 midiOrigin = value;
             }
@@ -31,7 +40,11 @@ namespace ChartTools
         private MidiInstrumentOrigin midiOrigin;
 
         public StandardInstrument() { }
-        public StandardInstrument(StandardInstrumentIdentity identity) => InstrumentIdentity = identity;
+        public StandardInstrument(StandardInstrumentIdentity identity)
+        {
+            Validator.ValidateEnum(identity);
+            InstrumentIdentity = identity;
+        }
 
         protected override InstrumentIdentity GetIdentity() => (InstrumentIdentity)InstrumentIdentity;
 

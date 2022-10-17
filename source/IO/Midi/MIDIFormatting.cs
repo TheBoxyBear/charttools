@@ -1,4 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Melanchall.DryWetMidi.Core;
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace ChartTools.IO.Midi
 {
@@ -30,8 +35,29 @@ namespace ChartTools.IO.Midi
             RhythmGuitarHeader = "PART RHYTHM",
             VocalsHeader = "PART VOCALS";
 
-
-
         public static string Instrument(InstrumentIdentity instrument) => InstrumentSequenceNames[instrument];
+
+        public static bool FindChunk(IEnumerable<TrackChunk> chunks, Predicate<string> match, [NotNullWhen(true)] out string? header, [NotNullWhen(true)] out IEnumerator<MidiEvent>? enumerator)
+        {
+            foreach (var events in chunks.Select(c => c.Events))
+            {
+                using var eventsEnumerator = events.GetEnumerator();
+
+                if (eventsEnumerator.MoveNext())
+                    continue;
+                if (eventsEnumerator.Current is not SequenceTrackNameEvent headerEvent)
+                    continue;
+                if (match(headerEvent.Text))
+                    continue;
+
+                header = headerEvent.Text;
+                enumerator = eventsEnumerator;
+                return true;
+            }
+
+            header = null;
+            enumerator = null;
+            return false;
+        }
     }
 }

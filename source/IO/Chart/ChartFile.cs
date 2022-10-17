@@ -626,9 +626,6 @@ namespace ChartTools.IO.Chart
         }
         private static ChartFileWriter GetInstrumentWriter(string path, Instrument instrument, WritingSession session)
         {
-            if (!Enum.IsDefined(instrument.InstrumentIdentity))
-                throw new ArgumentException("Instrument cannot be written because its identity is unknown.", nameof(instrument));
-
             var instrumentName = ChartFormatting.InstrumentHeaderNames[instrument.InstrumentIdentity];
             var tracks = instrument.GetExistingTracks().ToArray();
 
@@ -649,11 +646,7 @@ namespace ChartTools.IO.Chart
         }
         private static ChartFileWriter GetTrackWriter(string path, Track track, WritingSession session)
         {
-            if (track.ParentInstrument is null)
-                throw new ArgumentNullException(nameof(track), "Cannot write track because it does not belong to an instrument.");
-            if (!Enum.IsDefined(track.ParentInstrument.InstrumentIdentity))
-                throw new ArgumentException("Cannot write track because the instrument it belongs to is unknown.", nameof(track));
-
+            Validator.ValidateParentInstrument(track);
             return new(path, null, new TrackSerializer(track, session));
         }
 
