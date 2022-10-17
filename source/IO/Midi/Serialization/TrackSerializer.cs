@@ -4,6 +4,7 @@ using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Midi.Mapping;
 
 using System.Collections.Generic;
+using System;
 
 namespace ChartTools.IO.Midi.Serialization
 {
@@ -15,7 +16,7 @@ namespace ChartTools.IO.Midi.Serialization
 
         protected override IEnumerable<IMidiEventMapping>[] LaunchMappers()
         {
-
+            throw new NotImplementedException();
         }
     }
 }

@@ -5,29 +5,20 @@ namespace ChartTools.IO.Midi.Parsing
 {
     internal abstract class InstrumentParser<TChord> : MidiParser where TChord : IChord, new()
     {
-        public InstrumentIdentity Instrument { get; }
         protected readonly Track<TChord>[] tracks = new Track<TChord>[4];
 
-        public override Instrument<TChord> Result => GetResult(result);
-        protected readonly Instrument<TChord> result;
-
-        public abstract MidiInstrumentOrigin Origin { get; }
+        public override Instrument<TChord> Result => GetResult(GetInstrument());
 
         protected readonly InstrumentMapper<TChord> mapper;
 
-        protected InstrumentParser(InstrumentIdentity instrument, InstrumentMapper<TChord> mapper, ReadingSession session) : base(session)
-        {
-            Instrument = instrument;
-            result = new() { InstrumentIdentity = Instrument };
-            this.mapper = mapper;
-        }
+        protected InstrumentParser(InstrumentMapper<TChord> mapper, ReadingSession session) : base(session) => this.mapper = mapper;
+
+        protected abstract Instrument<TChord> GetInstrument();
 
         protected override void FinaliseParse()
         {
-            result.MidiOrigin = Origin;
-
             foreach (var track in tracks)
-                result.SetTrack(track);
+                GetInstrument().SetTrack(track);
 
             base.FinaliseParse();
         }
@@ -35,7 +26,6 @@ namespace ChartTools.IO.Midi.Parsing
         protected uint GetSustain(uint start, uint end)
         {
             var length = end - start;
-
             return length < session.Formatting?.SustainCutoff ? 0 : length;
         }
     }

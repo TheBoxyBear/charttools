@@ -16,7 +16,7 @@ namespace ChartTools.IO.Midi.Serialization
             {
                 (Content switch
                 {
-                    Instrument<StandardChord> standard => MapStandard(standard),
+                    StandardInstrument standard => MapStandard(standard),
                 }).OrderBy(m => m.Position),
                 Content.ShareLocalEvents(session.Configuration.EventSource).OrderBy(e => e.Position).Cast<IMidiEventMapping>()
             };
@@ -24,14 +24,15 @@ namespace ChartTools.IO.Midi.Serialization
             IEnumerable<IMidiEventMapping> MapStandard(Instrument<StandardChord> instrument)
             {
                 InstrumentMapper<StandardChord> mapper;
-                var format = Content.MidiOrigin;
+                var standardInst = (StandardInstrument)Content;
+                var format = standardInst.MidiOrigin;
 
                 if (format is MidiInstrumentOrigin.GuitarHero1)
                     mapper = new GHGemsMapper();
                 else
                 {
                     if (format.HasFlag(MidiInstrumentOrigin.Unknown))
-                        format = session.UncertainGuitarBassFormatProcedure((StandardInstrumentIdentity)Content.InstrumentIdentity, Content.MidiOrigin);
+                        format = session.UncertainGuitarBassFormatProcedure((StandardInstrumentIdentity)Content.InstrumentIdentity, standardInst.MidiOrigin);
 
                     mapper = new GuitarBassMapper(format);
                 }

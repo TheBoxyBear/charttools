@@ -1,6 +1,4 @@
-﻿using ChartTools.IO.Configuration.Sessions;
-using ChartTools.IO.Midi.Mapping;
-using ChartTools.Extensions;
+﻿using ChartTools.Extensions;
 using ChartTools.Extensions.Linq;
 using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Midi.Mapping;
@@ -18,7 +16,7 @@ namespace ChartTools.IO.Midi.Parsing
         where TLane : struct, Enum
         where TModifier : struct, Enum
     {
-        protected LaneInstrumentParser(InstrumentIdentity instrument, InstrumentMapper<TChord> mapper, ReadingSession session) : base(instrument, mapper, session) { }
+        protected LaneInstrumentParser(InstrumentMapper<TChord> mapper, ReadingSession session) : base(mapper, session) { }
     }
 
     internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : InstrumentParser<TChord>
@@ -50,7 +48,7 @@ namespace ChartTools.IO.Midi.Parsing
 
         protected abstract byte BigRockCount { get; }
 
-        public LaneInstrumentParser(InstrumentIdentity instrument, InstrumentMapper<TChord> mapper, ReadingSession session) : base(instrument, mapper, session) => openedBigRockPositions = new(from index in Enumerable.Range(1, BigRockCount)
+        public LaneInstrumentParser(InstrumentMapper<TChord> mapper, ReadingSession session) : base(mapper, session) => openedBigRockPositions = new(from index in Enumerable.Range(1, BigRockCount)
                                                                                                                                                                                                 select new KeyValuePair<int, uint?>(index, null));
 
         protected override void HandleItem(MidiEvent item)
@@ -219,22 +217,19 @@ namespace ChartTools.IO.Midi.Parsing
         }
         protected virtual void HandleBigRock(NoteEventMapping mapping)
         {
-            if (!Origin.HasFlag(MidiInstrumentOrigin.RockBand))
-                return;
-
             var openedBigRockPosition = openedBigRockPositions[mapping.Index];
 
             switch (mapping.State)
             {
                 case NoteState.Open:
                     if (openedBigRockPosition is not null)
-                        throw new Exception($"Big rock ending {mapping.Index} is already present for {Instrument}."); // TODO Custom exception
+                        throw new Exception($"Big rock ending {mapping.Index} is already present for {GetInstrument().InstrumentIdentity}."); // TODO Custom exception
 
                     openedBigRockPositions[mapping.Index] = mapping.Position;
                     break;
                 case NoteState.Close:
                     if (openedBigRockPosition is null)
-                        session.UnopenedProcedure(mapping.Position, () => result.SpecialPhrases.Add(new(mapping.Position, InstrumentSpecialPhraseType.BigRockEnding)));
+                        session.UnopenedProcedure(mapping.Position, () => GetInstrument().SpecialPhrases.Add(new(mapping.Position, InstrumentSpecialPhraseType.BigRockEnding)));
                     else
                     {
                         bigRockEndings.Add(new(mapping.Position, InstrumentSpecialPhraseType.BigRockEnding, GetSustain(openedBigRockPosition!.Value, mapping.Position)));
@@ -277,7 +272,7 @@ namespace ChartTools.IO.Midi.Parsing
                     : session.MisalignedBigRockProcedure(bigRockEndings);
 
                 if (ending is not null)
-                    result.SpecialPhrases.Add(ending);
+                    GetInstrument().SpecialPhrases.Add(ending);
             }
 
             base.FinaliseParse();
