@@ -9,11 +9,14 @@ namespace ChartTools.IO.Midi.Mapping
     {
         public MidiInstrumentOrigin Format { get; }
 
-        public GuitarBassMapper() : this(MidiInstrumentOrigin.Unknown) { }
+        public GuitarBassMapper() : this(MidiInstrumentOrigin.NA) { }
         public GuitarBassMapper(MidiInstrumentOrigin writingFormat) => Format = writingFormat;
 
         public override IEnumerable<NoteEventMapping> Map(uint position, NoteEvent e)
         {
+            if (Format == MidiInstrumentOrigin.NA)
+                throw new InvalidOperationException($"No writing format provided");
+
             var intNumber = (int)e.NoteNumber;
 
             if (intNumber is 126 or 127)
