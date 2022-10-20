@@ -7,9 +7,10 @@ namespace ChartTools.IO.Midi.Mapping
 {
     internal class GuitarBassMapper : InstrumentMapper<StandardChord>
     {
-        public MidiInstrumentOrigin WritingFormat { get; }
+        public MidiInstrumentOrigin Format { get; }
 
-        public GuitarBassMapper(MidiInstrumentOrigin writingFormat) => WritingFormat = writingFormat;
+        public GuitarBassMapper() : this(MidiInstrumentOrigin.Unknown) { }
+        public GuitarBassMapper(MidiInstrumentOrigin writingFormat) => Format = writingFormat;
 
         public override IEnumerable<NoteEventMapping> Map(uint position, NoteEvent e)
         {
