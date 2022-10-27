@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Events\LocalEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\DesynchronizedAnchorException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\DetachedTrackException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\ImpossibleException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\UndefinedEnumException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\Validator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Collections\Alternating\Ordered\OrderedAlternatingEnumerable.cs" />
@@ -89,7 +90,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\GHGemsMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\GuitarBassMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\IMidiEventMapping.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\INoteMapping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\InstrumentMapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\IReadInstrumentMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\NoteState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\NoteMapping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\NoteEventMapping.cs" />

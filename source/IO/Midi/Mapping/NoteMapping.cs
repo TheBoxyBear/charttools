@@ -1,35 +1,20 @@
-﻿using Melanchall.DryWetMidi.Core;
+﻿using Melanchall.DryWetMidi.Common;
 
 namespace ChartTools.IO.Midi.Mapping
 {
-    internal readonly struct NoteMapping : IMidiEventMapping
+    internal readonly struct NoteMapping : INoteMapping
     {
         public uint Position { get; }
-        public Difficulty Difficulty { get; }
+        public SevenBitNumber NoteNumber { get; }
+        public Difficulty? Difficulty { get; }
         public NoteState State { get; }
-        public byte NoteNumber { get; }
 
-        public NoteMapping(uint position, Difficulty difficulty, NoteState state, byte noteNumber)
+        public NoteMapping(uint position, Difficulty? difficulty, NoteState state, SevenBitNumber noteNumber)
         {
             Position = position;
             Difficulty = difficulty;
             State = state;
             NoteNumber = noteNumber;
-        }
-
-        public MidiEvent ToMidiEvent(uint delta)
-        {
-            var e = State switch
-            {
-                NoteState.Open => new NoteOnEvent(),
-                NoteState.Close => new NoteOnEvent(),
-                _ => throw new UndefinedEnumException(State)
-            };
-
-            e.DeltaTime = delta;
-            e.NoteNumber = new(NoteNumber);
-
-            return e;
         }
     }
 }

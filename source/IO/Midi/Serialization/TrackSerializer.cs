@@ -1,8 +1,8 @@
-﻿using ChartTools.IO.Configuration;
+﻿using ChartTools.Exceptions;
+using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Formatting;
 using ChartTools.IO.Midi.Mapping;
-using ChartTools.IO.Midi.Parsing;
 
 using Melanchall.DryWetMidi.Core;
 
@@ -29,36 +29,64 @@ namespace ChartTools.IO.Midi.Serialization
 
         protected override IEnumerable<IMidiEventMapping>[] LaunchMappers()
         {
-            string? header = null;
-            IEnumerator<MidiEvent>? chunkEvents = null;
+            var identity = Content.ParentInstrument!.InstrumentIdentity;
+            var potentialHeaders = MidiFormatting.PotentialHeaders(Content.ParentInstrument!.InstrumentIdentity);
 
-            if (Content is Track<StandardChord> standard)
+            if (MidiFormatting.FindChunk(file.GetTrackChunks(), header => potentialHeaders.Any(h => h == header), out var header, out var chunkEvents))
             {
-                var identity = standard.ParentInstrument!.InstrumentIdentity;
-                var potentialHeaders = new List<string>();
+                var readSession = new ReadingSession(readConfig, formatting);
+                var standardIdentity = (StandardInstrumentIdentity)identity;
 
-                switch (identity)
+                IReadInstrumentMapper mapper = header switch
                 {
-                    case InstrumentIdentity.LeadGuitar:
-                        potentialHeaders.Add(MidiFormatting.GHGemsHeader);
-                        potentialHeaders.Add(MidiFormatting.LeadGuitarHeader);
-                        break;
-                    case InstrumentIdentity.Bass:
-                        potentialHeaders.Add(MidiFormatting.BassHeader);
-                        break;
+                    MidiFormatting.GHGemsHeader => new GHGemsMapper(),
+                    MidiFormatting.LeadGuitarHeader or MidiFormatting.BassHeader => new GuitarBassMapper(standardIdentity),
+                    _ => throw new ImpossibleException($"Found header {header} not bound to a mapper.")
+                };
+
+                IEnumerable<NoteEventMapping> mappings = GetMappings(chunkEvents, mapper);
+
+                // Get the format from the file and map to it
+                if (mapper is GuitarBassMapper gbMapper)
+                {
+                    mappings = mappings.ToArray(); // Resolve the enumeration to find the format
+
+                    var format = gbMapper.Format;
+
+                    if (format == MidiInstrumentOrigin.Unknown)
+                        format = readSession.UncertainGuitarBassFormatProcedure(standardIdentity, format);
+
+                    mapper = new GuitarBassMapper(standardIdentity, format);
                 }
 
-                if (MidiFormatting.FindChunk(file.GetTrackChunks(), header => potentialHeaders.Any(h => h == header), out header, out chunkEvents)
-                    && header is MidiFormatting.LeadGuitarHeader or MidiFormatting.BassHeader)
+                var newMappings = mapper switch
                 {
-                    var readSession = new ReadingSession(readConfig, formatting);
-                    var parser = new GuitarBassParser((StandardInstrumentIdentity)identity, readSession);
+                    Track<StandardChord> standard => ((InstrumentMapper<StandardChord>)mapper).Map(standard),
+                    Track<GHLChord> ghl => ((InstrumentMapper<GHLChord>)mapper).Map(ghl),
+                    Track<DrumsChord> drums => ((InstrumentMapper<DrumsChord>)mapper).Map(drums)
+                };
 
-                    parser.Parse(chunkEvents);
+                return new IEnumerable<IMidiEventMapping>[]
+                {
+                   mappings.Cast<INoteMapping>().Where(m => m.Difficulty != Content.Difficulty).Concat(newMappings.Cast<INoteMapping>())
+                };
+
+                static IEnumerable<NoteEventMapping> GetMappings(IEnumerator<MidiEvent> events, IReadInstrumentMapper mapper)
+                {
+                    uint position = 0;
+
+                    while (events.MoveNext())
+                    {
+                        position += (uint)events.Current.DeltaTime;
+
+                        if (events.Current is NoteEvent e)
+                            foreach (var mapping in mapper.Map(position, e))
+                                yield return mapping;
+                    }
                 }
             }
 
-            throw new NotImplementedException();
+            return Array.Empty<IEnumerable<IMidiEventMapping>>();
         }
     }
 }

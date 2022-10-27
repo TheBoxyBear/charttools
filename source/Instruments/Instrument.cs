@@ -3,7 +3,9 @@ using ChartTools.Extensions.Linq;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
+using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Formatting;
+using ChartTools.IO.Midi.Mapping;
 
 using System;
 using System.Collections.Generic;

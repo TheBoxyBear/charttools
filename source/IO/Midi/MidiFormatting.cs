@@ -37,6 +37,20 @@ namespace ChartTools.IO.Midi
 
         public static string Instrument(InstrumentIdentity instrument) => InstrumentSequenceNames[instrument];
 
+        public static IEnumerable<string> PotentialHeaders(InstrumentIdentity identity)
+        {
+            switch (identity)
+            {
+                case InstrumentIdentity.LeadGuitar:
+                    yield return GHGemsHeader;
+                    yield return LeadGuitarHeader;
+                    break;
+                case InstrumentIdentity.Bass:
+                    yield return BassHeader;
+                    break;
+            }
+        }
+
         public static bool FindChunk(IEnumerable<TrackChunk> chunks, Predicate<string> match, [NotNullWhen(true)] out string? header, [NotNullWhen(true)] out IEnumerator<MidiEvent>? enumerator)
         {
             foreach (var events in chunks.Select(c => c.Events))

@@ -1,4 +1,5 @@
-﻿using Melanchall.DryWetMidi.Core;
+﻿using Melanchall.DryWetMidi.Common;
+using Melanchall.DryWetMidi.Core;
 
 using System.Collections.Generic;
 using System.Linq;
@@ -51,10 +52,10 @@ namespace ChartTools.IO.Midi.Mapping
             foreach (var chord in track.Chords.Where(c => c.Modifiers == StandardChordModifiers.None || WritingSession!.UnsupportedModifiersProcedure(c).HasFlag(Configuration.UnsupportedModifiersResults.Chord)))
                 foreach (var note in chord.Notes)
                 {
-                    var offsetIndex = (byte)(note.Index + offset);
+                    var sevenBitIndex = new SevenBitNumber((byte)(note.Index + offset));
 
-                    yield return new(chord.Position, track.Difficulty, NoteState.Open, offsetIndex);
-                    yield return new(chord.Position + note.Sustain, track.Difficulty, NoteState.Close, offsetIndex);
+                    yield return new(chord.Position, track.Difficulty, NoteState.Open, sevenBitIndex);
+                    yield return new(chord.Position + note.Sustain, track.Difficulty, NoteState.Close, sevenBitIndex);
                 }
 
             foreach (var special in track.SpecialPhrases)
@@ -69,10 +70,10 @@ namespace ChartTools.IO.Midi.Mapping
 
                 if (index is not -1)
                 {
-                    var offsetIndex = (byte)(index + offset);
+                    var sevenBitIndex = new SevenBitNumber((byte)(index + offset));
 
-                    yield return new(special.Position, track.Difficulty, NoteState.Open, offsetIndex);
-                    yield return new(special.EndPosition, track.Difficulty, NoteState.Close, offsetIndex);
+                    yield return new(special.Position, track.Difficulty, NoteState.Open, sevenBitIndex);
+                    yield return new(special.EndPosition, track.Difficulty, NoteState.Close, sevenBitIndex);
                 }
             }
         }
