@@ -11,8 +11,6 @@ namespace ChartTools.IO.Midi.Parsing
         public override StandardInstrument Result => GetResult(result);
         private readonly StandardInstrument result;
 
-        protected override byte BigRockCount => 0;
-
         public StandardInstrumentParser(StandardInstrumentIdentity instrument, InstrumentMapper<StandardChord> mapper, ReadingSession session) : base(mapper, session)
         {
             Instrument = instrument;

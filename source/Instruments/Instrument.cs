@@ -32,26 +32,7 @@ namespace ChartTools
         /// <summary>
         /// Type of instrument
         /// </summary>
-        public InstrumentType InstrumentType
-        {
-            get
-            {
-                if (_instrumentType is not null)
-                    return _instrumentType.Value;
-
-                _instrumentType = InstrumentIdentity switch
-                {
-                    InstrumentIdentity.Drums => InstrumentType.Drums,
-                    InstrumentIdentity.LeadGuitar or InstrumentIdentity.RhythmGuitar or InstrumentIdentity.Bass or InstrumentIdentity.CoopGuitar or InstrumentIdentity.GHLBass or InstrumentIdentity.Keys => InstrumentType.Standard,
-                    InstrumentIdentity.GHLGuitar or InstrumentIdentity.GHLBass => InstrumentType.GHL,
-                    InstrumentIdentity.Vocals => InstrumentType.Vocals,
-                    _ => throw new InvalidDataException($"Instrument identity {InstrumentIdentity} does not belong to an instrument type.")
-                };
-
-                return _instrumentType.Value;
-            }
-        }
-        private InstrumentType? _instrumentType;
+        public abstract InstrumentType InstrumentType { get; }
 
         /// <summary>
         /// Set of special phrases applied to all difficulties

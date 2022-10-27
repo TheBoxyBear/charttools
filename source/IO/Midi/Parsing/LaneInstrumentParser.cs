@@ -43,13 +43,17 @@ namespace ChartTools.IO.Midi.Parsing
         protected readonly Dictionary<TrackSpecialPhraseType, uint?> openedSharedTrackSpecialPositions = new(from type in EnumCache<TrackSpecialPhraseType>.Values
                                                                                                              select new KeyValuePair<TrackSpecialPhraseType, uint?>(type, null));
 
-        private readonly Dictionary<int, uint?> openedBigRockPositions;
+        private readonly Dictionary<int, uint?>? openedBigRockPositions;
         private readonly List<InstrumentSpecialPhrase> bigRockEndings = new();
 
-        protected abstract byte BigRockCount { get; }
+        protected virtual byte BigRockCount => 0;
 
-        public LaneInstrumentParser(InstrumentMapper<TChord> mapper, ReadingSession session) : base(mapper, session) => openedBigRockPositions = new(from index in Enumerable.Range(1, BigRockCount)
-                                                                                                                                                                                                select new KeyValuePair<int, uint?>(index, null));
+        public LaneInstrumentParser(InstrumentMapper<TChord> mapper, ReadingSession session) : base(mapper, session)
+        {
+            if (BigRockCount > 1)
+                openedBigRockPositions = new(from index in Enumerable.Range(1, BigRockCount)
+                                             select new KeyValuePair<int, uint?>(index, null));
+        }
 
         protected override void HandleItem(MidiEvent item)
         {
@@ -217,6 +221,9 @@ namespace ChartTools.IO.Midi.Parsing
         }
         protected virtual void HandleBigRock(NoteEventMapping mapping)
         {
+            if (BigRockCount == -1)
+                return;
+
             var openedBigRockPosition = openedBigRockPositions[mapping.Index];
 
             switch (mapping.State)

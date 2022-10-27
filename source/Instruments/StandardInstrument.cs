@@ -1,9 +1,14 @@
-﻿using ChartTools.IO;
+﻿using ChartTools.Animations;
+using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
+using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Formatting;
+using ChartTools.IO.Midi.Mapping;
+using ChartTools.IO.Midi.Parsing;
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,7 +17,7 @@ namespace ChartTools
     public record StandardInstrument : Instrument<StandardChord>
     {
         public new StandardInstrumentIdentity InstrumentIdentity { get; init; }
-
+        public override InstrumentType InstrumentType => InstrumentType.Standard;
 
         /// <summary>
         /// Format of lead guitar and bass. Not applicable to other instruments.
@@ -39,6 +44,8 @@ namespace ChartTools
         }
         private MidiInstrumentOrigin midiOrigin;
 
+        public List<StandardInstrumentHandPosition> HandPositions { get; } = new();
+
         public StandardInstrument() { }
         public StandardInstrument(StandardInstrumentIdentity identity)
         {
@@ -64,6 +71,22 @@ namespace ChartTools
 
         public static DirectoryResult<StandardInstrument?> FromDirectory(string directory, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, instrument, config, formatting));
         public static Task<DirectoryResult<StandardInstrument?>> FromDirectoryAsync(string directory, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, instrument, config, formatting, cancellationToken), cancellationToken);
+
+        internal override InstrumentMapper<StandardChord> GetMidiMapper(WritingSession session)
+        {
+            var format = MidiOrigin;
+
+            if (MidiOrigin.HasFlag(MidiInstrumentOrigin.Unknown))
+                format = session.UncertainGuitarBassFormatProcedure(InstrumentIdentity, format);
+
+            if (format == MidiInstrumentOrigin.GuitarHero1)
+                return new GHGemsMapper();
+
+            if (InstrumentIdentity is StandardInstrumentIdentity.LeadGuitar or StandardInstrumentIdentity.Bass)
+                return format == MidiOrigin ? new GuitarBassMapper(InstrumentIdentity) : new GuitarBassMapper(InstrumentIdentity, format);
+
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

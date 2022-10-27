@@ -37,7 +37,7 @@ namespace ChartTools.IO.Midi
 
         public static string Instrument(InstrumentIdentity instrument) => InstrumentSequenceNames[instrument];
 
-        public static bool FindChunk(IEnumerable<TrackChunk> chunks, Predicate<string> match, [NotNullWhen(true)] out string? header, [NotNullWhen(true)] out IEmptyVerifiable<MidiEvent>? enumerator)
+        public static bool FindChunk(IEnumerable<TrackChunk> chunks, Predicate<string> match, [NotNullWhen(true)] out string? header, [NotNullWhen(true)] out IEnumerator<MidiEvent>? enumerator)
         {
             foreach (var events in chunks.Select(c => c.Events))
             {

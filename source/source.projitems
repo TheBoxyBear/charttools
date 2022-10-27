@@ -9,6 +9,7 @@
     <Import_RootNamespace>ChartTools</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Animations\StandardInstrumentHandPosition.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Chords\DrumsChord.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Chords\GHLChord.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Chords\IChord.cs" />
@@ -89,14 +90,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\GuitarBassMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\IMidiEventMapping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\InstrumentMapper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\MidiMapping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\NoteState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\NoteMapping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\NoteEventMapping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\TrackObjectMappingResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFileReader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GHGemsParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFormatting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GlobalEventParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GuitarBassParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\InstrumentParser.cs" />
@@ -162,7 +162,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\WritingConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Sessions\Session.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\StandardInstrumentParser.cs" />
-    <Compile Include="..\source\IO\MIDI\MidiFormatting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\MidiParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\Charter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata\StreamCollection.cs" />

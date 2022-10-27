@@ -7,6 +7,7 @@ using ChartTools.IO.Midi.Parsing;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using ChartTools.IO.Midi.Mapping;
 
 namespace ChartTools.IO.Midi
 {
@@ -33,7 +34,7 @@ namespace ChartTools.IO.Midi
             return header switch
             {
                 MidiFormatting.GlobalEventHeader => new GlobalEventParser(session),
-                MidiFormatting.GHGemsHeader => new GHGemsParser(StandardInstrumentIdentity.LeadGuitar, session),
+                MidiFormatting.GHGemsHeader => new StandardInstrumentParser(StandardInstrumentIdentity.LeadGuitar, new GHGemsMapper(), session),
                 MidiFormatting.LeadGuitarHeader => new GuitarBassParser(StandardInstrumentIdentity.LeadGuitar, session),
                 MidiFormatting.BassHeader => new GuitarBassParser(StandardInstrumentIdentity.Bass, session),
                 _ => index == 1 ? new TitleSyncTrackParser(header, session) : null,

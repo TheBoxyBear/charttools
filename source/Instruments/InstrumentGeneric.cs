@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ChartTools.IO.Configuration.Sessions;
+using ChartTools.IO.Midi.Mapping;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -122,5 +125,7 @@ namespace ChartTools
                 Difficulty.Expert => _expert = track with { ParentInstrument = this },
                 _ => throw new UndefinedEnumException(track.Difficulty)
             };
+
+        internal abstract InstrumentMapper<TChord> GetMidiMapper(WritingSession session);
     }
 }

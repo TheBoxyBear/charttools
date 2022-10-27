@@ -46,7 +46,6 @@
     <Compile Include="IO\Ini\IniFile.cs" />
     <Compile Include="IO\Ini\IniFileReader.cs" />
     <Compile Include="IO\Ini\IniFileWriter.cs" />
-    <Compile Include="IO\Midi\MidiFormatting.cs" />
     <Compile Include="IO\Midi\Parsing\InstrumentParser.cs" />
     <Compile Include="IO\Midi\Parsing\MidiParser.cs" />
     <Compile Include="IO\Midi\Parsing\StandardInstrumentParser.cs" />

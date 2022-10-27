@@ -1,7 +1,9 @@
 ﻿using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
+using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Formatting;
+using ChartTools.IO.Midi.Mapping;
 
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,6 +13,7 @@ namespace ChartTools
     public record GHLInstrument : Instrument<GHLChord>
     {
         public new GHLInstrumentIdentity InstrumentIdentity { get; init; }
+        public override InstrumentType InstrumentType => InstrumentType.GHL;
 
         public GHLInstrument() { }
         public GHLInstrument(GHLInstrumentIdentity identity)
@@ -33,6 +36,11 @@ namespace ChartTools
 
         public static DirectoryResult<GHLInstrument?> FromDirectory(string directory, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, instrument, config, formatting));
         public static Task<DirectoryResult<GHLInstrument?>> FromDirectoryAsync(string directory, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, instrument, config, formatting, cancellationToken), cancellationToken);
+
+        internal override InstrumentMapper<GHLChord> GetMidiMapper(WritingSession session)
+        {
+            throw new System.NotImplementedException();
+        }
         #endregion
     }
 }

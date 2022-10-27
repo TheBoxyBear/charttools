@@ -6,6 +6,7 @@ build/*
 */bin
 Net?/*
 !Net?/*.csproj
+!Net6/Properties
 TestResults/
 Debug/*
 Docs/DROP/

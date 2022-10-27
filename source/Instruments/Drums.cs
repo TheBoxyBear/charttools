@@ -1,7 +1,9 @@
 ﻿using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
+using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Formatting;
+using ChartTools.IO.Midi.Mapping;
 
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,6 +13,7 @@ namespace ChartTools
     public record Drums : Instrument<DrumsChord>
     {
         protected override InstrumentIdentity GetIdentity() => InstrumentIdentity.Drums;
+        public override InstrumentType InstrumentType => InstrumentType.Drums;
 
         #region File reading
         /// <summary>
@@ -24,6 +27,11 @@ namespace ChartTools
 
         public static DirectoryResult<Drums?> FromDirectory(string directory, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, config, formatting));
         public static Task<DirectoryResult<Drums?>> FromDirectoryAsync(string directory, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, config, formatting, cancellationToken), cancellationToken);
+
+        internal override InstrumentMapper<DrumsChord> GetMidiMapper(WritingSession session)
+        {
+            throw new System.NotImplementedException();
+        }
         #endregion
     }
 }
