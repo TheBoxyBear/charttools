@@ -1,9 +1,5 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
 
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace ChartTools.IO
 {
     internal abstract class FileParser<T>

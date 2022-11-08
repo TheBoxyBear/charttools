@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Debug", "Debug\Debug.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Docs", "Docs\Docs.csproj", "{B5A19C40-6CCD-48B2-827F-0D24B6271530}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net7", "Net7\Net7.csproj", "{07D226A8-7464-4DE0-A384-A26F37153CDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net7", "Net7\Net7.csproj", "{07D226A8-7464-4DE0-A384-A26F37153CDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
