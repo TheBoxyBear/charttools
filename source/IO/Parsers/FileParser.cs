@@ -42,8 +42,8 @@ namespace ChartTools.IO
 #if CRASH_SOURCE
                 HandleItem(item);
 #else
-                try { HandleItem(item); }
-                catch (Exception e) { throw GetHandleException(item, e); }
+            try { HandleItem(item); }
+            catch (Exception e) { throw GetHandleException(item, e); }
 #endif
         }
 
