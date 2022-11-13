@@ -2,36 +2,33 @@
 using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration.Sessions;
 
-using System.Collections.Generic;
+namespace ChartTools.IO.Chart.Mapping;
 
-namespace ChartTools.IO.Chart.Mapping
+internal abstract class UniqueTrackObjectMapper<T> where T : TrackObjectBase
 {
-    internal abstract class UniqueTrackObjectMapper<T> where T : TrackObjectBase
+    protected abstract string ObjectType { get; }
+
+    public IEnumerable<TrackObjectEntry> Map(IEnumerable<T> source, WritingSession session)
     {
-        protected abstract string ObjectType { get; }
+        List<uint> orderedPositions = new();
 
-        public IEnumerable<TrackObjectEntry> Map(IEnumerable<T> source, WritingSession session)
+    foreach (var item in source)
+    {
+        if (session.DuplicateTrackObjectProcedure(item.Position, ObjectType, () =>
         {
-            List<uint> orderedPositions = new();
+            var index = orderedPositions.BinarySearchIndex(item.Position, out bool exactMatch);
 
-            foreach (var item in source)
-            {
-                if (session.DuplicateTrackObjectProcedure(item.Position, ObjectType, () =>
-                {
-                    var index = orderedPositions.BinarySearchIndex(item.Position, out bool exactMatch);
+            if (!exactMatch)
+                orderedPositions.Insert(index, item.Position);
 
-                    if (!exactMatch)
-                        orderedPositions.Insert(index, item.Position);
+            return exactMatch;
+        }))
+            foreach (var entry in GetEntries(item))
+                yield return entry;
 
-                    return exactMatch;
-                }))
-                    foreach (var entry in GetEntries(item))
-                        yield return entry;
-
-                orderedPositions.Add(item.Position);
-            }
-        }
-
-        protected abstract IEnumerable<TrackObjectEntry> GetEntries(T item);
+        orderedPositions.Add(item.Position);
     }
+}
+
+protected abstract IEnumerable<TrackObjectEntry> GetEntries(T item);
 }

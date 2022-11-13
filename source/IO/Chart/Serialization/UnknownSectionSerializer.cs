@@ -4,12 +4,11 @@ using ChartTools.IO.Serializaiton;
 
 using System.Collections.Generic;
 
-namespace ChartTools.IO.Chart.Serialization
-{
-    internal class UnknownSectionSerializer : Serializer<Section<string>, string>
-    {
-        public UnknownSectionSerializer(string header, Section<string> content, WritingSession session) : base(header, content, session) { }
+namespace ChartTools.IO.Chart.Serialization;
 
-        public override IEnumerable<string> Serialize() => Content;
-    }
+internal class UnknownSectionSerializer : Serializer<Section<string>, string>
+{
+    public UnknownSectionSerializer(string header, Section<string> content, WritingSession session) : base(header, content, session) { }
+
+public override IEnumerable<string> Serialize() => Content;
 }

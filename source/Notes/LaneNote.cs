@@ -1,8 +1,8 @@
-﻿namespace ChartTools
+﻿namespace ChartTools;
+
+public abstract class LaneNote : INote
 {
-    public abstract class LaneNote : INote
-    {
-        public abstract byte Index { get; }
+    public abstract byte Index { get; }
 
         /// <summary>
         /// Maximum length the note can be held for extra points

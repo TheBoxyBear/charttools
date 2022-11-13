@@ -6,12 +6,11 @@ using ChartTools.IO.Configuration.Sessions;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ChartTools.IO.Chart.Serialization
-{
-    internal class GlobalEventSerializer : TrackObjectGroupSerializer<IEnumerable<GlobalEvent>>
-    {
-        public GlobalEventSerializer(IEnumerable<GlobalEvent> content, WritingSession session) : base(ChartFormatting.GlobalEventHeader, content, session) { }
+namespace ChartTools.IO.Chart.Serialization;
 
-        protected override IEnumerable<TrackObjectEntry>[] LaunchMappers() => new IEnumerable<TrackObjectEntry>[] { Content.Select(e => EventMapper.Map(e)) };
-    }
+internal class GlobalEventSerializer : TrackObjectGroupSerializer<IEnumerable<GlobalEvent>>
+{
+    public GlobalEventSerializer(IEnumerable<GlobalEvent> content, WritingSession session) : base(ChartFormatting.GlobalEventHeader, content, session) { }
+
+    protected override IEnumerable<TrackObjectEntry>[] LaunchMappers() => new IEnumerable<TrackObjectEntry>[] { Content.Select(e => EventMapper.Map(e)) };
 }

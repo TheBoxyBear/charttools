@@ -1,94 +1,89 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace ChartTools.Tools;
 
-namespace ChartTools.Tools
+public static class Printer
 {
-    public static class Printer
+    private readonly struct ConsoleContent
     {
-        private readonly struct ConsoleContent
-        {
-            public string Content { get; }
-            public ConsoleColor Color { get; }
+        public string Content { get; }
+        public ConsoleColor Color { get; }
 
-            public ConsoleContent(string content, ConsoleColor color)
-            {
-                Content = content;
-                Color = color;
-            }
+        public ConsoleContent(string content, ConsoleColor color)
+        {
+            Content = content;
+            Color = color;
         }
+    }
 
-        public static void PrintTrack(Track<StandardChord> track)
+    public static void PrintTrack(Track<StandardChord> track)
+    {
+        var content = new List<List<ConsoleContent>>();
+        uint[] sustainEnds = new uint[6];
+        ConsoleColor[] laneColors = new ConsoleColor[]
         {
-            var content = new List<List<ConsoleContent>>();
-            uint[] sustainEnds = new uint[6];
-            ConsoleColor[] laneColors = new ConsoleColor[]
+            ConsoleColor.Green,
+            ConsoleColor.Red,
+            ConsoleColor.Yellow,
+            ConsoleColor.Blue,
+            ConsoleColor.DarkYellow
+        };
+
+        foreach (var chord in track.Chords.Where(c => c.Notes.Count > 0).OrderBy(t => t.Position))
+        {
+            var open = chord.Notes[StandardLane.Open];
+            var lineContent = new List<ConsoleContent>();
+
+            if (open is not null)
             {
-                ConsoleColor.Green,
-                ConsoleColor.Red,
-                ConsoleColor.Yellow,
-                ConsoleColor.Blue,
-                ConsoleColor.DarkYellow
-            };
+                lineContent.Add(new("-----", ConsoleColor.Magenta));
 
-            foreach (var chord in track.Chords.Where(c => c.Notes.Count > 0).OrderBy(t => t.Position))
+                SetSustainEnd(open);
+
+                for (int i = 1; i < sustainEnds.Length; i++)
+                    sustainEnds[i] = chord.Position;
+            }
+            else
             {
-                var open = chord.Notes[StandardLane.Open];
-                var lineContent = new List<ConsoleContent>();
-
-                if (open is not null)
-                {
-                    lineContent.Add(new("-----", ConsoleColor.Magenta));
-
-                    SetSustainEnd(open);
-
-                    for (int i = 1; i < sustainEnds.Length; i++)
-                        sustainEnds[i] = chord.Position;
-                }
+                if (chord.Notes.Count == 0)
+                    lineContent.Add(new(sustainEnds[0] >= chord.Position ? "  |  " : "     ", ConsoleColor.Magenta));
                 else
-                {
-                    if (chord.Notes.Count == 0)
-                        lineContent.Add(new(sustainEnds[0] >= chord.Position ? "  |  " : "     ", ConsoleColor.Magenta));
-                    else
-                        for (int i = 1; i < 6; i++)
+                    for (int i = 1; i < 6; i++)
+                    {
+                        var note = chord.Notes[(StandardLane)i];
+                        string text;
+
+                        if (note is null)
+                            text = sustainEnds[i] >= chord.Position ? "|" : " ";
+                        else
                         {
-                            var note = chord.Notes[(StandardLane)i];
-                            string text;
-
-                            if (note is null)
-                                text = sustainEnds[i] >= chord.Position ? "|" : " ";
-                            else
-                            {
-                                text = "O";
-                                SetSustainEnd(note);
-                            }
-
-                            lineContent.Add(new(text, laneColors[i - 1]));
+                            text = "O";
+                            SetSustainEnd(note);
                         }
-                }
 
-                content.Add(lineContent);
-
-                void SetSustainEnd(LaneNote<StandardLane> note) => sustainEnds[(int)note.Lane] = chord.Position + note.Sustain;
+                        lineContent.Add(new(text, laneColors[i - 1]));
+                    }
             }
 
-            PrintLines(content);
+            content.Add(lineContent);
+
+            void SetSustainEnd(LaneNote<StandardLane> note) => sustainEnds[(int)note.Lane] = chord.Position + note.Sustain;
         }
 
-        private static void PrintLines(IEnumerable<IEnumerable<ConsoleContent>> content)
+        PrintLines(content);
+    }
+
+    private static void PrintLines(IEnumerable<IEnumerable<ConsoleContent>> content)
+    {
+        foreach (var line in content.Reverse())
         {
-            foreach (var line in content.Reverse())
+            Console.WriteLine();
+
+            foreach (var ct in line)
             {
-                Console.WriteLine();
-
-                foreach (var ct in line)
-                {
-                    Console.ForegroundColor = ct.Color;
-                    Console.Write(ct.Content);
-                }
+                Console.ForegroundColor = ct.Color;
+                Console.Write(ct.Content);
             }
-
-            Console.ResetColor();
         }
+
+        Console.ResetColor();
     }
 }

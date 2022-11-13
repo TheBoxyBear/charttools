@@ -1,11 +1,10 @@
-﻿namespace ChartTools
-{
-    /// <inheritdoc cref="IReadOnlyTrackObject"/>
-    public interface ITrackObject : IReadOnlyTrackObject
-    {
-        /// <inheritdoc cref="IReadOnlyTrackObject.Position"/>
-        public new uint Position { get; set; }
+﻿namespace ChartTools;
 
-        uint IReadOnlyTrackObject.Position => Position;
-    }
+/// <inheritdoc cref="IReadOnlyTrackObject"/>
+public interface ITrackObject : IReadOnlyTrackObject
+{
+    /// <inheritdoc cref="IReadOnlyTrackObject.Position"/>
+    public new uint Position { get; set; }
+
+    uint IReadOnlyTrackObject.Position => Position;
 }

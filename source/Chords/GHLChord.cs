@@ -2,46 +2,42 @@
 using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Formatting;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+namespace ChartTools;
 
-namespace ChartTools
+/// <summary>
+/// Set of notes played simultaneously by a Guitar Hero Live instrument
+/// </summary>
+public class GHLChord : LaneChord<LaneNote<GHLLane>, GHLLane, GHLChordModifiers>
 {
-    /// <summary>
-    /// Set of notes played simultaneously by a Guitar Hero Live instrument
-    /// </summary>
-    public class GHLChord : LaneChord<LaneNote<GHLLane>, GHLLane, GHLChordModifiers>
-    {
-        public override bool OpenExclusivity => true;
+    public override bool OpenExclusivity => true;
 
         protected override GHLChordModifiers DefaultModifiers => GHLChordModifiers.None;
         internal override bool ChartSupportedModifiers => !Modifiers.HasFlag(GHLChordModifiers.ExplicitHopo);
 
-        public GHLChord() : base() { }
-        /// <inheritdoc cref="LaneChord{TNote, TLane, TModifier}(uint)"/>
-        public GHLChord(uint position) : base(position) { }
-        /// <inheritdoc cref="GHLChord(uint)"/>
-        /// <param name="notes">Notes to add</param>
-        public GHLChord(uint position, params LaneNote<GHLLane>[] notes) : base(position)
-        {
-            if (notes is null)
-                throw new ArgumentNullException(nameof(notes));
+    public GHLChord() : base() { }
+    /// <inheritdoc cref="LaneChord{TNote, TLane, TModifier}(uint)"/>
+    public GHLChord(uint position) : base(position) { }
+    /// <inheritdoc cref="GHLChord(uint)"/>
+    /// <param name="notes">Notes to add</param>
+    public GHLChord(uint position, params LaneNote<GHLLane>[] notes) : base(position)
+    {
+        if (notes is null)
+            throw new ArgumentNullException(nameof(notes));
 
-            foreach (var note in notes)
-                Notes.Add(note);
-        }
-        /// <inheritdoc cref="GHLChord(uint, LaneNote{GHLLane}[])"/>
-        public GHLChord(uint position, params GHLLane[] notes) : base(position)
-        {
-            if (notes is null)
-                throw new ArgumentNullException(nameof(notes));
+        foreach (var note in notes)
+            Notes.Add(note);
+    }
+    /// <inheritdoc cref="GHLChord(uint, LaneNote{GHLLane}[])"/>
+    public GHLChord(uint position, params GHLLane[] notes) : base(position)
+    {
+        if (notes is null)
+            throw new ArgumentNullException(nameof(notes));
 
-            foreach (GHLLane note in notes)
-                Notes.Add(new LaneNote<GHLLane>(note));
-        }
+        foreach (GHLLane note in notes)
+            Notes.Add(new LaneNote<GHLLane>(note));
+    }
 
-        protected override IReadOnlyCollection<LaneNote> GetNotes() => Notes;
+    protected override IReadOnlyCollection<LaneNote> GetNotes() => Notes;
 
         internal override IEnumerable<TrackObjectEntry> GetChartData(LaneChord? previous, bool modifiers, FormattingRules formatting)
         {

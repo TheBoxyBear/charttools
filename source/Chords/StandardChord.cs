@@ -7,42 +7,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace ChartTools
+/// <summary>
+/// Set of notes played simultaneously by a standard five-fret instrument
+/// </summary>
+public class StandardChord : LaneChord<LaneNote<StandardLane>, StandardLane, StandardChordModifiers>
 {
-    /// <summary>
-    /// Set of notes played simultaneously by a standard five-fret instrument
-    /// </summary>
-    public class StandardChord : LaneChord<LaneNote<StandardLane>, StandardLane, StandardChordModifiers>
-    {
-        public override bool OpenExclusivity => true;
+    public override bool OpenExclusivity => true;
 
         protected override StandardChordModifiers DefaultModifiers => StandardChordModifiers.None;
         internal override bool ChartSupportedModifiers => !Modifiers.HasFlag(StandardChordModifiers.ExplicitHopo);
 
-        public StandardChord() : base() { }
-        /// <inheritdoc cref="LaneChord(uint)"/>
-        public StandardChord(uint position) : base(position) { }
-        /// <inheritdoc cref="LaneChord{TNote, TLane, TModifier}(uint)"/>
-        /// <param name="notes">Notes to add</param>
-        public StandardChord(uint position, params LaneNote<StandardLane>[] notes) : this(position)
-        {
-            if (notes is null)
-                throw new ArgumentNullException(nameof(notes));
+    public StandardChord() : base() { }
+    /// <inheritdoc cref="LaneChord(uint)"/>
+    public StandardChord(uint position) : base(position) { }
+    /// <inheritdoc cref="LaneChord{TNote, TLane, TModifier}(uint)"/>
+    /// <param name="notes">Notes to add</param>
+    public StandardChord(uint position, params LaneNote<StandardLane>[] notes) : this(position)
+    {
+        if (notes is null)
+            throw new ArgumentNullException(nameof(notes));
 
-            foreach (var note in notes)
-                Notes.Add(note);
-        }
-        /// <inheritdoc cref="StandardChord(uint, LaneNote{StandardLane}[])"/>
-        public StandardChord(uint position, params StandardLane[] notes) : this(position)
-        {
-            if (notes is null)
-                throw new ArgumentNullException(nameof(notes));
+        foreach (var note in notes)
+            Notes.Add(note);
+    }
+    /// <inheritdoc cref="StandardChord(uint, LaneNote{StandardLane}[])"/>
+    public StandardChord(uint position, params StandardLane[] notes) : this(position)
+    {
+        if (notes is null)
+            throw new ArgumentNullException(nameof(notes));
 
-            foreach (StandardLane note in notes)
-                Notes.Add(new LaneNote<StandardLane>(note));
-        }
+        foreach (StandardLane note in notes)
+            Notes.Add(new LaneNote<StandardLane>(note));
+    }
 
-        protected override IReadOnlyCollection<LaneNote> GetNotes() => Notes;
+    protected override IReadOnlyCollection<LaneNote> GetNotes() => Notes;
 
         internal override IEnumerable<TrackObjectEntry> GetChartData(LaneChord? previous, bool modifiers, FormattingRules formatting)
         {

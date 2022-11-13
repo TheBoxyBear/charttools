@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ChartTools.Extensions.Linq
+﻿namespace ChartTools.Extensions.Linq
 {
     /// <summary>
     /// Replacement for a section of items in a collection

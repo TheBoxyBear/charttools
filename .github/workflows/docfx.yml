@@ -1,0 +1,24 @@
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: Build and publish Docs
+    steps:
+    - uses: actions/checkout@v1
+    # ...
+    - uses: nikeee/docfx-action@v1.0.0
+      name: Build Documentation
+      with:
+        args: Docs/docfx.json
+
+    # Publish generated site using GitHub Pages
+    - uses: maxheld83/ghpages@master
+      name: Publish Documentation on GitHub Pages
+      env:
+        BUILD_DIR: Docs/_site # docfx's default output directory is _site
+        GH_PAT: ${{ secrets.GH_PAT }} # See https://github.com/maxheld83/ghpages
+
+name: DocFx Clone, Build And Push
+on:
+  push:
+    branches:
+      - stable

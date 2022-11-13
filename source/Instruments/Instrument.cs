@@ -7,29 +7,22 @@ using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Formatting;
 using ChartTools.IO.Midi.Mapping;
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
 using DiffEnum = ChartTools.Difficulty;
 
-namespace ChartTools
-{
-    /// <summary>
-    /// Base class for instruments
-    /// </summary>
-    public abstract record Instrument : IEmptyVerifiable
-    {
-        /// <inheritdoc cref="IEmptyVerifiable.IsEmpty"/>
-        public bool IsEmpty => GetExistingTracks().All(t => t.IsEmpty);
+namespace ChartTools;
 
-        /// <summary>
-        /// Identity of the instrument the object belongs to
-        /// </summary>
-        public InstrumentIdentity InstrumentIdentity => GetIdentity();
+/// <summary>
+/// Base class for instruments
+/// </summary>
+public abstract record Instrument : IEmptyVerifiable
+{
+    /// <inheritdoc cref="IEmptyVerifiable.IsEmpty"/>
+    public bool IsEmpty => GetExistingTracks().All(t => t.IsEmpty);
+
+    /// <summary>
+    /// Identity of the instrument the object belongs to
+    /// </summary>
+    public InstrumentIdentity InstrumentIdentity => GetIdentity();
 
         /// <summary>
         /// Type of instrument
@@ -41,59 +34,59 @@ namespace ChartTools
         /// </summary>
         public List<InstrumentSpecialPhrase> SpecialPhrases { get; set; } = new();
 
-        /// <inheritdoc cref="InstrumentDifficultySet.GetDifficulty(InstrumentIdentity)"/>
-        public sbyte? GetDifficulty(InstrumentDifficultySet difficulties) => difficulties.GetDifficulty(InstrumentIdentity);
-        /// <inheritdoc cref="InstrumentDifficultySet.GetDifficulty(InstrumentIdentity)"/>
-        public void SetDifficulty(InstrumentDifficultySet difficulties, sbyte? difficulty) => difficulties.SetDifficulty(InstrumentIdentity, difficulty);
+    /// <inheritdoc cref="InstrumentDifficultySet.GetDifficulty(InstrumentIdentity)"/>
+    public sbyte? GetDifficulty(InstrumentDifficultySet difficulties) => difficulties.GetDifficulty(InstrumentIdentity);
+    /// <inheritdoc cref="InstrumentDifficultySet.GetDifficulty(InstrumentIdentity)"/>
+    public void SetDifficulty(InstrumentDifficultySet difficulties, sbyte? difficulty) => difficulties.SetDifficulty(InstrumentIdentity, difficulty);
 
-        /// <summary>
-        /// Easy track
-        /// </summary>
-        public Track? Easy => GetEasy();
-        /// <summary>
-        /// Medium track
-        /// </summary>
-        public Track? Medium => GetMedium();
-        /// <summary>
-        /// Hard track
-        /// </summary>
-        public Track? Hard => GetHard();
-        /// <summary>
-        /// Expert track
-        /// </summary>
-        public Track? Expert => GetExpert();
+    /// <summary>
+    /// Easy track
+    /// </summary>
+    public Track? Easy => GetEasy();
+    /// <summary>
+    /// Medium track
+    /// </summary>
+    public Track? Medium => GetMedium();
+    /// <summary>
+    /// Hard track
+    /// </summary>
+    public Track? Hard => GetHard();
+    /// <summary>
+    /// Expert track
+    /// </summary>
+    public Track? Expert => GetExpert();
 
-        /// <summary>
-        /// Gets the track matching a difficulty.
-        /// </summary>
-        public abstract Track? GetTrack(DiffEnum difficulty);
+    /// <summary>
+    /// Gets the track matching a difficulty.
+    /// </summary>
+    public abstract Track? GetTrack(DiffEnum difficulty);
 
-        protected abstract Track? GetEasy();
-        protected abstract Track? GetMedium();
-        protected abstract Track? GetHard();
-        protected abstract Track? GetExpert();
+    protected abstract Track? GetEasy();
+    protected abstract Track? GetMedium();
+    protected abstract Track? GetHard();
+    protected abstract Track? GetExpert();
 
-        /// <summary>
-        /// Creates a track
-        /// </summary>
-        /// <param name="difficulty">Difficulty of the track</param>
-        public abstract Track CreateTrack(DiffEnum difficulty);
-        /// <summary>
-        /// Removes a track.
-        /// </summary>
-        /// <param name="difficulty">Difficulty of the target track</param>
-        public abstract bool RemoveTrack(DiffEnum difficulty);
+    /// <summary>
+    /// Creates a track
+    /// </summary>
+    /// <param name="difficulty">Difficulty of the track</param>
+    public abstract Track CreateTrack(DiffEnum difficulty);
+    /// <summary>
+    /// Removes a track.
+    /// </summary>
+    /// <param name="difficulty">Difficulty of the target track</param>
+    public abstract bool RemoveTrack(DiffEnum difficulty);
 
-        /// <summary>
-        /// Creates an array containing all tracks.
-        /// </summary>
-        public virtual Track?[] GetTracks() => new Track?[] { Easy, Medium, Hard, Expert };
-        /// <summary>
-        /// Creates an array containing all tracks with data.
-        /// </summary>
-        public virtual IEnumerable<Track> GetExistingTracks() => GetTracks().NonNull().Where(t => !t.IsEmpty);
+    /// <summary>
+    /// Creates an array containing all tracks.
+    /// </summary>
+    public virtual Track?[] GetTracks() => new Track?[] { Easy, Medium, Hard, Expert };
+    /// <summary>
+    /// Creates an array containing all tracks with data.
+    /// </summary>
+    public virtual IEnumerable<Track> GetExistingTracks() => GetTracks().NonNull().Where(t => !t.IsEmpty);
 
-        protected abstract InstrumentIdentity GetIdentity();
+    protected abstract InstrumentIdentity GetIdentity();
 
         /// <summary>
         /// Gives all tracks the same local events.
@@ -107,15 +100,15 @@ namespace ChartTools
         {
             var collections = GetExistingTracks().Select(track => collectionGetter(track)).ToArray();
 
-            var objects = (source switch
-            {
-                TrackObjectSource.Easy => collections[0],
-                TrackObjectSource.Medium => collections[1],
-                TrackObjectSource.Hard => collections[2],
-                TrackObjectSource.Expert => collections[3],
-                TrackObjectSource.Merge => collections.SelectMany(col => col).Distinct(),
-                _ => throw new UndefinedEnumException(source)
-            }).ToArray();
+        var objects = (source switch
+        {
+            TrackObjectSource.Easy => collections[0],
+            TrackObjectSource.Medium => collections[1],
+            TrackObjectSource.Hard => collections[2],
+            TrackObjectSource.Expert => collections[3],
+            TrackObjectSource.Merge => collections.SelectMany(col => col).Distinct(),
+            _ => throw new UndefinedEnumException(source)
+        }).ToArray();
 
             foreach (var collection in collections)
             {
@@ -126,32 +119,31 @@ namespace ChartTools
             return objects;
         }
 
-        #region IO
-        #region Reading
-        /// <summary>
-        /// Reads an instrument from a file.
-        /// </summary>
-        /// <param name="path">Path of the file</param>
-        /// <param name="instrument">Instrument to read</param>
-        /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
-        public static Instrument? FromFile(string path, InstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadInstrument(path, instrument, config, formatting)));
-        /// <summary>
-        /// Reads an instrument from a file asynchronously using multitasking.
-        /// </summary>
-        /// <param name="path"><inheritdoc cref="FromFile(string, InstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/param[@name='path']"/></param>
-        /// <param name="instrument"><inheritdoc cref="FromFile(string, InstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/param[@name='instrument']"/></param>
-        /// <param name="cancellationToken"><inheritdoc cref="FromFile(string, InstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/param[@name='cancellationToken']"/></param>
-        /// <param name="config"><inheritdoc cref="FromFile(string, InstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>
-        public static async Task<Instrument?> FromFileAsync(string path, InstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync(path, (".chart", path => ChartFile.ReadInstrumentAsync(path, instrument, config, formatting, cancellationToken)));
+    #region IO
+    #region Reading
+    /// <summary>
+    /// Reads an instrument from a file.
+    /// </summary>
+    /// <param name="path">Path of the file</param>
+    /// <param name="instrument">Instrument to read</param>
+    /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
+    public static Instrument? FromFile(string path, InstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadInstrument(path, instrument, config, formatting)));
+    /// <summary>
+    /// Reads an instrument from a file asynchronously using multitasking.
+    /// </summary>
+    /// <param name="path"><inheritdoc cref="FromFile(string, InstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/param[@name='path']"/></param>
+    /// <param name="instrument"><inheritdoc cref="FromFile(string, InstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/param[@name='instrument']"/></param>
+    /// <param name="cancellationToken"><inheritdoc cref="FromFile(string, InstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/param[@name='cancellationToken']"/></param>
+    /// <param name="config"><inheritdoc cref="FromFile(string, InstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>
+    public static async Task<Instrument?> FromFileAsync(string path, InstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync(path, (".chart", path => ChartFile.ReadInstrumentAsync(path, instrument, config, formatting, cancellationToken)));
 
-        public static DirectoryResult<Instrument?> FromDirectory(string directory, InstrumentIdentity instrument, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, instrument, config, formatting));
-        public static Task<DirectoryResult<Instrument?>> FromDirectoryAsync(string directory, InstrumentIdentity instrument, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, instrument, config, formatting, cancellationToken), cancellationToken);
-        #endregion
+    public static DirectoryResult<Instrument?> FromDirectory(string directory, InstrumentIdentity instrument, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, instrument, config, formatting));
+    public static Task<DirectoryResult<Instrument?>> FromDirectoryAsync(string directory, InstrumentIdentity instrument, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, instrument, config, formatting, cancellationToken), cancellationToken);
+    #endregion
 
-        public void ToFile(string path, WritingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Write(path, this, (".chart", (path, inst) => ChartFile.ReplaceInstrument(path, inst, config, formatting)));
-        public async Task ToFileAsync(string path, WritingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.WriteAsync(path, this, (".chart", (path, inst) => ChartFile.ReplaceInstrumentAsync(path, inst, config, formatting, cancellationToken)));
-        #endregion
+    public void ToFile(string path, WritingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Write(path, this, (".chart", (path, inst) => ChartFile.ReplaceInstrument(path, inst, config, formatting)));
+    public async Task ToFileAsync(string path, WritingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.WriteAsync(path, this, (".chart", (path, inst) => ChartFile.ReplaceInstrumentAsync(path, inst, config, formatting, cancellationToken)));
+    #endregion
 
-        public override string ToString() => InstrumentIdentity.ToString();
-    }
+    public override string ToString() => InstrumentIdentity.ToString();
 }

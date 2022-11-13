@@ -2,46 +2,43 @@
 using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Formatting;
 
-using System;
-using System.Collections.Generic;
+namespace ChartTools;
 
-namespace ChartTools
+/// <summary>
+/// Set of notes played simultaneously by drums
+/// </summary>
+public class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModifiers>
 {
-    /// <summary>
-    /// Set of notes played simultaneously by drums
-    /// </summary>
-    public class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModifiers>
-    {
-        public override bool OpenExclusivity => false;
+    public override bool OpenExclusivity => false;
 
         protected override DrumsChordModifiers DefaultModifiers => DrumsChordModifiers.None;
         internal override bool ChartSupportedModifiers => true;
 
-        public DrumsChord() : base() { }
+    public DrumsChord() : base() { }
 
-        /// <inheritdoc cref="LaneChord(uint)"/>
-        public DrumsChord(uint position) : base(position) { }
-        /// <inheritdoc cref="DrumsChord(uint)"/>
-        /// <param name="notes">Notes to add</param>
-        public DrumsChord(uint position, params DrumsNote[] notes) : base(position)
-        {
-            if (notes is null)
-                throw new ArgumentNullException(nameof(notes));
+    /// <inheritdoc cref="LaneChord(uint)"/>
+    public DrumsChord(uint position) : base(position) { }
+    /// <inheritdoc cref="DrumsChord(uint)"/>
+    /// <param name="notes">Notes to add</param>
+    public DrumsChord(uint position, params DrumsNote[] notes) : base(position)
+    {
+        if (notes is null)
+            throw new ArgumentNullException(nameof(notes));
 
-            foreach (DrumsNote note in notes)
-                Notes.Add(note);
-        }
-        /// <inheritdoc cref="DrumsChord(uint, DrumsNote[])"/>
-        public DrumsChord(uint position, params DrumsLane[] notes) : base(position)
-        {
-            if (notes is null)
-                throw new ArgumentNullException(nameof(notes));
+        foreach (DrumsNote note in notes)
+            Notes.Add(note);
+    }
+    /// <inheritdoc cref="DrumsChord(uint, DrumsNote[])"/>
+    public DrumsChord(uint position, params DrumsLane[] notes) : base(position)
+    {
+        if (notes is null)
+            throw new ArgumentNullException(nameof(notes));
 
-            foreach (DrumsLane note in notes)
-                Notes.Add(new DrumsNote(note));
-        }
+        foreach (DrumsLane note in notes)
+            Notes.Add(new DrumsNote(note));
+    }
 
-        protected override IReadOnlyCollection<LaneNote> GetNotes() => Notes;
+    protected override IReadOnlyCollection<LaneNote> GetNotes() => Notes;
 
         internal override IEnumerable<TrackObjectEntry> GetChartData(LaneChord? previous, bool modifiers, FormattingRules formatting)
         {
