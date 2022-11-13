@@ -2,12 +2,12 @@
 This document goes over the basics of parsing a chart through ChartTools.
 
 ## Installation
-To add ChartTools to your project, you must first compile the assembly. The repository contains two main projects: Net5 and Net6. Compile the project that matches your target .NET version with either the Debug or Release profile. The compiled files can be found in the build folder of the repository.
+To add ChartTools to your project, you must first compile the assembly. The repository contains two main projects: Net6 and Net7. Compile the project that matches your target .NET version with either the Debug or Release profile. The compiled files can be found in the build folder of the repository.
 
 Visual Studio: Right-click on your from the solution explorer and select "Add Project References...". Click on "Browse" and select ChartTools.dll that was generated.
 
 ## Sandbox environment
-The repository includes a sandbox environment where you can explore the library and perform various tests. To use the sandbox environment, open Program.cs from the Debug project. The project targets .NET 6 and references the Net6 project. After cloning the repo, open Git Bash and navigate to the Debug directory, then run the command `git ls-files -z | xargs -0 git update-index --assume-unchanged` to ensure changes are not included in commits. This command only needs to be ran once after cloning and ran when a pull includes commits with the DEBUG prefix.
+The repository includes a sandbox environment where you can explore the library and perform various tests. To use the sandbox environment, open Program.cs from the Debug project. The project targets .NET 7 and references the Net6 project. After cloning the repo, open Git Bash and navigate to the Debug directory, then run the command `git ls-files -z | xargs -0 git update-index --assume-unchanged` to ensure changes are not included in commits. This command only needs to be ran once after cloning and ran when a pull includes commits with the DEBUG prefix.
 
 > **NOTE**: Pull requests with leftover tests will be rejected.
 
