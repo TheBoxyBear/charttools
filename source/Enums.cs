@@ -24,7 +24,6 @@ namespace ChartTools
         /// </summary>
         Expert
     }
-
     /// <summary>
     /// Modifier that affects the way the chord can be played
     /// </summary>
