@@ -3,10 +3,6 @@ using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Formatting;
 
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace ChartTools
 {
     public record StandardInstrument : Instrument<StandardChord>
