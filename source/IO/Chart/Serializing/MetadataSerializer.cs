@@ -1,31 +1,27 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿namespace ChartTools.IO.Chart.Serializing;
 
-namespace ChartTools.IO.Chart.Serializing
+internal class MetadataSerializer : Serializer<Metadata, string>
 {
-    internal class MetadataSerializer : Serializer<Metadata, string>
+    public MetadataSerializer(Metadata content) : base(ChartFormatting.MetadataHeader, content, new(ChartFile.DefaultWriteConfig, content.Formatting)) { }
+
+    public override IEnumerable<string> Serialize()
     {
-        public MetadataSerializer(Metadata content) : base(ChartFormatting.MetadataHeader, content, new(ChartFile.DefaultWriteConfig, content.Formatting)) { }
+        if (Content is null)
+            yield break;
 
-        public override IEnumerable<string> Serialize()
-        {
-            if (Content is null)
-                yield break;
+        var props = ChartKeySerializableAttribute.GetSerializable(Content)
+            .Concat(ChartKeySerializableAttribute.GetSerializable(Content.Formatting))
+            .Concat(ChartKeySerializableAttribute.GetSerializable(Content.Charter)
+            .Concat(ChartKeySerializableAttribute.GetSerializable(Content.InstrumentDifficulties))
+            .Concat(ChartKeySerializableAttribute.GetSerializable(Content.Streams)));
 
-            var props = ChartKeySerializableAttribute.GetSerializable(Content)
-                .Concat(ChartKeySerializableAttribute.GetSerializable(Content.Formatting))
-                .Concat(ChartKeySerializableAttribute.GetSerializable(Content.Charter)
-                .Concat(ChartKeySerializableAttribute.GetSerializable(Content.InstrumentDifficulties))
-                .Concat(ChartKeySerializableAttribute.GetSerializable(Content.Streams)));
+        foreach ((var key, var value) in props)
+            yield return ChartFormatting.Line(key, value);
 
-            foreach ((var key, var value) in props)
-                yield return ChartFormatting.Line(key, value);
+        if (Content.Year is not null)
+            yield return ChartFormatting.Line("Year", $"\", {Content.Year}\"");
 
-            if (Content.Year is not null)
-                yield return ChartFormatting.Line("Year", $"\", {Content.Year}\"");
-
-            foreach (var data in Content.UnidentifiedData.Where(d => d.Origin == FileType.Chart))
-                yield return ChartFormatting.Line(data.Key, data.Value);
-        }
+        foreach (var data in Content.UnidentifiedData.Where(d => d.Origin == FileType.Chart))
+            yield return ChartFormatting.Line(data.Key, data.Value);
     }
 }

@@ -1,10 +1,9 @@
-﻿namespace ChartTools
+﻿namespace ChartTools;
+
+public interface IReadOnlyLongObject
 {
-    public interface IReadOnlyLongObject
-    {
-        /// <summary>
-        /// Length of the object in ticks
-        /// </summary>
-        public uint Length { get; }
-    }
+    /// <summary>
+    /// Length of the object in ticks
+    /// </summary>
+    public uint Length { get; }
 }

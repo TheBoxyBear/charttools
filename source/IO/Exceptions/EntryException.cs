@@ -1,9 +1,6 @@
-﻿using System;
+﻿namespace ChartTools.IO;
 
-namespace ChartTools.IO
+public class EntryException : FormatException
 {
-    public class EntryException : FormatException
-    {
-        public EntryException() : base("Cannot divide line into entry elements.") { }
-    }
+    public EntryException() : base("Cannot divide line into entry elements.") { }
 }

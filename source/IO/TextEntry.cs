@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ChartTools.IO
+﻿namespace ChartTools.IO
 {
     /// <summary>
     /// Line of text file data

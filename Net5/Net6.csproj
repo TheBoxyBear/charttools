@@ -12,6 +12,7 @@
     <DocumentationFile>$(OutDir)ChartTools.xml</DocumentationFile>
     <BaseOutputPath>$(ProjectDir)..\build\net5</BaseOutputPath>
     <Configurations>Debug;Release;Docs</Configurations>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <Import Project="..\source\source.projitems" Label="Shared" />

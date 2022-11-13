@@ -2,10 +2,6 @@
 using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration.Sessions;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace ChartTools;
 
 /// <summary>

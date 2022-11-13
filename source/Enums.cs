@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ChartTools
+﻿namespace ChartTools
 {
     /// <summary>
     /// Difficulty levels
