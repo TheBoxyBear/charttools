@@ -1,7 +1,7 @@
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: Build and publish Docs
     steps:
     - uses: actions/checkout@v1
     # ...
