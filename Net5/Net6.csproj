@@ -2,17 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <LangVersion>preview</LangVersion>
-    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <RootNamespace>ChartTools</RootNamespace>
     <AssemblyName>ChartTools</AssemblyName>
     <DebugType>embedded</DebugType>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>$(OutDir)ChartTools.xml</DocumentationFile>
-    <BaseOutputPath>$(ProjectDir)..\build\net6</BaseOutputPath>
+    <BaseOutputPath>$(ProjectDir)..\build\net5</BaseOutputPath>
     <Configurations>Debug;Release;Docs</Configurations>
   </PropertyGroup>
 
