@@ -2,29 +2,27 @@
 using ChartTools.IO.Configuration.Sessions;
 
 using Melanchall.DryWetMidi.Core;
-using System.Collections.Generic;
 
-namespace ChartTools.IO.Midi.Parsing
+namespace ChartTools.IO.Midi.Parsing;
+
+internal class GlobalEventParser : MidiParser
 {
-    internal class GlobalEventParser : MidiParser
+    public override List<GlobalEvent> Result => GetResult(result);
+    private readonly List<GlobalEvent> result = new();
+    public GlobalEventParser(ReadingSession session) : base(session) { }
+
+    protected override void HandleItem(MidiEvent item)
     {
-        public override List<GlobalEvent> Result => GetResult(result);
-        private readonly List<GlobalEvent> result = new();
-        public GlobalEventParser(ReadingSession session) : base(session) { }
+        globalPosition += (uint)item.DeltaTime;
 
-        protected override void HandleItem(MidiEvent item)
+        if (item is not TextEvent e)
         {
-            globalPosition += (uint)item.DeltaTime;
-
-            if (item is not TextEvent e)
-            {
-                session.InvalidMidiEventTypeProcedure(globalPosition, item);
-                return;
-            }
-
-            result.Add(new(globalPosition, e.Text));
+            session.InvalidMidiEventTypeProcedure(globalPosition, item);
+            return;
         }
 
-        public override void ApplyToSong(Song song) => song.GlobalEvents = Result;
+        result.Add(new(globalPosition, e.Text));
     }
+
+    public override void ApplyToSong(Song song) => song.GlobalEvents = Result;
 }

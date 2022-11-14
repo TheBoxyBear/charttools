@@ -23,6 +23,5 @@ public abstract class LaneChord : TrackObjectBase, IChord
 
     protected abstract IReadOnlyCollection<LaneNote> GetNotes();
 
-        internal abstract IEnumerable<TrackObjectEntry> GetChartData(LaneChord? previous, bool modifiers, FormattingRules formatting);
-    }
+    internal abstract IEnumerable<TrackObjectEntry> GetChartData(LaneChord? previous, bool modifiers, FormattingRules formatting);
 }

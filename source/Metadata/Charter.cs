@@ -21,10 +21,9 @@ public class Charter
     [IniKeySerializable(IniFormatting.Icon)]
     public string? Icon { get; set; }
 
-        /// <summary>
-        /// Represents the charter through its <see cref="Name"/>.
-        /// </summary>
-        /// <returns><see cref="Name"/></returns>
-        public override string ToString() => Name ?? string.Empty;
-    }
+    /// <summary>
+    /// Represents the charter through its <see cref="Name"/>.
+    /// </summary>
+    /// <returns><see cref="Name"/></returns>
+    public override string ToString() => Name ?? string.Empty;
 }

@@ -34,15 +34,6 @@
     <Compile Include="IO\Chart\Parsing\SyncTrackParser.cs" />
     <Compile Include="IO\Chart\Parsing\TrackParser.cs" />
     <Compile Include="IO\Chart\Parsing\VariableInstrumentTrackParser.cs" />
-    <Compile Include="IO\Chart\Providers\ChordProvider.cs" />
-    <Compile Include="IO\Chart\Providers\EventProvider.cs" />
-    <Compile Include="IO\Chart\Providers\SpecialPhraseProvider.cs" />
-    <Compile Include="IO\Chart\Providers\TempoProvider.cs" />
-    <Compile Include="IO\Chart\Providers\TimeSignatureProvider.cs" />
-    <Compile Include="IO\Chart\Serializing\MetadataSerializer.cs" />
-    <Compile Include="IO\Chart\Serializing\SyncTrackSerializer.cs" />
-    <Compile Include="IO\Chart\Serializing\TrackObjectGroupSerializer.cs" />
-    <Compile Include="IO\Chart\Serializing\TrackSerializer.cs" />
     <Compile Include="IO\Configuration\CommonConfiguration.cs" />
     <Compile Include="IO\Configuration\ConfigurationExceptions.cs" />
     <Compile Include="IO\Configuration\ReadingConfiguration.cs" />

@@ -2,10 +2,7 @@
 using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Formatting;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
+namespace ChartTools;
 
 /// <summary>
 /// Set of notes played simultaneously by a standard five-fret instrument
@@ -42,20 +39,19 @@ public class StandardChord : LaneChord<LaneNote<StandardLane>, StandardLane, Sta
 
     protected override IReadOnlyCollection<LaneNote> GetNotes() => Notes;
 
-        internal override IEnumerable<TrackObjectEntry> GetChartData(LaneChord? previous, bool modifiers, FormattingRules formatting)
+    internal override IEnumerable<TrackObjectEntry> GetChartData(LaneChord? previous, bool modifiers, FormattingRules formatting)
+    {
+        foreach (var entry in Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Sustain)))
+            yield return entry;
+
+        if (modifiers)
         {
-            foreach (var entry in Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Sustain)))
-                yield return entry;
+            bool isInvert = Modifiers.HasFlag(StandardChordModifiers.HopoInvert);
 
-            if (modifiers)
-            {
-                bool isInvert = Modifiers.HasFlag(StandardChordModifiers.HopoInvert);
-
-                if (Modifiers.HasFlag(StandardChordModifiers.ExplicitHopo) && (previous is null || previous.Position <= formatting.TrueHopoFrequency) != isInvert || isInvert)
-                    yield return ChartFormatting.NoteEntry(Position, 5, 0);
-                if (Modifiers.HasFlag(StandardChordModifiers.Tap))
-                    yield return ChartFormatting.NoteEntry(Position, 6, 0);
-            }
+            if (Modifiers.HasFlag(StandardChordModifiers.ExplicitHopo) && (previous is null || previous.Position <= formatting.TrueHopoFrequency) != isInvert || isInvert)
+                yield return ChartFormatting.NoteEntry(Position, 5, 0);
+            if (Modifiers.HasFlag(StandardChordModifiers.Tap))
+                yield return ChartFormatting.NoteEntry(Position, 6, 0);
         }
     }
 }

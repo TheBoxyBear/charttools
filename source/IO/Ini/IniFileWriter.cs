@@ -1,5 +1,6 @@
 ﻿using ChartTools.IO.Serializaiton;
-using System.Linq;
+
+namespace ChartTools.IO.Ini;
 
 internal class IniFileWriter : TextFileWriter
 {

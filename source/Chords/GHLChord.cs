@@ -39,26 +39,25 @@ public class GHLChord : LaneChord<LaneNote<GHLLane>, GHLLane, GHLChordModifiers>
 
     protected override IReadOnlyCollection<LaneNote> GetNotes() => Notes;
 
-        internal override IEnumerable<TrackObjectEntry> GetChartData(LaneChord? previous, bool modifiers, FormattingRules formatting)
+    internal override IEnumerable<TrackObjectEntry> GetChartData(LaneChord? previous, bool modifiers, FormattingRules formatting)
+    {
+        foreach (var entry in Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane switch
         {
-            foreach (var entry in Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane switch
-            {
-                GHLLane.Open => 7,
-                GHLLane.Black1 => 3,
-                GHLLane.Black2 => 4,
-                GHLLane.Black3 => 8,
-                GHLLane.White1 => 0,
-                GHLLane.White2 => 1,
-                GHLLane.White3 => 2
-            }, note.Sustain)))
-                yield return entry;
+            GHLLane.Open => 7,
+            GHLLane.Black1 => 3,
+            GHLLane.Black2 => 4,
+            GHLLane.Black3 => 8,
+            GHLLane.White1 => 0,
+            GHLLane.White2 => 1,
+            GHLLane.White3 => 2
+        }, note.Sustain)))
+            yield return entry;
 
-            var isInvert = Modifiers.HasFlag(GHLChordModifiers.HopoInvert);
+        var isInvert = Modifiers.HasFlag(GHLChordModifiers.HopoInvert);
 
-            if (Modifiers.HasFlag(GHLChordModifiers.ExplicitHopo) && (previous is null || previous.Position <= formatting.TrueHopoFrequency) != isInvert || isInvert)
-                yield return ChartFormatting.NoteEntry(Position, 5, 0);
-            if (Modifiers.HasFlag(GHLChordModifiers.Tap))
-                yield return ChartFormatting.NoteEntry(Position, 6, 0);
-        }
+        if (Modifiers.HasFlag(GHLChordModifiers.ExplicitHopo) && (previous is null || previous.Position <= formatting.TrueHopoFrequency) != isInvert || isInvert)
+            yield return ChartFormatting.NoteEntry(Position, 5, 0);
+        if (Modifiers.HasFlag(GHLChordModifiers.Tap))
+            yield return ChartFormatting.NoteEntry(Position, 6, 0);
     }
 }

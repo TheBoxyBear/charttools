@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+namespace ChartTools.Lyrics;
+
 public class Phrase : TrackObjectBase, IChord, ILongTrackObject
 {
     public List<Syllable> Syllables { get; } = new();

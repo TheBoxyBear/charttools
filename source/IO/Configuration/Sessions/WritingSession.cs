@@ -1,5 +1,4 @@
 ﻿using ChartTools.IO.Formatting;
-using System;
 
 namespace ChartTools.IO.Configuration.Sessions;
 
@@ -18,7 +17,7 @@ internal class WritingSession : Session
             UnsupportedModifiersPolicy.ThrowException => chord => throw new Exception($"Chord at position {chord.Position} has modifiers not supported by the target file type."),
             UnsupportedModifiersPolicy.IgnoreChord => _ => UnsupportedModifiersResults.None,
             UnsupportedModifiersPolicy.IgnoreModifier => chord => UnsupportedModifiersResults.Chord,
-            UnsupportedModifiersPolicy.Convert => chord => UnsupportedModifiersResults.Modifier,
+            UnsupportedModifiersPolicy.Convert => chord => UnsupportedModifiersResults.Modifiers,
             _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.UnsupportedModifierPolicy)
         })(chord);
         UncertainGuitarBassFormatProcedure = (instrument, format) => (UncertainGuitarBassFormatProcedure = Configuration.UncertainGuitarBassFormatPolicy switch

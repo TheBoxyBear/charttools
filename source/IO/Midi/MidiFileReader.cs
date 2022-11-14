@@ -3,70 +3,65 @@ using ChartTools.IO.Midi.Parsing;
 
 using Melanchall.DryWetMidi.Core;
 
-using System;
-using System.Linq;
-using System.Threading;
-
 using DryWetFile = Melanchall.DryWetMidi.Core.MidiFile;
 
-namespace ChartTools.IO.Midi
+namespace ChartTools.IO.Midi;
+
+internal class MidiFileReader : FileReader<MidiEvent, MidiParser>
 {
-    internal class MidiFileReader : FileReader<MidiEvent, MidiParser>
+    public ReadingSettings? Settings { get; }
+    public uint Resolution { get; private set; }
+
+    public MidiFileReader(string path, Func<string, MidiParser?> parserGetter, ReadingSettings? settings) : base(path, parserGetter) => Settings = settings;
+
+    protected override void ReadBase(bool async, CancellationToken cancellationToken)
     {
-        public ReadingSettings? Settings { get; }
-        public uint Resolution { get; private set; }
+        ParserContentGroup? currentGroup = null;
 
-        public MidiFileReader(string path, Func<string, MidiParser?> parserGetter, ReadingSettings? settings) : base(path, parserGetter) => Settings = settings;
+        var file = DryWetFile.Read(Path, Settings);
 
-        protected override void ReadBase(bool async, CancellationToken cancellationToken)
+        if (file.TimeDivision is not TicksPerQuarterNoteTimeDivision ticks)
+            throw new Exception($"Time division must be of type {nameof(TicksPerQuarterNoteTimeDivision)}.");
+
+        Resolution = (uint)ticks.TicksPerQuarterNote;
+
+        foreach (var events in file.GetTrackChunks().Select(c => c.Events))
         {
-            ParserContentGroup? currentGroup = null;
+            using var enumerator = events.GetEnumerator();
+            enumerator.MoveNext();
 
-            var file = DryWetFile.Read(Path, Settings);
-
-            if (file.TimeDivision is not TicksPerQuarterNoteTimeDivision ticks)
-                throw new Exception($"Time division must be of type {nameof(TicksPerQuarterNoteTimeDivision)}.");
-
-            Resolution = (uint)ticks.TicksPerQuarterNote;
-
-            foreach (var events in file.GetTrackChunks().Select(c => c.Events))
+            if (enumerator.Current is not SequenceTrackNameEvent header)
             {
-                using var enumerator = events.GetEnumerator();
-                enumerator.MoveNext();
+                // TODO Configuration
+                continue;
+            }
 
-                if (enumerator.Current is not SequenceTrackNameEvent header)
+            var parser = parserGetter(header.Text);
+
+
+            if (parser is not null)
+            {
+                var source = new DelayedEnumerableSource<MidiEvent>();
+
+                parserGroups.Add(currentGroup = new(parser, source));
+
+                if (async)
                 {
-                    // TODO Configuration
-                    continue;
-                }
-
-                var parser = parserGetter(header.Text);
-
-
-                if (parser is not null)
-                {
-                    var source = new DelayedEnumerableSource<MidiEvent>();
-
-                    parserGroups.Add(currentGroup = new(parser, source));
-
-                    if (async)
+                    if (cancellationToken.IsCancellationRequested)
                     {
-                        if (cancellationToken.IsCancellationRequested)
-                        {
-                            currentGroup?.Source.EndAwait();
-                            Dispose();
+                        currentGroup?.Source.EndAwait();
+                        Dispose();
 
-                            return;
-                        }
-
-                        parseTasks.Add(parser.StartAsyncParse(source.Enumerable));
+                        return;
                     }
 
-                    while (enumerator.MoveNext())
-                        currentGroup.Source.Add(enumerator.Current);
-
-                    currentGroup.Source.EndAwait();
+                    parseTasks.Add(parser.StartAsyncParse(source.Enumerable));
                 }
+
+                while (enumerator.MoveNext())
+                    currentGroup.Source.Add(enumerator.Current);
+
+                currentGroup.Source.EndAwait();
             }
         }
     }

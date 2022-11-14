@@ -16,9 +16,9 @@ public record ReadingConfiguration : CommonConfiguration
     public UnknownSectionPolicy UnknownSectionPolicy { get; set; }
     public TempolessAnchorPolicy TempolessAnchorPolicy { get; set; }
 
-/// <summary>
-/// Configuration object to customize how DryWetMidi reads Midi file before being parsed
-/// </summary>
-/// <remarks>Setting to <see landword="null"/> will use default settings</remarks>
-public ReadingSettings? MidiFirstPassReadingSettings { get; set; }
+    /// <summary>
+    /// Configuration object to customize how DryWetMidi reads Midi file before being parsed
+    /// </summary>
+    /// <remarks>Setting to <see landword="null"/> will use default settings</remarks>
+    public ReadingSettings? MidiFirstPassReadingSettings { get; set; }
 }

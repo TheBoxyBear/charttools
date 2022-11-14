@@ -3,8 +3,6 @@ using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
 
-using System.Collections.Generic;
-
 namespace ChartTools.IO.Chart.Mapping;
 
 internal static class ChordMapper
@@ -25,7 +23,7 @@ internal static class ChordMapper
 
                 return exactMatch;
             }))
-                foreach (var entry in chord.GetChartData(previousChord, (chord.ChartSupportedModifiers ? UnsupportedModifiersResults.Modifier : session.UnsupportedModifiersProcedure(chord)).HasFlag(UnsupportedModifiersResults.Modifier), session.Formatting!))
+                foreach (var entry in chord.GetChartData(previousChord, (chord.ChartSupportedModifiers ? UnsupportedModifiersResults.Modifiers : session.UnsupportedModifiersProcedure(chord)).HasFlag(UnsupportedModifiersResults.Modifiers), session.Formatting!))
                     yield return entry;
 
             previousChord = chord;

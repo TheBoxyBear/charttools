@@ -40,18 +40,17 @@ public class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModifiers>
 
     protected override IReadOnlyCollection<LaneNote> GetNotes() => Notes;
 
-        internal override IEnumerable<TrackObjectEntry> GetChartData(LaneChord? previous, bool modifiers, FormattingRules formatting)
+    internal override IEnumerable<TrackObjectEntry> GetChartData(LaneChord? previous, bool modifiers, FormattingRules formatting)
+    {
+        foreach (var note in Notes)
         {
-            foreach (var note in Notes)
-            {
-                yield return ChartFormatting.NoteEntry(Position, note.Lane == DrumsLane.DoubleKick ? (byte)32 : note.Index, note.Sustain);
+            yield return ChartFormatting.NoteEntry(Position, note.Lane == DrumsLane.DoubleKick ? (byte)32 : note.Index, note.Sustain);
 
-                if (note.IsCymbal)
-                    yield return ChartFormatting.NoteEntry(Position, (byte)(note.Lane + 64), 0);
-            }
-
-            if (modifiers && Modifiers.HasFlag(DrumsChordModifiers.Flam))
-                yield return ChartFormatting.NoteEntry(Position, 109, 0);
+            if (note.IsCymbal)
+                yield return ChartFormatting.NoteEntry(Position, (byte)(note.Lane + 64), 0);
         }
+
+        if (modifiers && Modifiers.HasFlag(DrumsChordModifiers.Flam))
+            yield return ChartFormatting.NoteEntry(Position, 109, 0);
     }
 }

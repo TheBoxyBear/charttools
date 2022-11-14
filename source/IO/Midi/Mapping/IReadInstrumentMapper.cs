@@ -1,10 +1,8 @@
 ﻿using Melanchall.DryWetMidi.Core;
-using System.Collections.Generic;
 
-namespace ChartTools.IO.Midi.Mapping
+namespace ChartTools.IO.Midi.Mapping;
+
+internal interface IReadInstrumentMapper
 {
-    internal interface IReadInstrumentMapper
-    {
-        public IEnumerable<NoteEventMapping> Map(uint position, NoteEvent e);
-    }
+    public IEnumerable<NoteEventMapping> Map(uint position, NoteEvent e);
 }

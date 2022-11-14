@@ -1,6 +1,6 @@
 ﻿using ChartTools.IO.Serializaiton;
-using System.Collections.Generic;
 
+namespace ChartTools.IO.Chart;
 internal class ChartFileWriter : TextFileWriter
 {
     protected override string? PreSerializerContent => "{";
