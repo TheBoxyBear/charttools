@@ -6,5 +6,5 @@ namespace ChartTools.IO.Chart.Providers;
 
 internal class EventProvider : ISerializerDataProvider<Event, TrackObjectEntry>
 {
-    public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<Event> source, WritingSession session) => source.Select(e => new TrackObjectEntry(e.Position, "E", e.EventData));
+    public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<Event> source, WritingSession session) => source.Select(e => new TrackObjectEntry(e.Position, "E", $"\"{e.EventData}\""));
 }
