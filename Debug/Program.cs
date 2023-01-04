@@ -18,3 +18,18 @@ using ChartTools.Tools;
 // This project targets .NET 6 with the matching debug build of ChartTools.
 
 Console.WriteLine("Hello World");
+
+const string path = @"E:\Users\Gaming\Desktop\Moonscraper\Nothing More\CollegeHumor\Sweet Number Pi\";
+
+var song = await Song.FromFileAsync(path + "notes.chart");
+var lastSignature = song.SyncTrack.TimeSignatures.Last();
+
+Func<ITrackObject, bool> positionCheck = t => t.Position >= lastSignature.Position;
+
+foreach (var t in song.GlobalEvents.Where(e => e.EventType == EventTypeHelper.Global.RB2CHSection).Where(positionCheck)
+    .Concat(song.SyncTrack.Tempo.Where(positionCheck)))
+{
+    t.Position -= 384;
+}
+
+await song.ToFileAsync(path + "fixed.chart");
