@@ -30,11 +30,11 @@ internal class IniParser : TextParser, ISongAppliable
                 result.Album = entry.Value;
                 break;
             case IniFormatting.AlbumTrack:
-                ParsealbumTrack(entry.Value);
+                ParseAlbumTrack();
                 result.Formatting.AlbumTrackKey |= AlbumTrackKey.AlbumTrack;
                 break;
             case IniFormatting.Track:
-                ParsealbumTrack(entry.Value);
+                ParseAlbumTrack();
                 result.Formatting.AlbumTrackKey |= AlbumTrackKey.Track;
                 break;
             case IniFormatting.Playlist:
@@ -123,7 +123,7 @@ internal class IniParser : TextParser, ISongAppliable
                 break;
         }
 
-        void ParsealbumTrack(string? value) => ValueParser.ParseUshort(entry.Value, "album track");
+        void ParseAlbumTrack() => ValueParser.ParseUshort(entry.Value, "album track");
         void ParseCharter()
         {
             result.Charter ??= new();
