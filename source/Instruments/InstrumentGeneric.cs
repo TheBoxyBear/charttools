@@ -56,7 +56,7 @@ public abstract record Instrument<TChord> : Instrument where TChord : IChord, ne
         Difficulty.Easy => Easy,
         Difficulty.Medium => Medium,
         Difficulty.Hard => Hard,
-        ChartTools.Difficulty.Expert => Expert,
+        Difficulty.Expert => Expert,
         _ => throw new UndefinedEnumException(difficulty)
     };
 

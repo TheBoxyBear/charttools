@@ -217,7 +217,7 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
     }
     protected virtual void HandleBigRock(NoteEventMapping mapping)
     {
-        if (BigRockCount == -1)
+        if (BigRockCount == 0)
             return;
 
         var openedBigRockPosition = openedBigRockPositions[mapping.Index];
