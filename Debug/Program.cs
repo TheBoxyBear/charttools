@@ -18,5 +18,3 @@ using ChartTools.Tools;
 // This project targets .NET 7 with the matching debug build of ChartTools.
 
 Console.WriteLine("Hello World");
-
-Console.WriteLine("dummy");
