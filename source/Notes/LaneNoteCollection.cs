@@ -28,10 +28,7 @@ public class LaneNoteCollection<TNote, TLane> : ICollection<TNote>, IReadOnlyLis
     {
         if (OpenExclusivity && (note.Index == 0 || Count == 1 && this.First().Index == 0)) // An open note is present and needs to be removed
             Clear();
-        float f = 1;
-        int i = 1;
 
-        var r = f / i;
         _notes.Add(note);
     }
 
