@@ -3,7 +3,7 @@ using ChartTools.IO.Configuration.Sessions;
 
 namespace ChartTools;
 
-public abstract class LaneChord : TrackObjectBase, IChord
+public abstract class LaneChord : TrackObject, IChord
 {
     public IReadOnlyCollection<LaneNote> Notes => GetNotes();
     IReadOnlyCollection<INote> IChord.Notes => GetNotes();

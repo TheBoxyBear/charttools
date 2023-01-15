@@ -1,7 +1,7 @@
 ﻿namespace ChartTools.IO.Chart.Entries;
 
 /// <summary>
-/// Line of chart file data representing a <see cref="TrackObjectBase"/>
+/// Line of chart file data representing a <see cref="TrackObject"/>
 /// </summary>
 internal readonly struct TrackObjectEntry : IReadOnlyTrackObject
 {

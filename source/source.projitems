@@ -87,6 +87,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Notes\LaneNote.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\LaneNoteCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\LaneNoteGeneric.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sampling\ISample.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sampling\Sample.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sampling\TrackSample.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Special\InstrumentSpecialPhrase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Special\SpecialPhrase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Special\TrackSpecialPhrase.cs" />
@@ -95,7 +98,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Tools\LengthMerger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Printer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\IReadOnlyTrackObject.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\TrackObjectBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\TrackObject.cs" />
     <Compile Include="..\source\IO\Ini\IniKeySerializableAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniSerializer.cs" />

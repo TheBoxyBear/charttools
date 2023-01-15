@@ -112,7 +112,7 @@ public abstract record Instrument : IEmptyVerifiable
     /// Gives all tracks the same star power
     /// </summary>
     public void ShareStarPower(TrackObjectSource source) => ShareEventsStarPower(source, track => track.SpecialPhrases);
-    private void ShareEventsStarPower<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : TrackObjectBase
+    private void ShareEventsStarPower<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : TrackObject
     {
         var collections = GetExistingTracks().Select(track => collectionGetter(track)).ToArray();
 

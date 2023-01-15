@@ -4,7 +4,7 @@ using ChartTools.Extensions.Linq;
 
 namespace ChartTools.IO.Chart.Providers;
 
-internal abstract class SyncTrackProvider<T> : ISerializerDataProvider<T, TrackObjectEntry> where T : TrackObjectBase
+internal abstract class SyncTrackProvider<T> : ISerializerDataProvider<T, TrackObjectEntry> where T : TrackObject
 {
     protected abstract string ObjectType { get; }
 

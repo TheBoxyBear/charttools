@@ -3,7 +3,7 @@
 /// <summary>
 /// Marker that defines an occurrence at a given point in a song.
 /// </summary>
-public abstract class Event : TrackObjectBase
+public abstract class Event : TrackObject
 {
     private string _eventType = "Default";
     /// <summary>
@@ -49,7 +49,7 @@ public abstract class Event : TrackObjectBase
 
     public bool? ToggleState => EventType.EndsWith(EventTypeHelper.Common.ToggleOn) ? true : (EventType.EndsWith(EventTypeHelper.Common.ToggleOff) ? false : null);
 
-    /// <param name="position"><inheritdoc cref="TrackObjectBase.Position"/></param>
+    /// <param name="position"><inheritdoc cref="TrackObject.Position"/></param>
     /// <param name="data"><inheritdoc cref="EventData"/></param>
     public Event(uint position, string data) : base(position) => EventData = data;
     /// <inheritdoc cref="Event(uint, string)"/>

@@ -3,7 +3,7 @@
 /// <summary>
 /// Base class for phrases that define an in-game event with a duration such as star power.
 /// </summary>
-public abstract class SpecialPhrase : TrackObjectBase, ILongTrackObject
+public abstract class SpecialPhrase : TrackObject, ILongTrackObject
 {
     /// <summary>
     /// Numerical value of the phrase type
