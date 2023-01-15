@@ -59,7 +59,7 @@ internal abstract class TextFileWriter
     }
 
     private IEnumerable<string> GetLines(Func<Serializer<string>, IEnumerable<string>> getSerializerLines) => File.Exists(Path)
-        ? File.ReadAllLines(Path)
+        ? File.ReadLines(Path)
         .ReplaceSections(AddRemoveReplacements(serializers.Select(serializer => new SectionReplacement<string>(Wrap(serializer.Header, getSerializerLines(serializer)), line => line == serializer.Header, EndReplace, true))))
         : serializers.SelectMany(serializer => Wrap(serializer.Header, serializer.Serialize()));
 
