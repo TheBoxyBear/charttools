@@ -17,13 +17,11 @@ public static class Optimizer
     /// </summary>
     /// <param name="chords">Chords to cut the sustains of</param>
     /// <param name="preOrdered">Skip ordering of chords by position</param>
-    /// <returns>Passed chords, ordered by position. Same instance if <paramref name="preOrdered"/> is <see langword="true"/> and <paramref name="chords"/> is <see cref="List{T}"/>.</returns>
-    public static List<T> CutSustains<T>(this IEnumerable<T> chords, bool preOrdered = false) where T : LaneChord
+    public static void CutSustains<T>(this IEnumerable<T> chords, bool preOrdered = false) where T : LaneChord
     {
         var sustains = new Dictionary<byte, (uint, LaneNote)>();
-        var output = GetOrderedList(chords, preOrdered);
 
-        foreach (var chord in output)
+        foreach (var chord in GetOrdered(chords, preOrdered))
         {
             if (chord.Notes.Count == 0)
                 continue;
@@ -73,8 +71,6 @@ public static class Optimizer
                 }
             }
         }
-
-        return output;
     }
 
     /// <summary>
@@ -102,16 +98,11 @@ public static class Optimizer
     /// </summary>
     /// <param name="objects">Set of long track objects</param>
     /// <param name="preOrdered">Skip ordering of objects by position</param>
-    /// <returns>Passed objects, ordered by position. Same instance if <paramref name="preOrdered"/> is <see langword="true"/> and <paramref name="objects"/> is <see cref="List{T}"/>.</returns>
-    public static List<T> CutLengths<T>(this IEnumerable<T> objects, bool preOrdered = false) where T : ILongTrackObject
+    public static void CutLengths<T>(this IEnumerable<T> objects, bool preOrdered = false) where T : ILongTrackObject
     {
-        var output = GetOrderedList(objects, preOrdered);
-
-        foreach ((var current, var next) in output.RelativeLoopSkipFirst())
+        foreach ((var current, var next) in GetOrdered(objects, preOrdered).RelativeLoopSkipFirst())
             if (LengthNeedsCut(current, next))
                 next.Length = current.Position - current.Position;
-
-        return output;
     }
 
     /// <summary>
@@ -120,20 +111,15 @@ public static class Optimizer
     /// <param name="markers">Tempo markers without anchors.</param>
     /// <param name="preOrdered">Skip ordering of markers by position.</param>
     /// <exception cref="InvalidOperationException"/>
-    /// <returns>Passed tempos, ordered by position. Same instance if <paramref name="preOrdered"/> is <see langword="true"/> and <paramref name="markers"/> is <see cref="List{T}"/>.</returns>
     /// <remarks>If some markers may be anchored, use the overload with a resolution.</remarks>
-    public static List<Tempo> RemoveUneeded(this ICollection<Tempo> markers, bool preOrdered = false)
+    public static void RemoveUneeded(this ICollection<Tempo> markers, bool preOrdered = false)
     {
         if (markers.TryGetFirst(m => !m.PositionSynced, out var marker))
             throw new DesynchronizedAnchorException(marker.Anchor!.Value, $"Collection contains a desynchronized anchored tempo at {marker.Anchor}. Resolution needed to synchronize anchors.");
 
-        var output = GetOrderedList(markers, preOrdered);
-
-        foreach ((var previous, var current) in output.RelativeLoopSkipFirst())
+        foreach ((var previous, var current) in GetOrdered(markers, preOrdered).RelativeLoopSkipFirst())
             if (previous.Value == current.Value)
                 markers.Remove(current);
-
-        return output;
     }
     /// <summary>
     /// Removes redundant tempo markers by syncing the position of anchored markers.
@@ -141,17 +127,13 @@ public static class Optimizer
     /// <param name="markers">Set of markers</param>
     /// <param name="resolution">Resolution from <see cref="FormattingRules.TrueResolution"/></param>
     /// <param name="desyncedPreOrdered">Skip ordering of desynced markers by position</param>
-    public static List<Tempo> RemoveUneeded(this TempoMap markers, uint resolution, bool desyncedPreOrdered = false)
+    public static void RemoveUneeded(this TempoMap markers, uint resolution, bool desyncedPreOrdered = false)
     {
         markers.Synchronize(resolution, desyncedPreOrdered);
 
-        var output = markers.OrderBy(m => m.Position).ToList();
-
-        foreach ((var previous, var current) in output.RelativeLoopSkipFirst())
+        foreach ((var previous, var current) in markers.OrderBy(m => m.Position).RelativeLoopSkipFirst())
             if (current.Value == previous!.Value)
                 markers.Remove(current);
-
-        return output;
     }
 
     /// <summary>
@@ -160,16 +142,12 @@ public static class Optimizer
     /// <param name="signatures">Time signatures to remove the unneeded from</param>
     /// <param name="preOrdered">Skip ordering of markers by position</param>
     /// <returns>Passed markers, ordered by position. Same instance if <paramref name="preOrdered"/> is <see langword="true"/> and <paramref name="signatures"/> is <see cref="List{T}"/>.</returns>
-    public static List<TimeSignature> RemoveUnneeded(this ICollection<TimeSignature> signatures, bool preOrdered = false)
+    public static void RemoveUnneeded(this ICollection<TimeSignature> signatures, bool preOrdered = false)
     {
-        var output = GetOrderedList(signatures, preOrdered);
-
-        foreach ((var previous, var current) in output.RelativeLoopSkipFirst())
+        foreach ((var previous, var current) in GetOrdered(signatures, preOrdered).RelativeLoopSkipFirst())
             if (previous.Numerator == current.Numerator && previous.Denominator == current.Denominator)
                 signatures.Remove(current);
-
-        return output;
     }
 
-    private static List<T> GetOrderedList<T>(IEnumerable<T> items, bool preOredered) where T : ITrackObject => (preOredered ? items : items.OrderBy(i => i.Position)).ToList();
+    private static IEnumerable<T> GetOrdered<T>(IEnumerable<T> items, bool preOredered) where T : ITrackObject => preOredered ? items : items.OrderBy(i => i.Position);
 }
