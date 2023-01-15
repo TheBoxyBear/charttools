@@ -1,16 +1,13 @@
-﻿using System;
+﻿namespace ChartTools.IO;
 
-namespace ChartTools.IO
+internal struct Anchor : IReadOnlyTrackObject
 {
-    internal struct Anchor : IReadOnlyTrackObject
-    {
-        public uint Position { get; }
-        public TimeSpan Value { get; }
+    public uint Position { get; }
+    public TimeSpan Value { get; }
 
-        public Anchor(uint position, TimeSpan value)
-        {
-            Position = position;
-            Value = value;
-        }
+    public Anchor(uint position, TimeSpan value)
+    {
+        Position = position;
+        Value = value;
     }
 }

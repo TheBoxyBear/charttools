@@ -1,13 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿namespace ChartTools.Extensions;
 
-namespace ChartTools.Extensions
+internal static class EnumCache<T> where T : struct, Enum
 {
-    internal static class EnumCache<T> where T : struct, Enum
-    {
-        public static T[] Values => _values ??= Enum.GetValues<T>().ToArray();
-        private static T[]? _values;
+    public static T[] Values => _values ??= Enum.GetValues<T>().ToArray();
+    private static T[]? _values;
 
-        public static void Clear() => _values = null;
-    }
+    public static void Clear() => _values = null;
 }

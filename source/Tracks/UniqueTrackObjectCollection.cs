@@ -1,17 +1,14 @@
 ﻿using ChartTools.Extensions;
 using ChartTools.Extensions.Collections;
 
-using System.Collections.Generic;
+namespace ChartTools;
 
-namespace ChartTools
+/// <summary>
+/// Set of track objects where each one must have a different position
+/// </summary>
+public class UniqueTrackObjectCollection<T> : UniqueList<T> where T : ITrackObject
 {
-    /// <summary>
-    /// Set of track objects where each one must have a different position
-    /// </summary>
-    public class UniqueTrackObjectCollection<T> : UniqueList<T> where T : ITrackObject
-    {
-        static readonly EqualityComparison<T> comparison = (a, b) => a is null || b is null || a.Position == b.Position;
+    static readonly EqualityComparison<T> comparison = (a, b) => a is null || b is null || a.Position == b.Position;
 
-        public UniqueTrackObjectCollection(int capacity = 0, IEnumerable<T>? items = null) : base(comparison, capacity, items) { }
-    }
+    public UniqueTrackObjectCollection(int capacity = 0, IEnumerable<T>? items = null) : base(comparison, capacity, items) { }
 }

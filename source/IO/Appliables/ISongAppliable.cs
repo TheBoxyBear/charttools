@@ -1,7 +1,6 @@
-﻿namespace ChartTools.IO
+﻿namespace ChartTools.IO;
+
+internal interface ISongAppliable
 {
-    internal interface ISongAppliable
-    {
-        public void ApplyToSong(Song song);
-    }
+    public void ApplyToSong(Song song);
 }

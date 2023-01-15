@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ChartTools
+﻿namespace ChartTools
 {
     /// <summary>
     /// Difficulty levels
@@ -74,6 +72,7 @@ namespace ChartTools
         /// <summary>
         /// <see cref="Kick"/> that only appears when playing with multiple pedals
         /// </summary>
+        /// <remarks>In Clone Hero, double kicks are enabled with the "2x Kick" modifier and are not limited to a single difficulty.</remarks>
         DoubleKick
     }
     public enum FileType : byte { Chart, Ini, MIDI }

@@ -2,107 +2,103 @@
 using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration.Sessions;
 
-using System;
-using System.Collections.Generic;
+namespace ChartTools.IO.Chart.Parsing;
 
-namespace ChartTools.IO.Chart.Parsing
+internal class SyncTrackParser : ChartParser
 {
-    internal class SyncTrackParser : ChartParser
+    public override SyncTrack Result => GetResult(result);
+    private readonly SyncTrack result = new();
+
+    private readonly List<Tempo> tempos = new(), orderedTempos = new();
+    private readonly List<Anchor> orderedAnchors = new();
+    private readonly List<TimeSignature> orderedSignatures = new();
+
+    public SyncTrackParser(ReadingSession session) : base(session, ChartFormatting.SyncTrackHeader) { }
+
+    protected override void HandleItem(string line)
     {
-        public override SyncTrack Result => GetResult(result);
-        private readonly SyncTrack result = new();
+        TrackObjectEntry entry = new(line);
 
-        private readonly List<Tempo> tempos = new(), orderedTempos = new();
-        private readonly List<Anchor> orderedAnchors = new();
-        private readonly List<TimeSignature> orderedSignatures = new();
-
-        public SyncTrackParser(ReadingSession session) : base(session, ChartFormatting.SyncTrackHeader) { }
-
-        protected override void HandleItem(string line)
+        switch (entry.Type)
         {
-            TrackObjectEntry entry = new(line);
-
-            switch (entry.Type)
-            {
-                case "TS": // Time signature
-                    if (CheckDuplicate(orderedSignatures, "time signature", out int newIndex))
-                        break;
-
-                    string[] split = ChartFormatting.SplitData(entry.Data);
-
-                    var numerator = ValueParser.ParseByte(split[0], "numerator");
-                    byte denominator = 4;
-
-                    // Denominator is only written if not equal to 4
-                    if (split.Length >= 2)
-                        denominator = (byte)Math.Pow(2, ValueParser.ParseByte(split[1], "denominator"));
-
-                    var signature = new TimeSignature(entry.Position, numerator, denominator);
-
-                    result.TimeSignatures.Add(signature);
-                    orderedSignatures.Insert(newIndex, signature);
+            case "TS": // Time signature
+                if (CheckDuplicate(orderedSignatures, "time signature", out int newIndex))
                     break;
-                case "B": // Tempo
-                    if (CheckDuplicate(orderedTempos, "tempo marker", out newIndex))
-                        break;
 
-                    // Floats are written by rounding to the 3rd decimal and removing the decimal point
-                    var value = ValueParser.ParseFloat(entry.Data, "value") / 1000;
-                    var tempo = new Tempo(entry.Position, value);
+                string[] split = ChartFormatting.SplitData(entry.Data);
 
-                    tempos.Add(tempo);
-                    orderedTempos.Add(tempo);
+                var numerator = ValueParser.ParseByte(split[0], "numerator");
+                byte denominator = 4;
+
+                // Denominator is only written if not equal to 4
+                if (split.Length >= 2)
+                    denominator = (byte)Math.Pow(2, ValueParser.ParseByte(split[1], "denominator"));
+
+                var signature = new TimeSignature(entry.Position, numerator, denominator);
+
+                result.TimeSignatures.Add(signature);
+                orderedSignatures.Insert(newIndex, signature);
+                break;
+            case "B": // Tempo
+                if (CheckDuplicate(orderedTempos, "tempo marker", out newIndex))
                     break;
-                case "A": // Anchor
-                    if (CheckDuplicate(orderedAnchors, "tempo anchor", out newIndex))
-                        break;
 
-                    // Floats are written by rounding to the 3rd decimal and removing the decimal point
-                    var anchor = TimeSpan.FromSeconds(ValueParser.ParseFloat(entry.Data, "anchor") / 1000);
+                // Floats are written by rounding to the 3rd decimal and removing the decimal point
+                var value = ValueParser.ParseFloat(entry.Data, "value") / 1000;
+                var tempo = new Tempo(entry.Position, value);
 
-                    orderedAnchors.Insert(newIndex, new(entry.Position, anchor));
+                tempos.Add(tempo);
+                orderedTempos.Add(tempo);
+                break;
+            case "A": // Anchor
+                if (CheckDuplicate(orderedAnchors, "tempo anchor", out newIndex))
                     break;
-            }
 
-            bool CheckDuplicate<T>(IList<T> existing, string objectType, out int newIndex) where T : IReadOnlyTrackObject
-            {
-                var index = 0;
-                var result = !session.DuplicateTrackObjectProcedure(entry.Position, objectType, () =>
-                {
-                    index = existing.BinarySearchIndex<T, uint>(entry.Position, t => t.Position, out bool exactMatch);
+                // Floats are written by rounding to the 3rd decimal and removing the decimal point
+                var anchor = TimeSpan.FromSeconds(ValueParser.ParseFloat(entry.Data, "anchor") / 1000);
 
-                    return exactMatch;
-                });
-
-                newIndex = index;
-
-                return result;
-            }
+                orderedAnchors.Insert(newIndex, new(entry.Position, anchor));
+                break;
         }
 
-        protected override void FinaliseParse()
+        bool CheckDuplicate<T>(IList<T> existing, string objectType, out int newIndex) where T : IReadOnlyTrackObject
         {
-            foreach (var anchor in orderedAnchors)
+            var index = 0;
+            var result = !session.DuplicateTrackObjectProcedure(entry.Position, objectType, () =>
             {
-                // Find the marker matching the position in case it was already added through a mention of value
-                var markerIndex = orderedTempos.BinarySearchIndex(anchor.Position, t => t.Position, out bool markerFound);
+                index = existing.BinarySearchIndex<T, uint>(entry.Position, t => t.Position, out bool exactMatch);
 
-                if (markerFound)
-                {
-                    orderedTempos[markerIndex].Anchor = anchor.Value;
-                    orderedTempos.RemoveAt(markerIndex);
-                }
-                else if (session.TempolessAnchorProcedure(anchor))
-                    result.Tempo.Add(new(anchor.Position, 0) { Anchor = anchor.Value });
-            }
+                return exactMatch;
+            });
 
-            base.FinaliseParse();
+            newIndex = index;
+
+            return result;
         }
+    }
 
-        public override void ApplyToSong(Song song)
+    protected override void FinaliseParse()
+    {
+        foreach (var anchor in orderedAnchors)
         {
-            song.SyncTrack = Result;
-            song.SyncTrack.Tempo.AddRange(tempos);
+            // Find the marker matching the position in case it was already added through a mention of value
+            var markerIndex = orderedTempos.BinarySearchIndex(anchor.Position, t => t.Position, out bool markerFound);
+
+            if (markerFound)
+            {
+                orderedTempos[markerIndex].Anchor = anchor.Value;
+                orderedTempos.RemoveAt(markerIndex);
+            }
+            else if (session.TempolessAnchorProcedure(anchor))
+                result.Tempo.Add(new(anchor.Position, 0) { Anchor = anchor.Value });
         }
+
+        base.FinaliseParse();
+    }
+
+    public override void ApplyToSong(Song song)
+    {
+        song.SyncTrack = Result;
+        song.SyncTrack.Tempo.AddRange(tempos);
     }
 }

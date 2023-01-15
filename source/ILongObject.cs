@@ -1,10 +1,9 @@
-﻿namespace ChartTools
-{
-    public interface ILongObject : IReadOnlyLongObject
-    {
-        /// <inheritdoc cref="IReadOnlyTrackObject.Position"/>
-        public new uint Length { get; set; }
+﻿namespace ChartTools;
 
-        uint IReadOnlyLongObject.Length => Length;
-    }
+public interface ILongObject : IReadOnlyLongObject
+{
+    /// <inheritdoc cref="IReadOnlyTrackObject.Position"/>
+    public new uint Length { get; set; }
+
+    uint IReadOnlyLongObject.Length => Length;
 }

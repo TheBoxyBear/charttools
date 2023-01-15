@@ -15,7 +15,7 @@ Track easyBass = bass.GetTrack(Difficulty.Easy);
 The dynamic syntax uses three enums to get instruments:
 
 - `StandardInstrumentIdentity` - Instruments using standard chords
-- `GHLInstrumentIdentity` - Instrument using Guitar Hero Live chords
+- `GHLInstrumentIdentity` - Instruments using Guitar Hero Live chords
 - `InstrumentIdentity` - All instruments including drums and vocals
 
 Drums and vocals do not have an enum for their chord types as they are the only instrument using their respective chords.

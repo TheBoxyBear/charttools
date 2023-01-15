@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ChartTools.IO.Ini
+﻿namespace ChartTools.IO.Ini
 {
     public class IniKeySerializableAttribute : KeySerializableAttribute
     {

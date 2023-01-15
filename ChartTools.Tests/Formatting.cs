@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
+﻿namespace ChartTools.Tests;
 
-namespace ChartTools.Tests
+public static class Formatting
 {
-    public static class Formatting
-    {
-        public static string FormatCollection<T>(IEnumerable<T> items) => string.Join(' ', items);
-    }
+    public static string FormatCollection<T>(IEnumerable<T> items) => string.Join(' ', items);
 }

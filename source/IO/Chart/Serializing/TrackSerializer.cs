@@ -7,72 +7,67 @@ using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
 using ChartTools.Tools;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+namespace ChartTools.IO.Chart.Serializing;
 
-namespace ChartTools.IO.Chart.Serializing
+internal class TrackSerializer : TrackObjectGroupSerializer<Track>
 {
-    internal class TrackSerializer : TrackObjectGroupSerializer<Track>
+    public TrackSerializer(Track content, WritingSession session) : base(ChartFormatting.Header(content.ParentInstrument!.InstrumentIdentity, content.Difficulty), content, session) { }
+
+    public override IEnumerable<string> Serialize() => new OrderedAlternatingEnumerable<TrackObjectEntry, uint>(entry => entry.Position, LaunchProviders()).Select(entry => entry.ToString());
+
+    protected override IEnumerable<TrackObjectEntry>[] LaunchProviders()
     {
-        public TrackSerializer(Track content, WritingSession session) : base(ChartFormatting.Header(content.ParentInstrument!.InstrumentIdentity, content.Difficulty), content, session) { }
+        ApplyOverlappingSpecialPhrasePolicy(Content.SpecialPhrases, session.Configuration.OverlappingStarPowerPolicy);
 
-        public override IEnumerable<string> Serialize() => new OrderedAlternatingEnumerable<TrackObjectEntry, uint>(entry => entry.Position, LaunchProviders()).Select(entry => entry.ToString());
-
-        protected override IEnumerable<TrackObjectEntry>[] LaunchProviders()
+        // Convert solo and soloend events into star power
+        if (session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && Content.SpecialPhrases.Count == 0 && Content.LocalEvents is not null)
         {
-            ApplyOverlappingSpecialPhrasePolicy(Content.SpecialPhrases, session.Configuration.OverlappingStarPowerPolicy);
+            TrackSpecialPhrase? starPower = null;
 
-            // Convert solo and soloend events into star power
-            if (session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && Content.SpecialPhrases.Count == 0 && Content.LocalEvents is not null)
-            {
-                TrackSpecialPhrase? starPower = null;
-
-                foreach (var e in Content.LocalEvents)
-                    switch (e.EventType)
-                    {
-                        case EventTypeHelper.Local.Solo:
-                            if (starPower is not null)
-                            {
-                                starPower.Length = e.Position - starPower.Position;
-                                Content.SpecialPhrases.Add(starPower);
-                            }
-
-                            starPower = new(e.Position, TrackSpecialPhraseType.StarPowerGain);
-                            break;
-                        case EventTypeHelper.Local.SoloEnd when starPower is not null:
-
+            foreach (var e in Content.LocalEvents)
+                switch (e.EventType)
+                {
+                    case EventTypeHelper.Local.Solo:
+                        if (starPower is not null)
+                        {
                             starPower.Length = e.Position - starPower.Position;
                             Content.SpecialPhrases.Add(starPower);
+                        }
 
-                            starPower = null;
-                            break;
-                    }
+                        starPower = new(e.Position, TrackSpecialPhraseType.StarPowerGain);
+                        break;
+                    case EventTypeHelper.Local.SoloEnd when starPower is not null:
 
-                Content.LocalEvents.RemoveWhere(e => e.IsSoloEvent);
-            }
+                        starPower.Length = e.Position - starPower.Position;
+                        Content.SpecialPhrases.Add(starPower);
 
-            return new IEnumerable<TrackObjectEntry>[]
-            {
-                new ChordProvider().ProvideFor(Content.Chords.Cast<LaneChord>(), session),
-                new SpeicalPhraseProvider().ProvideFor(Content.SpecialPhrases, session!),
-                Content.LocalEvents is null ? Enumerable.Empty<TrackObjectEntry>() : new EventProvider().ProvideFor(Content.LocalEvents!, session!)
-            };
+                        starPower = null;
+                        break;
+                }
+
+            Content.LocalEvents.RemoveWhere(e => e.IsSoloEvent);
         }
 
-        private static void ApplyOverlappingSpecialPhrasePolicy(IEnumerable<TrackSpecialPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
+        return new IEnumerable<TrackObjectEntry>[]
         {
-            switch (policy)
-            {
-                case OverlappingSpecialPhrasePolicy.Cut:
-                    specialPhrases.CutLengths();
-                    break;
-                case OverlappingSpecialPhrasePolicy.ThrowException:
-                    foreach ((var previous, var current) in specialPhrases.RelativeLoopSkipFirst())
-                        if (Optimizer.LengthNeedsCut(previous, current))
-                            throw new Exception($"Overlapping star power phrases at position {current!.Position}.");
-                    break;
-            }
+            new ChordProvider().ProvideFor(Content.Chords.Cast<LaneChord>(), session),
+            new SpeicalPhraseProvider().ProvideFor(Content.SpecialPhrases, session!),
+            Content.LocalEvents is null ? Enumerable.Empty<TrackObjectEntry>() : new EventProvider().ProvideFor(Content.LocalEvents!, session!)
+        };
+    }
+
+    private static void ApplyOverlappingSpecialPhrasePolicy(IEnumerable<TrackSpecialPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
+    {
+        switch (policy)
+        {
+            case OverlappingSpecialPhrasePolicy.Cut:
+                specialPhrases.CutLengths();
+                break;
+            case OverlappingSpecialPhrasePolicy.ThrowException:
+                foreach ((var previous, var current) in specialPhrases.RelativeLoopSkipFirst())
+                    if (Optimizer.LengthNeedsCut(previous, current))
+                        throw new Exception($"Overlapping star power phrases at position {current!.Position}.");
+                break;
         }
     }
 }

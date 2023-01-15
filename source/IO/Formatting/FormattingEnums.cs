@@ -1,8 +1,5 @@
-﻿using System;
+﻿namespace ChartTools.IO.Formatting;
 
-namespace ChartTools.IO.Formatting
-{
-    [Flags] public enum AlbumTrackKey : byte { AlbumTrack, Track }
-    [Flags] public enum CharterKey : byte { Charter, Frets }
-    public enum HopoFrequencyStep : byte { TwentyFourth, Sixteenth, Twelveth, Eight, Sixth, Fourth }
-}
+[Flags] public enum AlbumTrackKey : byte { AlbumTrack, Track }
+[Flags] public enum CharterKey : byte { Charter, Frets }
+public enum HopoFrequencyStep : byte { TwentyFourth, Sixteenth, Twelveth, Eight, Sixth, Fourth }

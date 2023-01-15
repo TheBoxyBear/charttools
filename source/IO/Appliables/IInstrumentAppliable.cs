@@ -1,7 +1,6 @@
-﻿namespace ChartTools.IO
+﻿namespace ChartTools.IO;
+
+internal interface IInstrumentAppliable<TChord> where TChord : IChord
 {
-    internal interface IInstrumentAppliable<TChord> where TChord : IChord
-    {
-        public void ApplyToInstrument(Instrument<TChord> instrument);
-    }
+    public void ApplyToInstrument(Instrument<TChord> instrument);
 }

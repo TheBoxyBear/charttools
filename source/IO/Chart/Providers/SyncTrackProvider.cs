@@ -2,36 +2,33 @@
 using ChartTools.IO.Configuration.Sessions;
 using ChartTools.Extensions.Linq;
 
-using System.Collections.Generic;
+namespace ChartTools.IO.Chart.Providers;
 
-namespace ChartTools.IO.Chart.Providers
+internal abstract class SyncTrackProvider<T> : ISerializerDataProvider<T, TrackObjectEntry> where T : TrackObjectBase
 {
-    internal abstract class SyncTrackProvider<T> : ISerializerDataProvider<T, TrackObjectEntry> where T : TrackObjectBase
+    protected abstract string ObjectType { get; }
+
+    public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<T> source, WritingSession session)
     {
-        protected abstract string ObjectType { get; }
+        List<uint> orderedPositions = new();
 
-        public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<T> source, WritingSession session)
+        foreach (var item in source)
         {
-            List<uint> orderedPositions = new();
-
-            foreach (var item in source)
+            if (session.DuplicateTrackObjectProcedure(item.Position, ObjectType, () =>
             {
-                if (session.DuplicateTrackObjectProcedure(item.Position, ObjectType, () =>
-                {
-                    var index = orderedPositions.BinarySearchIndex(item.Position, out bool exactMatch);
+                var index = orderedPositions.BinarySearchIndex(item.Position, out bool exactMatch);
 
-                    if (!exactMatch)
-                        orderedPositions.Insert(index, item.Position);
+                if (!exactMatch)
+                    orderedPositions.Insert(index, item.Position);
 
-                    return exactMatch;
-                }))
-                    foreach (var entry in GetEntries(item))
-                        yield return entry;
+                return exactMatch;
+            }))
+                foreach (var entry in GetEntries(item))
+                    yield return entry;
 
-                orderedPositions.Add(item.Position);
-            }
+            orderedPositions.Add(item.Position);
         }
-
-        protected abstract IEnumerable<TrackObjectEntry> GetEntries(T item);
     }
+
+    protected abstract IEnumerable<TrackObjectEntry> GetEntries(T item);
 }
