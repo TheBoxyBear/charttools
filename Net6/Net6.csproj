@@ -1,15 +1,33 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <RootNamespace>ChartTools</RootNamespace>
+    <AssemblyName>ChartTools</AssemblyName>
+    <DebugType>embedded</DebugType>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>$(OutDir)ChartTools.xml</DocumentationFile>
+    <BaseOutputPath>$(ProjectDir)..\build\net5</BaseOutputPath>
+    <Configurations>Debug;Release;Docs</Configurations>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <Import Project="..\source\source.projitems" Label="Shared" />
 
   <ItemGroup>
-    <PackageReference Include="Melanchall.DryWetMidi.Nativeless" Version="6.1.3" />
+    <Compile Remove="bin\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <None Remove="bin\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="ChartTools.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Melanchall.DryWetMidi.Nativeless" Version="6.1.4" />
+  </ItemGroup>
 </Project>
