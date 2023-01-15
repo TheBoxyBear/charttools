@@ -94,8 +94,7 @@ public static class TempoRescaler
         foreach (var instrument in song.Instruments)
             instrument.Rescale(scale);
 
-        if (song.SyncTrack is not null)
-            song.SyncTrack.Rescale(scale);
+        song.SyncTrack?.Rescale(scale);
 
         if (song.GlobalEvents is not null)
             foreach (var e in song.GlobalEvents)
