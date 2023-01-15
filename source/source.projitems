@@ -105,7 +105,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\InstrumentParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\LaneInstrumentParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\TitleSyncTrackParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Providers\MidiProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Serialization\InstrumentSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Serialization\TrackObjectGroupSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Serialization\TrackSerializer.cs" />

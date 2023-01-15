@@ -5,12 +5,6 @@ using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Formatting;
 using ChartTools.IO.Midi.Mapping;
-using ChartTools.IO.Midi.Parsing;
-
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ChartTools;
 
@@ -53,7 +47,7 @@ public record StandardInstrument : Instrument<StandardChord>
         InstrumentIdentity = identity;
     }
 
-protected override InstrumentIdentity GetIdentity() => (InstrumentIdentity)InstrumentIdentity;
+    protected override InstrumentIdentity GetIdentity() => (InstrumentIdentity)InstrumentIdentity;
 
     #region File reading
     [Obsolete($"Use {nameof(ChartFile.ReadInstrument)}.")]
@@ -65,19 +59,6 @@ protected override InstrumentIdentity GetIdentity() => (InstrumentIdentity)Instr
 
     [Obsolete($"Use {nameof(ChartFile.ReadInstrumentAsync)}.")]
     public static async Task<StandardInstrument?> FromFileAsync(string path, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync(path, (".chart", path => ChartFile.ReadInstrumentAsync(path, instrument, config, formatting, cancellationToken)));
-#region File reading
-/// <summary>
-/// Reads a standard instrument from a file.
-/// </summary>
-public static StandardInstrument? FromFile(string path, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default)
-{
-    Validator.ValidateEnum(instrument);
-    return ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadInstrument(path, instrument, config, formatting)));
-}
-/// <summary>
-/// Reads a standard instrument from a file asynchronously using multitasking.
-/// </summary>
-public static async Task<StandardInstrument?> FromFileAsync(string path, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync(path, (".chart", path => ChartFile.ReadInstrumentAsync(path, instrument, config, formatting, cancellationToken)));
 
     [Obsolete($"Use {nameof(ChartFile.ReadInstrument)} with {nameof(Metadata.Formatting)}.")]
     public static DirectoryResult<StandardInstrument?> FromDirectory(string directory, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, instrument, config, formatting));

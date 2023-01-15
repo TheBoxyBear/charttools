@@ -19,17 +19,8 @@ public record GHLInstrument : Instrument<GHLChord>
         InstrumentIdentity = identity;
     }
 
-protected override InstrumentIdentity GetIdentity() => (InstrumentIdentity)InstrumentIdentity;
+    protected override InstrumentIdentity GetIdentity() => (InstrumentIdentity)InstrumentIdentity;
 
-#region File reading
-/// <summary>
-/// Reads a GHL instrument from a file.
-/// </summary>
-public static GHLInstrument? FromFile(string path, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadInstrument(path, instrument, config, formatting)));
-/// <summary>
-/// Reads a GHL instrument from a file asynchronously using multitasking.
-/// </summary>
-public static async Task<GHLInstrument?> FromFileAsync(string path, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync(path, (".chart", path => ChartFile.ReadInstrumentAsync(path, instrument, config, formatting, cancellationToken)));
     #region File reading
     [Obsolete($"Use {nameof(ChartFile.ReadInstrument)}.")]
     public static GHLInstrument? FromFile(string path, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadInstrument(path, instrument, config, formatting)));
@@ -45,7 +36,7 @@ public static async Task<GHLInstrument?> FromFileAsync(string path, GHLInstrumen
 
     internal override InstrumentMapper<GHLChord> GetMidiMapper(WritingSession session)
     {
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
     }
     #endregion
 }
