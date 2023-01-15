@@ -2,20 +2,14 @@
 This guide will cover alternate techniques that will improve performance when using ChartTools.
 
 ## Single components
-Rather than performing IO operation on entire songs, such operations can be made on individual components.
+Rather than performing IO operation on entire songs, such operations can be made on individual components. When writing a component to an existing file, the parts of the file regarding the component will be modified.
 
 ```c#
-(StandardInstrument guitar, Metadata metadata) = StandardInstrument.FromDirectory(directory, StandardInstrumentIdentity.LeadGuitar);
-guitar.ToFile(path, <WritingConfiguration>, metadata.Formatting);
+Metadata metadata = Metadata.FromFile(path);
+StandardInstrument guitar = ChartFile.ReadInstrument(path, <WritingConfiguration>, metadata.Formatting);
 ```
 
-When writing a component to an existing file, the parts of the file regarding the component will be modified.
-
-When reading a component of a chart whose metadata has already been read, you may use the `FromFile` method along with the existing formatting.
-
-```c#
-StandardInstrument guitar = StandardInstrument.FromFile(path, StandardInstrumentIdentity.LeadGuitar, <ReadingConfiguration>, metadata.Formatting);
-```
+> **NOTE**: Due to complications with implementing Midi support, operations on single instruments and tracks through their respective class have been deprecated. These operations must now be performed through the respective format class such as ChartFile.
 
 ## Configuration
 By default, IO operations make multiple integrity checks to resolve errors. These checks can be configured or skipped by using a `Configuration` object. [Learn more about configuring IO operations](Configuration.md).
