@@ -311,16 +311,16 @@ public static class EnumerableExtensions
             yield return (previous, enumerator.Current);
     }
 
-        #region Unique
-        /// <summary>
-        /// Returns distinct elements of a sequence using a method to determine the equality of elements
-        /// </summary>
-        /// <param name="comparison">Method that determines if two elements are the same</param>
-        public static IEnumerable<T> Distinct<T>(this IEnumerable<T> source, EqualityComparison<T?> comparison) => source.Distinct(new FuncEqualityComparer<T>(comparison));
-        public static bool Unique<T>(this IEnumerable<T> source) => UniqueFromDistinct(source.Distinct());
-        public static bool UniqueBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) => UniqueFromDistinct(source.DistinctBy(selector));
-        private static bool UniqueFromDistinct<T>(IEnumerable<T> distinct) => !distinct.Skip(1).Any();
-        #endregion
+    #region Unique
+    /// <summary>
+    /// Returns distinct elements of a sequence using a method to determine the equality of elements
+    /// </summary>
+    /// <param name="comparison">Method that determines if two elements are the same</param>
+    public static IEnumerable<T> Distinct<T>(this IEnumerable<T> source, EqualityComparison<T?> comparison) => source.Distinct(new FuncEqualityComparer<T>(comparison));
+    public static bool Unique<T>(this IEnumerable<T> source) => UniqueFromDistinct(source.Distinct());
+    public static bool UniqueBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) => UniqueFromDistinct(source.DistinctBy(selector));
+    private static bool UniqueFromDistinct<T>(IEnumerable<T> distinct) => !distinct.Skip(1).Any();
+    #endregion
 
     #region MinMax
     /// <summary>
@@ -344,25 +344,25 @@ public static class EnumerableExtensions
             {
                 TKey key = selector(enumerator.Current);
 
-                    if (comparison(key, minMaxKey))
-                        minMaxKey = key;
-                }
+                if (comparison(key, minMaxKey))
+                    minMaxKey = key;
             }
-            return source.Where(t => selector(t).CompareTo(minMaxKey) == 0);
         }
-        /// <summary>
-        /// Finds the items for which a function returns the smallest value.
-        /// </summary>
-        /// <param name="source">Items to find the minimum or maximum of</param>
-        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
-        public static IEnumerable<T> ManyMinBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) < 0);
-        /// <summary>
-        /// Finds the items for which a function returns the greatest value.
-        /// </summary>
-        /// <param name="source">Items to find the minimum or maximum of</param>
-        /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
-        public static IEnumerable<T> ManyMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) > 0);
-        #endregion
+        return source.Where(t => selector(t).CompareTo(minMaxKey) == 0);
+    }
+    /// <summary>
+    /// Finds the items for which a function returns the smallest value.
+    /// </summary>
+    /// <param name="source">Items to find the minimum or maximum of</param>
+    /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
+    public static IEnumerable<T> ManyMinBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) < 0);
+    /// <summary>
+    /// Finds the items for which a function returns the greatest value.
+    /// </summary>
+    /// <param name="source">Items to find the minimum or maximum of</param>
+    /// <param name="selector">Function that gets the key to use in the comparison from an item</param>
+    public static IEnumerable<T> ManyMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) > 0);
+    #endregion
 
     public static async IAsyncEnumerable<T> ToAsyncEnumerable<T>(this IEnumerable<T> source)
     {

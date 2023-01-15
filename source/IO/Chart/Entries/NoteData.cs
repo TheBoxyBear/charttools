@@ -3,7 +3,7 @@
 /// <summary>
 /// Line of chart data representing a <see cref="LaneNote{TLane}"/>
 /// </summary>
-internal ref struct NoteData
+internal readonly ref struct NoteData
 {
     /// <summary>
     /// Value of <see cref="LaneNote{TLane}.Index"/>

@@ -83,7 +83,7 @@ public class UniqueTests
         var list = GetList();
         list.Insert(0, missingItem);
 
-        Assert.AreEqual(string.Join(' ', new byte[] { 10 }.Concat(expectedArray)), Formatting.FormatCollection(list));
+        Assert.AreEqual(string.Join(' ', "\n"u8.ToArray().Concat(expectedArray)), Formatting.FormatCollection(list));
     }
     [TestMethod] public void InsertExistingItem()
     {

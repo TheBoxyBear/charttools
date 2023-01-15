@@ -30,7 +30,7 @@ public static class TempoRescaler
     /// </summary>
     /// <param name="tempo">Marker to rescale</param>
     /// <param name="scale">Positive number where 1 is the current scale.</param>
-    public static void Rescale(Tempo tempo, float scale)
+    public static void Rescale(this Tempo tempo, float scale)
     {
         tempo.Position = (uint)(tempo.Position * scale);
         tempo.Value *= scale;

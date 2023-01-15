@@ -16,20 +16,7 @@ public async Task StartAsyncParse(IEnumerable<T> items)
 
         try { FinaliseParse(); }
         catch (Exception e) { throw GetFinalizeException(e); }
-    }
-    public async Task StartAsyncParse(IEnumerator<T> enumerator)
-    {
-        await Task.Run(() => ParseBase(enumerator));
-
-        try { FinaliseParse(); }
-        catch (Exception e) { throw GetFinalizeException(e); }
-    }
-    public void Parse(IEnumerable<T> items)
-    {
-        ParseBase(items);
-
-        try { FinaliseParse(); }
-        catch (Exception e) { throw GetFinalizeException(e); }
+#endif
     }
     public void Parse(IEnumerator<T> enumerator)
     {

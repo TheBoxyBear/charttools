@@ -3,7 +3,7 @@
 /// <summary>
 /// Wrapper type for <see cref="VocalPitchValue"/> with helper properties to get the pitch and key
 /// </summary>
-public struct VocalsPitch : IEquatable<VocalsPitch>, IEquatable<VocalPitchValue>
+public readonly struct VocalsPitch : IEquatable<VocalsPitch>, IEquatable<VocalPitchValue>
 {
     /// <summary>
     /// Raw pitch value
