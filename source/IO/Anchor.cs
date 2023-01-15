@@ -1,6 +1,6 @@
 ﻿namespace ChartTools.IO;
 
-internal struct Anchor : IReadOnlyTrackObject
+internal readonly struct Anchor : IReadOnlyTrackObject
 {
     public uint Position { get; }
     public TimeSpan Value { get; }

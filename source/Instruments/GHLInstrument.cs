@@ -15,16 +15,16 @@ public record GHLInstrument : Instrument<GHLChord>
     protected override InstrumentIdentity GetIdentity() => (InstrumentIdentity)InstrumentIdentity;
 
     #region File reading
-    /// <summary>
-    /// Reads a GHL instrument from a file.
-    /// </summary>
+    [Obsolete($"Use {nameof(ChartFile.ReadInstrument)}.")]
     public static GHLInstrument? FromFile(string path, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadInstrument(path, instrument, config, formatting)));
-    /// <summary>
-    /// Reads a GHL instrument from a file asynchronously using multitasking.
-    /// </summary>
+
+    [Obsolete($"Use {nameof(ChartFile.ReadInstrumentAsync)}.")]
     public static async Task<GHLInstrument?> FromFileAsync(string path, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync(path, (".chart", path => ChartFile.ReadInstrumentAsync(path, instrument, config, formatting, cancellationToken)));
 
+    [Obsolete($"Use {nameof(ChartFile.ReadInstrument)} with {nameof(Metadata.Formatting)}.")]
     public static DirectoryResult<GHLInstrument?> FromDirectory(string directory, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, instrument, config, formatting));
+
+    [Obsolete($"Use {nameof(ChartFile.ReadInstrumentAsync)} with {nameof(Metadata.Formatting)}.")]
     public static Task<DirectoryResult<GHLInstrument?>> FromDirectoryAsync(string directory, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, instrument, config, formatting, cancellationToken), cancellationToken);
     #endregion
 }

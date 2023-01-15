@@ -160,7 +160,7 @@ public static class ChartFile
     /// </returns>
     /// <param name="path">Path of the file to read</param>
     public static Vocals? ReadVocals(string path) => BuildVocals(ReadGlobalEvents(path));
-    public static async Task<Vocals?> ReadVocalsAsync(string path, CancellationToken cancellationToken = default) => BuildVocals(await ReadGlobalEventsAsync(path));
+    public static async Task<Vocals?> ReadVocalsAsync(string path, CancellationToken cancellationToken = default) => BuildVocals(await ReadGlobalEventsAsync(path, cancellationToken));
     private static Vocals? BuildVocals(List<GlobalEvent> events)
     {
         var lyrics = events.GetLyrics().ToArray();

@@ -3,7 +3,7 @@
 /// <summary>
 /// Line of chart file data representing a <see cref="TrackObjectBase"/>
 /// </summary>
-internal struct TrackObjectEntry : IReadOnlyTrackObject
+internal readonly struct TrackObjectEntry : IReadOnlyTrackObject
 {
     /// <summary>
     /// Value of <see cref="ITrackObject.Position"/>

@@ -10,16 +10,16 @@ public record Drums : Instrument<DrumsChord>
     protected override InstrumentIdentity GetIdentity() => InstrumentIdentity.Drums;
 
     #region File reading
-    /// <summary>
-    /// Reads drums from a file.
-    /// </summary>
+    [Obsolete($"Use {nameof(ChartFile.ReadDrums)}.")]
     public static Drums? FromFile(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadDrums(path, config, formatting)));
-    /// <summary>
-    /// Reads drums from a file asynchronously using multitasking.
-    /// </summary>
+
+    [Obsolete($"Use {nameof(ChartFile.ReadDrumsAsync)}.")]
     public static async Task<Drums?> FromFileAsync(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync<Drums?>(path, (".chart", path => ChartFile.ReadDrumsAsync(path, config, formatting, cancellationToken)));
 
+    [Obsolete($"Use {nameof(ChartFile.ReadDrums)} with {nameof(Metadata.Formatting)}.")]
     public static DirectoryResult<Drums?> FromDirectory(string directory, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, config, formatting));
+
+    [Obsolete($"Use {nameof(ChartFile.ReadDrumsAsync)} with {nameof(Metadata.Formatting)}.")]
     public static Task<DirectoryResult<Drums?>> FromDirectoryAsync(string directory, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, config, formatting, cancellationToken), cancellationToken);
     #endregion
 }

@@ -26,12 +26,9 @@ public class LaneNoteCollection<TNote, TLane> : ICollection<TNote>, IReadOnlyLis
     public void Add(TNote note) => AddNonNull(note ?? throw new ArgumentNullException(nameof(note)));
     private void AddNonNull(TNote note)
     {
-        if (OpenExclusivity && (note.Index == 0 || Count == 1 && this.First().Index == 0)) // An open note is present and needs to be removed
+        if (OpenExclusivity && (note.Index == 0 || Count == 1 && this[0].Index == 0)) // An open note is present and needs to be removed
             Clear();
-        float f = 1;
-        int i = 1;
 
-        var r = f / i;
         _notes.Add(note);
     }
 

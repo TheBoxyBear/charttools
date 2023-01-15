@@ -3,7 +3,7 @@
     /// <summary>
     /// Line of text file data
     /// </summary>
-    internal struct TextEntry
+    internal readonly struct TextEntry
     {
         /// <summary>
         /// Text before the equal sign
