@@ -8,15 +8,14 @@ internal abstract class FileParser<T>
     public abstract object? Result { get; }
     protected ReadingSession session;
 
-public FileParser(ReadingSession session) => this.session = session;
+    public FileParser(ReadingSession session) => this.session = session;
 
-public async Task StartAsyncParse(IEnumerable<T> items)
-{
-    await Task.Run(() => ParseBase(items));
+    public async Task StartAsyncParse(IEnumerable<T> items)
+    {
+        await Task.Run(() => ParseBase(items));
 
         try { FinaliseParse(); }
         catch (Exception e) { throw GetFinalizeException(e); }
-#endif
     }
     public void Parse(IEnumerator<T> enumerator)
     {
@@ -38,12 +37,12 @@ public async Task StartAsyncParse(IEnumerable<T> items)
             catch (Exception e) { throw GetHandleException(enumerator.Current, e); }
     }
 
-protected abstract void HandleItem(T item);
+    protected abstract void HandleItem(T item);
 
-protected virtual void FinaliseParse() => ResultReady = true;
+    protected virtual void FinaliseParse() => ResultReady = true;
 
-protected TResult GetResult<TResult>(TResult result) => ResultReady ? result : throw new Exception("Result is not ready.");
+    protected TResult GetResult<TResult>(TResult result) => ResultReady ? result : throw new Exception("Result is not ready.");
 
-protected abstract Exception GetHandleException(T item, Exception innerException);
-protected abstract Exception GetFinalizeException(Exception innerException);
+    protected abstract Exception GetHandleException(T item, Exception innerException);
+    protected abstract Exception GetFinalizeException(Exception innerException);
 }

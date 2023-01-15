@@ -42,7 +42,7 @@ internal abstract class FileReader<T, TParser> : FileReader<T> where TParser : F
         ReadBase(false, CancellationToken.None);
 
         foreach (var group in parserGroups)
-            group.Parser.Parse(group.Source.Enumerable.EnumerateSynchronously());
+            group.Parser.Parse(group.Source.Enumerable.EnumerateSynchronously().GetEnumerator());
 
         IsReading = false;
     }
