@@ -1,6 +1,6 @@
 ﻿namespace ChartTools.IO.Midi.Mapping;
 
-internal struct TrackObjectMappingResult : IReadOnlyTrackObject
+internal readonly struct TrackObjectMappingResult : IReadOnlyTrackObject
 {
     public uint Position { get; }
     public Difficulty Difficulty { get; }

@@ -25,7 +25,7 @@ public record Vocals : Instrument<Phrase>
 
     internal override InstrumentMapper<Phrase> GetMidiMapper(WritingSession session)
     {
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
     }
     #endregion
 }

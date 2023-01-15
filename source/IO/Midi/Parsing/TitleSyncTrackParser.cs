@@ -10,7 +10,7 @@ internal class TitleSyncTrackParser : MidiParser
 {
     public override TitleSyncTraskResult Result => GetResult(result);
     protected readonly TitleSyncTraskResult result;
-    private List<Tempo> tempos = new();
+    private readonly List<Tempo> tempos = new();
 
     private uint? previousSignaturePosition, previousTempoPosition;
 
