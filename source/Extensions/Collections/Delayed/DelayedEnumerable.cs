@@ -27,6 +27,5 @@ public class DelayedEnumerable<T> : IEnumerable<T>, IDisposable
     public IEnumerator<T> GetEnumerator() => enumerator;
     IEnumerator IEnumerable.GetEnumerator() => enumerator;
 
-
     public void Dispose() => enumerator.Dispose();
 }
