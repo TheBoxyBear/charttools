@@ -1,6 +1,6 @@
 ﻿namespace ChartTools.IO.Sections;
 
-public struct ReservedSectionHeader
+public readonly struct ReservedSectionHeader
 {
     public string Header { get; }
     public string DataSource { get; }
