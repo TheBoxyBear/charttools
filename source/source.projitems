@@ -89,6 +89,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Notes\LaneNoteGeneric.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sampling\ISample.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sampling\Sample.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sampling\SampleSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sampling\TrackSample.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Special\InstrumentSpecialPhrase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Special\SpecialPhrase.cs" />
