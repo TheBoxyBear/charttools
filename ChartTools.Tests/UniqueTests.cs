@@ -1,5 +1,6 @@
 ﻿using ChartTools.Extensions;
 using ChartTools.Extensions.Collections;
+using ChartTools.Extensions.Collections.Unique;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -10,27 +11,17 @@ public class UniqueTests
 {
     static readonly byte[] testItems = new byte[] { 1, 2, 2, 5, 2, 5, 7 };
     static readonly byte[] expectedArray = new byte[] { 1, 2, 5, 7 };
-    static readonly EqualityComparison<byte> comparison = (a, b) => a == b;
+    static readonly Func<byte, byte> comparison = a => a;
     const string expectedString = "1 2 5 7";
     const byte missingItem = 10;
 
     [TestMethod] public void Count() => Assert.AreEqual(expectedArray.Length, GetList().Count);
-    [TestMethod] public void IndexGetter() => Assert.AreEqual(2, GetList()[1]);
-    [TestMethod] public void IndexSetter()
-    {
-        var list = GetList();
-        list[1] = 5;
-
-        Assert.AreEqual("1 5 7", Formatting.FormatCollection(list));
-    }
-
-    [TestMethod] public void CreateListNullComparison() => Assert.ThrowsException<ArgumentNullException>(() => new UniqueList<byte>(null!));
-    [TestMethod] public void CreateListNegativeCapacity() => Assert.ThrowsException<ArgumentOutOfRangeException>(() => new UniqueList<byte>(comparison, -1));
-    [TestMethod] public void CreateListStartingItems() => Assert.AreEqual(expectedString, Formatting.FormatCollection(new UniqueList<byte>(comparison, testItems.Length, testItems)));
+    [TestMethod] public void CreateListNullSelector() => Assert.ThrowsException<ArgumentNullException>(() => new UniqueCollection<byte, byte>(null!));
+    [TestMethod] public void CreateListStartingItems() => Assert.AreEqual(expectedString, Formatting.FormatCollection(new UniqueSelfCollection<byte>(testItems)));
 
     [TestMethod] public void Add()
     {
-        var list = new UniqueList<byte>(comparison);
+        var list = new UniqueCollection<byte, byte>(comparison);
 
         foreach (byte item in testItems)
             list.Add(item);
@@ -39,7 +30,7 @@ public class UniqueTests
     }
     [TestMethod] public void AddRange()
     {
-        var list = new UniqueList<byte>(comparison);
+        var list = new UniqueCollection<byte, byte>(comparison);
         list.AddRange(testItems);
 
         Assert.AreEqual(expectedString, Formatting.FormatCollection(list));
@@ -70,28 +61,6 @@ public class UniqueTests
 
         Assert.AreEqual(Formatting.FormatCollection(expectedArray),  Formatting.FormatCollection(result));
     }
-    [TestMethod] public void IndexOf()
-    {
-        var list = GetList();
-
-        for (int i = 0; i < expectedArray.Length; i++)
-            Assert.AreEqual(i, list.IndexOf(expectedArray[i]));
-    }
-    [TestMethod] public void IndexOfMissingItem() => Assert.AreEqual(-1, GetList().IndexOf(missingItem));
-    [TestMethod] public void InsertMissingItem()
-    {
-        var list = GetList();
-        list.Insert(0, missingItem);
-
-        Assert.AreEqual(string.Join(' ', "\n"u8.ToArray().Concat(expectedArray)), Formatting.FormatCollection(list));
-    }
-    [TestMethod] public void InsertExistingItem()
-    {
-        var list = GetList();
-        list.Insert(0, 5);
-
-        Assert.AreEqual("5 1 2 7", Formatting.FormatCollection(list));
-    }
     [TestMethod] public void RemoveMissingItem() => Assert.IsFalse(GetList().Remove(missingItem));
     [TestMethod] public void RemoveExistingItem()
     {
@@ -100,15 +69,5 @@ public class UniqueTests
         Assert.IsTrue(list.Remove(5));
         Assert.AreEqual("1 2 7", Formatting.FormatCollection(list));
     }
-    [TestMethod] public void RemoteAtNegativeIndex() => Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetList().RemoveAt(-1));
-    [TestMethod] public void RemoteAtHighIndex() => Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetList().RemoveAt(int.MaxValue));
-    [TestMethod] public void RemoveAt()
-    {
-        var list = GetList();
-        list.RemoveAt(2);
-
-        Assert.AreEqual("1 2 7", Formatting.FormatCollection(list));
-    }
-
-    private static UniqueList<byte> GetList() => new(comparison, testItems.Length, testItems);
+    private static UniqueSelfCollection<byte> GetList() => new(testItems);
 }
