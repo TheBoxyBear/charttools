@@ -1,14 +1,39 @@
-﻿using ChartTools.Extensions;
-using ChartTools.Extensions.Collections;
+﻿using System.Collections;
 
-namespace ChartTools;
+namespace ChartTools.Extensions.Collections;
 
 /// <summary>
 /// Set of track objects where each one must have a different position
 /// </summary>
-public class UniqueTrackObjectCollection<T> : UniqueList<T> where T : ITrackObject
+public class UniqueTrackObjectCollection<T> : ICollection<T> where T : ITrackObject
 {
-    static readonly EqualityComparison<T> comparison = (a, b) => a is null || b is null || a.Position == b.Position;
+    private readonly Dictionary<uint, T> items;
 
-    public UniqueTrackObjectCollection(int capacity = 0, IEnumerable<T>? items = null) : base(comparison, capacity, items) { }
+    public UniqueTrackObjectCollection(IEnumerable<T>? items = null) => this.items = items is null ? new() : items.ToDictionary(i => i.Position);
+
+    public int Count => items.Count;
+    bool ICollection<T>.IsReadOnly => false;
+
+    private void RemoveDuplicate(T item)
+    {
+        if (items.ContainsKey(item.Position))
+            items.Remove(item.Position);
+    }
+
+    public void Add(T item)
+    {
+        RemoveDuplicate(item);
+        items.Add(item.Position, item);
+    }
+
+    public void Clear() => items.Clear();
+
+    public bool Contains(T item) => items.ContainsKey(item.Position);
+
+    public void CopyTo(T[] array, int arrayIndex) => items.Values.CopyTo(array, arrayIndex);
+
+    public bool Remove(T item) => items.Remove(item.Position);
+
+    public IEnumerator<T> GetEnumerator() => items.Values.GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }
