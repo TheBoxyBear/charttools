@@ -85,7 +85,7 @@ internal class IniParser : TextParser, ISongAppliable
                 result.LoadingText = entry.Value;
                 break;
             case IniFormatting.Modchart:
-                result.IsModchart = ValueParser.ParseBool(entry.Value, "modchart");
+                result.IsModchart = ValueParser.ParseInt(entry.Value, "modchart") == 1;
                 break;
             case IniFormatting.GuitarDifficulty:
                 result.InstrumentDifficulties.Guitar = ValueParser.ParseSbyte(entry.Value, "guitar difficulty");
