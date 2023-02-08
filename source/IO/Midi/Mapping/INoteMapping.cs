@@ -6,7 +6,6 @@ namespace ChartTools.IO.Midi.Mapping;
 internal interface INoteMapping : IMidiEventMapping
 {
     public SevenBitNumber NoteNumber { get; }
-    public Difficulty? Difficulty { get; }
     public NoteState State { get; }
 
     MidiEvent IMidiEventMapping.ToMidiEvent(uint delta)

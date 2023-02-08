@@ -107,9 +107,4 @@ internal class GuitarBassMapper : InstrumentMapper<StandardChord>
     {
         throw new NotImplementedException();
     }
-
-    public override IEnumerable<NoteMapping> Map(Track<StandardChord> track)
-    {
-        throw new NotImplementedException();
-    }
 }

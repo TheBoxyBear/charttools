@@ -34,43 +34,45 @@ internal class GHGemsMapper : InstrumentMapper<StandardChord>
         yield return new(position, e, difficulty, type, (byte)newAdjusted);
     }
 
-    public override IEnumerable<NoteMapping> Map(Instrument<StandardChord> instrument) => instrument.GetExistingTracks().SelectMany(Map);
-    public override IEnumerable<NoteMapping> Map(Track<StandardChord> track)
+    public override IEnumerable<NoteMapping> Map(Instrument<StandardChord> instrument)
     {
-        var offset = track.Difficulty switch
+        foreach (var track in instrument.GetExistingTracks())
         {
-            Difficulty.Easy => 60,
-            Difficulty.Medium => 72,
-            Difficulty.Hard => 84,
-            Difficulty.Expert => 96,
-            _ => throw new UndefinedEnumException(track.Difficulty)
-        };
-
-        foreach (var chord in track.Chords.Where(c => c.Modifiers == StandardChordModifiers.None || WritingSession!.UnsupportedModifiersProcedure(c).HasFlag(Configuration.UnsupportedModifiersResults.Chord)))
-            foreach (var note in chord.Notes)
+            var offset = track.Difficulty switch
             {
-                var sevenBitIndex = new SevenBitNumber((byte)(note.Index + offset));
-
-                yield return new(chord.Position, track.Difficulty, NoteState.Open, sevenBitIndex);
-                yield return new(chord.Position + note.Sustain, track.Difficulty, NoteState.Close, sevenBitIndex);
-            }
-
-        foreach (var special in track.SpecialPhrases)
-        {
-            var index = special.Type switch
-            {
-                TrackSpecialPhraseType.StarPowerGain => 8,
-                TrackSpecialPhraseType.Player1FaceOff => 10,
-                TrackSpecialPhraseType.Player2FaceOff => 11,
-                _ => -1
+                Difficulty.Easy => 60,
+                Difficulty.Medium => 72,
+                Difficulty.Hard => 84,
+                Difficulty.Expert => 96,
+                _ => throw new UndefinedEnumException(track.Difficulty)
             };
 
-            if (index is not -1)
-            {
-                var sevenBitIndex = new SevenBitNumber((byte)(index + offset));
+            foreach (var chord in track.Chords.Where(c => c.Modifiers == StandardChordModifiers.None || WritingSession!.UnsupportedModifiersProcedure(c).HasFlag(Configuration.UnsupportedModifiersResults.Chord)))
+                foreach (var note in chord.Notes)
+                {
+                    var sevenBitIndex = new SevenBitNumber((byte)(note.Index + offset));
 
-                yield return new(special.Position, track.Difficulty, NoteState.Open, sevenBitIndex);
-                yield return new(special.EndPosition, track.Difficulty, NoteState.Close, sevenBitIndex);
+                    yield return new(chord.Position, NoteState.Open, sevenBitIndex);
+                    yield return new(chord.Position + note.Sustain, NoteState.Close, sevenBitIndex);
+                }
+
+            foreach (var special in track.SpecialPhrases)
+            {
+                var index = special.Type switch
+                {
+                    TrackSpecialPhraseType.StarPowerGain => 8,
+                    TrackSpecialPhraseType.Player1FaceOff => 10,
+                    TrackSpecialPhraseType.Player2FaceOff => 11,
+                    _ => -1
+                };
+
+                if (index is not -1)
+                {
+                    var sevenBitIndex = new SevenBitNumber((byte)(index + offset));
+
+                    yield return new(special.Position, NoteState.Open, sevenBitIndex);
+                    yield return new(special.EndPosition, NoteState.Close, sevenBitIndex);
+                }
             }
         }
     }

@@ -1,6 +1,8 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Midi.Mapping;
 
+using Melanchall.DryWetMidi.Core;
+
 namespace ChartTools.IO.Midi.Parsing;
 
 internal abstract class InstrumentParser<TChord> : MidiParser where TChord : IChord, new()
@@ -9,12 +11,10 @@ internal abstract class InstrumentParser<TChord> : MidiParser where TChord : ICh
 
     public override Instrument<TChord> Result => GetResult(GetInstrument());
 
-    protected readonly InstrumentMapper<TChord> mapper;
-
-    protected InstrumentParser(InstrumentMapper<TChord> mapper, ReadingSession session) : base(session) => this.mapper = mapper;
+    protected InstrumentParser(ReadingSession session) : base(session) => ArgumentNullException.ThrowIfNull(session, nameof(session));
 
     protected abstract Instrument<TChord> GetInstrument();
-
+    protected abstract IEnumerable<NoteEventMapping> MapNoteEvent(uint position, NoteEvent e);
     protected override void FinaliseParse()
     {
         foreach (var track in tracks)

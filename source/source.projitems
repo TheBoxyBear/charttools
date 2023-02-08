@@ -39,8 +39,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Collections\Delayed\DelayedEnumerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Collections\EagerEnumerable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Collections\IInitializable.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\Collections\Unique\UniqueList.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\Collections\Unique\UniqueListEquatable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\EnumCache.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\EqualityComparison.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\FuncEqualityComparer.cs" />
@@ -48,6 +46,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Linq\CollectionExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Linq\EnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Linq\SectionReplacement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\TypePassthrough.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Instruments\Drums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Instruments\GHLInstrument.cs" />
@@ -100,6 +99,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFormatting.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GHGemsParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GlobalEventParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GuitarBassParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\InstrumentParser.cs" />
@@ -107,7 +107,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\TitleSyncTrackParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Serialization\InstrumentSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Serialization\TrackObjectGroupSerializer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Serialization\TrackSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Parsers\SectionParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\ReservedSectionHeader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Sections\ReservedSectionHeaderSet.cs" />

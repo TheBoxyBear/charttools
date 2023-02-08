@@ -5,6 +5,8 @@ using ChartTools.IO.Midi.Mapping;
 
 using Melanchall.DryWetMidi.Core;
 
+using System.Runtime.CompilerServices;
+
 namespace ChartTools.IO.Midi.Parsing;
 
 internal abstract class LaneInstrumentParser<TChord, TLane, TModifier> : LaneInstrumentParser<TChord, LaneNote<TLane>, TLane, TModifier>
@@ -12,7 +14,7 @@ internal abstract class LaneInstrumentParser<TChord, TLane, TModifier> : LaneIns
     where TLane : struct, Enum
     where TModifier : struct, Enum
 {
-    protected LaneInstrumentParser(InstrumentMapper<TChord> mapper, ReadingSession session) : base(mapper, session) { }
+    protected LaneInstrumentParser(ReadingSession session) : base(session) { }
 }
 
 internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : InstrumentParser<TChord>
@@ -44,7 +46,7 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
 
     protected virtual byte BigRockCount => 0;
 
-    public LaneInstrumentParser(InstrumentMapper<TChord> mapper, ReadingSession session) : base(mapper, session)
+    public LaneInstrumentParser(ReadingSession session) : base(session)
     {
         if (BigRockCount > 1)
             openedBigRockPositions = new(from index in Enumerable.Range(1, BigRockCount)
@@ -69,7 +71,7 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
         }
 
         if (!CustomHandle(note))
-            foreach (var mapping in mapper.Map(globalPosition, note))
+            foreach (var mapping in MapNoteEvent(globalPosition, note))
                 BaseHandle(mapping);
     }
     protected void BaseHandle(NoteEventMapping mapping)
@@ -176,11 +178,7 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
         else
             ApplyModifier(track);
 
-        void ApplyModifier(Track<TChord> track)
-        {
-            var chord = GetOrCreateChord(mapping.Position, track);
-            AddModifier(chord, modifierIndex);
-        }
+        void ApplyModifier(Track<TChord> track) => AddModifier(GetOrCreateChord(mapping.Position, track), modifierIndex);
     }
     protected virtual void HandleNote(NoteEventMapping mapping)
     {
@@ -189,7 +187,8 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
         if (track is null)
             return;
 
-        var lane = ToLane(mapping.Index);
+        var index = mapping.Index;
+        var lane = Unsafe.As<byte, TLane>(ref index);
         var openedSource = openedNoteSources[track.Difficulty][lane];
 
         switch (mapping.State)
@@ -281,9 +280,7 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
         base.FinaliseParse();
     }
 
-    protected abstract TLane ToLane(byte index);
-    protected abstract void AddModifier(TChord chord, byte index);
     protected abstract TChord CreateChord(uint position);
-
     protected Track<TChord>? GetOrCreateTrack(Difficulty? difficulty) => difficulty is null ? null : (tracks[(int)difficulty] ??= new() { Difficulty = difficulty.Value });
+    protected abstract void AddModifier(TChord chord, byte modifierIndex);
 }
