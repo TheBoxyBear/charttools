@@ -64,10 +64,10 @@ internal class IniParser : TextParser, ISongAppliable
                 result.Charter.Icon = entry.Value;
                 break;
             case IniFormatting.PreviewStart:
-                result.PreviewStart = ValueParser.ParseUint(entry.Value, "preview start");
+                result.PreviewStart = entry.Value.StartsWith('-') ? null : ValueParser.ParseUint(entry.Value, "preview start");
                 break;
             case IniFormatting.PreviewEnd:
-                result.PreviewEnd = ValueParser.ParseUint(entry.Value, "preview end");
+                result.PreviewEnd = entry.Value.StartsWith('-') ? null : ValueParser.ParseUint(entry.Value, "preview end");
                 break;
             case IniFormatting.AudioOffset:
                 result.AudioOffset = TimeSpan.FromMilliseconds(ValueParser.ParseInt(entry.Value, "audio offset"));
