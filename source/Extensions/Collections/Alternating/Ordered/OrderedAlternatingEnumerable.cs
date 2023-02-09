@@ -41,7 +41,7 @@ public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey :
     }
 
     /// <inheritdoc/>
-    public IEnumerator<T> GetEnumerator() => new OrderedAlternatingEnumerator<T, TKey>(KeyGetter, Enumerables.Where(e => e is not null).Select(e => e.GetEnumerator()).ToArray());
+    public IEnumerator<T> GetEnumerator() => new OrderedAlternatingEnumerator<T, TKey>(KeyGetter, Enumerables.Select(e => e.GetEnumerator()).ToArray());
     /// <inheritdoc/>
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }
