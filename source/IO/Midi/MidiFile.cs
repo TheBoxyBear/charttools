@@ -18,6 +18,12 @@ public static class MidiFile
         MidiFirstPassReadingSettings = null
     };
 
+    public static WritingConfiguration DefaultWriteConfig { get; set; } = new()
+    {
+        DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
+        UncertainFormatPolicy = UncertainFormatPolicy.ThrowException
+    };
+
     /// <summary>
     /// Creates a <see cref="MidiParser"/> for parsing a section based on the header.
     /// </summary>
@@ -29,9 +35,9 @@ public static class MidiFile
         return header switch
         {
             MidiFormatting.GlobalEventHeader => new GlobalEventParser(session),
-            MidiFormatting.GHGemsHeader => new StandardInstrumentParser(new GHGemsMapper(), StandardInstrumentIdentity.LeadGuitar, session),
-            MidiFormatting.LeadGuitarHeader => new StandardInstrumentParser(new GuitarBassMapper(), StandardInstrumentIdentity.LeadGuitar, session),
-            MidiFormatting.BassHeader => new StandardInstrumentParser(new GuitarBassMapper(), StandardInstrumentIdentity.Bass, session),
+            MidiFormatting.GHGemsHeader => new StandardInstrumentParser(new GHGemsMapper(session), StandardInstrumentIdentity.LeadGuitar, session),
+            MidiFormatting.LeadGuitarHeader => new StandardInstrumentParser(new GuitarBassMapper(session), StandardInstrumentIdentity.LeadGuitar, session),
+            MidiFormatting.BassHeader => new StandardInstrumentParser(new GuitarBassMapper(session), StandardInstrumentIdentity.Bass, session),
             _ => index == 1 ? new TitleSyncTrackParser(header, session) : null,
         };
     }

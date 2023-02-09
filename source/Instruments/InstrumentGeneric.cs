@@ -122,5 +122,5 @@ public abstract record Instrument<TChord> : Instrument where TChord : IChord, ne
             _ => throw new UndefinedEnumException(track.Difficulty)
         };
 
-    internal abstract InstrumentMapper<TChord> GetMidiMapper(WritingSession session);
+    internal abstract IInstrumentWriteMapper<TChord> GetMidiMapper(WritingSession session);
 }

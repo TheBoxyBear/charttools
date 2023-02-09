@@ -71,13 +71,21 @@ public record StandardInstrument : Instrument<StandardChord>
         var format = MidiOrigin;
 
         if (MidiOrigin.HasFlag(MidiInstrumentOrigin.Unknown))
+        {
+            var newFormat = session.UncertainFormatProcedure(InstrumentIdentity, format);
+
+            if (newFormat is MidiInstrumentOrigin.GuitarHero1 && InstrumentIdentity is not StandardInstrumentIdentity.LeadGuitar)
+                throw new NotSupportedException($"Guitar Hero 1 does not support instrument {InstrumentIdentity}");
+
+            format = newFormat;
+        }
             format = session.UncertainFormatProcedure(InstrumentIdentity, format);
 
-        if (format == MidiInstrumentOrigin.GuitarHero1)
-            return new GHGemsMapper();
+        if (format is MidiInstrumentOrigin.GuitarHero1)
+            return new GHGemsMapper(session);
 
         if (InstrumentIdentity is StandardInstrumentIdentity.LeadGuitar or StandardInstrumentIdentity.Bass)
-            return format == MidiOrigin ? new GuitarBassMapper() : new GuitarBassMapper(format);
+            return new GuitarBassMapper(session, format);
 
         throw new NotImplementedException();
     }

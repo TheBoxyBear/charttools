@@ -1,4 +1,6 @@
-﻿using Melanchall.DryWetMidi.Core;
+﻿using ChartTools.IO.Configuration.Sessions;
+
+using Melanchall.DryWetMidi.Core;
 
 namespace ChartTools.IO.Midi.Mapping;
 
@@ -7,10 +9,10 @@ internal class GuitarBassMapper : StandardInstrumentMapper
     public override byte BigRockCount => 5;
 
     public override MidiInstrumentOrigin Format => _format;
-    private MidiInstrumentOrigin _format;
+    private MidiInstrumentOrigin _format = MidiInstrumentOrigin.NA;
 
-    public GuitarBassMapper() : this(MidiInstrumentOrigin.NA) { }
-    public GuitarBassMapper(MidiInstrumentOrigin writingFormat)
+    public GuitarBassMapper(ReadingSession session) : base(session) { }
+    public GuitarBassMapper(WritingSession session, MidiInstrumentOrigin writingFormat) : base(session)
     {
         if (writingFormat is not MidiInstrumentOrigin.GuitarHero2 or MidiInstrumentOrigin.RockBand)
             throw new NotSupportedException($"Cannot use {nameof(GuitarBassMapper)} to write in format {_format}");

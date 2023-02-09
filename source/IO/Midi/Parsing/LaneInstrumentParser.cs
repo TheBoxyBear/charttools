@@ -14,7 +14,7 @@ internal abstract class LaneInstrumentParser<TChord, TLane, TModifier> : LaneIns
     where TLane : struct, Enum
     where TModifier : struct, Enum
 {
-    protected LaneInstrumentParser(InstrumentMapper<TChord> mapper, ReadingSession session) : base(mapper, session) { }
+    protected LaneInstrumentParser(ILaneInstrumentReadMapper mapper, ReadingSession session) : base(mapper, session) { }
 }
 
 internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : InstrumentParser<TChord>
@@ -46,9 +46,9 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
 
     protected virtual byte BigRockCount => 0;
 
-    public virtual InstrumentMapper<TChord> Mapper { get; }
+    public virtual ILaneInstrumentReadMapper Mapper { get; }
 
-    public LaneInstrumentParser(InstrumentMapper<TChord> mapper, ReadingSession session) : base(session)
+    public LaneInstrumentParser(ILaneInstrumentReadMapper mapper, ReadingSession session) : base(session)
     {
         Mapper = mapper;
 

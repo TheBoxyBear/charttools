@@ -1,6 +1,11 @@
-﻿namespace ChartTools.IO.Midi.Mapping;
+﻿using ChartTools.IO.Configuration.Sessions;
 
-internal abstract class LaneInstrumentMapper<TChord> : InstrumentMapper<TChord> where TChord : IChord, new()
+namespace ChartTools.IO.Midi.Mapping;
+
+internal abstract class LaneInstrumentMapper<TChord> : InstrumentMapper<TChord>, ILaneInstrumentReadMapper where TChord : IChord, new()
 {
     public virtual byte BigRockCount { get; }
+
+    protected LaneInstrumentMapper(ReadingSession session) : base(session) { }
+    protected LaneInstrumentMapper(WritingSession session) : base(session) { }
 }

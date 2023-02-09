@@ -1,4 +1,6 @@
-﻿using Melanchall.DryWetMidi.Common;
+﻿using ChartTools.IO.Configuration.Sessions;
+
+using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Core;
 
 namespace ChartTools.IO.Midi.Mapping;
@@ -6,6 +8,9 @@ namespace ChartTools.IO.Midi.Mapping;
 internal class GHGemsMapper : StandardInstrumentMapper
 {
     public override MidiInstrumentOrigin Format => MidiInstrumentOrigin.GuitarHero1;
+
+    public GHGemsMapper(ReadingSession session) : base(session) { }
+    public GHGemsMapper(WritingSession session) : base(session) { }
 
     public override IEnumerable<NoteEventMapping> Map(uint position, NoteEvent e)
     {
