@@ -60,7 +60,7 @@ public class SystemExtensionsTests
         Assert.AreEqual("0 1 2 3 4 5 0 0 0 0", string.Join(' ', numbers.Replace(n => n > 5, 0)));
     }
 
-    [TestMethod] public void ReplaceSectionNullStartReplace() => Assert.ThrowsException<ArgumentNullException>(() => trueArray.ReplaceSection(new(Enumerable.Empty<bool>(), null!, b => true, true)).ToArray());
-    [TestMethod] public void ReplaceSectionNullEndReplace() => Assert.ThrowsException<ArgumentNullException>(() => trueArray.ReplaceSection(new(Enumerable.Empty<bool>(), b => true, null!, true)).ToArray());
+    [TestMethod] public void ReplaceSectionNullStartReplace() => Assert.ThrowsException<NullReferenceException>(() => trueArray.ReplaceSection(new(Enumerable.Empty<bool>(), null!, b => true, true)).ToArray());
+    [TestMethod] public void ReplaceSectionNullEndReplace() => Assert.ThrowsException<NullReferenceException>(() => trueArray.ReplaceSection(new(Enumerable.Empty<bool>(), b => true, null!, true)).ToArray());
     [TestMethod] public void ReplaceSectioNeverStart() => Assert.AreEqual(Formatting.FormatCollection(trueArray), Formatting.FormatCollection(trueArray.ReplaceSection(new(falseArray, b => false, b => true, false))));
 }
