@@ -13,17 +13,11 @@ public static class EnumerableExtensions
     /// <returns><see langword="true"/> if all booleans are <see langword="true"/> or the collection is empty</returns>
     public static bool All(this IEnumerable<bool> source)
     {
-        bool containsItems = false;
-
         foreach (bool b in source)
-        {
-            containsItems = true;
-
             if (!b)
                 return false;
-        }
 
-        return !containsItems;
+        return true;
     }
 
     /// <summary>
