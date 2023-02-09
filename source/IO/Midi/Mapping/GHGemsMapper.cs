@@ -1,11 +1,13 @@
-﻿using Melanchall.DryWetMidi.Common;
+﻿using ChartTools.Animations;
+
+using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Core;
 
 namespace ChartTools.IO.Midi.Mapping;
 
-internal class GHGemsMapper : InstrumentMapper<StandardChord>
+internal class GHGemsMapper : StandardInstrumentMapper
 {
-    public override string Header => MidiFormatting.GHGemsHeader;
+    public override MidiInstrumentOrigin Format => MidiInstrumentOrigin.GuitarHero1;
 
     public override IEnumerable<NoteEventMapping> Map(uint position, NoteEvent e)
     {

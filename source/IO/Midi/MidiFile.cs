@@ -30,8 +30,8 @@ public static class MidiFile
         {
             MidiFormatting.GlobalEventHeader => new GlobalEventParser(session),
             MidiFormatting.GHGemsHeader => new StandardInstrumentParser(new GHGemsMapper(), StandardInstrumentIdentity.LeadGuitar, session),
-            MidiFormatting.LeadGuitarHeader => new GuitarBassParser(StandardInstrumentIdentity.LeadGuitar, session),
-            MidiFormatting.BassHeader => new GuitarBassParser(StandardInstrumentIdentity.Bass, session),
+            MidiFormatting.LeadGuitarHeader => new StandardInstrumentParser(new GuitarBassMapper(), StandardInstrumentIdentity.LeadGuitar, session),
+            MidiFormatting.BassHeader => new StandardInstrumentParser(new GuitarBassMapper(), StandardInstrumentIdentity.Bass, session),
             _ => index == 1 ? new TitleSyncTrackParser(header, session) : null,
         };
     }

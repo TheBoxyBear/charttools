@@ -5,7 +5,6 @@ namespace ChartTools.IO.Midi.Mapping;
 
 internal abstract class InstrumentMapper<TChord> : IReadInstrumentMapper where TChord : IChord, new()
 {
-    public abstract string Header { get; }
     public ReadingSession? ReadingSession { get; }
     public WritingSession? WritingSession { get; }
 

@@ -71,13 +71,13 @@ public record StandardInstrument : Instrument<StandardChord>
         var format = MidiOrigin;
 
         if (MidiOrigin.HasFlag(MidiInstrumentOrigin.Unknown))
-            format = session.UncertainGuitarBassFormatProcedure(InstrumentIdentity, format);
+            format = session.UncertainFormatProcedure(InstrumentIdentity, format);
 
         if (format == MidiInstrumentOrigin.GuitarHero1)
             return new GHGemsMapper();
 
         if (InstrumentIdentity is StandardInstrumentIdentity.LeadGuitar or StandardInstrumentIdentity.Bass)
-            return format == MidiOrigin ? new GuitarBassMapper(InstrumentIdentity) : new GuitarBassMapper(InstrumentIdentity, format);
+            return format == MidiOrigin ? new GuitarBassMapper() : new GuitarBassMapper(format);
 
         throw new NotImplementedException();
     }

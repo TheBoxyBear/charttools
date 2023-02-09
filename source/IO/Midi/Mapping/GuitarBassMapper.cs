@@ -2,16 +2,20 @@
 
 namespace ChartTools.IO.Midi.Mapping;
 
-internal class GuitarBassMapper : InstrumentMapper<StandardChord>
+internal class GuitarBassMapper : StandardInstrumentMapper
 {
-    public MidiInstrumentOrigin Format { get; private set; }
-    public override string Header { get; }
+    public override byte BigRockCount => 5;
 
-    public GuitarBassMapper(StandardInstrumentIdentity instrument) : this(instrument, MidiInstrumentOrigin.NA) { }
-    public GuitarBassMapper(StandardInstrumentIdentity instrument, MidiInstrumentOrigin writingFormat)
+    public override MidiInstrumentOrigin Format => _format;
+    private MidiInstrumentOrigin _format;
+
+    public GuitarBassMapper() : this(MidiInstrumentOrigin.NA) { }
+    public GuitarBassMapper(MidiInstrumentOrigin writingFormat)
     {
-        Format = writingFormat;
-        Header = instrument == StandardInstrumentIdentity.LeadGuitar ? MidiFormatting.LeadGuitarHeader : MidiFormatting.BassHeader;
+        if (writingFormat is not MidiInstrumentOrigin.GuitarHero2 or MidiInstrumentOrigin.RockBand)
+            throw new NotSupportedException($"Cannot use {nameof(GuitarBassMapper)} to write in format {_format}");
+
+        _format = writingFormat;
     }
 
     public override IEnumerable<NoteEventMapping> Map(uint position, NoteEvent e)
@@ -99,7 +103,7 @@ internal class GuitarBassMapper : InstrumentMapper<StandardChord>
         void ApplyFormat(MidiInstrumentOrigin format)
         {
             if (format is MidiInstrumentOrigin.Unknown)
-                Format = format;
+                _format = format;
         }
     }
 

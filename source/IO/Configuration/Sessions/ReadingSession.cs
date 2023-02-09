@@ -66,12 +66,12 @@ internal class ReadingSession : Session
             TempolessAnchorPolicy.Create => anchor => true,
             _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.TempolessAnchorPolicy)
         })(anchor);
-        UncertainGuitarBassFormatProcedure = (instrument, format)=> (UncertainGuitarBassFormatProcedure = Configuration.UncertainGuitarBassFormatPolicy switch
+        UncertainFormatProcedure = (instrument, format)=> (UncertainFormatProcedure = Configuration.UncertainFormatPolicy switch
         {
-            UncertainGuitarBassFormatPolicy.ThrowException => (instrument, format) => throw new Exception($"{instrument} has the unknown or conflicting format {format} that cannot be mapped from Midi."),
-            UncertainGuitarBassFormatPolicy.UseGuitarHero2 => (_, _) => MidiInstrumentOrigin.GuitarHero2Uncertain,
-            UncertainGuitarBassFormatPolicy.UseRockBand => (_, _) => MidiInstrumentOrigin.RockBandUncertain,
-            _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.UncertainGuitarBassFormatPolicy)
+            UncertainFormatPolicy.ThrowException => (instrument, format) => throw new Exception($"{instrument} has the unknown or conflicting format {format} that cannot be mapped from Midi."),
+            UncertainFormatPolicy.UseGuitarHero2 => (_, _) => MidiInstrumentOrigin.GuitarHero2Uncertain,
+            UncertainFormatPolicy.UseRockBand => (_, _) => MidiInstrumentOrigin.RockBandUncertain,
+            _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.UncertainFormatPolicy)
         })(instrument, format);
      }
 }

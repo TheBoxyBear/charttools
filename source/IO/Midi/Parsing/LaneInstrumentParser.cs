@@ -46,7 +46,7 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
 
     protected virtual byte BigRockCount => 0;
 
-    public InstrumentMapper<TChord> Mapper { get; }
+    public virtual InstrumentMapper<TChord> Mapper { get; }
 
     public LaneInstrumentParser(InstrumentMapper<TChord> mapper, ReadingSession session) : base(session)
     {

@@ -1,7 +1,4 @@
 ﻿using ChartTools.IO.Configuration.Sessions;
-using ChartTools.IO.Midi.Mapping;
-
-using Melanchall.DryWetMidi.Core;
 
 namespace ChartTools.IO.Midi.Parsing;
 

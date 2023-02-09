@@ -20,13 +20,13 @@ internal class WritingSession : Session
             UnsupportedModifiersPolicy.Convert => chord => UnsupportedModifiersResults.Modifiers,
             _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.UnsupportedModifierPolicy)
         })(chord);
-        UncertainGuitarBassFormatProcedure = (instrument, format) => (UncertainGuitarBassFormatProcedure = Configuration.UncertainGuitarBassFormatPolicy switch
+        UncertainFormatProcedure = (instrument, format) => (UncertainFormatProcedure = Configuration.UncertainFormatPolicy switch
         {
-            UncertainGuitarBassFormatPolicy.ThrowException => (instrument, format) => throw new Exception($"{instrument} has the unknown or conflicting format {format} that cannot be mapped to Midi."),
-            UncertainGuitarBassFormatPolicy.UseReadingDefault => (_, format) => format & (MidiInstrumentOrigin)(byte.MaxValue & (byte)MidiInstrumentOrigin.Unknown),
-            UncertainGuitarBassFormatPolicy.UseGuitarHero2 => (_, _) => MidiInstrumentOrigin.GuitarHero2Uncertain,
-            UncertainGuitarBassFormatPolicy.UseRockBand => (_, _) => MidiInstrumentOrigin.RockBandUncertain,
-            _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.UncertainGuitarBassFormatPolicy)
+            UncertainFormatPolicy.ThrowException => (instrument, format) => throw new Exception($"{instrument} has the unknown or conflicting format {format} that cannot be mapped to Midi."),
+            UncertainFormatPolicy.UseReadingDefault => (_, format) => format & (MidiInstrumentOrigin)(byte.MaxValue & (byte)MidiInstrumentOrigin.Unknown),
+            UncertainFormatPolicy.UseGuitarHero2 => (_, _) => MidiInstrumentOrigin.GuitarHero2Uncertain,
+            UncertainFormatPolicy.UseRockBand => (_, _) => MidiInstrumentOrigin.RockBandUncertain,
+            _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.UncertainFormatPolicy)
         })(instrument, format);
     }
 }

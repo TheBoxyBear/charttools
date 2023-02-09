@@ -147,7 +147,7 @@ namespace ChartTools.IO.Configuration
     /// <summary>
     /// Defines how lead guitar and bass and handled when the Midi mapping is uncertain.
     /// </summary>
-    public enum UncertainGuitarBassFormatPolicy : byte
+    public enum UncertainFormatPolicy : byte
     {
         /// <summary>
         /// Throw an exception.
