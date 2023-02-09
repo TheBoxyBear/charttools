@@ -1,6 +1,7 @@
 ﻿using ChartTools.Extensions.Collections;
 
 using System.Collections;
+using System.Runtime.CompilerServices;
 
 namespace ChartTools.Extensions.Linq;
 
@@ -99,6 +100,12 @@ public static class EnumerableExtensions
     /// Excludes <see langword="null"/> items.
     /// </summary>
     public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) => source.Where(t => t is not null)!;
+    public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) where T : struct
+    {
+        foreach (var item in source)
+            if (item.HasValue)
+                yield return item.Value;
+    }
 
     #region Replace
     /// <summary>
