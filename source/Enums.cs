@@ -177,7 +177,9 @@
         Player1FaceOff,
         Player2FaceOff,
         Trill,
-        Tremolo
+        Tremolo,
+        DrumsRoll = 65,
+        DrumsDoubleRoll = 66
     }
     /// <summary>
     /// Types of <see cref="InstrumentSpecialPhrase"/>
