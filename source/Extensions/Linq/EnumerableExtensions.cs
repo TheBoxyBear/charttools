@@ -364,6 +364,7 @@ public static class EnumerableExtensions
     public static IEnumerable<T> ManyMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) > 0);
     #endregion
 
+    [Obsolete]
     public static async IAsyncEnumerable<T> ToAsyncEnumerable<T>(this IEnumerable<T> source)
     {
         foreach (var item in source)
@@ -371,7 +372,16 @@ public static class EnumerableExtensions
     }
 
     #region Collections
-    public static IEnumerable<T> Alternate<T>(this IEnumerable<IEnumerable<T>> source) => new SerialAlternatingEnumerable<T>(source.ToArray());
-    public static IEnumerable<T> AlternateBy<T, TKey>(this IEnumerable<IEnumerable<T>> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => new OrderedAlternatingEnumerable<T, TKey>(selector, source.ToArray());
+    /// <summary>
+    /// Alternates items from multiple sources.
+    /// </summary>
+    /// <param name="sources">Sources of items in order to alternate in</param>
+    public static IEnumerable<T> Alternate<T>(this IEnumerable<IEnumerable<T>> sources) => new SerialAlternatingEnumerable<T>(sources.ToArray());
+    /// <summary>
+    /// Alternates items from multiple sources in order based on a key.
+    /// </summary>
+    /// <param name="sources">Sources of items to alternate</param>
+    /// <param name="selector">Function returning to key to use for ordering items</param>
+    public static IEnumerable<T> AlternateBy<T, TKey>(this IEnumerable<IEnumerable<T>> sources, Func<T, TKey> selector) where TKey : IComparable<TKey> => new OrderedAlternatingEnumerable<T, TKey>(selector, sources.ToArray());
     #endregion
 }
