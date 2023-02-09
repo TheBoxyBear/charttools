@@ -3,7 +3,7 @@ using Melanchall.DryWetMidi.Core;
 
 namespace ChartTools.IO.Midi.Mapping;
 
-internal abstract class InstrumentMapper<TChord> : IReadInstrumentMapper where TChord : IChord, new()
+internal abstract class InstrumentMapper<TChord> where TChord : IChord, new()
 {
     public ReadingSession? ReadingSession { get; }
     public WritingSession? WritingSession { get; }

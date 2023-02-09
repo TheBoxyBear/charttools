@@ -23,11 +23,11 @@ internal class GuitarBassMapper : StandardInstrumentMapper
         if (Format == MidiInstrumentOrigin.NA)
             throw new InvalidOperationException($"No writing format provided");
 
-        var intNumber = (int)e.NoteNumber;
+        var byteNumber = (byte)e.NoteNumber;
 
-        if (intNumber is 126 or 127)
+        if (byteNumber is 126 or 127)
         {
-            var specialType = intNumber switch
+            var specialType = byteNumber switch
             {
                 126 => (byte)TrackSpecialPhraseType.Trill,
                 127 => (byte)TrackSpecialPhraseType.Tremolo
@@ -42,22 +42,22 @@ internal class GuitarBassMapper : StandardInstrumentMapper
             yield break;
         }
 
-        if (intNumber is > 119 and < 125)
+        if (byteNumber is > 119 and < 125)
         {
             ApplyFormat(MidiInstrumentOrigin.RockBand);
 
-            yield return CreateMapping(null, MappingType.BigRock, (byte)(125 - intNumber));
+            yield return CreateMapping(null, MappingType.BigRock, (byte)(125 - byteNumber));
             yield break;
         }
 
-        if (intNumber is > 39 and < 60)
+        if (byteNumber is > 39 and < 60)
         {
             ApplyFormat(MidiInstrumentOrigin.GuitarHero2);
 
-            yield return CreateMapping(null, MappingType.Animation, (byte)(intNumber - 39));
+            yield return CreateMapping(null, MappingType.Animation, AnimationMapper.GetHandPositionIndex(byteNumber));
             yield break;
         }
-        if (intNumber is 116)
+        if (byteNumber is 116)
         {
             ApplyFormat(MidiInstrumentOrigin.RockBand);
 
@@ -65,13 +65,13 @@ internal class GuitarBassMapper : StandardInstrumentMapper
             yield break;
         }
 
-        (var difficulty, var adjusted) = intNumber switch
+        (var difficulty, var adjusted) = byteNumber switch
         {
-            > 59 and < 71 => (Difficulty.Easy, intNumber - 59),
-            > 71 and < 83 => (Difficulty.Medium, intNumber - 71),
-            > 83 and < 95 => (Difficulty.Hard, intNumber - 83),
-            > 95 and < 107 => (Difficulty.Expert, intNumber - 95),
-            110 => (default(Difficulty?), intNumber),
+            > 59 and < 71 => (Difficulty.Easy, byteNumber - 59),
+            > 71 and < 83 => (Difficulty.Medium, byteNumber - 71),
+            > 83 and < 95 => (Difficulty.Hard, byteNumber - 83),
+            > 95 and < 107 => (Difficulty.Expert, byteNumber - 95),
+            110 => (default(Difficulty?), byteNumber),
             _ => HandleInvalidMidiEvent<(Difficulty?, int)>(position, e)
         };
         (var type, var newAdjusted) = adjusted switch

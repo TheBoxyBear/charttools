@@ -1,6 +1,4 @@
-﻿using ChartTools.Animations;
-
-using Melanchall.DryWetMidi.Common;
+﻿using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Core;
 
 namespace ChartTools.IO.Midi.Mapping;
@@ -11,14 +9,14 @@ internal class GHGemsMapper : StandardInstrumentMapper
 
     public override IEnumerable<NoteEventMapping> Map(uint position, NoteEvent e)
     {
-        var intNumber = (int)e.NoteNumber;
+        var byteNumber = (byte)e.NoteNumber;
 
-        (var difficulty, var adjusted) = intNumber switch
+        (var difficulty, var adjusted) = byteNumber switch
         {
-            > 59 and < 71 => (Difficulty.Easy, intNumber - 59),
-            > 71 and < 83 => (Difficulty.Medium, intNumber - 71),
-            > 83 and < 95 => (Difficulty.Hard, intNumber - 83),
-            > 95 and < 107 => (Difficulty.Expert, intNumber - 95),
+            > 59 and < 71 => (Difficulty.Easy, byteNumber - 59),
+            > 71 and < 83 => (Difficulty.Medium, byteNumber - 71),
+            > 83 and < 95 => (Difficulty.Hard, byteNumber - 83),
+            > 95 and < 107 => (Difficulty.Expert, byteNumber - 95),
             _ => HandleInvalidMidiEvent<(Difficulty?, int)>(position, e)
         };
 
