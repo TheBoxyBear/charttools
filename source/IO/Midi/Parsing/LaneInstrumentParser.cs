@@ -14,7 +14,7 @@ internal abstract class LaneInstrumentParser<TChord, TLane, TModifier> : LaneIns
     where TLane : struct, Enum
     where TModifier : struct, Enum
 {
-    protected LaneInstrumentParser(ReadingSession session) : base(session) { }
+    protected LaneInstrumentParser(InstrumentMapper<TChord> mapper, ReadingSession session) : base(mapper, session) { }
 }
 
 internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : InstrumentParser<TChord>
@@ -46,8 +46,12 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
 
     protected virtual byte BigRockCount => 0;
 
-    public LaneInstrumentParser(ReadingSession session) : base(session)
+    public InstrumentMapper<TChord> Mapper { get; }
+
+    public LaneInstrumentParser(InstrumentMapper<TChord> mapper, ReadingSession session) : base(session)
     {
+        Mapper = mapper;
+
         if (BigRockCount > 1)
             openedBigRockPositions = new(from index in Enumerable.Range(1, BigRockCount)
                                          select new KeyValuePair<int, uint?>(index, null));
@@ -71,7 +75,7 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
         }
 
         if (!CustomHandle(note))
-            foreach (var mapping in MapNoteEvent(globalPosition, note))
+            foreach (var mapping in Mapper.Map(globalPosition, note))
                 BaseHandle(mapping);
     }
     protected void BaseHandle(NoteEventMapping mapping)

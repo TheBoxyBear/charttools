@@ -12,14 +12,14 @@ internal static class ChordMapper
         List<uint> orderedPositions = new();
         LaneChord? previousChord = null;
 
-    foreach (var chord in source)
-    {
-        if (session.DuplicateTrackObjectProcedure(chord.Position, "chord", () =>
+        foreach (var chord in source)
         {
-            var index = orderedPositions.BinarySearchIndex(chord.Position, out bool exactMatch);
+            if (session.DuplicateTrackObjectProcedure(chord.Position, "chord", () =>
+            {
+                var index = orderedPositions.BinarySearchIndex(chord.Position, out bool exactMatch);
 
-            if (!exactMatch)
-                orderedPositions.Insert(index, chord.Position);
+                if (!exactMatch)
+                    orderedPositions.Insert(index, chord.Position);
 
                 return exactMatch;
             }))

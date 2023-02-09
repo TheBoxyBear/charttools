@@ -29,7 +29,7 @@ public static class MidiFile
         return header switch
         {
             MidiFormatting.GlobalEventHeader => new GlobalEventParser(session),
-            MidiFormatting.GHGemsHeader => new GHGemsParser(session),
+            MidiFormatting.GHGemsHeader => new StandardInstrumentParser(new GHGemsMapper(), StandardInstrumentIdentity.LeadGuitar, session),
             MidiFormatting.LeadGuitarHeader => new GuitarBassParser(StandardInstrumentIdentity.LeadGuitar, session),
             MidiFormatting.BassHeader => new GuitarBassParser(StandardInstrumentIdentity.Bass, session),
             _ => index == 1 ? new TitleSyncTrackParser(header, session) : null,

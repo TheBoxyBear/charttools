@@ -14,7 +14,7 @@ internal abstract class InstrumentParser<TChord> : MidiParser where TChord : ICh
     protected InstrumentParser(ReadingSession session) : base(session) => ArgumentNullException.ThrowIfNull(session, nameof(session));
 
     protected abstract Instrument<TChord> GetInstrument();
-    protected abstract IEnumerable<NoteEventMapping> MapNoteEvent(uint position, NoteEvent e);
+
     protected override void FinaliseParse()
     {
         foreach (var track in tracks)

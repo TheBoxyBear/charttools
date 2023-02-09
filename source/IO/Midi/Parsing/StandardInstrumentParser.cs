@@ -3,7 +3,7 @@ using ChartTools.IO.Midi.Mapping;
 
 namespace ChartTools.IO.Midi.Parsing;
 
-internal abstract class StandardInstrumentParser : LaneInstrumentParser<StandardChord, StandardLane, StandardChordModifiers>
+internal class StandardInstrumentParser : LaneInstrumentParser<StandardChord, StandardLane, StandardChordModifiers>
 {
     public StandardInstrumentIdentity Instrument { get; }
     public virtual MidiInstrumentOrigin Format => MidiInstrumentOrigin.RockBand;
@@ -11,7 +11,7 @@ internal abstract class StandardInstrumentParser : LaneInstrumentParser<Standard
     public override StandardInstrument Result => GetResult(result);
     private readonly StandardInstrument result;
 
-    public StandardInstrumentParser(StandardInstrumentIdentity instrument, ReadingSession session) : base(session)
+    public StandardInstrumentParser(InstrumentMapper<StandardChord> mapper, StandardInstrumentIdentity instrument, ReadingSession session) : base(mapper, session)
     {
         Instrument = instrument;
         result = new(instrument);

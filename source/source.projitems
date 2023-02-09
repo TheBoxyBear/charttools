@@ -99,7 +99,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\MidiFormatting.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GHGemsParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GlobalEventParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\GuitarBassParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Parsing\InstrumentParser.cs" />
