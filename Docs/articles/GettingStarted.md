@@ -6,17 +6,13 @@ To add ChartTools to your project, you must first compile the assembly. The repo
 
 Visual Studio: Right-click on your from the solution explorer and select "Add Project References...". Click on "Browse" and select ChartTools.dll that was generated.
 
-## Sandbox environment
-The repository includes a sandbox environment where you can explore the library and perform various tests. To use the sandbox environment, open Program.cs from the Debug project. The project targets .NET 7 and references the Net7 project. After cloning the repo, open Git Bash and navigate to the Debug directory, then run the command `git ls-files -z | xargs -0 git update-index --assume-unchanged` to ensure changes are not included in commits. This command only needs to be ran once after cloning and ran when a pull includes commits with the DEBUG prefix.
-
-> **NOTE**: Pull requests with leftover tests will be rejected.
-
 ## Supported file formats
-ChartTools supports parsing of .chart and .ini files, with .mid parsing in the works. [mdsitton's BChart](https://github.com/mdsitton/bchart) format is planned as a post-launch update.
+ChartTools supports parsing of .chart and .ini files, with .mid parsing in the works. [mdsitton's BChart](https://github.com/mdsitton/bchart) format is planned as a post-launch update. Unless written as `.chart`, the term "chart" refers to songs supported by ChartTools regardless of the file format.
 
 For documentation on the formats themselves, refer to the [GuitarGame_ChartFormats](https://github.com/TheNathannator/GuitarGame_ChartFormats) repository.
 
 ## Working with charts
+
 ### Song
 Every component of a chart is stored in an instance of the Song class. It can be initialized by reading a file that will be parsed based on the extension.
 
