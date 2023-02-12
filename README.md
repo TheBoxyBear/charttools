@@ -8,6 +8,9 @@ If you find any bugs, you can report them in the [Issues section](https://github
 ## Getting Started
 For an overview on installation and taking your first steps with ChartTools, see [Getting Started](https://theboxybear.github.io/charttools/articles/GettingStarted.html). A new website is currently in the works with more detailed articles and full API documentation.
 
+## Contributing
+If you like to contribute to the development of ChartTools, feel free to comment on an issue, submit a pull request or submit your own issues. To test your code, create a project named `Debug` and it will be automatically excluded from commits.
+
 ## License and Attribution
 This project is licensed under the GNU General Public License 3.0. See [LICENSE](LICENSE) for details.
 
