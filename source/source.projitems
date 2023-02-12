@@ -26,8 +26,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Collections\Delayed\DelayedEnumerableSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Collections\Delayed\DelayedEnumerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Collections\EagerEnumerable.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\Collections\Unique\UniqueList.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\Collections\Unique\UniqueListEquatable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\Event.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\EventArgumentHelper.cs" />

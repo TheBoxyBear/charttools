@@ -1,6 +1,7 @@
 ﻿using ChartTools.Extensions.Collections;
 
 using System.Collections;
+using System.Runtime.CompilerServices;
 
 namespace ChartTools.Extensions.Linq;
 
@@ -13,17 +14,11 @@ public static class EnumerableExtensions
     /// <returns><see langword="true"/> if all booleans are <see langword="true"/> or the collection is empty</returns>
     public static bool All(this IEnumerable<bool> source)
     {
-        bool containsItems = false;
-
         foreach (bool b in source)
-        {
-            containsItems = true;
-
             if (!b)
                 return false;
-        }
 
-        return !containsItems;
+        return true;
     }
 
     /// <summary>
@@ -105,6 +100,12 @@ public static class EnumerableExtensions
     /// Excludes <see langword="null"/> items.
     /// </summary>
     public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) => source.Where(t => t is not null)!;
+    public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) where T : struct
+    {
+        foreach (var item in source)
+            if (item.HasValue)
+                yield return item.Value;
+    }
 
     #region Replace
     /// <summary>
@@ -364,6 +365,7 @@ public static class EnumerableExtensions
     public static IEnumerable<T> ManyMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) > 0);
     #endregion
 
+    [Obsolete]
     public static async IAsyncEnumerable<T> ToAsyncEnumerable<T>(this IEnumerable<T> source)
     {
         foreach (var item in source)
