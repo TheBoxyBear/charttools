@@ -3,8 +3,10 @@
 /// <summary>
 /// Base class for phrases that define an in-game event with a duration such as star power.
 /// </summary>
-public abstract class SpecialPhrase : TrackObjectBase, ILongTrackObject
+public abstract class SpecialPhrase : ILongTrackObject
 {
+    public uint Position { get; set; }
+
     /// <summary>
     /// Numerical value of the phrase type
     /// </summary>
@@ -20,8 +22,9 @@ public abstract class SpecialPhrase : TrackObjectBase, ILongTrackObject
     /// <param name="position">Position of the phrase</param>
     /// <param name="typeCode">Effect of the phrase</param>
     /// <param name="length">Duration in ticks</param>
-    public SpecialPhrase(uint position, byte typeCode, uint length = 0) : base(position)
+    public SpecialPhrase(uint position, byte typeCode, uint length = 0)
     {
+        Position = position;
         TypeCode = typeCode;
         Length = length;
     }
