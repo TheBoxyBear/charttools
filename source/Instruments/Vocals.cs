@@ -1,4 +1,5 @@
-﻿using ChartTools.IO;
+﻿using ChartTools.Animations;
+using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
@@ -20,7 +21,7 @@ public record Vocals : Instrument<Phrase>
     [Obsolete($"Use {nameof(ChartFile.ReadVocalsAsync)}.")]
     public static async Task<Vocals?> FromFileAsync(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync<Vocals?>(path, (".chart", path => ChartFile.ReadVocalsAsync(path)));
 
-    internal override InstrumentMapper<Phrase> GetMidiMapper(WritingSession session)
+    internal override InstrumentMapper<Phrase> GetMidiMapper(WritingSession session, AnimationSet animations)
     {
         throw new NotImplementedException();
     }

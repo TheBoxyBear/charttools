@@ -1,4 +1,5 @@
-﻿using ChartTools.IO.Configuration.Sessions;
+﻿using ChartTools.Animations;
+using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Midi.Mapping;
 
 namespace ChartTools;
@@ -122,5 +123,5 @@ public abstract record Instrument<TChord> : Instrument where TChord : IChord, ne
             _ => throw new UndefinedEnumException(track.Difficulty)
         };
 
-    internal abstract IInstrumentWriteMapper<TChord> GetMidiMapper(WritingSession session);
+    internal abstract IInstrumentWriteMapper<TChord> GetMidiMapper(WritingSession session, AnimationSet animations);
 }

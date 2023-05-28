@@ -1,4 +1,5 @@
-﻿using ChartTools.IO;
+﻿using ChartTools.Animations;
+using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
@@ -34,7 +35,7 @@ public record GHLInstrument : Instrument<GHLChord>
     [Obsolete($"Use {nameof(ChartFile.ReadInstrumentAsync)} with {nameof(Metadata.Formatting)}.")]
     public static Task<DirectoryResult<GHLInstrument?>> FromDirectoryAsync(string directory, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, instrument, config, formatting, cancellationToken), cancellationToken);
 
-    internal override InstrumentMapper<GHLChord> GetMidiMapper(WritingSession session)
+    internal override InstrumentMapper<GHLChord> GetMidiMapper(WritingSession session, AnimationSet animations)
     {
         throw new NotImplementedException();
     }

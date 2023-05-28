@@ -1,19 +1,29 @@
-﻿using ChartTools.IO.Configuration.Sessions;
+﻿using ChartTools.Animations;
+using ChartTools.IO.Configuration.Sessions;
 
 using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Core;
 
 namespace ChartTools.IO.Midi.Mapping;
 
-internal class GHGemsMapper : StandardInstrumentMapper
+internal class GHGemsMapper : StandardInstrumentMapper, IAnimationContainer<VocalistMouthEvent>
 {
     public override MidiInstrumentOrigin Format => MidiInstrumentOrigin.GuitarHero1;
 
+    public IEnumerable<VocalistMouthEvent> AnimationEvents => animations;
+    private readonly List<VocalistMouthEvent> animations = new();
+
     public GHGemsMapper(ReadingSession session) : base(session) { }
-    public GHGemsMapper(WritingSession session) : base(session) { }
+    public GHGemsMapper(WritingSession session, IEnumerable<VocalistMouthEvent> vocalistAnimations) : base(session) => animations = vocalistAnimations.ToList();
 
     public override IEnumerable<NoteEventMapping> Map(uint position, NoteEvent e)
     {
+        if (e.NoteNumber == 108)
+        {
+            animations.Add(new(position, (VocalistMouthState)NoteEventMapping.GetState(e)));
+            yield break;
+        }
+
         var byteNumber = (byte)e.NoteNumber;
 
         (var difficulty, var adjusted) = byteNumber switch
@@ -79,6 +89,9 @@ internal class GHGemsMapper : StandardInstrumentMapper
                     yield return new(special.EndPosition, NoteState.Close, sevenBitIndex);
                 }
             }
+
+            foreach (var animation in animations)
+                yield return new(animation.Position, (NoteState)animation.State, (SevenBitNumber)108);
         }
     }
 }

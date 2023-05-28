@@ -33,5 +33,9 @@ internal class StandardInstrumentParser : LaneInstrumentParser<StandardChord, St
         base.FinaliseParse();
     }
 
-    public override void ApplyToSong(Song song) => song.Instruments.Set(Result);
+    public override void ApplyToSong(Song song)
+    {
+        base.ApplyToSong(song);
+        song.Instruments.Set(Result);
+    }
 }

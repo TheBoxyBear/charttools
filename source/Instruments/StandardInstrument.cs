@@ -64,7 +64,7 @@ public record StandardInstrument : Instrument<StandardChord>
     [Obsolete($"Use {nameof(ChartFile.ReadInstrumentAsync)} with {nameof(Metadata.Formatting)}.")]
     public static Task<DirectoryResult<StandardInstrument?>> FromDirectoryAsync(string directory, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, instrument, config, formatting, cancellationToken), cancellationToken);
 
-    internal override InstrumentMapper<StandardChord> GetMidiMapper(WritingSession session)
+    internal override InstrumentMapper<StandardChord> GetMidiMapper(WritingSession session, AnimationSet animations)
     {
         var format = MidiOrigin;
 
@@ -79,10 +79,10 @@ public record StandardInstrument : Instrument<StandardChord>
         }
 
         if (format is MidiInstrumentOrigin.GuitarHero1)
-            return new GHGemsMapper(session);
+            return new GHGemsMapper(session, animations.Vocals);
 
         if (InstrumentIdentity is StandardInstrumentIdentity.LeadGuitar or StandardInstrumentIdentity.Bass)
-            return new GuitarBassMapper(session, format);
+            return new GuitarBassMapper(session, format, animations.Guitar);
 
         throw new NotImplementedException();
     }

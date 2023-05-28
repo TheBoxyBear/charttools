@@ -1,23 +1,29 @@
-﻿using ChartTools.IO.Configuration.Sessions;
+﻿using ChartTools.Animations;
+using ChartTools.IO.Configuration.Sessions;
 
 using Melanchall.DryWetMidi.Core;
 
 namespace ChartTools.IO.Midi.Mapping;
 
-internal class GuitarBassMapper : StandardInstrumentMapper
+internal class GuitarBassMapper : StandardInstrumentMapper, IAnimationContainer<HandPositionEvent>
 {
     public override byte BigRockCount => 5;
 
     public override MidiInstrumentOrigin Format => _format;
+
+    public IEnumerable<HandPositionEvent> AnimationEvents => animations;
+    private readonly List<HandPositionEvent> animations = new();
+
     private MidiInstrumentOrigin _format = MidiInstrumentOrigin.NA;
 
     public GuitarBassMapper(ReadingSession session) : base(session) { }
-    public GuitarBassMapper(WritingSession session, MidiInstrumentOrigin writingFormat) : base(session)
+    public GuitarBassMapper(WritingSession session, MidiInstrumentOrigin writingFormat, IEnumerable<HandPositionEvent> handAnimations) : base(session)
     {
         if (writingFormat is not MidiInstrumentOrigin.GuitarHero2 or MidiInstrumentOrigin.RockBand)
             throw new NotSupportedException($"Cannot use {nameof(GuitarBassMapper)} to write in format {_format}");
 
         _format = writingFormat;
+        animations = handAnimations.ToList();
     }
 
     public override IEnumerable<NoteEventMapping> Map(uint position, NoteEvent e)
@@ -56,7 +62,7 @@ internal class GuitarBassMapper : StandardInstrumentMapper
         {
             ApplyFormat(MidiInstrumentOrigin.GuitarHero2);
 
-            yield return CreateMapping(null, MappingType.Animation, AnimationMapper.GetHandPositionIndex(byteNumber));
+            animations.Add(new(position, AnimationMapper.GetHandPositionIndex(byteNumber)));
             yield break;
         }
         if (byteNumber is 116)

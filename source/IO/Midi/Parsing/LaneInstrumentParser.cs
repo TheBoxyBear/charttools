@@ -1,4 +1,5 @@
-﻿using ChartTools.Extensions;
+﻿using ChartTools.Animations;
+using ChartTools.Extensions;
 using ChartTools.Extensions.Linq;
 using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Midi.Mapping;
@@ -287,4 +288,16 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
     protected abstract TChord CreateChord(uint position);
     protected Track<TChord>? GetOrCreateTrack(Difficulty? difficulty) => difficulty is null ? null : (tracks[(int)difficulty] ??= new() { Difficulty = difficulty.Value });
     protected abstract void AddModifier(TChord chord, byte modifierIndex);
+
+    public override void ApplyToSong(Song song)
+    {
+        if (Mapper is not IAnimationContainer)
+            return;
+
+        if (Mapper is IAnimationContainer<HandPositionEvent> handContainer)
+            song.Animations.Guitar.AddRange(handContainer.AnimationEvents);
+
+        if (Mapper is IAnimationContainer<VocalistMouthEvent> vocalistContainer)
+            song.Animations.Vocals.AddRange(vocalistContainer.AnimationEvents);
+    }
 }

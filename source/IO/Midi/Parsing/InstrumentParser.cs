@@ -1,4 +1,5 @@
-﻿using ChartTools.IO.Configuration.Sessions;
+﻿using ChartTools.Animations;
+using ChartTools.IO.Configuration.Sessions;
 
 namespace ChartTools.IO.Midi.Parsing;
 

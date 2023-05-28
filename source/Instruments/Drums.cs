@@ -1,4 +1,5 @@
-﻿using ChartTools.IO;
+﻿using ChartTools.Animations;
+using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Configuration.Sessions;
@@ -25,7 +26,7 @@ public record Drums : Instrument<DrumsChord>
     [Obsolete($"Use {nameof(ChartFile.ReadDrumsAsync)} with {nameof(Metadata.Formatting)}.")]
     public static Task<DirectoryResult<Drums?>> FromDirectoryAsync(string directory, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, config, formatting, cancellationToken), cancellationToken);
 
-    internal override InstrumentMapper<DrumsChord> GetMidiMapper(WritingSession session)
+    internal override InstrumentMapper<DrumsChord> GetMidiMapper(WritingSession session, AnimationSet animations)
     {
         throw new NotImplementedException();
     }
