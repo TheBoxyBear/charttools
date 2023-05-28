@@ -3,7 +3,7 @@
 /// <summary>
 /// Marker that alters the tempo
 /// </summary>
-public class Tempo : TrackObjectBase
+public class Tempo : ITrackObject
 {
     /// <summary>
     /// Parent map the marker is contained
@@ -21,9 +21,9 @@ public class Tempo : TrackObjectBase
     }
     private TempoMap? _map;
 
-    /// <inheritdoc cref="TrackObjectBase.Position" path="/summary"/>
+    /// <inheritdoc cref="ITrackObject.Position" path="/summary"/>
     /// <remarks>Only refer to the position if <see cref="PositionSynced"/> is <see langword="true"/>.</remarks>
-    public override uint Position
+    public uint Position
     {
         get => _position;
         set
@@ -74,7 +74,11 @@ public class Tempo : TrackObjectBase
     /// <summary>
     /// Creates an instance of <see cref="Tempo"/>.
     /// </summary>
-    public Tempo(uint position, float value) : base(position) => Value = value;
+    public Tempo(uint position, float value)
+    {
+        Position = position;
+        Value = value;
+    }
     public Tempo(TimeSpan anchor, float value) : this(0, value) => Anchor = anchor;
 
     internal void SyncPosition(uint position)

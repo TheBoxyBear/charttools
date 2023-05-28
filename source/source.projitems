@@ -131,7 +131,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Tools\LengthMerger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Printer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\IReadOnlyTrackObject.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\TrackObjectBase.cs" />
     <Compile Include="..\source\IO\Ini\IniKeySerializableAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniSerializer.cs" />

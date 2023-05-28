@@ -3,8 +3,10 @@ using ChartTools.IO.Formatting;
 
 namespace ChartTools;
 
-public abstract class LaneChord : TrackObjectBase, IChord
+public abstract class LaneChord : IChord
 {
+    public uint Position { get; set; }
+
     public IReadOnlyCollection<LaneNote> Notes => GetNotes();
     IReadOnlyCollection<INote> IChord.Notes => GetNotes();
 
@@ -15,8 +17,8 @@ public abstract class LaneChord : TrackObjectBase, IChord
 
     internal abstract bool ChartSupportedModifiers { get; }
 
-        public LaneChord() : base() { }
-        protected LaneChord(uint position) : base(position) { }
+    public LaneChord() : this(0) { }
+    public LaneChord(uint position) => Position = position;
 
     public abstract LaneNote CreateNote(byte index, uint sustain = 0);
     INote IChord.CreateNote(byte index, uint sustain) => CreateNote(index, sustain);
