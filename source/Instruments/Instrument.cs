@@ -94,7 +94,7 @@ public abstract record Instrument : IEmptyVerifiable
     /// Gives all tracks the special phrases
     /// </summary>
     public IEnumerable<TrackSpecialPhrase> ShareSpecialPhrases(TrackObjectSource source) => ShareEventsSpecialPhrases(source, track => track.SpecialPhrases);
-    private IEnumerable<T> ShareEventsSpecialPhrases<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : TrackObjectBase
+    private IEnumerable<T> ShareEventsSpecialPhrases<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : ITrackObject
     {
         var collections = GetExistingTracks().Select(track => collectionGetter(track)).ToArray();
 

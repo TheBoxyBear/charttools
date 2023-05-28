@@ -4,7 +4,7 @@ using ChartTools.IO.Configuration.Sessions;
 
 namespace ChartTools.IO.Chart.Mapping;
 
-internal abstract class UniqueTrackObjectMapper<T> where T : TrackObjectBase
+internal abstract class UniqueTrackObjectMapper<T> where T : ITrackObject
 {
     protected abstract string ObjectType { get; }
 
