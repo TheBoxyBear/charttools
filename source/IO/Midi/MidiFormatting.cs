@@ -30,7 +30,8 @@ internal static class MidiFormatting
         KeysHeader = "PART KEYS",
         LeadGuitarHeader = "PART GUITAR",
         RhythmGuitarHeader = "PART RHYTHM",
-        VocalsHeader = "PART VOCALS";
+        VocalsHeader = "PART VOCALS",
+        AnimHeader = "ANIM";
 
     public static string Instrument(InstrumentIdentity instrument) => InstrumentSequenceNames[instrument];
 

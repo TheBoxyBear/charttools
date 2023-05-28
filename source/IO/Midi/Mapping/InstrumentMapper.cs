@@ -19,7 +19,7 @@ internal abstract class InstrumentMapper<TChord> : IReadMapper, IInstrumentWrite
     public abstract IEnumerable<NoteEventMapping> Map(uint position, NoteEvent e);
     public abstract IEnumerable<NoteMapping> Map(Instrument<TChord> instrument);
 
-    protected void HandleInvalidMidiEvent(uint position, NoteEvent e) => ReadingSession.InvalidMidiEventTypeProcedure(position, e);
+    protected void HandleInvalidMidiEvent(uint position, NoteEvent e) => ReadingSession.InvalidMidiEventProcedure(position, e);
     protected T? HandleInvalidMidiEvent<T>(uint position, NoteEvent e)
     {
         HandleInvalidMidiEvent(position, e);

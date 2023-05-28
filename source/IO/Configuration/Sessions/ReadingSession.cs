@@ -4,21 +4,17 @@ using ChartTools.Tools;
 
 using Melanchall.DryWetMidi.Core;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace ChartTools.IO.Configuration.Sessions;
 
 internal class ReadingSession : Session
 {
-    public delegate void InvalidMidiEventTypeHandler(uint position, MidiEvent e);
+    public delegate void InvalidMidiEventHandler(uint position, MidiEvent e);
     public delegate InstrumentSpecialPhrase? MisalignedBigRockHandler(IEnumerable<InstrumentSpecialPhrase> endings);
     public delegate bool TempolessAnchorHandler(Anchor anchor);
     public delegate void UnopenedUnclosedObjectHandler(uint position, Action createOrInclude);
 
     public override ReadingConfiguration Configuration { get; }
-    public InvalidMidiEventTypeHandler InvalidMidiEventTypeProcedure { get; private set; }
+    public InvalidMidiEventHandler InvalidMidiEventProcedure { get; private set; }
     public MisalignedBigRockHandler MisalignedBigRockProcedure { get; private set; }
     public Func<bool> MissingBigRockProcedure { get; private set; }
     public UnopenedUnclosedObjectHandler UnopenedProcedure { get; private set; }
@@ -29,7 +25,7 @@ internal class ReadingSession : Session
     {
         Configuration = config;
 
-        InvalidMidiEventTypeProcedure = (position, e) => (InvalidMidiEventTypeProcedure = Configuration.IgnoreInvalidMidiEventType
+        InvalidMidiEventProcedure = (position, e) => (InvalidMidiEventProcedure = Configuration.IgnoreInvalidMidiEvent
         ? (position, e) => throw new InvalidMidiEventTypeException(position, e)
         : (_, _) => { })(position, e);
         MisalignedBigRockProcedure = endings => (MisalignedBigRockProcedure = Configuration.MisalignedBigRockMarkersPolicy switch
@@ -53,7 +49,7 @@ internal class ReadingSession : Session
             UnopenedTrackObjectPolicy.Create => (_, create) => create(),
             _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.UnopenedTrackObjectPolicy)
         })(position, create);
-        UnclosedProcedure = (position, include) => (UnclosedProcedure = Configuration.UnclosedTracjObjectPolicy switch
+        UnclosedProcedure = (position, include) => (UnclosedProcedure = Configuration.UnclosedTrackObjectPolicy switch
         {
             UnclosedTrackObjectPolicy.ThrowException => throw new Exception($"Object at position {position} opened but never closed."), // TODO Create exception
             UnclosedTrackObjectPolicy.Ignore => (_, _) => { },
@@ -66,12 +62,12 @@ internal class ReadingSession : Session
             TempolessAnchorPolicy.Create => anchor => true,
             _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.TempolessAnchorPolicy)
         })(anchor);
-        UncertainFormatProcedure = (instrument, format)=> (UncertainFormatProcedure = Configuration.UncertainFormatPolicy switch
+        UncertainFormatProcedure = (instrument, format) => (UncertainFormatProcedure = Configuration.UncertainFormatPolicy switch
         {
             UncertainFormatPolicy.ThrowException => (instrument, format) => throw new Exception($"{instrument} has the unknown or conflicting format {format} that cannot be mapped from Midi."),
             UncertainFormatPolicy.UseGuitarHero2 => (_, _) => MidiInstrumentOrigin.GuitarHero2Uncertain,
             UncertainFormatPolicy.UseRockBand => (_, _) => MidiInstrumentOrigin.RockBandUncertain,
             _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.UncertainFormatPolicy)
         })(instrument, format);
-     }
+    }
 }

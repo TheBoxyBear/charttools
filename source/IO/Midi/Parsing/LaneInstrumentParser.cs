@@ -71,7 +71,7 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
         }
         if (item is not NoteEvent note)
         {
-            session.InvalidMidiEventTypeProcedure(globalPosition, item);
+            session.InvalidMidiEventProcedure(globalPosition, item);
             return;
         }
 

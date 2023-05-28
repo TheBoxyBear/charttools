@@ -57,7 +57,7 @@ public class FormattingRules
                     Formatting.HopoFrequencyStep.Eight => 8,
                     Formatting.HopoFrequencyStep.Twelveth => 12,
                     Formatting.HopoFrequencyStep.Sixteenth => 16,
-                    _ => throw new System.Exception($"{HopoFrequencyStep} is not a valid hopo frequency step.")
+                    _ => throw new Exception($"{HopoFrequencyStep} is not a valid hopo frequency step.")
                 });
 
             return ForceEightHopoFrequency is true ? TrueResolution / 8 : null;

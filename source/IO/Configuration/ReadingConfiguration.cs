@@ -8,11 +8,11 @@ namespace ChartTools.IO.Configuration;
 /// <inheritdoc cref="CommonConfiguration" path="/remarks"/>
 public record ReadingConfiguration : CommonConfiguration
 {
-    public bool IgnoreInvalidMidiEventType { get; set; }
+    public bool IgnoreInvalidMidiEvent { get; set; }
     public MisalignedBigRockMarkersPolicy MisalignedBigRockMarkersPolicy { get; set; }
     public MissingBigRockMarkerPolicy MissingBigRockMarkerPolicy { get; set; }
     public UnopenedTrackObjectPolicy UnopenedTrackObjectPolicy { get; set; }
-    public UnclosedTrackObjectPolicy UnclosedTracjObjectPolicy { get; set; }
+    public UnclosedTrackObjectPolicy UnclosedTrackObjectPolicy { get; set; }
     public UnknownSectionPolicy UnknownSectionPolicy { get; set; }
     public TempolessAnchorPolicy TempolessAnchorPolicy { get; set; }
 

@@ -17,7 +17,7 @@ internal class GlobalEventParser : MidiParser
 
         if (item is not TextEvent e)
         {
-            session.InvalidMidiEventTypeProcedure(globalPosition, item);
+            session.InvalidMidiEventProcedure(globalPosition, item);
             return;
         }
 

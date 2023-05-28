@@ -38,6 +38,7 @@ public static class MidiFile
             MidiFormatting.GHGemsHeader => new StandardInstrumentParser(new GHGemsMapper(session), StandardInstrumentIdentity.LeadGuitar, session),
             MidiFormatting.LeadGuitarHeader => new StandardInstrumentParser(new GuitarBassMapper(session), StandardInstrumentIdentity.LeadGuitar, session),
             MidiFormatting.BassHeader => new StandardInstrumentParser(new GuitarBassMapper(session), StandardInstrumentIdentity.Bass, session),
+            MidiFormatting.AnimHeader => new AnimParser(session),
             _ => index == 1 ? new TitleSyncTrackParser(header, session) : null,
         };
     }

@@ -13,11 +13,11 @@ internal abstract class Session
 
     public DuplicateTrackObjectHandler DuplicateTrackObjectProcedure { get; private set; }
     public SnappedNotesHandler SnappedNotesProcedure { get; private set; }
-    public UncertainFormatHandler UncertainFormatProcedure { get; protected set; }
+    public virtual UncertainFormatHandler UncertainFormatProcedure { get; protected set; }
 
-public Session(FormattingRules? formatting)
-{
-    Formatting = formatting;
+    public Session(FormattingRules? formatting)
+    {
+        Formatting = formatting;
 
         DuplicateTrackObjectProcedure = (position, objectType, checkDuplicate) => (DuplicateTrackObjectProcedure = Configuration.DuplicateTrackObjectPolicy switch
         {

@@ -87,6 +87,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Appliables\IInstrumentAppliable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\FileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFormatting.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\AnimParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\IAnimationContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Exceptions\InvalidMidiEventTypeException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\AnimationMapper.cs" />
@@ -96,7 +97,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\IInstrumentWriteMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\ILaneInstrumentReadMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\IMidiEventMapping.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\INoteMapping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\InstrumentMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\IReadMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\LaneInstrumentMapper.cs" />
