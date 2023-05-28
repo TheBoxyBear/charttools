@@ -65,6 +65,7 @@ internal class GuitarBassMapper : StandardInstrumentMapper, IAnimationContainer<
             animations.Add(new(position, AnimationMapper.GetHandPositionIndex(byteNumber)));
             yield break;
         }
+
         if (byteNumber is 116)
         {
             ApplyFormat(MidiInstrumentOrigin.RockBand);
