@@ -2,6 +2,6 @@
 
 public class AnimationSet
 {
-    public List<StandardInstrumentHandPosition> Guitar { get; set; } = new();
-    public List<VocalistMouthControl> Vocals { get; set; } = new();
+    public List<HandPositionEvent> Guitar { get; set; } = new();
+    public List<VocalistMouthEvent> Vocals { get; set; } = new();
 }

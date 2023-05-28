@@ -2,8 +2,7 @@
 
 public enum VocalistMouthState : byte { Open, Close }
 
-public class VocalistMouthControl : ITrackObject
+public class VocalistMouthEvent : AnimationEvent
 {
-    public uint Position { get; set; }
     public VocalistMouthState State { get; set; }
 }
