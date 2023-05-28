@@ -18,38 +18,18 @@ public class Song
     /// <summary>
     /// Set of information about the song not unrelated to instruments, syncing or events
     /// </summary>
-    public Metadata Metadata
-    {
-        get => _metadata;
-        set => _metadata = value ?? throw new ArgumentNullException(nameof(value));
-    }
-    private Metadata _metadata = new();
+    public Metadata Metadata { get; set; }
 
-    /// <inheritdoc cref="ChartTools.SyncTrack"/>
-    public SyncTrack SyncTrack
-    {
-        get => _syncTrack;
-        set => _syncTrack = value ?? throw new ArgumentNullException(nameof(value));
-    }
-    private SyncTrack _syncTrack = new();
+    /// <inheritdoc cref="SyncTrack"/>
+    public SyncTrack SyncTrack { get; set; }
 
     /// <summary>
     /// List of events common to all instruments
     /// </summary>
-    public List<GlobalEvent> GlobalEvents
-    {
-        get => _globalEvents;
-        set => _globalEvents = value ?? throw new ArgumentNullException(nameof(value));
-    }
-    private List<GlobalEvent> _globalEvents = new();
+    public List<GlobalEvent> GlobalEvents { get; set; }
 
     /// <inheritdoc cref="InstrumentSet"/>
-    public InstrumentSet Instruments
-    {
-        get => _instruments;
-        set => _instruments = value ?? throw new ArgumentNullException(nameof(value));
-    }
-    private InstrumentSet _instruments = new();
+    public InstrumentSet Instruments { get; set; }
 
     public AnimationSet Animations { get; set; }
 
