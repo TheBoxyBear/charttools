@@ -1,11 +1,5 @@
 ﻿using ChartTools.Events;
 
-using Melanchall.DryWetMidi.MusicTheory;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace ChartTools.Lyrics;
 
 public class Phrase : TrackObjectBase, IChord, ILongTrackObject
@@ -61,8 +55,8 @@ public class Phrase : TrackObjectBase, IChord, ILongTrackObject
     public string RawText => BuildText(n => n.RawText);
     public string DisplayedText => BuildText(n => n.DisplayedText);
 
-        public Phrase() : base() { }
-        public Phrase(uint position) : base(position) { }
+    public Phrase() : base() { }
+    public Phrase(uint position) : base(position) { }
 
     public IEnumerable<GlobalEvent> ToGlobalEvents()
     {
