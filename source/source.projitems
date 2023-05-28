@@ -9,7 +9,10 @@
     <Import_RootNamespace>ChartTools</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Animations\StandardInstrumentHandPosition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Animations\AnimationEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Animations\AnimationSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Animations\HandPositionEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Animations\VocalistMouthEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Chords\DrumsChord.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Chords\GHLChord.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Chords\IChord.cs" />
@@ -85,6 +88,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\FileReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniFormatting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Exceptions\InvalidMidiEventTypeException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\IAnimationContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\AnimationMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\EventMapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Midi\Mapping\GHGemsMapper.cs" />
@@ -127,7 +131,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Tools\LengthMerger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Printer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\IReadOnlyTrackObject.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TrackObjects\TrackObjectBase.cs" />
     <Compile Include="..\source\IO\Ini\IniKeySerializableAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniParser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Ini\IniSerializer.cs" />
