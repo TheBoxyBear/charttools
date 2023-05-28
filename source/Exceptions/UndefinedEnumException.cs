@@ -11,6 +11,4 @@ public class UndefinedEnumException : ArgumentException
     public Enum Value { get; }
 
     public UndefinedEnumException(Enum value) : base($"{value.GetType().Name} \"{value}\" is not defined.") => Value = value;
-
-
 }

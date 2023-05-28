@@ -101,21 +101,13 @@ public class InstrumentSet : IEnumerable<Instrument>
     /// </summary>
     /// /// <param name="instrument">Instrument to get</param>
     /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="GHLChord"/> from the <see cref="Song"/>.</returns>
-    public GHLInstrument? Get(GHLInstrumentIdentity instrument)
-    {
-        Validator.ValidateEnum(instrument);
-        return Get((InstrumentIdentity)instrument) as GHLInstrument;
-    }
+    public GHLInstrument? Get(GHLInstrumentIdentity instrument) => (GHLInstrument)Get((InstrumentIdentity)instrument)!;
     /// <summary>
     /// Gets property value for an <see cref="Instrument{TChord}"/> from a <see cref="StandardInstrumentIdentity"/> <see langword="enum"/> value.
     /// </summary>
     /// <param name="instrument">Instrument to get</param>
     /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="StandardChord"/> from the <see cref="Song"/>.</returns>
-    public StandardInstrument? Get(StandardInstrumentIdentity instrument)
-    {
-        Validator.ValidateEnum(instrument);
-        return Get((InstrumentIdentity)instrument) as StandardInstrument;
-    }
+    public StandardInstrument? Get(StandardInstrumentIdentity instrument) => (StandardInstrument)Get((InstrumentIdentity)instrument)!;
 
     public IEnumerable<Instrument> Existing() => this.NonNull().Where(instrument => !instrument.IsEmpty);
 
