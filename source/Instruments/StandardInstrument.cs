@@ -38,8 +38,6 @@ public record StandardInstrument : Instrument<StandardChord>
     }
     private MidiInstrumentOrigin midiOrigin;
 
-    public List<StandardInstrumentHandPosition> HandPositions { get; } = new();
-
     public StandardInstrument() { }
     public StandardInstrument(StandardInstrumentIdentity identity)
     {
@@ -79,7 +77,6 @@ public record StandardInstrument : Instrument<StandardChord>
 
             format = newFormat;
         }
-            format = session.UncertainFormatProcedure(InstrumentIdentity, format);
 
         if (format is MidiInstrumentOrigin.GuitarHero1)
             return new GHGemsMapper(session);

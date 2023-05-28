@@ -1,18 +1,12 @@
-﻿using ChartTools.Events;
-using ChartTools.IO.Formatting;
+﻿using ChartTools.Animations;
+using ChartTools.Events;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
+using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
 using ChartTools.Lyrics;
 using ChartTools.Tools;
-
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ChartTools;
 
@@ -31,13 +25,13 @@ public class Song
     }
     private Metadata _metadata = new();
 
-        /// <inheritdoc cref="ChartTools.SyncTrack"/>
-        public SyncTrack SyncTrack
-        {
-            get => _syncTrack;
-            set => _syncTrack = value ?? throw new ArgumentNullException(nameof(value));
-        }
-        private SyncTrack _syncTrack = new();
+    /// <inheritdoc cref="ChartTools.SyncTrack"/>
+    public SyncTrack SyncTrack
+    {
+        get => _syncTrack;
+        set => _syncTrack = value ?? throw new ArgumentNullException(nameof(value));
+    }
+    private SyncTrack _syncTrack = new();
 
     /// <summary>
     /// List of events common to all instruments
@@ -56,6 +50,8 @@ public class Song
         set => _instruments = value ?? throw new ArgumentNullException(nameof(value));
     }
     private InstrumentSet _instruments = new();
+
+    public AnimationSet Animations { get; set; }
 
     public ChartSection? UnknownChartSections { get; set; }
 

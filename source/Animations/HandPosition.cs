@@ -1,6 +1,4 @@
-﻿using ChartTools.IO.Midi.Mapping;
-
-namespace ChartTools.Animations;
+﻿namespace ChartTools.Animations;
 
 public class StandardInstrumentHandPosition : ITrackObject
 {

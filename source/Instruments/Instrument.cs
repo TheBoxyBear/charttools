@@ -3,9 +3,7 @@ using ChartTools.Extensions.Linq;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
-using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Formatting;
-using ChartTools.IO.Midi.Mapping;
 
 using DiffEnum = ChartTools.Difficulty;
 
@@ -24,15 +22,15 @@ public abstract record Instrument : IEmptyVerifiable
     /// </summary>
     public InstrumentIdentity InstrumentIdentity => GetIdentity();
 
-        /// <summary>
-        /// Type of instrument
-        /// </summary>
-        public abstract InstrumentType InstrumentType { get; }
+    /// <summary>
+    /// Type of instrument
+    /// </summary>
+    public abstract InstrumentType InstrumentType { get; }
 
-        /// <summary>
-        /// Set of special phrases applied to all difficulties
-        /// </summary>
-        public List<InstrumentSpecialPhrase> SpecialPhrases { get; set; } = new();
+    /// <summary>
+    /// Set of special phrases applied to all difficulties
+    /// </summary>
+    public List<InstrumentSpecialPhrase> SpecialPhrases { get; set; } = new();
 
     /// <inheritdoc cref="InstrumentDifficultySet.GetDifficulty(InstrumentIdentity)"/>
     public sbyte? GetDifficulty(InstrumentDifficultySet difficulties) => difficulties.GetDifficulty(InstrumentIdentity);
@@ -88,17 +86,17 @@ public abstract record Instrument : IEmptyVerifiable
 
     protected abstract InstrumentIdentity GetIdentity();
 
-        /// <summary>
-        /// Gives all tracks the same local events.
-        /// </summary>
-        public IEnumerable<LocalEvent> ShareLocalEvents(TrackObjectSource source) => ShareEventsSpecialPhrases(source, track => track.LocalEvents);
-        /// <summary>
-        /// Gives all tracks the special phrases
-        /// </summary>
-        public IEnumerable<TrackSpecialPhrase> ShareSpecialPhrases(TrackObjectSource source) => ShareEventsSpecialPhrases(source, track => track.SpecialPhrases);
-        private IEnumerable<T> ShareEventsSpecialPhrases<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : TrackObjectBase
-        {
-            var collections = GetExistingTracks().Select(track => collectionGetter(track)).ToArray();
+    /// <summary>
+    /// Gives all tracks the same local events.
+    /// </summary>
+    public IEnumerable<LocalEvent> ShareLocalEvents(TrackObjectSource source) => ShareEventsSpecialPhrases(source, track => track.LocalEvents);
+    /// <summary>
+    /// Gives all tracks the special phrases
+    /// </summary>
+    public IEnumerable<TrackSpecialPhrase> ShareSpecialPhrases(TrackObjectSource source) => ShareEventsSpecialPhrases(source, track => track.SpecialPhrases);
+    private IEnumerable<T> ShareEventsSpecialPhrases<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : TrackObjectBase
+    {
+        var collections = GetExistingTracks().Select(track => collectionGetter(track)).ToArray();
 
         var objects = (source switch
         {
@@ -110,14 +108,14 @@ public abstract record Instrument : IEmptyVerifiable
             _ => throw new UndefinedEnumException(source)
         }).ToArray();
 
-            foreach (var collection in collections)
-            {
-                collection.Clear();
-                collection.AddRange(objects);
-            }
-
-            return objects;
+        foreach (var collection in collections)
+        {
+            collection.Clear();
+            collection.AddRange(objects);
         }
+
+        return objects;
+    }
 
     #region IO
     #region Reading
