@@ -41,8 +41,6 @@ A song contains four main components:
 - [Global events](Events.md) - Events that are not tied to an instrument.
 - Instruments - The instrument track data.
 
-Each of these components can be read individually from a file or directory using the non-generic version of the corresponding class, with or without a configuration object.
-
 ### Metadata
 Similar to reading a song, metadata is retrieved by reading a file:
 
@@ -122,15 +120,17 @@ syncTrack.TimeSignatures.RemoveUnneeded();
 ChartTools includes other utilities for various purposes. [Learn more](Tools.md).
 
 ## Writing files
-Finally, changes can be saved to a file using the instance or extension `ToFile` method of most components. The format is determined based on the extension of the file. For instruments and tracks, the existing component will be overwritten or added while keeping the rest of the file if it already exists. [Learn more about configuring IO operations](Configuration.md).
+Finally, changes can be saved to a file using the `ToFile` method of the `Song` class, with the format determined by the file extension.
 
 ```csharp
-song.ToFile(path, <WritingConfiguration>); // .chart file only
-metadata.ToFile(path); // .chart or .ini - Some properties may not be written depending on the output format
+song.ToFile("output.chart", <WritingConfiguration>);
 ```
 
-When writing an individual component, it is recommended to pass the formatting to avoid it being read incorrectly in the future.
+Due to limitations of certain file formats, only the `Song` objects can be written to a file in this manner. Format specific operations can be accessed through the respective static class, such as `ChartFile` for `.chart`. For example, here is how to replace an instrument in a `.chart` file.
 
 ```csharp
-instrument.ToFile(path, <WritingConfiguration>, metadata.Formatting);
+ChartFile.ReplaceInstrument("output.chart", guitar, <WritingConfiguration>);
 ```
+
+
+Like when reading files, writing operations can be configured to alter how it deals with errors. [Learn more about configuring IO operations](Configuration.md).
