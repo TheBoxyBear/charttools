@@ -83,7 +83,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\GlobalEventSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Chart\Serialization\UnknownSectionSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Configuration\Enums.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IO\DirectoryHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\EntryException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\LineException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Exceptions\ParseException.cs" />

@@ -365,13 +365,6 @@ public static class EnumerableExtensions
     public static IEnumerable<T> ManyMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) > 0);
     #endregion
 
-    [Obsolete]
-    public static async IAsyncEnumerable<T> ToAsyncEnumerable<T>(this IEnumerable<T> source)
-    {
-        foreach (var item in source)
-            yield return await Task.FromResult(item);
-    }
-
     #region Collections
     /// <summary>
     /// Alternates items from multiple sources.
