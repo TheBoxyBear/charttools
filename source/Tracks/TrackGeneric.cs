@@ -12,7 +12,7 @@ public record Track<TChord> : Track where TChord : IChord, new()
     /// <summary>
     /// Instrument the track is held in.
     /// </summary>
-    public new Instrument<TChord>? ParentInstrument { get; init; }
+    public new Instrument<TChord> ParentInstrument { get; init; }
 
     public override IChord CreateChord(uint position) => new TChord() { Position = position };
 
@@ -23,5 +23,5 @@ public record Track<TChord> : Track where TChord : IChord, new()
     /// <summary>
     /// Gets the parent instrument as an instance of the base type.
     /// </summary>
-    protected override Instrument? GetInstrument() => ParentInstrument;
+    protected override Instrument GetInstrument() => ParentInstrument;
 }

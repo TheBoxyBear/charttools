@@ -40,49 +40,45 @@ public abstract record Instrument : IEmptyVerifiable
     /// <summary>
     /// Easy track
     /// </summary>
-    public Track? Easy => GetEasy();
+    public Track Easy => GetEasy();
     /// <summary>
     /// Medium track
     /// </summary>
-    public Track? Medium => GetMedium();
+    public Track Medium => GetMedium();
     /// <summary>
     /// Hard track
     /// </summary>
-    public Track? Hard => GetHard();
+    public Track Hard => GetHard();
     /// <summary>
     /// Expert track
     /// </summary>
-    public Track? Expert => GetExpert();
+    public Track Expert => GetExpert();
 
     /// <summary>
     /// Gets the track matching a difficulty.
     /// </summary>
-    public abstract Track? GetTrack(DiffEnum difficulty);
+    public abstract Track GetTrack(DiffEnum difficulty);
 
-    protected abstract Track? GetEasy();
-    protected abstract Track? GetMedium();
-    protected abstract Track? GetHard();
-    protected abstract Track? GetExpert();
+    protected abstract Track GetEasy();
+    protected abstract Track GetMedium();
+    protected abstract Track GetHard();
+    protected abstract Track GetExpert();
 
     /// <summary>
-    /// Creates a track
+    /// Clears the track matching a difficulty.
     /// </summary>
     /// <param name="difficulty">Difficulty of the track</param>
-    public abstract Track CreateTrack(DiffEnum difficulty);
-    /// <summary>
-    /// Removes a track.
-    /// </summary>
-    /// <param name="difficulty">Difficulty of the target track</param>
-    public abstract bool RemoveTrack(DiffEnum difficulty);
+    /// <returns>Newly created track</returns>
+    public abstract Track ClearTrack(DiffEnum difficulty);
 
     /// <summary>
     /// Creates an array containing all tracks.
     /// </summary>
-    public virtual Track?[] GetTracks() => new Track?[] { Easy, Medium, Hard, Expert };
+    public virtual Track[] GetTracks() => new Track[] { Easy, Medium, Hard, Expert };
     /// <summary>
     /// Creates an array containing all tracks with data.
     /// </summary>
-    public virtual IEnumerable<Track> GetExistingTracks() => GetTracks().NonNull().Where(t => !t.IsEmpty);
+    public virtual IEnumerable<Track> GetExistingTracks() => GetTracks().Where(t => !t.IsEmpty);
 
     protected abstract InstrumentIdentity GetIdentity();
 
@@ -120,14 +116,14 @@ public abstract record Instrument : IEmptyVerifiable
     #region IO
     #region Reading
     [Obsolete($"Use {nameof(ChartFile.ReadInstrument)}.")]
-    public static Instrument? FromFile(string path, InstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadInstrument(path, instrument, config, formatting)));
+    public static Instrument FromFile(string path, InstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadInstrument(path, instrument, config, formatting)));
     [Obsolete($"Use {nameof(ChartFile.ReadInstrumentAsync)}.")]
-    public static async Task<Instrument?> FromFileAsync(string path, InstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync(path, (".chart", path => ChartFile.ReadInstrumentAsync(path, instrument, config, formatting, cancellationToken)));
+    public static async Task<Instrument> FromFileAsync(string path, InstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync(path, (".chart", path => ChartFile.ReadInstrumentAsync(path, instrument, config, formatting, cancellationToken)));
 
     [Obsolete($"Use {nameof(ChartFile.ReadInstrument)} with {nameof(Metadata.Formatting)}.")]
-    public static DirectoryResult<Instrument?> FromDirectory(string directory, InstrumentIdentity instrument, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, instrument, config, formatting));
+    public static DirectoryResult<Instrument> FromDirectory(string directory, InstrumentIdentity instrument, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, instrument, config, formatting));
     [Obsolete($"Use {nameof(ChartFile.ReadInstrumentAsync)} with {nameof(Metadata.Formatting)}.")]
-    public static Task<DirectoryResult<Instrument?>> FromDirectoryAsync(string directory, InstrumentIdentity instrument, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, instrument, config, formatting, cancellationToken), cancellationToken);
+    public static Task<DirectoryResult<Instrument>> FromDirectoryAsync(string directory, InstrumentIdentity instrument, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, instrument, config, formatting, cancellationToken), cancellationToken);
     #endregion
 
     [Obsolete($"Use {nameof(ChartFile.ReplaceInstrument)}.")]

@@ -3,11 +3,12 @@ using ChartTools.IO.Ini;
 
 namespace ChartTools.IO;
 
-public record DirectoryResult<T>(T Result, Metadata Metadata);
+[Obsolete("No longer used internally.")] public record DirectoryResult<T>(T Result, Metadata Metadata);
 
+[Obsolete("No longer used internally.")]
 internal static class DirectoryHandler
 {
-    public static DirectoryResult<T?> FromDirectory<T>(string directory, Func<string, FormattingRules, T> read)
+    public static DirectoryResult<T> FromDirectory<T>(string directory, Func<string, FormattingRules, T> read)
     {
         var iniPath = directory + @"\song.ini";
         var chartPath = directory + @"\notes.chart";
@@ -18,9 +19,9 @@ internal static class DirectoryHandler
         if (File.Exists(chartPath))
             value = read(chartPath, iniMetadata.Formatting);
 
-        return new(value, iniMetadata);
+        return new(value!, iniMetadata);
     }
-    public static async Task<DirectoryResult<T?>> FromDirectoryAsync<T>(string directory, Func<string, FormattingRules, Task<T>> read, CancellationToken cancellationToken)
+    public static async Task<DirectoryResult<T>> FromDirectoryAsync<T>(string directory, Func<string, FormattingRules, Task<T>> read, CancellationToken cancellationToken)
     {
         var iniPath = directory + @"\song.ini";
         var chartPath = directory + @"\notes.chart";
@@ -31,6 +32,6 @@ internal static class DirectoryHandler
         if (File.Exists(chartPath))
             value = await read(chartPath, iniMetadata.Formatting);
 
-        return new(value, iniMetadata);
+        return new(value!, iniMetadata);
     }
 }

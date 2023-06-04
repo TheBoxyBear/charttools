@@ -18,20 +18,20 @@ public class Song
     /// <summary>
     /// Set of information about the song not unrelated to instruments, syncing or events
     /// </summary>
-    public Metadata Metadata { get; set; }
+    public Metadata Metadata { get; set; } = new();
 
     /// <inheritdoc cref="SyncTrack"/>
-    public SyncTrack SyncTrack { get; set; }
+    public SyncTrack SyncTrack { get; set; } = new();
 
     /// <summary>
     /// List of events common to all instruments
     /// </summary>
-    public List<GlobalEvent> GlobalEvents { get; set; }
+    public List<GlobalEvent> GlobalEvents { get; set; } = new();
 
     /// <inheritdoc cref="InstrumentSet"/>
-    public InstrumentSet Instruments { get; set; }
+    public InstrumentSet Instruments { get; set; } = new();
 
-    public AnimationSet Animations { get; set; }
+    public AnimationSet Animations { get; set; } = new();
 
     public ChartSection? UnknownChartSections { get; set; }
 
@@ -53,19 +53,35 @@ public class Song
 
     public static Song FromDirectory(string directory, ReadingConfiguration? config = default)
     {
-        (var song, var metadata) = DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, config, formatting));
+        var iniPath = directory + @"\song.ini";
+        var chartPath = directory + @"\notes.chart";
+        var iniMetadata = File.Exists(iniPath) ? IniFile.ReadMetadata(iniPath) : new();
+
+        Song? song = null;
+
+        if (File.Exists(chartPath))
+            song = FromFile(chartPath, config, iniMetadata.Formatting);
+
         song ??= new();
 
-        PropertyMerger.Merge(song.Metadata, true, true, metadata);
+        PropertyMerger.Merge(song.Metadata, true, true, iniMetadata);
 
         return song;
     }
     public static async Task<Song> FromDirectoryAsync(string directory, ReadingConfiguration? config = default, CancellationToken cancellationToken = default)
     {
-        (var song, var metadata) = await DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, config, formatting, cancellationToken), cancellationToken);
+        var iniPath = directory + @"\song.ini";
+        var chartPath = directory + @"\notes.chart";
+        var iniMetadata = File.Exists(iniPath) ? await IniFile.ReadMetadataAsync(iniPath, null, cancellationToken) : new();
+
+        Song? song = null;
+
+        if (File.Exists(chartPath))
+            song = await FromFileAsync(chartPath, config, iniMetadata.Formatting, cancellationToken);
+
         song ??= new();
 
-        PropertyMerger.Merge(song.Metadata, true, true, metadata);
+        PropertyMerger.Merge(song.Metadata, true, true, iniMetadata);
 
         return song;
     }

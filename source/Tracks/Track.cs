@@ -21,7 +21,7 @@ public abstract record Track : IEmptyVerifiable
     /// <summary>
     /// Instrument containing the track
     /// </summary>
-    public Instrument? ParentInstrument => GetInstrument();
+    public Instrument ParentInstrument => GetInstrument();
     /// <summary>
     /// Events specific to the <see cref="Track"/>
     /// </summary>
@@ -69,7 +69,7 @@ public abstract record Track : IEmptyVerifiable
             LocalEvents.RemoveAll(e => e.IsSoloEvent);
     }
 
-    protected abstract Instrument? GetInstrument();
+    protected abstract Instrument GetInstrument();
 
     #region File reading
     #region Single file

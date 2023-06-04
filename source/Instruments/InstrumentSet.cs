@@ -12,78 +12,78 @@ public class InstrumentSet : IEnumerable<Instrument>
     /// <summary>
     /// Set of drums tracks
     /// </summary>
-    public Drums? Drums { get; set; }
+    public Drums Drums { get; set; } = new();
     /// <summary>
     /// Set of Guitar Hero Live guitar tracks
     /// </summary>
-    public GHLInstrument? GHLGuitar
+    public GHLInstrument GHLGuitar
     {
         get => _ghlGuitar;
-        set => _ghlGuitar = value is null ? value : value with { InstrumentIdentity = GHLInstrumentIdentity.Guitar };
+        set => _ghlGuitar = value with { InstrumentIdentity = GHLInstrumentIdentity.Guitar };
     }
-    private GHLInstrument? _ghlGuitar;
+    private GHLInstrument _ghlGuitar = new(GHLInstrumentIdentity.Guitar);
     /// <summary>
     /// Set of Guitar Hero Live bass tracks
     /// </summary>
-    public GHLInstrument? GHLBass
+    public GHLInstrument GHLBass
     {
         get => _ghlBass;
-        set => _ghlBass = value is null ? value : value with { InstrumentIdentity = GHLInstrumentIdentity.Bass };
+        set => _ghlBass = value with { InstrumentIdentity = GHLInstrumentIdentity.Bass };
     }
-    private GHLInstrument? _ghlBass;
+    private GHLInstrument _ghlBass = new(GHLInstrumentIdentity.Bass);
     /// <summary>
     /// Set of lead guitar tracks
     /// </summary>
-    public StandardInstrument? LeadGuitar
+    public StandardInstrument LeadGuitar
     {
         get => _leadGuitar;
-        set => _leadGuitar = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.LeadGuitar };
+        set => _leadGuitar = value with { InstrumentIdentity = StandardInstrumentIdentity.LeadGuitar };
     }
-    private StandardInstrument? _leadGuitar;
+    private StandardInstrument _leadGuitar = new(StandardInstrumentIdentity.LeadGuitar);
     /// <summary>
     /// Set of rhythm guitar tracks
     /// </summary>
-    public StandardInstrument? RhythmGuitar
+    public StandardInstrument RhythmGuitar
     {
         get => _rhythmGuitar;
-        set => _rhythmGuitar = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.RhythmGuitar };
+        set => _rhythmGuitar = value with { InstrumentIdentity = StandardInstrumentIdentity.RhythmGuitar };
     }
-    private StandardInstrument? _rhythmGuitar;
+    private StandardInstrument _rhythmGuitar = new(StandardInstrumentIdentity.RhythmGuitar);
     /// <summary>
     /// Set of coop guitar tracks
     /// </summary>
-    public StandardInstrument? CoopGuitar
+    public StandardInstrument CoopGuitar
     {
         get => _coopGuitar;
-        set => _coopGuitar = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.CoopGuitar };
+        set => _coopGuitar = value with { InstrumentIdentity = StandardInstrumentIdentity.CoopGuitar };
     }
-    private StandardInstrument? _coopGuitar;
+    private StandardInstrument _coopGuitar = new(StandardInstrumentIdentity.CoopGuitar);
     /// <summary>
     /// Set of bass tracks
     /// </summary>
-    public StandardInstrument? Bass
+    public StandardInstrument Bass
     {
         get => _bass;
-        set => _bass = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.Bass };
+        set => _bass = value with { InstrumentIdentity = StandardInstrumentIdentity.Bass };
     }
-    private StandardInstrument? _bass;
+    private StandardInstrument _bass = new(StandardInstrumentIdentity.Bass);
     /// <summary>
     /// Set of keyboard tracks
     /// </summary>
-    public StandardInstrument? Keys
+    public StandardInstrument Keys
     {
         get => _keys;
-        set => _keys = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.Keys };
+        set => _keys = value with { InstrumentIdentity = StandardInstrumentIdentity.Keys };
     }
-    private StandardInstrument? _keys;
-    public Vocals? Vocals { get; set; }
+    private StandardInstrument _keys = new(StandardInstrumentIdentity.Keys);
+    public Vocals Vocals { get; set; } = new();
 
     /// <summary>
     /// Gets property value for an <see cref="Instrument"/> from a <see cref="InstrumentIdentity"/> <see langword="enum"/> value.
     /// </summary>
     /// <returns>Instance of <see cref="Instrument"/> from the <see cref="Song"/></returns>
     /// <param name="instrument">Instrument to get</param>
-    public Instrument? Get(InstrumentIdentity instrument) => instrument switch
+    public Instrument Get(InstrumentIdentity instrument) => instrument switch
     {
         InstrumentIdentity.Drums => Drums,
         InstrumentIdentity.GHLGuitar => GHLGuitar,
@@ -101,15 +101,15 @@ public class InstrumentSet : IEnumerable<Instrument>
     /// </summary>
     /// /// <param name="instrument">Instrument to get</param>
     /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="GHLChord"/> from the <see cref="Song"/>.</returns>
-    public GHLInstrument? Get(GHLInstrumentIdentity instrument) => (GHLInstrument)Get((InstrumentIdentity)instrument)!;
+    public GHLInstrument Get(GHLInstrumentIdentity instrument) => (GHLInstrument)Get((InstrumentIdentity)instrument);
     /// <summary>
     /// Gets property value for an <see cref="Instrument{TChord}"/> from a <see cref="StandardInstrumentIdentity"/> <see langword="enum"/> value.
     /// </summary>
     /// <param name="instrument">Instrument to get</param>
     /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="StandardChord"/> from the <see cref="Song"/>.</returns>
-    public StandardInstrument? Get(StandardInstrumentIdentity instrument) => (StandardInstrument)Get((InstrumentIdentity)instrument)!;
+    public StandardInstrument Get(StandardInstrumentIdentity instrument) => (StandardInstrument)Get((InstrumentIdentity)instrument);
 
-    public IEnumerable<Instrument> Existing() => this.NonNull().Where(instrument => !instrument.IsEmpty);
+    public IEnumerable<Instrument> Existing() => this.Where(instrument => !instrument.IsEmpty);
 
     public void Set(StandardInstrument instrument)
     {
@@ -149,7 +149,7 @@ public class InstrumentSet : IEnumerable<Instrument>
         }
     }
 
-    public IEnumerator<Instrument> GetEnumerator() => new Instrument?[] { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys }.NonNull().GetEnumerator();
+    public IEnumerator<Instrument> GetEnumerator() => new Instrument[] { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys }.AsEnumerable().GetEnumerator();
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }

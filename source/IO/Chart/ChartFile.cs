@@ -110,12 +110,12 @@ public static class ChartFile
     /// <summary>
     /// Combines the results from the parsers in a <see cref="ChartFileReader"/> into an instrument.
     /// </summary>
-    private static TInst? CreateInstrumentFromReader<TInst, TChord>(ChartFileReader reader) where TInst : Instrument<TChord>, new() where TChord : IChord, new()
+    private static TInst CreateInstrumentFromReader<TInst, TChord>(ChartFileReader reader) where TInst : Instrument<TChord>, new() where TChord : IChord, new()
     {
-        TInst? output = null;
+        TInst output = new();
 
         foreach (var parser in reader.Parsers)
-            (output ??= new()).SetTrack(((TrackParser<TChord>)parser).Result!);
+            output.SetTrack(((TrackParser<TChord>)parser).Result!);
 
         return output;
     }
@@ -132,7 +132,7 @@ public static class ChartFile
     /// <inheritdoc cref="ReadDrums(string, ReadingConfiguration, FormattingRules?)" path="/exception"/>
     /// <inheritdoc cref="ReadInstrument(string, GHLInstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/exception"/>
     /// <inheritdoc cref="ReadInstrument(string, StandardInstrumentIdentity, ReadingConfiguration, FormattingRules?)" path="/exception"/>
-    public static Instrument? ReadInstrument(string path, InstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default)
+    public static Instrument ReadInstrument(string path, InstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default)
     {
         if (instrument == InstrumentIdentity.Drums)
             return ReadDrums(path, config, formatting);
@@ -142,7 +142,7 @@ public static class ChartFile
             ? ReadInstrument(path, (StandardInstrumentIdentity)instrument, config, formatting)
             : throw new UndefinedEnumException(instrument);
     }
-    public static async Task<Instrument?> ReadInstrumentAsync(string path, InstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+    public static async Task<Instrument> ReadInstrumentAsync(string path, InstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
     {
         if (instrument == InstrumentIdentity.Drums)
             return await ReadDrumsAsync(path, config, formatting, cancellationToken);
@@ -160,20 +160,20 @@ public static class ChartFile
     ///     <para><see langword="null"/> if the file contains no drums data</para>
     /// </returns>
     /// <param name="path">Path of the file to read</param>
-    public static Vocals? ReadVocals(string path) => BuildVocals(ReadGlobalEvents(path));
-    public static async Task<Vocals?> ReadVocalsAsync(string path, CancellationToken cancellationToken = default) => BuildVocals(await ReadGlobalEventsAsync(path, cancellationToken));
-    private static Vocals? BuildVocals(List<GlobalEvent> events)
+    public static Vocals ReadVocals(string path) => BuildVocals(ReadGlobalEvents(path));
+    public static async Task<Vocals> ReadVocalsAsync(string path, CancellationToken cancellationToken = default) => BuildVocals(await ReadGlobalEventsAsync(path, cancellationToken));
+    private static Vocals BuildVocals(List<GlobalEvent> events)
     {
         var lyrics = events.GetLyrics().ToArray();
 
         if (lyrics.Length == 0)
-            return null;
+            return new();
 
         var instument = new Vocals();
 
         foreach (var diff in EnumCache<Difficulty>.Values)
         {
-            var track = instument.CreateTrack(diff);
+            var track = instument.ClearTrack(diff);
             track.Chords.AddRange(lyrics);
         }
 
@@ -193,7 +193,7 @@ public static class ChartFile
     /// <param name="path">Path of the file to read</param>
     /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
     /// <param name="formatting"><inheritdoc cref="FormattingRules" path="/summary"/></param>
-    public static Drums? ReadDrums(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default)
+    public static Drums ReadDrums(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default)
     {
         var session = new ReadingSession(config ?? DefaultReadConfig, formatting ?? new());
         var reader = new ChartFileReader(path, header => GetAnyDrumsTrackParser(header, session));
@@ -201,7 +201,7 @@ public static class ChartFile
         reader.Read();
         return CreateInstrumentFromReader<Drums, DrumsChord>(reader);
     }
-    public static async Task<Drums?> ReadDrumsAsync(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+    public static async Task<Drums> ReadDrumsAsync(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
     {
         var session = new ReadingSession(config ?? DefaultReadConfig, formatting ?? new());
         var reader = new ChartFileReader(path, header => GetAnyDrumsTrackParser(header, session));
@@ -222,7 +222,7 @@ public static class ChartFile
     /// </returns>
     /// <param name="path">Path of the file to read</param>
     /// <inheritdoc cref="GetGHLTrackParser(string, string, GHLInstrumentIdentity, Difficulty, ReadingSession)" path="/exception"/>
-    public static GHLInstrument? ReadInstrument(string path, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default)
+    public static GHLInstrument ReadInstrument(string path, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default)
     {
         Validator.ValidateEnum(instrument);
 
@@ -232,7 +232,7 @@ public static class ChartFile
         reader.Read();
         return CreateInstrumentFromReader<GHLInstrument, GHLChord>(reader);
     }
-    public static async Task<GHLInstrument?> ReadInstrumentAsync(string path, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+    public static async Task<GHLInstrument> ReadInstrumentAsync(string path, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
     {
         Validator.ValidateEnum(instrument);
 
@@ -251,7 +251,7 @@ public static class ChartFile
     /// <param name="path"><inheritdoc cref="StandardInstrument.FromFile(string, StandardInstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/param[@name='path']"/></param>
     /// <param name="instrument"><inheritdoc cref="StandardInstrument.FromFile(string, StandardInstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/param[@name='instrument']"/></param>
     /// <param name="config"><inheritdoc cref="StandardInstrument.FromFile(string, StandardInstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>
-    public static StandardInstrument? ReadInstrument(string path, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default)
+    public static StandardInstrument ReadInstrument(string path, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default)
     {
         Validator.ValidateEnum(instrument);
 
@@ -266,7 +266,7 @@ public static class ChartFile
     /// <param name="instrument"><inheritdoc cref="StandardInstrument.FromFileAsync(string, StandardInstrumentIdentity, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='instrument']"/></param>
     /// <param name="cancellationToken"><inheritdoc cref="StandardInstrument.FromFileAsync(string, StandardInstrumentIdentity,  ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='cancellationToken']"/></param>
     /// <param name="config"><inheritdoc cref="StandardInstrument.FromFileAsync(string, StandardInstrumentIdentity, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='config']"/></param>
-    public static async Task<StandardInstrument?> ReadInstrumentAsync(string path, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+    public static async Task<StandardInstrument> ReadInstrumentAsync(string path, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
     {
         Validator.ValidateEnum(instrument);
 

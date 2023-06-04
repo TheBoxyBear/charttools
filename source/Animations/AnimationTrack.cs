@@ -17,6 +17,8 @@ public abstract record AnimationTrack : IReadOnlyList<AnimationEvent>, IEmptyVer
     protected abstract AnimationTrackIdentity GetIdentity();
     protected abstract IReadOnlyList<AnimationEvent> GetItems();
 
+    public abstract AnimationEvent Create(uint position);
+
     public IEnumerator<AnimationEvent> GetEnumerator() => GetItems().GetEnumerator();
     IEnumerator IEnumerable.GetEnumerator() => GetItems().GetEnumerator();
 }

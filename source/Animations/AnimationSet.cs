@@ -26,12 +26,13 @@ public class AnimationSet : IEnumerable<AnimationTrack>
         _ => throw new UndefinedEnumException(identity)
     };
 
-    public AnimationTrack Set(HandPositionAnimationTrack track)
+    public void Set(HandPositionAnimationTrack track)
     {
         switch (track.Identity)
         {
             case HandPositionAnimationTrackIdentity.Guitar:
-                return _guitar = track;
+                _guitar = track;
+                break;
             default:
                 throw new UndefinedEnumException(track.Identity);
         }
