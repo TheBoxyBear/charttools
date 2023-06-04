@@ -11,8 +11,12 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Animations\AnimationEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Animations\AnimationSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Animations\AnimationTrack.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Animations\AnimationTrackGeneric.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Animations\HandPositionAnimationTrack.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Animations\HandPositionEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Animations\VocalistMouthEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Animations\VocalsAnimationTrack.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Chords\DrumsChord.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Chords\GHLChord.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Chords\IChord.cs" />

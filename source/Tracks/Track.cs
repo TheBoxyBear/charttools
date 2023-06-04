@@ -38,12 +38,12 @@ public abstract record Track : IEmptyVerifiable
 
     protected abstract IReadOnlyList<IChord> GetChords();
 
-        public abstract IChord CreateChord(uint position);
+    public abstract IChord CreateChord(uint position);
 
-        internal IEnumerable<TrackSpecialPhrase> SoloToStarPower(bool removeEvents)
-        {
-            if (LocalEvents is null)
-                yield break;
+    internal IEnumerable<TrackSpecialPhrase> SoloToStarPower(bool removeEvents)
+    {
+        if (LocalEvents is null)
+            yield break;
 
         foreach (LocalEvent e in LocalEvents.OrderBy(e => e.Position))
         {
@@ -129,7 +129,7 @@ public abstract record Track : IEmptyVerifiable
     public void ToFile(string path, WritingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Write<Track>(path, this, (".chart", (path, track) => ChartFile.ReplaceTrack(path, track, config, formatting)));
 
     [Obsolete($"Use {nameof(ChartFile.ReplaceTrackAsync)}.")]
-    public async Task ToFileAsync(string path, WritingConfiguration? config = default,FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.WriteAsync<Track>(path, this, (".chart", (path, track) => ChartFile.ReplaceTrackAsync(path, track, config, formatting, cancellationToken)));
+    public async Task ToFileAsync(string path, WritingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.WriteAsync<Track>(path, this, (".chart", (path, track) => ChartFile.ReplaceTrackAsync(path, track, config, formatting, cancellationToken)));
 
     public override string ToString() => Difficulty.ToString();
 }

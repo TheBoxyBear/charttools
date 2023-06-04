@@ -38,7 +38,6 @@ public record StandardInstrument : Instrument<StandardChord>
     }
     private MidiInstrumentOrigin midiOrigin;
 
-    public StandardInstrument() { }
     public StandardInstrument(StandardInstrumentIdentity identity)
     {
         Validator.ValidateEnum(identity);

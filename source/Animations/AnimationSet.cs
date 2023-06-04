@@ -1,7 +1,42 @@
-﻿namespace ChartTools.Animations;
+﻿using ChartTools.Extensions.Linq;
+using System.Collections;
 
-public class AnimationSet
+namespace ChartTools.Animations;
+
+public class AnimationSet : IEnumerable<AnimationTrack>
 {
-    public List<HandPositionEvent> Guitar { get; set; } = new();
-    public List<VocalistMouthEvent> Vocals { get; set; } = new();
+    public HandPositionAnimationTrack Guitar
+    {
+        get => _guitar;
+        set => _guitar = value with { Identity = HandPositionAnimationTrackIdentity.Guitar };
+    }
+    private HandPositionAnimationTrack _guitar = new(HandPositionAnimationTrackIdentity.Guitar);
+
+    public VocalsAnimationTrack Vocals { get; set; } = new();
+
+    public AnimationTrack Get(AnimationTrackIdentity identity) => identity switch
+    {
+        AnimationTrackIdentity.Guitar => Guitar,
+        AnimationTrackIdentity.Vocals => Vocals,
+        _ => throw new UndefinedEnumException(identity)
+    };
+    public HandPositionAnimationTrack Get(HandPositionAnimationTrackIdentity identity) => identity switch
+    {
+        HandPositionAnimationTrackIdentity.Guitar => Guitar,
+        _ => throw new UndefinedEnumException(identity)
+    };
+
+    public AnimationTrack Set(HandPositionAnimationTrack track)
+    {
+        switch (track.Identity)
+        {
+            case HandPositionAnimationTrackIdentity.Guitar:
+                return _guitar = track;
+            default:
+                throw new UndefinedEnumException(track.Identity);
+        }
+    }
+
+    public IEnumerator<AnimationTrack> GetEnumerator() => new AnimationTrack?[] { Guitar, Vocals }.NonNull().GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }

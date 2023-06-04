@@ -13,7 +13,6 @@ public record GHLInstrument : Instrument<GHLChord>
     public new GHLInstrumentIdentity InstrumentIdentity { get; init; }
     public override InstrumentType InstrumentType => InstrumentType.GHL;
 
-    public GHLInstrument() { }
     public GHLInstrument(GHLInstrumentIdentity identity)
     {
         Validator.ValidateEnum(identity);
