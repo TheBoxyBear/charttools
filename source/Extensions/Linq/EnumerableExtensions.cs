@@ -1,7 +1,5 @@
 ﻿using ChartTools.Extensions.Collections;
-
 using System.Collections;
-using System.Runtime.CompilerServices;
 
 namespace ChartTools.Extensions.Linq;
 
