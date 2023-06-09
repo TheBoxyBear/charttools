@@ -28,9 +28,6 @@ internal class GuitarBassMapper : StandardInstrumentMapper, IAnimationContainer<
 
     public override IEnumerable<NoteEventMapping> Map(uint position, NoteEvent e)
     {
-        if (Format == MidiInstrumentOrigin.NA)
-            throw new InvalidOperationException($"No writing format provided");
-
         var byteNumber = (byte)e.NoteNumber;
 
         if (byteNumber is 126 or 127)

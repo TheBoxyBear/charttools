@@ -30,6 +30,8 @@ internal class StandardInstrumentParser : LaneInstrumentParser<StandardChord, St
         if (origin == MidiInstrumentOrigin.Unknown)
             origin = session.UncertainFormatProcedure(Instrument, origin);
 
+        result.MidiOrigin = origin;
+
         base.FinaliseParse();
     }
 
