@@ -30,15 +30,15 @@ public abstract class Event : ITrackObject, IMidiEventMapping
         }
     }
 
-    private string? _argument = null;
+    private string _argument = string.Empty;
     /// <summary>
     /// Additional data to modify the outcome of the event
     /// </summary>
     /// <remarks>A lack of argument is represented as an empty string.</remarks>
-    public string? Argument
+    public string Argument
     {
         get => _argument;
-        set => _argument = value ?? string.Empty;
+        set => _argument = value.TrimStart();
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ public abstract class Event : ITrackObject, IMidiEventMapping
         get => Argument is null ? EventType : string.Join(' ', EventType, Argument);
         set
         {
-            var split = value.Split(' ', 2, StringSplitOptions.None);
+            var split = value.Split(' ', 2, StringSplitOptions.TrimEntries);
 
             EventType = split[0];
             Argument = split.Length > 1 ? split[1] : string.Empty;
@@ -63,7 +63,7 @@ public abstract class Event : ITrackObject, IMidiEventMapping
         Position = position;
         EventData = data;
     }
-    public Event(uint position, string type, string? argument)
+    public Event(uint position, string type, string argument)
     {
         Position = position;
         EventType = type;
