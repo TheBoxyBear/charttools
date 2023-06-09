@@ -46,10 +46,10 @@ public abstract class Event : ITrackObject, IMidiEventMapping
     /// </summary>
     public string EventData
     {
-        get => Argument is null ? EventType : string.Join(' ', EventType, Argument);
+        get => Argument == string.Empty ? EventType : string.Join(' ', EventType, Argument);
         set
         {
-            var split = value.Split(' ', 2, StringSplitOptions.TrimEntries);
+            var split = value.Split(' ', 2, StringSplitOptions.None);
 
             EventType = split[0];
             Argument = split.Length > 1 ? split[1] : string.Empty;
