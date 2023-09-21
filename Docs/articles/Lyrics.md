@@ -30,7 +30,7 @@ Vocals can be read like any other instrument using the `FromFile` method.
 Vocals? vocals = Vocals.FromFile(path, <ReadingConfiguration>, <FormattingRules>);
 ```
 
-Chart files define lyrics through global events that can be converted to a set of phrases. When reading a full song from a chart file, the vocals insturment will be null.
+Chart files define lyrics through global events that can be converted to a set of phrases. When reading a full song from a chart file, the vocals instrument will be null.
 
 ```csharp
 using ChartTools.Lyrics;
