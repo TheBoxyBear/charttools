@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="source.projitems" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Melanchall.DryWetMidi.Nativeless" Version="7.0.2" />
   </ItemGroup>
 

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChartTools.Tests", "ChartTo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Docs", "Docs\Docs.csproj", "{B5A19C40-6CCD-48B2-827F-0D24B6271530}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChartTools", "ChartTools\ChartTools.csproj", "{487BDC85-A45E-4896-9F1F-1A8EC145BD19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChartTools", "ChartTools\ChartTools.csproj", "{487BDC85-A45E-4896-9F1F-1A8EC145BD19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
