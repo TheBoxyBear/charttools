@@ -22,34 +22,6 @@ public enum MissingBigRockMarkerPolicy : byte
 }
 
 /// <summary>
-/// Difficulty of the <see cref="Track"/> to serve as a source of for track objects for which the target format requires these objects to be the same across all difficulties.
-/// </summary>
-/// <remarks>Can be cast from <see cref="Difficulty"/>.</remarks>
-public enum TrackObjectSource : byte
-{
-    /// <summary>
-    /// Use the objects from the <see cref="Difficulty.Easy"/> track.
-    /// </summary>
-    Easy,
-    /// <summary>
-    /// Use the objects from the <see cref="Difficulty.Medium"/> track.
-    /// </summary>
-    Medium,
-    /// <summary>
-    /// Use the objects from the <see cref="Difficulty.Hard"/> track.
-    /// </summary>
-    Hard,
-    /// <summary>
-    /// Use the objects from the <see cref="Difficulty.Expert"/> track.
-    /// </summary>
-    Expert,
-    /// <summary>
-    /// Combine the unique track objects from all the tracks in the instrument.
-    /// </summary>
-    Merge,
-}
-
-/// <summary>
 /// Defines how lead guitar and bass and handled when the Midi mapping is uncertain.
 /// </summary>
 public enum UncertainFormatPolicy : byte

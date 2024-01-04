@@ -34,11 +34,11 @@ public static class ChartFile
     /// </summary>
     public static ChartWritingConfiguration DefaultWriteConfig { get; set; } = new()
     {
-        DuplicateTrackObjectPolicy     = DuplicateTrackObjectPolicy.ThrowException,
-        OverlappingSpecialPhrasePolicy = OverlappingSpecialPhrasePolicy.ThrowException,
-        SoloNoStarPowerPolicy          = SoloNoStarPowerPolicy.Convert,
-        SnappedNotesPolicy             = SnappedNotesPolicy.ThrowException,
-        UnsupportedModifierPolicy      = UnsupportedModifierPolicy.ThrowException
+        DuplicateTrackObjectPolicy      = DuplicateTrackObjectPolicy.ThrowException,
+        OverlappingSpecialPhrasePolicy  = OverlappingSpecialPhrasePolicy.ThrowException,
+        SoloNoStarPowerPolicy           = SoloNoStarPowerPolicy.Convert,
+        SnappedNotesPolicy              = SnappedNotesPolicy.ThrowException,
+        UnsupportedModifiersPolicy      = UnsupportedModifiersPolicy.ThrowException
     };
 
     #region Reading

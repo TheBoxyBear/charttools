@@ -1,6 +1,7 @@
 ﻿using ChartTools.IO.Chart;
 using ChartTools.IO.Chart.Configuration.Sessions;
 using ChartTools.IO.Chart.Entries;
+using ChartTools.IO.Formatting;
 
 namespace ChartTools;
 
@@ -39,11 +40,11 @@ public class StandardChord : LaneChord<LaneNote<StandardLane>, StandardLane, Sta
 
     internal override IEnumerable<TrackObjectEntry> GetChartNoteData() => Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Sustain));
 
-    internal override IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, ChartWritingSession session)
+    internal override IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, FormattingRules formatting)
     {
         bool isInvert = Modifiers.HasFlag(StandardChordModifiers.HopoInvert);
 
-        if (Modifiers.HasFlag(StandardChordModifiers.ExplicitHopo) && (previous is null || previous.Position <= session.Formatting!.TrueHopoFrequency) != isInvert || isInvert)
+        if (Modifiers.HasFlag(StandardChordModifiers.ExplicitHopo) && (previous is null || previous.Position <= formatting.TrueHopoFrequency) != isInvert || isInvert)
             yield return ChartFormatting.NoteEntry(Position, 5, 0);
         if (Modifiers.HasFlag(StandardChordModifiers.Tap))
             yield return ChartFormatting.NoteEntry(Position, 6, 0);

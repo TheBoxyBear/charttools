@@ -1,5 +1,6 @@
 ﻿using ChartTools.IO.Chart.Configuration.Sessions;
 using ChartTools.IO.Chart.Entries;
+using ChartTools.IO.Formatting;
 
 namespace ChartTools;
 
@@ -25,5 +26,5 @@ public abstract class LaneChord(uint position) : IChord
     protected abstract IReadOnlyCollection<LaneNote> GetNotes();
 
     internal abstract IEnumerable<TrackObjectEntry> GetChartNoteData();
-    internal abstract IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, ChartWritingSession session);
+    internal abstract IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, FormattingRules formatting);
 }

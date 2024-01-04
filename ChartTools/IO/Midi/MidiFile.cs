@@ -29,12 +29,14 @@ public static class MidiFile
 
     public static MidiWritingConfiguration DefaultWriteConfig { get; set; } = new()
     {
-        DuplicateTrackObjectPolicy     = DuplicateTrackObjectPolicy.ThrowException,
-        OverlappingSpecialPhrasePolicy = OverlappingSpecialPhrasePolicy.ThrowException,
-        SnappedNotesPolicy             = SnappedNotesPolicy.Snap,
-        SoloNoStarPowerPolicy          = SoloNoStarPowerPolicy.Convert,
-        UncertainFormatPolicy          = UncertainFormatPolicy.ThrowException,
-        UnsupportedModifierPolicy      = UnsupportedModifierPolicy.ThrowException
+        DuplicateTrackObjectPolicy      = DuplicateTrackObjectPolicy.ThrowException,
+        EventSource                     = TrackObjectSource.Merge,
+        OverlappingSpecialPhrasePolicy  = OverlappingSpecialPhrasePolicy.ThrowException,
+        SnappedNotesPolicy              = SnappedNotesPolicy.Snap,
+        SoloNoStarPowerPolicy           = SoloNoStarPowerPolicy.Convert,
+        SpecialSource                   = TrackObjectSource.Merge,
+        UncertainFormatPolicy           = UncertainFormatPolicy.ThrowException,
+        UnsupportedModifiersPolicy      = UnsupportedModifiersPolicy.ThrowException
     };
 
     /// <summary>

@@ -1,6 +1,7 @@
 ﻿using ChartTools.IO.Chart;
 using ChartTools.IO.Chart.Configuration.Sessions;
 using ChartTools.IO.Chart.Entries;
+using ChartTools.IO.Formatting;
 
 namespace ChartTools;
 
@@ -49,7 +50,7 @@ public class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModifiers>
         }
     }
 
-    internal override IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, ChartWritingSession session)
+    internal override IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, FormattingRules formatting)
     {
         if (Modifiers.HasFlag(DrumsChordModifiers.Flam))
             yield return ChartFormatting.NoteEntry(Position, 109, 0);

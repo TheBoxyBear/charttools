@@ -178,7 +178,7 @@ public enum UnsupportedModifiersPolicy : byte
 }
 
 [Flags]
-public enum UnsupportedModifiersResults : byte
+public enum ChordDataFlags : byte
 {
     None,
     Chord,

@@ -1,5 +1,6 @@
 ﻿using ChartTools.Animations;
 using ChartTools.IO.Configuration;
+using ChartTools.IO.Configuration.Common;
 using ChartTools.IO.Midi.Configuration.Sessions;
 using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Core;
@@ -62,7 +63,7 @@ internal class GHGemsMapper : StandardInstrumentMapper, IAnimationContainer<Voca
                 _ => throw new UndefinedEnumException(track.Difficulty)
             };
 
-            foreach (var chord in track.Chords.Where(c => c.Modifiers == StandardChordModifiers.None || WritingSession!.UnsupportedModifiersProcedure(c).HasFlag(UnsupportedModifiersResults.Chord)))
+            foreach (var chord in track.Chords.Where(c => c.Modifiers == StandardChordModifiers.None || ICommonWritingConfiguration.GetUnsupportedModifierChordFlags(c.Position, WritingSession.Configuration.UnsupportedModifiersPolicy).HasFlag(ChordDataFlags.Chord)))
                 foreach (var note in chord.Notes)
                 {
                     var sevenBitIndex = new SevenBitNumber((byte)(note.Index + offset));
