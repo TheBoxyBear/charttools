@@ -48,7 +48,7 @@ public abstract record Instrument : IEmptyVerifiable
     /// <summary>
     /// Set of special phrases applied to all difficulties
     /// </summary>
-    public List<InstrumentSpecialPhrase> SpecialPhrases { get; set; } = new();
+    public List<InstrumentSpecialPhrase> SpecialPhrases { get; set; } = [];
 
     /// <inheritdoc cref="InstrumentDifficultySet.GetDifficulty(InstrumentIdentity)"/>
     public sbyte? GetDifficulty(InstrumentDifficultySet difficulties) => difficulties.GetDifficulty(InstrumentIdentity);
