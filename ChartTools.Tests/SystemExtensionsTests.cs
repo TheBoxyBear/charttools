@@ -6,9 +6,9 @@ namespace ChartTools.Tests;
 [TestClass]
 public class SystemExtensionsTests
 {
-    static readonly bool[] trueArray = new bool[] { true, true };
-    static readonly bool[] falseArray = new bool[] { false, false };
-    static readonly bool[] mixBoolArray = new bool[] { true, false };
+    static readonly bool[] trueArray = [true, true];
+    static readonly bool[] falseArray = [false, false];
+    static readonly bool[] mixBoolArray = [true, false];
 
     [TestMethod] public void AllNoBools() => Assert.AreEqual(true, Array.Empty<bool>().All());
     [TestMethod] public void AllNoFalse() => Assert.AreEqual(true, trueArray.All());

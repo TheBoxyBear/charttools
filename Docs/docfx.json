@@ -6,7 +6,7 @@
           "files": [
             "**.csproj"
           ],
-          "src": "../Net6"
+          "src": "../source"
         }
       ],
       "dest": "api",
