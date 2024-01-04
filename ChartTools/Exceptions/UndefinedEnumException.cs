@@ -9,6 +9,4 @@ public class UndefinedEnumException(Enum value) : ArgumentException($"{value.Get
     /// Value used
     /// </summary>
     public Enum Value { get; } = value;
-
-    public UndefinedEnumException(Enum value) : base($"{value.GetType().Name} \"{value}\" is not defined.") => Value = value;
 }
