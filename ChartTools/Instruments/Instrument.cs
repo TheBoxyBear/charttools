@@ -1,4 +1,5 @@
-﻿using ChartTools.Extensions.Linq;
+﻿using ChartTools.Events;
+using ChartTools.Extensions.Linq;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
@@ -107,12 +108,14 @@ public abstract record Instrument : IEmptyVerifiable
     /// <summary>
     /// Gives all tracks the same local events.
     /// </summary>
-    public void ShareLocalEvents(TrackObjectSource source) => ShareEventsStarPower(source, track => track.LocalEvents);
+    public LocalEvent[] ShareLocalEvents(TrackObjectSource source) => ShareEventsSpecial(source, track => track.LocalEvents);
+
     /// <summary>
-    /// Gives all tracks the same star power
+    /// Gives all tracks the same special phrases
     /// </summary>
-    public void ShareStarPower(TrackObjectSource source) => ShareEventsStarPower(source, track => track.SpecialPhrases);
-    private void ShareEventsStarPower<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : TrackObjectBase
+    public SpecialPhrase[] ShareSpecial(TrackObjectSource source) => ShareEventsSpecial(source, track => track.SpecialPhrases);
+
+    private T[] ShareEventsSpecial<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : TrackObjectBase
     {
         var collections = GetExistingTracks().Select(track => collectionGetter(track)).ToArray();
 
@@ -131,6 +134,8 @@ public abstract record Instrument : IEmptyVerifiable
             collection.Clear();
             collection.AddRange(objects);
         }
+
+        return objects;
     }
 
     #region IO
