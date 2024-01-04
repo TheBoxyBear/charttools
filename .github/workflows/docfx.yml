@@ -8,7 +8,7 @@ jobs:
     - uses: nunit/docfx-action@v3.0.0
       name: Build Documentation
       with:
-        args: Docs/docfx.json
+        args: Docs/docfx.json --debug
     - uses: maxheld83/ghpages@master
       name: Publish Documentation on GitHub Pages
       env:
