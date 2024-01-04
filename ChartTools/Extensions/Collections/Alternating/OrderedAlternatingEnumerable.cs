@@ -29,10 +29,9 @@ public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey :
     /// <exception cref="ArgumentNullException"/>
     public OrderedAlternatingEnumerable(Func<T, TKey> keyGetter, params IEnumerable<T>?[] enumerables)
     {
-        if (keyGetter is null)
-            throw new ArgumentNullException(nameof(keyGetter));
-        if (enumerables is null)
-            throw new ArgumentNullException(nameof(enumerables));
+        ArgumentNullException.ThrowIfNull(keyGetter);
+        ArgumentNullException.ThrowIfNull(enumerables);
+
         if (enumerables.Length == 0)
             throw new ArgumentException("No enumerables provided.");
 
@@ -48,13 +47,15 @@ public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey :
     /// <summary>
     /// Enumerator that yields <typeparamref name="T"/> items from a set of enumerators in order using a <typeparamref name="TKey"/> key
     /// </summary>
-    private class Enumerator : IInitializable, IEnumerator<T>
+    /// <param name="keyGetter">Method that retrieves the key from an item</param>
+    /// <param name="enumerators">Enumerators to alternate between</param>
+    private class Enumerator(Func<T, TKey> keyGetter, params IEnumerator<T>[] enumerators) : IInitializable, IEnumerator<T>
     {
-        private IEnumerator<T>[] Enumerators { get; }
+        private IEnumerator<T>[] Enumerators { get; } = enumerators.NonNull().ToArray();
         /// <summary>
         /// Method that retrieves the key from an item
         /// </summary>
-        private Func<T, TKey> KeyGetter { get; }
+        private Func<T, TKey> KeyGetter { get; } = keyGetter;
         /// <inheritdoc/>
         public bool Initialized { get; private set; }
 
@@ -66,19 +67,8 @@ public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey :
         /// <summary>
         /// <see langword="true"/> for indexes where MoveNext previously returned <see langword="false"/>
         /// </summary>
-        readonly bool[] endsReached;
+        readonly bool[] endsReached = new bool[enumerators.Length];
 
-        /// <summary>
-        /// Creates a new instance of <see cref="OrderedAlternatingEnumerator{T, TKey}"/>.
-        /// </summary>
-        /// <param name="keyGetter">Method that retrieves the key from an item</param>
-        /// <param name="enumerators">Enumerators to alternate between</param>
-        public Enumerator(Func<T, TKey> keyGetter, params IEnumerator<T>[] enumerators)
-        {
-            Enumerators = enumerators.NonNull().ToArray();
-            KeyGetter = keyGetter;
-            endsReached = new bool[enumerators.Length];
-        }
         ~Enumerator() => Dispose(false);
 
         /// <inheritdoc/>

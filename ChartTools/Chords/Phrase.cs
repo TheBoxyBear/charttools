@@ -4,7 +4,7 @@ namespace ChartTools.Lyrics;
 
 public class Phrase : TrackObjectBase, IChord, ILongTrackObject
 {
-    public List<Syllable> Syllables { get; } = new();
+    public List<Syllable> Syllables { get; } = [];
     IReadOnlyCollection<INote> IChord.Notes => Syllables;
 
     /// <summary>
