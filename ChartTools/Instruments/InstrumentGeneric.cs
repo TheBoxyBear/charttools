@@ -51,9 +51,9 @@ public abstract record Instrument<TChord> : Instrument where TChord : IChord, ne
 
     public Instrument()
     {
-        _easy = InitTrack(Difficulty.Easy);
+        _easy   = InitTrack(Difficulty.Easy);
         _medium = InitTrack(Difficulty.Medium);
-        _hard = InitTrack(Difficulty.Hard);
+        _hard   = InitTrack(Difficulty.Hard);
         _expert = InitTrack(Difficulty.Expert);
     }
 
@@ -75,6 +75,16 @@ public abstract record Instrument<TChord> : Instrument where TChord : IChord, ne
     protected override Track<TChord> GetMedium() => Medium;
     protected override Track<TChord> GetHard() => Hard;
     protected override Track<TChord> GetExpert() => Expert;
+
+    /// <inheritdoc cref="Instrument.CreateTrack(Difficulty)"/>
+    public override Track<TChord> CreateTrack(Difficulty difficulty) => difficulty switch
+    {
+        Difficulty.Easy => Easy = new(),
+        Difficulty.Medium => Medium = new(),
+        Difficulty.Hard => Hard = new(),
+        Difficulty.Expert => Expert = new(),
+        _ => throw new UndefinedEnumException(difficulty)
+    };
 
     public override Track<TChord> ClearTrack(Difficulty difficulty)
     {

@@ -84,11 +84,6 @@ public abstract record Instrument : IEmptyVerifiable
     /// </summary>
     /// <param name="difficulty">Difficulty of the track</param>
     public abstract Track CreateTrack(DiffEnum difficulty);
-    /// <summary>
-    /// Removes a track.
-    /// </summary>
-    /// <param name="difficulty">Difficulty of the target track</param>
-    public abstract bool RemoveTrack(DiffEnum difficulty);
 
     /// <summary>
     /// Clears the track matching a difficulty.
@@ -112,6 +107,7 @@ public abstract record Instrument : IEmptyVerifiable
     /// Gives all tracks the same local events.
     /// </summary>
     public void ShareLocalEvents(TrackObjectSource source) => ShareEventsStarPower(source, track => track.LocalEvents);
+
     /// <summary>
     /// Gives all tracks the same star power
     /// </summary>

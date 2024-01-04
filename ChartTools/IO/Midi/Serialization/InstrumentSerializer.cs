@@ -10,7 +10,7 @@ internal class InstrumentSerializer<TChord> : TrackObjectGroupSerializer<Instrum
 
     public InstrumentSerializer(string header, Instrument<TChord> content, AnimationSet animations, MidiWritingSession session) : base(header, content, session) => Animations = animations;
 
-    protected override IEnumerable<IMidiEventMapping>[] LaunchMappers()
+    protected override IEnumerable<IMidiEventMapping>[] LaunchProviders()
     {
         return
         [

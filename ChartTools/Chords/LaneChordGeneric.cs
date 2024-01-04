@@ -12,8 +12,8 @@ public abstract class LaneChord<TNote, TLane, TModifiers> : LaneChord, IChord
     /// </summary>
     public new LaneNoteCollection<TNote, TLane> Notes { get; }
 
-        public TModifiers Modifiers { get; set; }
-        protected abstract TModifiers DefaultModifiers { get; }
+    public TModifiers Modifiers { get; set; }
+    internal abstract TModifiers DefaultModifiers { get; }
 
     public LaneChord() : base() => Notes = new(OpenExclusivity);
     public LaneChord(uint position) : base(position) => Notes = new(OpenExclusivity);
