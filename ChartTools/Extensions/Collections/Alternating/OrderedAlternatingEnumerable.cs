@@ -75,7 +75,6 @@ public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey :
         /// <param name="enumerators">Enumerators to alternate between</param>
         public Enumerator(Func<T, TKey> keyGetter, params IEnumerator<T>[] enumerators)
         {
-            if (keyGetter is null)
             Enumerators = enumerators.NonNull().ToArray();
             KeyGetter = keyGetter;
             endsReached = new bool[enumerators.Length];
