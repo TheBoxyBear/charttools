@@ -1,10 +1,6 @@
-﻿using ChartTools.IO.Configuration.Sessions;
+﻿namespace ChartTools.IO.Parsing;
 
-namespace ChartTools.IO.Parsing;
-
-internal abstract class TextParser : SectionParser<string>
+internal abstract class TextParser(string header) : SectionParser<string>(header)
 {
-    protected TextParser(ReadingSession session, string header) : base(session, header) { }
-
     protected override Exception GetHandleInnerException(string item, Exception innerException) => new LineException(item, innerException);
 }

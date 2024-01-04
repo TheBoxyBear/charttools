@@ -1,12 +1,8 @@
-﻿using ChartTools.IO.Configuration.Sessions;
+﻿namespace ChartTools.IO.Parsing;
 
-namespace ChartTools.IO.Parsing;
-
-internal abstract class SectionParser<T> : FileParser<T>
+internal abstract class SectionParser<T>(string header) : FileParser<T>
 {
-    public string Header { get; }
-
-    public SectionParser(ReadingSession session, string header) : base(session) => Header = header;
+    public string Header { get; } = header;
 
     protected override Exception GetHandleException(T item, Exception innerException) => new SectionException(Header, GetHandleInnerException(item, innerException));
     protected abstract Exception GetHandleInnerException(T item, Exception innerException);

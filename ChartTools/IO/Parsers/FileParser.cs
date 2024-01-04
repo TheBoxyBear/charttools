@@ -1,14 +1,9 @@
-﻿using ChartTools.IO.Configuration.Sessions;
-
-namespace ChartTools.IO;
+﻿namespace ChartTools.IO;
 
 internal abstract class FileParser<T>
 {
     public bool ResultReady { get; private set; }
     public abstract object? Result { get; }
-    protected ReadingSession session;
-
-    public FileParser(ReadingSession session) => this.session = session;
 
     public async Task StartAsyncParse(IEnumerable<T> items)
     {

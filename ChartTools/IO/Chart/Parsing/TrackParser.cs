@@ -1,27 +1,22 @@
-﻿using ChartTools.IO.Chart.Entries;
+﻿using ChartTools.Extensions.Linq;
+using ChartTools.IO.Chart.Configuration.Sessions;
+using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Configuration;
-using ChartTools.IO.Configuration.Sessions;
-using ChartTools.Extensions.Linq;
 using ChartTools.Tools;
 
 namespace ChartTools.IO.Chart.Parsing;
 
-internal abstract class TrackParser<TChord> : ChartParser, IInstrumentAppliable<TChord> where TChord : IChord, new()
+internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingSession session, string header)
+    : ChartParser(session, header), IInstrumentAppliable<TChord> where TChord : IChord, new()
 {
-    public Difficulty Difficulty { get; }
+    public Difficulty Difficulty { get; } = difficulty;
 
     public override Track<TChord> Result => GetResult(result);
-    private readonly Track<TChord> result;
+    private readonly Track<TChord> result = new() { Difficulty = difficulty };
 
     private TChord? chord;
     private bool newChord = true;
-    private readonly List<TChord> orderedChords = new();
-
-    public TrackParser(Difficulty difficulty, ReadingSession session, string header) : base(session, header)
-    {
-        Difficulty = difficulty;
-        result = new() { Difficulty = difficulty };
-    }
+    private readonly List<TChord> orderedChords = [];
 
     protected override void HandleItem(string line)
     {
@@ -80,12 +75,12 @@ internal abstract class TrackParser<TChord> : ChartParser, IInstrumentAppliable<
     protected abstract void HandleNoteEntry(TChord chord, NoteData data);
     protected void HandleAddNote(INote note, Action add)
     {
-        if (session.DuplicateTrackObjectProcedure(chord!.Position, "note", () => chord!.Notes.Any(n => n.Index == note.Index)))
+        if (session.HandleDuplicate(chord!.Position, "note", () => chord!.Notes.Any(n => n.Index == note.Index)))
             add();
     }
     protected void HandleAddModifier(Enum existingModifier, Enum modifier, Action add)
     {
-        if (session.DuplicateTrackObjectProcedure(chord!.Position, "chord modifier", () => existingModifier.HasFlag(modifier)))
+        if (session.HandleDuplicate(chord!.Position, "chord modifier", () => existingModifier.HasFlag(modifier)))
             add();
     }
 

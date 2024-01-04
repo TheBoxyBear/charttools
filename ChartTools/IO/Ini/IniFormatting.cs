@@ -43,5 +43,5 @@ public static class IniFormatting
         GHLGuitarDifficulty = "diff_guitarghl",
         GHLBassDifficulty = "diff_bassghl";
 
-    public static string Line(string key, string value) => $"{key} = {value}";
+    public static string Line(string key, string? value) => $"{key} = {value}";
 }

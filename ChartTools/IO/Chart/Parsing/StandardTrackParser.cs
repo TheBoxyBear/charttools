@@ -1,12 +1,11 @@
-﻿using ChartTools.IO.Chart.Entries;
-using ChartTools.IO.Configuration.Sessions;
+﻿using ChartTools.IO.Chart.Configuration.Sessions;
+using ChartTools.IO.Chart.Entries;
 
 namespace ChartTools.IO.Chart.Parsing;
 
-internal class StandardTrackParser : VariableInstrumentTrackParser<StandardChord, StandardInstrumentIdentity>
+internal class StandardTrackParser(Difficulty difficulty, StandardInstrumentIdentity instrument, ChartReadingSession session, string header)
+    : VariableInstrumentTrackParser<StandardChord, StandardInstrumentIdentity>(difficulty, instrument, session, header)
 {
-    public StandardTrackParser(Difficulty difficulty, StandardInstrumentIdentity instrument, ReadingSession session, string header) : base(difficulty, instrument, session, header) { }
-
     public override void ApplyToSong(Song song)
     {
         var inst = song.Instruments.Get(Instrument);

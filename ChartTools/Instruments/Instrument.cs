@@ -1,8 +1,5 @@
 ﻿using ChartTools.Extensions.Linq;
-using ChartTools.IO;
-using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
-using ChartTools.IO.Formatting;
 
 using DiffEnum = ChartTools.Difficulty;
 
@@ -132,25 +129,6 @@ public abstract record Instrument : IEmptyVerifiable
             collection.AddRange(objects);
         }
     }
-
-    #region IO
-    #region Reading
-    [Obsolete($"Use {nameof(ChartFile.ReadInstrument)}.")]
-    public static Instrument? FromFile(string path, InstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadInstrument(path, instrument, config, formatting)));
-    [Obsolete($"Use {nameof(ChartFile.ReadInstrumentAsync)}.")]
-    public static async Task<Instrument?> FromFileAsync(string path, InstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync(path, (".chart", path => ChartFile.ReadInstrumentAsync(path, instrument, config, formatting, cancellationToken)));
-
-    [Obsolete($"Use {nameof(ChartFile.ReadInstrument)} with {nameof(Metadata.Formatting)}.")]
-    public static DirectoryResult<Instrument?> FromDirectory(string directory, InstrumentIdentity instrument, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, instrument, config, formatting));
-    [Obsolete($"Use {nameof(ChartFile.ReadInstrumentAsync)} with {nameof(Metadata.Formatting)}.")]
-    public static Task<DirectoryResult<Instrument?>> FromDirectoryAsync(string directory, InstrumentIdentity instrument, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, instrument, config, formatting, cancellationToken), cancellationToken);
-    #endregion
-
-    [Obsolete($"Use {nameof(ChartFile.ReplaceInstrument)}.")]
-    public void ToFile(string path, WritingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Write(path, this, (".chart", (path, inst) => ChartFile.ReplaceInstrument(path, inst, config, formatting)));
-    [Obsolete($"Use {nameof(ChartFile.ReplaceInstrumentAsync)}.")]
-    public async Task ToFileAsync(string path, WritingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.WriteAsync(path, this, (".chart", (path, inst) => ChartFile.ReplaceInstrumentAsync(path, inst, config, formatting, cancellationToken)));
-    #endregion
 
     public override string ToString() => InstrumentIdentity.ToString();
 }

@@ -4,7 +4,7 @@ namespace ChartTools.IO.Ini;
 
 internal class IniSerializer : Serializer<Metadata, string>
 {
-    public IniSerializer(Metadata content) : base(IniFormatting.Header, content, null!) { }
+    public IniSerializer(Metadata content) : base(IniFormatting.Header, content) { }
 
     public override IEnumerable<string> Serialize()
     {

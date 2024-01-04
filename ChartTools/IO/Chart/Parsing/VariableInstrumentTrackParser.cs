@@ -1,9 +1,9 @@
-﻿using ChartTools.IO.Configuration.Sessions;
+﻿using ChartTools.IO.Chart.Configuration.Sessions;
 
 namespace ChartTools.IO.Chart.Parsing;
 
-internal abstract class VariableInstrumentTrackParser<TChord, TInstEnum> : TrackParser<TChord> where TChord : IChord, new() where TInstEnum : Enum
+internal abstract class VariableInstrumentTrackParser<TChord, TInstEnum>(Difficulty difficulty, TInstEnum instrument, ChartReadingSession session, string header)
+    : TrackParser<TChord>(difficulty, session, header) where TChord : IChord, new() where TInstEnum : Enum
 {
-    public TInstEnum Instrument { get; }
-    public VariableInstrumentTrackParser(Difficulty difficulty, TInstEnum instrument, ReadingSession session, string header) : base(difficulty, session, header) => Instrument = instrument;
+    public TInstEnum Instrument { get; } = instrument;
 }

@@ -1,12 +1,11 @@
-﻿using ChartTools.IO.Chart.Entries;
-using ChartTools.IO.Configuration.Sessions;
+﻿using ChartTools.IO.Chart.Configuration.Sessions;
+using ChartTools.IO.Chart.Entries;
 
 namespace ChartTools.IO.Chart.Parsing;
 
-internal class GHLTrackParser : VariableInstrumentTrackParser<GHLChord, GHLInstrumentIdentity>
+internal class GHLTrackParser(Difficulty difficulty, GHLInstrumentIdentity instrument, ChartReadingSession session, string header)
+    : VariableInstrumentTrackParser<GHLChord, GHLInstrumentIdentity>(difficulty, instrument, session, header)
 {
-    public GHLTrackParser(Difficulty difficulty, GHLInstrumentIdentity instrument, ReadingSession session, string header) : base(difficulty, instrument, session, header) { }
-
     public override void ApplyToSong(Song song)
     {
         var inst = song.Instruments.Get(Instrument);

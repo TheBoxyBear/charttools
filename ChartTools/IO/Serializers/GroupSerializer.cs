@@ -1,11 +1,8 @@
-﻿using ChartTools.IO.Configuration.Sessions;
+﻿namespace ChartTools.IO;
 
-namespace ChartTools.IO;
-
-internal abstract class GroupSerializer<TContent, TResult, TProviderResult> : Serializer<TContent, TResult>
+internal abstract class GroupSerializer<TContent, TResult, TProviderResult>(string header, TContent content)
+    : Serializer<TContent, TResult>(header, content)
 {
-    public GroupSerializer(string header, TContent content, WritingSession session) : base(header, content, session) { }
-
     protected abstract IEnumerable<TProviderResult>[] LaunchProviders();
     protected abstract IEnumerable<TResult> CombineProviderResults(IEnumerable<TProviderResult>[] results);
 

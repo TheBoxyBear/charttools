@@ -1,5 +1,5 @@
-﻿using ChartTools.IO.Chart.Entries;
-using ChartTools.IO.Configuration.Sessions;
+﻿using ChartTools.IO.Chart.Configuration.Sessions;
+using ChartTools.IO.Chart.Entries;
 
 namespace ChartTools;
 
@@ -26,5 +26,5 @@ public abstract class LaneChord : IChord
     protected abstract IReadOnlyCollection<LaneNote> GetNotes();
 
     internal abstract IEnumerable<TrackObjectEntry> GetChartNoteData();
-    internal abstract IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, WritingSession session);
+    internal abstract IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, ChartWritingSession session);
 }

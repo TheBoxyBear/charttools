@@ -21,6 +21,7 @@ public enum DuplicateTrackObjectPolicy : byte
     /// </summary>
     IncludeAll,
 }
+
 /// <summary>
 /// Define where lyrics are obtained when writing a format that defines lyrics as events.
 /// </summary>
@@ -35,19 +36,7 @@ public enum LyricEventSource : byte
     /// </summary>
     Vocals
 }
-public enum MisalignedBigRockMarkersPolicy : byte
-{
-    ThrowException,
-    IgnoreAll,
-    IncludeFirst,
-    Combine
-}
-public enum MissingBigRockMarkerPolicy : byte
-{
-    ThrowException,
-    IgnoreAll,
-    IgnoreMissing
-}
+
 /// <summary>
 /// Defines how overlapping star power phrases should be handled.
 /// </summary>
@@ -66,6 +55,7 @@ public enum OverlappingSpecialPhrasePolicy : byte
     /// </summary>
     Cut,
 }
+
 /// <summary>
 /// Defines how a tempo anchor with no parent marker is handled.
 /// </summary>
@@ -84,6 +74,7 @@ public enum TempolessAnchorPolicy
     /// </summary>
     Create
 }
+
 /// <summary>
 /// Defines how notes within ticks of each other are handled during a Midi operation.
 /// </summary>
@@ -102,6 +93,7 @@ public enum SnappedNotesPolicy : byte
     /// </summary>
     Ignore
 }
+
 /// <summary>
 /// Defines how <see cref="EventTypeHelper.Local.Solo"/> or <see cref="EventTypeHelper.Local.SoloEnd"/> events are handled when there are no star power phrases.
 /// </summary>
@@ -117,6 +109,7 @@ public enum SoloNoStarPowerPolicy : byte
     /// </summary>
     Convert
 }
+
 /// <summary>
 /// Difficulty of the <see cref="Track"/> to serve as a source of for track objects for which the target format requires these objects to be the same across all difficulties.
 /// </summary>
@@ -144,29 +137,7 @@ public enum TrackObjectSource : byte
     /// </summary>
     Merge,
 }
-/// <summary>
-/// Defines how lead guitar and bass and handled when the Midi mapping is uncertain.
-/// </summary>
-public enum UncertainGuitarBassFormatPolicy : byte
-{
-    /// <summary>
-    /// Throw an exception.
-    /// </summary>
-    ThrowException,
-    /// <summary>
-    /// Use the format that was defaulted to when reading.
-    /// </summary>
-    /// <remarks>Policy is invalid when reading.</remarks>
-    UseReadingDefault,
-    /// <summary>
-    /// Default to the Guitar Hero 2 format.
-    /// </summary>
-    UseGuitarHero2,
-    /// <summary>
-    /// Default to the Rock Band format.
-    /// </summary>
-    UseRockBand
-}
+
 /// <summary>
 /// Defines how unknown sections or Midi chunks are handled.
 /// </summary>
@@ -181,6 +152,7 @@ public enum UnknownSectionPolicy : byte
     /// </summary>
     Store
 }
+
 /// <summary>
 /// Defines chord modifiers not supported by the target format are handled.
 /// </summary>
@@ -202,41 +174,5 @@ public enum UnsupportedModifierPolicy : byte
     /// <summary>
     /// Ignore the chord containing the modifier.
     /// </summary>
-    IgnoreChord,
-}
-/// <summary>
-/// Defines how track object defined with a <see cref="NoteOffEvent"/> with no matching <see cref="NoteOnEvent"/> are handled when reading Midi.
-/// </summary>
-public enum UnopenedTrackObjectPolicy : byte
-{
-    /// <summary>
-    /// Throw an exception with the event position and index.
-    /// </summary>
-    ThrowException,
-    /// <summary>
-    /// Create a track object at the position of the closing event and a length of 0.
-    /// </summary>
-    Create,
-    /// <summary>
-    /// Ignore the event.
-    /// </summary>
-    Ignore
-}
-/// <summary>
-/// Defines how track object defined with a <see cref="NoteOnEvent"/> with no matching <see cref="NoteOffEvent"/> are handled when reading Midi.
-/// </summary>
-public enum UnclosedTrackObjectPolicy : byte
-{
-    /// <summary>
-    /// Throw an exception with the event position and index.
-    /// </summary>
-    ThrowException,
-    /// <summary>
-    /// Include the track object with a length going up to the next track object opening of the same index.
-    /// </summary>
-    Include,
-    /// <summary>
-    /// Ignore the event and track object.
-    /// </summary>
-    Ignore
+    IgnoreChord
 }

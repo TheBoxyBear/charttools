@@ -1,12 +1,11 @@
-﻿namespace ChartTools.IO.Configuration;
+﻿using ChartTools.IO.Chart;
+using ChartTools.IO.Chart.Configuration;
 
-public record WritingConfiguration : CommonConfiguration
+namespace ChartTools.IO.Configuration;
+
+public class WritingConfiguration
 {
-    /// <summary>
-    /// Defines which difficulty to get local events from
-    /// </summary>
-    public TrackObjectSource EventSource { get; init; }
-    public TrackObjectSource StarPowerSource { get; init; }
-    /// <see cref="Configuration.UnsupportedModifierPolicy"/>
-    public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }
+    public static readonly WritingConfiguration Default = new();
+
+    public ChartWritingConfiguration Chart { get; set; } = ChartFile.DefaultWriteConfig;
 }

@@ -1,13 +1,12 @@
 ﻿using ChartTools.Extensions.Linq;
+using ChartTools.IO.Chart.Configuration.Sessions;
 using ChartTools.IO.Chart.Entries;
-using ChartTools.IO.Configuration.Sessions;
 
 namespace ChartTools.IO.Chart.Parsing;
 
-internal class DrumsTrackParser : TrackParser<DrumsChord>
+internal class DrumsTrackParser(Difficulty difficulty, ChartReadingSession session, string header)
+    : TrackParser<DrumsChord>(difficulty, session, header)
 {
-    public DrumsTrackParser(Difficulty difficulty, ReadingSession session, string header) : base(difficulty, session, header) { }
-
     public override void ApplyToSong(Song song)
     {
         song.Instruments.Drums ??= new();
@@ -33,7 +32,7 @@ internal class DrumsTrackParser : TrackParser<DrumsChord>
 
                 if (chord.Notes.TryGetFirst(n => n.Index == seekedIndex, out DrumsNote note))
                 {
-                    if (session.DuplicateTrackObjectProcedure(chord.Position, "drums note cymbal marker", () => note.IsCymbal))
+                    if (session.HandleDuplicate(chord.Position, "drums note cymbal marker", () => note.IsCymbal))
                         note.IsCymbal = true;
                 }
                 else

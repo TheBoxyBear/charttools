@@ -1,9 +1,7 @@
 ﻿namespace ChartTools.IO.Chart.Serializing;
 
-internal class MetadataSerializer : Serializer<Metadata, string>
+internal class MetadataSerializer(Metadata content) : Serializer<Metadata, string>(ChartFormatting.MetadataHeader, content)
 {
-    public MetadataSerializer(Metadata content) : base(ChartFormatting.MetadataHeader, content, new(ChartFile.DefaultWriteConfig, content.Formatting)) { }
-
     public override IEnumerable<string> Serialize()
     {
         if (Content is null)

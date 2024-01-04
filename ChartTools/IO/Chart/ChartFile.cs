@@ -1,10 +1,11 @@
 ﻿using ChartTools.Events;
 using ChartTools.Extensions;
 using ChartTools.Extensions.Linq;
+using ChartTools.IO.Chart.Configuration;
+using ChartTools.IO.Chart.Configuration.Sessions;
 using ChartTools.IO.Chart.Parsing;
 using ChartTools.IO.Chart.Serializing;
 using ChartTools.IO.Configuration;
-using ChartTools.IO.Configuration.Sessions;
 using ChartTools.IO.Formatting;
 using ChartTools.Lyrics;
 
@@ -18,20 +19,26 @@ public static class ChartFile
     /// <summary>
     /// Default configuration to use for reading when the provided configuration is <see langword="default"/>
     /// </summary>
-    public static ReadingConfiguration DefaultReadConfig { get; set; } = new()
+    public static ChartReadingConfiguration DefaultReadConfig { get; set; } = new()
     {
         DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
-        SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert
+        OverlappingStarPowerPolicy = OverlappingSpecialPhrasePolicy.ThrowException,
+        SnappedNotesPolicy         = SnappedNotesPolicy.ThrowException,
+        SoloNoStarPowerPolicy      = SoloNoStarPowerPolicy.Convert,
+        TempolessAnchorPolicy      = TempolessAnchorPolicy.ThrowException,
+        UnknownSectionPolicy       = UnknownSectionPolicy.ThrowException
     };
+
     /// <summary>
     /// Default configuration to use for writing when the provided configuration is <see langword="default"/>
     /// </summary>
-    public static WritingConfiguration DefaultWriteConfig { get; set; } = new()
+    public static ChartWritingConfiguration DefaultWriteConfig { get; set; } = new()
     {
-        SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
-        EventSource = TrackObjectSource.Merge,
-        StarPowerSource = TrackObjectSource.Merge,
-        UnsupportedModifierPolicy = UnsupportedModifierPolicy.ThrowException
+        DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
+        OverlappingStarPowerPolicy = OverlappingSpecialPhrasePolicy.ThrowException,
+        SoloNoStarPowerPolicy      = SoloNoStarPowerPolicy.Convert,
+        SnappedNotesPolicy         = SnappedNotesPolicy.ThrowException,
+        UnsupportedModifierPolicy  = UnsupportedModifierPolicy.ThrowException
     };
 
     #region Reading
@@ -40,7 +47,7 @@ public static class ChartFile
     /// Creates a <see cref="ChartParser"/> for parsing a section based on the header.
     /// </summary>
     /// <exception cref="FormatException"></exception>
-    private static ChartParser GetSongParser(string header, ReadingSession session)
+    private static ChartParser GetSongParser(string header, ChartReadingSession session)
     {
         switch (header)
         {
@@ -83,9 +90,9 @@ public static class ChartFile
     /// <inheritdoc cref="Song.FromFile(string, ReadingConfiguration?, FormattingRules?)"/>
     /// <param name="path"><inheritdoc cref="Song.FromFile(string, ReadingConfiguration?, FormattingRules?)" path="/param[@name='path']"/></param>
     /// <param name="config"><inheritdoc cref="Song.FromFile(string, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>
-    public static Song ReadSong(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default)
+    public static Song ReadSong(string path, ChartReadingConfiguration? config = default, FormattingRules? formatting = default)
     {
-        var session = new ReadingSession(config ?? DefaultReadConfig, formatting ?? new());
+        var session = new ChartReadingSession(config, formatting ?? new());
         var reader = new ChartFileReader(path, header => GetSongParser(header, session));
 
         reader.Read();
@@ -96,9 +103,9 @@ public static class ChartFile
     /// <param name="path"><inheritdoc cref="Song.FromFileAsync(string, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@='path']"/></param>
     /// <param name="cancellationToken"><inheritdoc cref="Song.FromFileAsync(string, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@='cancellationToken']"/></param>
     /// <param name="config"><inheritdoc cref="Song.FromFileAsync(string, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@='config']"/></param>
-    public static async Task<Song> ReadSongAsync(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+    public static async Task<Song> ReadSongAsync(string path, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
     {
-        var session = new ReadingSession(config ?? DefaultReadConfig, formatting ?? new());
+        var session = new ChartReadingSession(config, formatting ?? new());
         var reader = new ChartFileReader(path, header => GetSongParser(header, session));
 
         await reader.ReadAsync(cancellationToken);
@@ -131,7 +138,7 @@ public static class ChartFile
     /// <inheritdoc cref="ReadDrums(string, ReadingConfiguration, FormattingRules?)" path="/exception"/>
     /// <inheritdoc cref="ReadInstrument(string, GHLInstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/exception"/>
     /// <inheritdoc cref="ReadInstrument(string, StandardInstrumentIdentity, ReadingConfiguration, FormattingRules?)" path="/exception"/>
-    public static Instrument? ReadInstrument(string path, InstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default)
+    public static Instrument? ReadInstrument(string path, InstrumentIdentity instrument, ChartReadingConfiguration? config = default, FormattingRules? formatting = default)
     {
         if (instrument == InstrumentIdentity.Drums)
             return ReadDrums(path, config, formatting);
@@ -141,7 +148,7 @@ public static class ChartFile
             ? ReadInstrument(path, (StandardInstrumentIdentity)instrument, config, formatting)
             : throw new UndefinedEnumException(instrument);
     }
-    public static async Task<Instrument?> ReadInstrumentAsync(string path, InstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+    public static async Task<Instrument?> ReadInstrumentAsync(string path, InstrumentIdentity instrument, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
     {
         if (instrument == InstrumentIdentity.Drums)
             return await ReadDrumsAsync(path, config, formatting, cancellationToken);
@@ -180,7 +187,7 @@ public static class ChartFile
     }
     #endregion
     #region Drums
-    private static DrumsTrackParser? GetAnyDrumsTrackParser(string header, ReadingSession session) => drumsTrackHeaders.TryGetValue(header, out Difficulty difficulty)
+    private static DrumsTrackParser? GetAnyDrumsTrackParser(string header, ChartReadingSession session) => drumsTrackHeaders.TryGetValue(header, out Difficulty difficulty)
         ? new(difficulty, session, header)
         : null;
     /// <summary>
@@ -192,17 +199,17 @@ public static class ChartFile
     /// <param name="path">Path of the file to read</param>
     /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
     /// <param name="formatting"><inheritdoc cref="FormattingRules" path="/summary"/></param>
-    public static Drums? ReadDrums(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default)
+    public static Drums? ReadDrums(string path, ChartReadingConfiguration? config = default, FormattingRules? formatting = default)
     {
-        var session = new ReadingSession(config ?? DefaultReadConfig, formatting ?? new());
+        var session = new ChartReadingSession(config, formatting ?? new());
         var reader = new ChartFileReader(path, header => GetAnyDrumsTrackParser(header, session));
 
         reader.Read();
         return CreateInstrumentFromReader<Drums, DrumsChord>(reader);
     }
-    public static async Task<Drums?> ReadDrumsAsync(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+    public static async Task<Drums?> ReadDrumsAsync(string path, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
     {
-        var session = new ReadingSession(config ?? DefaultReadConfig, formatting ?? new());
+        var session = new ChartReadingSession(config, formatting ?? new());
         var reader = new ChartFileReader(path, header => GetAnyDrumsTrackParser(header, session));
 
         await reader.ReadAsync(cancellationToken);
@@ -210,7 +217,7 @@ public static class ChartFile
     }
     #endregion
     #region GHL
-    private static GHLTrackParser? GetAnyGHLTrackParser(string header, GHLInstrumentIdentity instrument, ReadingSession session) => ghlTrackHeaders.TryGetValue(header, out (Difficulty, GHLInstrumentIdentity) tuple) && tuple.Item2 == instrument
+    private static GHLTrackParser? GetAnyGHLTrackParser(string header, GHLInstrumentIdentity instrument, ChartReadingSession session) => ghlTrackHeaders.TryGetValue(header, out (Difficulty, GHLInstrumentIdentity) tuple) && tuple.Item2 == instrument
         ? new(tuple.Item1, tuple.Item2, session, header)
         : null;
     /// <summary>
@@ -221,40 +228,40 @@ public static class ChartFile
     /// </returns>
     /// <param name="path">Path of the file to read</param>
     /// <inheritdoc cref="GetGHLTrackParser(string, string, GHLInstrumentIdentity, Difficulty, ReadingSession)" path="/exception"/>
-    public static GHLInstrument? ReadInstrument(string path, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default)
+    public static GHLInstrument? ReadInstrument(string path, GHLInstrumentIdentity instrument, ChartReadingConfiguration? config = default, FormattingRules? formatting = default)
     {
         Validator.ValidateEnum(instrument);
 
-        var session = new ReadingSession(config ?? DefaultReadConfig, formatting ?? new());
-        var reader = new ChartFileReader(path, header => GetAnyGHLTrackParser(header, instrument, session));
+        var session = new ChartReadingSession(config, formatting ?? new());
+        var reader  = new ChartFileReader(path, header => GetAnyGHLTrackParser(header, instrument, session));
 
         reader.Read();
         return CreateInstrumentFromReader<GHLInstrument, GHLChord>(reader);
     }
-    public static async Task<GHLInstrument?> ReadInstrumentAsync(string path, GHLInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+    public static async Task<GHLInstrument?> ReadInstrumentAsync(string path, GHLInstrumentIdentity instrument, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
     {
         Validator.ValidateEnum(instrument);
 
-        var session = new ReadingSession(config ?? DefaultReadConfig, formatting ?? new());
-        var reader = new ChartFileReader(path, header => GetAnyGHLTrackParser(header, instrument, session));
+        var session = new ChartReadingSession(config, formatting ?? new());
+        var reader  = new ChartFileReader(path, header => GetAnyGHLTrackParser(header, instrument, session));
 
         await reader.ReadAsync(cancellationToken);
         return CreateInstrumentFromReader<GHLInstrument, GHLChord>(reader);
     }
     #endregion
     #region Standard
-    private static StandardTrackParser? GetAnyStandardTrackParser(string header, StandardInstrumentIdentity instrument, ReadingSession session) => standardTrackHeaders.TryGetValue(header, out (Difficulty, StandardInstrumentIdentity) tuple) && tuple.Item2 == instrument
+    private static StandardTrackParser? GetAnyStandardTrackParser(string header, StandardInstrumentIdentity instrument, ChartReadingSession session) => standardTrackHeaders.TryGetValue(header, out (Difficulty, StandardInstrumentIdentity) tuple) && tuple.Item2 == instrument
         ? new(tuple.Item1, tuple.Item2, session, header)
         : null;
     /// <inheritdoc cref="StandardInstrument.FromFile(string, StandardInstrumentIdentity, ReadingConfiguration?, FormattingRules?)"/>
     /// <param name="path"><inheritdoc cref="StandardInstrument.FromFile(string, StandardInstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/param[@name='path']"/></param>
     /// <param name="instrument"><inheritdoc cref="StandardInstrument.FromFile(string, StandardInstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/param[@name='instrument']"/></param>
     /// <param name="config"><inheritdoc cref="StandardInstrument.FromFile(string, StandardInstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>
-    public static StandardInstrument? ReadInstrument(string path, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default)
+    public static StandardInstrument? ReadInstrument(string path, StandardInstrumentIdentity instrument, ChartReadingConfiguration? config = default, FormattingRules? formatting = default)
     {
         Validator.ValidateEnum(instrument);
 
-        var session = new ReadingSession(config ?? DefaultReadConfig, formatting ?? new());
+        var session = new ChartReadingSession(config, formatting ?? new());
         var reader = new ChartFileReader(path, header => GetAnyStandardTrackParser(header, instrument, session));
 
         reader.Read();
@@ -265,12 +272,12 @@ public static class ChartFile
     /// <param name="instrument"><inheritdoc cref="StandardInstrument.FromFileAsync(string, StandardInstrumentIdentity, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='instrument']"/></param>
     /// <param name="cancellationToken"><inheritdoc cref="StandardInstrument.FromFileAsync(string, StandardInstrumentIdentity,  ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='cancellationToken']"/></param>
     /// <param name="config"><inheritdoc cref="StandardInstrument.FromFileAsync(string, StandardInstrumentIdentity, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='config']"/></param>
-    public static async Task<StandardInstrument?> ReadInstrumentAsync(string path, StandardInstrumentIdentity instrument, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+    public static async Task<StandardInstrument?> ReadInstrumentAsync(string path, StandardInstrumentIdentity instrument, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
     {
         Validator.ValidateEnum(instrument);
 
-        var session = new ReadingSession(config ?? DefaultReadConfig, formatting ?? new());
-        var reader = new ChartFileReader(path, header => GetAnyStandardTrackParser(header, instrument, session));
+        var session = new ChartReadingSession(config, formatting ?? new());
+        var reader  = new ChartFileReader(path, header => GetAnyStandardTrackParser(header, instrument, session));
 
         await reader.ReadAsync(cancellationToken);
         return CreateInstrumentFromReader<StandardInstrument, StandardChord>(reader);
@@ -283,7 +290,7 @@ public static class ChartFile
     /// <param name="instrument"><inheritdoc cref="Track.FromFile(string, InstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='instrument']"/></param>
     /// <param name="difficulty"><inheritdoc cref="Track.FromFile(string, InstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='difficulty']"/></param>
     /// <param name="config"><inheritdoc cref="Track.FromFile(string, InstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>
-    public static Track ReadTrack(string path, InstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default)
+    public static Track ReadTrack(string path, InstrumentIdentity instrument, Difficulty difficulty, ChartReadingConfiguration? config = default, FormattingRules? formatting = default)
     {
         if (instrument == InstrumentIdentity.Drums)
             return ReadDrumsTrack(path, difficulty, config, formatting);
@@ -300,7 +307,7 @@ public static class ChartFile
     /// <param name="difficulty"><inheritdoc cref="Track.FromFileAsync(string, InstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='difficulty']"/></param>
     /// <param name="cancellationToken"><inheritdoc cref="Track.FromFileAsync(string, InstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='cancellationToken']"/></param>
     /// <param name="config"><inheritdoc cref="Track.FromFileAsync(string, InstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='config']"/></param>
-    public static async Task<Track> ReadTrackAsync(string path, InstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+    public static async Task<Track> ReadTrackAsync(string path, InstrumentIdentity instrument, Difficulty difficulty, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
     {
         if (instrument == InstrumentIdentity.Drums)
             return await ReadDrumsTrackAsync(path, difficulty, config, formatting, cancellationToken);
@@ -319,7 +326,7 @@ public static class ChartFile
     /// <param name="seekedHeader">Header to compare against</param>
     /// <param name="difficulty">Difficulty identity to provide the parser</param>
     /// <param name="session">Session to provide the parser</param>
-    private static DrumsTrackParser? GetDrumsTrackParser(string header, string seekedHeader, Difficulty difficulty, ReadingSession session) => header == seekedHeader ? new(difficulty, session, header) : null;
+    private static DrumsTrackParser? GetDrumsTrackParser(string header, string seekedHeader, Difficulty difficulty, ChartReadingSession session) => header == seekedHeader ? new(difficulty, session, header) : null;
     /// <summary>
     /// Headers for drums tracks
     /// </summary>
@@ -328,12 +335,12 @@ public static class ChartFile
     /// <param name="path"><inheritdoc cref="Track.FromFile(string, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='path']"/></param>
     /// <param name="difficulty"><inheritdoc cref="Track.FromFile(string, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='difficulty']"/></param>
     /// <param name="config"><inheritdoc cref="Track.FromFile(string, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>
-    public static Track<DrumsChord> ReadDrumsTrack(string path, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default)
+    public static Track<DrumsChord> ReadDrumsTrack(string path, Difficulty difficulty, ChartReadingConfiguration? config = default, FormattingRules? formatting = default)
     {
         Validator.ValidateEnum(difficulty);
 
         var seekedHeader = ChartFormatting.Header(InstrumentIdentity.Drums, difficulty);
-        var session = new ReadingSession(config ?? DefaultReadConfig, formatting ?? new());
+        var session = new ChartReadingSession(config, formatting ?? new());
         var reader = new ChartFileReader(path, header => GetDrumsTrackParser(header, seekedHeader, difficulty, session));
 
         reader.Read();
@@ -344,12 +351,12 @@ public static class ChartFile
     /// <param name="difficulty"><inheritdoc cref="Track.FromFileAsync(string, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='difficulty']"/></param>
     /// <param name="cancellationToken"><inheritdoc cref="Track.FromFileAsync(string, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='cancellationToken']"/></param>
     /// <param name="config"><inheritdoc cref="Track.FromFileAsync(string, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='config']"/></param>
-    public static async Task<Track<DrumsChord>> ReadDrumsTrackAsync(string path, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+    public static async Task<Track<DrumsChord>> ReadDrumsTrackAsync(string path, Difficulty difficulty, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
     {
         Validator.ValidateEnum(difficulty);
 
         var seekedHeader = ChartFormatting.Header(ChartFormatting.DrumsHeaderName, difficulty);
-        var session = new ReadingSession(config ?? DefaultReadConfig, formatting ?? new());
+        var session = new ChartReadingSession(config, formatting ?? new());
         var reader = new ChartFileReader(path, header => GetDrumsTrackParser(header, seekedHeader, difficulty, session));
 
         await reader.ReadAsync(cancellationToken);
@@ -365,7 +372,7 @@ public static class ChartFile
     /// <param name="instrument">Instrument identity to provide the parser</param>
     /// <param name="difficulty">Difficulty identity to provide the parser</param>
     /// <param name="session">Session to provide the parser</param>
-    private static GHLTrackParser? GetGHLTrackParser(string header, string seekedHeader, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingSession session) => header == seekedHeader ? new(difficulty, instrument, session, header) : null;
+    private static GHLTrackParser? GetGHLTrackParser(string header, string seekedHeader, GHLInstrumentIdentity instrument, Difficulty difficulty, ChartReadingSession session) => header == seekedHeader ? new(difficulty, instrument, session, header) : null;
     /// <summary>
     /// Headers for GHL tracks
     /// </summary>
@@ -375,13 +382,13 @@ public static class ChartFile
     /// <param name="instrument"><inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='instrument']"/></param>
     /// <param name="difficulty"><inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='difficulty']"/></param>
     /// <param name="config"><inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='config']"/></param>
-    public static Track<GHLChord> ReadTrack(string path, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default)
+    public static Track<GHLChord> ReadTrack(string path, GHLInstrumentIdentity instrument, Difficulty difficulty, ChartReadingConfiguration? config = default, FormattingRules? formatting = default)
     {
         Validator.ValidateEnum(instrument);
         Validator.ValidateEnum(difficulty);
 
         var seekedHeader = ChartFormatting.Header(instrument, difficulty);
-        var session = new ReadingSession(config ?? DefaultReadConfig, formatting ?? new());
+        var session = new ChartReadingSession(config, formatting ?? new());
         var reader = new ChartFileReader(path, header => GetGHLTrackParser(header, seekedHeader, instrument, difficulty, session));
 
         reader.Read();
@@ -393,13 +400,13 @@ public static class ChartFile
     /// <param name="difficulty"><inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='difficulty']"/></param>
     /// <param name="cancellationToken"><inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='cancellationToken']"/></param>
     /// <param name="config"><inheritdoc cref="Track.FromFileAsync(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='config']"/></param>
-    public static async Task<Track<GHLChord>> ReadTrackAsync(string path, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+    public static async Task<Track<GHLChord>> ReadTrackAsync(string path, GHLInstrumentIdentity instrument, Difficulty difficulty, ChartReadingConfiguration? config, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
     {
         Validator.ValidateEnum(instrument);
         Validator.ValidateEnum(difficulty);
 
         var seekedHeader = ChartFormatting.Header(instrument, difficulty);
-        var session = new ReadingSession(config ?? DefaultReadConfig, formatting ?? new());
+        var session = new ChartReadingSession(config ?? DefaultReadConfig, formatting ?? new());
         var reader = new ChartFileReader(path, header => GetGHLTrackParser(header, seekedHeader, instrument, difficulty, session));
 
         await reader.ReadAsync(cancellationToken);
@@ -415,7 +422,7 @@ public static class ChartFile
     /// <param name="instrument">Instrument identity to provide the parser</param>
     /// <param name="difficulty">Difficulty identity to provide the parser</param>
     /// <param name="session">Session to provide the parser</param>
-    private static StandardTrackParser? GetStandardTrackParser(string header, string seekedHeader, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingSession session) => header == seekedHeader ? new(difficulty, instrument, session, header) : null;
+    private static StandardTrackParser? GetStandardTrackParser(string header, string seekedHeader, StandardInstrumentIdentity instrument, Difficulty difficulty, ChartReadingSession session) => header == seekedHeader ? new(difficulty, instrument, session, header) : null;
 
     /// <summary>
     /// Headers for standard tracks
@@ -427,13 +434,13 @@ public static class ChartFile
     /// <param name="instrument"><inheritdoc cref="Track.FromFile(string, StandardInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='instrument']"/></param>
     /// <param name="difficulty"><inheritdoc cref="Track.FromFile(string, StandardInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='difficulty']"/></param>
     /// <param name="config"><inheritdoc cref="Track.FromFile(string, StandardInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>
-    public static Track<StandardChord> ReadTrack(string path, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default)
+    public static Track<StandardChord> ReadTrack(string path, StandardInstrumentIdentity instrument, Difficulty difficulty, ChartReadingConfiguration? config = default, FormattingRules? formatting = default)
     {
         Validator.ValidateEnum(instrument);
         Validator.ValidateEnum(difficulty);
 
         var seekedHeader = ChartFormatting.Header(instrument, difficulty);
-        var session = new ReadingSession(config ?? DefaultReadConfig, formatting ?? new());
+        var session = new ChartReadingSession(config, formatting ?? new());
         var reader = new ChartFileReader(path, header => GetStandardTrackParser(header, seekedHeader, instrument, difficulty, session));
 
         reader.Read();
@@ -446,13 +453,13 @@ public static class ChartFile
     /// <param name="cancellationToken"><inheritdoc cref="Track.FromFileAsync(string, StandardInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='cancellationToken']"/></param>
     /// <param name="config"><inheritdoc cref="Track.FromFileAsync(string, StandardInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='config']"/></param>
     /// <returns></returns>
-    public static async Task<Track<StandardChord>> ReadTrackAsync(string path, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+    public static async Task<Track<StandardChord>> ReadTrackAsync(string path, StandardInstrumentIdentity instrument, Difficulty difficulty, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
     {
         Validator.ValidateEnum(instrument);
         Validator.ValidateEnum(difficulty);
 
         var seekedHeader = ChartFormatting.Header(instrument, difficulty);
-        var session = new ReadingSession(config ?? DefaultReadConfig, formatting ?? new());
+        var session = new ChartReadingSession(config, formatting ?? new());
         var reader = new ChartFileReader(path, header => GetStandardTrackParser(header, seekedHeader, instrument, difficulty, session));
 
         await reader.ReadAsync(cancellationToken);
@@ -516,24 +523,23 @@ public static class ChartFile
     /// <summary>
     /// Creates a <see cref="SyncTrackParser"/> if the header matches the sync track header, otherwise <see langword="null"/>.
     /// </summary>
-    private static SyncTrackParser? GetSyncTrackParser(string header, ReadingSession session) => header == ChartFormatting.SyncTrackHeader ? new(session) : null;
+    private static SyncTrackParser? GetSyncTrackParser(string header, ChartReadingSession session) => header == ChartFormatting.SyncTrackHeader ? new(session) : null;
 
     /// <inheritdoc cref="SyncTrack.FromFile(string, ReadingConfiguration?)"/>
     /// <param name="path"><inheritdoc cref="SyncTrack.FromFile(string, ReadingConfiguration?)" path="/param[@name='path']"/></param>
     /// <param name="config"><inheritdoc cref="SyncTrack.FromFile(string, ReadingConfiguration?)" path="/param[@name='config']"/></param>
-    public static SyncTrack ReadSyncTrack(string path, ReadingConfiguration? config, FormattingRules? formatting = default)
+    public static SyncTrack ReadSyncTrack(string path, ChartReadingConfiguration? config, FormattingRules? formatting = default)
     {
-        config ??= DefaultReadConfig;
-
-        var reader = new ChartFileReader(path, (header) => GetSyncTrackParser(header, new(config ?? DefaultReadConfig, formatting ?? new())));
+        var reader = new ChartFileReader(path, (header) => GetSyncTrackParser(header, new(config, formatting ?? new())));
         reader.Read();
         return reader.Parsers.TryGetFirstOfType(out SyncTrackParser? syncTrackParser) ? syncTrackParser!.Result! : new();
     }
+
     /// <inheritdoc cref="SyncTrack.FromFileAsync(string, ReadingConfiguration?, CancellationToken)"/>
     /// <param name="path"><inheritdoc cref="SyncTrack.FromFileAsync(string, ReadingConfiguration?, CancellationToken)" path="/param[­@name='path']"/></param>
     /// <param name="cancellationToken"><inheritdoc cref="SyncTrack.FromFileAsync(string, ReadingConfiguration?, CancellationToken)" path="/param[­@name='cancellationToken']"/></param>
     /// <param name="config"><inheritdoc cref="SyncTrack.FromFileAsync(string, ReadingConfiguration?, CancellationToken)" path="/param[­@name='config']"/></param>
-    public static async Task<SyncTrack> ReadSyncTrackAsync(string path, ReadingConfiguration? config = default, CancellationToken cancellationToken = default)
+    public static async Task<SyncTrack> ReadSyncTrackAsync(string path, ChartReadingConfiguration? config = default, CancellationToken cancellationToken = default)
     {
         config ??= DefaultReadConfig;
 
@@ -550,17 +556,17 @@ public static class ChartFile
     /// </summary>
     /// <param name="path">Path of the file to write</param>
     /// <param name="song">Song to write</param>
-    public static void WriteSong(string path, Song song, WritingConfiguration? config = default)
+    public static void WriteSong(string path, Song song, ChartWritingConfiguration? config = default)
     {
-        var writer = GetSongWriter(path, song, new(config ?? DefaultWriteConfig, song.Metadata.Formatting));
+        var writer = GetSongWriter(path, song, new(config, song.Metadata.Formatting));
         writer.Write();
     }
-    public static async Task WriteSongAsync(string path, Song song, WritingConfiguration? config = default, CancellationToken cancellationToken = default)
+    public static async Task WriteSongAsync(string path, Song song, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default)
     {
-        var writer = GetSongWriter(path, song, new(config ?? DefaultWriteConfig, song.Metadata.Formatting));
+        var writer = GetSongWriter(path, song, new(config, song.Metadata.Formatting));
         await writer.WriteAsync(cancellationToken);
     }
-    private static ChartFileWriter GetSongWriter(string path, Song song, WritingSession session)
+    private static ChartFileWriter GetSongWriter(string path, Song song, ChartWritingSession session)
     {
         var instruments = song.Instruments.NonNull().ToArray();
         var serializers = new List<Serializer<string>>(instruments.Length + 2);
@@ -607,17 +613,17 @@ public static class ChartFile
     /// Replaces an instrument in a file.
     /// </summary>
     /// <param name="path">Path of the file to write</param>
-    public static void ReplaceInstrument(string path, Instrument instrument, WritingConfiguration? config = default, FormattingRules? formatting = default)
+    public static void ReplaceInstrument(string path, Instrument instrument, ChartWritingConfiguration? config = default, FormattingRules? formatting = default)
     {
-        var writer = GetInstrumentWriter(path, instrument, new(config ?? DefaultWriteConfig, formatting ?? new()));
+        var writer = GetInstrumentWriter(path, instrument, new(config, formatting ?? new()));
         writer.Write();
     }
-    public static async Task ReplaceInstrumentAsync(string path, Instrument instrument, WritingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+    public static async Task ReplaceInstrumentAsync(string path, Instrument instrument, ChartWritingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
     {
-        var writer = GetInstrumentWriter(path, instrument, new(config ?? DefaultWriteConfig, formatting ?? new()));
+        var writer = GetInstrumentWriter(path, instrument, new(config, formatting ?? new()));
         await writer.WriteAsync(cancellationToken);
     }
-    private static ChartFileWriter GetInstrumentWriter(string path, Instrument instrument, WritingSession session)
+    private static ChartFileWriter GetInstrumentWriter(string path, Instrument instrument, ChartWritingSession session)
     {
         if (!Enum.IsDefined(instrument.InstrumentIdentity))
             throw new ArgumentException("Instrument cannot be written because its identity is unknown.", nameof(instrument));
@@ -630,17 +636,17 @@ public static class ChartFile
             tracks.Select(t => new TrackSerializer(t, session)).ToArray());
     }
 
-    public static void ReplaceTrack(string path, Track track, WritingConfiguration? config = default, FormattingRules? formatting = default)
+    public static void ReplaceTrack(string path, Track track, ChartWritingConfiguration? config = default, FormattingRules? formatting = default)
     {
-        var writer = GetTrackWriter(path, track, new(config ?? DefaultWriteConfig, formatting ?? new()));
+        var writer = GetTrackWriter(path, track, new(config, formatting ?? new()));
         writer.Write();
     }
-    public static async Task ReplaceTrackAsync(string path, Track track, WritingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+    public static async Task ReplaceTrackAsync(string path, Track track, ChartWritingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
     {
-        var writer = GetTrackWriter(path, track, new(config ?? DefaultWriteConfig, formatting ?? new()));
+        var writer = GetTrackWriter(path, track, new(config, formatting ?? new()));
         await writer.WriteAsync(cancellationToken);
     }
-    private static ChartFileWriter GetTrackWriter(string path, Track track, WritingSession session)
+    private static ChartFileWriter GetTrackWriter(string path, Track track, ChartWritingSession session)
     {
         if (track.ParentInstrument is null)
             throw new ArgumentNullException(nameof(track), "Cannot write track because it does not belong to an instrument.");
@@ -677,7 +683,7 @@ public static class ChartFile
         var writer = GetGlobalEventWriter(path, events, new(DefaultWriteConfig, null));
         await writer.WriteAsync(cancellationToken);
     }
-    private static ChartFileWriter GetGlobalEventWriter(string path, IEnumerable<GlobalEvent> events, WritingSession session) => new(path, null, new GlobalEventSerializer(events, session));
+    private static ChartFileWriter GetGlobalEventWriter(string path, IEnumerable<GlobalEvent> events, ChartWritingSession session) => new(path, null, new GlobalEventSerializer(events, session));
 
     /// <summary>
     /// Replaces the sync track in a file.
@@ -685,18 +691,18 @@ public static class ChartFile
     /// <param name="path">Path of the file to write</param>
     /// <param name="syncTrack">Sync track to write</param>
     /// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
-    public static void ReplaceSyncTrack(string path, SyncTrack syncTrack, WritingConfiguration? config = default)
+    public static void ReplaceSyncTrack(string path, SyncTrack syncTrack, ChartWritingConfiguration? config = default)
     {
-        var writer = GetSyncTrackWriter(path, syncTrack, new(config ?? DefaultWriteConfig, null));
+        var writer = GetSyncTrackWriter(path, syncTrack, new(config, null));
         writer.Write();
     }
     /// <inheritdoc cref="ReplaceSyncTrack(string, SyncTrack, WritingConfiguration?)"/>
-    public static async Task ReplaceSyncTrackAsync(string path, SyncTrack syncTrack, WritingConfiguration? config = default, CancellationToken cancellationToken = default)
+    public static async Task ReplaceSyncTrackAsync(string path, SyncTrack syncTrack, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default)
     {
-        var writer = GetSyncTrackWriter(path, syncTrack, new(config ?? DefaultWriteConfig, null));
+        var writer = GetSyncTrackWriter(path, syncTrack, new(config, null));
         await writer.WriteAsync(cancellationToken);
     }
-    private static ChartFileWriter GetSyncTrackWriter(string path, SyncTrack syncTrack, WritingSession session) => new(path, null, new SyncTrackSerializer(syncTrack, session));
+    private static ChartFileWriter GetSyncTrackWriter(string path, SyncTrack syncTrack, ChartWritingSession session) => new(path, null, new SyncTrackSerializer(syncTrack, session));
     #endregion
 
     /// <summary>

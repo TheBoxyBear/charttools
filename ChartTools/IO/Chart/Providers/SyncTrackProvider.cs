@@ -1,20 +1,20 @@
 ﻿using ChartTools.IO.Chart.Entries;
-using ChartTools.IO.Configuration.Sessions;
 using ChartTools.Extensions.Linq;
+using ChartTools.IO.Chart.Configuration.Sessions;
 
 namespace ChartTools.IO.Chart.Providers;
 
-internal abstract class SyncTrackProvider<T> : ISerializerDataProvider<T, TrackObjectEntry> where T : ITrackObject
+internal abstract class SyncTrackProvider<T> : ISerializerDataProvider<T, TrackObjectEntry, ChartWritingSession> where T : ITrackObject
 {
     protected abstract string ObjectType { get; }
 
-    public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<T> source, WritingSession session)
+    public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<T> source, ChartWritingSession session)
     {
-        List<uint> orderedPositions = new();
+        List<uint> orderedPositions = [];
 
         foreach (var item in source)
         {
-            if (session.DuplicateTrackObjectProcedure(item.Position, ObjectType, () =>
+            if (session.HandleDuplicate(item.Position, ObjectType, () =>
             {
                 var index = orderedPositions.BinarySearchIndex(item.Position, out bool exactMatch);
 

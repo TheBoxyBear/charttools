@@ -1,19 +1,17 @@
 ﻿using ChartTools.Extensions.Linq;
+using ChartTools.IO.Chart.Configuration.Sessions;
 using ChartTools.IO.Chart.Entries;
-using ChartTools.IO.Configuration.Sessions;
 
 namespace ChartTools.IO.Chart.Parsing;
 
-internal class SyncTrackParser : ChartParser
+internal class SyncTrackParser(ChartReadingSession session) : ChartParser(session, ChartFormatting.SyncTrackHeader)
 {
     public override SyncTrack Result => GetResult(result);
     private readonly SyncTrack result = new();
 
-    private readonly List<Tempo> tempos = new(), orderedTempos = new();
-    private readonly List<Anchor> orderedAnchors = new();
-    private readonly List<TimeSignature> orderedSignatures = new();
-
-    public SyncTrackParser(ReadingSession session) : base(session, ChartFormatting.SyncTrackHeader) { }
+    private readonly List<Tempo> tempos = [], orderedTempos = [];
+    private readonly List<Anchor> orderedAnchors = [];
+    private readonly List<TimeSignature> orderedSignatures = [];
 
     protected override void HandleItem(string line)
     {
@@ -64,7 +62,7 @@ internal class SyncTrackParser : ChartParser
         bool CheckDuplicate<T>(IList<T> existing, string objectType, out int newIndex) where T : IReadOnlyTrackObject
         {
             var index = 0;
-            var result = !session.DuplicateTrackObjectProcedure(entry.Position, objectType, () =>
+            var result = !session.HandleDuplicate(entry.Position, objectType, () =>
             {
                 index = existing.BinarySearchIndex<T, uint>(entry.Position, t => t.Position, out bool exactMatch);
 
@@ -89,7 +87,7 @@ internal class SyncTrackParser : ChartParser
                 orderedTempos[markerIndex].Anchor = anchor.Value;
                 orderedTempos.RemoveAt(markerIndex);
             }
-            else if (session.TempolessAnchorProcedure(anchor))
+            else if (session.HandleTempolessAnchor(anchor))
                 result.Tempo.Add(new(anchor.Position, 0) { Anchor = anchor.Value });
         }
 

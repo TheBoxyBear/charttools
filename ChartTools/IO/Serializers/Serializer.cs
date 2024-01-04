@@ -1,26 +1,14 @@
-﻿using ChartTools.IO.Configuration.Sessions;
+﻿namespace ChartTools.IO;
 
-namespace ChartTools.IO;
-
-internal abstract class Serializer<TResult>
+internal abstract class Serializer<TResult>(string header)
 {
-    protected WritingSession session;
-
-    public string Header { get; }
-
-    public Serializer(string header, WritingSession session)
-    {
-        Header = header;
-        this.session = session;
-    }
+    public string Header { get; } = header;
 
     public abstract IEnumerable<TResult> Serialize();
     public async Task<IEnumerable<TResult>> SerializeAsync() => await Task.Run(() => Serialize().ToArray());
 }
 
-internal abstract class Serializer<TContent, TResult> : Serializer<TResult>
+internal abstract class Serializer<TContent, TResult>(string header, TContent content) : Serializer<TResult>(header)
 {
-    public TContent Content { get; }
-
-    public Serializer(string header, TContent content, WritingSession session) : base(header, session) => Content = content;
+    public TContent Content { get; } = content;
 }

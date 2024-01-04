@@ -1,8 +1,8 @@
-﻿using ChartTools.IO.Configuration.Sessions;
+﻿using ChartTools.IO.Configuration;
 
 namespace ChartTools.IO;
 
-internal interface ISerializerDataProvider<TSource, TResult>
+internal interface ISerializerDataProvider<TSource, TResult, TSession> where TSession : Session
 {
-    public IEnumerable<TResult> ProvideFor(IEnumerable<TSource> source, WritingSession session);
+    public IEnumerable<TResult> ProvideFor(IEnumerable<TSource> source, TSession session);
 }

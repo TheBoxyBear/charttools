@@ -1,15 +1,13 @@
 ﻿using ChartTools.Events;
+using ChartTools.IO.Chart.Configuration.Sessions;
 using ChartTools.IO.Chart.Entries;
-using ChartTools.IO.Configuration.Sessions;
 
 namespace ChartTools.IO.Chart.Parsing;
 
-internal class GlobalEventParser : ChartParser
+internal class GlobalEventParser(ChartReadingSession session) : ChartParser(session, ChartFormatting.GlobalEventHeader)
 {
     public override List<GlobalEvent> Result => GetResult(result);
-    private readonly List<GlobalEvent> result = new();
-
-    public GlobalEventParser(ReadingSession session) : base(session, ChartFormatting.GlobalEventHeader) { }
+    private readonly List<GlobalEvent> result = [];
 
     protected override void HandleItem(string line)
     {

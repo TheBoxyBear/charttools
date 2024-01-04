@@ -1,11 +1,11 @@
-﻿using ChartTools.IO.Configuration.Sessions;
+﻿using ChartTools.IO.Chart.Configuration.Sessions;
 using ChartTools.IO.Sections;
 
 namespace ChartTools.IO.Chart.Serializing;
 
-internal class UnknownSectionSerializer : Serializer<Section<string>, string>
+internal class UnknownSectionSerializer(string header, Section<string> content, ChartWritingSession session) : Serializer<Section<string>, string>(header, content)
 {
-    public UnknownSectionSerializer(string header, Section<string> content, WritingSession session) : base(header, content, session) { }
+    public ChartWritingSession Session { get; } = session;
 
     public override IEnumerable<string> Serialize() => Content;
 }

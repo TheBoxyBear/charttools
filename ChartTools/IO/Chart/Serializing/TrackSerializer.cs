@@ -1,17 +1,16 @@
 ﻿using ChartTools.Events;
 using ChartTools.Extensions.Linq;
+using ChartTools.IO.Chart.Configuration.Sessions;
 using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Chart.Providers;
 using ChartTools.IO.Configuration;
-using ChartTools.IO.Configuration.Sessions;
 using ChartTools.Tools;
 
 namespace ChartTools.IO.Chart.Serializing;
 
-internal class TrackSerializer : TrackObjectGroupSerializer<Track>
+internal class TrackSerializer(Track content, ChartWritingSession session)
+    : TrackObjectGroupSerializer<Track>(ChartFormatting.Header(content.ParentInstrument!.InstrumentIdentity, content.Difficulty), content, session)
 {
-    public TrackSerializer(Track content, WritingSession session) : base(ChartFormatting.Header(content.ParentInstrument!.InstrumentIdentity, content.Difficulty), content, session) { }
-
     public override IEnumerable<string> Serialize() => LaunchProviders().AlternateBy(entry => entry.Position).Select(entry => entry.ToString());
 
     protected override IEnumerable<TrackObjectEntry>[] LaunchProviders()

@@ -1,6 +1,6 @@
 ﻿using ChartTools.IO.Chart;
+using ChartTools.IO.Chart.Configuration.Sessions;
 using ChartTools.IO.Chart.Entries;
-using ChartTools.IO.Configuration.Sessions;
 
 namespace ChartTools;
 
@@ -50,7 +50,7 @@ public class GHLChord : LaneChord<LaneNote<GHLLane>, GHLLane, GHLChordModifiers>
         GHLLane.White3 => 2,
     }, note.Sustain));
 
-    internal override IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, WritingSession session)
+    internal override IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, ChartWritingSession session)
     {
         var isInvert = Modifiers.HasFlag(GHLChordModifiers.HopoInvert);
 
