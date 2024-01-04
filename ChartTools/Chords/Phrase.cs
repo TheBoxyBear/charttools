@@ -2,11 +2,9 @@
 
 namespace ChartTools.Lyrics;
 
-public class Phrase : IChord, ILongTrackObject
+public class Phrase(uint position) : TrackObjectBase(position), IChord, ILongTrackObject
 {
-    public uint Position { get; set; }
-
-    public List<Syllable> Syllables { get; } = new();
+    public List<Syllable> Syllables { get; } = [];
     IReadOnlyCollection<INote> IChord.Notes => Syllables;
 
     /// <summary>
@@ -56,9 +54,6 @@ public class Phrase : IChord, ILongTrackObject
     /// </summary>
     public string RawText => BuildText(n => n.RawText);
     public string DisplayedText => BuildText(n => n.DisplayedText);
-
-    public Phrase() : this(0) { }
-    public Phrase(uint position) => Position = position;
 
     public IEnumerable<GlobalEvent> ToGlobalEvents()
     {

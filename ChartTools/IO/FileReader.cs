@@ -20,8 +20,7 @@ internal abstract class FileReader<T>(string path) : IDisposable
     public abstract void Dispose();
 }
 
-internal abstract class FileReader<T, TParser>(string path, Func<string, TParser?> parserGetter)
-    : FileReader<T>(path) where TParser : FileParser<T>
+internal abstract class FileReader<T, TParser>(string path, Func<string, TParser?> parserGetter) : FileReader<T>(path) where TParser : FileParser<T>
 {
     public record ParserContentGroup(TParser Parser, DelayedEnumerableSource<T> Source);
 

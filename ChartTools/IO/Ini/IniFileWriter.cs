@@ -1,8 +1,7 @@
 ﻿namespace ChartTools.IO.Ini;
 
-internal class IniFileWriter : TextFileWriter
+internal class IniFileWriter(string path, params Serializer<string>[] serializers)
+    : TextFileWriter(path, Enumerable.Empty<string>(), serializers)
 {
-    public IniFileWriter(string path, params Serializer<string>[] serializers) : base(path, Enumerable.Empty<string>(), serializers) { }
-
     protected override bool EndReplace(string line) => line.StartsWith('[');
 }
