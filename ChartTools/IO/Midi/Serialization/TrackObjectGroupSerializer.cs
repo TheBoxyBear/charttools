@@ -11,7 +11,7 @@ internal abstract class TrackObjectGroupSerializer<T>(string header, T content, 
 {
     public MidiWritingSession Session { get; } = session;
 
-    protected override IEnumerable<MidiEvent> CombineMapperResults(IEnumerable<IMidiEventMapping>[] mappings) => mappings.AlternateBy(mapping => mapping.Position).RelativeLoop().Select(pair =>
+    protected override IEnumerable<MidiEvent> CombineProviderResults(IEnumerable<IMidiEventMapping>[] mappings) => mappings.AlternateBy(mapping => mapping.Position).RelativeLoop().Select(pair =>
     {
         var previousPosition = pair.previous is null ? 0 : pair.previous.Position;
         return pair.current.ToMidiEvent(pair.current.Position - previousPosition);
