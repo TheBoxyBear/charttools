@@ -29,10 +29,9 @@ public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey :
     /// <exception cref="ArgumentNullException"/>
     public OrderedAlternatingEnumerable(Func<T, TKey> keyGetter, params IEnumerable<T>?[] enumerables)
     {
-        if (keyGetter is null)
-            throw new ArgumentNullException(nameof(keyGetter));
-        if (enumerables is null)
-            throw new ArgumentNullException(nameof(enumerables));
+        ArgumentNullException.ThrowIfNull(keyGetter);
+        ArgumentNullException.ThrowIfNull(enumerables);
+
         if (enumerables.Length == 0)
             throw new ArgumentException("No enumerables provided.");
 
@@ -75,7 +74,6 @@ public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey :
         /// <param name="enumerators">Enumerators to alternate between</param>
         public Enumerator(Func<T, TKey> keyGetter, params IEnumerator<T>[] enumerators)
         {
-            if (keyGetter is null)
             Enumerators = enumerators.NonNull().ToArray();
             KeyGetter = keyGetter;
             endsReached = new bool[enumerators.Length];

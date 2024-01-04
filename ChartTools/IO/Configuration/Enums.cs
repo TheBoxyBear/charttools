@@ -38,7 +38,7 @@ public enum LyricEventSource : byte
 }
 
 /// <summary>
-/// Defines how overlapping star power phrases should be handled.
+/// Defines how overlapping special phrases should be handled.
 /// </summary>
 public enum OverlappingSpecialPhrasePolicy : byte
 {
@@ -139,7 +139,7 @@ public enum TrackObjectSource : byte
 }
 
 /// <summary>
-/// Defines how unknown sections or Midi chunks are handled.
+/// Defines how unknown file sections or chunks are handled.
 /// </summary>
 public enum UnknownSectionPolicy : byte
 {

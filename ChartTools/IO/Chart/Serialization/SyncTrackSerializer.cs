@@ -1,7 +1,7 @@
 ﻿using ChartTools.IO.Chart.Configuration.Sessions;
 using ChartTools.IO.Chart.Entries;
 using ChartTools.IO.Chart.Providers;
-namespace ChartTools.IO.Chart.Serializing;
+namespace ChartTools.IO.Chart.Serialization;
 
 internal class SyncTrackSerializer(SyncTrack content, ChartWritingSession session)
     : TrackObjectGroupSerializer<SyncTrack>(ChartFormatting.SyncTrackHeader, content, session)

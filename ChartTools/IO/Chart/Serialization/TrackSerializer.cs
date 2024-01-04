@@ -6,7 +6,7 @@ using ChartTools.IO.Chart.Providers;
 using ChartTools.IO.Configuration;
 using ChartTools.Tools;
 
-namespace ChartTools.IO.Chart.Serializing;
+namespace ChartTools.IO.Chart.Serialization;
 
 internal class TrackSerializer(Track content, ChartWritingSession session)
     : TrackObjectGroupSerializer<Track>(ChartFormatting.Header(content.ParentInstrument!.InstrumentIdentity, content.Difficulty), content, session)
@@ -15,7 +15,7 @@ internal class TrackSerializer(Track content, ChartWritingSession session)
 
     protected override IEnumerable<TrackObjectEntry>[] LaunchProviders()
     {
-        ApplyOverlappingSpecialPhrasePolicy(Content.SpecialPhrases, session.Configuration.OverlappingStarPowerPolicy);
+        ApplyOverlappingSpecialPhrasePolicy(Content.SpecialPhrases, session.Configuration.OverlappingSpecialPhrasePolicy);
 
         // Convert solo and soloend events into star power
         if (session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && Content.SpecialPhrases.Count == 0 && Content.LocalEvents is not null)

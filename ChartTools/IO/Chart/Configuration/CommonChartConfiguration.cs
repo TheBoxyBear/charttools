@@ -3,10 +3,7 @@ using ChartTools.IO.Configuration.Common;
 
 namespace ChartTools.IO.Chart.Configuration;
 
-public abstract record CommonChartConfiguration : ICommonConfiguration
+public abstract record CommonChartConfiguration : CommonConfiguration
 {
-    public required DuplicateTrackObjectPolicy DuplicateTrackObjectPolicy { get; init; }
-    public required OverlappingSpecialPhrasePolicy OverlappingStarPowerPolicy { get; init; }
-    public required SnappedNotesPolicy SnappedNotesPolicy { get; init; }
-    public required SoloNoStarPowerPolicy SoloNoStarPowerPolicy { get; init; }
+
 }

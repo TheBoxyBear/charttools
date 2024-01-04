@@ -8,7 +8,7 @@ public record Track<TChord> : Track where TChord : IChord, new()
     /// <summary>
     /// Chords making up the difficulty track.
     /// </summary>
-    public new List<TChord> Chords { get; } = new();
+    public new List<TChord> Chords { get; } = [];
     /// <summary>
     /// Instrument the track is held in.
     /// </summary>

@@ -1,25 +1,17 @@
 ﻿using ChartTools.Collections;
 using ChartTools.Extensions.Linq;
-using ChartTools.IO.Serializaiton;
 
 namespace ChartTools.IO;
 
-internal abstract class TextFileWriter
+internal abstract class TextFileWriter(string path, IEnumerable<string>? removedHeaders, params Serializer<string>[] serializers)
 {
-    public string Path { get; }
+    public string Path { get; } = path;
     protected virtual string? PreSerializerContent => null;
     protected virtual string? PostSerializerContent => null;
 
-    private readonly List<Serializer<string>> serializers;
+    private readonly List<Serializer<string>> serializers = [..serializers];
     private readonly string tempPath = System.IO.Path.GetTempFileName();
-    private readonly IEnumerable<string>? removedHeaders;
-
-    public TextFileWriter(string path, IEnumerable<string>? removedHeaders, params Serializer<string>[] serializers)
-    {
-        Path = path;
-        this.serializers = serializers.ToList();
-        this.removedHeaders = removedHeaders;
-    }
+    private readonly IEnumerable<string>? removedHeaders = removedHeaders;
 
     private IEnumerable<SectionReplacement<string>> AddRemoveReplacements(IEnumerable<SectionReplacement<string>> replacements) => removedHeaders is null ? replacements : replacements.Concat(removedHeaders.Select(header => new SectionReplacement<string>(Enumerable.Empty<string>(), line => line == header, EndReplace, false)));
 

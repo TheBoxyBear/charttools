@@ -86,7 +86,7 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 
     protected override void FinaliseParse()
     {
-        ApplyOverlappingSpecialPhrasePolicy(result.SpecialPhrases, session!.Configuration.OverlappingStarPowerPolicy);
+        ApplyOverlappingSpecialPhrasePolicy(result.SpecialPhrases, session!.Configuration.OverlappingSpecialPhrasePolicy);
         base.FinaliseParse();
     }
 

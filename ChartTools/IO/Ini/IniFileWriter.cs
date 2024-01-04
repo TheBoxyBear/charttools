@@ -1,6 +1,4 @@
-﻿using ChartTools.IO.Serializaiton;
-
-namespace ChartTools.IO.Ini;
+﻿namespace ChartTools.IO.Ini;
 
 internal class IniFileWriter : TextFileWriter
 {

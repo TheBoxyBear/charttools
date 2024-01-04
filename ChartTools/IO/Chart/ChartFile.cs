@@ -4,7 +4,7 @@ using ChartTools.Extensions.Linq;
 using ChartTools.IO.Chart.Configuration;
 using ChartTools.IO.Chart.Configuration.Sessions;
 using ChartTools.IO.Chart.Parsing;
-using ChartTools.IO.Chart.Serializing;
+using ChartTools.IO.Chart.Serialization;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Formatting;
 using ChartTools.Lyrics;
@@ -21,12 +21,12 @@ public static class ChartFile
     /// </summary>
     public static ChartReadingConfiguration DefaultReadConfig { get; set; } = new()
     {
-        DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
-        OverlappingStarPowerPolicy = OverlappingSpecialPhrasePolicy.ThrowException,
-        SnappedNotesPolicy         = SnappedNotesPolicy.ThrowException,
-        SoloNoStarPowerPolicy      = SoloNoStarPowerPolicy.Convert,
-        TempolessAnchorPolicy      = TempolessAnchorPolicy.ThrowException,
-        UnknownSectionPolicy       = UnknownSectionPolicy.ThrowException
+        DuplicateTrackObjectPolicy     = DuplicateTrackObjectPolicy.ThrowException,
+        OverlappingSpecialPhrasePolicy = OverlappingSpecialPhrasePolicy.ThrowException,
+        SnappedNotesPolicy             = SnappedNotesPolicy.Ignore,
+        SoloNoStarPowerPolicy          = SoloNoStarPowerPolicy.Convert,
+        TempolessAnchorPolicy          = TempolessAnchorPolicy.ThrowException,
+        UnknownSectionPolicy           = UnknownSectionPolicy.ThrowException
     };
 
     /// <summary>
@@ -34,11 +34,11 @@ public static class ChartFile
     /// </summary>
     public static ChartWritingConfiguration DefaultWriteConfig { get; set; } = new()
     {
-        DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
-        OverlappingStarPowerPolicy = OverlappingSpecialPhrasePolicy.ThrowException,
-        SoloNoStarPowerPolicy      = SoloNoStarPowerPolicy.Convert,
-        SnappedNotesPolicy         = SnappedNotesPolicy.ThrowException,
-        UnsupportedModifierPolicy  = UnsupportedModifierPolicy.ThrowException
+        DuplicateTrackObjectPolicy     = DuplicateTrackObjectPolicy.ThrowException,
+        OverlappingSpecialPhrasePolicy = OverlappingSpecialPhrasePolicy.ThrowException,
+        SoloNoStarPowerPolicy          = SoloNoStarPowerPolicy.Convert,
+        SnappedNotesPolicy             = SnappedNotesPolicy.ThrowException,
+        UnsupportedModifierPolicy      = UnsupportedModifierPolicy.ThrowException
     };
 
     #region Reading
@@ -148,6 +148,7 @@ public static class ChartFile
             ? ReadInstrument(path, (StandardInstrumentIdentity)instrument, config, formatting)
             : throw new UndefinedEnumException(instrument);
     }
+
     public static async Task<Instrument?> ReadInstrumentAsync(string path, InstrumentIdentity instrument, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
     {
         if (instrument == InstrumentIdentity.Drums)
@@ -158,6 +159,7 @@ public static class ChartFile
             ? await ReadInstrumentAsync(path, (StandardInstrumentIdentity)instrument, config, formatting, cancellationToken)
             : throw new UndefinedEnumException(instrument);
     }
+
     #region Vocals
     /// <summary>
     /// Reads vocals from the global events in a chart file.
@@ -167,7 +169,9 @@ public static class ChartFile
     /// </returns>
     /// <param name="path">Path of the file to read</param>
     public static Vocals? ReadVocals(string path) => BuildVocals(ReadGlobalEvents(path));
+
     public static async Task<Vocals?> ReadVocalsAsync(string path, CancellationToken cancellationToken = default) => BuildVocals(await ReadGlobalEventsAsync(path, cancellationToken));
+
     private static Vocals? BuildVocals(List<GlobalEvent> events)
     {
         var lyrics = events.GetLyrics().ToArray();
@@ -301,6 +305,7 @@ public static class ChartFile
 
         throw new UndefinedEnumException(instrument);
     }
+
     /// <inheritdoc cref="Track.FromFileAsync(string, InstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)"/>
     /// <param name="path"><inheritdoc cref="Track.FromFileAsync(string, InstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='path']"/></param>
     /// <param name="instrument"><inheritdoc cref="Track.FromFileAsync(string, InstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='instrument']"/></param>
@@ -318,6 +323,7 @@ public static class ChartFile
 
         throw new UndefinedEnumException(instrument);
     }
+
     #region Drums
     /// <summary>
     /// Creates a <see cref="DrumsTrackParser"/> is the header matches the requested standard track, otherwise <see langword="null"/>.
@@ -492,7 +498,7 @@ public static class ChartFile
     {
         var reader = new ChartFileReader(path, GetGlobalEventParser);
         reader.Read();
-        return reader.Parsers.TryGetFirstOfType(out GlobalEventParser? parser) ? parser!.Result! : new();
+        return reader.Parsers.TryGetFirstOfType(out GlobalEventParser? parser) ? parser!.Result! : [];
     }
     /// <inheritdoc cref="GlobalEvent.FromFileAsync(string, CancellationToken)"/>
     /// <param name="path"><inheritdoc cref="GlobalEvent.FromFileAsync(string, CancellationToken)" path="/param[@name='path']"/></param>
@@ -502,7 +508,7 @@ public static class ChartFile
     {
         var reader = new ChartFileReader(path, GetGlobalEventParser);
         await reader.ReadAsync(cancellationToken);
-        return reader.Parsers.TryGetFirstOfType(out GlobalEventParser? parser) ? parser!.Result! : new();
+        return reader.Parsers.TryGetFirstOfType(out GlobalEventParser? parser) ? parser!.Result! : [];
     }
 
     /// <summary>
@@ -561,11 +567,13 @@ public static class ChartFile
         var writer = GetSongWriter(path, song, new(config, song.Metadata.Formatting));
         writer.Write();
     }
+
     public static async Task WriteSongAsync(string path, Song song, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default)
     {
         var writer = GetSongWriter(path, song, new(config, song.Metadata.Formatting));
         await writer.WriteAsync(cancellationToken);
     }
+
     private static ChartFileWriter GetSongWriter(string path, Song song, ChartWritingSession session)
     {
         var instruments = song.Instruments.NonNull().ToArray();
@@ -606,7 +614,7 @@ public static class ChartFile
         if (song.UnknownChartSections is not null)
             serializers.AddRange(song.UnknownChartSections.Select(s => new UnknownSectionSerializer(s.Header, s, session)));
 
-        return new(path, removedHeaders, serializers.ToArray());
+        return new(path, removedHeaders, [.. serializers]);
     }
 
     /// <summary>

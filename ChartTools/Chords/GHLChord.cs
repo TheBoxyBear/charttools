@@ -21,8 +21,7 @@ public class GHLChord : LaneChord<LaneNote<GHLLane>, GHLLane, GHLChordModifiers>
     /// <param name="notes">Notes to add</param>
     public GHLChord(uint position, params LaneNote<GHLLane>[] notes) : base(position)
     {
-        if (notes is null)
-            throw new ArgumentNullException(nameof(notes));
+        ArgumentNullException.ThrowIfNull(notes);
 
         foreach (var note in notes)
             Notes.Add(note);
@@ -30,8 +29,7 @@ public class GHLChord : LaneChord<LaneNote<GHLLane>, GHLLane, GHLChordModifiers>
     /// <inheritdoc cref="GHLChord(uint, LaneNote{GHLLane}[])"/>
     public GHLChord(uint position, params GHLLane[] notes) : base(position)
     {
-        if (notes is null)
-            throw new ArgumentNullException(nameof(notes));
+        ArgumentNullException.ThrowIfNull(notes);
 
         foreach (GHLLane note in notes)
             Notes.Add(new LaneNote<GHLLane>(note));

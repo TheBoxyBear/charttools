@@ -2,7 +2,7 @@
 using ChartTools.IO.Chart.Configuration.Sessions;
 using ChartTools.IO.Chart.Entries;
 
-namespace ChartTools.IO.Chart.Serializing;
+namespace ChartTools.IO.Chart.Serialization;
 
 internal abstract class TrackObjectGroupSerializer<T>(string header, T content, ChartWritingSession session)
     : GroupSerializer<T, string, TrackObjectEntry>(header, content)

@@ -21,8 +21,7 @@ public class StandardChord : LaneChord<LaneNote<StandardLane>, StandardLane, Sta
     /// <param name="notes">Notes to add</param>
     public StandardChord(uint position, params LaneNote<StandardLane>[] notes) : this(position)
     {
-        if (notes is null)
-            throw new ArgumentNullException(nameof(notes));
+        ArgumentNullException.ThrowIfNull(notes);
 
         foreach (var note in notes)
             Notes.Add(note);
@@ -30,8 +29,7 @@ public class StandardChord : LaneChord<LaneNote<StandardLane>, StandardLane, Sta
     /// <inheritdoc cref="StandardChord(uint, LaneNote{StandardLane}[])"/>
     public StandardChord(uint position, params StandardLane[] notes) : this(position)
     {
-        if (notes is null)
-            throw new ArgumentNullException(nameof(notes));
+        ArgumentNullException.ThrowIfNull(notes);
 
         foreach (StandardLane note in notes)
             Notes.Add(new LaneNote<StandardLane>(note));

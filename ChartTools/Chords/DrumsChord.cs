@@ -22,8 +22,7 @@ public class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModifiers>
     /// <param name="notes">Notes to add</param>
     public DrumsChord(uint position, params DrumsNote[] notes) : base(position)
     {
-        if (notes is null)
-            throw new ArgumentNullException(nameof(notes));
+        ArgumentNullException.ThrowIfNull(notes);
 
         foreach (DrumsNote note in notes)
             Notes.Add(note);
@@ -31,8 +30,7 @@ public class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModifiers>
     /// <inheritdoc cref="DrumsChord(uint, DrumsNote[])"/>
     public DrumsChord(uint position, params DrumsLane[] notes) : base(position)
     {
-        if (notes is null)
-            throw new ArgumentNullException(nameof(notes));
+        ArgumentNullException.ThrowIfNull(notes);
 
         foreach (DrumsLane note in notes)
             Notes.Add(new DrumsNote(note));

@@ -1,6 +1,7 @@
 ﻿namespace ChartTools.IO.Configuration.Common;
 
-public interface ICommonReadingConfiguration : ICommonConfiguration
+public interface ICommonReadingConfiguration
 {
+    /// <inheritdoc cref="Configuration.UnknownSectionPolicy"/>
     public UnknownSectionPolicy UnknownSectionPolicy { get; }
 }

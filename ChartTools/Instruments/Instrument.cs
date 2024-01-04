@@ -45,7 +45,7 @@ public abstract record Instrument : IEmptyVerifiable
     /// <summary>
     /// Set of special phrases applied to all difficulties
     /// </summary>
-    public List<InstrumentSpecialPhrase> SpecialPhrases { get; set; } = new();
+    public List<InstrumentSpecialPhrase> SpecialPhrases { get; set; } = [];
 
     /// <inheritdoc cref="InstrumentDifficultySet.GetDifficulty(InstrumentIdentity)"/>
     public sbyte? GetDifficulty(InstrumentDifficultySet difficulties) => difficulties.GetDifficulty(InstrumentIdentity);
@@ -89,6 +89,13 @@ public abstract record Instrument : IEmptyVerifiable
     /// </summary>
     /// <param name="difficulty">Difficulty of the target track</param>
     public abstract bool RemoveTrack(DiffEnum difficulty);
+
+    /// <summary>
+    /// Clears the track matching a difficulty.
+    /// </summary>
+    /// <param name="difficulty">Difficulty of the track</param>
+    /// <returns>Newly created track</returns>
+    public abstract Track ClearTrack(DiffEnum difficulty);
 
     /// <summary>
     /// Creates an array containing all tracks.
