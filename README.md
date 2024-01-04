@@ -1,7 +1,5 @@
 # ChartTools
-ChartTools is a .NET library with the purpose of modelling song files for plastic guitar video games like Guitar Hero, Rock Band and Clone Hero. It currently supports reading of .chart and .ini files, with .mid support currently in development. BChart will also be supported once the format is finalised by mdsitton and Midi is implemented.
-
-In order to future-proof the library for features added to Clone Hero, improve code readability, and ensure long-term support, future development will be done in .NET 7 with a temporary .NET 6 compatibility layer. New projects should target .NET 7 using the matching build. Future development may make use of .NET 7 and C# 11 features, with .NET 6 impmenentations included throuh compiler directives.
+ChartTools is a .NET 8 library with the purpose of modelling song files for plastic guitar video games like Guitar Hero, Rock Band and Clone Hero. It currently supports reading of .chart and .ini files, with .mid support currently in development. BChart will also be supported once the format is finalised by mdsitton and Midi is implemented.
 
 If you find any bugs, you can report them in the [Issues section](https://github.com/TheBoxyBear/ChartTools/issues) of the repository. Make sure to use the "bug" label.
 
