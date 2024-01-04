@@ -21,8 +21,8 @@ public class SerialAlternatingEnumerable<T> : IEnumerable<T>
     /// <exception cref="ArgumentNullException"/>
     public SerialAlternatingEnumerable(params IEnumerable<T>?[] enumerables)
     {
-        if (enumerables is null)
-            throw new ArgumentNullException(nameof(enumerables));
+        ArgumentNullException.ThrowIfNull(enumerables);
+
         if (enumerables.Length == 0)
             throw new ArgumentException("No enumerables provided.");
 
@@ -37,12 +37,15 @@ public class SerialAlternatingEnumerable<T> : IEnumerable<T>
     /// <summary>
     /// Enumerator that yields <typeparamref name="T"/> items by alternating through a set of enumerators
     /// </summary>
-    private class Enumerator : IEnumerator<T?>
+    /// <param name="enumerators">Enumerators to alternate between</param>
+    /// <exception cref="ArgumentException"/>
+    /// <exception cref="ArgumentNullException"/>
+    private class Enumerator(params IEnumerator<T>[] enumerators) : IEnumerator<T?>
     {
         /// <summary>
         /// Enumerators to alternate between
         /// </summary>
-        private IEnumerator<T>[] Enumerators { get; }
+        private IEnumerator<T>[] Enumerators { get; } = enumerators.NonNull().ToArray();
         /// <summary>
         /// Position of the next enumerator to pull from
         /// </summary>
@@ -54,14 +57,6 @@ public class SerialAlternatingEnumerable<T> : IEnumerable<T>
         public T? Current { get; private set; }
         /// <inheritdoc/>
         object? IEnumerator.Current => Current;
-
-        /// <summary>
-        /// Creates an instance of <see cref="SerialAlternatingEnumerator{T}"/>
-        /// </summary>
-        /// <param name="enumerators">Enumerators to alternate between</param>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
-        public Enumerator(params IEnumerator<T>[] enumerators) => Enumerators = enumerators.NonNull().ToArray();
 
         /// <inheritdoc/>
         public void Dispose()

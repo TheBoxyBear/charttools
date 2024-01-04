@@ -1,4 +1,5 @@
-﻿using ChartTools.Extensions.Linq;
+﻿using ChartTools.Events;
+using ChartTools.Extensions.Linq;
 using ChartTools.IO.Configuration;
 
 using DiffEnum = ChartTools.Difficulty;
@@ -45,7 +46,7 @@ public abstract record Instrument : IEmptyVerifiable
     /// <summary>
     /// Set of special phrases applied to all difficulties
     /// </summary>
-    public List<InstrumentSpecialPhrase> SpecialPhrases { get; set; } = new();
+    public List<InstrumentSpecialPhrase> SpecialPhrases { get; set; } = [];
 
     /// <inheritdoc cref="InstrumentDifficultySet.GetDifficulty(InstrumentIdentity)"/>
     public sbyte? GetDifficulty(InstrumentDifficultySet difficulties) => difficulties.GetDifficulty(InstrumentIdentity);
@@ -104,12 +105,14 @@ public abstract record Instrument : IEmptyVerifiable
     /// <summary>
     /// Gives all tracks the same local events.
     /// </summary>
-    public void ShareLocalEvents(TrackObjectSource source) => ShareEventsStarPower(source, track => track.LocalEvents);
+    public LocalEvent[] ShareLocalEvents(TrackObjectSource source) => ShareEventsSpecial(source, track => track.LocalEvents);
+
     /// <summary>
-    /// Gives all tracks the same star power
+    /// Gives all tracks the same special phrases
     /// </summary>
-    public void ShareStarPower(TrackObjectSource source) => ShareEventsStarPower(source, track => track.SpecialPhrases);
-    private void ShareEventsStarPower<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : ITrackObject
+    public SpecialPhrase[] ShareSpecial(TrackObjectSource source) => ShareEventsSpecial(source, track => track.SpecialPhrases);
+
+    private T[] ShareEventsSpecial<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : TrackObjectBase
     {
         var collections = GetExistingTracks().Select(track => collectionGetter(track)).ToArray();
 
@@ -128,6 +131,8 @@ public abstract record Instrument : IEmptyVerifiable
             collection.Clear();
             collection.AddRange(objects);
         }
+
+        return objects;
     }
 
     public override string ToString() => InstrumentIdentity.ToString();
