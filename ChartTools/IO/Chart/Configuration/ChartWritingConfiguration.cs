@@ -5,5 +5,5 @@ namespace ChartTools.IO.Chart.Configuration;
 
 public record ChartWritingConfiguration : CommonChartConfiguration, ICommonWritingConfiguration
 {
-    public required UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }
+    public required UnsupportedModifiersPolicy UnsupportedModifiersPolicy { get; init; }
 }

@@ -5,5 +5,5 @@ namespace ChartTools.IO.Midi.Configuration;
 
 public record MidiWritingConfiguration : CommonMidiConfiguration, ICommonWritingConfiguration
 {
-    public required UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }
+    public required UnsupportedModifiersPolicy UnsupportedModifiersPolicy { get; init; }
 }

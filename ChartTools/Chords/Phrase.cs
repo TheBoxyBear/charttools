@@ -55,6 +55,8 @@ public class Phrase(uint position) : TrackObjectBase(position), IChord, ILongTra
     public string RawText => BuildText(n => n.RawText);
     public string DisplayedText => BuildText(n => n.DisplayedText);
 
+    public Phrase() : this(0) { }
+
     public IEnumerable<GlobalEvent> ToGlobalEvents()
     {
         yield return new(Position, EventTypeHelper.Global.PhraseStart);

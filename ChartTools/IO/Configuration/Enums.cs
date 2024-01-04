@@ -156,7 +156,7 @@ public enum UnknownSectionPolicy : byte
 /// <summary>
 /// Defines chord modifiers not supported by the target format are handled.
 /// </summary>
-public enum UnsupportedModifierPolicy : byte
+public enum UnsupportedModifiersPolicy : byte
 {
     /// <summary>
     /// Throw an exception with the modifier index.
@@ -174,5 +174,13 @@ public enum UnsupportedModifierPolicy : byte
     /// <summary>
     /// Ignore the chord containing the modifier.
     /// </summary>
-    IgnoreChord
+    IgnoreChord,
+}
+
+[Flags]
+public enum UnsupportedModifiersResults : byte
+{
+    None,
+    Chord,
+    Modifiers
 }

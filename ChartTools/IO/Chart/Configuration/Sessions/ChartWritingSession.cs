@@ -8,12 +8,12 @@ internal class ChartWritingSession(ChartWritingConfiguration? config, Formatting
 {
     public override ChartWritingConfiguration Configuration { get; } = config ?? ChartFile.DefaultWriteConfig;
 
-    public IEnumerable<TrackObjectEntry> GetUnsupportedModifierChordEntries(LaneChord? previous, LaneChord current) => Configuration.UnsupportedModifierPolicy switch
+    public IEnumerable<TrackObjectEntry> GetUnsupportedModifierChordEntries(LaneChord? previous, LaneChord current) => Configuration.UnsupportedModifiersPolicy switch
     {
-        UnsupportedModifierPolicy.ThrowException => throw new Exception($"Chord at position {current.Position} as an unsupported modifier for the chart format."),
-        UnsupportedModifierPolicy.IgnoreChord    => Enumerable.Empty<TrackObjectEntry>(),
-        UnsupportedModifierPolicy.IgnoreModifier => current.GetChartNoteData(),
-        UnsupportedModifierPolicy.Convert        => current.GetChartModifierData(previous, this),
-        _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.UnsupportedModifierPolicy)
+        UnsupportedModifiersPolicy.ThrowException => throw new Exception($"Chord at position {current.Position} as an unsupported modifier for the chart format."),
+        UnsupportedModifiersPolicy.IgnoreChord    => Enumerable.Empty<TrackObjectEntry>(),
+        UnsupportedModifiersPolicy.IgnoreModifier => current.GetChartNoteData(),
+        UnsupportedModifiersPolicy.Convert        => current.GetChartModifierData(previous, this),
+        _ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.UnsupportedModifiersPolicy)
     };
 }

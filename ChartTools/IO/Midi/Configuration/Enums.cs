@@ -74,38 +74,6 @@ public enum UncertainFormatPolicy : byte
 }
 
 /// <summary>
-/// Defines chord modifiers not supported by the target format are handled.
-/// </summary>
-public enum UnsupportedModifiersPolicy : byte
-{
-    /// <summary>
-    /// Throw an exception with the modifier index.
-    /// </summary>
-    ThrowException,
-    /// <summary>
-    /// Convert the modifier to one supported by the format.
-    /// </summary>
-    /// <remarks>Will throw an exception if the modifier cannot be converted.</remarks>
-    Convert,
-    /// <summary>
-    /// Ignore the modifier.
-    /// </summary>
-    IgnoreModifier,
-    /// <summary>
-    /// Ignore the chord containing the modifier.
-    /// </summary>
-    IgnoreChord,
-}
-
-[Flags]
-public enum UnsupportedModifiersResults : byte
-{
-    None,
-    Chord,
-    Modifiers
-}
-
-/// <summary>
 /// Defines how track object defined with a <see cref="NoteOffEvent"/> with no matching <see cref="NoteOnEvent"/> are handled.
 /// </summary>
 public enum UnopenedTrackObjectPolicy : byte
