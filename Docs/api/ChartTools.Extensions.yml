@@ -1,0 +1,75 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.Extensions
+  commentId: N:ChartTools.Extensions
+  id: ChartTools.Extensions
+  children:
+  - ChartTools.Extensions.EqualityComparison`1
+  - ChartTools.Extensions.FuncEqualityComparer`1
+  - ChartTools.Extensions.IInitializable
+  langs:
+  - csharp
+  - vb
+  name: ChartTools.Extensions
+  nameWithType: ChartTools.Extensions
+  fullName: ChartTools.Extensions
+  type: Namespace
+  assemblies:
+  - ChartTools
+references:
+- uid: ChartTools.Extensions.EqualityComparison`1
+  commentId: T:ChartTools.Extensions.EqualityComparison`1
+  href: ChartTools.Extensions.EqualityComparison-1.html
+  name: EqualityComparison<T>
+  nameWithType: EqualityComparison<T>
+  fullName: ChartTools.Extensions.EqualityComparison<T>
+  nameWithType.vb: EqualityComparison(Of T)
+  fullName.vb: ChartTools.Extensions.EqualityComparison(Of T)
+  name.vb: EqualityComparison(Of T)
+  spec.csharp:
+  - uid: ChartTools.Extensions.EqualityComparison`1
+    name: EqualityComparison
+    href: ChartTools.Extensions.EqualityComparison-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.Extensions.EqualityComparison`1
+    name: EqualityComparison
+    href: ChartTools.Extensions.EqualityComparison-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ChartTools.Extensions.FuncEqualityComparer`1
+  commentId: T:ChartTools.Extensions.FuncEqualityComparer`1
+  href: ChartTools.Extensions.FuncEqualityComparer-1.html
+  name: FuncEqualityComparer<T>
+  nameWithType: FuncEqualityComparer<T>
+  fullName: ChartTools.Extensions.FuncEqualityComparer<T>
+  nameWithType.vb: FuncEqualityComparer(Of T)
+  fullName.vb: ChartTools.Extensions.FuncEqualityComparer(Of T)
+  name.vb: FuncEqualityComparer(Of T)
+  spec.csharp:
+  - uid: ChartTools.Extensions.FuncEqualityComparer`1
+    name: FuncEqualityComparer
+    href: ChartTools.Extensions.FuncEqualityComparer-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.Extensions.FuncEqualityComparer`1
+    name: FuncEqualityComparer
+    href: ChartTools.Extensions.FuncEqualityComparer-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ChartTools.Extensions.IInitializable
+  commentId: T:ChartTools.Extensions.IInitializable
+  href: ChartTools.Extensions.IInitializable.html
+  name: IInitializable
+  nameWithType: IInitializable
+  fullName: ChartTools.Extensions.IInitializable

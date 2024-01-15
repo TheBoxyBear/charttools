@@ -1,0 +1,676 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.ILongTrackObject
+  commentId: T:ChartTools.ILongTrackObject
+  id: ILongTrackObject
+  parent: ChartTools
+  children:
+  - ChartTools.ILongTrackObject.EndPosition
+  langs:
+  - csharp
+  - vb
+  name: ILongTrackObject
+  nameWithType: ILongTrackObject
+  fullName: ChartTools.ILongTrackObject
+  type: Interface
+  source:
+    remote:
+      path: ChartTools/TrackObjects/ILongTrackObject.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ILongTrackObject
+    path: ../ChartTools/TrackObjects/ILongTrackObject.cs
+    startLine: 2
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  syntax:
+    content: 'public interface ILongTrackObject : ITrackObject, IReadOnlyTrackObject, IEquatable<IReadOnlyTrackObject>, ILongObject, IReadOnlyLongObject'
+    content.vb: Public Interface ILongTrackObject Inherits ITrackObject, IReadOnlyTrackObject, IEquatable(Of IReadOnlyTrackObject), ILongObject, IReadOnlyLongObject
+  inheritedMembers:
+  - ChartTools.ITrackObject.Position
+  - System.IEquatable{ChartTools.IReadOnlyTrackObject}.Equals(ChartTools.IReadOnlyTrackObject)
+  - ChartTools.ILongObject.Length
+  extensionMethods:
+  - ChartTools.ILongObject.ChartTools.Tools.TempoRescaler.Rescale(System.Single)
+  - ChartTools.ILongTrackObject.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.ILongTrackObject[])
+  - ChartTools.ILongTrackObject.ChartTools.Tools.TempoRescaler.Rescale(System.Single)
+  - ChartTools.ITrackObject.ChartTools.Tools.TempoRescaler.Rescale(System.Single)
+- uid: ChartTools.ILongTrackObject.EndPosition
+  commentId: P:ChartTools.ILongTrackObject.EndPosition
+  id: EndPosition
+  parent: ChartTools.ILongTrackObject
+  langs:
+  - csharp
+  - vb
+  name: EndPosition
+  nameWithType: ILongTrackObject.EndPosition
+  fullName: ChartTools.ILongTrackObject.EndPosition
+  type: Property
+  source:
+    remote:
+      path: ChartTools/TrackObjects/ILongTrackObject.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: EndPosition
+    path: ../ChartTools/TrackObjects/ILongTrackObject.cs
+    startLine: 7
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Tick number marking the end of the object
+  example: []
+  syntax:
+    content: uint EndPosition { get; }
+    parameters: []
+    return:
+      type: System.UInt32
+    content.vb: ReadOnly Property EndPosition As UInteger
+  overload: ChartTools.ILongTrackObject.EndPosition*
+references:
+- uid: ChartTools
+  commentId: N:ChartTools
+  href: ChartTools.html
+  name: ChartTools
+  nameWithType: ChartTools
+  fullName: ChartTools
+- uid: ChartTools.ITrackObject.Position
+  commentId: P:ChartTools.ITrackObject.Position
+  parent: ChartTools.ITrackObject
+  href: ChartTools.ITrackObject.html#ChartTools_ITrackObject_Position
+  name: Position
+  nameWithType: ITrackObject.Position
+  fullName: ChartTools.ITrackObject.Position
+- uid: System.IEquatable{ChartTools.IReadOnlyTrackObject}.Equals(ChartTools.IReadOnlyTrackObject)
+  commentId: M:System.IEquatable{ChartTools.IReadOnlyTrackObject}.Equals(ChartTools.IReadOnlyTrackObject)
+  parent: System.IEquatable{ChartTools.IReadOnlyTrackObject}
+  definition: System.IEquatable`1.Equals(`0)
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(IReadOnlyTrackObject)
+  nameWithType: IEquatable<IReadOnlyTrackObject>.Equals(IReadOnlyTrackObject)
+  fullName: System.IEquatable<ChartTools.IReadOnlyTrackObject>.Equals(ChartTools.IReadOnlyTrackObject)
+  nameWithType.vb: IEquatable(Of IReadOnlyTrackObject).Equals(IReadOnlyTrackObject)
+  fullName.vb: System.IEquatable(Of ChartTools.IReadOnlyTrackObject).Equals(ChartTools.IReadOnlyTrackObject)
+  spec.csharp:
+  - uid: System.IEquatable{ChartTools.IReadOnlyTrackObject}.Equals(ChartTools.IReadOnlyTrackObject)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: ChartTools.IReadOnlyTrackObject
+    name: IReadOnlyTrackObject
+    href: ChartTools.IReadOnlyTrackObject.html
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable{ChartTools.IReadOnlyTrackObject}.Equals(ChartTools.IReadOnlyTrackObject)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: ChartTools.IReadOnlyTrackObject
+    name: IReadOnlyTrackObject
+    href: ChartTools.IReadOnlyTrackObject.html
+  - name: )
+- uid: ChartTools.ILongObject.Length
+  commentId: P:ChartTools.ILongObject.Length
+  parent: ChartTools.ILongObject
+  href: ChartTools.ILongObject.html#ChartTools_ILongObject_Length
+  name: Length
+  nameWithType: ILongObject.Length
+  fullName: ChartTools.ILongObject.Length
+- uid: ChartTools.ILongObject.ChartTools.Tools.TempoRescaler.Rescale(System.Single)
+  commentId: M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongObject,System.Single)
+  parent: ChartTools.Tools.TempoRescaler
+  definition: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongObject,System.Single)
+  href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ILongObject_System_Single_
+  name: Rescale(ILongObject, float)
+  nameWithType: TempoRescaler.Rescale(ILongObject, float)
+  fullName: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongObject, float)
+  nameWithType.vb: TempoRescaler.Rescale(ILongObject, Single)
+  fullName.vb: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongObject, Single)
+  name.vb: Rescale(ILongObject, Single)
+  spec.csharp:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ILongObject_System_Single_
+  - name: (
+  - uid: ChartTools.ILongObject
+    name: ILongObject
+    href: ChartTools.ILongObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ILongObject_System_Single_
+  - name: (
+  - uid: ChartTools.ILongObject
+    name: ILongObject
+    href: ChartTools.ILongObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ChartTools.ILongTrackObject.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.ILongTrackObject[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  parent: ChartTools.Tools.PropertyMerger
+  definition: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<ILongTrackObject>(ILongTrackObject, bool, bool, params ILongTrackObject[])
+  nameWithType: PropertyMerger.Merge<ILongTrackObject>(ILongTrackObject, bool, bool, params ILongTrackObject[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<ChartTools.ILongTrackObject>(ChartTools.ILongTrackObject, bool, bool, params ChartTools.ILongTrackObject[])
+  nameWithType.vb: PropertyMerger.Merge(Of ILongTrackObject)(ILongTrackObject, Boolean, Boolean, ParamArray ILongTrackObject())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of ChartTools.ILongTrackObject)(ChartTools.ILongTrackObject, Boolean, Boolean, ParamArray ChartTools.ILongTrackObject())
+  name.vb: Merge(Of ILongTrackObject)(ILongTrackObject, Boolean, Boolean, ParamArray ILongTrackObject())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.ILongTrackObject,System.Boolean,System.Boolean,ChartTools.ILongTrackObject[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - uid: ChartTools.ILongTrackObject
+    name: ILongTrackObject
+    href: ChartTools.ILongTrackObject.html
+  - name: '>'
+  - name: (
+  - uid: ChartTools.ILongTrackObject
+    name: ILongTrackObject
+    href: ChartTools.ILongTrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: ChartTools.ILongTrackObject
+    name: ILongTrackObject
+    href: ChartTools.ILongTrackObject.html
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.ILongTrackObject,System.Boolean,System.Boolean,ChartTools.ILongTrackObject[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.ILongTrackObject
+    name: ILongTrackObject
+    href: ChartTools.ILongTrackObject.html
+  - name: )
+  - name: (
+  - uid: ChartTools.ILongTrackObject
+    name: ILongTrackObject
+    href: ChartTools.ILongTrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: ChartTools.ILongTrackObject
+    name: ILongTrackObject
+    href: ChartTools.ILongTrackObject.html
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.ILongTrackObject.ChartTools.Tools.TempoRescaler.Rescale(System.Single)
+  commentId: M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongTrackObject,System.Single)
+  parent: ChartTools.Tools.TempoRescaler
+  definition: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongTrackObject,System.Single)
+  href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ILongTrackObject_System_Single_
+  name: Rescale(ILongTrackObject, float)
+  nameWithType: TempoRescaler.Rescale(ILongTrackObject, float)
+  fullName: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongTrackObject, float)
+  nameWithType.vb: TempoRescaler.Rescale(ILongTrackObject, Single)
+  fullName.vb: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongTrackObject, Single)
+  name.vb: Rescale(ILongTrackObject, Single)
+  spec.csharp:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongTrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ILongTrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ILongTrackObject
+    name: ILongTrackObject
+    href: ChartTools.ILongTrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongTrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ILongTrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ILongTrackObject
+    name: ILongTrackObject
+    href: ChartTools.ILongTrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ChartTools.ITrackObject.ChartTools.Tools.TempoRescaler.Rescale(System.Single)
+  commentId: M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+  parent: ChartTools.Tools.TempoRescaler
+  definition: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+  href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  name: Rescale(ITrackObject, float)
+  nameWithType: TempoRescaler.Rescale(ITrackObject, float)
+  fullName: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject, float)
+  nameWithType.vb: TempoRescaler.Rescale(ITrackObject, Single)
+  fullName.vb: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject, Single)
+  name.vb: Rescale(ITrackObject, Single)
+  spec.csharp:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ITrackObject
+    name: ITrackObject
+    href: ChartTools.ITrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ITrackObject
+    name: ITrackObject
+    href: ChartTools.ITrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ChartTools.ITrackObject
+  commentId: T:ChartTools.ITrackObject
+  parent: ChartTools
+  href: ChartTools.ITrackObject.html
+  name: ITrackObject
+  nameWithType: ITrackObject
+  fullName: ChartTools.ITrackObject
+- uid: System.IEquatable`1.Equals(`0)
+  commentId: M:System.IEquatable`1.Equals(`0)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(T)
+  nameWithType: IEquatable<T>.Equals(T)
+  fullName: System.IEquatable<T>.Equals(T)
+  nameWithType.vb: IEquatable(Of T).Equals(T)
+  fullName.vb: System.IEquatable(Of T).Equals(T)
+  spec.csharp:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+- uid: System.IEquatable{ChartTools.IReadOnlyTrackObject}
+  commentId: T:System.IEquatable{ChartTools.IReadOnlyTrackObject}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<IReadOnlyTrackObject>
+  nameWithType: IEquatable<IReadOnlyTrackObject>
+  fullName: System.IEquatable<ChartTools.IReadOnlyTrackObject>
+  nameWithType.vb: IEquatable(Of IReadOnlyTrackObject)
+  fullName.vb: System.IEquatable(Of ChartTools.IReadOnlyTrackObject)
+  name.vb: IEquatable(Of IReadOnlyTrackObject)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: ChartTools.IReadOnlyTrackObject
+    name: IReadOnlyTrackObject
+    href: ChartTools.IReadOnlyTrackObject.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.IReadOnlyTrackObject
+    name: IReadOnlyTrackObject
+    href: ChartTools.IReadOnlyTrackObject.html
+  - name: )
+- uid: ChartTools.ILongObject
+  commentId: T:ChartTools.ILongObject
+  parent: ChartTools
+  href: ChartTools.ILongObject.html
+  name: ILongObject
+  nameWithType: ILongObject
+  fullName: ChartTools.ILongObject
+- uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongObject,System.Single)
+  commentId: M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongObject,System.Single)
+  isExternal: true
+  href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ILongObject_System_Single_
+  name: Rescale(ILongObject, float)
+  nameWithType: TempoRescaler.Rescale(ILongObject, float)
+  fullName: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongObject, float)
+  nameWithType.vb: TempoRescaler.Rescale(ILongObject, Single)
+  fullName.vb: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongObject, Single)
+  name.vb: Rescale(ILongObject, Single)
+  spec.csharp:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ILongObject_System_Single_
+  - name: (
+  - uid: ChartTools.ILongObject
+    name: ILongObject
+    href: ChartTools.ILongObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ILongObject_System_Single_
+  - name: (
+  - uid: ChartTools.ILongObject
+    name: ILongObject
+    href: ChartTools.ILongObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ChartTools.Tools.TempoRescaler
+  commentId: T:ChartTools.Tools.TempoRescaler
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.TempoRescaler.html
+  name: TempoRescaler
+  nameWithType: TempoRescaler
+  fullName: ChartTools.Tools.TempoRescaler
+- uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  isExternal: true
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<T>(T, bool, bool, params T[])
+  nameWithType: PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  nameWithType.vb: PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  name.vb: Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger
+  commentId: T:ChartTools.Tools.PropertyMerger
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.PropertyMerger.html
+  name: PropertyMerger
+  nameWithType: PropertyMerger
+  fullName: ChartTools.Tools.PropertyMerger
+- uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongTrackObject,System.Single)
+  commentId: M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongTrackObject,System.Single)
+  isExternal: true
+  href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ILongTrackObject_System_Single_
+  name: Rescale(ILongTrackObject, float)
+  nameWithType: TempoRescaler.Rescale(ILongTrackObject, float)
+  fullName: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongTrackObject, float)
+  nameWithType.vb: TempoRescaler.Rescale(ILongTrackObject, Single)
+  fullName.vb: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongTrackObject, Single)
+  name.vb: Rescale(ILongTrackObject, Single)
+  spec.csharp:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongTrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ILongTrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ILongTrackObject
+    name: ILongTrackObject
+    href: ChartTools.ILongTrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ILongTrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ILongTrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ILongTrackObject
+    name: ILongTrackObject
+    href: ChartTools.ILongTrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+  commentId: M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+  isExternal: true
+  href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  name: Rescale(ITrackObject, float)
+  nameWithType: TempoRescaler.Rescale(ITrackObject, float)
+  fullName: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject, float)
+  nameWithType.vb: TempoRescaler.Rescale(ITrackObject, Single)
+  fullName.vb: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject, Single)
+  name.vb: Rescale(ITrackObject, Single)
+  spec.csharp:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ITrackObject
+    name: ITrackObject
+    href: ChartTools.ITrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ITrackObject
+    name: ITrackObject
+    href: ChartTools.ITrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: ChartTools.Tools
+  commentId: N:ChartTools.Tools
+  href: ChartTools.html
+  name: ChartTools.Tools
+  nameWithType: ChartTools.Tools
+  fullName: ChartTools.Tools
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+- uid: ChartTools.ILongTrackObject.EndPosition*
+  commentId: Overload:ChartTools.ILongTrackObject.EndPosition
+  href: ChartTools.ILongTrackObject.html#ChartTools_ILongTrackObject_EndPosition
+  name: EndPosition
+  nameWithType: ILongTrackObject.EndPosition
+  fullName: ChartTools.ILongTrackObject.EndPosition
+- uid: System.UInt32
+  commentId: T:System.UInt32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.uint32
+  name: uint
+  nameWithType: uint
+  fullName: uint
+  nameWithType.vb: UInteger
+  fullName.vb: UInteger
+  name.vb: UInteger

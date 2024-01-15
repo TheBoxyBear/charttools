@@ -1,0 +1,78 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.IO.Configuration.Common
+  commentId: N:ChartTools.IO.Configuration.Common
+  id: ChartTools.IO.Configuration.Common
+  children:
+  - ChartTools.IO.Configuration.Common.ICommonConfiguration
+  - ChartTools.IO.Configuration.Common.ICommonReadingConfiguration
+  - ChartTools.IO.Configuration.Common.ICommonWritingConfiguration
+  langs:
+  - csharp
+  - vb
+  name: ChartTools.IO.Configuration.Common
+  nameWithType: ChartTools.IO.Configuration.Common
+  fullName: ChartTools.IO.Configuration.Common
+  type: Namespace
+  assemblies:
+  - ChartTools
+references:
+- uid: ChartTools.IO.Configuration.Common.ICommonConfiguration
+  commentId: T:ChartTools.IO.Configuration.Common.ICommonConfiguration
+  parent: ChartTools.IO.Configuration.Common
+  href: ChartTools.IO.Configuration.Common.ICommonConfiguration.html
+  name: ICommonConfiguration
+  nameWithType: ICommonConfiguration
+  fullName: ChartTools.IO.Configuration.Common.ICommonConfiguration
+- uid: ChartTools.IO.Configuration.Common.ICommonReadingConfiguration
+  commentId: T:ChartTools.IO.Configuration.Common.ICommonReadingConfiguration
+  parent: ChartTools.IO.Configuration.Common
+  href: ChartTools.IO.Configuration.Common.ICommonReadingConfiguration.html
+  name: ICommonReadingConfiguration
+  nameWithType: ICommonReadingConfiguration
+  fullName: ChartTools.IO.Configuration.Common.ICommonReadingConfiguration
+- uid: ChartTools.IO.Configuration.Common.ICommonWritingConfiguration
+  commentId: T:ChartTools.IO.Configuration.Common.ICommonWritingConfiguration
+  parent: ChartTools.IO.Configuration.Common
+  href: ChartTools.IO.Configuration.Common.ICommonWritingConfiguration.html
+  name: ICommonWritingConfiguration
+  nameWithType: ICommonWritingConfiguration
+  fullName: ChartTools.IO.Configuration.Common.ICommonWritingConfiguration
+- uid: ChartTools.IO.Configuration.Common
+  commentId: N:ChartTools.IO.Configuration.Common
+  href: ChartTools.html
+  name: ChartTools.IO.Configuration.Common
+  nameWithType: ChartTools.IO.Configuration.Common
+  fullName: ChartTools.IO.Configuration.Common
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Configuration
+    name: Configuration
+    href: ChartTools.IO.Configuration.html
+  - name: .
+  - uid: ChartTools.IO.Configuration.Common
+    name: Common
+    href: ChartTools.IO.Configuration.Common.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Configuration
+    name: Configuration
+    href: ChartTools.IO.Configuration.html
+  - name: .
+  - uid: ChartTools.IO.Configuration.Common
+    name: Common
+    href: ChartTools.IO.Configuration.Common.html

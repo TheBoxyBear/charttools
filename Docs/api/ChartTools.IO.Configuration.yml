@@ -1,0 +1,134 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.IO.Configuration
+  commentId: N:ChartTools.IO.Configuration
+  id: ChartTools.IO.Configuration
+  children:
+  - ChartTools.IO.Configuration.DuplicateTrackObjectPolicy
+  - ChartTools.IO.Configuration.LyricEventSource
+  - ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy
+  - ChartTools.IO.Configuration.ReadingConfiguration
+  - ChartTools.IO.Configuration.SnappedNotesPolicy
+  - ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+  - ChartTools.IO.Configuration.TempolessAnchorPolicy
+  - ChartTools.IO.Configuration.TrackObjectSource
+  - ChartTools.IO.Configuration.UnknownSectionPolicy
+  - ChartTools.IO.Configuration.UnsupportedModifierPolicy
+  - ChartTools.IO.Configuration.WritingConfiguration
+  langs:
+  - csharp
+  - vb
+  name: ChartTools.IO.Configuration
+  nameWithType: ChartTools.IO.Configuration
+  fullName: ChartTools.IO.Configuration
+  type: Namespace
+  assemblies:
+  - ChartTools
+references:
+- uid: ChartTools.IO.Configuration.DuplicateTrackObjectPolicy
+  commentId: T:ChartTools.IO.Configuration.DuplicateTrackObjectPolicy
+  parent: ChartTools.IO.Configuration
+  href: ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.html
+  name: DuplicateTrackObjectPolicy
+  nameWithType: DuplicateTrackObjectPolicy
+  fullName: ChartTools.IO.Configuration.DuplicateTrackObjectPolicy
+- uid: ChartTools.IO.Configuration.LyricEventSource
+  commentId: T:ChartTools.IO.Configuration.LyricEventSource
+  parent: ChartTools.IO.Configuration
+  href: ChartTools.IO.Configuration.LyricEventSource.html
+  name: LyricEventSource
+  nameWithType: LyricEventSource
+  fullName: ChartTools.IO.Configuration.LyricEventSource
+- uid: ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy
+  commentId: T:ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy
+  parent: ChartTools.IO.Configuration
+  href: ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy.html
+  name: OverlappingSpecialPhrasePolicy
+  nameWithType: OverlappingSpecialPhrasePolicy
+  fullName: ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy
+- uid: ChartTools.IO.Configuration.TempolessAnchorPolicy
+  commentId: T:ChartTools.IO.Configuration.TempolessAnchorPolicy
+  parent: ChartTools.IO.Configuration
+  href: ChartTools.IO.Configuration.TempolessAnchorPolicy.html
+  name: TempolessAnchorPolicy
+  nameWithType: TempolessAnchorPolicy
+  fullName: ChartTools.IO.Configuration.TempolessAnchorPolicy
+- uid: ChartTools.IO.Configuration.SnappedNotesPolicy
+  commentId: T:ChartTools.IO.Configuration.SnappedNotesPolicy
+  parent: ChartTools.IO.Configuration
+  href: ChartTools.IO.Configuration.SnappedNotesPolicy.html
+  name: SnappedNotesPolicy
+  nameWithType: SnappedNotesPolicy
+  fullName: ChartTools.IO.Configuration.SnappedNotesPolicy
+- uid: ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+  commentId: T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+  parent: ChartTools.IO.Configuration
+  href: ChartTools.IO.Configuration.SoloNoStarPowerPolicy.html
+  name: SoloNoStarPowerPolicy
+  nameWithType: SoloNoStarPowerPolicy
+  fullName: ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+- uid: ChartTools.IO.Configuration.TrackObjectSource
+  commentId: T:ChartTools.IO.Configuration.TrackObjectSource
+  parent: ChartTools.IO.Configuration
+  href: ChartTools.IO.Configuration.TrackObjectSource.html
+  name: TrackObjectSource
+  nameWithType: TrackObjectSource
+  fullName: ChartTools.IO.Configuration.TrackObjectSource
+- uid: ChartTools.IO.Configuration.UnknownSectionPolicy
+  commentId: T:ChartTools.IO.Configuration.UnknownSectionPolicy
+  parent: ChartTools.IO.Configuration
+  href: ChartTools.IO.Configuration.UnknownSectionPolicy.html
+  name: UnknownSectionPolicy
+  nameWithType: UnknownSectionPolicy
+  fullName: ChartTools.IO.Configuration.UnknownSectionPolicy
+- uid: ChartTools.IO.Configuration.UnsupportedModifierPolicy
+  commentId: T:ChartTools.IO.Configuration.UnsupportedModifierPolicy
+  parent: ChartTools.IO.Configuration
+  href: ChartTools.IO.Configuration.UnsupportedModifierPolicy.html
+  name: UnsupportedModifierPolicy
+  nameWithType: UnsupportedModifierPolicy
+  fullName: ChartTools.IO.Configuration.UnsupportedModifierPolicy
+- uid: ChartTools.IO.Configuration.ReadingConfiguration
+  commentId: T:ChartTools.IO.Configuration.ReadingConfiguration
+  parent: ChartTools.IO.Configuration
+  href: ChartTools.IO.Configuration.ReadingConfiguration.html
+  name: ReadingConfiguration
+  nameWithType: ReadingConfiguration
+  fullName: ChartTools.IO.Configuration.ReadingConfiguration
+- uid: ChartTools.IO.Configuration.WritingConfiguration
+  commentId: T:ChartTools.IO.Configuration.WritingConfiguration
+  parent: ChartTools.IO.Configuration
+  href: ChartTools.IO.Configuration.WritingConfiguration.html
+  name: WritingConfiguration
+  nameWithType: WritingConfiguration
+  fullName: ChartTools.IO.Configuration.WritingConfiguration
+- uid: ChartTools.IO.Configuration
+  commentId: N:ChartTools.IO.Configuration
+  href: ChartTools.html
+  name: ChartTools.IO.Configuration
+  nameWithType: ChartTools.IO.Configuration
+  fullName: ChartTools.IO.Configuration
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Configuration
+    name: Configuration
+    href: ChartTools.IO.Configuration.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Configuration
+    name: Configuration
+    href: ChartTools.IO.Configuration.html

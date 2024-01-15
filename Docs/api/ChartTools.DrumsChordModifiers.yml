@@ -1,0 +1,352 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.DrumsChordModifiers
+  commentId: T:ChartTools.DrumsChordModifiers
+  id: DrumsChordModifiers
+  parent: ChartTools
+  children:
+  - ChartTools.DrumsChordModifiers.Accent
+  - ChartTools.DrumsChordModifiers.Flam
+  - ChartTools.DrumsChordModifiers.Ghost
+  - ChartTools.DrumsChordModifiers.None
+  langs:
+  - csharp
+  - vb
+  name: DrumsChordModifiers
+  nameWithType: DrumsChordModifiers
+  fullName: ChartTools.DrumsChordModifiers
+  type: Enum
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: DrumsChordModifiers
+    path: ../ChartTools/Enums.cs
+    startLine: 27
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Modifier that affects the way the chord can be played
+  example: []
+  syntax:
+    content: >-
+      [Flags]
+
+      public enum DrumsChordModifiers : byte
+    content.vb: >-
+      <Flags>
+
+      Public Enum DrumsChordModifiers As Byte
+  extensionMethods:
+  - ChartTools.DrumsChordModifiers.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.DrumsChordModifiers[])
+  attributes:
+  - type: System.FlagsAttribute
+    ctor: System.FlagsAttribute.#ctor
+    arguments: []
+- uid: ChartTools.DrumsChordModifiers.None
+  commentId: F:ChartTools.DrumsChordModifiers.None
+  id: None
+  parent: ChartTools.DrumsChordModifiers
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: DrumsChordModifiers.None
+  fullName: ChartTools.DrumsChordModifiers.None
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: None
+    path: ../ChartTools/Enums.cs
+    startLine: 31
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: No modifier
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: ChartTools.DrumsChordModifiers
+- uid: ChartTools.DrumsChordModifiers.Accent
+  commentId: F:ChartTools.DrumsChordModifiers.Accent
+  id: Accent
+  parent: ChartTools.DrumsChordModifiers
+  langs:
+  - csharp
+  - vb
+  name: Accent
+  nameWithType: DrumsChordModifiers.Accent
+  fullName: ChartTools.DrumsChordModifiers.Accent
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Accent
+    path: ../ChartTools/Enums.cs
+    startLine: 35
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: '*Unsupported*'
+  example: []
+  syntax:
+    content: Accent = 1
+    return:
+      type: ChartTools.DrumsChordModifiers
+- uid: ChartTools.DrumsChordModifiers.Ghost
+  commentId: F:ChartTools.DrumsChordModifiers.Ghost
+  id: Ghost
+  parent: ChartTools.DrumsChordModifiers
+  langs:
+  - csharp
+  - vb
+  name: Ghost
+  nameWithType: DrumsChordModifiers.Ghost
+  fullName: ChartTools.DrumsChordModifiers.Ghost
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Ghost
+    path: ../ChartTools/Enums.cs
+    startLine: 39
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: '*Unsupported*'
+  example: []
+  syntax:
+    content: Ghost = 2
+    return:
+      type: ChartTools.DrumsChordModifiers
+- uid: ChartTools.DrumsChordModifiers.Flam
+  commentId: F:ChartTools.DrumsChordModifiers.Flam
+  id: Flam
+  parent: ChartTools.DrumsChordModifiers
+  langs:
+  - csharp
+  - vb
+  name: Flam
+  nameWithType: DrumsChordModifiers.Flam
+  fullName: ChartTools.DrumsChordModifiers.Flam
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Flam
+    path: ../ChartTools/Enums.cs
+    startLine: 40
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  syntax:
+    content: Flam = 4
+    return:
+      type: ChartTools.DrumsChordModifiers
+references:
+- uid: ChartTools
+  commentId: N:ChartTools
+  href: ChartTools.html
+  name: ChartTools
+  nameWithType: ChartTools
+  fullName: ChartTools
+- uid: ChartTools.DrumsChordModifiers.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.DrumsChordModifiers[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  parent: ChartTools.Tools.PropertyMerger
+  definition: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<DrumsChordModifiers>(DrumsChordModifiers, bool, bool, params DrumsChordModifiers[])
+  nameWithType: PropertyMerger.Merge<DrumsChordModifiers>(DrumsChordModifiers, bool, bool, params DrumsChordModifiers[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<ChartTools.DrumsChordModifiers>(ChartTools.DrumsChordModifiers, bool, bool, params ChartTools.DrumsChordModifiers[])
+  nameWithType.vb: PropertyMerger.Merge(Of DrumsChordModifiers)(DrumsChordModifiers, Boolean, Boolean, ParamArray DrumsChordModifiers())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of ChartTools.DrumsChordModifiers)(ChartTools.DrumsChordModifiers, Boolean, Boolean, ParamArray ChartTools.DrumsChordModifiers())
+  name.vb: Merge(Of DrumsChordModifiers)(DrumsChordModifiers, Boolean, Boolean, ParamArray DrumsChordModifiers())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.DrumsChordModifiers,System.Boolean,System.Boolean,ChartTools.DrumsChordModifiers[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - uid: ChartTools.DrumsChordModifiers
+    name: DrumsChordModifiers
+    href: ChartTools.DrumsChordModifiers.html
+  - name: '>'
+  - name: (
+  - uid: ChartTools.DrumsChordModifiers
+    name: DrumsChordModifiers
+    href: ChartTools.DrumsChordModifiers.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: ChartTools.DrumsChordModifiers
+    name: DrumsChordModifiers
+    href: ChartTools.DrumsChordModifiers.html
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.DrumsChordModifiers,System.Boolean,System.Boolean,ChartTools.DrumsChordModifiers[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.DrumsChordModifiers
+    name: DrumsChordModifiers
+    href: ChartTools.DrumsChordModifiers.html
+  - name: )
+  - name: (
+  - uid: ChartTools.DrumsChordModifiers
+    name: DrumsChordModifiers
+    href: ChartTools.DrumsChordModifiers.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: ChartTools.DrumsChordModifiers
+    name: DrumsChordModifiers
+    href: ChartTools.DrumsChordModifiers.html
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  isExternal: true
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<T>(T, bool, bool, params T[])
+  nameWithType: PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  nameWithType.vb: PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  name.vb: Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger
+  commentId: T:ChartTools.Tools.PropertyMerger
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.PropertyMerger.html
+  name: PropertyMerger
+  nameWithType: PropertyMerger
+  fullName: ChartTools.Tools.PropertyMerger
+- uid: ChartTools.Tools
+  commentId: N:ChartTools.Tools
+  href: ChartTools.html
+  name: ChartTools.Tools
+  nameWithType: ChartTools.Tools
+  fullName: ChartTools.Tools
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+- uid: ChartTools.DrumsChordModifiers
+  commentId: T:ChartTools.DrumsChordModifiers
+  parent: ChartTools
+  href: ChartTools.DrumsChordModifiers.html
+  name: DrumsChordModifiers
+  nameWithType: DrumsChordModifiers
+  fullName: ChartTools.DrumsChordModifiers

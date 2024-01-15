@@ -1,0 +1,599 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.Lyrics.VocalsKey
+  commentId: T:ChartTools.Lyrics.VocalsKey
+  id: VocalsKey
+  parent: ChartTools.Lyrics
+  children:
+  - ChartTools.Lyrics.VocalsKey.A
+  - ChartTools.Lyrics.VocalsKey.B
+  - ChartTools.Lyrics.VocalsKey.Bb
+  - ChartTools.Lyrics.VocalsKey.C
+  - ChartTools.Lyrics.VocalsKey.CSharp
+  - ChartTools.Lyrics.VocalsKey.D
+  - ChartTools.Lyrics.VocalsKey.E
+  - ChartTools.Lyrics.VocalsKey.Eb
+  - ChartTools.Lyrics.VocalsKey.F
+  - ChartTools.Lyrics.VocalsKey.FSharp
+  - ChartTools.Lyrics.VocalsKey.G
+  - ChartTools.Lyrics.VocalsKey.GSharp
+  langs:
+  - csharp
+  - vb
+  name: VocalsKey
+  nameWithType: VocalsKey
+  fullName: ChartTools.Lyrics.VocalsKey
+  type: Enum
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: VocalsKey
+    path: ../ChartTools/Enums.cs
+    startLine: 405
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Lyrics
+  summary: Keys making up <xref href="ChartTools.Lyrics.VocalPitchValue" data-throw-if-not-resolved="false"></xref> without the octave
+  example: []
+  syntax:
+    content: 'public enum VocalsKey : byte'
+    content.vb: Public Enum VocalsKey As Byte
+  extensionMethods:
+  - ChartTools.Lyrics.VocalsKey.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.Lyrics.VocalsKey[])
+- uid: ChartTools.Lyrics.VocalsKey.C
+  commentId: F:ChartTools.Lyrics.VocalsKey.C
+  id: C
+  parent: ChartTools.Lyrics.VocalsKey
+  langs:
+  - csharp
+  - vb
+  name: C
+  nameWithType: VocalsKey.C
+  fullName: ChartTools.Lyrics.VocalsKey.C
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: C
+    path: ../ChartTools/Enums.cs
+    startLine: 410
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Lyrics
+  summary: C key (Do)
+  example: []
+  syntax:
+    content: C = 0
+    return:
+      type: ChartTools.Lyrics.VocalsKey
+- uid: ChartTools.Lyrics.VocalsKey.CSharp
+  commentId: F:ChartTools.Lyrics.VocalsKey.CSharp
+  id: CSharp
+  parent: ChartTools.Lyrics.VocalsKey
+  langs:
+  - csharp
+  - vb
+  name: CSharp
+  nameWithType: VocalsKey.CSharp
+  fullName: ChartTools.Lyrics.VocalsKey.CSharp
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: CSharp
+    path: ../ChartTools/Enums.cs
+    startLine: 414
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Lyrics
+  summary: C# key
+  example: []
+  syntax:
+    content: CSharp = 1
+    return:
+      type: ChartTools.Lyrics.VocalsKey
+- uid: ChartTools.Lyrics.VocalsKey.D
+  commentId: F:ChartTools.Lyrics.VocalsKey.D
+  id: D
+  parent: ChartTools.Lyrics.VocalsKey
+  langs:
+  - csharp
+  - vb
+  name: D
+  nameWithType: VocalsKey.D
+  fullName: ChartTools.Lyrics.VocalsKey.D
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: D
+    path: ../ChartTools/Enums.cs
+    startLine: 418
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Lyrics
+  summary: D key (Ré)
+  example: []
+  syntax:
+    content: D = 2
+    return:
+      type: ChartTools.Lyrics.VocalsKey
+- uid: ChartTools.Lyrics.VocalsKey.Eb
+  commentId: F:ChartTools.Lyrics.VocalsKey.Eb
+  id: Eb
+  parent: ChartTools.Lyrics.VocalsKey
+  langs:
+  - csharp
+  - vb
+  name: Eb
+  nameWithType: VocalsKey.Eb
+  fullName: ChartTools.Lyrics.VocalsKey.Eb
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Eb
+    path: ../ChartTools/Enums.cs
+    startLine: 422
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Lyrics
+  summary: E-flat key
+  example: []
+  syntax:
+    content: Eb = 3
+    return:
+      type: ChartTools.Lyrics.VocalsKey
+- uid: ChartTools.Lyrics.VocalsKey.E
+  commentId: F:ChartTools.Lyrics.VocalsKey.E
+  id: E
+  parent: ChartTools.Lyrics.VocalsKey
+  langs:
+  - csharp
+  - vb
+  name: E
+  nameWithType: VocalsKey.E
+  fullName: ChartTools.Lyrics.VocalsKey.E
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: E
+    path: ../ChartTools/Enums.cs
+    startLine: 426
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Lyrics
+  summary: E key (Mi)
+  example: []
+  syntax:
+    content: E = 4
+    return:
+      type: ChartTools.Lyrics.VocalsKey
+- uid: ChartTools.Lyrics.VocalsKey.F
+  commentId: F:ChartTools.Lyrics.VocalsKey.F
+  id: F
+  parent: ChartTools.Lyrics.VocalsKey
+  langs:
+  - csharp
+  - vb
+  name: F
+  nameWithType: VocalsKey.F
+  fullName: ChartTools.Lyrics.VocalsKey.F
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: F
+    path: ../ChartTools/Enums.cs
+    startLine: 430
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Lyrics
+  summary: F key (Fa)
+  example: []
+  syntax:
+    content: F = 5
+    return:
+      type: ChartTools.Lyrics.VocalsKey
+- uid: ChartTools.Lyrics.VocalsKey.FSharp
+  commentId: F:ChartTools.Lyrics.VocalsKey.FSharp
+  id: FSharp
+  parent: ChartTools.Lyrics.VocalsKey
+  langs:
+  - csharp
+  - vb
+  name: FSharp
+  nameWithType: VocalsKey.FSharp
+  fullName: ChartTools.Lyrics.VocalsKey.FSharp
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: FSharp
+    path: ../ChartTools/Enums.cs
+    startLine: 434
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Lyrics
+  summary: F# key
+  example: []
+  syntax:
+    content: FSharp = 6
+    return:
+      type: ChartTools.Lyrics.VocalsKey
+- uid: ChartTools.Lyrics.VocalsKey.G
+  commentId: F:ChartTools.Lyrics.VocalsKey.G
+  id: G
+  parent: ChartTools.Lyrics.VocalsKey
+  langs:
+  - csharp
+  - vb
+  name: G
+  nameWithType: VocalsKey.G
+  fullName: ChartTools.Lyrics.VocalsKey.G
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: G
+    path: ../ChartTools/Enums.cs
+    startLine: 438
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Lyrics
+  summary: G key (Sol)
+  example: []
+  syntax:
+    content: G = 7
+    return:
+      type: ChartTools.Lyrics.VocalsKey
+- uid: ChartTools.Lyrics.VocalsKey.GSharp
+  commentId: F:ChartTools.Lyrics.VocalsKey.GSharp
+  id: GSharp
+  parent: ChartTools.Lyrics.VocalsKey
+  langs:
+  - csharp
+  - vb
+  name: GSharp
+  nameWithType: VocalsKey.GSharp
+  fullName: ChartTools.Lyrics.VocalsKey.GSharp
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: GSharp
+    path: ../ChartTools/Enums.cs
+    startLine: 442
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Lyrics
+  summary: G# key
+  example: []
+  syntax:
+    content: GSharp = 8
+    return:
+      type: ChartTools.Lyrics.VocalsKey
+- uid: ChartTools.Lyrics.VocalsKey.A
+  commentId: F:ChartTools.Lyrics.VocalsKey.A
+  id: A
+  parent: ChartTools.Lyrics.VocalsKey
+  langs:
+  - csharp
+  - vb
+  name: A
+  nameWithType: VocalsKey.A
+  fullName: ChartTools.Lyrics.VocalsKey.A
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: A
+    path: ../ChartTools/Enums.cs
+    startLine: 446
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Lyrics
+  summary: A key (La)
+  example: []
+  syntax:
+    content: A = 9
+    return:
+      type: ChartTools.Lyrics.VocalsKey
+- uid: ChartTools.Lyrics.VocalsKey.Bb
+  commentId: F:ChartTools.Lyrics.VocalsKey.Bb
+  id: Bb
+  parent: ChartTools.Lyrics.VocalsKey
+  langs:
+  - csharp
+  - vb
+  name: Bb
+  nameWithType: VocalsKey.Bb
+  fullName: ChartTools.Lyrics.VocalsKey.Bb
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Bb
+    path: ../ChartTools/Enums.cs
+    startLine: 450
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Lyrics
+  summary: B-flat key
+  example: []
+  syntax:
+    content: Bb = 10
+    return:
+      type: ChartTools.Lyrics.VocalsKey
+- uid: ChartTools.Lyrics.VocalsKey.B
+  commentId: F:ChartTools.Lyrics.VocalsKey.B
+  id: B
+  parent: ChartTools.Lyrics.VocalsKey
+  langs:
+  - csharp
+  - vb
+  name: B
+  nameWithType: VocalsKey.B
+  fullName: ChartTools.Lyrics.VocalsKey.B
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: B
+    path: ../ChartTools/Enums.cs
+    startLine: 454
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Lyrics
+  summary: B key (Si)
+  example: []
+  syntax:
+    content: B = 11
+    return:
+      type: ChartTools.Lyrics.VocalsKey
+references:
+- uid: ChartTools.Lyrics.VocalPitchValue
+  commentId: T:ChartTools.Lyrics.VocalPitchValue
+  parent: ChartTools.Lyrics
+  href: ChartTools.Lyrics.VocalPitchValue.html
+  name: VocalPitchValue
+  nameWithType: VocalPitchValue
+  fullName: ChartTools.Lyrics.VocalPitchValue
+- uid: ChartTools.Lyrics
+  commentId: N:ChartTools.Lyrics
+  href: ChartTools.html
+  name: ChartTools.Lyrics
+  nameWithType: ChartTools.Lyrics
+  fullName: ChartTools.Lyrics
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Lyrics
+    name: Lyrics
+    href: ChartTools.Lyrics.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Lyrics
+    name: Lyrics
+    href: ChartTools.Lyrics.html
+- uid: ChartTools.Lyrics.VocalsKey.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.Lyrics.VocalsKey[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  parent: ChartTools.Tools.PropertyMerger
+  definition: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<VocalsKey>(VocalsKey, bool, bool, params VocalsKey[])
+  nameWithType: PropertyMerger.Merge<VocalsKey>(VocalsKey, bool, bool, params VocalsKey[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<ChartTools.Lyrics.VocalsKey>(ChartTools.Lyrics.VocalsKey, bool, bool, params ChartTools.Lyrics.VocalsKey[])
+  nameWithType.vb: PropertyMerger.Merge(Of VocalsKey)(VocalsKey, Boolean, Boolean, ParamArray VocalsKey())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of ChartTools.Lyrics.VocalsKey)(ChartTools.Lyrics.VocalsKey, Boolean, Boolean, ParamArray ChartTools.Lyrics.VocalsKey())
+  name.vb: Merge(Of VocalsKey)(VocalsKey, Boolean, Boolean, ParamArray VocalsKey())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.Lyrics.VocalsKey,System.Boolean,System.Boolean,ChartTools.Lyrics.VocalsKey[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - uid: ChartTools.Lyrics.VocalsKey
+    name: VocalsKey
+    href: ChartTools.Lyrics.VocalsKey.html
+  - name: '>'
+  - name: (
+  - uid: ChartTools.Lyrics.VocalsKey
+    name: VocalsKey
+    href: ChartTools.Lyrics.VocalsKey.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: ChartTools.Lyrics.VocalsKey
+    name: VocalsKey
+    href: ChartTools.Lyrics.VocalsKey.html
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.Lyrics.VocalsKey,System.Boolean,System.Boolean,ChartTools.Lyrics.VocalsKey[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Lyrics.VocalsKey
+    name: VocalsKey
+    href: ChartTools.Lyrics.VocalsKey.html
+  - name: )
+  - name: (
+  - uid: ChartTools.Lyrics.VocalsKey
+    name: VocalsKey
+    href: ChartTools.Lyrics.VocalsKey.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: ChartTools.Lyrics.VocalsKey
+    name: VocalsKey
+    href: ChartTools.Lyrics.VocalsKey.html
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  isExternal: true
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<T>(T, bool, bool, params T[])
+  nameWithType: PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  nameWithType.vb: PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  name.vb: Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger
+  commentId: T:ChartTools.Tools.PropertyMerger
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.PropertyMerger.html
+  name: PropertyMerger
+  nameWithType: PropertyMerger
+  fullName: ChartTools.Tools.PropertyMerger
+- uid: ChartTools.Tools
+  commentId: N:ChartTools.Tools
+  href: ChartTools.html
+  name: ChartTools.Tools
+  nameWithType: ChartTools.Tools
+  fullName: ChartTools.Tools
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+- uid: ChartTools.Lyrics.VocalsKey
+  commentId: T:ChartTools.Lyrics.VocalsKey
+  parent: ChartTools.Lyrics
+  href: ChartTools.Lyrics.VocalsKey.html
+  name: VocalsKey
+  nameWithType: VocalsKey
+  fullName: ChartTools.Lyrics.VocalsKey

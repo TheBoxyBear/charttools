@@ -1,0 +1,349 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+  commentId: T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+  id: SoloNoStarPowerPolicy
+  parent: ChartTools.IO.Configuration
+  children:
+  - ChartTools.IO.Configuration.SoloNoStarPowerPolicy.Convert
+  - ChartTools.IO.Configuration.SoloNoStarPowerPolicy.StoreAsEvents
+  langs:
+  - csharp
+  - vb
+  name: SoloNoStarPowerPolicy
+  nameWithType: SoloNoStarPowerPolicy
+  fullName: ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+  type: Enum
+  source:
+    remote:
+      path: ChartTools/IO/Configuration/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: SoloNoStarPowerPolicy
+    path: ../ChartTools/IO/Configuration/Enums.cs
+    startLine: 100
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Configuration
+  summary: Defines how <xref href="ChartTools.Events.EventTypeHelper.Local.Solo" data-throw-if-not-resolved="false"></xref> or <xref href="ChartTools.Events.EventTypeHelper.Local.SoloEnd" data-throw-if-not-resolved="false"></xref> events are handled when there are no star power phrases.
+  remarks: <xref href="ChartTools.IO.Configuration.SoloNoStarPowerPolicy.StoreAsEvents" data-throw-if-not-resolved="false"></xref> is always used when star power phrases are present.
+  example: []
+  syntax:
+    content: 'public enum SoloNoStarPowerPolicy : byte'
+    content.vb: Public Enum SoloNoStarPowerPolicy As Byte
+  extensionMethods:
+  - ChartTools.IO.Configuration.SoloNoStarPowerPolicy.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.IO.Configuration.SoloNoStarPowerPolicy[])
+- uid: ChartTools.IO.Configuration.SoloNoStarPowerPolicy.StoreAsEvents
+  commentId: F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.StoreAsEvents
+  id: StoreAsEvents
+  parent: ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+  langs:
+  - csharp
+  - vb
+  name: StoreAsEvents
+  nameWithType: SoloNoStarPowerPolicy.StoreAsEvents
+  fullName: ChartTools.IO.Configuration.SoloNoStarPowerPolicy.StoreAsEvents
+  type: Field
+  source:
+    remote:
+      path: ChartTools/IO/Configuration/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: StoreAsEvents
+    path: ../ChartTools/IO/Configuration/Enums.cs
+    startLine: 105
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Configuration
+  summary: Store the events under <xref href="ChartTools.Track.LocalEvents" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: StoreAsEvents = 0
+    return:
+      type: ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+- uid: ChartTools.IO.Configuration.SoloNoStarPowerPolicy.Convert
+  commentId: F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.Convert
+  id: Convert
+  parent: ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+  langs:
+  - csharp
+  - vb
+  name: Convert
+  nameWithType: SoloNoStarPowerPolicy.Convert
+  fullName: ChartTools.IO.Configuration.SoloNoStarPowerPolicy.Convert
+  type: Field
+  source:
+    remote:
+      path: ChartTools/IO/Configuration/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Convert
+    path: ../ChartTools/IO/Configuration/Enums.cs
+    startLine: 109
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Configuration
+  summary: Convert the space between the <xref href="ChartTools.Events.EventTypeHelper.Local.Solo" data-throw-if-not-resolved="false"></xref> and <xref href="ChartTools.Events.EventTypeHelper.Local.SoloEnd" data-throw-if-not-resolved="false"></xref> event to a star power phrase.
+  example: []
+  syntax:
+    content: Convert = 1
+    return:
+      type: ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+references:
+- uid: ChartTools.Events.EventTypeHelper.Local.Solo
+  commentId: F:ChartTools.Events.EventTypeHelper.Local.Solo
+  href: ChartTools.Events.EventTypeHelper.Local.html#ChartTools_Events_EventTypeHelper_Local_Solo
+  name: Solo
+  nameWithType: EventTypeHelper.Local.Solo
+  fullName: ChartTools.Events.EventTypeHelper.Local.Solo
+- uid: ChartTools.Events.EventTypeHelper.Local.SoloEnd
+  commentId: F:ChartTools.Events.EventTypeHelper.Local.SoloEnd
+  href: ChartTools.Events.EventTypeHelper.Local.html#ChartTools_Events_EventTypeHelper_Local_SoloEnd
+  name: SoloEnd
+  nameWithType: EventTypeHelper.Local.SoloEnd
+  fullName: ChartTools.Events.EventTypeHelper.Local.SoloEnd
+- uid: ChartTools.IO.Configuration.SoloNoStarPowerPolicy.StoreAsEvents
+  commentId: F:ChartTools.IO.Configuration.SoloNoStarPowerPolicy.StoreAsEvents
+  href: ChartTools.IO.Configuration.SoloNoStarPowerPolicy.html#ChartTools_IO_Configuration_SoloNoStarPowerPolicy_StoreAsEvents
+  name: StoreAsEvents
+  nameWithType: SoloNoStarPowerPolicy.StoreAsEvents
+  fullName: ChartTools.IO.Configuration.SoloNoStarPowerPolicy.StoreAsEvents
+- uid: ChartTools.IO.Configuration
+  commentId: N:ChartTools.IO.Configuration
+  href: ChartTools.html
+  name: ChartTools.IO.Configuration
+  nameWithType: ChartTools.IO.Configuration
+  fullName: ChartTools.IO.Configuration
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Configuration
+    name: Configuration
+    href: ChartTools.IO.Configuration.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Configuration
+    name: Configuration
+    href: ChartTools.IO.Configuration.html
+- uid: ChartTools.IO.Configuration.SoloNoStarPowerPolicy.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.IO.Configuration.SoloNoStarPowerPolicy[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  parent: ChartTools.Tools.PropertyMerger
+  definition: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<SoloNoStarPowerPolicy>(SoloNoStarPowerPolicy, bool, bool, params SoloNoStarPowerPolicy[])
+  nameWithType: PropertyMerger.Merge<SoloNoStarPowerPolicy>(SoloNoStarPowerPolicy, bool, bool, params SoloNoStarPowerPolicy[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<ChartTools.IO.Configuration.SoloNoStarPowerPolicy>(ChartTools.IO.Configuration.SoloNoStarPowerPolicy, bool, bool, params ChartTools.IO.Configuration.SoloNoStarPowerPolicy[])
+  nameWithType.vb: PropertyMerger.Merge(Of SoloNoStarPowerPolicy)(SoloNoStarPowerPolicy, Boolean, Boolean, ParamArray SoloNoStarPowerPolicy())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of ChartTools.IO.Configuration.SoloNoStarPowerPolicy)(ChartTools.IO.Configuration.SoloNoStarPowerPolicy, Boolean, Boolean, ParamArray ChartTools.IO.Configuration.SoloNoStarPowerPolicy())
+  name.vb: Merge(Of SoloNoStarPowerPolicy)(SoloNoStarPowerPolicy, Boolean, Boolean, ParamArray SoloNoStarPowerPolicy())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.IO.Configuration.SoloNoStarPowerPolicy,System.Boolean,System.Boolean,ChartTools.IO.Configuration.SoloNoStarPowerPolicy[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - uid: ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+    name: SoloNoStarPowerPolicy
+    href: ChartTools.IO.Configuration.SoloNoStarPowerPolicy.html
+  - name: '>'
+  - name: (
+  - uid: ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+    name: SoloNoStarPowerPolicy
+    href: ChartTools.IO.Configuration.SoloNoStarPowerPolicy.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+    name: SoloNoStarPowerPolicy
+    href: ChartTools.IO.Configuration.SoloNoStarPowerPolicy.html
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.IO.Configuration.SoloNoStarPowerPolicy,System.Boolean,System.Boolean,ChartTools.IO.Configuration.SoloNoStarPowerPolicy[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+    name: SoloNoStarPowerPolicy
+    href: ChartTools.IO.Configuration.SoloNoStarPowerPolicy.html
+  - name: )
+  - name: (
+  - uid: ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+    name: SoloNoStarPowerPolicy
+    href: ChartTools.IO.Configuration.SoloNoStarPowerPolicy.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+    name: SoloNoStarPowerPolicy
+    href: ChartTools.IO.Configuration.SoloNoStarPowerPolicy.html
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  isExternal: true
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<T>(T, bool, bool, params T[])
+  nameWithType: PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  nameWithType.vb: PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  name.vb: Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger
+  commentId: T:ChartTools.Tools.PropertyMerger
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.PropertyMerger.html
+  name: PropertyMerger
+  nameWithType: PropertyMerger
+  fullName: ChartTools.Tools.PropertyMerger
+- uid: ChartTools.Tools
+  commentId: N:ChartTools.Tools
+  href: ChartTools.html
+  name: ChartTools.Tools
+  nameWithType: ChartTools.Tools
+  fullName: ChartTools.Tools
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+- uid: ChartTools.Track.LocalEvents
+  commentId: P:ChartTools.Track.LocalEvents
+  parent: ChartTools.Track
+  href: ChartTools.Track.html#ChartTools_Track_LocalEvents
+  name: LocalEvents
+  nameWithType: Track.LocalEvents
+  fullName: ChartTools.Track.LocalEvents
+- uid: ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+  commentId: T:ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+  parent: ChartTools.IO.Configuration
+  href: ChartTools.IO.Configuration.SoloNoStarPowerPolicy.html
+  name: SoloNoStarPowerPolicy
+  nameWithType: SoloNoStarPowerPolicy
+  fullName: ChartTools.IO.Configuration.SoloNoStarPowerPolicy
+- uid: ChartTools.Track
+  commentId: T:ChartTools.Track
+  parent: ChartTools
+  href: ChartTools.Track.html
+  name: Track
+  nameWithType: Track
+  fullName: ChartTools.Track
+- uid: ChartTools
+  commentId: N:ChartTools
+  href: ChartTools.html
+  name: ChartTools
+  nameWithType: ChartTools
+  fullName: ChartTools

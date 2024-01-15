@@ -1,0 +1,277 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.IEmptyVerifiable
+  commentId: T:ChartTools.IEmptyVerifiable
+  id: IEmptyVerifiable
+  parent: ChartTools
+  children:
+  - ChartTools.IEmptyVerifiable.IsEmpty
+  langs:
+  - csharp
+  - vb
+  name: IEmptyVerifiable
+  nameWithType: IEmptyVerifiable
+  fullName: ChartTools.IEmptyVerifiable
+  type: Interface
+  source:
+    remote:
+      path: ChartTools/IEmptyVerifiable.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: IEmptyVerifiable
+    path: ../ChartTools/IEmptyVerifiable.cs
+    startLine: 5
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Adds support for a property defining if an object is empty
+  example: []
+  syntax:
+    content: public interface IEmptyVerifiable
+    content.vb: Public Interface IEmptyVerifiable
+  extensionMethods:
+  - ChartTools.IEmptyVerifiable.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.IEmptyVerifiable[])
+- uid: ChartTools.IEmptyVerifiable.IsEmpty
+  commentId: P:ChartTools.IEmptyVerifiable.IsEmpty
+  id: IsEmpty
+  parent: ChartTools.IEmptyVerifiable
+  langs:
+  - csharp
+  - vb
+  name: IsEmpty
+  nameWithType: IEmptyVerifiable.IsEmpty
+  fullName: ChartTools.IEmptyVerifiable.IsEmpty
+  type: Property
+  source:
+    remote:
+      path: ChartTools/IEmptyVerifiable.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: IsEmpty
+    path: ../ChartTools/IEmptyVerifiable.cs
+    startLine: 10
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if containing no data
+  example: []
+  syntax:
+    content: bool IsEmpty { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: ReadOnly Property IsEmpty As Boolean
+  overload: ChartTools.IEmptyVerifiable.IsEmpty*
+references:
+- uid: ChartTools
+  commentId: N:ChartTools
+  href: ChartTools.html
+  name: ChartTools
+  nameWithType: ChartTools
+  fullName: ChartTools
+- uid: ChartTools.IEmptyVerifiable.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.IEmptyVerifiable[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  parent: ChartTools.Tools.PropertyMerger
+  definition: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<IEmptyVerifiable>(IEmptyVerifiable, bool, bool, params IEmptyVerifiable[])
+  nameWithType: PropertyMerger.Merge<IEmptyVerifiable>(IEmptyVerifiable, bool, bool, params IEmptyVerifiable[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<ChartTools.IEmptyVerifiable>(ChartTools.IEmptyVerifiable, bool, bool, params ChartTools.IEmptyVerifiable[])
+  nameWithType.vb: PropertyMerger.Merge(Of IEmptyVerifiable)(IEmptyVerifiable, Boolean, Boolean, ParamArray IEmptyVerifiable())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of ChartTools.IEmptyVerifiable)(ChartTools.IEmptyVerifiable, Boolean, Boolean, ParamArray ChartTools.IEmptyVerifiable())
+  name.vb: Merge(Of IEmptyVerifiable)(IEmptyVerifiable, Boolean, Boolean, ParamArray IEmptyVerifiable())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.IEmptyVerifiable,System.Boolean,System.Boolean,ChartTools.IEmptyVerifiable[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - uid: ChartTools.IEmptyVerifiable
+    name: IEmptyVerifiable
+    href: ChartTools.IEmptyVerifiable.html
+  - name: '>'
+  - name: (
+  - uid: ChartTools.IEmptyVerifiable
+    name: IEmptyVerifiable
+    href: ChartTools.IEmptyVerifiable.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: ChartTools.IEmptyVerifiable
+    name: IEmptyVerifiable
+    href: ChartTools.IEmptyVerifiable.html
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.IEmptyVerifiable,System.Boolean,System.Boolean,ChartTools.IEmptyVerifiable[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.IEmptyVerifiable
+    name: IEmptyVerifiable
+    href: ChartTools.IEmptyVerifiable.html
+  - name: )
+  - name: (
+  - uid: ChartTools.IEmptyVerifiable
+    name: IEmptyVerifiable
+    href: ChartTools.IEmptyVerifiable.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: ChartTools.IEmptyVerifiable
+    name: IEmptyVerifiable
+    href: ChartTools.IEmptyVerifiable.html
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  isExternal: true
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<T>(T, bool, bool, params T[])
+  nameWithType: PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  nameWithType.vb: PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  name.vb: Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger
+  commentId: T:ChartTools.Tools.PropertyMerger
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.PropertyMerger.html
+  name: PropertyMerger
+  nameWithType: PropertyMerger
+  fullName: ChartTools.Tools.PropertyMerger
+- uid: ChartTools.Tools
+  commentId: N:ChartTools.Tools
+  href: ChartTools.html
+  name: ChartTools.Tools
+  nameWithType: ChartTools.Tools
+  fullName: ChartTools.Tools
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+- uid: ChartTools.IEmptyVerifiable.IsEmpty*
+  commentId: Overload:ChartTools.IEmptyVerifiable.IsEmpty
+  href: ChartTools.IEmptyVerifiable.html#ChartTools_IEmptyVerifiable_IsEmpty
+  name: IsEmpty
+  nameWithType: IEmptyVerifiable.IsEmpty
+  fullName: ChartTools.IEmptyVerifiable.IsEmpty
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System

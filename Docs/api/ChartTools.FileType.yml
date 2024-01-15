@@ -1,0 +1,307 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.FileType
+  commentId: T:ChartTools.FileType
+  id: FileType
+  parent: ChartTools
+  children:
+  - ChartTools.FileType.Chart
+  - ChartTools.FileType.Ini
+  - ChartTools.FileType.MIDI
+  langs:
+  - csharp
+  - vb
+  name: FileType
+  nameWithType: FileType
+  fullName: ChartTools.FileType
+  type: Enum
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: FileType
+    path: ../ChartTools/Enums.cs
+    startLine: 77
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  syntax:
+    content: 'public enum FileType : byte'
+    content.vb: Public Enum FileType As Byte
+  extensionMethods:
+  - ChartTools.FileType.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.FileType[])
+- uid: ChartTools.FileType.Chart
+  commentId: F:ChartTools.FileType.Chart
+  id: Chart
+  parent: ChartTools.FileType
+  langs:
+  - csharp
+  - vb
+  name: Chart
+  nameWithType: FileType.Chart
+  fullName: ChartTools.FileType.Chart
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Chart
+    path: ../ChartTools/Enums.cs
+    startLine: 77
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  syntax:
+    content: Chart = 0
+    return:
+      type: ChartTools.FileType
+- uid: ChartTools.FileType.Ini
+  commentId: F:ChartTools.FileType.Ini
+  id: Ini
+  parent: ChartTools.FileType
+  langs:
+  - csharp
+  - vb
+  name: Ini
+  nameWithType: FileType.Ini
+  fullName: ChartTools.FileType.Ini
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Ini
+    path: ../ChartTools/Enums.cs
+    startLine: 77
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  syntax:
+    content: Ini = 1
+    return:
+      type: ChartTools.FileType
+- uid: ChartTools.FileType.MIDI
+  commentId: F:ChartTools.FileType.MIDI
+  id: MIDI
+  parent: ChartTools.FileType
+  langs:
+  - csharp
+  - vb
+  name: MIDI
+  nameWithType: FileType.MIDI
+  fullName: ChartTools.FileType.MIDI
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: MIDI
+    path: ../ChartTools/Enums.cs
+    startLine: 77
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  syntax:
+    content: MIDI = 2
+    return:
+      type: ChartTools.FileType
+references:
+- uid: ChartTools
+  commentId: N:ChartTools
+  href: ChartTools.html
+  name: ChartTools
+  nameWithType: ChartTools
+  fullName: ChartTools
+- uid: ChartTools.FileType.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.FileType[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  parent: ChartTools.Tools.PropertyMerger
+  definition: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<FileType>(FileType, bool, bool, params FileType[])
+  nameWithType: PropertyMerger.Merge<FileType>(FileType, bool, bool, params FileType[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<ChartTools.FileType>(ChartTools.FileType, bool, bool, params ChartTools.FileType[])
+  nameWithType.vb: PropertyMerger.Merge(Of FileType)(FileType, Boolean, Boolean, ParamArray FileType())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of ChartTools.FileType)(ChartTools.FileType, Boolean, Boolean, ParamArray ChartTools.FileType())
+  name.vb: Merge(Of FileType)(FileType, Boolean, Boolean, ParamArray FileType())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.FileType,System.Boolean,System.Boolean,ChartTools.FileType[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - uid: ChartTools.FileType
+    name: FileType
+    href: ChartTools.FileType.html
+  - name: '>'
+  - name: (
+  - uid: ChartTools.FileType
+    name: FileType
+    href: ChartTools.FileType.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: ChartTools.FileType
+    name: FileType
+    href: ChartTools.FileType.html
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.FileType,System.Boolean,System.Boolean,ChartTools.FileType[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.FileType
+    name: FileType
+    href: ChartTools.FileType.html
+  - name: )
+  - name: (
+  - uid: ChartTools.FileType
+    name: FileType
+    href: ChartTools.FileType.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: ChartTools.FileType
+    name: FileType
+    href: ChartTools.FileType.html
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  isExternal: true
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<T>(T, bool, bool, params T[])
+  nameWithType: PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  nameWithType.vb: PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  name.vb: Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger
+  commentId: T:ChartTools.Tools.PropertyMerger
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.PropertyMerger.html
+  name: PropertyMerger
+  nameWithType: PropertyMerger
+  fullName: ChartTools.Tools.PropertyMerger
+- uid: ChartTools.Tools
+  commentId: N:ChartTools.Tools
+  href: ChartTools.html
+  name: ChartTools.Tools
+  nameWithType: ChartTools.Tools
+  fullName: ChartTools.Tools
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+- uid: ChartTools.FileType
+  commentId: T:ChartTools.FileType
+  parent: ChartTools
+  href: ChartTools.FileType.html
+  name: FileType
+  nameWithType: FileType
+  fullName: ChartTools.FileType

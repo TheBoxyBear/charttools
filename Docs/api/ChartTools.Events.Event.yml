@@ -1,0 +1,1066 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.Events.Event
+  commentId: T:ChartTools.Events.Event
+  id: Event
+  parent: ChartTools.Events
+  children:
+  - ChartTools.Events.Event.#ctor(System.UInt32,System.String)
+  - ChartTools.Events.Event.#ctor(System.UInt32,System.String,System.String)
+  - ChartTools.Events.Event.Argument
+  - ChartTools.Events.Event.EventData
+  - ChartTools.Events.Event.EventType
+  - ChartTools.Events.Event.Position
+  - ChartTools.Events.Event.ToString
+  - ChartTools.Events.Event.ToggleState
+  langs:
+  - csharp
+  - vb
+  name: Event
+  nameWithType: Event
+  fullName: ChartTools.Events.Event
+  type: Class
+  source:
+    remote:
+      path: ChartTools/Events/Event.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Event
+    path: ../ChartTools/Events/Event.cs
+    startLine: 5
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  summary: Marker that defines an occurrence at a given point in a song.
+  example: []
+  syntax:
+    content: 'public abstract class Event : ITrackObject, IReadOnlyTrackObject, IEquatable<IReadOnlyTrackObject>'
+    content.vb: Public MustInherit Class [Event] Implements ITrackObject, IReadOnlyTrackObject, IEquatable(Of IReadOnlyTrackObject)
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - ChartTools.Events.GlobalEvent
+  - ChartTools.Events.LocalEvent
+  implements:
+  - ChartTools.ITrackObject
+  - ChartTools.IReadOnlyTrackObject
+  - System.IEquatable{ChartTools.IReadOnlyTrackObject}
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - ChartTools.Events.Event.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.Events.Event[])
+  - ChartTools.ITrackObject.ChartTools.Tools.TempoRescaler.Rescale(System.Single)
+- uid: ChartTools.Events.Event.Position
+  commentId: P:ChartTools.Events.Event.Position
+  id: Position
+  parent: ChartTools.Events.Event
+  langs:
+  - csharp
+  - vb
+  name: Position
+  nameWithType: Event.Position
+  fullName: ChartTools.Events.Event.Position
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Events/Event.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Position
+    path: ../ChartTools/Events/Event.cs
+    startLine: 7
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  summary: Tick number on the track.
+  remarks: A tick represents a subdivision of a beat. The number of subdivisions per beat is stored in <xref href="ChartTools.IO.Formatting.FormattingRules.Resolution" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public uint Position { get; set; }
+    parameters: []
+    return:
+      type: System.UInt32
+    content.vb: Public Property Position As UInteger
+  overload: ChartTools.Events.Event.Position*
+  implements:
+  - ChartTools.ITrackObject.Position
+  - ChartTools.IReadOnlyTrackObject.Position
+- uid: ChartTools.Events.Event.EventType
+  commentId: P:ChartTools.Events.Event.EventType
+  id: EventType
+  parent: ChartTools.Events.Event
+  langs:
+  - csharp
+  - vb
+  name: EventType
+  nameWithType: Event.EventType
+  fullName: ChartTools.Events.Event.EventType
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Events/Event.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: EventType
+    path: ../ChartTools/Events/Event.cs
+    startLine: 13
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  summary: Type of event as it is written in the file
+  example: []
+  syntax:
+    content: public string EventType { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property EventType As String
+  overload: ChartTools.Events.Event.EventType*
+- uid: ChartTools.Events.Event.Argument
+  commentId: P:ChartTools.Events.Event.Argument
+  id: Argument
+  parent: ChartTools.Events.Event
+  langs:
+  - csharp
+  - vb
+  name: Argument
+  nameWithType: Event.Argument
+  fullName: ChartTools.Events.Event.Argument
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Events/Event.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Argument
+    path: ../ChartTools/Events/Event.cs
+    startLine: 33
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  summary: Additional data to modify the outcome of the event
+  remarks: A lack of argument is represented as an empty string.
+  example: []
+  syntax:
+    content: public string? Argument { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Argument As String
+  overload: ChartTools.Events.Event.Argument*
+- uid: ChartTools.Events.Event.EventData
+  commentId: P:ChartTools.Events.Event.EventData
+  id: EventData
+  parent: ChartTools.Events.Event
+  langs:
+  - csharp
+  - vb
+  name: EventData
+  nameWithType: Event.EventData
+  fullName: ChartTools.Events.Event.EventData
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Events/Event.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: EventData
+    path: ../ChartTools/Events/Event.cs
+    startLine: 42
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  summary: Combined event type and arguments where the first word is the type.
+  example: []
+  syntax:
+    content: public string EventData { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property EventData As String
+  overload: ChartTools.Events.Event.EventData*
+- uid: ChartTools.Events.Event.ToggleState
+  commentId: P:ChartTools.Events.Event.ToggleState
+  id: ToggleState
+  parent: ChartTools.Events.Event
+  langs:
+  - csharp
+  - vb
+  name: ToggleState
+  nameWithType: Event.ToggleState
+  fullName: ChartTools.Events.Event.ToggleState
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Events/Event.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ToggleState
+    path: ../ChartTools/Events/Event.cs
+    startLine: 54
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  syntax:
+    content: public bool? ToggleState { get; }
+    parameters: []
+    return:
+      type: System.Nullable{System.Boolean}
+    content.vb: Public ReadOnly Property ToggleState As Boolean?
+  overload: ChartTools.Events.Event.ToggleState*
+- uid: ChartTools.Events.Event.#ctor(System.UInt32,System.String)
+  commentId: M:ChartTools.Events.Event.#ctor(System.UInt32,System.String)
+  id: '#ctor(System.UInt32,System.String)'
+  parent: ChartTools.Events.Event
+  langs:
+  - csharp
+  - vb
+  name: Event(uint, string)
+  nameWithType: Event.Event(uint, string)
+  fullName: ChartTools.Events.Event.Event(uint, string)
+  type: Constructor
+  source:
+    remote:
+      path: ChartTools/Events/Event.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: .ctor
+    path: ../ChartTools/Events/Event.cs
+    startLine: 56
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  syntax:
+    content: public Event(uint position, string data)
+    parameters:
+    - id: position
+      type: System.UInt32
+    - id: data
+      type: System.String
+    content.vb: Public Sub New(position As UInteger, data As String)
+  overload: ChartTools.Events.Event.#ctor*
+  nameWithType.vb: Event.New(UInteger, String)
+  fullName.vb: ChartTools.Events.Event.New(UInteger, String)
+  name.vb: New(UInteger, String)
+- uid: ChartTools.Events.Event.#ctor(System.UInt32,System.String,System.String)
+  commentId: M:ChartTools.Events.Event.#ctor(System.UInt32,System.String,System.String)
+  id: '#ctor(System.UInt32,System.String,System.String)'
+  parent: ChartTools.Events.Event
+  langs:
+  - csharp
+  - vb
+  name: Event(uint, string, string?)
+  nameWithType: Event.Event(uint, string, string?)
+  fullName: ChartTools.Events.Event.Event(uint, string, string?)
+  type: Constructor
+  source:
+    remote:
+      path: ChartTools/Events/Event.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: .ctor
+    path: ../ChartTools/Events/Event.cs
+    startLine: 61
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  syntax:
+    content: public Event(uint position, string type, string? argument)
+    parameters:
+    - id: position
+      type: System.UInt32
+    - id: type
+      type: System.String
+    - id: argument
+      type: System.String
+    content.vb: Public Sub New(position As UInteger, type As String, argument As String)
+  overload: ChartTools.Events.Event.#ctor*
+  nameWithType.vb: Event.New(UInteger, String, String)
+  fullName.vb: ChartTools.Events.Event.New(UInteger, String, String)
+  name.vb: New(UInteger, String, String)
+- uid: ChartTools.Events.Event.ToString
+  commentId: M:ChartTools.Events.Event.ToString
+  id: ToString
+  parent: ChartTools.Events.Event
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: Event.ToString()
+  fullName: ChartTools.Events.Event.ToString()
+  type: Method
+  source:
+    remote:
+      path: ChartTools/Events/Event.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ToString
+    path: ../ChartTools/Events/Event.cs
+    startLine: 68
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  summary: Returns a string that represents the current object.
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+      description: A string that represents the current object.
+    content.vb: Public Overrides Function ToString() As String
+  overridden: System.Object.ToString
+  overload: ChartTools.Events.Event.ToString*
+references:
+- uid: ChartTools.Events
+  commentId: N:ChartTools.Events
+  href: ChartTools.html
+  name: ChartTools.Events
+  nameWithType: ChartTools.Events
+  fullName: ChartTools.Events
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Events
+    name: Events
+    href: ChartTools.Events.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Events
+    name: Events
+    href: ChartTools.Events.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: ChartTools.ITrackObject
+  commentId: T:ChartTools.ITrackObject
+  parent: ChartTools
+  href: ChartTools.ITrackObject.html
+  name: ITrackObject
+  nameWithType: ITrackObject
+  fullName: ChartTools.ITrackObject
+- uid: ChartTools.IReadOnlyTrackObject
+  commentId: T:ChartTools.IReadOnlyTrackObject
+  parent: ChartTools
+  href: ChartTools.IReadOnlyTrackObject.html
+  name: IReadOnlyTrackObject
+  nameWithType: IReadOnlyTrackObject
+  fullName: ChartTools.IReadOnlyTrackObject
+- uid: System.IEquatable{ChartTools.IReadOnlyTrackObject}
+  commentId: T:System.IEquatable{ChartTools.IReadOnlyTrackObject}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<IReadOnlyTrackObject>
+  nameWithType: IEquatable<IReadOnlyTrackObject>
+  fullName: System.IEquatable<ChartTools.IReadOnlyTrackObject>
+  nameWithType.vb: IEquatable(Of IReadOnlyTrackObject)
+  fullName.vb: System.IEquatable(Of ChartTools.IReadOnlyTrackObject)
+  name.vb: IEquatable(Of IReadOnlyTrackObject)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: ChartTools.IReadOnlyTrackObject
+    name: IReadOnlyTrackObject
+    href: ChartTools.IReadOnlyTrackObject.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.IReadOnlyTrackObject
+    name: IReadOnlyTrackObject
+    href: ChartTools.IReadOnlyTrackObject.html
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: ChartTools.Events.Event.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.Events.Event[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  parent: ChartTools.Tools.PropertyMerger
+  definition: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<Event>(Event, bool, bool, params Event[])
+  nameWithType: PropertyMerger.Merge<Event>(Event, bool, bool, params Event[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<ChartTools.Events.Event>(ChartTools.Events.Event, bool, bool, params ChartTools.Events.Event[])
+  nameWithType.vb: PropertyMerger.Merge(Of Event)(Event, Boolean, Boolean, ParamArray Event())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of ChartTools.Events.Event)(ChartTools.Events.Event, Boolean, Boolean, ParamArray ChartTools.Events.Event())
+  name.vb: Merge(Of Event)(Event, Boolean, Boolean, ParamArray Event())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.Events.Event,System.Boolean,System.Boolean,ChartTools.Events.Event[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - uid: ChartTools.Events.Event
+    name: Event
+    href: ChartTools.Events.Event.html
+  - name: '>'
+  - name: (
+  - uid: ChartTools.Events.Event
+    name: Event
+    href: ChartTools.Events.Event.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: ChartTools.Events.Event
+    name: Event
+    href: ChartTools.Events.Event.html
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.Events.Event,System.Boolean,System.Boolean,ChartTools.Events.Event[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Events.Event
+    name: Event
+    href: ChartTools.Events.Event.html
+  - name: )
+  - name: (
+  - uid: ChartTools.Events.Event
+    name: Event
+    href: ChartTools.Events.Event.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: ChartTools.Events.Event
+    name: Event
+    href: ChartTools.Events.Event.html
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.ITrackObject.ChartTools.Tools.TempoRescaler.Rescale(System.Single)
+  commentId: M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+  parent: ChartTools.Tools.TempoRescaler
+  definition: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+  href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  name: Rescale(ITrackObject, float)
+  nameWithType: TempoRescaler.Rescale(ITrackObject, float)
+  fullName: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject, float)
+  nameWithType.vb: TempoRescaler.Rescale(ITrackObject, Single)
+  fullName.vb: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject, Single)
+  name.vb: Rescale(ITrackObject, Single)
+  spec.csharp:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ITrackObject
+    name: ITrackObject
+    href: ChartTools.ITrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ITrackObject
+    name: ITrackObject
+    href: ChartTools.ITrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: ChartTools
+  commentId: N:ChartTools
+  href: ChartTools.html
+  name: ChartTools
+  nameWithType: ChartTools
+  fullName: ChartTools
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  isExternal: true
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<T>(T, bool, bool, params T[])
+  nameWithType: PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  nameWithType.vb: PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  name.vb: Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger
+  commentId: T:ChartTools.Tools.PropertyMerger
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.PropertyMerger.html
+  name: PropertyMerger
+  nameWithType: PropertyMerger
+  fullName: ChartTools.Tools.PropertyMerger
+- uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+  commentId: M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+  isExternal: true
+  href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  name: Rescale(ITrackObject, float)
+  nameWithType: TempoRescaler.Rescale(ITrackObject, float)
+  fullName: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject, float)
+  nameWithType.vb: TempoRescaler.Rescale(ITrackObject, Single)
+  fullName.vb: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject, Single)
+  name.vb: Rescale(ITrackObject, Single)
+  spec.csharp:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ITrackObject
+    name: ITrackObject
+    href: ChartTools.ITrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ITrackObject
+    name: ITrackObject
+    href: ChartTools.ITrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ChartTools.Tools.TempoRescaler
+  commentId: T:ChartTools.Tools.TempoRescaler
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.TempoRescaler.html
+  name: TempoRescaler
+  nameWithType: TempoRescaler
+  fullName: ChartTools.Tools.TempoRescaler
+- uid: ChartTools.Tools
+  commentId: N:ChartTools.Tools
+  href: ChartTools.html
+  name: ChartTools.Tools
+  nameWithType: ChartTools.Tools
+  fullName: ChartTools.Tools
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+- uid: ChartTools.IO.Formatting.FormattingRules.Resolution
+  commentId: P:ChartTools.IO.Formatting.FormattingRules.Resolution
+  href: ChartTools.IO.Formatting.FormattingRules.html#ChartTools_IO_Formatting_FormattingRules_Resolution
+  name: Resolution
+  nameWithType: FormattingRules.Resolution
+  fullName: ChartTools.IO.Formatting.FormattingRules.Resolution
+- uid: ChartTools.Events.Event.Position*
+  commentId: Overload:ChartTools.Events.Event.Position
+  href: ChartTools.Events.Event.html#ChartTools_Events_Event_Position
+  name: Position
+  nameWithType: Event.Position
+  fullName: ChartTools.Events.Event.Position
+- uid: ChartTools.ITrackObject.Position
+  commentId: P:ChartTools.ITrackObject.Position
+  parent: ChartTools.ITrackObject
+  href: ChartTools.ITrackObject.html#ChartTools_ITrackObject_Position
+  name: Position
+  nameWithType: ITrackObject.Position
+  fullName: ChartTools.ITrackObject.Position
+- uid: ChartTools.IReadOnlyTrackObject.Position
+  commentId: P:ChartTools.IReadOnlyTrackObject.Position
+  parent: ChartTools.IReadOnlyTrackObject
+  href: ChartTools.IReadOnlyTrackObject.html#ChartTools_IReadOnlyTrackObject_Position
+  name: Position
+  nameWithType: IReadOnlyTrackObject.Position
+  fullName: ChartTools.IReadOnlyTrackObject.Position
+- uid: System.UInt32
+  commentId: T:System.UInt32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.uint32
+  name: uint
+  nameWithType: uint
+  fullName: uint
+  nameWithType.vb: UInteger
+  fullName.vb: UInteger
+  name.vb: UInteger
+- uid: ChartTools.Events.Event.EventType*
+  commentId: Overload:ChartTools.Events.Event.EventType
+  href: ChartTools.Events.Event.html#ChartTools_Events_Event_EventType
+  name: EventType
+  nameWithType: Event.EventType
+  fullName: ChartTools.Events.Event.EventType
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: ChartTools.Events.Event.Argument*
+  commentId: Overload:ChartTools.Events.Event.Argument
+  href: ChartTools.Events.Event.html#ChartTools_Events_Event_Argument
+  name: Argument
+  nameWithType: Event.Argument
+  fullName: ChartTools.Events.Event.Argument
+- uid: ChartTools.Events.Event.EventData*
+  commentId: Overload:ChartTools.Events.Event.EventData
+  href: ChartTools.Events.Event.html#ChartTools_Events_Event_EventData
+  name: EventData
+  nameWithType: Event.EventData
+  fullName: ChartTools.Events.Event.EventData
+- uid: ChartTools.Events.Event.ToggleState*
+  commentId: Overload:ChartTools.Events.Event.ToggleState
+  href: ChartTools.Events.Event.html#ChartTools_Events_Event_ToggleState
+  name: ToggleState
+  nameWithType: Event.ToggleState
+  fullName: ChartTools.Events.Event.ToggleState
+- uid: System.Nullable{System.Boolean}
+  commentId: T:System.Nullable{System.Boolean}
+  parent: System
+  definition: System.Nullable`1
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool?
+  nameWithType: bool?
+  fullName: bool?
+  nameWithType.vb: Boolean?
+  fullName.vb: Boolean?
+  name.vb: Boolean?
+  spec.csharp:
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: '?'
+  spec.vb:
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: '?'
+- uid: System.Nullable`1
+  commentId: T:System.Nullable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ChartTools.Events.Event.#ctor*
+  commentId: Overload:ChartTools.Events.Event.#ctor
+  href: ChartTools.Events.Event.html#ChartTools_Events_Event__ctor_System_UInt32_System_String_
+  name: Event
+  nameWithType: Event.Event
+  fullName: ChartTools.Events.Event.Event
+  nameWithType.vb: Event.New
+  fullName.vb: ChartTools.Events.Event.New
+  name.vb: New
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: ChartTools.Events.Event.ToString*
+  commentId: Overload:ChartTools.Events.Event.ToString
+  href: ChartTools.Events.Event.html#ChartTools_Events_Event_ToString
+  name: ToString
+  nameWithType: Event.ToString
+  fullName: ChartTools.Events.Event.ToString

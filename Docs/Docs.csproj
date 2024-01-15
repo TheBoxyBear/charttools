@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <OutputType>Exe</OutputType>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
-    <Configurations>Debug;Release;Docs</Configurations>
+    <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,13 +20,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Docfx.App" Version="2.75.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ChartTools\ChartTools.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
-
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="echo.&#xD;&#xA;echo -------- Building site with DocFX -------- &#xD;&#xA;dotnet docfx build" />
-  </Target>
 
 </Project>

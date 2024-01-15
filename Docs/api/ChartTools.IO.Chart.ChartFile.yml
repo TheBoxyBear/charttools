@@ -1,0 +1,3378 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.IO.Chart.ChartFile
+  commentId: T:ChartTools.IO.Chart.ChartFile
+  id: ChartFile
+  parent: ChartTools.IO.Chart
+  children:
+  - ChartTools.IO.Chart.ChartFile.DefaultReadConfig
+  - ChartTools.IO.Chart.ChartFile.DefaultWriteConfig
+  - ChartTools.IO.Chart.ChartFile.ReadDrums(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  - ChartTools.IO.Chart.ChartFile.ReadDrumsAsync(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  - ChartTools.IO.Chart.ChartFile.ReadDrumsTrack(System.String,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  - ChartTools.IO.Chart.ChartFile.ReadDrumsTrackAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  - ChartTools.IO.Chart.ChartFile.ReadGlobalEvents(System.String)
+  - ChartTools.IO.Chart.ChartFile.ReadGlobalEventsAsync(System.String,System.Threading.CancellationToken)
+  - ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  - ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  - ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  - ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  - ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  - ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  - ChartTools.IO.Chart.ChartFile.ReadLyrics(System.String)
+  - ChartTools.IO.Chart.ChartFile.ReadLyricsAsync(System.String,System.Threading.CancellationToken)
+  - ChartTools.IO.Chart.ChartFile.ReadMetadata(System.String)
+  - ChartTools.IO.Chart.ChartFile.ReadSong(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  - ChartTools.IO.Chart.ChartFile.ReadSongAsync(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  - ChartTools.IO.Chart.ChartFile.ReadSyncTrack(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  - ChartTools.IO.Chart.ChartFile.ReadSyncTrackAsync(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,System.Threading.CancellationToken)
+  - ChartTools.IO.Chart.ChartFile.ReadTrack(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  - ChartTools.IO.Chart.ChartFile.ReadTrack(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  - ChartTools.IO.Chart.ChartFile.ReadTrack(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  - ChartTools.IO.Chart.ChartFile.ReadTrackAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  - ChartTools.IO.Chart.ChartFile.ReadTrackAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  - ChartTools.IO.Chart.ChartFile.ReadTrackAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  - ChartTools.IO.Chart.ChartFile.ReadVocals(System.String)
+  - ChartTools.IO.Chart.ChartFile.ReadVocalsAsync(System.String,System.Threading.CancellationToken)
+  - ChartTools.IO.Chart.ChartFile.ReplaceGlobalEvents(System.String,System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent})
+  - ChartTools.IO.Chart.ChartFile.ReplaceGlobalEventsAsync(System.String,System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent},System.Threading.CancellationToken)
+  - ChartTools.IO.Chart.ChartFile.ReplaceInstrument(System.String,ChartTools.Instrument,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  - ChartTools.IO.Chart.ChartFile.ReplaceInstrumentAsync(System.String,ChartTools.Instrument,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  - ChartTools.IO.Chart.ChartFile.ReplaceMetadata(System.String,ChartTools.Metadata)
+  - ChartTools.IO.Chart.ChartFile.ReplaceSyncTrack(System.String,ChartTools.SyncTrack,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration)
+  - ChartTools.IO.Chart.ChartFile.ReplaceSyncTrackAsync(System.String,ChartTools.SyncTrack,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,System.Threading.CancellationToken)
+  - ChartTools.IO.Chart.ChartFile.ReplaceTrack(System.String,ChartTools.Track,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  - ChartTools.IO.Chart.ChartFile.ReplaceTrackAsync(System.String,ChartTools.Track,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  - ChartTools.IO.Chart.ChartFile.WriteSong(System.String,ChartTools.Song,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration)
+  - ChartTools.IO.Chart.ChartFile.WriteSongAsync(System.String,ChartTools.Song,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,System.Threading.CancellationToken)
+  langs:
+  - csharp
+  - vb
+  name: ChartFile
+  nameWithType: ChartFile
+  fullName: ChartTools.IO.Chart.ChartFile
+  type: Class
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ChartFile
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 16
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Provides methods for reading and writing chart files
+  example: []
+  syntax:
+    content: public static class ChartFile
+    content.vb: Public Module ChartFile
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: ChartTools.IO.Chart.ChartFile.DefaultReadConfig
+  commentId: P:ChartTools.IO.Chart.ChartFile.DefaultReadConfig
+  id: DefaultReadConfig
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: DefaultReadConfig
+  nameWithType: ChartFile.DefaultReadConfig
+  fullName: ChartTools.IO.Chart.ChartFile.DefaultReadConfig
+  type: Property
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: DefaultReadConfig
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 21
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Default configuration to use for reading when the provided configuration is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/default">default</a>
+  example: []
+  syntax:
+    content: public static ChartReadingConfiguration DefaultReadConfig { get; set; }
+    parameters: []
+    return:
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+    content.vb: Public Shared Property DefaultReadConfig As ChartReadingConfiguration
+  overload: ChartTools.IO.Chart.ChartFile.DefaultReadConfig*
+- uid: ChartTools.IO.Chart.ChartFile.DefaultWriteConfig
+  commentId: P:ChartTools.IO.Chart.ChartFile.DefaultWriteConfig
+  id: DefaultWriteConfig
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: DefaultWriteConfig
+  nameWithType: ChartFile.DefaultWriteConfig
+  fullName: ChartTools.IO.Chart.ChartFile.DefaultWriteConfig
+  type: Property
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: DefaultWriteConfig
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 34
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Default configuration to use for writing when the provided configuration is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/default">default</a>
+  example: []
+  syntax:
+    content: public static ChartWritingConfiguration DefaultWriteConfig { get; set; }
+    parameters: []
+    return:
+      type: ChartTools.IO.Chart.Configuration.ChartWritingConfiguration
+    content.vb: Public Shared Property DefaultWriteConfig As ChartWritingConfiguration
+  overload: ChartTools.IO.Chart.ChartFile.DefaultWriteConfig*
+- uid: ChartTools.IO.Chart.ChartFile.ReadSong(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadSong(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  id: ReadSong(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadSong(string, ChartReadingConfiguration?, FormattingRules?)
+  nameWithType: ChartFile.ReadSong(string, ChartReadingConfiguration?, FormattingRules?)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadSong(string, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, ChartTools.IO.Formatting.FormattingRules?)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadSong
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 92
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Reads all elements of a <xref href="ChartTools.Song" data-throw-if-not-resolved="false"></xref> from a file.
+  example: []
+  syntax:
+    content: public static Song ReadSong(string path, ChartReadingConfiguration? config = null, FormattingRules? formatting = null)
+    parameters:
+    - id: path
+      type: System.String
+      description: Path of the file
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+      description: ''
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+      description: >-
+        <summary>
+            Rules defined in song.ini that affect how the song data file is read and written
+            </summary>
+    return:
+      type: ChartTools.Song
+    content.vb: Public Shared Function ReadSong(path As String, config As ChartReadingConfiguration = Nothing, formatting As FormattingRules = Nothing) As Song
+  overload: ChartTools.IO.Chart.ChartFile.ReadSong*
+  nameWithType.vb: ChartFile.ReadSong(String, ChartReadingConfiguration, FormattingRules)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadSong(String, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, ChartTools.IO.Formatting.FormattingRules)
+  name.vb: ReadSong(String, ChartReadingConfiguration, FormattingRules)
+- uid: ChartTools.IO.Chart.ChartFile.ReadSongAsync(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadSongAsync(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  id: ReadSongAsync(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadSongAsync(string, ChartReadingConfiguration?, FormattingRules?, CancellationToken)
+  nameWithType: ChartFile.ReadSongAsync(string, ChartReadingConfiguration?, FormattingRules?, CancellationToken)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadSongAsync(string, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, ChartTools.IO.Formatting.FormattingRules?, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadSongAsync
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 105
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  example: []
+  syntax:
+    content: public static Task<Song> ReadSongAsync(string path, ChartReadingConfiguration? config = null, FormattingRules? formatting = null, CancellationToken cancellationToken = default)
+    parameters:
+    - id: path
+      type: System.String
+      description: <inheritdoc cref="!:Song.FromFileAsync(string, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@='path']"></inheritdoc>
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+      description: <inheritdoc cref="!:Song.FromFileAsync(string, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@='config']"></inheritdoc>
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: <inheritdoc cref="!:Song.FromFileAsync(string, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@='cancellationToken']"></inheritdoc>
+    return:
+      type: System.Threading.Tasks.Task{ChartTools.Song}
+    content.vb: Public Shared Function ReadSongAsync(path As String, config As ChartReadingConfiguration = Nothing, formatting As FormattingRules = Nothing, cancellationToken As CancellationToken = Nothing) As Task(Of Song)
+  overload: ChartTools.IO.Chart.ChartFile.ReadSongAsync*
+  nameWithType.vb: ChartFile.ReadSongAsync(String, ChartReadingConfiguration, FormattingRules, CancellationToken)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadSongAsync(String, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, ChartTools.IO.Formatting.FormattingRules, System.Threading.CancellationToken)
+  name.vb: ReadSongAsync(String, ChartReadingConfiguration, FormattingRules, CancellationToken)
+- uid: ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  id: ReadInstrument(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadInstrument(string, InstrumentIdentity, ChartReadingConfiguration?, FormattingRules?)
+  nameWithType: ChartFile.ReadInstrument(string, InstrumentIdentity, ChartReadingConfiguration?, FormattingRules?)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadInstrument(string, ChartTools.InstrumentIdentity, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, ChartTools.IO.Formatting.FormattingRules?)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadInstrument
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 140
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Reads an instrument from a chart file.
+  example: []
+  syntax:
+    content: public static Instrument? ReadInstrument(string path, InstrumentIdentity instrument, ChartReadingConfiguration? config = null, FormattingRules? formatting = null)
+    parameters:
+    - id: path
+      type: System.String
+      description: Path of the file to read
+    - id: instrument
+      type: ChartTools.InstrumentIdentity
+      description: Instrument to read
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+      description: ''
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    return:
+      type: ChartTools.Instrument
+      description: >-
+        Instance of <xref href="ChartTools.Instrument" data-throw-if-not-resolved="false"></xref> containing all data about the given instrument
+                <p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> if the file contains no data for the given instrument</p>
+    content.vb: Public Shared Function ReadInstrument(path As String, instrument As InstrumentIdentity, config As ChartReadingConfiguration = Nothing, formatting As FormattingRules = Nothing) As Instrument
+  overload: ChartTools.IO.Chart.ChartFile.ReadInstrument*
+  nameWithType.vb: ChartFile.ReadInstrument(String, InstrumentIdentity, ChartReadingConfiguration, FormattingRules)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadInstrument(String, ChartTools.InstrumentIdentity, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, ChartTools.IO.Formatting.FormattingRules)
+  name.vb: ReadInstrument(String, InstrumentIdentity, ChartReadingConfiguration, FormattingRules)
+- uid: ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  id: ReadInstrumentAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadInstrumentAsync(string, InstrumentIdentity, ChartReadingConfiguration?, FormattingRules?, CancellationToken)
+  nameWithType: ChartFile.ReadInstrumentAsync(string, InstrumentIdentity, ChartReadingConfiguration?, FormattingRules?, CancellationToken)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync(string, ChartTools.InstrumentIdentity, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, ChartTools.IO.Formatting.FormattingRules?, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadInstrumentAsync
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 150
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  syntax:
+    content: public static Task<Instrument?> ReadInstrumentAsync(string path, InstrumentIdentity instrument, ChartReadingConfiguration? config = null, FormattingRules? formatting = null, CancellationToken cancellationToken = default)
+    parameters:
+    - id: path
+      type: System.String
+    - id: instrument
+      type: ChartTools.InstrumentIdentity
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+    return:
+      type: System.Threading.Tasks.Task{ChartTools.Instrument}
+    content.vb: Public Shared Function ReadInstrumentAsync(path As String, instrument As InstrumentIdentity, config As ChartReadingConfiguration = Nothing, formatting As FormattingRules = Nothing, cancellationToken As CancellationToken = Nothing) As Task(Of Instrument)
+  overload: ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync*
+  nameWithType.vb: ChartFile.ReadInstrumentAsync(String, InstrumentIdentity, ChartReadingConfiguration, FormattingRules, CancellationToken)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync(String, ChartTools.InstrumentIdentity, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, ChartTools.IO.Formatting.FormattingRules, System.Threading.CancellationToken)
+  name.vb: ReadInstrumentAsync(String, InstrumentIdentity, ChartReadingConfiguration, FormattingRules, CancellationToken)
+- uid: ChartTools.IO.Chart.ChartFile.ReadVocals(System.String)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadVocals(System.String)
+  id: ReadVocals(System.String)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadVocals(string)
+  nameWithType: ChartFile.ReadVocals(string)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadVocals(string)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadVocals
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 168
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Reads vocals from the global events in a chart file.
+  example: []
+  syntax:
+    content: public static Vocals? ReadVocals(string path)
+    parameters:
+    - id: path
+      type: System.String
+      description: Path of the file to read
+    return:
+      type: ChartTools.Vocals
+      description: >-
+        Instance of <xref href="ChartTools.Instrument%601" data-throw-if-not-resolved="false"></xref> where TChord is <xref href="ChartTools.Lyrics.Phrase" data-throw-if-not-resolved="false"></xref> containing lyric and timing data
+                <p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> if the file contains no drums data</p>
+    content.vb: Public Shared Function ReadVocals(path As String) As Vocals
+  overload: ChartTools.IO.Chart.ChartFile.ReadVocals*
+  nameWithType.vb: ChartFile.ReadVocals(String)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadVocals(String)
+  name.vb: ReadVocals(String)
+- uid: ChartTools.IO.Chart.ChartFile.ReadVocalsAsync(System.String,System.Threading.CancellationToken)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadVocalsAsync(System.String,System.Threading.CancellationToken)
+  id: ReadVocalsAsync(System.String,System.Threading.CancellationToken)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadVocalsAsync(string, CancellationToken)
+  nameWithType: ChartFile.ReadVocalsAsync(string, CancellationToken)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadVocalsAsync(string, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadVocalsAsync
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 169
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  syntax:
+    content: public static Task<Vocals?> ReadVocalsAsync(string path, CancellationToken cancellationToken = default)
+    parameters:
+    - id: path
+      type: System.String
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+    return:
+      type: System.Threading.Tasks.Task{ChartTools.Vocals}
+    content.vb: Public Shared Function ReadVocalsAsync(path As String, cancellationToken As CancellationToken = Nothing) As Task(Of Vocals)
+  overload: ChartTools.IO.Chart.ChartFile.ReadVocalsAsync*
+  nameWithType.vb: ChartFile.ReadVocalsAsync(String, CancellationToken)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadVocalsAsync(String, System.Threading.CancellationToken)
+  name.vb: ReadVocalsAsync(String, CancellationToken)
+- uid: ChartTools.IO.Chart.ChartFile.ReadDrums(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadDrums(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  id: ReadDrums(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadDrums(string, ChartReadingConfiguration?, FormattingRules?)
+  nameWithType: ChartFile.ReadDrums(string, ChartReadingConfiguration?, FormattingRules?)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadDrums(string, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, ChartTools.IO.Formatting.FormattingRules?)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadDrums
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 201
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Reads drums from a chart file.
+  example: []
+  syntax:
+    content: public static Drums? ReadDrums(string path, ChartReadingConfiguration? config = null, FormattingRules? formatting = null)
+    parameters:
+    - id: path
+      type: System.String
+      description: Path of the file to read
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+      description: ''
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+      description: >-
+        <summary>
+            Rules defined in song.ini that affect how the song data file is read and written
+            </summary>
+    return:
+      type: ChartTools.Drums
+      description: >-
+        Instance of <xref href="ChartTools.Instrument%601" data-throw-if-not-resolved="false"></xref> where TChord is <xref href="ChartTools.DrumsChord" data-throw-if-not-resolved="false"></xref> containing all drums data
+                <p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> if the file contains no drums data</p>
+    content.vb: Public Shared Function ReadDrums(path As String, config As ChartReadingConfiguration = Nothing, formatting As FormattingRules = Nothing) As Drums
+  overload: ChartTools.IO.Chart.ChartFile.ReadDrums*
+  nameWithType.vb: ChartFile.ReadDrums(String, ChartReadingConfiguration, FormattingRules)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadDrums(String, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, ChartTools.IO.Formatting.FormattingRules)
+  name.vb: ReadDrums(String, ChartReadingConfiguration, FormattingRules)
+- uid: ChartTools.IO.Chart.ChartFile.ReadDrumsAsync(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadDrumsAsync(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  id: ReadDrumsAsync(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadDrumsAsync(string, ChartReadingConfiguration?, FormattingRules?, CancellationToken)
+  nameWithType: ChartFile.ReadDrumsAsync(string, ChartReadingConfiguration?, FormattingRules?, CancellationToken)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadDrumsAsync(string, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, ChartTools.IO.Formatting.FormattingRules?, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadDrumsAsync
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 209
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  syntax:
+    content: public static Task<Drums?> ReadDrumsAsync(string path, ChartReadingConfiguration? config = null, FormattingRules? formatting = null, CancellationToken cancellationToken = default)
+    parameters:
+    - id: path
+      type: System.String
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+    return:
+      type: System.Threading.Tasks.Task{ChartTools.Drums}
+    content.vb: Public Shared Function ReadDrumsAsync(path As String, config As ChartReadingConfiguration = Nothing, formatting As FormattingRules = Nothing, cancellationToken As CancellationToken = Nothing) As Task(Of Drums)
+  overload: ChartTools.IO.Chart.ChartFile.ReadDrumsAsync*
+  nameWithType.vb: ChartFile.ReadDrumsAsync(String, ChartReadingConfiguration, FormattingRules, CancellationToken)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadDrumsAsync(String, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, ChartTools.IO.Formatting.FormattingRules, System.Threading.CancellationToken)
+  name.vb: ReadDrumsAsync(String, ChartReadingConfiguration, FormattingRules, CancellationToken)
+- uid: ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  id: ReadInstrument(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadInstrument(string, GHLInstrumentIdentity, ChartReadingConfiguration?, FormattingRules?)
+  nameWithType: ChartFile.ReadInstrument(string, GHLInstrumentIdentity, ChartReadingConfiguration?, FormattingRules?)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadInstrument(string, ChartTools.GHLInstrumentIdentity, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, ChartTools.IO.Formatting.FormattingRules?)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadInstrument
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 230
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Reads a Guitar Hero Live instrument from a chart file.
+  example: []
+  syntax:
+    content: public static GHLInstrument? ReadInstrument(string path, GHLInstrumentIdentity instrument, ChartReadingConfiguration? config = null, FormattingRules? formatting = null)
+    parameters:
+    - id: path
+      type: System.String
+      description: Path of the file to read
+    - id: instrument
+      type: ChartTools.GHLInstrumentIdentity
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    return:
+      type: ChartTools.GHLInstrument
+      description: >-
+        Instance of <xref href="ChartTools.Instrument%601" data-throw-if-not-resolved="false"></xref> where TChord is <xref href="ChartTools.GHLChord" data-throw-if-not-resolved="false"></xref> containing all data about the given instrument
+                <p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> if the file has no data for the given instrument</p>
+    content.vb: Public Shared Function ReadInstrument(path As String, instrument As GHLInstrumentIdentity, config As ChartReadingConfiguration = Nothing, formatting As FormattingRules = Nothing) As GHLInstrument
+  overload: ChartTools.IO.Chart.ChartFile.ReadInstrument*
+  nameWithType.vb: ChartFile.ReadInstrument(String, GHLInstrumentIdentity, ChartReadingConfiguration, FormattingRules)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadInstrument(String, ChartTools.GHLInstrumentIdentity, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, ChartTools.IO.Formatting.FormattingRules)
+  name.vb: ReadInstrument(String, GHLInstrumentIdentity, ChartReadingConfiguration, FormattingRules)
+- uid: ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  id: ReadInstrumentAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadInstrumentAsync(string, GHLInstrumentIdentity, ChartReadingConfiguration?, FormattingRules?, CancellationToken)
+  nameWithType: ChartFile.ReadInstrumentAsync(string, GHLInstrumentIdentity, ChartReadingConfiguration?, FormattingRules?, CancellationToken)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync(string, ChartTools.GHLInstrumentIdentity, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, ChartTools.IO.Formatting.FormattingRules?, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadInstrumentAsync
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 240
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  syntax:
+    content: public static Task<GHLInstrument?> ReadInstrumentAsync(string path, GHLInstrumentIdentity instrument, ChartReadingConfiguration? config = null, FormattingRules? formatting = null, CancellationToken cancellationToken = default)
+    parameters:
+    - id: path
+      type: System.String
+    - id: instrument
+      type: ChartTools.GHLInstrumentIdentity
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+    return:
+      type: System.Threading.Tasks.Task{ChartTools.GHLInstrument}
+    content.vb: Public Shared Function ReadInstrumentAsync(path As String, instrument As GHLInstrumentIdentity, config As ChartReadingConfiguration = Nothing, formatting As FormattingRules = Nothing, cancellationToken As CancellationToken = Nothing) As Task(Of GHLInstrument)
+  overload: ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync*
+  nameWithType.vb: ChartFile.ReadInstrumentAsync(String, GHLInstrumentIdentity, ChartReadingConfiguration, FormattingRules, CancellationToken)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync(String, ChartTools.GHLInstrumentIdentity, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, ChartTools.IO.Formatting.FormattingRules, System.Threading.CancellationToken)
+  name.vb: ReadInstrumentAsync(String, GHLInstrumentIdentity, ChartReadingConfiguration, FormattingRules, CancellationToken)
+- uid: ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadInstrument(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  id: ReadInstrument(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadInstrument(string, StandardInstrumentIdentity, ChartReadingConfiguration?, FormattingRules?)
+  nameWithType: ChartFile.ReadInstrument(string, StandardInstrumentIdentity, ChartReadingConfiguration?, FormattingRules?)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadInstrument(string, ChartTools.StandardInstrumentIdentity, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, ChartTools.IO.Formatting.FormattingRules?)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadInstrument
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 259
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  example: []
+  syntax:
+    content: public static StandardInstrument? ReadInstrument(string path, StandardInstrumentIdentity instrument, ChartReadingConfiguration? config = null, FormattingRules? formatting = null)
+    parameters:
+    - id: path
+      type: System.String
+      description: <inheritdoc cref="!:StandardInstrument.FromFile(string, StandardInstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/param[@name='path']"></inheritdoc>
+    - id: instrument
+      type: ChartTools.StandardInstrumentIdentity
+      description: <inheritdoc cref="!:StandardInstrument.FromFile(string, StandardInstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/param[@name='instrument']"></inheritdoc>
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+      description: <inheritdoc cref="!:StandardInstrument.FromFile(string, StandardInstrumentIdentity, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"></inheritdoc>
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    return:
+      type: ChartTools.StandardInstrument
+    content.vb: Public Shared Function ReadInstrument(path As String, instrument As StandardInstrumentIdentity, config As ChartReadingConfiguration = Nothing, formatting As FormattingRules = Nothing) As StandardInstrument
+  overload: ChartTools.IO.Chart.ChartFile.ReadInstrument*
+  nameWithType.vb: ChartFile.ReadInstrument(String, StandardInstrumentIdentity, ChartReadingConfiguration, FormattingRules)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadInstrument(String, ChartTools.StandardInstrumentIdentity, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, ChartTools.IO.Formatting.FormattingRules)
+  name.vb: ReadInstrument(String, StandardInstrumentIdentity, ChartReadingConfiguration, FormattingRules)
+- uid: ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  id: ReadInstrumentAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadInstrumentAsync(string, StandardInstrumentIdentity, ChartReadingConfiguration?, FormattingRules?, CancellationToken)
+  nameWithType: ChartFile.ReadInstrumentAsync(string, StandardInstrumentIdentity, ChartReadingConfiguration?, FormattingRules?, CancellationToken)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync(string, ChartTools.StandardInstrumentIdentity, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, ChartTools.IO.Formatting.FormattingRules?, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadInstrumentAsync
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 274
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  example: []
+  syntax:
+    content: public static Task<StandardInstrument?> ReadInstrumentAsync(string path, StandardInstrumentIdentity instrument, ChartReadingConfiguration? config = null, FormattingRules? formatting = null, CancellationToken cancellationToken = default)
+    parameters:
+    - id: path
+      type: System.String
+      description: <inheritdoc cref="!:StandardInstrument.FromFileAsync(string, StandardInstrumentIdentity, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='path']"></inheritdoc>
+    - id: instrument
+      type: ChartTools.StandardInstrumentIdentity
+      description: <inheritdoc cref="!:StandardInstrument.FromFileAsync(string, StandardInstrumentIdentity, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='instrument']"></inheritdoc>
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+      description: <inheritdoc cref="!:StandardInstrument.FromFileAsync(string, StandardInstrumentIdentity, ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='config']"></inheritdoc>
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: <inheritdoc cref="!:StandardInstrument.FromFileAsync(string, StandardInstrumentIdentity,  ReadingConfiguration?, FormattingRules?, CancellationToken)" path="/param[@name='cancellationToken']"></inheritdoc>
+    return:
+      type: System.Threading.Tasks.Task{ChartTools.StandardInstrument}
+    content.vb: Public Shared Function ReadInstrumentAsync(path As String, instrument As StandardInstrumentIdentity, config As ChartReadingConfiguration = Nothing, formatting As FormattingRules = Nothing, cancellationToken As CancellationToken = Nothing) As Task(Of StandardInstrument)
+  overload: ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync*
+  nameWithType.vb: ChartFile.ReadInstrumentAsync(String, StandardInstrumentIdentity, ChartReadingConfiguration, FormattingRules, CancellationToken)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync(String, ChartTools.StandardInstrumentIdentity, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, ChartTools.IO.Formatting.FormattingRules, System.Threading.CancellationToken)
+  name.vb: ReadInstrumentAsync(String, StandardInstrumentIdentity, ChartReadingConfiguration, FormattingRules, CancellationToken)
+- uid: ChartTools.IO.Chart.ChartFile.ReadTrack(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadTrack(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  id: ReadTrack(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadTrack(string, InstrumentIdentity, Difficulty, ChartReadingConfiguration?, FormattingRules?)
+  nameWithType: ChartFile.ReadTrack(string, InstrumentIdentity, Difficulty, ChartReadingConfiguration?, FormattingRules?)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadTrack(string, ChartTools.InstrumentIdentity, ChartTools.Difficulty, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, ChartTools.IO.Formatting.FormattingRules?)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadTrack
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 292
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  example: []
+  syntax:
+    content: public static Track ReadTrack(string path, InstrumentIdentity instrument, Difficulty difficulty, ChartReadingConfiguration? config = null, FormattingRules? formatting = null)
+    parameters:
+    - id: path
+      type: System.String
+      description: ''
+    - id: instrument
+      type: ChartTools.InstrumentIdentity
+      description: ''
+    - id: difficulty
+      type: ChartTools.Difficulty
+      description: ''
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+      description: ''
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    return:
+      type: ChartTools.Track
+    content.vb: Public Shared Function ReadTrack(path As String, instrument As InstrumentIdentity, difficulty As Difficulty, config As ChartReadingConfiguration = Nothing, formatting As FormattingRules = Nothing) As Track
+  overload: ChartTools.IO.Chart.ChartFile.ReadTrack*
+  nameWithType.vb: ChartFile.ReadTrack(String, InstrumentIdentity, Difficulty, ChartReadingConfiguration, FormattingRules)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadTrack(String, ChartTools.InstrumentIdentity, ChartTools.Difficulty, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, ChartTools.IO.Formatting.FormattingRules)
+  name.vb: ReadTrack(String, InstrumentIdentity, Difficulty, ChartReadingConfiguration, FormattingRules)
+- uid: ChartTools.IO.Chart.ChartFile.ReadTrackAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadTrackAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  id: ReadTrackAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadTrackAsync(string, InstrumentIdentity, Difficulty, ChartReadingConfiguration?, FormattingRules?, CancellationToken)
+  nameWithType: ChartFile.ReadTrackAsync(string, InstrumentIdentity, Difficulty, ChartReadingConfiguration?, FormattingRules?, CancellationToken)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadTrackAsync(string, ChartTools.InstrumentIdentity, ChartTools.Difficulty, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, ChartTools.IO.Formatting.FormattingRules?, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadTrackAsync
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 309
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  example: []
+  syntax:
+    content: public static Task<Track> ReadTrackAsync(string path, InstrumentIdentity instrument, Difficulty difficulty, ChartReadingConfiguration? config = null, FormattingRules? formatting = null, CancellationToken cancellationToken = default)
+    parameters:
+    - id: path
+      type: System.String
+      description: ''
+    - id: instrument
+      type: ChartTools.InstrumentIdentity
+      description: ''
+    - id: difficulty
+      type: ChartTools.Difficulty
+      description: ''
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+      description: ''
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: ''
+    return:
+      type: System.Threading.Tasks.Task{ChartTools.Track}
+    content.vb: Public Shared Function ReadTrackAsync(path As String, instrument As InstrumentIdentity, difficulty As Difficulty, config As ChartReadingConfiguration = Nothing, formatting As FormattingRules = Nothing, cancellationToken As CancellationToken = Nothing) As Task(Of Track)
+  overload: ChartTools.IO.Chart.ChartFile.ReadTrackAsync*
+  nameWithType.vb: ChartFile.ReadTrackAsync(String, InstrumentIdentity, Difficulty, ChartReadingConfiguration, FormattingRules, CancellationToken)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadTrackAsync(String, ChartTools.InstrumentIdentity, ChartTools.Difficulty, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, ChartTools.IO.Formatting.FormattingRules, System.Threading.CancellationToken)
+  name.vb: ReadTrackAsync(String, InstrumentIdentity, Difficulty, ChartReadingConfiguration, FormattingRules, CancellationToken)
+- uid: ChartTools.IO.Chart.ChartFile.ReadDrumsTrack(System.String,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadDrumsTrack(System.String,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  id: ReadDrumsTrack(System.String,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadDrumsTrack(string, Difficulty, ChartReadingConfiguration?, FormattingRules?)
+  nameWithType: ChartFile.ReadDrumsTrack(string, Difficulty, ChartReadingConfiguration?, FormattingRules?)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadDrumsTrack(string, ChartTools.Difficulty, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, ChartTools.IO.Formatting.FormattingRules?)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadDrumsTrack
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 337
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  example: []
+  syntax:
+    content: public static Track<DrumsChord> ReadDrumsTrack(string path, Difficulty difficulty, ChartReadingConfiguration? config = null, FormattingRules? formatting = null)
+    parameters:
+    - id: path
+      type: System.String
+      description: ''
+    - id: difficulty
+      type: ChartTools.Difficulty
+      description: ''
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+      description: ''
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    return:
+      type: ChartTools.Track{ChartTools.DrumsChord}
+    content.vb: Public Shared Function ReadDrumsTrack(path As String, difficulty As Difficulty, config As ChartReadingConfiguration = Nothing, formatting As FormattingRules = Nothing) As Track(Of DrumsChord)
+  overload: ChartTools.IO.Chart.ChartFile.ReadDrumsTrack*
+  nameWithType.vb: ChartFile.ReadDrumsTrack(String, Difficulty, ChartReadingConfiguration, FormattingRules)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadDrumsTrack(String, ChartTools.Difficulty, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, ChartTools.IO.Formatting.FormattingRules)
+  name.vb: ReadDrumsTrack(String, Difficulty, ChartReadingConfiguration, FormattingRules)
+- uid: ChartTools.IO.Chart.ChartFile.ReadDrumsTrackAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadDrumsTrackAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  id: ReadDrumsTrackAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadDrumsTrackAsync(string, Difficulty, ChartReadingConfiguration?, FormattingRules?, CancellationToken)
+  nameWithType: ChartFile.ReadDrumsTrackAsync(string, Difficulty, ChartReadingConfiguration?, FormattingRules?, CancellationToken)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadDrumsTrackAsync(string, ChartTools.Difficulty, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, ChartTools.IO.Formatting.FormattingRules?, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadDrumsTrackAsync
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 353
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  example: []
+  syntax:
+    content: public static Task<Track<DrumsChord>> ReadDrumsTrackAsync(string path, Difficulty difficulty, ChartReadingConfiguration? config = null, FormattingRules? formatting = null, CancellationToken cancellationToken = default)
+    parameters:
+    - id: path
+      type: System.String
+      description: ''
+    - id: difficulty
+      type: ChartTools.Difficulty
+      description: ''
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+      description: ''
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: ''
+    return:
+      type: System.Threading.Tasks.Task{ChartTools.Track{ChartTools.DrumsChord}}
+    content.vb: Public Shared Function ReadDrumsTrackAsync(path As String, difficulty As Difficulty, config As ChartReadingConfiguration = Nothing, formatting As FormattingRules = Nothing, cancellationToken As CancellationToken = Nothing) As Task(Of Track(Of DrumsChord))
+  overload: ChartTools.IO.Chart.ChartFile.ReadDrumsTrackAsync*
+  nameWithType.vb: ChartFile.ReadDrumsTrackAsync(String, Difficulty, ChartReadingConfiguration, FormattingRules, CancellationToken)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadDrumsTrackAsync(String, ChartTools.Difficulty, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, ChartTools.IO.Formatting.FormattingRules, System.Threading.CancellationToken)
+  name.vb: ReadDrumsTrackAsync(String, Difficulty, ChartReadingConfiguration, FormattingRules, CancellationToken)
+- uid: ChartTools.IO.Chart.ChartFile.ReadTrack(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadTrack(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  id: ReadTrack(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadTrack(string, GHLInstrumentIdentity, Difficulty, ChartReadingConfiguration?, FormattingRules?)
+  nameWithType: ChartFile.ReadTrack(string, GHLInstrumentIdentity, Difficulty, ChartReadingConfiguration?, FormattingRules?)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadTrack(string, ChartTools.GHLInstrumentIdentity, ChartTools.Difficulty, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, ChartTools.IO.Formatting.FormattingRules?)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadTrack
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 384
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  example: []
+  syntax:
+    content: public static Track<GHLChord> ReadTrack(string path, GHLInstrumentIdentity instrument, Difficulty difficulty, ChartReadingConfiguration? config = null, FormattingRules? formatting = null)
+    parameters:
+    - id: path
+      type: System.String
+      description: ''
+    - id: instrument
+      type: ChartTools.GHLInstrumentIdentity
+      description: ''
+    - id: difficulty
+      type: ChartTools.Difficulty
+      description: ''
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+      description: ''
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    return:
+      type: ChartTools.Track{ChartTools.GHLChord}
+    content.vb: Public Shared Function ReadTrack(path As String, instrument As GHLInstrumentIdentity, difficulty As Difficulty, config As ChartReadingConfiguration = Nothing, formatting As FormattingRules = Nothing) As Track(Of GHLChord)
+  overload: ChartTools.IO.Chart.ChartFile.ReadTrack*
+  nameWithType.vb: ChartFile.ReadTrack(String, GHLInstrumentIdentity, Difficulty, ChartReadingConfiguration, FormattingRules)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadTrack(String, ChartTools.GHLInstrumentIdentity, ChartTools.Difficulty, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, ChartTools.IO.Formatting.FormattingRules)
+  name.vb: ReadTrack(String, GHLInstrumentIdentity, Difficulty, ChartReadingConfiguration, FormattingRules)
+- uid: ChartTools.IO.Chart.ChartFile.ReadTrackAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadTrackAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  id: ReadTrackAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadTrackAsync(string, GHLInstrumentIdentity, Difficulty, ChartReadingConfiguration?, FormattingRules?, CancellationToken)
+  nameWithType: ChartFile.ReadTrackAsync(string, GHLInstrumentIdentity, Difficulty, ChartReadingConfiguration?, FormattingRules?, CancellationToken)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadTrackAsync(string, ChartTools.GHLInstrumentIdentity, ChartTools.Difficulty, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, ChartTools.IO.Formatting.FormattingRules?, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadTrackAsync
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 402
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  example: []
+  syntax:
+    content: public static Task<Track<GHLChord>> ReadTrackAsync(string path, GHLInstrumentIdentity instrument, Difficulty difficulty, ChartReadingConfiguration? config, FormattingRules? formatting = null, CancellationToken cancellationToken = default)
+    parameters:
+    - id: path
+      type: System.String
+      description: ''
+    - id: instrument
+      type: ChartTools.GHLInstrumentIdentity
+      description: ''
+    - id: difficulty
+      type: ChartTools.Difficulty
+      description: ''
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+      description: ''
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: ''
+    return:
+      type: System.Threading.Tasks.Task{ChartTools.Track{ChartTools.GHLChord}}
+    content.vb: Public Shared Function ReadTrackAsync(path As String, instrument As GHLInstrumentIdentity, difficulty As Difficulty, config As ChartReadingConfiguration, formatting As FormattingRules = Nothing, cancellationToken As CancellationToken = Nothing) As Task(Of Track(Of GHLChord))
+  overload: ChartTools.IO.Chart.ChartFile.ReadTrackAsync*
+  nameWithType.vb: ChartFile.ReadTrackAsync(String, GHLInstrumentIdentity, Difficulty, ChartReadingConfiguration, FormattingRules, CancellationToken)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadTrackAsync(String, ChartTools.GHLInstrumentIdentity, ChartTools.Difficulty, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, ChartTools.IO.Formatting.FormattingRules, System.Threading.CancellationToken)
+  name.vb: ReadTrackAsync(String, GHLInstrumentIdentity, Difficulty, ChartReadingConfiguration, FormattingRules, CancellationToken)
+- uid: ChartTools.IO.Chart.ChartFile.ReadTrack(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadTrack(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  id: ReadTrack(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadTrack(string, StandardInstrumentIdentity, Difficulty, ChartReadingConfiguration?, FormattingRules?)
+  nameWithType: ChartFile.ReadTrack(string, StandardInstrumentIdentity, Difficulty, ChartReadingConfiguration?, FormattingRules?)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadTrack(string, ChartTools.StandardInstrumentIdentity, ChartTools.Difficulty, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, ChartTools.IO.Formatting.FormattingRules?)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadTrack
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 436
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  example: []
+  syntax:
+    content: public static Track<StandardChord> ReadTrack(string path, StandardInstrumentIdentity instrument, Difficulty difficulty, ChartReadingConfiguration? config = null, FormattingRules? formatting = null)
+    parameters:
+    - id: path
+      type: System.String
+      description: ''
+    - id: instrument
+      type: ChartTools.StandardInstrumentIdentity
+      description: ''
+    - id: difficulty
+      type: ChartTools.Difficulty
+      description: ''
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+      description: ''
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    return:
+      type: ChartTools.Track{ChartTools.StandardChord}
+    content.vb: Public Shared Function ReadTrack(path As String, instrument As StandardInstrumentIdentity, difficulty As Difficulty, config As ChartReadingConfiguration = Nothing, formatting As FormattingRules = Nothing) As Track(Of StandardChord)
+  overload: ChartTools.IO.Chart.ChartFile.ReadTrack*
+  nameWithType.vb: ChartFile.ReadTrack(String, StandardInstrumentIdentity, Difficulty, ChartReadingConfiguration, FormattingRules)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadTrack(String, ChartTools.StandardInstrumentIdentity, ChartTools.Difficulty, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, ChartTools.IO.Formatting.FormattingRules)
+  name.vb: ReadTrack(String, StandardInstrumentIdentity, Difficulty, ChartReadingConfiguration, FormattingRules)
+- uid: ChartTools.IO.Chart.ChartFile.ReadTrackAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadTrackAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  id: ReadTrackAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadTrackAsync(string, StandardInstrumentIdentity, Difficulty, ChartReadingConfiguration?, FormattingRules?, CancellationToken)
+  nameWithType: ChartFile.ReadTrackAsync(string, StandardInstrumentIdentity, Difficulty, ChartReadingConfiguration?, FormattingRules?, CancellationToken)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadTrackAsync(string, ChartTools.StandardInstrumentIdentity, ChartTools.Difficulty, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, ChartTools.IO.Formatting.FormattingRules?, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadTrackAsync
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 455
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  example: []
+  syntax:
+    content: public static Task<Track<StandardChord>> ReadTrackAsync(string path, StandardInstrumentIdentity instrument, Difficulty difficulty, ChartReadingConfiguration? config = null, FormattingRules? formatting = null, CancellationToken cancellationToken = default)
+    parameters:
+    - id: path
+      type: System.String
+      description: ''
+    - id: instrument
+      type: ChartTools.StandardInstrumentIdentity
+      description: ''
+    - id: difficulty
+      type: ChartTools.Difficulty
+      description: ''
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+      description: ''
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: ''
+    return:
+      type: System.Threading.Tasks.Task{ChartTools.Track{ChartTools.StandardChord}}
+      description: ''
+    content.vb: Public Shared Function ReadTrackAsync(path As String, instrument As StandardInstrumentIdentity, difficulty As Difficulty, config As ChartReadingConfiguration = Nothing, formatting As FormattingRules = Nothing, cancellationToken As CancellationToken = Nothing) As Task(Of Track(Of StandardChord))
+  overload: ChartTools.IO.Chart.ChartFile.ReadTrackAsync*
+  nameWithType.vb: ChartFile.ReadTrackAsync(String, StandardInstrumentIdentity, Difficulty, ChartReadingConfiguration, FormattingRules, CancellationToken)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadTrackAsync(String, ChartTools.StandardInstrumentIdentity, ChartTools.Difficulty, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, ChartTools.IO.Formatting.FormattingRules, System.Threading.CancellationToken)
+  name.vb: ReadTrackAsync(String, StandardInstrumentIdentity, Difficulty, ChartReadingConfiguration, FormattingRules, CancellationToken)
+- uid: ChartTools.IO.Chart.ChartFile.ReadMetadata(System.String)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadMetadata(System.String)
+  id: ReadMetadata(System.String)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadMetadata(string)
+  nameWithType: ChartFile.ReadMetadata(string)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadMetadata(string)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadMetadata
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 475
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Reads metadata from a chart file.
+  example: []
+  syntax:
+    content: public static Metadata ReadMetadata(string path)
+    parameters:
+    - id: path
+      type: System.String
+      description: Path of the file to read
+    return:
+      type: ChartTools.Metadata
+    content.vb: Public Shared Function ReadMetadata(path As String) As Metadata
+  overload: ChartTools.IO.Chart.ChartFile.ReadMetadata*
+  nameWithType.vb: ChartFile.ReadMetadata(String)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadMetadata(String)
+  name.vb: ReadMetadata(String)
+- uid: ChartTools.IO.Chart.ChartFile.ReadGlobalEvents(System.String)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadGlobalEvents(System.String)
+  id: ReadGlobalEvents(System.String)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadGlobalEvents(string)
+  nameWithType: ChartFile.ReadGlobalEvents(string)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadGlobalEvents(string)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadGlobalEvents
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 490
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Reads global events from a file.
+  example: []
+  syntax:
+    content: public static List<GlobalEvent> ReadGlobalEvents(string path)
+    parameters:
+    - id: path
+      type: System.String
+      description: Path of the file
+    return:
+      type: System.Collections.Generic.List{ChartTools.Events.GlobalEvent}
+    content.vb: Public Shared Function ReadGlobalEvents(path As String) As List(Of GlobalEvent)
+  overload: ChartTools.IO.Chart.ChartFile.ReadGlobalEvents*
+  nameWithType.vb: ChartFile.ReadGlobalEvents(String)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadGlobalEvents(String)
+  name.vb: ReadGlobalEvents(String)
+- uid: ChartTools.IO.Chart.ChartFile.ReadGlobalEventsAsync(System.String,System.Threading.CancellationToken)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadGlobalEventsAsync(System.String,System.Threading.CancellationToken)
+  id: ReadGlobalEventsAsync(System.String,System.Threading.CancellationToken)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadGlobalEventsAsync(string, CancellationToken)
+  nameWithType: ChartFile.ReadGlobalEventsAsync(string, CancellationToken)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadGlobalEventsAsync(string, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadGlobalEventsAsync
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 500
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Reads global events from a file asynchronously using multitasking.
+  example: []
+  syntax:
+    content: public static Task<List<GlobalEvent>> ReadGlobalEventsAsync(string path, CancellationToken cancellationToken = default)
+    parameters:
+    - id: path
+      type: System.String
+      description: <param name="path">Path of the file</param>
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: Token to request cancellation
+    return:
+      type: System.Threading.Tasks.Task{System.Collections.Generic.List{ChartTools.Events.GlobalEvent}}
+      description: ''
+    content.vb: Public Shared Function ReadGlobalEventsAsync(path As String, cancellationToken As CancellationToken = Nothing) As Task(Of List(Of GlobalEvent))
+  overload: ChartTools.IO.Chart.ChartFile.ReadGlobalEventsAsync*
+  nameWithType.vb: ChartFile.ReadGlobalEventsAsync(String, CancellationToken)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadGlobalEventsAsync(String, System.Threading.CancellationToken)
+  name.vb: ReadGlobalEventsAsync(String, CancellationToken)
+- uid: ChartTools.IO.Chart.ChartFile.ReadLyrics(System.String)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadLyrics(System.String)
+  id: ReadLyrics(System.String)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadLyrics(string)
+  nameWithType: ChartFile.ReadLyrics(string)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadLyrics(string)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadLyrics
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 513
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Reads lyrics from a chart file.
+  example: []
+  syntax:
+    content: public static IEnumerable<Phrase> ReadLyrics(string path)
+    parameters:
+    - id: path
+      type: System.String
+      description: Path of the file to read
+    return:
+      type: System.Collections.Generic.IEnumerable{ChartTools.Lyrics.Phrase}
+      description: Enumerable of <xref href="ChartTools.Lyrics.Phrase" data-throw-if-not-resolved="false"></xref> containing the lyrics from the file
+    content.vb: Public Shared Function ReadLyrics(path As String) As IEnumerable(Of Phrase)
+  overload: ChartTools.IO.Chart.ChartFile.ReadLyrics*
+  nameWithType.vb: ChartFile.ReadLyrics(String)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadLyrics(String)
+  name.vb: ReadLyrics(String)
+- uid: ChartTools.IO.Chart.ChartFile.ReadLyricsAsync(System.String,System.Threading.CancellationToken)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadLyricsAsync(System.String,System.Threading.CancellationToken)
+  id: ReadLyricsAsync(System.String,System.Threading.CancellationToken)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadLyricsAsync(string, CancellationToken)
+  nameWithType: ChartFile.ReadLyricsAsync(string, CancellationToken)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadLyricsAsync(string, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadLyricsAsync
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 519
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Reads lyrics from a chart file asynchronously using multitasking.
+  example: []
+  syntax:
+    content: public static Task<IEnumerable<Phrase>> ReadLyricsAsync(string path, CancellationToken cancellationToken = default)
+    parameters:
+    - id: path
+      type: System.String
+      description: <param name="path">Path of the file to read</param>
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: Token to request cancellation
+    return:
+      type: System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{ChartTools.Lyrics.Phrase}}
+    content.vb: Public Shared Function ReadLyricsAsync(path As String, cancellationToken As CancellationToken = Nothing) As Task(Of IEnumerable(Of Phrase))
+  overload: ChartTools.IO.Chart.ChartFile.ReadLyricsAsync*
+  nameWithType.vb: ChartFile.ReadLyricsAsync(String, CancellationToken)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadLyricsAsync(String, System.Threading.CancellationToken)
+  name.vb: ReadLyricsAsync(String, CancellationToken)
+- uid: ChartTools.IO.Chart.ChartFile.ReadSyncTrack(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadSyncTrack(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  id: ReadSyncTrack(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadSyncTrack(string, ChartReadingConfiguration?, FormattingRules?)
+  nameWithType: ChartFile.ReadSyncTrack(string, ChartReadingConfiguration?, FormattingRules?)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadSyncTrack(string, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, ChartTools.IO.Formatting.FormattingRules?)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadSyncTrack
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 530
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Reads a <xref href="ChartTools.SyncTrack" data-throw-if-not-resolved="false"></xref> from a file.
+  example: []
+  syntax:
+    content: public static SyncTrack ReadSyncTrack(string path, ChartReadingConfiguration? config, FormattingRules? formatting = null)
+    parameters:
+    - id: path
+      type: System.String
+      description: Path of the file
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+      description: ''
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    return:
+      type: ChartTools.SyncTrack
+    content.vb: Public Shared Function ReadSyncTrack(path As String, config As ChartReadingConfiguration, formatting As FormattingRules = Nothing) As SyncTrack
+  overload: ChartTools.IO.Chart.ChartFile.ReadSyncTrack*
+  nameWithType.vb: ChartFile.ReadSyncTrack(String, ChartReadingConfiguration, FormattingRules)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadSyncTrack(String, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, ChartTools.IO.Formatting.FormattingRules)
+  name.vb: ReadSyncTrack(String, ChartReadingConfiguration, FormattingRules)
+- uid: ChartTools.IO.Chart.ChartFile.ReadSyncTrackAsync(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,System.Threading.CancellationToken)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReadSyncTrackAsync(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,System.Threading.CancellationToken)
+  id: ReadSyncTrackAsync(System.String,ChartTools.IO.Chart.Configuration.ChartReadingConfiguration,System.Threading.CancellationToken)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReadSyncTrackAsync(string, ChartReadingConfiguration?, CancellationToken)
+  nameWithType: ChartFile.ReadSyncTrackAsync(string, ChartReadingConfiguration?, CancellationToken)
+  fullName: ChartTools.IO.Chart.ChartFile.ReadSyncTrackAsync(string, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration?, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadSyncTrackAsync
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 541
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Reads a <xref href="ChartTools.SyncTrack" data-throw-if-not-resolved="false"></xref> from a file asynchronously using multitasking.
+  example: []
+  syntax:
+    content: public static Task<SyncTrack> ReadSyncTrackAsync(string path, ChartReadingConfiguration? config = null, CancellationToken cancellationToken = default)
+    parameters:
+    - id: path
+      type: System.String
+      description: <param name="path">Path of the file</param>
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+      description: <param name="config" />
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: Token to request cancellation
+    return:
+      type: System.Threading.Tasks.Task{ChartTools.SyncTrack}
+      description: ''
+    content.vb: Public Shared Function ReadSyncTrackAsync(path As String, config As ChartReadingConfiguration = Nothing, cancellationToken As CancellationToken = Nothing) As Task(Of SyncTrack)
+  overload: ChartTools.IO.Chart.ChartFile.ReadSyncTrackAsync*
+  nameWithType.vb: ChartFile.ReadSyncTrackAsync(String, ChartReadingConfiguration, CancellationToken)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReadSyncTrackAsync(String, ChartTools.IO.Chart.Configuration.ChartReadingConfiguration, System.Threading.CancellationToken)
+  name.vb: ReadSyncTrackAsync(String, ChartReadingConfiguration, CancellationToken)
+- uid: ChartTools.IO.Chart.ChartFile.WriteSong(System.String,ChartTools.Song,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration)
+  commentId: M:ChartTools.IO.Chart.ChartFile.WriteSong(System.String,ChartTools.Song,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration)
+  id: WriteSong(System.String,ChartTools.Song,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: WriteSong(string, Song, ChartWritingConfiguration?)
+  nameWithType: ChartFile.WriteSong(string, Song, ChartWritingConfiguration?)
+  fullName: ChartTools.IO.Chart.ChartFile.WriteSong(string, ChartTools.Song, ChartTools.IO.Chart.Configuration.ChartWritingConfiguration?)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: WriteSong
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 558
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Writes a song to a chart file.
+  example: []
+  syntax:
+    content: public static void WriteSong(string path, Song song, ChartWritingConfiguration? config = null)
+    parameters:
+    - id: path
+      type: System.String
+      description: Path of the file to write
+    - id: song
+      type: ChartTools.Song
+      description: Song to write
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartWritingConfiguration
+    content.vb: Public Shared Sub WriteSong(path As String, song As Song, config As ChartWritingConfiguration = Nothing)
+  overload: ChartTools.IO.Chart.ChartFile.WriteSong*
+  nameWithType.vb: ChartFile.WriteSong(String, Song, ChartWritingConfiguration)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.WriteSong(String, ChartTools.Song, ChartTools.IO.Chart.Configuration.ChartWritingConfiguration)
+  name.vb: WriteSong(String, Song, ChartWritingConfiguration)
+- uid: ChartTools.IO.Chart.ChartFile.WriteSongAsync(System.String,ChartTools.Song,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,System.Threading.CancellationToken)
+  commentId: M:ChartTools.IO.Chart.ChartFile.WriteSongAsync(System.String,ChartTools.Song,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,System.Threading.CancellationToken)
+  id: WriteSongAsync(System.String,ChartTools.Song,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,System.Threading.CancellationToken)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: WriteSongAsync(string, Song, ChartWritingConfiguration?, CancellationToken)
+  nameWithType: ChartFile.WriteSongAsync(string, Song, ChartWritingConfiguration?, CancellationToken)
+  fullName: ChartTools.IO.Chart.ChartFile.WriteSongAsync(string, ChartTools.Song, ChartTools.IO.Chart.Configuration.ChartWritingConfiguration?, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: WriteSongAsync
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 563
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  syntax:
+    content: public static Task WriteSongAsync(string path, Song song, ChartWritingConfiguration? config = null, CancellationToken cancellationToken = default)
+    parameters:
+    - id: path
+      type: System.String
+    - id: song
+      type: ChartTools.Song
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartWritingConfiguration
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Shared Function WriteSongAsync(path As String, song As Song, config As ChartWritingConfiguration = Nothing, cancellationToken As CancellationToken = Nothing) As Task
+  overload: ChartTools.IO.Chart.ChartFile.WriteSongAsync*
+  nameWithType.vb: ChartFile.WriteSongAsync(String, Song, ChartWritingConfiguration, CancellationToken)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.WriteSongAsync(String, ChartTools.Song, ChartTools.IO.Chart.Configuration.ChartWritingConfiguration, System.Threading.CancellationToken)
+  name.vb: WriteSongAsync(String, Song, ChartWritingConfiguration, CancellationToken)
+- uid: ChartTools.IO.Chart.ChartFile.ReplaceInstrument(System.String,ChartTools.Instrument,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReplaceInstrument(System.String,ChartTools.Instrument,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  id: ReplaceInstrument(System.String,ChartTools.Instrument,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReplaceInstrument(string, Instrument, ChartWritingConfiguration?, FormattingRules?)
+  nameWithType: ChartFile.ReplaceInstrument(string, Instrument, ChartWritingConfiguration?, FormattingRules?)
+  fullName: ChartTools.IO.Chart.ChartFile.ReplaceInstrument(string, ChartTools.Instrument, ChartTools.IO.Chart.Configuration.ChartWritingConfiguration?, ChartTools.IO.Formatting.FormattingRules?)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReplaceInstrument
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 615
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Replaces an instrument in a file.
+  example: []
+  syntax:
+    content: public static void ReplaceInstrument(string path, Instrument instrument, ChartWritingConfiguration? config = null, FormattingRules? formatting = null)
+    parameters:
+    - id: path
+      type: System.String
+      description: Path of the file to write
+    - id: instrument
+      type: ChartTools.Instrument
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartWritingConfiguration
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    content.vb: Public Shared Sub ReplaceInstrument(path As String, instrument As Instrument, config As ChartWritingConfiguration = Nothing, formatting As FormattingRules = Nothing)
+  overload: ChartTools.IO.Chart.ChartFile.ReplaceInstrument*
+  nameWithType.vb: ChartFile.ReplaceInstrument(String, Instrument, ChartWritingConfiguration, FormattingRules)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReplaceInstrument(String, ChartTools.Instrument, ChartTools.IO.Chart.Configuration.ChartWritingConfiguration, ChartTools.IO.Formatting.FormattingRules)
+  name.vb: ReplaceInstrument(String, Instrument, ChartWritingConfiguration, FormattingRules)
+- uid: ChartTools.IO.Chart.ChartFile.ReplaceInstrumentAsync(System.String,ChartTools.Instrument,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReplaceInstrumentAsync(System.String,ChartTools.Instrument,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  id: ReplaceInstrumentAsync(System.String,ChartTools.Instrument,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReplaceInstrumentAsync(string, Instrument, ChartWritingConfiguration?, FormattingRules?, CancellationToken)
+  nameWithType: ChartFile.ReplaceInstrumentAsync(string, Instrument, ChartWritingConfiguration?, FormattingRules?, CancellationToken)
+  fullName: ChartTools.IO.Chart.ChartFile.ReplaceInstrumentAsync(string, ChartTools.Instrument, ChartTools.IO.Chart.Configuration.ChartWritingConfiguration?, ChartTools.IO.Formatting.FormattingRules?, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReplaceInstrumentAsync
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 620
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  syntax:
+    content: public static Task ReplaceInstrumentAsync(string path, Instrument instrument, ChartWritingConfiguration? config = null, FormattingRules? formatting = null, CancellationToken cancellationToken = default)
+    parameters:
+    - id: path
+      type: System.String
+    - id: instrument
+      type: ChartTools.Instrument
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartWritingConfiguration
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Shared Function ReplaceInstrumentAsync(path As String, instrument As Instrument, config As ChartWritingConfiguration = Nothing, formatting As FormattingRules = Nothing, cancellationToken As CancellationToken = Nothing) As Task
+  overload: ChartTools.IO.Chart.ChartFile.ReplaceInstrumentAsync*
+  nameWithType.vb: ChartFile.ReplaceInstrumentAsync(String, Instrument, ChartWritingConfiguration, FormattingRules, CancellationToken)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReplaceInstrumentAsync(String, ChartTools.Instrument, ChartTools.IO.Chart.Configuration.ChartWritingConfiguration, ChartTools.IO.Formatting.FormattingRules, System.Threading.CancellationToken)
+  name.vb: ReplaceInstrumentAsync(String, Instrument, ChartWritingConfiguration, FormattingRules, CancellationToken)
+- uid: ChartTools.IO.Chart.ChartFile.ReplaceTrack(System.String,ChartTools.Track,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReplaceTrack(System.String,ChartTools.Track,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  id: ReplaceTrack(System.String,ChartTools.Track,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,ChartTools.IO.Formatting.FormattingRules)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReplaceTrack(string, Track, ChartWritingConfiguration?, FormattingRules?)
+  nameWithType: ChartFile.ReplaceTrack(string, Track, ChartWritingConfiguration?, FormattingRules?)
+  fullName: ChartTools.IO.Chart.ChartFile.ReplaceTrack(string, ChartTools.Track, ChartTools.IO.Chart.Configuration.ChartWritingConfiguration?, ChartTools.IO.Formatting.FormattingRules?)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReplaceTrack
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 638
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  syntax:
+    content: public static void ReplaceTrack(string path, Track track, ChartWritingConfiguration? config = null, FormattingRules? formatting = null)
+    parameters:
+    - id: path
+      type: System.String
+    - id: track
+      type: ChartTools.Track
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartWritingConfiguration
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    content.vb: Public Shared Sub ReplaceTrack(path As String, track As Track, config As ChartWritingConfiguration = Nothing, formatting As FormattingRules = Nothing)
+  overload: ChartTools.IO.Chart.ChartFile.ReplaceTrack*
+  nameWithType.vb: ChartFile.ReplaceTrack(String, Track, ChartWritingConfiguration, FormattingRules)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReplaceTrack(String, ChartTools.Track, ChartTools.IO.Chart.Configuration.ChartWritingConfiguration, ChartTools.IO.Formatting.FormattingRules)
+  name.vb: ReplaceTrack(String, Track, ChartWritingConfiguration, FormattingRules)
+- uid: ChartTools.IO.Chart.ChartFile.ReplaceTrackAsync(System.String,ChartTools.Track,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReplaceTrackAsync(System.String,ChartTools.Track,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  id: ReplaceTrackAsync(System.String,ChartTools.Track,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReplaceTrackAsync(string, Track, ChartWritingConfiguration?, FormattingRules?, CancellationToken)
+  nameWithType: ChartFile.ReplaceTrackAsync(string, Track, ChartWritingConfiguration?, FormattingRules?, CancellationToken)
+  fullName: ChartTools.IO.Chart.ChartFile.ReplaceTrackAsync(string, ChartTools.Track, ChartTools.IO.Chart.Configuration.ChartWritingConfiguration?, ChartTools.IO.Formatting.FormattingRules?, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReplaceTrackAsync
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 643
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  syntax:
+    content: public static Task ReplaceTrackAsync(string path, Track track, ChartWritingConfiguration? config = null, FormattingRules? formatting = null, CancellationToken cancellationToken = default)
+    parameters:
+    - id: path
+      type: System.String
+    - id: track
+      type: ChartTools.Track
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartWritingConfiguration
+    - id: formatting
+      type: ChartTools.IO.Formatting.FormattingRules
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Shared Function ReplaceTrackAsync(path As String, track As Track, config As ChartWritingConfiguration = Nothing, formatting As FormattingRules = Nothing, cancellationToken As CancellationToken = Nothing) As Task
+  overload: ChartTools.IO.Chart.ChartFile.ReplaceTrackAsync*
+  nameWithType.vb: ChartFile.ReplaceTrackAsync(String, Track, ChartWritingConfiguration, FormattingRules, CancellationToken)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReplaceTrackAsync(String, ChartTools.Track, ChartTools.IO.Chart.Configuration.ChartWritingConfiguration, ChartTools.IO.Formatting.FormattingRules, System.Threading.CancellationToken)
+  name.vb: ReplaceTrackAsync(String, Track, ChartWritingConfiguration, FormattingRules, CancellationToken)
+- uid: ChartTools.IO.Chart.ChartFile.ReplaceMetadata(System.String,ChartTools.Metadata)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReplaceMetadata(System.String,ChartTools.Metadata)
+  id: ReplaceMetadata(System.String,ChartTools.Metadata)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReplaceMetadata(string, Metadata)
+  nameWithType: ChartFile.ReplaceMetadata(string, Metadata)
+  fullName: ChartTools.IO.Chart.ChartFile.ReplaceMetadata(string, ChartTools.Metadata)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReplaceMetadata
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 663
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Replaces the metadata in a file.
+  example: []
+  syntax:
+    content: public static void ReplaceMetadata(string path, Metadata metadata)
+    parameters:
+    - id: path
+      type: System.String
+      description: Path of the file to read
+    - id: metadata
+      type: ChartTools.Metadata
+      description: Metadata to write
+    content.vb: Public Shared Sub ReplaceMetadata(path As String, metadata As Metadata)
+  overload: ChartTools.IO.Chart.ChartFile.ReplaceMetadata*
+  nameWithType.vb: ChartFile.ReplaceMetadata(String, Metadata)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReplaceMetadata(String, ChartTools.Metadata)
+  name.vb: ReplaceMetadata(String, Metadata)
+- uid: ChartTools.IO.Chart.ChartFile.ReplaceGlobalEvents(System.String,System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent})
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReplaceGlobalEvents(System.String,System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent})
+  id: ReplaceGlobalEvents(System.String,System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent})
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReplaceGlobalEvents(string, IEnumerable<GlobalEvent>)
+  nameWithType: ChartFile.ReplaceGlobalEvents(string, IEnumerable<GlobalEvent>)
+  fullName: ChartTools.IO.Chart.ChartFile.ReplaceGlobalEvents(string, System.Collections.Generic.IEnumerable<ChartTools.Events.GlobalEvent>)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReplaceGlobalEvents
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 675
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Replaces the global events in a file.
+  example: []
+  syntax:
+    content: public static void ReplaceGlobalEvents(string path, IEnumerable<GlobalEvent> events)
+    parameters:
+    - id: path
+      type: System.String
+      description: Path of the file to write
+    - id: events
+      type: System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent}
+      description: Events to use as a replacement
+    content.vb: Public Shared Sub ReplaceGlobalEvents(path As String, events As IEnumerable(Of GlobalEvent))
+  overload: ChartTools.IO.Chart.ChartFile.ReplaceGlobalEvents*
+  nameWithType.vb: ChartFile.ReplaceGlobalEvents(String, IEnumerable(Of GlobalEvent))
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReplaceGlobalEvents(String, System.Collections.Generic.IEnumerable(Of ChartTools.Events.GlobalEvent))
+  name.vb: ReplaceGlobalEvents(String, IEnumerable(Of GlobalEvent))
+- uid: ChartTools.IO.Chart.ChartFile.ReplaceGlobalEventsAsync(System.String,System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent},System.Threading.CancellationToken)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReplaceGlobalEventsAsync(System.String,System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent},System.Threading.CancellationToken)
+  id: ReplaceGlobalEventsAsync(System.String,System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent},System.Threading.CancellationToken)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReplaceGlobalEventsAsync(string, IEnumerable<GlobalEvent>, CancellationToken)
+  nameWithType: ChartFile.ReplaceGlobalEventsAsync(string, IEnumerable<GlobalEvent>, CancellationToken)
+  fullName: ChartTools.IO.Chart.ChartFile.ReplaceGlobalEventsAsync(string, System.Collections.Generic.IEnumerable<ChartTools.Events.GlobalEvent>, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReplaceGlobalEventsAsync
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 680
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  syntax:
+    content: public static Task ReplaceGlobalEventsAsync(string path, IEnumerable<GlobalEvent> events, CancellationToken cancellationToken = default)
+    parameters:
+    - id: path
+      type: System.String
+    - id: events
+      type: System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent}
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Shared Function ReplaceGlobalEventsAsync(path As String, events As IEnumerable(Of GlobalEvent), cancellationToken As CancellationToken = Nothing) As Task
+  overload: ChartTools.IO.Chart.ChartFile.ReplaceGlobalEventsAsync*
+  nameWithType.vb: ChartFile.ReplaceGlobalEventsAsync(String, IEnumerable(Of GlobalEvent), CancellationToken)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReplaceGlobalEventsAsync(String, System.Collections.Generic.IEnumerable(Of ChartTools.Events.GlobalEvent), System.Threading.CancellationToken)
+  name.vb: ReplaceGlobalEventsAsync(String, IEnumerable(Of GlobalEvent), CancellationToken)
+- uid: ChartTools.IO.Chart.ChartFile.ReplaceSyncTrack(System.String,ChartTools.SyncTrack,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReplaceSyncTrack(System.String,ChartTools.SyncTrack,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration)
+  id: ReplaceSyncTrack(System.String,ChartTools.SyncTrack,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReplaceSyncTrack(string, SyncTrack, ChartWritingConfiguration?)
+  nameWithType: ChartFile.ReplaceSyncTrack(string, SyncTrack, ChartWritingConfiguration?)
+  fullName: ChartTools.IO.Chart.ChartFile.ReplaceSyncTrack(string, ChartTools.SyncTrack, ChartTools.IO.Chart.Configuration.ChartWritingConfiguration?)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReplaceSyncTrack
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 693
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  summary: Replaces the sync track in a file.
+  example: []
+  syntax:
+    content: public static void ReplaceSyncTrack(string path, SyncTrack syncTrack, ChartWritingConfiguration? config = null)
+    parameters:
+    - id: path
+      type: System.String
+      description: Path of the file to write
+    - id: syncTrack
+      type: ChartTools.SyncTrack
+      description: Sync track to write
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartWritingConfiguration
+      description: ''
+    content.vb: Public Shared Sub ReplaceSyncTrack(path As String, syncTrack As SyncTrack, config As ChartWritingConfiguration = Nothing)
+  overload: ChartTools.IO.Chart.ChartFile.ReplaceSyncTrack*
+  nameWithType.vb: ChartFile.ReplaceSyncTrack(String, SyncTrack, ChartWritingConfiguration)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReplaceSyncTrack(String, ChartTools.SyncTrack, ChartTools.IO.Chart.Configuration.ChartWritingConfiguration)
+  name.vb: ReplaceSyncTrack(String, SyncTrack, ChartWritingConfiguration)
+- uid: ChartTools.IO.Chart.ChartFile.ReplaceSyncTrackAsync(System.String,ChartTools.SyncTrack,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,System.Threading.CancellationToken)
+  commentId: M:ChartTools.IO.Chart.ChartFile.ReplaceSyncTrackAsync(System.String,ChartTools.SyncTrack,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,System.Threading.CancellationToken)
+  id: ReplaceSyncTrackAsync(System.String,ChartTools.SyncTrack,ChartTools.IO.Chart.Configuration.ChartWritingConfiguration,System.Threading.CancellationToken)
+  parent: ChartTools.IO.Chart.ChartFile
+  langs:
+  - csharp
+  - vb
+  name: ReplaceSyncTrackAsync(string, SyncTrack, ChartWritingConfiguration?, CancellationToken)
+  nameWithType: ChartFile.ReplaceSyncTrackAsync(string, SyncTrack, ChartWritingConfiguration?, CancellationToken)
+  fullName: ChartTools.IO.Chart.ChartFile.ReplaceSyncTrackAsync(string, ChartTools.SyncTrack, ChartTools.IO.Chart.Configuration.ChartWritingConfiguration?, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Chart/ChartFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReplaceSyncTrackAsync
+    path: ../ChartTools/IO/Chart/ChartFile.cs
+    startLine: 699
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Chart
+  example: []
+  syntax:
+    content: public static Task ReplaceSyncTrackAsync(string path, SyncTrack syncTrack, ChartWritingConfiguration? config = null, CancellationToken cancellationToken = default)
+    parameters:
+    - id: path
+      type: System.String
+    - id: syncTrack
+      type: ChartTools.SyncTrack
+    - id: config
+      type: ChartTools.IO.Chart.Configuration.ChartWritingConfiguration
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Shared Function ReplaceSyncTrackAsync(path As String, syncTrack As SyncTrack, config As ChartWritingConfiguration = Nothing, cancellationToken As CancellationToken = Nothing) As Task
+  overload: ChartTools.IO.Chart.ChartFile.ReplaceSyncTrackAsync*
+  nameWithType.vb: ChartFile.ReplaceSyncTrackAsync(String, SyncTrack, ChartWritingConfiguration, CancellationToken)
+  fullName.vb: ChartTools.IO.Chart.ChartFile.ReplaceSyncTrackAsync(String, ChartTools.SyncTrack, ChartTools.IO.Chart.Configuration.ChartWritingConfiguration, System.Threading.CancellationToken)
+  name.vb: ReplaceSyncTrackAsync(String, SyncTrack, ChartWritingConfiguration, CancellationToken)
+references:
+- uid: ChartTools.IO.Chart
+  commentId: N:ChartTools.IO.Chart
+  href: ChartTools.html
+  name: ChartTools.IO.Chart
+  nameWithType: ChartTools.IO.Chart
+  fullName: ChartTools.IO.Chart
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Chart
+    name: Chart
+    href: ChartTools.IO.Chart.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Chart
+    name: Chart
+    href: ChartTools.IO.Chart.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: ChartTools.IO.Chart.ChartFile.DefaultReadConfig*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.DefaultReadConfig
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_DefaultReadConfig
+  name: DefaultReadConfig
+  nameWithType: ChartFile.DefaultReadConfig
+  fullName: ChartTools.IO.Chart.ChartFile.DefaultReadConfig
+- uid: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+  commentId: T:ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+  parent: ChartTools.IO.Chart.Configuration
+  href: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration.html
+  name: ChartReadingConfiguration
+  nameWithType: ChartReadingConfiguration
+  fullName: ChartTools.IO.Chart.Configuration.ChartReadingConfiguration
+- uid: ChartTools.IO.Chart.Configuration
+  commentId: N:ChartTools.IO.Chart.Configuration
+  href: ChartTools.html
+  name: ChartTools.IO.Chart.Configuration
+  nameWithType: ChartTools.IO.Chart.Configuration
+  fullName: ChartTools.IO.Chart.Configuration
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Chart
+    name: Chart
+    href: ChartTools.IO.Chart.html
+  - name: .
+  - uid: ChartTools.IO.Chart.Configuration
+    name: Configuration
+    href: ChartTools.IO.Chart.Configuration.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Chart
+    name: Chart
+    href: ChartTools.IO.Chart.html
+  - name: .
+  - uid: ChartTools.IO.Chart.Configuration
+    name: Configuration
+    href: ChartTools.IO.Chart.Configuration.html
+- uid: ChartTools.IO.Chart.ChartFile.DefaultWriteConfig*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.DefaultWriteConfig
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_DefaultWriteConfig
+  name: DefaultWriteConfig
+  nameWithType: ChartFile.DefaultWriteConfig
+  fullName: ChartTools.IO.Chart.ChartFile.DefaultWriteConfig
+- uid: ChartTools.IO.Chart.Configuration.ChartWritingConfiguration
+  commentId: T:ChartTools.IO.Chart.Configuration.ChartWritingConfiguration
+  parent: ChartTools.IO.Chart.Configuration
+  href: ChartTools.IO.Chart.Configuration.ChartWritingConfiguration.html
+  name: ChartWritingConfiguration
+  nameWithType: ChartWritingConfiguration
+  fullName: ChartTools.IO.Chart.Configuration.ChartWritingConfiguration
+- uid: ChartTools.Song
+  commentId: T:ChartTools.Song
+  parent: ChartTools
+  href: ChartTools.Song.html
+  name: Song
+  nameWithType: Song
+  fullName: ChartTools.Song
+- uid: ChartTools.IO.Chart.ChartFile.ReadSong*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReadSong
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReadSong_System_String_ChartTools_IO_Chart_Configuration_ChartReadingConfiguration_ChartTools_IO_Formatting_FormattingRules_
+  name: ReadSong
+  nameWithType: ChartFile.ReadSong
+  fullName: ChartTools.IO.Chart.ChartFile.ReadSong
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: ChartTools.IO.Formatting.FormattingRules
+  commentId: T:ChartTools.IO.Formatting.FormattingRules
+  parent: ChartTools.IO.Formatting
+  href: ChartTools.IO.Formatting.FormattingRules.html
+  name: FormattingRules
+  nameWithType: FormattingRules
+  fullName: ChartTools.IO.Formatting.FormattingRules
+- uid: ChartTools
+  commentId: N:ChartTools
+  href: ChartTools.html
+  name: ChartTools
+  nameWithType: ChartTools
+  fullName: ChartTools
+- uid: ChartTools.IO.Formatting
+  commentId: N:ChartTools.IO.Formatting
+  href: ChartTools.html
+  name: ChartTools.IO.Formatting
+  nameWithType: ChartTools.IO.Formatting
+  fullName: ChartTools.IO.Formatting
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Formatting
+    name: Formatting
+    href: ChartTools.IO.Formatting.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Formatting
+    name: Formatting
+    href: ChartTools.IO.Formatting.html
+- uid: ChartTools.IO.Chart.ChartFile.ReadSongAsync*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReadSongAsync
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReadSongAsync_System_String_ChartTools_IO_Chart_Configuration_ChartReadingConfiguration_ChartTools_IO_Formatting_FormattingRules_System_Threading_CancellationToken_
+  name: ReadSongAsync
+  nameWithType: ChartFile.ReadSongAsync
+  fullName: ChartTools.IO.Chart.ChartFile.ReadSongAsync
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task{ChartTools.Song}
+  commentId: T:System.Threading.Tasks.Task{ChartTools.Song}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<Song>
+  nameWithType: Task<Song>
+  fullName: System.Threading.Tasks.Task<ChartTools.Song>
+  nameWithType.vb: Task(Of Song)
+  fullName.vb: System.Threading.Tasks.Task(Of ChartTools.Song)
+  name.vb: Task(Of Song)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: ChartTools.Song
+    name: Song
+    href: ChartTools.Song.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Song
+    name: Song
+    href: ChartTools.Song.html
+  - name: )
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: ChartTools.Instrument
+  commentId: T:ChartTools.Instrument
+  parent: ChartTools
+  href: ChartTools.Instrument.html
+  name: Instrument
+  nameWithType: Instrument
+  fullName: ChartTools.Instrument
+- uid: ChartTools.IO.Chart.ChartFile.ReadInstrument*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReadInstrument
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReadInstrument_System_String_ChartTools_InstrumentIdentity_ChartTools_IO_Chart_Configuration_ChartReadingConfiguration_ChartTools_IO_Formatting_FormattingRules_
+  name: ReadInstrument
+  nameWithType: ChartFile.ReadInstrument
+  fullName: ChartTools.IO.Chart.ChartFile.ReadInstrument
+- uid: ChartTools.InstrumentIdentity
+  commentId: T:ChartTools.InstrumentIdentity
+  parent: ChartTools
+  href: ChartTools.InstrumentIdentity.html
+  name: InstrumentIdentity
+  nameWithType: InstrumentIdentity
+  fullName: ChartTools.InstrumentIdentity
+- uid: ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReadInstrumentAsync_System_String_ChartTools_InstrumentIdentity_ChartTools_IO_Chart_Configuration_ChartReadingConfiguration_ChartTools_IO_Formatting_FormattingRules_System_Threading_CancellationToken_
+  name: ReadInstrumentAsync
+  nameWithType: ChartFile.ReadInstrumentAsync
+  fullName: ChartTools.IO.Chart.ChartFile.ReadInstrumentAsync
+- uid: System.Threading.Tasks.Task{ChartTools.Instrument}
+  commentId: T:System.Threading.Tasks.Task{ChartTools.Instrument}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<Instrument>
+  nameWithType: Task<Instrument>
+  fullName: System.Threading.Tasks.Task<ChartTools.Instrument>
+  nameWithType.vb: Task(Of Instrument)
+  fullName.vb: System.Threading.Tasks.Task(Of ChartTools.Instrument)
+  name.vb: Task(Of Instrument)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: ChartTools.Instrument
+    name: Instrument
+    href: ChartTools.Instrument.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Instrument
+    name: Instrument
+    href: ChartTools.Instrument.html
+  - name: )
+- uid: ChartTools.Instrument`1
+  commentId: T:ChartTools.Instrument`1
+  href: ChartTools.Instrument-1.html
+  name: Instrument<TChord>
+  nameWithType: Instrument<TChord>
+  fullName: ChartTools.Instrument<TChord>
+  nameWithType.vb: Instrument(Of TChord)
+  fullName.vb: ChartTools.Instrument(Of TChord)
+  name.vb: Instrument(Of TChord)
+  spec.csharp:
+  - uid: ChartTools.Instrument`1
+    name: Instrument
+    href: ChartTools.Instrument-1.html
+  - name: <
+  - name: TChord
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.Instrument`1
+    name: Instrument
+    href: ChartTools.Instrument-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TChord
+  - name: )
+- uid: ChartTools.Lyrics.Phrase
+  commentId: T:ChartTools.Lyrics.Phrase
+  href: ChartTools.Lyrics.Phrase.html
+  name: Phrase
+  nameWithType: Phrase
+  fullName: ChartTools.Lyrics.Phrase
+- uid: ChartTools.IO.Chart.ChartFile.ReadVocals*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReadVocals
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReadVocals_System_String_
+  name: ReadVocals
+  nameWithType: ChartFile.ReadVocals
+  fullName: ChartTools.IO.Chart.ChartFile.ReadVocals
+- uid: ChartTools.Vocals
+  commentId: T:ChartTools.Vocals
+  parent: ChartTools
+  href: ChartTools.Vocals.html
+  name: Vocals
+  nameWithType: Vocals
+  fullName: ChartTools.Vocals
+- uid: ChartTools.IO.Chart.ChartFile.ReadVocalsAsync*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReadVocalsAsync
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReadVocalsAsync_System_String_System_Threading_CancellationToken_
+  name: ReadVocalsAsync
+  nameWithType: ChartFile.ReadVocalsAsync
+  fullName: ChartTools.IO.Chart.ChartFile.ReadVocalsAsync
+- uid: System.Threading.Tasks.Task{ChartTools.Vocals}
+  commentId: T:System.Threading.Tasks.Task{ChartTools.Vocals}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<Vocals>
+  nameWithType: Task<Vocals>
+  fullName: System.Threading.Tasks.Task<ChartTools.Vocals>
+  nameWithType.vb: Task(Of Vocals)
+  fullName.vb: System.Threading.Tasks.Task(Of ChartTools.Vocals)
+  name.vb: Task(Of Vocals)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: ChartTools.Vocals
+    name: Vocals
+    href: ChartTools.Vocals.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Vocals
+    name: Vocals
+    href: ChartTools.Vocals.html
+  - name: )
+- uid: ChartTools.DrumsChord
+  commentId: T:ChartTools.DrumsChord
+  href: ChartTools.DrumsChord.html
+  name: DrumsChord
+  nameWithType: DrumsChord
+  fullName: ChartTools.DrumsChord
+- uid: ChartTools.IO.Chart.ChartFile.ReadDrums*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReadDrums
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReadDrums_System_String_ChartTools_IO_Chart_Configuration_ChartReadingConfiguration_ChartTools_IO_Formatting_FormattingRules_
+  name: ReadDrums
+  nameWithType: ChartFile.ReadDrums
+  fullName: ChartTools.IO.Chart.ChartFile.ReadDrums
+- uid: ChartTools.Drums
+  commentId: T:ChartTools.Drums
+  parent: ChartTools
+  href: ChartTools.Drums.html
+  name: Drums
+  nameWithType: Drums
+  fullName: ChartTools.Drums
+- uid: ChartTools.IO.Chart.ChartFile.ReadDrumsAsync*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReadDrumsAsync
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReadDrumsAsync_System_String_ChartTools_IO_Chart_Configuration_ChartReadingConfiguration_ChartTools_IO_Formatting_FormattingRules_System_Threading_CancellationToken_
+  name: ReadDrumsAsync
+  nameWithType: ChartFile.ReadDrumsAsync
+  fullName: ChartTools.IO.Chart.ChartFile.ReadDrumsAsync
+- uid: System.Threading.Tasks.Task{ChartTools.Drums}
+  commentId: T:System.Threading.Tasks.Task{ChartTools.Drums}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<Drums>
+  nameWithType: Task<Drums>
+  fullName: System.Threading.Tasks.Task<ChartTools.Drums>
+  nameWithType.vb: Task(Of Drums)
+  fullName.vb: System.Threading.Tasks.Task(Of ChartTools.Drums)
+  name.vb: Task(Of Drums)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: ChartTools.Drums
+    name: Drums
+    href: ChartTools.Drums.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Drums
+    name: Drums
+    href: ChartTools.Drums.html
+  - name: )
+- uid: ChartTools.GHLChord
+  commentId: T:ChartTools.GHLChord
+  href: ChartTools.GHLChord.html
+  name: GHLChord
+  nameWithType: GHLChord
+  fullName: ChartTools.GHLChord
+- uid: ChartTools.GHLInstrumentIdentity
+  commentId: T:ChartTools.GHLInstrumentIdentity
+  parent: ChartTools
+  href: ChartTools.GHLInstrumentIdentity.html
+  name: GHLInstrumentIdentity
+  nameWithType: GHLInstrumentIdentity
+  fullName: ChartTools.GHLInstrumentIdentity
+- uid: ChartTools.GHLInstrument
+  commentId: T:ChartTools.GHLInstrument
+  parent: ChartTools
+  href: ChartTools.GHLInstrument.html
+  name: GHLInstrument
+  nameWithType: GHLInstrument
+  fullName: ChartTools.GHLInstrument
+- uid: System.Threading.Tasks.Task{ChartTools.GHLInstrument}
+  commentId: T:System.Threading.Tasks.Task{ChartTools.GHLInstrument}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<GHLInstrument>
+  nameWithType: Task<GHLInstrument>
+  fullName: System.Threading.Tasks.Task<ChartTools.GHLInstrument>
+  nameWithType.vb: Task(Of GHLInstrument)
+  fullName.vb: System.Threading.Tasks.Task(Of ChartTools.GHLInstrument)
+  name.vb: Task(Of GHLInstrument)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: ChartTools.GHLInstrument
+    name: GHLInstrument
+    href: ChartTools.GHLInstrument.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.GHLInstrument
+    name: GHLInstrument
+    href: ChartTools.GHLInstrument.html
+  - name: )
+- uid: ChartTools.StandardInstrumentIdentity
+  commentId: T:ChartTools.StandardInstrumentIdentity
+  parent: ChartTools
+  href: ChartTools.StandardInstrumentIdentity.html
+  name: StandardInstrumentIdentity
+  nameWithType: StandardInstrumentIdentity
+  fullName: ChartTools.StandardInstrumentIdentity
+- uid: ChartTools.StandardInstrument
+  commentId: T:ChartTools.StandardInstrument
+  parent: ChartTools
+  href: ChartTools.StandardInstrument.html
+  name: StandardInstrument
+  nameWithType: StandardInstrument
+  fullName: ChartTools.StandardInstrument
+- uid: System.Threading.Tasks.Task{ChartTools.StandardInstrument}
+  commentId: T:System.Threading.Tasks.Task{ChartTools.StandardInstrument}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<StandardInstrument>
+  nameWithType: Task<StandardInstrument>
+  fullName: System.Threading.Tasks.Task<ChartTools.StandardInstrument>
+  nameWithType.vb: Task(Of StandardInstrument)
+  fullName.vb: System.Threading.Tasks.Task(Of ChartTools.StandardInstrument)
+  name.vb: Task(Of StandardInstrument)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: ChartTools.StandardInstrument
+    name: StandardInstrument
+    href: ChartTools.StandardInstrument.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.StandardInstrument
+    name: StandardInstrument
+    href: ChartTools.StandardInstrument.html
+  - name: )
+- uid: ChartTools.IO.Chart.ChartFile.ReadTrack*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReadTrack
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReadTrack_System_String_ChartTools_InstrumentIdentity_ChartTools_Difficulty_ChartTools_IO_Chart_Configuration_ChartReadingConfiguration_ChartTools_IO_Formatting_FormattingRules_
+  name: ReadTrack
+  nameWithType: ChartFile.ReadTrack
+  fullName: ChartTools.IO.Chart.ChartFile.ReadTrack
+- uid: ChartTools.Difficulty
+  commentId: T:ChartTools.Difficulty
+  parent: ChartTools
+  href: ChartTools.Difficulty.html
+  name: Difficulty
+  nameWithType: Difficulty
+  fullName: ChartTools.Difficulty
+- uid: ChartTools.Track
+  commentId: T:ChartTools.Track
+  parent: ChartTools
+  href: ChartTools.Track.html
+  name: Track
+  nameWithType: Track
+  fullName: ChartTools.Track
+- uid: ChartTools.IO.Chart.ChartFile.ReadTrackAsync*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReadTrackAsync
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReadTrackAsync_System_String_ChartTools_InstrumentIdentity_ChartTools_Difficulty_ChartTools_IO_Chart_Configuration_ChartReadingConfiguration_ChartTools_IO_Formatting_FormattingRules_System_Threading_CancellationToken_
+  name: ReadTrackAsync
+  nameWithType: ChartFile.ReadTrackAsync
+  fullName: ChartTools.IO.Chart.ChartFile.ReadTrackAsync
+- uid: System.Threading.Tasks.Task{ChartTools.Track}
+  commentId: T:System.Threading.Tasks.Task{ChartTools.Track}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<Track>
+  nameWithType: Task<Track>
+  fullName: System.Threading.Tasks.Task<ChartTools.Track>
+  nameWithType.vb: Task(Of Track)
+  fullName.vb: System.Threading.Tasks.Task(Of ChartTools.Track)
+  name.vb: Task(Of Track)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: ChartTools.Track
+    name: Track
+    href: ChartTools.Track.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Track
+    name: Track
+    href: ChartTools.Track.html
+  - name: )
+- uid: ChartTools.IO.Chart.ChartFile.ReadDrumsTrack*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReadDrumsTrack
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReadDrumsTrack_System_String_ChartTools_Difficulty_ChartTools_IO_Chart_Configuration_ChartReadingConfiguration_ChartTools_IO_Formatting_FormattingRules_
+  name: ReadDrumsTrack
+  nameWithType: ChartFile.ReadDrumsTrack
+  fullName: ChartTools.IO.Chart.ChartFile.ReadDrumsTrack
+- uid: ChartTools.Track{ChartTools.DrumsChord}
+  commentId: T:ChartTools.Track{ChartTools.DrumsChord}
+  parent: ChartTools
+  definition: ChartTools.Track`1
+  href: ChartTools.Track-1.html
+  name: Track<DrumsChord>
+  nameWithType: Track<DrumsChord>
+  fullName: ChartTools.Track<ChartTools.DrumsChord>
+  nameWithType.vb: Track(Of DrumsChord)
+  fullName.vb: ChartTools.Track(Of ChartTools.DrumsChord)
+  name.vb: Track(Of DrumsChord)
+  spec.csharp:
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: <
+  - uid: ChartTools.DrumsChord
+    name: DrumsChord
+    href: ChartTools.DrumsChord.html
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.DrumsChord
+    name: DrumsChord
+    href: ChartTools.DrumsChord.html
+  - name: )
+- uid: ChartTools.Track`1
+  commentId: T:ChartTools.Track`1
+  href: ChartTools.Track-1.html
+  name: Track<TChord>
+  nameWithType: Track<TChord>
+  fullName: ChartTools.Track<TChord>
+  nameWithType.vb: Track(Of TChord)
+  fullName.vb: ChartTools.Track(Of TChord)
+  name.vb: Track(Of TChord)
+  spec.csharp:
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: <
+  - name: TChord
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TChord
+  - name: )
+- uid: ChartTools.IO.Chart.ChartFile.ReadDrumsTrackAsync*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReadDrumsTrackAsync
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReadDrumsTrackAsync_System_String_ChartTools_Difficulty_ChartTools_IO_Chart_Configuration_ChartReadingConfiguration_ChartTools_IO_Formatting_FormattingRules_System_Threading_CancellationToken_
+  name: ReadDrumsTrackAsync
+  nameWithType: ChartFile.ReadDrumsTrackAsync
+  fullName: ChartTools.IO.Chart.ChartFile.ReadDrumsTrackAsync
+- uid: System.Threading.Tasks.Task{ChartTools.Track{ChartTools.DrumsChord}}
+  commentId: T:System.Threading.Tasks.Task{ChartTools.Track{ChartTools.DrumsChord}}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<Track<DrumsChord>>
+  nameWithType: Task<Track<DrumsChord>>
+  fullName: System.Threading.Tasks.Task<ChartTools.Track<ChartTools.DrumsChord>>
+  nameWithType.vb: Task(Of Track(Of DrumsChord))
+  fullName.vb: System.Threading.Tasks.Task(Of ChartTools.Track(Of ChartTools.DrumsChord))
+  name.vb: Task(Of Track(Of DrumsChord))
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: <
+  - uid: ChartTools.DrumsChord
+    name: DrumsChord
+    href: ChartTools.DrumsChord.html
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.DrumsChord
+    name: DrumsChord
+    href: ChartTools.DrumsChord.html
+  - name: )
+  - name: )
+- uid: ChartTools.Track{ChartTools.GHLChord}
+  commentId: T:ChartTools.Track{ChartTools.GHLChord}
+  parent: ChartTools
+  definition: ChartTools.Track`1
+  href: ChartTools.Track-1.html
+  name: Track<GHLChord>
+  nameWithType: Track<GHLChord>
+  fullName: ChartTools.Track<ChartTools.GHLChord>
+  nameWithType.vb: Track(Of GHLChord)
+  fullName.vb: ChartTools.Track(Of ChartTools.GHLChord)
+  name.vb: Track(Of GHLChord)
+  spec.csharp:
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: <
+  - uid: ChartTools.GHLChord
+    name: GHLChord
+    href: ChartTools.GHLChord.html
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.GHLChord
+    name: GHLChord
+    href: ChartTools.GHLChord.html
+  - name: )
+- uid: System.Threading.Tasks.Task{ChartTools.Track{ChartTools.GHLChord}}
+  commentId: T:System.Threading.Tasks.Task{ChartTools.Track{ChartTools.GHLChord}}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<Track<GHLChord>>
+  nameWithType: Task<Track<GHLChord>>
+  fullName: System.Threading.Tasks.Task<ChartTools.Track<ChartTools.GHLChord>>
+  nameWithType.vb: Task(Of Track(Of GHLChord))
+  fullName.vb: System.Threading.Tasks.Task(Of ChartTools.Track(Of ChartTools.GHLChord))
+  name.vb: Task(Of Track(Of GHLChord))
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: <
+  - uid: ChartTools.GHLChord
+    name: GHLChord
+    href: ChartTools.GHLChord.html
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.GHLChord
+    name: GHLChord
+    href: ChartTools.GHLChord.html
+  - name: )
+  - name: )
+- uid: ChartTools.Track{ChartTools.StandardChord}
+  commentId: T:ChartTools.Track{ChartTools.StandardChord}
+  parent: ChartTools
+  definition: ChartTools.Track`1
+  href: ChartTools.Track-1.html
+  name: Track<StandardChord>
+  nameWithType: Track<StandardChord>
+  fullName: ChartTools.Track<ChartTools.StandardChord>
+  nameWithType.vb: Track(Of StandardChord)
+  fullName.vb: ChartTools.Track(Of ChartTools.StandardChord)
+  name.vb: Track(Of StandardChord)
+  spec.csharp:
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: <
+  - uid: ChartTools.StandardChord
+    name: StandardChord
+    href: ChartTools.StandardChord.html
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.StandardChord
+    name: StandardChord
+    href: ChartTools.StandardChord.html
+  - name: )
+- uid: System.Threading.Tasks.Task{ChartTools.Track{ChartTools.StandardChord}}
+  commentId: T:System.Threading.Tasks.Task{ChartTools.Track{ChartTools.StandardChord}}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<Track<StandardChord>>
+  nameWithType: Task<Track<StandardChord>>
+  fullName: System.Threading.Tasks.Task<ChartTools.Track<ChartTools.StandardChord>>
+  nameWithType.vb: Task(Of Track(Of StandardChord))
+  fullName.vb: System.Threading.Tasks.Task(Of ChartTools.Track(Of ChartTools.StandardChord))
+  name.vb: Task(Of Track(Of StandardChord))
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: <
+  - uid: ChartTools.StandardChord
+    name: StandardChord
+    href: ChartTools.StandardChord.html
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.StandardChord
+    name: StandardChord
+    href: ChartTools.StandardChord.html
+  - name: )
+  - name: )
+- uid: ChartTools.IO.Chart.ChartFile.ReadMetadata*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReadMetadata
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReadMetadata_System_String_
+  name: ReadMetadata
+  nameWithType: ChartFile.ReadMetadata
+  fullName: ChartTools.IO.Chart.ChartFile.ReadMetadata
+- uid: ChartTools.Metadata
+  commentId: T:ChartTools.Metadata
+  parent: ChartTools
+  href: ChartTools.Metadata.html
+  name: Metadata
+  nameWithType: Metadata
+  fullName: ChartTools.Metadata
+- uid: ChartTools.IO.Chart.ChartFile.ReadGlobalEvents*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReadGlobalEvents
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReadGlobalEvents_System_String_
+  name: ReadGlobalEvents
+  nameWithType: ChartFile.ReadGlobalEvents
+  fullName: ChartTools.IO.Chart.ChartFile.ReadGlobalEvents
+- uid: System.Collections.Generic.List{ChartTools.Events.GlobalEvent}
+  commentId: T:System.Collections.Generic.List{ChartTools.Events.GlobalEvent}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<GlobalEvent>
+  nameWithType: List<GlobalEvent>
+  fullName: System.Collections.Generic.List<ChartTools.Events.GlobalEvent>
+  nameWithType.vb: List(Of GlobalEvent)
+  fullName.vb: System.Collections.Generic.List(Of ChartTools.Events.GlobalEvent)
+  name.vb: List(Of GlobalEvent)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: ChartTools.Events.GlobalEvent
+    name: GlobalEvent
+    href: ChartTools.Events.GlobalEvent.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Events.GlobalEvent
+    name: GlobalEvent
+    href: ChartTools.Events.GlobalEvent.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: ChartTools.IO.Chart.ChartFile.ReadGlobalEventsAsync*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReadGlobalEventsAsync
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReadGlobalEventsAsync_System_String_System_Threading_CancellationToken_
+  name: ReadGlobalEventsAsync
+  nameWithType: ChartFile.ReadGlobalEventsAsync
+  fullName: ChartTools.IO.Chart.ChartFile.ReadGlobalEventsAsync
+- uid: System.Threading.Tasks.Task{System.Collections.Generic.List{ChartTools.Events.GlobalEvent}}
+  commentId: T:System.Threading.Tasks.Task{System.Collections.Generic.List{ChartTools.Events.GlobalEvent}}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<List<GlobalEvent>>
+  nameWithType: Task<List<GlobalEvent>>
+  fullName: System.Threading.Tasks.Task<System.Collections.Generic.List<ChartTools.Events.GlobalEvent>>
+  nameWithType.vb: Task(Of List(Of GlobalEvent))
+  fullName.vb: System.Threading.Tasks.Task(Of System.Collections.Generic.List(Of ChartTools.Events.GlobalEvent))
+  name.vb: Task(Of List(Of GlobalEvent))
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: ChartTools.Events.GlobalEvent
+    name: GlobalEvent
+    href: ChartTools.Events.GlobalEvent.html
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Events.GlobalEvent
+    name: GlobalEvent
+    href: ChartTools.Events.GlobalEvent.html
+  - name: )
+  - name: )
+- uid: ChartTools.IO.Chart.ChartFile.ReadLyrics*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReadLyrics
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReadLyrics_System_String_
+  name: ReadLyrics
+  nameWithType: ChartFile.ReadLyrics
+  fullName: ChartTools.IO.Chart.ChartFile.ReadLyrics
+- uid: System.Collections.Generic.IEnumerable{ChartTools.Lyrics.Phrase}
+  commentId: T:System.Collections.Generic.IEnumerable{ChartTools.Lyrics.Phrase}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<Phrase>
+  nameWithType: IEnumerable<Phrase>
+  fullName: System.Collections.Generic.IEnumerable<ChartTools.Lyrics.Phrase>
+  nameWithType.vb: IEnumerable(Of Phrase)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of ChartTools.Lyrics.Phrase)
+  name.vb: IEnumerable(Of Phrase)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: ChartTools.Lyrics.Phrase
+    name: Phrase
+    href: ChartTools.Lyrics.Phrase.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Lyrics.Phrase
+    name: Phrase
+    href: ChartTools.Lyrics.Phrase.html
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ChartTools.IO.Chart.ChartFile.ReadLyricsAsync*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReadLyricsAsync
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReadLyricsAsync_System_String_System_Threading_CancellationToken_
+  name: ReadLyricsAsync
+  nameWithType: ChartFile.ReadLyricsAsync
+  fullName: ChartTools.IO.Chart.ChartFile.ReadLyricsAsync
+- uid: System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{ChartTools.Lyrics.Phrase}}
+  commentId: T:System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{ChartTools.Lyrics.Phrase}}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<IEnumerable<Phrase>>
+  nameWithType: Task<IEnumerable<Phrase>>
+  fullName: System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<ChartTools.Lyrics.Phrase>>
+  nameWithType.vb: Task(Of IEnumerable(Of Phrase))
+  fullName.vb: System.Threading.Tasks.Task(Of System.Collections.Generic.IEnumerable(Of ChartTools.Lyrics.Phrase))
+  name.vb: Task(Of IEnumerable(Of Phrase))
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: ChartTools.Lyrics.Phrase
+    name: Phrase
+    href: ChartTools.Lyrics.Phrase.html
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Lyrics.Phrase
+    name: Phrase
+    href: ChartTools.Lyrics.Phrase.html
+  - name: )
+  - name: )
+- uid: ChartTools.SyncTrack
+  commentId: T:ChartTools.SyncTrack
+  parent: ChartTools
+  href: ChartTools.SyncTrack.html
+  name: SyncTrack
+  nameWithType: SyncTrack
+  fullName: ChartTools.SyncTrack
+- uid: ChartTools.IO.Chart.ChartFile.ReadSyncTrack*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReadSyncTrack
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReadSyncTrack_System_String_ChartTools_IO_Chart_Configuration_ChartReadingConfiguration_ChartTools_IO_Formatting_FormattingRules_
+  name: ReadSyncTrack
+  nameWithType: ChartFile.ReadSyncTrack
+  fullName: ChartTools.IO.Chart.ChartFile.ReadSyncTrack
+- uid: ChartTools.IO.Chart.ChartFile.ReadSyncTrackAsync*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReadSyncTrackAsync
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReadSyncTrackAsync_System_String_ChartTools_IO_Chart_Configuration_ChartReadingConfiguration_System_Threading_CancellationToken_
+  name: ReadSyncTrackAsync
+  nameWithType: ChartFile.ReadSyncTrackAsync
+  fullName: ChartTools.IO.Chart.ChartFile.ReadSyncTrackAsync
+- uid: System.Threading.Tasks.Task{ChartTools.SyncTrack}
+  commentId: T:System.Threading.Tasks.Task{ChartTools.SyncTrack}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<SyncTrack>
+  nameWithType: Task<SyncTrack>
+  fullName: System.Threading.Tasks.Task<ChartTools.SyncTrack>
+  nameWithType.vb: Task(Of SyncTrack)
+  fullName.vb: System.Threading.Tasks.Task(Of ChartTools.SyncTrack)
+  name.vb: Task(Of SyncTrack)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: ChartTools.SyncTrack
+    name: SyncTrack
+    href: ChartTools.SyncTrack.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.SyncTrack
+    name: SyncTrack
+    href: ChartTools.SyncTrack.html
+  - name: )
+- uid: ChartTools.IO.Chart.ChartFile.WriteSong*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.WriteSong
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_WriteSong_System_String_ChartTools_Song_ChartTools_IO_Chart_Configuration_ChartWritingConfiguration_
+  name: WriteSong
+  nameWithType: ChartFile.WriteSong
+  fullName: ChartTools.IO.Chart.ChartFile.WriteSong
+- uid: ChartTools.IO.Chart.ChartFile.WriteSongAsync*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.WriteSongAsync
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_WriteSongAsync_System_String_ChartTools_Song_ChartTools_IO_Chart_Configuration_ChartWritingConfiguration_System_Threading_CancellationToken_
+  name: WriteSongAsync
+  nameWithType: ChartFile.WriteSongAsync
+  fullName: ChartTools.IO.Chart.ChartFile.WriteSongAsync
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: ChartTools.IO.Chart.ChartFile.ReplaceInstrument*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReplaceInstrument
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReplaceInstrument_System_String_ChartTools_Instrument_ChartTools_IO_Chart_Configuration_ChartWritingConfiguration_ChartTools_IO_Formatting_FormattingRules_
+  name: ReplaceInstrument
+  nameWithType: ChartFile.ReplaceInstrument
+  fullName: ChartTools.IO.Chart.ChartFile.ReplaceInstrument
+- uid: ChartTools.IO.Chart.ChartFile.ReplaceInstrumentAsync*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReplaceInstrumentAsync
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReplaceInstrumentAsync_System_String_ChartTools_Instrument_ChartTools_IO_Chart_Configuration_ChartWritingConfiguration_ChartTools_IO_Formatting_FormattingRules_System_Threading_CancellationToken_
+  name: ReplaceInstrumentAsync
+  nameWithType: ChartFile.ReplaceInstrumentAsync
+  fullName: ChartTools.IO.Chart.ChartFile.ReplaceInstrumentAsync
+- uid: ChartTools.IO.Chart.ChartFile.ReplaceTrack*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReplaceTrack
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReplaceTrack_System_String_ChartTools_Track_ChartTools_IO_Chart_Configuration_ChartWritingConfiguration_ChartTools_IO_Formatting_FormattingRules_
+  name: ReplaceTrack
+  nameWithType: ChartFile.ReplaceTrack
+  fullName: ChartTools.IO.Chart.ChartFile.ReplaceTrack
+- uid: ChartTools.IO.Chart.ChartFile.ReplaceTrackAsync*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReplaceTrackAsync
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReplaceTrackAsync_System_String_ChartTools_Track_ChartTools_IO_Chart_Configuration_ChartWritingConfiguration_ChartTools_IO_Formatting_FormattingRules_System_Threading_CancellationToken_
+  name: ReplaceTrackAsync
+  nameWithType: ChartFile.ReplaceTrackAsync
+  fullName: ChartTools.IO.Chart.ChartFile.ReplaceTrackAsync
+- uid: ChartTools.IO.Chart.ChartFile.ReplaceMetadata*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReplaceMetadata
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReplaceMetadata_System_String_ChartTools_Metadata_
+  name: ReplaceMetadata
+  nameWithType: ChartFile.ReplaceMetadata
+  fullName: ChartTools.IO.Chart.ChartFile.ReplaceMetadata
+- uid: ChartTools.IO.Chart.ChartFile.ReplaceGlobalEvents*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReplaceGlobalEvents
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReplaceGlobalEvents_System_String_System_Collections_Generic_IEnumerable_ChartTools_Events_GlobalEvent__
+  name: ReplaceGlobalEvents
+  nameWithType: ChartFile.ReplaceGlobalEvents
+  fullName: ChartTools.IO.Chart.ChartFile.ReplaceGlobalEvents
+- uid: System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent}
+  commentId: T:System.Collections.Generic.IEnumerable{ChartTools.Events.GlobalEvent}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<GlobalEvent>
+  nameWithType: IEnumerable<GlobalEvent>
+  fullName: System.Collections.Generic.IEnumerable<ChartTools.Events.GlobalEvent>
+  nameWithType.vb: IEnumerable(Of GlobalEvent)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of ChartTools.Events.GlobalEvent)
+  name.vb: IEnumerable(Of GlobalEvent)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: ChartTools.Events.GlobalEvent
+    name: GlobalEvent
+    href: ChartTools.Events.GlobalEvent.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Events.GlobalEvent
+    name: GlobalEvent
+    href: ChartTools.Events.GlobalEvent.html
+  - name: )
+- uid: ChartTools.IO.Chart.ChartFile.ReplaceGlobalEventsAsync*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReplaceGlobalEventsAsync
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReplaceGlobalEventsAsync_System_String_System_Collections_Generic_IEnumerable_ChartTools_Events_GlobalEvent__System_Threading_CancellationToken_
+  name: ReplaceGlobalEventsAsync
+  nameWithType: ChartFile.ReplaceGlobalEventsAsync
+  fullName: ChartTools.IO.Chart.ChartFile.ReplaceGlobalEventsAsync
+- uid: ChartTools.IO.Chart.ChartFile.ReplaceSyncTrack*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReplaceSyncTrack
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReplaceSyncTrack_System_String_ChartTools_SyncTrack_ChartTools_IO_Chart_Configuration_ChartWritingConfiguration_
+  name: ReplaceSyncTrack
+  nameWithType: ChartFile.ReplaceSyncTrack
+  fullName: ChartTools.IO.Chart.ChartFile.ReplaceSyncTrack
+- uid: ChartTools.IO.Chart.ChartFile.ReplaceSyncTrackAsync*
+  commentId: Overload:ChartTools.IO.Chart.ChartFile.ReplaceSyncTrackAsync
+  href: ChartTools.IO.Chart.ChartFile.html#ChartTools_IO_Chart_ChartFile_ReplaceSyncTrackAsync_System_String_ChartTools_SyncTrack_ChartTools_IO_Chart_Configuration_ChartWritingConfiguration_System_Threading_CancellationToken_
+  name: ReplaceSyncTrackAsync
+  nameWithType: ChartFile.ReplaceSyncTrackAsync
+  fullName: ChartTools.IO.Chart.ChartFile.ReplaceSyncTrackAsync

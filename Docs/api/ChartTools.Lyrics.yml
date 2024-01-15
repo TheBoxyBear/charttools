@@ -1,0 +1,83 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.Lyrics
+  commentId: N:ChartTools.Lyrics
+  id: ChartTools.Lyrics
+  children:
+  - ChartTools.Lyrics.Phrase
+  - ChartTools.Lyrics.PhraseExtensions
+  - ChartTools.Lyrics.Syllable
+  - ChartTools.Lyrics.VocalPitchValue
+  - ChartTools.Lyrics.VocalsKey
+  - ChartTools.Lyrics.VocalsPitch
+  langs:
+  - csharp
+  - vb
+  name: ChartTools.Lyrics
+  nameWithType: ChartTools.Lyrics
+  fullName: ChartTools.Lyrics
+  type: Namespace
+  assemblies:
+  - ChartTools
+references:
+- uid: ChartTools.Lyrics.Phrase
+  commentId: T:ChartTools.Lyrics.Phrase
+  href: ChartTools.Lyrics.Phrase.html
+  name: Phrase
+  nameWithType: Phrase
+  fullName: ChartTools.Lyrics.Phrase
+- uid: ChartTools.Lyrics.PhraseExtensions
+  commentId: T:ChartTools.Lyrics.PhraseExtensions
+  href: ChartTools.Lyrics.PhraseExtensions.html
+  name: PhraseExtensions
+  nameWithType: PhraseExtensions
+  fullName: ChartTools.Lyrics.PhraseExtensions
+- uid: ChartTools.Lyrics.VocalPitchValue
+  commentId: T:ChartTools.Lyrics.VocalPitchValue
+  parent: ChartTools.Lyrics
+  href: ChartTools.Lyrics.VocalPitchValue.html
+  name: VocalPitchValue
+  nameWithType: VocalPitchValue
+  fullName: ChartTools.Lyrics.VocalPitchValue
+- uid: ChartTools.Lyrics.VocalsKey
+  commentId: T:ChartTools.Lyrics.VocalsKey
+  parent: ChartTools.Lyrics
+  href: ChartTools.Lyrics.VocalsKey.html
+  name: VocalsKey
+  nameWithType: VocalsKey
+  fullName: ChartTools.Lyrics.VocalsKey
+- uid: ChartTools.Lyrics.Syllable
+  commentId: T:ChartTools.Lyrics.Syllable
+  href: ChartTools.Lyrics.Syllable.html
+  name: Syllable
+  nameWithType: Syllable
+  fullName: ChartTools.Lyrics.Syllable
+- uid: ChartTools.Lyrics.VocalsPitch
+  commentId: T:ChartTools.Lyrics.VocalsPitch
+  parent: ChartTools.Lyrics
+  href: ChartTools.Lyrics.VocalsPitch.html
+  name: VocalsPitch
+  nameWithType: VocalsPitch
+  fullName: ChartTools.Lyrics.VocalsPitch
+- uid: ChartTools.Lyrics
+  commentId: N:ChartTools.Lyrics
+  href: ChartTools.html
+  name: ChartTools.Lyrics
+  nameWithType: ChartTools.Lyrics
+  fullName: ChartTools.Lyrics
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Lyrics
+    name: Lyrics
+    href: ChartTools.Lyrics.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Lyrics
+    name: Lyrics
+    href: ChartTools.Lyrics.html

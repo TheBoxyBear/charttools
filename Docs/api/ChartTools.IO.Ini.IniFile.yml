@@ -1,0 +1,674 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.IO.Ini.IniFile
+  commentId: T:ChartTools.IO.Ini.IniFile
+  id: IniFile
+  parent: ChartTools.IO.Ini
+  children:
+  - ChartTools.IO.Ini.IniFile.ReadMetadata(System.String,ChartTools.Metadata)
+  - ChartTools.IO.Ini.IniFile.ReadMetadataAsync(System.String,ChartTools.Metadata,System.Threading.CancellationToken)
+  - ChartTools.IO.Ini.IniFile.WriteMetadata(System.String,ChartTools.Metadata)
+  langs:
+  - csharp
+  - vb
+  name: IniFile
+  nameWithType: IniFile
+  fullName: ChartTools.IO.Ini.IniFile
+  type: Class
+  source:
+    remote:
+      path: ChartTools/IO/Ini/IniFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: IniFile
+    path: ../ChartTools/IO/Ini/IniFile.cs
+    startLine: 9
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Ini
+  summary: Provides methods for reading and writing ini files
+  example: []
+  syntax:
+    content: public static class IniFile
+    content.vb: Public Module IniFile
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: ChartTools.IO.Ini.IniFile.ReadMetadata(System.String,ChartTools.Metadata)
+  commentId: M:ChartTools.IO.Ini.IniFile.ReadMetadata(System.String,ChartTools.Metadata)
+  id: ReadMetadata(System.String,ChartTools.Metadata)
+  parent: ChartTools.IO.Ini.IniFile
+  langs:
+  - csharp
+  - vb
+  name: ReadMetadata(string, Metadata?)
+  nameWithType: IniFile.ReadMetadata(string, Metadata?)
+  fullName: ChartTools.IO.Ini.IniFile.ReadMetadata(string, ChartTools.Metadata?)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Ini/IniFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadMetadata
+    path: ../ChartTools/IO/Ini/IniFile.cs
+    startLine: 14
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Ini
+  summary: Reads the metadata from a file.
+  example: []
+  syntax:
+    content: public static Metadata ReadMetadata(string path, Metadata? existing = null)
+    parameters:
+    - id: path
+      type: System.String
+      description: Path of the file to read
+    - id: existing
+      type: ChartTools.Metadata
+    return:
+      type: ChartTools.Metadata
+      description: A new instance of <xref href="ChartTools.Metadata" data-throw-if-not-resolved="false"></xref> if <code class="paramref">existing</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>, otherwise the same reference.
+    content.vb: Public Shared Function ReadMetadata(path As String, existing As Metadata = Nothing) As Metadata
+  overload: ChartTools.IO.Ini.IniFile.ReadMetadata*
+  exceptions:
+  - type: System.ArgumentException
+    commentId: T:System.ArgumentException
+    description: ''
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: ''
+  - type: System.FormatException
+    commentId: T:System.FormatException
+    description: ''
+  - type: ChartTools.IO.LineException
+    commentId: T:ChartTools.IO.LineException
+    description: ''
+  - type: System.OutOfMemoryException
+    commentId: T:System.OutOfMemoryException
+    description: ''
+  nameWithType.vb: IniFile.ReadMetadata(String, Metadata)
+  fullName.vb: ChartTools.IO.Ini.IniFile.ReadMetadata(String, ChartTools.Metadata)
+  name.vb: ReadMetadata(String, Metadata)
+- uid: ChartTools.IO.Ini.IniFile.ReadMetadataAsync(System.String,ChartTools.Metadata,System.Threading.CancellationToken)
+  commentId: M:ChartTools.IO.Ini.IniFile.ReadMetadataAsync(System.String,ChartTools.Metadata,System.Threading.CancellationToken)
+  id: ReadMetadataAsync(System.String,ChartTools.Metadata,System.Threading.CancellationToken)
+  parent: ChartTools.IO.Ini.IniFile
+  langs:
+  - csharp
+  - vb
+  name: ReadMetadataAsync(string, Metadata?, CancellationToken)
+  nameWithType: IniFile.ReadMetadataAsync(string, Metadata?, CancellationToken)
+  fullName: ChartTools.IO.Ini.IniFile.ReadMetadataAsync(string, ChartTools.Metadata?, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Ini/IniFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReadMetadataAsync
+    path: ../ChartTools/IO/Ini/IniFile.cs
+    startLine: 26
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Ini
+  summary: Reads the metadata from a file.
+  example: []
+  syntax:
+    content: public static Task<Metadata> ReadMetadataAsync(string path, Metadata? existing = null, CancellationToken cancellationToken = default)
+    parameters:
+    - id: path
+      type: System.String
+      description: Path of the file to read
+    - id: existing
+      type: ChartTools.Metadata
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+    return:
+      type: System.Threading.Tasks.Task{ChartTools.Metadata}
+      description: A new instance of <xref href="ChartTools.Metadata" data-throw-if-not-resolved="false"></xref> if <code class="paramref">existing</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>, otherwise the same reference.
+    content.vb: Public Shared Function ReadMetadataAsync(path As String, existing As Metadata = Nothing, cancellationToken As CancellationToken = Nothing) As Task(Of Metadata)
+  overload: ChartTools.IO.Ini.IniFile.ReadMetadataAsync*
+  exceptions:
+  - type: System.ArgumentException
+    commentId: T:System.ArgumentException
+    description: ''
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: ''
+  - type: System.FormatException
+    commentId: T:System.FormatException
+    description: ''
+  - type: ChartTools.IO.LineException
+    commentId: T:ChartTools.IO.LineException
+    description: ''
+  - type: System.OutOfMemoryException
+    commentId: T:System.OutOfMemoryException
+    description: ''
+  nameWithType.vb: IniFile.ReadMetadataAsync(String, Metadata, CancellationToken)
+  fullName.vb: ChartTools.IO.Ini.IniFile.ReadMetadataAsync(String, ChartTools.Metadata, System.Threading.CancellationToken)
+  name.vb: ReadMetadataAsync(String, Metadata, CancellationToken)
+- uid: ChartTools.IO.Ini.IniFile.WriteMetadata(System.String,ChartTools.Metadata)
+  commentId: M:ChartTools.IO.Ini.IniFile.WriteMetadata(System.String,ChartTools.Metadata)
+  id: WriteMetadata(System.String,ChartTools.Metadata)
+  parent: ChartTools.IO.Ini.IniFile
+  langs:
+  - csharp
+  - vb
+  name: WriteMetadata(string, Metadata)
+  nameWithType: IniFile.WriteMetadata(string, Metadata)
+  fullName: ChartTools.IO.Ini.IniFile.WriteMetadata(string, ChartTools.Metadata)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/IO/Ini/IniFile.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: WriteMetadata
+    path: ../ChartTools/IO/Ini/IniFile.cs
+    startLine: 41
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Ini
+  summary: Writes the metadata in a file.
+  example: []
+  syntax:
+    content: public static void WriteMetadata(string path, Metadata metadata)
+    parameters:
+    - id: path
+      type: System.String
+      description: Path of the file to read
+    - id: metadata
+      type: ChartTools.Metadata
+      description: Metadata to write
+    content.vb: Public Shared Sub WriteMetadata(path As String, metadata As Metadata)
+  overload: ChartTools.IO.Ini.IniFile.WriteMetadata*
+  nameWithType.vb: IniFile.WriteMetadata(String, Metadata)
+  fullName.vb: ChartTools.IO.Ini.IniFile.WriteMetadata(String, ChartTools.Metadata)
+  name.vb: WriteMetadata(String, Metadata)
+references:
+- uid: ChartTools.IO.Ini
+  commentId: N:ChartTools.IO.Ini
+  href: ChartTools.html
+  name: ChartTools.IO.Ini
+  nameWithType: ChartTools.IO.Ini
+  fullName: ChartTools.IO.Ini
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Ini
+    name: Ini
+    href: ChartTools.IO.Ini.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Ini
+    name: Ini
+    href: ChartTools.IO.Ini.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: ChartTools.Metadata
+  commentId: T:ChartTools.Metadata
+  parent: ChartTools
+  href: ChartTools.Metadata.html
+  name: Metadata
+  nameWithType: Metadata
+  fullName: ChartTools.Metadata
+- uid: System.ArgumentException
+  commentId: T:System.ArgumentException
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentexception
+  name: ArgumentException
+  nameWithType: ArgumentException
+  fullName: System.ArgumentException
+- uid: System.ArgumentNullException
+  commentId: T:System.ArgumentNullException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentnullexception
+  name: ArgumentNullException
+  nameWithType: ArgumentNullException
+  fullName: System.ArgumentNullException
+- uid: System.FormatException
+  commentId: T:System.FormatException
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.formatexception
+  name: FormatException
+  nameWithType: FormatException
+  fullName: System.FormatException
+- uid: ChartTools.IO.LineException
+  commentId: T:ChartTools.IO.LineException
+  href: ChartTools.IO.LineException.html
+  name: LineException
+  nameWithType: LineException
+  fullName: ChartTools.IO.LineException
+- uid: System.OutOfMemoryException
+  commentId: T:System.OutOfMemoryException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.outofmemoryexception
+  name: OutOfMemoryException
+  nameWithType: OutOfMemoryException
+  fullName: System.OutOfMemoryException
+- uid: ChartTools.IO.Ini.IniFile.ReadMetadata*
+  commentId: Overload:ChartTools.IO.Ini.IniFile.ReadMetadata
+  href: ChartTools.IO.Ini.IniFile.html#ChartTools_IO_Ini_IniFile_ReadMetadata_System_String_ChartTools_Metadata_
+  name: ReadMetadata
+  nameWithType: IniFile.ReadMetadata
+  fullName: ChartTools.IO.Ini.IniFile.ReadMetadata
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: ChartTools
+  commentId: N:ChartTools
+  href: ChartTools.html
+  name: ChartTools
+  nameWithType: ChartTools
+  fullName: ChartTools
+- uid: ChartTools.IO.Ini.IniFile.ReadMetadataAsync*
+  commentId: Overload:ChartTools.IO.Ini.IniFile.ReadMetadataAsync
+  href: ChartTools.IO.Ini.IniFile.html#ChartTools_IO_Ini_IniFile_ReadMetadataAsync_System_String_ChartTools_Metadata_System_Threading_CancellationToken_
+  name: ReadMetadataAsync
+  nameWithType: IniFile.ReadMetadataAsync
+  fullName: ChartTools.IO.Ini.IniFile.ReadMetadataAsync
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task{ChartTools.Metadata}
+  commentId: T:System.Threading.Tasks.Task{ChartTools.Metadata}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<Metadata>
+  nameWithType: Task<Metadata>
+  fullName: System.Threading.Tasks.Task<ChartTools.Metadata>
+  nameWithType.vb: Task(Of Metadata)
+  fullName.vb: System.Threading.Tasks.Task(Of ChartTools.Metadata)
+  name.vb: Task(Of Metadata)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: ChartTools.Metadata
+    name: Metadata
+    href: ChartTools.Metadata.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Metadata
+    name: Metadata
+    href: ChartTools.Metadata.html
+  - name: )
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: ChartTools.IO.Ini.IniFile.WriteMetadata*
+  commentId: Overload:ChartTools.IO.Ini.IniFile.WriteMetadata
+  href: ChartTools.IO.Ini.IniFile.html#ChartTools_IO_Ini_IniFile_WriteMetadata_System_String_ChartTools_Metadata_
+  name: WriteMetadata
+  nameWithType: IniFile.WriteMetadata
+  fullName: ChartTools.IO.Ini.IniFile.WriteMetadata

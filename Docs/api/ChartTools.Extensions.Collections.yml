@@ -1,0 +1,101 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.Extensions.Collections
+  commentId: N:ChartTools.Extensions.Collections
+  id: ChartTools.Extensions.Collections
+  children:
+  - ChartTools.Extensions.Collections.DelayedEnumerableSource`1
+  - ChartTools.Extensions.Collections.DelayedEnumerable`1
+  - ChartTools.Extensions.Collections.IInitializable
+  - ChartTools.Extensions.Collections.UniqueTrackObjectCollection`1
+  langs:
+  - csharp
+  - vb
+  name: ChartTools.Extensions.Collections
+  nameWithType: ChartTools.Extensions.Collections
+  fullName: ChartTools.Extensions.Collections
+  type: Namespace
+  assemblies:
+  - ChartTools
+references:
+- uid: ChartTools.Extensions.Collections.DelayedEnumerable`1
+  commentId: T:ChartTools.Extensions.Collections.DelayedEnumerable`1
+  href: ChartTools.Extensions.Collections.DelayedEnumerable-1.html
+  name: DelayedEnumerable<T>
+  nameWithType: DelayedEnumerable<T>
+  fullName: ChartTools.Extensions.Collections.DelayedEnumerable<T>
+  nameWithType.vb: DelayedEnumerable(Of T)
+  fullName.vb: ChartTools.Extensions.Collections.DelayedEnumerable(Of T)
+  name.vb: DelayedEnumerable(Of T)
+  spec.csharp:
+  - uid: ChartTools.Extensions.Collections.DelayedEnumerable`1
+    name: DelayedEnumerable
+    href: ChartTools.Extensions.Collections.DelayedEnumerable-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.Extensions.Collections.DelayedEnumerable`1
+    name: DelayedEnumerable
+    href: ChartTools.Extensions.Collections.DelayedEnumerable-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ChartTools.Extensions.Collections.DelayedEnumerableSource`1
+  commentId: T:ChartTools.Extensions.Collections.DelayedEnumerableSource`1
+  href: ChartTools.Extensions.Collections.DelayedEnumerableSource-1.html
+  name: DelayedEnumerableSource<T>
+  nameWithType: DelayedEnumerableSource<T>
+  fullName: ChartTools.Extensions.Collections.DelayedEnumerableSource<T>
+  nameWithType.vb: DelayedEnumerableSource(Of T)
+  fullName.vb: ChartTools.Extensions.Collections.DelayedEnumerableSource(Of T)
+  name.vb: DelayedEnumerableSource(Of T)
+  spec.csharp:
+  - uid: ChartTools.Extensions.Collections.DelayedEnumerableSource`1
+    name: DelayedEnumerableSource
+    href: ChartTools.Extensions.Collections.DelayedEnumerableSource-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.Extensions.Collections.DelayedEnumerableSource`1
+    name: DelayedEnumerableSource
+    href: ChartTools.Extensions.Collections.DelayedEnumerableSource-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ChartTools.Extensions.Collections.IInitializable
+  commentId: T:ChartTools.Extensions.Collections.IInitializable
+  href: ChartTools.Extensions.Collections.IInitializable.html
+  name: IInitializable
+  nameWithType: IInitializable
+  fullName: ChartTools.Extensions.Collections.IInitializable
+- uid: ChartTools.Extensions.Collections.UniqueTrackObjectCollection`1
+  commentId: T:ChartTools.Extensions.Collections.UniqueTrackObjectCollection`1
+  href: ChartTools.Extensions.Collections.UniqueTrackObjectCollection-1.html
+  name: UniqueTrackObjectCollection<T>
+  nameWithType: UniqueTrackObjectCollection<T>
+  fullName: ChartTools.Extensions.Collections.UniqueTrackObjectCollection<T>
+  nameWithType.vb: UniqueTrackObjectCollection(Of T)
+  fullName.vb: ChartTools.Extensions.Collections.UniqueTrackObjectCollection(Of T)
+  name.vb: UniqueTrackObjectCollection(Of T)
+  spec.csharp:
+  - uid: ChartTools.Extensions.Collections.UniqueTrackObjectCollection`1
+    name: UniqueTrackObjectCollection
+    href: ChartTools.Extensions.Collections.UniqueTrackObjectCollection-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.Extensions.Collections.UniqueTrackObjectCollection`1
+    name: UniqueTrackObjectCollection
+    href: ChartTools.Extensions.Collections.UniqueTrackObjectCollection-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )

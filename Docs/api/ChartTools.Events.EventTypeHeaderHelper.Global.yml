@@ -1,0 +1,589 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.Events.EventTypeHeaderHelper.Global
+  commentId: T:ChartTools.Events.EventTypeHeaderHelper.Global
+  id: EventTypeHeaderHelper.Global
+  parent: ChartTools.Events
+  children:
+  - ChartTools.Events.EventTypeHeaderHelper.Global.BassistMovement
+  - ChartTools.Events.EventTypeHeaderHelper.Global.Crowd
+  - ChartTools.Events.EventTypeHeaderHelper.Global.DrummerMovement
+  - ChartTools.Events.EventTypeHeaderHelper.Global.GuitaristMovement
+  - ChartTools.Events.EventTypeHeaderHelper.Global.GuitaristSolo
+  - ChartTools.Events.EventTypeHeaderHelper.Global.GuitaristWail
+  - ChartTools.Events.EventTypeHeaderHelper.Global.KeyboardMovement
+  - ChartTools.Events.EventTypeHeaderHelper.Global.Phrase
+  - ChartTools.Events.EventTypeHeaderHelper.Global.SingerMovement
+  - ChartTools.Events.EventTypeHeaderHelper.Global.Sync
+  langs:
+  - csharp
+  - vb
+  name: EventTypeHeaderHelper.Global
+  nameWithType: EventTypeHeaderHelper.Global
+  fullName: ChartTools.Events.EventTypeHeaderHelper.Global
+  type: Class
+  source:
+    remote:
+      path: ChartTools/Events/EventTypeHeaderHelper.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Global
+    path: ../ChartTools/Events/EventTypeHeaderHelper.cs
+    startLine: 4
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  syntax:
+    content: public static class EventTypeHeaderHelper.Global
+    content.vb: Public Module EventTypeHeaderHelper.Global
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: ChartTools.Events.EventTypeHeaderHelper.Global.BassistMovement
+  commentId: F:ChartTools.Events.EventTypeHeaderHelper.Global.BassistMovement
+  id: BassistMovement
+  parent: ChartTools.Events.EventTypeHeaderHelper.Global
+  langs:
+  - csharp
+  - vb
+  name: BassistMovement
+  nameWithType: EventTypeHeaderHelper.Global.BassistMovement
+  fullName: ChartTools.Events.EventTypeHeaderHelper.Global.BassistMovement
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Events/EventTypeHeaderHelper.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: BassistMovement
+    path: ../ChartTools/Events/EventTypeHeaderHelper.cs
+    startLine: 7
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  syntax:
+    content: public const string BassistMovement = "bass_"
+    return:
+      type: System.String
+    content.vb: Public Const BassistMovement As String = "bass_"
+- uid: ChartTools.Events.EventTypeHeaderHelper.Global.Crowd
+  commentId: F:ChartTools.Events.EventTypeHeaderHelper.Global.Crowd
+  id: Crowd
+  parent: ChartTools.Events.EventTypeHeaderHelper.Global
+  langs:
+  - csharp
+  - vb
+  name: Crowd
+  nameWithType: EventTypeHeaderHelper.Global.Crowd
+  fullName: ChartTools.Events.EventTypeHeaderHelper.Global.Crowd
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Events/EventTypeHeaderHelper.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Crowd
+    path: ../ChartTools/Events/EventTypeHeaderHelper.cs
+    startLine: 8
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  syntax:
+    content: public const string Crowd = "crowd_"
+    return:
+      type: System.String
+    content.vb: Public Const Crowd As String = "crowd_"
+- uid: ChartTools.Events.EventTypeHeaderHelper.Global.DrummerMovement
+  commentId: F:ChartTools.Events.EventTypeHeaderHelper.Global.DrummerMovement
+  id: DrummerMovement
+  parent: ChartTools.Events.EventTypeHeaderHelper.Global
+  langs:
+  - csharp
+  - vb
+  name: DrummerMovement
+  nameWithType: EventTypeHeaderHelper.Global.DrummerMovement
+  fullName: ChartTools.Events.EventTypeHeaderHelper.Global.DrummerMovement
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Events/EventTypeHeaderHelper.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: DrummerMovement
+    path: ../ChartTools/Events/EventTypeHeaderHelper.cs
+    startLine: 9
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  syntax:
+    content: public const string DrummerMovement = "drum_"
+    return:
+      type: System.String
+    content.vb: Public Const DrummerMovement As String = "drum_"
+- uid: ChartTools.Events.EventTypeHeaderHelper.Global.GuitaristMovement
+  commentId: F:ChartTools.Events.EventTypeHeaderHelper.Global.GuitaristMovement
+  id: GuitaristMovement
+  parent: ChartTools.Events.EventTypeHeaderHelper.Global
+  langs:
+  - csharp
+  - vb
+  name: GuitaristMovement
+  nameWithType: EventTypeHeaderHelper.Global.GuitaristMovement
+  fullName: ChartTools.Events.EventTypeHeaderHelper.Global.GuitaristMovement
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Events/EventTypeHeaderHelper.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: GuitaristMovement
+    path: ../ChartTools/Events/EventTypeHeaderHelper.cs
+    startLine: 10
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  syntax:
+    content: public const string GuitaristMovement = "gtr_"
+    return:
+      type: System.String
+    content.vb: Public Const GuitaristMovement As String = "gtr_"
+- uid: ChartTools.Events.EventTypeHeaderHelper.Global.GuitaristSolo
+  commentId: F:ChartTools.Events.EventTypeHeaderHelper.Global.GuitaristSolo
+  id: GuitaristSolo
+  parent: ChartTools.Events.EventTypeHeaderHelper.Global
+  langs:
+  - csharp
+  - vb
+  name: GuitaristSolo
+  nameWithType: EventTypeHeaderHelper.Global.GuitaristSolo
+  fullName: ChartTools.Events.EventTypeHeaderHelper.Global.GuitaristSolo
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Events/EventTypeHeaderHelper.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: GuitaristSolo
+    path: ../ChartTools/Events/EventTypeHeaderHelper.cs
+    startLine: 11
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  syntax:
+    content: public const string GuitaristSolo = "solo_"
+    return:
+      type: System.String
+    content.vb: Public Const GuitaristSolo As String = "solo_"
+- uid: ChartTools.Events.EventTypeHeaderHelper.Global.GuitaristWail
+  commentId: F:ChartTools.Events.EventTypeHeaderHelper.Global.GuitaristWail
+  id: GuitaristWail
+  parent: ChartTools.Events.EventTypeHeaderHelper.Global
+  langs:
+  - csharp
+  - vb
+  name: GuitaristWail
+  nameWithType: EventTypeHeaderHelper.Global.GuitaristWail
+  fullName: ChartTools.Events.EventTypeHeaderHelper.Global.GuitaristWail
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Events/EventTypeHeaderHelper.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: GuitaristWail
+    path: ../ChartTools/Events/EventTypeHeaderHelper.cs
+    startLine: 12
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  syntax:
+    content: public const string GuitaristWail = "wail_"
+    return:
+      type: System.String
+    content.vb: Public Const GuitaristWail As String = "wail_"
+- uid: ChartTools.Events.EventTypeHeaderHelper.Global.KeyboardMovement
+  commentId: F:ChartTools.Events.EventTypeHeaderHelper.Global.KeyboardMovement
+  id: KeyboardMovement
+  parent: ChartTools.Events.EventTypeHeaderHelper.Global
+  langs:
+  - csharp
+  - vb
+  name: KeyboardMovement
+  nameWithType: EventTypeHeaderHelper.Global.KeyboardMovement
+  fullName: ChartTools.Events.EventTypeHeaderHelper.Global.KeyboardMovement
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Events/EventTypeHeaderHelper.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: KeyboardMovement
+    path: ../ChartTools/Events/EventTypeHeaderHelper.cs
+    startLine: 13
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  syntax:
+    content: public const string KeyboardMovement = "keys_"
+    return:
+      type: System.String
+    content.vb: Public Const KeyboardMovement As String = "keys_"
+- uid: ChartTools.Events.EventTypeHeaderHelper.Global.Phrase
+  commentId: F:ChartTools.Events.EventTypeHeaderHelper.Global.Phrase
+  id: Phrase
+  parent: ChartTools.Events.EventTypeHeaderHelper.Global
+  langs:
+  - csharp
+  - vb
+  name: Phrase
+  nameWithType: EventTypeHeaderHelper.Global.Phrase
+  fullName: ChartTools.Events.EventTypeHeaderHelper.Global.Phrase
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Events/EventTypeHeaderHelper.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Phrase
+    path: ../ChartTools/Events/EventTypeHeaderHelper.cs
+    startLine: 14
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  syntax:
+    content: public const string Phrase = "phrase_"
+    return:
+      type: System.String
+    content.vb: Public Const Phrase As String = "phrase_"
+- uid: ChartTools.Events.EventTypeHeaderHelper.Global.SingerMovement
+  commentId: F:ChartTools.Events.EventTypeHeaderHelper.Global.SingerMovement
+  id: SingerMovement
+  parent: ChartTools.Events.EventTypeHeaderHelper.Global
+  langs:
+  - csharp
+  - vb
+  name: SingerMovement
+  nameWithType: EventTypeHeaderHelper.Global.SingerMovement
+  fullName: ChartTools.Events.EventTypeHeaderHelper.Global.SingerMovement
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Events/EventTypeHeaderHelper.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: SingerMovement
+    path: ../ChartTools/Events/EventTypeHeaderHelper.cs
+    startLine: 15
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  syntax:
+    content: public const string SingerMovement = "sing_"
+    return:
+      type: System.String
+    content.vb: Public Const SingerMovement As String = "sing_"
+- uid: ChartTools.Events.EventTypeHeaderHelper.Global.Sync
+  commentId: F:ChartTools.Events.EventTypeHeaderHelper.Global.Sync
+  id: Sync
+  parent: ChartTools.Events.EventTypeHeaderHelper.Global
+  langs:
+  - csharp
+  - vb
+  name: Sync
+  nameWithType: EventTypeHeaderHelper.Global.Sync
+  fullName: ChartTools.Events.EventTypeHeaderHelper.Global.Sync
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Events/EventTypeHeaderHelper.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Sync
+    path: ../ChartTools/Events/EventTypeHeaderHelper.cs
+    startLine: 16
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Events
+  syntax:
+    content: public const string Sync = "sync_"
+    return:
+      type: System.String
+    content.vb: Public Const Sync As String = "sync_"
+references:
+- uid: ChartTools.Events
+  commentId: N:ChartTools.Events
+  href: ChartTools.html
+  name: ChartTools.Events
+  nameWithType: ChartTools.Events
+  fullName: ChartTools.Events
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Events
+    name: Events
+    href: ChartTools.Events.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Events
+    name: Events
+    href: ChartTools.Events.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String

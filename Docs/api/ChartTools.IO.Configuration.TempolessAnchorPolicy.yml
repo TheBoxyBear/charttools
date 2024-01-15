@@ -1,0 +1,339 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.IO.Configuration.TempolessAnchorPolicy
+  commentId: T:ChartTools.IO.Configuration.TempolessAnchorPolicy
+  id: TempolessAnchorPolicy
+  parent: ChartTools.IO.Configuration
+  children:
+  - ChartTools.IO.Configuration.TempolessAnchorPolicy.Create
+  - ChartTools.IO.Configuration.TempolessAnchorPolicy.Ignore
+  - ChartTools.IO.Configuration.TempolessAnchorPolicy.ThrowException
+  langs:
+  - csharp
+  - vb
+  name: TempolessAnchorPolicy
+  nameWithType: TempolessAnchorPolicy
+  fullName: ChartTools.IO.Configuration.TempolessAnchorPolicy
+  type: Enum
+  source:
+    remote:
+      path: ChartTools/IO/Configuration/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: TempolessAnchorPolicy
+    path: ../ChartTools/IO/Configuration/Enums.cs
+    startLine: 61
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Configuration
+  summary: Defines how a tempo anchor with no parent marker is handled.
+  example: []
+  syntax:
+    content: public enum TempolessAnchorPolicy
+    content.vb: Public Enum TempolessAnchorPolicy
+  extensionMethods:
+  - ChartTools.IO.Configuration.TempolessAnchorPolicy.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.IO.Configuration.TempolessAnchorPolicy[])
+- uid: ChartTools.IO.Configuration.TempolessAnchorPolicy.ThrowException
+  commentId: F:ChartTools.IO.Configuration.TempolessAnchorPolicy.ThrowException
+  id: ThrowException
+  parent: ChartTools.IO.Configuration.TempolessAnchorPolicy
+  langs:
+  - csharp
+  - vb
+  name: ThrowException
+  nameWithType: TempolessAnchorPolicy.ThrowException
+  fullName: ChartTools.IO.Configuration.TempolessAnchorPolicy.ThrowException
+  type: Field
+  source:
+    remote:
+      path: ChartTools/IO/Configuration/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ThrowException
+    path: ../ChartTools/IO/Configuration/Enums.cs
+    startLine: 66
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Configuration
+  summary: Throw an exception.
+  example: []
+  syntax:
+    content: ThrowException = 0
+    return:
+      type: ChartTools.IO.Configuration.TempolessAnchorPolicy
+- uid: ChartTools.IO.Configuration.TempolessAnchorPolicy.Ignore
+  commentId: F:ChartTools.IO.Configuration.TempolessAnchorPolicy.Ignore
+  id: Ignore
+  parent: ChartTools.IO.Configuration.TempolessAnchorPolicy
+  langs:
+  - csharp
+  - vb
+  name: Ignore
+  nameWithType: TempolessAnchorPolicy.Ignore
+  fullName: ChartTools.IO.Configuration.TempolessAnchorPolicy.Ignore
+  type: Field
+  source:
+    remote:
+      path: ChartTools/IO/Configuration/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Ignore
+    path: ../ChartTools/IO/Configuration/Enums.cs
+    startLine: 70
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Configuration
+  summary: Ignore the anchor.
+  example: []
+  syntax:
+    content: Ignore = 1
+    return:
+      type: ChartTools.IO.Configuration.TempolessAnchorPolicy
+- uid: ChartTools.IO.Configuration.TempolessAnchorPolicy.Create
+  commentId: F:ChartTools.IO.Configuration.TempolessAnchorPolicy.Create
+  id: Create
+  parent: ChartTools.IO.Configuration.TempolessAnchorPolicy
+  langs:
+  - csharp
+  - vb
+  name: Create
+  nameWithType: TempolessAnchorPolicy.Create
+  fullName: ChartTools.IO.Configuration.TempolessAnchorPolicy.Create
+  type: Field
+  source:
+    remote:
+      path: ChartTools/IO/Configuration/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Create
+    path: ../ChartTools/IO/Configuration/Enums.cs
+    startLine: 74
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Configuration
+  summary: Create a tempo marker with the anchor.
+  example: []
+  syntax:
+    content: Create = 2
+    return:
+      type: ChartTools.IO.Configuration.TempolessAnchorPolicy
+references:
+- uid: ChartTools.IO.Configuration
+  commentId: N:ChartTools.IO.Configuration
+  href: ChartTools.html
+  name: ChartTools.IO.Configuration
+  nameWithType: ChartTools.IO.Configuration
+  fullName: ChartTools.IO.Configuration
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Configuration
+    name: Configuration
+    href: ChartTools.IO.Configuration.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Configuration
+    name: Configuration
+    href: ChartTools.IO.Configuration.html
+- uid: ChartTools.IO.Configuration.TempolessAnchorPolicy.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.IO.Configuration.TempolessAnchorPolicy[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  parent: ChartTools.Tools.PropertyMerger
+  definition: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<TempolessAnchorPolicy>(TempolessAnchorPolicy, bool, bool, params TempolessAnchorPolicy[])
+  nameWithType: PropertyMerger.Merge<TempolessAnchorPolicy>(TempolessAnchorPolicy, bool, bool, params TempolessAnchorPolicy[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<ChartTools.IO.Configuration.TempolessAnchorPolicy>(ChartTools.IO.Configuration.TempolessAnchorPolicy, bool, bool, params ChartTools.IO.Configuration.TempolessAnchorPolicy[])
+  nameWithType.vb: PropertyMerger.Merge(Of TempolessAnchorPolicy)(TempolessAnchorPolicy, Boolean, Boolean, ParamArray TempolessAnchorPolicy())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of ChartTools.IO.Configuration.TempolessAnchorPolicy)(ChartTools.IO.Configuration.TempolessAnchorPolicy, Boolean, Boolean, ParamArray ChartTools.IO.Configuration.TempolessAnchorPolicy())
+  name.vb: Merge(Of TempolessAnchorPolicy)(TempolessAnchorPolicy, Boolean, Boolean, ParamArray TempolessAnchorPolicy())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.IO.Configuration.TempolessAnchorPolicy,System.Boolean,System.Boolean,ChartTools.IO.Configuration.TempolessAnchorPolicy[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - uid: ChartTools.IO.Configuration.TempolessAnchorPolicy
+    name: TempolessAnchorPolicy
+    href: ChartTools.IO.Configuration.TempolessAnchorPolicy.html
+  - name: '>'
+  - name: (
+  - uid: ChartTools.IO.Configuration.TempolessAnchorPolicy
+    name: TempolessAnchorPolicy
+    href: ChartTools.IO.Configuration.TempolessAnchorPolicy.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: ChartTools.IO.Configuration.TempolessAnchorPolicy
+    name: TempolessAnchorPolicy
+    href: ChartTools.IO.Configuration.TempolessAnchorPolicy.html
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.IO.Configuration.TempolessAnchorPolicy,System.Boolean,System.Boolean,ChartTools.IO.Configuration.TempolessAnchorPolicy[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.IO.Configuration.TempolessAnchorPolicy
+    name: TempolessAnchorPolicy
+    href: ChartTools.IO.Configuration.TempolessAnchorPolicy.html
+  - name: )
+  - name: (
+  - uid: ChartTools.IO.Configuration.TempolessAnchorPolicy
+    name: TempolessAnchorPolicy
+    href: ChartTools.IO.Configuration.TempolessAnchorPolicy.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: ChartTools.IO.Configuration.TempolessAnchorPolicy
+    name: TempolessAnchorPolicy
+    href: ChartTools.IO.Configuration.TempolessAnchorPolicy.html
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  isExternal: true
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<T>(T, bool, bool, params T[])
+  nameWithType: PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  nameWithType.vb: PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  name.vb: Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger
+  commentId: T:ChartTools.Tools.PropertyMerger
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.PropertyMerger.html
+  name: PropertyMerger
+  nameWithType: PropertyMerger
+  fullName: ChartTools.Tools.PropertyMerger
+- uid: ChartTools.Tools
+  commentId: N:ChartTools.Tools
+  href: ChartTools.html
+  name: ChartTools.Tools
+  nameWithType: ChartTools.Tools
+  fullName: ChartTools.Tools
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+- uid: ChartTools.IO.Configuration.TempolessAnchorPolicy
+  commentId: T:ChartTools.IO.Configuration.TempolessAnchorPolicy
+  parent: ChartTools.IO.Configuration
+  href: ChartTools.IO.Configuration.TempolessAnchorPolicy.html
+  name: TempolessAnchorPolicy
+  nameWithType: TempolessAnchorPolicy
+  fullName: ChartTools.IO.Configuration.TempolessAnchorPolicy

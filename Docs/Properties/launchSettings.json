@@ -3,7 +3,7 @@
     "Docs": {
       "commandName": "Project",
       "environmentVariables": {
-        "SiteOutput": "$(ProjectDir)\\_site"
+        "SiteDir": "$(ProjectDir)\\"
       }
     }
   }

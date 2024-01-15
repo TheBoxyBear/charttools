@@ -1,0 +1,594 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.IO.Sections.ReservedSectionHeader
+  commentId: T:ChartTools.IO.Sections.ReservedSectionHeader
+  id: ReservedSectionHeader
+  parent: ChartTools.IO.Sections
+  children:
+  - ChartTools.IO.Sections.ReservedSectionHeader.#ctor(System.String,System.String)
+  - ChartTools.IO.Sections.ReservedSectionHeader.DataSource
+  - ChartTools.IO.Sections.ReservedSectionHeader.Header
+  langs:
+  - csharp
+  - vb
+  name: ReservedSectionHeader
+  nameWithType: ReservedSectionHeader
+  fullName: ChartTools.IO.Sections.ReservedSectionHeader
+  type: Struct
+  source:
+    remote:
+      path: ChartTools/IO/Sections/ReservedSectionHeader.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ReservedSectionHeader
+    path: ../ChartTools/IO/Sections/ReservedSectionHeader.cs
+    startLine: 2
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Sections
+  syntax:
+    content: public readonly struct ReservedSectionHeader
+    content.vb: Public Structure ReservedSectionHeader
+  inheritedMembers:
+  - System.ValueType.Equals(System.Object)
+  - System.ValueType.GetHashCode
+  - System.ValueType.ToString
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetType
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - ChartTools.IO.Sections.ReservedSectionHeader.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.IO.Sections.ReservedSectionHeader[])
+- uid: ChartTools.IO.Sections.ReservedSectionHeader.Header
+  commentId: P:ChartTools.IO.Sections.ReservedSectionHeader.Header
+  id: Header
+  parent: ChartTools.IO.Sections.ReservedSectionHeader
+  langs:
+  - csharp
+  - vb
+  name: Header
+  nameWithType: ReservedSectionHeader.Header
+  fullName: ChartTools.IO.Sections.ReservedSectionHeader.Header
+  type: Property
+  source:
+    remote:
+      path: ChartTools/IO/Sections/ReservedSectionHeader.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Header
+    path: ../ChartTools/IO/Sections/ReservedSectionHeader.cs
+    startLine: 4
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Sections
+  syntax:
+    content: public string Header { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property Header As String
+  overload: ChartTools.IO.Sections.ReservedSectionHeader.Header*
+- uid: ChartTools.IO.Sections.ReservedSectionHeader.DataSource
+  commentId: P:ChartTools.IO.Sections.ReservedSectionHeader.DataSource
+  id: DataSource
+  parent: ChartTools.IO.Sections.ReservedSectionHeader
+  langs:
+  - csharp
+  - vb
+  name: DataSource
+  nameWithType: ReservedSectionHeader.DataSource
+  fullName: ChartTools.IO.Sections.ReservedSectionHeader.DataSource
+  type: Property
+  source:
+    remote:
+      path: ChartTools/IO/Sections/ReservedSectionHeader.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: DataSource
+    path: ../ChartTools/IO/Sections/ReservedSectionHeader.cs
+    startLine: 5
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Sections
+  syntax:
+    content: public string DataSource { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property DataSource As String
+  overload: ChartTools.IO.Sections.ReservedSectionHeader.DataSource*
+- uid: ChartTools.IO.Sections.ReservedSectionHeader.#ctor(System.String,System.String)
+  commentId: M:ChartTools.IO.Sections.ReservedSectionHeader.#ctor(System.String,System.String)
+  id: '#ctor(System.String,System.String)'
+  parent: ChartTools.IO.Sections.ReservedSectionHeader
+  langs:
+  - csharp
+  - vb
+  name: ReservedSectionHeader(string, string)
+  nameWithType: ReservedSectionHeader.ReservedSectionHeader(string, string)
+  fullName: ChartTools.IO.Sections.ReservedSectionHeader.ReservedSectionHeader(string, string)
+  type: Constructor
+  source:
+    remote:
+      path: ChartTools/IO/Sections/ReservedSectionHeader.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: .ctor
+    path: ../ChartTools/IO/Sections/ReservedSectionHeader.cs
+    startLine: 7
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Sections
+  syntax:
+    content: public ReservedSectionHeader(string header, string dataSource)
+    parameters:
+    - id: header
+      type: System.String
+    - id: dataSource
+      type: System.String
+    content.vb: Public Sub New(header As String, dataSource As String)
+  overload: ChartTools.IO.Sections.ReservedSectionHeader.#ctor*
+  nameWithType.vb: ReservedSectionHeader.New(String, String)
+  fullName.vb: ChartTools.IO.Sections.ReservedSectionHeader.New(String, String)
+  name.vb: New(String, String)
+references:
+- uid: ChartTools.IO.Sections
+  commentId: N:ChartTools.IO.Sections
+  href: ChartTools.html
+  name: ChartTools.IO.Sections
+  nameWithType: ChartTools.IO.Sections
+  fullName: ChartTools.IO.Sections
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Sections
+    name: Sections
+    href: ChartTools.IO.Sections.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Sections
+    name: Sections
+    href: ChartTools.IO.Sections.html
+- uid: System.ValueType.Equals(System.Object)
+  commentId: M:System.ValueType.Equals(System.Object)
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  name: Equals(object)
+  nameWithType: ValueType.Equals(object)
+  fullName: System.ValueType.Equals(object)
+  nameWithType.vb: ValueType.Equals(Object)
+  fullName.vb: System.ValueType.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.ValueType.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.ValueType.GetHashCode
+  commentId: M:System.ValueType.GetHashCode
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  name: GetHashCode()
+  nameWithType: ValueType.GetHashCode()
+  fullName: System.ValueType.GetHashCode()
+  spec.csharp:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  - name: (
+  - name: )
+- uid: System.ValueType.ToString
+  commentId: M:System.ValueType.ToString
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.tostring
+  name: ToString()
+  nameWithType: ValueType.ToString()
+  fullName: System.ValueType.ToString()
+  spec.csharp:
+  - uid: System.ValueType.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: ChartTools.IO.Sections.ReservedSectionHeader.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.IO.Sections.ReservedSectionHeader[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  parent: ChartTools.Tools.PropertyMerger
+  definition: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<ReservedSectionHeader>(ReservedSectionHeader, bool, bool, params ReservedSectionHeader[])
+  nameWithType: PropertyMerger.Merge<ReservedSectionHeader>(ReservedSectionHeader, bool, bool, params ReservedSectionHeader[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<ChartTools.IO.Sections.ReservedSectionHeader>(ChartTools.IO.Sections.ReservedSectionHeader, bool, bool, params ChartTools.IO.Sections.ReservedSectionHeader[])
+  nameWithType.vb: PropertyMerger.Merge(Of ReservedSectionHeader)(ReservedSectionHeader, Boolean, Boolean, ParamArray ReservedSectionHeader())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of ChartTools.IO.Sections.ReservedSectionHeader)(ChartTools.IO.Sections.ReservedSectionHeader, Boolean, Boolean, ParamArray ChartTools.IO.Sections.ReservedSectionHeader())
+  name.vb: Merge(Of ReservedSectionHeader)(ReservedSectionHeader, Boolean, Boolean, ParamArray ReservedSectionHeader())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.IO.Sections.ReservedSectionHeader,System.Boolean,System.Boolean,ChartTools.IO.Sections.ReservedSectionHeader[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - uid: ChartTools.IO.Sections.ReservedSectionHeader
+    name: ReservedSectionHeader
+    href: ChartTools.IO.Sections.ReservedSectionHeader.html
+  - name: '>'
+  - name: (
+  - uid: ChartTools.IO.Sections.ReservedSectionHeader
+    name: ReservedSectionHeader
+    href: ChartTools.IO.Sections.ReservedSectionHeader.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: ChartTools.IO.Sections.ReservedSectionHeader
+    name: ReservedSectionHeader
+    href: ChartTools.IO.Sections.ReservedSectionHeader.html
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.IO.Sections.ReservedSectionHeader,System.Boolean,System.Boolean,ChartTools.IO.Sections.ReservedSectionHeader[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.IO.Sections.ReservedSectionHeader
+    name: ReservedSectionHeader
+    href: ChartTools.IO.Sections.ReservedSectionHeader.html
+  - name: )
+  - name: (
+  - uid: ChartTools.IO.Sections.ReservedSectionHeader
+    name: ReservedSectionHeader
+    href: ChartTools.IO.Sections.ReservedSectionHeader.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: ChartTools.IO.Sections.ReservedSectionHeader
+    name: ReservedSectionHeader
+    href: ChartTools.IO.Sections.ReservedSectionHeader.html
+  - name: (
+  - name: )
+  - name: )
+- uid: System.ValueType
+  commentId: T:System.ValueType
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype
+  name: ValueType
+  nameWithType: ValueType
+  fullName: System.ValueType
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  isExternal: true
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<T>(T, bool, bool, params T[])
+  nameWithType: PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  nameWithType.vb: PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  name.vb: Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger
+  commentId: T:ChartTools.Tools.PropertyMerger
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.PropertyMerger.html
+  name: PropertyMerger
+  nameWithType: PropertyMerger
+  fullName: ChartTools.Tools.PropertyMerger
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: ChartTools.Tools
+  commentId: N:ChartTools.Tools
+  href: ChartTools.html
+  name: ChartTools.Tools
+  nameWithType: ChartTools.Tools
+  fullName: ChartTools.Tools
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+- uid: ChartTools.IO.Sections.ReservedSectionHeader.Header*
+  commentId: Overload:ChartTools.IO.Sections.ReservedSectionHeader.Header
+  href: ChartTools.IO.Sections.ReservedSectionHeader.html#ChartTools_IO_Sections_ReservedSectionHeader_Header
+  name: Header
+  nameWithType: ReservedSectionHeader.Header
+  fullName: ChartTools.IO.Sections.ReservedSectionHeader.Header
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: ChartTools.IO.Sections.ReservedSectionHeader.DataSource*
+  commentId: Overload:ChartTools.IO.Sections.ReservedSectionHeader.DataSource
+  href: ChartTools.IO.Sections.ReservedSectionHeader.html#ChartTools_IO_Sections_ReservedSectionHeader_DataSource
+  name: DataSource
+  nameWithType: ReservedSectionHeader.DataSource
+  fullName: ChartTools.IO.Sections.ReservedSectionHeader.DataSource
+- uid: ChartTools.IO.Sections.ReservedSectionHeader.#ctor*
+  commentId: Overload:ChartTools.IO.Sections.ReservedSectionHeader.#ctor
+  href: ChartTools.IO.Sections.ReservedSectionHeader.html#ChartTools_IO_Sections_ReservedSectionHeader__ctor_System_String_System_String_
+  name: ReservedSectionHeader
+  nameWithType: ReservedSectionHeader.ReservedSectionHeader
+  fullName: ChartTools.IO.Sections.ReservedSectionHeader.ReservedSectionHeader
+  nameWithType.vb: ReservedSectionHeader.New
+  fullName.vb: ChartTools.IO.Sections.ReservedSectionHeader.New
+  name.vb: New

@@ -1,0 +1,729 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.IO.DirectoryResult`1
+  commentId: T:ChartTools.IO.DirectoryResult`1
+  id: DirectoryResult`1
+  parent: ChartTools.IO
+  children:
+  - ChartTools.IO.DirectoryResult`1.#ctor(`0,ChartTools.Metadata)
+  - ChartTools.IO.DirectoryResult`1.Metadata
+  - ChartTools.IO.DirectoryResult`1.Result
+  langs:
+  - csharp
+  - vb
+  name: DirectoryResult<T>
+  nameWithType: DirectoryResult<T>
+  fullName: ChartTools.IO.DirectoryResult<T>
+  type: Class
+  source:
+    remote:
+      path: ChartTools/IO/DirectoryHandler.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: DirectoryResult
+    path: ../ChartTools/IO/DirectoryHandler.cs
+    startLine: 5
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO
+  syntax:
+    content: 'public record DirectoryResult<T> : IEquatable<DirectoryResult<T>>'
+    typeParameters:
+    - id: T
+    content.vb: Public Class DirectoryResult(Of T) Implements IEquatable(Of DirectoryResult(Of T))
+  inheritance:
+  - System.Object
+  implements:
+  - System.IEquatable{ChartTools.IO.DirectoryResult`1}
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - ChartTools.IO.DirectoryResult`1.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.IO.DirectoryResult{{T}}[])
+  nameWithType.vb: DirectoryResult(Of T)
+  fullName.vb: ChartTools.IO.DirectoryResult(Of T)
+  name.vb: DirectoryResult(Of T)
+- uid: ChartTools.IO.DirectoryResult`1.#ctor(`0,ChartTools.Metadata)
+  commentId: M:ChartTools.IO.DirectoryResult`1.#ctor(`0,ChartTools.Metadata)
+  id: '#ctor(`0,ChartTools.Metadata)'
+  parent: ChartTools.IO.DirectoryResult`1
+  langs:
+  - csharp
+  - vb
+  name: DirectoryResult(T, Metadata)
+  nameWithType: DirectoryResult<T>.DirectoryResult(T, Metadata)
+  fullName: ChartTools.IO.DirectoryResult<T>.DirectoryResult(T, ChartTools.Metadata)
+  type: Constructor
+  source:
+    remote:
+      path: ChartTools/IO/DirectoryHandler.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: .ctor
+    path: ../ChartTools/IO/DirectoryHandler.cs
+    startLine: 5
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO
+  syntax:
+    content: public DirectoryResult(T Result, Metadata Metadata)
+    parameters:
+    - id: Result
+      type: '{T}'
+    - id: Metadata
+      type: ChartTools.Metadata
+    content.vb: Public Sub New(Result As T, Metadata As Metadata)
+  overload: ChartTools.IO.DirectoryResult`1.#ctor*
+  nameWithType.vb: DirectoryResult(Of T).New(T, Metadata)
+  fullName.vb: ChartTools.IO.DirectoryResult(Of T).New(T, ChartTools.Metadata)
+  name.vb: New(T, Metadata)
+- uid: ChartTools.IO.DirectoryResult`1.Result
+  commentId: P:ChartTools.IO.DirectoryResult`1.Result
+  id: Result
+  parent: ChartTools.IO.DirectoryResult`1
+  langs:
+  - csharp
+  - vb
+  name: Result
+  nameWithType: DirectoryResult<T>.Result
+  fullName: ChartTools.IO.DirectoryResult<T>.Result
+  type: Property
+  source:
+    remote:
+      path: ChartTools/IO/DirectoryHandler.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Result
+    path: ../ChartTools/IO/DirectoryHandler.cs
+    startLine: 5
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO
+  syntax:
+    content: public T Result { get; init; }
+    parameters: []
+    return:
+      type: '{T}'
+    content.vb: Public Property Result As T
+  overload: ChartTools.IO.DirectoryResult`1.Result*
+  nameWithType.vb: DirectoryResult(Of T).Result
+  fullName.vb: ChartTools.IO.DirectoryResult(Of T).Result
+- uid: ChartTools.IO.DirectoryResult`1.Metadata
+  commentId: P:ChartTools.IO.DirectoryResult`1.Metadata
+  id: Metadata
+  parent: ChartTools.IO.DirectoryResult`1
+  langs:
+  - csharp
+  - vb
+  name: Metadata
+  nameWithType: DirectoryResult<T>.Metadata
+  fullName: ChartTools.IO.DirectoryResult<T>.Metadata
+  type: Property
+  source:
+    remote:
+      path: ChartTools/IO/DirectoryHandler.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Metadata
+    path: ../ChartTools/IO/DirectoryHandler.cs
+    startLine: 5
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO
+  syntax:
+    content: public Metadata Metadata { get; init; }
+    parameters: []
+    return:
+      type: ChartTools.Metadata
+    content.vb: Public Property Metadata As Metadata
+  overload: ChartTools.IO.DirectoryResult`1.Metadata*
+  nameWithType.vb: DirectoryResult(Of T).Metadata
+  fullName.vb: ChartTools.IO.DirectoryResult(Of T).Metadata
+references:
+- uid: ChartTools.IO
+  commentId: N:ChartTools.IO
+  href: ChartTools.html
+  name: ChartTools.IO
+  nameWithType: ChartTools.IO
+  fullName: ChartTools.IO
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.IEquatable{ChartTools.IO.DirectoryResult`1}
+  commentId: T:System.IEquatable{ChartTools.IO.DirectoryResult`1}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<DirectoryResult<T>>
+  nameWithType: IEquatable<DirectoryResult<T>>
+  fullName: System.IEquatable<ChartTools.IO.DirectoryResult<T>>
+  nameWithType.vb: IEquatable(Of DirectoryResult(Of T))
+  fullName.vb: System.IEquatable(Of ChartTools.IO.DirectoryResult(Of T))
+  name.vb: IEquatable(Of DirectoryResult(Of T))
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: ChartTools.IO.DirectoryResult`1
+    name: DirectoryResult
+    href: ChartTools.IO.DirectoryResult-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.IO.DirectoryResult`1
+    name: DirectoryResult
+    href: ChartTools.IO.DirectoryResult-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: ChartTools.IO.DirectoryResult`1.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.IO.DirectoryResult{{T}}[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  parent: ChartTools.Tools.PropertyMerger
+  definition: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<DirectoryResult<T>>(DirectoryResult<T>, bool, bool, params DirectoryResult<T>[])
+  nameWithType: PropertyMerger.Merge<DirectoryResult<T>>(DirectoryResult<T>, bool, bool, params DirectoryResult<T>[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<ChartTools.IO.DirectoryResult<T>>(ChartTools.IO.DirectoryResult<T>, bool, bool, params ChartTools.IO.DirectoryResult<T>[])
+  nameWithType.vb: PropertyMerger.Merge(Of DirectoryResult(Of T))(DirectoryResult(Of T), Boolean, Boolean, ParamArray DirectoryResult(Of T)())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of ChartTools.IO.DirectoryResult(Of T))(ChartTools.IO.DirectoryResult(Of T), Boolean, Boolean, ParamArray ChartTools.IO.DirectoryResult(Of T)())
+  name.vb: Merge(Of DirectoryResult(Of T))(DirectoryResult(Of T), Boolean, Boolean, ParamArray DirectoryResult(Of T)())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.IO.DirectoryResult{`0},System.Boolean,System.Boolean,ChartTools.IO.DirectoryResult{`0}[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - uid: ChartTools.IO.DirectoryResult`1
+    name: DirectoryResult
+    href: ChartTools.IO.DirectoryResult-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  - name: (
+  - uid: ChartTools.IO.DirectoryResult`1
+    name: DirectoryResult
+    href: ChartTools.IO.DirectoryResult-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: ChartTools.IO.DirectoryResult`1
+    name: DirectoryResult
+    href: ChartTools.IO.DirectoryResult-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.IO.DirectoryResult{`0},System.Boolean,System.Boolean,ChartTools.IO.DirectoryResult{`0}[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.IO.DirectoryResult`1
+    name: DirectoryResult
+    href: ChartTools.IO.DirectoryResult-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+  - name: (
+  - uid: ChartTools.IO.DirectoryResult`1
+    name: DirectoryResult
+    href: ChartTools.IO.DirectoryResult-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: ChartTools.IO.DirectoryResult`1
+    name: DirectoryResult
+    href: ChartTools.IO.DirectoryResult-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: )
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  isExternal: true
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<T>(T, bool, bool, params T[])
+  nameWithType: PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  nameWithType.vb: PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  name.vb: Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger
+  commentId: T:ChartTools.Tools.PropertyMerger
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.PropertyMerger.html
+  name: PropertyMerger
+  nameWithType: PropertyMerger
+  fullName: ChartTools.Tools.PropertyMerger
+- uid: ChartTools.Tools
+  commentId: N:ChartTools.Tools
+  href: ChartTools.html
+  name: ChartTools.Tools
+  nameWithType: ChartTools.Tools
+  fullName: ChartTools.Tools
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+- uid: ChartTools.IO.DirectoryResult`1.#ctor*
+  commentId: Overload:ChartTools.IO.DirectoryResult`1.#ctor
+  href: ChartTools.IO.DirectoryResult-1.html#ChartTools_IO_DirectoryResult_1__ctor__0_ChartTools_Metadata_
+  name: DirectoryResult
+  nameWithType: DirectoryResult<T>.DirectoryResult
+  fullName: ChartTools.IO.DirectoryResult<T>.DirectoryResult
+  nameWithType.vb: DirectoryResult(Of T).New
+  fullName.vb: ChartTools.IO.DirectoryResult(Of T).New
+  name.vb: New
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: ChartTools.Metadata
+  commentId: T:ChartTools.Metadata
+  parent: ChartTools
+  href: ChartTools.Metadata.html
+  name: Metadata
+  nameWithType: Metadata
+  fullName: ChartTools.Metadata
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: ChartTools
+  commentId: N:ChartTools
+  href: ChartTools.html
+  name: ChartTools
+  nameWithType: ChartTools
+  fullName: ChartTools
+- uid: ChartTools.IO.DirectoryResult`1.Result*
+  commentId: Overload:ChartTools.IO.DirectoryResult`1.Result
+  href: ChartTools.IO.DirectoryResult-1.html#ChartTools_IO_DirectoryResult_1_Result
+  name: Result
+  nameWithType: DirectoryResult<T>.Result
+  fullName: ChartTools.IO.DirectoryResult<T>.Result
+  nameWithType.vb: DirectoryResult(Of T).Result
+  fullName.vb: ChartTools.IO.DirectoryResult(Of T).Result
+- uid: ChartTools.IO.DirectoryResult`1.Metadata*
+  commentId: Overload:ChartTools.IO.DirectoryResult`1.Metadata
+  href: ChartTools.IO.DirectoryResult-1.html#ChartTools_IO_DirectoryResult_1_Metadata
+  name: Metadata
+  nameWithType: DirectoryResult<T>.Metadata
+  fullName: ChartTools.IO.DirectoryResult<T>.Metadata
+  nameWithType.vb: DirectoryResult(Of T).Metadata
+  fullName.vb: ChartTools.IO.DirectoryResult(Of T).Metadata

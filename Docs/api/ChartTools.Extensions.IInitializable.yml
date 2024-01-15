@@ -1,0 +1,331 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.Extensions.IInitializable
+  commentId: T:ChartTools.Extensions.IInitializable
+  id: IInitializable
+  parent: ChartTools.Extensions
+  children:
+  - ChartTools.Extensions.IInitializable.Initialize
+  - ChartTools.Extensions.IInitializable.Initialized
+  langs:
+  - csharp
+  - vb
+  name: IInitializable
+  nameWithType: IInitializable
+  fullName: ChartTools.Extensions.IInitializable
+  type: Interface
+  source:
+    remote:
+      path: ChartTools/Extensions/IInitializable.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: IInitializable
+    path: ../ChartTools/Extensions/IInitializable.cs
+    startLine: 5
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Extensions
+  summary: Defines an object that can be initialized
+  example: []
+  syntax:
+    content: public interface IInitializable
+    content.vb: Public Interface IInitializable
+  extensionMethods:
+  - ChartTools.Extensions.IInitializable.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.Extensions.IInitializable[])
+- uid: ChartTools.Extensions.IInitializable.Initialized
+  commentId: P:ChartTools.Extensions.IInitializable.Initialized
+  id: Initialized
+  parent: ChartTools.Extensions.IInitializable
+  langs:
+  - csharp
+  - vb
+  name: Initialized
+  nameWithType: IInitializable.Initialized
+  fullName: ChartTools.Extensions.IInitializable.Initialized
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Extensions/IInitializable.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Initialized
+    path: ../ChartTools/Extensions/IInitializable.cs
+    startLine: 10
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Extensions
+  summary: Has already been initialized
+  example: []
+  syntax:
+    content: bool Initialized { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: ReadOnly Property Initialized As Boolean
+  overload: ChartTools.Extensions.IInitializable.Initialized*
+- uid: ChartTools.Extensions.IInitializable.Initialize
+  commentId: M:ChartTools.Extensions.IInitializable.Initialize
+  id: Initialize
+  parent: ChartTools.Extensions.IInitializable
+  langs:
+  - csharp
+  - vb
+  name: Initialize()
+  nameWithType: IInitializable.Initialize()
+  fullName: ChartTools.Extensions.IInitializable.Initialize()
+  type: Method
+  source:
+    remote:
+      path: ChartTools/Extensions/IInitializable.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Initialize
+    path: ../ChartTools/Extensions/IInitializable.cs
+    startLine: 15
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Extensions
+  summary: Does required initialization if not already done.
+  example: []
+  syntax:
+    content: bool Initialize()
+    return:
+      type: System.Boolean
+      description: <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the object was not initialized prior to calling.
+    content.vb: Function Initialize() As Boolean
+  overload: ChartTools.Extensions.IInitializable.Initialize*
+references:
+- uid: ChartTools.Extensions
+  commentId: N:ChartTools.Extensions
+  href: ChartTools.html
+  name: ChartTools.Extensions
+  nameWithType: ChartTools.Extensions
+  fullName: ChartTools.Extensions
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Extensions
+    name: Extensions
+    href: ChartTools.Extensions.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Extensions
+    name: Extensions
+    href: ChartTools.Extensions.html
+- uid: ChartTools.Extensions.IInitializable.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.Extensions.IInitializable[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  parent: ChartTools.Tools.PropertyMerger
+  definition: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<IInitializable>(IInitializable, bool, bool, params IInitializable[])
+  nameWithType: PropertyMerger.Merge<IInitializable>(IInitializable, bool, bool, params IInitializable[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<ChartTools.Extensions.IInitializable>(ChartTools.Extensions.IInitializable, bool, bool, params ChartTools.Extensions.IInitializable[])
+  nameWithType.vb: PropertyMerger.Merge(Of IInitializable)(IInitializable, Boolean, Boolean, ParamArray IInitializable())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of ChartTools.Extensions.IInitializable)(ChartTools.Extensions.IInitializable, Boolean, Boolean, ParamArray ChartTools.Extensions.IInitializable())
+  name.vb: Merge(Of IInitializable)(IInitializable, Boolean, Boolean, ParamArray IInitializable())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.Extensions.IInitializable,System.Boolean,System.Boolean,ChartTools.Extensions.IInitializable[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - uid: ChartTools.Extensions.IInitializable
+    name: IInitializable
+    href: ChartTools.Extensions.IInitializable.html
+  - name: '>'
+  - name: (
+  - uid: ChartTools.Extensions.IInitializable
+    name: IInitializable
+    href: ChartTools.Extensions.IInitializable.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: ChartTools.Extensions.IInitializable
+    name: IInitializable
+    href: ChartTools.Extensions.IInitializable.html
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.Extensions.IInitializable,System.Boolean,System.Boolean,ChartTools.Extensions.IInitializable[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Extensions.IInitializable
+    name: IInitializable
+    href: ChartTools.Extensions.IInitializable.html
+  - name: )
+  - name: (
+  - uid: ChartTools.Extensions.IInitializable
+    name: IInitializable
+    href: ChartTools.Extensions.IInitializable.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: ChartTools.Extensions.IInitializable
+    name: IInitializable
+    href: ChartTools.Extensions.IInitializable.html
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  isExternal: true
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<T>(T, bool, bool, params T[])
+  nameWithType: PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  nameWithType.vb: PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  name.vb: Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger
+  commentId: T:ChartTools.Tools.PropertyMerger
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.PropertyMerger.html
+  name: PropertyMerger
+  nameWithType: PropertyMerger
+  fullName: ChartTools.Tools.PropertyMerger
+- uid: ChartTools.Tools
+  commentId: N:ChartTools.Tools
+  href: ChartTools.html
+  name: ChartTools.Tools
+  nameWithType: ChartTools.Tools
+  fullName: ChartTools.Tools
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+- uid: ChartTools.Extensions.IInitializable.Initialized*
+  commentId: Overload:ChartTools.Extensions.IInitializable.Initialized
+  href: ChartTools.Extensions.IInitializable.html#ChartTools_Extensions_IInitializable_Initialized
+  name: Initialized
+  nameWithType: IInitializable.Initialized
+  fullName: ChartTools.Extensions.IInitializable.Initialized
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: ChartTools.Extensions.IInitializable.Initialize*
+  commentId: Overload:ChartTools.Extensions.IInitializable.Initialize
+  href: ChartTools.Extensions.IInitializable.html#ChartTools_Extensions_IInitializable_Initialize
+  name: Initialize
+  nameWithType: IInitializable.Initialize
+  fullName: ChartTools.Extensions.IInitializable.Initialize

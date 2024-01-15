@@ -1,0 +1,449 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.StandardChordModifiers
+  commentId: T:ChartTools.StandardChordModifiers
+  id: StandardChordModifiers
+  parent: ChartTools
+  children:
+  - ChartTools.StandardChordModifiers.Big
+  - ChartTools.StandardChordModifiers.ExplicitHopo
+  - ChartTools.StandardChordModifiers.ForcedHopo
+  - ChartTools.StandardChordModifiers.ForcedStrum
+  - ChartTools.StandardChordModifiers.HopoInvert
+  - ChartTools.StandardChordModifiers.None
+  - ChartTools.StandardChordModifiers.Tap
+  langs:
+  - csharp
+  - vb
+  name: StandardChordModifiers
+  nameWithType: StandardChordModifiers
+  fullName: ChartTools.StandardChordModifiers
+  type: Enum
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: StandardChordModifiers
+    path: ../ChartTools/Enums.cs
+    startLine: 127
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Modifier that affects how a <xref href="ChartTools.StandardChord" data-throw-if-not-resolved="false"></xref> can be played
+  remarks: ''
+  example: []
+  syntax:
+    content: >-
+      [Flags]
+
+      public enum StandardChordModifiers : byte
+    content.vb: >-
+      <Flags>
+
+      Public Enum StandardChordModifiers As Byte
+  extensionMethods:
+  - ChartTools.StandardChordModifiers.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.StandardChordModifiers[])
+  attributes:
+  - type: System.FlagsAttribute
+    ctor: System.FlagsAttribute.#ctor
+    arguments: []
+- uid: ChartTools.StandardChordModifiers.None
+  commentId: F:ChartTools.StandardChordModifiers.None
+  id: None
+  parent: ChartTools.StandardChordModifiers
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: StandardChordModifiers.None
+  fullName: ChartTools.StandardChordModifiers.None
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: None
+    path: ../ChartTools/Enums.cs
+    startLine: 133
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: No modifier
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: ChartTools.StandardChordModifiers
+- uid: ChartTools.StandardChordModifiers.ExplicitHopo
+  commentId: F:ChartTools.StandardChordModifiers.ExplicitHopo
+  id: ExplicitHopo
+  parent: ChartTools.StandardChordModifiers
+  langs:
+  - csharp
+  - vb
+  name: ExplicitHopo
+  nameWithType: StandardChordModifiers.ExplicitHopo
+  fullName: ChartTools.StandardChordModifiers.ExplicitHopo
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ExplicitHopo
+    path: ../ChartTools/Enums.cs
+    startLine: 137
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: The Hopo state is not relative to the previous chord.
+  example: []
+  syntax:
+    content: ExplicitHopo = 1
+    return:
+      type: ChartTools.StandardChordModifiers
+- uid: ChartTools.StandardChordModifiers.HopoInvert
+  commentId: F:ChartTools.StandardChordModifiers.HopoInvert
+  id: HopoInvert
+  parent: ChartTools.StandardChordModifiers
+  langs:
+  - csharp
+  - vb
+  name: HopoInvert
+  nameWithType: StandardChordModifiers.HopoInvert
+  fullName: ChartTools.StandardChordModifiers.HopoInvert
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: HopoInvert
+    path: ../ChartTools/Enums.cs
+    startLine: 141
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Forced Hopo if <xref href="ChartTools.StandardChordModifiers.ExplicitHopo" data-throw-if-not-resolved="false"></xref> is set, otherwise inverts the natural state relative to the previous chord
+  example: []
+  syntax:
+    content: HopoInvert = 2
+    return:
+      type: ChartTools.StandardChordModifiers
+- uid: ChartTools.StandardChordModifiers.ForcedHopo
+  commentId: F:ChartTools.StandardChordModifiers.ForcedHopo
+  id: ForcedHopo
+  parent: ChartTools.StandardChordModifiers
+  langs:
+  - csharp
+  - vb
+  name: ForcedHopo
+  nameWithType: StandardChordModifiers.ForcedHopo
+  fullName: ChartTools.StandardChordModifiers.ForcedHopo
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ForcedHopo
+    path: ../ChartTools/Enums.cs
+    startLine: 142
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  syntax:
+    content: ForcedHopo = ExplicitHopo | HopoInvert
+    return:
+      type: ChartTools.StandardChordModifiers
+    content.vb: ForcedHopo = ExplicitHopo Or HopoInvert
+- uid: ChartTools.StandardChordModifiers.ForcedStrum
+  commentId: F:ChartTools.StandardChordModifiers.ForcedStrum
+  id: ForcedStrum
+  parent: ChartTools.StandardChordModifiers
+  langs:
+  - csharp
+  - vb
+  name: ForcedStrum
+  nameWithType: StandardChordModifiers.ForcedStrum
+  fullName: ChartTools.StandardChordModifiers.ForcedStrum
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ForcedStrum
+    path: ../ChartTools/Enums.cs
+    startLine: 143
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  syntax:
+    content: ForcedStrum = 1
+    return:
+      type: ChartTools.StandardChordModifiers
+- uid: ChartTools.StandardChordModifiers.Tap
+  commentId: F:ChartTools.StandardChordModifiers.Tap
+  id: Tap
+  parent: ChartTools.StandardChordModifiers
+  langs:
+  - csharp
+  - vb
+  name: Tap
+  nameWithType: StandardChordModifiers.Tap
+  fullName: ChartTools.StandardChordModifiers.Tap
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Tap
+    path: ../ChartTools/Enums.cs
+    startLine: 147
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: The chord can be played without strumming
+  example: []
+  syntax:
+    content: Tap = 4
+    return:
+      type: ChartTools.StandardChordModifiers
+- uid: ChartTools.StandardChordModifiers.Big
+  commentId: F:ChartTools.StandardChordModifiers.Big
+  id: Big
+  parent: ChartTools.StandardChordModifiers
+  langs:
+  - csharp
+  - vb
+  name: Big
+  nameWithType: StandardChordModifiers.Big
+  fullName: ChartTools.StandardChordModifiers.Big
+  type: Field
+  source:
+    remote:
+      path: ChartTools/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Big
+    path: ../ChartTools/Enums.cs
+    startLine: 148
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  syntax:
+    content: Big = 8
+    return:
+      type: ChartTools.StandardChordModifiers
+references:
+- uid: ChartTools.StandardChord
+  commentId: T:ChartTools.StandardChord
+  href: ChartTools.StandardChord.html
+  name: StandardChord
+  nameWithType: StandardChord
+  fullName: ChartTools.StandardChord
+- uid: ChartTools
+  commentId: N:ChartTools
+  href: ChartTools.html
+  name: ChartTools
+  nameWithType: ChartTools
+  fullName: ChartTools
+- uid: ChartTools.StandardChordModifiers.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.StandardChordModifiers[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  parent: ChartTools.Tools.PropertyMerger
+  definition: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<StandardChordModifiers>(StandardChordModifiers, bool, bool, params StandardChordModifiers[])
+  nameWithType: PropertyMerger.Merge<StandardChordModifiers>(StandardChordModifiers, bool, bool, params StandardChordModifiers[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<ChartTools.StandardChordModifiers>(ChartTools.StandardChordModifiers, bool, bool, params ChartTools.StandardChordModifiers[])
+  nameWithType.vb: PropertyMerger.Merge(Of StandardChordModifiers)(StandardChordModifiers, Boolean, Boolean, ParamArray StandardChordModifiers())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of ChartTools.StandardChordModifiers)(ChartTools.StandardChordModifiers, Boolean, Boolean, ParamArray ChartTools.StandardChordModifiers())
+  name.vb: Merge(Of StandardChordModifiers)(StandardChordModifiers, Boolean, Boolean, ParamArray StandardChordModifiers())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.StandardChordModifiers,System.Boolean,System.Boolean,ChartTools.StandardChordModifiers[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - uid: ChartTools.StandardChordModifiers
+    name: StandardChordModifiers
+    href: ChartTools.StandardChordModifiers.html
+  - name: '>'
+  - name: (
+  - uid: ChartTools.StandardChordModifiers
+    name: StandardChordModifiers
+    href: ChartTools.StandardChordModifiers.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: ChartTools.StandardChordModifiers
+    name: StandardChordModifiers
+    href: ChartTools.StandardChordModifiers.html
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.StandardChordModifiers,System.Boolean,System.Boolean,ChartTools.StandardChordModifiers[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.StandardChordModifiers
+    name: StandardChordModifiers
+    href: ChartTools.StandardChordModifiers.html
+  - name: )
+  - name: (
+  - uid: ChartTools.StandardChordModifiers
+    name: StandardChordModifiers
+    href: ChartTools.StandardChordModifiers.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: ChartTools.StandardChordModifiers
+    name: StandardChordModifiers
+    href: ChartTools.StandardChordModifiers.html
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  isExternal: true
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<T>(T, bool, bool, params T[])
+  nameWithType: PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  nameWithType.vb: PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  name.vb: Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger
+  commentId: T:ChartTools.Tools.PropertyMerger
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.PropertyMerger.html
+  name: PropertyMerger
+  nameWithType: PropertyMerger
+  fullName: ChartTools.Tools.PropertyMerger
+- uid: ChartTools.Tools
+  commentId: N:ChartTools.Tools
+  href: ChartTools.html
+  name: ChartTools.Tools
+  nameWithType: ChartTools.Tools
+  fullName: ChartTools.Tools
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+- uid: ChartTools.StandardChordModifiers
+  commentId: T:ChartTools.StandardChordModifiers
+  parent: ChartTools
+  href: ChartTools.StandardChordModifiers.html
+  name: StandardChordModifiers
+  nameWithType: StandardChordModifiers
+  fullName: ChartTools.StandardChordModifiers
+- uid: ChartTools.StandardChordModifiers.ExplicitHopo
+  commentId: F:ChartTools.StandardChordModifiers.ExplicitHopo
+  href: ChartTools.StandardChordModifiers.html#ChartTools_StandardChordModifiers_ExplicitHopo
+  name: ExplicitHopo
+  nameWithType: StandardChordModifiers.ExplicitHopo
+  fullName: ChartTools.StandardChordModifiers.ExplicitHopo

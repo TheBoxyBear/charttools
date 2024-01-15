@@ -1,0 +1,1559 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.Drums
+  commentId: T:ChartTools.Drums
+  id: Drums
+  parent: ChartTools
+  children:
+  - ChartTools.Drums.GetIdentity
+  langs:
+  - csharp
+  - vb
+  name: Drums
+  nameWithType: Drums
+  fullName: ChartTools.Drums
+  type: Class
+  source:
+    remote:
+      path: ChartTools/Instruments/Drums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Drums
+    path: ../ChartTools/Instruments/Drums.cs
+    startLine: 7
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  syntax:
+    content: 'public record Drums : Instrument<DrumsChord>, IEmptyVerifiable, IEquatable<Instrument>, IEquatable<Instrument<DrumsChord>>, IEquatable<Drums>'
+    content.vb: Public Class Drums Inherits Instrument(Of DrumsChord) Implements IEmptyVerifiable, IEquatable(Of Instrument), IEquatable(Of Instrument(Of DrumsChord)), IEquatable(Of Drums)
+  inheritance:
+  - System.Object
+  - ChartTools.Instrument
+  - ChartTools.Instrument{ChartTools.DrumsChord}
+  implements:
+  - ChartTools.IEmptyVerifiable
+  - System.IEquatable{ChartTools.Instrument}
+  - System.IEquatable{ChartTools.Instrument{ChartTools.DrumsChord}}
+  - System.IEquatable{ChartTools.Drums}
+  inheritedMembers:
+  - ChartTools.Instrument{ChartTools.DrumsChord}.Easy
+  - ChartTools.Instrument{ChartTools.DrumsChord}.Medium
+  - ChartTools.Instrument{ChartTools.DrumsChord}.Hard
+  - ChartTools.Instrument{ChartTools.DrumsChord}.Expert
+  - ChartTools.Instrument{ChartTools.DrumsChord}.GetTrack(ChartTools.Difficulty)
+  - ChartTools.Instrument{ChartTools.DrumsChord}.CreateTrack(ChartTools.Difficulty)
+  - ChartTools.Instrument{ChartTools.DrumsChord}.RemoveTrack(ChartTools.Difficulty)
+  - ChartTools.Instrument{ChartTools.DrumsChord}.GetEasy
+  - ChartTools.Instrument{ChartTools.DrumsChord}.GetMedium
+  - ChartTools.Instrument{ChartTools.DrumsChord}.GetHard
+  - ChartTools.Instrument{ChartTools.DrumsChord}.GetExpert
+  - ChartTools.Instrument{ChartTools.DrumsChord}.GetTracks
+  - ChartTools.Instrument{ChartTools.DrumsChord}.GetExistingTracks
+  - ChartTools.Instrument{ChartTools.DrumsChord}.SetTrack(ChartTools.Track{ChartTools.DrumsChord})
+  - ChartTools.Instrument.IsEmpty
+  - ChartTools.Instrument.InstrumentIdentity
+  - ChartTools.Instrument.InstrumentType
+  - ChartTools.Instrument.SpecialPhrases
+  - ChartTools.Instrument.GetDifficulty(ChartTools.InstrumentDifficultySet)
+  - ChartTools.Instrument.SetDifficulty(ChartTools.InstrumentDifficultySet,System.Nullable{System.SByte})
+  - ChartTools.Instrument.ShareLocalEvents(ChartTools.IO.Configuration.TrackObjectSource)
+  - ChartTools.Instrument.ShareSpecial(ChartTools.IO.Configuration.TrackObjectSource)
+  - ChartTools.Instrument.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - ChartTools.Drums.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.Drums[])
+  - ChartTools.Instrument.ChartTools.Tools.TempoRescaler.Rescale(System.Single)
+- uid: ChartTools.Drums.GetIdentity
+  commentId: M:ChartTools.Drums.GetIdentity
+  id: GetIdentity
+  parent: ChartTools.Drums
+  langs:
+  - csharp
+  - vb
+  name: GetIdentity()
+  nameWithType: Drums.GetIdentity()
+  fullName: ChartTools.Drums.GetIdentity()
+  type: Method
+  source:
+    remote:
+      path: ChartTools/Instruments/Drums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: GetIdentity
+    path: ../ChartTools/Instruments/Drums.cs
+    startLine: 9
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  example: []
+  syntax:
+    content: protected override InstrumentIdentity GetIdentity()
+    return:
+      type: ChartTools.InstrumentIdentity
+    content.vb: Protected Overrides Function GetIdentity() As InstrumentIdentity
+  overridden: ChartTools.Instrument.GetIdentity
+  overload: ChartTools.Drums.GetIdentity*
+references:
+- uid: ChartTools
+  commentId: N:ChartTools
+  href: ChartTools.html
+  name: ChartTools
+  nameWithType: ChartTools
+  fullName: ChartTools
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: ChartTools.Instrument
+  commentId: T:ChartTools.Instrument
+  parent: ChartTools
+  href: ChartTools.Instrument.html
+  name: Instrument
+  nameWithType: Instrument
+  fullName: ChartTools.Instrument
+- uid: ChartTools.Instrument{ChartTools.DrumsChord}
+  commentId: T:ChartTools.Instrument{ChartTools.DrumsChord}
+  parent: ChartTools
+  definition: ChartTools.Instrument`1
+  href: ChartTools.Instrument-1.html
+  name: Instrument<DrumsChord>
+  nameWithType: Instrument<DrumsChord>
+  fullName: ChartTools.Instrument<ChartTools.DrumsChord>
+  nameWithType.vb: Instrument(Of DrumsChord)
+  fullName.vb: ChartTools.Instrument(Of ChartTools.DrumsChord)
+  name.vb: Instrument(Of DrumsChord)
+  spec.csharp:
+  - uid: ChartTools.Instrument`1
+    name: Instrument
+    href: ChartTools.Instrument-1.html
+  - name: <
+  - uid: ChartTools.DrumsChord
+    name: DrumsChord
+    href: ChartTools.DrumsChord.html
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.Instrument`1
+    name: Instrument
+    href: ChartTools.Instrument-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.DrumsChord
+    name: DrumsChord
+    href: ChartTools.DrumsChord.html
+  - name: )
+- uid: ChartTools.IEmptyVerifiable
+  commentId: T:ChartTools.IEmptyVerifiable
+  parent: ChartTools
+  href: ChartTools.IEmptyVerifiable.html
+  name: IEmptyVerifiable
+  nameWithType: IEmptyVerifiable
+  fullName: ChartTools.IEmptyVerifiable
+- uid: System.IEquatable{ChartTools.Instrument}
+  commentId: T:System.IEquatable{ChartTools.Instrument}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<Instrument>
+  nameWithType: IEquatable<Instrument>
+  fullName: System.IEquatable<ChartTools.Instrument>
+  nameWithType.vb: IEquatable(Of Instrument)
+  fullName.vb: System.IEquatable(Of ChartTools.Instrument)
+  name.vb: IEquatable(Of Instrument)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: ChartTools.Instrument
+    name: Instrument
+    href: ChartTools.Instrument.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Instrument
+    name: Instrument
+    href: ChartTools.Instrument.html
+  - name: )
+- uid: System.IEquatable{ChartTools.Instrument{ChartTools.DrumsChord}}
+  commentId: T:System.IEquatable{ChartTools.Instrument{ChartTools.DrumsChord}}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<Instrument<DrumsChord>>
+  nameWithType: IEquatable<Instrument<DrumsChord>>
+  fullName: System.IEquatable<ChartTools.Instrument<ChartTools.DrumsChord>>
+  nameWithType.vb: IEquatable(Of Instrument(Of DrumsChord))
+  fullName.vb: System.IEquatable(Of ChartTools.Instrument(Of ChartTools.DrumsChord))
+  name.vb: IEquatable(Of Instrument(Of DrumsChord))
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: ChartTools.Instrument`1
+    name: Instrument
+    href: ChartTools.Instrument-1.html
+  - name: <
+  - uid: ChartTools.DrumsChord
+    name: DrumsChord
+    href: ChartTools.DrumsChord.html
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Instrument`1
+    name: Instrument
+    href: ChartTools.Instrument-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.DrumsChord
+    name: DrumsChord
+    href: ChartTools.DrumsChord.html
+  - name: )
+  - name: )
+- uid: System.IEquatable{ChartTools.Drums}
+  commentId: T:System.IEquatable{ChartTools.Drums}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<Drums>
+  nameWithType: IEquatable<Drums>
+  fullName: System.IEquatable<ChartTools.Drums>
+  nameWithType.vb: IEquatable(Of Drums)
+  fullName.vb: System.IEquatable(Of ChartTools.Drums)
+  name.vb: IEquatable(Of Drums)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: ChartTools.Drums
+    name: Drums
+    href: ChartTools.Drums.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Drums
+    name: Drums
+    href: ChartTools.Drums.html
+  - name: )
+- uid: ChartTools.Instrument{ChartTools.DrumsChord}.Easy
+  commentId: P:ChartTools.Instrument{ChartTools.DrumsChord}.Easy
+  parent: ChartTools.Instrument{ChartTools.DrumsChord}
+  definition: ChartTools.Instrument`1.Easy
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_Easy
+  name: Easy
+  nameWithType: Instrument<DrumsChord>.Easy
+  fullName: ChartTools.Instrument<ChartTools.DrumsChord>.Easy
+  nameWithType.vb: Instrument(Of DrumsChord).Easy
+  fullName.vb: ChartTools.Instrument(Of ChartTools.DrumsChord).Easy
+- uid: ChartTools.Instrument{ChartTools.DrumsChord}.Medium
+  commentId: P:ChartTools.Instrument{ChartTools.DrumsChord}.Medium
+  parent: ChartTools.Instrument{ChartTools.DrumsChord}
+  definition: ChartTools.Instrument`1.Medium
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_Medium
+  name: Medium
+  nameWithType: Instrument<DrumsChord>.Medium
+  fullName: ChartTools.Instrument<ChartTools.DrumsChord>.Medium
+  nameWithType.vb: Instrument(Of DrumsChord).Medium
+  fullName.vb: ChartTools.Instrument(Of ChartTools.DrumsChord).Medium
+- uid: ChartTools.Instrument{ChartTools.DrumsChord}.Hard
+  commentId: P:ChartTools.Instrument{ChartTools.DrumsChord}.Hard
+  parent: ChartTools.Instrument{ChartTools.DrumsChord}
+  definition: ChartTools.Instrument`1.Hard
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_Hard
+  name: Hard
+  nameWithType: Instrument<DrumsChord>.Hard
+  fullName: ChartTools.Instrument<ChartTools.DrumsChord>.Hard
+  nameWithType.vb: Instrument(Of DrumsChord).Hard
+  fullName.vb: ChartTools.Instrument(Of ChartTools.DrumsChord).Hard
+- uid: ChartTools.Instrument{ChartTools.DrumsChord}.Expert
+  commentId: P:ChartTools.Instrument{ChartTools.DrumsChord}.Expert
+  parent: ChartTools.Instrument{ChartTools.DrumsChord}
+  definition: ChartTools.Instrument`1.Expert
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_Expert
+  name: Expert
+  nameWithType: Instrument<DrumsChord>.Expert
+  fullName: ChartTools.Instrument<ChartTools.DrumsChord>.Expert
+  nameWithType.vb: Instrument(Of DrumsChord).Expert
+  fullName.vb: ChartTools.Instrument(Of ChartTools.DrumsChord).Expert
+- uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetTrack(ChartTools.Difficulty)
+  commentId: M:ChartTools.Instrument{ChartTools.DrumsChord}.GetTrack(ChartTools.Difficulty)
+  parent: ChartTools.Instrument{ChartTools.DrumsChord}
+  definition: ChartTools.Instrument`1.GetTrack(ChartTools.Difficulty)
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetTrack_ChartTools_Difficulty_
+  name: GetTrack(Difficulty)
+  nameWithType: Instrument<DrumsChord>.GetTrack(Difficulty)
+  fullName: ChartTools.Instrument<ChartTools.DrumsChord>.GetTrack(ChartTools.Difficulty)
+  nameWithType.vb: Instrument(Of DrumsChord).GetTrack(Difficulty)
+  fullName.vb: ChartTools.Instrument(Of ChartTools.DrumsChord).GetTrack(ChartTools.Difficulty)
+  spec.csharp:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetTrack(ChartTools.Difficulty)
+    name: GetTrack
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetTrack_ChartTools_Difficulty_
+  - name: (
+  - uid: ChartTools.Difficulty
+    name: Difficulty
+    href: ChartTools.Difficulty.html
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetTrack(ChartTools.Difficulty)
+    name: GetTrack
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetTrack_ChartTools_Difficulty_
+  - name: (
+  - uid: ChartTools.Difficulty
+    name: Difficulty
+    href: ChartTools.Difficulty.html
+  - name: )
+- uid: ChartTools.Instrument{ChartTools.DrumsChord}.CreateTrack(ChartTools.Difficulty)
+  commentId: M:ChartTools.Instrument{ChartTools.DrumsChord}.CreateTrack(ChartTools.Difficulty)
+  parent: ChartTools.Instrument{ChartTools.DrumsChord}
+  definition: ChartTools.Instrument`1.CreateTrack(ChartTools.Difficulty)
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_CreateTrack_ChartTools_Difficulty_
+  name: CreateTrack(Difficulty)
+  nameWithType: Instrument<DrumsChord>.CreateTrack(Difficulty)
+  fullName: ChartTools.Instrument<ChartTools.DrumsChord>.CreateTrack(ChartTools.Difficulty)
+  nameWithType.vb: Instrument(Of DrumsChord).CreateTrack(Difficulty)
+  fullName.vb: ChartTools.Instrument(Of ChartTools.DrumsChord).CreateTrack(ChartTools.Difficulty)
+  spec.csharp:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.CreateTrack(ChartTools.Difficulty)
+    name: CreateTrack
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_CreateTrack_ChartTools_Difficulty_
+  - name: (
+  - uid: ChartTools.Difficulty
+    name: Difficulty
+    href: ChartTools.Difficulty.html
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.CreateTrack(ChartTools.Difficulty)
+    name: CreateTrack
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_CreateTrack_ChartTools_Difficulty_
+  - name: (
+  - uid: ChartTools.Difficulty
+    name: Difficulty
+    href: ChartTools.Difficulty.html
+  - name: )
+- uid: ChartTools.Instrument{ChartTools.DrumsChord}.RemoveTrack(ChartTools.Difficulty)
+  commentId: M:ChartTools.Instrument{ChartTools.DrumsChord}.RemoveTrack(ChartTools.Difficulty)
+  parent: ChartTools.Instrument{ChartTools.DrumsChord}
+  definition: ChartTools.Instrument`1.RemoveTrack(ChartTools.Difficulty)
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_RemoveTrack_ChartTools_Difficulty_
+  name: RemoveTrack(Difficulty)
+  nameWithType: Instrument<DrumsChord>.RemoveTrack(Difficulty)
+  fullName: ChartTools.Instrument<ChartTools.DrumsChord>.RemoveTrack(ChartTools.Difficulty)
+  nameWithType.vb: Instrument(Of DrumsChord).RemoveTrack(Difficulty)
+  fullName.vb: ChartTools.Instrument(Of ChartTools.DrumsChord).RemoveTrack(ChartTools.Difficulty)
+  spec.csharp:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.RemoveTrack(ChartTools.Difficulty)
+    name: RemoveTrack
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_RemoveTrack_ChartTools_Difficulty_
+  - name: (
+  - uid: ChartTools.Difficulty
+    name: Difficulty
+    href: ChartTools.Difficulty.html
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.RemoveTrack(ChartTools.Difficulty)
+    name: RemoveTrack
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_RemoveTrack_ChartTools_Difficulty_
+  - name: (
+  - uid: ChartTools.Difficulty
+    name: Difficulty
+    href: ChartTools.Difficulty.html
+  - name: )
+- uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetEasy
+  commentId: M:ChartTools.Instrument{ChartTools.DrumsChord}.GetEasy
+  parent: ChartTools.Instrument{ChartTools.DrumsChord}
+  definition: ChartTools.Instrument`1.GetEasy
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetEasy
+  name: GetEasy()
+  nameWithType: Instrument<DrumsChord>.GetEasy()
+  fullName: ChartTools.Instrument<ChartTools.DrumsChord>.GetEasy()
+  nameWithType.vb: Instrument(Of DrumsChord).GetEasy()
+  fullName.vb: ChartTools.Instrument(Of ChartTools.DrumsChord).GetEasy()
+  spec.csharp:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetEasy
+    name: GetEasy
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetEasy
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetEasy
+    name: GetEasy
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetEasy
+  - name: (
+  - name: )
+- uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetMedium
+  commentId: M:ChartTools.Instrument{ChartTools.DrumsChord}.GetMedium
+  parent: ChartTools.Instrument{ChartTools.DrumsChord}
+  definition: ChartTools.Instrument`1.GetMedium
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetMedium
+  name: GetMedium()
+  nameWithType: Instrument<DrumsChord>.GetMedium()
+  fullName: ChartTools.Instrument<ChartTools.DrumsChord>.GetMedium()
+  nameWithType.vb: Instrument(Of DrumsChord).GetMedium()
+  fullName.vb: ChartTools.Instrument(Of ChartTools.DrumsChord).GetMedium()
+  spec.csharp:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetMedium
+    name: GetMedium
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetMedium
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetMedium
+    name: GetMedium
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetMedium
+  - name: (
+  - name: )
+- uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetHard
+  commentId: M:ChartTools.Instrument{ChartTools.DrumsChord}.GetHard
+  parent: ChartTools.Instrument{ChartTools.DrumsChord}
+  definition: ChartTools.Instrument`1.GetHard
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetHard
+  name: GetHard()
+  nameWithType: Instrument<DrumsChord>.GetHard()
+  fullName: ChartTools.Instrument<ChartTools.DrumsChord>.GetHard()
+  nameWithType.vb: Instrument(Of DrumsChord).GetHard()
+  fullName.vb: ChartTools.Instrument(Of ChartTools.DrumsChord).GetHard()
+  spec.csharp:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetHard
+    name: GetHard
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetHard
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetHard
+    name: GetHard
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetHard
+  - name: (
+  - name: )
+- uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetExpert
+  commentId: M:ChartTools.Instrument{ChartTools.DrumsChord}.GetExpert
+  parent: ChartTools.Instrument{ChartTools.DrumsChord}
+  definition: ChartTools.Instrument`1.GetExpert
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetExpert
+  name: GetExpert()
+  nameWithType: Instrument<DrumsChord>.GetExpert()
+  fullName: ChartTools.Instrument<ChartTools.DrumsChord>.GetExpert()
+  nameWithType.vb: Instrument(Of DrumsChord).GetExpert()
+  fullName.vb: ChartTools.Instrument(Of ChartTools.DrumsChord).GetExpert()
+  spec.csharp:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetExpert
+    name: GetExpert
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetExpert
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetExpert
+    name: GetExpert
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetExpert
+  - name: (
+  - name: )
+- uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetTracks
+  commentId: M:ChartTools.Instrument{ChartTools.DrumsChord}.GetTracks
+  parent: ChartTools.Instrument{ChartTools.DrumsChord}
+  definition: ChartTools.Instrument`1.GetTracks
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetTracks
+  name: GetTracks()
+  nameWithType: Instrument<DrumsChord>.GetTracks()
+  fullName: ChartTools.Instrument<ChartTools.DrumsChord>.GetTracks()
+  nameWithType.vb: Instrument(Of DrumsChord).GetTracks()
+  fullName.vb: ChartTools.Instrument(Of ChartTools.DrumsChord).GetTracks()
+  spec.csharp:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetTracks
+    name: GetTracks
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetTracks
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetTracks
+    name: GetTracks
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetTracks
+  - name: (
+  - name: )
+- uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetExistingTracks
+  commentId: M:ChartTools.Instrument{ChartTools.DrumsChord}.GetExistingTracks
+  parent: ChartTools.Instrument{ChartTools.DrumsChord}
+  definition: ChartTools.Instrument`1.GetExistingTracks
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetExistingTracks
+  name: GetExistingTracks()
+  nameWithType: Instrument<DrumsChord>.GetExistingTracks()
+  fullName: ChartTools.Instrument<ChartTools.DrumsChord>.GetExistingTracks()
+  nameWithType.vb: Instrument(Of DrumsChord).GetExistingTracks()
+  fullName.vb: ChartTools.Instrument(Of ChartTools.DrumsChord).GetExistingTracks()
+  spec.csharp:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetExistingTracks
+    name: GetExistingTracks
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetExistingTracks
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.GetExistingTracks
+    name: GetExistingTracks
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetExistingTracks
+  - name: (
+  - name: )
+- uid: ChartTools.Instrument{ChartTools.DrumsChord}.SetTrack(ChartTools.Track{ChartTools.DrumsChord})
+  commentId: M:ChartTools.Instrument{ChartTools.DrumsChord}.SetTrack(ChartTools.Track{ChartTools.DrumsChord})
+  parent: ChartTools.Instrument{ChartTools.DrumsChord}
+  definition: ChartTools.Instrument`1.SetTrack(ChartTools.Track{`0})
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_SetTrack_ChartTools_Track__0__
+  name: SetTrack(Track<DrumsChord>)
+  nameWithType: Instrument<DrumsChord>.SetTrack(Track<DrumsChord>)
+  fullName: ChartTools.Instrument<ChartTools.DrumsChord>.SetTrack(ChartTools.Track<ChartTools.DrumsChord>)
+  nameWithType.vb: Instrument(Of DrumsChord).SetTrack(Track(Of DrumsChord))
+  fullName.vb: ChartTools.Instrument(Of ChartTools.DrumsChord).SetTrack(ChartTools.Track(Of ChartTools.DrumsChord))
+  name.vb: SetTrack(Track(Of DrumsChord))
+  spec.csharp:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.SetTrack(ChartTools.Track{ChartTools.DrumsChord})
+    name: SetTrack
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_SetTrack_ChartTools_Track__0__
+  - name: (
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: <
+  - uid: ChartTools.DrumsChord
+    name: DrumsChord
+    href: ChartTools.DrumsChord.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument{ChartTools.DrumsChord}.SetTrack(ChartTools.Track{ChartTools.DrumsChord})
+    name: SetTrack
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_SetTrack_ChartTools_Track__0__
+  - name: (
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.DrumsChord
+    name: DrumsChord
+    href: ChartTools.DrumsChord.html
+  - name: )
+  - name: )
+- uid: ChartTools.Instrument.IsEmpty
+  commentId: P:ChartTools.Instrument.IsEmpty
+  parent: ChartTools.Instrument
+  href: ChartTools.Instrument.html#ChartTools_Instrument_IsEmpty
+  name: IsEmpty
+  nameWithType: Instrument.IsEmpty
+  fullName: ChartTools.Instrument.IsEmpty
+- uid: ChartTools.Instrument.InstrumentIdentity
+  commentId: P:ChartTools.Instrument.InstrumentIdentity
+  parent: ChartTools.Instrument
+  href: ChartTools.Instrument.html#ChartTools_Instrument_InstrumentIdentity
+  name: InstrumentIdentity
+  nameWithType: Instrument.InstrumentIdentity
+  fullName: ChartTools.Instrument.InstrumentIdentity
+- uid: ChartTools.Instrument.InstrumentType
+  commentId: P:ChartTools.Instrument.InstrumentType
+  parent: ChartTools.Instrument
+  href: ChartTools.Instrument.html#ChartTools_Instrument_InstrumentType
+  name: InstrumentType
+  nameWithType: Instrument.InstrumentType
+  fullName: ChartTools.Instrument.InstrumentType
+- uid: ChartTools.Instrument.SpecialPhrases
+  commentId: P:ChartTools.Instrument.SpecialPhrases
+  parent: ChartTools.Instrument
+  href: ChartTools.Instrument.html#ChartTools_Instrument_SpecialPhrases
+  name: SpecialPhrases
+  nameWithType: Instrument.SpecialPhrases
+  fullName: ChartTools.Instrument.SpecialPhrases
+- uid: ChartTools.Instrument.GetDifficulty(ChartTools.InstrumentDifficultySet)
+  commentId: M:ChartTools.Instrument.GetDifficulty(ChartTools.InstrumentDifficultySet)
+  parent: ChartTools.Instrument
+  href: ChartTools.Instrument.html#ChartTools_Instrument_GetDifficulty_ChartTools_InstrumentDifficultySet_
+  name: GetDifficulty(InstrumentDifficultySet)
+  nameWithType: Instrument.GetDifficulty(InstrumentDifficultySet)
+  fullName: ChartTools.Instrument.GetDifficulty(ChartTools.InstrumentDifficultySet)
+  spec.csharp:
+  - uid: ChartTools.Instrument.GetDifficulty(ChartTools.InstrumentDifficultySet)
+    name: GetDifficulty
+    href: ChartTools.Instrument.html#ChartTools_Instrument_GetDifficulty_ChartTools_InstrumentDifficultySet_
+  - name: (
+  - uid: ChartTools.InstrumentDifficultySet
+    name: InstrumentDifficultySet
+    href: ChartTools.InstrumentDifficultySet.html
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument.GetDifficulty(ChartTools.InstrumentDifficultySet)
+    name: GetDifficulty
+    href: ChartTools.Instrument.html#ChartTools_Instrument_GetDifficulty_ChartTools_InstrumentDifficultySet_
+  - name: (
+  - uid: ChartTools.InstrumentDifficultySet
+    name: InstrumentDifficultySet
+    href: ChartTools.InstrumentDifficultySet.html
+  - name: )
+- uid: ChartTools.Instrument.SetDifficulty(ChartTools.InstrumentDifficultySet,System.Nullable{System.SByte})
+  commentId: M:ChartTools.Instrument.SetDifficulty(ChartTools.InstrumentDifficultySet,System.Nullable{System.SByte})
+  parent: ChartTools.Instrument
+  isExternal: true
+  href: ChartTools.Instrument.html#ChartTools_Instrument_SetDifficulty_ChartTools_InstrumentDifficultySet_System_Nullable_System_SByte__
+  name: SetDifficulty(InstrumentDifficultySet, sbyte?)
+  nameWithType: Instrument.SetDifficulty(InstrumentDifficultySet, sbyte?)
+  fullName: ChartTools.Instrument.SetDifficulty(ChartTools.InstrumentDifficultySet, sbyte?)
+  nameWithType.vb: Instrument.SetDifficulty(InstrumentDifficultySet, SByte?)
+  fullName.vb: ChartTools.Instrument.SetDifficulty(ChartTools.InstrumentDifficultySet, SByte?)
+  name.vb: SetDifficulty(InstrumentDifficultySet, SByte?)
+  spec.csharp:
+  - uid: ChartTools.Instrument.SetDifficulty(ChartTools.InstrumentDifficultySet,System.Nullable{System.SByte})
+    name: SetDifficulty
+    href: ChartTools.Instrument.html#ChartTools_Instrument_SetDifficulty_ChartTools_InstrumentDifficultySet_System_Nullable_System_SByte__
+  - name: (
+  - uid: ChartTools.InstrumentDifficultySet
+    name: InstrumentDifficultySet
+    href: ChartTools.InstrumentDifficultySet.html
+  - name: ','
+  - name: " "
+  - uid: System.SByte
+    name: sbyte
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.sbyte
+  - name: '?'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument.SetDifficulty(ChartTools.InstrumentDifficultySet,System.Nullable{System.SByte})
+    name: SetDifficulty
+    href: ChartTools.Instrument.html#ChartTools_Instrument_SetDifficulty_ChartTools_InstrumentDifficultySet_System_Nullable_System_SByte__
+  - name: (
+  - uid: ChartTools.InstrumentDifficultySet
+    name: InstrumentDifficultySet
+    href: ChartTools.InstrumentDifficultySet.html
+  - name: ','
+  - name: " "
+  - uid: System.SByte
+    name: SByte
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.sbyte
+  - name: '?'
+  - name: )
+- uid: ChartTools.Instrument.ShareLocalEvents(ChartTools.IO.Configuration.TrackObjectSource)
+  commentId: M:ChartTools.Instrument.ShareLocalEvents(ChartTools.IO.Configuration.TrackObjectSource)
+  parent: ChartTools.Instrument
+  href: ChartTools.Instrument.html#ChartTools_Instrument_ShareLocalEvents_ChartTools_IO_Configuration_TrackObjectSource_
+  name: ShareLocalEvents(TrackObjectSource)
+  nameWithType: Instrument.ShareLocalEvents(TrackObjectSource)
+  fullName: ChartTools.Instrument.ShareLocalEvents(ChartTools.IO.Configuration.TrackObjectSource)
+  spec.csharp:
+  - uid: ChartTools.Instrument.ShareLocalEvents(ChartTools.IO.Configuration.TrackObjectSource)
+    name: ShareLocalEvents
+    href: ChartTools.Instrument.html#ChartTools_Instrument_ShareLocalEvents_ChartTools_IO_Configuration_TrackObjectSource_
+  - name: (
+  - uid: ChartTools.IO.Configuration.TrackObjectSource
+    name: TrackObjectSource
+    href: ChartTools.IO.Configuration.TrackObjectSource.html
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument.ShareLocalEvents(ChartTools.IO.Configuration.TrackObjectSource)
+    name: ShareLocalEvents
+    href: ChartTools.Instrument.html#ChartTools_Instrument_ShareLocalEvents_ChartTools_IO_Configuration_TrackObjectSource_
+  - name: (
+  - uid: ChartTools.IO.Configuration.TrackObjectSource
+    name: TrackObjectSource
+    href: ChartTools.IO.Configuration.TrackObjectSource.html
+  - name: )
+- uid: ChartTools.Instrument.ShareSpecial(ChartTools.IO.Configuration.TrackObjectSource)
+  commentId: M:ChartTools.Instrument.ShareSpecial(ChartTools.IO.Configuration.TrackObjectSource)
+  parent: ChartTools.Instrument
+  href: ChartTools.Instrument.html#ChartTools_Instrument_ShareSpecial_ChartTools_IO_Configuration_TrackObjectSource_
+  name: ShareSpecial(TrackObjectSource)
+  nameWithType: Instrument.ShareSpecial(TrackObjectSource)
+  fullName: ChartTools.Instrument.ShareSpecial(ChartTools.IO.Configuration.TrackObjectSource)
+  spec.csharp:
+  - uid: ChartTools.Instrument.ShareSpecial(ChartTools.IO.Configuration.TrackObjectSource)
+    name: ShareSpecial
+    href: ChartTools.Instrument.html#ChartTools_Instrument_ShareSpecial_ChartTools_IO_Configuration_TrackObjectSource_
+  - name: (
+  - uid: ChartTools.IO.Configuration.TrackObjectSource
+    name: TrackObjectSource
+    href: ChartTools.IO.Configuration.TrackObjectSource.html
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument.ShareSpecial(ChartTools.IO.Configuration.TrackObjectSource)
+    name: ShareSpecial
+    href: ChartTools.Instrument.html#ChartTools_Instrument_ShareSpecial_ChartTools_IO_Configuration_TrackObjectSource_
+  - name: (
+  - uid: ChartTools.IO.Configuration.TrackObjectSource
+    name: TrackObjectSource
+    href: ChartTools.IO.Configuration.TrackObjectSource.html
+  - name: )
+- uid: ChartTools.Instrument.ToString
+  commentId: M:ChartTools.Instrument.ToString
+  parent: ChartTools.Instrument
+  href: ChartTools.Instrument.html#ChartTools_Instrument_ToString
+  name: ToString()
+  nameWithType: Instrument.ToString()
+  fullName: ChartTools.Instrument.ToString()
+  spec.csharp:
+  - uid: ChartTools.Instrument.ToString
+    name: ToString
+    href: ChartTools.Instrument.html#ChartTools_Instrument_ToString
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument.ToString
+    name: ToString
+    href: ChartTools.Instrument.html#ChartTools_Instrument_ToString
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: ChartTools.Drums.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.Drums[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  parent: ChartTools.Tools.PropertyMerger
+  definition: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<Drums>(Drums, bool, bool, params Drums[])
+  nameWithType: PropertyMerger.Merge<Drums>(Drums, bool, bool, params Drums[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<ChartTools.Drums>(ChartTools.Drums, bool, bool, params ChartTools.Drums[])
+  nameWithType.vb: PropertyMerger.Merge(Of Drums)(Drums, Boolean, Boolean, ParamArray Drums())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of ChartTools.Drums)(ChartTools.Drums, Boolean, Boolean, ParamArray ChartTools.Drums())
+  name.vb: Merge(Of Drums)(Drums, Boolean, Boolean, ParamArray Drums())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.Drums,System.Boolean,System.Boolean,ChartTools.Drums[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - uid: ChartTools.Drums
+    name: Drums
+    href: ChartTools.Drums.html
+  - name: '>'
+  - name: (
+  - uid: ChartTools.Drums
+    name: Drums
+    href: ChartTools.Drums.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: ChartTools.Drums
+    name: Drums
+    href: ChartTools.Drums.html
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.Drums,System.Boolean,System.Boolean,ChartTools.Drums[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Drums
+    name: Drums
+    href: ChartTools.Drums.html
+  - name: )
+  - name: (
+  - uid: ChartTools.Drums
+    name: Drums
+    href: ChartTools.Drums.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: ChartTools.Drums
+    name: Drums
+    href: ChartTools.Drums.html
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Instrument.ChartTools.Tools.TempoRescaler.Rescale(System.Single)
+  commentId: M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.Instrument,System.Single)
+  parent: ChartTools.Tools.TempoRescaler
+  definition: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.Instrument,System.Single)
+  href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_Instrument_System_Single_
+  name: Rescale(Instrument, float)
+  nameWithType: TempoRescaler.Rescale(Instrument, float)
+  fullName: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.Instrument, float)
+  nameWithType.vb: TempoRescaler.Rescale(Instrument, Single)
+  fullName.vb: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.Instrument, Single)
+  name.vb: Rescale(Instrument, Single)
+  spec.csharp:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.Instrument,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_Instrument_System_Single_
+  - name: (
+  - uid: ChartTools.Instrument
+    name: Instrument
+    href: ChartTools.Instrument.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.Instrument,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_Instrument_System_Single_
+  - name: (
+  - uid: ChartTools.Instrument
+    name: Instrument
+    href: ChartTools.Instrument.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: ChartTools.Instrument`1
+  commentId: T:ChartTools.Instrument`1
+  href: ChartTools.Instrument-1.html
+  name: Instrument<TChord>
+  nameWithType: Instrument<TChord>
+  fullName: ChartTools.Instrument<TChord>
+  nameWithType.vb: Instrument(Of TChord)
+  fullName.vb: ChartTools.Instrument(Of TChord)
+  name.vb: Instrument(Of TChord)
+  spec.csharp:
+  - uid: ChartTools.Instrument`1
+    name: Instrument
+    href: ChartTools.Instrument-1.html
+  - name: <
+  - name: TChord
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.Instrument`1
+    name: Instrument
+    href: ChartTools.Instrument-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TChord
+  - name: )
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ChartTools.Instrument`1.Easy
+  commentId: P:ChartTools.Instrument`1.Easy
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_Easy
+  name: Easy
+  nameWithType: Instrument<TChord>.Easy
+  fullName: ChartTools.Instrument<TChord>.Easy
+  nameWithType.vb: Instrument(Of TChord).Easy
+  fullName.vb: ChartTools.Instrument(Of TChord).Easy
+- uid: ChartTools.Instrument`1.Medium
+  commentId: P:ChartTools.Instrument`1.Medium
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_Medium
+  name: Medium
+  nameWithType: Instrument<TChord>.Medium
+  fullName: ChartTools.Instrument<TChord>.Medium
+  nameWithType.vb: Instrument(Of TChord).Medium
+  fullName.vb: ChartTools.Instrument(Of TChord).Medium
+- uid: ChartTools.Instrument`1.Hard
+  commentId: P:ChartTools.Instrument`1.Hard
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_Hard
+  name: Hard
+  nameWithType: Instrument<TChord>.Hard
+  fullName: ChartTools.Instrument<TChord>.Hard
+  nameWithType.vb: Instrument(Of TChord).Hard
+  fullName.vb: ChartTools.Instrument(Of TChord).Hard
+- uid: ChartTools.Instrument`1.Expert
+  commentId: P:ChartTools.Instrument`1.Expert
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_Expert
+  name: Expert
+  nameWithType: Instrument<TChord>.Expert
+  fullName: ChartTools.Instrument<TChord>.Expert
+  nameWithType.vb: Instrument(Of TChord).Expert
+  fullName.vb: ChartTools.Instrument(Of TChord).Expert
+- uid: ChartTools.Instrument`1.GetTrack(ChartTools.Difficulty)
+  commentId: M:ChartTools.Instrument`1.GetTrack(ChartTools.Difficulty)
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetTrack_ChartTools_Difficulty_
+  name: GetTrack(Difficulty)
+  nameWithType: Instrument<TChord>.GetTrack(Difficulty)
+  fullName: ChartTools.Instrument<TChord>.GetTrack(ChartTools.Difficulty)
+  nameWithType.vb: Instrument(Of TChord).GetTrack(Difficulty)
+  fullName.vb: ChartTools.Instrument(Of TChord).GetTrack(ChartTools.Difficulty)
+  spec.csharp:
+  - uid: ChartTools.Instrument`1.GetTrack(ChartTools.Difficulty)
+    name: GetTrack
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetTrack_ChartTools_Difficulty_
+  - name: (
+  - uid: ChartTools.Difficulty
+    name: Difficulty
+    href: ChartTools.Difficulty.html
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument`1.GetTrack(ChartTools.Difficulty)
+    name: GetTrack
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetTrack_ChartTools_Difficulty_
+  - name: (
+  - uid: ChartTools.Difficulty
+    name: Difficulty
+    href: ChartTools.Difficulty.html
+  - name: )
+- uid: ChartTools.Instrument`1.CreateTrack(ChartTools.Difficulty)
+  commentId: M:ChartTools.Instrument`1.CreateTrack(ChartTools.Difficulty)
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_CreateTrack_ChartTools_Difficulty_
+  name: CreateTrack(Difficulty)
+  nameWithType: Instrument<TChord>.CreateTrack(Difficulty)
+  fullName: ChartTools.Instrument<TChord>.CreateTrack(ChartTools.Difficulty)
+  nameWithType.vb: Instrument(Of TChord).CreateTrack(Difficulty)
+  fullName.vb: ChartTools.Instrument(Of TChord).CreateTrack(ChartTools.Difficulty)
+  spec.csharp:
+  - uid: ChartTools.Instrument`1.CreateTrack(ChartTools.Difficulty)
+    name: CreateTrack
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_CreateTrack_ChartTools_Difficulty_
+  - name: (
+  - uid: ChartTools.Difficulty
+    name: Difficulty
+    href: ChartTools.Difficulty.html
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument`1.CreateTrack(ChartTools.Difficulty)
+    name: CreateTrack
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_CreateTrack_ChartTools_Difficulty_
+  - name: (
+  - uid: ChartTools.Difficulty
+    name: Difficulty
+    href: ChartTools.Difficulty.html
+  - name: )
+- uid: ChartTools.Instrument`1.RemoveTrack(ChartTools.Difficulty)
+  commentId: M:ChartTools.Instrument`1.RemoveTrack(ChartTools.Difficulty)
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_RemoveTrack_ChartTools_Difficulty_
+  name: RemoveTrack(Difficulty)
+  nameWithType: Instrument<TChord>.RemoveTrack(Difficulty)
+  fullName: ChartTools.Instrument<TChord>.RemoveTrack(ChartTools.Difficulty)
+  nameWithType.vb: Instrument(Of TChord).RemoveTrack(Difficulty)
+  fullName.vb: ChartTools.Instrument(Of TChord).RemoveTrack(ChartTools.Difficulty)
+  spec.csharp:
+  - uid: ChartTools.Instrument`1.RemoveTrack(ChartTools.Difficulty)
+    name: RemoveTrack
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_RemoveTrack_ChartTools_Difficulty_
+  - name: (
+  - uid: ChartTools.Difficulty
+    name: Difficulty
+    href: ChartTools.Difficulty.html
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument`1.RemoveTrack(ChartTools.Difficulty)
+    name: RemoveTrack
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_RemoveTrack_ChartTools_Difficulty_
+  - name: (
+  - uid: ChartTools.Difficulty
+    name: Difficulty
+    href: ChartTools.Difficulty.html
+  - name: )
+- uid: ChartTools.Instrument`1.GetEasy
+  commentId: M:ChartTools.Instrument`1.GetEasy
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetEasy
+  name: GetEasy()
+  nameWithType: Instrument<TChord>.GetEasy()
+  fullName: ChartTools.Instrument<TChord>.GetEasy()
+  nameWithType.vb: Instrument(Of TChord).GetEasy()
+  fullName.vb: ChartTools.Instrument(Of TChord).GetEasy()
+  spec.csharp:
+  - uid: ChartTools.Instrument`1.GetEasy
+    name: GetEasy
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetEasy
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument`1.GetEasy
+    name: GetEasy
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetEasy
+  - name: (
+  - name: )
+- uid: ChartTools.Instrument`1.GetMedium
+  commentId: M:ChartTools.Instrument`1.GetMedium
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetMedium
+  name: GetMedium()
+  nameWithType: Instrument<TChord>.GetMedium()
+  fullName: ChartTools.Instrument<TChord>.GetMedium()
+  nameWithType.vb: Instrument(Of TChord).GetMedium()
+  fullName.vb: ChartTools.Instrument(Of TChord).GetMedium()
+  spec.csharp:
+  - uid: ChartTools.Instrument`1.GetMedium
+    name: GetMedium
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetMedium
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument`1.GetMedium
+    name: GetMedium
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetMedium
+  - name: (
+  - name: )
+- uid: ChartTools.Instrument`1.GetHard
+  commentId: M:ChartTools.Instrument`1.GetHard
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetHard
+  name: GetHard()
+  nameWithType: Instrument<TChord>.GetHard()
+  fullName: ChartTools.Instrument<TChord>.GetHard()
+  nameWithType.vb: Instrument(Of TChord).GetHard()
+  fullName.vb: ChartTools.Instrument(Of TChord).GetHard()
+  spec.csharp:
+  - uid: ChartTools.Instrument`1.GetHard
+    name: GetHard
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetHard
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument`1.GetHard
+    name: GetHard
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetHard
+  - name: (
+  - name: )
+- uid: ChartTools.Instrument`1.GetExpert
+  commentId: M:ChartTools.Instrument`1.GetExpert
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetExpert
+  name: GetExpert()
+  nameWithType: Instrument<TChord>.GetExpert()
+  fullName: ChartTools.Instrument<TChord>.GetExpert()
+  nameWithType.vb: Instrument(Of TChord).GetExpert()
+  fullName.vb: ChartTools.Instrument(Of TChord).GetExpert()
+  spec.csharp:
+  - uid: ChartTools.Instrument`1.GetExpert
+    name: GetExpert
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetExpert
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument`1.GetExpert
+    name: GetExpert
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetExpert
+  - name: (
+  - name: )
+- uid: ChartTools.Instrument`1.GetTracks
+  commentId: M:ChartTools.Instrument`1.GetTracks
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetTracks
+  name: GetTracks()
+  nameWithType: Instrument<TChord>.GetTracks()
+  fullName: ChartTools.Instrument<TChord>.GetTracks()
+  nameWithType.vb: Instrument(Of TChord).GetTracks()
+  fullName.vb: ChartTools.Instrument(Of TChord).GetTracks()
+  spec.csharp:
+  - uid: ChartTools.Instrument`1.GetTracks
+    name: GetTracks
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetTracks
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument`1.GetTracks
+    name: GetTracks
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetTracks
+  - name: (
+  - name: )
+- uid: ChartTools.Instrument`1.GetExistingTracks
+  commentId: M:ChartTools.Instrument`1.GetExistingTracks
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetExistingTracks
+  name: GetExistingTracks()
+  nameWithType: Instrument<TChord>.GetExistingTracks()
+  fullName: ChartTools.Instrument<TChord>.GetExistingTracks()
+  nameWithType.vb: Instrument(Of TChord).GetExistingTracks()
+  fullName.vb: ChartTools.Instrument(Of TChord).GetExistingTracks()
+  spec.csharp:
+  - uid: ChartTools.Instrument`1.GetExistingTracks
+    name: GetExistingTracks
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetExistingTracks
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument`1.GetExistingTracks
+    name: GetExistingTracks
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_GetExistingTracks
+  - name: (
+  - name: )
+- uid: ChartTools.Instrument`1.SetTrack(ChartTools.Track{`0})
+  commentId: M:ChartTools.Instrument`1.SetTrack(ChartTools.Track{`0})
+  href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_SetTrack_ChartTools_Track__0__
+  name: SetTrack(Track<TChord>)
+  nameWithType: Instrument<TChord>.SetTrack(Track<TChord>)
+  fullName: ChartTools.Instrument<TChord>.SetTrack(ChartTools.Track<TChord>)
+  nameWithType.vb: Instrument(Of TChord).SetTrack(Track(Of TChord))
+  fullName.vb: ChartTools.Instrument(Of TChord).SetTrack(ChartTools.Track(Of TChord))
+  name.vb: SetTrack(Track(Of TChord))
+  spec.csharp:
+  - uid: ChartTools.Instrument`1.SetTrack(ChartTools.Track{`0})
+    name: SetTrack
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_SetTrack_ChartTools_Track__0__
+  - name: (
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: <
+  - name: TChord
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument`1.SetTrack(ChartTools.Track{`0})
+    name: SetTrack
+    href: ChartTools.Instrument-1.html#ChartTools_Instrument_1_SetTrack_ChartTools_Track__0__
+  - name: (
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TChord
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  isExternal: true
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<T>(T, bool, bool, params T[])
+  nameWithType: PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  nameWithType.vb: PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  name.vb: Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger
+  commentId: T:ChartTools.Tools.PropertyMerger
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.PropertyMerger.html
+  name: PropertyMerger
+  nameWithType: PropertyMerger
+  fullName: ChartTools.Tools.PropertyMerger
+- uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.Instrument,System.Single)
+  commentId: M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.Instrument,System.Single)
+  isExternal: true
+  href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_Instrument_System_Single_
+  name: Rescale(Instrument, float)
+  nameWithType: TempoRescaler.Rescale(Instrument, float)
+  fullName: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.Instrument, float)
+  nameWithType.vb: TempoRescaler.Rescale(Instrument, Single)
+  fullName.vb: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.Instrument, Single)
+  name.vb: Rescale(Instrument, Single)
+  spec.csharp:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.Instrument,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_Instrument_System_Single_
+  - name: (
+  - uid: ChartTools.Instrument
+    name: Instrument
+    href: ChartTools.Instrument.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.Instrument,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_Instrument_System_Single_
+  - name: (
+  - uid: ChartTools.Instrument
+    name: Instrument
+    href: ChartTools.Instrument.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ChartTools.Tools.TempoRescaler
+  commentId: T:ChartTools.Tools.TempoRescaler
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.TempoRescaler.html
+  name: TempoRescaler
+  nameWithType: TempoRescaler
+  fullName: ChartTools.Tools.TempoRescaler
+- uid: ChartTools.Tools
+  commentId: N:ChartTools.Tools
+  href: ChartTools.html
+  name: ChartTools.Tools
+  nameWithType: ChartTools.Tools
+  fullName: ChartTools.Tools
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+- uid: ChartTools.Instrument.GetIdentity
+  commentId: M:ChartTools.Instrument.GetIdentity
+  parent: ChartTools.Instrument
+  href: ChartTools.Instrument.html#ChartTools_Instrument_GetIdentity
+  name: GetIdentity()
+  nameWithType: Instrument.GetIdentity()
+  fullName: ChartTools.Instrument.GetIdentity()
+  spec.csharp:
+  - uid: ChartTools.Instrument.GetIdentity
+    name: GetIdentity
+    href: ChartTools.Instrument.html#ChartTools_Instrument_GetIdentity
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Instrument.GetIdentity
+    name: GetIdentity
+    href: ChartTools.Instrument.html#ChartTools_Instrument_GetIdentity
+  - name: (
+  - name: )
+- uid: ChartTools.Drums.GetIdentity*
+  commentId: Overload:ChartTools.Drums.GetIdentity
+  href: ChartTools.Drums.html#ChartTools_Drums_GetIdentity
+  name: GetIdentity
+  nameWithType: Drums.GetIdentity
+  fullName: ChartTools.Drums.GetIdentity
+- uid: ChartTools.InstrumentIdentity
+  commentId: T:ChartTools.InstrumentIdentity
+  parent: ChartTools
+  href: ChartTools.InstrumentIdentity.html
+  name: InstrumentIdentity
+  nameWithType: InstrumentIdentity
+  fullName: ChartTools.InstrumentIdentity

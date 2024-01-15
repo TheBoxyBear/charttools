@@ -1,0 +1,1187 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.LaneChord`3
+  commentId: T:ChartTools.LaneChord`3
+  id: LaneChord`3
+  parent: ChartTools
+  children:
+  - ChartTools.LaneChord`3.#ctor
+  - ChartTools.LaneChord`3.#ctor(System.UInt32)
+  - ChartTools.LaneChord`3.CreateNote(System.Byte,System.UInt32)
+  - ChartTools.LaneChord`3.Modifiers
+  - ChartTools.LaneChord`3.Notes
+  langs:
+  - csharp
+  - vb
+  name: LaneChord<TNote, TLane, TModifiers>
+  nameWithType: LaneChord<TNote, TLane, TModifiers>
+  fullName: ChartTools.LaneChord<TNote, TLane, TModifiers>
+  type: Class
+  source:
+    remote:
+      path: ChartTools/Chords/LaneChordGeneric.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: LaneChord
+    path: ../ChartTools/Chords/LaneChordGeneric.cs
+    startLine: 4
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  syntax:
+    content: 'public abstract class LaneChord<TNote, TLane, TModifiers> : LaneChord, IChord, ITrackObject, IReadOnlyTrackObject, IEquatable<IReadOnlyTrackObject> where TNote : LaneNote<TLane>, new() where TLane : struct, Enum where TModifiers : struct, Enum'
+    typeParameters:
+    - id: TNote
+    - id: TLane
+    - id: TModifiers
+    content.vb: Public MustInherit Class LaneChord(Of TNote As {LaneNote(Of TLane), New}, TLane As {Structure, [Enum]}, TModifiers As {Structure, [Enum]}) Inherits LaneChord Implements IChord, ITrackObject, IReadOnlyTrackObject, IEquatable(Of IReadOnlyTrackObject)
+  inheritance:
+  - System.Object
+  - ChartTools.LaneChord
+  derivedClasses:
+  - ChartTools.DrumsChord
+  - ChartTools.GHLChord
+  - ChartTools.StandardChord
+  implements:
+  - ChartTools.IChord
+  - ChartTools.ITrackObject
+  - ChartTools.IReadOnlyTrackObject
+  - System.IEquatable{ChartTools.IReadOnlyTrackObject}
+  inheritedMembers:
+  - ChartTools.LaneChord.Position
+  - ChartTools.LaneChord.OpenExclusivity
+  - ChartTools.LaneChord.GetNotes
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - ChartTools.IChord.ChartTools.Tools.TempoRescaler.Rescale(System.Single)
+  - ChartTools.ITrackObject.ChartTools.Tools.TempoRescaler.Rescale(System.Single)
+  - ChartTools.LaneChord`3.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.LaneChord{{TNote},{TLane},{TModifiers}}[])
+  nameWithType.vb: LaneChord(Of TNote, TLane, TModifiers)
+  fullName.vb: ChartTools.LaneChord(Of TNote, TLane, TModifiers)
+  name.vb: LaneChord(Of TNote, TLane, TModifiers)
+- uid: ChartTools.LaneChord`3.Notes
+  commentId: P:ChartTools.LaneChord`3.Notes
+  id: Notes
+  parent: ChartTools.LaneChord`3
+  langs:
+  - csharp
+  - vb
+  name: Notes
+  nameWithType: LaneChord<TNote, TLane, TModifiers>.Notes
+  fullName: ChartTools.LaneChord<TNote, TLane, TModifiers>.Notes
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Chords/LaneChordGeneric.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Notes
+    path: ../ChartTools/Chords/LaneChordGeneric.cs
+    startLine: 12
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Notes in the chord
+  example: []
+  syntax:
+    content: public LaneNoteCollection<TNote, TLane> Notes { get; }
+    parameters: []
+    return:
+      type: ChartTools.LaneNoteCollection{{TNote},{TLane}}
+    content.vb: Public ReadOnly Property Notes As LaneNoteCollection(Of TNote, TLane)
+  overload: ChartTools.LaneChord`3.Notes*
+  nameWithType.vb: LaneChord(Of TNote, TLane, TModifiers).Notes
+  fullName.vb: ChartTools.LaneChord(Of TNote, TLane, TModifiers).Notes
+- uid: ChartTools.LaneChord`3.Modifiers
+  commentId: P:ChartTools.LaneChord`3.Modifiers
+  id: Modifiers
+  parent: ChartTools.LaneChord`3
+  langs:
+  - csharp
+  - vb
+  name: Modifiers
+  nameWithType: LaneChord<TNote, TLane, TModifiers>.Modifiers
+  fullName: ChartTools.LaneChord<TNote, TLane, TModifiers>.Modifiers
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Chords/LaneChordGeneric.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Modifiers
+    path: ../ChartTools/Chords/LaneChordGeneric.cs
+    startLine: 14
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  syntax:
+    content: public TModifiers Modifiers { get; set; }
+    parameters: []
+    return:
+      type: '{TModifiers}'
+    content.vb: Public Property Modifiers As TModifiers
+  overload: ChartTools.LaneChord`3.Modifiers*
+  nameWithType.vb: LaneChord(Of TNote, TLane, TModifiers).Modifiers
+  fullName.vb: ChartTools.LaneChord(Of TNote, TLane, TModifiers).Modifiers
+- uid: ChartTools.LaneChord`3.#ctor
+  commentId: M:ChartTools.LaneChord`3.#ctor
+  id: '#ctor'
+  parent: ChartTools.LaneChord`3
+  langs:
+  - csharp
+  - vb
+  name: LaneChord()
+  nameWithType: LaneChord<TNote, TLane, TModifiers>.LaneChord()
+  fullName: ChartTools.LaneChord<TNote, TLane, TModifiers>.LaneChord()
+  type: Constructor
+  source:
+    remote:
+      path: ChartTools/Chords/LaneChordGeneric.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: .ctor
+    path: ../ChartTools/Chords/LaneChordGeneric.cs
+    startLine: 17
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  syntax:
+    content: public LaneChord()
+    content.vb: Public Sub New()
+  overload: ChartTools.LaneChord`3.#ctor*
+  nameWithType.vb: LaneChord(Of TNote, TLane, TModifiers).New()
+  fullName.vb: ChartTools.LaneChord(Of TNote, TLane, TModifiers).New()
+  name.vb: New()
+- uid: ChartTools.LaneChord`3.#ctor(System.UInt32)
+  commentId: M:ChartTools.LaneChord`3.#ctor(System.UInt32)
+  id: '#ctor(System.UInt32)'
+  parent: ChartTools.LaneChord`3
+  langs:
+  - csharp
+  - vb
+  name: LaneChord(uint)
+  nameWithType: LaneChord<TNote, TLane, TModifiers>.LaneChord(uint)
+  fullName: ChartTools.LaneChord<TNote, TLane, TModifiers>.LaneChord(uint)
+  type: Constructor
+  source:
+    remote:
+      path: ChartTools/Chords/LaneChordGeneric.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: .ctor
+    path: ../ChartTools/Chords/LaneChordGeneric.cs
+    startLine: 18
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  syntax:
+    content: public LaneChord(uint position)
+    parameters:
+    - id: position
+      type: System.UInt32
+    content.vb: Public Sub New(position As UInteger)
+  overload: ChartTools.LaneChord`3.#ctor*
+  nameWithType.vb: LaneChord(Of TNote, TLane, TModifiers).New(UInteger)
+  fullName.vb: ChartTools.LaneChord(Of TNote, TLane, TModifiers).New(UInteger)
+  name.vb: New(UInteger)
+- uid: ChartTools.LaneChord`3.CreateNote(System.Byte,System.UInt32)
+  commentId: M:ChartTools.LaneChord`3.CreateNote(System.Byte,System.UInt32)
+  id: CreateNote(System.Byte,System.UInt32)
+  parent: ChartTools.LaneChord`3
+  langs:
+  - csharp
+  - vb
+  name: CreateNote(byte, uint)
+  nameWithType: LaneChord<TNote, TLane, TModifiers>.CreateNote(byte, uint)
+  fullName: ChartTools.LaneChord<TNote, TLane, TModifiers>.CreateNote(byte, uint)
+  type: Method
+  source:
+    remote:
+      path: ChartTools/Chords/LaneChordGeneric.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: CreateNote
+    path: ../ChartTools/Chords/LaneChordGeneric.cs
+    startLine: 20
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  example: []
+  syntax:
+    content: public override LaneNote CreateNote(byte index, uint sustain = 0)
+    parameters:
+    - id: index
+      type: System.Byte
+    - id: sustain
+      type: System.UInt32
+    return:
+      type: ChartTools.LaneNote
+    content.vb: Public Overrides Function CreateNote(index As Byte, sustain As UInteger = 0) As LaneNote
+  overridden: ChartTools.LaneChord.CreateNote(System.Byte,System.UInt32)
+  overload: ChartTools.LaneChord`3.CreateNote*
+  nameWithType.vb: LaneChord(Of TNote, TLane, TModifiers).CreateNote(Byte, UInteger)
+  fullName.vb: ChartTools.LaneChord(Of TNote, TLane, TModifiers).CreateNote(Byte, UInteger)
+  name.vb: CreateNote(Byte, UInteger)
+references:
+- uid: ChartTools
+  commentId: N:ChartTools
+  href: ChartTools.html
+  name: ChartTools
+  nameWithType: ChartTools
+  fullName: ChartTools
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: ChartTools.LaneChord
+  commentId: T:ChartTools.LaneChord
+  parent: ChartTools
+  href: ChartTools.LaneChord.html
+  name: LaneChord
+  nameWithType: LaneChord
+  fullName: ChartTools.LaneChord
+- uid: ChartTools.IChord
+  commentId: T:ChartTools.IChord
+  parent: ChartTools
+  href: ChartTools.IChord.html
+  name: IChord
+  nameWithType: IChord
+  fullName: ChartTools.IChord
+- uid: ChartTools.ITrackObject
+  commentId: T:ChartTools.ITrackObject
+  parent: ChartTools
+  href: ChartTools.ITrackObject.html
+  name: ITrackObject
+  nameWithType: ITrackObject
+  fullName: ChartTools.ITrackObject
+- uid: ChartTools.IReadOnlyTrackObject
+  commentId: T:ChartTools.IReadOnlyTrackObject
+  parent: ChartTools
+  href: ChartTools.IReadOnlyTrackObject.html
+  name: IReadOnlyTrackObject
+  nameWithType: IReadOnlyTrackObject
+  fullName: ChartTools.IReadOnlyTrackObject
+- uid: System.IEquatable{ChartTools.IReadOnlyTrackObject}
+  commentId: T:System.IEquatable{ChartTools.IReadOnlyTrackObject}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<IReadOnlyTrackObject>
+  nameWithType: IEquatable<IReadOnlyTrackObject>
+  fullName: System.IEquatable<ChartTools.IReadOnlyTrackObject>
+  nameWithType.vb: IEquatable(Of IReadOnlyTrackObject)
+  fullName.vb: System.IEquatable(Of ChartTools.IReadOnlyTrackObject)
+  name.vb: IEquatable(Of IReadOnlyTrackObject)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: ChartTools.IReadOnlyTrackObject
+    name: IReadOnlyTrackObject
+    href: ChartTools.IReadOnlyTrackObject.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.IReadOnlyTrackObject
+    name: IReadOnlyTrackObject
+    href: ChartTools.IReadOnlyTrackObject.html
+  - name: )
+- uid: ChartTools.LaneChord.Position
+  commentId: P:ChartTools.LaneChord.Position
+  parent: ChartTools.LaneChord
+  href: ChartTools.LaneChord.html#ChartTools_LaneChord_Position
+  name: Position
+  nameWithType: LaneChord.Position
+  fullName: ChartTools.LaneChord.Position
+- uid: ChartTools.LaneChord.OpenExclusivity
+  commentId: P:ChartTools.LaneChord.OpenExclusivity
+  parent: ChartTools.LaneChord
+  href: ChartTools.LaneChord.html#ChartTools_LaneChord_OpenExclusivity
+  name: OpenExclusivity
+  nameWithType: LaneChord.OpenExclusivity
+  fullName: ChartTools.LaneChord.OpenExclusivity
+- uid: ChartTools.LaneChord.GetNotes
+  commentId: M:ChartTools.LaneChord.GetNotes
+  parent: ChartTools.LaneChord
+  href: ChartTools.LaneChord.html#ChartTools_LaneChord_GetNotes
+  name: GetNotes()
+  nameWithType: LaneChord.GetNotes()
+  fullName: ChartTools.LaneChord.GetNotes()
+  spec.csharp:
+  - uid: ChartTools.LaneChord.GetNotes
+    name: GetNotes
+    href: ChartTools.LaneChord.html#ChartTools_LaneChord_GetNotes
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ChartTools.LaneChord.GetNotes
+    name: GetNotes
+    href: ChartTools.LaneChord.html#ChartTools_LaneChord_GetNotes
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: ChartTools.IChord.ChartTools.Tools.TempoRescaler.Rescale(System.Single)
+  commentId: M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.IChord,System.Single)
+  parent: ChartTools.Tools.TempoRescaler
+  definition: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.IChord,System.Single)
+  href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_IChord_System_Single_
+  name: Rescale(IChord, float)
+  nameWithType: TempoRescaler.Rescale(IChord, float)
+  fullName: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.IChord, float)
+  nameWithType.vb: TempoRescaler.Rescale(IChord, Single)
+  fullName.vb: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.IChord, Single)
+  name.vb: Rescale(IChord, Single)
+  spec.csharp:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.IChord,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_IChord_System_Single_
+  - name: (
+  - uid: ChartTools.IChord
+    name: IChord
+    href: ChartTools.IChord.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.IChord,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_IChord_System_Single_
+  - name: (
+  - uid: ChartTools.IChord
+    name: IChord
+    href: ChartTools.IChord.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ChartTools.ITrackObject.ChartTools.Tools.TempoRescaler.Rescale(System.Single)
+  commentId: M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+  parent: ChartTools.Tools.TempoRescaler
+  definition: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+  href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  name: Rescale(ITrackObject, float)
+  nameWithType: TempoRescaler.Rescale(ITrackObject, float)
+  fullName: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject, float)
+  nameWithType.vb: TempoRescaler.Rescale(ITrackObject, Single)
+  fullName.vb: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject, Single)
+  name.vb: Rescale(ITrackObject, Single)
+  spec.csharp:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ITrackObject
+    name: ITrackObject
+    href: ChartTools.ITrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ITrackObject
+    name: ITrackObject
+    href: ChartTools.ITrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ChartTools.LaneChord`3.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.LaneChord{{TNote},{TLane},{TModifiers}}[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  parent: ChartTools.Tools.PropertyMerger
+  definition: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<LaneChord<TNote, TLane, TModifiers>>(LaneChord<TNote, TLane, TModifiers>, bool, bool, params LaneChord<TNote, TLane, TModifiers>[])
+  nameWithType: PropertyMerger.Merge<LaneChord<TNote, TLane, TModifiers>>(LaneChord<TNote, TLane, TModifiers>, bool, bool, params LaneChord<TNote, TLane, TModifiers>[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<ChartTools.LaneChord<TNote, TLane, TModifiers>>(ChartTools.LaneChord<TNote, TLane, TModifiers>, bool, bool, params ChartTools.LaneChord<TNote, TLane, TModifiers>[])
+  nameWithType.vb: PropertyMerger.Merge(Of LaneChord(Of TNote, TLane, TModifiers))(LaneChord(Of TNote, TLane, TModifiers), Boolean, Boolean, ParamArray LaneChord(Of TNote, TLane, TModifiers)())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of ChartTools.LaneChord(Of TNote, TLane, TModifiers))(ChartTools.LaneChord(Of TNote, TLane, TModifiers), Boolean, Boolean, ParamArray ChartTools.LaneChord(Of TNote, TLane, TModifiers)())
+  name.vb: Merge(Of LaneChord(Of TNote, TLane, TModifiers))(LaneChord(Of TNote, TLane, TModifiers), Boolean, Boolean, ParamArray LaneChord(Of TNote, TLane, TModifiers)())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.LaneChord{`0,`1,`2},System.Boolean,System.Boolean,ChartTools.LaneChord{`0,`1,`2}[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - uid: ChartTools.LaneChord`3
+    name: LaneChord
+    href: ChartTools.LaneChord-3.html
+  - name: <
+  - name: TNote
+  - name: ','
+  - name: " "
+  - name: TLane
+  - name: ','
+  - name: " "
+  - name: TModifiers
+  - name: '>'
+  - name: '>'
+  - name: (
+  - uid: ChartTools.LaneChord`3
+    name: LaneChord
+    href: ChartTools.LaneChord-3.html
+  - name: <
+  - name: TNote
+  - name: ','
+  - name: " "
+  - name: TLane
+  - name: ','
+  - name: " "
+  - name: TModifiers
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: ChartTools.LaneChord`3
+    name: LaneChord
+    href: ChartTools.LaneChord-3.html
+  - name: <
+  - name: TNote
+  - name: ','
+  - name: " "
+  - name: TLane
+  - name: ','
+  - name: " "
+  - name: TModifiers
+  - name: '>'
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.LaneChord{`0,`1,`2},System.Boolean,System.Boolean,ChartTools.LaneChord{`0,`1,`2}[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.LaneChord`3
+    name: LaneChord
+    href: ChartTools.LaneChord-3.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TNote
+  - name: ','
+  - name: " "
+  - name: TLane
+  - name: ','
+  - name: " "
+  - name: TModifiers
+  - name: )
+  - name: )
+  - name: (
+  - uid: ChartTools.LaneChord`3
+    name: LaneChord
+    href: ChartTools.LaneChord-3.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TNote
+  - name: ','
+  - name: " "
+  - name: TLane
+  - name: ','
+  - name: " "
+  - name: TModifiers
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: ChartTools.LaneChord`3
+    name: LaneChord
+    href: ChartTools.LaneChord-3.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TNote
+  - name: ','
+  - name: " "
+  - name: TLane
+  - name: ','
+  - name: " "
+  - name: TModifiers
+  - name: )
+  - name: (
+  - name: )
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.IChord,System.Single)
+  commentId: M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.IChord,System.Single)
+  isExternal: true
+  href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_IChord_System_Single_
+  name: Rescale(IChord, float)
+  nameWithType: TempoRescaler.Rescale(IChord, float)
+  fullName: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.IChord, float)
+  nameWithType.vb: TempoRescaler.Rescale(IChord, Single)
+  fullName.vb: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.IChord, Single)
+  name.vb: Rescale(IChord, Single)
+  spec.csharp:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.IChord,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_IChord_System_Single_
+  - name: (
+  - uid: ChartTools.IChord
+    name: IChord
+    href: ChartTools.IChord.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.IChord,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_IChord_System_Single_
+  - name: (
+  - uid: ChartTools.IChord
+    name: IChord
+    href: ChartTools.IChord.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ChartTools.Tools.TempoRescaler
+  commentId: T:ChartTools.Tools.TempoRescaler
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.TempoRescaler.html
+  name: TempoRescaler
+  nameWithType: TempoRescaler
+  fullName: ChartTools.Tools.TempoRescaler
+- uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+  commentId: M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+  isExternal: true
+  href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  name: Rescale(ITrackObject, float)
+  nameWithType: TempoRescaler.Rescale(ITrackObject, float)
+  fullName: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject, float)
+  nameWithType.vb: TempoRescaler.Rescale(ITrackObject, Single)
+  fullName.vb: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject, Single)
+  name.vb: Rescale(ITrackObject, Single)
+  spec.csharp:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ITrackObject
+    name: ITrackObject
+    href: ChartTools.ITrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ITrackObject
+    name: ITrackObject
+    href: ChartTools.ITrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  isExternal: true
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<T>(T, bool, bool, params T[])
+  nameWithType: PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  nameWithType.vb: PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  name.vb: Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger
+  commentId: T:ChartTools.Tools.PropertyMerger
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.PropertyMerger.html
+  name: PropertyMerger
+  nameWithType: PropertyMerger
+  fullName: ChartTools.Tools.PropertyMerger
+- uid: ChartTools.Tools
+  commentId: N:ChartTools.Tools
+  href: ChartTools.html
+  name: ChartTools.Tools
+  nameWithType: ChartTools.Tools
+  fullName: ChartTools.Tools
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+- uid: ChartTools.LaneChord`3.Notes*
+  commentId: Overload:ChartTools.LaneChord`3.Notes
+  href: ChartTools.LaneChord-3.html#ChartTools_LaneChord_3_Notes
+  name: Notes
+  nameWithType: LaneChord<TNote, TLane, TModifiers>.Notes
+  fullName: ChartTools.LaneChord<TNote, TLane, TModifiers>.Notes
+  nameWithType.vb: LaneChord(Of TNote, TLane, TModifiers).Notes
+  fullName.vb: ChartTools.LaneChord(Of TNote, TLane, TModifiers).Notes
+- uid: ChartTools.LaneNoteCollection{{TNote},{TLane}}
+  commentId: T:ChartTools.LaneNoteCollection{`0,`1}
+  parent: ChartTools
+  definition: ChartTools.LaneNoteCollection`2
+  href: ChartTools.LaneNoteCollection-2.html
+  name: LaneNoteCollection<TNote, TLane>
+  nameWithType: LaneNoteCollection<TNote, TLane>
+  fullName: ChartTools.LaneNoteCollection<TNote, TLane>
+  nameWithType.vb: LaneNoteCollection(Of TNote, TLane)
+  fullName.vb: ChartTools.LaneNoteCollection(Of TNote, TLane)
+  name.vb: LaneNoteCollection(Of TNote, TLane)
+  spec.csharp:
+  - uid: ChartTools.LaneNoteCollection`2
+    name: LaneNoteCollection
+    href: ChartTools.LaneNoteCollection-2.html
+  - name: <
+  - name: TNote
+  - name: ','
+  - name: " "
+  - name: TLane
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.LaneNoteCollection`2
+    name: LaneNoteCollection
+    href: ChartTools.LaneNoteCollection-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TNote
+  - name: ','
+  - name: " "
+  - name: TLane
+  - name: )
+- uid: ChartTools.LaneNoteCollection`2
+  commentId: T:ChartTools.LaneNoteCollection`2
+  href: ChartTools.LaneNoteCollection-2.html
+  name: LaneNoteCollection<TNote, TLane>
+  nameWithType: LaneNoteCollection<TNote, TLane>
+  fullName: ChartTools.LaneNoteCollection<TNote, TLane>
+  nameWithType.vb: LaneNoteCollection(Of TNote, TLane)
+  fullName.vb: ChartTools.LaneNoteCollection(Of TNote, TLane)
+  name.vb: LaneNoteCollection(Of TNote, TLane)
+  spec.csharp:
+  - uid: ChartTools.LaneNoteCollection`2
+    name: LaneNoteCollection
+    href: ChartTools.LaneNoteCollection-2.html
+  - name: <
+  - name: TNote
+  - name: ','
+  - name: " "
+  - name: TLane
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.LaneNoteCollection`2
+    name: LaneNoteCollection
+    href: ChartTools.LaneNoteCollection-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TNote
+  - name: ','
+  - name: " "
+  - name: TLane
+  - name: )
+- uid: ChartTools.LaneChord`3.Modifiers*
+  commentId: Overload:ChartTools.LaneChord`3.Modifiers
+  href: ChartTools.LaneChord-3.html#ChartTools_LaneChord_3_Modifiers
+  name: Modifiers
+  nameWithType: LaneChord<TNote, TLane, TModifiers>.Modifiers
+  fullName: ChartTools.LaneChord<TNote, TLane, TModifiers>.Modifiers
+  nameWithType.vb: LaneChord(Of TNote, TLane, TModifiers).Modifiers
+  fullName.vb: ChartTools.LaneChord(Of TNote, TLane, TModifiers).Modifiers
+- uid: '{TModifiers}'
+  commentId: '!:TModifiers'
+  definition: TModifiers
+  name: TModifiers
+  nameWithType: TModifiers
+  fullName: TModifiers
+- uid: TModifiers
+  commentId: '!:TModifiers'
+  name: TModifiers
+  nameWithType: TModifiers
+  fullName: TModifiers
+- uid: ChartTools.LaneChord`3.#ctor*
+  commentId: Overload:ChartTools.LaneChord`3.#ctor
+  href: ChartTools.LaneChord-3.html#ChartTools_LaneChord_3__ctor
+  name: LaneChord
+  nameWithType: LaneChord<TNote, TLane, TModifiers>.LaneChord
+  fullName: ChartTools.LaneChord<TNote, TLane, TModifiers>.LaneChord
+  nameWithType.vb: LaneChord(Of TNote, TLane, TModifiers).New
+  fullName.vb: ChartTools.LaneChord(Of TNote, TLane, TModifiers).New
+  name.vb: New
+- uid: System.UInt32
+  commentId: T:System.UInt32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.uint32
+  name: uint
+  nameWithType: uint
+  fullName: uint
+  nameWithType.vb: UInteger
+  fullName.vb: UInteger
+  name.vb: UInteger
+- uid: ChartTools.LaneChord.CreateNote(System.Byte,System.UInt32)
+  commentId: M:ChartTools.LaneChord.CreateNote(System.Byte,System.UInt32)
+  parent: ChartTools.LaneChord
+  isExternal: true
+  href: ChartTools.LaneChord.html#ChartTools_LaneChord_CreateNote_System_Byte_System_UInt32_
+  name: CreateNote(byte, uint)
+  nameWithType: LaneChord.CreateNote(byte, uint)
+  fullName: ChartTools.LaneChord.CreateNote(byte, uint)
+  nameWithType.vb: LaneChord.CreateNote(Byte, UInteger)
+  fullName.vb: ChartTools.LaneChord.CreateNote(Byte, UInteger)
+  name.vb: CreateNote(Byte, UInteger)
+  spec.csharp:
+  - uid: ChartTools.LaneChord.CreateNote(System.Byte,System.UInt32)
+    name: CreateNote
+    href: ChartTools.LaneChord.html#ChartTools_LaneChord_CreateNote_System_Byte_System_UInt32_
+  - name: (
+  - uid: System.Byte
+    name: byte
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.byte
+  - name: ','
+  - name: " "
+  - uid: System.UInt32
+    name: uint
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.uint32
+  - name: )
+  spec.vb:
+  - uid: ChartTools.LaneChord.CreateNote(System.Byte,System.UInt32)
+    name: CreateNote
+    href: ChartTools.LaneChord.html#ChartTools_LaneChord_CreateNote_System_Byte_System_UInt32_
+  - name: (
+  - uid: System.Byte
+    name: Byte
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.byte
+  - name: ','
+  - name: " "
+  - uid: System.UInt32
+    name: UInteger
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.uint32
+  - name: )
+- uid: ChartTools.LaneChord`3.CreateNote*
+  commentId: Overload:ChartTools.LaneChord`3.CreateNote
+  href: ChartTools.LaneChord-3.html#ChartTools_LaneChord_3_CreateNote_System_Byte_System_UInt32_
+  name: CreateNote
+  nameWithType: LaneChord<TNote, TLane, TModifiers>.CreateNote
+  fullName: ChartTools.LaneChord<TNote, TLane, TModifiers>.CreateNote
+  nameWithType.vb: LaneChord(Of TNote, TLane, TModifiers).CreateNote
+  fullName.vb: ChartTools.LaneChord(Of TNote, TLane, TModifiers).CreateNote
+- uid: System.Byte
+  commentId: T:System.Byte
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.byte
+  name: byte
+  nameWithType: byte
+  fullName: byte
+  nameWithType.vb: Byte
+  fullName.vb: Byte
+  name.vb: Byte
+- uid: ChartTools.LaneNote
+  commentId: T:ChartTools.LaneNote
+  parent: ChartTools
+  href: ChartTools.LaneNote.html
+  name: LaneNote
+  nameWithType: LaneNote
+  fullName: ChartTools.LaneNote

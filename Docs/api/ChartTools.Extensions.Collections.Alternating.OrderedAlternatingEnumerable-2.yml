@@ -1,0 +1,3290 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2
+  commentId: T:ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2
+  id: OrderedAlternatingEnumerable`2
+  parent: ChartTools.Extensions.Collections.Alternating
+  children:
+  - ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2.#ctor(System.Func{`0,`1},System.Collections.Generic.IEnumerable{`0}[])
+  - ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2.GetEnumerator
+  langs:
+  - csharp
+  - vb
+  name: OrderedAlternatingEnumerable<T, TKey>
+  nameWithType: OrderedAlternatingEnumerable<T, TKey>
+  fullName: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable<T, TKey>
+  type: Class
+  source:
+    remote:
+      path: ChartTools/Extensions/Collections/Alternating/OrderedAlternatingEnumerable.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: OrderedAlternatingEnumerable
+    path: ../ChartTools/Extensions/Collections/Alternating/OrderedAlternatingEnumerable.cs
+    startLine: 11
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Extensions.Collections.Alternating
+  summary: Enumerable where <code class="typeparamref">T</code> items are pulled from a set of enumerables in order using a <code class="typeparamref">TKey</code> key
+  example: []
+  syntax:
+    content: 'public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T>, IEnumerable where TKey : IComparable<TKey>'
+    typeParameters:
+    - id: T
+      description: Type of the enumerated items
+    - id: TKey
+      description: Type of the key used to determine the order
+    content.vb: Public Class OrderedAlternatingEnumerable(Of T, TKey As IComparable(Of TKey)) Implements IEnumerable(Of T), IEnumerable
+  inheritance:
+  - System.Object
+  implements:
+  - System.Collections.Generic.IEnumerable{{T}}
+  - System.Collections.IEnumerable
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable{{T},{TKey}}[])
+  - System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.Distinct``1(ChartTools.Extensions.EqualityComparison{{T}})
+  - System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault``1(System.Predicate{{T}},{T},System.Boolean@)
+  - System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.ManyMaxBy``2(System.Func{{T},{TKey}})
+  - System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinBy``2(System.Func{{T},{TKey}})
+  - System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.NonNull``1
+  - System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoop``1({T})
+  - System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoopSkipFirst``1
+  - System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.RemoveSection``1(System.Predicate{{T}},System.Predicate{{T}})
+  - System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.Replace``1(System.Predicate{{T}},{T})
+  - System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSection``1(ChartTools.Extensions.Linq.SectionReplacement{{T}})
+  - System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSections``1(System.Collections.Generic.IEnumerable{ChartTools.Extensions.Linq.SectionReplacement{{T}}})
+  - System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.ToAsyncEnumerable``1
+  - System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1({T}@)
+  - System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Predicate{{T}},{T}@)
+  - System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.Unique``1
+  - System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.UniqueBy``2(System.Func{{T},{TKey}})
+  - System.Collections.IEnumerable.ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirstOfType``1({TResult}@)
+  nameWithType.vb: OrderedAlternatingEnumerable(Of T, TKey)
+  fullName.vb: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable(Of T, TKey)
+  name.vb: OrderedAlternatingEnumerable(Of T, TKey)
+- uid: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2.#ctor(System.Func{`0,`1},System.Collections.Generic.IEnumerable{`0}[])
+  commentId: M:ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2.#ctor(System.Func{`0,`1},System.Collections.Generic.IEnumerable{`0}[])
+  id: '#ctor(System.Func{`0,`1},System.Collections.Generic.IEnumerable{`0}[])'
+  parent: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2
+  langs:
+  - csharp
+  - vb
+  name: OrderedAlternatingEnumerable(Func<T, TKey>, params IEnumerable<T>?[])
+  nameWithType: OrderedAlternatingEnumerable<T, TKey>.OrderedAlternatingEnumerable(Func<T, TKey>, params IEnumerable<T>?[])
+  fullName: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable<T, TKey>.OrderedAlternatingEnumerable(System.Func<T, TKey>, params System.Collections.Generic.IEnumerable<T>?[])
+  type: Constructor
+  source:
+    remote:
+      path: ChartTools/Extensions/Collections/Alternating/OrderedAlternatingEnumerable.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: .ctor
+    path: ../ChartTools/Extensions/Collections/Alternating/OrderedAlternatingEnumerable.cs
+    startLine: 29
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Extensions.Collections.Alternating
+  summary: Creates an instance of <xref href="ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable%602" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public OrderedAlternatingEnumerable(Func<T, TKey> keyGetter, params IEnumerable<T>?[] enumerables)
+    parameters:
+    - id: keyGetter
+      type: System.Func{{T},{TKey}}
+      description: Method that retrieves the key from an item
+    - id: enumerables
+      type: System.Collections.Generic.IEnumerable{{T}}[]
+      description: Enumerables to alternate between
+    content.vb: Public Sub New(keyGetter As Func(Of T, TKey), ParamArray enumerables As IEnumerable(Of T)())
+  overload: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2.#ctor*
+  exceptions:
+  - type: System.ArgumentException
+    commentId: T:System.ArgumentException
+    description: ''
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: ''
+  nameWithType.vb: OrderedAlternatingEnumerable(Of T, TKey).New(Func(Of T, TKey), ParamArray IEnumerable(Of T)())
+  fullName.vb: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable(Of T, TKey).New(System.Func(Of T, TKey), ParamArray System.Collections.Generic.IEnumerable(Of T)())
+  name.vb: New(Func(Of T, TKey), ParamArray IEnumerable(Of T)())
+- uid: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2.GetEnumerator
+  commentId: M:ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2.GetEnumerator
+  id: GetEnumerator
+  parent: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2
+  langs:
+  - csharp
+  - vb
+  name: GetEnumerator()
+  nameWithType: OrderedAlternatingEnumerable<T, TKey>.GetEnumerator()
+  fullName: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable<T, TKey>.GetEnumerator()
+  type: Method
+  source:
+    remote:
+      path: ChartTools/Extensions/Collections/Alternating/OrderedAlternatingEnumerable.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: GetEnumerator
+    path: ../ChartTools/Extensions/Collections/Alternating/OrderedAlternatingEnumerable.cs
+    startLine: 42
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.Extensions.Collections.Alternating
+  summary: Returns an enumerator that iterates through the collection.
+  example: []
+  syntax:
+    content: public IEnumerator<T> GetEnumerator()
+    return:
+      type: System.Collections.Generic.IEnumerator{{T}}
+      description: An enumerator that can be used to iterate through the collection.
+    content.vb: Public Function GetEnumerator() As IEnumerator(Of T)
+  overload: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2.GetEnumerator*
+  implements:
+  - System.Collections.Generic.IEnumerable{{T}}.GetEnumerator
+  nameWithType.vb: OrderedAlternatingEnumerable(Of T, TKey).GetEnumerator()
+  fullName.vb: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable(Of T, TKey).GetEnumerator()
+references:
+- uid: ChartTools.Extensions.Collections.Alternating
+  commentId: N:ChartTools.Extensions.Collections.Alternating
+  href: ChartTools.html
+  name: ChartTools.Extensions.Collections.Alternating
+  nameWithType: ChartTools.Extensions.Collections.Alternating
+  fullName: ChartTools.Extensions.Collections.Alternating
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Extensions
+    name: Extensions
+    href: ChartTools.Extensions.html
+  - name: .
+  - uid: ChartTools.Extensions.Collections
+    name: Collections
+    href: ChartTools.Extensions.Collections.html
+  - name: .
+  - uid: ChartTools.Extensions.Collections.Alternating
+    name: Alternating
+    href: ChartTools.Extensions.Collections.Alternating.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Extensions
+    name: Extensions
+    href: ChartTools.Extensions.html
+  - name: .
+  - uid: ChartTools.Extensions.Collections
+    name: Collections
+    href: ChartTools.Extensions.Collections.html
+  - name: .
+  - uid: ChartTools.Extensions.Collections.Alternating
+    name: Alternating
+    href: ChartTools.Extensions.Collections.Alternating.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Collections.Generic.IEnumerable{{T}}
+  commentId: T:System.Collections.Generic.IEnumerable{`0}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.IEnumerable
+  commentId: T:System.Collections.IEnumerable
+  parent: System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.ienumerable
+  name: IEnumerable
+  nameWithType: IEnumerable
+  fullName: System.Collections.IEnumerable
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable{{T},{TKey}}[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  parent: ChartTools.Tools.PropertyMerger
+  definition: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<OrderedAlternatingEnumerable<T, TKey>>(OrderedAlternatingEnumerable<T, TKey>, bool, bool, params OrderedAlternatingEnumerable<T, TKey>[])
+  nameWithType: PropertyMerger.Merge<OrderedAlternatingEnumerable<T, TKey>>(OrderedAlternatingEnumerable<T, TKey>, bool, bool, params OrderedAlternatingEnumerable<T, TKey>[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable<T, TKey>>(ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable<T, TKey>, bool, bool, params ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable<T, TKey>[])
+  nameWithType.vb: PropertyMerger.Merge(Of OrderedAlternatingEnumerable(Of T, TKey))(OrderedAlternatingEnumerable(Of T, TKey), Boolean, Boolean, ParamArray OrderedAlternatingEnumerable(Of T, TKey)())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable(Of T, TKey))(ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable(Of T, TKey), Boolean, Boolean, ParamArray ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable(Of T, TKey)())
+  name.vb: Merge(Of OrderedAlternatingEnumerable(Of T, TKey))(OrderedAlternatingEnumerable(Of T, TKey), Boolean, Boolean, ParamArray OrderedAlternatingEnumerable(Of T, TKey)())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable{`0,`1},System.Boolean,System.Boolean,ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable{`0,`1}[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - uid: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2
+    name: OrderedAlternatingEnumerable
+    href: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable-2.html
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: '>'
+  - name: '>'
+  - name: (
+  - uid: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2
+    name: OrderedAlternatingEnumerable
+    href: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable-2.html
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2
+    name: OrderedAlternatingEnumerable
+    href: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable-2.html
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: '>'
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable{`0,`1},System.Boolean,System.Boolean,ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable{`0,`1}[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2
+    name: OrderedAlternatingEnumerable
+    href: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: )
+  - name: )
+  - name: (
+  - uid: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2
+    name: OrderedAlternatingEnumerable
+    href: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2
+    name: OrderedAlternatingEnumerable
+    href: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: )
+  - name: (
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.Distinct``1(ChartTools.Extensions.EqualityComparison{{T}})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.Distinct``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.EqualityComparison{``0})
+  parent: ChartTools.Extensions.Linq.EnumerableExtensions
+  definition: ChartTools.Extensions.Linq.EnumerableExtensions.Distinct``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.EqualityComparison{``0})
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Distinct__1_System_Collections_Generic_IEnumerable___0__ChartTools_Extensions_EqualityComparison___0__
+  name: Distinct<T>(IEnumerable<T>, EqualityComparison<T>)
+  nameWithType: EnumerableExtensions.Distinct<T>(IEnumerable<T>, EqualityComparison<T>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.Distinct<T>(System.Collections.Generic.IEnumerable<T>, ChartTools.Extensions.EqualityComparison<T>)
+  nameWithType.vb: EnumerableExtensions.Distinct(Of T)(IEnumerable(Of T), EqualityComparison(Of T))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.Distinct(Of T)(System.Collections.Generic.IEnumerable(Of T), ChartTools.Extensions.EqualityComparison(Of T))
+  name.vb: Distinct(Of T)(IEnumerable(Of T), EqualityComparison(Of T))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.Distinct``1(System.Collections.Generic.IEnumerable{`0},ChartTools.Extensions.EqualityComparison{`0})
+    name: Distinct
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Distinct__1_System_Collections_Generic_IEnumerable___0__ChartTools_Extensions_EqualityComparison___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: ChartTools.Extensions.EqualityComparison`1
+    name: EqualityComparison
+    href: ChartTools.Extensions.EqualityComparison-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.Distinct``1(System.Collections.Generic.IEnumerable{`0},ChartTools.Extensions.EqualityComparison{`0})
+    name: Distinct
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Distinct__1_System_Collections_Generic_IEnumerable___0__ChartTools_Extensions_EqualityComparison___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: ChartTools.Extensions.EqualityComparison`1
+    name: EqualityComparison
+    href: ChartTools.Extensions.EqualityComparison-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault``1(System.Predicate{{T}},{T},System.Boolean@)
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0,System.Boolean@)
+  parent: ChartTools.Extensions.Linq.EnumerableExtensions
+  definition: ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0,System.Boolean@)
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_FirstOrDefault__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0_System_Boolean__
+  name: FirstOrDefault<T>(IEnumerable<T>, Predicate<T>, T, out bool)
+  nameWithType: EnumerableExtensions.FirstOrDefault<T>(IEnumerable<T>, Predicate<T>, T, out bool)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault<T>(System.Collections.Generic.IEnumerable<T>, System.Predicate<T>, T, out bool)
+  nameWithType.vb: EnumerableExtensions.FirstOrDefault(Of T)(IEnumerable(Of T), Predicate(Of T), T, Boolean)
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Predicate(Of T), T, Boolean)
+  name.vb: FirstOrDefault(Of T)(IEnumerable(Of T), Predicate(Of T), T, Boolean)
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault``1(System.Collections.Generic.IEnumerable{`0},System.Predicate{`0},`0,System.Boolean@)
+    name: FirstOrDefault
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_FirstOrDefault__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0_System_Boolean__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault``1(System.Collections.Generic.IEnumerable{`0},System.Predicate{`0},`0,System.Boolean@)
+    name: FirstOrDefault
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_FirstOrDefault__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0_System_Boolean__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.ManyMaxBy``2(System.Func{{T},{TKey}})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.ManyMaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})
+  parent: ChartTools.Extensions.Linq.EnumerableExtensions
+  definition: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ManyMaxBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__
+  name: ManyMaxBy<T, TKey>(IEnumerable<T>, Func<T, TKey>)
+  nameWithType: EnumerableExtensions.ManyMaxBy<T, TKey>(IEnumerable<T>, Func<T, TKey>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMaxBy<T, TKey>(System.Collections.Generic.IEnumerable<T>, System.Func<T, TKey>)
+  nameWithType.vb: EnumerableExtensions.ManyMaxBy(Of T, TKey)(IEnumerable(Of T), Func(Of T, TKey))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMaxBy(Of T, TKey)(System.Collections.Generic.IEnumerable(Of T), System.Func(Of T, TKey))
+  name.vb: ManyMaxBy(Of T, TKey)(IEnumerable(Of T), Func(Of T, TKey))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMaxBy``2(System.Collections.Generic.IEnumerable{`0},System.Func{`0,``1})
+    name: ManyMaxBy
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ManyMaxBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMaxBy``2(System.Collections.Generic.IEnumerable{`0},System.Func{`0,``1})
+    name: ManyMaxBy
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ManyMaxBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinBy``2(System.Func{{T},{TKey}})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})
+  parent: ChartTools.Extensions.Linq.EnumerableExtensions
+  definition: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ManyMinBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__
+  name: ManyMinBy<T, TKey>(IEnumerable<T>, Func<T, TKey>)
+  nameWithType: EnumerableExtensions.ManyMinBy<T, TKey>(IEnumerable<T>, Func<T, TKey>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinBy<T, TKey>(System.Collections.Generic.IEnumerable<T>, System.Func<T, TKey>)
+  nameWithType.vb: EnumerableExtensions.ManyMinBy(Of T, TKey)(IEnumerable(Of T), Func(Of T, TKey))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinBy(Of T, TKey)(System.Collections.Generic.IEnumerable(Of T), System.Func(Of T, TKey))
+  name.vb: ManyMinBy(Of T, TKey)(IEnumerable(Of T), Func(Of T, TKey))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinBy``2(System.Collections.Generic.IEnumerable{`0},System.Func{`0,``1})
+    name: ManyMinBy
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ManyMinBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinBy``2(System.Collections.Generic.IEnumerable{`0},System.Func{`0,``1})
+    name: ManyMinBy
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ManyMinBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.NonNull``1
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.NonNull``1(System.Collections.Generic.IEnumerable{``0})
+  parent: ChartTools.Extensions.Linq.EnumerableExtensions
+  definition: ChartTools.Extensions.Linq.EnumerableExtensions.NonNull``1(System.Collections.Generic.IEnumerable{``0})
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_NonNull__1_System_Collections_Generic_IEnumerable___0__
+  name: NonNull<TNote>(IEnumerable<TNote>)
+  nameWithType: EnumerableExtensions.NonNull<TNote>(IEnumerable<TNote>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.NonNull<TNote>(System.Collections.Generic.IEnumerable<TNote>)
+  nameWithType.vb: EnumerableExtensions.NonNull(Of TNote)(IEnumerable(Of TNote))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.NonNull(Of TNote)(System.Collections.Generic.IEnumerable(Of TNote))
+  name.vb: NonNull(Of TNote)(IEnumerable(Of TNote))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.NonNull``1(System.Collections.Generic.IEnumerable{`0})
+    name: NonNull
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_NonNull__1_System_Collections_Generic_IEnumerable___0__
+  - name: <
+  - name: TNote
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: TNote
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.NonNull``1(System.Collections.Generic.IEnumerable{`0})
+    name: NonNull
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_NonNull__1_System_Collections_Generic_IEnumerable___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TNote
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TNote
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoop``1({T})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoop``1(System.Collections.Generic.IEnumerable{``0},``0)
+  parent: ChartTools.Extensions.Linq.EnumerableExtensions
+  definition: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoop``1(System.Collections.Generic.IEnumerable{``0},``0)
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoop__1_System_Collections_Generic_IEnumerable___0____0_
+  name: RelativeLoop<T>(IEnumerable<T>, T)
+  nameWithType: EnumerableExtensions.RelativeLoop<T>(IEnumerable<T>, T)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoop<T>(System.Collections.Generic.IEnumerable<T>, T)
+  nameWithType.vb: EnumerableExtensions.RelativeLoop(Of T)(IEnumerable(Of T), T)
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoop(Of T)(System.Collections.Generic.IEnumerable(Of T), T)
+  name.vb: RelativeLoop(Of T)(IEnumerable(Of T), T)
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoop``1(System.Collections.Generic.IEnumerable{`0},`0)
+    name: RelativeLoop
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoop__1_System_Collections_Generic_IEnumerable___0____0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoop``1(System.Collections.Generic.IEnumerable{`0},`0)
+    name: RelativeLoop
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoop__1_System_Collections_Generic_IEnumerable___0____0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoopSkipFirst``1
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoopSkipFirst``1(System.Collections.Generic.IEnumerable{``0})
+  parent: ChartTools.Extensions.Linq.EnumerableExtensions
+  definition: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoopSkipFirst``1(System.Collections.Generic.IEnumerable{``0})
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoopSkipFirst__1_System_Collections_Generic_IEnumerable___0__
+  name: RelativeLoopSkipFirst<TNote>(IEnumerable<TNote>)
+  nameWithType: EnumerableExtensions.RelativeLoopSkipFirst<TNote>(IEnumerable<TNote>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoopSkipFirst<TNote>(System.Collections.Generic.IEnumerable<TNote>)
+  nameWithType.vb: EnumerableExtensions.RelativeLoopSkipFirst(Of TNote)(IEnumerable(Of TNote))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoopSkipFirst(Of TNote)(System.Collections.Generic.IEnumerable(Of TNote))
+  name.vb: RelativeLoopSkipFirst(Of TNote)(IEnumerable(Of TNote))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoopSkipFirst``1(System.Collections.Generic.IEnumerable{`0})
+    name: RelativeLoopSkipFirst
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoopSkipFirst__1_System_Collections_Generic_IEnumerable___0__
+  - name: <
+  - name: TNote
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: TNote
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoopSkipFirst``1(System.Collections.Generic.IEnumerable{`0})
+    name: RelativeLoopSkipFirst
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoopSkipFirst__1_System_Collections_Generic_IEnumerable___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TNote
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TNote
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.RemoveSection``1(System.Predicate{{T}},System.Predicate{{T}})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.RemoveSection``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},System.Predicate{``0})
+  parent: ChartTools.Extensions.Linq.EnumerableExtensions
+  definition: ChartTools.Extensions.Linq.EnumerableExtensions.RemoveSection``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},System.Predicate{``0})
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RemoveSection__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0__System_Predicate___0__
+  name: RemoveSection<T>(IEnumerable<T>, Predicate<T>, Predicate<T>)
+  nameWithType: EnumerableExtensions.RemoveSection<T>(IEnumerable<T>, Predicate<T>, Predicate<T>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.RemoveSection<T>(System.Collections.Generic.IEnumerable<T>, System.Predicate<T>, System.Predicate<T>)
+  nameWithType.vb: EnumerableExtensions.RemoveSection(Of T)(IEnumerable(Of T), Predicate(Of T), Predicate(Of T))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.RemoveSection(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Predicate(Of T), System.Predicate(Of T))
+  name.vb: RemoveSection(Of T)(IEnumerable(Of T), Predicate(Of T), Predicate(Of T))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.RemoveSection``1(System.Collections.Generic.IEnumerable{`0},System.Predicate{`0},System.Predicate{`0})
+    name: RemoveSection
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RemoveSection__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0__System_Predicate___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.RemoveSection``1(System.Collections.Generic.IEnumerable{`0},System.Predicate{`0},System.Predicate{`0})
+    name: RemoveSection
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RemoveSection__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0__System_Predicate___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.Replace``1(System.Predicate{{T}},{T})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.Replace``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0)
+  parent: ChartTools.Extensions.Linq.EnumerableExtensions
+  definition: ChartTools.Extensions.Linq.EnumerableExtensions.Replace``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0)
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Replace__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0_
+  name: Replace<T>(IEnumerable<T>, Predicate<T>, T)
+  nameWithType: EnumerableExtensions.Replace<T>(IEnumerable<T>, Predicate<T>, T)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.Replace<T>(System.Collections.Generic.IEnumerable<T>, System.Predicate<T>, T)
+  nameWithType.vb: EnumerableExtensions.Replace(Of T)(IEnumerable(Of T), Predicate(Of T), T)
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.Replace(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Predicate(Of T), T)
+  name.vb: Replace(Of T)(IEnumerable(Of T), Predicate(Of T), T)
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.Replace``1(System.Collections.Generic.IEnumerable{`0},System.Predicate{`0},`0)
+    name: Replace
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Replace__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.Replace``1(System.Collections.Generic.IEnumerable{`0},System.Predicate{`0},`0)
+    name: Replace
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Replace__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSection``1(ChartTools.Extensions.Linq.SectionReplacement{{T}})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSection``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.Linq.SectionReplacement{``0})
+  parent: ChartTools.Extensions.Linq.EnumerableExtensions
+  definition: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSection``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.Linq.SectionReplacement{``0})
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSection__1_System_Collections_Generic_IEnumerable___0__ChartTools_Extensions_Linq_SectionReplacement___0__
+  name: ReplaceSection<T>(IEnumerable<T>, SectionReplacement<T>)
+  nameWithType: EnumerableExtensions.ReplaceSection<T>(IEnumerable<T>, SectionReplacement<T>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSection<T>(System.Collections.Generic.IEnumerable<T>, ChartTools.Extensions.Linq.SectionReplacement<T>)
+  nameWithType.vb: EnumerableExtensions.ReplaceSection(Of T)(IEnumerable(Of T), SectionReplacement(Of T))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSection(Of T)(System.Collections.Generic.IEnumerable(Of T), ChartTools.Extensions.Linq.SectionReplacement(Of T))
+  name.vb: ReplaceSection(Of T)(IEnumerable(Of T), SectionReplacement(Of T))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSection``1(System.Collections.Generic.IEnumerable{`0},ChartTools.Extensions.Linq.SectionReplacement{`0})
+    name: ReplaceSection
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSection__1_System_Collections_Generic_IEnumerable___0__ChartTools_Extensions_Linq_SectionReplacement___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: ChartTools.Extensions.Linq.SectionReplacement`1
+    name: SectionReplacement
+    href: ChartTools.Extensions.Linq.SectionReplacement-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSection``1(System.Collections.Generic.IEnumerable{`0},ChartTools.Extensions.Linq.SectionReplacement{`0})
+    name: ReplaceSection
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSection__1_System_Collections_Generic_IEnumerable___0__ChartTools_Extensions_Linq_SectionReplacement___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: ChartTools.Extensions.Linq.SectionReplacement`1
+    name: SectionReplacement
+    href: ChartTools.Extensions.Linq.SectionReplacement-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSections``1(System.Collections.Generic.IEnumerable{ChartTools.Extensions.Linq.SectionReplacement{{T}}})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSections``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{ChartTools.Extensions.Linq.SectionReplacement{``0}})
+  parent: ChartTools.Extensions.Linq.EnumerableExtensions
+  definition: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSections``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{ChartTools.Extensions.Linq.SectionReplacement{``0}})
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSections__1_System_Collections_Generic_IEnumerable___0__System_Collections_Generic_IEnumerable_ChartTools_Extensions_Linq_SectionReplacement___0___
+  name: ReplaceSections<T>(IEnumerable<T>, IEnumerable<SectionReplacement<T>>)
+  nameWithType: EnumerableExtensions.ReplaceSections<T>(IEnumerable<T>, IEnumerable<SectionReplacement<T>>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSections<T>(System.Collections.Generic.IEnumerable<T>, System.Collections.Generic.IEnumerable<ChartTools.Extensions.Linq.SectionReplacement<T>>)
+  nameWithType.vb: EnumerableExtensions.ReplaceSections(Of T)(IEnumerable(Of T), IEnumerable(Of SectionReplacement(Of T)))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSections(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Collections.Generic.IEnumerable(Of ChartTools.Extensions.Linq.SectionReplacement(Of T)))
+  name.vb: ReplaceSections(Of T)(IEnumerable(Of T), IEnumerable(Of SectionReplacement(Of T)))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSections``1(System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{ChartTools.Extensions.Linq.SectionReplacement{`0}})
+    name: ReplaceSections
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSections__1_System_Collections_Generic_IEnumerable___0__System_Collections_Generic_IEnumerable_ChartTools_Extensions_Linq_SectionReplacement___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: ChartTools.Extensions.Linq.SectionReplacement`1
+    name: SectionReplacement
+    href: ChartTools.Extensions.Linq.SectionReplacement-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSections``1(System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{ChartTools.Extensions.Linq.SectionReplacement{`0}})
+    name: ReplaceSections
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSections__1_System_Collections_Generic_IEnumerable___0__System_Collections_Generic_IEnumerable_ChartTools_Extensions_Linq_SectionReplacement___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Extensions.Linq.SectionReplacement`1
+    name: SectionReplacement
+    href: ChartTools.Extensions.Linq.SectionReplacement-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.ToAsyncEnumerable``1
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.ToAsyncEnumerable``1(System.Collections.Generic.IEnumerable{``0})
+  parent: ChartTools.Extensions.Linq.EnumerableExtensions
+  definition: ChartTools.Extensions.Linq.EnumerableExtensions.ToAsyncEnumerable``1(System.Collections.Generic.IEnumerable{``0})
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ToAsyncEnumerable__1_System_Collections_Generic_IEnumerable___0__
+  name: ToAsyncEnumerable<TNote>(IEnumerable<TNote>)
+  nameWithType: EnumerableExtensions.ToAsyncEnumerable<TNote>(IEnumerable<TNote>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.ToAsyncEnumerable<TNote>(System.Collections.Generic.IEnumerable<TNote>)
+  nameWithType.vb: EnumerableExtensions.ToAsyncEnumerable(Of TNote)(IEnumerable(Of TNote))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.ToAsyncEnumerable(Of TNote)(System.Collections.Generic.IEnumerable(Of TNote))
+  name.vb: ToAsyncEnumerable(Of TNote)(IEnumerable(Of TNote))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ToAsyncEnumerable``1(System.Collections.Generic.IEnumerable{`0})
+    name: ToAsyncEnumerable
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ToAsyncEnumerable__1_System_Collections_Generic_IEnumerable___0__
+  - name: <
+  - name: TNote
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: TNote
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ToAsyncEnumerable``1(System.Collections.Generic.IEnumerable{`0})
+    name: ToAsyncEnumerable
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ToAsyncEnumerable__1_System_Collections_Generic_IEnumerable___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TNote
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TNote
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1({T}@)
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},``0@)
+  parent: ChartTools.Extensions.Linq.EnumerableExtensions
+  definition: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},``0@)
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst__1_System_Collections_Generic_IEnumerable___0____0__
+  name: TryGetFirst<T>(IEnumerable<T>, out T)
+  nameWithType: EnumerableExtensions.TryGetFirst<T>(IEnumerable<T>, out T)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst<T>(System.Collections.Generic.IEnumerable<T>, out T)
+  nameWithType.vb: EnumerableExtensions.TryGetFirst(Of T)(IEnumerable(Of T), T)
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst(Of T)(System.Collections.Generic.IEnumerable(Of T), T)
+  name.vb: TryGetFirst(Of T)(IEnumerable(Of T), T)
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{`0},`0@)
+    name: TryGetFirst
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst__1_System_Collections_Generic_IEnumerable___0____0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{`0},`0@)
+    name: TryGetFirst
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst__1_System_Collections_Generic_IEnumerable___0____0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Predicate{{T}},{T}@)
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0@)
+  parent: ChartTools.Extensions.Linq.EnumerableExtensions
+  definition: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0@)
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0__
+  name: TryGetFirst<T>(IEnumerable<T>, Predicate<T>, out T)
+  nameWithType: EnumerableExtensions.TryGetFirst<T>(IEnumerable<T>, Predicate<T>, out T)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst<T>(System.Collections.Generic.IEnumerable<T>, System.Predicate<T>, out T)
+  nameWithType.vb: EnumerableExtensions.TryGetFirst(Of T)(IEnumerable(Of T), Predicate(Of T), T)
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Predicate(Of T), T)
+  name.vb: TryGetFirst(Of T)(IEnumerable(Of T), Predicate(Of T), T)
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{`0},System.Predicate{`0},`0@)
+    name: TryGetFirst
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{`0},System.Predicate{`0},`0@)
+    name: TryGetFirst
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.Unique``1
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.Unique``1(System.Collections.Generic.IEnumerable{``0})
+  parent: ChartTools.Extensions.Linq.EnumerableExtensions
+  definition: ChartTools.Extensions.Linq.EnumerableExtensions.Unique``1(System.Collections.Generic.IEnumerable{``0})
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Unique__1_System_Collections_Generic_IEnumerable___0__
+  name: Unique<TNote>(IEnumerable<TNote>)
+  nameWithType: EnumerableExtensions.Unique<TNote>(IEnumerable<TNote>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.Unique<TNote>(System.Collections.Generic.IEnumerable<TNote>)
+  nameWithType.vb: EnumerableExtensions.Unique(Of TNote)(IEnumerable(Of TNote))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.Unique(Of TNote)(System.Collections.Generic.IEnumerable(Of TNote))
+  name.vb: Unique(Of TNote)(IEnumerable(Of TNote))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.Unique``1(System.Collections.Generic.IEnumerable{`0})
+    name: Unique
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Unique__1_System_Collections_Generic_IEnumerable___0__
+  - name: <
+  - name: TNote
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: TNote
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.Unique``1(System.Collections.Generic.IEnumerable{`0})
+    name: Unique
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Unique__1_System_Collections_Generic_IEnumerable___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TNote
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TNote
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{`0}.ChartTools.Extensions.Linq.EnumerableExtensions.UniqueBy``2(System.Func{{T},{TKey}})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.UniqueBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})
+  parent: ChartTools.Extensions.Linq.EnumerableExtensions
+  definition: ChartTools.Extensions.Linq.EnumerableExtensions.UniqueBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_UniqueBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__
+  name: UniqueBy<T, TKey>(IEnumerable<T>, Func<T, TKey>)
+  nameWithType: EnumerableExtensions.UniqueBy<T, TKey>(IEnumerable<T>, Func<T, TKey>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.UniqueBy<T, TKey>(System.Collections.Generic.IEnumerable<T>, System.Func<T, TKey>)
+  nameWithType.vb: EnumerableExtensions.UniqueBy(Of T, TKey)(IEnumerable(Of T), Func(Of T, TKey))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.UniqueBy(Of T, TKey)(System.Collections.Generic.IEnumerable(Of T), System.Func(Of T, TKey))
+  name.vb: UniqueBy(Of T, TKey)(IEnumerable(Of T), Func(Of T, TKey))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.UniqueBy``2(System.Collections.Generic.IEnumerable{`0},System.Func{`0,``1})
+    name: UniqueBy
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_UniqueBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.UniqueBy``2(System.Collections.Generic.IEnumerable{`0},System.Func{`0,``1})
+    name: UniqueBy
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_UniqueBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: )
+  - name: )
+- uid: System.Collections.IEnumerable.ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirstOfType``1({TResult}@)
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirstOfType``1(System.Collections.IEnumerable,``0@)
+  parent: ChartTools.Extensions.Linq.EnumerableExtensions
+  definition: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirstOfType``1(System.Collections.IEnumerable,``0@)
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirstOfType__1_System_Collections_IEnumerable___0__
+  name: TryGetFirstOfType<TResult>(IEnumerable, out TResult)
+  nameWithType: EnumerableExtensions.TryGetFirstOfType<TResult>(IEnumerable, out TResult)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirstOfType<TResult>(System.Collections.IEnumerable, out TResult)
+  nameWithType.vb: EnumerableExtensions.TryGetFirstOfType(Of TResult)(IEnumerable, TResult)
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirstOfType(Of TResult)(System.Collections.IEnumerable, TResult)
+  name.vb: TryGetFirstOfType(Of TResult)(IEnumerable, TResult)
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirstOfType``1(System.Collections.IEnumerable,``0@)
+    name: TryGetFirstOfType
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirstOfType__1_System_Collections_IEnumerable___0__
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: (
+  - uid: System.Collections.IEnumerable
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.ienumerable
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - name: TResult
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirstOfType``1(System.Collections.IEnumerable,``0@)
+    name: TryGetFirstOfType
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirstOfType__1_System_Collections_IEnumerable___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - uid: System.Collections.IEnumerable
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.ienumerable
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: System.Collections
+  commentId: N:System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections
+  nameWithType: System.Collections
+  fullName: System.Collections
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+- uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  isExternal: true
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<T>(T, bool, bool, params T[])
+  nameWithType: PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  nameWithType.vb: PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  name.vb: Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger
+  commentId: T:ChartTools.Tools.PropertyMerger
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.PropertyMerger.html
+  name: PropertyMerger
+  nameWithType: PropertyMerger
+  fullName: ChartTools.Tools.PropertyMerger
+- uid: ChartTools.Extensions.Linq.EnumerableExtensions.Distinct``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.EqualityComparison{``0})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.Distinct``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.EqualityComparison{``0})
+  isExternal: true
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Distinct__1_System_Collections_Generic_IEnumerable___0__ChartTools_Extensions_EqualityComparison___0__
+  name: Distinct<T>(IEnumerable<T>, EqualityComparison<T>)
+  nameWithType: EnumerableExtensions.Distinct<T>(IEnumerable<T>, EqualityComparison<T>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.Distinct<T>(System.Collections.Generic.IEnumerable<T>, ChartTools.Extensions.EqualityComparison<T>)
+  nameWithType.vb: EnumerableExtensions.Distinct(Of T)(IEnumerable(Of T), EqualityComparison(Of T))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.Distinct(Of T)(System.Collections.Generic.IEnumerable(Of T), ChartTools.Extensions.EqualityComparison(Of T))
+  name.vb: Distinct(Of T)(IEnumerable(Of T), EqualityComparison(Of T))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.Distinct``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.EqualityComparison{``0})
+    name: Distinct
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Distinct__1_System_Collections_Generic_IEnumerable___0__ChartTools_Extensions_EqualityComparison___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: ChartTools.Extensions.EqualityComparison`1
+    name: EqualityComparison
+    href: ChartTools.Extensions.EqualityComparison-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.Distinct``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.EqualityComparison{``0})
+    name: Distinct
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Distinct__1_System_Collections_Generic_IEnumerable___0__ChartTools_Extensions_EqualityComparison___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: ChartTools.Extensions.EqualityComparison`1
+    name: EqualityComparison
+    href: ChartTools.Extensions.EqualityComparison-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: ChartTools.Extensions.Linq.EnumerableExtensions
+  commentId: T:ChartTools.Extensions.Linq.EnumerableExtensions
+  parent: ChartTools.Extensions.Linq
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html
+  name: EnumerableExtensions
+  nameWithType: EnumerableExtensions
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions
+- uid: ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0,System.Boolean@)
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0,System.Boolean@)
+  isExternal: true
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_FirstOrDefault__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0_System_Boolean__
+  name: FirstOrDefault<T>(IEnumerable<T>, Predicate<T>, T, out bool)
+  nameWithType: EnumerableExtensions.FirstOrDefault<T>(IEnumerable<T>, Predicate<T>, T, out bool)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault<T>(System.Collections.Generic.IEnumerable<T>, System.Predicate<T>, T, out bool)
+  nameWithType.vb: EnumerableExtensions.FirstOrDefault(Of T)(IEnumerable(Of T), Predicate(Of T), T, Boolean)
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Predicate(Of T), T, Boolean)
+  name.vb: FirstOrDefault(Of T)(IEnumerable(Of T), Predicate(Of T), T, Boolean)
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0,System.Boolean@)
+    name: FirstOrDefault
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_FirstOrDefault__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0_System_Boolean__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0,System.Boolean@)
+    name: FirstOrDefault
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_FirstOrDefault__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0_System_Boolean__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.ManyMaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})
+  isExternal: true
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ManyMaxBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__
+  name: ManyMaxBy<T, TKey>(IEnumerable<T>, Func<T, TKey>)
+  nameWithType: EnumerableExtensions.ManyMaxBy<T, TKey>(IEnumerable<T>, Func<T, TKey>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMaxBy<T, TKey>(System.Collections.Generic.IEnumerable<T>, System.Func<T, TKey>)
+  nameWithType.vb: EnumerableExtensions.ManyMaxBy(Of T, TKey)(IEnumerable(Of T), Func(Of T, TKey))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMaxBy(Of T, TKey)(System.Collections.Generic.IEnumerable(Of T), System.Func(Of T, TKey))
+  name.vb: ManyMaxBy(Of T, TKey)(IEnumerable(Of T), Func(Of T, TKey))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})
+    name: ManyMaxBy
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ManyMaxBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})
+    name: ManyMaxBy
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ManyMaxBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: )
+  - name: )
+- uid: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})
+  isExternal: true
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ManyMinBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__
+  name: ManyMinBy<T, TKey>(IEnumerable<T>, Func<T, TKey>)
+  nameWithType: EnumerableExtensions.ManyMinBy<T, TKey>(IEnumerable<T>, Func<T, TKey>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinBy<T, TKey>(System.Collections.Generic.IEnumerable<T>, System.Func<T, TKey>)
+  nameWithType.vb: EnumerableExtensions.ManyMinBy(Of T, TKey)(IEnumerable(Of T), Func(Of T, TKey))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinBy(Of T, TKey)(System.Collections.Generic.IEnumerable(Of T), System.Func(Of T, TKey))
+  name.vb: ManyMinBy(Of T, TKey)(IEnumerable(Of T), Func(Of T, TKey))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})
+    name: ManyMinBy
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ManyMinBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})
+    name: ManyMinBy
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ManyMinBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: )
+  - name: )
+- uid: ChartTools.Extensions.Linq.EnumerableExtensions.NonNull``1(System.Collections.Generic.IEnumerable{``0})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.NonNull``1(System.Collections.Generic.IEnumerable{``0})
+  isExternal: true
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_NonNull__1_System_Collections_Generic_IEnumerable___0__
+  name: NonNull<T>(IEnumerable<T>)
+  nameWithType: EnumerableExtensions.NonNull<T>(IEnumerable<T>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.NonNull<T>(System.Collections.Generic.IEnumerable<T>)
+  nameWithType.vb: EnumerableExtensions.NonNull(Of T)(IEnumerable(Of T))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.NonNull(Of T)(System.Collections.Generic.IEnumerable(Of T))
+  name.vb: NonNull(Of T)(IEnumerable(Of T))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.NonNull``1(System.Collections.Generic.IEnumerable{``0})
+    name: NonNull
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_NonNull__1_System_Collections_Generic_IEnumerable___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.NonNull``1(System.Collections.Generic.IEnumerable{``0})
+    name: NonNull
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_NonNull__1_System_Collections_Generic_IEnumerable___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoop``1(System.Collections.Generic.IEnumerable{``0},``0)
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoop``1(System.Collections.Generic.IEnumerable{``0},``0)
+  isExternal: true
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoop__1_System_Collections_Generic_IEnumerable___0____0_
+  name: RelativeLoop<T>(IEnumerable<T>, T)
+  nameWithType: EnumerableExtensions.RelativeLoop<T>(IEnumerable<T>, T)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoop<T>(System.Collections.Generic.IEnumerable<T>, T)
+  nameWithType.vb: EnumerableExtensions.RelativeLoop(Of T)(IEnumerable(Of T), T)
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoop(Of T)(System.Collections.Generic.IEnumerable(Of T), T)
+  name.vb: RelativeLoop(Of T)(IEnumerable(Of T), T)
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoop``1(System.Collections.Generic.IEnumerable{``0},``0)
+    name: RelativeLoop
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoop__1_System_Collections_Generic_IEnumerable___0____0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoop``1(System.Collections.Generic.IEnumerable{``0},``0)
+    name: RelativeLoop
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoop__1_System_Collections_Generic_IEnumerable___0____0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoopSkipFirst``1(System.Collections.Generic.IEnumerable{``0})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoopSkipFirst``1(System.Collections.Generic.IEnumerable{``0})
+  isExternal: true
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoopSkipFirst__1_System_Collections_Generic_IEnumerable___0__
+  name: RelativeLoopSkipFirst<T>(IEnumerable<T>)
+  nameWithType: EnumerableExtensions.RelativeLoopSkipFirst<T>(IEnumerable<T>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoopSkipFirst<T>(System.Collections.Generic.IEnumerable<T>)
+  nameWithType.vb: EnumerableExtensions.RelativeLoopSkipFirst(Of T)(IEnumerable(Of T))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoopSkipFirst(Of T)(System.Collections.Generic.IEnumerable(Of T))
+  name.vb: RelativeLoopSkipFirst(Of T)(IEnumerable(Of T))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoopSkipFirst``1(System.Collections.Generic.IEnumerable{``0})
+    name: RelativeLoopSkipFirst
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoopSkipFirst__1_System_Collections_Generic_IEnumerable___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoopSkipFirst``1(System.Collections.Generic.IEnumerable{``0})
+    name: RelativeLoopSkipFirst
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoopSkipFirst__1_System_Collections_Generic_IEnumerable___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: ChartTools.Extensions.Linq.EnumerableExtensions.RemoveSection``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},System.Predicate{``0})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.RemoveSection``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},System.Predicate{``0})
+  isExternal: true
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RemoveSection__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0__System_Predicate___0__
+  name: RemoveSection<T>(IEnumerable<T>, Predicate<T>, Predicate<T>)
+  nameWithType: EnumerableExtensions.RemoveSection<T>(IEnumerable<T>, Predicate<T>, Predicate<T>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.RemoveSection<T>(System.Collections.Generic.IEnumerable<T>, System.Predicate<T>, System.Predicate<T>)
+  nameWithType.vb: EnumerableExtensions.RemoveSection(Of T)(IEnumerable(Of T), Predicate(Of T), Predicate(Of T))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.RemoveSection(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Predicate(Of T), System.Predicate(Of T))
+  name.vb: RemoveSection(Of T)(IEnumerable(Of T), Predicate(Of T), Predicate(Of T))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.RemoveSection``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},System.Predicate{``0})
+    name: RemoveSection
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RemoveSection__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0__System_Predicate___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.RemoveSection``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},System.Predicate{``0})
+    name: RemoveSection
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RemoveSection__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0__System_Predicate___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: ChartTools.Extensions.Linq.EnumerableExtensions.Replace``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0)
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.Replace``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0)
+  isExternal: true
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Replace__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0_
+  name: Replace<T>(IEnumerable<T>, Predicate<T>, T)
+  nameWithType: EnumerableExtensions.Replace<T>(IEnumerable<T>, Predicate<T>, T)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.Replace<T>(System.Collections.Generic.IEnumerable<T>, System.Predicate<T>, T)
+  nameWithType.vb: EnumerableExtensions.Replace(Of T)(IEnumerable(Of T), Predicate(Of T), T)
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.Replace(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Predicate(Of T), T)
+  name.vb: Replace(Of T)(IEnumerable(Of T), Predicate(Of T), T)
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.Replace``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0)
+    name: Replace
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Replace__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.Replace``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0)
+    name: Replace
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Replace__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSection``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.Linq.SectionReplacement{``0})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSection``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.Linq.SectionReplacement{``0})
+  isExternal: true
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSection__1_System_Collections_Generic_IEnumerable___0__ChartTools_Extensions_Linq_SectionReplacement___0__
+  name: ReplaceSection<T>(IEnumerable<T>, SectionReplacement<T>)
+  nameWithType: EnumerableExtensions.ReplaceSection<T>(IEnumerable<T>, SectionReplacement<T>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSection<T>(System.Collections.Generic.IEnumerable<T>, ChartTools.Extensions.Linq.SectionReplacement<T>)
+  nameWithType.vb: EnumerableExtensions.ReplaceSection(Of T)(IEnumerable(Of T), SectionReplacement(Of T))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSection(Of T)(System.Collections.Generic.IEnumerable(Of T), ChartTools.Extensions.Linq.SectionReplacement(Of T))
+  name.vb: ReplaceSection(Of T)(IEnumerable(Of T), SectionReplacement(Of T))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSection``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.Linq.SectionReplacement{``0})
+    name: ReplaceSection
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSection__1_System_Collections_Generic_IEnumerable___0__ChartTools_Extensions_Linq_SectionReplacement___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: ChartTools.Extensions.Linq.SectionReplacement`1
+    name: SectionReplacement
+    href: ChartTools.Extensions.Linq.SectionReplacement-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSection``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.Linq.SectionReplacement{``0})
+    name: ReplaceSection
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSection__1_System_Collections_Generic_IEnumerable___0__ChartTools_Extensions_Linq_SectionReplacement___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: ChartTools.Extensions.Linq.SectionReplacement`1
+    name: SectionReplacement
+    href: ChartTools.Extensions.Linq.SectionReplacement-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSections``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{ChartTools.Extensions.Linq.SectionReplacement{``0}})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSections``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{ChartTools.Extensions.Linq.SectionReplacement{``0}})
+  isExternal: true
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSections__1_System_Collections_Generic_IEnumerable___0__System_Collections_Generic_IEnumerable_ChartTools_Extensions_Linq_SectionReplacement___0___
+  name: ReplaceSections<T>(IEnumerable<T>, IEnumerable<SectionReplacement<T>>)
+  nameWithType: EnumerableExtensions.ReplaceSections<T>(IEnumerable<T>, IEnumerable<SectionReplacement<T>>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSections<T>(System.Collections.Generic.IEnumerable<T>, System.Collections.Generic.IEnumerable<ChartTools.Extensions.Linq.SectionReplacement<T>>)
+  nameWithType.vb: EnumerableExtensions.ReplaceSections(Of T)(IEnumerable(Of T), IEnumerable(Of SectionReplacement(Of T)))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSections(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Collections.Generic.IEnumerable(Of ChartTools.Extensions.Linq.SectionReplacement(Of T)))
+  name.vb: ReplaceSections(Of T)(IEnumerable(Of T), IEnumerable(Of SectionReplacement(Of T)))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSections``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{ChartTools.Extensions.Linq.SectionReplacement{``0}})
+    name: ReplaceSections
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSections__1_System_Collections_Generic_IEnumerable___0__System_Collections_Generic_IEnumerable_ChartTools_Extensions_Linq_SectionReplacement___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: ChartTools.Extensions.Linq.SectionReplacement`1
+    name: SectionReplacement
+    href: ChartTools.Extensions.Linq.SectionReplacement-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSections``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{ChartTools.Extensions.Linq.SectionReplacement{``0}})
+    name: ReplaceSections
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSections__1_System_Collections_Generic_IEnumerable___0__System_Collections_Generic_IEnumerable_ChartTools_Extensions_Linq_SectionReplacement___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.Extensions.Linq.SectionReplacement`1
+    name: SectionReplacement
+    href: ChartTools.Extensions.Linq.SectionReplacement-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+  - name: )
+- uid: ChartTools.Extensions.Linq.EnumerableExtensions.ToAsyncEnumerable``1(System.Collections.Generic.IEnumerable{``0})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.ToAsyncEnumerable``1(System.Collections.Generic.IEnumerable{``0})
+  isExternal: true
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ToAsyncEnumerable__1_System_Collections_Generic_IEnumerable___0__
+  name: ToAsyncEnumerable<T>(IEnumerable<T>)
+  nameWithType: EnumerableExtensions.ToAsyncEnumerable<T>(IEnumerable<T>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.ToAsyncEnumerable<T>(System.Collections.Generic.IEnumerable<T>)
+  nameWithType.vb: EnumerableExtensions.ToAsyncEnumerable(Of T)(IEnumerable(Of T))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.ToAsyncEnumerable(Of T)(System.Collections.Generic.IEnumerable(Of T))
+  name.vb: ToAsyncEnumerable(Of T)(IEnumerable(Of T))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ToAsyncEnumerable``1(System.Collections.Generic.IEnumerable{``0})
+    name: ToAsyncEnumerable
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ToAsyncEnumerable__1_System_Collections_Generic_IEnumerable___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.ToAsyncEnumerable``1(System.Collections.Generic.IEnumerable{``0})
+    name: ToAsyncEnumerable
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ToAsyncEnumerable__1_System_Collections_Generic_IEnumerable___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},``0@)
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},``0@)
+  isExternal: true
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst__1_System_Collections_Generic_IEnumerable___0____0__
+  name: TryGetFirst<T>(IEnumerable<T>, out T)
+  nameWithType: EnumerableExtensions.TryGetFirst<T>(IEnumerable<T>, out T)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst<T>(System.Collections.Generic.IEnumerable<T>, out T)
+  nameWithType.vb: EnumerableExtensions.TryGetFirst(Of T)(IEnumerable(Of T), T)
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst(Of T)(System.Collections.Generic.IEnumerable(Of T), T)
+  name.vb: TryGetFirst(Of T)(IEnumerable(Of T), T)
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},``0@)
+    name: TryGetFirst
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst__1_System_Collections_Generic_IEnumerable___0____0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},``0@)
+    name: TryGetFirst
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst__1_System_Collections_Generic_IEnumerable___0____0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0@)
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0@)
+  isExternal: true
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0__
+  name: TryGetFirst<T>(IEnumerable<T>, Predicate<T>, out T)
+  nameWithType: EnumerableExtensions.TryGetFirst<T>(IEnumerable<T>, Predicate<T>, out T)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst<T>(System.Collections.Generic.IEnumerable<T>, System.Predicate<T>, out T)
+  nameWithType.vb: EnumerableExtensions.TryGetFirst(Of T)(IEnumerable(Of T), Predicate(Of T), T)
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Predicate(Of T), T)
+  name.vb: TryGetFirst(Of T)(IEnumerable(Of T), Predicate(Of T), T)
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0@)
+    name: TryGetFirst
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0@)
+    name: TryGetFirst
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Predicate`1
+    name: Predicate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.predicate-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: ChartTools.Extensions.Linq.EnumerableExtensions.Unique``1(System.Collections.Generic.IEnumerable{``0})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.Unique``1(System.Collections.Generic.IEnumerable{``0})
+  isExternal: true
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Unique__1_System_Collections_Generic_IEnumerable___0__
+  name: Unique<T>(IEnumerable<T>)
+  nameWithType: EnumerableExtensions.Unique<T>(IEnumerable<T>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.Unique<T>(System.Collections.Generic.IEnumerable<T>)
+  nameWithType.vb: EnumerableExtensions.Unique(Of T)(IEnumerable(Of T))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.Unique(Of T)(System.Collections.Generic.IEnumerable(Of T))
+  name.vb: Unique(Of T)(IEnumerable(Of T))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.Unique``1(System.Collections.Generic.IEnumerable{``0})
+    name: Unique
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Unique__1_System_Collections_Generic_IEnumerable___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.Unique``1(System.Collections.Generic.IEnumerable{``0})
+    name: Unique
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Unique__1_System_Collections_Generic_IEnumerable___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: ChartTools.Extensions.Linq.EnumerableExtensions.UniqueBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.UniqueBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})
+  isExternal: true
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_UniqueBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__
+  name: UniqueBy<T, TKey>(IEnumerable<T>, Func<T, TKey>)
+  nameWithType: EnumerableExtensions.UniqueBy<T, TKey>(IEnumerable<T>, Func<T, TKey>)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.UniqueBy<T, TKey>(System.Collections.Generic.IEnumerable<T>, System.Func<T, TKey>)
+  nameWithType.vb: EnumerableExtensions.UniqueBy(Of T, TKey)(IEnumerable(Of T), Func(Of T, TKey))
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.UniqueBy(Of T, TKey)(System.Collections.Generic.IEnumerable(Of T), System.Func(Of T, TKey))
+  name.vb: UniqueBy(Of T, TKey)(IEnumerable(Of T), Func(Of T, TKey))
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.UniqueBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})
+    name: UniqueBy
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_UniqueBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: '>'
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.UniqueBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})
+    name: UniqueBy
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_UniqueBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: )
+  - name: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: )
+  - name: )
+- uid: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirstOfType``1(System.Collections.IEnumerable,``0@)
+  commentId: M:ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirstOfType``1(System.Collections.IEnumerable,``0@)
+  isExternal: true
+  href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirstOfType__1_System_Collections_IEnumerable___0__
+  name: TryGetFirstOfType<TResult>(IEnumerable, out TResult)
+  nameWithType: EnumerableExtensions.TryGetFirstOfType<TResult>(IEnumerable, out TResult)
+  fullName: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirstOfType<TResult>(System.Collections.IEnumerable, out TResult)
+  nameWithType.vb: EnumerableExtensions.TryGetFirstOfType(Of TResult)(IEnumerable, TResult)
+  fullName.vb: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirstOfType(Of TResult)(System.Collections.IEnumerable, TResult)
+  name.vb: TryGetFirstOfType(Of TResult)(IEnumerable, TResult)
+  spec.csharp:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirstOfType``1(System.Collections.IEnumerable,``0@)
+    name: TryGetFirstOfType
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirstOfType__1_System_Collections_IEnumerable___0__
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: (
+  - uid: System.Collections.IEnumerable
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.ienumerable
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - name: TResult
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirstOfType``1(System.Collections.IEnumerable,``0@)
+    name: TryGetFirstOfType
+    href: ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirstOfType__1_System_Collections_IEnumerable___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - uid: System.Collections.IEnumerable
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.ienumerable
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: ChartTools.Tools
+  commentId: N:ChartTools.Tools
+  href: ChartTools.html
+  name: ChartTools.Tools
+  nameWithType: ChartTools.Tools
+  fullName: ChartTools.Tools
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+- uid: ChartTools.Extensions.Linq
+  commentId: N:ChartTools.Extensions.Linq
+  href: ChartTools.html
+  name: ChartTools.Extensions.Linq
+  nameWithType: ChartTools.Extensions.Linq
+  fullName: ChartTools.Extensions.Linq
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Extensions
+    name: Extensions
+    href: ChartTools.Extensions.html
+  - name: .
+  - uid: ChartTools.Extensions.Linq
+    name: Linq
+    href: ChartTools.Extensions.Linq.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Extensions
+    name: Extensions
+    href: ChartTools.Extensions.html
+  - name: .
+  - uid: ChartTools.Extensions.Linq
+    name: Linq
+    href: ChartTools.Extensions.Linq.html
+- uid: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2
+  commentId: T:ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2
+  href: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable-2.html
+  name: OrderedAlternatingEnumerable<T, TKey>
+  nameWithType: OrderedAlternatingEnumerable<T, TKey>
+  fullName: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable<T, TKey>
+  nameWithType.vb: OrderedAlternatingEnumerable(Of T, TKey)
+  fullName.vb: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable(Of T, TKey)
+  name.vb: OrderedAlternatingEnumerable(Of T, TKey)
+  spec.csharp:
+  - uid: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2
+    name: OrderedAlternatingEnumerable
+    href: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable-2.html
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2
+    name: OrderedAlternatingEnumerable
+    href: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: )
+- uid: System.ArgumentException
+  commentId: T:System.ArgumentException
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentexception
+  name: ArgumentException
+  nameWithType: ArgumentException
+  fullName: System.ArgumentException
+- uid: System.ArgumentNullException
+  commentId: T:System.ArgumentNullException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentnullexception
+  name: ArgumentNullException
+  nameWithType: ArgumentNullException
+  fullName: System.ArgumentNullException
+- uid: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2.#ctor*
+  commentId: Overload:ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2.#ctor
+  href: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable-2.html#ChartTools_Extensions_Collections_Alternating_OrderedAlternatingEnumerable_2__ctor_System_Func__0__1__System_Collections_Generic_IEnumerable__0____
+  name: OrderedAlternatingEnumerable
+  nameWithType: OrderedAlternatingEnumerable<T, TKey>.OrderedAlternatingEnumerable
+  fullName: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable<T, TKey>.OrderedAlternatingEnumerable
+  nameWithType.vb: OrderedAlternatingEnumerable(Of T, TKey).New
+  fullName.vb: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable(Of T, TKey).New
+  name.vb: New
+- uid: System.Func{{T},{TKey}}
+  commentId: T:System.Func{`0,`1}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, TKey>
+  nameWithType: Func<T, TKey>
+  fullName: System.Func<T, TKey>
+  nameWithType.vb: Func(Of T, TKey)
+  fullName.vb: System.Func(Of T, TKey)
+  name.vb: Func(Of T, TKey)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{{T}}[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>[]
+  nameWithType: IEnumerable<T>[]
+  fullName: System.Collections.Generic.IEnumerable<T>[]
+  nameWithType.vb: IEnumerable(Of T)()
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)()
+  name.vb: IEnumerable(Of T)()
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2.GetEnumerator*
+  commentId: Overload:ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable`2.GetEnumerator
+  href: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable-2.html#ChartTools_Extensions_Collections_Alternating_OrderedAlternatingEnumerable_2_GetEnumerator
+  name: GetEnumerator
+  nameWithType: OrderedAlternatingEnumerable<T, TKey>.GetEnumerator
+  fullName: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable<T, TKey>.GetEnumerator
+  nameWithType.vb: OrderedAlternatingEnumerable(Of T, TKey).GetEnumerator
+  fullName.vb: ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable(Of T, TKey).GetEnumerator
+- uid: System.Collections.Generic.IEnumerable{{T}}.GetEnumerator
+  commentId: M:System.Collections.Generic.IEnumerable{`0}.GetEnumerator
+  parent: System.Collections.Generic.IEnumerable{{T}}
+  definition: System.Collections.Generic.IEnumerable`1.GetEnumerator
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  name: GetEnumerator()
+  nameWithType: IEnumerable<T>.GetEnumerator()
+  fullName: System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+  nameWithType.vb: IEnumerable(Of T).GetEnumerator()
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T).GetEnumerator()
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable{`0}.GetEnumerator
+    name: GetEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable{`0}.GetEnumerator
+    name: GetEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  - name: (
+  - name: )
+- uid: System.Collections.Generic.IEnumerator{{T}}
+  commentId: T:System.Collections.Generic.IEnumerator{`0}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerator`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  name: IEnumerator<T>
+  nameWithType: IEnumerator<T>
+  fullName: System.Collections.Generic.IEnumerator<T>
+  nameWithType.vb: IEnumerator(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerator(Of T)
+  name.vb: IEnumerator(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+  commentId: M:System.Collections.Generic.IEnumerable`1.GetEnumerator
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  name: GetEnumerator()
+  nameWithType: IEnumerable<T>.GetEnumerator()
+  fullName: System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+  nameWithType.vb: IEnumerable(Of T).GetEnumerator()
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T).GetEnumerator()
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  - name: (
+  - name: )
+- uid: System.Collections.Generic.IEnumerator`1
+  commentId: T:System.Collections.Generic.IEnumerator`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  name: IEnumerator<T>
+  nameWithType: IEnumerator<T>
+  fullName: System.Collections.Generic.IEnumerator<T>
+  nameWithType.vb: IEnumerator(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerator(Of T)
+  name.vb: IEnumerator(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )

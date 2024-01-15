@@ -1,0 +1,1033 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.StreamCollection
+  commentId: T:ChartTools.StreamCollection
+  id: StreamCollection
+  parent: ChartTools
+  children:
+  - ChartTools.StreamCollection.Bass
+  - ChartTools.StreamCollection.Crowd
+  - ChartTools.StreamCollection.Drum
+  - ChartTools.StreamCollection.Drum2
+  - ChartTools.StreamCollection.Drum3
+  - ChartTools.StreamCollection.Drum4
+  - ChartTools.StreamCollection.Guitar
+  - ChartTools.StreamCollection.Keys
+  - ChartTools.StreamCollection.Music
+  - ChartTools.StreamCollection.Rhythm
+  - ChartTools.StreamCollection.Vocals
+  langs:
+  - csharp
+  - vb
+  name: StreamCollection
+  nameWithType: StreamCollection
+  fullName: ChartTools.StreamCollection
+  type: Class
+  source:
+    remote:
+      path: ChartTools/Metadata/StreamCollection.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: StreamCollection
+    path: ../ChartTools/Metadata/StreamCollection.cs
+    startLine: 9
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Set of audio files to play and mute during gameplay
+  remarks: Instrument audio may be muted when chords of the respective instrument are missed
+  example: []
+  syntax:
+    content: public class StreamCollection
+    content.vb: Public Class StreamCollection
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - ChartTools.StreamCollection.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.StreamCollection[])
+- uid: ChartTools.StreamCollection.Music
+  commentId: P:ChartTools.StreamCollection.Music
+  id: Music
+  parent: ChartTools.StreamCollection
+  langs:
+  - csharp
+  - vb
+  name: Music
+  nameWithType: StreamCollection.Music
+  fullName: ChartTools.StreamCollection.Music
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Metadata/StreamCollection.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Music
+    path: ../ChartTools/Metadata/StreamCollection.cs
+    startLine: 14
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Location of the base audio file
+  example: []
+  syntax:
+    content: >-
+      [ChartKeySerializable("MusicStream")]
+
+      public string? Music { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <ChartKeySerializable("MusicStream")>
+
+      Public Property Music As String
+  overload: ChartTools.StreamCollection.Music*
+  attributes:
+  - type: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute
+    ctor: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: MusicStream
+- uid: ChartTools.StreamCollection.Guitar
+  commentId: P:ChartTools.StreamCollection.Guitar
+  id: Guitar
+  parent: ChartTools.StreamCollection
+  langs:
+  - csharp
+  - vb
+  name: Guitar
+  nameWithType: StreamCollection.Guitar
+  fullName: ChartTools.StreamCollection.Guitar
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Metadata/StreamCollection.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Guitar
+    path: ../ChartTools/Metadata/StreamCollection.cs
+    startLine: 19
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Location of the guitar audio file
+  example: []
+  syntax:
+    content: >-
+      [ChartKeySerializable("GuitarStream")]
+
+      public string? Guitar { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <ChartKeySerializable("GuitarStream")>
+
+      Public Property Guitar As String
+  overload: ChartTools.StreamCollection.Guitar*
+  attributes:
+  - type: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute
+    ctor: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: GuitarStream
+- uid: ChartTools.StreamCollection.Bass
+  commentId: P:ChartTools.StreamCollection.Bass
+  id: Bass
+  parent: ChartTools.StreamCollection
+  langs:
+  - csharp
+  - vb
+  name: Bass
+  nameWithType: StreamCollection.Bass
+  fullName: ChartTools.StreamCollection.Bass
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Metadata/StreamCollection.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Bass
+    path: ../ChartTools/Metadata/StreamCollection.cs
+    startLine: 24
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Location of the bass audio
+  example: []
+  syntax:
+    content: >-
+      [ChartKeySerializable("BassStream")]
+
+      public string? Bass { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <ChartKeySerializable("BassStream")>
+
+      Public Property Bass As String
+  overload: ChartTools.StreamCollection.Bass*
+  attributes:
+  - type: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute
+    ctor: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: BassStream
+- uid: ChartTools.StreamCollection.Rhythm
+  commentId: P:ChartTools.StreamCollection.Rhythm
+  id: Rhythm
+  parent: ChartTools.StreamCollection
+  langs:
+  - csharp
+  - vb
+  name: Rhythm
+  nameWithType: StreamCollection.Rhythm
+  fullName: ChartTools.StreamCollection.Rhythm
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Metadata/StreamCollection.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Rhythm
+    path: ../ChartTools/Metadata/StreamCollection.cs
+    startLine: 29
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Location of the rhythm guitar audio file
+  example: []
+  syntax:
+    content: >-
+      [ChartKeySerializable("RhythmStream")]
+
+      public string? Rhythm { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <ChartKeySerializable("RhythmStream")>
+
+      Public Property Rhythm As String
+  overload: ChartTools.StreamCollection.Rhythm*
+  attributes:
+  - type: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute
+    ctor: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: RhythmStream
+- uid: ChartTools.StreamCollection.Keys
+  commentId: P:ChartTools.StreamCollection.Keys
+  id: Keys
+  parent: ChartTools.StreamCollection
+  langs:
+  - csharp
+  - vb
+  name: Keys
+  nameWithType: StreamCollection.Keys
+  fullName: ChartTools.StreamCollection.Keys
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Metadata/StreamCollection.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Keys
+    path: ../ChartTools/Metadata/StreamCollection.cs
+    startLine: 34
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Location of the keys audio file
+  example: []
+  syntax:
+    content: >-
+      [ChartKeySerializable("KeysStream")]
+
+      public string? Keys { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <ChartKeySerializable("KeysStream")>
+
+      Public Property Keys As String
+  overload: ChartTools.StreamCollection.Keys*
+  attributes:
+  - type: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute
+    ctor: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: KeysStream
+- uid: ChartTools.StreamCollection.Drum
+  commentId: P:ChartTools.StreamCollection.Drum
+  id: Drum
+  parent: ChartTools.StreamCollection
+  langs:
+  - csharp
+  - vb
+  name: Drum
+  nameWithType: StreamCollection.Drum
+  fullName: ChartTools.StreamCollection.Drum
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Metadata/StreamCollection.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Drum
+    path: ../ChartTools/Metadata/StreamCollection.cs
+    startLine: 40
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Location of the drums' kicks audio file
+  remarks: Can include all drums audio
+  example: []
+  syntax:
+    content: >-
+      [ChartKeySerializable("DrumStream")]
+
+      public string? Drum { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <ChartKeySerializable("DrumStream")>
+
+      Public Property Drum As String
+  overload: ChartTools.StreamCollection.Drum*
+  attributes:
+  - type: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute
+    ctor: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: DrumStream
+- uid: ChartTools.StreamCollection.Drum2
+  commentId: P:ChartTools.StreamCollection.Drum2
+  id: Drum2
+  parent: ChartTools.StreamCollection
+  langs:
+  - csharp
+  - vb
+  name: Drum2
+  nameWithType: StreamCollection.Drum2
+  fullName: ChartTools.StreamCollection.Drum2
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Metadata/StreamCollection.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Drum2
+    path: ../ChartTools/Metadata/StreamCollection.cs
+    startLine: 46
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Location of the drums' snares audio file
+  remarks: Can include all drums audio except kicks
+  example: []
+  syntax:
+    content: >-
+      [ChartKeySerializable("Drum2Stream")]
+
+      public string? Drum2 { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <ChartKeySerializable("Drum2Stream")>
+
+      Public Property Drum2 As String
+  overload: ChartTools.StreamCollection.Drum2*
+  attributes:
+  - type: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute
+    ctor: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Drum2Stream
+- uid: ChartTools.StreamCollection.Drum3
+  commentId: P:ChartTools.StreamCollection.Drum3
+  id: Drum3
+  parent: ChartTools.StreamCollection
+  langs:
+  - csharp
+  - vb
+  name: Drum3
+  nameWithType: StreamCollection.Drum3
+  fullName: ChartTools.StreamCollection.Drum3
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Metadata/StreamCollection.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Drum3
+    path: ../ChartTools/Metadata/StreamCollection.cs
+    startLine: 52
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Location of the drum's toms audio file
+  remarks: Can include toms and cymbals
+  example: []
+  syntax:
+    content: >-
+      [ChartKeySerializable("Drum3Stream")]
+
+      public string? Drum3 { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <ChartKeySerializable("Drum3Stream")>
+
+      Public Property Drum3 As String
+  overload: ChartTools.StreamCollection.Drum3*
+  attributes:
+  - type: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute
+    ctor: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Drum3Stream
+- uid: ChartTools.StreamCollection.Drum4
+  commentId: P:ChartTools.StreamCollection.Drum4
+  id: Drum4
+  parent: ChartTools.StreamCollection
+  langs:
+  - csharp
+  - vb
+  name: Drum4
+  nameWithType: StreamCollection.Drum4
+  fullName: ChartTools.StreamCollection.Drum4
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Metadata/StreamCollection.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Drum4
+    path: ../ChartTools/Metadata/StreamCollection.cs
+    startLine: 57
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Location of the drum's cymbals audio file
+  example: []
+  syntax:
+    content: >-
+      [ChartKeySerializable("Drum4Stream")]
+
+      public string? Drum4 { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <ChartKeySerializable("Drum4Stream")>
+
+      Public Property Drum4 As String
+  overload: ChartTools.StreamCollection.Drum4*
+  attributes:
+  - type: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute
+    ctor: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Drum4Stream
+- uid: ChartTools.StreamCollection.Vocals
+  commentId: P:ChartTools.StreamCollection.Vocals
+  id: Vocals
+  parent: ChartTools.StreamCollection
+  langs:
+  - csharp
+  - vb
+  name: Vocals
+  nameWithType: StreamCollection.Vocals
+  fullName: ChartTools.StreamCollection.Vocals
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Metadata/StreamCollection.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Vocals
+    path: ../ChartTools/Metadata/StreamCollection.cs
+    startLine: 62
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Location of the vocals audio file
+  example: []
+  syntax:
+    content: >-
+      [ChartKeySerializable("VocalStream")]
+
+      public string? Vocals { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <ChartKeySerializable("VocalStream")>
+
+      Public Property Vocals As String
+  overload: ChartTools.StreamCollection.Vocals*
+  attributes:
+  - type: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute
+    ctor: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: VocalStream
+- uid: ChartTools.StreamCollection.Crowd
+  commentId: P:ChartTools.StreamCollection.Crowd
+  id: Crowd
+  parent: ChartTools.StreamCollection
+  langs:
+  - csharp
+  - vb
+  name: Crowd
+  nameWithType: StreamCollection.Crowd
+  fullName: ChartTools.StreamCollection.Crowd
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Metadata/StreamCollection.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Crowd
+    path: ../ChartTools/Metadata/StreamCollection.cs
+    startLine: 67
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Location of the crowd reaction audio file
+  example: []
+  syntax:
+    content: >-
+      [ChartKeySerializable("CrowdStream")]
+
+      public string? Crowd { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <ChartKeySerializable("CrowdStream")>
+
+      Public Property Crowd As String
+  overload: ChartTools.StreamCollection.Crowd*
+  attributes:
+  - type: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute
+    ctor: ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: CrowdStream
+references:
+- uid: ChartTools
+  commentId: N:ChartTools
+  href: ChartTools.html
+  name: ChartTools
+  nameWithType: ChartTools
+  fullName: ChartTools
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: ChartTools.StreamCollection.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.StreamCollection[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  parent: ChartTools.Tools.PropertyMerger
+  definition: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<StreamCollection>(StreamCollection, bool, bool, params StreamCollection[])
+  nameWithType: PropertyMerger.Merge<StreamCollection>(StreamCollection, bool, bool, params StreamCollection[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<ChartTools.StreamCollection>(ChartTools.StreamCollection, bool, bool, params ChartTools.StreamCollection[])
+  nameWithType.vb: PropertyMerger.Merge(Of StreamCollection)(StreamCollection, Boolean, Boolean, ParamArray StreamCollection())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of ChartTools.StreamCollection)(ChartTools.StreamCollection, Boolean, Boolean, ParamArray ChartTools.StreamCollection())
+  name.vb: Merge(Of StreamCollection)(StreamCollection, Boolean, Boolean, ParamArray StreamCollection())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.StreamCollection,System.Boolean,System.Boolean,ChartTools.StreamCollection[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - uid: ChartTools.StreamCollection
+    name: StreamCollection
+    href: ChartTools.StreamCollection.html
+  - name: '>'
+  - name: (
+  - uid: ChartTools.StreamCollection
+    name: StreamCollection
+    href: ChartTools.StreamCollection.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: ChartTools.StreamCollection
+    name: StreamCollection
+    href: ChartTools.StreamCollection.html
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.StreamCollection,System.Boolean,System.Boolean,ChartTools.StreamCollection[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.StreamCollection
+    name: StreamCollection
+    href: ChartTools.StreamCollection.html
+  - name: )
+  - name: (
+  - uid: ChartTools.StreamCollection
+    name: StreamCollection
+    href: ChartTools.StreamCollection.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: ChartTools.StreamCollection
+    name: StreamCollection
+    href: ChartTools.StreamCollection.html
+  - name: (
+  - name: )
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  isExternal: true
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<T>(T, bool, bool, params T[])
+  nameWithType: PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  nameWithType.vb: PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  name.vb: Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger
+  commentId: T:ChartTools.Tools.PropertyMerger
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.PropertyMerger.html
+  name: PropertyMerger
+  nameWithType: PropertyMerger
+  fullName: ChartTools.Tools.PropertyMerger
+- uid: ChartTools.Tools
+  commentId: N:ChartTools.Tools
+  href: ChartTools.html
+  name: ChartTools.Tools
+  nameWithType: ChartTools.Tools
+  fullName: ChartTools.Tools
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+- uid: ChartTools.StreamCollection.Music*
+  commentId: Overload:ChartTools.StreamCollection.Music
+  href: ChartTools.StreamCollection.html#ChartTools_StreamCollection_Music
+  name: Music
+  nameWithType: StreamCollection.Music
+  fullName: ChartTools.StreamCollection.Music
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: ChartTools.StreamCollection.Guitar*
+  commentId: Overload:ChartTools.StreamCollection.Guitar
+  href: ChartTools.StreamCollection.html#ChartTools_StreamCollection_Guitar
+  name: Guitar
+  nameWithType: StreamCollection.Guitar
+  fullName: ChartTools.StreamCollection.Guitar
+- uid: ChartTools.StreamCollection.Bass*
+  commentId: Overload:ChartTools.StreamCollection.Bass
+  href: ChartTools.StreamCollection.html#ChartTools_StreamCollection_Bass
+  name: Bass
+  nameWithType: StreamCollection.Bass
+  fullName: ChartTools.StreamCollection.Bass
+- uid: ChartTools.StreamCollection.Rhythm*
+  commentId: Overload:ChartTools.StreamCollection.Rhythm
+  href: ChartTools.StreamCollection.html#ChartTools_StreamCollection_Rhythm
+  name: Rhythm
+  nameWithType: StreamCollection.Rhythm
+  fullName: ChartTools.StreamCollection.Rhythm
+- uid: ChartTools.StreamCollection.Keys*
+  commentId: Overload:ChartTools.StreamCollection.Keys
+  href: ChartTools.StreamCollection.html#ChartTools_StreamCollection_Keys
+  name: Keys
+  nameWithType: StreamCollection.Keys
+  fullName: ChartTools.StreamCollection.Keys
+- uid: ChartTools.StreamCollection.Drum*
+  commentId: Overload:ChartTools.StreamCollection.Drum
+  href: ChartTools.StreamCollection.html#ChartTools_StreamCollection_Drum
+  name: Drum
+  nameWithType: StreamCollection.Drum
+  fullName: ChartTools.StreamCollection.Drum
+- uid: ChartTools.StreamCollection.Drum2*
+  commentId: Overload:ChartTools.StreamCollection.Drum2
+  href: ChartTools.StreamCollection.html#ChartTools_StreamCollection_Drum2
+  name: Drum2
+  nameWithType: StreamCollection.Drum2
+  fullName: ChartTools.StreamCollection.Drum2
+- uid: ChartTools.StreamCollection.Drum3*
+  commentId: Overload:ChartTools.StreamCollection.Drum3
+  href: ChartTools.StreamCollection.html#ChartTools_StreamCollection_Drum3
+  name: Drum3
+  nameWithType: StreamCollection.Drum3
+  fullName: ChartTools.StreamCollection.Drum3
+- uid: ChartTools.StreamCollection.Drum4*
+  commentId: Overload:ChartTools.StreamCollection.Drum4
+  href: ChartTools.StreamCollection.html#ChartTools_StreamCollection_Drum4
+  name: Drum4
+  nameWithType: StreamCollection.Drum4
+  fullName: ChartTools.StreamCollection.Drum4
+- uid: ChartTools.StreamCollection.Vocals*
+  commentId: Overload:ChartTools.StreamCollection.Vocals
+  href: ChartTools.StreamCollection.html#ChartTools_StreamCollection_Vocals
+  name: Vocals
+  nameWithType: StreamCollection.Vocals
+  fullName: ChartTools.StreamCollection.Vocals
+- uid: ChartTools.StreamCollection.Crowd*
+  commentId: Overload:ChartTools.StreamCollection.Crowd
+  href: ChartTools.StreamCollection.html#ChartTools_StreamCollection_Crowd
+  name: Crowd
+  nameWithType: StreamCollection.Crowd
+  fullName: ChartTools.StreamCollection.Crowd

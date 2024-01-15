@@ -1,0 +1,871 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.TimeSignature
+  commentId: T:ChartTools.TimeSignature
+  id: TimeSignature
+  parent: ChartTools
+  children:
+  - ChartTools.TimeSignature.#ctor(System.UInt32,System.Byte,System.Byte)
+  - ChartTools.TimeSignature.Denominator
+  - ChartTools.TimeSignature.Numerator
+  - ChartTools.TimeSignature.Position
+  langs:
+  - csharp
+  - vb
+  name: TimeSignature
+  nameWithType: TimeSignature
+  fullName: ChartTools.TimeSignature
+  type: Class
+  source:
+    remote:
+      path: ChartTools/Sync/TimeSignature.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: TimeSignature
+    path: ../ChartTools/Sync/TimeSignature.cs
+    startLine: 5
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Marker that alters the time signature
+  example: []
+  syntax:
+    content: 'public class TimeSignature : ITrackObject, IReadOnlyTrackObject, IEquatable<IReadOnlyTrackObject>'
+    content.vb: Public Class TimeSignature Implements ITrackObject, IReadOnlyTrackObject, IEquatable(Of IReadOnlyTrackObject)
+  inheritance:
+  - System.Object
+  implements:
+  - ChartTools.ITrackObject
+  - ChartTools.IReadOnlyTrackObject
+  - System.IEquatable{ChartTools.IReadOnlyTrackObject}
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - ChartTools.ITrackObject.ChartTools.Tools.TempoRescaler.Rescale(System.Single)
+  - ChartTools.TimeSignature.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.TimeSignature[])
+- uid: ChartTools.TimeSignature.Position
+  commentId: P:ChartTools.TimeSignature.Position
+  id: Position
+  parent: ChartTools.TimeSignature
+  langs:
+  - csharp
+  - vb
+  name: Position
+  nameWithType: TimeSignature.Position
+  fullName: ChartTools.TimeSignature.Position
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Sync/TimeSignature.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Position
+    path: ../ChartTools/Sync/TimeSignature.cs
+    startLine: 7
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Tick number on the track.
+  remarks: A tick represents a subdivision of a beat. The number of subdivisions per beat is stored in <xref href="ChartTools.IO.Formatting.FormattingRules.Resolution" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public uint Position { get; set; }
+    parameters: []
+    return:
+      type: System.UInt32
+    content.vb: Public Property Position As UInteger
+  overload: ChartTools.TimeSignature.Position*
+  implements:
+  - ChartTools.ITrackObject.Position
+  - ChartTools.IReadOnlyTrackObject.Position
+- uid: ChartTools.TimeSignature.Numerator
+  commentId: P:ChartTools.TimeSignature.Numerator
+  id: Numerator
+  parent: ChartTools.TimeSignature
+  langs:
+  - csharp
+  - vb
+  name: Numerator
+  nameWithType: TimeSignature.Numerator
+  fullName: ChartTools.TimeSignature.Numerator
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Sync/TimeSignature.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Numerator
+    path: ../ChartTools/Sync/TimeSignature.cs
+    startLine: 12
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Value of a beat
+  example: []
+  syntax:
+    content: public byte Numerator { get; set; }
+    parameters: []
+    return:
+      type: System.Byte
+    content.vb: Public Property Numerator As Byte
+  overload: ChartTools.TimeSignature.Numerator*
+- uid: ChartTools.TimeSignature.Denominator
+  commentId: P:ChartTools.TimeSignature.Denominator
+  id: Denominator
+  parent: ChartTools.TimeSignature
+  langs:
+  - csharp
+  - vb
+  name: Denominator
+  nameWithType: TimeSignature.Denominator
+  fullName: ChartTools.TimeSignature.Denominator
+  type: Property
+  source:
+    remote:
+      path: ChartTools/Sync/TimeSignature.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Denominator
+    path: ../ChartTools/Sync/TimeSignature.cs
+    startLine: 16
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Beats per measure
+  example: []
+  syntax:
+    content: public byte Denominator { get; set; }
+    parameters: []
+    return:
+      type: System.Byte
+    content.vb: Public Property Denominator As Byte
+  overload: ChartTools.TimeSignature.Denominator*
+- uid: ChartTools.TimeSignature.#ctor(System.UInt32,System.Byte,System.Byte)
+  commentId: M:ChartTools.TimeSignature.#ctor(System.UInt32,System.Byte,System.Byte)
+  id: '#ctor(System.UInt32,System.Byte,System.Byte)'
+  parent: ChartTools.TimeSignature
+  langs:
+  - csharp
+  - vb
+  name: TimeSignature(uint, byte, byte)
+  nameWithType: TimeSignature.TimeSignature(uint, byte, byte)
+  fullName: ChartTools.TimeSignature.TimeSignature(uint, byte, byte)
+  type: Constructor
+  source:
+    remote:
+      path: ChartTools/Sync/TimeSignature.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: .ctor
+    path: ../ChartTools/Sync/TimeSignature.cs
+    startLine: 24
+  assemblies:
+  - ChartTools
+  namespace: ChartTools
+  summary: Creates an instance of <xref href="ChartTools.TimeSignature" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public TimeSignature(uint position, byte numerator, byte denominator)
+    parameters:
+    - id: position
+      type: System.UInt32
+      description: Value of <xref href="ChartTools.TimeSignature.Position" data-throw-if-not-resolved="false"></xref>
+    - id: numerator
+      type: System.Byte
+      description: Value of <xref href="ChartTools.TimeSignature.Numerator" data-throw-if-not-resolved="false"></xref>
+    - id: denominator
+      type: System.Byte
+      description: Value of <xref href="ChartTools.TimeSignature.Denominator" data-throw-if-not-resolved="false"></xref>
+    content.vb: Public Sub New(position As UInteger, numerator As Byte, denominator As Byte)
+  overload: ChartTools.TimeSignature.#ctor*
+  nameWithType.vb: TimeSignature.New(UInteger, Byte, Byte)
+  fullName.vb: ChartTools.TimeSignature.New(UInteger, Byte, Byte)
+  name.vb: New(UInteger, Byte, Byte)
+references:
+- uid: ChartTools
+  commentId: N:ChartTools
+  href: ChartTools.html
+  name: ChartTools
+  nameWithType: ChartTools
+  fullName: ChartTools
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: ChartTools.ITrackObject
+  commentId: T:ChartTools.ITrackObject
+  parent: ChartTools
+  href: ChartTools.ITrackObject.html
+  name: ITrackObject
+  nameWithType: ITrackObject
+  fullName: ChartTools.ITrackObject
+- uid: ChartTools.IReadOnlyTrackObject
+  commentId: T:ChartTools.IReadOnlyTrackObject
+  parent: ChartTools
+  href: ChartTools.IReadOnlyTrackObject.html
+  name: IReadOnlyTrackObject
+  nameWithType: IReadOnlyTrackObject
+  fullName: ChartTools.IReadOnlyTrackObject
+- uid: System.IEquatable{ChartTools.IReadOnlyTrackObject}
+  commentId: T:System.IEquatable{ChartTools.IReadOnlyTrackObject}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<IReadOnlyTrackObject>
+  nameWithType: IEquatable<IReadOnlyTrackObject>
+  fullName: System.IEquatable<ChartTools.IReadOnlyTrackObject>
+  nameWithType.vb: IEquatable(Of IReadOnlyTrackObject)
+  fullName.vb: System.IEquatable(Of ChartTools.IReadOnlyTrackObject)
+  name.vb: IEquatable(Of IReadOnlyTrackObject)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: ChartTools.IReadOnlyTrackObject
+    name: IReadOnlyTrackObject
+    href: ChartTools.IReadOnlyTrackObject.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.IReadOnlyTrackObject
+    name: IReadOnlyTrackObject
+    href: ChartTools.IReadOnlyTrackObject.html
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: ChartTools.ITrackObject.ChartTools.Tools.TempoRescaler.Rescale(System.Single)
+  commentId: M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+  parent: ChartTools.Tools.TempoRescaler
+  definition: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+  href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  name: Rescale(ITrackObject, float)
+  nameWithType: TempoRescaler.Rescale(ITrackObject, float)
+  fullName: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject, float)
+  nameWithType.vb: TempoRescaler.Rescale(ITrackObject, Single)
+  fullName.vb: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject, Single)
+  name.vb: Rescale(ITrackObject, Single)
+  spec.csharp:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ITrackObject
+    name: ITrackObject
+    href: ChartTools.ITrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ITrackObject
+    name: ITrackObject
+    href: ChartTools.ITrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ChartTools.TimeSignature.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.TimeSignature[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  parent: ChartTools.Tools.PropertyMerger
+  definition: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<TimeSignature>(TimeSignature, bool, bool, params TimeSignature[])
+  nameWithType: PropertyMerger.Merge<TimeSignature>(TimeSignature, bool, bool, params TimeSignature[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<ChartTools.TimeSignature>(ChartTools.TimeSignature, bool, bool, params ChartTools.TimeSignature[])
+  nameWithType.vb: PropertyMerger.Merge(Of TimeSignature)(TimeSignature, Boolean, Boolean, ParamArray TimeSignature())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of ChartTools.TimeSignature)(ChartTools.TimeSignature, Boolean, Boolean, ParamArray ChartTools.TimeSignature())
+  name.vb: Merge(Of TimeSignature)(TimeSignature, Boolean, Boolean, ParamArray TimeSignature())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.TimeSignature,System.Boolean,System.Boolean,ChartTools.TimeSignature[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - uid: ChartTools.TimeSignature
+    name: TimeSignature
+    href: ChartTools.TimeSignature.html
+  - name: '>'
+  - name: (
+  - uid: ChartTools.TimeSignature
+    name: TimeSignature
+    href: ChartTools.TimeSignature.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: ChartTools.TimeSignature
+    name: TimeSignature
+    href: ChartTools.TimeSignature.html
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.TimeSignature,System.Boolean,System.Boolean,ChartTools.TimeSignature[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.TimeSignature
+    name: TimeSignature
+    href: ChartTools.TimeSignature.html
+  - name: )
+  - name: (
+  - uid: ChartTools.TimeSignature
+    name: TimeSignature
+    href: ChartTools.TimeSignature.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: ChartTools.TimeSignature
+    name: TimeSignature
+    href: ChartTools.TimeSignature.html
+  - name: (
+  - name: )
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+  commentId: M:ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+  isExternal: true
+  href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  name: Rescale(ITrackObject, float)
+  nameWithType: TempoRescaler.Rescale(ITrackObject, float)
+  fullName: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject, float)
+  nameWithType.vb: TempoRescaler.Rescale(ITrackObject, Single)
+  fullName.vb: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject, Single)
+  name.vb: Rescale(ITrackObject, Single)
+  spec.csharp:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ITrackObject
+    name: ITrackObject
+    href: ChartTools.ITrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.TempoRescaler.Rescale(ChartTools.ITrackObject,System.Single)
+    name: Rescale
+    href: ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_ITrackObject_System_Single_
+  - name: (
+  - uid: ChartTools.ITrackObject
+    name: ITrackObject
+    href: ChartTools.ITrackObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ChartTools.Tools.TempoRescaler
+  commentId: T:ChartTools.Tools.TempoRescaler
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.TempoRescaler.html
+  name: TempoRescaler
+  nameWithType: TempoRescaler
+  fullName: ChartTools.Tools.TempoRescaler
+- uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  isExternal: true
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<T>(T, bool, bool, params T[])
+  nameWithType: PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  nameWithType.vb: PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  name.vb: Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger
+  commentId: T:ChartTools.Tools.PropertyMerger
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.PropertyMerger.html
+  name: PropertyMerger
+  nameWithType: PropertyMerger
+  fullName: ChartTools.Tools.PropertyMerger
+- uid: ChartTools.Tools
+  commentId: N:ChartTools.Tools
+  href: ChartTools.html
+  name: ChartTools.Tools
+  nameWithType: ChartTools.Tools
+  fullName: ChartTools.Tools
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+- uid: ChartTools.IO.Formatting.FormattingRules.Resolution
+  commentId: P:ChartTools.IO.Formatting.FormattingRules.Resolution
+  href: ChartTools.IO.Formatting.FormattingRules.html#ChartTools_IO_Formatting_FormattingRules_Resolution
+  name: Resolution
+  nameWithType: FormattingRules.Resolution
+  fullName: ChartTools.IO.Formatting.FormattingRules.Resolution
+- uid: ChartTools.TimeSignature.Position*
+  commentId: Overload:ChartTools.TimeSignature.Position
+  href: ChartTools.TimeSignature.html#ChartTools_TimeSignature_Position
+  name: Position
+  nameWithType: TimeSignature.Position
+  fullName: ChartTools.TimeSignature.Position
+- uid: ChartTools.ITrackObject.Position
+  commentId: P:ChartTools.ITrackObject.Position
+  parent: ChartTools.ITrackObject
+  href: ChartTools.ITrackObject.html#ChartTools_ITrackObject_Position
+  name: Position
+  nameWithType: ITrackObject.Position
+  fullName: ChartTools.ITrackObject.Position
+- uid: ChartTools.IReadOnlyTrackObject.Position
+  commentId: P:ChartTools.IReadOnlyTrackObject.Position
+  parent: ChartTools.IReadOnlyTrackObject
+  href: ChartTools.IReadOnlyTrackObject.html#ChartTools_IReadOnlyTrackObject_Position
+  name: Position
+  nameWithType: IReadOnlyTrackObject.Position
+  fullName: ChartTools.IReadOnlyTrackObject.Position
+- uid: System.UInt32
+  commentId: T:System.UInt32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.uint32
+  name: uint
+  nameWithType: uint
+  fullName: uint
+  nameWithType.vb: UInteger
+  fullName.vb: UInteger
+  name.vb: UInteger
+- uid: ChartTools.TimeSignature.Numerator*
+  commentId: Overload:ChartTools.TimeSignature.Numerator
+  href: ChartTools.TimeSignature.html#ChartTools_TimeSignature_Numerator
+  name: Numerator
+  nameWithType: TimeSignature.Numerator
+  fullName: ChartTools.TimeSignature.Numerator
+- uid: System.Byte
+  commentId: T:System.Byte
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.byte
+  name: byte
+  nameWithType: byte
+  fullName: byte
+  nameWithType.vb: Byte
+  fullName.vb: Byte
+  name.vb: Byte
+- uid: ChartTools.TimeSignature.Denominator*
+  commentId: Overload:ChartTools.TimeSignature.Denominator
+  href: ChartTools.TimeSignature.html#ChartTools_TimeSignature_Denominator
+  name: Denominator
+  nameWithType: TimeSignature.Denominator
+  fullName: ChartTools.TimeSignature.Denominator
+- uid: ChartTools.TimeSignature
+  commentId: T:ChartTools.TimeSignature
+  href: ChartTools.TimeSignature.html
+  name: TimeSignature
+  nameWithType: TimeSignature
+  fullName: ChartTools.TimeSignature
+- uid: ChartTools.TimeSignature.Position
+  commentId: P:ChartTools.TimeSignature.Position
+  href: ChartTools.TimeSignature.html#ChartTools_TimeSignature_Position
+  name: Position
+  nameWithType: TimeSignature.Position
+  fullName: ChartTools.TimeSignature.Position
+- uid: ChartTools.TimeSignature.Numerator
+  commentId: P:ChartTools.TimeSignature.Numerator
+  href: ChartTools.TimeSignature.html#ChartTools_TimeSignature_Numerator
+  name: Numerator
+  nameWithType: TimeSignature.Numerator
+  fullName: ChartTools.TimeSignature.Numerator
+- uid: ChartTools.TimeSignature.Denominator
+  commentId: P:ChartTools.TimeSignature.Denominator
+  href: ChartTools.TimeSignature.html#ChartTools_TimeSignature_Denominator
+  name: Denominator
+  nameWithType: TimeSignature.Denominator
+  fullName: ChartTools.TimeSignature.Denominator
+- uid: ChartTools.TimeSignature.#ctor*
+  commentId: Overload:ChartTools.TimeSignature.#ctor
+  href: ChartTools.TimeSignature.html#ChartTools_TimeSignature__ctor_System_UInt32_System_Byte_System_Byte_
+  name: TimeSignature
+  nameWithType: TimeSignature.TimeSignature
+  fullName: ChartTools.TimeSignature.TimeSignature
+  nameWithType.vb: TimeSignature.New
+  fullName.vb: ChartTools.TimeSignature.New
+  name.vb: New

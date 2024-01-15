@@ -41,14 +41,10 @@ items:
     name: ILongTrackObject
   - uid: ChartTools.INote
     name: INote
-  - uid: ChartTools.IReadOnlyLongObject
-    name: IReadOnlyLongObject
-  - uid: ChartTools.IReadOnlyTrackObject
-    name: IReadOnlyTrackObject
-  - uid: ChartTools.ITrackObject
-    name: ITrackObject
   - uid: ChartTools.Instrument
     name: Instrument
+  - uid: ChartTools.Instrument`1
+    name: Instrument<TChord>
   - uid: ChartTools.InstrumentDifficultySet
     name: InstrumentDifficultySet
   - uid: ChartTools.InstrumentIdentity
@@ -61,18 +57,22 @@ items:
     name: InstrumentSpecialPhraseType
   - uid: ChartTools.InstrumentType
     name: InstrumentType
-  - uid: ChartTools.Instrument`1
-    name: Instrument<TChord>
+  - uid: ChartTools.IReadOnlyLongObject
+    name: IReadOnlyLongObject
+  - uid: ChartTools.IReadOnlyTrackObject
+    name: IReadOnlyTrackObject
+  - uid: ChartTools.ITrackObject
+    name: ITrackObject
   - uid: ChartTools.LaneChord
     name: LaneChord
   - uid: ChartTools.LaneChord`3
     name: LaneChord<TNote, TLane, TModifiers>
   - uid: ChartTools.LaneNote
     name: LaneNote
-  - uid: ChartTools.LaneNoteCollection`2
-    name: LaneNoteCollection<TNote, TLane>
   - uid: ChartTools.LaneNote`1
     name: LaneNote<TLane>
+  - uid: ChartTools.LaneNoteCollection`2
+    name: LaneNoteCollection<TNote, TLane>
   - uid: ChartTools.Metadata
     name: Metadata
   - uid: ChartTools.MidiInstrumentOrigin
@@ -103,14 +103,14 @@ items:
     name: TimeSignature
   - uid: ChartTools.Track
     name: Track
+  - uid: ChartTools.Track`1
+    name: Track<TChord>
   - uid: ChartTools.TrackObjectBase
     name: TrackObjectBase
   - uid: ChartTools.TrackSpecialPhrase
     name: TrackSpecialPhrase
   - uid: ChartTools.TrackSpecialPhraseType
     name: TrackSpecialPhraseType
-  - uid: ChartTools.Track`1
-    name: Track<TChord>
   - uid: ChartTools.UndefinedEnumException
     name: UndefinedEnumException
   - uid: ChartTools.UnidentifiedMetadata
@@ -160,10 +160,10 @@ items:
 - uid: ChartTools.Extensions.Collections
   name: ChartTools.Extensions.Collections
   items:
-  - uid: ChartTools.Extensions.Collections.DelayedEnumerableSource`1
-    name: DelayedEnumerableSource<T>
   - uid: ChartTools.Extensions.Collections.DelayedEnumerable`1
     name: DelayedEnumerable<T>
+  - uid: ChartTools.Extensions.Collections.DelayedEnumerableSource`1
+    name: DelayedEnumerableSource<T>
   - uid: ChartTools.Extensions.Collections.IInitializable
     name: IInitializable
   - uid: ChartTools.Extensions.Collections.UniqueTrackObjectCollection`1
@@ -291,10 +291,10 @@ items:
     name: ReservedSectionHeader
   - uid: ChartTools.IO.Sections.ReservedSectionHeaderSet
     name: ReservedSectionHeaderSet
-  - uid: ChartTools.IO.Sections.SectionSet`1
-    name: SectionSet<T>
   - uid: ChartTools.IO.Sections.Section`1
     name: Section<T>
+  - uid: ChartTools.IO.Sections.SectionSet`1
+    name: SectionSet<T>
 - uid: ChartTools.Lyrics
   name: ChartTools.Lyrics
   items:

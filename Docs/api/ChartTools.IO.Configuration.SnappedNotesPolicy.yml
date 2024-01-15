@@ -1,0 +1,339 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools.IO.Configuration.SnappedNotesPolicy
+  commentId: T:ChartTools.IO.Configuration.SnappedNotesPolicy
+  id: SnappedNotesPolicy
+  parent: ChartTools.IO.Configuration
+  children:
+  - ChartTools.IO.Configuration.SnappedNotesPolicy.Ignore
+  - ChartTools.IO.Configuration.SnappedNotesPolicy.Snap
+  - ChartTools.IO.Configuration.SnappedNotesPolicy.ThrowException
+  langs:
+  - csharp
+  - vb
+  name: SnappedNotesPolicy
+  nameWithType: SnappedNotesPolicy
+  fullName: ChartTools.IO.Configuration.SnappedNotesPolicy
+  type: Enum
+  source:
+    remote:
+      path: ChartTools/IO/Configuration/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: SnappedNotesPolicy
+    path: ../ChartTools/IO/Configuration/Enums.cs
+    startLine: 80
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Configuration
+  summary: Defines how notes within ticks of each other are handled during a Midi operation.
+  example: []
+  syntax:
+    content: 'public enum SnappedNotesPolicy : byte'
+    content.vb: Public Enum SnappedNotesPolicy As Byte
+  extensionMethods:
+  - ChartTools.IO.Configuration.SnappedNotesPolicy.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.IO.Configuration.SnappedNotesPolicy[])
+- uid: ChartTools.IO.Configuration.SnappedNotesPolicy.ThrowException
+  commentId: F:ChartTools.IO.Configuration.SnappedNotesPolicy.ThrowException
+  id: ThrowException
+  parent: ChartTools.IO.Configuration.SnappedNotesPolicy
+  langs:
+  - csharp
+  - vb
+  name: ThrowException
+  nameWithType: SnappedNotesPolicy.ThrowException
+  fullName: ChartTools.IO.Configuration.SnappedNotesPolicy.ThrowException
+  type: Field
+  source:
+    remote:
+      path: ChartTools/IO/Configuration/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: ThrowException
+    path: ../ChartTools/IO/Configuration/Enums.cs
+    startLine: 85
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Configuration
+  summary: Throw an exception.
+  example: []
+  syntax:
+    content: ThrowException = 0
+    return:
+      type: ChartTools.IO.Configuration.SnappedNotesPolicy
+- uid: ChartTools.IO.Configuration.SnappedNotesPolicy.Snap
+  commentId: F:ChartTools.IO.Configuration.SnappedNotesPolicy.Snap
+  id: Snap
+  parent: ChartTools.IO.Configuration.SnappedNotesPolicy
+  langs:
+  - csharp
+  - vb
+  name: Snap
+  nameWithType: SnappedNotesPolicy.Snap
+  fullName: ChartTools.IO.Configuration.SnappedNotesPolicy.Snap
+  type: Field
+  source:
+    remote:
+      path: ChartTools/IO/Configuration/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Snap
+    path: ../ChartTools/IO/Configuration/Enums.cs
+    startLine: 89
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Configuration
+  summary: Combine the notes as a single chord at the position of the earlier note.
+  example: []
+  syntax:
+    content: Snap = 1
+    return:
+      type: ChartTools.IO.Configuration.SnappedNotesPolicy
+- uid: ChartTools.IO.Configuration.SnappedNotesPolicy.Ignore
+  commentId: F:ChartTools.IO.Configuration.SnappedNotesPolicy.Ignore
+  id: Ignore
+  parent: ChartTools.IO.Configuration.SnappedNotesPolicy
+  langs:
+  - csharp
+  - vb
+  name: Ignore
+  nameWithType: SnappedNotesPolicy.Ignore
+  fullName: ChartTools.IO.Configuration.SnappedNotesPolicy.Ignore
+  type: Field
+  source:
+    remote:
+      path: ChartTools/IO/Configuration/Enums.cs
+      branch: 64-rework-docs-website
+      repo: https://github.com/TheBoxyBear/charttools.git
+    id: Ignore
+    path: ../ChartTools/IO/Configuration/Enums.cs
+    startLine: 93
+  assemblies:
+  - ChartTools
+  namespace: ChartTools.IO.Configuration
+  summary: Leave each note as its own chord.
+  example: []
+  syntax:
+    content: Ignore = 2
+    return:
+      type: ChartTools.IO.Configuration.SnappedNotesPolicy
+references:
+- uid: ChartTools.IO.Configuration
+  commentId: N:ChartTools.IO.Configuration
+  href: ChartTools.html
+  name: ChartTools.IO.Configuration
+  nameWithType: ChartTools.IO.Configuration
+  fullName: ChartTools.IO.Configuration
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Configuration
+    name: Configuration
+    href: ChartTools.IO.Configuration.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.IO
+    name: IO
+    href: ChartTools.IO.html
+  - name: .
+  - uid: ChartTools.IO.Configuration
+    name: Configuration
+    href: ChartTools.IO.Configuration.html
+- uid: ChartTools.IO.Configuration.SnappedNotesPolicy.ChartTools.Tools.PropertyMerger.Merge``1(System.Boolean,System.Boolean,ChartTools.IO.Configuration.SnappedNotesPolicy[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  parent: ChartTools.Tools.PropertyMerger
+  definition: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<SnappedNotesPolicy>(SnappedNotesPolicy, bool, bool, params SnappedNotesPolicy[])
+  nameWithType: PropertyMerger.Merge<SnappedNotesPolicy>(SnappedNotesPolicy, bool, bool, params SnappedNotesPolicy[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<ChartTools.IO.Configuration.SnappedNotesPolicy>(ChartTools.IO.Configuration.SnappedNotesPolicy, bool, bool, params ChartTools.IO.Configuration.SnappedNotesPolicy[])
+  nameWithType.vb: PropertyMerger.Merge(Of SnappedNotesPolicy)(SnappedNotesPolicy, Boolean, Boolean, ParamArray SnappedNotesPolicy())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of ChartTools.IO.Configuration.SnappedNotesPolicy)(ChartTools.IO.Configuration.SnappedNotesPolicy, Boolean, Boolean, ParamArray ChartTools.IO.Configuration.SnappedNotesPolicy())
+  name.vb: Merge(Of SnappedNotesPolicy)(SnappedNotesPolicy, Boolean, Boolean, ParamArray SnappedNotesPolicy())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.IO.Configuration.SnappedNotesPolicy,System.Boolean,System.Boolean,ChartTools.IO.Configuration.SnappedNotesPolicy[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - uid: ChartTools.IO.Configuration.SnappedNotesPolicy
+    name: SnappedNotesPolicy
+    href: ChartTools.IO.Configuration.SnappedNotesPolicy.html
+  - name: '>'
+  - name: (
+  - uid: ChartTools.IO.Configuration.SnappedNotesPolicy
+    name: SnappedNotesPolicy
+    href: ChartTools.IO.Configuration.SnappedNotesPolicy.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: ChartTools.IO.Configuration.SnappedNotesPolicy
+    name: SnappedNotesPolicy
+    href: ChartTools.IO.Configuration.SnappedNotesPolicy.html
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(ChartTools.IO.Configuration.SnappedNotesPolicy,System.Boolean,System.Boolean,ChartTools.IO.Configuration.SnappedNotesPolicy[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ChartTools.IO.Configuration.SnappedNotesPolicy
+    name: SnappedNotesPolicy
+    href: ChartTools.IO.Configuration.SnappedNotesPolicy.html
+  - name: )
+  - name: (
+  - uid: ChartTools.IO.Configuration.SnappedNotesPolicy
+    name: SnappedNotesPolicy
+    href: ChartTools.IO.Configuration.SnappedNotesPolicy.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: ChartTools.IO.Configuration.SnappedNotesPolicy
+    name: SnappedNotesPolicy
+    href: ChartTools.IO.Configuration.SnappedNotesPolicy.html
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  commentId: M:ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+  isExternal: true
+  href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  name: Merge<T>(T, bool, bool, params T[])
+  nameWithType: PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  fullName: ChartTools.Tools.PropertyMerger.Merge<T>(T, bool, bool, params T[])
+  nameWithType.vb: PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  fullName.vb: ChartTools.Tools.PropertyMerger.Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  name.vb: Merge(Of T)(T, Boolean, Boolean, ParamArray T())
+  spec.csharp:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ChartTools.Tools.PropertyMerger.Merge``1(``0,System.Boolean,System.Boolean,``0[])
+    name: Merge
+    href: ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: ChartTools.Tools.PropertyMerger
+  commentId: T:ChartTools.Tools.PropertyMerger
+  parent: ChartTools.Tools
+  href: ChartTools.Tools.PropertyMerger.html
+  name: PropertyMerger
+  nameWithType: PropertyMerger
+  fullName: ChartTools.Tools.PropertyMerger
+- uid: ChartTools.Tools
+  commentId: N:ChartTools.Tools
+  href: ChartTools.html
+  name: ChartTools.Tools
+  nameWithType: ChartTools.Tools
+  fullName: ChartTools.Tools
+  spec.csharp:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+  spec.vb:
+  - uid: ChartTools
+    name: ChartTools
+    href: ChartTools.html
+  - name: .
+  - uid: ChartTools.Tools
+    name: Tools
+    href: ChartTools.Tools.html
+- uid: ChartTools.IO.Configuration.SnappedNotesPolicy
+  commentId: T:ChartTools.IO.Configuration.SnappedNotesPolicy
+  parent: ChartTools.IO.Configuration
+  href: ChartTools.IO.Configuration.SnappedNotesPolicy.html
+  name: SnappedNotesPolicy
+  nameWithType: SnappedNotesPolicy
+  fullName: ChartTools.IO.Configuration.SnappedNotesPolicy

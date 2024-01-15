@@ -1,0 +1,577 @@
+### YamlMime:ManagedReference
+items:
+- uid: ChartTools
+  commentId: N:ChartTools
+  id: ChartTools
+  children:
+  - ChartTools.Charter
+  - ChartTools.DesynchronizedAnchorException
+  - ChartTools.Difficulty
+  - ChartTools.Drums
+  - ChartTools.DrumsChord
+  - ChartTools.DrumsChordModifiers
+  - ChartTools.DrumsLane
+  - ChartTools.DrumsNote
+  - ChartTools.FileType
+  - ChartTools.GHLChord
+  - ChartTools.GHLChordModifiers
+  - ChartTools.GHLInstrument
+  - ChartTools.GHLInstrumentIdentity
+  - ChartTools.GHLLane
+  - ChartTools.IChord
+  - ChartTools.IEmptyVerifiable
+  - ChartTools.ILongObject
+  - ChartTools.ILongTrackObject
+  - ChartTools.INote
+  - ChartTools.IReadOnlyLongObject
+  - ChartTools.IReadOnlyTrackObject
+  - ChartTools.ITrackObject
+  - ChartTools.Instrument
+  - ChartTools.InstrumentDifficultySet
+  - ChartTools.InstrumentIdentity
+  - ChartTools.InstrumentSet
+  - ChartTools.InstrumentSpecialPhrase
+  - ChartTools.InstrumentSpecialPhraseType
+  - ChartTools.InstrumentType
+  - ChartTools.Instrument`1
+  - ChartTools.LaneChord
+  - ChartTools.LaneChord`3
+  - ChartTools.LaneNote
+  - ChartTools.LaneNoteCollection`2
+  - ChartTools.LaneNote`1
+  - ChartTools.Metadata
+  - ChartTools.MidiInstrumentOrigin
+  - ChartTools.Song
+  - ChartTools.SpecialPhrase
+  - ChartTools.StandardChord
+  - ChartTools.StandardChordModifiers
+  - ChartTools.StandardInstrument
+  - ChartTools.StandardInstrumentIdentity
+  - ChartTools.StandardLane
+  - ChartTools.StreamCollection
+  - ChartTools.SyncTrack
+  - ChartTools.Tempo
+  - ChartTools.TempoMap
+  - ChartTools.TimeSignature
+  - ChartTools.Track
+  - ChartTools.TrackObjectBase
+  - ChartTools.TrackSpecialPhrase
+  - ChartTools.TrackSpecialPhraseType
+  - ChartTools.Track`1
+  - ChartTools.UndefinedEnumException
+  - ChartTools.UnidentifiedMetadata
+  - ChartTools.Vocals
+  langs:
+  - csharp
+  - vb
+  name: ChartTools
+  nameWithType: ChartTools
+  fullName: ChartTools
+  type: Namespace
+  assemblies:
+  - ChartTools
+references:
+- uid: ChartTools.DrumsChord
+  commentId: T:ChartTools.DrumsChord
+  href: ChartTools.DrumsChord.html
+  name: DrumsChord
+  nameWithType: DrumsChord
+  fullName: ChartTools.DrumsChord
+- uid: ChartTools.GHLChord
+  commentId: T:ChartTools.GHLChord
+  href: ChartTools.GHLChord.html
+  name: GHLChord
+  nameWithType: GHLChord
+  fullName: ChartTools.GHLChord
+- uid: ChartTools.IChord
+  commentId: T:ChartTools.IChord
+  parent: ChartTools
+  href: ChartTools.IChord.html
+  name: IChord
+  nameWithType: IChord
+  fullName: ChartTools.IChord
+- uid: ChartTools.LaneChord
+  commentId: T:ChartTools.LaneChord
+  parent: ChartTools
+  href: ChartTools.LaneChord.html
+  name: LaneChord
+  nameWithType: LaneChord
+  fullName: ChartTools.LaneChord
+- uid: ChartTools.LaneChord`3
+  commentId: T:ChartTools.LaneChord`3
+  href: ChartTools.LaneChord-3.html
+  name: LaneChord<TNote, TLane, TModifiers>
+  nameWithType: LaneChord<TNote, TLane, TModifiers>
+  fullName: ChartTools.LaneChord<TNote, TLane, TModifiers>
+  nameWithType.vb: LaneChord(Of TNote, TLane, TModifiers)
+  fullName.vb: ChartTools.LaneChord(Of TNote, TLane, TModifiers)
+  name.vb: LaneChord(Of TNote, TLane, TModifiers)
+  spec.csharp:
+  - uid: ChartTools.LaneChord`3
+    name: LaneChord
+    href: ChartTools.LaneChord-3.html
+  - name: <
+  - name: TNote
+  - name: ','
+  - name: " "
+  - name: TLane
+  - name: ','
+  - name: " "
+  - name: TModifiers
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.LaneChord`3
+    name: LaneChord
+    href: ChartTools.LaneChord-3.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TNote
+  - name: ','
+  - name: " "
+  - name: TLane
+  - name: ','
+  - name: " "
+  - name: TModifiers
+  - name: )
+- uid: ChartTools.StandardChord
+  commentId: T:ChartTools.StandardChord
+  href: ChartTools.StandardChord.html
+  name: StandardChord
+  nameWithType: StandardChord
+  fullName: ChartTools.StandardChord
+- uid: ChartTools.Difficulty
+  commentId: T:ChartTools.Difficulty
+  parent: ChartTools
+  href: ChartTools.Difficulty.html
+  name: Difficulty
+  nameWithType: Difficulty
+  fullName: ChartTools.Difficulty
+- uid: ChartTools.DrumsChordModifiers
+  commentId: T:ChartTools.DrumsChordModifiers
+  parent: ChartTools
+  href: ChartTools.DrumsChordModifiers.html
+  name: DrumsChordModifiers
+  nameWithType: DrumsChordModifiers
+  fullName: ChartTools.DrumsChordModifiers
+- uid: ChartTools.DrumsLane
+  commentId: T:ChartTools.DrumsLane
+  parent: ChartTools
+  href: ChartTools.DrumsLane.html
+  name: DrumsLane
+  nameWithType: DrumsLane
+  fullName: ChartTools.DrumsLane
+- uid: ChartTools.FileType
+  commentId: T:ChartTools.FileType
+  parent: ChartTools
+  href: ChartTools.FileType.html
+  name: FileType
+  nameWithType: FileType
+  fullName: ChartTools.FileType
+- uid: ChartTools.GHLChordModifiers
+  commentId: T:ChartTools.GHLChordModifiers
+  parent: ChartTools
+  href: ChartTools.GHLChordModifiers.html
+  name: GHLChordModifiers
+  nameWithType: GHLChordModifiers
+  fullName: ChartTools.GHLChordModifiers
+- uid: ChartTools.GHLInstrumentIdentity
+  commentId: T:ChartTools.GHLInstrumentIdentity
+  parent: ChartTools
+  href: ChartTools.GHLInstrumentIdentity.html
+  name: GHLInstrumentIdentity
+  nameWithType: GHLInstrumentIdentity
+  fullName: ChartTools.GHLInstrumentIdentity
+- uid: ChartTools.GHLLane
+  commentId: T:ChartTools.GHLLane
+  parent: ChartTools
+  href: ChartTools.GHLLane.html
+  name: GHLLane
+  nameWithType: GHLLane
+  fullName: ChartTools.GHLLane
+- uid: ChartTools.MidiInstrumentOrigin
+  commentId: T:ChartTools.MidiInstrumentOrigin
+  parent: ChartTools
+  href: ChartTools.MidiInstrumentOrigin.html
+  name: MidiInstrumentOrigin
+  nameWithType: MidiInstrumentOrigin
+  fullName: ChartTools.MidiInstrumentOrigin
+- uid: ChartTools.InstrumentIdentity
+  commentId: T:ChartTools.InstrumentIdentity
+  parent: ChartTools
+  href: ChartTools.InstrumentIdentity.html
+  name: InstrumentIdentity
+  nameWithType: InstrumentIdentity
+  fullName: ChartTools.InstrumentIdentity
+- uid: ChartTools.InstrumentType
+  commentId: T:ChartTools.InstrumentType
+  parent: ChartTools
+  href: ChartTools.InstrumentType.html
+  name: InstrumentType
+  nameWithType: InstrumentType
+  fullName: ChartTools.InstrumentType
+- uid: ChartTools.StandardChordModifiers
+  commentId: T:ChartTools.StandardChordModifiers
+  parent: ChartTools
+  href: ChartTools.StandardChordModifiers.html
+  name: StandardChordModifiers
+  nameWithType: StandardChordModifiers
+  fullName: ChartTools.StandardChordModifiers
+- uid: ChartTools.StandardInstrumentIdentity
+  commentId: T:ChartTools.StandardInstrumentIdentity
+  parent: ChartTools
+  href: ChartTools.StandardInstrumentIdentity.html
+  name: StandardInstrumentIdentity
+  nameWithType: StandardInstrumentIdentity
+  fullName: ChartTools.StandardInstrumentIdentity
+- uid: ChartTools.StandardLane
+  commentId: T:ChartTools.StandardLane
+  parent: ChartTools
+  href: ChartTools.StandardLane.html
+  name: StandardLane
+  nameWithType: StandardLane
+  fullName: ChartTools.StandardLane
+- uid: ChartTools.TrackSpecialPhraseType
+  commentId: T:ChartTools.TrackSpecialPhraseType
+  parent: ChartTools
+  href: ChartTools.TrackSpecialPhraseType.html
+  name: TrackSpecialPhraseType
+  nameWithType: TrackSpecialPhraseType
+  fullName: ChartTools.TrackSpecialPhraseType
+- uid: ChartTools.InstrumentSpecialPhraseType
+  commentId: T:ChartTools.InstrumentSpecialPhraseType
+  parent: ChartTools
+  href: ChartTools.InstrumentSpecialPhraseType.html
+  name: InstrumentSpecialPhraseType
+  nameWithType: InstrumentSpecialPhraseType
+  fullName: ChartTools.InstrumentSpecialPhraseType
+- uid: ChartTools.DesynchronizedAnchorException
+  commentId: T:ChartTools.DesynchronizedAnchorException
+  href: ChartTools.DesynchronizedAnchorException.html
+  name: DesynchronizedAnchorException
+  nameWithType: DesynchronizedAnchorException
+  fullName: ChartTools.DesynchronizedAnchorException
+- uid: ChartTools.UndefinedEnumException
+  commentId: T:ChartTools.UndefinedEnumException
+  href: ChartTools.UndefinedEnumException.html
+  name: UndefinedEnumException
+  nameWithType: UndefinedEnumException
+  fullName: ChartTools.UndefinedEnumException
+- uid: ChartTools.IEmptyVerifiable
+  commentId: T:ChartTools.IEmptyVerifiable
+  parent: ChartTools
+  href: ChartTools.IEmptyVerifiable.html
+  name: IEmptyVerifiable
+  nameWithType: IEmptyVerifiable
+  fullName: ChartTools.IEmptyVerifiable
+- uid: ChartTools.ILongObject
+  commentId: T:ChartTools.ILongObject
+  parent: ChartTools
+  href: ChartTools.ILongObject.html
+  name: ILongObject
+  nameWithType: ILongObject
+  fullName: ChartTools.ILongObject
+- uid: ChartTools.Drums
+  commentId: T:ChartTools.Drums
+  parent: ChartTools
+  href: ChartTools.Drums.html
+  name: Drums
+  nameWithType: Drums
+  fullName: ChartTools.Drums
+- uid: ChartTools.GHLInstrument
+  commentId: T:ChartTools.GHLInstrument
+  parent: ChartTools
+  href: ChartTools.GHLInstrument.html
+  name: GHLInstrument
+  nameWithType: GHLInstrument
+  fullName: ChartTools.GHLInstrument
+- uid: ChartTools.Instrument
+  commentId: T:ChartTools.Instrument
+  parent: ChartTools
+  href: ChartTools.Instrument.html
+  name: Instrument
+  nameWithType: Instrument
+  fullName: ChartTools.Instrument
+- uid: ChartTools.Instrument`1
+  commentId: T:ChartTools.Instrument`1
+  href: ChartTools.Instrument-1.html
+  name: Instrument<TChord>
+  nameWithType: Instrument<TChord>
+  fullName: ChartTools.Instrument<TChord>
+  nameWithType.vb: Instrument(Of TChord)
+  fullName.vb: ChartTools.Instrument(Of TChord)
+  name.vb: Instrument(Of TChord)
+  spec.csharp:
+  - uid: ChartTools.Instrument`1
+    name: Instrument
+    href: ChartTools.Instrument-1.html
+  - name: <
+  - name: TChord
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.Instrument`1
+    name: Instrument
+    href: ChartTools.Instrument-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TChord
+  - name: )
+- uid: ChartTools.InstrumentSet
+  commentId: T:ChartTools.InstrumentSet
+  parent: ChartTools
+  href: ChartTools.InstrumentSet.html
+  name: InstrumentSet
+  nameWithType: InstrumentSet
+  fullName: ChartTools.InstrumentSet
+- uid: ChartTools.StandardInstrument
+  commentId: T:ChartTools.StandardInstrument
+  parent: ChartTools
+  href: ChartTools.StandardInstrument.html
+  name: StandardInstrument
+  nameWithType: StandardInstrument
+  fullName: ChartTools.StandardInstrument
+- uid: ChartTools.Vocals
+  commentId: T:ChartTools.Vocals
+  parent: ChartTools
+  href: ChartTools.Vocals.html
+  name: Vocals
+  nameWithType: Vocals
+  fullName: ChartTools.Vocals
+- uid: ChartTools.IReadOnlyLongObject
+  commentId: T:ChartTools.IReadOnlyLongObject
+  parent: ChartTools
+  href: ChartTools.IReadOnlyLongObject.html
+  name: IReadOnlyLongObject
+  nameWithType: IReadOnlyLongObject
+  fullName: ChartTools.IReadOnlyLongObject
+- uid: ChartTools.Charter
+  commentId: T:ChartTools.Charter
+  parent: ChartTools
+  href: ChartTools.Charter.html
+  name: Charter
+  nameWithType: Charter
+  fullName: ChartTools.Charter
+- uid: ChartTools.InstrumentDifficultySet
+  commentId: T:ChartTools.InstrumentDifficultySet
+  parent: ChartTools
+  href: ChartTools.InstrumentDifficultySet.html
+  name: InstrumentDifficultySet
+  nameWithType: InstrumentDifficultySet
+  fullName: ChartTools.InstrumentDifficultySet
+- uid: ChartTools.Metadata
+  commentId: T:ChartTools.Metadata
+  parent: ChartTools
+  href: ChartTools.Metadata.html
+  name: Metadata
+  nameWithType: Metadata
+  fullName: ChartTools.Metadata
+- uid: ChartTools.StreamCollection
+  commentId: T:ChartTools.StreamCollection
+  parent: ChartTools
+  href: ChartTools.StreamCollection.html
+  name: StreamCollection
+  nameWithType: StreamCollection
+  fullName: ChartTools.StreamCollection
+- uid: ChartTools.UnidentifiedMetadata
+  commentId: T:ChartTools.UnidentifiedMetadata
+  href: ChartTools.UnidentifiedMetadata.html
+  name: UnidentifiedMetadata
+  nameWithType: UnidentifiedMetadata
+  fullName: ChartTools.UnidentifiedMetadata
+- uid: ChartTools.DrumsNote
+  commentId: T:ChartTools.DrumsNote
+  href: ChartTools.DrumsNote.html
+  name: DrumsNote
+  nameWithType: DrumsNote
+  fullName: ChartTools.DrumsNote
+- uid: ChartTools.INote
+  commentId: T:ChartTools.INote
+  parent: ChartTools
+  href: ChartTools.INote.html
+  name: INote
+  nameWithType: INote
+  fullName: ChartTools.INote
+- uid: ChartTools.LaneNote
+  commentId: T:ChartTools.LaneNote
+  parent: ChartTools
+  href: ChartTools.LaneNote.html
+  name: LaneNote
+  nameWithType: LaneNote
+  fullName: ChartTools.LaneNote
+- uid: ChartTools.LaneNoteCollection`2
+  commentId: T:ChartTools.LaneNoteCollection`2
+  href: ChartTools.LaneNoteCollection-2.html
+  name: LaneNoteCollection<TNote, TLane>
+  nameWithType: LaneNoteCollection<TNote, TLane>
+  fullName: ChartTools.LaneNoteCollection<TNote, TLane>
+  nameWithType.vb: LaneNoteCollection(Of TNote, TLane)
+  fullName.vb: ChartTools.LaneNoteCollection(Of TNote, TLane)
+  name.vb: LaneNoteCollection(Of TNote, TLane)
+  spec.csharp:
+  - uid: ChartTools.LaneNoteCollection`2
+    name: LaneNoteCollection
+    href: ChartTools.LaneNoteCollection-2.html
+  - name: <
+  - name: TNote
+  - name: ','
+  - name: " "
+  - name: TLane
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.LaneNoteCollection`2
+    name: LaneNoteCollection
+    href: ChartTools.LaneNoteCollection-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TNote
+  - name: ','
+  - name: " "
+  - name: TLane
+  - name: )
+- uid: ChartTools.LaneNote`1
+  commentId: T:ChartTools.LaneNote`1
+  href: ChartTools.LaneNote-1.html
+  name: LaneNote<TLane>
+  nameWithType: LaneNote<TLane>
+  fullName: ChartTools.LaneNote<TLane>
+  nameWithType.vb: LaneNote(Of TLane)
+  fullName.vb: ChartTools.LaneNote(Of TLane)
+  name.vb: LaneNote(Of TLane)
+  spec.csharp:
+  - uid: ChartTools.LaneNote`1
+    name: LaneNote
+    href: ChartTools.LaneNote-1.html
+  - name: <
+  - name: TLane
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.LaneNote`1
+    name: LaneNote
+    href: ChartTools.LaneNote-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TLane
+  - name: )
+- uid: ChartTools.Song
+  commentId: T:ChartTools.Song
+  parent: ChartTools
+  href: ChartTools.Song.html
+  name: Song
+  nameWithType: Song
+  fullName: ChartTools.Song
+- uid: ChartTools.InstrumentSpecialPhrase
+  commentId: T:ChartTools.InstrumentSpecialPhrase
+  href: ChartTools.InstrumentSpecialPhrase.html
+  name: InstrumentSpecialPhrase
+  nameWithType: InstrumentSpecialPhrase
+  fullName: ChartTools.InstrumentSpecialPhrase
+- uid: ChartTools.SpecialPhrase
+  commentId: T:ChartTools.SpecialPhrase
+  parent: ChartTools
+  href: ChartTools.SpecialPhrase.html
+  name: SpecialPhrase
+  nameWithType: SpecialPhrase
+  fullName: ChartTools.SpecialPhrase
+- uid: ChartTools.TrackSpecialPhrase
+  commentId: T:ChartTools.TrackSpecialPhrase
+  parent: ChartTools
+  href: ChartTools.TrackSpecialPhrase.html
+  name: TrackSpecialPhrase
+  nameWithType: TrackSpecialPhrase
+  fullName: ChartTools.TrackSpecialPhrase
+- uid: ChartTools.SyncTrack
+  commentId: T:ChartTools.SyncTrack
+  parent: ChartTools
+  href: ChartTools.SyncTrack.html
+  name: SyncTrack
+  nameWithType: SyncTrack
+  fullName: ChartTools.SyncTrack
+- uid: ChartTools.Tempo
+  commentId: T:ChartTools.Tempo
+  parent: ChartTools
+  href: ChartTools.Tempo.html
+  name: Tempo
+  nameWithType: Tempo
+  fullName: ChartTools.Tempo
+- uid: ChartTools.TempoMap
+  commentId: T:ChartTools.TempoMap
+  parent: ChartTools
+  href: ChartTools.TempoMap.html
+  name: TempoMap
+  nameWithType: TempoMap
+  fullName: ChartTools.TempoMap
+- uid: ChartTools.TimeSignature
+  commentId: T:ChartTools.TimeSignature
+  href: ChartTools.TimeSignature.html
+  name: TimeSignature
+  nameWithType: TimeSignature
+  fullName: ChartTools.TimeSignature
+- uid: ChartTools.ILongTrackObject
+  commentId: T:ChartTools.ILongTrackObject
+  parent: ChartTools
+  href: ChartTools.ILongTrackObject.html
+  name: ILongTrackObject
+  nameWithType: ILongTrackObject
+  fullName: ChartTools.ILongTrackObject
+- uid: ChartTools.IReadOnlyTrackObject
+  commentId: T:ChartTools.IReadOnlyTrackObject
+  parent: ChartTools
+  href: ChartTools.IReadOnlyTrackObject.html
+  name: IReadOnlyTrackObject
+  nameWithType: IReadOnlyTrackObject
+  fullName: ChartTools.IReadOnlyTrackObject
+- uid: ChartTools.ITrackObject
+  commentId: T:ChartTools.ITrackObject
+  parent: ChartTools
+  href: ChartTools.ITrackObject.html
+  name: ITrackObject
+  nameWithType: ITrackObject
+  fullName: ChartTools.ITrackObject
+- uid: ChartTools.TrackObjectBase
+  commentId: T:ChartTools.TrackObjectBase
+  parent: ChartTools
+  href: ChartTools.TrackObjectBase.html
+  name: TrackObjectBase
+  nameWithType: TrackObjectBase
+  fullName: ChartTools.TrackObjectBase
+- uid: ChartTools.Track
+  commentId: T:ChartTools.Track
+  parent: ChartTools
+  href: ChartTools.Track.html
+  name: Track
+  nameWithType: Track
+  fullName: ChartTools.Track
+- uid: ChartTools.Track`1
+  commentId: T:ChartTools.Track`1
+  href: ChartTools.Track-1.html
+  name: Track<TChord>
+  nameWithType: Track<TChord>
+  fullName: ChartTools.Track<TChord>
+  nameWithType.vb: Track(Of TChord)
+  fullName.vb: ChartTools.Track(Of TChord)
+  name.vb: Track(Of TChord)
+  spec.csharp:
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: <
+  - name: TChord
+  - name: '>'
+  spec.vb:
+  - uid: ChartTools.Track`1
+    name: Track
+    href: ChartTools.Track-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TChord
+  - name: )
+- uid: ChartTools
+  commentId: N:ChartTools
+  href: ChartTools.html
+  name: ChartTools
+  nameWithType: ChartTools
+  fullName: ChartTools
