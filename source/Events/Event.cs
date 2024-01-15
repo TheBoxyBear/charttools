@@ -3,8 +3,10 @@
 /// <summary>
 /// Marker that defines an occurrence at a given point in a song.
 /// </summary>
-public abstract class Event : TrackObjectBase
+public abstract class Event : ITrackObject
 {
+    public uint Position { get; set; }
+
     private string _eventType = "Default";
     /// <summary>
     /// Type of event as it is written in the file
@@ -35,6 +37,9 @@ public abstract class Event : TrackObjectBase
         set => _argument = value ?? string.Empty;
     }
 
+    /// <summary>
+    /// Combined event type and arguments where the first word is the type.
+    /// </summary>
     public string EventData
     {
         get => Argument is null ? EventType : string.Join(' ', EventType, Argument);
@@ -49,14 +54,14 @@ public abstract class Event : TrackObjectBase
 
     public bool? ToggleState => EventType.EndsWith(EventTypeHelper.Common.ToggleOn) ? true : (EventType.EndsWith(EventTypeHelper.Common.ToggleOff) ? false : null);
 
-    /// <param name="position"><inheritdoc cref="TrackObjectBase.Position"/></param>
-    /// <param name="data"><inheritdoc cref="EventData"/></param>
-    public Event(uint position, string data) : base(position) => EventData = data;
-    /// <inheritdoc cref="Event(uint, string)"/>
-    /// <param name="type"><inheritdoc cref="EventType"/></param>
-    /// <param name="argument"><inheritdoc cref="Argument"/></param>
-    public Event(uint position, string type, string? argument) : base(position)
+    public Event(uint position, string data)
     {
+        Position = position;
+        EventData = data;
+    }
+    public Event(uint position, string type, string? argument)
+    {
+        Position = position;
         EventType = type;
         Argument = argument;
     }
