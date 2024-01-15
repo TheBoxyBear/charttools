@@ -4,9 +4,9 @@
       "src": [
         {
           "files": [
-            "**.csproj"
+            "ChartTools.csproj"
           ],
-          "src": "../Net6"
+          "src": "../ChartTools"
         }
       ],
       "dest": "api",

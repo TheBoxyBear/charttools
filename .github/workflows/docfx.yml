@@ -5,10 +5,10 @@ jobs:
     steps:
     - uses: actions/checkout@v1
       name: Checkout code
-    - uses: nunit/docfx-action@v2.4.0
+    - uses: nunit/docfx-action@v3.0.0
       name: Build Documentation
       with:
-        args: Docs/docfx.json
+        args: Docs/docfx.json --debug
     - uses: maxheld83/ghpages@master
       name: Publish Documentation on GitHub Pages
       env:
