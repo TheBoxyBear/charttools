@@ -20,7 +20,7 @@ Every component of a chart is stored in an instance of the Song class. It can be
 Song song = Song.FromFile(path);
 ```
 
-A configuration object may also be used to customize the error handling behavior. [Learn more about configuring IO operations](Configuration.md).
+A configuration object may also be used to customize the error handling behavior. [Learn more about configuring IO operations](configuration.md).
 
 ```csharp
 Song song = Song.FromFile(path, new ReadingConfiguration());
@@ -72,17 +72,17 @@ Notice the use of StandardChord as a generic type. Instruments are divided into 
 - Standard - Five colored notes
 - Drums - Five colored with support for double kick and cymbal flags
 - GHL (Guitar Hero Live) - Three black and three white notes
-- Vocals - Notes with an associated syllable. Notes have positions defined as offsets from the phrase. [Learn more about vocals](Lyrics.md).
+- Vocals - Notes with an associated syllable. Notes have positions defined as offsets from the phrase. [Learn more about vocals](lyrics.md).
 
 A track is composed of three components:
 
 - Chords (defined by the generic type)
 - Special phrases (star power)
-- [Local events](Events.md)
+- [Local events](events.md)
 
 > **NOTE**: When setting an instrument in an `InstrumentSet` or a track in an instrument, a copy of the object is created that contains information about its identity. In order to have changes made to the object after the assignment be reflected, a reference must be re-obtained from the parent.
 
-Instruments can also be obtained dynamically from a song, regardless of the type. [Learn more about the dynamic syntax](DynamicSyntax.md).
+Instruments can also be obtained dynamically from a song, regardless of the type. [Learn more about the dynamic syntax](dynamic-syntax.md).
 
 ### Chords and Notes
 A chord is a set of notes played at the same time. All supported instruments use the generic version of the Chord class, where the generic type defines the type of notes contained. The note types are the same as the types of instruments listed in the section. The types of notes are

@@ -23,10 +23,10 @@
     <ProjectReference Include="..\ChartTools\ChartTools.csproj" />
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties docfx_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="echo.&#xD;&#xA;echo -------- Building site with DocFX -------- &#xD;&#xA;docfx build" />
+    <Exec Command="echo.&#xD;&#xA;echo -------- Building site with DocFX -------- &#xD;&#xA;dotnet docfx build" />
   </Target>
 
 </Project>

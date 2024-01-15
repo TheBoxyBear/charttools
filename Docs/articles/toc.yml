@@ -1,14 +1,14 @@
-- name: Getting Started
-  href: GettingStarted.md
+- name: Getting started
+  href: getting-started.md
 - name: Events
-  href: Events.md
+  href: events.md
 - name: Lyrics
-  href: Lyrics.md
-- name: Configuration
-  href: Configuration.md
+  href: lyrics.md
 - name: Tools
-  href: Tools.md
-- name: DynamicSyntax
-  href: DynamicSyntax.md
-- name: Improving Performance
-  href: ImprovingPerformance.md
+  href: tools.md
+- name: Dynamic syntax
+  href: dynamic-syntax.md
+- name: Configuration
+  href: configuration.md
+- name: Improving performance
+  href: improving-performance.md

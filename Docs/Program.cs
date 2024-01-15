@@ -4,7 +4,7 @@ var path = Environment.GetEnvironmentVariable("SiteOutput");
 
 using Process cmd = new()
 {
-    StartInfo = new("docfx", $"serve {path}")
+    StartInfo = new("dotnet", $"docfx serve {path}")
     {
         RedirectStandardInput = true,
         RedirectStandardOutput = true,
