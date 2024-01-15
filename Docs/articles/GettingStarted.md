@@ -2,9 +2,9 @@
 This document goes over the basics of parsing a chart through ChartTools.
 
 ## Installation
-To add ChartTools to your project, you must first compile the assembly. The repository contains two main projects: Net6 and Net7. Compile the project that matches your target .NET version with either the Debug or Release profile. The compiled files can be found in the build folder of the repository.
+To add ChartTools to your project, you must first build the ChartTools project. Once built, the library can be found under `ChartTools\bin\[Debug]|[Release]\.net8.0`
 
-Visual Studio: Right-click on your project from the solution explorer and select "Add Project References...". Click on "Browse" and select ChartTools.dll that was generated.
+Visual Studio: Right-click on your project from the solution explorer and select "Add Project References...". Click on "Browse" and select `ChartTools.dll` that was generated. If the dll file is moved, also move `ChartTools.xml` to the new directory for XML documentation.
 
 ## Supported file formats
 ChartTools supports the parsing of .chart and .ini files, with .mid parsing in the works. [mdsitton's BChart](https://github.com/mdsitton/bchart) format is planned as a post-launch update. Unless written as `.chart`, the term "chart" refers to songs supported by ChartTools regardless of the file format.

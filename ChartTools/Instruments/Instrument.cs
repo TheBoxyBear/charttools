@@ -110,9 +110,14 @@ public abstract record Instrument : IEmptyVerifiable
     /// <summary>
     /// Gives all tracks the same special phrases
     /// </summary>
+<<<<<<<<< Temporary merge branch 1:source/Instruments/Instrument.cs
+    public void ShareStarPower(TrackObjectSource source) => ShareEventsStarPower(source, track => track.SpecialPhrases);
+    private void ShareEventsStarPower<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : ITrackObject
+=========
     public SpecialPhrase[] ShareSpecial(TrackObjectSource source) => ShareEventsSpecial(source, track => track.SpecialPhrases);
 
     private T[] ShareEventsSpecial<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : ITrackObject
+>>>>>>>>> Temporary merge branch 2:ChartTools/Instruments/Instrument.cs
     {
         var collections = GetExistingTracks().Select(track => collectionGetter(track)).ToArray();
 
