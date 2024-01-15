@@ -1,8 +1,6 @@
 ﻿using System.Diagnostics;
 
-const string path = @"..\..\..\_site";
-
-Console.WriteLine(Environment.CurrentDirectory);
+var path = Environment.GetEnvironmentVariable("SiteOutput");
 
 using Process cmd = new()
 {
@@ -15,7 +13,6 @@ using Process cmd = new()
     }
 };
 
-// Requires docfx as a global tool. Install with "dotnet tool install -g docfx", otherwise will throw a file not found exception
 Process.Start(new ProcessStartInfo("http://localhost:8080") { UseShellExecute = true });
 
 cmd.Start();
