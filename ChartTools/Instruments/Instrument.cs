@@ -117,7 +117,6 @@ public abstract record Instrument : IEmptyVerifiable
     public SpecialPhrase[] ShareSpecial(TrackObjectSource source) => ShareEventsSpecial(source, track => track.SpecialPhrases);
 
     private T[] ShareEventsSpecial<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : ITrackObject
->>>>>>>>> Temporary merge branch 2:ChartTools/Instruments/Instrument.cs
     {
         var collections = GetExistingTracks().Select(track => collectionGetter(track)).ToArray();
 
