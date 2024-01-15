@@ -4,10 +4,7 @@ ignore/
 build/*
 */obj
 */bin
-Net?/*
-!Net?/*.csproj
 TestResults/
-Debug/*
 Docs/DROP/
 Docs/TEMP/
 Docs/packages/
