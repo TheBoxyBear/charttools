@@ -55,7 +55,6 @@
       "_appName": "ChartTools",
       "_appFaviconPath": "images/favicon.png",
       "_appLogoPath": "images/logo.png",
-      "_appFooter": "<a href=\"https://clonehero.net\">Check out Clone Hero</a>",
       "_copyrightFooter": "© TheBoxyBear. All rights reserved.",
       "_enableSearch": true,
       "_disableSideFilter": false,
@@ -64,9 +63,7 @@
       "_disableBreadcrumb": true
     },
     "template": [
-      "default",
-      "templates/singulinkfx",
-      "plugins/memberpage.2.59.0/content"
+      "default"
     ],
     "postProcessors": [],
     "markdownEngineName": "markdig",
