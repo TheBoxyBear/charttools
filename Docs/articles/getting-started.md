@@ -38,7 +38,7 @@ A song contains four main components:
 
 - Metadata - Miscellaneous info about the song, such as title, album, charter etc.
 - Sync track - Markers that define time signature and tempo
-- [Global events](Events.md) - Events that are not tied to an instrument
+- [Global events](events.md) - Events that are not tied to an instrument
 - Instruments - The instrument track data
 
 ### Metadata
@@ -117,7 +117,7 @@ syncTrack.Tempo.RemoveUnneeded();
 syncTrack.TimeSignatures.RemoveUnneeded();
 ```
 
-ChartTools includes other utilities for various purposes. [Learn more](Tools.md).
+ChartTools includes other utilities for various purposes. [Learn more](tools.md).
 
 ## Writing files
 Finally, changes can be saved to a file using the `ToFile` method of the `Song` class, with the format determined by the file extension.
@@ -133,4 +133,4 @@ ChartFile.ReplaceInstrument("output.chart", guitar, <WritingConfiguration>);
 ```
 
 
-Like when reading files, writing operations can be configured to alter how they deal with errors. [Learn more about configuring IO operations](Configuration.md).
+Like when reading files, writing operations can be configured to alter how they deal with errors. [Learn more about configuring IO operations](configuration.md).
