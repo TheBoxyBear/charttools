@@ -5,6 +5,7 @@ build/*
 */obj
 */bin
 TestResults/
+Debug/
 Docs/DROP/
 Docs/TEMP/
 Docs/packages/
