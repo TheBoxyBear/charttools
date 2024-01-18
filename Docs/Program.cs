@@ -9,7 +9,7 @@ var config = dir + @"\docfx.json";
 Console.WriteLine("------- Building site with DocFx -------");
 
 // TODO Only build api if the assembly is more recent than the last site build
-await DotnetApiCatalog.GenerateManagedReferenceYamlFiles(config);
+//await DotnetApiCatalog.GenerateManagedReferenceYamlFiles(config);
 
 await Docset.Build(config);
 

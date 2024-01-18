@@ -9,6 +9,16 @@ For an overview on installation and taking your first steps with ChartTools, see
 ## Contributing
 If you like to contribute to the development of ChartTools, feel free to comment on an issue, submit a pull request or submit your own issues. To test your code, create a project named `Debug` and it will be automatically excluded from commits.
 
+### Documentation
+The solution includes a `Docs` project that can be executed to build and deploy locally on port 8080. Remember to terminate the local server with `Ctrl+C` before closing as it can prevent later executions from using the port. If this occurs, run
+
+```bash
+netstat -aof | findstr :8080
+taskkill /f /pid <PID>
+```
+
+where `PID` is the right-most ID in the output of `netstat`.
+
 ## License and Attribution
 This project is licensed under the GNU General Public License 3.0. See [LICENSE](https://github.com/TheBoxyBear/charttools/blob/stable/LICENSE) for details.
 

@@ -14,23 +14,23 @@ Track easyBass = bass.GetTrack(Difficulty.Easy);
 
 The dynamic syntax uses three enums to get instruments:
 
-- `StandardInstrumentIdentity` - Instruments using standard chords
-- `GHLInstrumentIdentity` - Instruments using Guitar Hero Live chords
-- `InstrumentIdentity` - All instruments including drums and vocals
+- [StandardInstrumentIdentity](~/api/ChartTools.StandardInstrumentIdentity.yml) - Instruments using standard chords
+- [GHLInstrumentIdentity](~/api/ChartTools.GHLInstrumentIdentity.yml) - Instruments using Guitar Hero Live chords
+- [InstrumentIdentity](~/api/ChartTools.InstrumentIdentity.yml) - All instruments including drums and vocals
 
 Drums and vocals do not have an enum for their chord types as they are the only instrument using their respective chords.
 
 ## Generic vs. non-generic
-When an instrument is obtained dynamically using the `InstrumentIdentity` enum, the returned object is of type `Instrument`. When a track is obtained from a non-generic instrument, either dynamically or explicitly through a property, the track will be of type `Track`. This concept extends to chords and notes.
+When an instrument is obtained dynamically using the [InstrumentIdentity](~/api/ChartTools.InstrumentIdentity.yml) enum, the returned object is of type [Instrument](~/api/ChartTools.Instrument.yml). When a track is obtained from a non-generic instrument, either dynamically or explicitly through a property, the track will be of type [Track](~/api/ChartTools.Track.yml). This concept extends to chords and notes.
 
 When working with a non-generic track, the following rules apply:
 - Chords cannot be added or removed. The position of existing chords can be modified.
 - Local events and special phrases have no restrictions.
-- A note's identity can be obtaines through the read-only `NoteIndex` property. In a future version, notes will be able to be added from a non-generic track.
+- A note's identity can be obtained through the read-only [Index](~/api/ChartTools.INote.yml#ChartTools_INote_Index) property.
 
 Being the base types of the generic counterparts, non-generic instruments, tracks, chords and notes can be cast to a generic version.
 
-The dynamic syntax can also be used to set amd read instruments and tracks.
+The dynamic syntax can also be used to set and read instruments and tracks.
 
 ```C#
 // Setting components
@@ -47,6 +47,6 @@ Track<StandardChord> easyCoop = Track.FromFile(path, StandardInstrumentIdentity.
 Track easyKeys = Track.FromFile(path, InsturmentIdentity.Keys, Difficulty.Easy, <ReadingConfiguration>, metadata.Formatting);
 ```
 
-When setting an instrument, the target is determined by the `InstrumentIdentity` property of the new instrument, which can be overridden using a `with` statement. Similarly, the target difficulty when setting a track is determined by the track's `Difficulty` property, also overridable through `with`. 
+When setting an instrument, the target is determined by the [InstrumentIdentity](~/api/ChartTools.Instrument.yml#ChartTools_Instrument_InstrumentIdentity) property of the new instrument, which can be overridden using a `with` statement. Similarly, the target difficulty when setting a track is determined by the track's [Difficulty](~/api/ChartTools.Track.html#ChartTools_Track_Difficulty) property, also overridable through `with`. 
 
-> **NOTE**: Unlike when setting an instrument explicitely, the existing identity is used when setting dynamically. This makes it safe to reuse the previous reference after the assignement unless a `with` statement is used. Tracks still need to be re-obtained when using the dynamic syntax as a copy is created to assign its `ParentInstrument`. In cases where a reference to an instrument or track needs to be re-obtained, this reference is passed through as the return of `InstrumentSet.Set` and `Instrument.SetTrack`.
+> **NOTE**: Unlike when setting an instrument explicitely, the existing identity is used when setting dynamically. This makes it safe to reuse the previous reference after the assignement unless a `with` statement is used. Tracks still need to be re-obtained when using the dynamic syntax as a copy is created to assign its [ParentInstrument](~/api/ChartTools.Track.ymll#ChartTools_Track_ParentInstrument). In cases where a reference to an instrument or track needs to be re-obtained, this reference is passed through as the return of [InstrumentSet.Set](~/api/ChartTools.InstrumentSet.yml#ChartTools_InstrumentSet_Set_ChartTools_StandardInstrument_) and `Instrument.SetTrack`.

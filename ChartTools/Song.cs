@@ -109,8 +109,8 @@ public class Song
     /// <exception cref="UnauthorizedAccessException"/>
     /// <exception cref="NotSupportedException"/>
     /// <exception cref="System.Security.SecurityException"/>
-    public void ToFile(string path, ChartWritingConfiguration? config = default) => ExtensionHandler.Write(path, this, (".chart", (path, song) => ChartFile.WriteSong(path, song, config)));
-    public async Task ToFileAsync(string path, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default) => await ExtensionHandler.WriteAsync(path, this, (".chart", (path, song) => ChartFile.WriteSongAsync(path, song, config, cancellationToken)));
+    public void ToFile(string path, WritingConfiguration? config = default) => ExtensionHandler.Write(path, this, (".chart", (path, song) => ChartFile.WriteSong(path, song, config?.Chart)));
+    public async Task ToFileAsync(string path, WritingConfiguration? config = default, CancellationToken cancellationToken = default) => await ExtensionHandler.WriteAsync(path, this, (".chart", (path, song) => ChartFile.WriteSongAsync(path, song, config?.Chart, cancellationToken)));
 
     /// <summary>
     /// Retrieves the lyrics from the global events.
