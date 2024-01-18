@@ -1,6 +1,4 @@
-﻿using ChartTools.Lyrics;
-
-namespace ChartTools;
+﻿namespace ChartTools.Lyrics;
 
 public record Vocals : Instrument<Phrase>
 {
