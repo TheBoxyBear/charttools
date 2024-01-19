@@ -117,7 +117,7 @@ syncTrack.TimeSignatures.RemoveUnneeded();
 ChartTools includes other utilities for various purposes. [Learn more](tools.md).
 
 ## Writing files
-Finally, changes can be saved to a file using [Song.ToFile](~/api/ChartTools.Song.yml#ChartTools_Song_ToFile_System_String_ChartTools_IO_Chart_Configuration_ChartWritingConfiguration_), with the format determined by the file extension.
+Finally, changes can be saved to a file using [Song.ToFile](~/api/ChartTools.Song.yml#ChartTools_Song_ToFile_System_String_ChartTools_IO_Configuration_WritingConfiguration_), with the format determined by the file extension.
 
 ```csharp
 song.ToFile("output.chart", <WritingConfiguration>);

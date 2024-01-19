@@ -22,7 +22,7 @@ bool isCrowd = globalEvent.EventType.StartsWith(EventTypeHeaderHelper.Global.Cro
 bool isCrowd2 = globalEvent.IsCrowdEvent;
 ```
 
-Some event types can be modified using predefined arguments. For such values, helpers are provided under the static [EventArgumentHelper](~/api/ChartTools.Events.EventArgumentHelper.html) class.
+Some event types can be modified using predefined arguments. For such values, helpers are provided under the static [EventArgumentHelper](~/api/ChartTools.Events.EventArgumentHelper.yml) class.
 
 ```c#
 var globalEvent = new GlobalEvent(0, EventTypeHelper.Global.Lighting, EventArgumentHelper.Global.Lighting.Strobe);
