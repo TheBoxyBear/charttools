@@ -1,0 +1,1285 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class Track
+ | ChartTools </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Track
+ | ChartTools ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TheBoxyBear/charttools/new/stable/apiSpec/new?filename=ChartTools_Track.md&amp;value=---%0Auid%3A%20ChartTools.Track%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="ChartTools">
+            ChartTools
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="ChartTools.Track">
+
+
+
+  <h1 id="ChartTools_Track" data-uid="ChartTools.Track" class="text-break">
+    Class Track
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="ChartTools.html">ChartTools</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>ChartTools.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Base class for tracks</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract record Track : IEmptyVerifiable, IEquatable&lt;Track&gt;</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">Track</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="ChartTools.IEmptyVerifiable.html">IEmptyVerifiable</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="ChartTools.Track.html">Track</a>&gt;</div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="ChartTools.Track-1.html">Track</a>&lt;TChord&gt;</div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___">PropertyMerger.Merge&lt;T&gt;(T, bool, bool, params T[])</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_Track_System_Single_">TempoRescaler.Rescale(Track, float)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="ChartTools_Track_Chords_" data-uid="ChartTools.Track.Chords*"></a>
+
+  <h3 id="ChartTools_Track_Chords" data-uid="ChartTools.Track.Chords">
+  Chords
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Groups of notes of the same position</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;IChord&gt; Chords { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="ChartTools.IChord.html">IChord</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_Difficulty_" data-uid="ChartTools.Track.Difficulty*"></a>
+
+  <h3 id="ChartTools_Track_Difficulty" data-uid="ChartTools.Track.Difficulty">
+  Difficulty
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Difficulty of the track</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Difficulty Difficulty { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_IsEmpty_" data-uid="ChartTools.Track.IsEmpty*"></a>
+
+  <h3 id="ChartTools_Track_IsEmpty" data-uid="ChartTools.Track.IsEmpty">
+  IsEmpty
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if containing no data</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsEmpty { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_LocalEvents_" data-uid="ChartTools.Track.LocalEvents*"></a>
+
+  <h3 id="ChartTools_Track_LocalEvents" data-uid="ChartTools.Track.LocalEvents">
+  LocalEvents
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Events specific to the <a class="xref" href="ChartTools.Track.html">Track</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;LocalEvent&gt; LocalEvents { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ChartTools.Events.LocalEvent.html">LocalEvent</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_ParentInstrument_" data-uid="ChartTools.Track.ParentInstrument*"></a>
+
+  <h3 id="ChartTools_Track_ParentInstrument" data-uid="ChartTools.Track.ParentInstrument">
+  ParentInstrument
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Instrument containing the track</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Instrument? ParentInstrument { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Instrument.html">Instrument</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_SpecialPhrases_" data-uid="ChartTools.Track.SpecialPhrases*"></a>
+
+  <h3 id="ChartTools_Track_SpecialPhrases" data-uid="ChartTools.Track.SpecialPhrases">
+  SpecialPhrases
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Set of special phrases</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;TrackSpecialPhrase&gt; SpecialPhrases { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ChartTools.TrackSpecialPhrase.html">TrackSpecialPhrase</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="ChartTools_Track_FromDirectory_" data-uid="ChartTools.Track.FromDirectory*"></a>
+
+  <h3 id="ChartTools_Track_FromDirectory_System_String_ChartTools_Difficulty_ChartTools_IO_Configuration_ReadingConfiguration_" data-uid="ChartTools.Track.FromDirectory(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration)">
+  FromDirectory(string, Difficulty, ReadingConfiguration?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L106"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use ReadDrumsTrack with Formatting.&quot;)]
+public static DirectoryResult&lt;Track&lt;DrumsChord&gt;?&gt; FromDirectory(string directory, Difficulty difficulty, ReadingConfiguration? config = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>directory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>difficulty</code> <a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd></dd>
+    <dt><code>config</code> <a class="xref" href="ChartTools.IO.Configuration.ReadingConfiguration.html">ReadingConfiguration</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.IO.DirectoryResult-1.html">DirectoryResult</a>&lt;<a class="xref" href="ChartTools.Track-1.html">Track</a>&lt;<a class="xref" href="ChartTools.DrumsChord.html">DrumsChord</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_FromDirectory_" data-uid="ChartTools.Track.FromDirectory*"></a>
+
+  <h3 id="ChartTools_Track_FromDirectory_System_String_ChartTools_GHLInstrumentIdentity_ChartTools_Difficulty_ChartTools_IO_Configuration_ReadingConfiguration_" data-uid="ChartTools.Track.FromDirectory(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration)">
+  FromDirectory(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L112"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use ReadTrack with Formatting.&quot;)]
+public static DirectoryResult&lt;Track&lt;GHLChord&gt;?&gt; FromDirectory(string directory, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>directory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>instrument</code> <a class="xref" href="ChartTools.GHLInstrumentIdentity.html">GHLInstrumentIdentity</a></dt>
+    <dd></dd>
+    <dt><code>difficulty</code> <a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd></dd>
+    <dt><code>config</code> <a class="xref" href="ChartTools.IO.Configuration.ReadingConfiguration.html">ReadingConfiguration</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.IO.DirectoryResult-1.html">DirectoryResult</a>&lt;<a class="xref" href="ChartTools.Track-1.html">Track</a>&lt;<a class="xref" href="ChartTools.GHLChord.html">GHLChord</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_FromDirectory_" data-uid="ChartTools.Track.FromDirectory*"></a>
+
+  <h3 id="ChartTools_Track_FromDirectory_System_String_ChartTools_InstrumentIdentity_ChartTools_Difficulty_ChartTools_IO_Configuration_ReadingConfiguration_" data-uid="ChartTools.Track.FromDirectory(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration)">
+  FromDirectory(string, InstrumentIdentity, Difficulty, ReadingConfiguration?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L100"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use ReadTrack with Formatting.&quot;)]
+public static DirectoryResult&lt;Track?&gt; FromDirectory(string directory, InstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>directory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>instrument</code> <a class="xref" href="ChartTools.InstrumentIdentity.html">InstrumentIdentity</a></dt>
+    <dd></dd>
+    <dt><code>difficulty</code> <a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd></dd>
+    <dt><code>config</code> <a class="xref" href="ChartTools.IO.Configuration.ReadingConfiguration.html">ReadingConfiguration</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.IO.DirectoryResult-1.html">DirectoryResult</a>&lt;<a class="xref" href="ChartTools.Track.html">Track</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_FromDirectory_" data-uid="ChartTools.Track.FromDirectory*"></a>
+
+  <h3 id="ChartTools_Track_FromDirectory_System_String_ChartTools_StandardInstrumentIdentity_ChartTools_Difficulty_ChartTools_IO_Configuration_ReadingConfiguration_" data-uid="ChartTools.Track.FromDirectory(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration)">
+  FromDirectory(string, StandardInstrumentIdentity, Difficulty, ReadingConfiguration?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L118"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use ReadTrack with Formatting.&quot;)]
+public static DirectoryResult&lt;Track&lt;StandardChord&gt;?&gt; FromDirectory(string directory, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>directory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>instrument</code> <a class="xref" href="ChartTools.StandardInstrumentIdentity.html">StandardInstrumentIdentity</a></dt>
+    <dd></dd>
+    <dt><code>difficulty</code> <a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd></dd>
+    <dt><code>config</code> <a class="xref" href="ChartTools.IO.Configuration.ReadingConfiguration.html">ReadingConfiguration</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.IO.DirectoryResult-1.html">DirectoryResult</a>&lt;<a class="xref" href="ChartTools.Track-1.html">Track</a>&lt;<a class="xref" href="ChartTools.StandardChord.html">StandardChord</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_FromDirectoryAsync_" data-uid="ChartTools.Track.FromDirectoryAsync*"></a>
+
+  <h3 id="ChartTools_Track_FromDirectoryAsync_System_String_ChartTools_Difficulty_ChartTools_IO_Configuration_ReadingConfiguration_System_Threading_CancellationToken_" data-uid="ChartTools.Track.FromDirectoryAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,System.Threading.CancellationToken)">
+  FromDirectoryAsync(string, Difficulty, ReadingConfiguration?, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L109"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use ReadDrumsTrackAsync with Formatting.&quot;)]
+public static Task&lt;DirectoryResult&lt;Track&lt;DrumsChord&gt;?&gt;&gt; FromDirectoryAsync(string directory, Difficulty difficulty, ReadingConfiguration? config = null, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>directory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>difficulty</code> <a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd></dd>
+    <dt><code>config</code> <a class="xref" href="ChartTools.IO.Configuration.ReadingConfiguration.html">ReadingConfiguration</a></dt>
+    <dd></dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="ChartTools.IO.DirectoryResult-1.html">DirectoryResult</a>&lt;<a class="xref" href="ChartTools.Track-1.html">Track</a>&lt;<a class="xref" href="ChartTools.DrumsChord.html">DrumsChord</a>&gt;&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_FromDirectoryAsync_" data-uid="ChartTools.Track.FromDirectoryAsync*"></a>
+
+  <h3 id="ChartTools_Track_FromDirectoryAsync_System_String_ChartTools_GHLInstrumentIdentity_ChartTools_Difficulty_ChartTools_IO_Configuration_ReadingConfiguration_System_Threading_CancellationToken_" data-uid="ChartTools.Track.FromDirectoryAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,System.Threading.CancellationToken)">
+  FromDirectoryAsync(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L115"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use ReadTrackAsync with Formatting.&quot;)]
+public static Task&lt;DirectoryResult&lt;Track&lt;GHLChord&gt;?&gt;&gt; FromDirectoryAsync(string directory, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = null, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>directory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>instrument</code> <a class="xref" href="ChartTools.GHLInstrumentIdentity.html">GHLInstrumentIdentity</a></dt>
+    <dd></dd>
+    <dt><code>difficulty</code> <a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd></dd>
+    <dt><code>config</code> <a class="xref" href="ChartTools.IO.Configuration.ReadingConfiguration.html">ReadingConfiguration</a></dt>
+    <dd></dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="ChartTools.IO.DirectoryResult-1.html">DirectoryResult</a>&lt;<a class="xref" href="ChartTools.Track-1.html">Track</a>&lt;<a class="xref" href="ChartTools.GHLChord.html">GHLChord</a>&gt;&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_FromDirectoryAsync_" data-uid="ChartTools.Track.FromDirectoryAsync*"></a>
+
+  <h3 id="ChartTools_Track_FromDirectoryAsync_System_String_ChartTools_InstrumentIdentity_ChartTools_Difficulty_ChartTools_IO_Configuration_ReadingConfiguration_System_Threading_CancellationToken_" data-uid="ChartTools.Track.FromDirectoryAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,System.Threading.CancellationToken)">
+  FromDirectoryAsync(string, InstrumentIdentity, Difficulty, ReadingConfiguration?, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use ReadTrackAsync with Formatting.&quot;)]
+public static Task&lt;DirectoryResult&lt;Track?&gt;&gt; FromDirectoryAsync(string directory, InstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = null, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>directory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>instrument</code> <a class="xref" href="ChartTools.InstrumentIdentity.html">InstrumentIdentity</a></dt>
+    <dd></dd>
+    <dt><code>difficulty</code> <a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd></dd>
+    <dt><code>config</code> <a class="xref" href="ChartTools.IO.Configuration.ReadingConfiguration.html">ReadingConfiguration</a></dt>
+    <dd></dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="ChartTools.IO.DirectoryResult-1.html">DirectoryResult</a>&lt;<a class="xref" href="ChartTools.Track.html">Track</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_FromDirectoryAsync_" data-uid="ChartTools.Track.FromDirectoryAsync*"></a>
+
+  <h3 id="ChartTools_Track_FromDirectoryAsync_System_String_ChartTools_StandardInstrumentIdentity_ChartTools_Difficulty_ChartTools_IO_Configuration_ReadingConfiguration_System_Threading_CancellationToken_" data-uid="ChartTools.Track.FromDirectoryAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,System.Threading.CancellationToken)">
+  FromDirectoryAsync(string, StandardInstrumentIdentity, Difficulty, ReadingConfiguration?, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L121"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use ReadTrackAsync with Formatting.&quot;)]
+public static Task&lt;DirectoryResult&lt;Track&lt;StandardChord&gt;?&gt;&gt; FromDirectoryAsync(string directory, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = null, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>directory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>instrument</code> <a class="xref" href="ChartTools.StandardInstrumentIdentity.html">StandardInstrumentIdentity</a></dt>
+    <dd></dd>
+    <dt><code>difficulty</code> <a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd></dd>
+    <dt><code>config</code> <a class="xref" href="ChartTools.IO.Configuration.ReadingConfiguration.html">ReadingConfiguration</a></dt>
+    <dd></dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="ChartTools.IO.DirectoryResult-1.html">DirectoryResult</a>&lt;<a class="xref" href="ChartTools.Track-1.html">Track</a>&lt;<a class="xref" href="ChartTools.StandardChord.html">StandardChord</a>&gt;&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_FromFile_" data-uid="ChartTools.Track.FromFile*"></a>
+
+  <h3 id="ChartTools_Track_FromFile_System_String_ChartTools_Difficulty_ChartTools_IO_Configuration_ReadingConfiguration_ChartTools_IO_Formatting_FormattingRules_" data-uid="ChartTools.Track.FromFile(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
+  FromFile(string, Difficulty, ReadingConfiguration?, FormattingRules?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L80"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use ReadDrumsTrack.&quot;)]
+public static Track&lt;DrumsChord&gt; FromFile(string path, Difficulty difficulty, ReadingConfiguration? config = null, FormattingRules? formatting = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>difficulty</code> <a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd></dd>
+    <dt><code>config</code> <a class="xref" href="ChartTools.IO.Configuration.ReadingConfiguration.html">ReadingConfiguration</a></dt>
+    <dd></dd>
+    <dt><code>formatting</code> <a class="xref" href="ChartTools.IO.Formatting.FormattingRules.html">FormattingRules</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Track-1.html">Track</a>&lt;<a class="xref" href="ChartTools.DrumsChord.html">DrumsChord</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_FromFile_" data-uid="ChartTools.Track.FromFile*"></a>
+
+  <h3 id="ChartTools_Track_FromFile_System_String_ChartTools_GHLInstrumentIdentity_ChartTools_Difficulty_ChartTools_IO_Configuration_ReadingConfiguration_ChartTools_IO_Formatting_FormattingRules_" data-uid="ChartTools.Track.FromFile(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
+  FromFile(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L86"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use ReadTrack.&quot;)]
+public static Track&lt;GHLChord&gt; FromFile(string path, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = null, FormattingRules? formatting = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>instrument</code> <a class="xref" href="ChartTools.GHLInstrumentIdentity.html">GHLInstrumentIdentity</a></dt>
+    <dd></dd>
+    <dt><code>difficulty</code> <a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd></dd>
+    <dt><code>config</code> <a class="xref" href="ChartTools.IO.Configuration.ReadingConfiguration.html">ReadingConfiguration</a></dt>
+    <dd></dd>
+    <dt><code>formatting</code> <a class="xref" href="ChartTools.IO.Formatting.FormattingRules.html">FormattingRules</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Track-1.html">Track</a>&lt;<a class="xref" href="ChartTools.GHLChord.html">GHLChord</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_FromFile_" data-uid="ChartTools.Track.FromFile*"></a>
+
+  <h3 id="ChartTools_Track_FromFile_System_String_ChartTools_InstrumentIdentity_ChartTools_Difficulty_ChartTools_IO_Configuration_ReadingConfiguration_ChartTools_IO_Formatting_FormattingRules_" data-uid="ChartTools.Track.FromFile(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
+  FromFile(string, InstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L74"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use ReadTrack.&quot;)]
+public static Track FromFile(string path, InstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = null, FormattingRules? formatting = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>instrument</code> <a class="xref" href="ChartTools.InstrumentIdentity.html">InstrumentIdentity</a></dt>
+    <dd></dd>
+    <dt><code>difficulty</code> <a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd></dd>
+    <dt><code>config</code> <a class="xref" href="ChartTools.IO.Configuration.ReadingConfiguration.html">ReadingConfiguration</a></dt>
+    <dd></dd>
+    <dt><code>formatting</code> <a class="xref" href="ChartTools.IO.Formatting.FormattingRules.html">FormattingRules</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Track.html">Track</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_FromFile_" data-uid="ChartTools.Track.FromFile*"></a>
+
+  <h3 id="ChartTools_Track_FromFile_System_String_ChartTools_StandardInstrumentIdentity_ChartTools_Difficulty_ChartTools_IO_Configuration_ReadingConfiguration_ChartTools_IO_Formatting_FormattingRules_" data-uid="ChartTools.Track.FromFile(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
+  FromFile(string, StandardInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L92"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use ReadTrack.&quot;)]
+public static Track&lt;StandardChord&gt; FromFile(string path, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = null, FormattingRules? formatting = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>instrument</code> <a class="xref" href="ChartTools.StandardInstrumentIdentity.html">StandardInstrumentIdentity</a></dt>
+    <dd></dd>
+    <dt><code>difficulty</code> <a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd></dd>
+    <dt><code>config</code> <a class="xref" href="ChartTools.IO.Configuration.ReadingConfiguration.html">ReadingConfiguration</a></dt>
+    <dd></dd>
+    <dt><code>formatting</code> <a class="xref" href="ChartTools.IO.Formatting.FormattingRules.html">FormattingRules</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Track-1.html">Track</a>&lt;<a class="xref" href="ChartTools.StandardChord.html">StandardChord</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_FromFileAsync_" data-uid="ChartTools.Track.FromFileAsync*"></a>
+
+  <h3 id="ChartTools_Track_FromFileAsync_System_String_ChartTools_Difficulty_ChartTools_IO_Configuration_ReadingConfiguration_ChartTools_IO_Formatting_FormattingRules_System_Threading_CancellationToken_" data-uid="ChartTools.Track.FromFileAsync(System.String,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
+  FromFileAsync(string, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L83"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use ReadDrumsTrackAsync.&quot;)]
+public static Task&lt;Track&lt;DrumsChord&gt;&gt; FromFileAsync(string path, Difficulty difficulty, ReadingConfiguration? config = null, FormattingRules? formatting = null, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>difficulty</code> <a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd></dd>
+    <dt><code>config</code> <a class="xref" href="ChartTools.IO.Configuration.ReadingConfiguration.html">ReadingConfiguration</a></dt>
+    <dd></dd>
+    <dt><code>formatting</code> <a class="xref" href="ChartTools.IO.Formatting.FormattingRules.html">FormattingRules</a></dt>
+    <dd></dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="ChartTools.Track-1.html">Track</a>&lt;<a class="xref" href="ChartTools.DrumsChord.html">DrumsChord</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_FromFileAsync_" data-uid="ChartTools.Track.FromFileAsync*"></a>
+
+  <h3 id="ChartTools_Track_FromFileAsync_System_String_ChartTools_GHLInstrumentIdentity_ChartTools_Difficulty_ChartTools_IO_Configuration_ReadingConfiguration_ChartTools_IO_Formatting_FormattingRules_System_Threading_CancellationToken_" data-uid="ChartTools.Track.FromFileAsync(System.String,ChartTools.GHLInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
+  FromFileAsync(string, GHLInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L89"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use ReadTrackAsync.&quot;)]
+public static Task&lt;Track&lt;GHLChord&gt;&gt; FromFileAsync(string path, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = null, FormattingRules? formatting = null, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>instrument</code> <a class="xref" href="ChartTools.GHLInstrumentIdentity.html">GHLInstrumentIdentity</a></dt>
+    <dd></dd>
+    <dt><code>difficulty</code> <a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd></dd>
+    <dt><code>config</code> <a class="xref" href="ChartTools.IO.Configuration.ReadingConfiguration.html">ReadingConfiguration</a></dt>
+    <dd></dd>
+    <dt><code>formatting</code> <a class="xref" href="ChartTools.IO.Formatting.FormattingRules.html">FormattingRules</a></dt>
+    <dd></dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="ChartTools.Track-1.html">Track</a>&lt;<a class="xref" href="ChartTools.GHLChord.html">GHLChord</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_FromFileAsync_" data-uid="ChartTools.Track.FromFileAsync*"></a>
+
+  <h3 id="ChartTools_Track_FromFileAsync_System_String_ChartTools_InstrumentIdentity_ChartTools_Difficulty_ChartTools_IO_Configuration_ReadingConfiguration_ChartTools_IO_Formatting_FormattingRules_System_Threading_CancellationToken_" data-uid="ChartTools.Track.FromFileAsync(System.String,ChartTools.InstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
+  FromFileAsync(string, InstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L77"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use ReadTrackAsync.&quot;)]
+public static Task&lt;Track&gt; FromFileAsync(string path, InstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = null, FormattingRules? formatting = null, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>instrument</code> <a class="xref" href="ChartTools.InstrumentIdentity.html">InstrumentIdentity</a></dt>
+    <dd></dd>
+    <dt><code>difficulty</code> <a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd></dd>
+    <dt><code>config</code> <a class="xref" href="ChartTools.IO.Configuration.ReadingConfiguration.html">ReadingConfiguration</a></dt>
+    <dd></dd>
+    <dt><code>formatting</code> <a class="xref" href="ChartTools.IO.Formatting.FormattingRules.html">FormattingRules</a></dt>
+    <dd></dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="ChartTools.Track.html">Track</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_FromFileAsync_" data-uid="ChartTools.Track.FromFileAsync*"></a>
+
+  <h3 id="ChartTools_Track_FromFileAsync_System_String_ChartTools_StandardInstrumentIdentity_ChartTools_Difficulty_ChartTools_IO_Configuration_ReadingConfiguration_ChartTools_IO_Formatting_FormattingRules_System_Threading_CancellationToken_" data-uid="ChartTools.Track.FromFileAsync(System.String,ChartTools.StandardInstrumentIdentity,ChartTools.Difficulty,ChartTools.IO.Configuration.ReadingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
+  FromFileAsync(string, StandardInstrumentIdentity, Difficulty, ReadingConfiguration?, FormattingRules?, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L95"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use ReadTrackAsync.&quot;)]
+public static Task&lt;Track&lt;StandardChord&gt;&gt; FromFileAsync(string path, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = null, FormattingRules? formatting = null, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>instrument</code> <a class="xref" href="ChartTools.StandardInstrumentIdentity.html">StandardInstrumentIdentity</a></dt>
+    <dd></dd>
+    <dt><code>difficulty</code> <a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd></dd>
+    <dt><code>config</code> <a class="xref" href="ChartTools.IO.Configuration.ReadingConfiguration.html">ReadingConfiguration</a></dt>
+    <dd></dd>
+    <dt><code>formatting</code> <a class="xref" href="ChartTools.IO.Formatting.FormattingRules.html">FormattingRules</a></dt>
+    <dd></dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="ChartTools.Track-1.html">Track</a>&lt;<a class="xref" href="ChartTools.StandardChord.html">StandardChord</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_GetChords_" data-uid="ChartTools.Track.GetChords*"></a>
+
+  <h3 id="ChartTools_Track_GetChords" data-uid="ChartTools.Track.GetChords">
+  GetChords()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L39"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract IReadOnlyList&lt;IChord&gt; GetChords()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="ChartTools.IChord.html">IChord</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_GetInstrument_" data-uid="ChartTools.Track.GetInstrument*"></a>
+
+  <h3 id="ChartTools_Track_GetInstrument" data-uid="ChartTools.Track.GetInstrument">
+  GetInstrument()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L70"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract Instrument? GetInstrument()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Instrument.html">Instrument</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_ToFile_" data-uid="ChartTools.Track.ToFile*"></a>
+
+  <h3 id="ChartTools_Track_ToFile_System_String_ChartTools_IO_Configuration_WritingConfiguration_ChartTools_IO_Formatting_FormattingRules_" data-uid="ChartTools.Track.ToFile(System.String,ChartTools.IO.Configuration.WritingConfiguration,ChartTools.IO.Formatting.FormattingRules)">
+  ToFile(string, WritingConfiguration?, FormattingRules?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L126"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use ReplaceTrack.&quot;)]
+public void ToFile(string path, WritingConfiguration? config = null, FormattingRules? formatting = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>config</code> <a class="xref" href="ChartTools.IO.Configuration.WritingConfiguration.html">WritingConfiguration</a></dt>
+    <dd></dd>
+    <dt><code>formatting</code> <a class="xref" href="ChartTools.IO.Formatting.FormattingRules.html">FormattingRules</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_ToFileAsync_" data-uid="ChartTools.Track.ToFileAsync*"></a>
+
+  <h3 id="ChartTools_Track_ToFileAsync_System_String_ChartTools_IO_Configuration_WritingConfiguration_ChartTools_IO_Formatting_FormattingRules_System_Threading_CancellationToken_" data-uid="ChartTools.Track.ToFileAsync(System.String,ChartTools.IO.Configuration.WritingConfiguration,ChartTools.IO.Formatting.FormattingRules,System.Threading.CancellationToken)">
+  ToFileAsync(string, WritingConfiguration?, FormattingRules?, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L129"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use ReplaceTrackAsync.&quot;)]
+public Task ToFileAsync(string path, WritingConfiguration? config = null, FormattingRules? formatting = null, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>config</code> <a class="xref" href="ChartTools.IO.Configuration.WritingConfiguration.html">WritingConfiguration</a></dt>
+    <dd></dd>
+    <dt><code>formatting</code> <a class="xref" href="ChartTools.IO.Formatting.FormattingRules.html">FormattingRules</a></dt>
+    <dd></dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Track_ToString_" data-uid="ChartTools.Track.ToString*"></a>
+
+  <h3 id="ChartTools_Track_ToString" data-uid="ChartTools.Track.ToString">
+  ToString()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L132"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a string that represents the current object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>A string that represents the current object.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Tracks/Track.cs/#L12" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

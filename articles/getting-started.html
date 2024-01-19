@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Getting Started | ChartTools </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Getting Started | ChartTools ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TheBoxyBear/charttools/blob/stable/Docs/articles/getting-started.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="ChartTools">
+            ChartTools
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="getting-started">Getting Started</h1>
+
+<p>This document goes over the basics of parsing a chart through ChartTools.</p>
+<h2 id="installation">Installation</h2>
+<p>To add ChartTools to your project, you must first build the ChartTools project. Once built, the library can be found under <code>ChartTools\bin\[Debug]|[Release]\.net8.0</code></p>
+<p>Visual Studio: Right-click on your project from the solution explorer and select &quot;Add Project References...&quot;. Click on &quot;Browse&quot; and select <code>ChartTools.dll</code> that was generated. If the dll file is moved, also move <code>ChartTools.xml</code> to the new directory for XML documentation.</p>
+<h2 id="supported-file-formats">Supported file formats</h2>
+<p>ChartTools supports the parsing of .chart and .ini files, with .mid parsing in the works. Unless written as <code>.chart</code>, the term &quot;chart&quot; refers to songs supported by ChartTools regardless of the file format.</p>
+<p>For documentation on the formats themselves, refer to the <a href="https://github.com/TheNathannator/GuitarGame_ChartFormats">GuitarGame_ChartFormats</a> repository.</p>
+<h2 id="working-with-charts">Working with charts</h2>
+<h3 id="song">Song</h3>
+<p>Every component of a chart is stored in an instance of the <a href="../api/ChartTools.Song.html">Song</a> class. It can be initialized by reading a file that will be parsed based on the extension.</p>
+<pre><code class="lang-csharp">Song song = Song.FromFile(path);
+</code></pre>
+<p>A configuration object may also be used to customize the error handling behavior. <a href="configuration.html">Learn more about configuring IO operations</a>.</p>
+<pre><code class="lang-csharp">Song song = Song.FromFile(path, new ReadingConfiguration());
+</code></pre>
+<p>Note: Some Midi files may contain formatting information in the song.ini file. In order to account for custom formatting when reading, it is recommended to read from a directory instead.</p>
+<pre><code class="lang-csharp">Song song = Song.FromDirectory(path, &lt;ReadingConfiguration&gt;);
+</code></pre>
+<p>When reading from a directory, the metadata will be read from <code>song.ini</code>, followed by the rest from <code>notes.chart</code>.</p>
+<p>A song contains four main components:</p>
+<ul>
+<li><a href="../api/ChartTools.Metadata.html">Metadata</a> - Miscellaneous info about the song, such as title, album, charter etc.</li>
+<li><a href="../api/ChartTools.SyncTrack.html">Sync track</a> - Markers that define time signature and tempo</li>
+<li><a href="events.html">Global events</a> - Events that are not tied to an instrument</li>
+<li><a href="../api/ChartTools.InstrumentSet.html">Instruments</a> - The instrument track data</li>
+</ul>
+<h3 id="metadata">Metadata</h3>
+<p>Similar to reading a song, metadata is retrieved by reading a file:</p>
+<pre><code class="lang-csharp">Metadata metadata = Metadata.FromFile(path);
+</code></pre>
+<p>Metadata can be read from either .chart or .ini. Given that most modern charts are made for Clone Hero, it is recommended that you prioritize .ini over .chart metadata, as that will usually be the more accurate metadata.</p>
+<p>Metadata can also be retrieved from multiple files at once.</p>
+<pre><code class="lang-csharp">Metadata metadata = Metadata.FromFiles(path1, path2, path3...);
+</code></pre>
+<p>When reading from multiple files, you can mix file types, and the priority of information is defined by the order of the files.</p>
+<p>As a future-proofing method, all unsupported items can be found under <a href="../api/ChartTools.Metadata.html#ChartTools_Metadata_UnidentifiedData">UnidentifiedData</a>. This data will only be written to the same file format as the one it was read from.</p>
+<h3 id="instruments-and-tracks">Instruments and Tracks</h3>
+<p>All instruments currently supported are represented using the generic <a href="../api/ChartTools.Instrument.html">Instrument</a> class. This class contains an object of type <a href="../api/ChartTools.Track.html">Track</a> class for every difficulty. A track can be retrieved from a song with the following code:</p>
+<pre><code class="lang-csharp">Track&lt;StandardChord&gt; track = song.Instruments.LeadGuitar.Expert;
+</code></pre>
+<p>Notice the use of <a href="../api/ChartTools.StandardChord.html">StandardChord</a> as a generic type. Instruments are divided into four categories based on the type of chords they use. These categories are:</p>
+<ul>
+<li>Standard - Five colored notes</li>
+<li>Drums - Five colored with support for double kick and cymbal flags</li>
+<li>GHL (Guitar Hero Live) - Three black and three white notes</li>
+<li>Vocals - Notes with an associated syllable. Notes have positions defined as offsets from the phrase. <a href="lyrics.html">Learn more about vocals</a>.</li>
+</ul>
+<p>A track is composed of three components:</p>
+<ul>
+<li>Chords (defined by the generic type)</li>
+<li>Special phrases (star power)</li>
+<li><a href="events.html">Local events</a></li>
+</ul>
+<blockquote>
+<p><strong>NOTE</strong>: When setting an instrument in an <a href="../api/ChartTools.InstrumentSet.html">InstrumentSet</a> or a track in an instrument, a copy of the object is created that contains information about its identity. In order to have changes made to the object after the assignment be reflected, a reference must be re-obtained from the parent.</p>
+</blockquote>
+<p>Instruments can also be obtained dynamically from a song, regardless of the type. <a href="dynamic-syntax.html">Learn more about the dynamic syntax</a>.</p>
+<h3 id="chords-and-notes">Chords and Notes</h3>
+<p>A chord is a set of notes played at the same time. For readability, most chords and notes have specific classes for each instrument type, deriving from <a href="../api/ChartTools.LaneChord-3.html">LaneChord&lt;TNote, TLane, TModifiers&gt;</a> and <a href="../api/ChartTools.LaneNote-1.html">LaneNode&lt;TLane&gt;</a>.</p>
+<p>The following adds an orange note to every chord on a track:</p>
+<pre><code class="lang-csharp">foreach (StandardChord chord in song.Instruments.LeadGuitar.Expert)
+{
+    chord.Notes.Add(StandardLane.Orange);
+    // or
+    chord.Notes.Add(new Note&lt;StandardLane&gt;(StandardLane.Orange));
+}
+</code></pre>
+<p>Unlike other instrument, <a href="../api/ChartTools.Vocals.html">Vocals</a> contain <a href="../api/ChartTools.Lyrics.Phrase.html">Phrases</a> and <a href="../api/ChartTools.Lyrics.Syllable.html">Syllables</a>. Although bound to chords and notes in the backend, syllables in a phrase are not all at the same position, instead storing their positions as offsets from their parent. <a href="lyrics.html">Learn more about vocals</a>.</p>
+<h2 id="optimizing">Optimizing</h2>
+<p>Although still functional, some files may contain data that slows down the reading process or, in worse cases, may result in non-functional files when saved in certain formats. ChartTools provides various utilities to fix such issues.</p>
+<pre><code class="lang-csharp">using ChartTools.Optimization;
+
+chords.CutSustains() // Cuts short sustains go past what is applicable in-game.
+specialPhrases.CutSpecialLenghts.CutLengths() // Cuts short special phrases that exceed the start of the next phrase based on type.
+
+// Sorts and removes redundant markers
+syncTrack.Tempo.RemoveUnneeded();
+syncTrack.TimeSignatures.RemoveUnneeded();
+</code></pre>
+<p>ChartTools includes other utilities for various purposes. <a href="tools.html">Learn more</a>.</p>
+<h2 id="writing-files">Writing files</h2>
+<p>Finally, changes can be saved to a file using <a href="../api/ChartTools.Song.html#ChartTools_Song_ToFile_System_String_ChartTools_IO_Configuration_WritingConfiguration_">Song.ToFile</a>, with the format determined by the file extension.</p>
+<pre><code class="lang-csharp">song.ToFile(&quot;output.chart&quot;, &lt;WritingConfiguration&gt;);
+</code></pre>
+<p>Due to limitations of certain file formats, only <a href="../api/ChartTools.Song.html">Song</a> objects can be written to a file in this manner. Format-specific operations can be accessed through the respective static class, such as <a href="../api/ChartTools.IO.Chart.ChartFile.html">ChartFile</a> for <code>.chart</code>. For example, here is how to replace an instrument in a <code>.chart</code> file.</p>
+<pre><code class="lang-csharp">ChartFile.ReplaceInstrument(&quot;output.chart&quot;, guitar, &lt;WritingConfiguration&gt;);
+</code></pre>
+<p>Like when reading files, writing operations can be configured to alter how they deal with errors. <a href="configuration.html">Learn more about configuring IO operations</a>.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TheBoxyBear/charttools/blob/stable/Docs/articles/getting-started.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

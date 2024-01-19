@@ -1,0 +1,744 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class FormattingRules
+ | ChartTools </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class FormattingRules
+ | ChartTools ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TheBoxyBear/charttools/new/stable/apiSpec/new?filename=ChartTools_IO_Formatting_FormattingRules.md&amp;value=---%0Auid%3A%20ChartTools.IO.Formatting.FormattingRules%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="ChartTools">
+            ChartTools
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="ChartTools.IO.Formatting.FormattingRules">
+
+
+
+  <h1 id="ChartTools_IO_Formatting_FormattingRules" data-uid="ChartTools.IO.Formatting.FormattingRules" class="text-break">
+    Class FormattingRules
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Formatting/FormattingRules.cs/#L11"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="ChartTools.html">ChartTools</a>.<a class="xref" href="ChartTools.IO.html">IO</a>.<a class="xref" href="ChartTools.IO.Formatting.html">Formatting</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>ChartTools.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Rules defined in song.ini that affect how the song data file is read and written</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class FormattingRules</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">FormattingRules</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___">PropertyMerger.Merge&lt;T&gt;(T, bool, bool, params T[])</a>
+  </div>
+  </dd></dl>
+
+
+
+  <h2 id="ChartTools_IO_Formatting_FormattingRules_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Property summaries provided by Nathan Hurst.</p>
+</div>
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="ChartTools_IO_Formatting_FormattingRules_AlbumTrackKey_" data-uid="ChartTools.IO.Formatting.FormattingRules.AlbumTrackKey*"></a>
+
+  <h3 id="ChartTools_IO_Formatting_FormattingRules_AlbumTrackKey" data-uid="ChartTools.IO.Formatting.FormattingRules.AlbumTrackKey">
+  AlbumTrackKey
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Formatting/FormattingRules.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AlbumTrackKey AlbumTrackKey { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.IO.Formatting.AlbumTrackKey.html">AlbumTrackKey</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_IO_Formatting_FormattingRules_CharterKey_" data-uid="ChartTools.IO.Formatting.FormattingRules.CharterKey*"></a>
+
+  <h3 id="ChartTools_IO_Formatting_FormattingRules_CharterKey" data-uid="ChartTools.IO.Formatting.FormattingRules.CharterKey">
+  CharterKey
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Formatting/FormattingRules.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CharterKey CharterKey { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.IO.Formatting.CharterKey.html">CharterKey</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_IO_Formatting_FormattingRules_ForceEightHopoFrequency_" data-uid="ChartTools.IO.Formatting.FormattingRules.ForceEightHopoFrequency*"></a>
+
+  <h3 id="ChartTools_IO_Formatting_FormattingRules_ForceEightHopoFrequency" data-uid="ChartTools.IO.Formatting.FormattingRules.ForceEightHopoFrequency">
+  ForceEightHopoFrequency
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Formatting/FormattingRules.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>(FoFiX) Overrides the natural HOPO threshold to be a 1/8th step.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[IniKeySerializable(&quot;eighthnote_hopo&quot;)]
+public bool? ForceEightHopoFrequency { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_IO_Formatting_FormattingRules_HopoFrequency_" data-uid="ChartTools.IO.Formatting.FormattingRules.HopoFrequency*"></a>
+
+  <h3 id="ChartTools_IO_Formatting_FormattingRules_HopoFrequency" data-uid="ChartTools.IO.Formatting.FormattingRules.HopoFrequency">
+  HopoFrequency
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Formatting/FormattingRules.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Overrides the natural HOPO threshold with the specified number of ticks.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[IniKeySerializable(&quot;hopo_frequency&quot;)]
+public uint? HopoFrequency { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_IO_Formatting_FormattingRules_HopoFrequencyStep_" data-uid="ChartTools.IO.Formatting.FormattingRules.HopoFrequencyStep*"></a>
+
+  <h3 id="ChartTools_IO_Formatting_FormattingRules_HopoFrequencyStep" data-uid="ChartTools.IO.Formatting.FormattingRules.HopoFrequencyStep">
+  HopoFrequencyStep
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Formatting/FormattingRules.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>(FoFiX) Overrides the natural HOPO threshold using numbers from 0 to 5.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[IniKeySerializable(&quot;hopofreq&quot;)]
+public HopoFrequencyStep? HopoFrequencyStep { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.IO.Formatting.HopoFrequencyStep.html">HopoFrequencyStep</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_IO_Formatting_FormattingRules_MultiplierNote_" data-uid="ChartTools.IO.Formatting.FormattingRules.MultiplierNote*"></a>
+
+  <h3 id="ChartTools_IO_Formatting_FormattingRules_MultiplierNote" data-uid="ChartTools.IO.Formatting.FormattingRules.MultiplierNote">
+  MultiplierNote
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Formatting/FormattingRules.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Overrides the Star Power phrase MIDI note for .mid charts.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[IniKeySerializable(&quot;multiplier_note&quot;)]
+public byte? MultiplierNote { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_IO_Formatting_FormattingRules_Resolution_" data-uid="ChartTools.IO.Formatting.FormattingRules.Resolution*"></a>
+
+  <h3 id="ChartTools_IO_Formatting_FormattingRules_Resolution" data-uid="ChartTools.IO.Formatting.FormattingRules.Resolution">
+  Resolution
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Formatting/FormattingRules.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Number of <a class="xref" href="ChartTools.ITrackObject.html#ChartTools_ITrackObject_Position">Position</a> values per beat</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[ChartKeySerializable(&quot;Resolution&quot;)]
+public uint? Resolution { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_IO_Formatting_FormattingRules_StarPowerNote_" data-uid="ChartTools.IO.Formatting.FormattingRules.StarPowerNote*"></a>
+
+  <h3 id="ChartTools_IO_Formatting_FormattingRules_StarPowerNote" data-uid="ChartTools.IO.Formatting.FormattingRules.StarPowerNote">
+  StarPowerNote
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Formatting/FormattingRules.cs/#L77"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>(PhaseShift) Overrides the Star Power phrase MIDI note for .mid charts.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[IniKeySerializable(&quot;star_power_note&quot;)]
+public byte? StarPowerNote { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_IO_Formatting_FormattingRules_SustainCutoff_" data-uid="ChartTools.IO.Formatting.FormattingRules.SustainCutoff*"></a>
+
+  <h3 id="ChartTools_IO_Formatting_FormattingRules_SustainCutoff" data-uid="ChartTools.IO.Formatting.FormattingRules.SustainCutoff">
+  SustainCutoff
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Formatting/FormattingRules.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Overrides the default sustain cutoff threshold with the specified number of ticks.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[IniKeySerializable(&quot;sustain_cutoff_threshold&quot;)]
+public uint? SustainCutoff { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_IO_Formatting_FormattingRules_SysExHighHat_" data-uid="ChartTools.IO.Formatting.FormattingRules.SysExHighHat*"></a>
+
+  <h3 id="ChartTools_IO_Formatting_FormattingRules_SysExHighHat" data-uid="ChartTools.IO.Formatting.FormattingRules.SysExHighHat">
+  SysExHighHat
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Formatting/FormattingRules.cs/#L92"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>(PhaseShift) Indicates if the chart uses SysEx events for Drums Real hi-hat pedal control.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[IniKeySerializable(&quot;sysex_high_hat_ctrl&quot;)]
+public bool? SysExHighHat { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_IO_Formatting_FormattingRules_SysExOpenBass_" data-uid="ChartTools.IO.Formatting.FormattingRules.SysExOpenBass*"></a>
+
+  <h3 id="ChartTools_IO_Formatting_FormattingRules_SysExOpenBass" data-uid="ChartTools.IO.Formatting.FormattingRules.SysExOpenBass">
+  SysExOpenBass
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Formatting/FormattingRules.cs/#L104"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>(PhaseShift) Indicates if the chart uses SysEx events for open notes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[IniKeySerializable(&quot;sysex_open_bass&quot;)]
+public bool? SysExOpenBass { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_IO_Formatting_FormattingRules_SysExRimshot_" data-uid="ChartTools.IO.Formatting.FormattingRules.SysExRimshot*"></a>
+
+  <h3 id="ChartTools_IO_Formatting_FormattingRules_SysExRimshot" data-uid="ChartTools.IO.Formatting.FormattingRules.SysExRimshot">
+  SysExRimshot
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Formatting/FormattingRules.cs/#L98"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>(PhaseShift) Indicates if the chart uses SysEx events for Drums Real rimshot hits.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[IniKeySerializable(&quot;sysex_rimshot&quot;)]
+public bool? SysExRimshot { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_IO_Formatting_FormattingRules_SysExSliders_" data-uid="ChartTools.IO.Formatting.FormattingRules.SysExSliders*"></a>
+
+  <h3 id="ChartTools_IO_Formatting_FormattingRules_SysExSliders" data-uid="ChartTools.IO.Formatting.FormattingRules.SysExSliders">
+  SysExSliders
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Formatting/FormattingRules.cs/#L86"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>(PhaseShift) Indicates if the chart uses SysEx events for sliders/tap notes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[IniKeySerializable(&quot;sysex_slider&quot;)]
+public bool? SysExSliders { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_IO_Formatting_FormattingRules_SysexProSlide_" data-uid="ChartTools.IO.Formatting.FormattingRules.SysexProSlide*"></a>
+
+  <h3 id="ChartTools_IO_Formatting_FormattingRules_SysexProSlide" data-uid="ChartTools.IO.Formatting.FormattingRules.SysexProSlide">
+  SysexProSlide
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Formatting/FormattingRules.cs/#L110"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>(PhaseShift) Indicates if the chart uses SysEx events for Pro Guitar/Bass slide directions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[IniKeySerializable(&quot;sysex_pro_slide&quot;)]
+public bool? SysexProSlide { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_IO_Formatting_FormattingRules_TrueHopoFrequency_" data-uid="ChartTools.IO.Formatting.FormattingRules.TrueHopoFrequency*"></a>
+
+  <h3 id="ChartTools_IO_Formatting_FormattingRules_TrueHopoFrequency" data-uid="ChartTools.IO.Formatting.FormattingRules.TrueHopoFrequency">
+  TrueHopoFrequency
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Formatting/FormattingRules.cs/#L46"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public uint? TrueHopoFrequency { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_IO_Formatting_FormattingRules_TrueResolution_" data-uid="ChartTools.IO.Formatting.FormattingRules.TrueResolution*"></a>
+
+  <h3 id="ChartTools_IO_Formatting_FormattingRules_TrueResolution" data-uid="ChartTools.IO.Formatting.FormattingRules.TrueResolution">
+  TrueResolution
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Formatting/FormattingRules.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public uint TrueResolution { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_IO_Formatting_FormattingRules_TrueStarPowerNote_" data-uid="ChartTools.IO.Formatting.FormattingRules.TrueStarPowerNote*"></a>
+
+  <h3 id="ChartTools_IO_Formatting_FormattingRules_TrueStarPowerNote" data-uid="ChartTools.IO.Formatting.FormattingRules.TrueStarPowerNote">
+  TrueStarPowerNote
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Formatting/FormattingRules.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte? TrueStarPowerNote { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Formatting/FormattingRules.cs/#L11" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

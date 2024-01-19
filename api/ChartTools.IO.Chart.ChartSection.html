@@ -1,0 +1,396 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class ChartSection
+ | ChartTools </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class ChartSection
+ | ChartTools ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TheBoxyBear/charttools/new/stable/apiSpec/new?filename=ChartTools_IO_Chart_ChartSection.md&amp;value=---%0Auid%3A%20ChartTools.IO.Chart.ChartSection%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="ChartTools">
+            ChartTools
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="ChartTools.IO.Chart.ChartSection">
+
+
+
+  <h1 id="ChartTools_IO_Chart_ChartSection" data-uid="ChartTools.IO.Chart.ChartSection" class="text-break">
+    Class ChartSection
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Chart/ChartSectionSet.cs/#L6"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="ChartTools.html">ChartTools</a>.<a class="xref" href="ChartTools.IO.html">IO</a>.<a class="xref" href="ChartTools.IO.Chart.html">Chart</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>ChartTools.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ChartSection : SectionSet&lt;string&gt;, IList&lt;Section&lt;string&gt;&gt;, ICollection&lt;Section&lt;string&gt;&gt;, IEnumerable&lt;Section&lt;string&gt;&gt;, IEnumerable</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="ChartTools.IO.Sections.SectionSet-1.html">SectionSet</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</div>
+      <div><span class="xref">ChartSection</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="ChartTools.IO.Sections.Section-1.html">Section</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="ChartTools.IO.Sections.Section-1.html">Section</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="ChartTools.IO.Sections.Section-1.html">Section</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="ChartTools.IO.Sections.SectionSet-1.html#ChartTools_IO_Sections_SectionSet_1_Count">SectionSet&lt;string&gt;.Count</a>
+    </div>
+    <div>
+      <a class="xref" href="ChartTools.IO.Sections.SectionSet-1.html#ChartTools_IO_Sections_SectionSet_1_IsReadOnly">SectionSet&lt;string&gt;.IsReadOnly</a>
+    </div>
+    <div>
+      <a class="xref" href="ChartTools.IO.Sections.SectionSet-1.html#ChartTools_IO_Sections_SectionSet_1_Item_System_Int32_">SectionSet&lt;string&gt;.this[int]</a>
+    </div>
+    <div>
+      <a class="xref" href="ChartTools.IO.Sections.SectionSet-1.html#ChartTools_IO_Sections_SectionSet_1_IndexOf_ChartTools_IO_Sections_Section__0__">SectionSet&lt;string&gt;.IndexOf(Section&lt;string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="ChartTools.IO.Sections.SectionSet-1.html#ChartTools_IO_Sections_SectionSet_1_Insert_System_Int32_ChartTools_IO_Sections_Section__0__">SectionSet&lt;string&gt;.Insert(int, Section&lt;string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="ChartTools.IO.Sections.SectionSet-1.html#ChartTools_IO_Sections_SectionSet_1_RemoveAt_System_Int32_">SectionSet&lt;string&gt;.RemoveAt(int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ChartTools.IO.Sections.SectionSet-1.html#ChartTools_IO_Sections_SectionSet_1_Add_ChartTools_IO_Sections_Section__0__">SectionSet&lt;string&gt;.Add(Section&lt;string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="ChartTools.IO.Sections.SectionSet-1.html#ChartTools_IO_Sections_SectionSet_1_Clear">SectionSet&lt;string&gt;.Clear()</a>
+    </div>
+    <div>
+      <a class="xref" href="ChartTools.IO.Sections.SectionSet-1.html#ChartTools_IO_Sections_SectionSet_1_Contains_ChartTools_IO_Sections_Section__0__">SectionSet&lt;string&gt;.Contains(Section&lt;string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="ChartTools.IO.Sections.SectionSet-1.html#ChartTools_IO_Sections_SectionSet_1_CopyTo_ChartTools_IO_Sections_Section__0____System_Int32_">SectionSet&lt;string&gt;.CopyTo(Section&lt;string&gt;[], int)</a>
+    </div>
+    <div>
+      <a class="xref" href="ChartTools.IO.Sections.SectionSet-1.html#ChartTools_IO_Sections_SectionSet_1_Remove_ChartTools_IO_Sections_Section__0__">SectionSet&lt;string&gt;.Remove(Section&lt;string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="ChartTools.IO.Sections.SectionSet-1.html#ChartTools_IO_Sections_SectionSet_1_GetEnumerator">SectionSet&lt;string&gt;.GetEnumerator()</a>
+    </div>
+    <div>
+      <a class="xref" href="ChartTools.IO.Sections.SectionSet-1.html#ChartTools_IO_Sections_SectionSet_1_Get_System_String_">SectionSet&lt;string&gt;.Get(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___">PropertyMerger.Merge&lt;T&gt;(T, bool, bool, params T[])</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.CollectionExtensions.html#ChartTools_Extensions_Linq_CollectionExtensions_RemoveWhere__1_System_Collections_Generic_ICollection___0__System_Predicate___0__">CollectionExtensions.RemoveWhere&lt;T&gt;(ICollection&lt;T&gt;, Predicate&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Distinct__1_System_Collections_Generic_IEnumerable___0__ChartTools_Extensions_EqualityComparison___0__">EnumerableExtensions.Distinct&lt;T&gt;(IEnumerable&lt;T&gt;, EqualityComparison&lt;T?&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_FirstOrDefault__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0_System_Boolean__">EnumerableExtensions.FirstOrDefault&lt;T&gt;(IEnumerable&lt;T&gt;, Predicate&lt;T&gt;, T?, out bool)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ManyMaxBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__">EnumerableExtensions.ManyMaxBy&lt;T, TKey&gt;(IEnumerable&lt;T&gt;, Func&lt;T, TKey&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ManyMinBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__">EnumerableExtensions.ManyMinBy&lt;T, TKey&gt;(IEnumerable&lt;T&gt;, Func&lt;T, TKey&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_NonNull__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.NonNull&lt;T&gt;(IEnumerable&lt;T?&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoopSkipFirst__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.RelativeLoopSkipFirst&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoop__1_System_Collections_Generic_IEnumerable___0____0_">EnumerableExtensions.RelativeLoop&lt;T&gt;(IEnumerable&lt;T&gt;, T?)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RemoveSection__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0__System_Predicate___0__">EnumerableExtensions.RemoveSection&lt;T&gt;(IEnumerable&lt;T&gt;, Predicate&lt;T&gt;, Predicate&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSection__1_System_Collections_Generic_IEnumerable___0__ChartTools_Extensions_Linq_SectionReplacement___0__">EnumerableExtensions.ReplaceSection&lt;T&gt;(IEnumerable&lt;T&gt;, SectionReplacement&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSections__1_System_Collections_Generic_IEnumerable___0__System_Collections_Generic_IEnumerable_ChartTools_Extensions_Linq_SectionReplacement___0___">EnumerableExtensions.ReplaceSections&lt;T&gt;(IEnumerable&lt;T&gt;, IEnumerable&lt;SectionReplacement&lt;T&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Replace__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0_">EnumerableExtensions.Replace&lt;T&gt;(IEnumerable&lt;T&gt;, Predicate&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ToAsyncEnumerable__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.ToAsyncEnumerable&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst__1_System_Collections_Generic_IEnumerable___0____0__">EnumerableExtensions.TryGetFirst&lt;T&gt;(IEnumerable&lt;T&gt;, out T)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0__">EnumerableExtensions.TryGetFirst&lt;T&gt;(IEnumerable&lt;T&gt;, Predicate&lt;T&gt;, out T)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_UniqueBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__">EnumerableExtensions.UniqueBy&lt;T, TKey&gt;(IEnumerable&lt;T&gt;, Func&lt;T, TKey&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Unique__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.Unique&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_AlternateBy__2_System_Collections_Generic_IEnumerable_System_Collections_Generic_IEnumerable___0___System_Func___0___1__">EnumerableExtensions.AlternateBy&lt;T, TKey&gt;(IEnumerable&lt;IEnumerable&lt;T&gt;&gt;, Func&lt;T, TKey&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Alternate__1_System_Collections_Generic_IEnumerable_System_Collections_Generic_IEnumerable___0___">EnumerableExtensions.Alternate&lt;T&gt;(IEnumerable&lt;IEnumerable&lt;T&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.CollectionExtensions.html#ChartTools_Extensions_Linq_CollectionExtensions_BinarySearchIndex__2_System_Collections_Generic_IList___0____1_System_Func___0___1__System_Boolean__">CollectionExtensions.BinarySearchIndex&lt;T, TKey&gt;(IList&lt;T&gt;, TKey, Func&lt;T, TKey&gt;, out bool)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirstOfType__1_System_Collections_IEnumerable___0__">EnumerableExtensions.TryGetFirstOfType&lt;TResult&gt;(IEnumerable, out TResult)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="ChartTools_IO_Chart_ChartSection__ctor_" data-uid="ChartTools.IO.Chart.ChartSection.#ctor*"></a>
+
+  <h3 id="ChartTools_IO_Chart_ChartSection__ctor" data-uid="ChartTools.IO.Chart.ChartSection.#ctor">
+  ChartSection()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Chart/ChartSectionSet.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ChartSection()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="ChartTools_IO_Chart_ChartSection_DefaultReservedHeaders" data-uid="ChartTools.IO.Chart.ChartSection.DefaultReservedHeaders">
+  DefaultReservedHeaders
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Chart/ChartSectionSet.cs/#L8"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly ReservedSectionHeaderSet DefaultReservedHeaders</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.IO.Sections.ReservedSectionHeaderSet.html">ReservedSectionHeaderSet</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="ChartTools_IO_Chart_ChartSection_ReservedHeaders_" data-uid="ChartTools.IO.Chart.ChartSection.ReservedHeaders*"></a>
+
+  <h3 id="ChartTools_IO_Chart_ChartSection_ReservedHeaders" data-uid="ChartTools.IO.Chart.ChartSection.ReservedHeaders">
+  ReservedHeaders
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Chart/ChartSectionSet.cs/#L9"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override ReservedSectionHeaderSet ReservedHeaders { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.IO.Sections.ReservedSectionHeaderSet.html">ReservedSectionHeaderSet</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/IO/Chart/ChartSectionSet.cs/#L6" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>ChartTools | ChartTools </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="ChartTools | ChartTools ">
+      
+      <link rel="icon" href="favicon.ico">
+      <link rel="stylesheet" href="public/docfx.min.css">
+      <link rel="stylesheet" href="public/main.css">
+      <meta name="docfx:navrel" content="toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TheBoxyBear/charttools/blob/stable/Docs/index.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="index.html">
+            <img id="logo" class="svg" src="logo.svg" alt="ChartTools">
+            ChartTools
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="charttools">ChartTools</h1>
+
+<p>ChartTools is a .NET 8 library with the purpose of modeling song files for plastic guitar video games like Guitar Hero, Rock Band and Clone Hero. It currently supports reading of .chart and .ini files, with .mid support currently in development.</p>
+<p>If you find any bugs, you can report them in the <a href="https://github.com/TheBoxyBear/ChartTools/issues">Issues section</a> of the repository. Make sure to use the &quot;bug&quot; label.</p>
+<h2 id="getting-started">Getting Started</h2>
+<p>For an overview on installation and taking your first steps with ChartTools, see <a href="articles/getting-started.html">Articles</a>. A GitHub Pages website is available with detailed articles and API documentation.</p>
+<h2 id="contributing">Contributing</h2>
+<p>If you like to contribute to the development of ChartTools, feel free to comment on an issue, submit a pull request or submit your own issues. To test your code, create a project named <code>Debug</code> and it will be automatically excluded from commits.</p>
+<h3 id="documentation">Documentation</h3>
+<p>The solution includes a <code>Docs</code> project that can be executed to build and deploy locally on port 8080. Remember to terminate the local server with <code>Ctrl+C</code> before closing as it can prevent later executions from using the port. If this occurs, run</p>
+<pre><code class="lang-bash">netstat -aof | findstr :8080
+taskkill /f /pid &lt;PID&gt;
+</code></pre>
+<p>where <code>PID</code> is the right-most ID in the output of <code>netstat</code>.</p>
+<h2 id="license-and-attribution">License and Attribution</h2>
+<p>This project is licensed under the GNU General Public License 3.0. See <a href="https://github.com/TheBoxyBear/charttools/blob/stable/LICENSE">LICENSE</a> for details.</p>
+<p>This project makes use of one or more third-party libraries to aid in functionality, see <a href="https://github.com/TheBoxyBear/charttools/blob/stable/attribution.txt">attribution.txt</a> for details.</p>
+<h2 id="special-thanks">Special Thanks</h2>
+<ul>
+<li><a href="https://github.com/FireFox2000000">FireFox</a> for making the Moonscraper editor open-source</li>
+<li><a href="https://github.com/TheNathannator">TheNathannator</a> for their direct contributions.</li>
+<li><a href="https://github.com/mdsitton">Matthew Sitton</a>, lead developer of Clone Hero for sharing their in-depth knowledge and general programming wisdom.</li>
+<li>Members of the <a href="https://discord.gg/clonehero">Clone Hero Discord</a> and <a href="https://discord.gg/wdnD83APhE">Moonscraper Discord</a>, including but not limited to DarkAngel2096, drumbs (TheNathannator), FireFox, Kanske, mdsitton, Spachi, and XEntombmentX for their help in researching.</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TheBoxyBear/charttools/blob/stable/Docs/index.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

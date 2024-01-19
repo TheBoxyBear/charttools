@@ -1,0 +1,1668 @@
+{
+  "source_base_path": "/github/workspace/Docs",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Charter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Charter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.DesynchronizedAnchorException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.DesynchronizedAnchorException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Difficulty.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Difficulty.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Drums.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Drums.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.DrumsChord.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.DrumsChord.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.DrumsChordModifiers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.DrumsChordModifiers.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.DrumsLane.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.DrumsLane.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.DrumsNote.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.DrumsNote.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Events.Event.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Events.Event.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Events.EventArgumentHelper.Global.Lighting.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Events.EventArgumentHelper.Global.Lighting.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Events.EventArgumentHelper.Global.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Events.EventArgumentHelper.Global.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Events.EventArgumentHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Events.EventArgumentHelper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Events.EventExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Events.EventExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Events.EventTypeHeaderHelper.Global.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Events.EventTypeHeaderHelper.Global.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Events.EventTypeHeaderHelper.Local.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Events.EventTypeHeaderHelper.Local.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Events.EventTypeHeaderHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Events.EventTypeHeaderHelper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Events.EventTypeHelper.Common.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Events.EventTypeHelper.Common.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Events.EventTypeHelper.Global.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Events.EventTypeHelper.Global.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Events.EventTypeHelper.Local.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Events.EventTypeHelper.Local.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Events.EventTypeHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Events.EventTypeHelper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Events.GlobalEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Events.GlobalEvent.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Events.LocalEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Events.LocalEvent.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Events.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Events.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Extensions.Collections.Alternating.OrderedAlternatingEnumerable-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Extensions.Collections.Alternating.SerialAlternatingEnumerable-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Extensions.Collections.Alternating.SerialAlternatingEnumerable-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Extensions.Collections.Alternating.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Extensions.Collections.Alternating.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Extensions.Collections.DelayedEnumerable-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Extensions.Collections.DelayedEnumerable-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Extensions.Collections.DelayedEnumerableSource-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Extensions.Collections.DelayedEnumerableSource-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Extensions.Collections.IInitializable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Extensions.Collections.IInitializable.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Extensions.Collections.UniqueTrackObjectCollection-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Extensions.Collections.UniqueTrackObjectCollection-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Extensions.Collections.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Extensions.Collections.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Extensions.EqualityComparison-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Extensions.EqualityComparison-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Extensions.FuncEqualityComparer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Extensions.FuncEqualityComparer-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Extensions.IInitializable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Extensions.IInitializable.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Extensions.Linq.CollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Extensions.Linq.CollectionExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Extensions.Linq.EnumerableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Extensions.Linq.EnumerableExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Extensions.Linq.SectionReplacement-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Extensions.Linq.SectionReplacement-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Extensions.Linq.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Extensions.Linq.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Extensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.FileType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.FileType.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.GHLChord.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.GHLChord.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.GHLChordModifiers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.GHLChordModifiers.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.GHLInstrument.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.GHLInstrument.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.GHLInstrumentIdentity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.GHLInstrumentIdentity.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.GHLLane.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.GHLLane.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IChord.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IChord.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IEmptyVerifiable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IEmptyVerifiable.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.ILongObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.ILongObject.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.ILongTrackObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.ILongTrackObject.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.INote.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.INote.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.AsyncRead-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.AsyncRead-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.AsyncWrite-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.AsyncWrite-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Chart.ChartFile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Chart.ChartFile.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Chart.ChartSection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Chart.ChartSection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Chart.Configuration.ChartReadingConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Chart.Configuration.ChartReadingConfiguration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Chart.Configuration.ChartWritingConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Chart.Configuration.ChartWritingConfiguration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Chart.Configuration.CommonChartConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Chart.Configuration.CommonChartConfiguration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Chart.Configuration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Chart.Configuration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Chart.Serializing.ChartKeySerializableAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Chart.Serializing.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Chart.Serializing.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Chart.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Chart.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Configuration.Common.ICommonConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Configuration.Common.ICommonConfiguration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Configuration.Common.ICommonReadingConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Configuration.Common.ICommonReadingConfiguration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Configuration.Common.ICommonWritingConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Configuration.Common.ICommonWritingConfiguration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Configuration.Common.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Configuration.Common.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Configuration.DuplicateTrackObjectPolicy.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Configuration.LyricEventSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Configuration.LyricEventSource.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Configuration.OverlappingSpecialPhrasePolicy.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Configuration.ReadingConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Configuration.ReadingConfiguration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Configuration.SnappedNotesPolicy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Configuration.SnappedNotesPolicy.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Configuration.SoloNoStarPowerPolicy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Configuration.SoloNoStarPowerPolicy.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Configuration.TempolessAnchorPolicy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Configuration.TempolessAnchorPolicy.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Configuration.TrackObjectSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Configuration.TrackObjectSource.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Configuration.UnknownSectionPolicy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Configuration.UnknownSectionPolicy.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Configuration.UnsupportedModifierPolicy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Configuration.UnsupportedModifierPolicy.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Configuration.WritingConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Configuration.WritingConfiguration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Configuration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Configuration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.DirectoryResult-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.DirectoryResult-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.EntryException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.EntryException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Formatting.AlbumTrackKey.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Formatting.AlbumTrackKey.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Formatting.CharterKey.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Formatting.CharterKey.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Formatting.FormattingRules.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Formatting.FormattingRules.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Formatting.HopoFrequencyStep.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Formatting.HopoFrequencyStep.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Formatting.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Formatting.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Ini.IniFile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Ini.IniFile.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Ini.IniFormatting.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Ini.IniFormatting.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Ini.IniKeySerializableAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Ini.IniKeySerializableAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Ini.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Ini.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.KeySerializableAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.KeySerializableAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.LineException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.LineException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.ParseException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.ParseException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Read-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Read-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.SectionException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.SectionException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Sections.ReservedSectionHeader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Sections.ReservedSectionHeader.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Sections.ReservedSectionHeaderSet.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Sections.ReservedSectionHeaderSet.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Sections.Section-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Sections.Section-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Sections.SectionSet-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Sections.SectionSet-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Sections.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Sections.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.VoidRead.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.VoidRead.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.Write-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.Write-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IO.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IO.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IReadOnlyLongObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IReadOnlyLongObject.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.IReadOnlyTrackObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.IReadOnlyTrackObject.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.ITrackObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.ITrackObject.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Instrument-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Instrument-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Instrument.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Instrument.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.InstrumentDifficultySet.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.InstrumentDifficultySet.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.InstrumentIdentity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.InstrumentIdentity.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.InstrumentSet.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.InstrumentSet.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.InstrumentSpecialPhrase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.InstrumentSpecialPhrase.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.InstrumentSpecialPhraseType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.InstrumentSpecialPhraseType.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.InstrumentType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.InstrumentType.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.LaneChord-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.LaneChord-3.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.LaneChord.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.LaneChord.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.LaneNote-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.LaneNote-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.LaneNote.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.LaneNote.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.LaneNoteCollection-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.LaneNoteCollection-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Lyrics.Phrase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Lyrics.Phrase.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Lyrics.PhraseExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Lyrics.PhraseExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Lyrics.Syllable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Lyrics.Syllable.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Lyrics.VocalPitchValue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Lyrics.VocalPitchValue.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Lyrics.VocalsKey.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Lyrics.VocalsKey.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Lyrics.VocalsPitch.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Lyrics.VocalsPitch.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Lyrics.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Lyrics.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Metadata.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Metadata.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.MidiInstrumentOrigin.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.MidiInstrumentOrigin.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Song.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Song.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.SpecialPhrase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.SpecialPhrase.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.StandardChord.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.StandardChord.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.StandardChordModifiers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.StandardChordModifiers.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.StandardInstrument.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.StandardInstrument.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.StandardInstrumentIdentity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.StandardInstrumentIdentity.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.StandardLane.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.StandardLane.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.StreamCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.StreamCollection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.SyncTrack.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.SyncTrack.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Tempo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Tempo.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.TempoMap.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.TempoMap.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.TimeSignature.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.TimeSignature.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Tools.LengthMerger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Tools.LengthMerger.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Tools.Optimizer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Tools.Optimizer.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Tools.Printer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Tools.Printer.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Tools.PropertyMerger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Tools.PropertyMerger.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Tools.TempoRescaler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Tools.TempoRescaler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Tools.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Tools.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Track-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Track-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Track.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Track.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.TrackObjectBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.TrackObjectBase.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.TrackSpecialPhrase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.TrackSpecialPhrase.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.TrackSpecialPhraseType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.TrackSpecialPhraseType.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.UndefinedEnumException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.UndefinedEnumException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.UnidentifiedMetadata.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.UnidentifiedMetadata.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.Vocals.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.Vocals.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ChartTools.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ChartTools.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".json": {
+          "relative_path": "api/toc.json"
+        },
+        ".html": {
+          "relative_path": "api/toc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/configuration.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/configuration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/dynamic-syntax.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/dynamic-syntax.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/events.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/events.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/getting-started.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/getting-started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/improving-performance.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/improving-performance.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/lyrics.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/lyrics.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".json": {
+          "relative_path": "articles/toc.json"
+        },
+        ".html": {
+          "relative_path": "articles/toc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/tools.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/tools.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".json": {
+          "relative_path": "toc.json"
+        },
+        ".html": {
+          "relative_path": "toc.html"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Dynamic Syntax | ChartTools </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Dynamic Syntax | ChartTools ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TheBoxyBear/charttools/blob/stable/Docs/articles/dynamic-syntax.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="ChartTools">
+            ChartTools
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="dynamic-syntax">Dynamic Syntax</h1>
+
+<p>This guide will cover an alternate and more flexible syntax for accessing components.</p>
+<h2 id="using-the-dynamic-syntax">Using the dynamic syntax</h2>
+<p>ChartTools supports a dynamic syntax to retrieve instruments and tracks using identity enums instead of explicit properties.</p>
+<pre><code class="lang-C#">StandardInstrument guitar = song.Instruments.Get(StandardInstrumentIdentity.LeadGuitar);
+Instrument bass = song.Instruments.Get(InstrumentIdentity.Bass);
+
+Track&lt;StandardChord&gt; easyGuitar = guitar.GetTrack(Difficulty.Easy);
+Track easyBass = bass.GetTrack(Difficulty.Easy);
+</code></pre>
+<p>The dynamic syntax uses three enums to get instruments:</p>
+<ul>
+<li><a href="../api/ChartTools.StandardInstrumentIdentity.html">StandardInstrumentIdentity</a> - Instruments using standard chords</li>
+<li><a href="../api/ChartTools.GHLInstrumentIdentity.html">GHLInstrumentIdentity</a> - Instruments using Guitar Hero Live chords</li>
+<li><a href="../api/ChartTools.InstrumentIdentity.html">InstrumentIdentity</a> - All instruments including drums and vocals</li>
+</ul>
+<p>Drums and vocals do not have an enum for their chord types as they are the only instrument using their respective chords.</p>
+<h2 id="generic-vs-non-generic">Generic vs. non-generic</h2>
+<p>When an instrument is obtained dynamically using the <a href="../api/ChartTools.InstrumentIdentity.html">InstrumentIdentity</a> enum, the returned object is of type <a href="../api/ChartTools.Instrument.html">Instrument</a>. When a track is obtained from a non-generic instrument, either dynamically or explicitly through a property, the track will be of type <a href="../api/ChartTools.Track.html">Track</a>. This concept extends to chords and notes.</p>
+<p>When working with a non-generic track, the following rules apply:</p>
+<ul>
+<li>Chords cannot be added or removed. The position of existing chords can be modified.</li>
+<li>Local events and special phrases have no restrictions.</li>
+<li>A note's identity can be obtained through the read-only <a href="../api/ChartTools.INote.html#ChartTools_INote_Index">Index</a> property.</li>
+</ul>
+<p>Being the base types of the generic counterparts, non-generic instruments, tracks, chords and notes can be cast to a generic version.</p>
+<p>The dynamic syntax can also be used to set and read instruments and tracks.</p>
+<pre><code class="lang-C#">// Setting components
+song.Instruments.Set(guitar);
+song.Instruments.Set(guitar with { InstrumentIdentity = InstrumentIdentity.Bass });
+
+song.Instruments.LeadGuitar.SetTrack(new() { Difficulty = Difficulty.Easy });
+
+// Reading components
+StandardInstrument coop = StandardInstrument.FromFile(path, StandardInstrumentIdentity.CoopGuitar, &lt;ReadingConfiguration&gt;, metadata.Formatting);
+Instrument keys = Instrument.FromFile(path, InstrumentIdentity.Keys, &lt;ReadingConfiguration&gt;, metadata.Formatting);
+
+Track&lt;StandardChord&gt; easyCoop = Track.FromFile(path, StandardInstrumentIdentity.CoopGuitar, Difficulty.Easy, &lt;ReadingConfiguration&gt;, metadata.Formatting);
+Track easyKeys = Track.FromFile(path, InsturmentIdentity.Keys, Difficulty.Easy, &lt;ReadingConfiguration&gt;, metadata.Formatting);
+</code></pre>
+<p>When setting an instrument, the target is determined by the <a href="../api/ChartTools.Instrument.html#ChartTools_Instrument_InstrumentIdentity">InstrumentIdentity</a> property of the new instrument, which can be overridden using a <code>with</code> statement. Similarly, the target difficulty when setting a track is determined by the track's <a href="../api/ChartTools.Track.html#ChartTools_Track_Difficulty">Difficulty</a> property, also overridable through <code>with</code>.</p>
+<blockquote>
+<p><strong>NOTE</strong>: Unlike when setting an instrument explicitely, the existing identity is used when setting dynamically. This makes it safe to reuse the previous reference after the assignement unless a <code>with</code> statement is used. Tracks still need to be re-obtained when using the dynamic syntax as a copy is created to assign its <a href="../api/ChartTools.Track.html#ChartTools_Track_ParentInstrument">ParentInstrument</a>. In cases where a reference to an instrument or track needs to be re-obtained, this reference is passed through as the return of <a href="../api/ChartTools.InstrumentSet.html#ChartTools_InstrumentSet_Set_ChartTools_StandardInstrument_">InstrumentSet.Set</a> and <code>Instrument.SetTrack</code>.</p>
+</blockquote>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TheBoxyBear/charttools/blob/stable/Docs/articles/dynamic-syntax.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

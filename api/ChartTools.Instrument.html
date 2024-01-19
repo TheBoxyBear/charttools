@@ -1,0 +1,973 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class Instrument
+ | ChartTools </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Instrument
+ | ChartTools ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TheBoxyBear/charttools/new/stable/apiSpec/new?filename=ChartTools_Instrument.md&amp;value=---%0Auid%3A%20ChartTools.Instrument%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="ChartTools">
+            ChartTools
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="ChartTools.Instrument">
+
+
+
+  <h1 id="ChartTools_Instrument" data-uid="ChartTools.Instrument" class="text-break">
+    Class Instrument
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="ChartTools.html">ChartTools</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>ChartTools.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Base class for instruments</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract record Instrument : IEmptyVerifiable, IEquatable&lt;Instrument&gt;</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">Instrument</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="ChartTools.IEmptyVerifiable.html">IEmptyVerifiable</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="ChartTools.Instrument.html">Instrument</a>&gt;</div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="ChartTools.Instrument-1.html">Instrument&lt;TChord&gt;</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___">PropertyMerger.Merge&lt;T&gt;(T, bool, bool, params T[])</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Tools.TempoRescaler.html#ChartTools_Tools_TempoRescaler_Rescale_ChartTools_Instrument_System_Single_">TempoRescaler.Rescale(Instrument, float)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="ChartTools_Instrument_Easy_" data-uid="ChartTools.Instrument.Easy*"></a>
+
+  <h3 id="ChartTools_Instrument_Easy" data-uid="ChartTools.Instrument.Easy">
+  Easy
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L59"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Easy track</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Track? Easy { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Track.html">Track</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_Expert_" data-uid="ChartTools.Instrument.Expert*"></a>
+
+  <h3 id="ChartTools_Instrument_Expert" data-uid="ChartTools.Instrument.Expert">
+  Expert
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Expert track</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Track? Expert { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Track.html">Track</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_Hard_" data-uid="ChartTools.Instrument.Hard*"></a>
+
+  <h3 id="ChartTools_Instrument_Hard" data-uid="ChartTools.Instrument.Hard">
+  Hard
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L67"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Hard track</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Track? Hard { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Track.html">Track</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_InstrumentIdentity_" data-uid="ChartTools.Instrument.InstrumentIdentity*"></a>
+
+  <h3 id="ChartTools_Instrument_InstrumentIdentity" data-uid="ChartTools.Instrument.InstrumentIdentity">
+  InstrumentIdentity
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Identity of the instrument the object belongs to</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public InstrumentIdentity InstrumentIdentity { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.InstrumentIdentity.html">InstrumentIdentity</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_InstrumentType_" data-uid="ChartTools.Instrument.InstrumentType*"></a>
+
+  <h3 id="ChartTools_Instrument_InstrumentType" data-uid="ChartTools.Instrument.InstrumentType">
+  InstrumentType
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Type of instrument</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public InstrumentType InstrumentType { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.InstrumentType.html">InstrumentType</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_IsEmpty_" data-uid="ChartTools.Instrument.IsEmpty*"></a>
+
+  <h3 id="ChartTools_Instrument_IsEmpty" data-uid="ChartTools.Instrument.IsEmpty">
+  IsEmpty
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if containing no data</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsEmpty { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_Medium_" data-uid="ChartTools.Instrument.Medium*"></a>
+
+  <h3 id="ChartTools_Instrument_Medium" data-uid="ChartTools.Instrument.Medium">
+  Medium
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L63"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Medium track</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Track? Medium { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Track.html">Track</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_SpecialPhrases_" data-uid="ChartTools.Instrument.SpecialPhrases*"></a>
+
+  <h3 id="ChartTools_Instrument_SpecialPhrases" data-uid="ChartTools.Instrument.SpecialPhrases">
+  SpecialPhrases
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Set of special phrases applied to all difficulties</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;InstrumentSpecialPhrase&gt; SpecialPhrases { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ChartTools.InstrumentSpecialPhrase.html">InstrumentSpecialPhrase</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="ChartTools_Instrument_CreateTrack_" data-uid="ChartTools.Instrument.CreateTrack*"></a>
+
+  <h3 id="ChartTools_Instrument_CreateTrack_ChartTools_Difficulty_" data-uid="ChartTools.Instrument.CreateTrack(ChartTools.Difficulty)">
+  CreateTrack(Difficulty)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L87"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a track</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract Track CreateTrack(Difficulty difficulty)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>difficulty</code> <a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd><p>Difficulty of the track</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Track.html">Track</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_GetDifficulty_" data-uid="ChartTools.Instrument.GetDifficulty*"></a>
+
+  <h3 id="ChartTools_Instrument_GetDifficulty_ChartTools_InstrumentDifficultySet_" data-uid="ChartTools.Instrument.GetDifficulty(ChartTools.InstrumentDifficultySet)">
+  GetDifficulty(InstrumentDifficultySet)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the difficulty for an <a class="xref" href="ChartTools.InstrumentIdentity.html">InstrumentIdentity</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sbyte? GetDifficulty(InstrumentDifficultySet difficulties)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>difficulties</code> <a class="xref" href="ChartTools.InstrumentDifficultySet.html">InstrumentDifficultySet</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.sbyte">sbyte</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_GetEasy_" data-uid="ChartTools.Instrument.GetEasy*"></a>
+
+  <h3 id="ChartTools_Instrument_GetEasy" data-uid="ChartTools.Instrument.GetEasy">
+  GetEasy()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract Track? GetEasy()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Track.html">Track</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_GetExistingTracks_" data-uid="ChartTools.Instrument.GetExistingTracks*"></a>
+
+  <h3 id="ChartTools_Instrument_GetExistingTracks" data-uid="ChartTools.Instrument.GetExistingTracks">
+  GetExistingTracks()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates an array containing all tracks with data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual IEnumerable&lt;Track&gt; GetExistingTracks()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="ChartTools.Track.html">Track</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_GetExpert_" data-uid="ChartTools.Instrument.GetExpert*"></a>
+
+  <h3 id="ChartTools_Instrument_GetExpert" data-uid="ChartTools.Instrument.GetExpert">
+  GetExpert()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L81"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract Track? GetExpert()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Track.html">Track</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_GetHard_" data-uid="ChartTools.Instrument.GetHard*"></a>
+
+  <h3 id="ChartTools_Instrument_GetHard" data-uid="ChartTools.Instrument.GetHard">
+  GetHard()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L80"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract Track? GetHard()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Track.html">Track</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_GetIdentity_" data-uid="ChartTools.Instrument.GetIdentity*"></a>
+
+  <h3 id="ChartTools_Instrument_GetIdentity" data-uid="ChartTools.Instrument.GetIdentity">
+  GetIdentity()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract InstrumentIdentity GetIdentity()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.InstrumentIdentity.html">InstrumentIdentity</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_GetMedium_" data-uid="ChartTools.Instrument.GetMedium*"></a>
+
+  <h3 id="ChartTools_Instrument_GetMedium" data-uid="ChartTools.Instrument.GetMedium">
+  GetMedium()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract Track? GetMedium()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Track.html">Track</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_GetTrack_" data-uid="ChartTools.Instrument.GetTrack*"></a>
+
+  <h3 id="ChartTools_Instrument_GetTrack_ChartTools_Difficulty_" data-uid="ChartTools.Instrument.GetTrack(ChartTools.Difficulty)">
+  GetTrack(Difficulty)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L76"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the track matching a difficulty.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract Track? GetTrack(Difficulty difficulty)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>difficulty</code> <a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Track.html">Track</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_GetTracks_" data-uid="ChartTools.Instrument.GetTracks*"></a>
+
+  <h3 id="ChartTools_Instrument_GetTracks" data-uid="ChartTools.Instrument.GetTracks">
+  GetTracks()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L97"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates an array containing all tracks.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Track?[] GetTracks()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Track.html">Track</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_RemoveTrack_" data-uid="ChartTools.Instrument.RemoveTrack*"></a>
+
+  <h3 id="ChartTools_Instrument_RemoveTrack_ChartTools_Difficulty_" data-uid="ChartTools.Instrument.RemoveTrack(ChartTools.Difficulty)">
+  RemoveTrack(Difficulty)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L92"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes a track.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool RemoveTrack(Difficulty difficulty)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>difficulty</code> <a class="xref" href="ChartTools.Difficulty.html">Difficulty</a></dt>
+    <dd><p>Difficulty of the target track</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_SetDifficulty_" data-uid="ChartTools.Instrument.SetDifficulty*"></a>
+
+  <h3 id="ChartTools_Instrument_SetDifficulty_ChartTools_InstrumentDifficultySet_System_Nullable_System_SByte__" data-uid="ChartTools.Instrument.SetDifficulty(ChartTools.InstrumentDifficultySet,System.Nullable{System.SByte})">
+  SetDifficulty(InstrumentDifficultySet, sbyte?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L54"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the difficulty for an <a class="xref" href="ChartTools.InstrumentIdentity.html">InstrumentIdentity</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetDifficulty(InstrumentDifficultySet difficulties, sbyte? difficulty)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>difficulties</code> <a class="xref" href="ChartTools.InstrumentDifficultySet.html">InstrumentDifficultySet</a></dt>
+    <dd></dd>
+    <dt><code>difficulty</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.sbyte">sbyte</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_ShareLocalEvents_" data-uid="ChartTools.Instrument.ShareLocalEvents*"></a>
+
+  <h3 id="ChartTools_Instrument_ShareLocalEvents_ChartTools_IO_Configuration_TrackObjectSource_" data-uid="ChartTools.Instrument.ShareLocalEvents(ChartTools.IO.Configuration.TrackObjectSource)">
+  ShareLocalEvents(TrackObjectSource)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L108"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gives all tracks the same local events.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LocalEvent[] ShareLocalEvents(TrackObjectSource source)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="ChartTools.IO.Configuration.TrackObjectSource.html">TrackObjectSource</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Events.LocalEvent.html">LocalEvent</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_ShareSpecial_" data-uid="ChartTools.Instrument.ShareSpecial*"></a>
+
+  <h3 id="ChartTools_Instrument_ShareSpecial_ChartTools_IO_Configuration_TrackObjectSource_" data-uid="ChartTools.Instrument.ShareSpecial(ChartTools.IO.Configuration.TrackObjectSource)">
+  ShareSpecial(TrackObjectSource)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L113"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gives all tracks the same special phrases</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SpecialPhrase[] ShareSpecial(TrackObjectSource source)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="ChartTools.IO.Configuration.TrackObjectSource.html">TrackObjectSource</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.SpecialPhrase.html">SpecialPhrase</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Instrument_ToString_" data-uid="ChartTools.Instrument.ToString*"></a>
+
+  <h3 id="ChartTools_Instrument_ToString" data-uid="ChartTools.Instrument.ToString">
+  ToString()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L138"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a string that represents the current object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>A string that represents the current object.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/Instrument.cs/#L12" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

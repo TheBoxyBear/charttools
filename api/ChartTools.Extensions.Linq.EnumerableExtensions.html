@@ -1,0 +1,1181 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class EnumerableExtensions
+ | ChartTools </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class EnumerableExtensions
+ | ChartTools ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TheBoxyBear/charttools/new/stable/apiSpec/new?filename=ChartTools_Extensions_Linq_EnumerableExtensions.md&amp;value=---%0Auid%3A%20ChartTools.Extensions.Linq.EnumerableExtensions%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="ChartTools">
+            ChartTools
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="ChartTools.Extensions.Linq.EnumerableExtensions">
+
+
+
+  <h1 id="ChartTools_Extensions_Linq_EnumerableExtensions" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions" class="text-break">
+    Class EnumerableExtensions
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L6"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="ChartTools.html">ChartTools</a>.<a class="xref" href="ChartTools.Extensions.html">Extensions</a>.<a class="xref" href="ChartTools.Extensions.Linq.html">Linq</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>ChartTools.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class EnumerableExtensions</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">EnumerableExtensions</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_All_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.All*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_All_System_Collections_Generic_IEnumerable_System_Boolean__" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.All(System.Collections.Generic.IEnumerable{System.Boolean})">
+  All(IEnumerable&lt;bool&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Checks that all booleans in a collection are <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool All(this IEnumerable&lt;bool&gt; source)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd><p>Source of booleans</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if all booleans are <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> or the collection is empty</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_AlternateBy_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.AlternateBy*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_AlternateBy__2_System_Collections_Generic_IEnumerable_System_Collections_Generic_IEnumerable___0___System_Func___0___1__" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.AlternateBy``2(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{``0}},System.Func{``0,``1})">
+  AlternateBy&lt;T, TKey&gt;(IEnumerable&lt;IEnumerable&lt;T&gt;&gt;, Func&lt;T, TKey&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L374"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;T&gt; AlternateBy&lt;T, TKey&gt;(this IEnumerable&lt;IEnumerable&lt;T&gt;&gt; source, Func&lt;T, TKey&gt; selector) where TKey : IComparable&lt;TKey&gt;</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;&gt;</dt>
+    <dd></dd>
+    <dt><code>selector</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, TKey&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+    <dt><code>TKey</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_Alternate_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.Alternate*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_Alternate__1_System_Collections_Generic_IEnumerable_System_Collections_Generic_IEnumerable___0___" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.Alternate``1(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{``0}})">
+  Alternate&lt;T&gt;(IEnumerable&lt;IEnumerable&lt;T&gt;&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L373"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;T&gt; Alternate&lt;T&gt;(this IEnumerable&lt;IEnumerable&lt;T&gt;&gt; source)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_Any_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.Any*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_Any_System_Collections_Generic_IEnumerable_System_Boolean__" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.Any(System.Collections.Generic.IEnumerable{System.Boolean})">
+  Any(IEnumerable&lt;bool&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Checks if any boolean in a collection is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool Any(this IEnumerable&lt;bool&gt; source)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd><p>Source of booleans</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_Distinct_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.Distinct*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_Distinct__1_System_Collections_Generic_IEnumerable___0__ChartTools_Extensions_EqualityComparison___0__" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.Distinct``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.EqualityComparison{``0})">
+  Distinct&lt;T&gt;(IEnumerable&lt;T&gt;, EqualityComparison&lt;T?&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L318"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns distinct elements of a sequence using a method to determine the equality of elements</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;T&gt; Distinct&lt;T&gt;(this IEnumerable&lt;T&gt; source, EqualityComparison&lt;T?&gt; comparison)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>comparison</code> <a class="xref" href="ChartTools.Extensions.EqualityComparison-1.html">EqualityComparison</a>&lt;T&gt;</dt>
+    <dd><p>Method that determines if two elements are the same</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_FirstOrDefault_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_FirstOrDefault__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0_System_Boolean__" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0,System.Boolean@)">
+  FirstOrDefault&lt;T&gt;(IEnumerable&lt;T&gt;, Predicate&lt;T&gt;, T?, out bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the first element of the sequence that satisfies a condition or a default value if no such element is found.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static T? FirstOrDefault&lt;T&gt;(this IEnumerable&lt;T&gt; source, Predicate&lt;T&gt; predicate, T? defaultValue, out bool returnedDefault)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd><p>An <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable&lt;T&gt;</a> to return an element from.</p>
+</dd>
+    <dt><code>predicate</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.predicate-1">Predicate</a>&lt;T&gt;</dt>
+    <dd><p>A function to test each element for a condition.</p>
+</dd>
+    <dt><code>defaultValue</code> <span class="xref">T</span></dt>
+    <dd></dd>
+    <dt><code>returnedDefault</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if no items meeting the condition were found</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T</span></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/default">default</a>(<code class="paramref">TSource</code>) if <code class="paramref">source</code> is empty or if no element passes the test specified by <code class="paramref">predicate</code>; otherwise, the first element in <code class="paramref">source</code> that passes the test specified by <code class="paramref">predicate</code>.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">source</code> or <code class="paramref">predicate</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_ManyMaxBy_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.ManyMaxBy*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_ManyMaxBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.ManyMaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+  ManyMaxBy&lt;T, TKey&gt;(IEnumerable&lt;T&gt;, Func&lt;T, TKey&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L363"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Finds the items for which a function returns the greatest value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;T&gt; ManyMaxBy&lt;T, TKey&gt;(this IEnumerable&lt;T&gt; source, Func&lt;T, TKey&gt; selector) where TKey : IComparable&lt;TKey&gt;</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd><p>Items to find the minimum or maximum of</p>
+</dd>
+    <dt><code>selector</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, TKey&gt;</dt>
+    <dd><p>Function that gets the key to use in the comparison from an item</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+    <dt><code>TKey</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_ManyMinBy_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinBy*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_ManyMinBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.ManyMinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+  ManyMinBy&lt;T, TKey&gt;(IEnumerable&lt;T&gt;, Func&lt;T, TKey&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L357"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Finds the items for which a function returns the smallest value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;T&gt; ManyMinBy&lt;T, TKey&gt;(this IEnumerable&lt;T&gt; source, Func&lt;T, TKey&gt; selector) where TKey : IComparable&lt;TKey&gt;</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd><p>Items to find the minimum or maximum of</p>
+</dd>
+    <dt><code>selector</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, TKey&gt;</dt>
+    <dd><p>Function that gets the key to use in the comparison from an item</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+    <dt><code>TKey</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_NonNull_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.NonNull*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_NonNull__1_System_Collections_Generic_IEnumerable_System_Nullable___0___" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.NonNull``1(System.Collections.Generic.IEnumerable{System.Nullable{``0}})">
+  NonNull&lt;T&gt;(IEnumerable&lt;T?&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;T&gt; NonNull&lt;T&gt;(this IEnumerable&lt;T?&gt; source) where T : struct</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T?&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_NonNull_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.NonNull*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_NonNull__1_System_Collections_Generic_IEnumerable___0__" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.NonNull``1(System.Collections.Generic.IEnumerable{``0})">
+  NonNull&lt;T&gt;(IEnumerable&lt;T?&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L100"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Excludes <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;T&gt; NonNull&lt;T&gt;(this IEnumerable&lt;T?&gt; source)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoopSkipFirst_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoopSkipFirst*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoopSkipFirst__1_System_Collections_Generic_IEnumerable___0__" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoopSkipFirst``1(System.Collections.Generic.IEnumerable{``0})">
+  RelativeLoopSkipFirst&lt;T&gt;(IEnumerable&lt;T&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L300"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;(T previous, T current)&gt; RelativeLoopSkipFirst&lt;T&gt;(this IEnumerable&lt;T&gt; source)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;(T <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple---0,--0-.previous">previous</a>, T <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple---0,--0-.current">current</a>)&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoop_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoop*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoop__1_System_Collections_Generic_IEnumerable___0____0_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.RelativeLoop``1(System.Collections.Generic.IEnumerable{``0},``0)">
+  RelativeLoop&lt;T&gt;(IEnumerable&lt;T&gt;, T?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L290"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Loops through a set of objects and returns a set of tuples containing the current object and the previous one.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;(T? previous, T current)&gt; RelativeLoop&lt;T&gt;(this IEnumerable&lt;T&gt; source, T? firstPrevious = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd><p>Items to loop through</p>
+</dd>
+    <dt><code>firstPrevious</code> <span class="xref">T</span></dt>
+    <dd><p>Value of the previous item in the first call of the action</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;(T <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple---0,--0-.previous">previous</a>, T <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple---0,--0-.current">current</a>)&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_RemoveSection_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.RemoveSection*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_RemoveSection__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0__System_Predicate___0__" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.RemoveSection``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},System.Predicate{``0})">
+  RemoveSection&lt;T&gt;(IEnumerable&lt;T&gt;, Predicate&lt;T&gt;, Predicate&lt;T&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L260"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes a section of items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;T&gt; RemoveSection&lt;T&gt;(this IEnumerable&lt;T&gt; source, Predicate&lt;T&gt; startRemove, Predicate&lt;T&gt; endRemove)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd><p>Source items to remove a section of</p>
+</dd>
+    <dt><code>startRemove</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.predicate-1">Predicate</a>&lt;T&gt;</dt>
+    <dd><p>Function that determines the start of the section to replace</p>
+</dd>
+    <dt><code>endRemove</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.predicate-1">Predicate</a>&lt;T&gt;</dt>
+    <dd><p>Function that determines the end of the section to replace</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+  <h4 class="section" id="ChartTools_Extensions_Linq_EnumerableExtensions_RemoveSection__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0__System_Predicate___0___remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Items that match startRemove or endRemove</p>
+</div>
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSection_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSection*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSection__1_System_Collections_Generic_IEnumerable___0__ChartTools_Extensions_Linq_SectionReplacement___0__" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSection``1(System.Collections.Generic.IEnumerable{``0},ChartTools.Extensions.Linq.SectionReplacement{``0})">
+  ReplaceSection&lt;T&gt;(IEnumerable&lt;T&gt;, SectionReplacement&lt;T&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L129"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Replaces a section with other items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;T&gt; ReplaceSection&lt;T&gt;(this IEnumerable&lt;T&gt; source, SectionReplacement&lt;T&gt; replacement)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd><p>Items to replace a section in</p>
+</dd>
+    <dt><code>replacement</code> <a class="xref" href="ChartTools.Extensions.Linq.SectionReplacement-1.html">SectionReplacement</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+  <h4 class="section" id="ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSection__1_System_Collections_Generic_IEnumerable___0__ChartTools_Extensions_Linq_SectionReplacement___0___remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Items that match startReplace or endReplace are not included in the returned items.</p>
+</div>
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSections_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSections*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSections__1_System_Collections_Generic_IEnumerable___0__System_Collections_Generic_IEnumerable_ChartTools_Extensions_Linq_SectionReplacement___0___" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.ReplaceSections``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{ChartTools.Extensions.Linq.SectionReplacement{``0}})">
+  ReplaceSections&lt;T&gt;(IEnumerable&lt;T&gt;, IEnumerable&lt;SectionReplacement&lt;T&gt;&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L184"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Replaces multiple sections of items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;T&gt; ReplaceSections&lt;T&gt;(this IEnumerable&lt;T&gt; source, IEnumerable&lt;SectionReplacement&lt;T&gt;&gt; replacements)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd><p>Items to replace sections in</p>
+</dd>
+    <dt><code>replacements</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="ChartTools.Extensions.Linq.SectionReplacement-1.html">SectionReplacement</a>&lt;T&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+  <h4 class="section" id="ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSections__1_System_Collections_Generic_IEnumerable___0__System_Collections_Generic_IEnumerable_ChartTools_Extensions_Linq_SectionReplacement___0____remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Items that match startReplace or endReplace are not included in the returned items.</p>
+</div>
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_Replace_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.Replace*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_Replace__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.Replace``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0)">
+  Replace&lt;T&gt;(IEnumerable&lt;T&gt;, Predicate&lt;T&gt;, T)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L115"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Replaces items that meet a condition with another item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;T&gt; Replace&lt;T&gt;(this IEnumerable&lt;T&gt; source, Predicate&lt;T&gt; predicate, T replacement)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd><p>The IEnumerable&lt;out T&gt; to replace the items of</p>
+</dd>
+    <dt><code>predicate</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.predicate-1">Predicate</a>&lt;T&gt;</dt>
+    <dd><p>A function that determines if an item must be replaced</p>
+</dd>
+    <dt><code>replacement</code> <span class="xref">T</span></dt>
+    <dd><p>The item to replace items with</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_ToAsyncEnumerable_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.ToAsyncEnumerable*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_ToAsyncEnumerable__1_System_Collections_Generic_IEnumerable___0__" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.ToAsyncEnumerable``1(System.Collections.Generic.IEnumerable{``0})">
+  ToAsyncEnumerable&lt;T&gt;(IEnumerable&lt;T&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L366"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IAsyncEnumerable&lt;T&gt; ToAsyncEnumerable&lt;T&gt;(this IEnumerable&lt;T&gt; source)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirstOfType_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirstOfType*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirstOfType__1_System_Collections_IEnumerable___0__" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirstOfType``1(System.Collections.IEnumerable,``0@)">
+  TryGetFirstOfType&lt;TResult&gt;(IEnumerable, out TResult)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L94"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tries to get the first item of a given type in a collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryGetFirstOfType&lt;TResult&gt;(this IEnumerable source, out TResult result)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></dt>
+    <dd><p>Source of items</p>
+</dd>
+    <dt><code>result</code> <span class="xref">TResult</span></dt>
+    <dd><p>Found item</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if an item was found</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TResult</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0__" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},``0@)">
+  TryGetFirst&lt;T&gt;(IEnumerable&lt;T&gt;, Predicate&lt;T&gt;, out T)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L59"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tries to get the first item that meet a condition from en enumerable.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryGetFirst&lt;T&gt;(this IEnumerable&lt;T&gt; source, Predicate&lt;T&gt; predicate, out T item)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>predicate</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.predicate-1">Predicate</a>&lt;T&gt;</dt>
+    <dd><p>Method that returns <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if a given item meets the condition</p>
+</dd>
+    <dt><code>item</code> <span class="xref">T</span></dt>
+    <dd><p>Found item</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if an item was found</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst__1_System_Collections_Generic_IEnumerable___0____0__" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.TryGetFirst``1(System.Collections.Generic.IEnumerable{``0},``0@)">
+  TryGetFirst&lt;T&gt;(IEnumerable&lt;T&gt;, out T)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L80"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tries to get the first element of a collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryGetFirst&lt;T&gt;(this IEnumerable&lt;T&gt; source, out T result)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd><p>Source of items</p>
+</dd>
+    <dt><code>result</code> <span class="xref">T</span></dt>
+    <dd><p>Found item</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if an item was found</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_UniqueBy_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.UniqueBy*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_UniqueBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.UniqueBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+  UniqueBy&lt;T, TKey&gt;(IEnumerable&lt;T&gt;, Func&lt;T, TKey&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L320"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool UniqueBy&lt;T, TKey&gt;(this IEnumerable&lt;T&gt; source, Func&lt;T, TKey&gt; selector)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+    <dt><code>selector</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, TKey&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+    <dt><code>TKey</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_Extensions_Linq_EnumerableExtensions_Unique_" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.Unique*"></a>
+
+  <h3 id="ChartTools_Extensions_Linq_EnumerableExtensions_Unique__1_System_Collections_Generic_IEnumerable___0__" data-uid="ChartTools.Extensions.Linq.EnumerableExtensions.Unique``1(System.Collections.Generic.IEnumerable{``0})">
+  Unique&lt;T&gt;(IEnumerable&lt;T&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L319"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool Unique&lt;T&gt;(this IEnumerable&lt;T&gt; source)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Extensions/Linq/EnumerableExtensions.cs/#L6" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Lyrics | ChartTools </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Lyrics | ChartTools ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TheBoxyBear/charttools/blob/stable/Docs/articles/lyrics.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="ChartTools">
+            ChartTools
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="lyrics">Lyrics</h1>
+
+<p>Lyrics of a song are defined by the <a href="../api/ChartTools.Vocals.html">Vocals</a> instrument in which chords are <a href="../api/ChartTools.Lyrics.Phrase.html">phrases</a> and notes as <a href="../api/ChartTools.Lyrics.Syllable.html">syllables</a>. Unlike with lane chords which are defined by notes at the same position, syllables in phrases are consecutive and arbitrarily grouped into phrases. Lyric classes are defined under the <a href="../api/ChartTools.Lyrics.html">ChartTools.Lyrics</a> namespace.</p>
+<p>Although Clone Hero does not support vocals as an instrument and typically stores lyric data as global events, the <a href="../api/ChartTools.Lyrics.html">ChartTools.Lyrics</a> namespace provides a more rigorous API for editing lyrics. ChartTools also provides methods to convert between global events and vocals. Clone Hero also uses vocals to read lyrics from legacy songs.</p>
+<h2 id="syllables">Syllables</h2>
+<p><a href="../api/ChartTools.Lyrics.Syllable.html">Syllables</a> define a start and end position in the form of offsets from the start position of the parent phrase. This allows for phrases to be moved by changing their position without having to update the position of each syllable.</p>
+<p>The note index of syllables represents a vocal pitch from the range C2 to C6 using the <a href="../api/ChartTools.Lyrics.VocalPitchValue.html">VocalPitchValue</a>, stored under the <a href="../api/ChartTools.Lyrics.VocalsPitch.html">VocalPitch</a> helper struct. The enum uses a binary representation to isolate keys and octaves while staying true to music theory with comparing values.</p>
+<p>The following code creates a syllable with the pitch of D3.</p>
+<pre><code class="lang-csharp">Phrase phrase = song.Instruments.Vocals.Expect.Phrases;
+
+phrase.Syllables.Add(new Syllable(0, new VocalsPitch(3 &lt;&lt; 4 | VocalsPitch.D));
+</code></pre>
+<p><a href="../api/ChartTools.Vocals.html">Vocals</a> also store lyric text to appear in-game. The text for each phrase is divided between the syllables to define the timings of the karaoke system. Clone Hero defines special characters such as dashes for multi-syllable words that don't appear in-game. The raw text with special characters can be access through the <a href="../api/ChartTools.Lyrics.Syllable.html#ChartTools_Lyrics_Syllable_RawText">RawText</a> property while <a href="../api/ChartTools.Lyrics.Syllable.html#ChartTools_Lyrics_Syllable_DisplayedText">DisplayedText</a> processes the special characters and returns the syllable text as it appears in-game.</p>
+<blockquote>
+<p><strong>NOTE</strong>: Clone Hero also supports color data in the text. This is currently not supported in ChartTools and special characters related to color data will appear as part of <a href="../api/ChartTools.Lyrics.Syllable.html#ChartTools_Lyrics_Syllable_DisplayedText">DisplayedText</a>.</p>
+</blockquote>
+<h2 id="phrases">Phrases</h2>
+<p>Unlike other chords, <a href="../api/ChartTools.Lyrics.Phrase.html">phrases</a> define a length and end position in addition to a start position. The end position is driven by the end of the last syllable but can be replaced by setting the <a href="../api/ChartTools.Lyrics.Phrase.html#ChartTools_Lyrics_Phrase_LengthOverride">LengthOverride</a> property. Phrases also define <a href="../api/ChartTools.Lyrics.Phrase.html#ChartTools_Lyrics_Phrase_RawText">RawText</a> and <a href="../api/ChartTools.Lyrics.Phrase.html#ChartTools_Lyrics_Phrase_DisplayedText">DisplayedText</a> properties which combine the text from their syllables.</p>
+<h2 id="reading-and-writing-vocals">Reading and writing vocals</h2>
+<p>Chart files define lyrics through global events that can be converted to a set of phrases. When reading a full song from a chart file, the vocals instrument will be null. To benefit of the more advanced lyrics API, a dummy set of phrases instrument can be generated using the <a href="../api/ChartTools.Events.EventExtensions.html#ChartTools_Events_EventExtensions_GetLyrics_System_Collections_Generic_IEnumerable_ChartTools_Events_GlobalEvent__">GetLyrics</a> extension method.</p>
+<pre><code class="lang-csharp">using ChartTools.Lyrics;
+
+IEnumerable&lt;Phrase&gt; lyrics = song.GlobalEvents.GetLyrics();
+</code></pre>
+<p>To be written to a chart file, lyrics must be converted back into global events.</p>
+<pre><code class="lang-csharp">using ChartTools.Lyrics;
+
+lyrics.ToGlobalEvents(); // Creates a new set of global events
+events.SetLyrics(lyrics); // Replaces existing lyric-related events with new events making up the phrases
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TheBoxyBear/charttools/blob/stable/Docs/articles/lyrics.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

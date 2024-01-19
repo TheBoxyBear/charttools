@@ -1,0 +1,782 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class InstrumentSet
+ | ChartTools </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class InstrumentSet
+ | ChartTools ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/TheBoxyBear/charttools/new/stable/apiSpec/new?filename=ChartTools_InstrumentSet.md&amp;value=---%0Auid%3A%20ChartTools.InstrumentSet%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="ChartTools">
+            ChartTools
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="ChartTools.InstrumentSet">
+
+
+
+  <h1 id="ChartTools_InstrumentSet" data-uid="ChartTools.InstrumentSet" class="text-break">
+    Class InstrumentSet
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/InstrumentSet.cs/#L10"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="ChartTools.html">ChartTools</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>ChartTools.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Set of all instruments</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class InstrumentSet : IEnumerable&lt;Instrument&gt;, IEnumerable</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">InstrumentSet</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="ChartTools.Instrument.html">Instrument</a>&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="ChartTools.Tools.PropertyMerger.html#ChartTools_Tools_PropertyMerger_Merge__1___0_System_Boolean_System_Boolean___0___">PropertyMerger.Merge&lt;T&gt;(T, bool, bool, params T[])</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Distinct__1_System_Collections_Generic_IEnumerable___0__ChartTools_Extensions_EqualityComparison___0__">EnumerableExtensions.Distinct&lt;T&gt;(IEnumerable&lt;T&gt;, EqualityComparison&lt;T?&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_FirstOrDefault__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0_System_Boolean__">EnumerableExtensions.FirstOrDefault&lt;T&gt;(IEnumerable&lt;T&gt;, Predicate&lt;T&gt;, T?, out bool)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ManyMaxBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__">EnumerableExtensions.ManyMaxBy&lt;T, TKey&gt;(IEnumerable&lt;T&gt;, Func&lt;T, TKey&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ManyMinBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__">EnumerableExtensions.ManyMinBy&lt;T, TKey&gt;(IEnumerable&lt;T&gt;, Func&lt;T, TKey&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_NonNull__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.NonNull&lt;T&gt;(IEnumerable&lt;T?&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoopSkipFirst__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.RelativeLoopSkipFirst&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RelativeLoop__1_System_Collections_Generic_IEnumerable___0____0_">EnumerableExtensions.RelativeLoop&lt;T&gt;(IEnumerable&lt;T&gt;, T?)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_RemoveSection__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0__System_Predicate___0__">EnumerableExtensions.RemoveSection&lt;T&gt;(IEnumerable&lt;T&gt;, Predicate&lt;T&gt;, Predicate&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSection__1_System_Collections_Generic_IEnumerable___0__ChartTools_Extensions_Linq_SectionReplacement___0__">EnumerableExtensions.ReplaceSection&lt;T&gt;(IEnumerable&lt;T&gt;, SectionReplacement&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ReplaceSections__1_System_Collections_Generic_IEnumerable___0__System_Collections_Generic_IEnumerable_ChartTools_Extensions_Linq_SectionReplacement___0___">EnumerableExtensions.ReplaceSections&lt;T&gt;(IEnumerable&lt;T&gt;, IEnumerable&lt;SectionReplacement&lt;T&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Replace__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0_">EnumerableExtensions.Replace&lt;T&gt;(IEnumerable&lt;T&gt;, Predicate&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_ToAsyncEnumerable__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.ToAsyncEnumerable&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst__1_System_Collections_Generic_IEnumerable___0____0__">EnumerableExtensions.TryGetFirst&lt;T&gt;(IEnumerable&lt;T&gt;, out T)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirst__1_System_Collections_Generic_IEnumerable___0__System_Predicate___0____0__">EnumerableExtensions.TryGetFirst&lt;T&gt;(IEnumerable&lt;T&gt;, Predicate&lt;T&gt;, out T)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_UniqueBy__2_System_Collections_Generic_IEnumerable___0__System_Func___0___1__">EnumerableExtensions.UniqueBy&lt;T, TKey&gt;(IEnumerable&lt;T&gt;, Func&lt;T, TKey&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_Unique__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.Unique&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="ChartTools.Extensions.Linq.EnumerableExtensions.html#ChartTools_Extensions_Linq_EnumerableExtensions_TryGetFirstOfType__1_System_Collections_IEnumerable___0__">EnumerableExtensions.TryGetFirstOfType&lt;TResult&gt;(IEnumerable, out TResult)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="ChartTools_InstrumentSet_Bass_" data-uid="ChartTools.InstrumentSet.Bass*"></a>
+
+  <h3 id="ChartTools_InstrumentSet_Bass" data-uid="ChartTools.InstrumentSet.Bass">
+  Bass
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/InstrumentSet.cs/#L64"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Set of bass tracks</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StandardInstrument? Bass { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.StandardInstrument.html">StandardInstrument</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_InstrumentSet_CoopGuitar_" data-uid="ChartTools.InstrumentSet.CoopGuitar*"></a>
+
+  <h3 id="ChartTools_InstrumentSet_CoopGuitar" data-uid="ChartTools.InstrumentSet.CoopGuitar">
+  CoopGuitar
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/InstrumentSet.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Set of coop guitar tracks</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StandardInstrument? CoopGuitar { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.StandardInstrument.html">StandardInstrument</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_InstrumentSet_Drums_" data-uid="ChartTools.InstrumentSet.Drums*"></a>
+
+  <h3 id="ChartTools_InstrumentSet_Drums" data-uid="ChartTools.InstrumentSet.Drums">
+  Drums
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/InstrumentSet.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Set of drums tracks</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Drums? Drums { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Drums.html">Drums</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_InstrumentSet_GHLBass_" data-uid="ChartTools.InstrumentSet.GHLBass*"></a>
+
+  <h3 id="ChartTools_InstrumentSet_GHLBass" data-uid="ChartTools.InstrumentSet.GHLBass">
+  GHLBass
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/InstrumentSet.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Set of Guitar Hero Live bass tracks</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GHLInstrument? GHLBass { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.GHLInstrument.html">GHLInstrument</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_InstrumentSet_GHLGuitar_" data-uid="ChartTools.InstrumentSet.GHLGuitar*"></a>
+
+  <h3 id="ChartTools_InstrumentSet_GHLGuitar" data-uid="ChartTools.InstrumentSet.GHLGuitar">
+  GHLGuitar
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/InstrumentSet.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Set of Guitar Hero Live guitar tracks</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GHLInstrument? GHLGuitar { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.GHLInstrument.html">GHLInstrument</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_InstrumentSet_Keys_" data-uid="ChartTools.InstrumentSet.Keys*"></a>
+
+  <h3 id="ChartTools_InstrumentSet_Keys" data-uid="ChartTools.InstrumentSet.Keys">
+  Keys
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/InstrumentSet.cs/#L73"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Set of keyboard tracks</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StandardInstrument? Keys { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.StandardInstrument.html">StandardInstrument</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_InstrumentSet_LeadGuitar_" data-uid="ChartTools.InstrumentSet.LeadGuitar*"></a>
+
+  <h3 id="ChartTools_InstrumentSet_LeadGuitar" data-uid="ChartTools.InstrumentSet.LeadGuitar">
+  LeadGuitar
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/InstrumentSet.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Set of lead guitar tracks</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StandardInstrument? LeadGuitar { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.StandardInstrument.html">StandardInstrument</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_InstrumentSet_RhythmGuitar_" data-uid="ChartTools.InstrumentSet.RhythmGuitar*"></a>
+
+  <h3 id="ChartTools_InstrumentSet_RhythmGuitar" data-uid="ChartTools.InstrumentSet.RhythmGuitar">
+  RhythmGuitar
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/InstrumentSet.cs/#L46"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Set of rhythm guitar tracks</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StandardInstrument? RhythmGuitar { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.StandardInstrument.html">StandardInstrument</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ChartTools_InstrumentSet_Vocals_" data-uid="ChartTools.InstrumentSet.Vocals*"></a>
+
+  <h3 id="ChartTools_InstrumentSet_Vocals" data-uid="ChartTools.InstrumentSet.Vocals">
+  Vocals
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/InstrumentSet.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vocals? Vocals { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Vocals.html">Vocals</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="ChartTools_InstrumentSet_Existing_" data-uid="ChartTools.InstrumentSet.Existing*"></a>
+
+  <h3 id="ChartTools_InstrumentSet_Existing" data-uid="ChartTools.InstrumentSet.Existing">
+  Existing()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/InstrumentSet.cs/#L120"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;Instrument&gt; Existing()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="ChartTools.Instrument.html">Instrument</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_InstrumentSet_Get_" data-uid="ChartTools.InstrumentSet.Get*"></a>
+
+  <h3 id="ChartTools_InstrumentSet_Get_ChartTools_GHLInstrumentIdentity_" data-uid="ChartTools.InstrumentSet.Get(ChartTools.GHLInstrumentIdentity)">
+  Get(GHLInstrumentIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/InstrumentSet.cs/#L104"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets property value for an <a class="xref" href="ChartTools.Instrument-1.html">Instrument&lt;TChord&gt;</a> from a <a class="xref" href="ChartTools.GHLInstrumentIdentity.html">GHLInstrumentIdentity</a> <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/enum">enum</a> value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GHLInstrument? Get(GHLInstrumentIdentity instrument)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>instrument</code> <a class="xref" href="ChartTools.GHLInstrumentIdentity.html">GHLInstrumentIdentity</a></dt>
+    <dd><p>Instrument to get</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.GHLInstrument.html">GHLInstrument</a></dt>
+    <dd><p>Instance of <a class="xref" href="ChartTools.Instrument-1.html">Instrument&lt;TChord&gt;</a> where TChord is <a class="xref" href="ChartTools.GHLChord.html">GHLChord</a> from the <a class="xref" href="ChartTools.Song.html">Song</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_InstrumentSet_Get_" data-uid="ChartTools.InstrumentSet.Get*"></a>
+
+  <h3 id="ChartTools_InstrumentSet_Get_ChartTools_InstrumentIdentity_" data-uid="ChartTools.InstrumentSet.Get(ChartTools.InstrumentIdentity)">
+  Get(InstrumentIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/InstrumentSet.cs/#L86"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets property value for an <a class="xref" href="ChartTools.Instrument.html">Instrument</a> from a <a class="xref" href="ChartTools.InstrumentIdentity.html">InstrumentIdentity</a> <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/enum">enum</a> value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Instrument? Get(InstrumentIdentity instrument)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>instrument</code> <a class="xref" href="ChartTools.InstrumentIdentity.html">InstrumentIdentity</a></dt>
+    <dd><p>Instrument to get</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.Instrument.html">Instrument</a></dt>
+    <dd><p>Instance of <a class="xref" href="ChartTools.Instrument.html">Instrument</a> from the <a class="xref" href="ChartTools.Song.html">Song</a></p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_InstrumentSet_Get_" data-uid="ChartTools.InstrumentSet.Get*"></a>
+
+  <h3 id="ChartTools_InstrumentSet_Get_ChartTools_StandardInstrumentIdentity_" data-uid="ChartTools.InstrumentSet.Get(ChartTools.StandardInstrumentIdentity)">
+  Get(StandardInstrumentIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/InstrumentSet.cs/#L114"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets property value for an <a class="xref" href="ChartTools.Instrument-1.html">Instrument&lt;TChord&gt;</a> from a <a class="xref" href="ChartTools.StandardInstrumentIdentity.html">StandardInstrumentIdentity</a> <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/enum">enum</a> value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StandardInstrument? Get(StandardInstrumentIdentity instrument)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>instrument</code> <a class="xref" href="ChartTools.StandardInstrumentIdentity.html">StandardInstrumentIdentity</a></dt>
+    <dd><p>Instrument to get</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ChartTools.StandardInstrument.html">StandardInstrument</a></dt>
+    <dd><p>Instance of <a class="xref" href="ChartTools.Instrument-1.html">Instrument&lt;TChord&gt;</a> where TChord is <a class="xref" href="ChartTools.StandardChord.html">StandardChord</a> from the <a class="xref" href="ChartTools.Song.html">Song</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_InstrumentSet_GetEnumerator_" data-uid="ChartTools.InstrumentSet.GetEnumerator*"></a>
+
+  <h3 id="ChartTools_InstrumentSet_GetEnumerator" data-uid="ChartTools.InstrumentSet.GetEnumerator">
+  GetEnumerator()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/InstrumentSet.cs/#L160"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns an enumerator that iterates through the collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerator&lt;Instrument&gt; GetEnumerator()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1">IEnumerator</a>&lt;<a class="xref" href="ChartTools.Instrument.html">Instrument</a>&gt;</dt>
+    <dd><p>An enumerator that can be used to iterate through the collection.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_InstrumentSet_Set_" data-uid="ChartTools.InstrumentSet.Set*"></a>
+
+  <h3 id="ChartTools_InstrumentSet_Set_ChartTools_GHLInstrument_" data-uid="ChartTools.InstrumentSet.Set(ChartTools.GHLInstrument)">
+  Set(GHLInstrument)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/InstrumentSet.cs/#L145"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Set(GHLInstrument instrument)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>instrument</code> <a class="xref" href="ChartTools.GHLInstrument.html">GHLInstrument</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ChartTools_InstrumentSet_Set_" data-uid="ChartTools.InstrumentSet.Set*"></a>
+
+  <h3 id="ChartTools_InstrumentSet_Set_ChartTools_StandardInstrument_" data-uid="ChartTools.InstrumentSet.Set(ChartTools.StandardInstrument)">
+  Set(StandardInstrument)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/InstrumentSet.cs/#L122"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Set(StandardInstrument instrument)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>instrument</code> <a class="xref" href="ChartTools.StandardInstrument.html">StandardInstrument</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/TheBoxyBear/charttools/blob/stable/ChartTools/Instruments/InstrumentSet.cs/#L10" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
