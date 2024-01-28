@@ -8,20 +8,13 @@ internal abstract class TextFileReader(TextReader reader, Func<string, TextParse
     public TextReader Reader { get; } = reader;
     public virtual bool DefinedSectionEnd { get; } = false;
 
-    protected TextFileReader(TextReader reader, Func<string, TextParser?> parserGetter, bool ownedReader) : this(reader, parserGetter)
-    {
-        if (ownedReader)
-            ownedResources.Add(reader);
-    }
+    public TextFileReader(Stream stream, Func<string, TextParser?> parserGetter) : this(new StreamReader(stream), parserGetter) { }
 
-    public TextFileReader(Stream stream, Func<string, TextParser?> parserGetter) : this(new StreamReader(stream), parserGetter, true) { }
-    protected TextFileReader(Stream stream, Func<string, TextParser?> parserGetter, bool ownedStream) : this(stream, parserGetter)
+    public TextFileReader(string path, Func<string, TextParser?> parserGetter) : this(new FileStream(path, FileMode.Open), parserGetter)
     {
-        if (ownedStream)
-            ownedResources.Add(stream);
+        // Disposing of the reader will dispose the underlying stream
+        ownedResources.Add(Reader);
     }
-
-    public TextFileReader(string path, Func<string, TextParser?> parserGetter) : this(new FileStream(path, FileMode.Open), parserGetter, true) { }
 
     protected override void ReadBase(bool async, CancellationToken cancellationToken)
     {
