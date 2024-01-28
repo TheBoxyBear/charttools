@@ -10,23 +10,18 @@ internal abstract class TextFileReader(TextReader reader, Func<string, TextParse
 
     public TextFileReader(Stream stream, Func<string, TextParser?> parserGetter) : this(new StreamReader(stream), parserGetter) { }
 
-    public TextFileReader(string path, Func<string, TextParser?> parserGetter) : this(new FileStream(path, FileMode.Open), parserGetter)
-    {
-        // Disposing of the reader will dispose the underlying stream
-        ownedResources.Add(Reader);
-    }
+    public TextFileReader(string path, Func<string, TextParser?> parserGetter) : this(new FileStream(path, FileMode.Open), parserGetter) => ownedResources.Add(Reader);
 
     protected override void ReadBase(bool async, CancellationToken cancellationToken)
     {
         ParserContentGroup? currentGroup = null;
+        string line = string.Empty;
 
-        using var enumerator = File.ReadLines(Path).Where(s => !string.IsNullOrEmpty(s)).Select(s => s.Trim()).GetEnumerator();
-
-        while (enumerator.MoveNext())
+        while (ReadLine())
         {
             // Find part
-            while (!enumerator.Current.StartsWith('['))
-                if (enumerator.MoveNext())
+            while (!line.StartsWith('['))
+                if (!ReadLine())
                     return;
 
             if (async && cancellationToken.IsCancellationRequested)
@@ -35,7 +30,7 @@ internal abstract class TextFileReader(TextReader reader, Func<string, TextParse
                 return;
             }
 
-            var header = enumerator.Current;
+            var header = line;
             var parser = parserGetter(header);
 
             if (parser is not null)
@@ -63,14 +58,14 @@ internal abstract class TextFileReader(TextReader reader, Func<string, TextParse
                     Finish();
                     return;
                 }
-            while (!IsSectionStart(enumerator.Current));
+            while (!IsSectionStart(line));
 
             AdvanceSection();
 
             // Read until end
-            while (!IsSectionEnd(enumerator.Current))
+            while (!IsSectionEnd(line))
             {
-                currentGroup?.Source.Add(enumerator.Current);
+                currentGroup?.Source.Add(line);
 
                 if (!AdvanceSection())
                 {
@@ -92,7 +87,20 @@ internal abstract class TextFileReader(TextReader reader, Func<string, TextParse
                 currentGroup?.Source.EndAwait();
             }
 
-            bool AdvanceSection() => enumerator.MoveNext() || (DefinedSectionEnd ? throw SectionException.EarlyEnd(header) : false);
+            bool AdvanceSection() => ReadLine() || (DefinedSectionEnd ? throw SectionException.EarlyEnd(header) : false);
+        }
+
+        bool ReadLine()
+        {
+            string? newLine;
+
+            while ((newLine = Reader.ReadLine()) == string.Empty) ;
+
+            if (newLine is null)
+                return false;
+
+            line = newLine.Trim();
+            return true;
         }
     }
 
