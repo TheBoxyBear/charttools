@@ -5,12 +5,17 @@ namespace ChartTools.IO;
 
 internal abstract class TextFileReader(TextReader reader, Func<string, TextParser?> parserGetter) : FileReader<string, TextParser>(parserGetter)
 {
+    public override string? Path { get; }
     public TextReader Reader { get; } = reader;
     public virtual bool DefinedSectionEnd { get; } = false;
 
     public TextFileReader(Stream stream, Func<string, TextParser?> parserGetter) : this(new StreamReader(stream), parserGetter) { }
 
-    public TextFileReader(string path, Func<string, TextParser?> parserGetter) : this(new FileStream(path, FileMode.Open), parserGetter) => ownedResources.Add(Reader);
+    public TextFileReader(string path, Func<string, TextParser?> parserGetter) : this(new FileStream(path, FileMode.Open, FileAccess.Read), parserGetter)
+    {
+        Path = path;
+        ownedResources.Add(Reader);
+    }
 
     protected override void ReadBase(bool async, CancellationToken cancellationToken)
     {

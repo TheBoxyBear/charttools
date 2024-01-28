@@ -4,10 +4,11 @@ namespace ChartTools.IO;
 
 internal abstract class FileReader<T> : IDisposable
 {
+    public virtual string? Path => null;
     public bool IsReading { get; protected set; }
     public abstract IEnumerable<FileParser<T>> Parsers { get; }
 
-    protected List<IDisposable> ownedResources = [];
+    protected readonly List<IDisposable> ownedResources = [];
 
     public abstract void Read();
     public abstract Task ReadAsync(CancellationToken cancellationToken);

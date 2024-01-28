@@ -3,21 +3,25 @@ using ChartTools.Internal.Collections;
 
 namespace ChartTools.IO;
 
-internal abstract class TextFileWriter
+internal abstract class TextFileWriter(TextWriter writer, IEnumerable<string>? removedHeaders, params Serializer<string>[] serializers) : IDisposable
 {
-    public string Path { get; }
+    public string? Path { get; }
+    public TextWriter Writer { get; } = writer;
     protected virtual string? PreSerializerContent => null;
     protected virtual string? PostSerializerContent => null;
 
-    private readonly List<Serializer<string>> serializers;
-    private readonly string tempPath = System.IO.Path.GetTempFileName();
-    private readonly IEnumerable<string>? removedHeaders;
+    private readonly List<Serializer<string>> serializers = [..serializers];
+    private readonly string tempPath = string.Empty;
+    private readonly IEnumerable<string>? removedHeaders = removedHeaders;
+    private readonly bool ownedWriter = false;
 
-    public TextFileWriter(string path, IEnumerable<string>? removedHeaders, params Serializer<string>[] serializers)
+    public TextFileWriter(Stream stream, IEnumerable<string>? removedHeaders, params Serializer<string>[] serializers) : this(new StreamWriter(stream), removedHeaders, serializers) { }
+
+    public TextFileWriter(string path, IEnumerable<string>? removedHeaders, params Serializer<string>[] serializers) : this(new FileStream(System.IO.Path.GetTempFileName(), FileMode.OpenOrCreate, FileAccess.Write), removedHeaders, serializers)
     {
         Path = path;
-        this.serializers = serializers.ToList();
-        this.removedHeaders = removedHeaders;
+        ownedWriter = true;
+        tempPath = ((Writer as StreamWriter)!.BaseStream as FileStream)!.Name;
     }
 
     private IEnumerable<SectionReplacement<string>> AddRemoveReplacements(IEnumerable<SectionReplacement<string>> replacements) => removedHeaders is null ? replacements : replacements.Concat(removedHeaders.Select(header => new SectionReplacement<string>(Enumerable.Empty<string>(), line => line == header, EndReplace, false)));
@@ -38,23 +42,27 @@ internal abstract class TextFileWriter
 
     public void Write()
     {
-        using (var writer = new StreamWriter(tempPath))
-            foreach (var line in GetLines(serializer => serializer.Serialize()))
-                writer.WriteLine(line);
+        foreach (var line in GetLines(serializer => serializer.Serialize()))
+            Writer.WriteLine(line);
 
-        File.Copy(tempPath, Path, true);
-        File.Delete(tempPath);
+        if (Path is not null)
+        {
+            File.Move(tempPath, Path, true);
+            File.Delete(tempPath);
+        }
     }
     public async Task WriteAsync(CancellationToken cancellationToken)
     {
-        using (var writer = new StreamWriter(tempPath))
-            foreach (var line in GetLines(serializer => new EagerEnumerable<string>(serializer.SerializeAsync())))
-                await writer.WriteLineAsync(line);
+       foreach (var line in GetLines(serializer => new EagerEnumerable<string>(serializer.SerializeAsync())))
+            await writer.WriteLineAsync(line);
 
-        if (cancellationToken.IsCancellationRequested)
-            File.Delete(tempPath);
-        else
-            File.Move(tempPath, Path, true);
+        if (Path is not null)
+        {
+            if (cancellationToken.IsCancellationRequested)
+                File.Delete(tempPath);
+            else
+                File.Move(tempPath, Path, true);
+        }
     }
 
     private IEnumerable<string> GetLines(Func<Serializer<string>, IEnumerable<string>> getSerializerLines) => File.Exists(Path)
@@ -63,4 +71,10 @@ internal abstract class TextFileWriter
         : serializers.SelectMany(serializer => Wrap(serializer.Header, serializer.Serialize()));
 
     protected abstract bool EndReplace(string line);
+
+    public void Dispose()
+    {
+        if (ownedWriter)
+            Writer.Dispose();
+    }
 }
