@@ -2,9 +2,8 @@
 
 namespace ChartTools.IO;
 
-internal abstract class FileReader<T>(string path) : IDisposable
+internal abstract class FileReader<T> : IDisposable
 {
-    public string Path { get; } = path;
     public bool IsReading { get; protected set; }
     public abstract IEnumerable<FileParser<T>> Parsers { get; }
 
@@ -20,7 +19,7 @@ internal abstract class FileReader<T>(string path) : IDisposable
     public abstract void Dispose();
 }
 
-internal abstract class FileReader<T, TParser>(string path, Func<string, TParser?> parserGetter) : FileReader<T>(path) where TParser : FileParser<T>
+internal abstract class FileReader<T, TParser>(Func<string, TParser?> parserGetter) : FileReader<T> where TParser : FileParser<T>
 {
     public record ParserContentGroup(TParser Parser, DelayedEnumerableSource<T> Source);
 

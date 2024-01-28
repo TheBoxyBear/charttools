@@ -12,6 +12,7 @@ internal abstract class TextFileReader : FileReader<string, TextParser>
     protected override void ReadBase(bool async, CancellationToken cancellationToken)
     {
         ParserContentGroup? currentGroup = null;
+
         using var enumerator = File.ReadLines(Path).Where(s => !string.IsNullOrEmpty(s)).Select(s => s.Trim()).GetEnumerator();
 
         while (enumerator.MoveNext())
