@@ -7,6 +7,8 @@ internal abstract class FileReader<T> : IDisposable
     public bool IsReading { get; protected set; }
     public abstract IEnumerable<FileParser<T>> Parsers { get; }
 
+    protected List<IDisposable> ownedResources = [];
+
     public abstract void Read();
     public abstract Task ReadAsync(CancellationToken cancellationToken);
 
@@ -52,23 +54,17 @@ internal abstract class FileReader<T, TParser>(Func<string, TParser?> parserGett
         IsReading = false;
     }
 
-    protected abstract void ReadBase(bool read, CancellationToken cancellationToken);
+    protected abstract void ReadBase(bool async, CancellationToken cancellationToken);
 
-    public void Reset()
-    {
-        parseTasks.Clear();
-        parserGroups.Clear();
-    }
-
-    public override async void Dispose()
+    public override void Dispose()
     {
         foreach (var group in parserGroups)
             group.Source.Dispose();
 
         foreach (var task in parseTasks)
-        {
-            await task;
             task.Dispose();
-        }
+
+        foreach (var resource in ownedResources)
+            resource.Dispose();
     }
 }

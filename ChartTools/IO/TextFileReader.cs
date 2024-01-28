@@ -3,11 +3,25 @@ using ChartTools.IO.Parsing;
 
 namespace ChartTools.IO;
 
-internal abstract class TextFileReader : FileReader<string, TextParser>
+internal abstract class TextFileReader(TextReader reader, Func<string, TextParser?> parserGetter) : FileReader<string, TextParser>(parserGetter)
 {
+    public TextReader Reader { get; } = reader;
     public virtual bool DefinedSectionEnd { get; } = false;
 
-    public TextFileReader(string path, Func<string, TextParser?> parserGetter) : base(path, parserGetter) { }
+    protected TextFileReader(TextReader reader, Func<string, TextParser?> parserGetter, bool ownedReader) : this(reader, parserGetter)
+    {
+        if (ownedReader)
+            ownedResources.Add(reader);
+    }
+
+    public TextFileReader(Stream stream, Func<string, TextParser?> parserGetter) : this(new StreamReader(stream), parserGetter, true) { }
+    protected TextFileReader(Stream stream, Func<string, TextParser?> parserGetter, bool ownedStream) : this(stream, parserGetter)
+    {
+        if (ownedStream)
+            ownedResources.Add(stream);
+    }
+
+    public TextFileReader(string path, Func<string, TextParser?> parserGetter) : this(new FileStream(path, FileMode.Open), parserGetter, true) { }
 
     protected override void ReadBase(bool async, CancellationToken cancellationToken)
     {
