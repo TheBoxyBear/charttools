@@ -1,6 +1,5 @@
 ﻿using ChartTools.Collections;
 using ChartTools.Extensions.Linq;
-using ChartTools.Internal.Collections;
 using ChartTools.IO.Sources;
 
 namespace ChartTools.IO;

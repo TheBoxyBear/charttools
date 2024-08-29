@@ -5,7 +5,7 @@ namespace ChartTools.IO.Configuration;
 
 internal abstract class Session(FormattingRules? formatting)
 {
-    public abstract ICommonConfiguration Configuration { get; }
+    public abstract CommonConfiguration Configuration { get; }
 
     public FormattingRules Formatting { get; set; } = formatting ?? new();
 

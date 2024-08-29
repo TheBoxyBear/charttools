@@ -1,4 +1,8 @@
 ﻿using ChartTools.Events;
+using ChartTools.IO;
+using ChartTools.IO.Chart;
+using ChartTools.IO.Configuration;
+using ChartTools.IO.Formatting;
 
 namespace ChartTools;
 
