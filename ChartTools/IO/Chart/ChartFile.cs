@@ -24,7 +24,7 @@ public static class ChartFile
     public static ChartReadingConfiguration DefaultReadConfig { get; set; } = new()
     {
         DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
-        OverlappingStarPowerPolicy = OverlappingSpecialPhrasePolicy.ThrowException,
+        OverlappingSpecialPhrasePolicy = OverlappingSpecialPhrasePolicy.ThrowException,
         SnappedNotesPolicy = SnappedNotesPolicy.ThrowException,
         SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
         TempolessAnchorPolicy = TempolessAnchorPolicy.ThrowException,
@@ -37,10 +37,10 @@ public static class ChartFile
     public static ChartWritingConfiguration DefaultWriteConfig { get; set; } = new()
     {
         DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
-        OverlappingStarPowerPolicy = OverlappingSpecialPhrasePolicy.ThrowException,
+        OverlappingSpecialPhrasePolicy = OverlappingSpecialPhrasePolicy.ThrowException,
         SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
         SnappedNotesPolicy = SnappedNotesPolicy.ThrowException,
-        UnsupportedModifierPolicy = UnsupportedModifierPolicy.ThrowException
+        UnsupportedModifiersPolicy = UnsupportedModifiersPolicy.ThrowException
     };
 
     #region Reading
