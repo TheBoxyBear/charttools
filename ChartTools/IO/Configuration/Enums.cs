@@ -1,5 +1,4 @@
 ﻿using ChartTools.Events;
-using Melanchall.DryWetMidi.Core;
 
 namespace ChartTools.IO.Configuration;
 

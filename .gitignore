@@ -6,6 +6,7 @@ build/*
 */bin
 TestResults/
 Debug/
+ChartTools_Debug.sln
 Docs/DROP/
 Docs/TEMP/
 Docs/packages/
