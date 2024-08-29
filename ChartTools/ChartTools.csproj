@@ -28,4 +28,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Melanchall.DryWetMidi.Nativeless" Version="7.1.0" />
+  </ItemGroup>
+
 </Project>
