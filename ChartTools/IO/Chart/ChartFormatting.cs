@@ -1,4 +1,5 @@
-﻿using ChartTools.IO.Chart.Entries;
+﻿using ChartTools.Extensions;
+using ChartTools.IO.Chart.Entries;
 
 namespace ChartTools.IO.Chart;
 
@@ -35,7 +36,7 @@ internal static class ChartFormatting
     /// <summary>
     /// Part names of <see cref="InstrumentIdentity"/> without the difficulty
     /// </summary>
-    public static readonly Dictionary<InstrumentIdentity, string> InstrumentHeaderNames = new()
+    public static readonly IReadOnlyDictionary<InstrumentIdentity, string> InstrumentHeaderNames = new Dictionary<InstrumentIdentity, string>()
     {
         { InstrumentIdentity.Drums, DrumsHeaderName },
         { InstrumentIdentity.GHLGuitar, "GHLGuitar" },
@@ -46,6 +47,34 @@ internal static class ChartFormatting
         { InstrumentIdentity.Bass, "DoubleBass" },
         { InstrumentIdentity.Keys, "Keyboard" }
     };
+
+    /// <summary>
+    /// Headers for drums tracks
+    /// </summary>
+    public static readonly IReadOnlyDictionary<string, Difficulty> DrumsTrackHeaders =
+        EnumCache<Difficulty>.Values
+        .ToDictionary(diff => Header(DrumsHeaderName, diff));
+
+    /// <summary>
+    /// Headers for GHL tracks
+    /// </summary>
+    public static readonly IReadOnlyDictionary<string, (Difficulty, GHLInstrumentIdentity)> GHLTrackHeaders =
+        GetTrackCombinations(Enum.GetValues<GHLInstrumentIdentity>())
+        .ToDictionary(tuple => Header(tuple.instrument, tuple.difficulty));
+
+    /// <summary>
+    /// Headers for standard tracks
+    /// </summary>
+    public static readonly Dictionary<string, (Difficulty, StandardInstrumentIdentity)> StandardTrackHeaders =
+        GetTrackCombinations(Enum.GetValues<StandardInstrumentIdentity>())
+        .ToDictionary(tuple => Header((InstrumentIdentity)tuple.instrument, tuple.difficulty));
+
+    /// <summary>
+    /// Gets all the combinations of instruments and difficulties.
+    /// </summary>
+    /// <param name="instruments">Enum containing the instruments</param>
+    private static IEnumerable<(Difficulty difficulty, TInstEnum instrument)> GetTrackCombinations<TInstEnum>(IEnumerable<TInstEnum> instruments)
+        => from difficulty in EnumCache<Difficulty>.Values from instrument in instruments select (difficulty, instrument);
 
     public static string Header(Enum instrument, Difficulty difficulty) => Header((InstrumentIdentity)instrument, difficulty);
     public static string Header(InstrumentIdentity instrument, Difficulty difficulty) => Header(InstrumentHeaderNames[instrument], difficulty);

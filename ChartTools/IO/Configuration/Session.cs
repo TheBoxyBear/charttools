@@ -5,8 +5,9 @@ namespace ChartTools.IO.Configuration;
 
 internal abstract class Session(FormattingRules? formatting)
 {
-    public abstract CommonConfiguration Configuration { get; }
-    public FormattingRules? Formatting { get; set; } = formatting;
+    public abstract ICommonConfiguration Configuration { get; }
+
+    public FormattingRules Formatting { get; set; } = formatting ?? new();
 
     public bool HandleDuplicate(uint position, string objectType, Func<bool> checkDuplicate) => Configuration.DuplicateTrackObjectPolicy switch
     {

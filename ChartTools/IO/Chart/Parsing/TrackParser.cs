@@ -14,9 +14,7 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
     public override Track<TChord> Result => GetResult(result);
     private readonly Track<TChord> result = new() { Difficulty = difficulty };
 
-    private TChord? chord;
-    private bool newChord = true;
-    private readonly List<TChord> orderedChords = [];
+    private TChord? currentChord;
 
     protected override void HandleItem(string line)
     {
@@ -30,31 +28,36 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
                 break;
             // Note or chord modifier
             case "N":
-                var newIndex = 0;
-
                 // Find the parent chord or create it
-                if (chord is null)
+                if (currentChord is null) // First chord
                 {
-                    chord = new() { Position = entry.Position };
-                    newIndex = orderedChords.Count;
+                    currentChord = new() { Position = entry.Position };
+                    result.Chords.Add(currentChord!);
                 }
-                else if (entry.Position == chord.Position)
-                    newChord = false;
-                else
+                // Start of a new chord or the note belonging to an existing chord is misplaced
+                else if (entry.Position != currentChord.Position)
                 {
-                    newIndex = orderedChords.BinarySearchIndex(entry.Position, c => c.Position, out bool exactMatch);
+                    // Notes are typically in order of position, not requiring a search for an existing chord
+                    if (entry.Position > result.Chords[^1].Position) // New chord
+                    {
+                        currentChord = new() { Position = entry.Position };
+                        result.Chords.Add(currentChord!);
+                    }
+                    else // Misplaced note - Requires search for the parent chord
+                    {
+                        var index = result.Chords.BinarySearchIndex(entry.Position, c => c.Position, out bool exactMatch);
 
-                    if (newChord = !exactMatch)
-                        chord = new() { Position = entry.Position };
+                        if (exactMatch)
+                            currentChord = result.Chords[index];
+                        else
+                        {
+                            currentChord = new() { Position = entry.Position };
+                            result.Chords.Insert(index, currentChord!);
+                        }
+                    }
                 }
 
-                HandleNoteEntry(chord!, new(entry.Data));
-
-                if (newChord)
-                {
-                    result.Chords.Add(chord!);
-                    orderedChords.Insert(newIndex, chord!);
-                }
+                HandleNoteEntry(currentChord!, new(entry.Data));
 
                 break;
             // Star power
@@ -75,12 +78,12 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
     protected abstract void HandleNoteEntry(TChord chord, NoteData data);
     protected void HandleAddNote(INote note, Action add)
     {
-        if (session.HandleDuplicate(chord!.Position, "note", () => chord!.Notes.Any(n => n.Index == note.Index)))
+        if (session.HandleDuplicate(currentChord!.Position, "note", () => currentChord!.Notes.Any(n => n.Index == note.Index)))
             add();
     }
     protected void HandleAddModifier(Enum existingModifier, Enum modifier, Action add)
     {
-        if (session.HandleDuplicate(chord!.Position, "chord modifier", () => existingModifier.HasFlag(modifier)))
+        if (session.HandleDuplicate(currentChord!.Position, "chord modifier", () => existingModifier.HasFlag(modifier)))
             add();
     }
 

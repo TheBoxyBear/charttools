@@ -1,7 +1,9 @@
-﻿namespace ChartTools.IO.Chart;
+﻿using ChartTools.IO.Sources;
 
-internal class ChartFileWriter(string path, IEnumerable<string>? removedHeaders, params Serializer<string>[] serializers)
-    : TextFileWriter(path, removedHeaders, serializers)
+namespace ChartTools.IO.Chart;
+
+internal class ChartFileWriter(WritingDataSource source, IEnumerable<string>? removedHeaders, params Serializer<string>[] serializers)
+    : TextFileWriter(source, removedHeaders, serializers)
 {
     protected override string? PreSerializerContent => "{";
     protected override string? PostSerializerContent => "}";

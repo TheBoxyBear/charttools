@@ -8,6 +8,7 @@ namespace ChartTools;
 public class LaneNote<TLane> : LaneNote where TLane : struct, Enum
 {
     public override byte Index => Unsafe.As<TLane, byte>(ref _lane);
+
     public TLane Lane
     {
         get => _lane;
@@ -16,6 +17,7 @@ public class LaneNote<TLane> : LaneNote where TLane : struct, Enum
     private TLane _lane;
 
     public LaneNote() { }
+
     public LaneNote(TLane lane, uint sustain = 0)
     {
         Lane = lane;

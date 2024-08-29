@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Docs": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "SiteDir": "$(ProjectDir)\\"
+      }
+    }
+  }
+}

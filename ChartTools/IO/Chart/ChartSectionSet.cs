@@ -33,5 +33,4 @@ public class ChartSection : SectionSet<string>
 
         DefaultReservedHeaders = new(headers);
     }
-    public ChartSection() : base() { }
 }

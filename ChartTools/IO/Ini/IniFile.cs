@@ -1,6 +1,7 @@
 ﻿using ChartTools.Extensions.Linq;
 using ChartTools.IO.Formatting;
 using ChartTools.IO.Configuration;
+using ChartTools.IO.Sources;
 
 namespace ChartTools.IO.Ini;
 
@@ -14,7 +15,7 @@ public static class IniFile
     /// <returns>A new instance of <see cref="Metadata"/> if <paramref name="existing"/> is <see langword="null"/>, otherwise the same reference.</returns>
     public static Metadata ReadMetadata(string path, Metadata? existing = null)
     {
-        var reader = new IniFileReader(path, header => header.Equals(IniFormatting.Header, StringComparison.OrdinalIgnoreCase) ? new(existing) : null);
+        var reader = new IniFileReader(new(path), existing);
         reader.Read();
 
         return reader.Parsers.TryGetFirst(out var parser)
@@ -26,7 +27,7 @@ public static class IniFile
     /// <returns>A new instance of <see cref="Metadata"/> if <paramref name="existing"/> is <see langword="null"/>, otherwise the same reference.</returns>
     public static async Task<Metadata> ReadMetadataAsync(string path, Metadata? existing = null, CancellationToken cancellationToken = default)
     {
-        var reader = new IniFileReader(path, header => header.Equals(IniFormatting.Header, StringComparison.OrdinalIgnoreCase) ? new(existing) : null);
+        var reader = new IniFileReader(new(path), existing);
         await reader.ReadAsync(cancellationToken);
 
         return reader.Parsers.TryGetFirst(out var parser)
@@ -41,7 +42,9 @@ public static class IniFile
     /// <param name="metadata">Metadata to write</param>
     public static void WriteMetadata(string path, Metadata metadata)
     {
-        var writer = new IniFileWriter(path, new IniSerializer(metadata));
+        using var source = new WritingDataSource(path);
+
+        var writer = new IniFileWriter(source, new IniSerializer(metadata));
         writer.Write();
     }
 }

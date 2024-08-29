@@ -1,4 +1,5 @@
 ﻿using ChartTools.Extensions.Linq;
+using ChartTools.Lyrics;
 
 using System.Collections;
 
@@ -12,7 +13,8 @@ public class InstrumentSet : IEnumerable<Instrument>
     /// <summary>
     /// Set of drums tracks
     /// </summary>
-    public Drums Drums { get; set; } = new();
+    public Drums? Drums { get; set; }
+
     /// <summary>
     /// Set of Guitar Hero Live guitar tracks
     /// </summary>
@@ -21,7 +23,8 @@ public class InstrumentSet : IEnumerable<Instrument>
         get => _ghlGuitar;
         set => _ghlGuitar = value with { InstrumentIdentity = GHLInstrumentIdentity.Guitar };
     }
-    private GHLInstrument _ghlGuitar = new(GHLInstrumentIdentity.Guitar);
+    private GHLInstrument? _ghlGuitar;
+
     /// <summary>
     /// Set of Guitar Hero Live bass tracks
     /// </summary>
@@ -30,7 +33,8 @@ public class InstrumentSet : IEnumerable<Instrument>
         get => _ghlBass;
         set => _ghlBass = value with { InstrumentIdentity = GHLInstrumentIdentity.Bass };
     }
-    private GHLInstrument _ghlBass = new(GHLInstrumentIdentity.Bass);
+    private GHLInstrument? _ghlBass;
+
     /// <summary>
     /// Set of lead guitar tracks
     /// </summary>
@@ -39,7 +43,8 @@ public class InstrumentSet : IEnumerable<Instrument>
         get => _leadGuitar;
         set => _leadGuitar = value with { InstrumentIdentity = StandardInstrumentIdentity.LeadGuitar };
     }
-    private StandardInstrument _leadGuitar = new(StandardInstrumentIdentity.LeadGuitar);
+    private StandardInstrument? _leadGuitar;
+
     /// <summary>
     /// Set of rhythm guitar tracks
     /// </summary>
@@ -48,7 +53,8 @@ public class InstrumentSet : IEnumerable<Instrument>
         get => _rhythmGuitar;
         set => _rhythmGuitar = value with { InstrumentIdentity = StandardInstrumentIdentity.RhythmGuitar };
     }
-    private StandardInstrument _rhythmGuitar = new(StandardInstrumentIdentity.RhythmGuitar);
+    private StandardInstrument? _rhythmGuitar;
+
     /// <summary>
     /// Set of coop guitar tracks
     /// </summary>
@@ -57,7 +63,8 @@ public class InstrumentSet : IEnumerable<Instrument>
         get => _coopGuitar;
         set => _coopGuitar = value with { InstrumentIdentity = StandardInstrumentIdentity.CoopGuitar };
     }
-    private StandardInstrument _coopGuitar = new(StandardInstrumentIdentity.CoopGuitar);
+    private StandardInstrument? _coopGuitar;
+
     /// <summary>
     /// Set of bass tracks
     /// </summary>
@@ -66,7 +73,8 @@ public class InstrumentSet : IEnumerable<Instrument>
         get => _bass;
         set => _bass = value with { InstrumentIdentity = StandardInstrumentIdentity.Bass };
     }
-    private StandardInstrument _bass = new(StandardInstrumentIdentity.Bass);
+    private StandardInstrument? _bass;
+
     /// <summary>
     /// Set of keyboard tracks
     /// </summary>
@@ -75,8 +83,9 @@ public class InstrumentSet : IEnumerable<Instrument>
         get => _keys;
         set => _keys = value with { InstrumentIdentity = StandardInstrumentIdentity.Keys };
     }
-    private StandardInstrument _keys = new(StandardInstrumentIdentity.Keys);
-    public Vocals Vocals { get; set; } = new();
+    private StandardInstrument? _keys;
+
+    public Vocals? Vocals { get; set; }
 
     /// <summary>
     /// Gets property value for an <see cref="Instrument"/> from a <see cref="InstrumentIdentity"/> <see langword="enum"/> value.
@@ -111,38 +120,36 @@ public class InstrumentSet : IEnumerable<Instrument>
 
     public IEnumerable<Instrument> Existing() => this.Where(instrument => !instrument.IsEmpty);
 
-    public void Set(StandardInstrument instrument)
+    public void Set(Instrument instrument)
     {
         switch (instrument.InstrumentIdentity)
         {
-            case StandardInstrumentIdentity.LeadGuitar:
-                _leadGuitar = instrument;
+            case InstrumentIdentity.Drums:
+                Drums = (Drums)instrument;
                 break;
-            case StandardInstrumentIdentity.RhythmGuitar:
-                _rhythmGuitar = instrument;
+            case InstrumentIdentity.Vocals:
+                Vocals = (Vocals)instrument;
                 break;
-            case StandardInstrumentIdentity.CoopGuitar:
-                _coopGuitar = instrument;
+            case InstrumentIdentity.LeadGuitar:
+                _leadGuitar = (StandardInstrument)instrument;
                 break;
-            case StandardInstrumentIdentity.Bass:
-                _bass = instrument;
+            case InstrumentIdentity.RhythmGuitar:
+                _rhythmGuitar = (StandardInstrument)instrument;
                 break;
-            case StandardInstrumentIdentity.Keys:
-                _keys = instrument;
+            case InstrumentIdentity.CoopGuitar:
+                _coopGuitar = (StandardInstrument)instrument;
                 break;
-            default:
-                throw new UndefinedEnumException(instrument.InstrumentIdentity);
-        }
-    }
-    public void Set(GHLInstrument instrument)
-    {
-        switch (instrument.InstrumentIdentity)
-        {
-            case GHLInstrumentIdentity.Guitar:
-                GHLGuitar = instrument;
+            case InstrumentIdentity.Bass:
+                _bass = (StandardInstrument)instrument;
                 break;
-            case GHLInstrumentIdentity.Bass:
-                GHLBass = instrument;
+            case InstrumentIdentity.Keys:
+                _keys = (StandardInstrument)instrument;
+                break;
+            case InstrumentIdentity.GHLGuitar:
+                GHLGuitar = (GHLInstrument)instrument;
+                break;
+            case InstrumentIdentity.GHLBass:
+                GHLBass = (GHLInstrument)instrument;
                 break;
             default:
                 throw new UndefinedEnumException(instrument.InstrumentIdentity);

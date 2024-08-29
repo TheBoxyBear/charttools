@@ -68,7 +68,67 @@ public abstract record Track : IEmptyVerifiable
             LocalEvents.RemoveAll(e => e.IsSoloEvent);
     }
 
-    protected abstract Instrument GetInstrument();
+    protected abstract Instrument? GetInstrument();
+
+    #region File reading
+    #region Single file
+    [Obsolete($"Use {nameof(ChartFile.ReadInstruments)} with a component list.")]
+    public static Track FromFile(string path, InstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadTrack(path, instrument, difficulty, config?.Chart, formatting)));
+
+    [Obsolete($"Use {nameof(ChartFile.ReadInstrumentsAsync)} with a component list.")]
+    public static async Task<Track> FromFileAsync(string path, InstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync(path, (".chart", path => ChartFile.ReadTrackAsync(path, instrument, difficulty, config?.Chart, formatting, cancellationToken)));
+
+    [Obsolete($"Use {nameof(ChartFile.ReadInstruments)} with a component list.")]
+    public static Track<DrumsChord> FromFile(string path, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadDrumsTrack(path, difficulty, config?.Chart, formatting)));
+
+    [Obsolete($"Use {nameof(ChartFile.ReadInstrumentsAsync)} with a component list.")]
+    public static async Task<Track<DrumsChord>> FromFileAsync(string path, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync(path, (".chart", path => ChartFile.ReadDrumsTrackAsync(path, difficulty, config?.Chart, formatting, cancellationToken)));
+
+    [Obsolete($"Use {nameof(ChartFile.ReadInstruments)} with a component list.")]
+    public static Track<GHLChord> FromFile(string path, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadTrack(path, instrument, difficulty, config?.Chart, formatting)));
+
+    [Obsolete($"Use {nameof(ChartFile.ReadInstrumentsAsync)} with a component list.")]
+    public static async Task<Track<GHLChord>> FromFileAsync(string path, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync(path, (".chart", path => ChartFile.ReadTrackAsync(path, instrument, difficulty, config?.Chart, formatting, cancellationToken)));
+
+    [Obsolete($"Use {nameof(ChartFile.ReadInstruments)} with a component list.")]
+    public static Track<StandardChord> FromFile(string path, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadTrack(path, instrument, difficulty, config?.Chart, formatting)));
+
+    [Obsolete($"Use {nameof(ChartFile.ReadInstrumentsAsync)} with a component list.")]
+    public static async Task<Track<StandardChord>> FromFileAsync(string path, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.ReadAsync(path, (".chart", path => ChartFile.ReadTrackAsync(path, instrument, difficulty, config?.Chart, formatting, cancellationToken)));
+    #endregion
+
+    #region Directory
+    [Obsolete($"Use {nameof(ChartFile.ReadInstruments)} with a component list and {nameof(Metadata.Formatting)}.")]
+    public static DirectoryResult<Track?> FromDirectory(string directory, InstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, instrument, difficulty, config, formatting));
+
+    [Obsolete($"Use {nameof(ChartFile.ReadInstrumentsAsync)} with a component list and {nameof(Metadata.Formatting)}.")]
+    public static async Task<DirectoryResult<Track?>> FromDirectoryAsync(string directory, InstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => await DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, instrument, difficulty, config, formatting, cancellationToken), cancellationToken);
+
+    [Obsolete($"Use {nameof(ChartFile.ReadInstruments)} with a component list and {nameof(Metadata.Formatting)}.")]
+    public static DirectoryResult<Track<DrumsChord>?> FromDirectory(string directory, Difficulty difficulty, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, difficulty, config, formatting));
+
+    [Obsolete($"Use {nameof(ChartFile.ReadInstrumentsAsync)} with a component list and {nameof(Metadata.Formatting)}.")]
+    public static async Task<DirectoryResult<Track<DrumsChord>?>> FromDirectoryAsync(string directory, Difficulty difficulty, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => await DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, difficulty, config, formatting, cancellationToken), cancellationToken);
+
+    [Obsolete($"Use {nameof(ChartFile.ReadInstruments)} with a component list and {nameof(Metadata.Formatting)}.")]
+    public static DirectoryResult<Track<GHLChord>?> FromDirectory(string directory, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, instrument, difficulty, config, formatting));
+
+    [Obsolete($"Use {nameof(ChartFile.ReadInstrumentsAsync)} with a component list and {nameof(Metadata.Formatting)}.")]
+    public static async Task<DirectoryResult<Track<GHLChord>?>> FromDirectoryAsync(string directory, GHLInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => await DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, instrument, difficulty, config, formatting, cancellationToken), cancellationToken);
+
+    [Obsolete($"Use {nameof(ChartFile.ReadInstruments)} with a component list and {nameof(Metadata.Formatting)}.")]
+    public static DirectoryResult<Track<StandardChord>?> FromDirectory(string directory, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default) => DirectoryHandler.FromDirectory(directory, (path, formatting) => FromFile(path, instrument, difficulty, config, formatting));
+
+    [Obsolete($"Use {nameof(ChartFile.ReadInstrumentsAsync)} with a component list and {nameof(Metadata.Formatting)}.")]
+    public static async Task<DirectoryResult<Track<StandardChord>?>> FromDirectoryAsync(string directory, StandardInstrumentIdentity instrument, Difficulty difficulty, ReadingConfiguration? config = default, CancellationToken cancellationToken = default) => await DirectoryHandler.FromDirectoryAsync(directory, async (path, formatting) => await FromFileAsync(path, instrument, difficulty, config, formatting, cancellationToken), cancellationToken);
+    #endregion
+    #endregion
+
+    [Obsolete($"Use {nameof(ChartFile.ReplaceInstruments)} with a component list.")]
+    public void ToFile(string path, WritingConfiguration? config = default, FormattingRules? formatting = default) => ExtensionHandler.Write(path, this, (".chart", (path, track) => ChartFile.ReplaceTrack(path, track, config?.Chart, formatting)));
+
+    [Obsolete($"Use {nameof(ChartFile.ReplaceInstrumentsAsync)} with a component list.")]
+    public async Task ToFileAsync(string path, WritingConfiguration? config = default,FormattingRules? formatting = default, CancellationToken cancellationToken = default) => await ExtensionHandler.WriteAsync(path, this, (".chart", (path, track) => ChartFile.ReplaceTrackAsync(path, track, config?.Chart, formatting, cancellationToken)));
 
     public override string ToString() => Difficulty.ToString();
 }

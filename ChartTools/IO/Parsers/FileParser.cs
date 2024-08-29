@@ -1,4 +1,6 @@
-﻿namespace ChartTools.IO;
+﻿#define CRASH_SOURCE
+
+namespace ChartTools.IO;
 
 internal abstract class FileParser<T>
 {

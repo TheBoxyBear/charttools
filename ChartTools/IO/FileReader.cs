@@ -1,11 +1,14 @@
 ﻿using ChartTools.Extensions.Collections;
+using ChartTools.IO.Sources;
 
 namespace ChartTools.IO;
 
-internal abstract class FileReader<T>(string path) : IDisposable
+internal abstract class FileReader<T>(ReadingDataSource source) : IDisposable
 {
-    public string Path { get; } = path;
+    public DataSource Source { get; } = source;
+
     public bool IsReading { get; protected set; }
+
     public abstract IEnumerable<FileParser<T>> Parsers { get; }
 
     public abstract void Read();
@@ -17,10 +20,10 @@ internal abstract class FileReader<T>(string path) : IDisposable
             throw new InvalidOperationException("Cannot start read operation while the reader is busy.");
     }
 
-    public abstract void Dispose();
+    public virtual void Dispose() => Source.Dispose();
 }
 
-internal abstract class FileReader<T, TParser>(string path, Func<string, TParser?> parserGetter) : FileReader<T>(path) where TParser : FileParser<T>
+internal abstract class FileReader<T, TParser>(ReadingDataSource source) : FileReader<T>(source) where TParser : FileParser<T>
 {
     public record ParserContentGroup(TParser Parser, DelayedEnumerableSource<T> Source);
 
@@ -28,12 +31,16 @@ internal abstract class FileReader<T, TParser>(string path, Func<string, TParser
 
     protected readonly List<ParserContentGroup> parserGroups = [];
     protected readonly List<Task> parseTasks = [];
-    protected readonly Func<string, TParser?> parserGetter = parserGetter;
+
+    protected abstract TParser? GetParser(string header);
 
     public override void Read()
     {
         CheckBusy();
         IsReading = true;
+
+        parserGroups.Clear();
+        parseTasks.Clear();
 
         ReadBase(false, CancellationToken.None);
 
@@ -42,6 +49,7 @@ internal abstract class FileReader<T, TParser>(string path, Func<string, TParser
 
         IsReading = false;
     }
+
     public override async Task ReadAsync(CancellationToken cancellationToken)
     {
         CheckBusy();
@@ -53,23 +61,14 @@ internal abstract class FileReader<T, TParser>(string path, Func<string, TParser
         IsReading = false;
     }
 
-    protected abstract void ReadBase(bool read, CancellationToken cancellationToken);
+    protected abstract void ReadBase(bool async, CancellationToken cancellationToken);
 
-    public void Reset()
-    {
-        parseTasks.Clear();
-        parserGroups.Clear();
-    }
-
-    public override async void Dispose()
+    public override void Dispose()
     {
         foreach (var group in parserGroups)
             group.Source.Dispose();
 
         foreach (var task in parseTasks)
-        {
-            await task;
             task.Dispose();
-        }
     }
 }

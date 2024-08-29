@@ -1,9 +1,4 @@
-﻿using ChartTools.Animations;
-using ChartTools.IO.Midi.Configuration.Sessions;
-using ChartTools.IO.Midi.Mapping;
-using ChartTools.Lyrics;
-
-namespace ChartTools;
+﻿namespace ChartTools.Lyrics;
 
 public record Vocals : Instrument<Phrase>
 {
