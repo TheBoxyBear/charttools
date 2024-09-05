@@ -3,6 +3,8 @@ ChartTools is a .NET 8 library with the purpose of modeling song files for plast
 
 If you find any bugs, you can report them in the [Issues section](https://github.com/TheBoxyBear/ChartTools/issues) of the repository. Make sure to use the "bug" label.
 
+As this project is unfinished, it should only be used with charts with a backup available. **I am not responsible for damages to your charts!**
+
 ## Getting Started
 For an overview on installation and taking your first steps with ChartTools, see [Getting Started](Docs/articles/getting-started.md). A GitHub Pages website is available with detailed articles and API documentation.
 
