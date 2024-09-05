@@ -247,5 +247,5 @@ dotnet_style_prefer_simplified_boolean_expressions = true:suggestion
 dotnet_style_prefer_conditional_expression_over_assignment = true:suggestion
 [*]
 vsspell_section_id = f25f4fdc995149f49d732db7d71697e3
-vsspell_ignored_words_f25f4fdc995149f49d732db7d71697e3 = Hopo|Playlist|Ini
+vsspell_ignored_words_f25f4fdc995149f49d732db7d71697e3 = Hopo|Ini|Playlist|GHL|Rescaler
 
