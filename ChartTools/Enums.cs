@@ -1,8 +1,9 @@
 ﻿namespace ChartTools;
 
 /// <summary>
-/// Difficulty levels
+/// Difficulty levels from <see cref="Easy"/> to <see cref="Expert"/>
 /// </summary>
+/// <remarks>For <see cref="Drums"/>, the Expert+ track is defined by the presence of <see cref="DrumsLane.DoubleKick"/> notes on the <see cref="Expert"/> track.</remarks>
 public enum Difficulty : byte
 {
     /// <summary>
@@ -29,7 +30,9 @@ public enum Difficulty : byte
 [Flags]
 public enum DrumsChordModifiers : byte
 {
-    /// <inheritdoc cref="StandardChordModifiers.None"/>
+    /// <summary>
+    /// No modifier
+    /// </summary>
     None,
     /// <summary>
     /// *Unsupported*
@@ -72,9 +75,22 @@ public enum DrumsLane : byte
     /// </summary>
     Green5Lane,
     /// <summary>
-    /// <see cref="Kick"/> that only appears when playing with multiple pedals
+    /// <see cref="Kick"/> in close proximity to another kick requiring a secondary pedal.
     /// </summary>
-    /// <remarks>In Clone Hero, double kicks are enabled with the "2x Kick" modifier and are not limited to a single difficulty.</remarks>
+    /// <remarks>
+    ///     <param>Typically not present in gameplay without prior conditions:</param>
+    ///     <list type="bullet">
+    ///         <item>
+    ///             <term>Guitar Hero</term>
+    ///             <description>When present on the <see cref="Difficulty.Expert"/> track, enables the Expert+ track as a copy of <see cref="Difficulty.Expert"/> with <see cref="DoubleKick"/> notes present. Ignored on other tracks.</description>
+    ///         </item>
+    ///         <item>
+    ///             <term>Clone Hero</term>
+    ///             <description>Present if the "2x Kick" gameplay modifier is active. Supported on all difficulties.</description>
+    ///         </item>
+    ///     </list>
+    /// </remarks>
+    ///
     DoubleKick
 }
 public enum FileType : byte { Chart, Ini, MIDI }
@@ -98,8 +114,14 @@ public enum GHLChordModifiers : byte
 /// <summary>
 /// Guitar Hero Live instruments
 /// </summary>
-/// <remarks>Casting to <see cref="InstrumentIdentity"/> will match the instrument.</remarks>
-public enum GHLInstrumentIdentity : byte { Guitar = 1, Bass }
+/// <remarks>Can be cast to <see cref="InstrumentIdentity"/>.</remarks>
+public enum GHLInstrumentIdentity : byte
+{
+    /// <inheritdoc cref="InstrumentIdentity.GHLGuitar"/>
+    Guitar = InstrumentIdentity.GHLGuitar,
+    /// <inheritdoc cref="InstrumentIdentity.GHLBass"/>
+    Bass = InstrumentIdentity.Bass
+}
 
 /// <summary>
 /// Frets for a GHL note
@@ -123,9 +145,61 @@ public enum MidiInstrumentOrigin : byte
 /// <summary>
 /// All instruments
 /// </summary>
-public enum InstrumentIdentity : byte { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys }
+public enum InstrumentIdentity : byte
+{
+    /// <summary>
+    /// Four, five-lane or pro drums
+    /// </summary>
+    /// <remarks>Drum types have shared tracks with the type defined by the notes used</remarks>
+    Drums,
+    /// <summary>
+    /// Six-lane Guitar Hero Live guitar
+    /// </summary>
+    GHLGuitar,
+    /// <summary>
+    /// Six-lane Guitar Hero Live bass
+    /// </summary>
+    GHLBass,
+    /// <summary>
+    /// Five-lane lead guitar
+    /// </summary>
+    /// <remarks>Primary instrument for most charts. Represents a combination of <see cref="CoopGuitar"/> and <see cref="RhythmGuitar"/> to be played by the same player.</remarks>
+    LeadGuitar,
+    /// <summary>
+    /// Five-lane rhythm guitar
+    /// </summary>
+    RhythmGuitar,
+    /// <summary>
+    /// Five-lane co-op guitar
+    /// </summary>
+    /// <remarks>Isolates the lead part of <see cref="LeadGuitar"/> for purpose of co-op play with a <see cref="RhythmGuitar"/> player.</remarks>
+    CoopGuitar,
+    /// <summary>
+    /// Five-lane bass
+    /// </summary>
+    Bass,
+    /// <summary>
+    /// Five-lane synthesizer keyboard
+    /// </summary>
+    Keys
+}
 
-public enum InstrumentType : byte { Drums, GHL, Standard, Vocals }
+/// <summary>
+/// Types of instruments based on the notes contained
+/// </summary>
+public enum InstrumentType : byte
+{
+    /// <inheritdoc cref="InstrumentIdentity.Drums"/>
+    Drums,
+    /// <summary>
+    /// Six-lane Guitar Hero Live instruments
+    /// </summary>
+    GHL,
+    /// <summary>
+    /// Five-lane instruments used by most games
+    /// </summary>
+    Standard,
+}
 
 /// <summary>
 /// Modifier that affects how a <see cref="StandardChord"/> can be played
@@ -158,13 +232,66 @@ public enum StandardChordModifiers : byte
 /// <summary>
 /// Standard five-fret instruments
 /// </summary>
-/// <remarks><inheritdoc cref="GHLInstrumentIdentity"/></remarks>
-public enum StandardInstrumentIdentity : byte { LeadGuitar = 3, RhythmGuitar, CoopGuitar, Bass, Keys }
+/// <remarks>Can be cast to <see cref="InstrumentIdentity"/>.</remarks>
+public enum StandardInstrumentIdentity : byte
+{
+    /// <inheritdoc cref="InstrumentIdentity.LeadGuitar"/>
+    LeadGuitar = InstrumentIdentity.LeadGuitar,
+    /// <inheritdoc cref="InstrumentIdentity.RhythmGuitar"/>
+    RhythmGuitar = InstrumentIdentity.RhythmGuitar,
+    /// <inheritdoc cref="InstrumentIdentity.CoopGuitar"/>
+    CoopGuitar = InstrumentIdentity.CoopGuitar,
+    /// <inheritdoc cref="InstrumentIdentity.Bass"/>
+    Bass = InstrumentIdentity.Bass,
+    /// <inheritdoc cref="InstrumentIdentity.Keys"/>
+    Keys = InstrumentIdentity.Keys
+}
 
 /// <summary>
-/// Frets for a standard note
+/// Lanes for a standard note
 /// </summary>
-public enum StandardLane : byte { Open, Green, Red, Yellow, Blue, Orange }
+public enum StandardLane : byte
+{
+    /// <summary>
+    /// Open note with no associated fret
+    /// </summary>
+    /// <remarks>
+    ///     <para>Played by strumming with no frets pressed.</para>
+    ///     <para>When modified with <see cref="StandardChordModifiers.Tap"/>, is played by not having frets pressed at the time of the note.</para>
+    /// </remarks>
+    Open,
+    /// <summary>
+    /// First lane from the left
+    /// </summary>
+    /// <remarks>Actual position and color can very with gameplay modifiers.</remarks>
+    Green,
+    /// <summary>
+    /// Second lane from the left
+    /// </summary>
+    /// <remarks>Actual position and color can very with gameplay modifiers.</remarks>
+    Red,
+    /// <summary>
+    /// Third lane from the left
+    /// </summary>
+    /// <remarks>Actual position and color can very with gameplay modifiers.</remarks>
+    Yellow,
+    /// <summary>
+    /// Fourth lane from the left
+    /// </summary>
+    /// <remarks>
+    ///     <para>Actual position and color can very with gameplay modifiers.</para>
+    ///     <para>Should only appear on tracks <see cref="Difficulty.Medium"/> and up.</para>
+    /// </remarks>
+    Blue,
+    /// <summary>
+    /// Fifth lane from the left
+    /// </summary>
+    /// <remarks>
+    ///     <para>Actual position and color can very with gameplay modifiers.</para>
+    ///     <para>Should only appear on tracks <see cref="Difficulty.Hard"/> and up.</para>
+    /// </remarks>
+    Orange
+}
 
 /// <summary>
 /// Types of <see cref="TrackSpecialPhrase"/>
