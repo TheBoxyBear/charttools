@@ -1,5 +1,8 @@
 ﻿namespace ChartTools.IO.Components;
 
+/// <summary>
+/// Flag-based version of the <see cref="Difficulty"/> enum for use in <see cref="InstrumentComponentList"/>
+/// </summary>
 [Flags]
 public enum DifficultySet : byte
 {
@@ -11,9 +14,16 @@ public enum DifficultySet : byte
     All = Easy | Medium | Hard | Expert
 };
 
-
+/// <summary>
+/// Provides extension methods to the <see cref="Difficulty"/> and <see cref="DifficultySet"/> enums.
+/// </summary>
 public static class DifficultyExtensions
 {
+    /// <summary>
+    /// Converts a <see cref="Difficulty"/> value to a <see cref="DifficultySet"/>.
+    /// </summary>
+    /// <param name="difficulty">Difficulty value to convert</param>
+    /// <returns><see cref="DifficultySet"/> where the matching flag of the original value is set</returns>
     public static DifficultySet ToSet(this Difficulty difficulty) => (DifficultySet)(1 << (int)difficulty);
 }
 
@@ -31,6 +41,7 @@ public record InstrumentComponentList()
         Keys        = DifficultySet.All,
     };
 
+    // Manually defining backing field to return by reference
     public DifficultySet Drums
     {
         get => _drums;
