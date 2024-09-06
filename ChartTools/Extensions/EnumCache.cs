@@ -1,7 +1,7 @@
 ﻿namespace ChartTools.Extensions;
 
 /// <summary>
-/// Holds a cache of defines values for an enum where <see cref="Enum.GetValues{TEnum}()"/> is to be called frequently.
+/// Holds a cache of defined values for an enum where <see cref="Enum.GetValues{TEnum}()"/> is to be called frequently.
 /// </summary>
 /// <typeparam name="T">Type of enum</typeparam>
 internal static class EnumCache<T> where T : struct, Enum
