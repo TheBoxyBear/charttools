@@ -21,5 +21,5 @@ public class Charter
     [IniKeySerializable(IniFormatting.Icon)]
     public string? Icon { get; set; }
 
-    public override string ToString() => Name ?? string.Empty;
+    public override string? ToString() => Name;
 }

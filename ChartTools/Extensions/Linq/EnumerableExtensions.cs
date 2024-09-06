@@ -3,6 +3,9 @@ using System.Collections;
 
 namespace ChartTools.Extensions.Linq;
 
+/// <summary>
+/// Provides a set of extension methods for <see cref="IEnumerable{T}"/>.
+/// </summary>
 public static class EnumerableExtensions
 {
     /// <summary>
@@ -23,6 +26,7 @@ public static class EnumerableExtensions
     /// Checks if any boolean in a collection is <see langword="true"/>.
     /// </summary>
     /// <param name="source">Source of booleans</param>
+    /// <returns><see langword="true"/> if the collection contains at least one boolean with a value of <see langword="true"/></returns>
     public static bool Any(this IEnumerable<bool> source)
     {
         foreach (bool b in source)
@@ -33,7 +37,7 @@ public static class EnumerableExtensions
     }
 
     #region First
-    /// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, Func{TSource, bool})"/>
+    /// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, TSource)"/>
     /// <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
     public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue, out bool returnedDefault)
     {
@@ -83,6 +87,7 @@ public static class EnumerableExtensions
         result = success ? enumerator.Current : default!;
         return success;
     }
+
     /// <summary>
     /// Tries to get the first item of a given type in a collection.
     /// </summary>
@@ -93,9 +98,17 @@ public static class EnumerableExtensions
     #endregion
 
     /// <summary>
-    /// Excludes <see langword="null"/> items.
+    /// Excludes <see langword="null"/> items from a set of references.
     /// </summary>
+    /// <typeparam name="T">Type of items of references types or boxed values</typeparam>
     public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) => source.Where(t => t is not null)!;
+
+    /// <summary>
+    /// Excludes <see langword="null"/> item from a set of nullable values.
+    /// </summary>
+    /// <typeparam name="T">Underlying value type</typeparam>
+    /// <param name="source">Set of values wrapped in <see cref="Nullable{T}"/></param>
+    /// <returns>Set of the nullable values unwrapped to the underlying type with <see langword="null"/> items excluded.</returns>
     public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) where T : struct
     {
         foreach (var item in source)
@@ -121,8 +134,10 @@ public static class EnumerableExtensions
     /// <summary>
     /// Replaces a section with other items.
     /// </summary>
-    /// <remarks>Items that match startReplace or endReplace are not included in the returned items.</remarks>
     /// <param name="source">Items to replace a section in</param>
+    /// <param name="replacement">Set of rules defining the replacement</param>
+    /// <returns>Items with the specified section replaced</returns>
+    /// <remarks>Items that match <see cref="SectionReplacement{T}.StartReplace"/> or <see cref="SectionReplacement{T}.EndReplace"/> are not included in the output.</remarks>
     public static IEnumerable<T> ReplaceSection<T>(this IEnumerable<T> source, SectionReplacement<T> replacement)
     {
         if (replacement.StartReplace is null)
@@ -176,8 +191,10 @@ public static class EnumerableExtensions
     /// <summary>
     /// Replaces multiple sections of items.
     /// </summary>
-    /// <remarks>Items that match startReplace or endReplace are not included in the returned items.</remarks>
     /// <param name="source">Items to replace sections in</param>
+    /// <param name="replacements">Set of definitions of section replacements</param>
+    /// <returns>Items with the specified section replaced</returns>
+    /// <remarks>Items that match <see cref="SectionReplacement{T}.StartReplace"/> or <see cref="SectionReplacement{T}.EndReplace"/> are not included in the output.</remarks>
     public static IEnumerable<T> ReplaceSections<T>(this IEnumerable<T> source, IEnumerable<SectionReplacement<T>> replacements)
     {
         if (replacements is null || !replacements.Any())
@@ -247,6 +264,7 @@ public static class EnumerableExtensions
                     yield return item;
         }
     }
+
     /// <summary>
     /// Removes a section of items.
     /// </summary>
@@ -254,6 +272,8 @@ public static class EnumerableExtensions
     /// <param name="source">Source items to remove a section of</param>
     /// <param name="startRemove">Function that determines the start of the section to replace</param>
     /// <param name="endRemove">Function that determines the end of the section to replace</param>
+    /// <returns>Items with the specified section removed</returns>
+    /// <remarks>Items that match <paramref name="startRemove"/> or <paramref name="endRemove"/> are not included in the output.</remarks>
     public static IEnumerable<T> RemoveSection<T>(this IEnumerable<T> source, Predicate<T> startRemove, Predicate<T> endRemove)
     {
         IEnumerator<T> itemsEnumerator = source.GetEnumerator();
@@ -367,7 +387,25 @@ public static class EnumerableExtensions
     }
 
     #region Collections
-    public static IEnumerable<T> Alternate<T>(this IEnumerable<IEnumerable<T>> source) => new SerialAlternatingEnumerable<T>(source.ToArray());
-    public static IEnumerable<T> AlternateBy<T, TKey>(this IEnumerable<IEnumerable<T>> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => new OrderedAlternatingEnumerable<T, TKey>(selector, source.ToArray());
+    /// <summary>
+    /// Combines enumerables by alternating between each source for every item.
+    /// </summary>
+    /// <typeparam name="T">Type of root items</typeparam>
+    /// <param name="sources">Set of enumerables to alternate between</param>
+    /// <returns>Combined items from all enumerables, taking one item from each before looping.</returns>
+    /// <remarks>When the end of an enumerable is reached, alternating continues while skipping that enumerable until all are finished.</remarks>
+    public static IEnumerable<T> Alternate<T>(this IEnumerable<IEnumerable<T>> sources) => new SerialAlternatingEnumerable<T>(sources.ToArray());
+
+    /// <summary>
+    /// Combines enumerables by alternating between each source for every item based on a key.
+    /// </summary>
+    /// <typeparam name="T">Type of root items</typeparam>
+    /// <typeparam name="TKey">Type of key used to compare items when alternating</typeparam>
+    /// <param name="sources"><inheritdoc cref="Alternate{T}(IEnumerable{IEnumerable{T}})" path="/param[@name='sources']"/></param>
+    /// <param name="selector">Selector function returning the alternate key from an item</param>
+    /// <returns>Combined items from all enumerables, taking the next item with the smallest key from each enumerable.</returns>
+    /// <inheritdoc cref="Alternate{T}(IEnumerable{IEnumerable{T}})" path="/remarks"/>
+    public static IEnumerable<T> AlternateBy<T, TKey>(this IEnumerable<IEnumerable<T>> sources, Func<T, TKey> selector) where TKey : IComparable<TKey>
+        => new OrderedAlternatingEnumerable<T, TKey>(selector, sources.ToArray());
     #endregion
 }
