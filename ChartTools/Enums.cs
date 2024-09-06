@@ -202,9 +202,8 @@ public enum InstrumentType : byte
 }
 
 /// <summary>
-/// Modifier that affects how a <see cref="StandardChord"/> can be played
+/// Modifiers that affects how a <see cref="StandardChord"/> can be played.
 /// </summary>
-/// <remarks></remarks>
 [Flags]
 public enum StandardChordModifiers : byte
 {
@@ -220,7 +219,13 @@ public enum StandardChordModifiers : byte
     /// Forced Hopo if <see cref="ExplicitHopo"/> is set, otherwise inverts the natural state relative to the previous chord
     /// </summary>
     HopoInvert = 2,
+    /// <summary>
+    /// Forces a hopo
+    /// </summary>
     ForcedHopo = ExplicitHopo | HopoInvert,
+    /// <summary>
+    /// Forces a strum
+    /// </summary>
     ForcedStrum = ExplicitHopo,
     /// <summary>
     /// The chord can be played without strumming
