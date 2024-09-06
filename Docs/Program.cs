@@ -3,7 +3,7 @@
 using Docfx;
 using Docfx.Dotnet;
 
-// Run this project to build and deploy the documentation website.
+// Run this project to build and deploy the documentation website. Website generated with DocFX https://dotnet.github.io/docfx/
 // The API reference section is defined by yaml files in the /api directory - These files are generated from XML documentation in the code and should not be manually modified! (therefore are gitignored)
 // The Articles section is defined by markdown files in the /articles directory.
 
