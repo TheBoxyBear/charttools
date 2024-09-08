@@ -1,6 +1,4 @@
-﻿#define CRASH_SOURCE
-
-namespace ChartTools.IO;
+﻿namespace ChartTools.IO;
 
 internal abstract class FileParser<T>
 {
@@ -11,33 +9,21 @@ internal abstract class FileParser<T>
     {
         await Task.Run(() => ParseBase(items));
 
-#if CRASH_SOURCE
-        FinaliseParse();
-#else
         try { FinaliseParse(); }
         catch (Exception e) { throw GetFinalizeException(e); }
-#endif
     }
     public void Parse(IEnumerable<T> items)
     {
         ParseBase(items);
 
-#if CRASH_SOURCE
-        FinaliseParse();
-#else
         try { FinaliseParse(); }
         catch (Exception e) { throw GetFinalizeException(e); }
-#endif
     }
     private void ParseBase(IEnumerable<T> items)
     {
         foreach (var item in items)
-#if CRASH_SOURCE
-            HandleItem(item);
-#else
             try { HandleItem(item); }
             catch (Exception e) { throw GetHandleException(item, e); }
-#endif
     }
 
     protected abstract void HandleItem(T item);
