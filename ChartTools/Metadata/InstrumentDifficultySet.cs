@@ -14,26 +14,31 @@ public class InstrumentDifficultySet
     /// </summary>
     [IniKeySerializable(IniFormatting.GuitarDifficulty)]
     public sbyte? Guitar { get; set; }
+
     /// <summary>
     /// Difficulty of <see cref="InstrumentIdentity.Bass"/>
     /// </summary>
     [IniKeySerializable(IniFormatting.BassDifficulty)]
     public sbyte? Bass { get; set; }
+
     /// <summary>
     /// Difficulty of <see cref="InstrumentIdentity.Drums"/>
     /// </summary>
     [IniKeySerializable(IniFormatting.DrumsDifficulty)]
     public sbyte? Drums { get; set; }
+
     /// <summary>
     /// Difficulty of <see cref="InstrumentIdentity.Keys"/>
     /// </summary>
     [IniKeySerializable(IniFormatting.KeysDifficulty)]
     public sbyte? Keys { get; set; }
+
     /// <summary>
     /// Difficulty of <see cref="InstrumentIdentity.GHLGuitar"/>
     /// </summary>
     [IniKeySerializable(IniFormatting.GHLGuitarDifficulty)]
     public sbyte? GHLGuitar { get; set; }
+
     /// <summary>
     /// Difficulty of <see cref="InstrumentIdentity.GHLBass"/>
     /// </summary>
@@ -44,6 +49,7 @@ public class InstrumentDifficultySet
     /// Gets the difficulty for an <see cref="InstrumentIdentity"/>.
     /// </summary>
     public sbyte? GetDifficulty(InstrumentIdentity identity) => GetDifficultyProperty(identity, out var info) ? (sbyte?)info!.GetValue(this) : null;
+
     /// <summary>
     /// Sets the difficulty for an <see cref="InstrumentIdentity"/>.
     /// </summary>

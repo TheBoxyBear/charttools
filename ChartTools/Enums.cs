@@ -120,7 +120,7 @@ public enum GHLInstrumentIdentity : byte
     /// <inheritdoc cref="InstrumentIdentity.GHLGuitar"/>
     Guitar = InstrumentIdentity.GHLGuitar,
     /// <inheritdoc cref="InstrumentIdentity.GHLBass"/>
-    Bass = InstrumentIdentity.Bass
+    Bass = InstrumentIdentity.GHLBass
 }
 
 /// <summary>
