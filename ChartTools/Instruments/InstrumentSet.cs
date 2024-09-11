@@ -1,5 +1,4 @@
 ﻿using ChartTools.Extensions.Linq;
-using ChartTools.Lyrics;
 
 using System.Collections;
 
@@ -34,6 +33,20 @@ public class InstrumentSet : IEnumerable<Instrument>
         set => _ghlBass = value is null ? value : value with { InstrumentIdentity = GHLInstrumentIdentity.Bass };
     }
     private GHLInstrument? _ghlBass;
+
+    public GHLInstrument? GHLRhythmGuitar
+    {
+        get => _ghlRhythmGuitar;
+        set => _ghlRhythmGuitar = value is null ? value : value with { InstrumentIdentity = GHLInstrumentIdentity.RhythmGuitar };
+    }
+    private GHLInstrument? _ghlRhythmGuitar;
+
+    public GHLInstrument? GHLCoopGuitar
+    {
+        get => _ghlCoopGuitar;
+        set => _ghlCoopGuitar = value is null ? value : value with { InstrumentIdentity = GHLInstrumentIdentity.CoopGuitar };
+    }
+    private GHLInstrument? _ghlCoopGuitar;
 
     /// <summary>
     /// Set of lead guitar tracks
@@ -95,6 +108,8 @@ public class InstrumentSet : IEnumerable<Instrument>
         InstrumentIdentity.Drums => Drums,
         InstrumentIdentity.GHLGuitar => GHLGuitar,
         InstrumentIdentity.GHLBass => GHLBass,
+        InstrumentIdentity.GHLRhythmGuitar => GHLRhythmGuitar,
+        InstrumentIdentity.GHLCoopGuitar => GHLCoopGuitar,
         InstrumentIdentity.LeadGuitar => LeadGuitar,
         InstrumentIdentity.RhythmGuitar => RhythmGuitar,
         InstrumentIdentity.CoopGuitar => CoopGuitar,
@@ -102,6 +117,7 @@ public class InstrumentSet : IEnumerable<Instrument>
         InstrumentIdentity.Keys => Keys,
         _ => throw new UndefinedEnumException(instrument)
     };
+
     /// <summary>
     /// Gets property value for an <see cref="Instrument{TChord}"/> from a <see cref="GHLInstrumentIdentity"/> <see langword="enum"/> value.
     /// </summary>
@@ -112,6 +128,7 @@ public class InstrumentSet : IEnumerable<Instrument>
         Validator.ValidateEnum(instrument);
         return Get((InstrumentIdentity)instrument) as GHLInstrument;
     }
+
     /// <summary>
     /// Gets property value for an <see cref="Instrument{TChord}"/> from a <see cref="StandardInstrumentIdentity"/> <see langword="enum"/> value.
     /// </summary>
@@ -153,12 +170,21 @@ public class InstrumentSet : IEnumerable<Instrument>
             case InstrumentIdentity.GHLBass:
                 GHLBass = (GHLInstrument)instrument;
                 break;
+            case InstrumentIdentity.GHLRhythmGuitar:
+                GHLRhythmGuitar = (GHLInstrument)instrument;
+                break;
+            case InstrumentIdentity.GHLCoopGuitar:
+                GHLCoopGuitar = (GHLInstrument)instrument;
+                break;
             default:
                 throw new UndefinedEnumException(instrument.InstrumentIdentity);
         }
     }
 
-    public IEnumerator<Instrument> GetEnumerator() => new Instrument?[] { Drums, GHLGuitar, GHLBass, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys }.NonNull().GetEnumerator();
+    public IEnumerator<Instrument> GetEnumerator()
+        => new Instrument?[]
+        { Drums, GHLGuitar, GHLBass, GHLRhythmGuitar, GHLCoopGuitar, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys }
+        .NonNull().GetEnumerator();
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }

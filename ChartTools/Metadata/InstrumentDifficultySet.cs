@@ -46,9 +46,22 @@ public class InstrumentDifficultySet
     public sbyte? GHLBass { get; set; }
 
     /// <summary>
+    /// Difficulty of <see cref="InstrumentIdentity.GHLRhythmGuitar"/>
+    /// </summary>
+    [IniKeySerializable(IniFormatting.GHLRhythmGuitarDifficulty)]
+    public sbyte? GHLRhythmGuitar { get; set; }
+
+    /// <summary>
+    /// Difficulty of <see cref="InstrumentIdentity.GHLCoopGuitar"/>
+    /// </summary>
+    [IniKeySerializable(IniFormatting.GHLCoopGuitarDifficulty)]
+    public sbyte? GHLCoopGuitar { get; set; }
+
+    /// <summary>
     /// Gets the difficulty for an <see cref="InstrumentIdentity"/>.
     /// </summary>
-    public sbyte? GetDifficulty(InstrumentIdentity identity) => GetDifficultyProperty(identity, out var info) ? (sbyte?)info!.GetValue(this) : null;
+    public sbyte? GetDifficulty(InstrumentIdentity identity)
+        => GetDifficultyProperty(identity, out var info) ? (sbyte?)info!.GetValue(this) : null;
 
     /// <summary>
     /// Sets the difficulty for an <see cref="InstrumentIdentity"/>.

@@ -31,14 +31,16 @@ public record InstrumentComponentList()
 {
     public static InstrumentComponentList Full() => new()
     {
-        Drums       = DifficultySet.All,
-        LeadGuitar  = DifficultySet.All,
-        CoopGuitar  = DifficultySet.All,
-        RythmGuitar = DifficultySet.All,
-        Bass        = DifficultySet.All,
-        GHLGuitar   = DifficultySet.All,
-        GHLBass     = DifficultySet.All,
-        Keys        = DifficultySet.All,
+        Drums              = DifficultySet.All,
+        LeadGuitar         = DifficultySet.All,
+        CoopGuitar         = DifficultySet.All,
+        RhythmGuitar       = DifficultySet.All,
+        Bass               = DifficultySet.All,
+        GHLGuitar          = DifficultySet.All,
+        GHLBass            = DifficultySet.All,
+        GHLRhythmGuitar    = DifficultySet.All,
+        GHLCoopGuitar      = DifficultySet.All,
+        Keys               = DifficultySet.All,
     };
 
     // Manually defining backing field to return by reference
@@ -63,12 +65,12 @@ public record InstrumentComponentList()
     }
     private DifficultySet _coopGuitar;
 
-    public DifficultySet RythmGuitar
+    public DifficultySet RhythmGuitar
     {
-        get => _rythmGuitar;
-        set => _rythmGuitar = value;
+        get => _rhythmGuitar;
+        set => _rhythmGuitar = value;
     }
-    private DifficultySet _rythmGuitar;
+    private DifficultySet _rhythmGuitar;
 
     public DifficultySet Bass
     {
@@ -90,6 +92,20 @@ public record InstrumentComponentList()
         set => _ghlBass = value;
     }
     private DifficultySet _ghlBass;
+
+    public DifficultySet GHLRhythmGuitar
+    {
+        get => _ghlRhythmGuitar;
+        set => _ghlRhythmGuitar = value;
+    }
+    private DifficultySet _ghlRhythmGuitar;
+
+    public DifficultySet GHLCoopGuitar
+    {
+        get => _ghlCoopGuitar;
+        set => _ghlCoopGuitar = value;
+    }
+    private DifficultySet _ghlCoopGuitar;
 
     public DifficultySet Keys
     {
@@ -133,13 +149,17 @@ public record InstrumentComponentList()
             case InstrumentIdentity.CoopGuitar:
                 return ref _coopGuitar;
             case InstrumentIdentity.RhythmGuitar:
-                return ref _rythmGuitar;
+                return ref _rhythmGuitar;
             case InstrumentIdentity.Bass:
                 return ref _bass;
             case InstrumentIdentity.GHLGuitar:
                 return ref _ghlGuitar;
             case InstrumentIdentity.GHLBass:
                 return ref _ghlBass;
+            case InstrumentIdentity.GHLRhythmGuitar:
+                return ref _ghlRhythmGuitar;
+            case InstrumentIdentity.GHLCoopGuitar:
+                return ref _ghlCoopGuitar;
             case InstrumentIdentity.Keys:
                 return ref _keys;
             default:

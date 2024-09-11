@@ -41,7 +41,9 @@ public static class IniFormatting
         DrumsDifficulty = "diff_drums",
         KeysDifficulty = "diff_keys",
         GHLGuitarDifficulty = "diff_guitarghl",
-        GHLBassDifficulty = "diff_bassghl";
+        GHLBassDifficulty = "diff_bassghl",
+        GHLRhythmGuitarDifficulty = "diff_rhythm_ghl",
+        GHLCoopGuitarDifficulty = "diff_guitar_coop_ghl";
 
     public static string Line(string key, string? value) => $"{key} = {value}";
 }

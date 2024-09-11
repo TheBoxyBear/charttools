@@ -41,6 +41,8 @@ internal static class ChartFormatting
         { InstrumentIdentity.Drums, DrumsHeaderName },
         { InstrumentIdentity.GHLGuitar, "GHLGuitar" },
         { InstrumentIdentity.GHLBass, "GHLBass" },
+        { InstrumentIdentity.GHLRhythmGuitar, "GHLRhythm" },
+        { InstrumentIdentity.GHLCoopGuitar, "GHLCoop" },
         { InstrumentIdentity.LeadGuitar, "Single" },
         { InstrumentIdentity.RhythmGuitar, "DoubleRhythm" },
         { InstrumentIdentity.CoopGuitar, "DoubleGuitar" },

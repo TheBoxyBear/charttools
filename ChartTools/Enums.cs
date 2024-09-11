@@ -77,20 +77,7 @@ public enum DrumsLane : byte
     /// <summary>
     /// <see cref="Kick"/> in close proximity to another kick requiring a secondary pedal.
     /// </summary>
-    /// <remarks>
-    ///     <param>Typically not present in gameplay without prior conditions:</param>
-    ///     <list type="bullet">
-    ///         <item>
-    ///             <term>Guitar Hero</term>
-    ///             <description>When present on the <see cref="Difficulty.Expert"/> track, enables the Expert+ track as a copy of <see cref="Difficulty.Expert"/> with <see cref="DoubleKick"/> notes present. Ignored on other tracks.</description>
-    ///         </item>
-    ///         <item>
-    ///             <term>Clone Hero</term>
-    ///             <description>Present if the "2x Kick" gameplay modifier is active. Supported on all difficulties.</description>
-    ///         </item>
-    ///     </list>
-    /// </remarks>
-    ///
+    /// <remarks>Normally absent from gameplay unless manually enabled through a special difficulty setting or gameplay modifier.</remarks>
     DoubleKick
 }
 public enum FileType : byte { Chart, Ini, MIDI }
@@ -120,7 +107,11 @@ public enum GHLInstrumentIdentity : byte
     /// <inheritdoc cref="InstrumentIdentity.GHLGuitar"/>
     Guitar = InstrumentIdentity.GHLGuitar,
     /// <inheritdoc cref="InstrumentIdentity.GHLBass"/>
-    Bass = InstrumentIdentity.GHLBass
+    Bass = InstrumentIdentity.GHLBass,
+    /// <inheritdoc cref="InstrumentIdentity.GHLRhythmGuitar"/>
+    RhythmGuitar = InstrumentIdentity.GHLRhythmGuitar,
+    /// <inheritdoc cref="InstrumentIdentity.GHLCoopGuitar"/>
+    CoopGuitar = InstrumentIdentity.GHLCoopGuitar
 }
 
 /// <summary>
@@ -160,6 +151,14 @@ public enum InstrumentIdentity : byte
     /// Six-lane Guitar Hero Live bass
     /// </summary>
     GHLBass,
+    /// <summary>
+    /// Six-lane Guitar Hero Live rhythm guitar
+    /// </summary>
+    GHLRhythmGuitar,
+    /// <summary>
+    /// Six-lane Guitar Hero Lice co-op guitar
+    /// </summary>
+    GHLCoopGuitar,
     /// <summary>
     /// Five-lane lead guitar
     /// </summary>
