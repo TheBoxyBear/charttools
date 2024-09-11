@@ -31,16 +31,16 @@ public record InstrumentComponentList()
 {
     public static InstrumentComponentList Full() => new()
     {
-        Drums              = DifficultySet.All,
-        LeadGuitar         = DifficultySet.All,
-        CoopGuitar         = DifficultySet.All,
-        RhythmGuitar       = DifficultySet.All,
-        Bass               = DifficultySet.All,
-        GHLGuitar          = DifficultySet.All,
-        GHLBass            = DifficultySet.All,
-        GHLRhythmGuitar    = DifficultySet.All,
-        GHLCoopGuitar      = DifficultySet.All,
-        Keys               = DifficultySet.All,
+        Drums                = DifficultySet.All,
+        StandardLeadGuitar   = DifficultySet.All,
+        StandardCoopGuitar   = DifficultySet.All,
+        StandardRhythmGuitar = DifficultySet.All,
+        StandardBass         = DifficultySet.All,
+        GHLGuitar            = DifficultySet.All,
+        GHLBass              = DifficultySet.All,
+        GHLRhythmGuitar      = DifficultySet.All,
+        GHLCoopGuitar        = DifficultySet.All,
+        StandardKeys         = DifficultySet.All,
     };
 
     // Manually defining backing field to return by reference
@@ -51,33 +51,40 @@ public record InstrumentComponentList()
     }
     private DifficultySet _drums;
 
-    public DifficultySet LeadGuitar
+    public DifficultySet StandardLeadGuitar
     {
-        get => _leadGuitar;
-        set => _leadGuitar = value;
+        get => _standardLeadGuitar;
+        set => _standardLeadGuitar = value;
     }
-    private DifficultySet _leadGuitar;
+    private DifficultySet _standardLeadGuitar;
 
-    public DifficultySet CoopGuitar
+    public DifficultySet StandardCoopGuitar
     {
-        get => _coopGuitar;
-        set => _coopGuitar = value;
+        get => _standardCoopGuitar;
+        set => _standardCoopGuitar = value;
     }
-    private DifficultySet _coopGuitar;
+    private DifficultySet _standardCoopGuitar;
 
-    public DifficultySet RhythmGuitar
+    public DifficultySet StandardRhythmGuitar
     {
-        get => _rhythmGuitar;
-        set => _rhythmGuitar = value;
+        get => _standardRhythmGuitar;
+        set => _standardRhythmGuitar = value;
     }
-    private DifficultySet _rhythmGuitar;
+    private DifficultySet _standardRhythmGuitar;
 
-    public DifficultySet Bass
+    public DifficultySet StandardBass
     {
-        get => _bass;
-        set => _bass = value;
+        get => _standardBass;
+        set => _standardBass = value;
     }
-    private DifficultySet _bass;
+    private DifficultySet _standardBass;
+
+    public DifficultySet StandardKeys
+    {
+        get => _standardKeys;
+        set => _standardKeys = value;
+    }
+    private DifficultySet _standardKeys;
 
     public DifficultySet GHLGuitar
     {
@@ -106,13 +113,6 @@ public record InstrumentComponentList()
         set => _ghlCoopGuitar = value;
     }
     private DifficultySet _ghlCoopGuitar;
-
-    public DifficultySet Keys
-    {
-        get => _keys;
-        set => _keys = value;
-    }
-    private DifficultySet _keys;
 
     public InstrumentComponentList(InstrumentIdentity identity, DifficultySet difficulties = DifficultySet.All) : this()
     {
@@ -144,14 +144,14 @@ public record InstrumentComponentList()
         {
             case InstrumentIdentity.Drums:
                 return ref _drums;
-            case InstrumentIdentity.LeadGuitar:
+            case InstrumentIdentity.StandardLeadGuitar:
                 return ref _leadGuitar;
-            case InstrumentIdentity.CoopGuitar:
-                return ref _coopGuitar;
-            case InstrumentIdentity.RhythmGuitar:
-                return ref _rhythmGuitar;
-            case InstrumentIdentity.Bass:
-                return ref _bass;
+            case InstrumentIdentity.StandardCoopGuitar:
+                return ref _standardCoopGuitar;
+            case InstrumentIdentity.StandardRhythmGuitar:
+                return ref _standardRhythmGuitar;
+            case InstrumentIdentity.StandardBass:
+                return ref _standardBass;
             case InstrumentIdentity.GHLGuitar:
                 return ref _ghlGuitar;
             case InstrumentIdentity.GHLBass:
@@ -160,8 +160,8 @@ public record InstrumentComponentList()
                 return ref _ghlRhythmGuitar;
             case InstrumentIdentity.GHLCoopGuitar:
                 return ref _ghlCoopGuitar;
-            case InstrumentIdentity.Keys:
-                return ref _keys;
+            case InstrumentIdentity.StandardKeys:
+                return ref _standardKeys;
             default:
                 throw new UndefinedEnumException(instrument);
         }

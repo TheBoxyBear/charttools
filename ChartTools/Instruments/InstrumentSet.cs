@@ -51,52 +51,52 @@ public class InstrumentSet : IEnumerable<Instrument>
     /// <summary>
     /// Set of lead guitar tracks
     /// </summary>
-    public StandardInstrument? LeadGuitar
+    public StandardInstrument? StandardLeadGuitar
     {
-        get => _leadGuitar;
-        set => _leadGuitar = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.LeadGuitar };
+        get => _standardLeadGuitar;
+        set => _standardLeadGuitar = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.LeadGuitar };
     }
-    private StandardInstrument? _leadGuitar;
+    private StandardInstrument? _standardLeadGuitar;
 
     /// <summary>
     /// Set of rhythm guitar tracks
     /// </summary>
-    public StandardInstrument? RhythmGuitar
+    public StandardInstrument? StandardRhythmGuitar
     {
-        get => _rhythmGuitar;
-        set => _rhythmGuitar = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.RhythmGuitar };
+        get => _standardRhythmGuitar;
+        set => _standardRhythmGuitar = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.RhythmGuitar };
     }
-    private StandardInstrument? _rhythmGuitar;
+    private StandardInstrument? _standardRhythmGuitar;
 
     /// <summary>
     /// Set of coop guitar tracks
     /// </summary>
-    public StandardInstrument? CoopGuitar
+    public StandardInstrument? StandardCoopGuitar
     {
-        get => _coopGuitar;
-        set => _coopGuitar = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.CoopGuitar };
+        get => _standardCoopGuitar;
+        set => _standardCoopGuitar = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.CoopGuitar };
     }
-    private StandardInstrument? _coopGuitar;
+    private StandardInstrument? _standardCoopGuitar;
 
     /// <summary>
     /// Set of bass tracks
     /// </summary>
-    public StandardInstrument? Bass
+    public StandardInstrument? StandardBass
     {
-        get => _bass;
-        set => _bass = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.Bass };
+        get => _standardBass;
+        set => _standardBass = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.Bass };
     }
-    private StandardInstrument? _bass;
+    private StandardInstrument? _standardBass;
 
     /// <summary>
     /// Set of keyboard tracks
     /// </summary>
-    public StandardInstrument? Keys
+    public StandardInstrument? StandardKeys
     {
-        get => _keys;
-        set => _keys = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.Keys };
+        get => _standardKeys;
+        set => _standardKeys = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.Keys };
     }
-    private StandardInstrument? _keys;
+    private StandardInstrument? _standardKeys;
 
     /// <summary>
     /// Gets property value for an <see cref="Instrument"/> from a <see cref="InstrumentIdentity"/> <see langword="enum"/> value.
@@ -105,24 +105,24 @@ public class InstrumentSet : IEnumerable<Instrument>
     /// <param name="instrument">Instrument to get</param>
     public Instrument? Get(InstrumentIdentity instrument) => instrument switch
     {
-        InstrumentIdentity.Drums => Drums,
-        InstrumentIdentity.GHLGuitar => GHLGuitar,
-        InstrumentIdentity.GHLBass => GHLBass,
-        InstrumentIdentity.GHLRhythmGuitar => GHLRhythmGuitar,
-        InstrumentIdentity.GHLCoopGuitar => GHLCoopGuitar,
-        InstrumentIdentity.LeadGuitar => LeadGuitar,
-        InstrumentIdentity.RhythmGuitar => RhythmGuitar,
-        InstrumentIdentity.CoopGuitar => CoopGuitar,
-        InstrumentIdentity.Bass => Bass,
-        InstrumentIdentity.Keys => Keys,
+        InstrumentIdentity.Drums                => Drums,
+        InstrumentIdentity.GHLGuitar            => GHLGuitar,
+        InstrumentIdentity.GHLBass              => GHLBass,
+        InstrumentIdentity.GHLRhythmGuitar      => GHLRhythmGuitar,
+        InstrumentIdentity.GHLCoopGuitar        => GHLCoopGuitar,
+        InstrumentIdentity.StandardLeadGuitar   => StandardLeadGuitar,
+        InstrumentIdentity.StandardRhythmGuitar => StandardRhythmGuitar,
+        InstrumentIdentity.StandardCoopGuitar   => StandardCoopGuitar,
+        InstrumentIdentity.StandardBass         => StandardBass,
+        InstrumentIdentity.StandardKeys         => StandardKeys,
         _ => throw new UndefinedEnumException(instrument)
     };
 
     /// <summary>
-    /// Gets property value for an <see cref="Instrument{TChord}"/> from a <see cref="GHLInstrumentIdentity"/> <see langword="enum"/> value.
+    /// Gets property value for a <see cref="GHLInstrument"/> from a <see cref="GHLInstrumentIdentity"/> <see langword="enum"/> value.
     /// </summary>
     /// /// <param name="instrument">Instrument to get</param>
-    /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="GHLChord"/> from the <see cref="Song"/>.</returns>
+    /// <returns>Instance of <see cref="GHLInstrument"/> from the <see cref="Song"/>.</returns>
     public GHLInstrument? Get(GHLInstrumentIdentity instrument)
     {
         Validator.ValidateEnum(instrument);
@@ -130,10 +130,10 @@ public class InstrumentSet : IEnumerable<Instrument>
     }
 
     /// <summary>
-    /// Gets property value for an <see cref="Instrument{TChord}"/> from a <see cref="StandardInstrumentIdentity"/> <see langword="enum"/> value.
+    /// Gets property value for a <see cref="StandardInstrument"/> from a <see cref="StandardInstrumentIdentity"/> <see langword="enum"/> value.
     /// </summary>
     /// <param name="instrument">Instrument to get</param>
-    /// <returns>Instance of <see cref="Instrument{TChord}"/> where TChord is <see cref="StandardChord"/> from the <see cref="Song"/>.</returns>
+    /// <returns>Instance of <see cref="StandardInstrument"/> from the <see cref="Song"/>.</returns>
     public StandardInstrument? Get(StandardInstrumentIdentity instrument)
     {
         Validator.ValidateEnum(instrument);
@@ -149,20 +149,20 @@ public class InstrumentSet : IEnumerable<Instrument>
             case InstrumentIdentity.Drums:
                 Drums = (Drums)instrument;
                 break;
-            case InstrumentIdentity.LeadGuitar:
-                _leadGuitar = (StandardInstrument)instrument;
+            case InstrumentIdentity.StandardLeadGuitar:
+                _standardLeadGuitar = (StandardInstrument)instrument;
                 break;
-            case InstrumentIdentity.RhythmGuitar:
-                _rhythmGuitar = (StandardInstrument)instrument;
+            case InstrumentIdentity.StandardRhythmGuitar:
+                _standardRhythmGuitar = (StandardInstrument)instrument;
                 break;
-            case InstrumentIdentity.CoopGuitar:
-                _coopGuitar = (StandardInstrument)instrument;
+            case InstrumentIdentity.StandardCoopGuitar:
+                _standardCoopGuitar = (StandardInstrument)instrument;
                 break;
-            case InstrumentIdentity.Bass:
-                _bass = (StandardInstrument)instrument;
+            case InstrumentIdentity.StandardBass:
+                _standardBass = (StandardInstrument)instrument;
                 break;
-            case InstrumentIdentity.Keys:
-                _keys = (StandardInstrument)instrument;
+            case InstrumentIdentity.StandardKeys:
+                _standardKeys = (StandardInstrument)instrument;
                 break;
             case InstrumentIdentity.GHLGuitar:
                 GHLGuitar = (GHLInstrument)instrument;
@@ -183,7 +183,7 @@ public class InstrumentSet : IEnumerable<Instrument>
 
     public IEnumerator<Instrument> GetEnumerator()
         => new Instrument?[]
-        { Drums, GHLGuitar, GHLBass, GHLRhythmGuitar, GHLCoopGuitar, LeadGuitar, RhythmGuitar, CoopGuitar, Bass, Keys }
+        { Drums, GHLGuitar, GHLBass, GHLRhythmGuitar, GHLCoopGuitar, StandardLeadGuitar, StandardRhythmGuitar, StandardCoopGuitar, StandardBass, StandardKeys }
         .NonNull().GetEnumerator();
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

@@ -10,16 +10,16 @@ namespace ChartTools;
 public class InstrumentDifficultySet
 {
     /// <summary>
-    /// Difficulty of <see cref="InstrumentIdentity.LeadGuitar"/>, <see cref="InstrumentIdentity.CoopGuitar"/> and <see cref="InstrumentIdentity.RhythmGuitar"/>
+    /// Difficulty of <see cref="InstrumentIdentity.StandardLeadGuitar"/>, <see cref="InstrumentIdentity.StandardCoopGuitar"/> and <see cref="InstrumentIdentity.StandardRhythmGuitar"/>
     /// </summary>
-    [IniKeySerializable(IniFormatting.GuitarDifficulty)]
-    public sbyte? Guitar { get; set; }
+    [IniKeySerializable(IniFormatting.StandardGuitarDifficulty)]
+    public sbyte? StandardGuitar { get; set; }
 
     /// <summary>
-    /// Difficulty of <see cref="InstrumentIdentity.Bass"/>
+    /// Difficulty of <see cref="InstrumentIdentity.StandardBass"/>
     /// </summary>
-    [IniKeySerializable(IniFormatting.BassDifficulty)]
-    public sbyte? Bass { get; set; }
+    [IniKeySerializable(IniFormatting.StandardBassDifficulty)]
+    public sbyte? StandardBass { get; set; }
 
     /// <summary>
     /// Difficulty of <see cref="InstrumentIdentity.Drums"/>
@@ -28,10 +28,10 @@ public class InstrumentDifficultySet
     public sbyte? Drums { get; set; }
 
     /// <summary>
-    /// Difficulty of <see cref="InstrumentIdentity.Keys"/>
+    /// Difficulty of <see cref="InstrumentIdentity.StandardKeys"/>
     /// </summary>
-    [IniKeySerializable(IniFormatting.KeysDifficulty)]
-    public sbyte? Keys { get; set; }
+    [IniKeySerializable(IniFormatting.StandardKeysDifficulty)]
+    public sbyte? StandardKeys { get; set; }
 
     /// <summary>
     /// Difficulty of <see cref="InstrumentIdentity.GHLGuitar"/>
@@ -77,10 +77,10 @@ public class InstrumentDifficultySet
         Validator.ValidateEnum(identity);
         var propName = identity switch
         {
-            InstrumentIdentity.LeadGuitar or InstrumentIdentity.CoopGuitar or InstrumentIdentity.RhythmGuitar => nameof(Guitar),
-            InstrumentIdentity.Bass => nameof(Bass),
+            InstrumentIdentity.StandardLeadGuitar or InstrumentIdentity.StandardCoopGuitar or InstrumentIdentity.StandardRhythmGuitar => nameof(StandardGuitar),
+            InstrumentIdentity.StandardBass => nameof(StandardBass),
             InstrumentIdentity.Drums => nameof(Drums),
-            InstrumentIdentity.Keys => nameof(Keys),
+            InstrumentIdentity.StandardKeys => nameof(StandardKeys),
             InstrumentIdentity.GHLGuitar => nameof(GHLGuitar),
             InstrumentIdentity.GHLBass => nameof(GHLBass),
             _ => null

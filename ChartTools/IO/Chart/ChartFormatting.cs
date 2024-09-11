@@ -43,11 +43,11 @@ internal static class ChartFormatting
         { InstrumentIdentity.GHLBass, "GHLBass" },
         { InstrumentIdentity.GHLRhythmGuitar, "GHLRhythm" },
         { InstrumentIdentity.GHLCoopGuitar, "GHLCoop" },
-        { InstrumentIdentity.LeadGuitar, "Single" },
-        { InstrumentIdentity.RhythmGuitar, "DoubleRhythm" },
-        { InstrumentIdentity.CoopGuitar, "DoubleGuitar" },
-        { InstrumentIdentity.Bass, "DoubleBass" },
-        { InstrumentIdentity.Keys, "Keyboard" }
+        { InstrumentIdentity.StandardLeadGuitar, "Single" },
+        { InstrumentIdentity.StandardRhythmGuitar, "DoubleRhythm" },
+        { InstrumentIdentity.StandardCoopGuitar, "DoubleGuitar" },
+        { InstrumentIdentity.StandardBass, "DoubleBass" },
+        { InstrumentIdentity.StandardKeys, "Keyboard" }
     };
 
     /// <summary>

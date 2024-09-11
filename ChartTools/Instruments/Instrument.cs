@@ -35,7 +35,7 @@ public abstract record Instrument : IEmptyVerifiable
             _instrumentType = InstrumentIdentity switch
             {
                 InstrumentIdentity.Drums => InstrumentType.Drums,
-                InstrumentIdentity.LeadGuitar or InstrumentIdentity.RhythmGuitar or InstrumentIdentity.Bass or InstrumentIdentity.CoopGuitar or InstrumentIdentity.GHLBass or InstrumentIdentity.Keys => InstrumentType.Standard,
+                InstrumentIdentity.StandardLeadGuitar or InstrumentIdentity.StandardRhythmGuitar or InstrumentIdentity.StandardBass or InstrumentIdentity.StandardCoopGuitar or InstrumentIdentity.GHLBass or InstrumentIdentity.StandardKeys => InstrumentType.Standard,
                 InstrumentIdentity.GHLGuitar or InstrumentIdentity.GHLBass => InstrumentType.GHL,
                 _ => throw new InvalidDataException($"Instrument identity {InstrumentIdentity} does not belong to an instrument type.")
             };

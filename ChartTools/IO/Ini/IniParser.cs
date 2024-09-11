@@ -85,17 +85,17 @@ internal class IniParser(Metadata? existing = null) : TextParser(IniFormatting.H
             case IniFormatting.Modchart:
                 result.IsModchart = ValueParser.ParseInt(entry.Value, "modchart") == 1;
                 break;
-            case IniFormatting.GuitarDifficulty:
-                result.InstrumentDifficulties.Guitar = ValueParser.ParseSbyte(entry.Value, "guitar difficulty");
+            case IniFormatting.StandardGuitarDifficulty:
+                result.InstrumentDifficulties.StandardGuitar = ValueParser.ParseSbyte(entry.Value, "guitar difficulty");
                 break;
-            case IniFormatting.BassDifficulty:
-                result.InstrumentDifficulties.Bass = ValueParser.ParseSbyte(entry.Value, "bass difficulty");
+            case IniFormatting.StandardBassDifficulty:
+                result.InstrumentDifficulties.StandardBass = ValueParser.ParseSbyte(entry.Value, "bass difficulty");
                 break;
             case IniFormatting.DrumsDifficulty:
                 result.InstrumentDifficulties.Drums = ValueParser.ParseSbyte(entry.Value, "drums difficulty");
                 break;
-            case IniFormatting.KeysDifficulty:
-                result.InstrumentDifficulties.Keys = ValueParser.ParseSbyte(entry.Value, "keys difficulty");
+            case IniFormatting.StandardKeysDifficulty:
+                result.InstrumentDifficulties.StandardKeys = ValueParser.ParseSbyte(entry.Value, "keys difficulty");
                 break;
             case IniFormatting.GHLGuitarDifficulty:
                 result.InstrumentDifficulties.GHLGuitar = ValueParser.ParseSbyte(entry.Value, "GHL guitar difficulty");

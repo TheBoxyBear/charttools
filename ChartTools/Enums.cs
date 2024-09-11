@@ -162,25 +162,25 @@ public enum InstrumentIdentity : byte
     /// <summary>
     /// Five-lane lead guitar
     /// </summary>
-    /// <remarks>Primary instrument for most charts. Represents a combination of <see cref="CoopGuitar"/> and <see cref="RhythmGuitar"/> to be played by the same player.</remarks>
-    LeadGuitar,
+    /// <remarks>Primary instrument for most charts. Represents a combination of <see cref="StandardCoopGuitar"/> and <see cref="StandardRhythmGuitar"/> to be played by the same player.</remarks>
+    StandardLeadGuitar,
     /// <summary>
     /// Five-lane rhythm guitar
     /// </summary>
-    RhythmGuitar,
+    StandardRhythmGuitar,
     /// <summary>
     /// Five-lane co-op guitar
     /// </summary>
-    /// <remarks>Isolates the lead part of <see cref="LeadGuitar"/> for purpose of co-op play with a <see cref="RhythmGuitar"/> player.</remarks>
-    CoopGuitar,
+    /// <remarks>Isolates the lead part of <see cref="StandardLeadGuitar"/> for purpose of co-op play with a <see cref="StandardRhythmGuitar"/> player.</remarks>
+    StandardCoopGuitar,
     /// <summary>
     /// Five-lane bass
     /// </summary>
-    Bass,
+    StandardBass,
     /// <summary>
     /// Five-lane synthesizer keyboard
     /// </summary>
-    Keys
+    StandardKeys
 }
 
 /// <summary>
@@ -239,16 +239,16 @@ public enum StandardChordModifiers : byte
 /// <remarks>Can be cast to <see cref="InstrumentIdentity"/>.</remarks>
 public enum StandardInstrumentIdentity : byte
 {
-    /// <inheritdoc cref="InstrumentIdentity.LeadGuitar"/>
-    LeadGuitar = InstrumentIdentity.LeadGuitar,
-    /// <inheritdoc cref="InstrumentIdentity.RhythmGuitar"/>
-    RhythmGuitar = InstrumentIdentity.RhythmGuitar,
-    /// <inheritdoc cref="InstrumentIdentity.CoopGuitar"/>
-    CoopGuitar = InstrumentIdentity.CoopGuitar,
-    /// <inheritdoc cref="InstrumentIdentity.Bass"/>
-    Bass = InstrumentIdentity.Bass,
-    /// <inheritdoc cref="InstrumentIdentity.Keys"/>
-    Keys = InstrumentIdentity.Keys
+    /// <inheritdoc cref="InstrumentIdentity.StandardLeadGuitar"/>
+    LeadGuitar = InstrumentIdentity.StandardLeadGuitar,
+    /// <inheritdoc cref="InstrumentIdentity.StandardRhythmGuitar"/>
+    RhythmGuitar = InstrumentIdentity.StandardRhythmGuitar,
+    /// <inheritdoc cref="InstrumentIdentity.StandardCoopGuitar"/>
+    CoopGuitar = InstrumentIdentity.StandardCoopGuitar,
+    /// <inheritdoc cref="InstrumentIdentity.StandardBass"/>
+    Bass = InstrumentIdentity.StandardBass,
+    /// <inheritdoc cref="InstrumentIdentity.StandardKeys"/>
+    Keys = InstrumentIdentity.StandardKeys
 }
 
 /// <summary>
