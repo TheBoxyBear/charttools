@@ -58,7 +58,7 @@ Metadata metadata = Metadata.FromFiles(path1, path2, path3...);
 
 When reading from multiple files, you can mix file types, and the priority of information is defined by the order of the files.
 
-As a future-proofing method, all unsupported items can be found under [UnidentifiedData](~/api/ChartTools.Metadata.yml#ChartTools_Metadata_UnidentifiedData). This data will only be written to the same file format as the one it was read from.
+As a future-proofing method, all unsupported items can be found under [UnidentifiedData](~/api/ChartTools.Metadata.yml#ChartTools_Metadata_UnidentifiedData). This data will only be written to the same file format as the one it was read from. This member should be used with caution, as keys which become mapped to properties in future versions of ChartTools will not appear in the set which would appear as the value being missing. [A new metadata mapping system is currently beign considered](https://github.com/TheBoxyBear/charttools/discussions/95)
 
 ### Instruments and Tracks
 All instruments currently supported are represented using the generic [Instrument](~/api/ChartTools.Instrument.yml) class. This class contains an object of type [Track](~/api/ChartTools.Track.yml) class for every difficulty. A track can be retrieved from a song with the following code:
