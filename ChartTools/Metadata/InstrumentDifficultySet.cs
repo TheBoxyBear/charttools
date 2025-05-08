@@ -13,87 +13,117 @@ public class InstrumentDifficultySet
 	/// Difficulty of <see cref="InstrumentIdentity.StandardLeadGuitar"/>, <see cref="InstrumentIdentity.StandardCoopGuitar"/> and <see cref="InstrumentIdentity.StandardRhythmGuitar"/>
 	/// </summary>
 	[IniKeySerializable(IniFormatting.StandardGuitarDifficulty)]
-	public sbyte? StandardGuitar { get; set; }
+	public sbyte? StandardGuitar
+    {
+        get => _standardGuitar;
+        set => _standardGuitar = value;
+    }
+    private sbyte? _standardGuitar;
 
-	/// <summary>
-	/// Difficulty of <see cref="InstrumentIdentity.StandardBass"/>
-	/// </summary>
-	[IniKeySerializable(IniFormatting.StandardBassDifficulty)]
-	public sbyte? StandardBass { get; set; }
+    /// <summary>
+    /// Difficulty of <see cref="InstrumentIdentity.StandardBass"/>
+    /// </summary>
+    [IniKeySerializable(IniFormatting.StandardBassDifficulty)]
+	public sbyte? StandardBass
+    {
+        get => _standardBass;
+        set => _standardBass = value;
+    }
+    private sbyte? _standardBass;
 
-	/// <summary>
-	/// Difficulty of <see cref="InstrumentIdentity.Drums"/>
-	/// </summary>
-	[IniKeySerializable(IniFormatting.DrumsDifficulty)]
-	public sbyte? Drums { get; set; }
+    /// <summary>
+    /// Difficulty of <see cref="InstrumentIdentity.Drums"/>
+    /// </summary>
+    [IniKeySerializable(IniFormatting.DrumsDifficulty)]
+	public sbyte? Drums
+    {
+        get => _drums;
+        set => _drums = value;
+    }
+    private sbyte? _drums;
 
-	/// <summary>
-	/// Difficulty of <see cref="InstrumentIdentity.StandardKeys"/>
-	/// </summary>
-	[IniKeySerializable(IniFormatting.StandardKeysDifficulty)]
-	public sbyte? StandardKeys { get; set; }
+    /// <summary>
+    /// Difficulty of <see cref="InstrumentIdentity.StandardKeys"/>
+    /// </summary>
+    [IniKeySerializable(IniFormatting.StandardKeysDifficulty)]
+	public sbyte? StandardKeys
+    {
+        get => _standardKeys;
+        set => _standardKeys = value;
+    }
+    private sbyte? _standardKeys;
 
 	/// <summary>
 	/// Difficulty of <see cref="InstrumentIdentity.GHLGuitar"/>
 	/// </summary>
 	[IniKeySerializable(IniFormatting.GHLGuitarDifficulty)]
-	public sbyte? GHLGuitar { get; set; }
+	public sbyte? GHLGuitar
+    {
+        get => _ghlGuitar;
+        set => _ghlGuitar = value;
+    }
+    private sbyte? _ghlGuitar;
 
-	/// <summary>
-	/// Difficulty of <see cref="InstrumentIdentity.GHLBass"/>
-	/// </summary>
-	[IniKeySerializable(IniFormatting.GHLBassDifficulty)]
-	public sbyte? GHLBass { get; set; }
+    /// <summary>
+    /// Difficulty of <see cref="InstrumentIdentity.GHLBass"/>
+    /// </summary>
+    [IniKeySerializable(IniFormatting.GHLBassDifficulty)]
+	public sbyte? GHLBass
+    {
+        get => _ghlBass;
+        set => _ghlBass = value;
+    }
+    private sbyte? _ghlBass;
 
 	/// <summary>
 	/// Difficulty of <see cref="InstrumentIdentity.GHLRhythmGuitar"/>
 	/// </summary>
 	[IniKeySerializable(IniFormatting.GHLRhythmGuitarDifficulty)]
-	public sbyte? GHLRhythmGuitar { get; set; }
+	public sbyte? GHLRhythmGuitar
+    {
+        get => _ghlRhythmGuitar;
+        set => _ghlRhythmGuitar = value;
+    }
+    private sbyte? _ghlRhythmGuitar;
 
-	/// <summary>
-	/// Difficulty of <see cref="InstrumentIdentity.GHLCoopGuitar"/>
-	/// </summary>
-	[IniKeySerializable(IniFormatting.GHLCoopGuitarDifficulty)]
-	public sbyte? GHLCoopGuitar { get; set; }
+    /// <summary>
+    /// Difficulty of <see cref="InstrumentIdentity.GHLCoopGuitar"/>
+    /// </summary>
+    [IniKeySerializable(IniFormatting.GHLCoopGuitarDifficulty)]
+	public sbyte? GHLCoopGuitar
+    {
+        get => _ghlCoopGuitar;
+        set => _ghlCoopGuitar = value;
+    }
+    private sbyte? _ghlCoopGuitar;
 
-	/// <summary>
-	/// Gets the difficulty for an <see cref="InstrumentIdentity"/>.
-	/// </summary>
-	public sbyte? GetDifficulty(InstrumentIdentity identity)
-		=> GetDifficultyProperty(identity, out var info) ? (sbyte?)info!.GetValue(this) : null;
-
-	/// <summary>
-	/// Sets the difficulty for an <see cref="InstrumentIdentity"/>.
-	/// </summary>
-	public void SetDifficulty(InstrumentIdentity identity, sbyte? difficulty)
-	{
-		if (GetDifficultyProperty(identity, out var info))
-			info!.SetValue(this, difficulty);
-	}
-
-	private bool GetDifficultyProperty(InstrumentIdentity identity, out PropertyInfo? info)
-	{
-		Validator.ValidateEnum(identity);
-		var propName = identity switch
-		{
-			InstrumentIdentity.StandardLeadGuitar or InstrumentIdentity.StandardCoopGuitar or InstrumentIdentity.StandardRhythmGuitar => nameof(StandardGuitar),
-			InstrumentIdentity.StandardBass => nameof(StandardBass),
-			InstrumentIdentity.Drums => nameof(Drums),
-			InstrumentIdentity.StandardKeys => nameof(StandardKeys),
-			InstrumentIdentity.GHLGuitar => nameof(GHLGuitar),
-			InstrumentIdentity.GHLBass => nameof(GHLBass),
-			_ => null
-		};
-
-		if (propName is null)
-		{
-			info = null;
-			return false;
-		}
-
-		info = typeof(InstrumentDifficultySet).GetProperty(propName);
-
-		return true;
-	}
+    /// <summary>
+    /// Gets the difficulty for an <see cref="InstrumentIdentity"/>.
+    /// </summary>
+    public ref sbyte? GetDifficulty(InstrumentIdentity identity)
+    {
+        switch (identity)
+        {
+            case InstrumentIdentity.StandardLeadGuitar:
+            case InstrumentIdentity.StandardCoopGuitar:
+            case InstrumentIdentity.StandardRhythmGuitar:
+                return ref _standardGuitar;
+            case InstrumentIdentity.StandardBass:
+                return ref _standardBass;
+            case InstrumentIdentity.Drums:
+                return ref _drums;
+            case InstrumentIdentity.StandardKeys:
+                return ref _standardKeys;
+            case InstrumentIdentity.GHLGuitar:
+                return ref _ghlGuitar;
+            case InstrumentIdentity.GHLBass:
+                return ref _ghlBass;
+            case InstrumentIdentity.GHLRhythmGuitar:
+                return ref _ghlRhythmGuitar;
+            case InstrumentIdentity.GHLCoopGuitar:
+                return ref _ghlCoopGuitar;
+            default:
+                throw new UndefinedEnumException(identity);
+        }
+    }
 }

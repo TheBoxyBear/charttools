@@ -17,8 +17,6 @@ await DotnetApiCatalog.GenerateManagedReferenceYamlFiles(config);
 
 await Docset.Build(config);
 
-var apel = 1;
-
 Console.WriteLine("------- Build done -------");
 Console.WriteLine();
 
