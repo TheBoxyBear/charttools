@@ -114,7 +114,7 @@ public abstract record Instrument : IEmptyVerifiable
 	public LocalEvent[] ShareLocalEvents(TrackObjectSource source) => ShareEventsSpecial(source, track => track.LocalEvents);
 
 	/// <summary>
-	/// Gives all tracks the same special phrases
+	/// Gives all tracks the same special phrases.
 	/// </summary>
 	public SpecialPhrase[] ShareSpecial(TrackObjectSource source) => ShareEventsSpecial(source, track => track.SpecialPhrases);
 

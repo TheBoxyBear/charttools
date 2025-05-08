@@ -181,6 +181,7 @@ public class InstrumentSet : IEnumerable<Instrument>
 		}
 	}
 
+    /// <inheritdoc cref="IEnumerable{Instrument}.GetEnumerator"/>
 	public IEnumerator<Instrument> GetEnumerator()
 		=> new Instrument?[]
 		{ Drums, GHLGuitar, GHLBass, GHLRhythmGuitar, GHLCoopGuitar, StandardLeadGuitar, StandardRhythmGuitar, StandardCoopGuitar, StandardBass, StandardKeys }

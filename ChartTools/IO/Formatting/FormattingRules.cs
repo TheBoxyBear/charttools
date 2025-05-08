@@ -53,11 +53,12 @@ public class FormattingRules
 			if (HopoFrequencyStep is not null)
 				return TrueResolution / (uint)(HopoFrequencyStep.Value switch
 				{
-					Formatting.HopoFrequencyStep.Fourth => 4,
-					Formatting.HopoFrequencyStep.Eight => 8,
-					Formatting.HopoFrequencyStep.Twelveth => 12,
-					Formatting.HopoFrequencyStep.Sixteenth => 16,
-					_ => throw new System.Exception($"{HopoFrequencyStep} is not a valid hopo frequency step.")
+					Formatting.HopoFrequencyStep.Fourth       => 4,
+					Formatting.HopoFrequencyStep.Eight        => 8,
+					Formatting.HopoFrequencyStep.Twelveth     => 12,
+					Formatting.HopoFrequencyStep.Sixteenth    => 16,
+                    Formatting.HopoFrequencyStep.TwentyFourth => 24,
+                    _ => throw new Exception($"{HopoFrequencyStep} is not a valid hopo frequency step.")
 				});
 
 			return ForceEightHopoFrequency is true ? TrueResolution / 8 : null;

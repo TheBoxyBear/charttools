@@ -31,7 +31,7 @@ public enum LyricEventSource : byte
 	/// </summary>
 	GlobalEvents,
 	/// <summary>
-	/// Obtain lyrics from the <see cref="InstrumentSet.Vocals"/> instrument.
+	/// *Unsupported*
 	/// </summary>
 	Vocals
 }
