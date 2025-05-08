@@ -2,5 +2,5 @@
 
 public abstract class VocalsTrack(IList<PhraseMarker>? markers = null)
 {
-    public IList<PhraseMarker> Phrases { get; } = markers ?? [];
+	public IList<PhraseMarker> Phrases { get; } = markers ?? [];
 }

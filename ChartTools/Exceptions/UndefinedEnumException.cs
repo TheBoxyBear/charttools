@@ -5,8 +5,8 @@
 /// </summary>
 public class UndefinedEnumException(Enum value) : ArgumentException($"{value.GetType().Name} \"{value}\" is not defined.")
 {
-    /// <summary>
-    /// Value used
-    /// </summary>
-    public Enum Value { get; } = value;
+	/// <summary>
+	/// Value used
+	/// </summary>
+	public Enum Value { get; } = value;
 }

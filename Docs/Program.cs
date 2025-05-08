@@ -24,13 +24,13 @@ Console.WriteLine();
 
 using Process cmd = new()
 {
-    StartInfo = new("dotnet", @$"docfx serve {dir}\_site")
-    {
-        RedirectStandardInput = true,
-        RedirectStandardOutput = true,
-        CreateNoWindow = true,
-        UseShellExecute = false
-    }
+	StartInfo = new("dotnet", @$"docfx serve {dir}\_site")
+	{
+		RedirectStandardInput = true,
+		RedirectStandardOutput = true,
+		CreateNoWindow = true,
+		UseShellExecute = false
+	}
 };
 
 // Process must be closed with Ctrl-C or will remain open in the background blocking port 8080.
@@ -44,6 +44,6 @@ cmd.Start();
 string? line = null;
 
 while ((line = cmd.StandardOutput.ReadLine()) is not null)
-    Console.WriteLine(line);
+	Console.WriteLine(line);
 
 cmd.WaitForExit();

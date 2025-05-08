@@ -11,15 +11,15 @@
 /// <param name="length">Duration in ticks</param>
 public abstract class SpecialPhrase(uint position, byte typeCode, uint length = 0) : ILongTrackObject
 {
-    public uint Position { get; set; } = position;
+	public uint Position { get; set; } = position;
 
-    /// <summary>
-    /// Numerical value of the phrase type
-    /// </summary>
-    public byte TypeCode { get; set; } = typeCode;
+	/// <summary>
+	/// Numerical value of the phrase type
+	/// </summary>
+	public byte TypeCode { get; set; } = typeCode;
 
-    /// <summary>
-    /// Duration of the phrase in ticks
-    /// </summary>
-    public uint Length { get; set; } = length;
+	/// <summary>
+	/// Duration of the phrase in ticks
+	/// </summary>
+	public uint Length { get; set; } = length;
 }

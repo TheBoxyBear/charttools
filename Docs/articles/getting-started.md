@@ -63,7 +63,7 @@ Metadata metadata = Metadata.FromFiles(path1, path2, path3, ...);
 
 When reading from multiple files, you can mix file types, and the priority of information is defined by the order of the files.
 
-As a future-proofing method, all unsupported items can be found under [UnidentifiedData](~/api/ChartTools.Metadata.yml#ChartTools_Metadata_UnidentifiedData). This data will only be written to the same file format as the one it was read from.
+As a future-proofing method, all unsupported items can be found under [UnidentifiedData](~/api/ChartTools.Metadata.yml#ChartTools_Metadata_UnidentifiedData). This data will only be written to the same file format as the one it was read from. This member should be used with caution, as keys which become mapped to properties in future versions of ChartTools will not appear in the set which would appear as the value being missing. [A new metadata mapping system is currently being considered.](https://github.com/TheBoxyBear/charttools/discussions/95)
 
 ### Instruments and Tracks
 All instruments currently supported are represented using the generic [Instrument](~/api/ChartTools.Instrument.yml) class. This class contains an object of type [Track](~/api/ChartTools.Track.yml) class for every difficulty. A track can be retrieved from a song as such:
@@ -111,6 +111,12 @@ Finally, changes can be saved to a file using [Song.ToFile](~/api/ChartTools.Son
 
 ```csharp
 song.ToFile("output.chart", <WritingConfiguration>);
+```
+
+Due to limitations of certain file formats, only [Song](~/api/ChartTools.Song.yml) objects can be written to a file in this manner. Format-specific operations can be accessed through the respective static class, such as [ChartFile](~/api/ChartTools.IO.Chart.ChartFile.yml) for `.chart`. For example, here is how to replace an instrument in a `.chart` file.
+
+```csharp
+ChartFile.ReplaceInstrument("output.chart", guitar, <WritingConfiguration>);
 ```
 
 Like when reading files, writing operations can be configured to alter how they deal with errors. [Learn more about configuring IO operations](configuration.md).

@@ -5,7 +5,7 @@ namespace ChartTools.IO.Chart.Serializing;
 
 internal class UnknownSectionSerializer(string header, Section<string> content, ChartWritingSession session) : Serializer<Section<string>, string>(header, content)
 {
-    public ChartWritingSession Session { get; } = session;
+	public ChartWritingSession Session { get; } = session;
 
-    public override IEnumerable<string> Serialize() => Content;
+	public override IEnumerable<string> Serialize() => Content;
 }

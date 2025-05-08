@@ -10,96 +10,95 @@ namespace ChartTools.Extensions.Collections.Alternating;
 /// <typeparam name="T">Type of the enumerated items</typeparam>
 public class SerialAlternatingEnumerable<T> : IEnumerable<T>
 {
-    /// <inheritdoc/>
-    protected IEnumerable<T>[] Enumerables { get; }
+	/// <inheritdoc/>
+	protected IEnumerable<T>[] Enumerables { get; }
 
-    /// <summary>
-    /// Creates an instance of <see cref="SerialAlternatingEnumerable{T}"/>
-    /// </summary>
-    /// <param name="enumerables">Enumerables to pull items from</param>
-    /// <exception cref="ArgumentException"/>
-    /// <exception cref="ArgumentNullException"/>
-    public SerialAlternatingEnumerable(params IEnumerable<T>?[] enumerables)
-    {
-        ArgumentNullException.ThrowIfNull(enumerables);
+	/// <summary>
+	/// Creates an instance of <see cref="SerialAlternatingEnumerable{T}"/>
+	/// </summary>
+	/// <param name="enumerables">Enumerables to pull items from</param>
+	/// <exception cref="ArgumentException"/>
+	/// <exception cref="ArgumentNullException"/>
+	public SerialAlternatingEnumerable(params IEnumerable<T>?[] enumerables)
+	{
+		ArgumentNullException.ThrowIfNull(enumerables);
 
-        if (enumerables.Length == 0)
-            throw new ArgumentException("No enumerables provided.");
+		if (enumerables.Length == 0)
+			throw new ArgumentException("No enumerables provided.");
 
-        Enumerables = enumerables.NonNull().ToArray();
-    }
+		Enumerables = [.. enumerables.NonNull()];
+	}
 
-    /// <inheritdoc/>
-    public IEnumerator<T> GetEnumerator() => new Enumerator(Enumerables.Select(e => e.GetEnumerator()).ToArray())!;
-    /// <inheritdoc/>
-    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+	/// <inheritdoc/>
+	public IEnumerator<T> GetEnumerator() => new Enumerator([.. Enumerables.Select(e => e.GetEnumerator())])!;
+	/// <inheritdoc/>
+	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-    /// <summary>
-    /// Enumerator that yields <typeparamref name="T"/> items by alternating through a set of enumerators
-    /// </summary>
-    /// <param name="enumerators">Enumerators to alternate between</param>
-    /// <exception cref="ArgumentException"/>
-    /// <exception cref="ArgumentNullException"/>
-    private class Enumerator(params IEnumerator<T>[] enumerators) : IEnumerator<T?>
-    {
-        /// <summary>
-        /// Enumerators to alternate between
-        /// </summary>
-        private IEnumerator<T>[] Enumerators { get; } = enumerators.NonNull().ToArray();
-        /// <summary>
-        /// Position of the next enumerator to pull from
-        /// </summary>
-        private int index;
+	/// <summary>
+	/// Enumerator that yields <typeparamref name="T"/> items by alternating through a set of enumerators
+	/// </summary>
+	/// <param name="enumerators">Enumerators to alternate between</param>
+	/// <exception cref="ArgumentException"/>
+	/// <exception cref="ArgumentNullException"/>
+	private class Enumerator(params IEnumerator<T>[] enumerators) : IEnumerator<T?>
+	{
+		/// <summary>
+		/// Enumerators to alternate between
+		/// </summary>
+		private IEnumerator<T>[] Enumerators { get; } = [.. enumerators.NonNull()];
+		/// <summary>
+		/// Position of the next enumerator to pull from
+		/// </summary>
+		private int index;
 
-        /// <summary>
-        /// Item to use in the iteration
-        /// </summary>
-        public T? Current { get; private set; }
-        /// <inheritdoc/>
-        object? IEnumerator.Current => Current;
+		/// <summary>
+		/// Item to use in the iteration
+		/// </summary>
+		public T? Current { get; private set; }
+		/// <inheritdoc/>
+		object? IEnumerator.Current => Current;
 
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            foreach (IEnumerator<T> enumerator in Enumerators)
-                enumerator.Dispose();
-        }
+		/// <inheritdoc/>
+		public void Dispose()
+		{
+			foreach (IEnumerator<T> enumerator in Enumerators)
+				enumerator.Dispose();
+		}
 
-        /// <inheritdoc/>
-        public bool MoveNext()
-        {
-            int startingIndex = index;
-            return SearchEnumerator();
+		/// <inheritdoc/>
+		public bool MoveNext()
+		{
+			int startingIndex = index;
+			return SearchEnumerator();
 
-            bool SearchEnumerator()
-            {
-                IEnumerator<T> enumerator = Enumerators[index];
+			bool SearchEnumerator()
+			{
+				IEnumerator<T> enumerator = Enumerators[index];
 
-                if (enumerator.MoveNext())
-                {
-                    Current = enumerator.Current;
+				if (enumerator.MoveNext())
+				{
+					Current = enumerator.Current;
 
-                    // Move to the next enumerator
-                    if (++index == Enumerators.Length)
-                        index = 0;
+					// Move to the next enumerator
+					if (++index == Enumerators.Length)
+						index = 0;
 
-                    return true;
-                }
+					return true;
+				}
 
-                // End if looped back around to the first enumerator checked, else check the next enumerator
-                return index != startingIndex && SearchEnumerator();
-            }
-        }
+				// End if looped back around to the first enumerator checked, else check the next enumerator
+				return index != startingIndex && SearchEnumerator();
+			}
+		}
 
-        /// <inheritdoc/>
-        public void Reset()
-        {
-            // Reset every enumerator
-            foreach (IEnumerator<T> enumerator in Enumerators)
-                enumerator.Reset();
+		/// <inheritdoc/>
+		public void Reset()
+		{
+			// Reset every enumerator
+			foreach (IEnumerator<T> enumerator in Enumerators)
+				enumerator.Reset();
 
-            index = 0;
-        }
-    }
-
+			index = 0;
+		}
+	}
 }

@@ -6,15 +6,15 @@ namespace ChartTools.IO.Ini;
 
 internal class IniParser(Metadata? existing = null) : TextParser(IniFormatting.Header), ISongAppliable
 {
-    public override Metadata Result => GetResult(result);
-    private readonly Metadata result = existing ?? new();
+	public override Metadata Result => GetResult(result);
+	private readonly Metadata result = existing ?? new();
 
-    protected override void HandleItem(string item)
-    {
-        var entry = new TextEntry(item);
+	protected override void HandleItem(string item)
+	{
+		var entry = new TextEntry(item);
 
-        if (entry.Value is null)
-            return;
+		if (entry.Value is null)
+			return;
 
         switch (entry.Key)
         {
@@ -121,19 +121,19 @@ internal class IniParser(Metadata? existing = null) : TextParser(IniFormatting.H
                 break;
         }
 
-        void ParseAlbumTrack() => ValueParser.ParseUshort(entry.Value, "album track");
-        void ParseCharter()
-        {
-            result.Charter ??= new();
-            result.Charter.Name = entry.Value;
-        }
-    }
+		void ParseAlbumTrack() => ValueParser.ParseUshort(entry.Value, "album track");
+		void ParseCharter()
+		{
+			result.Charter ??= new();
+			result.Charter.Name = entry.Value;
+		}
+	}
 
-    public void ApplyToSong(Song song)
-    {
-        if (song.Metadata is null)
-            song.Metadata = Result;
-        else
-            PropertyMerger.Merge(song.Metadata, false, true, Result);
-    }
+	public void ApplyToSong(Song song)
+	{
+		if (song.Metadata is null)
+			song.Metadata = Result;
+		else
+			PropertyMerger.Merge(song.Metadata, false, true, Result);
+	}
 }

@@ -14,3 +14,4 @@ Docs/_site/
 Docs/log.txt
 Docs/api/*.yml
 Docs/api/.manifest
+.idea/

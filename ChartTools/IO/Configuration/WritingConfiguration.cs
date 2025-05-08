@@ -5,7 +5,7 @@ namespace ChartTools.IO.Configuration;
 
 public class WritingConfiguration
 {
-    public static readonly WritingConfiguration Default = new();
+	public static readonly WritingConfiguration Default = new();
 
-    public ChartWritingConfiguration Chart { get; set; } = ChartFile.DefaultWriteConfig;
+	public ChartWritingConfiguration Chart { get; set; } = ChartFile.DefaultWriteConfig;
 }

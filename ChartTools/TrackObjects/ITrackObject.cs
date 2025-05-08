@@ -3,8 +3,8 @@
 /// <inheritdoc cref="IReadOnlyTrackObject"/>
 public interface ITrackObject : IReadOnlyTrackObject
 {
-    /// <inheritdoc cref="IReadOnlyTrackObject.Position"/>
-    public new uint Position { get; set; }
+	/// <inheritdoc cref="IReadOnlyTrackObject.Position"/>
+	public new uint Position { get; set; }
 
-    uint IReadOnlyTrackObject.Position => Position;
+	uint IReadOnlyTrackObject.Position => Position;
 }

@@ -2,6 +2,6 @@
 
 public interface ICommonWritingConfiguration : ICommonConfiguration
 {
-    /// <see cref="Configuration.UnsupportedModifierPolicy"/>
-    public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }
+	/// <see cref="Configuration.UnsupportedModifierPolicy"/>
+	public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }
 }
