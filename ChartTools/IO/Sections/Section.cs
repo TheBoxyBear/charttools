@@ -2,5 +2,5 @@
 
 public class Section<T>(string header) : List<T>
 {
-    public string Header { get; } = header;
+	public string Header { get; } = header;
 }

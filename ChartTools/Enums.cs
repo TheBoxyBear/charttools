@@ -5,22 +5,22 @@
 /// </summary>
 public enum Difficulty : byte
 {
-    /// <summary>
-    /// Easy difficulty
-    /// </summary>
-    Easy,
-    /// <summary>
-    /// Medium difficulty
-    /// </summary>
-    Medium,
-    /// <summary>
-    /// Hard difficulty
-    /// </summary>
-    Hard,
-    /// <summary>
-    /// Expert difficulty
-    /// </summary>
-    Expert
+	/// <summary>
+	/// Easy difficulty
+	/// </summary>
+	Easy,
+	/// <summary>
+	/// Medium difficulty
+	/// </summary>
+	Medium,
+	/// <summary>
+	/// Hard difficulty
+	/// </summary>
+	Hard,
+	/// <summary>
+	/// Expert difficulty
+	/// </summary>
+	Expert
 }
 
 /// <summary>
@@ -29,17 +29,17 @@ public enum Difficulty : byte
 [Flags]
 public enum DrumsChordModifiers : byte
 {
-    /// <inheritdoc cref="StandardChordModifiers.None"/>
-    None,
-    /// <summary>
-    /// *Unsupported*
-    /// </summary>
-    Accent,
-    /// <summary>
-    /// *Unsupported*
-    /// </summary>
-    Ghost,
-    Flam = 4
+	/// <inheritdoc cref="StandardChordModifiers.None"/>
+	None,
+	/// <summary>
+	/// *Unsupported*
+	/// </summary>
+	Accent,
+	/// <summary>
+	/// *Unsupported*
+	/// </summary>
+	Ghost,
+	Flam = 4
 }
 
 /// <summary>
@@ -47,35 +47,35 @@ public enum DrumsChordModifiers : byte
 /// </summary>
 public enum DrumsLane : byte
 {
-    /// <summary>
-    /// Kick note, shown as a purple line
-    /// </summary>
-    Kick,
-    /// <summary>
-    /// Red pad
-    /// </summary>
-    Red,
-    /// <summary>
-    /// Yellow pad
-    /// </summary>
-    Yellow,
-    /// <summary>
-    /// Blue pad
-    /// </summary>
-    Blue,
-    /// <summary>
-    /// Green when playing with four pads, orange when playing with five pads
-    /// </summary>
-    Green4Lane_Orange5Lane,
-    /// <summary>
-    /// Green when playing with five pad, otherwise converted to <see cref="Green4Lane_Orange5Lane"/>
-    /// </summary>
-    Green5Lane,
-    /// <summary>
-    /// <see cref="Kick"/> that only appears when playing with multiple pedals
-    /// </summary>
-    /// <remarks>In Clone Hero, double kicks are enabled with the "2x Kick" modifier and are not limited to a single difficulty.</remarks>
-    DoubleKick
+	/// <summary>
+	/// Kick note, shown as a purple line
+	/// </summary>
+	Kick,
+	/// <summary>
+	/// Red pad
+	/// </summary>
+	Red,
+	/// <summary>
+	/// Yellow pad
+	/// </summary>
+	Yellow,
+	/// <summary>
+	/// Blue pad
+	/// </summary>
+	Blue,
+	/// <summary>
+	/// Green when playing with four pads, orange when playing with five pads
+	/// </summary>
+	Green4Lane_Orange5Lane,
+	/// <summary>
+	/// Green when playing with five pad, otherwise converted to <see cref="Green4Lane_Orange5Lane"/>
+	/// </summary>
+	Green5Lane,
+	/// <summary>
+	/// <see cref="Kick"/> that only appears when playing with multiple pedals
+	/// </summary>
+	/// <remarks>In Clone Hero, double kicks are enabled with the "2x Kick" modifier and are not limited to a single difficulty.</remarks>
+	DoubleKick
 }
 public enum FileType : byte { Chart, Ini, MIDI }
 
@@ -85,14 +85,14 @@ public enum FileType : byte { Chart, Ini, MIDI }
 [Flags]
 public enum GHLChordModifiers : byte
 {
-    /// <inheritdoc cref="StandardChordModifiers.None"/>
-    None = 0,
-    /// <inheritdoc cref="StandardChordModifiers.ExplicitHopo"/>
-    ExplicitHopo = 1,
-    /// <inheritdoc cref="StandardChordModifiers.HopoInvert"/>
-    HopoInvert = 2,
-    /// <inheritdoc cref="StandardChordModifiers.Tap"/>
-    Tap = 4
+	/// <inheritdoc cref="StandardChordModifiers.None"/>
+	None = 0,
+	/// <inheritdoc cref="StandardChordModifiers.ExplicitHopo"/>
+	ExplicitHopo = 1,
+	/// <inheritdoc cref="StandardChordModifiers.HopoInvert"/>
+	HopoInvert = 2,
+	/// <inheritdoc cref="StandardChordModifiers.Tap"/>
+	Tap = 4
 }
 
 /// <summary>
@@ -111,13 +111,13 @@ public enum GHLLane : byte { Open, Black1, Black2, Black3, White1, White2, White
 /// </summary>
 public enum MidiInstrumentOrigin : byte
 {
-    NA,
-    Unknown,
-    GuitarHero1,
-    GuitarHero2 = 4,
-    GuitarHero2Uncertain = Unknown | GuitarHero2,
-    RockBand = 6,
-    RockBandUncertain = Unknown | RockBand,
+	NA,
+	Unknown,
+	GuitarHero1,
+	GuitarHero2 = 4,
+	GuitarHero2Uncertain = Unknown | GuitarHero2,
+	RockBand = 6,
+	RockBandUncertain = Unknown | RockBand,
 }
 
 /// <summary>
@@ -134,25 +134,25 @@ public enum InstrumentType : byte { Drums, GHL, Standard, Vocals }
 [Flags]
 public enum StandardChordModifiers : byte
 {
-    /// <summary>
-    /// No modifier
-    /// </summary>
-    None = 0,
-    /// <summary>
-    /// The Hopo state is not relative to the previous chord.
-    /// </summary>
-    ExplicitHopo = 1,
-    /// <summary>
-    /// Forced Hopo if <see cref="ExplicitHopo"/> is set, otherwise inverts the natural state relative to the previous chord
-    /// </summary>
-    HopoInvert = 2,
-    ForcedHopo = ExplicitHopo | HopoInvert,
-    ForcedStrum = ExplicitHopo,
-    /// <summary>
-    /// The chord can be played without strumming
-    /// </summary>
-    Tap = 4,
-    Big = 8
+	/// <summary>
+	/// No modifier
+	/// </summary>
+	None = 0,
+	/// <summary>
+	/// The Hopo state is not relative to the previous chord.
+	/// </summary>
+	ExplicitHopo = 1,
+	/// <summary>
+	/// Forced Hopo if <see cref="ExplicitHopo"/> is set, otherwise inverts the natural state relative to the previous chord
+	/// </summary>
+	HopoInvert = 2,
+	ForcedHopo = ExplicitHopo | HopoInvert,
+	ForcedStrum = ExplicitHopo,
+	/// <summary>
+	/// The chord can be played without strumming
+	/// </summary>
+	Tap = 4,
+	Big = 8
 }
 
 /// <summary>
@@ -171,24 +171,24 @@ public enum StandardLane : byte { Open, Green, Red, Yellow, Blue, Orange }
 /// </summary>
 public enum TrackSpecialPhraseType : byte
 {
-    /// <summary>
-    /// The <see cref="TrackSpecialPhrase.Type"/> is not a recognized phrase type
-    /// </summary>
-    Unknown,
-    /// <summary>
-    /// Grants star power if all notes are hit
-    /// </summary>
-    StarPowerGain,
-    /// <summary>
-    /// Allows the activation of star power
-    /// </summary>
-    StarPowerActivation,
-    Player1FaceOff,
-    Player2FaceOff,
-    Trill,
-    Tremolo,
-    DrumsRoll = 65,
-    DrumsDoubleRoll = 66
+	/// <summary>
+	/// The <see cref="TrackSpecialPhrase.Type"/> is not a recognized phrase type
+	/// </summary>
+	Unknown,
+	/// <summary>
+	/// Grants star power if all notes are hit
+	/// </summary>
+	StarPowerGain,
+	/// <summary>
+	/// Allows the activation of star power
+	/// </summary>
+	StarPowerActivation,
+	Player1FaceOff,
+	Player2FaceOff,
+	Trill,
+	Tremolo,
+	DrumsRoll = 65,
+	DrumsDoubleRoll = 66
 }
 
 /// <summary>
@@ -196,6 +196,6 @@ public enum TrackSpecialPhraseType : byte
 /// </summary>
 public enum InstrumentSpecialPhraseType : byte
 {
-    Unknown,
-    BigRockEnding
+	Unknown,
+	BigRockEnding
 }

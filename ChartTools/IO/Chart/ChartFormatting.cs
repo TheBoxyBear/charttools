@@ -5,47 +5,49 @@ namespace ChartTools.IO.Chart;
 
 internal static class ChartFormatting
 {
-    public const string DrumsHeaderName = "Drums",
-        MetadataHeader = "[Song]",
-        SyncTrackHeader = "[SyncTrack]",
+    public const string
+        DrumsHeaderName   = "Drums",
+        MetadataHeader    = "[Song]",
+        SyncTrackHeader   = "[SyncTrack]",
         GlobalEventHeader = "[Events]",
-        Title = "Name",
-        Artist = "Artist",
-        Charter = "Charter",
-        Album = "Album",
-        Year = "Year",
-        AudioOffset = "Offset",
-        Resolution = "Resolution",
-        Difficulty = "Difficulty",
-        PreviewStart = "PreviewStart",
-        PreviewEnd = "PreviewEnd",
-        Genre = "Genre",
-        MediaType = "MediaType",
-        MusicStream = "MusicStream",
-        GuitarStream = "GuitarStream",
-        BassStream = "BassStream",
-        RhythmStream = "RhythmStream",
-        KeysStream = "KeysStream",
-        DrumStream = "DrumStream",
-        Drum2Stream = "Drum2Stream",
-        Drum3Stream = "Drum3Stream",
-        Drum4Stream = "Drum4Stream",
-        VocalStream = "VocalStream",
-        CrowdStream = "CrowdStream";
+        Title             = "Name",
+        Artist            = "Artist",
+        Charter           = "Charter",
+        Album             = "Album",
+        Year              = "Year",
+        AudioOffset       = "Offset",
+        Resolution        = "Resolution",
+        Difficulty        = "Difficulty",
+        PreviewStart      = "PreviewStart",
+        PreviewEnd        = "PreviewEnd",
+        Genre             = "Genre",
+        MediaType         = "MediaType",
+        MusicStream       = "MusicStream",
+        GuitarStream      = "GuitarStream",
+        BassStream        = "BassStream",
+        RhythmStream      = "RhythmStream",
+        KeysStream        = "KeysStream",
+        DrumStream        = "DrumStream",
+        Drum2Stream       = "Drum2Stream",
+        Drum3Stream       = "Drum3Stream",
+        Drum4Stream       = "Drum4Stream",
+        VocalStream       = "VocalStream",
+        CrowdStream       = "CrowdStream";
 
     /// <summary>
     /// Part names of <see cref="InstrumentIdentity"/> without the difficulty
     /// </summary>
-    public static readonly IReadOnlyDictionary<InstrumentIdentity, string> InstrumentHeaderNames = new Dictionary<InstrumentIdentity, string>()
+    public static readonly IReadOnlyDictionary<InstrumentIdentity, string> InstrumentHeaderNames =
+        new Dictionary<InstrumentIdentity, string>()
     {
-        { InstrumentIdentity.Drums, DrumsHeaderName },
-        { InstrumentIdentity.GHLGuitar, "GHLGuitar" },
-        { InstrumentIdentity.GHLBass, "GHLBass" },
-        { InstrumentIdentity.LeadGuitar, "Single" },
-        { InstrumentIdentity.RhythmGuitar, "DoubleRhythm" },
-        { InstrumentIdentity.CoopGuitar, "DoubleGuitar" },
-        { InstrumentIdentity.Bass, "DoubleBass" },
-        { InstrumentIdentity.Keys, "Keyboard" }
+        { InstrumentIdentity.Drums,         DrumsHeaderName },
+        { InstrumentIdentity.GHLGuitar,    "GHLGuitar"      },
+        { InstrumentIdentity.GHLBass,      "GHLBass"        },
+        { InstrumentIdentity.LeadGuitar,   "Single"         },
+        { InstrumentIdentity.RhythmGuitar, "DoubleRhythm"   },
+        { InstrumentIdentity.CoopGuitar,   "DoubleGuitar"   },
+        { InstrumentIdentity.Bass,         "DoubleBass"     },
+        { InstrumentIdentity.Keys,         "Keyboard"       }
     };
 
     /// <summary>
@@ -86,7 +88,7 @@ internal static class ChartFormatting
     /// <summary>
     /// Gets the written data for a note.
     /// </summary>
-     /// <param name="position">Position of the parent <see cref="LaneChord"/></param>
+    /// <param name="position">Position of the parent <see cref="LaneChord"/></param>
     /// <param name="index">Value of <see cref="LaneNote.Index"/></param>
     /// <param name="sustain">Value of <see cref="LaneNote.Sustain"/></param>
     public static TrackObjectEntry NoteEntry(uint position, byte index, uint sustain) => new(position, "N", $"{index} {sustain}");
@@ -102,6 +104,6 @@ internal static class ChartFormatting
     /// <summary>
     /// Splits the data of an entry.
     /// </summary>
-    /// <param name="data">Data portion of a <see cref="Entries.TrackObjectEntry"/></param>
+    /// <param name="data">Data portion of a <see cref="TrackObjectEntry"/></param>
     internal static string[] SplitData(string data) => data.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
 }

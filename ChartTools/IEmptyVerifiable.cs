@@ -5,8 +5,8 @@
 /// </summary>
 public interface IEmptyVerifiable
 {
-    /// <summary>
-    /// <see langword="true"/> if containing no data
-    /// </summary>
-    public bool IsEmpty { get; }
+	/// <summary>
+	/// <see langword="true"/> if containing no data
+	/// </summary>
+	public bool IsEmpty { get; }
 }

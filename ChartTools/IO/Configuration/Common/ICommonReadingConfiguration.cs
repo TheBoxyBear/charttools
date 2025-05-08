@@ -2,5 +2,5 @@
 
 public interface ICommonReadingConfiguration : ICommonConfiguration
 {
-    public UnknownSectionPolicy UnknownSectionPolicy { get; }
+	public UnknownSectionPolicy UnknownSectionPolicy { get; }
 }

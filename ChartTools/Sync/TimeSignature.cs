@@ -8,15 +8,15 @@
 /// <param name="denominator">Value of <see cref="Denominator"/></param>
 public class TimeSignature(uint position, byte numerator, byte denominator) : ITrackObject
 {
-    public uint Position { get; set; } = position;
+	public uint Position { get; set; } = position;
 
-    /// <summary>
-    /// Value of a beat
-    /// </summary>
-    public byte Numerator { get; set; } = numerator;
+	/// <summary>
+	/// Value of a beat
+	/// </summary>
+	public byte Numerator { get; set; } = numerator;
 
-    /// <summary>
-    /// Beats per measure
-    /// </summary>
-    public byte Denominator { get; set; } = denominator;
+	/// <summary>
+	/// Beats per measure
+	/// </summary>
+	public byte Denominator { get; set; } = denominator;
 }

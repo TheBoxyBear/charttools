@@ -18,13 +18,13 @@ Console.WriteLine();
 
 using Process cmd = new()
 {
-    StartInfo = new("dotnet", @$"docfx serve {dir}\_site")
-    {
-        RedirectStandardInput = true,
-        RedirectStandardOutput = true,
-        CreateNoWindow = true,
-        UseShellExecute = false
-    }
+	StartInfo = new("dotnet", @$"docfx serve {dir}\_site")
+	{
+		RedirectStandardInput = true,
+		RedirectStandardOutput = true,
+		CreateNoWindow = true,
+		UseShellExecute = false
+	}
 };
 
 Process.Start(new ProcessStartInfo("http://localhost:8080") { UseShellExecute = true });
@@ -34,6 +34,6 @@ cmd.Start();
 string? line = null;
 
 while ((line = cmd.StandardOutput.ReadLine()) is not null)
-    Console.WriteLine(line);
+	Console.WriteLine(line);
 
 cmd.WaitForExit();
