@@ -18,10 +18,11 @@ public static class IniFile
 			: throw SectionException.MissingRequired(IniFormatting.Header);
 	}
 
-	public static async Task<Metadata> ReadMetadataAsync(ReadingDataSource source, Metadata? existing = null, CancellationToken cancellationToken = default)
+	public static async Task<Metadata> ReadMetadataAsync(
+		ReadingDataSource source, Metadata? existing = null, CancellationToken cancellationToken = default)
 	{
 		using var reader = new IniFileReader(source, existing);
-		await reader.ReadAsync(cancellationToken);
+		await reader.ReadAsync(cancellationToken).ConfigureAwait(false);
 
 		return reader.Parsers.TryGetFirst(out var parser)
 			? parser!.Result

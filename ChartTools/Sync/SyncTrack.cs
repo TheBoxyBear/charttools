@@ -39,10 +39,12 @@ public class SyncTrack : IEmptyVerifiable
 	/// <returns></returns>
 	public static async Task<SyncTrack> FromFileAsync(string path, ReadingConfiguration? config = default, CancellationToken cancellationToken = default)
 		=> await ExtensionHandler.ReadAsync(path,
-			(".chart", path => ChartFile.ReadSyncTrackAsync(path, config?.Chart, cancellationToken)));
-	public void ToFile(string path, WritingConfiguration? config = default) => ExtensionHandler.Write(path, this, (".chart", (path, track)
-		=> ChartFile.ReplaceSyncTrack(path, track, config?.Chart)));
+			(".chart", path => ChartFile.ReadSyncTrackAsync(path, config?.Chart, cancellationToken)))
+		.ConfigureAwait(false);
+	public void ToFile(string path, WritingConfiguration? config = default) => ExtensionHandler.Write(path, this,
+		(".chart", (path, track) => ChartFile.ReplaceSyncTrack(path, track, config?.Chart)));
 	public async Task ToFileAsync(string path, WritingConfiguration? config = default, CancellationToken cancellationToken = default)
 		=> await ExtensionHandler.WriteAsync(path, this,
-			(".chart", (path, track) => ChartFile.ReplaceSyncTrackAsync(path, track, config?.Chart, cancellationToken)));
+			(".chart", (path, track) => ChartFile.ReplaceSyncTrackAsync(path, track, config?.Chart, cancellationToken)))
+		.ConfigureAwait(false);
 }

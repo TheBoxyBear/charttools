@@ -25,12 +25,13 @@ internal static class DirectoryHandler
 	{
 		var iniPath = directory + @"\song.ini";
 		var chartPath = directory + @"\notes.chart";
-		var iniMetadata = File.Exists(iniPath) ? await IniFile.ReadMetadataAsync(iniPath, null, cancellationToken) : new();
+		var iniMetadata = File.Exists(iniPath)
+			? await IniFile.ReadMetadataAsync(iniPath, null, cancellationToken).ConfigureAwait(false) : new();
 
 		T? value = default;
 
 		if (File.Exists(chartPath))
-			value = await read(chartPath, iniMetadata.Formatting);
+			value = await read(chartPath, iniMetadata.Formatting).ConfigureAwait(false);
 
 		return new(value, iniMetadata);
 	}

@@ -52,7 +52,7 @@ internal abstract class TextFileWriter(WritingDataSource source, IEnumerable<str
 			if (cancellationToken.IsCancellationRequested)
 				break;
 
-			await writer.WriteLineAsync(line);
+			await writer.WriteLineAsync(line).ConfigureAwait(false);
 		}
 
 		EndFile();

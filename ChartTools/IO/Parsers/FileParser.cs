@@ -9,7 +9,7 @@ internal abstract class FileParser<T>
 
 	public async Task StartAsyncParse(IEnumerable<T> items)
 	{
-		await Task.Run(() => ParseBase(items));
+		await Task.Run(() => ParseBase(items)).ConfigureAwait(false);
 
 #if CRASH_SOURCE
 		FinaliseParse();
