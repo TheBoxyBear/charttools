@@ -1,5 +1,6 @@
 ﻿using ChartTools.IO.Ini;
 
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace ChartTools;
@@ -48,21 +49,23 @@ public class InstrumentDifficultySet
 	/// <summary>
 	/// Gets the difficulty for an <see cref="InstrumentIdentity"/>.
 	/// </summary>
-	public sbyte? GetDifficulty(InstrumentIdentity identity) => GetDifficultyProperty(identity, out var info) ? (sbyte?)info!.GetValue(this) : null;
+	public sbyte? GetDifficulty(InstrumentIdentity identity)
+		=> GetDifficultyProperty(identity, out PropertyInfo? info) ? (sbyte?)info.GetValue(this) : null;
 
 	/// <summary>
 	/// Sets the difficulty for an <see cref="InstrumentIdentity"/>.
 	/// </summary>
 	public void SetDifficulty(InstrumentIdentity identity, sbyte? difficulty)
 	{
-		if (GetDifficultyProperty(identity, out var info))
-			info!.SetValue(this, difficulty);
+		if (GetDifficultyProperty(identity, out PropertyInfo? info))
+			info.SetValue(this, difficulty);
 	}
 
-	private bool GetDifficultyProperty(InstrumentIdentity identity, out PropertyInfo? info)
+	private bool GetDifficultyProperty(InstrumentIdentity identity, [MaybeNullWhen(false)] out PropertyInfo info)
 	{
 		Validator.ValidateEnum(identity);
-		var propName = identity switch
+
+		string? propName = identity switch
 		{
 			InstrumentIdentity.LeadGuitar or InstrumentIdentity.CoopGuitar or InstrumentIdentity.RhythmGuitar => nameof(Guitar),
 			InstrumentIdentity.Bass => nameof(Bass),
@@ -79,7 +82,7 @@ public class InstrumentDifficultySet
 			return false;
 		}
 
-		info = typeof(InstrumentDifficultySet).GetProperty(propName);
+		info = typeof(InstrumentDifficultySet).GetProperty(propName)!;
 
 		return true;
 	}

@@ -10,27 +10,28 @@ public static class IniFile
 {
 	public static Metadata ReadMetadata(ReadingDataSource source, Metadata? existing = null)
 	{
-		using var reader = new IniFileReader(source, existing);
+		using IniFileReader reader = new(source, existing);
 		reader.Read();
 
-		return reader.Parsers.TryGetFirst(out var parser)
-			? parser!.Result
+		return reader.Parsers.TryGetFirst(out IniParser? parser)
+			? parser.Result
 			: throw SectionException.MissingRequired(IniFormatting.Header);
 	}
 
-	public static async Task<Metadata> ReadMetadataAsync(ReadingDataSource source, Metadata? existing = null, CancellationToken cancellationToken = default)
+	public static async Task<Metadata> ReadMetadataAsync(
+		ReadingDataSource source, Metadata? existing = null, CancellationToken cancellationToken = default)
 	{
-		using var reader = new IniFileReader(source, existing);
+		using IniFileReader reader = new(source, existing);
 		await reader.ReadAsync(cancellationToken);
 
-		return reader.Parsers.TryGetFirst(out var parser)
-			? parser!.Result
+		return reader.Parsers.TryGetFirst(out IniParser? parser)
+			? parser.Result
 			: throw SectionException.MissingRequired(IniFormatting.Header);
 	}
 
 	public static void WriteMetadata(WritingDataSource source, Metadata metadata)
 	{
-		using var writer = new IniFileWriter(source, new IniSerializer(metadata));
+		using IniFileWriter writer = new(source, new IniSerializer(metadata));
 		writer.Write();
 	}
 }

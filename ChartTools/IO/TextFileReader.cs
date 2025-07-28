@@ -12,7 +12,7 @@ internal abstract class TextFileReader(ReadingDataSource source) : FileReader<st
 
 	protected override void ReadBase(bool async, CancellationToken cancellationToken)
 	{
-		using var reader = new StreamReader(Source.Stream, leaveOpen: true);
+		using StreamReader reader = new(Source.Stream, leaveOpen: true);
 
 		ParserContentGroup? currentGroup = null;
 		string line = string.Empty;
@@ -30,12 +30,12 @@ internal abstract class TextFileReader(ReadingDataSource source) : FileReader<st
 				return;
 			}
 
-			var header = line;
-			var parser = GetParser(header);
+            string header = line;
+            TextParser? parser = GetParser(header);
 
 			if (parser is not null)
 			{
-				var source = new DelayedEnumerableSource<string>();
+                DelayedEnumerableSource<string> source = new();
 
 				parserGroups.Add(currentGroup = new(parser, source));
 

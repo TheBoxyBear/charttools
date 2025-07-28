@@ -12,7 +12,7 @@ internal abstract class FileParser<T>
 		await Task.Run(() => ParseBase(items));
 
 #if CRASH_SOURCE
-		FinaliseParse();
+		FinalizeParse();
 #else
 		try { FinaliseParse(); }
 		catch (Exception e) { throw GetFinalizeException(e); }
@@ -23,7 +23,7 @@ internal abstract class FileParser<T>
 		ParseBase(items);
 
 #if CRASH_SOURCE
-		FinaliseParse();
+		FinalizeParse();
 #else
 		try { FinaliseParse(); }
 		catch (Exception e) { throw GetFinalizeException(e); }
@@ -31,7 +31,7 @@ internal abstract class FileParser<T>
 	}
 	private void ParseBase(IEnumerable<T> items)
 	{
-		foreach (var item in items)
+		foreach (T item in items)
 #if CRASH_SOURCE
 			HandleItem(item);
 #else
@@ -42,7 +42,7 @@ internal abstract class FileParser<T>
 
 	protected abstract void HandleItem(T item);
 
-	protected virtual void FinaliseParse() => ResultReady = true;
+	protected virtual void FinalizeParse() => ResultReady = true;
 
 	protected TResult GetResult<TResult>(TResult result)
 		=> ResultReady ? result : throw new Exception("Result is not ready.");

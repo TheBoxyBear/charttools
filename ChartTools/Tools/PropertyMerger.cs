@@ -18,25 +18,27 @@ public static class PropertyMerger
 	public static void Merge<T>(this T current, bool overwriteNonNull, bool deepMerge, params T[] newValues)
 	{
 		T? newValue      = current;
-		var stringType   = typeof(string);
-		var nullableType = typeof(Nullable);
 
-		foreach (var prop in GetProperties(typeof(T)))
+		Type
+			stringType   = typeof(string),
+			nullableType = typeof(Nullable);
+
+		foreach (PropertyInfo prop in GetProperties(typeof(T)))
 			MergeValue(current, prop, GetValues(newValues.Cast<object>(), prop));
 
 		void MergeValue(object? source, PropertyInfo prop, IEnumerable<object> newValues)
 		{
-			var value = prop.GetValue(source);
+			object? value = prop.GetValue(source);
 
 			if (deepMerge && !prop.PropertyType.IsPrimitive && prop.PropertyType != stringType && Nullable.GetUnderlyingType(prop.PropertyType) is null)
 			{
 				if (value is not null)
-					foreach (var deepProp in GetProperties(prop.PropertyType))
+					foreach (PropertyInfo deepProp in GetProperties(prop.PropertyType))
 						MergeValue(value, deepProp, GetValues(newValues, deepProp));
 			}
 			else if (value is null || overwriteNonNull)
 			{
-				var newVal = newValues.FirstOrDefault(newVal => newVal is not null);
+				object? newVal = newValues.FirstOrDefault(newVal => newVal is not null);
 
 				if (newVal is not null)
 					prop.SetValue(source, newVal);

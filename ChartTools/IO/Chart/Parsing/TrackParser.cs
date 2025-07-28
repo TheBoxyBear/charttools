@@ -7,7 +7,8 @@ using ChartTools.Tools;
 namespace ChartTools.IO.Chart.Parsing;
 
 internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingSession session, string header)
-	: ChartParser(session, header), IInstrumentAppliable<TChord> where TChord : IChord, new()
+	: ChartParser(session, header), IInstrumentAppliable<TChord>
+	where TChord : IChord, new()
 {
 	public Difficulty Difficulty { get; } = difficulty;
 
@@ -45,7 +46,7 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 					}
 					else // Misplaced note - Requires search for the parent chord
 					{
-						var index = result.Chords.BinarySearchIndex(entry.Position, c => c.Position, out bool exactMatch);
+						int index = result.Chords.BinarySearchIndex(entry.Position, c => c.Position, out bool exactMatch);
 
 						if (exactMatch)
 							currentChord = result.Chords[index];
@@ -62,35 +63,31 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 				break;
 			// Star power
 			case "S":
-				var split = ChartFormatting.SplitData(entry.Data);
+				string[] split = ChartFormatting.SplitData(entry.Data);
 
-				var typeCode = ValueParser.ParseByte(split[0], "type code");
-				var length = ValueParser.ParseUint(split[1], "length");
+				byte typeCode = ValueParser.ParseByte(split[0], "type code");
+				uint length = ValueParser.ParseUint(split[1], "length");
 
 				result.SpecialPhrases.Add(new(entry.Position, typeCode, length));
 				break;
 		}
 
-		if (session!.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert)
+		if (Session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert)
 			result.SpecialPhrases.AddRange(result.SoloToStarPower(true));
 	}
 
-	protected abstract void HandleNoteEntry(TChord chord, NoteData data);
-	protected void HandleAddNote(INote note, Action add)
-	{
-		if (session.HandleDuplicate(currentChord!.Position, "note", () => currentChord!.Notes.Any(n => n.Index == note.Index)))
-			add();
-	}
-	protected void HandleAddModifier(Enum existingModifier, Enum modifier, Action add)
-	{
-		if (session.HandleDuplicate(currentChord!.Position, "chord modifier", () => existingModifier.HasFlag(modifier)))
-			add();
-	}
+	protected abstract void HandleNoteEntry(TChord chord, in NoteData data);
 
-	protected override void FinaliseParse()
+	protected bool CanAddNote(byte index)
+		=> Session.HandleDuplicate(currentChord!.Position, "note", () => currentChord!.Notes.Any(n => n.Index == index));
+
+	protected bool CanAddModifier(Enum existingModifier, Enum modifier)
+		=> Session.HandleDuplicate(currentChord!.Position, "chord modifier", () => existingModifier.HasFlag(modifier));
+
+	protected override void FinalizeParse()
 	{
-		ApplyOverlappingSpecialPhrasePolicy(result.SpecialPhrases, session!.Configuration.OverlappingStarPowerPolicy);
-		base.FinaliseParse();
+		ApplyOverlappingSpecialPhrasePolicy(result.SpecialPhrases, Session.Configuration.OverlappingStarPowerPolicy);
+		base.FinalizeParse();
 	}
 
 	public void ApplyToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(Result);
@@ -103,7 +100,7 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 				specialPhrases.CutLengths();
 				break;
 			case OverlappingSpecialPhrasePolicy.ThrowException:
-				foreach ((var previous, var current) in specialPhrases.RelativeLoopSkipFirst())
+				foreach ((TrackSpecialPhrase previous, TrackSpecialPhrase current) in specialPhrases.RelativeLoopSkipFirst())
 					if (Optimizer.LengthNeedsCut(previous, current))
 						throw new Exception($"Overlapping star power phrases at position {current!.Position}. Consider using {nameof(OverlappingSpecialPhrasePolicy.Cut)} to avoid this error.");
 				break;

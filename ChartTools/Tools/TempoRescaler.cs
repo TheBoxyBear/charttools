@@ -1,4 +1,6 @@
-﻿namespace ChartTools.Tools;
+﻿using ChartTools.Events;
+
+namespace ChartTools.Tools;
 
 public static class TempoRescaler
 {
@@ -49,7 +51,7 @@ public static class TempoRescaler
 	{
 		chord.Position = (uint)(chord.Position * scale);
 
-		foreach (var note in chord.Notes)
+		foreach (INote note in chord.Notes)
 			note.Rescale(scale);
 	}
 
@@ -60,11 +62,11 @@ public static class TempoRescaler
 	/// <param name="scale">Positive number where 1 is the current scale.</param>
 	public static void Rescale(this Track track, float scale)
 	{
-		foreach (var chord in track.Chords)
+		foreach (IChord chord in track.Chords)
 			Rescale(chord, scale);
 
 		if (track.LocalEvents is not null)
-			foreach (var e in track.LocalEvents)
+			foreach (LocalEvent e in track.LocalEvents)
 				e.Rescale(scale);
 	}
 
@@ -75,7 +77,7 @@ public static class TempoRescaler
 	/// <param name="scale">Positive number where 1 is the current scale.</param>
 	public static void Rescale(this Instrument instrument, float scale)
 	{
-		foreach (var track in instrument.GetExistingTracks())
+		foreach (Track track in instrument.GetExistingTracks())
 			track.Rescale(scale);
 	}
 
@@ -86,9 +88,10 @@ public static class TempoRescaler
 	/// <param name="scale">Positive number where 1 is the current scale.</param>
 	public static void Rescale(this SyncTrack syncTrack, float scale)
 	{
-		foreach (var tempo in syncTrack.Tempo)
+		foreach (Tempo tempo in syncTrack.Tempo)
 			tempo.Rescale(scale);
-		foreach (var signature in syncTrack.TimeSignatures)
+
+		foreach (TimeSignature signature in syncTrack.TimeSignatures)
 			signature.Rescale(scale);
 	}
 
@@ -99,13 +102,13 @@ public static class TempoRescaler
 	/// <param name="scale">Positive number where 1 is the current scale.</param>
 	public static void Rescale(this Song song, float scale)
 	{
-		foreach (var instrument in song.Instruments)
+		foreach (Instrument instrument in song.Instruments)
 			instrument.Rescale(scale);
 
 		song.SyncTrack?.Rescale(scale);
 
 		if (song.GlobalEvents is not null)
-			foreach (var e in song.GlobalEvents)
+			foreach (GlobalEvent e in song.GlobalEvents)
 				e.Rescale(scale);
 	}
 }

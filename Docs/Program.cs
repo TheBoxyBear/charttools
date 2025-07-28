@@ -3,8 +3,8 @@
 using Docfx;
 using Docfx.Dotnet;
 
-var dir = Environment.GetEnvironmentVariable("SiteDir");
-var config = dir + @"\docfx.json";
+string? dir = Environment.GetEnvironmentVariable("SiteDir");
+string config = dir + @"\docfx.json";
 
 Console.WriteLine("------- Building site with DocFx -------");
 

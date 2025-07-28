@@ -49,7 +49,7 @@ public class Tempo : ITrackObject
 		get => m_anchor;
 		set
 		{
-			var valueNull = value is null;
+			bool valueNull = value is null;
 
 			if (valueNull)
 			{

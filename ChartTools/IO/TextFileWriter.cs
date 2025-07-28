@@ -22,7 +22,7 @@ internal abstract class TextFileWriter(WritingDataSource source, IEnumerable<str
 		if (PreSerializerContent is not null)
 			yield return PreSerializerContent;
 
-		foreach (var line in lines)
+		foreach (string line in lines)
 			yield return line;
 
 		if (PostSerializerContent is not null)
@@ -31,12 +31,12 @@ internal abstract class TextFileWriter(WritingDataSource source, IEnumerable<str
 
 	public void Write()
 	{
-		foreach (var serializer in serializers)
+		foreach (Serializer<string> serializer in serializers)
 			serializer.Serialize();
 
 		using StreamWriter writer = new(Source.Stream, leaveOpen: true);
 
-		foreach (var line in GetLinesToWrite(serializer => serializer.Serialize()))
+		foreach (string line in GetLinesToWrite(serializer => serializer.Serialize()))
 			writer.WriteLine(line);
 
 		EndFile();
@@ -44,10 +44,10 @@ internal abstract class TextFileWriter(WritingDataSource source, IEnumerable<str
 
 	public async Task WriteAsync(CancellationToken cancellationToken)
 	{
-		using var writer = new StreamWriter(Source.Stream, leaveOpen: true);
-		var serializerResults = serializers.ToDictionary(ser => ser, ser => new EagerEnumerable<string>(ser.SerializeAsync()));
+		using StreamWriter writer = new(Source.Stream, leaveOpen: true);
+		Dictionary<Serializer<string>, EagerEnumerable<string>> serializerResults = serializers.ToDictionary(ser => ser, ser => new EagerEnumerable<string>(ser.SerializeAsync()));
 
-		foreach (var line in GetLinesToWrite(ser => serializerResults[ser]))
+		foreach (string line in GetLinesToWrite(ser => serializerResults[ser]))
 		{
 			if (cancellationToken.IsCancellationRequested)
 				break;
@@ -82,14 +82,14 @@ internal abstract class TextFileWriter(WritingDataSource source, IEnumerable<str
 	private IEnumerable<string> GetLinesToWrite(Func<Serializer<string>, IEnumerable<string>> getSerializerLines)
 	{
 		// Using the reader stream can modify the position of the write stream if both are connected
-		var initialWriterPosition = Source.Stream.Position;
-		var existing = GetExistingLines();
+		long initialWriterPosition = Source.Stream.Position;
+		List<string>? existing = GetExistingLines();
 
 		Source.Stream.Position = initialWriterPosition;
 
 		if (existing?.Count > 0)
 		{
-			var replacements = from serializer in serializers
+			IEnumerable<SectionReplacement<string>> replacements = from serializer in serializers
 							   select new SectionReplacement<string>(
 								   Wrap(serializer.Header, getSerializerLines(serializer)),
 								   line => line == serializer.Header, EndReplace, true);

@@ -47,7 +47,7 @@ public abstract class Event : ITrackObject
 		get => Argument is null ? EventType : string.Join(' ', EventType, Argument);
 		set
 		{
-			var split = value.Split(' ', 2);
+			string[] split = value.Split(' ', 2);
 
 			EventType = split[0];
 			Argument = split.Length > 1 ? split[1] : string.Empty;
@@ -59,15 +59,15 @@ public abstract class Event : ITrackObject
 
 	public Event(uint position, string data)
 	{
-		Position = position;
+		Position  = position;
 		EventData = data;
 	}
 
 	public Event(uint position, string type, string? argument)
 	{
-		Position = position;
+		Position  = position;
 		EventType = type;
-		Argument = argument;
+		Argument  = argument;
 	}
 
 	public override string ToString() => EventData;

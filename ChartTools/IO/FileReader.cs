@@ -44,7 +44,7 @@ internal abstract class FileReader<T, TParser>(ReadingDataSource source) : FileR
 
 		ReadBase(false, CancellationToken.None);
 
-		foreach (var group in parserGroups)
+		foreach (ParserContentGroup group in parserGroups)
 			group.Parser.Parse(group.Source.Enumerable.EnumerateSynchronously());
 
 		IsReading = false;
@@ -65,10 +65,10 @@ internal abstract class FileReader<T, TParser>(ReadingDataSource source) : FileR
 
 	public override void Dispose()
 	{
-		foreach (var group in parserGroups)
+		foreach (ParserContentGroup group in parserGroups)
 			group.Source.Dispose();
 
-		foreach (var task in parseTasks)
+		foreach (Task task in parseTasks)
 			task.Dispose();
 	}
 }

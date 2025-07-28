@@ -56,7 +56,7 @@ public class SystemExtensionsTests
 	[TestMethod] public void ReplaceNoMatch() => Assert.AreEqual(string.Join(' ', falseArray), string.Join(' ', falseArray.Replace(b => b, true)));
 	[TestMethod] public void ReplaceMatch()
 	{
-		int[] numbers = Enumerable.Range(0, 10).ToArray();
+		int[] numbers = [.. Enumerable.Range(0, 10)];
 		Assert.AreEqual("0 1 2 3 4 5 0 0 0 0", string.Join(' ', numbers.Replace(n => n > 5, 0)));
 	}
 

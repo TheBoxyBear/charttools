@@ -10,7 +10,7 @@ internal static class Printer
 
 	public static void PrintTrack(Track<StandardChord> track)
 	{
-		var content = new List<List<ConsoleContent>>();
+		List<List<ConsoleContent>> content = [];
 		uint[] sustainEnds = new uint[6];
 		ConsoleColor[] laneColors =
 		[
@@ -21,10 +21,10 @@ internal static class Printer
 			ConsoleColor.DarkYellow
 		];
 
-		foreach (var chord in track.Chords.Where(c => c.Notes.Count > 0).OrderBy(t => t.Position))
+		foreach (StandardChord chord in track.Chords.Where(c => c.Notes.Count > 0).OrderBy(t => t.Position))
 		{
-			var open = chord.Notes[StandardLane.Open];
-			var lineContent = new List<ConsoleContent>();
+			LaneNote<StandardLane>? open = chord.Notes[StandardLane.Open];
+			List<ConsoleContent> lineContent = [];
 
 			if (open is not null)
 			{
@@ -42,7 +42,7 @@ internal static class Printer
 				else
 					for (int i = 1; i < 6; i++)
 					{
-						var note = chord.Notes[(StandardLane)i];
+						LaneNote<StandardLane>? note = chord.Notes[(StandardLane)i];
 						string text;
 
 						if (note is null)
@@ -67,11 +67,11 @@ internal static class Printer
 
 	private static void PrintLines(IEnumerable<IEnumerable<ConsoleContent>> content)
 	{
-		foreach (var line in content.Reverse())
+		foreach (IEnumerable<ConsoleContent> line in content.Reverse())
 		{
 			Console.WriteLine();
 
-			foreach (var ct in line)
+			foreach (ConsoleContent ct in line)
 			{
 				Console.ForegroundColor = ct.Color;
 				Console.Write(ct.Content);

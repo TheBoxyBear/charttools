@@ -44,7 +44,7 @@ public class TempoMap : IList<Tempo>
 
 	public void AddRange(IEnumerable<Tempo> items)
 	{
-		foreach (var item in items)
+		foreach (Tempo item in items)
 		{
 			m_items.Add(item);
 			AddBase(item);
@@ -58,7 +58,7 @@ public class TempoMap : IList<Tempo>
 	public void Clear(bool detachMap)
 	{
 		if (detachMap)
-			foreach (var tempo in m_items)
+			foreach (Tempo tempo in m_items)
 				tempo.Map = null;
 
 		m_items.Clear();
@@ -80,7 +80,7 @@ public class TempoMap : IList<Tempo>
 
 	public void InsertRange(int index, IEnumerable<Tempo> items)
 	{
-		foreach (var item in items)
+		foreach (Tempo item in items)
 		{
 			m_items.Insert(index, item);
 			AddBase(item);
@@ -99,7 +99,8 @@ public class TempoMap : IList<Tempo>
 		if (item.Anchor is not null)
 			m_anchors.Remove(item);
 
-		var found = m_items.Remove(item);
+		bool found = m_items.Remove(item);
+
 		Desync();
 		return found;
 	}
@@ -108,7 +109,8 @@ public class TempoMap : IList<Tempo>
 	{
 		m_items.RemoveAt(index);
 
-		var item = m_items[index];
+		Tempo item = m_items[index];
+
 		if (item.Anchor is not null)
 			m_anchors.Remove(item);
 
@@ -118,13 +120,14 @@ public class TempoMap : IList<Tempo>
 	{
 		if (detachMap)
 		{
-			var tempo = m_items[index];
+			Tempo tempo = m_items[index];
 			tempo.Map = null;
 		}
 
 		m_items.RemoveAt(index);
 
-		var item = m_items[index];
+		Tempo item = m_items[index];
+
 		if (item.Anchor is not null)
 			m_anchors.Remove(item);
 
@@ -132,6 +135,7 @@ public class TempoMap : IList<Tempo>
 	}
 
 	public IEnumerator<Tempo> GetEnumerator() => m_items.GetEnumerator();
+
 	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
 	/// <summary>
@@ -149,7 +153,7 @@ public class TempoMap : IList<Tempo>
 		List<Tempo> desynced = [];
 
 		// Split synced and desynced. Sync 0 anchors.
-		foreach (var tempo in m_items)
+		foreach (Tempo tempo in m_items)
 		{
 			if (tempo.PositionSynced)
 				synced.Add(tempo);
@@ -165,18 +169,18 @@ public class TempoMap : IList<Tempo>
 		if (desynced.Count == 0)
 			return;
 
-		using var syncedEnumerator = (desyncedPreOrdered ? (IEnumerable<Tempo>)synced : synced.OrderBy(t => t.Position)).GetEnumerator();
+		using IEnumerator<Tempo> syncedEnumerator = (desyncedPreOrdered ? (IEnumerable<Tempo>)synced : synced.OrderBy(t => t.Position)).GetEnumerator();
 
 		if (!syncedEnumerator.MoveNext() || syncedEnumerator.Current.Position != 0)
 			throw new Exception("A tempo marker at position or anchor zero is required to sync anchors.");
 
-		using var desyncedEnumerator = desynced.OrderBy(t => t.Anchor).GetEnumerator();
+		using IEnumerator<Tempo> desyncedEnumerator = desynced.OrderBy(t => t.Anchor).GetEnumerator();
 
 		syncedEnumerator.MoveNext();
 		desyncedEnumerator.MoveNext();
 
-		var previous = syncedEnumerator.Current;
-		var previousMs = 0ul;
+		Tempo previous = syncedEnumerator.Current;
+		ulong previousMs = 0ul;
 
 		while (syncedEnumerator.MoveNext())
 			while (TryInsertDesynced(syncedEnumerator.Current))
@@ -188,7 +192,7 @@ public class TempoMap : IList<Tempo>
 
 		bool TryInsertDesynced(Tempo next)
 		{
-			var deltaMs = previous.Value * 50 / 3 * ((next.Position - previous.Position) / resolution);
+			float deltaMs = previous.Value * 50 / 3 * ((next.Position - previous.Position) / resolution);
 
 			if (desyncedEnumerator.Current.Anchor!.Value.TotalMilliseconds - previousMs <= deltaMs)
 			{
@@ -199,17 +203,19 @@ public class TempoMap : IList<Tempo>
 			previous = next;
 			return false;
 		}
+
 		void SyncAnchor()
 		{
-			var desynced = desyncedEnumerator.Current;
+			Tempo desynced = desyncedEnumerator.Current;
 			desynced.SyncPosition((uint)((desynced.Anchor!.Value.TotalMilliseconds - previousMs) * previous.Value * resolution / 240000));
 
 			previous = desynced;
 		}
 	}
+
 	internal void Desync()
 	{
-		foreach (var tempo in m_anchors)
+		foreach (Tempo tempo in m_anchors)
 			tempo.DesyncPosition();
 
 		Synchronized = false;

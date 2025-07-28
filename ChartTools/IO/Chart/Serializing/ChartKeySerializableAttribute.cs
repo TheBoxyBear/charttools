@@ -6,7 +6,7 @@ public class ChartKeySerializableAttribute(string key) : KeySerializableAttribut
 
 	protected override string GetValueString(object propValue)
 	{
-		var propString = propValue.ToString()!;
+		string propString = propValue.ToString()!;
 		return propValue is string ? $"\"{propString}\"" : propString;
 	}
 

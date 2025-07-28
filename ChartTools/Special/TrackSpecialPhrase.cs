@@ -12,7 +12,7 @@ public class TrackSpecialPhrase : SpecialPhrase
 	{
 		get
 		{
-			var typeEnum = (TrackSpecialPhraseType)TypeCode;
+			TrackSpecialPhraseType typeEnum = (TrackSpecialPhraseType)TypeCode;
 			return Enum.IsDefined(typeEnum) ? typeEnum : TrackSpecialPhraseType.Unknown;
 		}
 		set => TypeCode = value == TrackSpecialPhraseType.Unknown

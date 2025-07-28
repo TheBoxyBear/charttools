@@ -9,9 +9,11 @@ internal static class DirectoryHandler
 {
 	public static DirectoryResult<T?> FromDirectory<T>(string directory, Func<string, FormattingRules, T> read)
 	{
-		var iniPath = directory + @"\song.ini";
-		var chartPath = directory + @"\notes.chart";
-		var iniMetadata = File.Exists(iniPath) ? IniFile.ReadMetadata(iniPath) : new();
+		string
+			iniPath   = directory + @"\song.ini",
+			chartPath = directory + @"\notes.chart";
+
+		Metadata iniMetadata = File.Exists(iniPath) ? IniFile.ReadMetadata(iniPath) : new();
 
 		T? value = default;
 
@@ -23,9 +25,11 @@ internal static class DirectoryHandler
 	public static async Task<DirectoryResult<T?>> FromDirectoryAsync<T>(
 		string directory, Func<string, FormattingRules, Task<T>> read, CancellationToken cancellationToken)
 	{
-		var iniPath = directory + @"\song.ini";
-		var chartPath = directory + @"\notes.chart";
-		var iniMetadata = File.Exists(iniPath) ? await IniFile.ReadMetadataAsync(iniPath, null, cancellationToken) : new();
+		string
+			iniPath   = directory + @"\song.ini",
+			chartPath = directory + @"\notes.chart";
+
+		Metadata iniMetadata = File.Exists(iniPath) ? await IniFile.ReadMetadataAsync(iniPath, null, cancellationToken) : new();
 
 		T? value = default;
 

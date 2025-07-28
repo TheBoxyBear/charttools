@@ -21,32 +21,33 @@ public static class Optimizer
 	public static void CutSustains<T>(this IEnumerable<T> chords, bool preOrdered = false)
 		where T : LaneChord
 	{
-		var sustains = new Dictionary<byte, (uint, ILaneNote)>();
+		Dictionary<byte, (uint, ILaneNote)> ongoingSustains = [];
 
-		foreach (var chord in GetOrdered(chords, preOrdered))
+		foreach (T chord in GetOrdered(chords, preOrdered))
 		{
 			if (chord.Notes.Count == 0)
 				continue;
 
-			using var noteEnumerator = chord.Notes.GetEnumerator();
+			using IEnumerator<ILaneNote> noteEnumerator = chord.Notes.GetEnumerator();
 			noteEnumerator.MoveNext();
 
-			var note = noteEnumerator.Current;
+			ILaneNote note = noteEnumerator.Current;
 
 			if (chord.OpenExclusivity)
 			{
 				if (noteEnumerator.Current.Index == 0) // Open stops all sustains
-					foreach ((var position, var sustained) in sustains.Values)
+					foreach ((uint position, ILaneNote sustained) in ongoingSustains.Values)
 					{
 						if (position + sustained.Sustain > chord.Position)
 							sustained.Sustain = chord.Position;
 
-						sustains.Remove(noteEnumerator.Current.Index);
+						ongoingSustains.Remove(noteEnumerator.Current.Index);
 					}
 				else
 					RemoveSustain(0); // Non-opens stops open sustain
 			}
 			else
+				// New note stops ongoing sustain on the same lane
 				RemoveSustain(note.Index);
 
 			AddSustain();
@@ -62,14 +63,15 @@ public static class Optimizer
 			void AddSustain()
 			{
 				if (noteEnumerator.Current.Sustain > 0)
-					sustains[noteEnumerator.Current.Index] = (chord.Position, noteEnumerator.Current);
+					ongoingSustains[noteEnumerator.Current.Index] = (chord.Position, noteEnumerator.Current);
 			}
+
 			void RemoveSustain(byte index)
 			{
-				if (sustains.TryGetValue(index, out var sustained))
+				if (ongoingSustains.TryGetValue(index, out (uint _, ILaneNote note) sustain))
 				{
-					sustained.Item2.Sustain = chord.Position;
-					sustains.Remove(index);
+					sustain.note.Sustain = chord.Position;
+					ongoingSustains.Remove(index);
 				}
 			}
 		}
@@ -85,12 +87,13 @@ public static class Optimizer
 	public static List<T>[] CutSpecialLengths<T>(IEnumerable<T> phrases, bool preOrdered = false)
 		where T : SpecialPhrase
 	{
+		// TODO Consider removing
 		if (typeof(T) == typeof(SpecialPhrase))
 			throw new InvalidOperationException($"Collection must be of a type deriving from {nameof(SpecialPhrase)}.");
 
-		var output = phrases.GroupBy(p => p.TypeCode).Select(g => g.ToList()).ToArray();
+		List<T>[] output = [.. phrases.GroupBy(p => p.TypeCode).Select(g => g.ToList())];
 
-		foreach (var grouping in output)
+		foreach (List<T> grouping in output)
 			grouping.CutLengths(preOrdered);
 
 		return output;
@@ -104,7 +107,7 @@ public static class Optimizer
 	public static void CutLengths<T>(this IEnumerable<T> objects, bool preOrdered = false)
 		where T : ILongTrackObject
 	{
-		foreach ((var current, var next) in GetOrdered(objects, preOrdered).RelativeLoopSkipFirst())
+		foreach ((T current, T next) in GetOrdered(objects, preOrdered).RelativeLoopSkipFirst())
 			if (LengthNeedsCut(current, next))
 				next.Length = current.Position - current.Position;
 	}
@@ -118,11 +121,11 @@ public static class Optimizer
 	/// <remarks>If some markers may be anchored, use the overload with a resolution.</remarks>
 	public static void RemoveUnneeded(this ICollection<Tempo> markers, bool preOrdered = false)
 	{
-		if (markers.TryGetFirst(m => !m.PositionSynced, out var marker))
+		if (markers.TryGetFirst(m => !m.PositionSynced, out Tempo? marker))
 			throw new DesynchronizedAnchorException(marker.Anchor!.Value,
 				$"Collection contains a desynchronized anchored tempo at {marker.Anchor}. Resolution needed to synchronize anchors.");
 
-		foreach ((var previous, var current) in GetOrdered(markers, preOrdered).RelativeLoopSkipFirst())
+		foreach ((Tempo previous, Tempo current) in GetOrdered(markers, preOrdered).RelativeLoopSkipFirst())
 			if (previous.Value == current.Value)
 				markers.Remove(current);
 	}
@@ -137,7 +140,7 @@ public static class Optimizer
 	{
 		markers.Synchronize(resolution, desyncedPreOrdered);
 
-		foreach ((var previous, var current) in markers.OrderBy(m => m.Position).RelativeLoopSkipFirst())
+		foreach ((Tempo previous, Tempo current) in markers.OrderBy(m => m.Position).RelativeLoopSkipFirst())
 			if (current.Value == previous!.Value)
 				markers.Remove(current);
 	}
@@ -150,7 +153,7 @@ public static class Optimizer
 	/// <returns>Passed markers, ordered by position. Same instance if <paramref name="preOrdered"/> is <see langword="true"/> and <paramref name="signatures"/> is <see cref="List{T}"/>.</returns>
 	public static void RemoveUnneeded(this ICollection<TimeSignature> signatures, bool preOrdered = false)
 	{
-		foreach ((var previous, var current) in GetOrdered(signatures, preOrdered).RelativeLoopSkipFirst())
+		foreach ((TimeSignature previous, TimeSignature current) in GetOrdered(signatures, preOrdered).RelativeLoopSkipFirst())
 			if (previous.Numerator == current.Numerator && previous.Denominator == current.Denominator)
 				signatures.Remove(current);
 	}

@@ -54,14 +54,14 @@ public static class ChartFile
 	{
 		Song song = new();
 
-		foreach (var parser in reader.Parsers)
+		foreach (ChartParser parser in reader.Parsers)
 			parser.ApplyToSong(song);
 
 		// Vocals are read and parsed as global events
 		if (reader.Session.Components.Vocals)
 		{
 			// Parson of global events is forced - not null
-			song.GlobalEvents!.GetLyrics(out var phrases, out var notes);
+			song.GlobalEvents!.GetLyrics(out IList<PhraseMarker>? phrases, out IList<VocalsNote>? notes);
 			song.Vocals = new() { Standard = new(phrases, notes) };
 		}
 
@@ -72,37 +72,41 @@ public static class ChartFile
 		return song;
 	}
 
-	public static Song ReadSong(ReadingDataSource source, ChartReadingConfiguration? config = default, FormattingRules? formatting = default)
+	public static Song ReadSong(
+		ReadingDataSource source, ChartReadingConfiguration? config = default, FormattingRules? formatting = default)
 	{
-		var session = new ChartReadingSession(ComponentList.Full(), config, formatting);
-		using var reader = new ChartFileReader(source, session);
+		ChartReadingSession session  = new(ComponentList.Full(), config, formatting);
+		using ChartFileReader reader = new(source, session);
 
 		reader.Read();
 		return CreateSongFromReader(reader);
 	}
 
-	public static async Task<Song> ReadSongAsync(ReadingDataSource source, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+	public static async Task<Song> ReadSongAsync(
+		ReadingDataSource source, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
 	{
-		var session = new ChartReadingSession(ComponentList.Full(), config, formatting);
-		using var reader = new ChartFileReader(source, session);
+		ChartReadingSession session  = new(ComponentList.Full(), config, formatting);
+		using ChartFileReader reader = new(source, session);
 
 		await reader.ReadAsync(cancellationToken);
 		return CreateSongFromReader(reader);
 	}
 
-	public static Song ReadComponents(ReadingDataSource source, ComponentList components, ChartReadingConfiguration? config = default, FormattingRules? formatting = default)
+	public static Song ReadComponents(
+		ReadingDataSource source, ComponentList components, ChartReadingConfiguration? config = default, FormattingRules? formatting = default)
 	{
-		var session = new ChartReadingSession(components, config, formatting);
-		using var reader = new ChartFileReader(source, session);
+		ChartReadingSession session  = new(components, config, formatting);
+		using ChartFileReader reader = new(source, session);
 
 		reader.Read();
 		return CreateSongFromReader(reader);
 	}
 
-	public static async Task<Song> ReadComponentsAsync(ReadingDataSource source, ComponentList components, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+	public static async Task<Song> ReadComponentsAsync(
+		ReadingDataSource source, ComponentList components, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
 	{
-		var session = new ChartReadingSession(components, config, formatting);
-		using var reader = new ChartFileReader(source, session);
+		ChartReadingSession session  = new(components, config, formatting);
+		using ChartFileReader reader = new(source, session);
 
 		await reader.ReadAsync(cancellationToken);
 		return CreateSongFromReader(reader);
@@ -112,9 +116,9 @@ public static class ChartFile
 	#region Instruments
 	private static InstrumentSet CreateInstrumentSetFromReader(ChartFileReader reader)
 	{
-		var instruments = new InstrumentSet();
+		InstrumentSet instruments = new();
 
-		foreach (var parser in reader.Parsers)
+		foreach (ChartParser parser in reader.Parsers)
 			switch (parser)
 			{
 				case DrumsTrackParser drumsParser:
@@ -122,7 +126,7 @@ public static class ChartFile
 					drumsParser.ApplyToInstrument(instruments.Drums);
 					break;
 				case StandardTrackParser standardParser:
-					var standardInst = instruments.Get(standardParser.Instrument);
+					StandardInstrument? standardInst = instruments.Get(standardParser.Instrument);
 
 					if (standardInst is null)
 					{
@@ -133,7 +137,7 @@ public static class ChartFile
 					standardParser.ApplyToInstrument(standardInst);
 					break;
 				case GHLTrackParser ghlParser:
-					var ghlInst = instruments.Get(ghlParser.Instrument);
+					GHLInstrument? ghlInst = instruments.Get(ghlParser.Instrument);
 
 					if (ghlInst is null)
 					{
@@ -148,19 +152,21 @@ public static class ChartFile
 		return instruments;
 	}
 
-	public static InstrumentSet ReadInstruments(ReadingDataSource source, InstrumentComponentList components, ChartReadingConfiguration? config = default, FormattingRules? formatting = default)
+	public static InstrumentSet ReadInstruments(
+		ReadingDataSource source, InstrumentComponentList components, ChartReadingConfiguration? config = default, FormattingRules? formatting = default)
 	{
-		var session = new ChartReadingSession(new() { Instruments = components }, config, formatting);
-		using var reader = new ChartFileReader(source, session);
+		ChartReadingSession session  = new(new() { Instruments = components }, config, formatting);
+		using ChartFileReader reader = new(source, session);
 
 		reader.Read();
 		return CreateInstrumentSetFromReader(reader);
 	}
 
-	public static async Task<InstrumentSet> ReadInstrumentsAsync(ReadingDataSource source, InstrumentComponentList components, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+	public static async Task<InstrumentSet> ReadInstrumentsAsync(
+		ReadingDataSource source, InstrumentComponentList components, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
 	{
-		var session = new ChartReadingSession(new() { Instruments = components }, config, formatting);
-		using var reader = new ChartFileReader(source, session);
+		ChartReadingSession session  = new(new() { Instruments = components }, config, formatting);
+		using ChartFileReader reader = new(source, session);
 
 		await reader.ReadAsync(cancellationToken);
 		return CreateInstrumentSetFromReader(reader);
@@ -173,18 +179,19 @@ public static class ChartFile
 	/// </summary>
 	public static Metadata ReadMetadata(ReadingDataSource source, Metadata? existing = null)
 	{
-		var session = new ChartReadingSession(new() { Metadata = true }, DefaultReadConfig, null);
-		using var reader = new ChartFileReader(source, session);
+		ChartReadingSession session  = new(new() { Metadata = true }, DefaultReadConfig, null);
+		using ChartFileReader reader = new(source, session);
 
 		reader.ExistingMetadata = existing;
 		reader.Read();
 		return reader.Parsers.TryGetFirstOfType(out MetadataParser? parser) ? parser!.Result : new();
 	}
 
-	public static async Task<Metadata> ReadMetadataAsync(ReadingDataSource source, Metadata? existing = null, CancellationToken cancellationToken = default)
+	public static async Task<Metadata> ReadMetadataAsync(
+		ReadingDataSource source, Metadata? existing = null, CancellationToken cancellationToken = default)
 	{
-		var session = new ChartReadingSession(new() { Metadata = true }, DefaultReadConfig, null);
-		using var reader = new ChartFileReader(source, session);
+		ChartReadingSession session  = new(new() { Metadata = true }, DefaultReadConfig, null);
+		using ChartFileReader reader = new(source, session);
 
 		await reader.ReadAsync(cancellationToken);
 		reader.ExistingMetadata = existing;
@@ -195,17 +202,18 @@ public static class ChartFile
 	#region Global events
 	public static List<GlobalEvent> ReadGlobalEvents(ReadingDataSource source)
 	{
-		var session = new ChartReadingSession(new() { GlobalEvents = true }, DefaultReadConfig, null);
-		using var reader = new ChartFileReader(source, session);
+		ChartReadingSession session  = new(new() { GlobalEvents = true }, DefaultReadConfig, null);
+		using ChartFileReader reader = new(source, session);
 
 		reader.Read();
 		return reader.Parsers.TryGetFirstOfType(out GlobalEventParser? parser) ? parser!.Result! : [];
 	}
 
-	public static async Task<List<GlobalEvent>> ReadGlobalEventsAsync(ReadingDataSource source, CancellationToken cancellationToken = default)
+	public static async Task<List<GlobalEvent>> ReadGlobalEventsAsync(
+		ReadingDataSource source, CancellationToken cancellationToken = default)
 	{
-		var session = new ChartReadingSession(new() { GlobalEvents = true }, DefaultReadConfig, null);
-		using var reader = new ChartFileReader(source, session);
+		ChartReadingSession session  = new(new() { GlobalEvents = true }, DefaultReadConfig, null);
+		using ChartFileReader reader = new(source, session);
 
 		await reader.ReadAsync(cancellationToken);
 		return reader.Parsers.TryGetFirstOfType(out GlobalEventParser? parser) ? parser!.Result! : [];
@@ -215,13 +223,14 @@ public static class ChartFile
 	#region Vocals
 	public static StandardVocalsTrack ReadVocals(ReadingDataSource source)
 	{
-		ReadGlobalEvents(source).GetLyrics(out var phrases, out var notes);
+		ReadGlobalEvents(source).GetLyrics(out IList<PhraseMarker>? phrases, out IList<VocalsNote>? notes);
 		return new(phrases, notes);
 	}
 
-	public static async Task<StandardVocalsTrack> ReadVocalsAsync(ReadingDataSource source, CancellationToken cancellationToken = default)
+	public static async Task<StandardVocalsTrack> ReadVocalsAsync(
+		ReadingDataSource source, CancellationToken cancellationToken = default)
 	{
-		(await ReadGlobalEventsAsync(source, cancellationToken)).GetLyrics(out var phrases, out var notes);
+		(await ReadGlobalEventsAsync(source, cancellationToken)).GetLyrics(out IList<PhraseMarker>? phrases, out IList<VocalsNote>? notes);
 		return new(phrases, notes);
 	}
 	#endregion
@@ -229,17 +238,18 @@ public static class ChartFile
 	#region Sync track
 	public static SyncTrack ReadSyncTrack(ReadingDataSource source, ChartReadingConfiguration? config = default)
 	{
-		var session = new ChartReadingSession(new() { SyncTrack = true }, config, null);
-		using var reader = new ChartFileReader(source, session);
+		ChartReadingSession session  = new(new() { SyncTrack = true }, config, null);
+		using ChartFileReader reader = new(source, session);
 
 		reader.Read();
 		return reader.Parsers.TryGetFirstOfType(out SyncTrackParser? syncTrackParser) ? syncTrackParser!.Result! : new();
 	}
 
-	public static async Task<SyncTrack> ReadSyncTrackAsync(ReadingDataSource source, ChartReadingConfiguration? config = default, CancellationToken cancellationToken = default)
+	public static async Task<SyncTrack> ReadSyncTrackAsync(
+		ReadingDataSource source, ChartReadingConfiguration? config = default, CancellationToken cancellationToken = default)
 	{
-		var session = new ChartReadingSession(new() { SyncTrack = true }, config, null);
-		using var reader = new ChartFileReader(source, session);
+		ChartReadingSession session  = new(new() { SyncTrack = true }, config, null);
+		using ChartFileReader reader = new(source, session);
 
 		await reader.ReadAsync(cancellationToken);
 		return reader.Parsers.TryGetFirstOfType(out SyncTrackParser? syncTrackParser) ? syncTrackParser!.Result! : new();
@@ -248,20 +258,20 @@ public static class ChartFile
 	#endregion
 
 	#region Writing
-	private static void FillInstrumentsWriterData(InstrumentSet set, InstrumentComponentList components, ChartWritingSession session,
-		List<Serializer<string>> serializers, List<string> removedHeaders)
+	private static void FillInstrumentsWriterData(
+		InstrumentSet set, InstrumentComponentList components, ChartWritingSession session, List<Serializer<string>> serializers, List<string> removedHeaders)
 	{
-		foreach (var identity in
+		foreach (InstrumentIdentity identity in
 			EnumCache<StandardInstrumentIdentity>.Values.Cast<InstrumentIdentity>()
 			.Concat(EnumCache<GHLInstrumentIdentity>.Values.Cast<InstrumentIdentity>())
 			.Append(InstrumentIdentity.Drums))
 		{
-			var tracks = components.Map(identity);
+			DifficultySet tracks = components.Map(identity);
 
 			// Only act on tracks specified in the component list
-			foreach (var diff in EnumCache<Difficulty>.Values.Where(d => tracks.HasFlag(d.ToSet())))
+			foreach (Difficulty diff in EnumCache<Difficulty>.Values.Where(d => tracks.HasFlag(d.ToSet())))
 			{
-				var track = set.Get(identity)?.GetTrack(diff);
+				Track? track = set.Get(identity)?.GetTrack(diff);
 
 				if (track?.IsEmpty is not null or false)
 					serializers.Add(new TrackSerializer(track, session));
@@ -272,10 +282,11 @@ public static class ChartFile
 	}
 
 	#region Song
-	private static ChartFileWriter GetSongWriter(WritingDataSource source, Song song, ComponentList components, ChartWritingSession session)
+	private static ChartFileWriter GetSongWriter(
+		WritingDataSource source, Song song, ComponentList components, ChartWritingSession session)
 	{
-		var removedHeaders = new List<string>();
-		var serializers = new List<Serializer<string>>();
+		List<string> removedHeaders = [];
+		List<Serializer<string>> serializers = [];
 
 		if (components.Metadata)
 		{
@@ -298,11 +309,11 @@ public static class ChartFile
 			// TODO Add <remark> that enabling the vocals component will also rewrite global events.
 			if (components.Vocals)
 			{
-				var vocals = (song.Vocals ??= new()).Standard;
+				StandardVocalsTrack vocals = (song.Vocals ??= new()).Standard;
 
-				song.GlobalEvents = (song.GlobalEvents is null
+				song.GlobalEvents = [.. (song.GlobalEvents is null
 					? vocals.ToGlobalEvents()
-					: song.GlobalEvents.SetLyrics(vocals)).ToList();
+					: song.GlobalEvents.SetLyrics(vocals))];
 			}
 
 			if (song.GlobalEvents?.Count > 0)
@@ -319,10 +330,12 @@ public static class ChartFile
 		return new(source, removedHeaders, [.. serializers]);
 	}
 
-	public static void WriteSong(string path, Song song, ChartWritingConfiguration? config = default)
+	public static void WriteSong(
+		string path, Song song, ChartWritingConfiguration? config = default)
 		=> WriteSong(new WritingDataSource(path), song, config);
 
-	public static void WriteSong(Stream stream, Song song, ChartWritingConfiguration? config = default)
+	public static void WriteSong(
+		Stream stream, Song song, ChartWritingConfiguration? config = default)
 		=> WriteSong(new WritingDataSource(stream), song, config);
 
 	/// <summary>
@@ -331,63 +344,72 @@ public static class ChartFile
 	/// <param name="song">Song to write</param>
 	public static void WriteSong(WritingDataSource source, Song song, ChartWritingConfiguration? config = default)
 	{
-		using var writer = GetSongWriter(source, song, ComponentList.Full(), new(config, song.Metadata?.Formatting));
+		using ChartFileWriter writer = GetSongWriter(source, song, ComponentList.Full(), new(config, song.Metadata?.Formatting));
 		writer.Write();
 	}
 
-	public static Task WriteSongAsync(string path, Song song, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default)
+	public static Task WriteSongAsync(
+		string path, Song song, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default)
 		=> WriteSongAsync(new WritingDataSource(path), song, config, cancellationToken);
 
-	public static Task WriteSongAsync(Stream stream, Song song, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default)
+	public static Task WriteSongAsync(
+		Stream stream, Song song, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default)
 		=> WriteSongAsync(new WritingDataSource(stream), song, config, cancellationToken);
 
-	public static async Task WriteSongAsync(WritingDataSource source, Song song, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default)
+	public static async Task WriteSongAsync(
+		WritingDataSource source, Song song, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default)
 	{
-		using var writer = GetSongWriter(source, song, ComponentList.Full(), new(config, song.Metadata?.Formatting));
+		using ChartFileWriter writer = GetSongWriter(source, song, ComponentList.Full(), new(config, song.Metadata?.Formatting));
 		await writer.WriteAsync(cancellationToken);
 	}
 	#endregion
 
 	#region Components
-	public static void ReplaceComponents(WritingDataSource source, Song song, ComponentList components, ChartWritingConfiguration? config = default)
+	public static void ReplaceComponents(
+		WritingDataSource source, Song song, ComponentList components, ChartWritingConfiguration? config = default)
 	{
-		using var writer = GetSongWriter(source, song, components, new(config, song.Metadata?.Formatting));
+		using ChartFileWriter writer = GetSongWriter(source, song, components, new(config, song.Metadata?.Formatting));
 		writer.Write();
 	}
 
-	public static async Task ReplaceComponentsAsync(WritingDataSource source, Song song, ComponentList components, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default)
+	public static async Task ReplaceComponentsAsync(
+		WritingDataSource source, Song song, ComponentList components, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default)
 	{
-		using var writer = GetSongWriter(source, song, components, new(config, song.Metadata?.Formatting));
+		using ChartFileWriter writer = GetSongWriter(source, song, components, new(config, song.Metadata?.Formatting));
 		await writer.WriteAsync(cancellationToken);
 	}
 	#endregion
 
 	#region Instruments
-	private static ChartFileWriter GetInstrumentsWriter(WritingDataSource source, InstrumentSet set, InstrumentComponentList components, ChartWritingSession session)
+	private static ChartFileWriter GetInstrumentsWriter(
+		WritingDataSource source, InstrumentSet set, InstrumentComponentList components, ChartWritingSession session)
 	{
-		var serializers = new List<Serializer<string>>();
-		var removedHeaders = new List<string>();
+		List<Serializer<string>> serializers = [];
+		List<string> removedHeaders = [];
 
 		FillInstrumentsWriterData(set, components, session, serializers, removedHeaders);
 
 		return new(source, removedHeaders, [.. serializers]);
 	}
 
-	public static void ReplaceInstruments(WritingDataSource source, InstrumentSet set, InstrumentComponentList components, ChartWritingConfiguration? config = default, FormattingRules? formatting = default)
+	public static void ReplaceInstruments(
+		WritingDataSource source, InstrumentSet set, InstrumentComponentList components, ChartWritingConfiguration? config = default, FormattingRules? formatting = default)
 	{
-		using var writer = GetInstrumentsWriter(source, set, components, new(config, formatting));
+		using ChartFileWriter writer = GetInstrumentsWriter(source, set, components, new(config, formatting));
 		writer.Write();
 	}
 
-	public static async Task ReplaceInstrumentsAsync(WritingDataSource source, InstrumentSet set, InstrumentComponentList components, ChartWritingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+	public static async Task ReplaceInstrumentsAsync(
+		WritingDataSource source, InstrumentSet set, InstrumentComponentList components, ChartWritingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
 	{
-		using var writer = GetInstrumentsWriter(source, set, components, new(config, formatting));
+		using ChartFileWriter writer = GetInstrumentsWriter(source, set, components, new(config, formatting));
 		await writer.WriteAsync(cancellationToken);
 	}
 	#endregion
 
 	#region Metadata
-	private static ChartFileWriter GetMetadataWriter(WritingDataSource source, Metadata metadata) => new(source, null, new MetadataSerializer(metadata));
+	private static ChartFileWriter GetMetadataWriter(WritingDataSource source, Metadata metadata)
+		=> new(source, null, new MetadataSerializer(metadata));
 
 	/// <summary>
 	/// Replaces the metadata in a file.
@@ -395,55 +417,62 @@ public static class ChartFile
 	/// <param name="metadata">Metadata to write</param>
 	public static void ReplaceMetadata(WritingDataSource source, Metadata metadata)
 	{
-		using var writer = GetMetadataWriter(source, metadata);
+		using ChartFileWriter writer = GetMetadataWriter(source, metadata);
 		writer.Write();
 	}
 
-	public static async Task ReplaceMetadataAsync(WritingDataSource source, Metadata metadata, CancellationToken cancellationToken = default)
+	public static async Task ReplaceMetadataAsync(
+		WritingDataSource source, Metadata metadata, CancellationToken cancellationToken = default)
 	{
-		using var writer = GetMetadataWriter(source, metadata);
+		using ChartFileWriter writer = GetMetadataWriter(source, metadata);
 		await writer.WriteAsync(cancellationToken);
 	}
 	#endregion
 
 	#region Global events
-	private static ChartFileWriter GetGlobalEventWriter(WritingDataSource source, IEnumerable<GlobalEvent> events, ChartWritingSession session) => new(source, null, new GlobalEventSerializer(events, session));
+	private static ChartFileWriter GetGlobalEventWriter(
+		WritingDataSource source, IEnumerable<GlobalEvent> events, ChartWritingSession session)
+		=> new(source, null, new GlobalEventSerializer(events, session));
 
 	/// <summary>
 	/// Replaces the global events in a file.
 	/// </summary>
-	/// <param name="path">Path of the file to write</param>
+	/// <param name="source">Path of the file to write</param>
 	/// <param name="events">Events to use as a replacement</param>
 	public static void ReplaceGlobalEvents(WritingDataSource source, IEnumerable<GlobalEvent> events)
 	{
-		using var writer = GetGlobalEventWriter(source, events, new(DefaultWriteConfig, null));
+		using ChartFileWriter writer = GetGlobalEventWriter(source, events, new(DefaultWriteConfig, null));
 		writer.Write();
 	}
 
-	public static async Task ReplaceGlobalEventsAsync(WritingDataSource source, IEnumerable<GlobalEvent> events, CancellationToken cancellationToken = default)
+	public static async Task ReplaceGlobalEventsAsync(
+		WritingDataSource source, IEnumerable<GlobalEvent> events, CancellationToken cancellationToken = default)
 	{
-		using var writer = GetGlobalEventWriter(source, events, new(DefaultWriteConfig, null));
+		using ChartFileWriter writer = GetGlobalEventWriter(source, events, new(DefaultWriteConfig, null));
 		await writer.WriteAsync(cancellationToken);
 	}
 	#endregion
 
-	private static ChartFileWriter GetSyncTrackWriter(WritingDataSource source, SyncTrack syncTrack, ChartWritingSession session) => new(source, null, new SyncTrackSerializer(syncTrack, session));
+	private static ChartFileWriter GetSyncTrackWriter(WritingDataSource source, SyncTrack syncTrack, ChartWritingSession session)
+		=> new(source, null, new SyncTrackSerializer(syncTrack, session));
 
 	/// <summary>
 	/// Replaces the sync track in a file.
 	/// </summary>
-	/// <param name="path">Path of the file to write</param>
+	/// <param name="source">Path of the file to write</param>
 	/// <param name="syncTrack">Sync track to write</param>
 	/// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
-	public static void ReplaceSyncTrack(WritingDataSource source, SyncTrack syncTrack, ChartWritingConfiguration? config = default)
+	public static void ReplaceSyncTrack(
+		WritingDataSource source, SyncTrack syncTrack, ChartWritingConfiguration? config = default)
 	{
-		using var writer = GetSyncTrackWriter(source, syncTrack, new(config, null));
+		using ChartFileWriter writer = GetSyncTrackWriter(source, syncTrack, new(config, null));
 		writer.Write();
 	}
 
-	public static async Task ReplaceSyncTrackAsync(WritingDataSource source, SyncTrack syncTrack, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default)
+	public static async Task ReplaceSyncTrackAsync(
+		WritingDataSource source, SyncTrack syncTrack, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default)
 	{
-		using var writer = GetSyncTrackWriter(source, syncTrack, new(config, null));
+		using ChartFileWriter writer = GetSyncTrackWriter(source, syncTrack, new(config, null));
 		await writer.WriteAsync(cancellationToken);
 	}
 	#endregion

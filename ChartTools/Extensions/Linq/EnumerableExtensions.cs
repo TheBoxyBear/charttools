@@ -1,5 +1,6 @@
 ﻿using ChartTools.Extensions.Collections.Alternating;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ChartTools.Extensions.Linq;
 
@@ -49,13 +50,14 @@ public static class EnumerableExtensions
 		returnedDefault = true;
 		return defaultValue;
 	}
+
 	/// <summary>
 	/// Tries to get the first item that meet a condition from en enumerable.
 	/// </summary>
 	/// <param name="predicate">Method that returns <see langword="true"/> if a given item meets the condition</param>
 	/// <param name="item">Found item</param>
 	/// <returns><see langword="true"/> if an item was found</returns>
-	public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, out T item)
+	public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, [MaybeNullWhen(false)] out T item)
 	{
 		ArgumentNullException.ThrowIfNull(predicate);
 
@@ -69,36 +71,42 @@ public static class EnumerableExtensions
 		item = default!;
 		return false;
 	}
+
 	/// <summary>
 	/// Tries to get the first element of a collection.
 	/// </summary>
 	/// <param name="source">Source of items</param>
 	/// <param name="result">Found item</param>
 	/// <returns><see langword="true"/> if an item was found</returns>
-	public static bool TryGetFirst<T>(this IEnumerable<T> source, out T result)
+	public static bool TryGetFirst<T>(this IEnumerable<T> source, [MaybeNullWhen(false)] out T result)
 	{
-		using var enumerator = source.GetEnumerator();
-		var success = enumerator.MoveNext();
+		using IEnumerator<T> enumerator = source.GetEnumerator();
+		bool success = enumerator.MoveNext();
 
-		result = success ? enumerator.Current : default!;
+		result = success ? enumerator.Current : default;
 		return success;
 	}
+
 	/// <summary>
 	/// Tries to get the first item of a given type in a collection.
 	/// </summary>
 	/// <param name="source">Source of items</param>
 	/// <param name="result">Found item</param>
 	/// <returns><see langword="true"/> if an item was found</returns>
-	public static bool TryGetFirstOfType<TResult>(this IEnumerable source, out TResult result) => source.OfType<TResult>().TryGetFirst(out result);
+	public static bool TryGetFirstOfType<TResult>(this IEnumerable source, [MaybeNullWhen(false)] out TResult result)
+		=> source.OfType<TResult>().TryGetFirst(out result);
 	#endregion
 
 	/// <summary>
 	/// Excludes <see langword="null"/> items.
 	/// </summary>
-	public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) => source.Where(t => t is not null)!;
-	public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) where T : struct
+	public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source)
+		=> source.Where(t => t is not null)!;
+
+	public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source)
+		where T : struct
 	{
-		foreach (var item in source)
+		foreach (T? item in source)
 			if (item.HasValue)
 				yield return item.Value;
 	}
@@ -187,12 +195,12 @@ public static class EnumerableExtensions
 			yield break;
 		}
 
-		List<SectionReplacement<T>> replacementList = replacements.ToList();
+		List<SectionReplacement<T>> replacementList = [.. replacements];
 		using IEnumerator<T> itemsEnumerator = source.GetEnumerator();
 
 		if (!itemsEnumerator.MoveNext())
 		{
-			foreach (var item in AddMissing())
+			foreach (T item in AddMissing())
 				yield return item;
 
 			yield break;
@@ -201,13 +209,13 @@ public static class EnumerableExtensions
 		do
 		{
 			// Find a matching replacement start
-			if (replacementList.TryGetFirst(r => r.StartReplace(itemsEnumerator.Current), out var replacement))
+			if (replacementList.TryGetFirst(r => r.StartReplace(itemsEnumerator.Current), out SectionReplacement<T> replacement))
 			{
 				// Move to the end of the section to replace
 				do
 					if (!itemsEnumerator.MoveNext())
 					{
-						foreach (var item in AddMissing())
+						foreach (T item in AddMissing())
 							yield return item;
 						yield break;
 					}
@@ -225,7 +233,7 @@ public static class EnumerableExtensions
 
 				if (!itemsEnumerator.MoveNext())
 				{
-					foreach (var item in AddMissing())
+					foreach (T item in AddMissing())
 						yield return item;
 					yield break;
 				}
@@ -241,12 +249,13 @@ public static class EnumerableExtensions
 		IEnumerable<T> AddMissing()
 		{
 			// Return remaining replacements
-			foreach (var replacement in replacementList.Where(r => r.AddIfMissing))
+			foreach (SectionReplacement<T> replacement in replacementList.Where(r => r.AddIfMissing))
 				// Return the replacement
 				foreach (T item in replacement.Replacement)
 					yield return item;
 		}
 	}
+
 	/// <summary>
 	/// Removes a section of items.
 	/// </summary>
@@ -286,22 +295,23 @@ public static class EnumerableExtensions
 	/// <param name="firstPrevious">Value of the previous item in the first call of the action</param>
 	public static IEnumerable<(T? previous, T current)> RelativeLoop<T>(this IEnumerable<T> source, T? firstPrevious = default)
 	{
-		var previousItem = firstPrevious;
+		T? previousItem = firstPrevious;
 
-		foreach (var item in source)
+		foreach (T item in source)
 		{
 			yield return (previousItem, item);
 			previousItem = item;
 		}
 	}
+
 	public static IEnumerable<(T previous, T current)> RelativeLoopSkipFirst<T>(this IEnumerable<T> source)
 	{
-		using var enumerator = source.GetEnumerator();
+		using IEnumerator<T> enumerator = source.GetEnumerator();
 
 		if (enumerator.MoveNext())
 			yield break;
 
-		var previous = enumerator.Current;
+		T previous = enumerator.Current;
 
 		while (enumerator.MoveNext())
 			yield return (previous, enumerator.Current);
@@ -312,10 +322,17 @@ public static class EnumerableExtensions
 	/// Returns distinct elements of a sequence using a method to determine the equality of elements
 	/// </summary>
 	/// <param name="comparison">Method that determines if two elements are the same</param>
-	public static IEnumerable<T> Distinct<T>(this IEnumerable<T> source, EqualityComparison<T?> comparison) => source.Distinct(new FuncEqualityComparer<T>(comparison));
-	public static bool Unique<T>(this IEnumerable<T> source) => UniqueFromDistinct(source.Distinct());
-	public static bool UniqueBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) => UniqueFromDistinct(source.DistinctBy(selector));
-	private static bool UniqueFromDistinct<T>(IEnumerable<T> distinct) => !distinct.Skip(1).Any();
+	public static IEnumerable<T> Distinct<T>(this IEnumerable<T> source, EqualityComparison<T?> comparison)
+		=> source.Distinct(new FuncEqualityComparer<T>(comparison));
+
+	public static bool Unique<T>(this IEnumerable<T> source)
+		=> UniqueFromDistinct(source.Distinct());
+
+	public static bool UniqueBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector)
+		=> UniqueFromDistinct(source.DistinctBy(selector));
+
+	private static bool UniqueFromDistinct<T>(IEnumerable<T> distinct)
+		=> !distinct.Skip(1).Any();
 	#endregion
 
 	#region MinMax
@@ -325,7 +342,8 @@ public static class EnumerableExtensions
 	/// <param name="source">Items to find the minimum or maximum of</param>
 	/// <param name="selector">Function that gets the key to use in the comparison from an item</param>
 	/// <param name="comparison">Function that returns <see langword="true"/> if the second item defeats the first</param>
-	private static IEnumerable<T> ManyMinMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector, Func<TKey, TKey, bool> comparison) where TKey : IComparable<TKey>
+	private static IEnumerable<T> ManyMinMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector, Func<TKey, TKey, bool> comparison)
+		where TKey : IComparable<TKey>
 	{
 		TKey minMaxKey;
 
@@ -344,30 +362,41 @@ public static class EnumerableExtensions
 					minMaxKey = key;
 			}
 		}
+
 		return source.Where(t => selector(t).CompareTo(minMaxKey) == 0);
 	}
+
 	/// <summary>
 	/// Finds the items for which a function returns the smallest value.
 	/// </summary>
 	/// <param name="source">Items to find the minimum or maximum of</param>
 	/// <param name="selector">Function that gets the key to use in the comparison from an item</param>
-	public static IEnumerable<T> ManyMinBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) < 0);
+	public static IEnumerable<T> ManyMinBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector)
+		where TKey : IComparable<TKey>
+		=> ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) < 0);
+
 	/// <summary>
 	/// Finds the items for which a function returns the greatest value.
 	/// </summary>
 	/// <param name="source">Items to find the minimum or maximum of</param>
 	/// <param name="selector">Function that gets the key to use in the comparison from an item</param>
-	public static IEnumerable<T> ManyMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) > 0);
+	public static IEnumerable<T> ManyMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector)
+		where TKey : IComparable<TKey>
+		=> ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) > 0);
 	#endregion
 
 	public static async IAsyncEnumerable<T> ToAsyncEnumerable<T>(this IEnumerable<T> source)
 	{
-		foreach (var item in source)
+		foreach (T item in source)
 			yield return await Task.FromResult(item);
 	}
 
 	#region Collections
-	public static IEnumerable<T> Alternate<T>(this IEnumerable<IEnumerable<T>> source) => new SerialAlternatingEnumerable<T>(source.ToArray());
-	public static IEnumerable<T> AlternateBy<T, TKey>(this IEnumerable<IEnumerable<T>> source, Func<T, TKey> selector) where TKey : IComparable<TKey> => new OrderedAlternatingEnumerable<T, TKey>(selector, source.ToArray());
+	public static IEnumerable<T> Alternate<T>(this IEnumerable<IEnumerable<T>> source)
+		=> new SerialAlternatingEnumerable<T>([.. source]);
+
+	public static IEnumerable<T> AlternateBy<T, TKey>(this IEnumerable<IEnumerable<T>> source, Func<T, TKey> selector)
+		where TKey : IComparable<TKey>
+		=> new OrderedAlternatingEnumerable<T, TKey>(selector, [.. source]);
 	#endregion
 }

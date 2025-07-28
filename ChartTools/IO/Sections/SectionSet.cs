@@ -49,7 +49,7 @@ public abstract class SectionSet<T> : IList<Section<T>>
 
 	private void CheckHeader(string header)
 	{
-		foreach (var reserved in ReservedHeaders)
+		foreach (ReservedSectionHeader reserved in ReservedHeaders)
 			if (reserved.Header == header)
 				throw new Exception($"Header {header} is already modeled under {reserved.DataSource}");
 	}

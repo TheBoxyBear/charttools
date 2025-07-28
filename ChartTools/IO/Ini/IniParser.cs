@@ -11,7 +11,7 @@ internal class IniParser(Metadata? existing = null) : TextParser(IniFormatting.H
 
 	protected override void HandleItem(string item)
 	{
-		var entry = new TextEntry(item);
+        TextEntry entry = new(item);
 
 		if (entry.Value is null)
 			return;

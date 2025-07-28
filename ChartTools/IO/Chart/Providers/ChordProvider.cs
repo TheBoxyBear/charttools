@@ -11,18 +11,20 @@ internal class ChordProvider : ISerializerDataProvider<LaneChord, TrackObjectEnt
 		List<uint> orderedPositions = [];
 		LaneChord? previousChord = null;
 
-		foreach (var chord in source)
+		foreach (LaneChord chord in source)
 		{
 			if (session.HandleDuplicate(chord.Position, "chord", () =>
 			{
-				var index = orderedPositions.BinarySearchIndex(chord.Position, out bool exactMatch);
+				int index = orderedPositions.BinarySearchIndex(chord.Position, out bool exactMatch);
 
 				if (!exactMatch)
 					orderedPositions.Insert(index, chord.Position);
 
 				return exactMatch;
 			}))
-				foreach (var entry in (chord.ChartSupportedModifiers ? chord.GetChartModifierData(previousChord, session) : session.GetUnsupportedModifierChordEntries(previousChord, chord)).Concat(chord.GetChartNoteData()))
+				foreach (TrackObjectEntry entry in (chord.ChartSupportedModifiers
+					? chord.GetChartModifierData(previousChord, session)
+					: session.GetUnsupportedModifierChordEntries(previousChord, chord)).Concat(chord.GetChartNoteData()))
 					yield return entry;
 
 			previousChord = chord;

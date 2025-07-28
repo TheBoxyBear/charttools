@@ -41,7 +41,7 @@ public class Phrase(PhraseMarker marker, IReadOnlyList<VocalsNote>? notes = null
 	{
 		yield return new(Position, EventTypeHelper.Global.PhraseStart);
 
-		foreach (var note in Notes)
+		foreach (VocalsNote note in Notes)
 			yield return new(note.Position, EventTypeHelper.Global.Lyric, note.RawText);
 
 		if (PhraseMarker.Length > 0)
@@ -62,7 +62,7 @@ public static class PhraseExtensions
 		phrases = [];
 		notes = [];
 
-		foreach (var e in events.OrderBy(e => e.Position))
+		foreach (GlobalEvent e in events.OrderBy(e => e.Position))
 		{
 			switch (e.EventType)
 			{
@@ -83,12 +83,12 @@ public static class PhraseExtensions
 
 	public static IEnumerable<Phrase> GetLyrics(IEnumerable<PhraseMarker> phrases, IEnumerable<VocalsNote> notes)
 	{
-		using var phraseEnumerator = phrases.OrderBy(p => p.Position).GetEnumerator();
+		using IEnumerator<PhraseMarker> phraseEnumerator = phrases.OrderBy(p => p.Position).GetEnumerator();
 
 		if (!phraseEnumerator.MoveNext())
 			yield break;
 
-		using var notesEnumerator = notes.OrderBy(n => n.Position).GetEnumerator();
+		using IEnumerator<VocalsNote> notesEnumerator = notes.OrderBy(n => n.Position).GetEnumerator();
 		notesEnumerator.MoveNext(); // Initialize prematurely to simplify the loop flow
 
 		PhraseMarker lastMarker = phraseEnumerator.Current;
@@ -121,13 +121,13 @@ public static class PhraseExtensions
 
 	public static IEnumerable<Phrase> GetLyrics(this IEnumerable<GlobalEvent> events)
 	{
-		GetLyrics(events, out var phrases, out var notes);
+		GetLyrics(events, out IList<PhraseMarker> phrases, out IList<VocalsNote> notes);
 		return GetLyrics(phrases, notes);
 	}
 
 	public static IEnumerable<GlobalEvent> ToGlobalEvents(IEnumerable<PhraseMarker> markers, IEnumerable<VocalsNote> notes)
 	{
-		foreach (var marker in markers)
+		foreach (PhraseMarker marker in markers)
 		{
 			yield return new(marker.Position, EventTypeHelper.Global.PhraseStart);
 
@@ -135,7 +135,7 @@ public static class PhraseExtensions
 				yield return new((marker as ILongTrackObject).EndPosition, EventTypeHelper.Global.PhraseEnd);
 		}
 
-		foreach (var note in notes)
+		foreach (VocalsNote note in notes)
 			yield return new(note.Position, EventTypeHelper.Global.Lyric, note.RawText);
 	}
 

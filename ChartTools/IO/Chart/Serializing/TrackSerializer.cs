@@ -23,7 +23,7 @@ internal class TrackSerializer(Track content, ChartWritingSession session)
 		{
 			TrackSpecialPhrase? starPower = null;
 
-			foreach (var e in Content.LocalEvents)
+			foreach (LocalEvent e in Content.LocalEvents)
 				switch (e.EventType)
 				{
 					case EventTypeHelper.Local.Solo:
@@ -55,7 +55,8 @@ internal class TrackSerializer(Track content, ChartWritingSession session)
 		];
 	}
 
-	private static void ApplyOverlappingSpecialPhrasePolicy(IEnumerable<TrackSpecialPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
+	private static void ApplyOverlappingSpecialPhrasePolicy(
+		IEnumerable<TrackSpecialPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
 	{
 		switch (policy)
 		{
@@ -63,7 +64,7 @@ internal class TrackSerializer(Track content, ChartWritingSession session)
 				specialPhrases.CutLengths();
 				break;
 			case OverlappingSpecialPhrasePolicy.ThrowException:
-				foreach ((var previous, var current) in specialPhrases.RelativeLoopSkipFirst())
+				foreach ((TrackSpecialPhrase previous, TrackSpecialPhrase current) in specialPhrases.RelativeLoopSkipFirst())
 					if (Optimizer.LengthNeedsCut(previous, current))
 						throw new Exception($"Overlapping star power phrases at position {current!.Position}.");
 				break;

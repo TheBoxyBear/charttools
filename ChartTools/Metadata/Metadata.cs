@@ -220,13 +220,14 @@ public class Metadata
 		if (paths is null || paths.Length == 0)
 			throw new ArgumentException("No provided paths");
 
-		var data = FromFile(paths[0]);
+		Metadata data = FromFile(paths[0]);
 
-		foreach (var path in paths[1..])
+		foreach (string path in paths[1..])
 			data.ReadFile(path);
 
 		return data;
 	}
 
-	public void ToFile(string path) => ExtensionHandler.Write(path, this, (".ini", (p, m) => IniFile.WriteMetadata(p, m)));
+	public void ToFile(string path)
+		=> ExtensionHandler.Write(path, this, (".ini", (p, m) => IniFile.WriteMetadata(p, m)));
 }
