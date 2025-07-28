@@ -141,7 +141,7 @@ public static class Optimizer
 		markers.Synchronize(resolution, desyncedPreOrdered);
 
 		foreach ((Tempo previous, Tempo current) in markers.OrderBy(m => m.Position).RelativeLoopSkipFirst())
-			if (current.Value == previous!.Value)
+			if (current.Value == previous.Value)
 				markers.Remove(current);
 	}
 

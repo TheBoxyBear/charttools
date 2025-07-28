@@ -206,7 +206,7 @@ public static class ChartFile
 		using ChartFileReader reader = new(source, session);
 
 		reader.Read();
-		return reader.Parsers.TryGetFirstOfType(out GlobalEventParser? parser) ? parser!.Result! : [];
+		return reader.Parsers.TryGetFirstOfType(out GlobalEventParser? parser) ? parser!.Result : [];
 	}
 
 	public static async Task<List<GlobalEvent>> ReadGlobalEventsAsync(
@@ -216,7 +216,7 @@ public static class ChartFile
 		using ChartFileReader reader = new(source, session);
 
 		await reader.ReadAsync(cancellationToken);
-		return reader.Parsers.TryGetFirstOfType(out GlobalEventParser? parser) ? parser!.Result! : [];
+		return reader.Parsers.TryGetFirstOfType(out GlobalEventParser? parser) ? parser!.Result : [];
 	}
 	#endregion
 
@@ -242,7 +242,7 @@ public static class ChartFile
 		using ChartFileReader reader = new(source, session);
 
 		reader.Read();
-		return reader.Parsers.TryGetFirstOfType(out SyncTrackParser? syncTrackParser) ? syncTrackParser!.Result! : new();
+		return reader.Parsers.TryGetFirstOfType(out SyncTrackParser? syncTrackParser) ? syncTrackParser!.Result : new();
 	}
 
 	public static async Task<SyncTrack> ReadSyncTrackAsync(
@@ -252,7 +252,7 @@ public static class ChartFile
 		using ChartFileReader reader = new(source, session);
 
 		await reader.ReadAsync(cancellationToken);
-		return reader.Parsers.TryGetFirstOfType(out SyncTrackParser? syncTrackParser) ? syncTrackParser!.Result! : new();
+		return reader.Parsers.TryGetFirstOfType(out SyncTrackParser? syncTrackParser) ? syncTrackParser!.Result : new();
 	}
 	#endregion
 	#endregion
@@ -311,9 +311,9 @@ public static class ChartFile
 			{
 				StandardVocalsTrack vocals = (song.Vocals ??= new()).Standard;
 
-				song.GlobalEvents = [.. (song.GlobalEvents is null
+				song.GlobalEvents = [.. song.GlobalEvents is null
 					? vocals.ToGlobalEvents()
-					: song.GlobalEvents.SetLyrics(vocals))];
+					: song.GlobalEvents.SetLyrics(vocals)];
 			}
 
 			if (song.GlobalEvents?.Count > 0)

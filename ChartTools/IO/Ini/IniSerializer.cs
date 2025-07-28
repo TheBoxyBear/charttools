@@ -23,10 +23,10 @@ internal class IniSerializer(Metadata content) : Serializer<Metadata, string>(In
 		if (Content.AlbumTrack is not null)
 		{
 			if (Content.Formatting.AlbumTrackKey.HasFlag(AlbumTrackKey.Track))
-				yield return IniFormatting.Line(IniFormatting.Track, Content.AlbumTrack.ToString()!);
+				yield return IniFormatting.Line(IniFormatting.Track, Content.AlbumTrack.ToString());
 
 			if (Content.Formatting.AlbumTrackKey.HasFlag(AlbumTrackKey.AlbumTrack))
-				yield return IniFormatting.Line(IniFormatting.AlbumTrack, Content.AlbumTrack.ToString()!);
+				yield return IniFormatting.Line(IniFormatting.AlbumTrack, Content.AlbumTrack.ToString());
 		}
 	}
 }

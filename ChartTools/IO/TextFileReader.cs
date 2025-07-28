@@ -30,12 +30,12 @@ internal abstract class TextFileReader(ReadingDataSource source) : FileReader<st
 				return;
 			}
 
-            string header = line;
-            TextParser? parser = GetParser(header);
+			string header = line;
+			TextParser? parser = GetParser(header);
 
 			if (parser is not null)
 			{
-                DelayedEnumerableSource<string> source = new();
+				DelayedEnumerableSource<string> source = new();
 
 				parserGroups.Add(currentGroup = new(parser, source));
 

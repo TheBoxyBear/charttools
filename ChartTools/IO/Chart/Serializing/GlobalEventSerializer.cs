@@ -9,5 +9,5 @@ internal class GlobalEventSerializer(IEnumerable<GlobalEvent> content, ChartWrit
 	: TrackObjectGroupSerializer<IEnumerable<GlobalEvent>>(ChartFormatting.GlobalEventHeader, content, session)
 {
 	protected override IEnumerable<TrackObjectEntry>[] LaunchProviders()
-		=> [ new EventProvider().ProvideFor(Content, session!) ];
+		=> [ new EventProvider().ProvideFor(Content, Session) ];
 }

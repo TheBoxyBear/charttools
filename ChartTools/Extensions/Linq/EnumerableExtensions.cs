@@ -68,7 +68,7 @@ public static class EnumerableExtensions
 				return true;
 			}
 
-		item = default!;
+		item = default;
 		return false;
 	}
 

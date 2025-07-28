@@ -17,7 +17,7 @@ public abstract class DataSource(Stream stream) : IDisposable
 	public virtual void Dispose()
 	{
 		if (_disposeStream)
-			Stream!.Dispose();
+			Stream.Dispose();
 
 		GC.SuppressFinalize(this);
 	}

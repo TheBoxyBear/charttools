@@ -16,10 +16,10 @@ internal class TrackSerializer(Track content, ChartWritingSession session)
 
 	protected override IEnumerable<TrackObjectEntry>[] LaunchProviders()
 	{
-		ApplyOverlappingSpecialPhrasePolicy(Content.SpecialPhrases, session.Configuration.OverlappingStarPowerPolicy);
+		ApplyOverlappingSpecialPhrasePolicy(Content.SpecialPhrases, Session.Configuration.OverlappingStarPowerPolicy);
 
 		// Convert solo and soloend events into star power
-		if (session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && Content.SpecialPhrases.Count == 0 && Content.LocalEvents is not null)
+		if (Session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && Content.SpecialPhrases.Count == 0 && Content.LocalEvents is not null)
 		{
 			TrackSpecialPhrase? starPower = null;
 
@@ -49,9 +49,9 @@ internal class TrackSerializer(Track content, ChartWritingSession session)
 
 		return
 		[
-			new ChordProvider().ProvideFor(Content.Chords.Cast<LaneChord>(), session),
-			new SpeicalPhraseProvider().ProvideFor(Content.SpecialPhrases, session!),
-			Content.LocalEvents is null ? [] : new EventProvider().ProvideFor(Content.LocalEvents!, session!)
+			new ChordProvider().ProvideFor(Content.Chords.Cast<LaneChord>(), Session),
+			new SpeicalPhraseProvider().ProvideFor(Content.SpecialPhrases, Session),
+			Content.LocalEvents is null ? [] : new EventProvider().ProvideFor(Content.LocalEvents, Session)
 		];
 	}
 
@@ -66,7 +66,7 @@ internal class TrackSerializer(Track content, ChartWritingSession session)
 			case OverlappingSpecialPhrasePolicy.ThrowException:
 				foreach ((TrackSpecialPhrase previous, TrackSpecialPhrase current) in specialPhrases.RelativeLoopSkipFirst())
 					if (Optimizer.LengthNeedsCut(previous, current))
-						throw new Exception($"Overlapping star power phrases at position {current!.Position}.");
+						throw new Exception($"Overlapping star power phrases at position {current.Position}.");
 				break;
 		}
 	}

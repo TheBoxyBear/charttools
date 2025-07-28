@@ -78,20 +78,25 @@ internal static class ChartFormatting
 	private static IEnumerable<(Difficulty difficulty, TInstEnum instrument)> GetTrackCombinations<TInstEnum>(IEnumerable<TInstEnum> instruments)
 		=> from difficulty in EnumCache<Difficulty>.Values from instrument in instruments select (difficulty, instrument);
 
-	public static string Header(Enum instrument, Difficulty difficulty) => Header((InstrumentIdentity)instrument, difficulty);
-	public static string Header(InstrumentIdentity instrument, Difficulty difficulty) => Header(InstrumentHeaderNames[instrument], difficulty);
-	public static string Header(string instrumentName, Difficulty difficulty) => Header(difficulty.ToString() + instrumentName);
+	public static string Header(Enum instrument, Difficulty difficulty)
+		=> Header((InstrumentIdentity)instrument, difficulty);
+	public static string Header(InstrumentIdentity instrument, Difficulty difficulty)
+		=> Header(InstrumentHeaderNames[instrument], difficulty);
+	public static string Header(string instrumentName, Difficulty difficulty)
+		=> Header(difficulty.ToString() + instrumentName);
 	public static string Header(string name) => $"[{name}]";
 
-	public static string Line(string header, string? value) => value is null ? string.Empty : $"  {header} = {value}";
+	public static string Line(string header, string? value)
+		=> value is null ? string.Empty : $"  {header} = {value}";
 
 	/// <summary>
 	/// Gets the written data for a note.
 	/// </summary>
 	/// <param name="position">Position of the parent <see cref="LaneChord"/></param>
-	/// <param name="index">Value of <see cref="LaneNote.Index"/></param>
-	/// <param name="sustain">Value of <see cref="LaneNote.Sustain"/></param>
-	public static TrackObjectEntry NoteEntry(uint position, byte index, uint sustain) => new(position, "N", $"{index} {sustain}");
+	/// <param name="index">Value of <see cref="ILaneNote.Index"/></param>
+	/// <param name="sustain">Value of <see cref="ILaneNote.Sustain"/></param>
+	public static TrackObjectEntry NoteEntry(uint position, byte index, uint sustain)
+		=> new(position, "N", $"{index} {sustain}");
 
 	/// <summary>
 	/// Gets the written value of a float.

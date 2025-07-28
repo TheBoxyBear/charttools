@@ -5,15 +5,15 @@
 /// </summary>
 internal readonly ref struct NoteData
 {
-    /// <summary>
-    /// Value of <see cref="LaneNote{TLane}.Sustain"/>
-    /// </summary>
-    internal readonly byte Index;
+	/// <summary>
+	/// Value of <see cref="LaneNote{TLane}.Sustain"/>
+	/// </summary>
+	internal readonly byte Index;
 
-    /// <summary>
-    /// Value of <see cref="LaneNote{TLane}.Sustain"/>
-    /// </summary>
-    internal readonly uint SustainLength;
+	/// <summary>
+	/// Value of <see cref="LaneNote{TLane}.Sustain"/>
+	/// </summary>
+	internal readonly uint SustainLength;
 
 	/// <summary>
 	/// Creates an instance of <see cref="NoteData"/>.
