@@ -13,7 +13,7 @@ internal class DrumsTrackParser(Difficulty difficulty, ChartReadingSession sessi
 		ApplyToInstrument(song.Instruments.Drums);
 	}
 
-	protected override void HandleNoteEntry(DrumsChord chord, NoteData data)
+	protected override void HandleNoteEntry(DrumsChord chord, in NoteData data)
 	{
 		switch (data.Index)
 		{
@@ -32,7 +32,7 @@ internal class DrumsTrackParser(Difficulty difficulty, ChartReadingSession sessi
 
 				if (chord.Notes.TryGetFirst(n => n.Index == seekedIndex, out DrumsNote note))
 				{
-					if (session.HandleDuplicate(chord.Position, "drums note cymbal marker", () => note.IsCymbal))
+					if (Session.HandleDuplicate(chord.Position, "drums note cymbal marker", () => note.IsCymbal))
 						note.IsCymbal = true;
 				}
 				else
@@ -43,7 +43,16 @@ internal class DrumsTrackParser(Difficulty difficulty, ChartReadingSession sessi
 				break;
 		}
 
-		void AddNote(DrumsNote note) => HandleAddNote(note, () => chord.Notes.Add(note));
-		void AddModifier(DrumsChordModifiers modifier) => HandleAddModifier(chord.Modifiers, modifier, () => chord.Modifiers |= modifier);
+		void AddNote(in DrumsNote note)
+		{
+			if (CanAddNote(note.Index))
+				chord.Notes.Add(note);
+		}
+
+		void AddModifier(DrumsChordModifiers modifier)
+		{
+			if (CanAddModifier(chord.Modifiers, modifier))
+				chord.Modifiers |= modifier;
+		}
 	}
 }

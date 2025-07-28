@@ -1,18 +1,19 @@
 ﻿namespace ChartTools.Lyrics;
 
-public class VocalsNote(VocalsPitch pitch, string? text = null) : INote, ILongTrackObject
+public struct VocalsNote(VocalsPitch pitch, string? text = null)
+	: INote, ILongTrackObject
 {
 	public VocalsNote(string? text = null) : this(VocalsPitchValue.None, text) { }
 
-	public uint Position { get; set; }
+	public uint Position { readonly get; set; }
 
-	public uint Length { get; set; }
+	public uint Length { readonly get; set; }
 
-	public VocalsPitch Pitch { get; set; } = pitch;
+	public VocalsPitch Pitch { readonly get; set; } = pitch;
 
-	byte INote.Index => (byte)Pitch.Value;
+	readonly byte INote.Index => (byte)Pitch.Value;
 
-	public string RawText { get; set; } = text ?? string.Empty;
+	public string RawText { readonly get; set; } = text ?? string.Empty;
 
 	/// <summary>
 	/// Text formatted to its in-game appearance
@@ -20,7 +21,7 @@ public class VocalsNote(VocalsPitch pitch, string? text = null) : INote, ILongTr
 	/// <remarks>Some special characters may remain. See <see href="https://github.com/TheNathannator/GuitarGame_ChartFormats/blob/main/doc/FileFormats/.mid/Standard/Vocals.md">Vocals format documentation</see> for more information.</remarks>
 	// Duplicates the string up to four times. Can be optimized by editing a char buffer directly and rebuilding a string from it.
 	// Low-level equivalents of Replace and Trim may also exist for char collections.
-	public string DisplayedText => RawText
+	public readonly string DisplayedText => RawText
 		.Replace("-", "")
 		.Replace('=', '-')
 		.Replace('§', '‿')
@@ -31,7 +32,7 @@ public class VocalsNote(VocalsPitch pitch, string? text = null) : INote, ILongTr
 	/// </summary>
 	public bool IsWordEnd
 	{
-		get => RawText.Length == 0 || RawText[^1] is '§' or '_' or not '-' and not '=';
+		readonly get => RawText.Length == 0 || RawText[^1] is '§' or '_' or not '-' and not '=';
 		set
 		{
 			if (value)

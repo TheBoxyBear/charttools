@@ -8,7 +8,7 @@ internal class GHLTrackParser(Difficulty difficulty, GHLInstrumentIdentity instr
 {
 	public override void ApplyToSong(Song song)
 	{
-		var inst = song.Instruments.Get(Instrument);
+		GHLInstrument? inst = song.Instruments.Get(Instrument);
 
 		if (inst is null)
 			song.Instruments.Set(inst = new(Instrument));
@@ -16,7 +16,7 @@ internal class GHLTrackParser(Difficulty difficulty, GHLInstrumentIdentity instr
 		ApplyToInstrument(inst);
 	}
 
-	protected override void HandleNoteEntry(GHLChord chord, NoteData data)
+	protected override void HandleNoteEntry(GHLChord chord, in NoteData data)
 	{
 		switch (data.Index)
 		{
@@ -42,7 +42,16 @@ internal class GHLTrackParser(Difficulty difficulty, GHLInstrumentIdentity instr
 				break;
 		}
 
-		void AddNote(LaneNote<GHLLane> note) => HandleAddNote(note, () => chord.Notes.Add(note));
-		void AddModifier(GHLChordModifiers modifier) => HandleAddModifier(chord.Modifiers, modifier, () => chord.Modifiers |= modifier);
+		void AddNote(in LaneNote<GHLLane> note)
+		{
+			if (CanAddNote(note.Index))
+				chord.Notes.Add(note);
+		}
+
+		void AddModifier(GHLChordModifiers modifier)
+		{
+			if (CanAddModifier(chord.Modifiers, modifier))
+				chord.Modifiers |= modifier;
+		}
 	}
 }

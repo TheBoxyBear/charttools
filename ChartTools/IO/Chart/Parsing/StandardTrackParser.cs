@@ -8,7 +8,7 @@ internal class StandardTrackParser(Difficulty difficulty, StandardInstrumentIden
 {
 	public override void ApplyToSong(Song song)
 	{
-		var inst = song.Instruments.Get(Instrument);
+		StandardInstrument? inst = song.Instruments.Get(Instrument);
 
 		if (inst is null)
 			song.Instruments.Set(inst = new(Instrument));
@@ -16,7 +16,7 @@ internal class StandardTrackParser(Difficulty difficulty, StandardInstrumentIden
 		ApplyToInstrument(inst);
 	}
 
-	protected override void HandleNoteEntry(StandardChord chord, NoteData data)
+	protected override void HandleNoteEntry(StandardChord chord, in NoteData data)
 	{
 		switch (data.Index)
 		{
@@ -35,7 +35,16 @@ internal class StandardTrackParser(Difficulty difficulty, StandardInstrumentIden
 				break;
 		}
 
-		void AddNote(LaneNote<StandardLane> note) => HandleAddNote(note, () => chord.Notes.Add(note));
-		void AddModifier(StandardChordModifiers modifier) => HandleAddModifier(chord.Modifiers, modifier, () => chord.Modifiers |= modifier);
+		void AddNote(in LaneNote<StandardLane> note)
+		{
+			if (CanAddNote(note.Index))
+				chord.Notes.Add(note);
+		}
+
+		void AddModifier(StandardChordModifiers modifier)
+		{
+			if (CanAddModifier(chord.Modifiers, modifier))
+				chord.Modifiers |= modifier;
+		}
 	}
 }

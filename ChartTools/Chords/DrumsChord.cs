@@ -7,38 +7,27 @@ namespace ChartTools;
 /// <summary>
 /// Set of notes played simultaneously by drums
 /// </summary>
-public class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModifiers>
+public sealed class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModifiers>
 {
 	public override bool OpenExclusivity => false;
 
 	internal override DrumsChordModifiers DefaultModifiers => DrumsChordModifiers.None;
+
 	internal override bool ChartSupportedModifiers => true;
 
-	public DrumsChord() : base() { }
+	public DrumsChord() : base(0) { }
 
-	/// <inheritdoc cref="LaneChord(uint)"/>
+	/// <inheritdoc cref="LaneChord{DrumsNote, DrumsLane, DrumsChordModifiers}(uint)"/>
 	public DrumsChord(uint position) : base(position) { }
 
 	/// <inheritdoc cref="DrumsChord(uint)"/>
 	/// <param name="notes">Notes to add</param>
-	public DrumsChord(uint position, params DrumsNote[] notes) : base(position)
-	{
-		ArgumentNullException.ThrowIfNull(notes);
+	public DrumsChord(uint position, params ReadOnlySpan<DrumsNote> notes) : base(position)
+		=> Notes.AddRange(notes);
 
-		foreach (DrumsNote note in notes)
-			Notes.Add(note);
-	}
-
-	/// <inheritdoc cref="DrumsChord(uint, DrumsNote[])"/>
-	public DrumsChord(uint position, params DrumsLane[] notes) : base(position)
-	{
-		ArgumentNullException.ThrowIfNull(notes);
-
-		foreach (DrumsLane note in notes)
-			Notes.Add(new DrumsNote(note));
-	}
-
-	protected override IReadOnlyCollection<LaneNote> GetNotes() => Notes;
+	/// <inheritdoc cref="DrumsChord(uint, ReadOnlySpan{DrumsNote})"/>
+	public DrumsChord(uint position, params ReadOnlySpan<DrumsLane> notes) : base(position)
+		=> Notes.AddRange(notes);
 
 	internal override IEnumerable<TrackObjectEntry> GetChartNoteData()
 	{

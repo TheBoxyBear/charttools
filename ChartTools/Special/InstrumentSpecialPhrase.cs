@@ -12,7 +12,7 @@ public class InstrumentSpecialPhrase : SpecialPhrase
 	{
 		get
 		{
-            InstrumentSpecialPhraseType typeEnum = (InstrumentSpecialPhraseType)TypeCode;
+			InstrumentSpecialPhraseType typeEnum = (InstrumentSpecialPhraseType)TypeCode;
 			return Enum.IsDefined(typeEnum) ? typeEnum : InstrumentSpecialPhraseType.Unknown;
 		}
 		set => TypeCode = value == InstrumentSpecialPhraseType.Unknown

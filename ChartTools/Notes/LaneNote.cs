@@ -1,16 +1,30 @@
-﻿namespace ChartTools;
+﻿using System.Runtime.CompilerServices;
 
-public abstract class LaneNote : INote
+namespace ChartTools;
+
+public struct LaneNote<TLane> : ILaneNote<TLane>
+	where TLane : struct, Enum
 {
-	public abstract byte Index { get; }
+	private TLane m_lane;
+
+	public TLane Lane
+	{
+		readonly get => m_lane;
+		set => m_lane = value;
+	}
+
+	public readonly byte Index => Unsafe.As<TLane, byte>(ref Unsafe.AsRef(in m_lane));
 
 	/// <summary>
 	/// Maximum length the note can be held for extra points
 	/// </summary>
-	public uint Sustain { get; set; }
+	public uint Sustain { readonly get; set; }
+
+	public LaneNote(TLane lane) => Lane = lane;
+
 	uint ILongObject.Length
 	{
-		get => Sustain;
+		readonly get => Sustain;
 		set => Sustain = value;
 	}
 }
