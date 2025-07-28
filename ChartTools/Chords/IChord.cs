@@ -9,7 +9,7 @@ public interface IChord : ITrackObject
 	/// <summary>
 	/// Read-only set of the notes in the chord.
 	/// </summary>
-	public IReadOnlyList<INote> Notes { get; }
+	public IEnumerable<INote> Notes { get; }
 
 	public INote CreateNote(byte index, uint length = 0);
 }

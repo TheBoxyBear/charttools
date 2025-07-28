@@ -25,11 +25,10 @@ public static class Optimizer
 
 		foreach (T chord in GetOrdered(chords, preOrdered))
 		{
-			if (chord.Notes.Count == 0)
-				continue;
-
 			using IEnumerator<ILaneNote> noteEnumerator = chord.Notes.GetEnumerator();
-			noteEnumerator.MoveNext();
+
+			if (!noteEnumerator.MoveNext())
+				continue;
 
 			ILaneNote note = noteEnumerator.Current;
 

@@ -28,8 +28,8 @@ public sealed class StandardChord : LaneChord<LaneNote<StandardLane>, StandardLa
 	public StandardChord(uint position, params ReadOnlySpan<StandardLane> notes) : this(position)
 		=> Notes.AddRange(notes);
 
-	protected override IReadOnlyList<ILaneNote<StandardLane>> GetNotes()
-		=> (IReadOnlyList<ILaneNote<StandardLane>>)Notes;
+	protected override IEnumerable<ILaneNote<StandardLane>> GetNotes()
+		=> Notes.Cast<ILaneNote<StandardLane>>();
 
 	internal override IEnumerable<TrackObjectEntry> GetChartNoteData()
 		=> Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Sustain));
