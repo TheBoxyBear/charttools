@@ -7,15 +7,16 @@ namespace ChartTools;
 /// </summary>
 public class TempoMap : IList<Tempo>
 {
-	private readonly List<Tempo> _items = [];
-	private readonly List<Tempo> _anchors = [];
+	private readonly List<Tempo> m_items = [];
+	private readonly List<Tempo> m_anchors = [];
 
 	public Tempo this[int index]
 	{
-		get => _items[index];
-		set => _items[index] = value;
+		get => m_items[index];
+		set => m_items[index] = value;
 	}
-	public int Count => _items.Count;
+	public int Count => m_items.Count;
+
 	bool ICollection<Tempo>.IsReadOnly => false;
 
 	/// <summary>
@@ -28,14 +29,14 @@ public class TempoMap : IList<Tempo>
 		item.Map = this;
 
 		if (item.Anchor is not null)
-			_anchors.Add(item);
+			m_anchors.Add(item);
 	}
 
 	public void Add(Tempo item)
 	{
 		ArgumentNullException.ThrowIfNull(item);
 
-		_items.Add(item);
+		m_items.Add(item);
 
 		AddBase(item);
 		Desync();
@@ -45,63 +46,71 @@ public class TempoMap : IList<Tempo>
 	{
 		foreach (var item in items)
 		{
-			_items.Add(item);
+			m_items.Add(item);
 			AddBase(item);
 		}
 
 		Desync();
 	}
 
-	public void Clear() => _items.Clear();
+	public void Clear() => m_items.Clear();
 
 	public void Clear(bool detachMap)
 	{
 		if (detachMap)
-			foreach (var tempo in _items)
+			foreach (var tempo in m_items)
 				tempo.Map = null;
 
-		_items.Clear();
+		m_items.Clear();
 	}
-	public bool Contains(Tempo item) => _items.Contains(item);
-	public void CopyTo(Tempo[] array, int arrayIndex) => _items.CopyTo(array, arrayIndex);
-	public int IndexOf(Tempo item) => _items.IndexOf(item);
+
+	public bool Contains(Tempo item) => m_items.Contains(item);
+
+	public void CopyTo(Tempo[] array, int arrayIndex) => m_items.CopyTo(array, arrayIndex);
+
+	public int IndexOf(Tempo item) => m_items.IndexOf(item);
+
 	public void Insert(int index, Tempo item)
 	{
-		_items.Insert(index, item);
+		m_items.Insert(index, item);
 
 		AddBase(item);
 		Desync();
 	}
+
 	public void InsertRange(int index, IEnumerable<Tempo> items)
 	{
 		foreach (var item in items)
 		{
-			_items.Insert(index, item);
+			m_items.Insert(index, item);
 			AddBase(item);
 		}
 
 		Desync();
 	}
+
 	public bool Remove(Tempo item) => Remove(item, false);
+
 	public bool Remove(Tempo item, bool detachMap)
 	{
 		if (detachMap)
 			item.Map = null;
 
 		if (item.Anchor is not null)
-			_anchors.Remove(item);
+			m_anchors.Remove(item);
 
-		var found = _items.Remove(item);
+		var found = m_items.Remove(item);
 		Desync();
 		return found;
 	}
+
 	public void RemoveAt(int index)
 	{
-		_items.RemoveAt(index);
+		m_items.RemoveAt(index);
 
-		var item = _items[index];
+		var item = m_items[index];
 		if (item.Anchor is not null)
-			_anchors.Remove(item);
+			m_anchors.Remove(item);
 
 		Desync();
 	}
@@ -109,20 +118,20 @@ public class TempoMap : IList<Tempo>
 	{
 		if (detachMap)
 		{
-			var tempo = _items[index];
+			var tempo = m_items[index];
 			tempo.Map = null;
 		}
 
-		_items.RemoveAt(index);
+		m_items.RemoveAt(index);
 
-		var item = _items[index];
+		var item = m_items[index];
 		if (item.Anchor is not null)
-			_anchors.Remove(item);
+			m_anchors.Remove(item);
 
 		Desync();
 	}
 
-	public IEnumerator<Tempo> GetEnumerator() => _items.GetEnumerator();
+	public IEnumerator<Tempo> GetEnumerator() => m_items.GetEnumerator();
 	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
 	/// <summary>
@@ -140,7 +149,7 @@ public class TempoMap : IList<Tempo>
 		List<Tempo> desynced = [];
 
 		// Split synced and desynced. Sync 0 anchors.
-		foreach (var tempo in _items)
+		foreach (var tempo in m_items)
 		{
 			if (tempo.PositionSynced)
 				synced.Add(tempo);
@@ -176,7 +185,6 @@ public class TempoMap : IList<Tempo>
 
 		while (desyncedEnumerator.MoveNext())
 			SyncAnchor();
-		return;
 
 		bool TryInsertDesynced(Tempo next)
 		{
@@ -201,12 +209,13 @@ public class TempoMap : IList<Tempo>
 	}
 	internal void Desync()
 	{
-		foreach (var tempo in _anchors)
+		foreach (var tempo in m_anchors)
 			tempo.DesyncPosition();
 
 		Synchronized = false;
 	}
 
-	internal void AddAnchor(Tempo item)    => _anchors.Add(item);
-	internal void RemoveAnchor(Tempo item) => _anchors.Remove(item);
+	internal void AddAnchor(Tempo item) => m_anchors.Add(item);
+
+	internal void RemoveAnchor(Tempo item) => m_anchors.Remove(item);
 }

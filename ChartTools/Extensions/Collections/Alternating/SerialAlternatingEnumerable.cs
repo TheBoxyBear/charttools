@@ -31,6 +31,7 @@ public class SerialAlternatingEnumerable<T> : IEnumerable<T>
 
 	/// <inheritdoc/>
 	public IEnumerator<T> GetEnumerator() => new Enumerator([.. Enumerables.Select(e => e.GetEnumerator())])!;
+
 	/// <inheritdoc/>
 	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -46,6 +47,7 @@ public class SerialAlternatingEnumerable<T> : IEnumerable<T>
 		/// Enumerators to alternate between
 		/// </summary>
 		private IEnumerator<T>[] Enumerators { get; } = [.. enumerators.NonNull()];
+
 		/// <summary>
 		/// Position of the next enumerator to pull from
 		/// </summary>
@@ -55,6 +57,7 @@ public class SerialAlternatingEnumerable<T> : IEnumerable<T>
 		/// Item to use in the iteration
 		/// </summary>
 		public T? Current { get; private set; }
+
 		/// <inheritdoc/>
 		object? IEnumerator.Current => Current;
 

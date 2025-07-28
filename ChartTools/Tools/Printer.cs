@@ -1,6 +1,6 @@
 ﻿namespace ChartTools.Tools;
 
-public static class Printer
+internal static class Printer
 {
 	private readonly struct ConsoleContent(string content, ConsoleColor color)
 	{
@@ -30,7 +30,7 @@ public static class Printer
 			{
 				lineContent.Add(new("-----", ConsoleColor.Magenta));
 
-				SetSustainEnd(open);
+				SetSustainEnd(open.Value);
 
 				for (int i = 1; i < sustainEnds.Length; i++)
 					sustainEnds[i] = chord.Position;
@@ -50,7 +50,7 @@ public static class Printer
 						else
 						{
 							text = "O";
-							SetSustainEnd(note);
+							SetSustainEnd(note.Value);
 						}
 
 						lineContent.Add(new(text, laneColors[i - 1]));

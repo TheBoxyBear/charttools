@@ -2,7 +2,8 @@
 
 public static class LengthMerger
 {
-	public static T MergeLengths<T>(this IEnumerable<T> objects, T? target = null) where T : class, ILongTrackObject
+	public static T MergeLengths<T>(this IEnumerable<T> objects, T? target = null)
+		where T : class, ILongTrackObject
 	{
 		var start = objects.Min(o => o.Position);
 		var end   = objects.Max(o => o.EndPosition);

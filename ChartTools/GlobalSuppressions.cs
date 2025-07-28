@@ -5,4 +5,4 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "GHL is an accronym", Scope = "type", Target = "~T:ChartTools.GHLChord")]
+[assembly: SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "GHL is an acronym", Scope = "type", Target = "~T:ChartTools.GHLChord")]

@@ -10,6 +10,7 @@ public abstract class LaneChord(uint position) : IChord
 	public uint Position { get; set; } = position;
 
 	public IReadOnlyCollection<LaneNote> Notes => GetNotes();
+
 	IReadOnlyCollection<INote> IChord.Notes => GetNotes();
 
 	/// <summary>

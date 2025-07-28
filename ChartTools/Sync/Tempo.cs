@@ -10,31 +10,31 @@ public class Tempo : ITrackObject
 	/// </summary>
 	public TempoMap? Map
 	{
-		get => _map;
+		get => m_map;
 		internal set
 		{
 			if (value is not null)
 				PositionSynced = false;
 
-			_map = value;
+			m_map = value;
 		}
 	}
-	private TempoMap? _map;
+	private TempoMap? m_map;
 
 	/// <inheritdoc cref="ITrackObject.Position" path="/summary"/>
 	/// <remarks>Only refer to the position if <see cref="PositionSynced"/> is <see langword="true"/>.</remarks>
 	public uint Position
 	{
-		get => _position;
+		get => m_position;
 		set
 		{
-			_position = value;
+			m_position = value;
 
 			if (Anchor is not null)
 				PositionSynced = false;
 		}
 	}
-	private uint _position;
+	private uint m_position;
 
 	/// <summary>
 	/// New tempo in beats per minute
@@ -46,24 +46,24 @@ public class Tempo : ITrackObject
 	/// </summary>
 	public TimeSpan? Anchor
 	{
-		get => _anchor;
+		get => m_anchor;
 		set
 		{
 			var valueNull = value is null;
 
 			if (valueNull)
 			{
-				if (_anchor is not null)
+				if (m_anchor is not null)
 					Map?.RemoveAnchor(this);
 			}
-			else if (_anchor is null)
+			else if (m_anchor is null)
 					Map?.AddAnchor(this);
 
-			_anchor = value;
+			m_anchor = value;
 			PositionSynced = valueNull;
 		}
 	}
-	private TimeSpan? _anchor;
+	private TimeSpan? m_anchor;
 
 	/// <summary>
 	/// Indicates if the tick position is up to date with <see cref="Anchor"/>.
@@ -83,7 +83,7 @@ public class Tempo : ITrackObject
 
 	internal void SyncPosition(uint position)
 	{
-		_position      = position;
+		m_position     = position;
 		PositionSynced = true;
 	}
 	internal void DesyncPosition() => PositionSynced = false;

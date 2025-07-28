@@ -18,6 +18,7 @@ public class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModifiers>
 
 	/// <inheritdoc cref="LaneChord(uint)"/>
 	public DrumsChord(uint position) : base(position) { }
+
 	/// <inheritdoc cref="DrumsChord(uint)"/>
 	/// <param name="notes">Notes to add</param>
 	public DrumsChord(uint position, params DrumsNote[] notes) : base(position)
@@ -27,6 +28,7 @@ public class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModifiers>
 		foreach (DrumsNote note in notes)
 			Notes.Add(note);
 	}
+
 	/// <inheritdoc cref="DrumsChord(uint, DrumsNote[])"/>
 	public DrumsChord(uint position, params DrumsLane[] notes) : base(position)
 	{

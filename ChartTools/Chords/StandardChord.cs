@@ -15,8 +15,10 @@ public class StandardChord : LaneChord<LaneNote<StandardLane>, StandardLane, Sta
 	internal override bool ChartSupportedModifiers => !Modifiers.HasFlag(StandardChordModifiers.ExplicitHopo);
 
 	public StandardChord() : base() { }
+
 	/// <inheritdoc cref="LaneChord(uint)"/>
 	public StandardChord(uint position) : base(position) { }
+
 	/// <inheritdoc cref="LaneChord{TNote, TLane, TModifier}(uint)"/>
 	/// <param name="notes">Notes to add</param>
 	public StandardChord(uint position, params LaneNote<StandardLane>[] notes) : this(position)
@@ -35,7 +37,7 @@ public class StandardChord : LaneChord<LaneNote<StandardLane>, StandardLane, Sta
 			Notes.Add(new LaneNote<StandardLane>(note));
 	}
 
-	protected override IReadOnlyCollection<LaneNote> GetNotes() => Notes;
+	protected override IReadOnlyCollection<ILaneNote<StandardLane>> GetNotes() => (IReadOnlyCollection<ILaneNote<StandardLane>>)Notes;
 
 	internal override IEnumerable<TrackObjectEntry> GetChartNoteData() => Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Sustain));
 

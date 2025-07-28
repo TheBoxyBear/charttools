@@ -10,16 +10,18 @@ namespace ChartTools.Tools;
 /// </summary>
 public static class Optimizer
 {
-	internal static bool LengthNeedsCut(ILongTrackObject current, ILongTrackObject next) => current.Position + current.Length > next.Position;
+	internal static bool LengthNeedsCut(ILongTrackObject current, ILongTrackObject next)
+		=> current.Position + current.Length > next.Position;
 
 	/// <summary>
 	/// Cuts short sustains that exceed the position of the next note preventing the sustain from continuing.
 	/// </summary>
 	/// <param name="chords">Chords to cut the sustains of</param>
 	/// <param name="preOrdered">Skip ordering of chords by position</param>
-	public static void CutSustains<T>(this IEnumerable<T> chords, bool preOrdered = false) where T : LaneChord
+	public static void CutSustains<T>(this IEnumerable<T> chords, bool preOrdered = false)
+		where T : LaneChord
 	{
-		var sustains = new Dictionary<byte, (uint, LaneNote)>();
+		var sustains = new Dictionary<byte, (uint, ILaneNote)>();
 
 		foreach (var chord in GetOrdered(chords, preOrdered))
 		{
@@ -80,7 +82,8 @@ public static class Optimizer
 	/// <param name="preOrdered">Skip ordering of phrases by position</param>
 	/// <returns>Passed phrases ordered by position and grouped by type</returns>
 	/// <exception cref="InvalidOperationException"/>
-	public static List<T>[] CutSpecialLengths<T>(IEnumerable<T> phrases, bool preOrdered = false) where T : SpecialPhrase
+	public static List<T>[] CutSpecialLengths<T>(IEnumerable<T> phrases, bool preOrdered = false)
+		where T : SpecialPhrase
 	{
 		if (typeof(T) == typeof(SpecialPhrase))
 			throw new InvalidOperationException($"Collection must be of a type deriving from {nameof(SpecialPhrase)}.");
@@ -98,7 +101,8 @@ public static class Optimizer
 	/// </summary>
 	/// <param name="objects">Set of long track objects</param>
 	/// <param name="preOrdered">Skip ordering of objects by position</param>
-	public static void CutLengths<T>(this IEnumerable<T> objects, bool preOrdered = false) where T : ILongTrackObject
+	public static void CutLengths<T>(this IEnumerable<T> objects, bool preOrdered = false)
+		where T : ILongTrackObject
 	{
 		foreach ((var current, var next) in GetOrdered(objects, preOrdered).RelativeLoopSkipFirst())
 			if (LengthNeedsCut(current, next))
@@ -112,7 +116,7 @@ public static class Optimizer
 	/// <param name="preOrdered">Skip ordering of markers by position.</param>
 	/// <exception cref="InvalidOperationException"/>
 	/// <remarks>If some markers may be anchored, use the overload with a resolution.</remarks>
-	public static void RemoveUneeded(this ICollection<Tempo> markers, bool preOrdered = false)
+	public static void RemoveUnneeded(this ICollection<Tempo> markers, bool preOrdered = false)
 	{
 		if (markers.TryGetFirst(m => !m.PositionSynced, out var marker))
 			throw new DesynchronizedAnchorException(marker.Anchor!.Value,
@@ -122,13 +126,14 @@ public static class Optimizer
 			if (previous.Value == current.Value)
 				markers.Remove(current);
 	}
+
 	/// <summary>
 	/// Removes redundant tempo markers by syncing the position of anchored markers.
 	/// </summary>
 	/// <param name="markers">Set of markers</param>
 	/// <param name="resolution">Resolution from <see cref="FormattingRules.TrueResolution"/></param>
 	/// <param name="desyncedPreOrdered">Skip ordering of desynced markers by position</param>
-	public static void RemoveUneeded(this TempoMap markers, uint resolution, bool desyncedPreOrdered = false)
+	public static void RemoveUnneeded(this TempoMap markers, uint resolution, bool desyncedPreOrdered = false)
 	{
 		markers.Synchronize(resolution, desyncedPreOrdered);
 
@@ -150,6 +155,7 @@ public static class Optimizer
 				signatures.Remove(current);
 	}
 
-	private static IEnumerable<T> GetOrdered<T>(IEnumerable<T> items, bool preOredered) where T : ITrackObject
+	private static IEnumerable<T> GetOrdered<T>(IEnumerable<T> items, bool preOredered)
+		where T : ITrackObject
 		=> preOredered ? items : items.OrderBy(i => i.Position);
 }

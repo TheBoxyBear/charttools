@@ -9,6 +9,7 @@ internal readonly ref struct NoteData
 	/// Value of <see cref="LaneNote{TLane}.Index"/>
 	/// </summary>
 	internal byte Index { get; }
+
 	/// <summary>
 	/// Value of <see cref="LaneNote.Sustain"/>
 	/// </summary>

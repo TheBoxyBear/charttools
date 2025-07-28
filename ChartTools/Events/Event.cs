@@ -7,13 +7,14 @@ public abstract class Event : ITrackObject
 {
 	public uint Position { get; set; }
 
-	private string _eventType = "Default";
+	private string m_eventType = "Default";
+
 	/// <summary>
 	/// Type of event as it is written in the file
 	/// </summary>
 	public string EventType
 	{
-		get => _eventType;
+		get => m_eventType;
 		set
 		{
 			if (string.IsNullOrEmpty(value))
@@ -22,19 +23,20 @@ public abstract class Event : ITrackObject
 			if (value.Contains(' '))
 				throw new FormatException("Event types cannot contain spaces");
 
-			_eventType = value;
+			m_eventType = value;
 		}
 	}
 
-	private string? _argument = null;
+	private string? m_argument = null;
+
 	/// <summary>
 	/// Additional data to modify the outcome of the event
 	/// </summary>
 	/// <remarks>A lack of argument is represented as an empty string.</remarks>
 	public string? Argument
 	{
-		get => _argument;
-		set => _argument = value ?? string.Empty;
+		get => m_argument;
+		set => m_argument = value ?? string.Empty;
 	}
 
 	/// <summary>
@@ -60,6 +62,7 @@ public abstract class Event : ITrackObject
 		Position = position;
 		EventData = data;
 	}
+
 	public Event(uint position, string type, string? argument)
 	{
 		Position = position;

@@ -3,7 +3,8 @@
 /// <summary>
 /// Set of chords for a instrument at a certain difficulty
 /// </summary>
-public record Track<TChord> : Track where TChord : IChord
+public record Track<TChord> : Track
+	where TChord : IChord
 {
 	/// <summary>
 	/// Chords making up the difficulty track.

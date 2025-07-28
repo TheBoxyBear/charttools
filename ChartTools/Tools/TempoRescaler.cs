@@ -7,13 +7,17 @@ public static class TempoRescaler
 	/// </summary>
 	/// <param name="obj">Object to rescale</param>
 	/// <param name="scale">Positive number where 1 is the current scale.</param>
-	public static void Rescale(this ILongObject obj, float scale) => obj.Length = (uint)(obj.Length * scale);
+	public static void Rescale(this ILongObject obj, float scale)
+		=> obj.Length = (uint)(obj.Length * scale);
+
 	/// <summary>
 	/// Rescales the position of a track object
 	/// </summary>
 	/// <param name="trackObject">Object to rescale</param>
 	/// <param name="scale">Positive number where 1 is the current scale.</param>
-	public static void Rescale(this ITrackObject trackObject, float scale) => trackObject.Position = (uint)(trackObject.Position * scale);
+	public static void Rescale(this ITrackObject trackObject, float scale)
+		=> trackObject.Position = (uint)(trackObject.Position * scale);
+
 	/// <summary>
 	/// Rescales the position and length of a long track object
 	/// </summary>
@@ -35,6 +39,7 @@ public static class TempoRescaler
 		tempo.Position = (uint)(tempo.Position * scale);
 		tempo.Value *= scale;
 	}
+
 	/// <summary>
 	/// Rescales the position of a chord and sustain of its notes.
 	/// </summary>
@@ -47,6 +52,7 @@ public static class TempoRescaler
 		foreach (var note in chord.Notes)
 			note.Rescale(scale);
 	}
+
 	/// <summary>
 	/// Rescales the chords in a track.
 	/// </summary>
@@ -61,6 +67,7 @@ public static class TempoRescaler
 			foreach (var e in track.LocalEvents)
 				e.Rescale(scale);
 	}
+
 	/// <summary>
 	/// Rescales all tracks in an instrument.
 	/// </summary>
@@ -84,6 +91,7 @@ public static class TempoRescaler
 		foreach (var signature in syncTrack.TimeSignatures)
 			signature.Rescale(scale);
 	}
+
 	/// <summary>
 	/// Rescales all instruments, tempo and time signatures.
 	/// </summary>

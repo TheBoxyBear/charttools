@@ -22,6 +22,7 @@ public class GlobalEvent : Event
 
 	/// <inheritdoc cref="Event(uint, string)"/>
 	public GlobalEvent(uint position, string data) : base(position, data) { }
+
 	/// <inheritdoc cref="Event(uint, string, string?)"/>
 	public GlobalEvent(uint position, string type, string? argument = null) : base(position, type, argument) { }
 

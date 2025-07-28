@@ -9,6 +9,7 @@ public interface IInitializable
 	/// Has already been initialized
 	/// </summary>
 	public bool Initialized { get; }
+
 	/// <summary>
 	/// Does required initialization if not already done.
 	/// </summary>

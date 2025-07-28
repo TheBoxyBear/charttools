@@ -75,10 +75,10 @@ public class Metadata
 	/// </summary>
 	public Charter Charter
 	{
-		get => _charter;
-		set => _charter = value ?? throw new ArgumentNullException(nameof(value));
+		get => m_charter;
+		set => m_charter = value ?? throw new ArgumentNullException(nameof(value));
 	}
-	private Charter _charter = new();
+	private Charter m_charter = new();
 
 	/// <summary>
 	/// Start time in milliseconds of the preview in the Clone Hero song browser
@@ -114,13 +114,15 @@ public class Metadata
 	[ChartKeySerializable(ChartFormatting.Difficulty)]
 	[IniKeySerializable(IniFormatting.Difficulty)]
 	public sbyte? Difficulty { get; set; }
+
 	/// <inheritdoc cref="InstrumentDifficultySet"/>
 	public InstrumentDifficultySet InstrumentDifficulties
 	{
-		get => _instrumentDifficulties;
-		set => _instrumentDifficulties = value ?? throw new ArgumentNullException(nameof(value));
+		get => m_instrumentDifficulties;
+		set => m_instrumentDifficulties = value ?? throw new ArgumentNullException(nameof(value));
 	}
-	private InstrumentDifficultySet _instrumentDifficulties = new();
+	private InstrumentDifficultySet m_instrumentDifficulties = new();
+
 	/// <summary>
 	/// Type of media the audio track comes from
 	/// </summary>
@@ -185,6 +187,7 @@ public class Metadata
 	#endregion
 
 	public void ReadFile(string path) => Read(path, this);
+
 	/// <summary>
 	/// Reads the metadata from a file.
 	/// </summary>

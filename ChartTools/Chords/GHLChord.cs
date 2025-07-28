@@ -12,11 +12,14 @@ public class GHLChord : LaneChord<LaneNote<GHLLane>, GHLLane, GHLChordModifiers>
 	public override bool OpenExclusivity => true;
 
 	internal override GHLChordModifiers DefaultModifiers => GHLChordModifiers.None;
+
 	internal override bool ChartSupportedModifiers => !Modifiers.HasFlag(GHLChordModifiers.ExplicitHopo);
 
 	public GHLChord() : base() { }
+
 	/// <inheritdoc cref="LaneChord{TNote, TLane, TModifier}(uint)"/>
 	public GHLChord(uint position) : base(position) { }
+
 	/// <inheritdoc cref="GHLChord(uint)"/>
 	/// <param name="notes">Notes to add</param>
 	public GHLChord(uint position, params LaneNote<GHLLane>[] notes) : base(position)
@@ -26,6 +29,7 @@ public class GHLChord : LaneChord<LaneNote<GHLLane>, GHLLane, GHLChordModifiers>
 		foreach (var note in notes)
 			Notes.Add(note);
 	}
+
 	/// <inheritdoc cref="GHLChord(uint, LaneNote{GHLLane}[])"/>
 	public GHLChord(uint position, params GHLLane[] notes) : base(position)
 	{

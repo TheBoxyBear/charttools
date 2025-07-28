@@ -31,6 +31,7 @@ public static class CollectionExtensions
 		exactMatch = false;
 		return index;
 	}
+
 	public static int BinarySearchIndex<T>(this IList<T> source, T target, out bool exactMatch) where T : notnull, IComparable<T>
 		=> BinarySearchIndex(source, target, t => t, out exactMatch);
 

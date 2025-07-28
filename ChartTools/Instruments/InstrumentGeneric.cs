@@ -10,40 +10,40 @@ public abstract record Instrument<TChord> : Instrument where TChord : IChord
 	/// </summary>
 	public new Track<TChord>? Easy
 	{
-		get => _easy;
-		set => _easy = value is null ? null : value with { Difficulty = Difficulty.Easy, ParentInstrument = this };
+		get => m_easy;
+		set => m_easy = value is null ? null : value with { Difficulty = Difficulty.Easy, ParentInstrument = this };
 	}
-	private Track<TChord>? _easy;
+	private Track<TChord>? m_easy;
 
 	/// <summary>
 	/// Medium track
 	/// </summary>
 	public new Track<TChord>? Medium
 	{
-		get => _medium;
-		set => _medium = value is null ? null : value with { Difficulty = Difficulty.Medium, ParentInstrument = this };
+		get => m_medium;
+		set => m_medium = value is null ? null : value with { Difficulty = Difficulty.Medium, ParentInstrument = this };
 	}
-	private Track<TChord>? _medium;
+	private Track<TChord>? m_medium;
 
 	/// <summary>
 	/// Hard track
 	/// </summary>
 	public new Track<TChord>? Hard
 	{
-		get => _hard;
-		set => _hard = value is null ? null : value with { Difficulty = Difficulty.Hard, ParentInstrument = this };
+		get => m_hard;
+		set => m_hard = value is null ? null : value with { Difficulty = Difficulty.Hard, ParentInstrument = this };
 	}
-	private Track<TChord>? _hard;
+	private Track<TChord>? m_hard;
 
 	/// <summary>
 	/// Expert track
 	/// </summary>
 	public new Track<TChord>? Expert
 	{
-		get => _expert;
-		set => _expert = value is null ? null : value with { Difficulty = Difficulty.Expert, ParentInstrument = this };
+		get => m_expert;
+		set => m_expert = value is null ? null : value with { Difficulty = Difficulty.Expert, ParentInstrument = this };
 	}
-	private Track<TChord>? _expert;
+	private Track<TChord>? m_expert;
 
 	/// <summary>
 	/// Gets the <see cref="Track{TChord}"/> that matches a <see cref="Difficulty"/>
@@ -74,20 +74,20 @@ public abstract record Instrument<TChord> : Instrument where TChord : IChord
 		switch (difficulty)
 		{
 			case Difficulty.Easy:
-				found = _easy is not null;
-				_easy = null;
+				found = m_easy is not null;
+				m_easy = null;
 				return found;
 			case Difficulty.Medium:
-				found = _medium is not null;
-				_medium = null;
+				found = m_medium is not null;
+				m_medium = null;
 				return found;
 			case Difficulty.Hard:
-				found = _hard is not null;
-				_hard = null;
+				found = m_hard is not null;
+				m_hard = null;
 				return found;
 			case Difficulty.Expert:
-				found = _expert is not null;
-				_expert = null;
+				found = m_expert is not null;
+				m_expert = null;
 				return found;
 			default:
 				throw new UndefinedEnumException(difficulty);
@@ -100,6 +100,7 @@ public abstract record Instrument<TChord> : Instrument where TChord : IChord
 	protected override Track<TChord>? GetExpert() => Expert;
 
 	public override Track<TChord>?[] GetTracks() => [ Easy, Medium, Hard, Expert ];
+
 	public override IEnumerable<Track<TChord>> GetExistingTracks() => base.GetExistingTracks().Cast<Track<TChord>>();
 
 	/// <summary>
@@ -112,10 +113,10 @@ public abstract record Instrument<TChord> : Instrument where TChord : IChord
 		? throw new ArgumentNullException(nameof(track))
 		: track.Difficulty switch
 		{
-			Difficulty.Easy   => _easy = track with { ParentInstrument = this },
-			Difficulty.Medium => _medium = track with { ParentInstrument = this },
-			Difficulty.Hard   => _hard = track with { ParentInstrument = this },
-			Difficulty.Expert => _expert = track with { ParentInstrument = this },
+			Difficulty.Easy   => m_easy	  =	track with { ParentInstrument = this },
+			Difficulty.Medium => m_medium = track with { ParentInstrument = this },
+			Difficulty.Hard   => m_hard   =	track with { ParentInstrument = this },
+			Difficulty.Expert => m_expert = track with { ParentInstrument = this },
 			_                 => throw new UndefinedEnumException(track.Difficulty)
 		};
 }

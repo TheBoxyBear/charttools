@@ -26,10 +26,10 @@ public static class ChartFile
 	{
 		DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
 		OverlappingStarPowerPolicy = OverlappingSpecialPhrasePolicy.ThrowException,
-		SnappedNotesPolicy = SnappedNotesPolicy.ThrowException,
-		SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
-		TempolessAnchorPolicy = TempolessAnchorPolicy.ThrowException,
-		UnknownSectionPolicy = UnknownSectionPolicy.ThrowException
+		SnappedNotesPolicy         = SnappedNotesPolicy.ThrowException,
+		SoloNoStarPowerPolicy      = SoloNoStarPowerPolicy.Convert,
+		TempolessAnchorPolicy      = TempolessAnchorPolicy.ThrowException,
+		UnknownSectionPolicy       = UnknownSectionPolicy.ThrowException
 	};
 
 	/// <summary>
@@ -39,9 +39,9 @@ public static class ChartFile
 	{
 		DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
 		OverlappingStarPowerPolicy = OverlappingSpecialPhrasePolicy.ThrowException,
-		SoloNoStarPowerPolicy = SoloNoStarPowerPolicy.Convert,
-		SnappedNotesPolicy = SnappedNotesPolicy.ThrowException,
-		UnsupportedModifierPolicy = UnsupportedModifierPolicy.ThrowException
+		SoloNoStarPowerPolicy      = SoloNoStarPowerPolicy.Convert,
+		SnappedNotesPolicy         = SnappedNotesPolicy.ThrowException,
+		UnsupportedModifierPolicy  = UnsupportedModifierPolicy.ThrowException
 	};
 
 	#region Reading

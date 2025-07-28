@@ -15,6 +15,7 @@ public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey :
 	/// Enumerables to alternate between
 	/// </summary>
 	private IEnumerable<T>[] Enumerables { get; }
+
 	/// <summary>
 	/// Method that retrieves the key from an item
 	/// </summary>
@@ -40,7 +41,8 @@ public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey :
 	}
 
 	/// <inheritdoc/>
-	public IEnumerator<T> GetEnumerator() => new Enumerator(KeyGetter, Enumerables.Select(e => e.GetEnumerator()).ToArray());
+	public IEnumerator<T> GetEnumerator() => new Enumerator(KeyGetter, [.. Enumerables.Select(e => e.GetEnumerator())]);
+
 	/// <inheritdoc/>
 	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -51,16 +53,19 @@ public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey :
 	/// <param name="enumerators">Enumerators to alternate between</param>
 	private class Enumerator(Func<T, TKey> keyGetter, params IEnumerator<T>[] enumerators) : IInitializable, IEnumerator<T>
 	{
-		private IEnumerator<T>[] Enumerators { get; } = enumerators.NonNull().ToArray();
+		private IEnumerator<T>[] Enumerators { get; } = [.. enumerators.NonNull()];
+
 		/// <summary>
 		/// Method that retrieves the key from an item
 		/// </summary>
 		private Func<T, TKey> KeyGetter { get; } = keyGetter;
+
 		/// <inheritdoc/>
 		public bool Initialized { get; private set; }
 
 		/// Currently alternated item following a <see cref="MoveNext"/> call
 		public T Current { get; private set; }
+
 		/// <inheritdoc/>
 		object? IEnumerator.Current => Current;
 

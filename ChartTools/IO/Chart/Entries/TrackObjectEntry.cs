@@ -9,10 +9,12 @@ internal readonly struct TrackObjectEntry : IReadOnlyTrackObject
 	/// Value of <see cref="ITrackObject.Position"/>
 	/// </summary>
 	public uint Position { get; }
+
 	/// <summary>
 	/// Type code of <see cref="ITrackObject"/>
 	/// </summary>
 	public string Type { get; }
+
 	/// <summary>
 	/// Additional data
 	/// </summary>
