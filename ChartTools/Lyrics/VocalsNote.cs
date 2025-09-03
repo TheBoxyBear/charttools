@@ -1,11 +1,12 @@
 ﻿namespace ChartTools.Lyrics;
 
-public struct VocalsNote(VocalsPitch pitch, string? text = null)
+public struct VocalsNote(uint position, VocalsPitch pitch, string? text = null)
 	: INote, ILongTrackObject
 {
-	public VocalsNote(string? text = null) : this(VocalsPitchValue.None, text) { }
+    public VocalsNote(uint position, VocalsPitchValue pitch = VocalsPitchValue.None, string? text = null)
+        : this(position, new VocalsPitch(pitch), text) { }
 
-	public uint Position { readonly get; set; }
+    public uint Position { readonly get; set; } = position;
 
 	public uint Length { readonly get; set; }
 

@@ -71,7 +71,7 @@ public static class PhraseExtensions
 					phrases.Add(phrase);
 					break;
 				case EventTypeHelper.Global.Lyric:
-					notes.Add(new(e.Argument));
+					notes.Add(new(e.Position, VocalsPitchValue.None, e.Argument));
 					break;
 				case EventTypeHelper.Global.PhraseEnd:
 					if (phrase is not null)
@@ -107,6 +107,8 @@ public static class PhraseExtensions
 
 			yield return new(lastMarker, lastPhraseNotes);
 			lastMarker = phraseEnumerator.Current;
+
+            lastPhraseNotes.Clear();
 		}
 
 		// Add remaining notes to the last phrase
