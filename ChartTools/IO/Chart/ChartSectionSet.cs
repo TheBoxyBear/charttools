@@ -19,18 +19,43 @@ public class ChartSection : SectionSet<string>
 
 		Dictionary<string, string> instrumentSources = new()
 		{
-			{ ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.LeadGuitar],   nameof(Song.Instruments.LeadGuitar)   },
-			{ ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.RhythmGuitar], nameof(Song.Instruments.RhythmGuitar) },
-			{ ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.CoopGuitar],   nameof(Song.Instruments.CoopGuitar)   },
-			{ ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.Bass],         nameof(Song.Instruments.Bass)         },
-			{ ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.Keys],         nameof(Song.Instruments.Keys)         },
-			{ ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.GHLGuitar],    nameof(Song.Instruments.GHLGuitar)    },
-			{ ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.GHLBass],      nameof(Song.Instruments.GHLBass)      },
-			{ ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.Drums],        nameof(Song.Instruments.Drums)        }
+			{
+                ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.StandardLeadGuitar],
+                nameof(Song.Instruments.StandardLeadGuitar)
+            },
+			{
+                ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.StandardRhythmGuitar],
+                nameof(Song.Instruments.StandardRhythmGuitar)
+            },
+			{
+                ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.StandardCoopGuitar],
+                nameof(Song.Instruments.StandardCoopGuitar)
+            },
+			{
+                ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.StandardBass],
+                nameof(Song.Instruments.StandardBass)
+            },
+			{
+                ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.StandardKeys],
+                nameof(Song.Instruments.StandardKeys)
+            },
+			{
+                ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.GHLGuitar],
+                nameof(Song.Instruments.GHLGuitar)
+            },
+			{
+                ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.GHLBass],
+                nameof(Song.Instruments.GHLBass)
+            },
+			{
+                ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.Drums],
+                nameof(Song.Instruments.Drums)
+            }
 		};
 
 		headers.AddRange(instrumentSources.SelectMany(pair =>
-		from diff in EnumCache<Difficulty>.Values select new ReservedSectionHeader(ChartFormatting.Header(pair.Value, diff), $"{pair.Value}.{diff}")));
+		from diff in EnumCache<Difficulty>.Values
+        select new ReservedSectionHeader(ChartFormatting.Header(pair.Value, diff), $"{pair.Value}.{diff}")));
 
 		DefaultReservedHeaders = new(headers);
 	}

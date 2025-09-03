@@ -2,8 +2,6 @@
 
 public interface ILaneNote : INote
 {
-	public abstract byte Index { get; }
-
 	/// <summary>
 	/// Maximum length the note can be held for extra points
 	/// </summary>

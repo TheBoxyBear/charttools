@@ -40,14 +40,16 @@ internal static class ChartFormatting
 	public static readonly IReadOnlyDictionary<InstrumentIdentity, string> InstrumentHeaderNames =
 		new Dictionary<InstrumentIdentity, string>()
 	{
-		{ InstrumentIdentity.Drums,         DrumsHeaderName },
-		{ InstrumentIdentity.GHLGuitar,    "GHLGuitar"      },
-		{ InstrumentIdentity.GHLBass,      "GHLBass"        },
-		{ InstrumentIdentity.LeadGuitar,   "Single"         },
-		{ InstrumentIdentity.RhythmGuitar, "DoubleRhythm"   },
-		{ InstrumentIdentity.CoopGuitar,   "DoubleGuitar"   },
-		{ InstrumentIdentity.Bass,         "DoubleBass"     },
-		{ InstrumentIdentity.Keys,         "Keyboard"       }
+		{ InstrumentIdentity.Drums,                DrumsHeaderName },
+		{ InstrumentIdentity.GHLGuitar,            "GHLGuitar"     },
+		{ InstrumentIdentity.GHLBass,              "GHLBass"       },
+        { InstrumentIdentity.GHLRhythmGuitar,      "GHLRhythm"     },
+        { InstrumentIdentity.GHLCoopGuitar,        "GHLCoop"       },
+        { InstrumentIdentity.StandardLeadGuitar,   "Single"        },
+		{ InstrumentIdentity.StandardRhythmGuitar, "DoubleRhythm"  },
+		{ InstrumentIdentity.StandardCoopGuitar,   "DoubleGuitar"  },
+		{ InstrumentIdentity.StandardBass,         "DoubleBass"    },
+		{ InstrumentIdentity.StandardKeys,         "Keyboard"      }
 	};
 
 	/// <summary>
@@ -93,7 +95,7 @@ internal static class ChartFormatting
 	/// Gets the written data for a note.
 	/// </summary>
 	/// <param name="position">Position of the parent <see cref="LaneChord"/></param>
-	/// <param name="index">Value of <see cref="ILaneNote.Index"/></param>
+	/// <param name="index">Value of <see cref="INote.Index"/></param>
 	/// <param name="sustain">Value of <see cref="ILaneNote.Sustain"/></param>
 	public static TrackObjectEntry NoteEntry(uint position, byte index, uint sustain)
 		=> new(position, "N", $"{index} {sustain}");

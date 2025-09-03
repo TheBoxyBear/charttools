@@ -9,14 +9,14 @@ internal abstract class FileParser<T>
 	{
 		await Task.Run(() => ParseBase(items)).ConfigureAwait(false);
 
-		try { FinaliseParse(); }
+		try { FinalizeParse(); }
 		catch (Exception e) { throw GetFinalizeException(e); }
 	}
 	public void Parse(IEnumerable<T> items)
 	{
 		ParseBase(items);
 
-		try { FinaliseParse(); }
+		try { FinalizeParse(); }
 		catch (Exception e) { throw GetFinalizeException(e); }
 	}
 	private void ParseBase(IEnumerable<T> items)
@@ -34,5 +34,6 @@ internal abstract class FileParser<T>
 		=> ResultReady ? result : throw new Exception("Result is not ready.");
 
 	protected abstract Exception GetHandleException(T item, Exception innerException);
+
 	protected abstract Exception GetFinalizeException(Exception innerException);
 }

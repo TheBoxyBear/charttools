@@ -36,17 +36,17 @@ public class InstrumentSet : IEnumerable<Instrument>
 
 	public GHLInstrument? GHLRhythmGuitar
 	{
-		get => _ghlRhythmGuitar;
-		set => _ghlRhythmGuitar = value is null ? value : value with { InstrumentIdentity = GHLInstrumentIdentity.RhythmGuitar };
+		get => m_ghlRhythmGuitar;
+		set => m_ghlRhythmGuitar = value is null ? value : value with { InstrumentIdentity = GHLInstrumentIdentity.RhythmGuitar };
 	}
-	private GHLInstrument? _ghlRhythmGuitar;
+	private GHLInstrument? m_ghlRhythmGuitar;
 
 	public GHLInstrument? GHLCoopGuitar
 	{
-		get => _ghlCoopGuitar;
-		set => _ghlCoopGuitar = value is null ? value : value with { InstrumentIdentity = GHLInstrumentIdentity.CoopGuitar };
+		get => m_ghlCoopGuitar;
+		set => m_ghlCoopGuitar = value is null ? value : value with { InstrumentIdentity = GHLInstrumentIdentity.CoopGuitar };
 	}
-	private GHLInstrument? _ghlCoopGuitar;
+	private GHLInstrument? m_ghlCoopGuitar;
 
 	/// <summary>
 	/// Set of lead guitar tracks
@@ -149,20 +149,20 @@ public class InstrumentSet : IEnumerable<Instrument>
 			case InstrumentIdentity.Drums:
 				Drums = (Drums)instrument;
 				break;
-			case InstrumentIdentity.LeadGuitar:
-				m_leadGuitar = (StandardInstrument)instrument;
+			case InstrumentIdentity.StandardLeadGuitar:
+				StandardLeadGuitar = (StandardInstrument)instrument;
 				break;
-			case InstrumentIdentity.RhythmGuitar:
-				m_rhythmGuitar = (StandardInstrument)instrument;
+			case InstrumentIdentity.StandardRhythmGuitar:
+				StandardRhythmGuitar = (StandardInstrument)instrument;
 				break;
-			case InstrumentIdentity.CoopGuitar:
-				m_coopGuitar = (StandardInstrument)instrument;
+			case InstrumentIdentity.StandardCoopGuitar:
+				StandardCoopGuitar = (StandardInstrument)instrument;
 				break;
-			case InstrumentIdentity.Bass:
-				m_bass = (StandardInstrument)instrument;
+			case InstrumentIdentity.StandardBass:
+				StandardBass = (StandardInstrument)instrument;
 				break;
-			case InstrumentIdentity.Keys:
-				m_keys = (StandardInstrument)instrument;
+			case InstrumentIdentity.StandardKeys:
+				StandardKeys = (StandardInstrument)instrument;
 				break;
 			case InstrumentIdentity.GHLGuitar:
 				GHLGuitar = (GHLInstrument)instrument;
