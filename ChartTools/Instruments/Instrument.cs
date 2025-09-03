@@ -153,7 +153,7 @@ public abstract record Instrument<TChord> : Instrument where TChord : IChord
 	public new Track<TChord>? Easy
 	{
 		get => m_easy;
-		set => m_easy = value is null ? null : value with { Difficulty = Difficulty.Easy, ParentInstrument = this };
+		set => m_easy = value is null ? null : value with { Difficulty = DiffEnum.Easy, ParentInstrument = this };
 	}
 	private Track<TChord>? m_easy;
 
@@ -163,7 +163,7 @@ public abstract record Instrument<TChord> : Instrument where TChord : IChord
 	public new Track<TChord>? Medium
 	{
 		get => m_medium;
-		set => m_medium = value is null ? null : value with { Difficulty = Difficulty.Medium, ParentInstrument = this };
+		set => m_medium = value is null ? null : value with { Difficulty = DiffEnum.Medium, ParentInstrument = this };
 	}
 	private Track<TChord>? m_medium;
 
@@ -173,7 +173,7 @@ public abstract record Instrument<TChord> : Instrument where TChord : IChord
 	public new Track<TChord>? Hard
 	{
 		get => m_hard;
-		set => m_hard = value is null ? null : value with { Difficulty = Difficulty.Hard, ParentInstrument = this };
+		set => m_hard = value is null ? null : value with { Difficulty = DiffEnum.Hard, ParentInstrument = this };
 	}
 	private Track<TChord>? m_hard;
 
@@ -183,51 +183,51 @@ public abstract record Instrument<TChord> : Instrument where TChord : IChord
 	public new Track<TChord>? Expert
 	{
 		get => m_expert;
-		set => m_expert = value is null ? null : value with { Difficulty = Difficulty.Expert, ParentInstrument = this };
+		set => m_expert = value is null ? null : value with { Difficulty = DiffEnum.Expert, ParentInstrument = this };
 	}
 	private Track<TChord>? m_expert;
 
-	/// <summary>
-	/// Gets the <see cref="Track{TChord}"/> that matches a <see cref="Difficulty"/>
-	/// </summary>
-	public override Track<TChord>? GetTrack(Difficulty difficulty) => difficulty switch
+    /// <summary>
+    /// Gets the <see cref="Track{TChord}"/> that matches a <see cref="DiffEnum"/>
+    /// </summary>
+    public override Track<TChord>? GetTrack(DiffEnum difficulty) => difficulty switch
 	{
-		Difficulty.Easy => Easy,
-		Difficulty.Medium => Medium,
-		Difficulty.Hard => Hard,
-		Difficulty.Expert => Expert,
+        DiffEnum.Easy => Easy,
+        DiffEnum.Medium => Medium,
+        DiffEnum.Hard => Hard,
+        DiffEnum.Expert => Expert,
 		_ => throw new UndefinedEnumException(difficulty)
 	};
 
-	/// <inheritdoc cref="Instrument.CreateTrack(Difficulty)"/>
-	public override Track<TChord> CreateTrack(Difficulty difficulty) => difficulty switch
+    /// <inheritdoc cref="Instrument.CreateTrack(DiffEnum)"/>
+    public override Track<TChord> CreateTrack(DiffEnum difficulty) => difficulty switch
 	{
-		Difficulty.Easy => Easy = new(),
-		Difficulty.Medium => Medium = new(),
-		Difficulty.Hard => Hard = new(),
-		Difficulty.Expert => Expert = new(),
+        DiffEnum.Easy => Easy = new(),
+        DiffEnum.Medium => Medium = new(),
+        DiffEnum.Hard => Hard = new(),
+        DiffEnum.Expert => Expert = new(),
 		_ => throw new UndefinedEnumException(difficulty)
 	};
-	/// <inheritdoc cref="Instrument.RemoveTrack(Difficulty)"/>
-	public override bool RemoveTrack(Difficulty difficulty)
+    /// <inheritdoc cref="Instrument.RemoveTrack(DiffEnum)"/>
+    public override bool RemoveTrack(DiffEnum difficulty)
 	{
 		bool found;
 
 		switch (difficulty)
 		{
-			case Difficulty.Easy:
+			case DiffEnum.Easy:
 				found = m_easy is not null;
 				m_easy = null;
 				return found;
-			case Difficulty.Medium:
+			case DiffEnum.Medium:
 				found = m_medium is not null;
 				m_medium = null;
 				return found;
-			case Difficulty.Hard:
+			case DiffEnum.Hard:
 				found = m_hard is not null;
 				m_hard = null;
 				return found;
-			case Difficulty.Expert:
+			case DiffEnum.Expert:
 				found = m_expert is not null;
 				m_expert = null;
 				return found;
@@ -255,10 +255,10 @@ public abstract record Instrument<TChord> : Instrument where TChord : IChord
 		? throw new ArgumentNullException(nameof(track))
 		: track.Difficulty switch
 		{
-			Difficulty.Easy => m_easy = track with { ParentInstrument = this },
-			Difficulty.Medium => m_medium = track with { ParentInstrument = this },
-			Difficulty.Hard => m_hard = track with { ParentInstrument = this },
-			Difficulty.Expert => m_expert = track with { ParentInstrument = this },
+            DiffEnum.Easy => m_easy = track with { ParentInstrument = this },
+            DiffEnum.Medium => m_medium = track with { ParentInstrument = this },
+            DiffEnum.Hard => m_hard = track with { ParentInstrument = this },
+            DiffEnum.Expert => m_expert = track with { ParentInstrument = this },
 			_ => throw new UndefinedEnumException(track.Difficulty)
 		};
 }
