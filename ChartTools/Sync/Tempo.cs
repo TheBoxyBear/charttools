@@ -3,7 +3,7 @@
 /// <summary>
 /// Marker that alters the tempo
 /// </summary>
-public class Tempo : ITrackObject
+public class Tempo(uint position, float value) : ITrackObject
 {
 	/// <summary>
 	/// Parent map the marker is contained
@@ -34,12 +34,12 @@ public class Tempo : ITrackObject
 				PositionSynced = false;
 		}
 	}
-	private uint m_position;
+	private uint m_position = position;
 
-	/// <summary>
-	/// New tempo in beats per minute
-	/// </summary>
-	public float Value { get; set; }
+    /// <summary>
+    /// New tempo in beats per minute
+    /// </summary>
+    public float Value { get; set; } = value;
 
 	/// <summary>
 	/// Locks the tempo to a specific real-time position independent of the sync track.
@@ -71,14 +71,6 @@ public class Tempo : ITrackObject
 	/// <remarks><see langword="true"/> if the marker has no anchor.</remarks>
 	public bool PositionSynced { get; private set; } = true;
 
-	/// <summary>
-	/// Creates an instance of <see cref="Tempo"/>.
-	/// </summary>
-	public Tempo(uint position, float value)
-	{
-		Position = position;
-		Value    = value;
-	}
 	public Tempo(TimeSpan anchor, float value) : this(0, value) => Anchor = anchor;
 
 	internal void SyncPosition(uint position)
@@ -86,5 +78,6 @@ public class Tempo : ITrackObject
 		m_position     = position;
 		PositionSynced = true;
 	}
+
 	internal void DesyncPosition() => PositionSynced = false;
 }
