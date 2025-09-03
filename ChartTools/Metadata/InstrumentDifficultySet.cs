@@ -11,7 +11,7 @@ namespace ChartTools;
 public class InstrumentDifficultySet
 {
 	/// <summary>
-	/// Difficulty of <see cref="InstrumentIdentity.LeadGuitar"/>, <see cref="InstrumentIdentity.CoopGuitar"/> and <see cref="InstrumentIdentity.RhythmGuitar"/>
+	/// Difficulty of <see cref="InstrumentIdentity.StandardLeadGuitar"/>, <see cref="InstrumentIdentity.StandardCoopGuitar"/> and <see cref="InstrumentIdentity.StandardRhythmGuitar"/>
 	/// </summary>
 	[IniKeySerializable(IniFormatting.GuitarDifficulty)]
 	public sbyte? Guitar { get; set; }
@@ -47,7 +47,7 @@ public class InstrumentDifficultySet
 	public sbyte? GHLBass { get; set; }
 
 	/// <summary>
-	/// Gets the difficulty for an <see cref="InstrumentIdentity"/>.
+	/// Difficulty of <see cref="InstrumentIdentity.GHLRhythmGuitar"/>
 	/// </summary>
 	public sbyte? GetDifficulty(InstrumentIdentity identity)
 		=> GetDifficultyProperty(identity, out PropertyInfo? info) ? (sbyte?)info.GetValue(this) : null;

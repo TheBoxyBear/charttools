@@ -76,7 +76,9 @@ internal static class ExtensionHandler
 		string extension = Path.GetExtension(path);
 		(string extension, AsyncRead<T> readMethod) reader = readers.FirstOrDefault(r => r.extension == extension);
 
-		return reader == default ? throw GetException(extension, readers.Select(r => r.extension)) : await reader.readMethod(path);
+		return reader == default
+			? throw GetException(extension, readers.Select(r => r.extension))
+			: await reader.readMethod(path).ConfigureAwait(false);
 	}
 	#endregion
 
@@ -106,7 +108,7 @@ internal static class ExtensionHandler
 		if (writer == default)
 			throw GetException(extension, writers.Select(w => w.extension));
 
-		await writer.writeMethod(path, content);
+		await writer.writeMethod(path, content).ConfigureAwait(false);
 	}
 	#endregion
 

@@ -46,5 +46,6 @@ public class SyncTrack : IEmptyVerifiable
 
 	public async Task ToFileAsync(string path, WritingConfiguration? config = default, CancellationToken cancellationToken = default)
 		=> await ExtensionHandler.WriteAsync(path, this,
-			(".chart", (path, track) => ChartFile.ReplaceSyncTrackAsync(path, track, config?.Chart, cancellationToken)));
+			(".chart", (path, track) => ChartFile.ReplaceSyncTrackAsync(path, track, config?.Chart, cancellationToken)))
+		.ConfigureAwait(false);
 }

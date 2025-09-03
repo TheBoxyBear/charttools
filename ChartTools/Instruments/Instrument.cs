@@ -35,7 +35,7 @@ public abstract record Instrument : IEmptyVerifiable
 			_instrumentType = InstrumentIdentity switch
 			{
 				InstrumentIdentity.Drums => InstrumentType.Drums,
-				InstrumentIdentity.LeadGuitar or InstrumentIdentity.RhythmGuitar or InstrumentIdentity.Bass or InstrumentIdentity.CoopGuitar or InstrumentIdentity.GHLBass or InstrumentIdentity.Keys => InstrumentType.Standard,
+				InstrumentIdentity.StandardLeadGuitar or InstrumentIdentity.StandardRhythmGuitar or InstrumentIdentity.StandardBass or InstrumentIdentity.StandardCoopGuitar or InstrumentIdentity.GHLBass or InstrumentIdentity.StandardKeys => InstrumentType.Standard,
 				InstrumentIdentity.GHLGuitar or InstrumentIdentity.GHLBass => InstrumentType.GHL,
 				_ => throw new InvalidDataException($"Instrument identity {InstrumentIdentity} does not belong to an instrument type.")
 			};
@@ -51,10 +51,7 @@ public abstract record Instrument : IEmptyVerifiable
 	public List<InstrumentSpecialPhrase> SharedSpecialPhrases { get; set; } = [];
 
 	/// <inheritdoc cref="InstrumentDifficultySet.GetDifficulty(InstrumentIdentity)"/>
-	public sbyte? GetDifficulty(InstrumentDifficultySet difficulties) => difficulties.GetDifficulty(InstrumentIdentity);
-
-	/// <inheritdoc cref="InstrumentDifficultySet.GetDifficulty(InstrumentIdentity)"/>
-	public void SetDifficulty(InstrumentDifficultySet difficulties, sbyte? difficulty) => difficulties.SetDifficulty(InstrumentIdentity, difficulty);
+	public ref sbyte? GetDifficulty(InstrumentDifficultySet difficulties) => ref difficulties.GetDifficulty(InstrumentIdentity);
 
 	/// <summary>
 	/// Easy track
@@ -117,7 +114,7 @@ public abstract record Instrument : IEmptyVerifiable
 	public LocalEvent[] ShareLocalEvents(TrackObjectSource source) => ShareEventsSpecial(source, track => track.LocalEvents);
 
 	/// <summary>
-	/// Gives all tracks the same special phrases
+	/// Gives all tracks the same special phrases.
 	/// </summary>
 	public SpecialPhrase[] ShareSpecial(TrackObjectSource source) => ShareEventsSpecial(source, track => track.SpecialPhrases);
 

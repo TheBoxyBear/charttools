@@ -1,4 +1,4 @@
-﻿using ChartTools.Extensions;
+using ChartTools.Extensions;
 using ChartTools.IO.Chart.Entries;
 
 namespace ChartTools.IO.Chart;

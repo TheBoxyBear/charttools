@@ -34,7 +34,7 @@ internal static class DirectoryHandler
 		T? value = default;
 
 		if (File.Exists(chartPath))
-			value = await read(chartPath, iniMetadata.Formatting);
+			value = await read(chartPath, iniMetadata.Formatting).ConfigureAwait(false);
 
 		return new(value, iniMetadata);
 	}

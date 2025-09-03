@@ -88,7 +88,7 @@ public static class ChartFile
 		ChartReadingSession session  = new(ComponentList.Full(), config, formatting);
 		using ChartFileReader reader = new(source, session);
 
-		await reader.ReadAsync(cancellationToken);
+		await reader.ReadAsync(cancellationToken).ConfigureAwait(false);
 		return CreateSongFromReader(reader);
 	}
 
@@ -108,7 +108,7 @@ public static class ChartFile
 		ChartReadingSession session  = new(components, config, formatting);
 		using ChartFileReader reader = new(source, session);
 
-		await reader.ReadAsync(cancellationToken);
+		await reader.ReadAsync(cancellationToken).ConfigureAwait(false);
 		return CreateSongFromReader(reader);
 	}
 	#endregion
@@ -168,7 +168,7 @@ public static class ChartFile
 		ChartReadingSession session  = new(new() { Instruments = components }, config, formatting);
 		using ChartFileReader reader = new(source, session);
 
-		await reader.ReadAsync(cancellationToken);
+		await reader.ReadAsync(cancellationToken).ConfigureAwait(false);
 		return CreateInstrumentSetFromReader(reader);
 	}
 	#endregion
@@ -193,7 +193,7 @@ public static class ChartFile
 		ChartReadingSession session  = new(new() { Metadata = true }, DefaultReadConfig, null);
 		using ChartFileReader reader = new(source, session);
 
-		await reader.ReadAsync(cancellationToken);
+		await reader.ReadAsync(cancellationToken).ConfigureAwait(false);
 		reader.ExistingMetadata = existing;
 		return reader.Parsers.TryGetFirstOfType(out MetadataParser? parser) ? parser!.Result : new();
 	}

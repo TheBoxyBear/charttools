@@ -56,7 +56,7 @@ internal abstract class FileReader<T, TParser>(ReadingDataSource source) : FileR
 		IsReading = true;
 
 		ReadBase(true, cancellationToken);
-		await Task.WhenAll(parseTasks);
+		await Task.WhenAll(parseTasks).ConfigureAwait(false);
 
 		IsReading = false;
 	}
