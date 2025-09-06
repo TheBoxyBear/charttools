@@ -3,9 +3,9 @@
 /// <summary>
 /// Marker that defines an occurrence at a given point in a song.
 /// </summary>
-public abstract class Event : ITrackObject
+public abstract class Event(uint position) : ITrackObject
 {
-	public uint Position { get; set; }
+	public uint Position { get; set; } = position;
 
 	private string m_eventType = "Default";
 
@@ -27,27 +27,23 @@ public abstract class Event : ITrackObject
 		}
 	}
 
-	private string? m_argument = null;
-
 	/// <summary>
 	/// Additional data to modify the outcome of the event
 	/// </summary>
 	/// <remarks>A lack of argument is represented as an empty string.</remarks>
-	public string? Argument
-	{
-		get => m_argument;
-		set => m_argument = value ?? string.Empty;
-	}
+	public string Argument { get; set; } = string.Empty;
 
 	/// <summary>
 	/// Combined event type and arguments where the first word is the type.
 	/// </summary>
 	public string EventData
 	{
-		get => Argument is null ? EventType : string.Join(' ', EventType, Argument);
+		get => Argument == string.Empty ? EventType : string.Join(' ', EventType, Argument);
 		set
 		{
+			// Can possibly be optimized with a stack array
 			string[] split = value.Split(' ', 2);
+
 
 			EventType = split[0];
 			Argument = split.Length > 1 ? split[1] : string.Empty;
@@ -58,14 +54,11 @@ public abstract class Event : ITrackObject
 		? true : (EventType.EndsWith(EventTypeHelper.Common.ToggleOff) ? false : null);
 
 	public Event(uint position, string data)
-	{
-		Position  = position;
-		EventData = data;
-	}
+		: this(position) => EventData = data;
 
-	public Event(uint position, string type, string? argument)
+	public Event(uint position, string type, string argument)
+		: this(position)
 	{
-		Position  = position;
 		EventType = type;
 		Argument  = argument;
 	}

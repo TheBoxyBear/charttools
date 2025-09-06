@@ -20,11 +20,14 @@ public class GlobalEvent : Event
 	public bool IsSyncEvent              => EventType.StartsWith(EventTypeHeaderHelper.Global.Sync);
 	public bool IsWailEvent              => EventType.StartsWith(EventTypeHeaderHelper.Global.GuitaristWail);
 
-	/// <inheritdoc cref="Event(uint, string)"/>
-	public GlobalEvent(uint position, string data) : base(position, data) { }
+    /// <inheritdoc cref="Event(uint)"/>
+    public GlobalEvent(uint position) : base(position) { }
 
-	/// <inheritdoc cref="Event(uint, string, string?)"/>
-	public GlobalEvent(uint position, string type, string? argument = null) : base(position, type, argument) { }
+    /// <inheritdoc cref="Event(uint, string)"/>
+    public GlobalEvent(uint position, string data) : base(position, data) { }
+
+	/// <inheritdoc cref="Event(uint, string, string)"/>
+	public GlobalEvent(uint position, string type, string argument = "") : base(position, type, argument) { }
 
 	/// <summary>
 	/// Reads global events from a file.
@@ -38,7 +41,7 @@ public class GlobalEvent : Event
 	/// </summary>
 	/// <param name="path"><inheritdoc cref="FromFile(string)" path="/param[@name='path']"/></param>
 	/// <param name="cancellationToken">Token to request cancellation</param>
-	public static async Task<List<GlobalEvent>> FromFileAsync(string path, CancellationToken cancellationToken)
+	public static async Task<List<GlobalEvent>> FromFileAsync(string path, CancellationToken cancellationToken = default)
 		=> await ExtensionHandler.ReadAsync(path, (".chart", path => ChartFile.ReadGlobalEventsAsync(path, cancellationToken)))
 		.ConfigureAwait(false);
 }
