@@ -2,7 +2,7 @@
 
 namespace ChartTools.Extensions.Collections;
 
-internal class DelayedEnumerator<T>(DelayedEnumerableSource<T> source) : IEnumerator<T>
+internal class DelayedEnumerator<T>(DelayedEnumerableSource<T> source) : IEnumerator<T?>
 {
 	public T? Current { get; private set; }
 	object? IEnumerator.Current => Current;
@@ -30,6 +30,7 @@ internal class DelayedEnumerator<T>(DelayedEnumerableSource<T> source) : IEnumer
 		return true;
 	}
 
-	void IDisposable.Dispose() => GC.SuppressFinalize(this);
 	void IEnumerator.Reset() => throw new InvalidOperationException();
+
+    void IDisposable.Dispose() { }
 }

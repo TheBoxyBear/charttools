@@ -10,12 +10,15 @@ public class DelayedEnumerableSource<T> : IDisposable
 
 	public DelayedEnumerableSource() => Enumerable = new(this);
 
+    ~DelayedEnumerableSource()
+        => Dispose();
+
 	public void Add(T item) => Buffer.Enqueue(item);
 	public void EndAwait() => AwaitingItems = false;
 
 	public void Dispose()
 	{
-		AwaitingItems = false;
+        AwaitingItems = false;
 		GC.SuppressFinalize(this);
 	}
 }

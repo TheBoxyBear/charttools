@@ -23,7 +23,8 @@ internal abstract class FileReader<T>(ReadingDataSource source) : IDisposable
 	public virtual void Dispose() => Source.Dispose();
 }
 
-internal abstract class FileReader<T, TParser>(ReadingDataSource source) : FileReader<T>(source) where TParser : FileParser<T>
+internal abstract class FileReader<T, TParser>(ReadingDataSource source) : FileReader<T>(source)
+    where TParser : FileParser<T>
 {
 	public record ParserContentGroup(TParser Parser, DelayedEnumerableSource<T> Source);
 
