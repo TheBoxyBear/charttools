@@ -80,6 +80,12 @@ public class Metadata
 	}
 	private Charter m_charter = new();
 
+    /// <summary>
+    /// The song contains explicit lyrics
+    /// </summary>
+    [IniKeySerializable(IniFormatting.Explicit)]
+    public bool? Explicit { get; set; }
+
 	/// <summary>
 	/// Start time in milliseconds of the preview in the Clone Hero song browser
 	/// </summary>
@@ -141,10 +147,10 @@ public class Metadata
 	/// </summary>
 	public StreamCollection Streams
 	{
-		get => _streams;
-		set => _streams = value ?? throw new ArgumentNullException(nameof(value));
+		get => m_streams;
+		set => m_streams = value ?? throw new ArgumentNullException(nameof(value));
 	}
-	private StreamCollection _streams = new();
+	private StreamCollection m_streams = new();
 
 	/// <summary>
 	/// Offset of the background video. A higher value makes the video start sooner.
@@ -170,12 +176,12 @@ public class Metadata
 	public bool IsModchart { get; set; }
 
 
-	private FormattingRules _formatting = new();
+	private FormattingRules m_formatting = new();
 	/// <inheritdoc cref="FormattingRules"/>
 	public FormattingRules Formatting
 	{
-		get => _formatting;
-		set => _formatting = value ?? throw new ArgumentNullException(nameof(value));
+		get => m_formatting;
+		set => m_formatting = value ?? throw new ArgumentNullException(nameof(value));
 	}
 
 	/// <summary>

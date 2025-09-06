@@ -11,7 +11,8 @@ public abstract class KeySerializableAttribute(string key) : Attribute
 	/// Generates groups of non-null property values and their serialization keys.
 	/// </summary>
 	/// <param name="source">Object containing the properties</param>
-	protected static IEnumerable<(string key, string value)> GetSerializable<TAttribute>(object source) where TAttribute : KeySerializableAttribute =>
+	protected static IEnumerable<(string key, string value)> GetSerializable<TAttribute>(object source)
+        where TAttribute : KeySerializableAttribute =>
 		from prop in source.GetType().GetProperties()
 		let att = prop.GetCustomAttribute<TAttribute>()
 		where att is not null
