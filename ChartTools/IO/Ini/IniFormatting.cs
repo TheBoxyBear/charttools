@@ -13,6 +13,7 @@ public static class IniFormatting
 		SubPlaylist               = "sub_playlist",
 		PlaylistTrack             = "playlis_track",
 		Genre                     = "genre",
+        Explicit                  = "explicit_lyrics",
 		Year                      = "year",
 		Charter                   = "charter",
 		Frets                     = "frets",
