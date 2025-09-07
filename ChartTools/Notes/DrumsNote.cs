@@ -1,23 +1,21 @@
-﻿namespace ChartTools;
+﻿using System.Runtime.CompilerServices;
 
-using System.Runtime.CompilerServices;
+namespace ChartTools;
 
 /// <summary>
 /// Note played by drums
 /// </summary>
-public struct DrumsNote : ILaneNote<DrumsLane>
+public struct DrumsNote(DrumsLane lane) : ILaneNote<DrumsLane>
 {
-	private DrumsLane m_lane;
-
 	public DrumsLane Lane
 	{
-		readonly get => m_lane;
-		set => m_lane = value;
+		readonly get => lane;
+		set => lane = value;
 	}
 
 	public uint Sustain { readonly get; set; }
 
-	public readonly byte Index => Unsafe.As<DrumsLane, byte>(ref Unsafe.AsRef(in m_lane));
+	public readonly byte Index => Unsafe.As<DrumsLane, byte>(ref Unsafe.AsRef(in lane));
 
 
 	private bool m_isCymbal = false;
@@ -42,6 +40,4 @@ public struct DrumsNote : ILaneNote<DrumsLane>
 	/// Determines if the note is played by kicking
 	/// </summary>
 	public readonly bool IsKick => Lane is DrumsLane.Kick or DrumsLane.DoubleKick;
-
-	public DrumsNote(DrumsLane lane) => Lane = lane;
 }

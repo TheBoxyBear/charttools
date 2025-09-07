@@ -39,7 +39,7 @@ public class SystemExtensionsTests
         Assert.AreEqual(true, trueArray.FirstOrDefault(b => b, false, out bool returnedDefault));
         Assert.IsFalse(returnedDefault);
     }
-    
+
     [TestMethod] public void FirstOrDefaultNonExistentItem() => Assert.AreEqual(true, trueArray.FirstOrDefault(b => !b, true));
 
     [TestMethod] public void OutFirstOrDefaultNonExistentItem()
@@ -77,7 +77,7 @@ public class SystemExtensionsTests
 
     [TestMethod] public void ReplaceMatch()
     {
-        int[] numbers = Enumerable.Range(0, 10).ToArray();
+        int[] numbers = [.. Enumerable.Range(0, 10)];
         Assert.AreEqual("0 1 2 3 4 5 0 0 0 0", string.Join(' ', numbers.Replace(n => n > 5, 0)));
     }
 
@@ -87,6 +87,6 @@ public class SystemExtensionsTests
     [TestMethod] public void ReplaceSectionNullEndReplace()
         => Assert.ThrowsException<NullReferenceException>(() => trueArray.ReplaceSection(new([], b => true, null!, true)).ToArray());
 
-    [TestMethod] public void ReplaceSectioNeverStart()
+    [TestMethod] public void ReplaceSectionNeverStart()
         => Assert.AreEqual(Formatting.FormatCollection(trueArray), Formatting.FormatCollection(trueArray.ReplaceSection(new(falseArray, b => false, b => true, false))));
 }

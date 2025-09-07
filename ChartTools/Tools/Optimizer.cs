@@ -86,10 +86,6 @@ public static class Optimizer
 	public static List<T>[] CutSpecialLengths<T>(IEnumerable<T> phrases, bool preOrdered = false)
 		where T : SpecialPhrase
 	{
-		// TODO Consider removing
-		if (typeof(T) == typeof(SpecialPhrase))
-			throw new InvalidOperationException($"Collection must be of a type deriving from {nameof(SpecialPhrase)}.");
-
 		List<T>[] output = [.. phrases.GroupBy(p => p.TypeCode).Select(g => g.ToList())];
 
 		foreach (List<T> grouping in output)

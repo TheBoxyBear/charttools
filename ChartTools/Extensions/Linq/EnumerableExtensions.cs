@@ -61,7 +61,7 @@ public static class EnumerableExtensions
 	/// <param name="predicate">Method that returns <see langword="true"/> if a given item meets the condition</param>
 	/// <param name="item">Found item</param>
 	/// <returns><see langword="true"/> if an item was found</returns>
-	public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, [MaybeNullWhen(false)] out T item)
+	public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, [MaybeNullWhen(false)] out T? item)
 	{
 		ArgumentNullException.ThrowIfNull(predicate);
 
@@ -415,7 +415,8 @@ public static class EnumerableExtensions
 	/// <param name="sources">Set of enumerables to alternate between</param>
 	/// <returns>Combined items from all enumerables, taking one item from each before looping.</returns>
 	/// <remarks>When the end of an enumerable is reached, alternating continues while skipping that enumerable until all are finished.</remarks>
-	public static IEnumerable<T> Alternate<T>(this IEnumerable<IEnumerable<T>> sources) => new SerialAlternatingEnumerable<T>(sources.ToArray());
+	public static IEnumerable<T> Alternate<T>(this IEnumerable<IEnumerable<T>> sources)
+        => new SerialAlternatingEnumerable<T>([.. sources]);
 
 	/// <summary>
 	/// Combines enumerables by alternating between each source for every item based on a key.
@@ -426,7 +427,8 @@ public static class EnumerableExtensions
 	/// <param name="selector">Selector function returning the alternate key from an item</param>
 	/// <returns>Combined items from all enumerables, taking the next item with the smallest key from each enumerable.</returns>
 	/// <inheritdoc cref="Alternate{T}(IEnumerable{IEnumerable{T}})" path="/remarks"/>
-	public static IEnumerable<T> AlternateBy<T, TKey>(this IEnumerable<IEnumerable<T>> sources, Func<T, TKey> selector) where TKey : IComparable<TKey>
-		=> new OrderedAlternatingEnumerable<T, TKey>(selector, sources.ToArray());
+	public static IEnumerable<T> AlternateBy<T, TKey>(this IEnumerable<IEnumerable<T>> sources, Func<T, TKey> selector)
+        where TKey : IComparable<TKey>
+		=> new OrderedAlternatingEnumerable<T, TKey>(selector, [.. sources]);
 	#endregion
 }
