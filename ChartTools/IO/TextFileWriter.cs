@@ -4,7 +4,7 @@ using ChartTools.IO.Sources;
 
 namespace ChartTools.IO;
 
-internal abstract class TextFileWriter(WritingDataSource source, IEnumerable<string>? removedHeaders, params Serializer<string>[] serializers)
+internal abstract class TextFileWriter(WritingDataSource source, IEnumerable<string>? removedHeaders, params ReadOnlySpan<Serializer<string>> serializers)
 	: IDisposable
 {
 	public WritingDataSource Source { get; } = source;

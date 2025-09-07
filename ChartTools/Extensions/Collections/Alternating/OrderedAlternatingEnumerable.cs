@@ -28,16 +28,15 @@ public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey :
 	/// <param name="enumerables">Enumerables to alternate between</param>
 	/// <exception cref="ArgumentException"/>
 	/// <exception cref="ArgumentNullException"/>
-	public OrderedAlternatingEnumerable(Func<T, TKey> keyGetter, params IEnumerable<T>?[] enumerables)
+	public OrderedAlternatingEnumerable(Func<T, TKey> keyGetter, params ReadOnlySpan<IEnumerable<T>> enumerables)
 	{
 		ArgumentNullException.ThrowIfNull(keyGetter);
-		ArgumentNullException.ThrowIfNull(enumerables);
 
 		if (enumerables.Length == 0)
 			throw new ArgumentException("No enumerables provided.");
 
 		KeyGetter = keyGetter;
-		Enumerables = [.. enumerables.NonNull()];
+		Enumerables = [..enumerables];
 	}
 
 	/// <inheritdoc/>
@@ -51,9 +50,9 @@ public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey :
 	/// </summary>
 	/// <param name="keyGetter">Method that retrieves the key from an item</param>
 	/// <param name="enumerators">Enumerators to alternate between</param>
-	private class Enumerator(Func<T, TKey> keyGetter, params IEnumerator<T>[] enumerators) : IInitializable, IEnumerator<T>
+	private class Enumerator(Func<T, TKey> keyGetter, params ReadOnlySpan<IEnumerator<T>> enumerators) : IInitializable, IEnumerator<T>
 	{
-		private IEnumerator<T>[] Enumerators { get; } = [.. enumerators.NonNull()];
+		private IEnumerator<T>[] Enumerators { get; } = [..enumerators];
 
 		/// <summary>
 		/// Method that retrieves the key from an item

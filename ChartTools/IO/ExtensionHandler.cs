@@ -48,7 +48,7 @@ internal static class ExtensionHandler
 	/// </summary>
 	/// <param name="path">Path of the file to read</param>
 	/// <param name="readers">Array of tuples representing the supported extensions</param>
-	public static void Read(string path, params (string extension, VoidRead readMetod)[] readers)
+	public static void Read(string path, params IEnumerable<(string extension, VoidRead readMetod)> readers)
 	{
 		string extension = Path.GetExtension(path);
 		(string extension, VoidRead readMethod) reader = readers.FirstOrDefault(r => r.extension == extension);
@@ -58,20 +58,22 @@ internal static class ExtensionHandler
 
 		reader.readMethod(path);
 	}
+
 	/// <summary>
 	/// Reads a file using the method that matches the extension and generates an output object.
 	/// </summary>
 	/// <typeparam name="T">Type of the generated object</typeparam>
 	/// <param name="path">File path</param>
 	/// <param name="readers">set of tuples containing the supported extensions and the matching read method</param>
-	public static T Read<T>(string path, params (string extension, Read<T> readMethod)[] readers)
+	public static T Read<T>(string path, params IEnumerable<(string extension, Read<T> readMethod)> readers)
 	{
 		string extension = Path.GetExtension(path);
 		(string extension, Read<T> readMethod) reader = readers.FirstOrDefault(r => r.extension == extension);
 
 		return reader == default ? throw GetException(extension, readers.Select(r => r.extension)) : reader.readMethod(path);
 	}
-	public static async Task<T> ReadAsync<T>(string path, params (string extension, AsyncRead<T> readMethod)[] readers)
+
+	public static async Task<T> ReadAsync<T>(string path, params IEnumerable<(string extension, AsyncRead<T> readMethod)> readers)
 	{
 		string extension = Path.GetExtension(path);
 		(string extension, AsyncRead<T> readMethod) reader = readers.FirstOrDefault(r => r.extension == extension);
@@ -90,7 +92,7 @@ internal static class ExtensionHandler
 	/// <param name="content">Item to write</param>
 	/// <param name="writers">Array of tupples representing the supported extensions</param>
 	/// <exception cref="ArgumentNullException"/>
-	public static void Write<T>(string path, T content, params (string extension, Write<T> writeMethod)[] writers)
+	public static void Write<T>(string path, T content, params IEnumerable<(string extension, Write<T> writeMethod)> writers)
 	{
 		string extension = Path.GetExtension(path);
 		(string extension, Write<T> writeMethod) writer = writers.FirstOrDefault(w => w.extension == extension);
@@ -100,7 +102,8 @@ internal static class ExtensionHandler
 
 		writer.writeMethod(path, content);
 	}
-	public static async Task WriteAsync<T>(string path, T content, params (string extension, AsyncWrite<T> writeMethod)[] writers)
+
+	public static async Task WriteAsync<T>(string path, T content, params IEnumerable<(string extension, AsyncWrite<T> writeMethod)> writers)
 	{
 		string extension = Path.GetExtension(path);
 		(string extension, AsyncWrite<T> writeMethod) writer = writers.FirstOrDefault(w => w.extension == extension);

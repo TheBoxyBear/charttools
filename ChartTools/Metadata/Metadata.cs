@@ -220,10 +220,10 @@ public class Metadata
 	/// <exception cref="FormatException"/>
 	/// <exception cref="System.IO.IOException"/>
 	/// <exception cref="OutOfMemoryException"/>
-	public static Metadata? FromFiles(params string[] paths)
+	public static Metadata? FromFiles(params ReadOnlySpan<string> paths)
 	{
 		// No files provided
-		if (paths is null || paths.Length == 0)
+		if (paths.Length == 0)
 			throw new ArgumentException("No provided paths");
 
 		Metadata data = FromFile(paths[0]);

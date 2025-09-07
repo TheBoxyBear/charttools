@@ -8,23 +8,6 @@ public class SystemExtensionsTests
 {
 	static readonly bool[] trueArray = [true, true];
 	static readonly bool[] falseArray = [false, false];
-	static readonly bool[] mixBoolArray = [true, false];
-
-    [TestMethod] public void AllNoBools() => Assert.AreEqual(true, Array.Empty<bool>().All());
-
-    [TestMethod] public void AllNoFalse() => Assert.AreEqual(true, trueArray.All());
-
-    [TestMethod] public void AllNoTrue()  => Assert.AreEqual(false, falseArray.All());
-
-    [TestMethod] public void AllMix()     => Assert.AreEqual(false, mixBoolArray.All());
-
-    [TestMethod] public void AnyNoBools() => Assert.AreEqual(false, Array.Empty<bool>().Any());
-
-    [TestMethod] public void AnyNoFalse() => Assert.AreEqual(true, trueArray.Any());
-
-    [TestMethod] public void AnyNoTrue()  => Assert.AreEqual(false, falseArray.Any());
-
-    [TestMethod] public void AnyMix()     => Assert.AreEqual(true, mixBoolArray.Any());
 
     [TestMethod] public void FirstOrDefaultNullPredicate()
         => Assert.ThrowsException<ArgumentNullException>(() => trueArray.FirstOrDefault(null!, false));
