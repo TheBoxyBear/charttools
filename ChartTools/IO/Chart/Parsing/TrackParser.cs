@@ -21,6 +21,7 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 	{
 		TrackObjectEntry entry = new(line);
 
+        // Can be optimized by switching on the single char
 		switch (entry.Type)
 		{
 			// Local event
@@ -61,19 +62,16 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 				HandleNoteEntry(currentChord, new(entry.Data));
 
 				break;
-			// Star power
+			// Special phrase
 			case "S":
 				string[] split = ChartFormatting.SplitData(entry.Data);
 
 				byte typeCode = ValueParser.ParseByte(split[0], "type code");
-				uint length = ValueParser.ParseUint(split[1], "length");
+				uint length   = ValueParser.ParseUint(split[1], "length");
 
 				result.SpecialPhrases.Add(new(entry.Position, typeCode, length));
 				break;
 		}
-
-		if (Session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert)
-			result.SpecialPhrases.AddRange(result.SoloToStarPower(true));
 	}
 
 	protected abstract void HandleNoteEntry(TChord chord, in NoteData data);
@@ -86,7 +84,11 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 
 	protected override void FinalizeParse()
 	{
-		ApplyOverlappingSpecialPhrasePolicy(result.SpecialPhrases, Session.Configuration.OverlappingStarPowerPolicy);
+        if (Session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert
+            && !result.SpecialPhrases.Any(sp => sp.Type is TrackSpecialPhraseType.StarPowerGain))
+            result.SpecialPhrases.AddRange(result.SoloToStarPower(true));
+
+        ApplyOverlappingSpecialPhrasePolicy(result.SpecialPhrases, Session.Configuration.OverlappingStarPowerPolicy);
 		base.FinalizeParse();
 	}
 
