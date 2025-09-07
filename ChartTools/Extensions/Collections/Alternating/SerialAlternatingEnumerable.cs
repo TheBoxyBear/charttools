@@ -19,10 +19,8 @@ public class SerialAlternatingEnumerable<T> : IEnumerable<T>
 	/// <param name="enumerables">Enumerables to pull items from</param>
 	/// <exception cref="ArgumentException"/>
 	/// <exception cref="ArgumentNullException"/>
-	public SerialAlternatingEnumerable(params IEnumerable<T>?[] enumerables)
+	public SerialAlternatingEnumerable(params ReadOnlySpan<IEnumerable<T>?> enumerables)
 	{
-		ArgumentNullException.ThrowIfNull(enumerables);
-
 		if (enumerables.Length == 0)
 			throw new ArgumentException("No enumerables provided.");
 
@@ -41,7 +39,7 @@ public class SerialAlternatingEnumerable<T> : IEnumerable<T>
 	/// <param name="enumerators">Enumerators to alternate between</param>
 	/// <exception cref="ArgumentException"/>
 	/// <exception cref="ArgumentNullException"/>
-	private class Enumerator(params IEnumerator<T>[] enumerators) : IEnumerator<T?>
+	private class Enumerator(params ReadOnlySpan<IEnumerator<T>?> enumerators) : IEnumerator<T?>
 	{
 		/// <summary>
 		/// Enumerators to alternate between

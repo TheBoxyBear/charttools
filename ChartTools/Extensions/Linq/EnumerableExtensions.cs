@@ -9,34 +9,6 @@ namespace ChartTools.Extensions.Linq;
 /// </summary>
 public static class EnumerableExtensions
 {
-	/// <summary>
-	/// Checks that all booleans in a collection are <see langword="true"/>.
-	/// </summary>
-	/// <param name="source">Source of booleans</param>
-	/// <returns><see langword="true"/> if all booleans are <see langword="true"/> or the collection is empty</returns>
-	public static bool All(this IEnumerable<bool> source)
-	{
-		foreach (bool b in source)
-			if (!b)
-				return false;
-
-		return true;
-	}
-
-	/// <summary>
-	/// Checks if any boolean in a collection is <see langword="true"/>.
-	/// </summary>
-	/// <param name="source">Source of booleans</param>
-	/// <returns><see langword="true"/> if the collection contains at least one boolean with a value of <see langword="true"/></returns>
-	public static bool Any(this IEnumerable<bool> source)
-	{
-		foreach (bool b in source)
-			if (b)
-				return true;
-
-		return false;
-	}
-
 	#region First
 	/// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, TSource)"/>
 	/// <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
@@ -117,18 +89,32 @@ public static class EnumerableExtensions
 	public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) where T : struct
 	{
 		foreach (T? item in source)
-			if (item.HasValue)
+			if (item is not null)
 				yield return item.Value;
 	}
 
-	#region Replace
-	/// <summary>
-	/// Replaces items that meet a condition with another item.
-	/// </summary>
-	/// <param name="source">The IEnumerable&lt;out T&gt; to replace the items of</param>
-	/// <param name="predicate">A function that determines if an item must be replaced</param>
-	/// <param name="replacement">The item to replace items with</param>
-	public static IEnumerable<T> Replace<T>(this IEnumerable<T> source, Predicate<T> predicate, T replacement)
+    public static IEnumerable<T> NonNull<T>(this ReadOnlySpan<T?> source)
+    {
+        foreach (T? item in source)
+            if (item is not null)
+                yield return item;
+    }
+
+    public static IEnumerable<T> NonNull<T>(this ReadOnlySpan<T?> source) where T : struct
+    {
+        foreach (T? item in source)
+            if (item is not null)
+                yield return item.Value;
+    }
+
+    #region Replace
+    /// <summary>
+    /// Replaces items that meet a condition with another item.
+    /// </summary>
+    /// <param name="source">The IEnumerable&lt;out T&gt; to replace the items of</param>
+    /// <param name="predicate">A function that determines if an item must be replaced</param>
+    /// <param name="replacement">The item to replace items with</param>
+    public static IEnumerable<T> Replace<T>(this IEnumerable<T> source, Predicate<T> predicate, T replacement)
 	{
 		ArgumentNullException.ThrowIfNull(predicate);
 
