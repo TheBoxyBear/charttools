@@ -163,8 +163,6 @@ public static class PhraseExtensions
 
 	public static IEnumerable<GlobalEvent> SetLyrics(this IEnumerable<GlobalEvent> events, IEnumerable<Phrase> phrases)
 	{
-		// TODO Add overload with IList or similar type that can be modified directly by adding and removing events
-
 		IEnumerable<GlobalEvent>[] collections =
 		[
 			events.Where(e => !e.IsLyricEvent),
