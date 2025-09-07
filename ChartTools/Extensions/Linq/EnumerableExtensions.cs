@@ -93,20 +93,6 @@ public static class EnumerableExtensions
 				yield return item.Value;
 	}
 
-    public static IEnumerable<T> NonNull<T>(this ReadOnlySpan<T?> source)
-    {
-        foreach (T? item in source)
-            if (item is not null)
-                yield return item;
-    }
-
-    public static IEnumerable<T> NonNull<T>(this ReadOnlySpan<T?> source) where T : struct
-    {
-        foreach (T? item in source)
-            if (item is not null)
-                yield return item.Value;
-    }
-
     #region Replace
     /// <summary>
     /// Replaces items that meet a condition with another item.
