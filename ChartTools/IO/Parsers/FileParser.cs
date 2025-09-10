@@ -21,7 +21,7 @@ internal abstract class FileParser<T>
 	}
 	private void ParseBase(IEnumerable<T> items)
 	{
-		foreach (var item in items)
+		foreach (T item in items)
 			try { HandleItem(item); }
 			catch (Exception e) { throw GetHandleException(item, e); }
 	}

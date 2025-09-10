@@ -10,13 +10,14 @@ public abstract class LaneChord(uint position) : IChord
 	public uint Position { get; set; } = position;
 
 	public IEnumerable<ILaneNote> Notes => GetNotes();
-    IEnumerable<INote> IChord.Notes => Notes;
+	IEnumerable<INote> IChord.Notes => Notes;
 
 	public abstract bool OpenExclusivity { get; }
 
 	internal abstract bool ChartSupportedModifiers { get; }
 
 	public abstract ILaneNote CreateNote(byte index, uint sustain);
+
 	INote IChord.CreateNote(byte index, uint length) => CreateNote(index, length);
 
 	protected abstract IEnumerable<ILaneNote> GetNotes();
@@ -26,7 +27,7 @@ public abstract class LaneChord(uint position) : IChord
 }
 
 public abstract class LaneChord<TNote, TLane, TModifiers> : LaneChord
-	where TNote : struct, ILaneNote<TLane>
+	where TNote : class, ILaneNote<TLane>, new()
 	where TLane : struct, Enum
 	where TModifiers : struct, Enum
 {
@@ -39,7 +40,7 @@ public abstract class LaneChord<TNote, TLane, TModifiers> : LaneChord
 	public LaneChord(uint position) : base(position)
 		=> Notes = new(OpenExclusivity);
 
-	protected override IEnumerable<ILaneNote> GetNotes() => Notes.Cast<ILaneNote>();
+	protected override IReadOnlyList<ILaneNote> GetNotes() => Notes;
 
 	public override ILaneNote CreateNote(byte index, uint sustain)
 	{
@@ -49,7 +50,7 @@ public abstract class LaneChord<TNote, TLane, TModifiers> : LaneChord
 			Sustain = sustain
 		};
 
-		Notes.Add(in note);
+		Notes.Add(note);
 		return note;
 	}
 }

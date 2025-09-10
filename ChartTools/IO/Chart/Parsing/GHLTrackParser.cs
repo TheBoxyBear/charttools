@@ -42,7 +42,7 @@ internal class GHLTrackParser(Difficulty difficulty, GHLInstrumentIdentity instr
 				break;
 		}
 
-		void AddNote(in LaneNote<GHLLane> note)
+		void AddNote(LaneNote<GHLLane> note)
 		{
 			if (CanAddNote(note.Index))
 				chord.Notes.Add(note);

@@ -30,7 +30,7 @@ internal static class Printer
 			{
 				lineContent.Add(new("-----", ConsoleColor.Magenta));
 
-				SetSustainEnd(open.Value);
+				SetSustainEnd(open);
 
 				for (int i = 1; i < sustainEnds.Length; i++)
 					sustainEnds[i] = chord.Position;
@@ -50,7 +50,7 @@ internal static class Printer
 						else
 						{
 							text = "O";
-							SetSustainEnd(note.Value);
+							SetSustainEnd(note);
 						}
 
 						lineContent.Add(new(text, laneColors[i - 1]));

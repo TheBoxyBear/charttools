@@ -43,7 +43,7 @@ internal class DrumsTrackParser(Difficulty difficulty, ChartReadingSession sessi
 				break;
 		}
 
-		void AddNote(in DrumsNote note)
+		void AddNote(DrumsNote note)
 		{
 			if (CanAddNote(note.Index))
 				chord.Notes.Add(note);

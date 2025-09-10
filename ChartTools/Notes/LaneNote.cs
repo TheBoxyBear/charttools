@@ -2,29 +2,31 @@
 
 namespace ChartTools;
 
-public struct LaneNote<TLane> : ILaneNote<TLane>
+public class LaneNote<TLane>(TLane lane) : ILaneNote<TLane>
 	where TLane : struct, Enum
 {
-	private TLane m_lane;
+    public LaneNote() : this(default) { }
 
-	public TLane Lane
-	{
-		readonly get => m_lane;
-		set => m_lane = value;
-	}
+    public TLane Lane
+    {
+        get => lane;
+        set => lane = value;
+    }
 
-	public readonly byte Index => Unsafe.As<TLane, byte>(ref Unsafe.AsRef(in m_lane));
+	public byte Index
+    {
+        get => Unsafe.As<TLane, byte>(ref lane);
+        set => lane = Unsafe.As<byte, TLane>(ref value);
+    }
 
 	/// <summary>
 	/// Maximum length the note can be held for extra points
 	/// </summary>
-	public uint Sustain { readonly get; set; }
-
-	public LaneNote(TLane lane) => Lane = lane;
+	public uint Sustain { get; set; }
 
 	uint ILongObject.Length
 	{
-		readonly get => Sustain;
+	    get => Sustain;
 		set => Sustain = value;
 	}
 }
