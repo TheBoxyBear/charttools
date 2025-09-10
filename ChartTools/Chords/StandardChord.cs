@@ -7,7 +7,7 @@ namespace ChartTools;
 /// <summary>
 /// Set of notes played simultaneously by a standard five-fret instrument
 /// </summary>
-public sealed class StandardChord : LaneChord<LaneNote<StandardLane>, StandardLane, StandardChordModifiers>
+public class StandardChord : LaneChord<LaneNote<StandardLane>, StandardLane, StandardChordModifiers>
 {
 	public override bool OpenExclusivity => true;
 
@@ -27,9 +27,6 @@ public sealed class StandardChord : LaneChord<LaneNote<StandardLane>, StandardLa
 	/// <inheritdoc cref="StandardChord(uint, ReadOnlySpan{LaneNote{StandardLane}})"/>
 	public StandardChord(uint position, params ReadOnlySpan<StandardLane> notes) : this(position)
 		=> Notes.AddRange(notes);
-
-	protected override IEnumerable<ILaneNote<StandardLane>> GetNotes()
-		=> Notes.Cast<ILaneNote<StandardLane>>();
 
 	internal override IEnumerable<TrackObjectEntry> GetChartNoteData()
 		=> Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Sustain));

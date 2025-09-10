@@ -1,20 +1,24 @@
 ﻿namespace ChartTools.Lyrics;
 
-public struct VocalsNote(uint position, VocalsPitch pitch, string? text = null)
+public class VocalsNote(uint position, VocalsPitch pitch, string? text = null)
 	: INote, ILongTrackObject
 {
     public VocalsNote(uint position, VocalsPitchValue pitch = VocalsPitchValue.None, string? text = null)
         : this(position, new VocalsPitch(pitch), text) { }
 
-    public uint Position { readonly get; set; } = position;
+    public uint Position { get; set; } = position;
 
-	public uint Length { readonly get; set; }
+	public uint Length { get; set; }
 
-	public VocalsPitch Pitch { readonly get; set; } = pitch;
+	public VocalsPitch Pitch { get; set; } = pitch;
 
-	readonly byte INote.Index => (byte)Pitch.Value;
+	public byte Index
+    {
+        get => (byte)Pitch.Value;
+        set => Pitch = (VocalsPitchValue)value;
+    }
 
-	public string RawText { readonly get; set; } = text ?? string.Empty;
+	public string RawText { get; set; } = text ?? string.Empty;
 
 	/// <summary>
 	/// Text formatted to its in-game appearance
@@ -22,7 +26,7 @@ public struct VocalsNote(uint position, VocalsPitch pitch, string? text = null)
 	/// <remarks>Some special characters may remain. See <see href="https://github.com/TheNathannator/GuitarGame_ChartFormats/blob/main/doc/FileFormats/.mid/Standard/Vocals.md">Vocals format documentation</see> for more information.</remarks>
 	// Duplicates the string up to four times. Can be optimized by editing a char buffer directly and rebuilding a string from it.
 	// Low-level equivalents of Replace and Trim may also exist for char collections.
-	public readonly string DisplayedText => RawText
+	public string DisplayedText => RawText
 		.Replace("-", "")
 		.Replace('=', '-')
 		.Replace('§', '‿')
@@ -33,7 +37,7 @@ public struct VocalsNote(uint position, VocalsPitch pitch, string? text = null)
 	/// </summary>
 	public bool IsWordEnd
 	{
-		readonly get => RawText.Length == 0 || RawText[^1] is '§' or '_' or not '-' and not '=';
+	    get => RawText.Length == 0 || RawText[^1] is '§' or '_' or not '-' and not '=';
 		set
 		{
 			if (value)

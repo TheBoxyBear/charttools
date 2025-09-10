@@ -1,10 +1,9 @@
 ﻿using System.Collections;
-using System.Runtime.InteropServices;
 
 namespace ChartTools;
 
 public class LaneNoteCollection<TNote, TLane>(bool openExclusivity) : ICollection<TNote>, IReadOnlyList<TNote>
-	where TNote : struct, ILaneNote<TLane>
+	where TNote : class, ILaneNote<TLane>, new()
 	where TLane : struct, Enum
 {
 	private readonly List<TNote> m_notes = [];
@@ -18,8 +17,6 @@ public class LaneNoteCollection<TNote, TLane>(bool openExclusivity) : ICollectio
 
 	bool ICollection<TNote>.IsReadOnly => false;
 
-	public Span<TNote> AsSpan() => CollectionsMarshal.AsSpan(m_notes);
-
 	public void Add(TLane lane) => Add(new TNote() { Lane = lane });
 
 	/// <summary>
@@ -29,7 +26,7 @@ public class LaneNoteCollection<TNote, TLane>(bool openExclusivity) : ICollectio
 	///     <para>If <see cref="OpenExclusivity"/> is <see langword="true"/>, combining an open note with other notes will remove the current ones.</para>
 	/// </remarks>
 	/// <param name="note">Note to add</param>
-	public void Add(in TNote note)
+	public void Add(TNote note)
 	{
 		// Will it defensive copy considering Index has a readonly getter?
 		if (OpenExclusivity && (note.Index == 0 || Count == 1 && this[0].Index == 0)) // An open note is present and needs to be removed
@@ -37,8 +34,6 @@ public class LaneNoteCollection<TNote, TLane>(bool openExclusivity) : ICollectio
 
 		m_notes.Add(note);
 	}
-
-	void ICollection<TNote>.Add(TNote note) => Add(in note);
 
 	public void AddRange(params ReadOnlySpan<TNote> notes) => m_notes.AddRange(notes);
 
@@ -56,9 +51,7 @@ public class LaneNoteCollection<TNote, TLane>(bool openExclusivity) : ICollectio
 	/// Determines if any note matches the lane of a given note.
 	/// </summary>
 	/// <exception cref="ArgumentNullException"/>
-	public bool Contains(in TNote note) => Contains(note.Lane);
-
-	bool ICollection<TNote>.Contains(TNote note) => Contains(in note);
+	public bool Contains(TNote note) => Contains(note.Lane);
 
 	/// <summary>
 	/// Determines if any note matches a given lane.
@@ -76,9 +69,7 @@ public class LaneNoteCollection<TNote, TLane>(bool openExclusivity) : ICollectio
 	/// Removes the note that matches the lane of a given note.
 	/// </summary>
 	/// <returns><see langword="true"/> if a matching note was found.</returns>
-	public bool Remove(in TNote note) => Remove(note.Lane);
-
-	bool ICollection<TNote>.Remove(TNote note) => Remove(in note);
+	public bool Remove(TNote note) => Remove(note.Lane);
 
 	/// <summary>
 	/// Removes the note that matches a given lane.
@@ -108,7 +99,7 @@ public class LaneNoteCollection<TNote, TLane>(bool openExclusivity) : ICollectio
 	/// </summary>
 	/// <param name="lane">Lane of the note</param>
 	/// <returns>Note with the lane if present, otherwise <see langword="null"/>.</returns>
-	public TNote? this[TLane lane] => m_notes.FirstOrDefault(n => n.Lane.Equals(lane)); // TODO Throw exception instead of returning null
+	public TNote? this[TLane lane] => m_notes.FirstOrDefault(n => n.Lane.Equals(lane));
 
 	/// <summary>
 	/// Gets the note at a given index based on order or addition.

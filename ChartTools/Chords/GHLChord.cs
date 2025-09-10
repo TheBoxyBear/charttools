@@ -29,9 +29,6 @@ public sealed class GHLChord : LaneChord<LaneNote<GHLLane>, GHLLane, GHLChordMod
 	public GHLChord(uint position, params ReadOnlySpan<GHLLane> notes) : base(position)
 		=> Notes.AddRange(notes);
 
-	protected override IReadOnlyList<ILaneNote<GHLLane>> GetNotes()
-		=> (IReadOnlyList<ILaneNote<GHLLane>>)Notes;
-
 	internal override IEnumerable<TrackObjectEntry> GetChartNoteData()
 		=> Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane switch
 	{

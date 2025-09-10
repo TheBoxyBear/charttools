@@ -1,22 +1,21 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace ChartTools;
-
 /// <summary>
 /// Note played by drums
 /// </summary>
-public struct DrumsNote(DrumsLane lane) : ILaneNote<DrumsLane>
+public class DrumsNote(DrumsLane lane) : ILaneNote<DrumsLane>
 {
-	public DrumsLane Lane
-	{
-		readonly get => lane;
-		set => lane = value;
-	}
+    public DrumsNote() : this(default) { }
 
-	public uint Sustain { readonly get; set; }
+    public DrumsLane Lane { get; set; } = lane;
 
-	public readonly byte Index => Unsafe.As<DrumsLane, byte>(ref Unsafe.AsRef(in lane));
+	public uint Sustain { get; set; }
 
+	public byte Index
+    {
+        get => (byte)Lane;
+        set => Lane = (DrumsLane)value;
+    }
 
 	private bool m_isCymbal = false;
 
@@ -26,7 +25,7 @@ public struct DrumsNote(DrumsLane lane) : ILaneNote<DrumsLane>
 	/// <remarks><see cref="DrumsLane.Green5Lane"/> notes cannot be cymbal.</remarks>
 	public bool IsCymbal
 	{
-		readonly get => m_isCymbal;
+	    get => m_isCymbal;
 		set
 		{
 			if ((Lane == DrumsLane.Red || Lane == DrumsLane.Green5Lane) && value)
@@ -39,5 +38,5 @@ public struct DrumsNote(DrumsLane lane) : ILaneNote<DrumsLane>
 	/// <summary>
 	/// Determines if the note is played by kicking
 	/// </summary>
-	public readonly bool IsKick => Lane is DrumsLane.Kick or DrumsLane.DoubleKick;
+	public bool IsKick => Lane is DrumsLane.Kick or DrumsLane.DoubleKick;
 }
