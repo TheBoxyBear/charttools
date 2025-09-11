@@ -41,7 +41,7 @@ public class ChartSection : SectionSet<string>
             },
 			{
                 ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.GHLGuitar],
-                nameof(Song.Instruments.GHLGuitar)
+                nameof(Song.Instruments.GHLLeadGuitar)
             },
 			{
                 ChartFormatting.InstrumentHeaderNames[InstrumentIdentity.GHLBass],

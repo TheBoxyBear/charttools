@@ -103,7 +103,7 @@ public enum GHLChordModifiers : byte
 public enum GHLInstrumentIdentity : byte
 {
 	/// <inheritdoc cref="InstrumentIdentity.GHLGuitar"/>
-	Guitar = InstrumentIdentity.GHLGuitar,
+	LeadGuitar = InstrumentIdentity.GHLLeadGuitar,
 	/// <inheritdoc cref="InstrumentIdentity.GHLBass"/>
 	Bass = InstrumentIdentity.GHLBass,
 	/// <inheritdoc cref="InstrumentIdentity.GHLRhythmGuitar"/>
@@ -144,7 +144,7 @@ public enum InstrumentIdentity : byte
 	/// <summary>
 	/// Six-lane Guitar Hero Live guitar
 	/// </summary>
-	GHLGuitar,
+	GHLLeadGuitar,
 	/// <summary>
 	/// Six-lane Guitar Hero Live bass
 	/// </summary>

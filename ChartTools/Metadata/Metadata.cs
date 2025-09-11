@@ -80,11 +80,11 @@ public class Metadata
 	}
 	private Charter m_charter = new();
 
-    /// <summary>
-    /// The song contains explicit lyrics
-    /// </summary>
-    [IniKeySerializable(IniFormatting.Explicit)]
-    public bool? Explicit { get; set; }
+	/// <summary>
+	/// The song contains explicit lyrics
+	/// </summary>
+	[IniKeySerializable(IniFormatting.Explicit)]
+	public bool? Explicit { get; set; }
 
 	/// <summary>
 	/// Start time in milliseconds of the preview in the Clone Hero song browser
