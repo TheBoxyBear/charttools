@@ -119,22 +119,16 @@ internal class IniParser(Metadata? existing = null) : TextParser(IniFormatting.H
                 result.InstrumentDifficulties.GHLBass = ValueParser.ParseSbyte(entry.Value, "GHL bass difficulty");
                 break;
             case IniFormatting.SustainCutoff:
-				result.Formatting.SustainCutoff = ValueParser.ParseUint(entry.Value, "sustain cutoff");
-				break;
-			case IniFormatting.HopoFrequency:
-				result.Formatting.HopoFrequency = ValueParser.ParseUint(entry.Value, "hopo frequency");
-				break;
-			case IniFormatting.HopoFrequencyStep:
-				result.Formatting.HopoFrequencyStep = (HopoFrequencyStep)ValueParser.ParseByte(entry.Value, "hopo frequency step");
-				break;
-			case IniFormatting.ForceEightHopoFrequency:
-				result.Formatting.ForceEightHopoFrequency = ValueParser.ParseBool(entry.Value, "force eight hopo frequency");
-				break;
-			default:
-				if (entry.Value is not null)
-					result.UnidentifiedData.Add(new() { Key = entry.Key, Value = entry.Value, Origin = FileType.Ini });
-				break;
-		}
+                result.Formatting.SustainCutoff = ValueParser.ParseUint(entry.Value, "sustain cutoff");
+                break;
+            case IniFormatting.HopoFrequency:
+                result.Formatting.HopoFrequency = ValueParser.ParseUint(entry.Value, "hopo frequency");
+                break;
+            default:
+                if (entry.Value is not null)
+                    result.UnidentifiedData.Add(new() { Key = entry.Key, Value = entry.Value, Origin = FileType.Ini });
+                break;
+        }
 
 		void ParseAlbumTrack() => ValueParser.ParseUshort(entry.Value, "album track");
 

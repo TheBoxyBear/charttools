@@ -9,22 +9,23 @@ namespace ChartTools;
 /// </summary>
 public class StandardChord : LaneChord<LaneNote<StandardLane>, StandardLane, StandardChordModifiers>
 {
+    /// <summary>
+    /// <inheritdoc cref="LaneChord.OpenExclusivity"/>
+    /// </summary>
+    /// <remarks>Always <see langword="true"/> for <see cref="StandardChord"/></remarks>
 	public override bool OpenExclusivity => true;
 
 	internal override StandardChordModifiers DefaultModifiers => StandardChordModifiers.None;
+
 	internal override bool ChartSupportedModifiers => !Modifiers.HasFlag(StandardChordModifiers.ExplicitHopo);
 
 	public StandardChord() : base(0) { }
 
-	/// <inheritdoc cref="LaneChord{DrumsNote, DrumsLane, DrumsChordModifiers}(uint)"/>
 	public StandardChord(uint position) : base(position) { }
 
-	/// <inheritdoc cref="LaneChord{TNote, TLane, TModifier}(uint)"/>
-	/// <param name="notes">Notes to add</param>
-	public StandardChord(uint position, params ReadOnlySpan<LaneNote<StandardLane>> notes) : this(position)
+    public StandardChord(uint position, params ReadOnlySpan<LaneNote<StandardLane>> notes) : this(position)
 		=> Notes.AddRange(notes);
 
-	/// <inheritdoc cref="StandardChord(uint, ReadOnlySpan{LaneNote{StandardLane}})"/>
 	public StandardChord(uint position, params ReadOnlySpan<StandardLane> notes) : this(position)
 		=> Notes.AddRange(notes);
 
@@ -36,7 +37,7 @@ public class StandardChord : LaneChord<LaneNote<StandardLane>, StandardLane, Sta
 		bool isInvert = Modifiers.HasFlag(StandardChordModifiers.HopoInvert);
 
 		if (Modifiers.HasFlag(StandardChordModifiers.ExplicitHopo) &&
-			(previous is null || previous.Position <= session.Formatting.TrueHopoFrequency) != isInvert || isInvert)
+			(previous is null || previous.Position <= session.Formatting.ChartHopoFrequency) != isInvert || isInvert)
 			yield return ChartFormatting.NoteEntry(Position, 5, 0);
 		if (Modifiers.HasFlag(StandardChordModifiers.Tap))
 			yield return ChartFormatting.NoteEntry(Position, 6, 0);

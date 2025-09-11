@@ -4,47 +4,58 @@ namespace ChartTools.IO.Sections;
 
 public abstract class SectionSet<T> : IList<Section<T>>
 {
-	private readonly List<Section<T>> _sections = [];
+	private readonly List<Section<T>> m_sections = [];
+
 	public abstract ReservedSectionHeaderSet ReservedHeaders { get; }
 
 	#region IList
-	public int Count => _sections.Count;
+	public int Count => m_sections.Count;
+
 	public bool IsReadOnly => false;
 
 	public Section<T> this[int index]
 	{
-		get => _sections[index];
+		get => m_sections[index];
 		set
 		{
 			CheckHeader(value.Header);
-			_sections[index] = value;
+			m_sections[index] = value;
 		}
 	}
 
-	public int IndexOf(Section<T> item) => _sections.IndexOf(item);
+	public int IndexOf(Section<T> item) => m_sections.IndexOf(item);
+
 	public void Insert(int index, Section<T> item)
 	{
 		CheckHeader(item.Header);
-		_sections.Insert(index, item);
+		m_sections.Insert(index, item);
 	}
-	public void RemoveAt(int index) => _sections.RemoveAt(index);
+
+	public void RemoveAt(int index) => m_sections.RemoveAt(index);
+
 	public void Add(Section<T> item)
 	{
 		CheckHeader(item.Header);
-		_sections.Add(item);
+		m_sections.Add(item);
 	}
-	public void Clear() => _sections.Clear();
-	public bool Contains(Section<T> item) => _sections.Contains(item);
-	public void CopyTo(Section<T>[] array, int arrayIndex) => _sections.CopyTo(array, arrayIndex);
-	public bool Remove(Section<T> item) => _sections.Remove(item);
-	public IEnumerator<Section<T>> GetEnumerator() => _sections.GetEnumerator();
+
+	public void Clear() => m_sections.Clear();
+
+	public bool Contains(Section<T> item) => m_sections.Contains(item);
+
+	public void CopyTo(Section<T>[] array, int arrayIndex) => m_sections.CopyTo(array, arrayIndex);
+
+	public bool Remove(Section<T> item) => m_sections.Remove(item);
+
+	public IEnumerator<Section<T>> GetEnumerator() => m_sections.GetEnumerator();
+
 	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 	#endregion
 
 	public Section<T>? Get(string header)
 	{
 		CheckHeader(header);
-		return _sections.FirstOrDefault(s => s.Header == header);
+		return m_sections.FirstOrDefault(s => s.Header == header);
 	}
 
 	private void CheckHeader(string header)

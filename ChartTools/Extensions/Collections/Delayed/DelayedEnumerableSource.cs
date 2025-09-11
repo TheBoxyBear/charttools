@@ -5,7 +5,9 @@ namespace ChartTools.Extensions.Collections;
 public class DelayedEnumerableSource<T> : IDisposable
 {
 	public ConcurrentQueue<T> Buffer { get; } = new();
+
 	public DelayedEnumerable<T> Enumerable { get; }
+
 	public bool AwaitingItems { get; private set; } = true;
 
 	public DelayedEnumerableSource() => Enumerable = new(this);

@@ -11,10 +11,19 @@ namespace ChartTools.Lyrics;
 /// <param name="notes"></param>
 public class Phrase(PhraseMarker marker, IReadOnlyList<VocalsNote>? notes = null) : ILongTrackObject
 {
+    /// <summary>
+    /// Marker defining the position and length of the phrase.
+    /// </summary>
 	public PhraseMarker PhraseMarker { get; } = marker;
 
+    /// <summary>
+    /// Set of vocals notes containing the pitches and text for the phrase.
+    /// </summary>
 	public IReadOnlyList<VocalsNote> Notes { get; } = notes ?? [];
 
+    /// <summary>
+    /// Start position of the phrase
+    /// </summary>
 	public uint Position
 	{
 		get => PhraseMarker.Position;
@@ -28,15 +37,23 @@ public class Phrase(PhraseMarker marker, IReadOnlyList<VocalsNote>? notes = null
 		set => PhraseMarker.Length = value;
 	}
 
+    /// <summary>
+    /// Concatenated raw text of all notes in the phrase, separated by spaces.
+    /// </summary>
 	public string RawText => BuildText(n => n.RawText);
-	public string DisplayedText => BuildText(n => n.DisplayedText);
 
-	public static IEnumerable<Phrase> Create(IEnumerable<PhraseMarker> phraseMarkers, IEnumerable<VocalsNote> notes)
-		=> throw new NotImplementedException();
+    /// <summary>
+    /// Phrase text assembled to its in-game appearance
+    /// </summary>
+	public string DisplayedText => BuildText(n => n.DisplayedText);
 
 	private string BuildText(Func<VocalsNote, string> textSelector)
 		=> string.Concat(Notes.Select(n => n.IsWordEnd ? textSelector(n) + ' ' : textSelector(n)));
 
+    /// <summary>
+    /// Converts the phrase to a set of global events representing the lyric data.
+    /// </summary>
+    /// <returns>Set of events generated during enumeration.</returns>
 	public IEnumerable<GlobalEvent> ToGlobalEvents()
 	{
 		yield return new(Position, EventTypeHelper.Global.PhraseStart);
@@ -108,7 +125,7 @@ public static class PhraseExtensions
 			yield return new(lastMarker, lastPhraseNotes);
 			lastMarker = phraseEnumerator.Current;
 
-            lastPhraseNotes.Clear();
+			lastPhraseNotes.Clear();
 		}
 
 		// Add remaining notes to the last phrase
@@ -121,6 +138,10 @@ public static class PhraseExtensions
 		yield return new(lastMarker, lastPhraseNotes);
 	}
 
+	/// <summary>
+	/// Wraps lyrics-related global events into a set of grouped phrases for easier handling.
+	/// </summary>
+	/// <param name="events">Set of events</param>
 	public static IEnumerable<Phrase> GetLyrics(this IEnumerable<GlobalEvent> events)
 	{
 		GetLyrics(events, out IList<PhraseMarker> phrases, out IList<VocalsNote> notes);
@@ -161,7 +182,14 @@ public static class PhraseExtensions
 		return collections.AlternateBy(e => e.Position);
 	}
 
-	public static IEnumerable<GlobalEvent> SetLyrics(this IEnumerable<GlobalEvent> events, IEnumerable<Phrase> phrases)
+    /// <summary>
+    /// Generates a new set of global events where lyric-related events are replaced with ones matching a set of phrases.
+    /// </summary>
+    /// <param name="events">Original set of events</param>
+    /// <param name="phrases">Phrases containing the new lyric data</param>
+    /// <returns>New set of events generated during enumeration.</returns>
+    /// <remarks>Non-lyric events are maintained object-wise across the old and new set.</remarks>
+    public static IEnumerable<GlobalEvent> SetLyrics(this IEnumerable<GlobalEvent> events, IEnumerable<Phrase> phrases)
 	{
 		IEnumerable<GlobalEvent>[] collections =
 		[
@@ -172,6 +200,12 @@ public static class PhraseExtensions
 		return collections.AlternateBy(e => e.Position);
 	}
 
-	public static IEnumerable<GlobalEvent> SetLyrics(this IEnumerable<GlobalEvent> events, StandardVocalsTrack track)
+    /// <summary>
+    /// Generates a new set of global events where lyric-related events are replaced with ones matching a vocals track.
+    /// </summary>
+    /// <param name="events">Original set of events</param>
+    /// <param name="track">Vocals track containing the new lyric data</param>
+    /// <inheritdoc cref="SetLyrics(IEnumerable{GlobalEvent}, IEnumerable{Phrase})"/>
+    public static IEnumerable<GlobalEvent> SetLyrics(this IEnumerable<GlobalEvent> events, StandardVocalsTrack track)
 		=> events.SetLyrics(track.Phrases, track.Notes);
 }

@@ -1,27 +1,33 @@
 ﻿namespace ChartTools.Lyrics;
 
+/// <summary>
+/// Note of a vocals track defining the pitch and displayed text of a single syllable.
+/// </summary>
 public class VocalsNote(uint position, VocalsPitch pitch, string? text = null)
 	: INote, ILongTrackObject
 {
-    public VocalsNote(uint position, VocalsPitchValue pitch = VocalsPitchValue.None, string? text = null)
-        : this(position, new VocalsPitch(pitch), text) { }
+	public VocalsNote(uint position, VocalsPitchValue pitch = VocalsPitchValue.None, string? text = null)
+		: this(position, new VocalsPitch(pitch), text) { }
 
-    public uint Position { get; set; } = position;
+	public uint Position { get; set; } = position;
 
 	public uint Length { get; set; }
 
 	public VocalsPitch Pitch { get; set; } = pitch;
 
 	public byte Index
-    {
-        get => (byte)Pitch.Value;
-        set => Pitch = (VocalsPitchValue)value;
-    }
+	{
+		get => (byte)Pitch.Value;
+		set => Pitch = (VocalsPitchValue)value;
+	}
 
+	/// <summary>
+	/// Raw text data of the syllable
+	/// </summary>
 	public string RawText { get; set; } = text ?? string.Empty;
 
 	/// <summary>
-	/// Text formatted to its in-game appearance
+	/// Syllable text formatted to its in-game appearance
 	/// </summary>
 	/// <remarks>Some special characters may remain. See <see href="https://github.com/TheNathannator/GuitarGame_ChartFormats/blob/main/doc/FileFormats/.mid/Standard/Vocals.md">Vocals format documentation</see> for more information.</remarks>
 	// Duplicates the string up to four times. Can be optimized by editing a char buffer directly and rebuilding a string from it.
@@ -37,7 +43,7 @@ public class VocalsNote(uint position, VocalsPitch pitch, string? text = null)
 	/// </summary>
 	public bool IsWordEnd
 	{
-	    get => RawText.Length == 0 || RawText[^1] is '§' or '_' or not '-' and not '=';
+		get => RawText.Length == 0 || RawText[^1] is '§' or '_' or not '-' and not '=';
 		set
 		{
 			if (value)

@@ -45,6 +45,9 @@ public class LaneNoteCollection<TNote, TLane>(bool openExclusivity) : ICollectio
 			m_notes.Add(new TNote { Lane = lane });
 	}
 
+    /// <summary>
+    /// Removes all notes from the <see cref="LaneNoteCollection{TNote, TLane}"/>.
+    /// </summary>
 	public void Clear() => m_notes.Clear();
 
 	/// <summary>

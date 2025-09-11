@@ -36,7 +36,7 @@ internal class DrumsTrackParser(Difficulty difficulty, ChartReadingSession sessi
 						note.IsCymbal = true;
 				}
 				else
-					AddNote(new DrumsNote((DrumsLane)seekedIndex) { IsCymbal = true, Sustain = data.SustainLength });
+					AddNote(new((DrumsLane)seekedIndex) { IsCymbal = true, Sustain = data.SustainLength });
 				break;
 			case 109:
 				AddModifier(DrumsChordModifiers.Flam);

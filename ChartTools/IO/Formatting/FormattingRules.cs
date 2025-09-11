@@ -26,45 +26,13 @@ public class FormattingRules
 	[IniKeySerializable(IniFormatting.SustainCutoff)]
 	public uint? SustainCutoff { get; set; }
 
-	#region Hopo frequency
 	/// <summary>
 	/// Overrides the natural HOPO threshold with the specified number of ticks.
 	/// </summary>
 	[IniKeySerializable(IniFormatting.HopoFrequency)]
 	public uint? HopoFrequency { get; set; }
-	/// <summary>
-	/// (FoFiX) Overrides the natural HOPO threshold using numbers from 0 to 5.
-	/// </summary>
-	[IniKeySerializable(IniFormatting.HopoFrequencyStep)]
-	public HopoFrequencyStep? HopoFrequencyStep { get; set; }
-	/// <summary>
-	/// (FoFiX) Overrides the natural HOPO threshold to be a 1/8th step.
-	/// </summary>
-	[IniKeySerializable(IniFormatting.ForceEightHopoFrequency)]
-	public bool? ForceEightHopoFrequency { get; set; }
 
-	public uint? TrueHopoFrequency
-	{
-		get
-		{
-			if (HopoFrequency is not null)
-				return HopoFrequency.Value;
-
-			if (HopoFrequencyStep is not null)
-				return TrueResolution / (uint)(HopoFrequencyStep.Value switch
-				{
-					Formatting.HopoFrequencyStep.Fourth       => 4,
-					Formatting.HopoFrequencyStep.Eight        => 8,
-					Formatting.HopoFrequencyStep.Twelveth     => 12,
-					Formatting.HopoFrequencyStep.Sixteenth    => 16,
-                    Formatting.HopoFrequencyStep.TwentyFourth => 24,
-                    _ => throw new Exception($"{HopoFrequencyStep} is not a valid hopo frequency step.")
-				});
-
-			return ForceEightHopoFrequency is true ? TrueResolution / 8 : null;
-		}
-	}
-	#endregion
+    internal uint ChartHopoFrequency => (uint)(65 / 192f * TrueResolution);
 
 	#region Star power
 	/// <summary>

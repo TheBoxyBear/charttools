@@ -89,11 +89,15 @@ public enum GHLChordModifiers : byte
 	/// <inheritdoc cref="StandardChordModifiers.None"/>
 	None = 0,
 	/// <inheritdoc cref="StandardChordModifiers.ExplicitHopo"/>
-	ExplicitHopo = 1,
+	ExplicitHopo = 1 << 0,
 	/// <inheritdoc cref="StandardChordModifiers.HopoInvert"/>
-	HopoInvert = 2,
+	HopoInvert = 1 << 1,
+	/// <inheritdoc cref="StandardChordModifiers.ForcedHopo"/>
+	ForcedHopo = ExplicitHopo | HopoInvert,
+	/// <inheritdoc cref="StandardChordModifiers.ForcedStrum"/>
+	ForcedStrum = ExplicitHopo,
 	/// <inheritdoc cref="StandardChordModifiers.Tap"/>
-	Tap = 4
+	Tap = 1 << 2,
 }
 
 /// <summary>
@@ -211,18 +215,18 @@ public enum StandardChordModifiers : byte
 	/// <summary>
 	/// The Hopo state is not relative to the previous chord.
 	/// </summary>
-	ExplicitHopo = 1,
+	ExplicitHopo = 1 << 0,
 	/// <summary>
 	/// Forced Hopo if <see cref="ExplicitHopo"/> is set, otherwise inverts the natural state relative to the previous chord
 	/// </summary>
-	HopoInvert = 2,
+	HopoInvert = 1 << 1,
 	ForcedHopo = ExplicitHopo | HopoInvert,
 	ForcedStrum = ExplicitHopo,
 	/// <summary>
 	/// The chord can be played without strumming
 	/// </summary>
-	Tap = 4,
-	Big = 8
+	Tap = 1 << 2,
+	Big = 1 << 3
 }
 
 /// <summary>

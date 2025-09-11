@@ -1,7 +1,13 @@
 ﻿namespace ChartTools.Events;
 
+/// <summary>
+/// Provides helper strings for composite event types
+/// </summary>
 public static class EventTypeHeaderHelper
 {
+    /// <summary>
+    /// Helpers for <see cref="GlobalEvent"/>
+    /// </summary>
 	public static class Global
 	{
 		public const string
@@ -17,6 +23,9 @@ public static class EventTypeHeaderHelper
 			Sync              = "sync_";
 	}
 
+    /// <summary>
+    /// Helpers for <see cref="LocalEvent"/>
+    /// </summary>
 	public static class Local
 	{
 		public const string

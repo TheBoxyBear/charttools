@@ -10,7 +10,13 @@ namespace ChartTools.Extensions.Linq;
 public static class EnumerableExtensions
 {
 	#region First
-	/// <inheritdoc cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource}, TSource)"/>
+	/// <summary>
+	/// Gets the first item that meets a condition from a collection or a default value if no such item was found.
+	/// </summary>
+	/// <typeparam name="T">Type of items in the collection</typeparam>
+	/// <param name="source">Collection to get the first item of</param>
+	/// <param name="predicate">Condition to compare items against</param>
+	/// <param name="defaultValue">Value to return if no items meeting the condition were found</param>"
 	/// <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
 	public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue, out bool returnedDefault)
 	{
@@ -28,8 +34,10 @@ public static class EnumerableExtensions
 	}
 
 	/// <summary>
-	/// Tries to get the first item that meet a condition from en enumerable.
+	/// Tries to get the first item that meets a condition from a collection.
 	/// </summary>
+	/// <typeparam name="T">Type of items in the collection</typeparam>
+	/// <param name="source">Collection to get the first item of</param>
 	/// <param name="predicate">Method that returns <see langword="true"/> if a given item meets the condition</param>
 	/// <param name="item">Found item</param>
 	/// <returns><see langword="true"/> if an item was found</returns>
@@ -51,6 +59,7 @@ public static class EnumerableExtensions
 	/// <summary>
 	/// Tries to get the first element of a collection.
 	/// </summary>
+	/// <typeparam name="T">Type of items in the collection</typeparam>
 	/// <param name="source">Source of items</param>
 	/// <param name="result">Found item</param>
 	/// <returns><see langword="true"/> if an item was found</returns>
@@ -66,6 +75,7 @@ public static class EnumerableExtensions
 	/// <summary>
 	/// Tries to get the first item of a given type in a collection.
 	/// </summary>
+	/// <typeparam name="TResult">Type to get items of</typeparam>
 	/// <param name="source">Source of items</param>
 	/// <param name="result">Found item</param>
 	/// <returns><see langword="true"/> if an item was found</returns>
@@ -93,14 +103,15 @@ public static class EnumerableExtensions
 				yield return item.Value;
 	}
 
-    #region Replace
-    /// <summary>
-    /// Replaces items that meet a condition with another item.
-    /// </summary>
-    /// <param name="source">The IEnumerable&lt;out T&gt; to replace the items of</param>
-    /// <param name="predicate">A function that determines if an item must be replaced</param>
-    /// <param name="replacement">The item to replace items with</param>
-    public static IEnumerable<T> Replace<T>(this IEnumerable<T> source, Predicate<T> predicate, T replacement)
+	#region Replace
+	/// <summary>
+	/// Replaces items that meet a condition with another item.
+	/// </summary>
+	/// <typeparam name="T">Type of items in the collection</typeparam>
+	/// <param name="source">The collection to replace the items of</param>
+	/// <param name="predicate">A function that determines if an item must be replaced</param>
+	/// <param name="replacement">The item to replace items with</param>
+	public static IEnumerable<T> Replace<T>(this IEnumerable<T> source, Predicate<T> predicate, T replacement)
 	{
 		ArgumentNullException.ThrowIfNull(predicate);
 
@@ -109,8 +120,9 @@ public static class EnumerableExtensions
 	}
 
 	/// <summary>
-	/// Replaces a section with other items.
+	/// Replaces a section from a collection with other items.
 	/// </summary>
+	/// <typeparam name="T">Type of items in the collection</typeparam>
 	/// <param name="source">Items to replace a section in</param>
 	/// <param name="replacement">Set of rules defining the replacement</param>
 	/// <returns>Items with the specified section replaced</returns>
@@ -166,8 +178,9 @@ public static class EnumerableExtensions
 	}
 
 	/// <summary>
-	/// Replaces multiple sections of items.
+	/// Replaces multiple sections of items from a collection.
 	/// </summary>
+	/// <typeparam name="T">Type of items in the collection</typeparam>
 	/// <param name="source">Items to replace sections in</param>
 	/// <param name="replacements">Set of definitions of section replacements</param>
 	/// <returns>Items with the specified section replaced</returns>
@@ -243,9 +256,9 @@ public static class EnumerableExtensions
 	}
 
 	/// <summary>
-	/// Removes a section of items.
+	/// Removes a section of items from a collection.
 	/// </summary>
-	/// <remarks>Items that match startRemove or endRemove</remarks>
+	/// <typeparam name="T">Type of items in the collection</typeparam>
 	/// <param name="source">Source items to remove a section of</param>
 	/// <param name="startRemove">Function that determines the start of the section to replace</param>
 	/// <param name="endRemove">Function that determines the end of the section to replace</param>
@@ -307,9 +320,11 @@ public static class EnumerableExtensions
 
 	#region Unique
 	/// <summary>
-	/// Returns distinct elements of a sequence using a method to determine the equality of elements
+	/// Returns distinct elements of a collection using a method to determine the equality of elements.
 	/// </summary>
-	/// <param name="comparison">Method that determines if two elements are the same</param>
+	/// <typeparam name="T">Type of items in the collection</typeparam>
+	/// <param name="source">Collection to get distinct items from</param>
+	/// <param name="comparison">Method determining if two elements are the same</param>
 	public static IEnumerable<T> Distinct<T>(this IEnumerable<T> source, EqualityComparison<T?> comparison)
 		=> source.Distinct(new FuncEqualityComparer<T>(comparison));
 
@@ -388,7 +403,7 @@ public static class EnumerableExtensions
 	/// <returns>Combined items from all enumerables, taking one item from each before looping.</returns>
 	/// <remarks>When the end of an enumerable is reached, alternating continues while skipping that enumerable until all are finished.</remarks>
 	public static IEnumerable<T> Alternate<T>(this IEnumerable<IEnumerable<T>> sources)
-        => new SerialAlternatingEnumerable<T>([.. sources]);
+		=> new SerialAlternatingEnumerable<T>([.. sources]);
 
 	/// <summary>
 	/// Combines enumerables by alternating between each source for every item based on a key.
@@ -400,7 +415,7 @@ public static class EnumerableExtensions
 	/// <returns>Combined items from all enumerables, taking the next item with the smallest key from each enumerable.</returns>
 	/// <inheritdoc cref="Alternate{T}(IEnumerable{IEnumerable{T}})" path="/remarks"/>
 	public static IEnumerable<T> AlternateBy<T, TKey>(this IEnumerable<IEnumerable<T>> sources, Func<T, TKey> selector)
-        where TKey : IComparable<TKey>
+		where TKey : IComparable<TKey>
 		=> new OrderedAlternatingEnumerable<T, TKey>(selector, [.. sources]);
 	#endregion
 }

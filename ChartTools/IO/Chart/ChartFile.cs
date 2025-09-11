@@ -236,6 +236,8 @@ public static class ChartFile
 	#endregion
 
 	#region Sync track
+
+
 	public static SyncTrack ReadSyncTrack(ReadingDataSource source, ChartReadingConfiguration? config = default)
 	{
 		ChartReadingSession session  = new(new() { SyncTrack = true }, config, null);
@@ -306,7 +308,6 @@ public static class ChartFile
 
 		if (components.GlobalEvents || components.Vocals)
 		{
-			// TODO Add <remark> that enabling the vocals component will also rewrite global events.
 			if (components.Vocals)
 			{
 				StandardVocalsTrack vocals = (song.Vocals ??= new()).Standard;
@@ -330,33 +331,27 @@ public static class ChartFile
 		return new(source, removedHeaders, [.. serializers]);
 	}
 
-	public static void WriteSong(
-		string path, Song song, ChartWritingConfiguration? config = default)
-		=> WriteSong(new WritingDataSource(path), song, config);
-
-	public static void WriteSong(
-		Stream stream, Song song, ChartWritingConfiguration? config = default)
-		=> WriteSong(new WritingDataSource(stream), song, config);
-
 	/// <summary>
-	/// Writes a song to a chart file.
+	/// Writes a song to a chart target.
 	/// </summary>
+    /// <param name="source">File path or stream to write to</param>
 	/// <param name="song">Song to write</param>
+    /// <param name="config">Optional write configuration</param>
 	public static void WriteSong(WritingDataSource source, Song song, ChartWritingConfiguration? config = default)
 	{
 		using ChartFileWriter writer = GetSongWriter(source, song, ComponentList.Full(), new(config, song.Metadata?.Formatting));
 		writer.Write();
 	}
 
-	public static Task WriteSongAsync(
-		string path, Song song, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default)
-		=> WriteSongAsync(new WritingDataSource(path), song, config, cancellationToken);
-
-	public static Task WriteSongAsync(
-		Stream stream, Song song, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default)
-		=> WriteSongAsync(new WritingDataSource(stream), song, config, cancellationToken);
-
-	public static async Task WriteSongAsync(
+    /// <summary>
+    /// Writes a song to a chart target asynchronously.
+    /// </summary>
+    /// <param name="source">File path or stream to write to</param>
+    /// <param name="song">Song to write</param>
+    /// <param name="config">Optional write configuration</param>
+    /// <param name="cancellationToken">Token to request cancellation</param>
+    /// <remarks>Uses multi-threading to serialize song components.</remarks>
+    public static async Task WriteSongAsync(
 		WritingDataSource source, Song song, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default)
 	{
 		using ChartFileWriter writer = GetSongWriter(source, song, ComponentList.Full(), new(config, song.Metadata?.Formatting));

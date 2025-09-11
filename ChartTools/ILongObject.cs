@@ -1,5 +1,8 @@
 ﻿namespace ChartTools;
 
+/// <summary>
+/// Interface for objects with a defined length in ticks
+/// </summary>
 public interface ILongObject : IReadOnlyLongObject
 {
 	/// <inheritdoc cref="IReadOnlyTrackObject.Position"/>

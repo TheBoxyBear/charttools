@@ -1,41 +1,188 @@
 ﻿namespace ChartTools.IO.Ini;
 
+/// <summary>
+/// Provides a set of helper strings for working with Ini files
+/// </summary>
 public static class IniFormatting
 {
-    public const string
-        Header = "[song]",
-        Title = "name",
-        Artist = "artist",
-        Album = "album",
-        AlbumTrack = "album_track",
-        Track = "track",
-        Playlist = "playlist",
-        SubPlaylist = "sub_playlist",
-        PlaylistTrack = "playlis_track",
-        Genre = "genre",
-        Explicit = "explicit_lyrics",
-        Year = "year",
-        Charter = "charter",
-        Frets = "frets",
-        Icon = "icon",
-        PreviewStart = "preview_start_time",
-        PreviewEnd = "preview_end_time",
-        AudioOffset = "delay",
-        VideoOffset = "video_start_time",
-        Length = "song_length",
-        LoadingText = "loading_text",
-        Modchart = "modchart",
-        SustainCutoff = "sustain_cutoff_threshold",
-        HopoFrequency = "hopo_frequency",
-        HopoFrequencyStep = "hopofreq",
-        ForceEightHopoFrequency = "eighthnote_hopo",
-        MultiplierNote = "multiplier_note",
-        StarPowerNote = "star_power_note",
-        SysExSliders = "sysex_slider",
-        SysExHighHat = "sysex_high_hat_ctrl",
-        Rimshot = "sysex_rimshot",
-        SysExOpenBass = "sysex_open_bass",
-        SysExProSlide = "sysex_pro_slide";
+	/// <summary>
+	/// Start of the ini section containing song metadata
+	/// </summary>
+	public const string Header = "[song]";
+
+	/// <summary>
+	/// Value of <see cref="Metadata.Title"/>
+	/// </summary>
+	public const string Title = "name";
+
+	/// <summary>
+	/// Value of <see cref="Metadata.Artist"/>
+	/// </summary>
+	public const string Artist = "artist";
+
+	/// <summary>
+	/// Value of <see cref="Metadata.Album"/>
+	/// </summary>
+	public const string Album = "album";
+
+	/// <summary>
+	/// Value of <see cref="Metadata.AlbumTrack"/>
+	/// </summary>
+	/// <remarks>Alternate key to <see cref="Track"/></remarks>
+	public const string AlbumTrack = "album_track";
+
+	/// <summary>
+	/// Value of <see cref="Metadata.AlbumTrack"/>
+	/// </summary>
+	/// <remarks>Alternate key to <see cref="AlbumTrack"/></remarks>
+	public const string Track = "track";
+
+	/// <summary>
+	/// Value of <see cref="Metadata.Playlist"/>
+	/// </summary>
+	public const string Playlist = "playlist";
+
+	/// <summary>
+	/// Value of <see cref="Metadata.SubPlaylist"/>
+	/// </summary>
+	public const string SubPlaylist = "sub_playlist";
+
+	/// <summary>
+	/// Value of <see cref="Metadata.PlaylistTrack"/>
+	/// </summary>
+	public const string PlaylistTrack = "playlist_track";
+
+	/// <summary>
+	/// Value of <see cref="Metadata.Genre"/>
+	/// </summary>
+	public const string Genre = "genre";
+
+	/// <summary>
+	/// Value of <see cref="Metadata.Explicit"/>
+	/// </summary>
+	public const string Explicit = "explicit_lyrics";
+
+	/// <summary>
+	/// Value of <see cref="Metadata.Year"/>
+	/// </summary>
+	public const string Year = "year";
+
+	/// <summary>
+	/// Value of <see cref="Charter.Name"/>
+	/// </summary>
+	/// <remarks>Alternate key to <see cref="Frets"/></remarks>
+	public const string Charter = "charter";
+
+	/// <summary>
+	/// Value of <see cref="Charter.Name"/>
+	/// </summary>
+	/// <remarks>Alternate key to <see cref="Charter"/></remarks>
+	public const string Frets = "frets";
+
+    /// <summary>
+    /// Value of <see cref="Charter.Icon"/>
+    /// </summary>
+	public const string Icon = "icon";
+
+    /// <summary>
+    /// Value of <see cref="Metadata.PreviewStart"/>
+    /// </summary>
+	public const string PreviewStart = "preview_start_time";
+
+    /// <summary>
+    /// Value of <see cref="Metadata.PreviewEnd"/>
+    /// </summary>
+	public const string PreviewEnd = "preview_end_time";
+
+    /// <summary>
+    /// Value of <see cref="Metadata.AudioOffset"/>
+    /// </summary>
+	public const string AudioOffset = "delay";
+
+    /// <summary>
+    /// Value of <see cref="Metadata.VideoOffset"/>
+    /// </summary>
+	public const string VideoOffset = "video_start_time";
+
+    /// <summary>
+    /// Value of <see cref="Metadata.Length"/>
+    /// </summary>
+	public const string Length = "song_length";
+
+    /// <summary>
+    /// Value of <see cref="Metadata.LoadingText"/>
+    /// </summary>
+    public const string LoadingText = "loading_text";
+
+    /// <summary>
+    /// Value of <see cref="Metadata.Difficulty"/>
+    /// </summary>
+    public const string Difficulty = "diff_band";
+
+    /// <summary>
+    /// Value of <see cref="Metadata.IsModchart"/>
+    /// </summary>
+    public const string Modchart = "modchart";
+
+    /// <summary>
+    /// Value of <see cref="Formatting.FormattingRules.SustainCutoff"/>
+    /// </summary>
+    public const string SustainCutoff = "sustain_cutoff_threshold";
+
+    /// <summary>
+    /// Value of <see cref="Formatting.FormattingRules.HopoFrequency"/>
+    /// </summary>
+    public const string HopoFrequency = "hopo_frequency";
+
+	public const string MultiplierNote = "multiplier_note";
+	public const string StarPowerNote = "star_power_note";
+	public const string SysExSliders = "sysex_slider";
+	public const string SysExHighHat = "sysex_high_hat_ctrl";
+	public const string Rimshot = "sysex_rimshot";
+	public const string SysExOpenBass = "sysex_open_bass";
+	public const string SysExProSlide = "sysex_pro_slide";
+
+    /// <summary>
+    /// Value of <see cref="InstrumentDifficultySet.StandardGuitar"/>
+    /// </summary>
+    public const string StandardGuitarDifficulty = "diff_guitar";
+
+    /// <summary>
+    /// Value of <see cref="InstrumentDifficultySet.StandardBass"/>
+    /// </summary>
+    public const string StandardBassDifficulty = "diff_bass";
+
+    /// <summary>
+    /// Value of <see cref="InstrumentDifficultySet.Drums"/>
+    /// </summary>
+    public const string DrumsDifficulty = "diff_drums";
+
+    /// <summary>
+    /// Value of <see cref="InstrumentDifficultySet.StandardKeys"/>
+    /// </summary>
+    public const string StandardKeysDifficulty = "diff_keys";
+
+    /// <summary>
+    /// Value of <see cref="InstrumentDifficultySet.GHLGuitar"/>
+    /// </summary>
+    public const string GHLGuitarDifficulty = "diff_guitarghl";
+
+    /// <summary>
+    /// Value of <see cref="InstrumentDifficultySet.GHLBass"/>
+    /// </summary>
+    public const string GHLBassDifficulty = "diff_bassghl";
+
+    /// <summary>
+    /// Value of <see cref="InstrumentDifficultySet.GHLRhythmGuitar"/>
+    /// </summary>
+    public const string GHLRhythmGuitarDifficulty = "diff_rhythm_ghl";
+
+    /// <summary>
+    /// Value of <see cref="InstrumentDifficultySet.GHLCoopGuitar"/>
+    /// </summary>
+    public const string GHLCoopGuitarDifficulty = "diff_guitar_coop_ghl";
+
+	public static string Line(string key, string? value) => $"{key} = {value}";
 
     public class Difficulties
     {
@@ -51,6 +198,4 @@ public static class IniFormatting
         public const string GHLCoopGuitar = "diff_guitar_coop_ghl";
         public const string GHLBass = "diff_bassghl";
     }
-
-	public static string Line(string key, string? value) => $"{key} = {value}";
 }

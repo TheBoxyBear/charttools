@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+﻿namespace ChartTools;
 
 /// <summary>
 /// Note played by drums
