@@ -17,12 +17,12 @@ public class InstrumentSet : IEnumerable<Instrument>
 	/// <summary>
 	/// Set of Guitar Hero Live guitar tracks
 	/// </summary>
-	public GHLInstrument? GHLGuitar
+	public GHLInstrument? GHLLeadGuitar
 	{
-		get => m_ghlGuitar;
-		set => m_ghlGuitar = value is null ? value : value with { InstrumentIdentity = GHLInstrumentIdentity.Guitar };
+		get => m_ghlLadGuitar;
+		set => m_ghlLadGuitar = value is null ? value : value with { InstrumentIdentity = GHLInstrumentIdentity.LeadGuitar };
 	}
-	private GHLInstrument? m_ghlGuitar;
+	private GHLInstrument? m_ghlLadGuitar;
 
 	/// <summary>
 	/// Set of Guitar Hero Live bass tracks
@@ -106,7 +106,7 @@ public class InstrumentSet : IEnumerable<Instrument>
 	public Instrument? Get(InstrumentIdentity instrument) => instrument switch
 	{
 		InstrumentIdentity.Drums                => Drums,
-		InstrumentIdentity.GHLGuitar            => GHLGuitar,
+		InstrumentIdentity.GHLGuitar            => GHLLeadGuitar,
 		InstrumentIdentity.GHLBass              => GHLBass,
 		InstrumentIdentity.GHLRhythmGuitar      => GHLRhythmGuitar,
 		InstrumentIdentity.GHLCoopGuitar        => GHLCoopGuitar,
@@ -185,7 +185,7 @@ public class InstrumentSet : IEnumerable<Instrument>
     /// <inheritdoc cref="IEnumerable{Instrument}.GetEnumerator"/>
 	public IEnumerator<Instrument> GetEnumerator()
 		=> new Instrument?[]
-		{ Drums, GHLGuitar, GHLBass, GHLRhythmGuitar, GHLCoopGuitar, StandardLeadGuitar, StandardRhythmGuitar, StandardCoopGuitar, StandardBass, StandardKeys }
+		{ Drums, GHLLeadGuitar, GHLBass, GHLRhythmGuitar, GHLCoopGuitar, StandardLeadGuitar, StandardRhythmGuitar, StandardCoopGuitar, StandardBass, StandardKeys }
 		.NonNull().GetEnumerator();
 
 	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

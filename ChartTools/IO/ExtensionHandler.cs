@@ -90,7 +90,7 @@ internal static class ExtensionHandler
 	/// </summary>
 	/// <param name="path">Path of the file to write</param>
 	/// <param name="content">Item to write</param>
-	/// <param name="writers">Array of tupples representing the supported extensions</param>
+	/// <param name="writers">Array of tuples representing the supported extensions</param>
 	/// <exception cref="ArgumentNullException"/>
 	public static void Write<T>(string path, T content, params IEnumerable<(string extension, Write<T> writeMethod)> writers)
 	{
