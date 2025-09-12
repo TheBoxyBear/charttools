@@ -54,7 +54,8 @@ public class Song
 	/// Reads all elements of a <see cref="Song"/> from a file asynchronously using multitasking.
 	/// </summary>
 	/// <param name="path"><inheritdoc cref="FromFile(string, ReadingConfiguration?, FormattingRules?)" path="/param[@name='path']"/></param>
-	/// <param name="config"><inheritdoc cref="FromFile(string, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>        /// <param name="formatting"><inheritdoc cref="FormattingRules" path="/summary"/></param>
+	/// <param name="config"><inheritdoc cref="FromFile(string, ReadingConfiguration?, FormattingRules?)" path="/param[@name='config']"/></param>
+	/// <param name="formatting"><inheritdoc cref="FormattingRules" path="/summary"/></param>
 	/// <param name="cancellationToken">Token to request cancellation</param>
 	public static async Task<Song> FromFileAsync(string path, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
 		=> await ExtensionHandler.ReadAsync(path,
@@ -71,7 +72,7 @@ public class Song
 
 		return song;
 	}
-	
+
 	public static async Task<Song> FromDirectoryAsync(
 		string directory, ReadingConfiguration? config = default, CancellationToken cancellationToken = default)
 	{
@@ -90,14 +91,6 @@ public class Song
 	/// <summary>
 	/// Writes the <see cref="Song"/> to a file.
 	/// </summary>
-	/// <exception cref="ArgumentException"/>
-	/// <exception cref="ArgumentNullException"/>
-	/// <exception cref="PathTooLongException"/>
-	/// <exception cref="DirectoryNotFoundException"/>
-	/// <exception cref="LineException"/>
-	/// <exception cref="UnauthorizedAccessException"/>
-	/// <exception cref="NotSupportedException"/>
-	/// <exception cref="System.Security.SecurityException"/>
 	public void ToFile(string path, WritingConfiguration? config = default)
 		=> ExtensionHandler.Write(path, this,
 			(".chart", (path, song) => ChartFile.WriteSong(path, song, config?.Chart)));
