@@ -3,7 +3,7 @@
 namespace ChartTools;
 
 /// <summary>
-/// Set of tempo markers that handles synchronism of anchored tempos.
+/// Set of tempo markers that handles synchronism of anchored tempos
 /// </summary>
 public class TempoMap : IList<Tempo>
 {

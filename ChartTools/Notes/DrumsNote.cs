@@ -5,18 +5,19 @@
 /// </summary>
 public class DrumsNote(DrumsLane lane) : ILaneNote<DrumsLane>
 {
-    public DrumsNote() : this(default) { }
+	public DrumsNote() : this(default) { }
 
-    public DrumsLane Lane { get; set; } = lane;
+	public DrumsLane Lane { get; set; } = lane;
 
+	/// <inheritdoc cref="ILaneNote.Sustain"/>
 	public uint Sustain { get; set; }
 
-    /// <inheritdoc cref="INote.Index"/>/>
+	/// <inheritdoc cref="INote.Index"/>/>
 	public byte Index
-    {
-        get => (byte)Lane;
-        set => Lane = (DrumsLane)value;
-    }
+	{
+		get => (byte)Lane;
+		set => Lane = (DrumsLane)value;
+	}
 
 	private bool m_isCymbal = false;
 
@@ -26,7 +27,7 @@ public class DrumsNote(DrumsLane lane) : ILaneNote<DrumsLane>
 	/// <remarks><see cref="DrumsLane.Green5Lane"/> notes cannot be cymbal.</remarks>
 	public bool IsCymbal
 	{
-	    get => m_isCymbal;
+		get => m_isCymbal;
 		set
 		{
 			if ((Lane == DrumsLane.Red || Lane == DrumsLane.Green5Lane) && value)

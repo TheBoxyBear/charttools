@@ -41,7 +41,8 @@ public static class EnumerableExtensions
 	/// <param name="predicate">Method that returns <see langword="true"/> if a given item meets the condition</param>
 	/// <param name="item">Found item</param>
 	/// <returns><see langword="true"/> if an item was found</returns>
-	public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, [MaybeNullWhen(false)] out T? item)
+	public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, [NotNullWhen(true)] out T? item)
+		where T : notnull
 	{
 		ArgumentNullException.ThrowIfNull(predicate);
 
@@ -56,14 +57,14 @@ public static class EnumerableExtensions
 		return false;
 	}
 
-	/// <summary>
-	/// Tries to get the first element of a collection.
-	/// </summary>
-	/// <typeparam name="T">Type of items in the collection</typeparam>
-	/// <param name="source">Source of items</param>
-	/// <param name="result">Found item</param>
-	/// <returns><see langword="true"/> if an item was found</returns>
-	public static bool TryGetFirst<T>(this IEnumerable<T> source, [MaybeNullWhen(false)] out T result)
+    /// <summary>
+    /// Tries to get the first element of a collection.
+    /// </summary>
+    /// <typeparam name="T">Type of items in the collection</typeparam>
+    /// <param name="source">Source of items</param>
+    /// <param name="result">Found item</param>
+    /// <returns><see langword="true"/> if an item was found</returns>
+    public static bool TryGetFirst<T>(this IEnumerable<T> source, [MaybeNullWhen(false)] out T result)
 	{
 		using IEnumerator<T> enumerator = source.GetEnumerator();
 		bool success = enumerator.MoveNext();
@@ -307,7 +308,7 @@ public static class EnumerableExtensions
 		}
 	}
 
-	public static IEnumerable<(T previous, T current)> RelativeLoopSkipFirst<T>(this IEnumerable<T> source)
+	internal static IEnumerable<(T previous, T current)> RelativeLoopSkipFirst<T>(this IEnumerable<T> source)
 	{
 		using IEnumerator<T> enumerator = source.GetEnumerator();
 

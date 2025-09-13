@@ -6,6 +6,7 @@ namespace ChartTools.IO.Chart;
 public class ChartSection : SectionSet<string>
 {
 	public static readonly ReservedSectionHeaderSet DefaultReservedHeaders;
+
 	public override ReservedSectionHeaderSet ReservedHeaders => DefaultReservedHeaders;
 
 	static ChartSection()

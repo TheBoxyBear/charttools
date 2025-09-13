@@ -123,18 +123,20 @@ public class InstrumentSet : IEnumerable<Instrument>
 	/// </summary>
 	/// /// <param name="instrument">Instrument to get</param>
 	/// <returns>Instance of <see cref="GHLInstrument"/> from the <see cref="Song"/>.</returns>
+	/// <exception cref="UndefinedEnumException"/>
 	public GHLInstrument? Get(GHLInstrumentIdentity instrument)
 	{
 		Validator.ValidateEnum(instrument);
 		return Get((InstrumentIdentity)instrument) as GHLInstrument;
 	}
 
-	/// <summary>
-	/// Gets property value for a <see cref="StandardInstrument"/> from a <see cref="StandardInstrumentIdentity"/> <see langword="enum"/> value.
-	/// </summary>
-	/// <param name="instrument">Instrument to get</param>
-	/// <returns>Instance of <see cref="StandardInstrument"/> from the <see cref="Song"/>.</returns>
-	public StandardInstrument? Get(StandardInstrumentIdentity instrument)
+    /// <summary>
+    /// Gets property value for a <see cref="StandardInstrument"/> from a <see cref="StandardInstrumentIdentity"/> <see langword="enum"/> value.
+    /// </summary>
+    /// <param name="instrument">Instrument to get</param>
+    /// <returns>Instance of <see cref="StandardInstrument"/> from the <see cref="Song"/>.</returns>
+    /// <exception cref="UndefinedEnumException"/>
+    public StandardInstrument? Get(StandardInstrumentIdentity instrument)
 	{
 		Validator.ValidateEnum(instrument);
 		return Get((InstrumentIdentity)instrument) as StandardInstrument;

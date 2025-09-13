@@ -30,7 +30,7 @@ internal class DrumsTrackParser(Difficulty difficulty, ChartReadingSession sessi
 				// NoteIndex of the note to set as cymbal
 				byte seekedIndex = (byte)(data.Index - 64);
 
-				if (chord.Notes.TryGetFirst(n => n.Index == seekedIndex, out DrumsNote note))
+				if (chord.Notes.TryGetFirst(n => n.Index == seekedIndex, out DrumsNote? note))
 				{
 					if (Session.HandleDuplicate(chord.Position, "drums note cymbal marker", () => note.IsCymbal))
 						note.IsCymbal = true;

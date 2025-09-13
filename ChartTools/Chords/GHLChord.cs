@@ -17,14 +17,30 @@ public sealed class GHLChord : LaneChord<LaneNote<GHLLane>, GHLLane, GHLChordMod
 
 	internal override bool ChartSupportedModifiers => !Modifiers.HasFlag(GHLChordModifiers.ExplicitHopo);
 
-	public GHLChord() : base(0) { }
+    /// <summary>
+    /// Creates an instance of <see cref="GHLChord"/> at position 0.
+    /// </summary>
+    public GHLChord() : base(0) { }
 
-	public GHLChord(uint position) : base(position) { }
+    /// <summary>
+    /// Creates an instance of <see cref="GHLChord"/> at the specified position.
+    /// </summary>
+    /// <param name="position">Position of the chord</param>
+    public GHLChord(uint position) : base(position) { }
 
-	public GHLChord(uint position, params ReadOnlySpan<LaneNote<GHLLane>> notes) : base(position)
+    /// <summary>
+    /// Creates an instance of <see cref="GHLChord"/> with a specified position and notes.
+    /// </summary>
+    /// <param name="position">Position of the chord</param>
+    /// <param name="notes">Set of notes to add</param>
+    public GHLChord(uint position, params ReadOnlySpan<LaneNote<GHLLane>> notes) : base(position)
 		=> Notes.AddRange(notes);
 
-	/// <inheritdoc cref="GHLChord(uint, ReadOnlySpan{LaneNote{GHLLane}})"/>
+    /// <summary>
+    /// Creates an instance of <see cref="GHLChord"/> with a specified position and notes.
+    /// </summary>
+    /// <param name="position">Position of the chord</param>
+    /// <param name="notes">Set of notes to add by lane</param>
 	public GHLChord(uint position, params ReadOnlySpan<GHLLane> notes) : base(position)
 		=> Notes.AddRange(notes);
 
