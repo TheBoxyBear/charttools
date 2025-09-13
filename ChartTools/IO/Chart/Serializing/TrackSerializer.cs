@@ -49,7 +49,7 @@ internal class TrackSerializer(Track content, ChartWritingSession session)
 
 		return
 		[
-			new ChordProvider().ProvideFor(Content.Chords.Cast<LaneChord>(), Session),
+			new ChordProvider().ProvideFor(Content.Chords.Cast<Chord>(), Session),
 			new SpeicalPhraseProvider().ProvideFor(Content.SpecialPhrases, Session),
 			Content.LocalEvents is null ? [] : new EventProvider().ProvideFor(Content.LocalEvents, Session)
 		];

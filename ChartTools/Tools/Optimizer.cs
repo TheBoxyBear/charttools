@@ -19,23 +19,23 @@ public static class Optimizer
 	/// <param name="chords">Chords to cut the sustains of</param>
 	/// <param name="preOrdered">Skip ordering of chords by position</param>
 	public static void CutSustains<T>(this IEnumerable<T> chords, bool preOrdered = false)
-		where T : LaneChord
+		where T : Chord
 	{
-		Dictionary<byte, (uint, ILaneNote)> ongoingSustains = [];
+		Dictionary<byte, (uint, LaneNote)> ongoingSustains = [];
 
 		foreach (T chord in GetOrdered(chords, preOrdered))
 		{
-			using IEnumerator<ILaneNote> noteEnumerator = chord.Notes.GetEnumerator();
+			using IEnumerator<LaneNote> noteEnumerator = chord.Notes.GetEnumerator();
 
 			if (!noteEnumerator.MoveNext())
 				continue;
 
-			ILaneNote note = noteEnumerator.Current;
+			LaneNote note = noteEnumerator.Current;
 
 			if (chord.OpenExclusivity)
 			{
 				if (noteEnumerator.Current.Index == 0) // Open stops all sustains
-					foreach ((uint position, ILaneNote sustained) in ongoingSustains.Values)
+					foreach ((uint position, LaneNote sustained) in ongoingSustains.Values)
 					{
 						if (position + sustained.Sustain > chord.Position)
 							sustained.Sustain = chord.Position;
@@ -67,7 +67,7 @@ public static class Optimizer
 
 			void RemoveSustain(byte index)
 			{
-				if (ongoingSustains.TryGetValue(index, out (uint _, ILaneNote note) sustain))
+				if (ongoingSustains.TryGetValue(index, out (uint _, LaneNote note) sustain))
 				{
 					sustain.note.Sustain = chord.Position;
 					ongoingSustains.Remove(index);

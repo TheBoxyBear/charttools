@@ -47,7 +47,7 @@ public static class TempoRescaler
 	/// </summary>
 	/// <param name="chord">Chord to rescale</param>
 	/// <param name="scale">Positive number where 1 is the current scale.</param>
-	public static void Rescale(this IChord chord, float scale)
+	public static void Rescale(this Chord chord, float scale)
 	{
 		chord.Position = (uint)(chord.Position * scale);
 
@@ -62,7 +62,7 @@ public static class TempoRescaler
 	/// <param name="scale">Positive number where 1 is the current scale.</param>
 	public static void Rescale(this Track track, float scale)
 	{
-		foreach (IChord chord in track.Chords)
+		foreach (Chord chord in track.Chords)
 			Rescale(chord, scale);
 
 		if (track.LocalEvents is not null)

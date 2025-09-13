@@ -7,9 +7,9 @@ namespace ChartTools;
 /// <summary>
 /// Set of notes played simultaneously by a Guitar Hero Live instrument
 /// </summary>
-public sealed class GHLChord : LaneChord<LaneNote<GHLLane>, GHLLane, GHLChordModifiers>
+public sealed class GHLChord : Chord<LaneNote<GHLLane>, GHLLane, GHLChordModifiers>
 {
-    /// <inheritdoc cref="LaneChord.OpenExclusivity"/>"/>
+    /// <inheritdoc cref="Chord.OpenExclusivity"/>"/>
     /// <remarks>Always <see langword="true"/> for <see cref="GHLChord"/></remarks>
 	public override bool OpenExclusivity => true;
 
@@ -56,7 +56,7 @@ public sealed class GHLChord : LaneChord<LaneNote<GHLLane>, GHLLane, GHLChordMod
 		GHLLane.White3 => 2,
 	}, note.Sustain));
 
-	internal override IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, ChartWritingSession session)
+	internal override IEnumerable<TrackObjectEntry> GetChartModifierData(Chord? previous, ChartWritingSession session)
 	{
 		bool isInvert = Modifiers.HasFlag(GHLChordModifiers.HopoInvert);
 

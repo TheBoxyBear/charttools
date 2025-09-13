@@ -3,21 +3,9 @@
 /// <summary>
 /// Note played by drums
 /// </summary>
-public class DrumsNote(DrumsLane lane) : ILaneNote<DrumsLane>
+public class DrumsNote(DrumsLane lane) : LaneNote<DrumsLane>(lane)
 {
 	public DrumsNote() : this(default) { }
-
-	public DrumsLane Lane { get; set; } = lane;
-
-	/// <inheritdoc cref="ILaneNote.Sustain"/>
-	public uint Sustain { get; set; }
-
-	/// <inheritdoc cref="INote.Index"/>/>
-	public byte Index
-	{
-		get => (byte)Lane;
-		set => Lane = (DrumsLane)value;
-	}
 
 	private bool m_isCymbal = false;
 

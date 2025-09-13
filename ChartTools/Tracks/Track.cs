@@ -36,9 +36,9 @@ public abstract record Track : IEmptyVerifiable
 	/// <summary>
 	/// Groups of notes of the same position
 	/// </summary>
-	public IReadOnlyList<IChord> Chords => GetChords();
+	public abstract IReadOnlyList<Chord> Chords { get; }
 
-	protected abstract IReadOnlyList<IChord> GetChords();
+	protected abstract IReadOnlyList<Chord> GetChords();
 
 	internal IEnumerable<TrackSpecialPhrase> SoloToStarPower(bool removeEvents)
 	{
@@ -76,23 +76,23 @@ public abstract record Track : IEmptyVerifiable
 /// Set of chords for a instrument at a certain difficulty
 /// </summary>
 public record Track<TChord> : Track
-	where TChord : IChord
+	where TChord : Chord
 {
 	/// <summary>
 	/// Chords making up the difficulty track.
 	/// </summary>
-	public new List<TChord> Chords { get; } = [];
+	public override List<TChord> Chords { get; } = [];
 
-	/// <summary>
-	/// Instrument the track is held in.
-	/// </summary>
-	public new Instrument<TChord>? ParentInstrument { get; init; }
+    /// <summary>
+    /// Instrument the track is held in.
+    /// </summary>
+    public new Instrument<TChord>? ParentInstrument { get; init; }
 
 	/// <summary>
 	/// Gets the chords as a read-only list of the base interface.
 	/// </summary>
 	/// <returns></returns>
-	protected override IReadOnlyList<IChord> GetChords() => (IReadOnlyList<IChord>)Chords;
+	protected override IReadOnlyList<TChord> GetChords() => Chords;
 
 	/// <summary>
 	/// Gets the parent instrument as an instance of the base type.

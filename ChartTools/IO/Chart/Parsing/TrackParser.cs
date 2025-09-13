@@ -8,7 +8,7 @@ namespace ChartTools.IO.Chart.Parsing;
 
 internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingSession session, string header)
 	: ChartParser(session, header), IInstrumentAppliable<TChord>
-	where TChord : IChord, new()
+	where TChord : Chord, new()
 {
 	public Difficulty Difficulty { get; } = difficulty;
 

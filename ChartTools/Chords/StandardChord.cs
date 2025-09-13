@@ -7,10 +7,10 @@ namespace ChartTools;
 /// <summary>
 /// Set of notes played simultaneously by a standard five-fret instrument
 /// </summary>
-public class StandardChord : LaneChord<LaneNote<StandardLane>, StandardLane, StandardChordModifiers>
+public class StandardChord : Chord<LaneNote<StandardLane>, StandardLane, StandardChordModifiers>
 {
     /// <summary>
-    /// <inheritdoc cref="LaneChord.OpenExclusivity"/>
+    /// <inheritdoc cref="Chord.OpenExclusivity"/>
     /// </summary>
     /// <remarks>Always <see langword="true"/> for <see cref="StandardChord"/></remarks>
 	public override bool OpenExclusivity => true;
@@ -32,7 +32,7 @@ public class StandardChord : LaneChord<LaneNote<StandardLane>, StandardLane, Sta
 	internal override IEnumerable<TrackObjectEntry> GetChartNoteData()
 		=> Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Sustain));
 
-	internal override IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, ChartWritingSession session)
+	internal override IEnumerable<TrackObjectEntry> GetChartModifierData(Chord? previous, ChartWritingSession session)
 	{
 		bool isInvert = Modifiers.HasFlag(StandardChordModifiers.HopoInvert);
 

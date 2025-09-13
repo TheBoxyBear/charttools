@@ -3,7 +3,7 @@
 namespace ChartTools;
 
 public class LaneNoteCollection<TNote, TLane>(bool openExclusivity) : ICollection<TNote>, IReadOnlyList<TNote>
-	where TNote : class, ILaneNote<TLane>, new()
+	where TNote : LaneNote<TLane>, new()
 	where TLane : struct, Enum
 {
 	private readonly List<TNote> m_notes = [];

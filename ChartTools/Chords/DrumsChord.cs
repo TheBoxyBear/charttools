@@ -7,9 +7,13 @@ namespace ChartTools;
 /// <summary>
 /// Set of notes played simultaneously by drums
 /// </summary>
-public sealed class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModifiers>
+public sealed class DrumsChord : Chord<DrumsNote, DrumsLane, DrumsChordModifiers>
 {
-	public override bool OpenExclusivity => false;
+    /// <summary>
+    /// <inheritdoc cref="Chord.OpenExclusivity"/>
+    /// </summary>
+    /// <remarks>Always <see langword="true"/> for <see cref="DrumsChord"/></remarks>
+    public override bool OpenExclusivity => false;
 
 	internal override DrumsChordModifiers DefaultModifiers => DrumsChordModifiers.None;
 
@@ -17,7 +21,7 @@ public sealed class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModif
 
 	public DrumsChord() : base(0) { }
 
-	/// <inheritdoc cref="LaneChord{DrumsNote, DrumsLane, DrumsChordModifiers}(uint)"/>
+	/// <inheritdoc cref="Chord{DrumsNote, DrumsLane, DrumsChordModifiers}(uint)"/>
 	public DrumsChord(uint position) : base(position) { }
 
 	/// <inheritdoc cref="DrumsChord(uint)"/>
@@ -40,7 +44,7 @@ public sealed class DrumsChord : LaneChord<DrumsNote, DrumsLane, DrumsChordModif
 		}
 	}
 
-	internal override IEnumerable<TrackObjectEntry> GetChartModifierData(LaneChord? previous, ChartWritingSession session)
+	internal override IEnumerable<TrackObjectEntry> GetChartModifierData(Chord? previous, ChartWritingSession session)
 	{
 		if (Modifiers.HasFlag(DrumsChordModifiers.Flam))
 			yield return ChartFormatting.NoteEntry(Position, 109, 0);

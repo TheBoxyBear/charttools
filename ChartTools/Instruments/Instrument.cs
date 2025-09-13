@@ -145,7 +145,8 @@ public abstract record Instrument : IEmptyVerifiable
 /// <summary>
 /// Set of tracks common to an instrument
 /// </summary>
-public abstract record Instrument<TChord> : Instrument where TChord : IChord
+public abstract record Instrument<TChord> : Instrument
+	where TChord : Chord
 {
 	/// <summary>
 	/// Easy track

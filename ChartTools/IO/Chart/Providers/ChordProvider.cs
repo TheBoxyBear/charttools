@@ -4,14 +4,14 @@ using ChartTools.IO.Chart.Entries;
 
 namespace ChartTools.IO.Chart.Providers;
 
-internal class ChordProvider : ISerializerDataProvider<LaneChord, TrackObjectEntry, ChartWritingSession>
+internal class ChordProvider : ISerializerDataProvider<Chord, TrackObjectEntry, ChartWritingSession>
 {
-	public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<LaneChord> source, ChartWritingSession session)
+	public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<Chord> source, ChartWritingSession session)
 	{
 		List<uint> orderedPositions = [];
-		LaneChord? previousChord = null;
+		Chord? previousChord = null;
 
-		foreach (LaneChord chord in source)
+		foreach (Chord chord in source)
 		{
 			if (session.HandleDuplicate(chord.Position, "chord", () =>
 			{
