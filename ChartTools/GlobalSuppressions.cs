@@ -6,3 +6,8 @@
 using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "GHL is an acronym", Scope = "type", Target = "~T:ChartTools.GHLChord")]
+
+[assembly: SuppressMessage("Style", "IDE0130:Namespace does not match folder structure", Justification = "Files should be able to be better organized without bloating namespaces", Scope = "namespace", Target = "~N:ChartTools")]
+[assembly: SuppressMessage("Style", "IDE0130:Namespace does not match folder structure", Justification = "Files should be able to be better organized without bloating namespaces", Scope = "namespace", Target = "~N:ChartTools.Extensions.Collections")]
+[assembly: SuppressMessage("Style", "IDE0130:Namespace does not match folder structure", Justification = "Files should be able to be better organized without bloating namespaces", Scope = "namespace", Target = "~N:ChartTools.IO")]
+[assembly: SuppressMessage("Style", "IDE0130:Namespace does not match folder structure", Justification = "Files should be able to be better organized without bloating namespaces", Scope = "namespace", Target = "~N:ChartTools.IO.Parsing")]

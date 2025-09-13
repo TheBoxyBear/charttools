@@ -41,7 +41,7 @@ public static class EnumerableExtensions
 	/// <param name="predicate">Method that returns <see langword="true"/> if a given item meets the condition</param>
 	/// <param name="item">Found item</param>
 	/// <returns><see langword="true"/> if an item was found</returns>
-	public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, [MaybeNullWhen(false)] out T item)
+	public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, [MaybeNullWhen(false)] out T? item)
 	{
 		ArgumentNullException.ThrowIfNull(predicate);
 
@@ -264,7 +264,8 @@ public static class EnumerableExtensions
 	/// <param name="endRemove">Function that determines the end of the section to replace</param>
 	/// <returns>Items with the specified section removed</returns>
 	/// <remarks>Items that match <paramref name="startRemove"/> or <paramref name="endRemove"/> are not included in the output.</remarks>
-	public static IEnumerable<T> RemoveSection<T>(this IEnumerable<T> source, Predicate<T> startRemove, Predicate<T> endRemove)
+	[Obsolete("Maintained for future internal use")]
+	private static IEnumerable<T> RemoveSection<T>(this IEnumerable<T> source, Predicate<T> startRemove, Predicate<T> endRemove)
 	{
 		IEnumerator<T> itemsEnumerator = source.GetEnumerator();
 
@@ -294,7 +295,8 @@ public static class EnumerableExtensions
 	/// </summary>
 	/// <param name="source">Items to loop through</param>
 	/// <param name="firstPrevious">Value of the previous item in the first call of the action</param>
-	public static IEnumerable<(T? previous, T current)> RelativeLoop<T>(this IEnumerable<T> source, T? firstPrevious = default)
+	[Obsolete("Maintained for future internal use")]
+	private static IEnumerable<(T? previous, T current)> RelativeLoop<T>(this IEnumerable<T> source, T? firstPrevious = default)
 	{
 		T? previousItem = firstPrevious;
 
@@ -328,10 +330,12 @@ public static class EnumerableExtensions
 	public static IEnumerable<T> Distinct<T>(this IEnumerable<T> source, EqualityComparison<T?> comparison)
 		=> source.Distinct(new FuncEqualityComparer<T>(comparison));
 
-	public static bool Unique<T>(this IEnumerable<T> source)
+	[Obsolete("Maintained for future internal use")]
+	private static bool Unique<T>(this IEnumerable<T> source)
 		=> UniqueFromDistinct(source.Distinct());
 
-	public static bool UniqueBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector)
+	[Obsolete("Maintained for future internal use")]
+	private static bool UniqueBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector)
 		=> UniqueFromDistinct(source.DistinctBy(selector));
 
 	private static bool UniqueFromDistinct<T>(IEnumerable<T> distinct)
@@ -374,7 +378,8 @@ public static class EnumerableExtensions
 	/// </summary>
 	/// <param name="source">Items to find the minimum or maximum of</param>
 	/// <param name="selector">Function that gets the key to use in the comparison from an item</param>
-	public static IEnumerable<T> ManyMinBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector)
+	[Obsolete("Maintained for future internal use")]
+	private static IEnumerable<T> ManyMinBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector)
 		where TKey : IComparable<TKey>
 		=> ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) < 0);
 
@@ -383,12 +388,13 @@ public static class EnumerableExtensions
 	/// </summary>
 	/// <param name="source">Items to find the minimum or maximum of</param>
 	/// <param name="selector">Function that gets the key to use in the comparison from an item</param>
-	public static IEnumerable<T> ManyMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector)
+	private static IEnumerable<T> ManyMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector)
 		where TKey : IComparable<TKey>
 		=> ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) > 0);
 	#endregion
 
-	public static async IAsyncEnumerable<T> ToAsyncEnumerable<T>(this IEnumerable<T> source)
+	[Obsolete("Maintained for future internal use")]
+	private static async IAsyncEnumerable<T> ToAsyncEnumerable<T>(this IEnumerable<T> source)
 	{
 		foreach (var item in source)
 			yield return await Task.FromResult(item).ConfigureAwait(false);

@@ -236,10 +236,25 @@ public abstract record Instrument<TChord> : Instrument where TChord : IChord
 		}
 	}
 
-	protected override Track<TChord>? GetEasy() => Easy;
-	protected override Track<TChord>? GetMedium() => Medium;
-	protected override Track<TChord>? GetHard() => Hard;
-	protected override Track<TChord>? GetExpert() => Expert;
+    /// <summary>
+    /// Exposes the <see cref="Easy"/> track to the base class.
+    /// </summary>
+    protected override Track<TChord>? GetEasy() => Easy;
+
+    /// <summary>
+    /// Exposes the <see cref="Medium"/> track to the base class.
+    /// </summary>
+    protected override Track<TChord>? GetMedium() => Medium;
+
+    /// <summary>
+    /// Exposes the <see cref="Hard"/> track to the base class.
+    /// </summary>
+    protected override Track<TChord>? GetHard() => Hard;
+
+    /// <summary>
+    /// Exposes the <see cref="Expert"/> track to the base class.
+    /// </summary>
+    protected override Track<TChord>? GetExpert() => Expert;
 
 	public override Track<TChord>?[] GetTracks() => [Easy, Medium, Hard, Expert];
 

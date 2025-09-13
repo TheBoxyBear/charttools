@@ -1,6 +1,12 @@
 ﻿namespace ChartTools.IO.Configuration.Common;
 
+/// <summary>
+/// Reading options common to all file formats
+/// </summary>
 public interface ICommonReadingConfiguration : ICommonConfiguration
 {
-	public UnknownSectionPolicy UnknownSectionPolicy { get; }
+    /// <summary>
+    /// Policy for handling unknown sections in a file
+    /// </summary>
+    public UnknownSectionPolicy UnknownSectionPolicy { get; }
 }

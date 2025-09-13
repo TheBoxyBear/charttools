@@ -10,11 +10,11 @@ public class LocalEvent : Event
 	public bool IsOwFaceEvent => EventType.StartsWith(EventTypeHeaderHelper.Local.OwFace);
 
 
-    /// <inheritdoc cref="Event(uint)"/>
-    public LocalEvent(uint position) : base(position) { }
+	/// <inheritdoc cref="Event(uint)"/>
+	public LocalEvent(uint position) : base(position) { }
 
-    /// <inheritdoc cref="Event(uint, string)"/>
-    public LocalEvent(uint position, string data) : base(position, data) { }
+	/// <inheritdoc cref="Event(uint, string)"/>
+	public LocalEvent(uint position, string data) : base(position, data) { }
 
 	/// <inheritdoc cref="Event(uint, string, string)"/>
 	public LocalEvent(uint position, string type, string argument = "") : base(position, type, argument) { }

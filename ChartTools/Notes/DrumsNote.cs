@@ -11,6 +11,7 @@ public class DrumsNote(DrumsLane lane) : ILaneNote<DrumsLane>
 
 	public uint Sustain { get; set; }
 
+    /// <inheritdoc cref="INote.Index"/>/>
 	public byte Index
     {
         get => (byte)Lane;
