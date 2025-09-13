@@ -29,7 +29,7 @@ internal class IniSerializer(Metadata content) : Serializer<Metadata, string>(In
 				yield return IniFormatting.Line(IniFormatting.AlbumTrack, Content.AlbumTrack.ToString());
 		}
 
-        if (Content.Charter is not null)
+		if (Content.Charter is not null)
 		{
 			if (Content.Formatting.CharterKey.HasFlag(CharterKey.Charter))
 				yield return IniFormatting.Line(IniFormatting.Charter, Content.Charter.Name?.ToString());

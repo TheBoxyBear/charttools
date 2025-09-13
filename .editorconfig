@@ -7,13 +7,12 @@ root = true
 #### Options EditorConfig principales ####
 
 # Indentation et espacement
-indent_size = 4
-indent_style = space
+indent_style = tab
 tab_width = 4
 
 # Préférences de nouvelle ligne
 end_of_line = crlf
-insert_final_newline = false
+insert_final_newline = true
 
 #### Conventions de codage .NET ####
 

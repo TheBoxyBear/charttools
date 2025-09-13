@@ -1,6 +1,7 @@
 ﻿using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Configuration;
+using ChartTools.IO.Formatting;
 
 namespace ChartTools;
 
@@ -25,19 +26,20 @@ public class SyncTrack : IEmptyVerifiable
 	/// <summary>
 	/// Reads a <see cref="SyncTrack"/> from a file.
 	/// </summary>
-	/// <param name="path">Path of the file</param>
-	/// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
-	public static SyncTrack FromFile(string path, ReadingConfiguration? config = default)
+	/// <param name="path">Path of the file to read from</param>
+	/// <param name="config">Optional read config</param>
+	/// <param name="formatting">Expected formatting</param>
+	public static SyncTrack FromFile(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default)
 		=> ExtensionHandler.Read(path, (".chart", path => ChartFile.ReadSyncTrack(path, config?.Chart)));
 
 	/// <summary>
-	/// Reads a <see cref="SyncTrack"/> from a file asynchronously using multitasking.
+	/// Reads a <see cref="SyncTrack"/> from a file asynchronously.
 	/// </summary>
-	/// <param name="path"><inheritdoc cref="FromFile(string, ReadingConfiguration?)" path="/param[@name='path']"/></param>
-	/// <param name="cancellationToken">Token to request cancellation</param>
-	/// <param name="config"><inheritdoc cref="FromFile(string, ReadingConfiguration?)" path="/param[@name='config']"/></param>
-	/// <returns></returns>
-	public static async Task<SyncTrack> FromFileAsync(string path, ReadingConfiguration? config = default, CancellationToken cancellationToken = default)
+	/// <param name="path">Path of the file to read from</param>
+	/// <param name="config">Optional read config</param>
+	/// <param name="formatting">Expected formatting</param>
+	/// <param name="cancellationToken">Token used for cancellation</param>
+	public static async Task<SyncTrack> FromFileAsync(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
 		=> await ExtensionHandler.ReadAsync(path,
 			(".chart", path => ChartFile.ReadSyncTrackAsync(path, config?.Chart, cancellationToken)));
 

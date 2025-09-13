@@ -72,40 +72,67 @@ public static class ChartFile
 		return song;
 	}
 
+	/// <summary>
+	/// Reads a <see cref="Song"/> from a chart target.
+	/// </summary>
+	/// <param name="source">File path or stream to read from</param>
+	/// <param name="config">Optional read configuration</param>
 	public static Song ReadSong(
-		ReadingDataSource source, ChartReadingConfiguration? config = default, FormattingRules? formatting = default)
+		ReadingDataSource source, ChartReadingConfiguration? config = default)
 	{
-		ChartReadingSession session  = new(ComponentList.Full(), config, formatting);
+		ChartReadingSession session  = new(ComponentList.Full(), config);
 		using ChartFileReader reader = new(source, session);
 
 		reader.Read();
 		return CreateSongFromReader(reader);
 	}
 
+
+	/// <summary>
+	/// Reads a <see cref="Song"/> from a chart target asynchronously.
+	/// </summary>
+	/// <param name="source">File path or stream to read from</param>
+	/// <param name="config">Optional read configuration</param>
+	/// <param name="cancellationToken">Token used for cancellation</param>
+	/// <remarks>Uses multi-threading to parse song components.</remarks>
 	public static async Task<Song> ReadSongAsync(
-		ReadingDataSource source, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+		ReadingDataSource source, ChartReadingConfiguration? config = default, CancellationToken cancellationToken = default)
 	{
-		ChartReadingSession session  = new(ComponentList.Full(), config, formatting);
+		ChartReadingSession session  = new(ComponentList.Full(), config);
 		using ChartFileReader reader = new(source, session);
 
 		await reader.ReadAsync(cancellationToken).ConfigureAwait(false);
 		return CreateSongFromReader(reader);
 	}
 
+	/// <summary>
+	/// Reads a a set of <see cref="Song"/> components from a chart target.
+	/// </summary>
+	/// <param name="source">File path or stream to read from</param>
+	/// <param name="components">Set of components to read</param>
+	/// <param name="config">Optional read configuration</param>
 	public static Song ReadComponents(
-		ReadingDataSource source, ComponentList components, ChartReadingConfiguration? config = default, FormattingRules? formatting = default)
+		ReadingDataSource source, ComponentList components, ChartReadingConfiguration? config = default)
 	{
-		ChartReadingSession session  = new(components, config, formatting);
+		ChartReadingSession session  = new(components, config);
 		using ChartFileReader reader = new(source, session);
 
 		reader.Read();
 		return CreateSongFromReader(reader);
 	}
 
+	/// <summary>
+	/// Reads a a set of <see cref="Song"/> components from a chart target asynchronously.
+	/// </summary>
+	/// <param name="source">File path or stream to read from</param>
+	/// <param name="components">Set of components to read</param>
+	/// <param name="config">Optional read configuration</param>
+	/// <param name="cancellationToken">Token used for cancellation</param>v
+	/// <remarks>Uses multi-threading to parse song components.</remarks>
 	public static async Task<Song> ReadComponentsAsync(
-		ReadingDataSource source, ComponentList components, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+		ReadingDataSource source, ComponentList components, ChartReadingConfiguration? config = default, CancellationToken cancellationToken = default)
 	{
-		ChartReadingSession session  = new(components, config, formatting);
+		ChartReadingSession session  = new(components, config);
 		using ChartFileReader reader = new(source, session);
 
 		await reader.ReadAsync(cancellationToken).ConfigureAwait(false);
@@ -152,20 +179,34 @@ public static class ChartFile
 		return instruments;
 	}
 
+	/// <summary>
+	/// Reads a set of <see cref="Instrument"/> from a chart target.
+	/// </summary>
+	/// <param name="source">File path or stream to read from</param>
+	/// <param name="components">Instruments to read</param>
+	/// <param name="config">Optional read config</param>
 	public static InstrumentSet ReadInstruments(
-		ReadingDataSource source, InstrumentComponentList components, ChartReadingConfiguration? config = default, FormattingRules? formatting = default)
+		ReadingDataSource source, InstrumentComponentList components, ChartReadingConfiguration? config = default)
 	{
-		ChartReadingSession session  = new(new() { Instruments = components }, config, formatting);
+		ChartReadingSession session  = new(new() { Instruments = components }, config);
 		using ChartFileReader reader = new(source, session);
 
 		reader.Read();
 		return CreateInstrumentSetFromReader(reader);
 	}
 
+	/// <summary>
+	/// Reads a set of <see cref="Instrument"/> from a chart target asynchronously.
+	/// </summary>
+	/// <param name="source">File path or stream to read from</param>
+	/// <param name="components">Instruments to read</param>
+	/// <param name="config">Optional read config</param>
+	/// <param name="cancellationToken">Token used for cancellation</param>
+	/// <remarks>Uses multi-threading to parse tracks.</remarks>
 	public static async Task<InstrumentSet> ReadInstrumentsAsync(
-		ReadingDataSource source, InstrumentComponentList components, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
+		ReadingDataSource source, InstrumentComponentList components, ChartReadingConfiguration? config = default, CancellationToken cancellationToken = default)
 	{
-		ChartReadingSession session  = new(new() { Instruments = components }, config, formatting);
+		ChartReadingSession session  = new(new() { Instruments = components }, config);
 		using ChartFileReader reader = new(source, session);
 
 		await reader.ReadAsync(cancellationToken).ConfigureAwait(false);
@@ -175,11 +216,14 @@ public static class ChartFile
 
 	#region Metadata
 	/// <summary>
-	/// Reads metadata from a chart file.
+	/// Reads the <see cref="Metadata"/> from a chart target.
 	/// </summary>
+	/// <param name="source">File path or stream to read from</param>
+	/// <param name="existing"><see cref="Metadata"/> from another target to combine with</param>
+	/// <returns><see cref="Metadata"/> object provided as the <paramref name="existing"/> parameter, or a new instance if passed <see langword="null"/>.</returns>
 	public static Metadata ReadMetadata(ReadingDataSource source, Metadata? existing = null)
 	{
-		ChartReadingSession session  = new(new() { Metadata = true }, DefaultReadConfig, null);
+		ChartReadingSession session  = new(new() { Metadata = true }, DefaultReadConfig);
 		using ChartFileReader reader = new(source, session);
 
 		reader.ExistingMetadata = existing;
@@ -187,32 +231,48 @@ public static class ChartFile
 		return reader.Parsers.TryGetFirstOfType(out MetadataParser? parser) ? parser!.Result : new();
 	}
 
+	/// <summary>
+	/// Reads the <see cref="Metadata"/> from a chart target asynchronously.
+	/// </summary>
+	/// <param name="source">File path or stream to read from</param>
+	/// <param name="existing"><see cref="Metadata"/> from another target to combine with</param>
+	/// <param name="cancellationToken">Token to request cancellation</param>
+	/// <returns><see cref="Metadata"/> object provided as the <paramref name="existing"/> parameter, or a new instance if passed <see langword="null"/>.</returns>
 	public static async Task<Metadata> ReadMetadataAsync(
 		ReadingDataSource source, Metadata? existing = null, CancellationToken cancellationToken = default)
 	{
-		ChartReadingSession session  = new(new() { Metadata = true }, DefaultReadConfig, null);
+		ChartReadingSession session  = new(new() { Metadata = true }, DefaultReadConfig);
 		using ChartFileReader reader = new(source, session);
 
-		await reader.ReadAsync(cancellationToken).ConfigureAwait(false);
 		reader.ExistingMetadata = existing;
+		await reader.ReadAsync(cancellationToken).ConfigureAwait(false);
 		return reader.Parsers.TryGetFirstOfType(out MetadataParser? parser) ? parser!.Result : new();
 	}
 	#endregion
 
 	#region Global events
+	/// <summary>
+	/// Reads the set of <see cref="GlobalEvent"/> from a chart target.
+	/// </summary>
+	/// <param name="source">File path or stream to read from</param>
 	public static List<GlobalEvent> ReadGlobalEvents(ReadingDataSource source)
 	{
-		ChartReadingSession session  = new(new() { GlobalEvents = true }, DefaultReadConfig, null);
+		ChartReadingSession session  = new(new() { GlobalEvents = true }, DefaultReadConfig);
 		using ChartFileReader reader = new(source, session);
 
 		reader.Read();
 		return reader.Parsers.TryGetFirstOfType(out GlobalEventParser? parser) ? parser!.Result : [];
 	}
 
+	/// <summary>
+	/// Reads the set of <see cref="GlobalEvent"/> from a chart target asynchronously.
+	/// </summary>
+	/// <param name="source">File path or stream to read from</param>
+	/// <param name="cancellationToken">Token used for cancellation</param>
 	public static async Task<List<GlobalEvent>> ReadGlobalEventsAsync(
 		ReadingDataSource source, CancellationToken cancellationToken = default)
 	{
-		ChartReadingSession session  = new(new() { GlobalEvents = true }, DefaultReadConfig, null);
+		ChartReadingSession session  = new(new() { GlobalEvents = true }, DefaultReadConfig);
 		using ChartFileReader reader = new(source, session);
 
 		await reader.ReadAsync(cancellationToken);
@@ -221,12 +281,21 @@ public static class ChartFile
 	#endregion
 
 	#region Vocals
+	/// <summary>
+	/// Reads the <see cref="StandardVocalsTrack"/> from a chart target.
+	/// </summary>
+	/// <param name="source">File path or stream to read from</param>
 	public static StandardVocalsTrack ReadVocals(ReadingDataSource source)
 	{
 		ReadGlobalEvents(source).GetLyrics(out IList<PhraseMarker>? phrases, out IList<VocalsNote>? notes);
 		return new(phrases, notes);
 	}
 
+	/// <summary>
+	/// Reads the <see cref="StandardVocalsTrack"/> from a chart target asynchronously.
+	/// </summary>
+	/// <param name="source">File path or stream to read from</param>
+	/// <param name="cancellationToken">Token used for cancellation</param>
 	public static async Task<StandardVocalsTrack> ReadVocalsAsync(
 		ReadingDataSource source, CancellationToken cancellationToken = default)
 	{
@@ -236,21 +305,30 @@ public static class ChartFile
 	#endregion
 
 	#region Sync track
-
-
+	/// <summary>
+	/// Reads the <see cref="SyncTrack"/> from a chart target.
+	/// </summary>
+	/// <param name="source">File path or stream to read from</param>
+	/// <param name="config">Optional read config</param>
 	public static SyncTrack ReadSyncTrack(ReadingDataSource source, ChartReadingConfiguration? config = default)
 	{
-		ChartReadingSession session  = new(new() { SyncTrack = true }, config, null);
+		ChartReadingSession session  = new(new() { SyncTrack = true }, config);
 		using ChartFileReader reader = new(source, session);
 
 		reader.Read();
 		return reader.Parsers.TryGetFirstOfType(out SyncTrackParser? syncTrackParser) ? syncTrackParser!.Result : new();
 	}
 
+	/// <summary>
+	/// Reads the <see cref="SyncTrack"/> from a chart target asynchronously.
+	/// </summary>
+	/// <param name="source">File path or stream to read from</param>
+	/// <param name="config">Optional read config</param>
+	/// <param name="cancellationToken">Token used for cancellation</param>
 	public static async Task<SyncTrack> ReadSyncTrackAsync(
 		ReadingDataSource source, ChartReadingConfiguration? config = default, CancellationToken cancellationToken = default)
 	{
-		ChartReadingSession session  = new(new() { SyncTrack = true }, config, null);
+		ChartReadingSession session  = new(new() { SyncTrack = true }, config);
 		using ChartFileReader reader = new(source, session);
 
 		await reader.ReadAsync(cancellationToken);
@@ -261,7 +339,7 @@ public static class ChartFile
 
 	#region Writing
 	private static void FillInstrumentsWriterData(
-		InstrumentSet set, InstrumentComponentList components, ChartWritingSession session, List<Serializer<string>> serializers, List<string> removedHeaders)
+		InstrumentSet set, InstrumentComponentList components, ChartWritingSession session, ICollection<Serializer<string>> serializers, ICollection<string> removedHeaders)
 	{
 		foreach (InstrumentIdentity identity in
 			EnumCache<StandardInstrumentIdentity>.Values.Cast<InstrumentIdentity>()
@@ -332,26 +410,26 @@ public static class ChartFile
 	}
 
 	/// <summary>
-	/// Writes a song to a chart target.
+	/// Writes a <see cref="Song"/> to a chart target.
 	/// </summary>
-    /// <param name="source">File path or stream to write to</param>
+	/// <param name="source">File path or stream to write to</param>
 	/// <param name="song">Song to write</param>
-    /// <param name="config">Optional write configuration</param>
+	/// <param name="config">Optional write configuration</param>
 	public static void WriteSong(WritingDataSource source, Song song, ChartWritingConfiguration? config = default)
 	{
 		using ChartFileWriter writer = GetSongWriter(source, song, ComponentList.Full(), new(config, song.Metadata?.Formatting));
 		writer.Write();
 	}
 
-    /// <summary>
-    /// Writes a song to a chart target asynchronously.
-    /// </summary>
-    /// <param name="source">File path or stream to write to</param>
-    /// <param name="song">Song to write</param>
-    /// <param name="config">Optional write configuration</param>
-    /// <param name="cancellationToken">Token to request cancellation</param>
-    /// <remarks>Uses multi-threading to serialize song components.</remarks>
-    public static async Task WriteSongAsync(
+	/// <summary>
+	/// Writes a <see cref="Song"/> to a chart target asynchronously.
+	/// </summary>
+	/// <param name="source">File path or stream to write to</param>
+	/// <param name="song">Song to write</param>
+	/// <param name="config">Optional write configuration</param>
+	/// <param name="cancellationToken">Token to request cancellation</param>
+	/// <remarks>Uses multi-threading to serialize song components.</remarks>
+	public static async Task WriteSongAsync(
 		WritingDataSource source, Song song, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default)
 	{
 		using ChartFileWriter writer = GetSongWriter(source, song, ComponentList.Full(), new(config, song.Metadata?.Formatting));
@@ -360,6 +438,13 @@ public static class ChartFile
 	#endregion
 
 	#region Components
+	/// <summary>
+	/// Replaces a set of <see cref="Song"/> components in a chart target.
+	/// </summary>
+	/// <param name="source">File path or stream to write to</param>
+	/// <param name="song">Song data to write</param>
+	/// <param name="components">Set of components to replace</param>
+	/// <param name="config">Optional write config</param>
 	public static void ReplaceComponents(
 		WritingDataSource source, Song song, ComponentList components, ChartWritingConfiguration? config = default)
 	{
@@ -367,6 +452,15 @@ public static class ChartFile
 		writer.Write();
 	}
 
+	/// <summary>
+	/// Replaces a set of <see cref="Song"/> components in a chart target asynchronously.
+	/// </summary>
+	/// <param name="source">File path or stream to write to</param>
+	/// <param name="song">Song data to write</param>
+	/// <param name="components">Set of components to replace</param>
+	/// <param name="config">Optional write config</param>
+	/// <param name="cancellationToken">Token used for cancellation</param>
+	/// <remarks>Uses multi-threading to serialize song components.</remarks>
 	public static async Task ReplaceComponentsAsync(
 		WritingDataSource source, Song song, ComponentList components, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default)
 	{
@@ -387,6 +481,14 @@ public static class ChartFile
 		return new(source, removedHeaders, [.. serializers]);
 	}
 
+	/// <summary>
+	/// Replaces a set of instruments in a chart target.
+	/// </summary>
+	/// <param name="source">File path or stream to write to</param>
+	/// <param name="set">Instrument data to write</param>
+	/// <param name="components">Set of instruments and tracks to replace</param>
+	/// <param name="config">Optional write config</param>
+	/// <param name="formatting">Formatting to apply</param>
 	public static void ReplaceInstruments(
 		WritingDataSource source, InstrumentSet set, InstrumentComponentList components, ChartWritingConfiguration? config = default, FormattingRules? formatting = default)
 	{
@@ -394,6 +496,15 @@ public static class ChartFile
 		writer.Write();
 	}
 
+	/// <summary>
+	/// Replaces a set of instruments in a chart target asynchronously.
+	/// </summary>
+	/// <param name="source">File path or stream to write to</param>
+	/// <param name="set">Instrument data to write</param>
+	/// <param name="components">Set of instruments and tracks to replace</param>
+	/// <param name="config">Optional write config</param>
+	/// <param name="formatting">Formatting to apply</param>
+	/// <param name="cancellationToken">Token used for cancellation</param>
 	public static async Task ReplaceInstrumentsAsync(
 		WritingDataSource source, InstrumentSet set, InstrumentComponentList components, ChartWritingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
 	{
@@ -407,8 +518,9 @@ public static class ChartFile
 		=> new(source, null, new MetadataSerializer(metadata));
 
 	/// <summary>
-	/// Replaces the metadata in a file.
+	/// Replaces the <see cref="Metadata"/> in a chart target.
 	/// </summary>
+	/// <param name="source">File path or stream to write to</param>
 	/// <param name="metadata">Metadata to write</param>
 	public static void ReplaceMetadata(WritingDataSource source, Metadata metadata)
 	{
@@ -416,6 +528,12 @@ public static class ChartFile
 		writer.Write();
 	}
 
+	/// <summary>
+	/// Replaces the <see cref="Metadata"/> in a chart target asynchronously.
+	/// </summary>
+	/// <param name="source">File path or stream to write to</param>
+	/// <param name="metadata">Metadata to write</param>
+	/// <param name="cancellationToken">Token used for cancellation</param>
 	public static async Task ReplaceMetadataAsync(
 		WritingDataSource source, Metadata metadata, CancellationToken cancellationToken = default)
 	{
@@ -430,9 +548,9 @@ public static class ChartFile
 		=> new(source, null, new GlobalEventSerializer(events, session));
 
 	/// <summary>
-	/// Replaces the global events in a file.
+	/// Replaces the set of <see cref="GlobalEvent"/> in a chart target.
 	/// </summary>
-	/// <param name="source">Path of the file to write</param>
+	/// <param name="source">File path or stream to write to</param>
 	/// <param name="events">Events to use as a replacement</param>
 	public static void ReplaceGlobalEvents(WritingDataSource source, IEnumerable<GlobalEvent> events)
 	{
@@ -440,6 +558,12 @@ public static class ChartFile
 		writer.Write();
 	}
 
+	/// <summary>
+	/// Replaces the set of <see cref="GlobalEvent"/> in a chart target asynchronously.
+	/// </summary>
+	/// <param name="source">File path or stream to write to</param>
+	/// <param name="events">Events to use as a replacement</param>
+	/// <param name="cancellationToken">Token used for cancellation</param>
 	public static async Task ReplaceGlobalEventsAsync(
 		WritingDataSource source, IEnumerable<GlobalEvent> events, CancellationToken cancellationToken = default)
 	{
@@ -452,11 +576,11 @@ public static class ChartFile
 		=> new(source, null, new SyncTrackSerializer(syncTrack, session));
 
 	/// <summary>
-	/// Replaces the sync track in a file.
+	/// Replaces the sync track in a chart target.
 	/// </summary>
-	/// <param name="source">Path of the file to write</param>
+	/// <param name="source">File path or stream to write to</param>
 	/// <param name="syncTrack">Sync track to write</param>
-	/// <param name="config"><inheritdoc cref="ReadingConfiguration" path="/summary"/></param>
+	/// <param name="config">Optional write configuration</param>
 	public static void ReplaceSyncTrack(
 		WritingDataSource source, SyncTrack syncTrack, ChartWritingConfiguration? config = default)
 	{
@@ -464,6 +588,13 @@ public static class ChartFile
 		writer.Write();
 	}
 
+	/// <summary>
+	/// Replaces the sync track in a chart target asynchronously.
+	/// </summary>
+	/// <param name="source">File path or stream to write to</param>
+	/// <param name="syncTrack">Sync track to write</param>
+	/// <param name="config">Optional write configuration</param>
+	/// <param name="cancellationToken">Token used for cancellation</param>
 	public static async Task ReplaceSyncTrackAsync(
 		WritingDataSource source, SyncTrack syncTrack, ChartWritingConfiguration? config = default, CancellationToken cancellationToken = default)
 	{

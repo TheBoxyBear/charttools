@@ -8,6 +8,7 @@
 /// <param name="denominator">Value of <see cref="Denominator"/></param>
 public class TimeSignature(uint position, byte numerator, byte denominator) : ITrackObject
 {
+	/// <inheritdoc cref="ITrackObject.Position"/>"
 	public uint Position { get; set; } = position;
 
 	/// <summary>

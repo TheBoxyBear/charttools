@@ -1,6 +1,4 @@
-﻿using ChartTools.Extensions.Linq;
-
-using System.Collections;
+﻿using System.Collections;
 
 namespace ChartTools.Extensions.Collections.Alternating;
 
@@ -62,8 +60,8 @@ public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey :
 		/// <inheritdoc/>
 		public bool Initialized { get; private set; }
 
-        /// Currently alternated item following a <see cref="MoveNext"/> call
-        public T Current { get; private set; }
+		/// Currently alternated item following a <see cref="MoveNext"/> call
+		public T Current { get; private set; }
 
 		/// <inheritdoc/>
 		object? IEnumerator.Current => Current;

@@ -105,5 +105,6 @@ internal abstract class TextFileReader(ReadingDataSource source) : FileReader<st
 	}
 
 	protected abstract bool IsSectionStart(string line);
+
 	protected virtual bool IsSectionEnd(string line) => false;
 }

@@ -41,7 +41,7 @@ public static class EnumerableExtensions
 	/// <param name="predicate">Method that returns <see langword="true"/> if a given item meets the condition</param>
 	/// <param name="item">Found item</param>
 	/// <returns><see langword="true"/> if an item was found</returns>
-	public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, [MaybeNullWhen(false)] out T? item)
+	public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, [MaybeNullWhen(false)] out T item)
 	{
 		ArgumentNullException.ThrowIfNull(predicate);
 

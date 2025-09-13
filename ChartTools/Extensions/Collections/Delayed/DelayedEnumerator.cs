@@ -32,5 +32,5 @@ internal class DelayedEnumerator<T>(DelayedEnumerableSource<T> source) : IEnumer
 
 	void IEnumerator.Reset() => throw new InvalidOperationException();
 
-    void IDisposable.Dispose() { }
+	void IDisposable.Dispose() { }
 }

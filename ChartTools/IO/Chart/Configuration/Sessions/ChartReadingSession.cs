@@ -1,11 +1,9 @@
 ﻿using ChartTools.IO.Components;
 using ChartTools.IO.Configuration;
-using ChartTools.IO.Formatting;
 
 namespace ChartTools.IO.Chart.Configuration.Sessions;
 
-internal class ChartReadingSession(ComponentList components, ChartReadingConfiguration? config, FormattingRules? formatting)
-	: ChartSession(formatting)
+internal class ChartReadingSession(ComponentList components, ChartReadingConfiguration? config) : ChartSession(null)
 {
 	public ComponentList Components { get; set; } = components;
 

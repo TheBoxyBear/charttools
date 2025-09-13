@@ -118,7 +118,7 @@ public class Metadata
 	/// Overall difficulty of the song
 	/// </summary>
 	[ChartKeySerializable(ChartFormatting.Difficulty)]
-	[IniKeySerializable(IniFormatting.Difficulty)]
+	[IniKeySerializable(IniFormatting.Difficulties.Global)]
 	public sbyte? Difficulty { get; set; }
 
 	/// <inheritdoc cref="InstrumentDifficultySet"/>
@@ -192,17 +192,16 @@ public class Metadata
 		new(new FuncEqualityComparer<UnidentifiedMetadata>((a, b) => a.Key == b.Key && a.Origin == b.Origin));
 	#endregion
 
+	/// <summary>
+	/// Appends the metadata from another file.
+	/// </summary>
+	/// <param name="path">Path of the file to read</param>
 	public void ReadFile(string path) => Read(path, this);
 
 	/// <summary>
-	/// Reads the metadata from a file.
+	/// Reads the <see cref="Metadata"/> from a file.
 	/// </summary>
 	/// <param name="path">Path of the file to read</param>
-	/// <exception cref="ArgumentException"/>
-	/// <exception cref="ArgumentNullException"/>
-	/// <exception cref="FormatException"/>
-	/// <exception cref="LineException"/>
-	/// <exception cref="OutOfMemoryException"/>
 	public static Metadata FromFile(string path) => Read(path);
 
 	private static Metadata Read(string path, Metadata? existing = null)
@@ -210,16 +209,11 @@ public class Metadata
 			(".chart", p => ChartFile.ReadMetadata(p)),
 			(".ini", path => IniFile.ReadMetadata(path, existing)));
 
-	/// <summary>S
-	/// Reads the metadata from multiple files.
+	/// <summary>
+	/// Reads the <see cref="Metadata"/> from multiple files.
 	/// </summary>
 	/// <remarks>Each file has less priority than the preceding.</remarks>
 	/// <param name="paths">Paths of the files to read</param>
-	/// <exception cref="ArgumentException"/>
-	/// <exception cref="ArgumentNullException"/>
-	/// <exception cref="FormatException"/>
-	/// <exception cref="System.IO.IOException"/>
-	/// <exception cref="OutOfMemoryException"/>
 	public static Metadata? FromFiles(params ReadOnlySpan<string> paths)
 	{
 		// No files provided
@@ -234,6 +228,12 @@ public class Metadata
 		return data;
 	}
 
+	/// <summary>
+	/// Writes the <see cref="Metadata"/> to a file.
+	/// </summary>
+	/// <param name="path">Path of the file to write</param>
 	public void ToFile(string path)
-		=> ExtensionHandler.Write(path, this, (".ini", (p, m) => IniFile.WriteMetadata(p, m)));
+		=> ExtensionHandler.Write(path, this,
+			(".chart", (p, m) => ChartFile.ReplaceMetadata(p, m)),
+			(".ini", (p, m) => IniFile.WriteMetadata(p, m)));
 }
