@@ -9,8 +9,16 @@ namespace ChartTools.IO.Chart.Configuration;
 public record ChartReadingConfiguration : CommonChartConfiguration, ICommonReadingConfiguration
 {
 	/// <inheritdoc cref="IO.Configuration.TempolessAnchorPolicy"/>
-	public required TempolessAnchorPolicy TempolessAnchorPolicy { get; init; }
+	public TempolessAnchorPolicy TempolessAnchorPolicy { get; init; } = ChartFile.DefaultReadConfig.TempolessAnchorPolicy;
 
 	/// <inheritdoc cref="IO.Configuration.UnknownSectionPolicy"/>/>
-	public required UnknownSectionPolicy UnknownSectionPolicy { get; init; }
+	public UnknownSectionPolicy UnknownSectionPolicy { get; init; } = ChartFile.DefaultReadConfig.UnknownSectionPolicy;
+
+	public ChartReadingConfiguration()
+	{
+        DuplicateTrackObjectPolicy = ChartFile.DefaultReadConfig.DuplicateTrackObjectPolicy;
+        OverlappingStarPowerPolicy = ChartFile.DefaultReadConfig.OverlappingStarPowerPolicy;
+        SnappedNotesPolicy = ChartFile.DefaultReadConfig.SnappedNotesPolicy;
+        SoloNoStarPowerPolicy = ChartFile.DefaultReadConfig.SoloNoStarPowerPolicy;
+    }
 }
