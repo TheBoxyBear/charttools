@@ -41,7 +41,7 @@ internal static class ChartFormatting
 		new Dictionary<InstrumentIdentity, string>()
 	{
 		{ InstrumentIdentity.Drums,                DrumsHeaderName },
-		{ InstrumentIdentity.GHLGuitar,            "GHLGuitar"     },
+		{ InstrumentIdentity.GHLLeadGuitar,        "GHLGuitar"     },
 		{ InstrumentIdentity.GHLBass,              "GHLBass"       },
         { InstrumentIdentity.GHLRhythmGuitar,      "GHLRhythm"     },
         { InstrumentIdentity.GHLCoopGuitar,        "GHLCoop"       },

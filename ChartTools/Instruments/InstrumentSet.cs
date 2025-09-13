@@ -19,10 +19,10 @@ public class InstrumentSet : IEnumerable<Instrument>
 	/// </summary>
 	public GHLInstrument? GHLLeadGuitar
 	{
-		get => m_ghlLadGuitar;
-		set => m_ghlLadGuitar = value is null ? value : value with { InstrumentIdentity = GHLInstrumentIdentity.LeadGuitar };
+		get => m_ghlLeadGuitar;
+		set => m_ghlLeadGuitar = value is null ? value : value with { InstrumentIdentity = GHLInstrumentIdentity.LeadGuitar };
 	}
-	private GHLInstrument? m_ghlLadGuitar;
+	private GHLInstrument? m_ghlLeadGuitar;
 
 	/// <summary>
 	/// Set of Guitar Hero Live bass tracks
@@ -106,7 +106,7 @@ public class InstrumentSet : IEnumerable<Instrument>
 	public Instrument? Get(InstrumentIdentity instrument) => instrument switch
 	{
 		InstrumentIdentity.Drums                => Drums,
-		InstrumentIdentity.GHLGuitar            => GHLLeadGuitar,
+		InstrumentIdentity.GHLLeadGuitar        => GHLLeadGuitar,
 		InstrumentIdentity.GHLBass              => GHLBass,
 		InstrumentIdentity.GHLRhythmGuitar      => GHLRhythmGuitar,
 		InstrumentIdentity.GHLCoopGuitar        => GHLCoopGuitar,
@@ -149,7 +149,7 @@ public class InstrumentSet : IEnumerable<Instrument>
 			case InstrumentIdentity.Drums:
 				Drums = (Drums)instrument;
 				break;
-            // Instruments must be set by field as calling the setter replaces the record instance
+			// Instruments must be set by field as calling the setter replaces the record instance
 			case InstrumentIdentity.StandardLeadGuitar:
 				m_standardLeadGuitar = (StandardInstrument)instrument;
 				break;
@@ -165,8 +165,8 @@ public class InstrumentSet : IEnumerable<Instrument>
 			case InstrumentIdentity.StandardKeys:
 				m_standardKeys = (StandardInstrument)instrument;
 				break;
-			case InstrumentIdentity.GHLGuitar:
-				m_ghlGuitar = (GHLInstrument)instrument;
+			case InstrumentIdentity.GHLLeadGuitar:
+				m_ghlLeadGuitar = (GHLInstrument)instrument;
 				break;
 			case InstrumentIdentity.GHLBass:
 				m_ghlBass = (GHLInstrument)instrument;
@@ -182,7 +182,7 @@ public class InstrumentSet : IEnumerable<Instrument>
 		}
 	}
 
-    /// <inheritdoc cref="IEnumerable{Instrument}.GetEnumerator"/>
+	/// <inheritdoc cref="IEnumerable{Instrument}.GetEnumerator"/>
 	public IEnumerator<Instrument> GetEnumerator()
 		=> new Instrument?[]
 		{ Drums, GHLLeadGuitar, GHLBass, GHLRhythmGuitar, GHLCoopGuitar, StandardLeadGuitar, StandardRhythmGuitar, StandardCoopGuitar, StandardBass, StandardKeys }

@@ -47,7 +47,7 @@ public class Song
 	/// <param name="formatting"><inheritdoc cref="FormattingRules" path="/summary"/></param>
 	public static Song FromFile(string path, ReadingConfiguration? config = default, FormattingRules? formatting = default)
 		=> ExtensionHandler.Read(path,
-			(".chart", path => ChartFile.ReadSong(path, config?.Chart, formatting)),
+			(".chart", path => ChartFile.ReadSong(path, config?.Chart)),
 			(".ini", path => new Song { Metadata = IniFile.ReadMetadata(path) }));
 
 	/// <summary>
@@ -59,7 +59,7 @@ public class Song
 	/// <param name="cancellationToken">Token to request cancellation</param>
 	public static async Task<Song> FromFileAsync(string path, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
 		=> await ExtensionHandler.ReadAsync(path,
-			(".chart", path => ChartFile.ReadSongAsync(path, config, formatting, cancellationToken)))
+			(".chart", path => ChartFile.ReadSongAsync(path, config, cancellationToken)))
 		.ConfigureAwait(false);
 
 	public static Song FromDirectory(string directory, ReadingConfiguration? config = default)
