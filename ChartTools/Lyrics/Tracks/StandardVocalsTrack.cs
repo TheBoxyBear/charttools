@@ -1,6 +1,6 @@
 ﻿using ChartTools.Events;
 
-namespace ChartTools.Lyrics.Tracks;
+namespace ChartTools.Lyrics;
 
 public class StandardVocalsTrack(IList<PhraseMarker>? phrases = null, IList<VocalsNote>? notes = null) : VocalsTrack(phrases)
 {
