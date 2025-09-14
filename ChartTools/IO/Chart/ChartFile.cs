@@ -10,7 +10,6 @@ using ChartTools.IO.Configuration;
 using ChartTools.IO.Formatting;
 using ChartTools.IO.Sources;
 using ChartTools.Lyrics;
-using ChartTools.Lyrics.Tracks;
 
 namespace ChartTools.IO.Chart;
 
