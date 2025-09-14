@@ -1,6 +1,5 @@
 ﻿using ChartTools.Events;
 using ChartTools.Extensions.Linq;
-using ChartTools.Lyrics.Tracks;
 
 namespace ChartTools.Lyrics;
 
