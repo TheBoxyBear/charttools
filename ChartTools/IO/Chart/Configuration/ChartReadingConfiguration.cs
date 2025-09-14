@@ -9,16 +9,23 @@ namespace ChartTools.IO.Chart.Configuration;
 public record ChartReadingConfiguration : CommonChartConfiguration, ICommonReadingConfiguration
 {
 	/// <inheritdoc cref="IO.Configuration.TempolessAnchorPolicy"/>
-	public TempolessAnchorPolicy TempolessAnchorPolicy { get; init; } = ChartFile.DefaultReadConfig.TempolessAnchorPolicy;
+	public TempolessAnchorPolicy TempolessAnchorPolicy { get; init; }
 
 	/// <inheritdoc cref="IO.Configuration.UnknownSectionPolicy"/>/>
-	public UnknownSectionPolicy UnknownSectionPolicy { get; init; } = ChartFile.DefaultReadConfig.UnknownSectionPolicy;
+	public UnknownSectionPolicy UnknownSectionPolicy { get; init; }
 
-	public ChartReadingConfiguration()
+	public ChartReadingConfiguration() : this(true) { }
+
+	internal ChartReadingConfiguration(bool setDefaults)
 	{
-        DuplicateTrackObjectPolicy = ChartFile.DefaultReadConfig.DuplicateTrackObjectPolicy;
-        OverlappingStarPowerPolicy = ChartFile.DefaultReadConfig.OverlappingStarPowerPolicy;
-        SnappedNotesPolicy = ChartFile.DefaultReadConfig.SnappedNotesPolicy;
-        SoloNoStarPowerPolicy = ChartFile.DefaultReadConfig.SoloNoStarPowerPolicy;
-    }
+		if (setDefaults)
+		{
+            DuplicateTrackObjectPolicy = ChartFile.DefaultReadConfig.DuplicateTrackObjectPolicy;
+            OverlappingStarPowerPolicy = ChartFile.DefaultReadConfig.OverlappingStarPowerPolicy;
+            SnappedNotesPolicy         = ChartFile.DefaultReadConfig.SnappedNotesPolicy;
+            SoloNoStarPowerPolicy      = ChartFile.DefaultReadConfig.SoloNoStarPowerPolicy;
+			TempolessAnchorPolicy      = ChartFile.DefaultReadConfig.TempolessAnchorPolicy;
+			UnknownSectionPolicy       = ChartFile.DefaultReadConfig.UnknownSectionPolicy;
+        }
+	}
 }

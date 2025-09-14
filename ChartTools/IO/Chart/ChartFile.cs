@@ -22,7 +22,7 @@ public static class ChartFile
 	/// <summary>
 	/// Default configuration to use for reading when the provided configuration is <see langword="default"/>
 	/// </summary>
-	public static ChartReadingConfiguration DefaultReadConfig { get; set; } = new()
+	public static ChartReadingConfiguration DefaultReadConfig { get; set; } = new(false)
 	{
 		DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
 		OverlappingStarPowerPolicy = OverlappingSpecialPhrasePolicy.ThrowException,
@@ -35,7 +35,7 @@ public static class ChartFile
 	/// <summary>
 	/// Default configuration to use for writing when the provided configuration is <see langword="default"/>
 	/// </summary>
-	public static ChartWritingConfiguration DefaultWriteConfig { get; set; } = new()
+	public static ChartWritingConfiguration DefaultWriteConfig { get; set; } = new(false)
 	{
 		DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.ThrowException,
 		OverlappingStarPowerPolicy = OverlappingSpecialPhrasePolicy.ThrowException,
@@ -86,7 +86,6 @@ public static class ChartFile
 		reader.Read();
 		return CreateSongFromReader(reader);
 	}
-
 
 	/// <summary>
 	/// Reads a <see cref="Song"/> from a chart target asynchronously.

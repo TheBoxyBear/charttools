@@ -37,7 +37,7 @@ public class WritingDataSource : DataSource
 	/// </remarks>
 	public WritingDataSource(string path, ReadingDataSource? existing = null)
 		: base(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read)
-		=> Existing = existing;
+		=> Existing = existing; // TODO If the file exists and no existing is provided, use the path as existing
 
 	/// <summary>
 	/// Disposes the reading source if provided and stream if generated.
@@ -54,7 +54,6 @@ public class WritingDataSource : DataSource
 	/// <param name="stream">Stream to create from</param>
 	/// <inheritdoc cref="WritingDataSource(Stream, ReadingDataSource?)" path="/remarks"/>
 	public static implicit operator WritingDataSource(Stream stream) => new(stream, stream);
-
 
 	/// <summary>
 	/// Creates a <see cref="WritingDataSource"/> from a file path as a target and source of existing data.

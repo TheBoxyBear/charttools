@@ -5,13 +5,18 @@ namespace ChartTools.IO.Chart.Configuration;
 
 public record ChartWritingConfiguration : CommonChartConfiguration, ICommonWritingConfiguration
 {
-	public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; } = ChartFile.DefaultWriteConfig.UnsupportedModifierPolicy;
+	public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }
+    public ChartWritingConfiguration() : this(true) { }
 
-    ChartWritingConfiguration()
+    internal ChartWritingConfiguration(bool setDefaults)
     {
-        DuplicateTrackObjectPolicy = ChartFile.DefaultWriteConfig.DuplicateTrackObjectPolicy;
-        OverlappingStarPowerPolicy = ChartFile.DefaultWriteConfig.OverlappingStarPowerPolicy;
-        SnappedNotesPolicy         = ChartFile.DefaultWriteConfig.SnappedNotesPolicy;
-        SoloNoStarPowerPolicy      = ChartFile.DefaultWriteConfig.SoloNoStarPowerPolicy;
+        if (setDefaults)
+        {
+            UnsupportedModifierPolicy  = ChartFile.DefaultWriteConfig.UnsupportedModifierPolicy;
+            DuplicateTrackObjectPolicy = ChartFile.DefaultWriteConfig.DuplicateTrackObjectPolicy;
+            OverlappingStarPowerPolicy = ChartFile.DefaultWriteConfig.OverlappingStarPowerPolicy;
+            SnappedNotesPolicy         = ChartFile.DefaultWriteConfig.SnappedNotesPolicy;
+            SoloNoStarPowerPolicy      = ChartFile.DefaultWriteConfig.SoloNoStarPowerPolicy;
+        }
     }
 }
