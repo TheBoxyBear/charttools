@@ -8,8 +8,6 @@ using ChartTools.IO.Ini;
 using ChartTools.Lyrics;
 using ChartTools.Tools;
 
-using System.Reflection.Metadata.Ecma335;
-
 namespace ChartTools;
 
 /// <summary>
