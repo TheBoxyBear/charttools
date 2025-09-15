@@ -14,13 +14,13 @@ For documentation on the formats themselves, refer to the [GuitarGame_ChartForma
 ## Working with charts
 
 ### Song
-Every component of a chart is stored in an instance of the [Song](~/api/ChartTools.Song.yml) class. It can be initialized by reading a file that will be parsed based on the extension.
+Every component of a chart is stored in an instance of the [Song](~/api/ChartTools.Song) class. It can be initialized by reading a file that will be parsed based on the extension.
 
 ```csharp
 Song song = Song.FromFile(path);
 ```
 
-A configuration object may also be used to customize the error handling behavior. [Learn more about configuring IO operations](configuration.md).
+A configuration object may also be used to customize the error handling behavior. [Learn more about configuring IO operations](~/articles/configuration).
 
 ```csharp
 Song song = Song.FromFile(path, new ReadingConfiguration());
@@ -41,20 +41,18 @@ Song song = Song.FromDirectory(path, <ReadingConfiguration>);
 
 A song contains four main components:
 
-- [Metadata](~/api/ChartTools.Metadata.yml) - Miscellaneous info about the song, such as title, album, charter etc.
-- [Sync track](~/api/ChartTools.SyncTrack.yml) - Markers that define time signature and tempo
-- [Global events](events.md) - Events not tied to an instrument or track
-- [Instruments](~/api/ChartTools.InstrumentSet.yml) - Instruments, tracks and notes
-- [Vocals](~/api/ChartTools.Lyrics.Vocals.yml) - Vocals notes paired with lyric text
-
-Components can be read and replaced individually. [Lean more TODO](TODO)
+- [Metadata](~/api/ChartTools.Metadata) - Miscellaneous info about the song, such as title, album, charter etc.
+- [Sync track](~/api/ChartTools.SyncTrack) - Markers that define time signature and tempo
+- [Global events](~/articles/events.md) - Events not tied to an instrument or track
+- [Instruments](~/api/ChartTools.InstrumentSet) - Instruments, tracks and notes
+- [Vocals](~/api/ChartTools.Lyrics.Vocals) - Vocals notes paired with lyric text
 
 > [!NOTE]
 > Although vocals are typically considered as an instrument, their rules and data representations are inheritly different than other instruments. Therefore, ChartTools considers vocals as a distinct component.
 
 
 ### Metadata
-Similar to reading a song, metadata is can be read from a file:
+Similar to reading a song, [Metadata](~/api/ChartTools.Metadata) can be read from a file:
 
 ```csharp
 Metadata metadata = Metadata.FromFile(path);
@@ -70,7 +68,7 @@ Metadata metadata = Metadata.FromFiles(path1, path2, path3, ...);
 
 When reading from multiple files, you can mix file types, and the priority of information is defined by the order of the paths in the call.
 
-As a future-proofing method, all unsupported items can be found under [UnidentifiedData](~/api/ChartTools.Metadata.yml#ChartTools_Metadata_UnidentifiedData). This data will only be written to the same file format as the one it was read from. This member should be used with caution, as keys which become mapped to properties in future versions of ChartTools will not appear in the set which would appear as the value being missing. [A new metadata mapping system is being considered.](https://github.com/TheBoxyBear/charttools/discussions/95)
+As a future-proofing method, all unsupported items can be found under [UnidentifiedData](~/api/ChartTools.Metadata#ChartTools_Metadata_UnidentifiedData). This data will only be written to the same file format as the one it was read from. This member should be used with caution, as keys which become mapped to properties in future versions of ChartTools will not appear in the set which would appear as the value being missing. [A new metadata mapping system is being considered.](https://github.com/TheBoxyBear/charttools/discussions/95)
 
 ### Instruments and Tracks
 An instrument is a collection of tracks, each representing a difficulty level. ChartTools currently supports the following instruments:
@@ -87,7 +85,7 @@ An instrument is a collection of tracks, each representing a difficulty level. C
 - Guitar Hero Live bass
 
 > [!NOTE]
-> ChartTools also supports vocals, but does not consider them as an instrument. [Learn more about vocals](~/articles/vocals.md).
+> ChartTools also supports vocals, but does not consider them as an instrument. [Learn more about vocals](~/articles/vocals).
 
 A track can be retrieved from a song as such:
 
@@ -95,7 +93,7 @@ A track can be retrieved from a song as such:
 Track<StandardChord> track = song.Instruments.StandardLeadGuitar.Expert;
 ```
 
-Notice the use of [StandardChord](~/api/ChartTools.StandardChord.yml) as a generic type. Instruments are divided into four categories based on the type of chords they use. These categories are:
+Notice the use of [StandardChord](~/api/ChartTools.StandardChord) as a generic type. Instruments are divided into four categories based on the type of chords they use. These categories are:
 
 - Standard - Five colored notes
 - Drums - Five colored notes with support for double kick and cymbal flags
@@ -110,7 +108,7 @@ A track is composed of three components:
 Instruments can also be obtained dynamically from a song, regardless of the type. [Learn more about the dynamic syntax](dynamic-syntax.md).
 
 ### Chords and Notes
-A chord is a set of notes played at the same time. For readability, most chords and notes have specific classes for each instrument type, deriving from [LaneChord<TNote, TLane, TModifiers>](~/api/ChartTools.LaneChord-3.yml) and [LaneNode\<TLane\>](~/api/ChartTools.LaneNote-1.yml).
+A chord is a set of notes played at the same time. For readability, most chords and notes have specific classes for each instrument type, deriving from [Chord<TNote, TLane, TModifiers>](~/api/ChartTools.Chord-3) and [LaneNode\<TLane\>](~/api/ChartTools.LaneNote-1).
 
 The following snippet adds an orange note to every chord on a track:
 
@@ -124,7 +122,7 @@ foreach (StandardChord chord in song.Instruments.StandardLeadGuitar.Expert)
 ```
 
 ## Tools
-As the name suggests, *ChartTools* also provides various tools to help fix and optimize songs. [Learn more](tools.md).
+As the name suggests, *ChartTools* also provides various tools to help fix and optimize songs. [Learn more](~/articles/tools).
 
 ## Writing files
 Finally, changes can be saved to a file, with the format determined by the file extension.

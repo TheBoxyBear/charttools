@@ -6,7 +6,7 @@ If you find any bugs, you can report them in the [Issues section](https://github
 As this project is in development, it should only be used with charts with a backup available. **I am not responsible for damages to charts!**
 
 ## Getting Started
-For an overview on installation and taking your first steps with ChartTools, see [Articles](articles/getting-started.md). A GitHub Pages website is available with detailed articles and API documentation.
+For an overview on installation and taking your first steps with ChartTools, see [Articles](~/articles/getting-started). A GitHub Pages website is available with detailed articles and API documentation.
 
 ## Contributing
 If you like to contribute to the development of ChartTools, feel free to comment on an issue, submit a pull request or submit your own issues.

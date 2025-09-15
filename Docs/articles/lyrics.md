@@ -4,7 +4,7 @@ ChartTools supports lyrics in the form of the [Vocals](~/api/ChartTools.Lyrics.V
 ## Vocals notes
 Unlike other note types, vocals notes are defined by a position, pitch, and length.
 
-Notes support the pitches in the range C2 to C6, represented by the [VocalPitchValue](~/api/ChartTools.Lyrics.VocalPitchValue.yml) enum. The enum uses a binary representation to isolate keys and octaves while staying true to music theory when comparing values.
+Notes support the pitches in the range C2 to C6, represented by the [VocalsPitchValue](~/api/ChartTools.Lyrics.VocalsPitchValue) enum. The enum uses a binary representation to isolate keys and octaves while staying true to music theory when comparing values.
 
 ```csharp
 using System.Diagnostics;
@@ -15,7 +15,7 @@ Debug.Assert(VocalsPitchValue.C2 < VocalsPitchValue.D2);
 Debug.Assert(VocalsPitchValue.CSharp2 == VocalsPitchValue.Db2);
 ```
 
-To help work with the large range of possible pitches, ChartTools provides the [VocalsPitch](~/api/ChartTools.Lyrics.VocalsPitch.yml) weapper struct, which provides helper properties for the key and octave. This struct is fully interchangable with the enum.
+To help work with the large range of possible pitches, ChartTools provides the [VocalsPitch](~/api/ChartTools.Lyrics.VocalsPitch) weapper struct, which provides helper properties for the key and octave. This struct is fully interchangable with the enum.
 
 ```csharp
 using System.Diagnostics;
@@ -42,7 +42,7 @@ VocalsPitchValue value = pitch;
 > ```
 
 ## Lyrics in chart files
-As the `.chart` format does not formaly support playable vocals, lyrics are represented trough [global events](~/articles/events.md) rather than notes. When reading from a `.chart` file, lyric data will only be read if either the [GlobalEvents](~/api/ChartTools.Components.ComponentList.yml#ChartTools_IO_Components_InstrumentComponentList_GlobalEvents) or [Vocals](~/api/ChartTools.Components.ComponentList.yml#ChartTools_IO_Components_InstrumentComponentList_Vocals) component is enabled, after which the data will be stored in the corresponding location(s) in the song object. If accessed through vocals, notes will have the special pitch value of [None](~/api/ChartTools.Lyrics.VocalsPitchValue.yml#ChartTools_Lyrics_VocalsPitchValue_None), as global events do not define pitch.
+As the `.chart` format does not formaly support playable vocals, lyrics are represented trough [global events](~/articles/events) rather than notes. When reading from a `.chart` file, lyric data will only be read if either the [GlobalEvents](~/api/ChartTools.IO.Components.ComponentList#ChartTools_IO_Components_ComponentList_GlobalEvents) or [Vocals](~/api/ChartTools.IO.Components.ComponentList#ChartTools_IO_Components_ComponentList_Vocals) component is enabled, after which the data will be stored in the corresponding location(s) in the song object. If accessed through vocals, notes will have the special pitch value of [None](~/api/ChartTools.Lyrics.VocalsPitchValue.yml#ChartTools_Lyrics_VocalsPitchValue_None), as global events do not define pitch.
 
 Lyrics can also be converted to and from global events.
 
@@ -62,7 +62,7 @@ events = [..track.ToGlobalEvents()];
 > When writing to a `.chart` file with both components enabled, any global event related to lyrics will be removed and replaced with the data from vocals.
 
 ## Phrases
-Because certain lyric tracks share [phrase markers](~/api/ChartTools.Vocals/PhraseMarker.yml), notes and phrase markers are stored as separate collections rather than grouping notes under phrases. To simplify working with lyrics, these collections can be promoted to a set of [phrases](~/api/ChartTools.Lyrics.Phrase.yml).
+Because certain lyric tracks share [phrase markers](~/api/ChartTools.Lyrics/PhraseMarker), notes and phrase markers are stored as separate collections rather than grouping notes under phrases. To simplify working with lyrics, these collections can be promoted to a set of [phrases](~/api/ChartTools.Lyrics.Phrase).
 
 The following snippet uses phrases to print the lyrics to a song:
 

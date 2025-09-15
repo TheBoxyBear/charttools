@@ -2,7 +2,7 @@
 
 Read and write operations in ChartTools feature customizable behavior for how they handle various error cases. These behaviors can be defines throguh the use of configuration objects.
 
-The following snippet uses a [ChartReadingConfiguration](~/api/ChartTools.IO.Configuration.Chart.ChartReadingConfiguration.yml) to only include the first of duplicate [track objects](~/api/ChartTools.ITrackObject.yml):
+The following snippet uses a [ChartReadingConfiguration](~/api/ChartTools.IO.Chart.Configuration.ChartReadingConfiguration) to only include the first of duplicate [track objects](~/api/ChartTools.ITrackObject):
 
 ```csharp
 using ChartTools.IO.Chart.Configuration;
