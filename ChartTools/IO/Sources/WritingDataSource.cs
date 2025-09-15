@@ -7,7 +7,7 @@
 public class WritingDataSource : DataSource
 {
 	/// <summary>
-	/// Source of existing data to combine during write operations.
+	/// Source of existing data to combine during write operations
 	/// </summary>
 	/// <remarks>Can point to the same file or share a <see cref="Stream"/> instance with the <see cref="WritingDataSource"/>.</remarks>
 	public ReadingDataSource? Existing { get; }
@@ -31,13 +31,17 @@ public class WritingDataSource : DataSource
 	/// Creates a <see cref="WritingDataSource"/> from a file path.
 	/// </summary>
 	/// <param name="path">Path of the file to source from</param>
+	/// <param name="existing"><inheritdoc cref="Existing" path="/summary"/>. If <see langword="null"/>, uses the writing path if the file already exists.</param>
 	/// <remarks>
 	/// <para>Initializes the stream as a <see cref="FileStream"/> with <see cref="FileAccess.Write"/> and <see cref="FileShare.Read"/>.</para>
 	/// <para>The stream is disposed when disposing the <see cref="WritingDataSource"/>.</para>
 	/// </remarks>
 	public WritingDataSource(string path, ReadingDataSource? existing = null)
 		: base(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read)
-		=> Existing = existing; // TODO If the file exists and no existing is provided, use the path as existing
+	{
+		Existing = existing is not null ? existing :
+			(File.Exists(path) ? new(path) : null);
+	}
 
 	/// <summary>
 	/// Disposes the reading source if provided and stream if generated.
