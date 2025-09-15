@@ -8,6 +8,8 @@ using ChartTools.IO.Ini;
 using ChartTools.Lyrics;
 using ChartTools.Tools;
 
+using System.Reflection.Metadata.Ecma335;
+
 namespace ChartTools;
 
 /// <summary>
@@ -63,7 +65,11 @@ public class Song
 	[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Formatting may be used in other file formats")]
 	public static async Task<Song> FromFileAsync(string path, ChartReadingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
 		=> await ExtensionHandler.ReadAsync(path,
-			(".chart", path => ChartFile.ReadSongAsync(path, config, cancellationToken)))
+			(".chart", path => ChartFile.ReadSongAsync(path, config, cancellationToken)),
+			(".ini", async path => new Song
+			{
+				Metadata = await IniFile.ReadMetadataAsync(path, null, cancellationToken).ConfigureAwait(false)
+			}))
 		.ConfigureAwait(false);
 
 	/// <summary>
@@ -73,8 +79,9 @@ public class Song
 	/// <param name="config">Optional read config</param>
 	public static Song FromDirectory(string directory, ReadingConfiguration? config = default)
 	{
-		(var song, var metadata) = DirectoryHandler.FromDirectory(directory,
+		(Song? song, Metadata? metadata) = DirectoryHandler.FromDirectory(directory,
 			(path, formatting) => FromFile(path, config, formatting));
+
 		song ??= new();
 
 		PropertyMerger.Merge(song.Metadata, true, true, metadata);
@@ -92,10 +99,11 @@ public class Song
 	public static async Task<Song> FromDirectoryAsync(
 		string directory, ReadingConfiguration? config = default, CancellationToken cancellationToken = default)
 	{
-		(var song, var metadata) = await DirectoryHandler.FromDirectoryAsync(directory, async
+		(Song? song, Metadata? metadata) = await DirectoryHandler.FromDirectoryAsync(directory, async
 			(path, formatting) => await FromFileAsync(path, config?.Chart, formatting, cancellationToken)
 			.ConfigureAwait(false), cancellationToken)
 			.ConfigureAwait(false);
+
 		song ??= new();
 
 		PropertyMerger.Merge(song.Metadata, true, true, metadata);
@@ -113,7 +121,12 @@ public class Song
 	[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Formatting may be used in other file formats")]
 	public void ToFile(string path, WritingConfiguration? config = default, FormattingRules? formatting = default)
 		=> ExtensionHandler.Write(path, this,
-			(".chart", (path, song) => ChartFile.WriteSong(path, song, config?.Chart)));
+			(".chart", (path, song) => ChartFile.WriteSong(path, song, config?.Chart)),
+			(".ini", (path, song) =>
+			{
+				if (song.Metadata is not null)
+					IniFile.WriteMetadata(path, song.Metadata);
+			}));
 
 	/// <summary>
 	/// Writes the <see cref="Song"/> to a file asynchronously.
@@ -126,6 +139,9 @@ public class Song
 	[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Formatting may be used in other file formats")]
 	public async Task ToFileAsync(string path, WritingConfiguration? config = default, FormattingRules? formatting = default, CancellationToken cancellationToken = default)
 		=> await ExtensionHandler.WriteAsync(path, this,
-			(".chart", (path, song) => ChartFile.WriteSongAsync(path, song, config?.Chart, cancellationToken)))
-		.ConfigureAwait(false);
+			(".chart", (path, song) => ChartFile.WriteSongAsync(path, song, config?.Chart, cancellationToken)),
+			(".ini", (path, song) => song.Metadata is null
+				? Task.CompletedTask
+				: IniFile.WriteMetadataAsync(path, song.Metadata, cancellationToken)))
+			.ConfigureAwait(false);
 }
