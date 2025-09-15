@@ -21,7 +21,7 @@ public class WritingDataSource : DataSource
 	/// <remarks>The stream is kept alive after the lifetime of the <see cref="WritingDataSource"/>.</remarks>
 	public WritingDataSource(Stream stream, ReadingDataSource? existing = null) : base(stream)
 	{
-		if (stream.CanSeek || stream.CanWrite)
+		if (!stream.CanSeek || !stream.CanWrite)
 			throw new ArgumentException("Stream is not seekable or writable", nameof(stream));
 
 		Existing = existing;

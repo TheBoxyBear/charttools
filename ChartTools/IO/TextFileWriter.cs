@@ -62,19 +62,17 @@ internal abstract class TextFileWriter(WritingDataSource source, IEnumerable<str
 
 	private List<string>? GetExistingLines()
 	{
-		List<string>? lines = null;
+		if (Source.Existing is null)
+			return null;
 
-		if (Source.Existing is not null)
-		{
-			lines = [];
-			string? line = null;
+		List<string> lines = [];
+		string? line;
 
-			using StreamReader reader = new(Source.Existing.Stream, leaveOpen: true);
-			string content = reader.ReadToEnd();
+		using StreamReader reader = new(Source.Existing.Stream, leaveOpen: true);
+		string content = reader.ReadToEnd();
 
-			while ((line = reader.ReadLine()) is not null)
-				lines.Add(line);
-		}
+		while ((line = reader.ReadLine()) is not null)
+			lines.Add(line);
 
 		return lines;
 	}
