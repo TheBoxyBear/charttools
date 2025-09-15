@@ -3,14 +3,14 @@ ChartTools includes multiple utility methods for performing common operations on
 
 Fun fact: The name ChartTools comes from the original purpose of the library of only providing utility methods for charts.
 
-## Accessing utilities
-To start using utilities, add the [ChartTools.Tools](~/api/ChartTools.Tools.yml) namespace to your usings. Once added, utilities can be called from their respective static class or as extension methods.
+## Accessing tools
+To start using tools, add the [ChartTools.Tools](~/api/ChartTools.Tools.yml) namespace to your usings. Once added, tools can be called from their respective static class or as extension methods.
 
 ```csharp
 using ChartTools.Tools;
 
-AwesomeUtility.AwesomeUtility(song);
-song.AwesomeUtility();
+AwesomeUtility.AwesomeTool(song);
+song.AwesomeTool();
 ```
 
 ## Merging lengths

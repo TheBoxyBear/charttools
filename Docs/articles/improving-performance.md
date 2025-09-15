@@ -4,42 +4,71 @@ This guide will cover alternate techniques that will improve performance when us
 ## Configuration
 By default, IO operations make multiple integrity checks to resolve errors. These checks can be configured or skipped by using a [Readingconfiguration](~/api/ChartTools.IO.Configuration.ReadingConfiguration.yml) or [WritingConfiguration](~/api/ChartTools.IO.Configuration.WritingConfiguration.yml) object. [Learn more about configuring IO operations](Configuration.md).
 
+The following example reads a song while bypassing checks for duplicate track objects:
+
 ```csharp
-Song song = Song.FromDirectory(directory, new ReadingConfiguration { DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.IncludeAll });
+using ChartTools.IO.Configuration;
+
+Song.FromFile("notes.chart", new ReadingConfiguration { Chart = new() { DuplicateTrackObjectPolicy = DuplicateTrackObjectPolicy.IncludeAll } });
 ```
 
 ## Targeted formats
-By default, the target format of an IO operation is determined by the file extension. You can bypass the extension check by using the file classes located in [ChartTools.IO](~/api/ChartTools.IO.yml).
+By default, the target format of an IO operation is determined by the file extension. You can bypass the extension check by using the respective file class located under [ChartTools.IO](~/api/ChartTools.IO.yml).
 
-```c#s
-Song song = ChartFile.ReadSong(path);
-Metadata metadata = IniFile.ReadMetadata(path);
+```csharp
+using ChartTools.IO.Chart;
+using ChartToole.IO.Ini;
+
+Song song = ChartFile.ReadSong("notes.chart");
+Metadata metadata = IniFile.ReadMetadata("song.ini");
 ```
 
-When writing to a specific format, the configuration object used is specific for that format and can be found as a property of the format-independent configuration, such as [ReadingConfiguration.Chart](~/api/ChartTools.IO.Configuration.ReadingConfiguration.yml#ChartTools_IO_Configuration_ReadingConfiguration_Chart).
+When working with a specific format, the file path can be swapped for a [Stream](https://learn.microsoft.com/dotnet/api/system.io.stream).
 
+```csharp
+Stream fs = File.Open("notes.chart", FileMode.Open, FileAccess.Read);
+Song song = ChartFile.ReadSong(fs);
+```
 
 ## Single components
 Rather than performing IO operation on entire songs, such operations can be made on individual components. When writing a component to an existing file, the parts of the file regarding the component will be modified.
 
-```c#
-Metadata metadata = Metadata.FromFile(path);
-StandardInstrument guitar = ChartFile.ReadInstrument(path, <WritingConfiguration>, metadata.Formatting);
+```csharp
+Metadata metadata = IniFile.ReadMetadata("song.ini");
+SyncTrack guitar = ChartFile.ReadSyncTrack("notes.chart");
 ```
 
-> **NOTE**: Due to complications with implementing Midi support, operations on single instruments and tracks through their respective class have been deprecated. These operations must now be performed through the respective format class such as [ChartFile](~/api/ChartTools.IO.Chart.ChartFile.yml).
+### Component lists
+If multiple components are needed, they can be combined in a single operation using a [ComponentList](~/api/ChartTools.IO.Components.ComponentList.yml).
+
+```csharp
+using ChartTools.IO.Chart;
+using ChartTools.IO.Components;
+
+Song song = ChartFile.ReadComponents("notes.chart", new ComponentList()
+{
+	Metadata     = true,
+	SyncTrack    = true,
+	GlobalEvents = true,
+	Instruments  = new InstrumentComponentList()
+	{
+		StandardLeadGuitar = DifficultySet.All,
+		StandardBass = DifficultySet.Easy | DifficultySet.Expert
+	}
+});
+```
 
 ## Asynchronous operations
 Every IO operation can be performed asynchronously by appending `Async` to the name of a method.
 
-```c#
+```charp
 Task<Song> readTask = Song.FromDirectoryAsync(directory);
 ```
 
-Asynchronous operations support a `CancellationToken` as an optional parameter. If omitted. `CancellationToken.None` will be used. Writing operations make use of a temporary file and can be safely canceled without file corruption.
+Asynchronous operations support a [CancellationToken](https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken) as an optional parameter. If omitted. [CancellationToken.None](https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken.none#system-threading-cancellationtoken-none) will be used.
 
-```c#
+```csharp
 Task<Song> readTask = Song.FromDirectoryAsync(directory, <ReadingConfiguration>, <CancellationToken>);
 ```
 
-The asynchronous operations make heavy use of multi-threading and are beneficial even if the result is to be awaited immediately.
+Asynchronous operations make heavy use of multi-threading and are beneficial even if the result is to be awaited immediately.

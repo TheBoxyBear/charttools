@@ -137,6 +137,9 @@ public static class PhraseExtensions
 		yield return new(lastMarker, lastPhraseNotes);
 	}
 
+	public static IEnumerable<Phrase> GetLyrics(this StandardVocalsTrack track)
+		=> GetLyrics(track.Phrases, track.Notes);
+
 	/// <summary>
 	/// Wraps lyrics-related global events into a set of grouped phrases for easier handling.
 	/// </summary>

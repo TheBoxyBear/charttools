@@ -1,6 +1,4 @@
-﻿using ChartTools.Lyrics.Tracks;
-
-namespace ChartTools.Lyrics;
+﻿namespace ChartTools.Lyrics;
 
 public class Vocals
 {

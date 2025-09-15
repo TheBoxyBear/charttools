@@ -1,8 +1,8 @@
 ﻿# Getting Started
-This document will go over the basics of parsing a chart through ChartTools.
+This document will go over the basics of parsing and saving a chart using ChartTools.
 
 ## Installation
-To add ChartTools to your project, you must first build the ChartTools project. Once built, the library can be found under `ChartTools\bin\[Debug]|[Release]\.net8.0`
+To add ChartTools to your project, you must first build the ChartTools project. Once built, the library can be found under `ChartTools\bin\[Debug]|[Release]\.net9.0`
 
 Visual Studio: Right-click on your project from the solution explorer and select "Add Project References...". Click on "Browse" and select `ChartTools.dll` that was generated. If the dll file is moved, also move `ChartTools.xml` to the new directory for XML documentation.
 
@@ -26,13 +26,18 @@ A configuration object may also be used to customize the error handling behavior
 Song song = Song.FromFile(path, new ReadingConfiguration());
 ```
 
-Note: Some Midi files may contain formatting information in the song.ini file. In order to account for custom formatting when reading, it is recommended to read from a directory instead.
+Most songs are composed of a primary file, typically `notes.chart`, and a metadata file, typically `song.ini`. Both files can be read and their data combined by reading from a directory.
+
+When reading from a directory, the metadata will be read from `song.ini`, followed by the rest from `notes.chart`.
 
 ```csharp
 Song song = Song.FromDirectory(path, <ReadingConfiguration>);
 ```
 
-When reading from a directory, the metadata will be read from `song.ini`, followed by the rest from `notes.chart`.
+> [!IMPORTANT]
+> Some file formats rely on formatting information in the `song.ini` file. In order to account for custom formatting when reading, it is recommended to read from a directory instead.
+
+### Components
 
 A song contains four main components:
 
@@ -42,12 +47,14 @@ A song contains four main components:
 - [Instruments](~/api/ChartTools.InstrumentSet.yml) - Instruments, tracks and notes
 - [Vocals](~/api/ChartTools.Lyrics.Vocals.yml) - Vocals notes paired with lyric text
 
+Components can be read and replaced individually. [Lean more TODO](TODO)
+
 > [!NOTE]
 > Although vocals are typically considered as an instrument, their rules and data representations are inheritly different than other instruments. Therefore, ChartTools considers vocals as a distinct component.
 
 
 ### Metadata
-Similar to reading a song, metadata is retrieved by reading a file:
+Similar to reading a song, metadata is can be read from a file:
 
 ```csharp
 Metadata metadata = Metadata.FromFile(path);
@@ -61,62 +68,73 @@ Metadata can also be retrieved from multiple files at once.
 Metadata metadata = Metadata.FromFiles(path1, path2, path3, ...);
 ```
 
-When reading from multiple files, you can mix file types, and the priority of information is defined by the order of the files.
+When reading from multiple files, you can mix file types, and the priority of information is defined by the order of the paths in the call.
 
-As a future-proofing method, all unsupported items can be found under [UnidentifiedData](~/api/ChartTools.Metadata.yml#ChartTools_Metadata_UnidentifiedData). This data will only be written to the same file format as the one it was read from. This member should be used with caution, as keys which become mapped to properties in future versions of ChartTools will not appear in the set which would appear as the value being missing. [A new metadata mapping system is currently being considered.](https://github.com/TheBoxyBear/charttools/discussions/95)
+As a future-proofing method, all unsupported items can be found under [UnidentifiedData](~/api/ChartTools.Metadata.yml#ChartTools_Metadata_UnidentifiedData). This data will only be written to the same file format as the one it was read from. This member should be used with caution, as keys which become mapped to properties in future versions of ChartTools will not appear in the set which would appear as the value being missing. [A new metadata mapping system is being considered.](https://github.com/TheBoxyBear/charttools/discussions/95)
 
 ### Instruments and Tracks
-All instruments currently supported are represented using the generic [Instrument](~/api/ChartTools.Instrument.yml) class. This class contains an object of type [Track](~/api/ChartTools.Track.yml) class for every difficulty. A track can be retrieved from a song as such:
+An instrument is a collection of tracks, each representing a difficulty level. ChartTools currently supports the following instruments:
+
+- Lead guitar
+- Rhythm guitar
+- Co-op guitar
+- Bass
+- Drums
+- Keys
+- Guitar Hero Live lead guitar
+- Guitar Hero Live rhythm guitar
+- Guitar Hero Live co-op guitar
+- Guitar Hero Live bass
+
+> [!NOTE]
+> ChartTools also supports vocals, but does not consider them as an instrument. [Learn more about vocals](~/articles/vocals.md).
+
+A track can be retrieved from a song as such:
 
 ```csharp
-Track<StandardChord> track = song.Instruments.LeadGuitar.Expert;
+Track<StandardChord> track = song.Instruments.StandardLeadGuitar.Expert;
 ```
 
 Notice the use of [StandardChord](~/api/ChartTools.StandardChord.yml) as a generic type. Instruments are divided into four categories based on the type of chords they use. These categories are:
 
 - Standard - Five colored notes
-- Drums - Five colored with support for double kick and cymbal flags
+- Drums - Five colored notes with support for double kick and cymbal flags
 - GHL (Guitar Hero Live) - Three black and three white notes
 
 A track is composed of three components:
 
-- Chords (defined by the generic type)
-- Special phrases (star power)
+- Chords - Defined by the generic type
+- Special phrases - Primarily used for star power
 - [Local events](events.md)
-
-> [!WARNING]
-> When setting an instrument in an [InstrumentSet](~/api/ChartTools.InstrumentSet.yml) or a track in an instrument, a copy of the object is created that contains information about its new identity. Although members such as chord lists reuse the previous reference, the return should be captured to ensure future changes are applied.
 
 Instruments can also be obtained dynamically from a song, regardless of the type. [Learn more about the dynamic syntax](dynamic-syntax.md).
 
 ### Chords and Notes
 A chord is a set of notes played at the same time. For readability, most chords and notes have specific classes for each instrument type, deriving from [LaneChord<TNote, TLane, TModifiers>](~/api/ChartTools.LaneChord-3.yml) and [LaneNode\<TLane\>](~/api/ChartTools.LaneNote-1.yml).
 
-The following adds an orange note to every chord on a track:
+The following snippet adds an orange note to every chord on a track:
 
 ```csharp
-foreach (StandardChord chord in song.Instruments.LeadGuitar.Expert)
+foreach (StandardChord chord in song.Instruments.StandardLeadGuitar.Expert)
 {
     chord.Notes.Add(StandardLane.Orange);
     // or
-    chord.Notes.Add(new Note<StandardLane>(StandardLane.Orange));
+    chord.Notes.Add(new LaneNote<StandardLane>(StandardLane.Orange));
 }
 ```
 
-## Optimizing
-Although still functional, some files may contain data that slows down the reading process or, in worse cases, may result in non-functional files when saved in certain formats. ChartTools provides various utilities to fix such issues along with other various utilities. [Learn more](tools.md).
+## Tools
+As the name suggests, *ChartTools* also provides various tools to help fix and optimize songs. [Learn more](tools.md).
 
 ## Writing files
-Finally, changes can be saved to a file using [Song.ToFile](~/api/ChartTools.Song.yml#ChartTools_Song_ToFile_System_String_ChartTools_IO_Configuration_WritingConfiguration_), with the format determined by the file extension.
+Finally, changes can be saved to a file, with the format determined by the file extension.
 
 ```csharp
 song.ToFile("output.chart", <WritingConfiguration>);
 ```
 
-Due to limitations of certain file formats, only [Song](~/api/ChartTools.Song.yml) objects can be written to a file in this manner. Format-specific operations can be accessed through the respective static class, such as [ChartFile](~/api/ChartTools.IO.Chart.ChartFile.yml) for `.chart`. For example, here is how to replace an instrument in a `.chart` file.
+Don't forget to also write the metadata to `song.ini`.
 
 ```csharp
-ChartFile.ReplaceInstrument("output.chart", guitar, <WritingConfiguration>);
+song.Metadata.ToFile("song.ini", <WritingConfiguration>);
 ```
-
-Like when reading files, writing operations can be configured to alter how they deal with errors. [Learn more about configuring IO operations](configuration.md).

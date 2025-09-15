@@ -1,43 +1,78 @@
 ﻿# Lyrics
-Lyrics of a song are defined by the [Vocals](~/api/ChartTools.Vocals.yml) instrument in which chords are [phrases](~/api/ChartTools.Lyrics.Phrase.yml) and notes as [syllables](~/api/ChartTools.Lyrics.Syllable.yml). Unlike with lane chords which are defined by notes at the same position, syllables in phrases are consecutive and arbitrarily grouped into phrases. Lyric classes are defined under the [ChartTools.Lyrics](~/api/ChartTools.Lyrics.yml) namespace.
+ChartTools supports lyrics in the form of the [Vocals](~/api/ChartTools.Lyrics.Vocals) component. This component is split into tracks for standard vocals and harmonics, although only standard vocals are currently supported. Unlike other instruments, vocals are not split into tracks based on difficulty. Rather, all difficulties use the same note data, with difficulty being driven by how each game registers a note being sung correctly. Additionally, as vocals have no concept of chords, notes are instead defined as collections of pitches grouped in phrases.
 
-Although Clone Hero does not support vocals as an instrument and typically stores lyric data as global events, the [ChartTools.Lyrics](~/api/ChartTools.Lyrics.yml) namespace provides a more rigorous API for editing lyrics. ChartTools also provides methods to convert between global events and vocals. Clone Hero also uses vocals to read lyrics from legacy songs.
+## Vocals notes
+Unlike other note types, vocals notes are defined by a position, pitch, and length.
 
-## Syllables
-[Syllables](~/api/ChartTools.Lyrics.Syllable.yml) define a start and end position in the form of offsets from the start position of the parent phrase. This allows for phrases to be moved by changing their position without having to update the position of each syllable.
-
-The note index of syllables represents a vocal pitch from the range C2 to C6 using the [VocalPitchValue](~/api/ChartTools.Lyrics.VocalPitchValue.yml), stored under the [VocalPitch](~/api/ChartTools.Lyrics.VocalsPitch.yml) helper struct. The enum uses a binary representation to isolate keys and octaves while staying true to music theory with comparing values.
-
-The following code creates a syllable with the pitch of D3.
+Notes support the pitches in the range C2 to C6, represented by the [VocalPitchValue](~/api/ChartTools.Lyrics.VocalPitchValue.yml) enum. The enum uses a binary representation to isolate keys and octaves while staying true to music theory when comparing values.
 
 ```csharp
-Phrase phrase = song.Instruments.Vocals.Expect.Phrases;
+using System.Diagnostics;
+using ChartTools.Lyrics;
 
-phrase.Syllables.Add(new Syllable(0, new VocalsPitch(3 << 4 | VocalsPitch.D));
+Debug.Assert(VocalsPitchValue.C2 < VocalsPitchValue.C3);
+Debug.Assert(VocalsPitchValue.C2 < VocalsPitchValue.D2);
+Debug.Assert(VocalsPitchValue.CSharp2 == VocalsPitchValue.Db2);
 ```
 
-[Vocals](~/api/ChartTools.Vocals.yml) also store lyric text to appear in-game. The text for each phrase is divided between the syllables to define the timings of the karaoke system. Clone Hero defines special characters such as dashes for multi-syllable words that don't appear in-game. The raw text with special characters can be access through the [RawText](~/api/ChartTools.Lyrics.Syllable.yml#ChartTools_Lyrics_Syllable_RawText) property while [DisplayedText](~/api/ChartTools.Lyrics.Syllable.yml#ChartTools_Lyrics_Syllable_DisplayedText) processes the special characters and returns the syllable text as it appears in-game.
+To help work with the large range of possible pitches, ChartTools provides the [VocalsPitch](~/api/ChartTools.Lyrics.VocalsPitch.yml) weapper struct, which provides helper properties for the key and octave. This struct is fully interchangable with the enum.
 
-> **NOTE**: Clone Hero also supports color data in the text. This is currently not supported in ChartTools and special characters related to color data will appear as part of [DisplayedText](~/api/ChartTools.Lyrics.Syllable.yml#ChartTools_Lyrics_Syllable_DisplayedText).
+```csharp
+using System.Diagnostics;
+using ChartTools.Lyrics;
+
+VocalsPitch pitch = VocalsPitchValue.DSharp2;
+
+Debug.Assert(pitch.Octave == 2);
+Debug.Assert(pitch.Key == VocalsKey.DSharp);
+Debug.Assert(pitch.Key == VocalsKey.Eb);
+
+VocalsPitchValue value = pitch;
+```
+
+> [!NOTE]
+> Because some enum values for sharps and flats have identical numeric values to honor music theory, displaying such values in a debugger or as a string conversion can lead to a different value that the one assigned.
+> ```csharp
+> using System.Diagnostics;
+> using ChartTools.Lyrics;
+> 
+> Debug.Assert(VocalsPitchValue.Db2.ToString() == "Db2");
+> Debug.Assert(VocalsPitchValue.CSharp2.ToString() == "Db2");
+> Debug.Assert(VocalsPitchValue.CSharp2.ToString() != "CSharp2");
+> ```
+
+## Lyrics in chart files
+As the `.chart` format does not formaly support playable vocals, lyrics are represented trough [global events](~/articles/events.md) rather than notes. When reading from a `.chart` file, lyric data will only be read if either the [GlobalEvents](~/api/ChartTools.Components.ComponentList.yml#ChartTools_IO_Components_InstrumentComponentList_GlobalEvents) or [Vocals](~/api/ChartTools.Components.ComponentList.yml#ChartTools_IO_Components_InstrumentComponentList_Vocals) component is enabled, after which the data will be stored in the corresponding location(s) in the song object. If accessed through vocals, notes will have the special pitch value of [None](~/api/ChartTools.Lyrics.VocalsPitchValue.yml#ChartTools_Lyrics_VocalsPitchValue_None), as global events do not define pitch.
+
+Lyrics can also be converted to and from global events.
+
+```csharp
+using ChartTools.Lyrics;
+
+List<GlobalEvent> events = ChartFile.ReadGlobalEvents("notes.chart");
+events.GetLyrics(out IList<PhraseMarker> markers, out IList<VocalsNote> notes);
+StandardVocalsTrack track = new(markers, notes);
+
+events.SetLyrics(markers, notes);
+events.SetLyrics(track);
+
+events = [..track.ToGlobalEvents()];
+```
+> [!WARNING]
+> When writing to a `.chart` file with both components enabled, any global event related to lyrics will be removed and replaced with the data from vocals.
 
 ## Phrases
-Unlike other chords, [phrases](~/api/ChartTools.Lyrics.Phrase.yml) define a length and end position in addition to a start position. The end position is driven by the end of the last syllable but can be replaced by setting the [LengthOverride](~/api/ChartTools.Lyrics.Phrase.yml#ChartTools_Lyrics_Phrase_LengthOverride) property. Phrases also define [RawText](~/api/ChartTools.Lyrics.Phrase.yml#ChartTools_Lyrics_Phrase_RawText) and [DisplayedText](~/api/ChartTools.Lyrics.Phrase.yml#ChartTools_Lyrics_Phrase_DisplayedText) properties which combine the text from their syllables.
+Because certain lyric tracks share [phrase markers](~/api/ChartTools.Vocals/PhraseMarker.yml), notes and phrase markers are stored as separate collections rather than grouping notes under phrases. To simplify working with lyrics, these collections can be promoted to a set of [phrases](~/api/ChartTools.Lyrics.Phrase.yml).
 
-## Reading and writing vocals
-Chart files define lyrics through global events that can be converted to a set of phrases. When reading a full song from a chart file, the vocals instrument will be null. To benefit of the more advanced lyrics API, a dummy set of phrases instrument can be generated using the [GetLyrics](~/api/ChartTools.Events.EventExtensions.yml#ChartTools_Events_EventExtensions_GetLyrics_System_Collections_Generic_IEnumerable_ChartTools_Events_GlobalEvent__) extension method.
-
-```csharp
-using ChartTools.Lyrics;
-
-IEnumerable<Phrase> lyrics = song.GlobalEvents.GetLyrics();
-```
-
-To be written to a chart file, lyrics must be converted back into global events.
+The following snippet uses phrases to print the lyrics to a song:
 
 ```csharp
 using ChartTools.Lyrics;
 
-lyrics.ToGlobalEvents(); // Creates a new set of global events
-events.SetLyrics(lyrics); // Replaces existing lyric-related events with new events making up the phrases
+Song song = Song.FromFile("notes.chart");
+
+foreach (Phrase phrase in song.Vocals.Standard.GetLyrics())
+	Console.WriteLine(phrase.DisplayedText);
 ```
 
+While part of a phrase, notes cannot be added or removed, but existing notes can be mutated, and the position and length of the phrase can be adjusted, reflecting the changes in the phrase marker. As such, phrases do not need to be converted back into notes and phrase markers. However, the conversion is needed if converting directly from global events to phrases.
