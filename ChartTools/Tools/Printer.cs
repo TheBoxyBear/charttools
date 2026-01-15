@@ -23,7 +23,7 @@ internal static class Printer
 
 		foreach (StandardChord chord in track.Chords.Where(c => c.Notes.Count > 0).OrderBy(t => t.Position))
 		{
-			LaneNote<StandardLane>? open = chord.Notes[StandardLane.Open];
+			ILaneNote<StandardLane>? open = chord.Notes[StandardLane.Open];
 			List<ConsoleContent> lineContent = [];
 
 			if (open is not null)
@@ -42,7 +42,7 @@ internal static class Printer
 				else
 					for (int i = 1; i < 6; i++)
 					{
-						LaneNote<StandardLane>? note = chord.Notes[(StandardLane)i];
+						ILaneNote<StandardLane>? note = chord.Notes[(StandardLane)i];
 						string text;
 
 						if (note is null)
@@ -59,7 +59,7 @@ internal static class Printer
 
 			content.Add(lineContent);
 
-			void SetSustainEnd(LaneNote<StandardLane> note) => sustainEnds[(int)note.Lane] = chord.Position + note.Sustain;
+			void SetSustainEnd(ILaneNote<StandardLane> note) => sustainEnds[(int)note.Lane] = chord.Position + note.Sustain;
 		}
 
 		PrintLines(content);

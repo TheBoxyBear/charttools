@@ -35,7 +35,7 @@ internal class StandardTrackParser(Difficulty difficulty, StandardInstrumentIden
 				break;
 		}
 
-		void AddNote(LaneNote<StandardLane> note)
+		void AddNote(in StandardNote note)
 		{
 			if (CanAddNote(note.Index))
 				chord.Notes.Add(note);

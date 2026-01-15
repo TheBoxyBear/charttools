@@ -21,59 +21,61 @@ public static class Optimizer
 	public static void CutSustains<T>(this IEnumerable<T> chords, bool preOrdered = false)
 		where T : Chord
 	{
-		Dictionary<byte, (uint, LaneNote)> ongoingSustains = [];
+		throw new NotImplementedException();
 
-		foreach (T chord in GetOrdered(chords, preOrdered))
-		{
-			using IEnumerator<LaneNote> noteEnumerator = chord.Notes.GetEnumerator();
+		//Dictionary<byte, (uint, ILaneNote)> ongoingSustains = [];
 
-			if (!noteEnumerator.MoveNext())
-				continue;
+		//foreach (T chord in GetOrdered(chords, preOrdered))
+		//{
+		//	using IEnumerator<ILaneNote> noteEnumerator = chord.Notes.GetEnumerator();
 
-			LaneNote note = noteEnumerator.Current;
+		//	if (!noteEnumerator.MoveNext())
+		//		continue;
 
-			if (chord.OpenExclusivity)
-			{
-				if (noteEnumerator.Current.Index == 0) // Open stops all sustains
-					foreach ((uint position, LaneNote sustained) in ongoingSustains.Values)
-					{
-						if (position + sustained.Sustain > chord.Position)
-							sustained.Sustain = chord.Position;
+		//	ILaneNote note = noteEnumerator.Current;
 
-						ongoingSustains.Remove(noteEnumerator.Current.Index);
-					}
-				else
-					RemoveSustain(0); // Non-opens stops open sustain
-			}
-			else
-				// New note stops ongoing sustain on the same lane
-				RemoveSustain(note.Index);
+		//	if (chord.OpenExclusivity)
+		//	{
+		//		if (noteEnumerator.Current.Index == 0) // Open stops all sustains
+		//			foreach ((uint position, ILaneNote sustained) in ongoingSustains.Values)
+		//			{
+		//				if (position + sustained.Sustain > chord.Position)
+		//					sustained.Sustain = chord.Position;
 
-			AddSustain();
+		//				ongoingSustains.Remove(noteEnumerator.Current.Index);
+		//			}
+		//		else
+		//			RemoveSustain(0); // Non-opens stops open sustain
+		//	}
+		//	else
+		//		// New note stops ongoing sustain on the same lane
+		//		RemoveSustain(note.Index);
 
-			while (noteEnumerator.MoveNext())
-			{
-				note = noteEnumerator.Current;
+		//	AddSustain();
 
-				RemoveSustain(note.Index);
-				AddSustain();
-			}
+		//	while (noteEnumerator.MoveNext())
+		//	{
+		//		note = noteEnumerator.Current;
 
-			void AddSustain()
-			{
-				if (noteEnumerator.Current.Sustain > 0)
-					ongoingSustains[noteEnumerator.Current.Index] = (chord.Position, noteEnumerator.Current);
-			}
+		//		RemoveSustain(note.Index);
+		//		AddSustain();
+		//	}
 
-			void RemoveSustain(byte index)
-			{
-				if (ongoingSustains.TryGetValue(index, out (uint _, LaneNote note) sustain))
-				{
-					sustain.note.Sustain = chord.Position;
-					ongoingSustains.Remove(index);
-				}
-			}
-		}
+		//	void AddSustain()
+		//	{
+		//		if (noteEnumerator.Current.Sustain > 0)
+		//			ongoingSustains[noteEnumerator.Current.Index] = (chord.Position, noteEnumerator.Current);
+		//	}
+
+		//	void RemoveSustain(byte index)
+		//	{
+		//		if (ongoingSustains.TryGetValue(index, out (uint _, ILaneNote note) sustain))
+		//		{
+		//			sustain.note.Sustain = chord.Position;
+		//			ongoingSustains.Remove(index);
+		//		}
+		//	}
+		//}
 	}
 
 	/// <summary>

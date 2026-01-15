@@ -1,17 +1,17 @@
 ﻿namespace ChartTools.IO.Chart.Entries;
 
 /// <summary>
-/// Line of chart data representing a <see cref="LaneNote{TLane}"/>
+/// Line of chart data representing a <see cref="ILaneNote{TLane}"/>
 /// </summary>
 internal readonly ref struct NoteData
 {
 	/// <summary>
-	/// Value of <see cref="LaneNote{TLane}.Sustain"/>
+	/// Value of <see cref="ILaneNote{TLane}.Sustain"/>
 	/// </summary>
 	internal readonly byte Index;
 
 	/// <summary>
-	/// Value of <see cref="LaneNote{TLane}.Sustain"/>
+	/// Value of <see cref="ILaneNote{TLane}.Sustain"/>
 	/// </summary>
 	internal readonly uint SustainLength;
 

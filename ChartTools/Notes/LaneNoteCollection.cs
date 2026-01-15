@@ -1,23 +1,29 @@
 ﻿using System.Collections;
+using System.Runtime.InteropServices;
 
 namespace ChartTools;
 
-public class LaneNoteCollection<TNote, TLane>(bool openExclusivity) : ICollection<TNote>, IReadOnlyList<TNote>
-	where TNote : LaneNote<TLane>, new()
-	where TLane : struct, Enum
+public class LaneNoteCollection<TNote, TLane>(bool openExclusivity) : ILaneNoteCollection,
+	ICollection<TNote>,
+	IReadOnlyList<TNote>
+	where TNote : ILaneNote<TLane>, new()
+	where TLane : Enum
 {
-	private readonly List<TNote> m_notes = [];
-
-	/// <summary>
-	/// If <see langword="true"/>, trying to combine an open note with other notes will remove the current ones.
-	/// </summary>
 	public bool OpenExclusivity { get; } = openExclusivity;
 
-	public int Count => m_notes.Count;
+	private readonly List<TNote> m_notes = [];
 
-	bool ICollection<TNote>.IsReadOnly => false;
+	public int Count
+		=> m_notes.Count;
 
-	public void Add(TLane lane) => Add(new TNote() { Lane = lane });
+	bool ICollection<TNote>.IsReadOnly
+		=> false;
+
+	public ReadOnlySpan<TNote> AsSpan()
+		=> CollectionsMarshal.AsSpan(m_notes);
+
+	public void Add(TLane lane)
+		=> Add(new TNote { Lane = lane });
 
 	/// <summary>
 	/// Adds a note to the <see cref="LaneNoteCollection{TNote, TLane}"/>.
@@ -26,16 +32,24 @@ public class LaneNoteCollection<TNote, TLane>(bool openExclusivity) : ICollectio
 	///     <para>If <see cref="OpenExclusivity"/> is <see langword="true"/>, combining an open note with other notes will remove the current ones.</para>
 	/// </remarks>
 	/// <param name="note">Note to add</param>
-	public void Add(TNote note)
+	public void Add(in TNote note)
 	{
-		// Will it defensive copy considering Index has a readonly getter?
-		if (OpenExclusivity && (note.Index == 0 || Count == 1 && this[0].Index == 0)) // An open note is present and needs to be removed
+		if (OpenExclusivity && (note.Index == 0 || Count == 1 && AsSpan()[0].Index == 0)) // An open note is present and needs to be removed
 			Clear();
 
 		m_notes.Add(note);
 	}
 
-	public void AddRange(params ReadOnlySpan<TNote> notes) => m_notes.AddRange(notes);
+	void ICollection<TNote>.Add(TNote note)
+		=> Add(note);
+
+	public void AddRange(params ReadOnlySpan<TNote> notes)
+	{
+		m_notes.Capacity += notes.Length;
+
+		foreach (ref readonly TNote note in notes)
+			Add(in note);
+	}
 
 	public void AddRange(params ReadOnlySpan<TLane> notes)
 	{
@@ -45,55 +59,78 @@ public class LaneNoteCollection<TNote, TLane>(bool openExclusivity) : ICollectio
 			m_notes.Add(new TNote { Lane = lane });
 	}
 
-    /// <summary>
-    /// Removes all notes from the <see cref="LaneNoteCollection{TNote, TLane}"/>.
-    /// </summary>
-	public void Clear() => m_notes.Clear();
+	/// <summary>
+	/// Removes all notes from the <see cref="LaneNoteCollection{TNote, TLane}"/>.
+	/// </summary>
+	public void Clear()
+		=> m_notes.Clear();
 
 	/// <summary>
 	/// Determines if any note matches the lane of a given note.
 	/// </summary>
 	/// <exception cref="ArgumentNullException"/>
-	public bool Contains(TNote note) => Contains(note.Lane);
+	public bool Contains(in TNote note)
+	{
+		foreach (ref readonly TNote thisNote in AsSpan())
+			if (thisNote.Lane.Equals(note.Lane))
+				return true;
+
+		return false;
+	}
+
+	bool ICollection<TNote>.Contains(TNote note)
+		=> Contains(in note);
 
 	/// <summary>
 	/// Determines if any note matches a given lane.
 	/// </summary>
-	public bool Contains(TLane lane) => m_notes.Any(note => note.Lane.Equals(lane));
+	public bool Contains(TLane lane)
+		=> m_notes.Any(note => note.Lane.Equals(lane));
 
-	/// <summary>
-	/// Determines if any note matches a given index.
-	/// </summary>
-	public bool Contains(byte index) => m_notes.Any(note => note.Index == index);
+	bool ILaneNoteCollection.Contains(byte index)
+		=> m_notes.Any(note => note.Index == index);
 
-	public void CopyTo(TNote[] array, int arrayIndex) => m_notes.CopyTo(array, arrayIndex);
+	public void CopyTo(TNote[] array, int arrayIndex)
+		=> m_notes.CopyTo(array, arrayIndex);
 
 	/// <summary>
 	/// Removes the note that matches the lane of a given note.
 	/// </summary>
 	/// <returns><see langword="true"/> if a matching note was found.</returns>
-	public bool Remove(TNote note) => Remove(note.Lane);
+	public bool Remove(in TNote note)
+		=> Remove(note.Lane);
+
+	bool ICollection<TNote>.Remove(TNote note)
+		=> Remove(note.Lane);
 
 	/// <summary>
 	/// Removes the note that matches a given lane.
 	/// </summary>
 	/// <returns><see langword="true"/> if a matching note was found.</returns>
-	public bool Remove(TLane lane) => Remove(n => n.Lane.Equals(lane));
+	public bool Remove(TLane lane)
+		=> Remove((in note) => note.Lane.Equals(lane));
 
-	/// <summary>
-	/// Removes the note that matches a given index.
-	/// </summary>
-	/// <returns><see langword="true"/> if a matching note was found.</returns>
-	public bool Remove(byte index) => Remove(n => n.Index == index);
+	bool ILaneNoteCollection.Remove(byte index)
+		=> Remove((in note) => note.Index == index);
 
-	private bool Remove(Predicate<TNote> match)
+	private delegate bool Match(in TNote note);
+
+	private bool Remove(Match match)
 	{
-		int index = m_notes.FindIndex(match);
+		int removeIndex = -1;
 
-		if (index is -1)
+		{
+			ReadOnlySpan<TNote> span = AsSpan();
+
+			for (int i = 0; i < span.Length; i++)
+				if (match(in span[i]))
+					removeIndex = i;
+		}
+
+		if (removeIndex is -1)
 			return false;
 
-		m_notes.RemoveAt(index);
+		m_notes.RemoveAt(removeIndex);
 		return true;
 	}
 
@@ -102,17 +139,24 @@ public class LaneNoteCollection<TNote, TLane>(bool openExclusivity) : ICollectio
 	/// </summary>
 	/// <param name="lane">Lane of the note</param>
 	/// <returns>Note with the lane if present, otherwise <see langword="null"/>.</returns>
-	public TNote? this[TLane lane] => m_notes.FirstOrDefault(n => n.Lane.Equals(lane));
+	public TNote? this[TLane lane]
+		=> m_notes.FirstOrDefault(n => n.Lane.Equals(lane));
 
-	/// <summary>
-	/// Gets the note at a given index based on order or addition.
-	/// </summary>
-	/// <param name="index">Index of the note in the collection, not to be confused with <see cref="INote.Index"/>.</param>
-	/// <returns>Note at the index</returns>
-	/// <exception cref="ArgumentOutOfRangeException"/>
-	public TNote this[int index] => m_notes[index];
+	ILaneNote? ILaneNoteCollection.this[byte index]
+		=> m_notes.FirstOrDefault(n => n.Lane.Equals(index));
 
-	public IEnumerator<TNote> GetEnumerator() => m_notes.GetEnumerator();
+	TNote IReadOnlyList<TNote>.this[int index]
+		=> m_notes[index];
 
-	IEnumerator IEnumerable.GetEnumerator() => m_notes.GetEnumerator();
+	public IEnumerator<TNote> GetEnumerator()
+		=> m_notes.GetEnumerator();
+
+	IEnumerator IEnumerable.GetEnumerator()
+		=> m_notes.GetEnumerator();
+
+	IEnumerator<ILaneNote> ILaneNoteCollection.GetEnumerator()
+		=> m_notes.Cast<ILaneNote>().GetEnumerator();
+
+	IEnumerable<ILaneNote> ILaneNoteCollection.AsEnumerable()
+		=> m_notes.Cast<ILaneNote>();
 }
