@@ -18,64 +18,70 @@ public static class Optimizer
 	/// </summary>
 	/// <param name="chords">Chords to cut the sustains of</param>
 	/// <param name="preOrdered">Skip ordering of chords by position</param>
-	public static void CutSustains<T>(this IEnumerable<T> chords, bool preOrdered = false)
-		where T : Chord
+	public static void CutSustains<TChord, TNote, TLane, TModifiers>(this IEnumerable<TChord> chords, bool preOrdered = false)
+		where TChord : Chord<TNote, TLane, TModifiers>
+		where TNote : struct, ILaneNote<TLane>
+		where TLane : Enum
+		where TModifiers : Enum
 	{
-		throw new NotImplementedException();
+		Dictionary<byte, (uint, NoteProxy<TNote, TLane>)> ongoingSustains = [];
 
-		//Dictionary<byte, (uint, ILaneNote)> ongoingSustains = [];
+		foreach (TChord chord in GetOrdered(chords, preOrdered))
+		{
+			if (chord.Notes.Count == 0)
+				continue;
 
-		//foreach (T chord in GetOrdered(chords, preOrdered))
-		//{
-		//	using IEnumerator<ILaneNote> noteEnumerator = chord.Notes.GetEnumerator();
+			ReadOnlySpan<TNote> noteSpan = chord.Notes.AsSpan();
+			int index = 0;
 
-		//	if (!noteEnumerator.MoveNext())
-		//		continue;
+			ref readonly TNote note = ref noteSpan[index];
 
-		//	ILaneNote note = noteEnumerator.Current;
+			if (chord.OpenExclusivity)
+			{
+				if (note.Index == 0) // Open stops all sustains
+					foreach ((uint position, NoteProxy<TNote, TLane> proxy) in ongoingSustains.Values)
+					{
+						ref readonly TNote sustained = ref proxy.GetUnsafe();
 
-		//	if (chord.OpenExclusivity)
-		//	{
-		//		if (noteEnumerator.Current.Index == 0) // Open stops all sustains
-		//			foreach ((uint position, ILaneNote sustained) in ongoingSustains.Values)
-		//			{
-		//				if (position + sustained.Sustain > chord.Position)
-		//					sustained.Sustain = chord.Position;
+						if (position + sustained.Sustain > chord.Position)
+							proxy.Set(sustained with { Sustain = chord.Position });
 
-		//				ongoingSustains.Remove(noteEnumerator.Current.Index);
-		//			}
-		//		else
-		//			RemoveSustain(0); // Non-opens stops open sustain
-		//	}
-		//	else
-		//		// New note stops ongoing sustain on the same lane
-		//		RemoveSustain(note.Index);
+						ongoingSustains.Remove(note.Index);
+					}
+				else
+					RemoveSustain(0); // Non-opens stops open sustain
+			}
+			else
+				// New note stops ongoing sustain on the same lane
+				RemoveSustain(note.Index);
 
-		//	AddSustain();
+			AddSustain(in note);
 
-		//	while (noteEnumerator.MoveNext())
-		//	{
-		//		note = noteEnumerator.Current;
+			while (++index < noteSpan.Length)
+			{
+				note = ref noteSpan[index];
 
-		//		RemoveSustain(note.Index);
-		//		AddSustain();
-		//	}
+				RemoveSustain(note.Index);
+				AddSustain(in note);
+			}
 
-		//	void AddSustain()
-		//	{
-		//		if (noteEnumerator.Current.Sustain > 0)
-		//			ongoingSustains[noteEnumerator.Current.Index] = (chord.Position, noteEnumerator.Current);
-		//	}
+			void AddSustain(in TNote note)
+			{
+				if (note.Sustain > 0)
+					ongoingSustains[note.Index] = (chord.Position, chord.Notes.Proxy(note.Lane)!);
+			}
 
-		//	void RemoveSustain(byte index)
-		//	{
-		//		if (ongoingSustains.TryGetValue(index, out (uint _, ILaneNote note) sustain))
-		//		{
-		//			sustain.note.Sustain = chord.Position;
-		//			ongoingSustains.Remove(index);
-		//		}
-		//	}
-		//}
+			void RemoveSustain(byte index)
+			{
+				if (ongoingSustains.TryGetValue(index, out (uint _, NoteProxy<TNote, TLane> proxy) sustain))
+				{
+					ref readonly TNote note = ref sustain.proxy.GetUnsafe();
+
+					sustain.proxy.Set(note with { Sustain = chord.Position });
+					ongoingSustains.Remove(index);
+				}
+			}
+		}
 	}
 
 	/// <summary>

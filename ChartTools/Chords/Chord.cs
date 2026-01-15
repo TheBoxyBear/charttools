@@ -22,7 +22,7 @@ public abstract class Chord(uint position) : ITrackObject
 public abstract class Chord<TNote, TLane, TModifiers> : Chord
 	where TNote : ILaneNote<TLane>, new()
 	where TLane : Enum
-	where TModifiers : struct, Enum
+	where TModifiers : Enum
 {
 	public override LaneNoteCollection<TNote, TLane> Notes { get; }
 
