@@ -6,7 +6,7 @@ namespace ChartTools;
 public class LaneNoteCollection<TNote, TLane>(bool openExclusivity) : ILaneNoteCollection,
 	ICollection<TNote>,
 	IReadOnlyList<TNote>
-	where TNote : ILaneNote<TLane>, new()
+	where TNote : struct, ILaneNote<TLane>
 	where TLane : Enum
 {
 	public bool OpenExclusivity { get; } = openExclusivity;
@@ -132,6 +132,11 @@ public class LaneNoteCollection<TNote, TLane>(bool openExclusivity) : ILaneNoteC
 
 		m_notes.RemoveAt(removeIndex);
 		return true;
+	}
+
+	public NoteProxy<TNote, TLane>? Proxy(TLane lane)
+	{
+		throw new NotImplementedException();
 	}
 
 	/// <summary>
