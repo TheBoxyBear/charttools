@@ -2,7 +2,7 @@
 using ChartTools.IO.Chart.Serializing;
 using ChartTools.IO.Ini;
 
-namespace ChartTools;
+namespace ChartTools.Meta;
 
 /// <summary>
 /// Creator of the chart

@@ -6,6 +6,7 @@ using ChartTools.IO.Configuration;
 using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
 using ChartTools.Lyrics;
+using ChartTools.Meta;
 using ChartTools.Tools;
 
 namespace ChartTools;

@@ -28,7 +28,7 @@ public record ComponentList()
 	};
 
 	/// <summary>
-	/// Include the <see cref="ChartTools.Metadata"/>
+	/// Include the <see cref="ChartTools.Meta"/>
 	/// </summary>
 	public bool Metadata { get; set; }
 

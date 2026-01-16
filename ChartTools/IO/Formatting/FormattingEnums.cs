@@ -1,7 +1,7 @@
 ﻿namespace ChartTools.IO.Formatting;
 
 /// <summary>
-/// Key used to serialize <see cref="Metadata.AlbumTrack"/>
+/// Key used to serialize <see cref="Meta.AlbumTrack"/>
 /// </summary>
 [Flags]
 public enum AlbumTrackKey : byte

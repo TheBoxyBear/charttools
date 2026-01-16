@@ -3,6 +3,7 @@ using ChartTools.IO.Chart.Parsing;
 using ChartTools.IO.Components;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Sources;
+using ChartTools.Meta;
 
 namespace ChartTools.IO.Chart;
 
