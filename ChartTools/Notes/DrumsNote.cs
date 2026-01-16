@@ -3,8 +3,11 @@
 /// <summary>
 /// Note played by drums
 /// </summary>
-public readonly record struct DrumsNote(DrumsLane lane) : ILaneNote<DrumsLane>
+public readonly record struct DrumsNote(DrumsLane lane) : IDefinedLaneNote<DrumsLane>
 {
+	public static bool OpenExclusivity => false;
+	public static byte MaxLanes => 6;
+
 	private readonly bool m_isCymbal = false;
 
 	/// <summary>

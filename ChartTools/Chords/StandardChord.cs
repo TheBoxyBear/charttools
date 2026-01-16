@@ -9,12 +9,6 @@ namespace ChartTools;
 /// </summary>
 public class StandardChord : Chord<StandardNote, StandardLane, StandardChordModifiers>
 {
-	/// <summary>
-	/// <inheritdoc cref="Chord.OpenExclusivity"/>
-	/// </summary>
-	/// <remarks>Always <see langword="true"/> for <see cref="StandardChord"/></remarks>
-	public override bool OpenExclusivity => true;
-
 	internal override StandardChordModifiers DefaultModifiers => StandardChordModifiers.None;
 
 	internal override bool ChartSupportedModifiers => !Modifiers.HasFlag(StandardChordModifiers.ExplicitHopo);

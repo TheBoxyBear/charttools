@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-namespace ChartTools;
+﻿namespace ChartTools;
 
 /// <summary>
 /// Provides a proxy for accessing and modifying a note within a specific lane in a lane note collection.
@@ -10,8 +8,8 @@ namespace ChartTools;
 /// lane.</remarks>
 /// <typeparam name="TNote">The value type representing a note associated with a lane. Must implement <see cref="ILaneNote{TLane}"/>.</typeparam>
 /// <typeparam name="TLane">The enumeration type that identifies lanes within the collection.</typeparam>
-public class NoteProxy<TNote, TLane>
-	where TNote : struct, ILaneNote<TLane>
+public struct NoteProxy<TNote, TLane>
+	where TNote : struct, IDefinedLaneNote<TLane>
 	where TLane : Enum
 {
 	public NoteProxy(TLane lane, LaneNoteCollection<TNote, TLane> source)

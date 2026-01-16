@@ -3,13 +3,13 @@ using System.Runtime.InteropServices;
 
 namespace ChartTools;
 
-public class LaneNoteCollection<TNote, TLane>(bool openExclusivity) : ILaneNoteCollection,
+public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	ICollection<TNote>,
 	IReadOnlyList<TNote>
-	where TNote : struct, ILaneNote<TLane>
+	where TNote : struct, IDefinedLaneNote<TLane>
 	where TLane : Enum
 {
-	public bool OpenExclusivity { get; } = openExclusivity;
+	public bool OpenExclusivity { get; } = TNote.OpenExclusivity;
 
 	private readonly List<TNote> m_notes = [];
 

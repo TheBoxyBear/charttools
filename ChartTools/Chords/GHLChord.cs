@@ -9,10 +9,6 @@ namespace ChartTools;
 /// </summary>
 public sealed class GHLChord : Chord<GHLNote, GHLLane, GHLChordModifiers>
 {
-    /// <inheritdoc cref="Chord.OpenExclusivity"/>"/>
-    /// <remarks>Always <see langword="true"/> for <see cref="GHLChord"/></remarks>
-	public override bool OpenExclusivity => true;
-
 	internal override GHLChordModifiers DefaultModifiers => GHLChordModifiers.None;
 
 	internal override bool ChartSupportedModifiers => !Modifiers.HasFlag(GHLChordModifiers.ExplicitHopo);

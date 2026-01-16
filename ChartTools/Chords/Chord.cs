@@ -1,8 +1,6 @@
 ﻿using ChartTools.IO.Chart.Configuration.Sessions;
 using ChartTools.IO.Chart.Entries;
 
-using System.Numerics;
-
 namespace ChartTools;
 
 public abstract class Chord(uint position) : ITrackObject
@@ -11,8 +9,6 @@ public abstract class Chord(uint position) : ITrackObject
 
 	public abstract ILaneNoteCollection Notes { get; }
 
-	public abstract bool OpenExclusivity { get; }
-
 	internal abstract bool ChartSupportedModifiers { get; }
 
 	internal abstract IEnumerable<TrackObjectEntry> GetChartNoteData();
@@ -20,7 +16,7 @@ public abstract class Chord(uint position) : ITrackObject
 }
 
 public abstract class Chord<TNote, TLane, TModifiers> : Chord
-	where TNote : ILaneNote<TLane>, new()
+	where TNote : struct, IDefinedLaneNote<TLane>
 	where TLane : Enum
 	where TModifiers : Enum
 {
@@ -31,5 +27,5 @@ public abstract class Chord<TNote, TLane, TModifiers> : Chord
 	internal abstract TModifiers DefaultModifiers { get; }
 
 	public Chord(uint position) : base(position)
-		=> Notes = new(OpenExclusivity);
+		=> Notes = [];
 }

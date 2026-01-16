@@ -15,3 +15,10 @@ public interface ILaneNote<TLane> : ILaneNote
 {
 	public TLane Lane { get; init; }
 }
+
+public interface IDefinedLaneNote<TLane> : ILaneNote<TLane>
+	where TLane : Enum
+{
+	public static abstract bool OpenExclusivity { get; }
+	public static abstract byte MaxLanes { get; }
+}

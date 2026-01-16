@@ -20,7 +20,7 @@ public static class Optimizer
 	/// <param name="preOrdered">Skip ordering of chords by position</param>
 	public static void CutSustains<TChord, TNote, TLane, TModifiers>(this IEnumerable<TChord> chords, bool preOrdered = false)
 		where TChord : Chord<TNote, TLane, TModifiers>
-		where TNote : struct, ILaneNote<TLane>
+		where TNote : struct, IDefinedLaneNote<TLane>
 		where TLane : Enum
 		where TModifiers : Enum
 	{
@@ -36,7 +36,7 @@ public static class Optimizer
 
 			ref readonly TNote note = ref noteSpan[index];
 
-			if (chord.OpenExclusivity)
+			if (TNote.OpenExclusivity)
 			{
 				if (note.Index == 0) // Open stops all sustains
 					foreach ((uint position, NoteProxy<TNote, TLane> proxy) in ongoingSustains.Values)
@@ -68,7 +68,7 @@ public static class Optimizer
 			void AddSustain(in TNote note)
 			{
 				if (note.Sustain > 0)
-					ongoingSustains[note.Index] = (chord.Position, chord.Notes.Proxy(note.Lane)!);
+					ongoingSustains[note.Index] = (chord.Position, chord.Notes.Proxy(note.Lane)!.Value);
 			}
 
 			void RemoveSustain(byte index)
