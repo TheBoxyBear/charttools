@@ -1,4 +1,6 @@
-﻿namespace ChartTools.IO.Chart.Serializing;
+﻿using ChartTools.Meta;
+
+namespace ChartTools.IO.Chart.Serializing;
 
 internal class MetadataSerializer(Metadata content) : Serializer<Metadata, string>(ChartFormatting.MetadataHeader, content)
 {

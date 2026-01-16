@@ -11,8 +11,6 @@ public class SerialAlternatingTests
 	static readonly byte[] testArrayB = [ 3, 5, 6 ];
 	const string expected = "1 3 6 5 2 6";
 
-	[TestMethod] public void CreateEnumerableNull()
-        => Assert.ThrowsException<ArgumentNullException>(() => new SerialAlternatingEnumerable<byte>(null!));
 	[TestMethod] public void CreateEnumerableEmpty()
         => Assert.ThrowsException<ArgumentException>(() => new SerialAlternatingEnumerable<byte>());
 

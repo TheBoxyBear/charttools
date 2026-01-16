@@ -4,8 +4,9 @@ using ChartTools.IO.Chart;
 using ChartTools.IO.Chart.Serializing;
 using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
+using ChartTools.Meta.Mapping;
 
-namespace ChartTools;
+namespace ChartTools.Meta;
 
 /// <summary>
 /// Set of miscellaneous information about a <see cref="Song"/>
@@ -76,7 +77,11 @@ public class Metadata
 	public Charter Charter
 	{
 		get;
-		set => field = value ?? throw new ArgumentNullException(nameof(value));
+		set
+		{
+			ArgumentNullException.ThrowIfNull(value);
+			field = value;
+		}
 	} = new();
 
 	/// <summary>
@@ -124,7 +129,11 @@ public class Metadata
 	public InstrumentDifficultySet InstrumentDifficulties
 	{
 		get;
-		set => field = value ?? throw new ArgumentNullException(nameof(value));
+		set
+		{
+			ArgumentNullException.ThrowIfNull(value);
+			field = value;
+		}
 	} = new();
 
 	/// <summary>
@@ -146,7 +155,11 @@ public class Metadata
 	public StreamCollection Streams
 	{
 		get;
-		set => field = value ?? throw new ArgumentNullException(nameof(value));
+		set
+		{
+			ArgumentNullException.ThrowIfNull(value);
+			field = value;
+		}
 	} = new();
 
 	/// <summary>
@@ -170,7 +183,7 @@ public class Metadata
 	/// The song is a modchart
 	/// </summary>
 	[IniKeySerializable(IniFormatting.Modchart)]
-	public bool IsModchart { get; set; }
+	public bool? IsModchart { get; set; }
 
 	/// <inheritdoc cref="FormattingRules"/>
 	public FormattingRules Formatting
@@ -183,9 +196,41 @@ public class Metadata
 	/// Unrecognized metadata
 	/// </summary>
 	/// <remarks>When writing, these will only be written if the target format matches the origin</remarks>
-	public HashSet<UnidentifiedMetadata> UnidentifiedData { get; } =
+	internal HashSet<UnidentifiedMetadata> UnidentifiedData { get; } =
 		new(new FuncEqualityComparer<UnidentifiedMetadata>((a, b) => a.Key == b.Key && a.Origin == b.Origin));
 	#endregion
+
+	public string? Get(FileType fileType, string key)
+		=> fileType switch
+	{
+		FileType.Chart => MetadataChartMapper.Get(this, key),
+		FileType.Ini   => MetadataIniMapper.Get(this, key)
+	};
+
+	public void Set(FileType fileType, string key, string value)
+	{
+		switch (fileType)
+		{
+			case FileType.Chart:
+				MetadataChartMapper.Set(this, key, value);
+				break;
+			case FileType.Ini:
+				MetadataIniMapper.Set(this, key, value);
+				break;
+		}
+	}
+
+	public void Remove(FileType fileType, string key)
+	{
+		switch (fileType)
+		{
+			case FileType.Chart:
+				MetadataChartMapper.Remove(this, key);
+				break;
+			case FileType.Ini:
+				throw new NotImplementedException();
+		}
+	}
 
 	/// <summary>
 	/// Appends the metadata from another file.

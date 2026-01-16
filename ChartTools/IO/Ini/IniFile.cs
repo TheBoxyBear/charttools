@@ -1,5 +1,6 @@
 ﻿using ChartTools.Extensions.Linq;
 using ChartTools.IO.Sources;
+using ChartTools.Meta;
 
 namespace ChartTools.IO.Ini;
 
@@ -9,11 +10,11 @@ namespace ChartTools.IO.Ini;
 public static class IniFile
 {
 	/// <summary>
-	/// Reads the <see cref="Metadata"/> from an ini target.
+	/// Reads the <see cref="Meta"/> from an ini target.
 	/// </summary>
 	/// <param name="source">File path or stream to read from</param>
-	/// <param name="existing"><see cref="Metadata"/> from another target to combine with</param>
-	/// <returns><see cref="Metadata"/> object provided as the <paramref name="existing"/> parameter, or a new instance if passed <see langword="null"/>.</returns>
+	/// <param name="existing"><see cref="Meta"/> from another target to combine with</param>
+	/// <returns><see cref="Meta"/> object provided as the <paramref name="existing"/> parameter, or a new instance if passed <see langword="null"/>.</returns>
 	public static Metadata ReadMetadata(ReadingDataSource source, Metadata? existing = null)
 	{
 		using IniFileReader reader = new(source, existing);
@@ -25,12 +26,12 @@ public static class IniFile
 	}
 
 	/// <summary>
-	/// Reads the <see cref="Metadata"/> from an ini target asynchronously.
+	/// Reads the <see cref="Meta"/> from an ini target asynchronously.
 	/// </summary>
 	/// <param name="source">File path or stream to read from</param>
-	/// <param name="existing"><see cref="Metadata"/> from another target to combine with</param>
+	/// <param name="existing"><see cref="Meta"/> from another target to combine with</param>
 	/// <param name="cancellationToken">Token used for cancellation</param>
-	/// <returns><see cref="Metadata"/> object provided as the <paramref name="existing"/> parameter, or a new instance if passed <see langword="null"/>.</returns>
+	/// <returns><see cref="Meta"/> object provided as the <paramref name="existing"/> parameter, or a new instance if passed <see langword="null"/>.</returns>
 	public static async Task<Metadata> ReadMetadataAsync(
 		ReadingDataSource source, Metadata? existing = null, CancellationToken cancellationToken = default)
 	{
@@ -43,10 +44,10 @@ public static class IniFile
 	}
 
 	/// <summary>
-	/// Writes the <see cref="Metadata"/> to an ini target.
+	/// Writes the <see cref="Meta"/> to an ini target.
 	/// </summary>
 	/// <param name="source">File path or stream to write to</param>
-	/// <param name="metadata"><see cref="Metadata"/> to write</param>
+	/// <param name="metadata"><see cref="Meta"/> to write</param>
 	public static void WriteMetadata(WritingDataSource source, Metadata metadata)
 	{
 		using IniFileWriter writer = new(source, new IniSerializer(metadata));
@@ -54,10 +55,10 @@ public static class IniFile
 	}
 
 	/// <summary>
-	/// Writes the <see cref="Metadata"/> to an ini target asynchronously.
+	/// Writes the <see cref="Meta"/> to an ini target asynchronously.
 	/// </summary>
 	/// <param name="source">File path or stream to write to</param>
-	/// <param name="metadata"><see cref="Metadata"/> to write</param>
+	/// <param name="metadata"><see cref="Meta"/> to write</param>
 	/// <param name="cancellationToken">Token used for cancellation</param>
 	public static Task WriteMetadataAsync(WritingDataSource source, Metadata metadata, CancellationToken cancellationToken = default)
 	{

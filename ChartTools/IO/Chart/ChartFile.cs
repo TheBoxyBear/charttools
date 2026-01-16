@@ -10,6 +10,7 @@ using ChartTools.IO.Configuration;
 using ChartTools.IO.Formatting;
 using ChartTools.IO.Sources;
 using ChartTools.Lyrics;
+using ChartTools.Meta;
 
 namespace ChartTools.IO.Chart;
 
@@ -214,11 +215,11 @@ public static class ChartFile
 
 	#region Metadata
 	/// <summary>
-	/// Reads the <see cref="Metadata"/> from a chart target.
+	/// Reads the <see cref="Meta"/> from a chart target.
 	/// </summary>
 	/// <param name="source">File path or stream to read from</param>
-	/// <param name="existing"><see cref="Metadata"/> from another target to combine with</param>
-	/// <returns><see cref="Metadata"/> object provided as the <paramref name="existing"/> parameter, or a new instance if passed <see langword="null"/>.</returns>
+	/// <param name="existing"><see cref="Meta"/> from another target to combine with</param>
+	/// <returns><see cref="Meta"/> object provided as the <paramref name="existing"/> parameter, or a new instance if passed <see langword="null"/>.</returns>
 	public static Metadata ReadMetadata(ReadingDataSource source, Metadata? existing = null)
 	{
 		ChartReadingSession session  = new(new() { Metadata = true }, DefaultReadConfig);
@@ -230,12 +231,12 @@ public static class ChartFile
 	}
 
 	/// <summary>
-	/// Reads the <see cref="Metadata"/> from a chart target asynchronously.
+	/// Reads the <see cref="Meta"/> from a chart target asynchronously.
 	/// </summary>
 	/// <param name="source">File path or stream to read from</param>
-	/// <param name="existing"><see cref="Metadata"/> from another target to combine with</param>
+	/// <param name="existing"><see cref="Meta"/> from another target to combine with</param>
 	/// <param name="cancellationToken">Token to request cancellation</param>
-	/// <returns><see cref="Metadata"/> object provided as the <paramref name="existing"/> parameter, or a new instance if passed <see langword="null"/>.</returns>
+	/// <returns><see cref="Meta"/> object provided as the <paramref name="existing"/> parameter, or a new instance if passed <see langword="null"/>.</returns>
 	public static async Task<Metadata> ReadMetadataAsync(
 		ReadingDataSource source, Metadata? existing = null, CancellationToken cancellationToken = default)
 	{
@@ -516,7 +517,7 @@ public static class ChartFile
 		=> new(source, null, new MetadataSerializer(metadata));
 
 	/// <summary>
-	/// Replaces the <see cref="Metadata"/> in a chart target.
+	/// Replaces the <see cref="Meta"/> in a chart target.
 	/// </summary>
 	/// <param name="source">File path or stream to write to</param>
 	/// <param name="metadata">Metadata to write</param>
@@ -527,7 +528,7 @@ public static class ChartFile
 	}
 
 	/// <summary>
-	/// Replaces the <see cref="Metadata"/> in a chart target asynchronously.
+	/// Replaces the <see cref="Meta"/> in a chart target asynchronously.
 	/// </summary>
 	/// <param name="source">File path or stream to write to</param>
 	/// <param name="metadata">Metadata to write</param>
