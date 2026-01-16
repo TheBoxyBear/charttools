@@ -6,7 +6,8 @@ internal static class Validator
 	/// Validates that an <see cref="Enum"/> value is defined.
 	/// </summary>
 	/// <exception cref="UndefinedEnumException"></exception>
-	public static void ValidateEnum<T>(T value) where T : struct, Enum
+	public static void ValidateEnum<T>(T value)
+		where T : struct, Enum
 	{
 		if (!Enum.IsDefined(value))
 			throw new UndefinedEnumException(value);

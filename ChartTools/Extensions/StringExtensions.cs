@@ -14,7 +14,8 @@ internal static class StringExtensions
 	/// </summary>
 	/// <param name="lastItemPreceder">Word to place before the last item</param>
 	/// <exception cref="ArgumentNullException"/>
-	public static string VerbalEnumerate(string lastItemPreceder, ReadOnlySpan<string> items) => items.Length switch
+	public static string VerbalEnumerate(string lastItemPreceder, in ReadOnlySpan<string> items)
+		=> items.Length switch
 	{
 		0 => string.Empty, // ""
 		1 => items[0], // "Item1"

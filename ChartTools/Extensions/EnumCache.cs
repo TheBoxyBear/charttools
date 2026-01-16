@@ -10,11 +10,5 @@ internal static class EnumCache<T> where T : struct, Enum
 	/// Cached values
 	/// </summary>
 	/// <remarks>Generates the cache on first call.</remarks>
-	public static T[] Values => _values ??= [.. Enum.GetValues<T>()];
-	private static T[]? _values;
-
-	/// <summary>
-	/// Clears the cache.
-	/// </summary>
-	public static void Clear() => _values = null;
+	public static T[] Values => field ??= [.. Enum.GetValues<T>()];
 }

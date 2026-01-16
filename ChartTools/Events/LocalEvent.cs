@@ -5,9 +5,11 @@
 /// </summary>
 public class LocalEvent : Event
 {
-	public bool IsSoloEvent => EventType is EventTypeHelper.Local.Solo or EventTypeHelper.Local.SoloEnd;
+	public bool IsSoloEvent
+		=> EventType is EventTypeHelper.Local.Solo or EventTypeHelper.Local.SoloEnd;
 
-	public bool IsOwFaceEvent => EventType.StartsWith(EventTypeHeaderHelper.Local.OwFace);
+	public bool IsOwFaceEvent
+		=> EventType.StartsWith(EventTypeHeaderHelper.Local.OwFace);
 
 
 	/// <inheritdoc cref="Event(uint)"/>

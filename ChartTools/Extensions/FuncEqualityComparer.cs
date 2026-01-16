@@ -22,7 +22,9 @@ public class FuncEqualityComparer<T> : IEqualityComparer<T>
 		Comparison = comparison;
 	}
 
-	public bool Equals(T? x, T? y) => Comparison(x, y);
+	public bool Equals(T? x, T? y)
+		=> Comparison(x, y);
 
-	public int GetHashCode(T obj) => obj!.GetHashCode();
+	public int GetHashCode(T obj)
+		=> obj!.GetHashCode();
 }

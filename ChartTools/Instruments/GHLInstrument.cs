@@ -7,5 +7,6 @@ public record GHLInstrument : Instrument<GHLChord>
 	public GHLInstrument() { }
 	public GHLInstrument(GHLInstrumentIdentity identity) => InstrumentIdentity = identity;
 
-	protected override InstrumentIdentity GetIdentity() => (InstrumentIdentity)InstrumentIdentity;
+	protected override InstrumentIdentity GetIdentity()
+		=> (InstrumentIdentity)InstrumentIdentity;
 }

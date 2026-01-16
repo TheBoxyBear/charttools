@@ -9,7 +9,8 @@ internal class ChartReadingSession(ComponentList components, ChartReadingConfigu
 
 	public override ChartReadingConfiguration Configuration { get; } = config ?? ChartFile.DefaultReadConfig;
 
-	public bool HandleTempolessAnchor(Anchor anchor) => Configuration.TempolessAnchorPolicy switch
+	public bool HandleTempolessAnchor(Anchor anchor)
+		=> Configuration.TempolessAnchorPolicy switch
 	{
 		TempolessAnchorPolicy.ThrowException => throw new Exception($"Tempo anchor at position {anchor.Position} does not have a parent tempo marker."),
 		TempolessAnchorPolicy.Ignore         => false,

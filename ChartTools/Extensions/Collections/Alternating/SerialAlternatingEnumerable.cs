@@ -26,7 +26,8 @@ public class SerialAlternatingEnumerable<T> : IEnumerable<T>
 	}
 
 	/// <inheritdoc/>
-	public IEnumerator<T> GetEnumerator() => new Enumerator([.. Enumerables.Select(e => e.GetEnumerator())])!;
+	public IEnumerator<T> GetEnumerator()
+		=> new Enumerator([.. Enumerables.Select(e => e.GetEnumerator())])!;
 
 	/// <inheritdoc/>
 	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

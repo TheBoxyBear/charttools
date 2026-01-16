@@ -15,7 +15,8 @@ namespace ChartTools;
 public abstract record Instrument : IEmptyVerifiable
 {
 	/// <inheritdoc cref="IEmptyVerifiable.IsEmpty"/>
-	public bool IsEmpty => GetExistingTracks().All(t => t.IsEmpty);
+	public bool IsEmpty
+		=> GetExistingTracks().All(t => t.IsEmpty);
 
 	/// <summary>
 	/// Identity of the instrument the object belongs to
@@ -26,24 +27,13 @@ public abstract record Instrument : IEmptyVerifiable
 	/// Type of instrument
 	/// </summary>
 	public InstrumentType InstrumentType
-	{
-		get
+		=> InstrumentIdentity switch
 		{
-			if (_instrumentType is not null)
-				return _instrumentType.Value;
-
-			_instrumentType = InstrumentIdentity switch
-			{
-				InstrumentIdentity.Drums => InstrumentType.Drums,
-				InstrumentIdentity.StandardLeadGuitar or InstrumentIdentity.StandardRhythmGuitar or InstrumentIdentity.StandardBass or InstrumentIdentity.StandardCoopGuitar or InstrumentIdentity.GHLBass or InstrumentIdentity.StandardKeys => InstrumentType.Standard,
-				InstrumentIdentity.GHLLeadGuitar or InstrumentIdentity.GHLBass => InstrumentType.GHL,
-				_ => throw new InvalidDataException($"Instrument identity {InstrumentIdentity} does not belong to an instrument type.")
-			};
-
-			return _instrumentType.Value;
-		}
-	}
-	private InstrumentType? _instrumentType;
+			InstrumentIdentity.Drums => InstrumentType.Drums,
+			InstrumentIdentity.StandardLeadGuitar or InstrumentIdentity.StandardRhythmGuitar or InstrumentIdentity.StandardBass or InstrumentIdentity.StandardCoopGuitar or InstrumentIdentity.GHLBass or InstrumentIdentity.StandardKeys => InstrumentType.Standard,
+			InstrumentIdentity.GHLLeadGuitar or InstrumentIdentity.GHLBass => InstrumentType.GHL,
+			_ => throw new InvalidDataException($"Instrument identity {InstrumentIdentity} does not belong to an instrument type.")
+		};
 
 	/// <summary>
 	/// Set of special phrases applied to all difficulties
@@ -51,7 +41,8 @@ public abstract record Instrument : IEmptyVerifiable
 	public List<InstrumentSpecialPhrase> SharedSpecialPhrases { get; set; } = [];
 
 	/// <inheritdoc cref="InstrumentDifficultySet.GetDifficulty(InstrumentIdentity)"/>
-	public ref sbyte? GetDifficulty(InstrumentDifficultySet difficulties) => ref difficulties.GetDifficulty(InstrumentIdentity);
+	public ref sbyte? GetDifficulty(InstrumentDifficultySet difficulties)
+		=> ref difficulties.GetDifficulty(InstrumentIdentity);
 
 	/// <summary>
 	/// Easy track
@@ -111,14 +102,17 @@ public abstract record Instrument : IEmptyVerifiable
 	/// <summary>
 	/// Gives all tracks the same local events.
 	/// </summary>
-	public LocalEvent[] ShareLocalEvents(TrackObjectSource source) => ShareEventsSpecial(source, track => track.LocalEvents);
+	public LocalEvent[] ShareLocalEvents(TrackObjectSource source)
+		=> ShareEventsSpecial(source, track => track.LocalEvents);
 
 	/// <summary>
 	/// Gives all tracks the same special phrases.
 	/// </summary>
-	public SpecialPhrase[] ShareSpecial(TrackObjectSource source) => ShareEventsSpecial(source, track => track.SpecialPhrases);
+	public SpecialPhrase[] ShareSpecial(TrackObjectSource source)
+		=> ShareEventsSpecial(source, track => track.SpecialPhrases);
 
-	private T[] ShareEventsSpecial<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter) where T : ITrackObject
+	private T[] ShareEventsSpecial<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter)
+		where T : ITrackObject
 	{
 		List<T>[] collections = [.. GetExistingTracks().Select(track => collectionGetter(track))];
 
@@ -153,113 +147,115 @@ public abstract record Instrument<TChord> : Instrument
 	/// </summary>
 	public new Track<TChord>? Easy
 	{
-		get => m_easy;
-		set => m_easy = value is null ? null : value with { Difficulty = DiffEnum.Easy, ParentInstrument = this };
+		get;
+		set => field = value is null ? null
+			: value with { Difficulty = DiffEnum.Easy, ParentInstrument = this };
 	}
-	private Track<TChord>? m_easy;
 
 	/// <summary>
 	/// Medium track
 	/// </summary>
 	public new Track<TChord>? Medium
 	{
-		get => m_medium;
-		set => m_medium = value is null ? null : value with { Difficulty = DiffEnum.Medium, ParentInstrument = this };
+		get;
+		set => field = value is null ? null
+			: value with { Difficulty = DiffEnum.Medium, ParentInstrument = this };
 	}
-	private Track<TChord>? m_medium;
 
 	/// <summary>
 	/// Hard track
 	/// </summary>
 	public new Track<TChord>? Hard
 	{
-		get => m_hard;
-		set => m_hard = value is null ? null : value with { Difficulty = DiffEnum.Hard, ParentInstrument = this };
+		get;
+		set => field = value is null ? null
+			: value with { Difficulty = DiffEnum.Hard, ParentInstrument = this };
 	}
-	private Track<TChord>? m_hard;
 
 	/// <summary>
 	/// Expert track
 	/// </summary>
 	public new Track<TChord>? Expert
 	{
-		get => m_expert;
-		set => m_expert = value is null ? null : value with { Difficulty = DiffEnum.Expert, ParentInstrument = this };
+		get;
+		set => field = value is null ? null
+			: value with { Difficulty = DiffEnum.Expert, ParentInstrument = this };
 	}
-	private Track<TChord>? m_expert;
 
-    /// <summary>
-    /// Gets the <see cref="Track{TChord}"/> that matches a <see cref="DiffEnum"/>
-    /// </summary>
-    public override Track<TChord>? GetTrack(DiffEnum difficulty) => difficulty switch
+	/// <summary>
+	/// Gets the <see cref="Track{TChord}"/> that matches a <see cref="DiffEnum"/>
+	/// </summary>
+	public override Track<TChord>? GetTrack(DiffEnum difficulty) => difficulty switch
 	{
-        DiffEnum.Easy => Easy,
-        DiffEnum.Medium => Medium,
-        DiffEnum.Hard => Hard,
-        DiffEnum.Expert => Expert,
+		DiffEnum.Easy   => Easy,
+		DiffEnum.Medium => Medium,
+		DiffEnum.Hard   => Hard,
+		DiffEnum.Expert => Expert,
 		_ => throw new UndefinedEnumException(difficulty)
 	};
 
-    /// <inheritdoc cref="Instrument.CreateTrack(DiffEnum)"/>
-    public override Track<TChord> CreateTrack(DiffEnum difficulty) => difficulty switch
+	/// <inheritdoc cref="Instrument.CreateTrack(DiffEnum)"/>
+	public override Track<TChord> CreateTrack(DiffEnum difficulty) => difficulty switch
 	{
-        DiffEnum.Easy => Easy = new(),
-        DiffEnum.Medium => Medium = new(),
-        DiffEnum.Hard => Hard = new(),
-        DiffEnum.Expert => Expert = new(),
+		DiffEnum.Easy   => Easy   = new(),
+		DiffEnum.Medium => Medium = new(),
+		DiffEnum.Hard   => Hard   = new(),
+		DiffEnum.Expert => Expert = new(),
 		_ => throw new UndefinedEnumException(difficulty)
 	};
-    /// <inheritdoc cref="Instrument.RemoveTrack(DiffEnum)"/>
-    public override bool RemoveTrack(DiffEnum difficulty)
+
+	/// <inheritdoc cref="Instrument.RemoveTrack(DiffEnum)"/>
+	public override bool RemoveTrack(DiffEnum difficulty)
 	{
 		bool found;
 
 		switch (difficulty)
 		{
 			case DiffEnum.Easy:
-				found = m_easy is not null;
-				m_easy = null;
+				found = Easy is not null;
+				Easy = null;
 				return found;
 			case DiffEnum.Medium:
-				found = m_medium is not null;
-				m_medium = null;
+				found = Medium is not null;
+				Medium = null;
 				return found;
 			case DiffEnum.Hard:
-				found = m_hard is not null;
-				m_hard = null;
+				found = Hard is not null;
+				Hard = null;
 				return found;
 			case DiffEnum.Expert:
-				found = m_expert is not null;
-				m_expert = null;
+				found = Expert is not null;
+				Expert = null;
 				return found;
 			default:
 				throw new UndefinedEnumException(difficulty);
 		}
 	}
 
-    /// <summary>
-    /// Exposes the <see cref="Easy"/> track to the base class.
-    /// </summary>
-    protected override Track<TChord>? GetEasy() => Easy;
+	/// <summary>
+	/// Exposes the <see cref="Easy"/> track to the base class.
+	/// </summary>
+	protected override Track<TChord>? GetEasy() => Easy;
 
-    /// <summary>
-    /// Exposes the <see cref="Medium"/> track to the base class.
-    /// </summary>
-    protected override Track<TChord>? GetMedium() => Medium;
+	/// <summary>
+	/// Exposes the <see cref="Medium"/> track to the base class.
+	/// </summary>
+	protected override Track<TChord>? GetMedium() => Medium;
 
-    /// <summary>
-    /// Exposes the <see cref="Hard"/> track to the base class.
-    /// </summary>
-    protected override Track<TChord>? GetHard() => Hard;
+	/// <summary>
+	/// Exposes the <see cref="Hard"/> track to the base class.
+	/// </summary>
+	protected override Track<TChord>? GetHard() => Hard;
 
-    /// <summary>
-    /// Exposes the <see cref="Expert"/> track to the base class.
-    /// </summary>
-    protected override Track<TChord>? GetExpert() => Expert;
+	/// <summary>
+	/// Exposes the <see cref="Expert"/> track to the base class.
+	/// </summary>
+	protected override Track<TChord>? GetExpert() => Expert;
 
 	public override Track<TChord>?[] GetTracks() => [Easy, Medium, Hard, Expert];
 
-	public override IEnumerable<Track<TChord>> GetExistingTracks() => base.GetExistingTracks().Cast<Track<TChord>>();
+	public override IEnumerable<Track<TChord>> GetExistingTracks()
+		=> base.GetExistingTracks().Cast<Track<TChord>>();
 
 	/// <summary>
 	/// Sets a track for a given <see cref="Difficulty"/>.
@@ -267,14 +263,17 @@ public abstract record Instrument<TChord> : Instrument
 	/// <returns>Track instance assigned to the instrument. Changed made to the passed reference will not be reflected in the instrument.</returns>
 	/// <exception cref="ArgumentNullException"/>
 	/// <exception cref="UndefinedEnumException"/>
-	public Track<TChord> SetTrack(Track<TChord> track) => track is null
-		? throw new ArgumentNullException(nameof(track))
-		: track.Difficulty switch
+	public Track<TChord> SetTrack(Track<TChord> track)
+	{
+		ArgumentNullException.ThrowIfNull(track);
+
+		return track.Difficulty switch
 		{
-            DiffEnum.Easy => m_easy = track with { ParentInstrument = this },
-            DiffEnum.Medium => m_medium = track with { ParentInstrument = this },
-            DiffEnum.Hard => m_hard = track with { ParentInstrument = this },
-            DiffEnum.Expert => m_expert = track with { ParentInstrument = this },
+			DiffEnum.Easy => Easy = track,
+			DiffEnum.Medium => Medium = track,
+			DiffEnum.Hard => Hard = track,
+			DiffEnum.Expert => Expert = track,
 			_ => throw new UndefinedEnumException(track.Difficulty)
 		};
+	}
 }

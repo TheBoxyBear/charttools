@@ -7,14 +7,12 @@ public abstract class Event(uint position) : ITrackObject
 {
 	public uint Position { get; set; } = position;
 
-	private string m_eventType = "Default";
-
 	/// <summary>
 	/// Type of event as it is written in the file
 	/// </summary>
 	public string EventType
 	{
-		get => m_eventType;
+		get;
 		set
 		{
 			if (string.IsNullOrEmpty(value))
@@ -23,9 +21,9 @@ public abstract class Event(uint position) : ITrackObject
 			if (value.Contains(' '))
 				throw new FormatException("Event types cannot contain spaces");
 
-			m_eventType = value;
+			field = value;
 		}
-	}
+	} = "Default";
 
 	/// <summary>
 	/// Additional data to modify the outcome of the event

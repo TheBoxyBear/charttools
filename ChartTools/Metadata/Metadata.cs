@@ -75,10 +75,9 @@ public class Metadata
 	/// </summary>
 	public Charter Charter
 	{
-		get => m_charter;
-		set => m_charter = value ?? throw new ArgumentNullException(nameof(value));
-	}
-	private Charter m_charter = new();
+		get;
+		set => field = value ?? throw new ArgumentNullException(nameof(value));
+	} = new();
 
 	/// <summary>
 	/// The song contains explicit lyrics
@@ -124,10 +123,9 @@ public class Metadata
 	/// <inheritdoc cref="InstrumentDifficultySet"/>
 	public InstrumentDifficultySet InstrumentDifficulties
 	{
-		get => m_instrumentDifficulties;
-		set => m_instrumentDifficulties = value ?? throw new ArgumentNullException(nameof(value));
-	}
-	private InstrumentDifficultySet m_instrumentDifficulties = new();
+		get;
+		set => field = value ?? throw new ArgumentNullException(nameof(value));
+	} = new();
 
 	/// <summary>
 	/// Type of media the audio track comes from
@@ -147,10 +145,9 @@ public class Metadata
 	/// </summary>
 	public StreamCollection Streams
 	{
-		get => m_streams;
-		set => m_streams = value ?? throw new ArgumentNullException(nameof(value));
-	}
-	private StreamCollection m_streams = new();
+		get;
+		set => field = value ?? throw new ArgumentNullException(nameof(value));
+	} = new();
 
 	/// <summary>
 	/// Offset of the background video. A higher value makes the video start sooner.
@@ -175,14 +172,12 @@ public class Metadata
 	[IniKeySerializable(IniFormatting.Modchart)]
 	public bool IsModchart { get; set; }
 
-
-	private FormattingRules m_formatting = new();
 	/// <inheritdoc cref="FormattingRules"/>
 	public FormattingRules Formatting
 	{
-		get => m_formatting;
-		set => m_formatting = value ?? throw new ArgumentNullException(nameof(value));
-	}
+		get;
+		set => field = value ?? throw new ArgumentNullException(nameof(value));
+	} = new();
 
 	/// <summary>
 	/// Unrecognized metadata

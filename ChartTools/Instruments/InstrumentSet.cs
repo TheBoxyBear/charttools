@@ -130,19 +130,20 @@ public class InstrumentSet : IEnumerable<Instrument>
 		return Get((InstrumentIdentity)instrument) as GHLInstrument;
 	}
 
-    /// <summary>
-    /// Gets property value for a <see cref="StandardInstrument"/> from a <see cref="StandardInstrumentIdentity"/> <see langword="enum"/> value.
-    /// </summary>
-    /// <param name="instrument">Instrument to get</param>
-    /// <returns>Instance of <see cref="StandardInstrument"/> from the <see cref="Song"/>.</returns>
-    /// <exception cref="UndefinedEnumException"/>
-    public StandardInstrument? Get(StandardInstrumentIdentity instrument)
+	/// <summary>
+	/// Gets property value for a <see cref="StandardInstrument"/> from a <see cref="StandardInstrumentIdentity"/> <see langword="enum"/> value.
+	/// </summary>
+	/// <param name="instrument">Instrument to get</param>
+	/// <returns>Instance of <see cref="StandardInstrument"/> from the <see cref="Song"/>.</returns>
+	/// <exception cref="UndefinedEnumException"/>
+	public StandardInstrument? Get(StandardInstrumentIdentity instrument)
 	{
 		Validator.ValidateEnum(instrument);
 		return Get((InstrumentIdentity)instrument) as StandardInstrument;
 	}
 
-	public IEnumerable<Instrument> Existing() => this.NonNull().Where(instrument => !instrument.IsEmpty);
+	public IEnumerable<Instrument> Existing()
+		=> this.NonNull().Where(instrument => !instrument.IsEmpty);
 
 	public void Set(Instrument instrument)
 	{
@@ -153,31 +154,31 @@ public class InstrumentSet : IEnumerable<Instrument>
 				break;
 			// Instruments must be set by field as calling the setter replaces the record instance
 			case InstrumentIdentity.StandardLeadGuitar:
-				m_standardLeadGuitar = (StandardInstrument)instrument;
+				m_standardLeadGuitar   = (StandardInstrument)instrument;
 				break;
 			case InstrumentIdentity.StandardRhythmGuitar:
 				m_standardRhythmGuitar = (StandardInstrument)instrument;
 				break;
 			case InstrumentIdentity.StandardCoopGuitar:
-				m_standardCoopGuitar = (StandardInstrument)instrument;
+				m_standardCoopGuitar   = (StandardInstrument)instrument;
 				break;
 			case InstrumentIdentity.StandardBass:
-				m_standardBass = (StandardInstrument)instrument;
+				m_standardBass         = (StandardInstrument)instrument;
 				break;
 			case InstrumentIdentity.StandardKeys:
-				m_standardKeys = (StandardInstrument)instrument;
+				m_standardKeys         = (StandardInstrument)instrument;
 				break;
 			case InstrumentIdentity.GHLLeadGuitar:
-				m_ghlLeadGuitar = (GHLInstrument)instrument;
+				m_ghlLeadGuitar        = (GHLInstrument)instrument;
 				break;
 			case InstrumentIdentity.GHLBass:
-				m_ghlBass = (GHLInstrument)instrument;
+				m_ghlBass              = (GHLInstrument)instrument;
 				break;
 			case InstrumentIdentity.GHLRhythmGuitar:
-				m_ghlRhythmGuitar = (GHLInstrument)instrument;
+				m_ghlRhythmGuitar      = (GHLInstrument)instrument;
 				break;
 			case InstrumentIdentity.GHLCoopGuitar:
-				m_ghlCoopGuitar = (GHLInstrument)instrument;
+				m_ghlCoopGuitar        = (GHLInstrument)instrument;
 				break;
 			default:
 				throw new UndefinedEnumException(instrument.InstrumentIdentity);
@@ -187,8 +188,20 @@ public class InstrumentSet : IEnumerable<Instrument>
 	/// <inheritdoc cref="IEnumerable{Instrument}.GetEnumerator"/>
 	public IEnumerator<Instrument> GetEnumerator()
 		=> new Instrument?[]
-		{ Drums, GHLLeadGuitar, GHLBass, GHLRhythmGuitar, GHLCoopGuitar, StandardLeadGuitar, StandardRhythmGuitar, StandardCoopGuitar, StandardBass, StandardKeys }
+		{
+			Drums,
+			GHLLeadGuitar,
+			GHLBass,
+			GHLRhythmGuitar,
+			GHLCoopGuitar,
+			StandardLeadGuitar,
+			StandardRhythmGuitar,
+			StandardCoopGuitar,
+			StandardBass,
+			StandardKeys
+		}
 		.NonNull().GetEnumerator();
 
-	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+	IEnumerator IEnumerable.GetEnumerator()
+		=> GetEnumerator();
 }

@@ -2,5 +2,6 @@
 
 public record Drums : Instrument<DrumsChord>
 {
-	protected override InstrumentIdentity GetIdentity() => InstrumentIdentity.Drums;
+	protected override InstrumentIdentity GetIdentity()
+		=> InstrumentIdentity.Drums;
 }
