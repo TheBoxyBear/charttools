@@ -55,14 +55,14 @@ public static class Optimizer
 				// New note stops ongoing sustain on the same lane
 				RemoveSustain(note.Index);
 
-			AddSustain(in note);
+			AddSustain(note);
 
 			while (++index < noteSpan.Length)
 			{
 				note = ref noteSpan[index];
 
 				RemoveSustain(note.Index);
-				AddSustain(in note);
+				AddSustain(note);
 			}
 
 			void AddSustain(in TNote note)
