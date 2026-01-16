@@ -37,7 +37,24 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 		if (OpenExclusivity && (note.Index == 0 || Count == 1 && AsSpan()[0].Index == 0)) // An open note is present and needs to be removed
 			Clear();
 
+		Span<TNote> span = CollectionsMarshal.AsSpan(m_notes);
+
+		// Try to find and replace existing note
+		for (int i = 0; i < m_notes.Count; i++)
+		{
+			ref TNote thisNote = ref span[i];
+
+			if (thisNote.Lane.Equals(note.Lane))
+			{
+				thisNote = note;
+				return;
+			}
+		}
+
 		m_notes.Add(note);
+
+		if (m_notes.Capacity > TNote.MaxLanes)
+			m_notes.Capacity = TNote.MaxLanes;
 	}
 
 	void ICollection<TNote>.Add(TNote note)
@@ -56,7 +73,7 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 		m_notes.Capacity += notes.Length;
 
 		foreach (ref readonly TLane lane in notes)
-			m_notes.Add(new TNote { Lane = lane });
+			Add(new TNote { Lane = lane });
 	}
 
 	/// <summary>
