@@ -3,8 +3,9 @@ using ChartTools.IO.Chart.Entries;
 
 namespace ChartTools.IO.Chart.Parsing;
 
-internal class StandardTrackParser(Difficulty difficulty, StandardInstrumentIdentity instrument, ChartReadingSession session, string header)
-	: VariableInstrumentTrackParser<StandardChord, StandardInstrumentIdentity>(difficulty, instrument, session, header)
+internal class StandardTrackParser(
+	Difficulty difficulty, StandardInstrumentIdentity instrument, ChartReadingSession session, in ReadOnlyMemory<char> header)
+	: VariableInstrumentTrackParser<StandardChord, StandardInstrumentIdentity>(difficulty, instrument, session, in header)
 {
 	public override void ApplyToSong(Song song)
 	{

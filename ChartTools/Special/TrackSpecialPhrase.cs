@@ -15,12 +15,13 @@ public class TrackSpecialPhrase : SpecialPhrase
 			TrackSpecialPhraseType typeEnum = (TrackSpecialPhraseType)TypeCode;
 			return Enum.IsDefined(typeEnum) ? typeEnum : TrackSpecialPhraseType.Unknown;
 		}
-		set => TypeCode = value == TrackSpecialPhraseType.Unknown
+		set => TypeCode = value is TrackSpecialPhraseType.Unknown
 			? throw new ArgumentException($"{TrackSpecialPhraseType.Unknown} is not a valid explicit value.", nameof(value))
 			: (byte)value;
 	}
 
-	public bool IsFaceOff => Type is TrackSpecialPhraseType.Player1FaceOff or TrackSpecialPhraseType.Player2FaceOff;
+	public bool IsFaceOff
+		=> Type is TrackSpecialPhraseType.Player1FaceOff or TrackSpecialPhraseType.Player2FaceOff;
 
 	/// <summary>
 	/// Creates an instance of <see cref="TrackSpecialPhrase"/>.

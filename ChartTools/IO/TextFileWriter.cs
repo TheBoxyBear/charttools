@@ -4,15 +4,18 @@ using ChartTools.IO.Sources;
 
 namespace ChartTools.IO;
 
-internal abstract class TextFileWriter(WritingDataSource source, IEnumerable<string>? removedHeaders, params ReadOnlySpan<Serializer<string>> serializers)
+internal abstract class TextFileWriter(
+	WritingDataSource source, IEnumerable<string>? removedHeaders, params ReadOnlySpan<Serializer<string>> serializers)
 	: IDisposable
 {
 	public WritingDataSource Source { get; } = source;
 
 	protected virtual string? PreSerializerContent => null;
+
 	protected virtual string? PostSerializerContent => null;
 
 	private readonly List<Serializer<string>> serializers = [..serializers];
+
 	private readonly IEnumerable<string>? removedHeaders = removedHeaders;
 
 	private IEnumerable<string> Wrap(string header, IEnumerable<string> lines)

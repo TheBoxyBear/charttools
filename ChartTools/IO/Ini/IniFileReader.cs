@@ -7,8 +7,9 @@ internal class IniFileReader(ReadingDataSource source, Metadata? existing) : Tex
 {
 	public override IEnumerable<IniParser> Parsers => base.Parsers.Cast<IniParser>();
 
-	protected override TextParser? GetParser(string header)
-		=> header.Equals(IniFormatting.Header, StringComparison.OrdinalIgnoreCase) ? new IniParser(existing) : null;
+	protected override TextParser? GetParser(in ReadOnlyMemory<char> header)
+		=> header.Span.Equals(IniFormatting.Header, StringComparison.OrdinalIgnoreCase) ? new IniParser(existing) : null;
 
-	protected override bool IsSectionStart(string line) => !line.StartsWith('[');
+	protected override bool IsSectionStart(in ReadOnlySpan<char> line)
+		=> !line.StartsWith('[');
 }

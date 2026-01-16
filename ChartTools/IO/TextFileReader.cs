@@ -2,9 +2,11 @@
 using ChartTools.IO.Parsing;
 using ChartTools.IO.Sources;
 
+using System;
+
 namespace ChartTools.IO;
 
-internal abstract class TextFileReader(ReadingDataSource source) : FileReader<string, TextParser>(source)
+internal abstract class TextFileReader(ReadingDataSource source) : FileReader<ReadOnlyMemory<char>, TextParser>(source)
 {
 	public virtual bool DefinedSectionEnd { get; } = false;
 
@@ -12,16 +14,23 @@ internal abstract class TextFileReader(ReadingDataSource source) : FileReader<st
 
 	protected override void ReadBase(bool async, in CancellationToken cancellationToken)
 	{
-		using StreamReader reader = new(Source.Stream, leaveOpen: true);
+		string contentStr;
+
+		using (StreamReader reader = new(Source.Stream, leaveOpen: true))
+		{
+			contentStr = reader.ReadToEnd();
+		}
+
+		ReadOnlyMemory<char> content = contentStr.AsMemory();
+		ReadOnlyMemory<char> line    = string.Empty.AsMemory();
 
 		ParserContentGroup? currentGroup = null;
-		string line = string.Empty;
 
-		while (ReadLine())
+		while (ReadLine(ref content, ref line))
 		{
 			// Find section
-			while (!line.StartsWith('['))
-				if (!ReadLine())
+			while (!line.Span.StartsWith('['))
+				if (!ReadLine(ref content, ref line))
 					return;
 
 			if (async && cancellationToken.IsCancellationRequested)
@@ -30,12 +39,12 @@ internal abstract class TextFileReader(ReadingDataSource source) : FileReader<st
 				return;
 			}
 
-			string header = line;
+			ReadOnlyMemory<char> header = line;
 			TextParser? parser = GetParser(header);
 
 			if (parser is not null)
 			{
-				DelayedEnumerableSource<string> source = new();
+				DelayedEnumerableSource<ReadOnlyMemory<char>> source = new();
 
 				parserGroups.Add(currentGroup = new(parser, source));
 
@@ -58,12 +67,12 @@ internal abstract class TextFileReader(ReadingDataSource source) : FileReader<st
 					FinishSection(cancellationToken);
 					return;
 				}
-			while (!IsSectionStart(line));
+			while (!IsSectionStart(line.Span));
 
 			AdvanceSection();
 
 			// Read until end
-			while (!IsSectionEnd(line))
+			while (!IsSectionEnd(line.Span))
 			{
 				currentGroup?.Source.Add(line);
 
@@ -87,24 +96,33 @@ internal abstract class TextFileReader(ReadingDataSource source) : FileReader<st
 				currentGroup?.Source.EndAwait();
 			}
 
-			bool AdvanceSection() => ReadLine() || (DefinedSectionEnd ? throw SectionException.EarlyEnd(header) : false);
+			bool AdvanceSection() => ReadLine(ref content, ref line) || (DefinedSectionEnd ? throw SectionException.EarlyEnd(header.ToString()) : false);
 		}
 
-		bool ReadLine()
+		bool ReadLine(ref ReadOnlyMemory<char> content, ref ReadOnlyMemory<char> line)
 		{
-			string? newLine;
+			while (true)
+			{
+				int newLineIndex = content.Span.IndexOf('\n');
 
-			while ((newLine = reader.ReadLine()) == string.Empty) ;
+				if (newLineIndex == -1)
+				{
+					line = content.Trim();
+					return false;
+				}
 
-			if (newLine is null)
-				return false;
+				line    = content[..newLineIndex].Trim();
+				content = content[(newLineIndex + 1)..];
 
-			line = newLine.Trim();
+				if (line.Length > 0)
+					break;
+			}
+
 			return true;
 		}
 	}
 
-	protected abstract bool IsSectionStart(string line);
+	protected abstract bool IsSectionStart(in ReadOnlySpan<char> line);
 
-	protected virtual bool IsSectionEnd(string line) => false;
+	protected virtual bool IsSectionEnd(in ReadOnlySpan<char> line) => false;
 }

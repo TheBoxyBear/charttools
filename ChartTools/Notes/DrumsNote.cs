@@ -19,7 +19,7 @@ public readonly record struct DrumsNote(DrumsLane lane) : IDefinedLaneNote<Drums
 		get => m_isCymbal;
 		init
 		{
-			if ((Lane == DrumsLane.Red || Lane == DrumsLane.Green5Lane) && value)
+			if (Lane is DrumsLane.Red or DrumsLane.Green5Lane && value)
 				throw new InvalidOperationException("Red and 5-lane green notes cannot be cymbal.");
 
 			m_isCymbal = value;

@@ -2,10 +2,12 @@
 using ChartTools.IO.Chart.Configuration.Sessions;
 using ChartTools.IO.Chart.Entries;
 
+using System.Runtime.InteropServices;
+
 namespace ChartTools.IO.Chart.Parsing;
 
 internal class SyncTrackParser(ChartReadingSession session)
-	: ChartParser(session, ChartFormatting.SyncTrackHeader)
+	: ChartParser(session, ChartFormatting.SyncTrackHeader.AsMemory())
 {
 	public override SyncTrack Result => GetResult(result);
 	private readonly SyncTrack result = new();
@@ -14,25 +16,27 @@ internal class SyncTrackParser(ChartReadingSession session)
 	private readonly List<Anchor> orderedAnchors = [];
 	private readonly List<TimeSignature> orderedSignatures = [];
 
-	protected override void HandleItem(string line)
+	protected override void HandleItem(in ReadOnlyMemory<char> line)
 	{
 		TrackObjectEntry entry = new(line);
+		ReadOnlySpan<char> data = entry.Data.Span;
 
-		switch (entry.Type)
+		switch (entry.Type.Span)
 		{
 			case "TS": // Time signature
 				if (CheckDuplicate(orderedSignatures, "time signature", out int newIndex))
 					break;
 
-				string[] split = ChartFormatting.SplitData(entry.Data);
+				ReadOnlySpan<char> a, b;
+				ChartFormatting.SplitData(data, out a, out b);
 
 				byte
-					numerator = ValueParser.ParseByte(split[0], "numerator"),
+					numerator = ValueParser.ParseByte(in a, "numerator"),
 					denominator = 4;
 
 				// Denominator is only written if not equal to 4
-				if (split.Length >= 2)
-					denominator = (byte)Math.Pow(2, ValueParser.ParseByte(split[1], "denominator"));
+				if (!b.IsEmpty)
+					denominator = (byte)Math.Pow(2, ValueParser.ParseByte(in b, "denominator"));
 
 				TimeSignature signature = new(entry.Position, numerator, denominator);
 
@@ -44,7 +48,7 @@ internal class SyncTrackParser(ChartReadingSession session)
 					break;
 
 				// Floats are written by rounding to the 3rd decimal and removing the decimal point
-				float value = ValueParser.ParseFloat(entry.Data, "value") / 1000;
+				float value = ValueParser.ParseFloat(data, "value") / 1000;
 				Tempo tempo = new(entry.Position, value);
 
 				tempos.Add(tempo);
@@ -55,13 +59,14 @@ internal class SyncTrackParser(ChartReadingSession session)
 					break;
 
 				// Floats are written by rounding to the 3rd decimal and removing the decimal point
-				TimeSpan anchor = TimeSpan.FromSeconds(ValueParser.ParseFloat(entry.Data, "anchor") / 1000);
+				TimeSpan anchor = TimeSpan.FromSeconds(ValueParser.ParseFloat(data, "anchor") / 1000);
 
 				orderedAnchors.Insert(newIndex, new(entry.Position, anchor));
 				break;
 		}
 
-		bool CheckDuplicate<T>(IList<T> existing, string objectType, out int newIndex) where T : IReadOnlyTrackObject
+		bool CheckDuplicate<T>(IList<T> existing, string objectType, out int newIndex)
+			where T : IReadOnlyTrackObject
 		{
 			int index = 0;
 			bool result = !Session.HandleDuplicate(entry.Position, objectType, () =>
@@ -79,7 +84,7 @@ internal class SyncTrackParser(ChartReadingSession session)
 
 	protected override void FinalizeParse()
 	{
-		foreach (Anchor anchor in orderedAnchors)
+		foreach (ref readonly Anchor anchor in CollectionsMarshal.AsSpan(orderedAnchors))
 		{
 			// Find the marker matching the position in case it was already added through a mention of value
 			int markerIndex = orderedTempos.BinarySearchIndex(anchor.Position, t => t.Position, out bool markerFound);

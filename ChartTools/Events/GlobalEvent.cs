@@ -40,7 +40,7 @@ public class GlobalEvent : Event
 	/// <summary>
 	/// The event stores text for a syllable of lyrics for karaoke when no vocal track is present
 	/// </summary>
-	public bool IsLyricEvent => IsPhraseEvent || EventType == EventTypeHelper.Global.Lyric;
+	public bool IsLyricEvent => IsPhraseEvent || EventType is EventTypeHelper.Global.Lyric;
 
 	/// <summary>
 	/// The event represents the start or end of a lyric phrase when no vocal track is present

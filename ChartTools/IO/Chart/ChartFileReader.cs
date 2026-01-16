@@ -13,15 +13,18 @@ internal class ChartFileReader(ReadingDataSource source, ChartReadingSession ses
 {
 	public ChartReadingSession Session { get; } = session;
 
-	public override IEnumerable<ChartParser> Parsers => base.Parsers.Cast<ChartParser>();
+	public override IEnumerable<ChartParser> Parsers
+		=> base.Parsers.Cast<ChartParser>();
 
 	public override bool DefinedSectionEnd => true;
 
 	public Metadata? ExistingMetadata { get; set; }
 
-	protected override ChartParser? GetParser(string header)
+	protected override ChartParser? GetParser(in ReadOnlyMemory<char> header)
 	{
-		switch (header)
+		string headerString = header.ToString();
+
+		switch (header.Span)
 		{
 			case ChartFormatting.MetadataHeader:
 				return Session.Components.Metadata ? new MetadataParser(ExistingMetadata) : null;
@@ -31,24 +34,27 @@ internal class ChartFileReader(ReadingDataSource source, ChartReadingSession ses
 			case ChartFormatting.SyncTrackHeader:
 				return Session.Components.SyncTrack ? new SyncTrackParser(Session) : null;
 			default:
-				if (ChartFormatting.DrumsTrackHeaders.TryGetValue(header, out Difficulty diff))
+				if (ChartFormatting.DrumsTrackHeaders.TryGetValue(headerString, out Difficulty diff))
 					return Session.Components.Instruments.Drums.HasFlag(diff.ToSet())
-						? new DrumsTrackParser(diff, Session, header) : null;
-				else if (ChartFormatting.GHLTrackHeaders.TryGetValue(header, out (Difficulty, GHLInstrumentIdentity) ghlTuple))
+						? new DrumsTrackParser(diff, Session, in header) : null;
+				else if (ChartFormatting.GHLTrackHeaders.TryGetValue(headerString, out (Difficulty, GHLInstrumentIdentity) ghlTuple))
 					return Session.Components.Instruments.Map(ghlTuple.Item2).HasFlag(ghlTuple.Item1.ToSet())
-						? new GHLTrackParser(ghlTuple.Item1, ghlTuple.Item2, Session, header) : null;
-				else if (ChartFormatting.StandardTrackHeaders.TryGetValue(header, out (Difficulty, StandardInstrumentIdentity) standardTuple))
+						? new GHLTrackParser(ghlTuple.Item1, ghlTuple.Item2, Session, in header) : null;
+				else if (ChartFormatting.StandardTrackHeaders.TryGetValue(headerString, out (Difficulty, StandardInstrumentIdentity) standardTuple))
 					return Session.Components.Instruments.Map(standardTuple.Item2).HasFlag(standardTuple.Item1.ToSet())
-						? new StandardTrackParser(standardTuple.Item1, standardTuple.Item2, Session, header) : null;
+						? new StandardTrackParser(standardTuple.Item1, standardTuple.Item2, Session, in header) : null;
 				else
 				{
-					return Session.Configuration.UnknownSectionPolicy == UnknownSectionPolicy.ThrowException
+					return Session.Configuration.UnknownSectionPolicy is UnknownSectionPolicy.ThrowException
 						? throw new Exception($"Unknown section with header \"{header}\". Consider using {UnknownSectionPolicy.Store} to avoid this error.")
-						: new UnknownSectionParser(Session, header);
+						: new UnknownSectionParser(Session, in header);
 				}
 		}
 	}
 
-	protected override bool IsSectionStart(string line) => line == "{";
-	protected override bool IsSectionEnd(string line) => ChartFormatting.IsSectionEnd(line);
+	protected override bool IsSectionStart(in ReadOnlySpan<char> line)
+		=> line is "{";
+
+	protected override bool IsSectionEnd(in ReadOnlySpan<char> line)
+		=> ChartFormatting.IsSectionEnd(line);
 }

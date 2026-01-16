@@ -2,8 +2,9 @@
 
 namespace ChartTools.IO.Chart.Parsing;
 
-internal abstract class VariableInstrumentTrackParser<TChord, TInstEnum>(Difficulty difficulty, TInstEnum instrument, ChartReadingSession session, string header)
-	: TrackParser<TChord>(difficulty, session, header)
+internal abstract class VariableInstrumentTrackParser<TChord, TInstEnum>(
+	Difficulty difficulty, TInstEnum instrument, ChartReadingSession session, in ReadOnlyMemory<char> header)
+	: TrackParser<TChord>(difficulty, session, in header)
 	where TChord : Chord, new()
 	where TInstEnum : Enum
 {

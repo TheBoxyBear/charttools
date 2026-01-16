@@ -33,7 +33,7 @@ internal abstract class FileReader<T, TParser>(ReadingDataSource source) : FileR
 	protected readonly List<ParserContentGroup> parserGroups = [];
 	protected readonly List<Task> parseTasks = [];
 
-	protected abstract TParser? GetParser(string header);
+	protected abstract TParser? GetParser(in T header);
 
 	public override void Read()
 	{

@@ -13,41 +13,49 @@ internal readonly struct TrackObjectEntry : IReadOnlyTrackObject
 	/// <summary>
 	/// Type code of <see cref="ITrackObject"/>
 	/// </summary>
-	public string Type { get; }
+	public ReadOnlyMemory<char> Type { get; }
 
 	/// <summary>
 	/// Additional data
 	/// </summary>
-	public string Data { get; }
+	public ReadOnlyMemory<char> Data { get; }
+
+	public TrackObjectEntry(string line)
+		: this(line.AsMemory()) { }
 
 	/// <summary>
 	/// Creates an instance of see<see cref="TrackObjectEntry"/>.
 	/// </summary>
 	/// <param name="line">Line in the file</param>
 	/// <exception cref="LineException"/>
-	public TrackObjectEntry(string line)
+	public TrackObjectEntry(in ReadOnlyMemory<char> line)
 	{
 		TextEntry entry = new(line);
 
-		if (entry.Value is null)
-			throw new LineException(line, new FormatException("Line has no object data."));
+		if (entry.Value.IsEmpty)
+			throw new LineException(line.ToString(), new FormatException("Line has no object data."));
 
-		string[] split = entry.Value.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
+		int spaceIndex = entry.Value.Span.IndexOf(' ');
 
-		if (split.Length < 2)
-			throw new LineException(line, new EntryException());
+		if (spaceIndex == -1)
+			throw new LineException(line.ToString(), new EntryException());
 
-		Type = split[0];
-		Data = split[1];
+		Type = entry.Value[0..spaceIndex];
+		Data = entry.Value[(spaceIndex + 1)..];
 
-		Position = ValueParser.ParseUint(entry.Key, "position");
+		Position = ValueParser.ParseUint(entry.Key.Span, "position");
 	}
+
 	public TrackObjectEntry(uint position, string type, string data)
+		: this(position, type.AsMemory(), data.AsMemory()) { }
+
+	public TrackObjectEntry(uint position, in ReadOnlyMemory<char> type, in ReadOnlyMemory<char> data)
 	{
 		Position = position;
-		Type = type;
-		Data = data;
+		Type     = type;
+		Data     = data;
 	}
 
-	public override string ToString() => ChartFormatting.Line(Position.ToString(), $"{Type} {Data}");
+	public override string ToString()
+		=> ChartFormatting.Line(Position.ToString(), $"{Type} {Data}");
 }

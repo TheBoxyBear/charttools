@@ -149,8 +149,9 @@ public class TempoMap : IList<Tempo>
 		if (Synchronized)
 			return;
 
-		List<Tempo> synced = [];
-		List<Tempo> desynced = [];
+		List<Tempo>
+			synced   = [],
+			desynced = [];
 
 		// Split synced and desynced. Sync 0 anchors.
 		foreach (Tempo tempo in m_items)

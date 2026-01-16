@@ -6,8 +6,8 @@ using ChartTools.Tools;
 
 namespace ChartTools.IO.Chart.Parsing;
 
-internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingSession session, string header)
-	: ChartParser(session, header), IInstrumentAppliable<TChord>
+internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingSession session, in ReadOnlyMemory<char> header)
+	: ChartParser(session, in header), IInstrumentAppliable<TChord>
 	where TChord : Chord, new()
 {
 	public Difficulty Difficulty { get; } = difficulty;
@@ -17,16 +17,16 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 
 	private TChord? currentChord;
 
-	protected override void HandleItem(string line)
+	protected override void HandleItem(in ReadOnlyMemory<char> line)
 	{
 		TrackObjectEntry entry = new(line);
 
         // Can be optimized by switching on the single char
-		switch (entry.Type)
+		switch (entry.Type.Span)
 		{
 			// Local event
 			case "E":
-				result.LocalEvents.Add(new(entry.Position, entry.Data));
+				result.LocalEvents.Add(new(entry.Position, entry.Data.ToString()));
 				break;
 			// Note or chord modifier
 			case "N":
@@ -59,15 +59,16 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 					}
 				}
 
-				HandleNoteEntry(currentChord, new(entry.Data));
+				HandleNoteEntry(currentChord, new(entry.Data.Span));
 
 				break;
 			// Special phrase
 			case "S":
-				string[] split = ChartFormatting.SplitData(entry.Data);
+				ReadOnlySpan<char> a, b;
+				ChartFormatting.SplitData(entry.Data.Span, out a, out b);
 
-				byte typeCode = ValueParser.ParseByte(split[0], "type code");
-				uint length   = ValueParser.ParseUint(split[1], "length");
+				byte typeCode = ValueParser.ParseByte(in a, "type code");
+				uint length   = ValueParser.ParseUint(in b, "length");
 
 				result.SpecialPhrases.Add(new(entry.Position, typeCode, length));
 				break;
@@ -86,7 +87,7 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 
 	protected override void FinalizeParse()
 	{
-        if (Session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert
+        if (Session.Configuration.SoloNoStarPowerPolicy is SoloNoStarPowerPolicy.Convert
             && !result.SpecialPhrases.Any(sp => sp.Type is TrackSpecialPhraseType.StarPowerGain))
             result.SpecialPhrases.AddRange(result.SoloToStarPower(true));
 
