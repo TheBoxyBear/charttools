@@ -40,7 +40,7 @@ public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T>
 
 	/// <inheritdoc/>
 	public IEnumerator<T> GetEnumerator()
-		=> new Enumerator(KeyGetter, [.. Enumerables.Select(e => e.GetEnumerator())]);
+		=> new Enumerator(KeyGetter, [.. Enumerables.Select(static e => e.GetEnumerator())]);
 
 	/// <inheritdoc/>
 	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

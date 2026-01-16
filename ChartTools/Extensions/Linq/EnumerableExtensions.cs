@@ -89,7 +89,7 @@ public static class EnumerableExtensions
 	/// </summary>
 	/// <typeparam name="T">Type of items of references types or boxed values</typeparam>
 	public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source)
-		=> source.Where(t => t is not null)!;
+		=> source.Where(static t => t is not null)!;
 
 	/// <summary>
 	/// Excludes <see langword="null"/> item from a set of nullable values.

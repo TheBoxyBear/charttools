@@ -10,5 +10,7 @@ internal abstract class TrackObjectGroupSerializer<T>(string header, T content, 
 	public ChartWritingSession Session { get; } = session;
 
 	protected override IEnumerable<string> CombineProviderResults(IEnumerable<TrackObjectEntry>[] results)
-		=> results.AlternateBy(entry => entry.Position).Select(entry => entry.ToString());
+		=> results
+		.AlternateBy(static entry => entry.Position)
+		.Select(static entry => entry.ToString());
 }

@@ -12,7 +12,9 @@ internal class TrackSerializer(Track content, ChartWritingSession session)
 	: TrackObjectGroupSerializer<Track>(ChartFormatting.Header(content.ParentInstrument!.InstrumentIdentity, content.Difficulty), content, session)
 {
 	public override IEnumerable<string> Serialize()
-		=> LaunchProviders().AlternateBy(entry => entry.Position).Select(entry => entry.ToString());
+		=> LaunchProviders()
+		.AlternateBy(static entry => entry.Position)
+		.Select(static entry => entry.ToString());
 
 	protected override IEnumerable<TrackObjectEntry>[] LaunchProviders()
 	{
@@ -44,7 +46,7 @@ internal class TrackSerializer(Track content, ChartWritingSession session)
 						break;
 				}
 
-			Content.LocalEvents.RemoveWhere(e => e.IsSoloEvent);
+			Content.LocalEvents.RemoveWhere(static e => e.IsSoloEvent);
 		}
 
 		return

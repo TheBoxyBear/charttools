@@ -48,7 +48,8 @@ internal abstract class TextFileWriter(
 	public async Task WriteAsync(CancellationToken cancellationToken)
 	{
 		using StreamWriter writer = new(Source.Stream, leaveOpen: true);
-		Dictionary<Serializer<string>, EagerEnumerable<string>> serializerResults = serializers.ToDictionary(ser => ser, ser => new EagerEnumerable<string>(ser.SerializeAsync()));
+		Dictionary<Serializer<string>, EagerEnumerable<string>> serializerResults = serializers
+			.ToDictionary(static ser => ser, static ser => new EagerEnumerable<string>(ser.SerializeAsync()));
 
 		foreach (string line in GetLinesToWrite(ser => serializerResults[ser]))
 		{
@@ -61,7 +62,8 @@ internal abstract class TextFileWriter(
 		EndFile();
 	}
 
-	private void EndFile() => Source.Stream.SetLength(Source.Stream.Position);
+	private void EndFile()
+		=> Source.Stream.SetLength(Source.Stream.Position);
 
 	private List<string>? GetExistingLines()
 	{

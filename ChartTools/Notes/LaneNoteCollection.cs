@@ -125,7 +125,7 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	/// </summary>
 	/// <returns><see langword="true"/> if a matching note was found.</returns>
 	public bool Remove(TLane lane)
-		=> Remove((in note) => note.Lane.Equals(lane));
+		=> Remove(static (in note) => note.Lane.Equals(lane));
 
 	bool ILaneNoteCollection.Remove(byte index)
 		=> Remove((in note) => note.Index == index);

@@ -17,7 +17,7 @@ internal class IniSerializer(Metadata content) : Serializer<Metadata, string>(In
 		foreach ((string key, string value) in props)
 			yield return IniFormatting.Line(key, value.ToString());
 
-		foreach (UnidentifiedMetadata data in Content.UnidentifiedData.Where(x => x.Origin is FileType.Ini))
+		foreach (UnidentifiedMetadata data in Content.UnidentifiedData.Where(static x => x.Origin is FileType.Ini))
 			yield return IniFormatting.Line(data.Key, data.Value);
 
 		if (Content.AlbumTrack is not null)

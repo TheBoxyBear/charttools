@@ -9,7 +9,8 @@ internal abstract class Session(FormattingRules? formatting)
 
 	public FormattingRules Formatting { get; set; } = formatting ?? new();
 
-	public bool HandleDuplicate(uint position, string objectType, Func<bool> checkDuplicate) => Configuration.DuplicateTrackObjectPolicy switch
+	public bool HandleDuplicate(uint position, string objectType, Func<bool> checkDuplicate)
+		=> Configuration.DuplicateTrackObjectPolicy switch
 	{
 		DuplicateTrackObjectPolicy.ThrowException => checkDuplicate()
 		? throw new Exception($"Duplicate {objectType} on position {position}.")
@@ -19,7 +20,8 @@ internal abstract class Session(FormattingRules? formatting)
 		_ => throw ConfigurationExceptions.UnsupportedPolicy(Configuration.DuplicateTrackObjectPolicy),
 	};
 
-	public bool HandleSnap(uint origin, uint position) => Configuration.SnappedNotesPolicy switch
+	public bool HandleSnap(uint origin, uint position)
+		=> Configuration.SnappedNotesPolicy switch
 	{
 		SnappedNotesPolicy.ThrowException => throw new Exception($"Note at position {position} is within snapping distance from chord at position {origin}"),
 		SnappedNotesPolicy.Snap           => true,

@@ -184,7 +184,7 @@ public class Metadata
 	/// </summary>
 	/// <remarks>When writing, these will only be written if the target format matches the origin</remarks>
 	public HashSet<UnidentifiedMetadata> UnidentifiedData { get; } =
-		new(new FuncEqualityComparer<UnidentifiedMetadata>((a, b) => a.Key == b.Key && a.Origin == b.Origin));
+		new(new FuncEqualityComparer<UnidentifiedMetadata>(static (a, b) => a.Key == b.Key && a.Origin == b.Origin));
 	#endregion
 
 	/// <summary>
@@ -201,7 +201,7 @@ public class Metadata
 
 	private static Metadata Read(string path, Metadata? existing = null)
 		=> ExtensionHandler.Read(path,
-			(".chart", p => ChartFile.ReadMetadata(p)),
+			(".chart", static p => ChartFile.ReadMetadata(p)),
 			(".ini", path => IniFile.ReadMetadata(path, existing)));
 
 	/// <summary>
@@ -229,6 +229,6 @@ public class Metadata
 	/// <param name="path">Path of the file to write</param>
 	public void ToFile(string path)
 		=> ExtensionHandler.Write(path, this,
-			(".chart", (p, m) => ChartFile.ReplaceMetadata(p, m)),
-			(".ini", (p, m) => IniFile.WriteMetadata(p, m)));
+			(".chart", static (p, m) => ChartFile.ReplaceMetadata(p, m)),
+			(".ini", static (p, m) => IniFile.WriteMetadata(p, m)));
 }

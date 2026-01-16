@@ -71,7 +71,7 @@ internal class SyncTrackParser(ChartReadingSession session)
 			int index = 0;
 			bool result = !Session.HandleDuplicate(entry.Position, objectType, () =>
 			{
-				index = existing.BinarySearchIndex<T, uint>(entry.Position, t => t.Position, out bool exactMatch);
+				index = existing.BinarySearchIndex<T, uint>(entry.Position, static t => t.Position, out bool exactMatch);
 
 				return exactMatch;
 			});
@@ -87,7 +87,7 @@ internal class SyncTrackParser(ChartReadingSession session)
 		foreach (ref readonly Anchor anchor in CollectionsMarshal.AsSpan(orderedAnchors))
 		{
 			// Find the marker matching the position in case it was already added through a mention of value
-			int markerIndex = orderedTempos.BinarySearchIndex(anchor.Position, t => t.Position, out bool markerFound);
+			int markerIndex = orderedTempos.BinarySearchIndex(anchor.Position, static t => t.Position, out bool markerFound);
 
 			if (markerFound)
 			{

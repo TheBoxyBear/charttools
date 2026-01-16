@@ -28,7 +28,7 @@ internal abstract class FileReader<T, TParser>(ReadingDataSource source) : FileR
 {
 	public record ParserContentGroup(TParser Parser, DelayedEnumerableSource<T> Source);
 
-	public override IEnumerable<TParser> Parsers => parserGroups.Select(g => g.Parser);
+	public override IEnumerable<TParser> Parsers => parserGroups.Select(static g => g.Parser);
 
 	protected readonly List<ParserContentGroup> parserGroups = [];
 	protected readonly List<Task> parseTasks = [];

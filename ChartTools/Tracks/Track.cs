@@ -45,7 +45,7 @@ public abstract record Track : IEmptyVerifiable
 		if (LocalEvents is null)
 			yield break;
 
-		foreach (LocalEvent e in LocalEvents.OrderBy(e => e.Position))
+		foreach (LocalEvent e in LocalEvents.OrderBy(static e => e.Position))
 		{
 			TrackSpecialPhrase? phrase = null;
 

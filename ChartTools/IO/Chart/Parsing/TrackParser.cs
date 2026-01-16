@@ -47,7 +47,7 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 					}
 					else // Misplaced note - Requires search for the parent chord
 					{
-						int index = result.Chords.BinarySearchIndex(entry.Position, c => c.Position, out bool exactMatch);
+						int index = result.Chords.BinarySearchIndex(entry.Position, static c => c.Position, out bool exactMatch);
 
 						if (exactMatch)
 							currentChord = result.Chords[index];
@@ -88,14 +88,15 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 	protected override void FinalizeParse()
 	{
         if (Session.Configuration.SoloNoStarPowerPolicy is SoloNoStarPowerPolicy.Convert
-            && !result.SpecialPhrases.Any(sp => sp.Type is TrackSpecialPhraseType.StarPowerGain))
+            && !result.SpecialPhrases.Any(static sp => sp.Type is TrackSpecialPhraseType.StarPowerGain))
             result.SpecialPhrases.AddRange(result.SoloToStarPower(true));
 
         ApplyOverlappingSpecialPhrasePolicy(result.SpecialPhrases, Session.Configuration.OverlappingStarPowerPolicy);
 		base.FinalizeParse();
 	}
 
-	public void ApplyToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(Result);
+	public void ApplyToInstrument(Instrument<TChord> instrument)
+		=> instrument.SetTrack(Result);
 
 	private static void ApplyOverlappingSpecialPhrasePolicy(IEnumerable<TrackSpecialPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
 	{

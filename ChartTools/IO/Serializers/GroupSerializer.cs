@@ -6,5 +6,6 @@ internal abstract class GroupSerializer<TContent, TResult, TProviderResult>(stri
 	protected abstract IEnumerable<TProviderResult>[] LaunchProviders();
 	protected abstract IEnumerable<TResult> CombineProviderResults(IEnumerable<TProviderResult>[] results);
 
-	public override IEnumerable<TResult> Serialize() => CombineProviderResults(LaunchProviders());
+	public override IEnumerable<TResult> Serialize()
+		=> CombineProviderResults(LaunchProviders());
 }

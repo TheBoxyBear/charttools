@@ -16,7 +16,7 @@ public abstract record Instrument : IEmptyVerifiable
 {
 	/// <inheritdoc cref="IEmptyVerifiable.IsEmpty"/>
 	public bool IsEmpty
-		=> GetExistingTracks().All(t => t.IsEmpty);
+		=> GetExistingTracks().All(static t => t.IsEmpty);
 
 	/// <summary>
 	/// Identity of the instrument the object belongs to
@@ -122,7 +122,7 @@ public abstract record Instrument : IEmptyVerifiable
 			TrackObjectSource.Medium => collections[1],
 			TrackObjectSource.Hard   => collections[2],
 			TrackObjectSource.Expert => collections[3],
-			TrackObjectSource.Merge  => collections.SelectMany(col => col).Distinct(),
+			TrackObjectSource.Merge  => collections.SelectMany(static col => col).Distinct(),
 			_                        => throw new UndefinedEnumException(source)
 		}];
 

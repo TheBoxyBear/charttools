@@ -19,7 +19,7 @@ internal class MetadataSerializer(Metadata content) : Serializer<Metadata, strin
 		if (Content.Year is not null)
 			yield return ChartFormatting.Line("Year", $"\", {Content.Year}\"");
 
-		foreach (UnidentifiedMetadata data in Content.UnidentifiedData.Where(d => d.Origin is FileType.Chart))
+		foreach (UnidentifiedMetadata data in Content.UnidentifiedData.Where(static d => d.Origin is FileType.Chart))
 			yield return ChartFormatting.Line(data.Key, data.Value);
 	}
 }

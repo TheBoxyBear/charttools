@@ -124,7 +124,7 @@ public static class Optimizer
 	/// <remarks>If some markers may be anchored, use the overload with a resolution.</remarks>
 	public static void RemoveUnneeded(this ICollection<Tempo> markers, bool preOrdered = false)
 	{
-		if (markers.TryGetFirst(m => !m.PositionSynced, out Tempo? marker))
+		if (markers.TryGetFirst(static m => !m.PositionSynced, out Tempo? marker))
 			throw new DesynchronizedAnchorException(marker.Anchor!.Value,
 				$"Collection contains a desynchronized anchored tempo at {marker.Anchor}. Resolution needed to synchronize anchors.");
 
@@ -143,7 +143,9 @@ public static class Optimizer
 	{
 		markers.Synchronize(resolution, desyncedPreOrdered);
 
-		foreach ((Tempo previous, Tempo current) in markers.OrderBy(m => m.Position).RelativeLoopSkipFirst())
+		foreach ((Tempo previous, Tempo current) in markers
+			.OrderBy(static m => m.Position)
+			.RelativeLoopSkipFirst())
 			if (current.Value == previous.Value)
 				markers.Remove(current);
 	}
@@ -163,5 +165,5 @@ public static class Optimizer
 
 	private static IEnumerable<T> GetOrdered<T>(IEnumerable<T> items, bool preOredered)
 		where T : ITrackObject
-		=> preOredered ? items : items.OrderBy(i => i.Position);
+		=> preOredered ? items : items.OrderBy(static i => i.Position);
 }

@@ -39,12 +39,12 @@ public class Phrase(PhraseMarker marker, IReadOnlyList<VocalsNote>? notes = null
 	/// <summary>
 	/// Concatenated raw text of all notes in the phrase, separated by spaces.
 	/// </summary>
-	public string RawText => BuildText(n => n.RawText);
+	public string RawText => BuildText(static n => n.RawText);
 
 	/// <summary>
 	/// Phrase text assembled to its in-game appearance
 	/// </summary>
-	public string DisplayedText => BuildText(n => n.DisplayedText);
+	public string DisplayedText => BuildText(static n => n.DisplayedText);
 
 	private string BuildText(Func<VocalsNote, string> textSelector)
 		=> string.Concat(Notes.Select(n => n.IsWordEnd ? textSelector(n) + ' ' : textSelector(n)));
@@ -78,7 +78,7 @@ public static class PhraseExtensions
 		phrases = [];
 		notes = [];
 
-		foreach (GlobalEvent e in events.OrderBy(e => e.Position))
+		foreach (GlobalEvent e in events.OrderBy(static e => e.Position))
 		{
 			switch (e.EventType)
 			{
@@ -99,12 +99,17 @@ public static class PhraseExtensions
 
 	public static IEnumerable<Phrase> GetLyrics(IEnumerable<PhraseMarker> phrases, IEnumerable<VocalsNote> notes)
 	{
-		using IEnumerator<PhraseMarker> phraseEnumerator = phrases.OrderBy(p => p.Position).GetEnumerator();
+		using IEnumerator<PhraseMarker> phraseEnumerator = phrases
+			.OrderBy(static p => p.Position)
+			.GetEnumerator();
 
 		if (!phraseEnumerator.MoveNext())
 			yield break;
 
-		using IEnumerator<VocalsNote> notesEnumerator = notes.OrderBy(n => n.Position).GetEnumerator();
+		using IEnumerator<VocalsNote> notesEnumerator = notes
+			.OrderBy(static n => n.Position)
+			.GetEnumerator();
+
 		notesEnumerator.MoveNext(); // Initialize prematurely to simplify the loop flow
 
 		PhraseMarker lastMarker = phraseEnumerator.Current;
@@ -170,18 +175,18 @@ public static class PhraseExtensions
 	/// <param name="source">Phrases to convert into global events</param>
 	/// <returns>Global events making up the phrases</returns>
 	public static IEnumerable<GlobalEvent> ToGlobalEvents(this IEnumerable<Phrase> source)
-		=> source.SelectMany(p => p.ToGlobalEvents());
+		=> source.SelectMany(static p => p.ToGlobalEvents());
 
 	public static IEnumerable<GlobalEvent> SetLyrics(
 		this IEnumerable<GlobalEvent> events, IEnumerable<PhraseMarker> markers, IEnumerable<VocalsNote> notes)
 	{
 		IEnumerable<GlobalEvent>[] collections =
 		[
-		   events.Where(e => !e.IsLyricEvent),
+		   events.Where(static e => !e.IsLyricEvent),
 		   ToGlobalEvents(markers, notes)
 		];
 
-		return collections.AlternateBy(e => e.Position);
+		return collections.AlternateBy(static e => e.Position);
 	}
 
 	/// <summary>
@@ -195,11 +200,11 @@ public static class PhraseExtensions
 	{
 		IEnumerable<GlobalEvent>[] collections =
 		[
-			events.Where(e => !e.IsLyricEvent),
+			events.Where(static e => !e.IsLyricEvent),
 			phrases.ToGlobalEvents()
 		];
 
-		return collections.AlternateBy(e => e.Position);
+		return collections.AlternateBy(static e => e.Position);
 	}
 
 	/// <summary>
