@@ -12,20 +12,20 @@ public delegate void VoidRead(string path);
 /// <summary>
 /// Read method that generates an object of the target type
 /// </summary>
-public delegate T Read<T>(WritingDataSource source);
+public delegate T Read<T>(string path);
 
 /// <summary>
 /// Asynchronous read method that generates an object of the target type
 /// </summary>
 /// <typeparam name="T">Output type</typeparam>
-public delegate Task<T> AsyncRead<T>(WritingDataSource source);
+public delegate Task<T> AsyncRead<T>(string path);
 
 /// <summary>
 /// Write method hat takes an object of a target type
 /// </summary>
 /// <typeparam name="T">Target type</typeparam>
 /// <param name="content">Object to write</param>
-public delegate void Write<T>(WritingDataSource source, T content);
+public delegate void Write<T>(string path, T content);
 
 /// <summary>
 /// Write method hat takes an object of a target type
