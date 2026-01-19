@@ -16,8 +16,9 @@ internal abstract class TextFileReader(ReadingDataSource source) : FileReader<Re
 	{
 		string contentStr;
 
-		using (StreamReader reader = new(Source.Stream, leaveOpen: true))
+		using (Source.Stream)
 		{
+			using StreamReader reader = new(Source.Stream, leaveOpen: true);
 			contentStr = reader.ReadToEnd();
 		}
 
