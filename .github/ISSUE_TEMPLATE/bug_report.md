@@ -7,6 +7,7 @@ assignees: ''
 
 ---
 
+**Brand and/or commit: Branch name or commit id where the issue was encountered**
 **Severity: Minor|Moredate|Major**
 
 Describe the bug
