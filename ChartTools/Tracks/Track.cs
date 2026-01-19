@@ -66,7 +66,7 @@ public abstract record Track : IEmptyVerifiable
 		}
 
 		if (removeEvents)
-			LocalEvents.RemoveAll(e => e.IsSoloEvent);
+			LocalEvents.RemoveAll(static e => e.IsSoloEvent);
 	}
 
 	protected abstract Instrument? GetInstrument();
