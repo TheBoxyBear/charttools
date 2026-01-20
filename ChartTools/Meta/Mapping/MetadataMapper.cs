@@ -1,28 +1,16 @@
-﻿using ChartTools.IO;
-using ChartTools.IO.Chart;
+﻿using ChartTools.IO.Chart;
 
 namespace ChartTools.Meta.Mapping;
 
-internal interface IMetadataMapper
+internal abstract class MetadataMapper
 {
-	public static abstract FileType FileType { get; }
+	public abstract FileType FileType { get; }
 
-	public static abstract string? Get(Metadata metadata, in ReadOnlySpan<char> key);
+	public abstract string? Get(Metadata metadata, in ReadOnlySpan<char> key);
 
-	public static abstract void Set(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value);
+	public abstract void Set(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value);
 
-	public static abstract void Remove(Metadata metadata, in ReadOnlySpan<char> key);
-
-	protected static string? FindUndentified(Metadata metadata, FileType fileType, in ReadOnlySpan<char> key)
-		=> metadata.UnidentifiedData.TryGetValue(new()
-		{
-			Key    = key.ToString(),
-			Origin = fileType
-		}, out UnidentifiedMetadata found)
-			? found.Value
-			: null;
-
-	protected static void Remove(Metadata metadata, FileType fileType, in ReadOnlySpan<char> key)
+	public virtual void Remove(Metadata metadata, in ReadOnlySpan<char> key)
 	{
 		switch (key)
 		{
@@ -95,10 +83,19 @@ internal interface IMetadataMapper
 			default:
 				metadata.UnidentifiedData.Remove(new()
 				{
-					Key    = key.ToString(),
-					Origin = FileType.Chart
+					Key = key.ToString(),
+					Origin = FileType
 				});
 				break;
 		}
 	}
+
+	protected string? FindUndentified(Metadata metadata, in ReadOnlySpan<char> key)
+		=> metadata.UnidentifiedData.TryGetValue(new()
+		{
+			Key    = key.ToString(),
+			Origin = FileType
+		}, out UnidentifiedMetadata found)
+			? found.Value
+			: null;
 }

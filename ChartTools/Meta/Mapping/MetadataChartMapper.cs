@@ -3,11 +3,10 @@ using ChartTools.IO.Chart;
 
 namespace ChartTools.Meta.Mapping;
 
-internal class MetadataChartMapper : IMetadataMapper
+internal sealed partial class MetadataChartMapper : MetadataMapper
 {
-	public static FileType FileType => FileType.Chart;
+	public static MetadataChartMapper Shared { get; } = new();
 
-	public static string? Get(Metadata metadata, in ReadOnlySpan<char> key)
 		=> key switch
 		{
 			ChartFormatting.Title        => metadata.Title,
@@ -34,8 +33,10 @@ internal class MetadataChartMapper : IMetadataMapper
 			ChartFormatting.CrowdStream  => metadata.Streams.Crowd,
 			_ => IMetadataMapper.FindUndentified(metadata, FileType.Chart, key)
 		};
+	public override FileType FileType => FileType.Chart;
 
-	public static void Set(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value)
+	public override string? Get(Metadata metadata, in ReadOnlySpan<char> key)
+	public override void Set(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value)
 	{
 		switch (key)
 		{
@@ -115,9 +116,6 @@ internal class MetadataChartMapper : IMetadataMapper
 				break;
 		}
 	}
-
-	public static void Remove(Metadata metadata, in ReadOnlySpan<char> key)
-		=> IMetadataMapper.Remove(metadata, FileType.Chart, in key);
 
 	private MetadataChartMapper() { }
 }

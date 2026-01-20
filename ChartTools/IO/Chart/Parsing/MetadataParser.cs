@@ -8,11 +8,10 @@ internal class MetadataParser(Metadata? existing = null)
 {
 	public override Metadata Result => GetResult(result);
 	private readonly Metadata result = existing ?? new();
-
 	protected override void HandleItem(in ReadOnlyMemory<char> line)
 	{
 		TextEntry entry = new(line);
-		MetadataChartMapper.Set(result, entry.Key.Span, entry.Value.Span.Trim('"'));
+		MetadataChartMapper.Shared.Set(result, entry.Key.Span, entry.Value.Span.Trim('"'));
 	}
 
 	public override void ApplyToSong(Song song) => song.Metadata = Result;

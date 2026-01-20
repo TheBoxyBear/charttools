@@ -3,11 +3,13 @@ using ChartTools.IO.Ini;
 
 namespace ChartTools.Meta.Mapping;
 
-internal class MetadataIniMapper : IMetadataMapper
+internal partial class MetadataIniMapper : MetadataMapper
 {
-	public static FileType FileType => FileType.Ini;
+	public static MetadataIniMapper Shared { get; } = new();
 
-	public static string? Get(Metadata metadata, in ReadOnlySpan<char> key)
+	public override FileType FileType => FileType.Ini;
+
+	public override string? Get(Metadata metadata, in ReadOnlySpan<char> key)
 		=> key switch
 	{
 		IniFormatting.Title                             => metadata.Title,
@@ -44,17 +46,15 @@ internal class MetadataIniMapper : IMetadataMapper
 		IniFormatting.Difficulties.GHLBass              => metadata.InstrumentDifficulties.GHLBass?.ToString(),
 		IniFormatting.SustainCutoff                     => metadata.Formatting.SustainCutoff?.ToString(),
 		IniFormatting.HopoFrequency                     => metadata.Formatting.HopoFrequency?.ToString(),
-		_                                               => IMetadataMapper.FindUndentified(metadata, FileType.Ini, key)
+		_                                               => FindUndentified(metadata, key)
 	};
 
-	public static void Set(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value)
+	public override void Set(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value)
 	{
 		// TODO Implement with source generation
 		throw new NotImplementedException();
 	}
 
-	public static void Remove(Metadata metadata, in ReadOnlySpan<char> key)
-		=> IMetadataMapper.Remove(metadata, FileType.Ini, in key);
 
 	private MetadataIniMapper() { }
 }
