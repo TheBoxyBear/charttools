@@ -17,22 +17,22 @@ public class Metadata
 	/// <summary>
 	/// Title of the <see cref="Song"/>
 	/// </summary>
-	[ChartKeySerializable(ChartFormatting.Title)]
-	[IniKeySerializable(IniFormatting.Title)]
+	[MetadataChartKey(ChartFormatting.Title)]
+	//[MetadataIniKey(IniFormatting.Title)]
 	public string? Title { get; set; }
 
 	/// <summary>
 	/// Artist or band behind the <see cref="Song"/>
 	/// </summary>
-	[ChartKeySerializable(ChartFormatting.Artist)]
-	[IniKeySerializable(IniFormatting.Artist)]
+	[MetadataChartKey(ChartFormatting.Artist)]
+	//[MetadataIniKey(IniFormatting.Artist)]
 	public string? Artist { get; set; }
 
 	/// <summary>
 	/// Album featuring the <see cref="Song"/>
 	/// </summary>
-	[ChartKeySerializable(ChartFormatting.Album)]
-	[IniKeySerializable(IniFormatting.Album)]
+	[MetadataChartKey(ChartFormatting.Album)]
+	//[MetadataIniKey(IniFormatting.Album)]
 	public string? Album { get; set; }
 
 	/// <summary>
@@ -43,37 +43,38 @@ public class Metadata
 	/// <summary>
 	/// Playlist that the song should show up in
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Playlist)]
+	[MetadataIniKey(IniFormatting.Playlist)]
 	public string? Playlist { get; set; }
 
 	/// <summary>
 	/// Sub-playlist that the song should show up in
 	/// </summary>
-	[IniKeySerializable(IniFormatting.SubPlaylist)]
+	[MetadataIniKey(IniFormatting.SubPlaylist)]
 	public string? SubPlaylist { get; set; }
 
 	/// <summary>
 	/// Track number of the song within the playlist/setlist
 	/// </summary>
-	[IniKeySerializable(IniFormatting.PlaylistTrack)]
+	//[MetadataIniKey(IniFormatting.PlaylistTrack)]
 	public ushort? PlaylistTrack { get; set; }
 
 	/// <summary>
 	/// Year of release
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Year)]
+	//[MetadataIniKey(IniFormatting.Year)]
 	public ushort? Year { get; set; }
 
 	/// <summary>
 	/// Genre of the <see cref="Song"/>
 	/// </summary>
-	[ChartKeySerializable(ChartFormatting.Genre)]
-	[IniKeySerializable(IniFormatting.Genre)]
+	[MetadataChartKey(ChartFormatting.Genre)]
+	//[MetadataIniKey(IniFormatting.Genre)]
 	public string? Genre { get; set; }
 
 	/// <summary>
 	/// Creator of the chart
 	/// </summary>
+	[MetadataGroup]
 	public Charter Charter
 	{
 		get;
@@ -87,21 +88,21 @@ public class Metadata
 	/// <summary>
 	/// The song contains explicit lyrics
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Explicit)]
+	//[MetadataIniKey(IniFormatting.Explicit)]
 	public bool? Explicit { get; set; }
 
 	/// <summary>
 	/// Start time in milliseconds of the preview in the Clone Hero song browser
 	/// </summary>
-	[ChartKeySerializable(ChartFormatting.PreviewStart)]
-	[IniKeySerializable(IniFormatting.PreviewStart)]
+	//[MetadataChartKey(ChartFormatting.PreviewStart)]
+	//[MetadataIniKey(IniFormatting.PreviewStart)]
 	public uint? PreviewStart { get; set; }
 
 	/// <summary>
 	/// End time in milliseconds of the preview in the Clone Hero song browser
 	/// </summary>
-	[ChartKeySerializable(ChartFormatting.PreviewEnd)]
-	[IniKeySerializable(IniFormatting.PreviewEnd)]
+	//[MetadataChartKey(ChartFormatting.PreviewEnd)]
+	//[MetadataIniKey(IniFormatting.PreviewEnd)]
 	public uint? PreviewEnd { get; set; }
 
 	/// <summary>
@@ -121,8 +122,8 @@ public class Metadata
 	/// <summary>
 	/// Overall difficulty of the song
 	/// </summary>
-	[ChartKeySerializable(ChartFormatting.Difficulty)]
-	[IniKeySerializable(IniFormatting.Difficulties.Global)]
+	//[MetadataChartKey(ChartFormatting.Difficulty)]
+	//[MetadataIniKey(IniFormatting.Difficulties.Global)]
 	public sbyte? Difficulty { get; set; }
 
 	/// <inheritdoc cref="InstrumentDifficultySet"/>
@@ -139,19 +140,20 @@ public class Metadata
 	/// <summary>
 	/// Type of media the audio track comes from
 	/// </summary>
-	[ChartKeySerializable(ChartFormatting.MediaType)]
+	[MetadataChartKey(ChartFormatting.MediaType)]
 	public string? MediaType { get; set; }
 
 	/// <summary>
 	/// Offset of the audio track. A higher value makes the audio start sooner.
 	/// </summary>
-	[ChartKeySerializable(ChartFormatting.AudioOffset)]
-	[IniKeySerializable(IniFormatting.AudioOffset)]
+	//[MetadataChartKey(ChartFormatting.AudioOffset)]
+	//[MetadataIniKey(IniFormatting.AudioOffset)]
 	public TimeSpan? AudioOffset { get; set; }
 
 	/// <summary>
 	/// Paths of audio files
 	/// </summary>
+	[MetadataGroup]
 	public StreamCollection Streams
 	{
 		get;
@@ -170,22 +172,23 @@ public class Metadata
 	/// <summary>
 	/// Length of the song in milliseconds
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Length)]
+	//[MetadataIniKey(IniFormatting.Length)]
 	public uint? Length { get; set; }
 
 	/// <summary>
 	/// Text to be displayed on the load screen
 	/// </summary>
-	[IniKeySerializable(IniFormatting.LoadingText)]
+	[MetadataIniKey(IniFormatting.LoadingText)]
 	public string? LoadingText { get; set; }
 
 	/// <summary>
 	/// The song is a modchart
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Modchart)]
+	//[MetadataIniKey(IniFormatting.Modchart)]
 	public bool? IsModchart { get; set; }
 
 	/// <inheritdoc cref="FormattingRules"/>
+	[MetadataGroup]
 	public FormattingRules Formatting
 	{
 		get;
@@ -203,8 +206,8 @@ public class Metadata
 	public string? Get(FileType fileType, string key)
 		=> fileType switch
 	{
-		FileType.Chart => MetadataChartMapper.Get(this, key),
-		FileType.Ini   => MetadataIniMapper.Get(this, key)
+		FileType.Chart => MetadataChartMapper.Shared.Get(this, key),
+		FileType.Ini   => MetadataIniMapper.Shared.Get(this, key)
 	};
 
 	public void Set(FileType fileType, string key, string value)
@@ -212,10 +215,10 @@ public class Metadata
 		switch (fileType)
 		{
 			case FileType.Chart:
-				MetadataChartMapper.Set(this, key, value);
+				MetadataChartMapper.Shared.Set(this, key, value);
 				break;
 			case FileType.Ini:
-				MetadataIniMapper.Set(this, key, value);
+				MetadataIniMapper.Shared.Set(this, key, value);
 				break;
 		}
 	}
@@ -225,7 +228,7 @@ public class Metadata
 		switch (fileType)
 		{
 			case FileType.Chart:
-				MetadataChartMapper.Remove(this, key);
+				MetadataChartMapper.Shared.Remove(this, key);
 				break;
 			case FileType.Ini:
 				throw new NotImplementedException();
