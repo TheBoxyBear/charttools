@@ -40,6 +40,8 @@ internal class MetadataMapGenerator : IIncrementalGenerator
 					Name: context.TargetSymbol.Name,
 					Type: (context.TargetSymbol as IPropertySymbol).Type.Name,
 					Key: context.Attributes[0].ConstructorArguments[0].Value.ToString()));
+
 	private static void GenerateMapMethods(string className, in SourceProductionContext context, in ImmutableArray<MetadataProperty> properties)
 	{
 	}
+}
