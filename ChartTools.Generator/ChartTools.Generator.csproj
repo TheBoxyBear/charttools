@@ -9,4 +9,8 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ChartTools.Attributes\ChartTools.Attributes.csproj" OutputItemType="Analyzer" />
+  </ItemGroup>
+
 </Project>
