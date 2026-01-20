@@ -43,7 +43,7 @@ internal readonly struct TrackObjectEntry : IReadOnlyTrackObject
 		Type = entry.Value[0..spaceIndex];
 		Data = entry.Value[(spaceIndex + 1)..];
 
-		Position = ValueParser.ParseUint(entry.Key.Span, "position");
+		Position = ValueParser.Parse<uint>(entry.Key.Span, "position");
 	}
 
 	public TrackObjectEntry(uint position, string type, string data)

@@ -31,12 +31,12 @@ internal class SyncTrackParser(ChartReadingSession session)
 				ChartFormatting.SplitData(data, out a, out b);
 
 				byte
-					numerator = ValueParser.ParseByte(in a, "numerator"),
+					numerator = ValueParser.Parse<byte>(in a, "numerator"),
 					denominator = 4;
 
 				// Denominator is only written if not equal to 4
 				if (!b.IsEmpty)
-					denominator = (byte)Math.Pow(2, ValueParser.ParseByte(in b, "denominator"));
+					denominator = (byte)Math.Pow(2, ValueParser.Parse<byte>(in b, "denominator"));
 
 				TimeSignature signature = new(entry.Position, numerator, denominator);
 
@@ -48,7 +48,7 @@ internal class SyncTrackParser(ChartReadingSession session)
 					break;
 
 				// Floats are written by rounding to the 3rd decimal and removing the decimal point
-				float value = ValueParser.ParseFloat(data, "value") / 1000;
+				float value = ValueParser.Parse<float>(data, "value") / 1000;
 				Tempo tempo = new(entry.Position, value);
 
 				tempos.Add(tempo);
@@ -59,7 +59,7 @@ internal class SyncTrackParser(ChartReadingSession session)
 					break;
 
 				// Floats are written by rounding to the 3rd decimal and removing the decimal point
-				TimeSpan anchor = TimeSpan.FromSeconds(ValueParser.ParseFloat(data, "anchor") / 1000);
+				TimeSpan anchor = TimeSpan.FromSeconds(ValueParser.Parse<float>(data, "anchor") / 1000);
 
 				orderedAnchors.Insert(newIndex, new(entry.Position, anchor));
 				break;
