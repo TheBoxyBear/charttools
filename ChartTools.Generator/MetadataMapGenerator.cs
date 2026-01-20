@@ -1,0 +1,45 @@
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+
+using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Diagnostics;
+
+using ChartTools.Attributes.Metadata;
+using System.Text;
+
+namespace ChartTools.Generator;
+
+[Generator]
+internal class MetadataMapGenerator : IIncrementalGenerator
+{
+	private record class MetadataProperty(string Name, string Type, string Key);
+
+	public void Initialize(IncrementalGeneratorInitializationContext context)
+	{
+		if (!Debugger.IsAttached)
+		{
+			// Debugger.Launch();
+		}
+		var chartProvider = CreatePropertyProvider(nameof(MetadataChartKeyAttribute), in context);
+		var iniProvider   = CreatePropertyProvider(nameof(MetadataIniKeyAttribute), in context);
+
+		context.RegisterImplementationSourceOutput(chartProvider.Collect(),
+			static (ctx, props) => GenerateMapMethods("MetadataChartMapper", in ctx, in props));
+
+		context.RegisterImplementationSourceOutput(iniProvider.Collect(),
+			static (ctx, props) => GenerateMapMethods("MetadataIniMapper", in ctx, in props));
+	}
+
+	private static IncrementalValuesProvider<MetadataProperty> CreatePropertyProvider
+		(string attributeClass, in IncrementalGeneratorInitializationContext context)
+		=> context.SyntaxProvider.ForAttributeWithMetadataName(string.Join(".", nameof(ChartTools), nameof(Attributes), nameof(Attributes.Metadata), attributeClass),
+			predicate: static (node, _) => node is PropertyDeclarationSyntax,
+			transform: static (context, _) => new MetadataProperty(
+					Name: context.TargetSymbol.Name,
+					Type: (context.TargetSymbol as IPropertySymbol).Type.Name,
+					Key: context.Attributes[0].ConstructorArguments[0].Value.ToString()));
+	private static void GenerateMapMethods(string className, in SourceProductionContext context, in ImmutableArray<MetadataProperty> properties)
+	{
+	}
