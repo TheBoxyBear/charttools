@@ -42,10 +42,10 @@ internal class IniParser(Metadata? existing = null)
 				result.SubPlaylist = value.ToString();
 				break;
 			case IniFormatting.PlaylistTrack:
-				result.PlaylistTrack = ValueParser.ParseUshort(value, "playlist track");
+				result.PlaylistTrack = ValueParser.Parse<ushort>(value, "playlist track");
 				break;
 			case IniFormatting.Year:
-				result.Year = ValueParser.ParseUshort(value, "year");
+				result.Year = ValueParser.Parse<ushort>(value, "year");
 				break;
 			case IniFormatting.Genre:
 				result.Genre = value.ToString();
@@ -62,67 +62,67 @@ internal class IniParser(Metadata? existing = null)
 				result.Charter.Icon = value.ToString();
 				break;
 			case IniFormatting.PreviewStart:
-				result.PreviewStart = value.StartsWith('-') ? null : ValueParser.ParseUint(value, "preview start");
+				result.PreviewStart = value.StartsWith('-') ? null : ValueParser.Parse<uint>(value, "preview start");
 				break;
 			case IniFormatting.PreviewEnd:
-				result.PreviewEnd = value.StartsWith('-') ? null : ValueParser.ParseUint(value, "preview end");
+				result.PreviewEnd = value.StartsWith('-') ? null : ValueParser.Parse<uint>(value, "preview end");
 				break;
 			case IniFormatting.AudioOffset:
-				result.AudioOffset = TimeSpan.FromMilliseconds(ValueParser.ParseInt(value, "audio offset"));
+				result.AudioOffset = TimeSpan.FromMilliseconds(ValueParser.Parse<int>(value, "audio offset"));
 				break;
 			case IniFormatting.VideoOffset:
-				result.VideoOffset = TimeSpan.FromMilliseconds(ValueParser.ParseInt(value, "video offset"));
+				result.VideoOffset = TimeSpan.FromMilliseconds(ValueParser.Parse<int>(value, "video offset"));
 				break;
 			case IniFormatting.Length:
-				result.Length = ValueParser.ParseUint(value, "song length");
+				result.Length = ValueParser.Parse<uint>(value, "song length");
 				break;
 			case IniFormatting.LoadingText:
 				result.LoadingText = value.ToString();
 				break;
 			case IniFormatting.Modchart:
-				result.IsModchart = ValueParser.ParseInt(value, "modchart") == 1;
+				result.IsModchart = ValueParser.Parse<int>(value, "modchart") == 1;
 				break;
 			case IniFormatting.Explicit:
-				result.Explicit = ValueParser.ParseBool(value, "explicit");
+				result.Explicit = ValueParser.Parse<bool>(value, "explicit");
 				break;
 			case IniFormatting.Difficulties.Global:
-				result.Difficulty = ValueParser.ParseSbyte(value, "difficulty");
+				result.Difficulty = ValueParser.Parse<sbyte>(value, "difficulty");
 				break;
 			case IniFormatting.Difficulties.StandardLeadGuitar:
-				result.InstrumentDifficulties.StandardLeadGuitar = ValueParser.ParseSbyte(value, "lead guitar difficulty");
+				result.InstrumentDifficulties.StandardLeadGuitar = ValueParser.Parse<sbyte>(value, "lead guitar difficulty");
 				break;
 			case IniFormatting.Difficulties.StandardRhythmGuitar:
-				result.InstrumentDifficulties.StandardRhythmGuitar = ValueParser.ParseSbyte(value, "rhythm guitar difficulty");
+				result.InstrumentDifficulties.StandardRhythmGuitar = ValueParser.Parse<sbyte>(value, "rhythm guitar difficulty");
 				break;
             case IniFormatting.Difficulties.StandardCoopGuitar:
-                result.InstrumentDifficulties.StandardCoopGuitar = ValueParser.ParseSbyte(value, "coop guitar difficulty");
+                result.InstrumentDifficulties.StandardCoopGuitar = ValueParser.Parse<sbyte>(value, "coop guitar difficulty");
                 break;
             case IniFormatting.Difficulties.StandardBass:
-				result.InstrumentDifficulties.StandardBass = ValueParser.ParseSbyte(value, "bass difficulty");
+				result.InstrumentDifficulties.StandardBass = ValueParser.Parse<sbyte>(value, "bass difficulty");
 				break;
 			case IniFormatting.Difficulties.Drums:
-				result.InstrumentDifficulties.Drums = ValueParser.ParseSbyte(value, "drums difficulty");
+				result.InstrumentDifficulties.Drums = ValueParser.Parse<sbyte>(value, "drums difficulty");
 				break;
 			case IniFormatting.Difficulties.StandardKeys:
-				result.InstrumentDifficulties.StandardKeys = ValueParser.ParseSbyte(value, "keys difficulty");
+				result.InstrumentDifficulties.StandardKeys = ValueParser.Parse<sbyte>(value, "keys difficulty");
 				break;
             case IniFormatting.Difficulties.GHLLeadGuitar:
-                result.InstrumentDifficulties.GHLLeadGuitar = ValueParser.ParseSbyte(value, "GHL lead guitar difficulty");
+                result.InstrumentDifficulties.GHLLeadGuitar = ValueParser.Parse<sbyte>(value, "GHL lead guitar difficulty");
                 break;
             case IniFormatting.Difficulties.GHLRhythmGuitar:
-                result.InstrumentDifficulties.GHLRhythmGuitar = ValueParser.ParseSbyte(value, "GHL rhythm guitar difficulty");
+                result.InstrumentDifficulties.GHLRhythmGuitar = ValueParser.Parse<sbyte>(value, "GHL rhythm guitar difficulty");
                 break;
             case IniFormatting.Difficulties.GHLCoopGuitar:
-                result.InstrumentDifficulties.GHLCoopGuitar = ValueParser.ParseSbyte(value, "GHL coop guitar difficulty");
+                result.InstrumentDifficulties.GHLCoopGuitar = ValueParser.Parse<sbyte>(value, "GHL coop guitar difficulty");
                 break;
             case IniFormatting.Difficulties.GHLBass:
-                result.InstrumentDifficulties.GHLBass = ValueParser.ParseSbyte(value, "GHL bass difficulty");
+                result.InstrumentDifficulties.GHLBass = ValueParser.Parse<sbyte>(value, "GHL bass difficulty");
                 break;
             case IniFormatting.SustainCutoff:
-                result.Formatting.SustainCutoff = ValueParser.ParseUint(value, "sustain cutoff");
+                result.Formatting.SustainCutoff = ValueParser.Parse<uint>(value, "sustain cutoff");
                 break;
             case IniFormatting.HopoFrequency:
-                result.Formatting.HopoFrequency = ValueParser.ParseUint(value, "hopo frequency");
+                result.Formatting.HopoFrequency = ValueParser.Parse<uint>(value, "hopo frequency");
                 break;
             default:
                 result.UnidentifiedData.Add(new()
@@ -134,7 +134,7 @@ internal class IniParser(Metadata? existing = null)
         }
 
 		void ParseAlbumTrack(in ReadOnlySpan<char> value)
-			=> ValueParser.ParseUshort(value, "album track");
+			=> ValueParser.Parse<ushort>(value, "album track");
 
 		void ParseCharter(in ReadOnlySpan<char> name)
 		{

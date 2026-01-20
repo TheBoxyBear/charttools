@@ -28,7 +28,7 @@ internal readonly ref struct NoteData
 		if (b.IsEmpty)
 			throw new EntryException();
 
-		Index         = ValueParser.ParseByte(in a, "note index");
-		SustainLength = ValueParser.ParseUint(in b, "sustain length");
+		Index         = ValueParser.Parse<byte>(in a, "note index");
+		SustainLength = ValueParser.Parse<uint>(in b, "sustain length");
 	}
 }

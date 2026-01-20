@@ -52,19 +52,19 @@ internal class MetadataChartMapper : IMetadataMapper
 				metadata.Album = value.ToString();
 				break;
 			case ChartFormatting.Year:
-				metadata.Year = ValueParser.ParseUshort(value.TrimStart(','), "year");
+				metadata.Year = ValueParser.Parse<ushort>(value.TrimStart(','), "year");
 				break;
 			case ChartFormatting.AudioOffset:
-				metadata.AudioOffset = TimeSpan.FromMilliseconds(ValueParser.ParseFloat(value, "audio offset") * 1000);
+				metadata.AudioOffset = TimeSpan.FromMilliseconds(ValueParser.Parse<float>(value, "audio offset") * 1000);
 				break;
 			case ChartFormatting.Difficulty:
-				metadata.Difficulty = ValueParser.ParseSbyte(value, "difficulty");
+				metadata.Difficulty = ValueParser.Parse<sbyte>(value, "difficulty");
 				break;
 			case ChartFormatting.PreviewStart:
-				metadata.PreviewStart = ValueParser.ParseUint(value, "preview start");
+				metadata.PreviewStart = ValueParser.Parse<uint>(value, "preview start");
 				break;
 			case ChartFormatting.PreviewEnd:
-				metadata.PreviewEnd = ValueParser.ParseUint(value, "preview end");
+				metadata.PreviewEnd = ValueParser.Parse<uint>(value, "preview end");
 				break;
 			case ChartFormatting.Genre:
 				metadata.Genre = value.ToString();

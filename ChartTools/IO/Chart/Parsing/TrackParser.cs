@@ -67,8 +67,8 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 				ReadOnlySpan<char> a, b;
 				ChartFormatting.SplitData(entry.Data.Span, out a, out b);
 
-				byte typeCode = ValueParser.ParseByte(in a, "type code");
-				uint length   = ValueParser.ParseUint(in b, "length");
+				byte typeCode = ValueParser.Parse<byte>(in a, "type code");
+				uint length   = ValueParser.Parse<uint>(in b, "length");
 
 				result.SpecialPhrases.Add(new(entry.Position, typeCode, length));
 				break;
