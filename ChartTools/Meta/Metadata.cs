@@ -1,9 +1,9 @@
 ﻿using ChartTools.Extensions;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
-using ChartTools.IO.Chart.Serializing;
 using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
+using ChartTools.Attributes.Metadata;
 using ChartTools.Meta.Mapping;
 
 namespace ChartTools.Meta;

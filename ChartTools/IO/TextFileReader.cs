@@ -2,8 +2,6 @@
 using ChartTools.IO.Parsing;
 using ChartTools.IO.Sources;
 
-using System;
-
 namespace ChartTools.IO;
 
 internal abstract class TextFileReader(ReadingDataSource source) : FileReader<ReadOnlyMemory<char>, TextParser>(source)

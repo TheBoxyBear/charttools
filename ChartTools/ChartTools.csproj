@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ChartTools.Generator\ChartTools.Generator.csproj" OutputItemType="Analyser" />
+    <ProjectReference Include="..\ChartTools.Attributes\ChartTools.Attributes.csproj" />
   </ItemGroup>
 
 </Project>

@@ -10,13 +10,13 @@ internal class IniSerializer(Metadata content) : Serializer<Metadata, string>(In
 		if (Content is null)
 			yield break;
 
-		IEnumerable<(string key, string value)> props = IniKeySerializableAttribute.GetSerializable(Content)
-			.Concat(IniKeySerializableAttribute.GetSerializable(Content.Formatting))
-			.Concat(IniKeySerializableAttribute.GetSerializable(Content.Charter)
-			.Concat(IniKeySerializableAttribute.GetSerializable(Content.InstrumentDifficulties)));
+		//IEnumerable<(string key, string value)> props = MetadataIniKeyAttribute.GetSerializable(Content)
+		//	.Concat(MetadataIniKeyAttribute.GetSerializable(Content.Formatting))
+		//	.Concat(MetadataIniKeyAttribute.GetSerializable(Content.Charter)
+		//	.Concat(MetadataIniKeyAttribute.GetSerializable(Content.InstrumentDifficulties)));
 
-		foreach ((string key, string value) in props)
-			yield return IniFormatting.Line(key, value.ToString());
+		//foreach ((string key, string value) in props)
+		//	yield return IniFormatting.Line(key, value.ToString());
 
 		foreach (UnidentifiedMetadata data in Content.UnidentifiedData.Where(static x => x.Origin is FileType.Ini))
 			yield return IniFormatting.Line(data.Key, data.Value);

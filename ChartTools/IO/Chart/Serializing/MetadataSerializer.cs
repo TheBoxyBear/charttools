@@ -9,14 +9,14 @@ internal class MetadataSerializer(Metadata content) : Serializer<Metadata, strin
 		if (Content is null)
 			yield break;
 
-		IEnumerable<(string key, string value)> props = ChartKeySerializableAttribute.GetSerializable(Content)
-			.Concat(ChartKeySerializableAttribute.GetSerializable(Content.Formatting))
-			.Concat(ChartKeySerializableAttribute.GetSerializable(Content.Charter)
-			.Concat(ChartKeySerializableAttribute.GetSerializable(Content.InstrumentDifficulties))
-			.Concat(ChartKeySerializableAttribute.GetSerializable(Content.Streams)));
+		//IEnumerable<(string key, string value)> props = MetadataChartKeyAttribute.GetSerializable(Content)
+		//	.Concat(MetadataChartKeyAttribute.GetSerializable(Content.Formatting))
+		//	.Concat(MetadataChartKeyAttribute.GetSerializable(Content.Charter)
+		//	.Concat(MetadataChartKeyAttribute.GetSerializable(Content.InstrumentDifficulties))
+		//	.Concat(MetadataChartKeyAttribute.GetSerializable(Content.Streams)));
 
-		foreach ((string key, string value) in props)
-			yield return ChartFormatting.Line(key, value);
+		//foreach ((string key, string value) in props)
+		//	yield return ChartFormatting.Line(key, value);
 
 		if (Content.Year is not null)
 			yield return ChartFormatting.Line("Year", $"\", {Content.Year}\"");
