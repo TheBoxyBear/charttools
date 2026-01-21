@@ -34,7 +34,7 @@ public class FormattingRules
 	[MetadataIniKey(IniFormatting.HopoFrequency)]
 	public uint? HopoFrequency { get; set; }
 
-    internal uint ChartHopoFrequency => (uint)(65 / 192f * TrueResolution);
+	internal uint ChartHopoFrequency => (uint)(65 / 192f * TrueResolution);
 
 	#region Star power
 	/// <summary>
