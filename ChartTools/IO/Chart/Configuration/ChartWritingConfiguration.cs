@@ -7,17 +7,17 @@ public record ChartWritingConfiguration : CommonChartConfiguration, ICommonWriti
 {
 	public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }
 
-    public ChartWritingConfiguration() : this(true) { }
+	public ChartWritingConfiguration() : this(true) { }
 
-    internal ChartWritingConfiguration(bool setDefaults)
-    {
-        if (setDefaults)
-        {
-            UnsupportedModifierPolicy  = ChartFile.DefaultWriteConfig.UnsupportedModifierPolicy;
-            DuplicateTrackObjectPolicy = ChartFile.DefaultWriteConfig.DuplicateTrackObjectPolicy;
-            OverlappingStarPowerPolicy = ChartFile.DefaultWriteConfig.OverlappingStarPowerPolicy;
-            SnappedNotesPolicy         = ChartFile.DefaultWriteConfig.SnappedNotesPolicy;
-            SoloNoStarPowerPolicy      = ChartFile.DefaultWriteConfig.SoloNoStarPowerPolicy;
-        }
-    }
+	internal ChartWritingConfiguration(bool setDefaults)
+	{
+		if (setDefaults)
+		{
+			UnsupportedModifierPolicy  = ChartFile.DefaultWriteConfig.UnsupportedModifierPolicy;
+			DuplicateTrackObjectPolicy = ChartFile.DefaultWriteConfig.DuplicateTrackObjectPolicy;
+			OverlappingStarPowerPolicy = ChartFile.DefaultWriteConfig.OverlappingStarPowerPolicy;
+			SnappedNotesPolicy         = ChartFile.DefaultWriteConfig.SnappedNotesPolicy;
+			SoloNoStarPowerPolicy      = ChartFile.DefaultWriteConfig.SoloNoStarPowerPolicy;
+		}
+	}
 }
