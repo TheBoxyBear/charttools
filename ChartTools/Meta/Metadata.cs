@@ -18,21 +18,21 @@ public class Metadata
 	/// Title of the <see cref="Song"/>
 	/// </summary>
 	[MetadataChartKey(ChartFormatting.Title)]
-	//[MetadataIniKey(IniFormatting.Title)]
+	[MetadataIniKey(IniFormatting.Title)]
 	public string? Title { get; set; }
 
 	/// <summary>
 	/// Artist or band behind the <see cref="Song"/>
 	/// </summary>
 	[MetadataChartKey(ChartFormatting.Artist)]
-	//[MetadataIniKey(IniFormatting.Artist)]
+	[MetadataIniKey(IniFormatting.Artist)]
 	public string? Artist { get; set; }
 
 	/// <summary>
 	/// Album featuring the <see cref="Song"/>
 	/// </summary>
 	[MetadataChartKey(ChartFormatting.Album)]
-	//[MetadataIniKey(IniFormatting.Album)]
+	[MetadataIniKey(IniFormatting.Album)]
 	public string? Album { get; set; }
 
 	/// <summary>
@@ -55,20 +55,20 @@ public class Metadata
 	/// <summary>
 	/// Track number of the song within the playlist/setlist
 	/// </summary>
-	//[MetadataIniKey(IniFormatting.PlaylistTrack)]
+	[MetadataIniKey(IniFormatting.PlaylistTrack)]
 	public ushort? PlaylistTrack { get; set; }
 
 	/// <summary>
 	/// Year of release
 	/// </summary>
-	//[MetadataIniKey(IniFormatting.Year)]
+	[MetadataIniKey(IniFormatting.Year)]
 	public ushort? Year { get; set; }
 
 	/// <summary>
 	/// Genre of the <see cref="Song"/>
 	/// </summary>
 	[MetadataChartKey(ChartFormatting.Genre)]
-	//[MetadataIniKey(IniFormatting.Genre)]
+	[MetadataIniKey(IniFormatting.Genre)]
 	public string? Genre { get; set; }
 
 	/// <summary>
@@ -88,21 +88,21 @@ public class Metadata
 	/// <summary>
 	/// The song contains explicit lyrics
 	/// </summary>
-	//[MetadataIniKey(IniFormatting.Explicit)]
+	[MetadataIniKey(IniFormatting.Explicit)]
 	public bool? Explicit { get; set; }
 
 	/// <summary>
 	/// Start time in milliseconds of the preview in the Clone Hero song browser
 	/// </summary>
-	//[MetadataChartKey(ChartFormatting.PreviewStart)]
-	//[MetadataIniKey(IniFormatting.PreviewStart)]
+	[MetadataChartKey(ChartFormatting.PreviewStart)]
+	[MetadataIniKey(IniFormatting.PreviewStart)]
 	public uint? PreviewStart { get; set; }
 
 	/// <summary>
 	/// End time in milliseconds of the preview in the Clone Hero song browser
 	/// </summary>
-	//[MetadataChartKey(ChartFormatting.PreviewEnd)]
-	//[MetadataIniKey(IniFormatting.PreviewEnd)]
+	[MetadataChartKey(ChartFormatting.PreviewEnd)]
+	[MetadataIniKey(IniFormatting.PreviewEnd)]
 	public uint? PreviewEnd { get; set; }
 
 	/// <summary>
@@ -122,11 +122,12 @@ public class Metadata
 	/// <summary>
 	/// Overall difficulty of the song
 	/// </summary>
-	//[MetadataChartKey(ChartFormatting.Difficulty)]
-	//[MetadataIniKey(IniFormatting.Difficulties.Global)]
+	[MetadataChartKey(ChartFormatting.Difficulty)]
+	[MetadataIniKey(IniFormatting.Difficulties.Global)]
 	public sbyte? Difficulty { get; set; }
 
 	/// <inheritdoc cref="InstrumentDifficultySet"/>
+	[MetadataGroup]
 	public InstrumentDifficultySet InstrumentDifficulties
 	{
 		get;
@@ -146,8 +147,6 @@ public class Metadata
 	/// <summary>
 	/// Offset of the audio track. A higher value makes the audio start sooner.
 	/// </summary>
-	//[MetadataChartKey(ChartFormatting.AudioOffset)]
-	//[MetadataIniKey(IniFormatting.AudioOffset)]
 	public TimeSpan? AudioOffset { get; set; }
 
 	/// <summary>
@@ -172,7 +171,7 @@ public class Metadata
 	/// <summary>
 	/// Length of the song in milliseconds
 	/// </summary>
-	//[MetadataIniKey(IniFormatting.Length)]
+	[MetadataIniKey(IniFormatting.Length)]
 	public uint? Length { get; set; }
 
 	/// <summary>
@@ -184,7 +183,6 @@ public class Metadata
 	/// <summary>
 	/// The song is a modchart
 	/// </summary>
-	//[MetadataIniKey(IniFormatting.Modchart)]
 	public bool? IsModchart { get; set; }
 
 	/// <inheritdoc cref="FormattingRules"/>
