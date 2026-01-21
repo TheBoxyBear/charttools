@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
+using System.Text;
 
 using ChartTools.Attributes.Metadata;
-using System.Text;
 
 namespace ChartTools.Generator;
 
