@@ -20,8 +20,10 @@ internal class MetadataMapGenerator : IIncrementalGenerator
 	{
 		if (!Debugger.IsAttached)
 		{
-			// Debugger.Launch();
+			// Uncomment this line to be prompted to debug on generation
+			//Debugger.Launch();
 		}
+
 		var chartProvider = CreatePropertyProvider(nameof(MetadataChartKeyAttribute), in context);
 		var iniProvider   = CreatePropertyProvider(nameof(MetadataIniKeyAttribute), in context);
 
