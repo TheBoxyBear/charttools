@@ -6,6 +6,7 @@ namespace ChartTools.IO.Chart.Configuration;
 public record ChartWritingConfiguration : CommonChartConfiguration, ICommonWritingConfiguration
 {
 	public UnsupportedModifierPolicy UnsupportedModifierPolicy { get; init; }
+
     public ChartWritingConfiguration() : this(true) { }
 
     internal ChartWritingConfiguration(bool setDefaults)
