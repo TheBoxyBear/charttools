@@ -146,7 +146,7 @@ $$"""
 				codeBuilder.AppendLine(
 $"""
 			case "{prop.Key}":
-				value = metadata{groupPaths[prop.ContainingType]}.{prop.Name}{toStringSuffix};
+				value = metadata{groupPaths![prop.ContainingType]}.{prop.Name}{toStringSuffix};
 				return true;
 """);
 			}
@@ -180,7 +180,7 @@ $$"""
 				codeBuilder.AppendLine(
 $"""
 			case "{prop.Key}":
-				metadata{groupPaths[prop.ContainingType]}.{prop.Name} = {setCode};
+				metadata{groupPaths![prop.ContainingType]}.{prop.Name} = {setCode};
 				return true;
 """);
 			}
@@ -209,7 +209,7 @@ $$"""
 				codeBuilder.AppendLine(
 $"""
 			case "{prop.Key}":
-				metadata{groupPaths[prop.ContainingType]}.{prop.Name} = null;
+				metadata{groupPaths![prop.ContainingType]}.{prop.Name} = null;
 				return true;
 """);
 			}
