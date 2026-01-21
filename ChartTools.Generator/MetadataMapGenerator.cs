@@ -14,11 +14,13 @@ namespace ChartTools.Generator;
 [Generator]
 internal class MetadataMapGenerator : IIncrementalGenerator
 {
-	public const string AttributeNamespace = $"{nameof(ChartTools)}.{nameof(Attributes)}.{nameof(Attributes.Metadata)}";
-
 	private record class MetadataProperty(string Name, string Type, string Key, string ContainingType);
 
 	private record class MetadataGroupProperty(string Name, string Type, string ContainingType);
+
+	public const string AttributeNamespace = $"{nameof(ChartTools)}.{nameof(Attributes)}.{nameof(Attributes.Metadata)}";
+
+	private static Dictionary<string, string>? groupPaths;
 
 	public void Initialize(IncrementalGeneratorInitializationContext context)
 	{
@@ -70,24 +72,27 @@ internal class MetadataMapGenerator : IIncrementalGenerator
 	{
 		var (properties, groups) = tuple;
 
-		Dictionary<string, string> groupPaths = new(groups.Length);
+		if (groupPaths is null)
+		{
+			groupPaths = new(groups.Length);
 
-		// Consider finding a way to only process this once and pass to chart and ini
-		do
-			foreach (var group in groups)
-			{
-				if (groupPaths.ContainsKey(group.Type))
-					continue;
+			// Consider finding a way to only process this once and pass to chart and ini
+			do
+				foreach (var group in groups)
+				{
+					if (groupPaths.ContainsKey(group.Type))
+						continue;
 
-				if (group.ContainingType == "Metadata")
-					groupPaths[group.Type] = $".{group.Name}";
-				else if (groupPaths.TryGetValue(group.ContainingType, out var path))
-					groupPaths[group.Type] = $"{path}.{group.Name}";
-			}
-		while (groupPaths.Count < groups.Length);
+					if (group.ContainingType == "Metadata")
+						groupPaths[group.Type] = $".{group.Name}";
+					else if (groupPaths.TryGetValue(group.ContainingType, out var path))
+						groupPaths[group.Type] = $"{path}.{group.Name}";
+				}
+			while (groupPaths.Count < groups.Length);
 
-		// Shorthand to not have to check for root
-		groupPaths["Metadata"] = string.Empty;
+			// Shorthand to not have to check for root
+			groupPaths["Metadata"] = string.Empty;
+		}
 
 		StringBuilder codeBuilder = new(
 $$"""
