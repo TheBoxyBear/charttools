@@ -22,4 +22,19 @@ internal abstract class MetadataMapper
 		}, out UnidentifiedMetadata found)
 			? found.Value
 			: null;
+
+	protected void AddUnidentified(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value)
+		=> metadata.UnidentifiedData.Add(new()
+		{
+			Key    = key.ToString(),
+			Value  = value.ToString(),
+			Origin = FileType
+		});
+
+	protected void RemoveUnidentified(Metadata metadata, in ReadOnlySpan<char> key)
+		=> metadata.UnidentifiedData.Remove(new()
+		{
+			Key    = key.ToString(),
+			Origin = FileType
+		});
 }
