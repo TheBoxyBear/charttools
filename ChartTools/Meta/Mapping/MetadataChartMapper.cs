@@ -50,11 +50,18 @@ internal sealed partial class MetadataChartMapper : MetadataMapper
 			return;
 	}
 
+	public override IEnumerable<TextEntry> GetAll()
+	{
+		throw new NotImplementedException();
+	}
+
 	private static partial bool TryGetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out string value);
 
 	private static partial bool TrySetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value);
 
 	private static partial bool TryRemoveFromAttribute(Metadata metadata, in ReadOnlySpan<char> key);
+
+	private static partial IEnumerable<TextEntry> GetAllFromAttributes(Metadata metadata);
 
 	private MetadataChartMapper() { }
 }

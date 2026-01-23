@@ -1,4 +1,5 @@
-﻿using ChartTools.IO.Ini;
+﻿using ChartTools.IO;
+using ChartTools.IO.Ini;
 
 using System.Diagnostics.CodeAnalysis;
 
@@ -32,11 +33,18 @@ internal partial class MetadataIniMapper : MetadataMapper
 			return;
 	}
 
+	public override IEnumerable<TextEntry> GetAll()
+	{
+		throw new NotImplementedException();
+	}
+
 	private static partial bool TryGetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out string value);
 
 	private static partial bool TrySetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value);
 
 	private static partial bool TryRemoveFromAttribute(Metadata metadata, in ReadOnlySpan<char> key);
+
+	private static partial IEnumerable<TextEntry> GetAllFromAttributes(Metadata metadata);
 
 	private MetadataIniMapper() { }
 }

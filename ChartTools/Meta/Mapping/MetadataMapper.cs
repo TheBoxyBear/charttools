@@ -1,4 +1,4 @@
-﻿using ChartTools.IO.Chart;
+﻿using ChartTools.IO;
 
 namespace ChartTools.Meta.Mapping;
 
@@ -11,6 +11,8 @@ internal abstract class MetadataMapper
 	public abstract void Set(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value);
 
 	public abstract void Remove(Metadata metadata, in ReadOnlySpan<char> key);
+
+	public abstract IEnumerable<TextEntry> GetAll();
 
 	protected string? FindUndentified(Metadata metadata, in ReadOnlySpan<char> key)
 		=> metadata.UnidentifiedData.TryGetValue(new()
