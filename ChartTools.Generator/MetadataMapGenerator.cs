@@ -69,12 +69,12 @@ internal class MetadataMapGenerator : IIncrementalGenerator
 		Dictionary<string, string> paths = new(groups.Length);
 
 		do
-			foreach (var group in groups)
+			foreach (MetadataGroupProperty group in groups)
 			{
 				if (paths.ContainsKey(group.Type))
 					continue;
 
-				if (group.ContainingType == "Metadata")
+				if (group.ContainingType is "Metadata")
 					paths[group.Type] = $".{group.Name}";
 				else if (paths.TryGetValue(group.ContainingType, out var path))
 					paths[group.Type] = $"{path}.{group.Name}";
@@ -145,9 +145,9 @@ $$"""
 		{
 """);
 
-		foreach (var prop in props)
+		foreach (MetadataProperty prop in props)
 		{
-			string toStringSuffix = prop.Type == "String"
+			string toStringSuffix = prop.Type is "String"
 				? string.Empty : "?.ToString()";
 
 			builder.AppendLine(
@@ -173,7 +173,7 @@ $$"""
 		{
 """);
 
-		foreach (var prop in props)
+		foreach (MetadataProperty prop in props)
 		{
 			string setCode = prop.Type == "String"
 				? "value.ToString()"
@@ -206,7 +206,7 @@ $$"""
 		{
 """);
 
-		foreach (var prop in props)
+		foreach (MetadataProperty prop in props)
 		{
 			builder.AppendLine(
 $"""
