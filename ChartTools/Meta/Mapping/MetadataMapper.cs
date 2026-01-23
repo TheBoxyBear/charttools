@@ -12,7 +12,7 @@ internal abstract class MetadataMapper
 
 	public abstract void Remove(Metadata metadata, in ReadOnlySpan<char> key);
 
-	public abstract IEnumerable<TextEntry> GetAll();
+	public abstract IEnumerable<TextEntry> GetAll(Metadata metadata);
 
 	protected string? FindUndentified(Metadata metadata, in ReadOnlySpan<char> key)
 		=> metadata.UnidentifiedData.TryGetValue(new()

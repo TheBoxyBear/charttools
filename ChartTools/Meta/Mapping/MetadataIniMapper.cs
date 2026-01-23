@@ -33,7 +33,6 @@ internal partial class MetadataIniMapper : MetadataMapper
 			return;
 	}
 
-	public override IEnumerable<TextEntry> GetAll()
 	{
 		throw new NotImplementedException();
 	}

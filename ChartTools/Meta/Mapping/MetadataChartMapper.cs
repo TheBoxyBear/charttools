@@ -50,7 +50,7 @@ internal sealed partial class MetadataChartMapper : MetadataMapper
 			return;
 	}
 
-	public override IEnumerable<TextEntry> GetAll()
+	public override IEnumerable<TextEntry> GetAll(Metadata metadata)
 	{
 		throw new NotImplementedException();
 	}
