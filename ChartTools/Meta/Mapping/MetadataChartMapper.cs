@@ -34,20 +34,15 @@ internal sealed partial class MetadataChartMapper : MetadataMapper
 				metadata.AudioOffset = TimeSpan.FromMilliseconds(ValueParser.Parse<float>(value, "audio offset") * 1000);
 				break;
 			default:
-				metadata.UnidentifiedData.Add(new()
-				{
-					Key    = key.ToString(),
-					Value  = value.ToString(),
-					Origin = FileType.Chart
-				});
+				AddUnidentified(metadata, in key, in value);
 				break;
 		}
 	}
 
 	public override void Remove(Metadata metadata, in ReadOnlySpan<char> key)
 	{
-		if (TryRemoveFromAttribute(metadata, in key))
-			return;
+		if (!TryRemoveFromAttribute(metadata, in key))
+			RemoveUnidentified(metadata, in key);
 	}
 
 	public override IEnumerable<TextEntry> GetAll(Metadata metadata)

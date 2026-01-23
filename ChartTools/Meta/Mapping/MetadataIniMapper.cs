@@ -23,14 +23,14 @@ internal partial class MetadataIniMapper : MetadataMapper
 
 	public override void Set(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value)
 	{
-		if (TrySetFromAttribute(metadata, in key, in value))
-			return;
+		if (!TrySetFromAttribute(metadata, in key, in value))
+			AddUnidentified(metadata, in key, in value);
 	}
 
 	public override void Remove(Metadata metadata, in ReadOnlySpan<char> key)
 	{
-		if (TryRemoveFromAttribute(metadata, in key))
-			return;
+		if (!TryRemoveFromAttribute(metadata, in key))
+			RemoveUnidentified(metadata, in key);
 	}
 
 	{
