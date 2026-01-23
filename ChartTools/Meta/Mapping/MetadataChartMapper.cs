@@ -47,7 +47,14 @@ internal sealed partial class MetadataChartMapper : MetadataMapper
 
 	public override IEnumerable<TextEntry> GetAll(Metadata metadata)
 	{
-		throw new NotImplementedException();
+		foreach (TextEntry entry in GetAllFromAttributes(metadata))
+			yield return entry;
+
+		if (metadata.Year is not null)
+			yield return new("Year".AsMemory(), Get(metadata, "Year").AsMemory());
+
+		foreach (TextEntry entry in GetAllUnidentified(metadata))
+			yield return entry;
 	}
 
 	private static partial bool TryGetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out string value);
