@@ -37,4 +37,10 @@ internal abstract class MetadataMapper
 			Key    = key.ToString(),
 			Origin = FileType
 		});
+
+	protected IEnumerable<TextEntry> GetAllUnidentified(Metadata metadata)
+	{
+		foreach (UnidentifiedMetadata data in metadata.UnidentifiedData.Where(data => data.Origin == FileType))
+			yield return new(data.Key.AsMemory(), data.Value.AsMemory());
+	}
 }
