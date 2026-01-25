@@ -75,7 +75,7 @@ public class MetadataMapGenerator : IIncrementalGenerator
 		void RegisterMapper(string mapperType, FileType fileType)
 		{
 			IncrementalValuesProvider<MetadataProperty> fileTypeProvider = provider
-				.Where(prop => true);
+				.Where(prop => prop.Attribute.FileType == fileType);
 
 			context.RegisterImplementationSourceOutput(
 			   fileTypeProvider
@@ -83,7 +83,7 @@ public class MetadataMapGenerator : IIncrementalGenerator
 			   .Combine(groups),
 			   (ctx, tuple) => GenerateMapMethods(mapperType, in ctx, tuple));
 
-			context.RegisterImplementationSourceOutput(provider.Collect().Combine(groups),
+			context.RegisterImplementationSourceOutput(fileTypeProvider.Collect().Combine(groups),
 				(ctx, tuple) => GenerateNonMapMethods(mapperType, in ctx, tuple));
 		}
 	}
