@@ -209,7 +209,8 @@ public sealed class Metadata
 		=> fileType switch
 	{
 		FileType.Chart => MetadataChartMapper.Shared.Get(this, key),
-		FileType.Ini   => MetadataIniMapper.Shared.Get(this, key)
+		FileType.Ini   => MetadataIniMapper.Shared.Get(this, key),
+		_ => throw new InvalidOperationException("Only chart and ini metadata can be mapped.")
 	};
 
 	public void Set(FileType fileType, string key, string value)
@@ -222,6 +223,8 @@ public sealed class Metadata
 			case FileType.Ini:
 				MetadataIniMapper.Shared.Set(this, key, value);
 				break;
+			default:
+				throw new InvalidOperationException("Only chart and ini metadata can be mapped.");
 		}
 	}
 
@@ -234,6 +237,8 @@ public sealed class Metadata
 				break;
 			case FileType.Ini:
 				throw new NotImplementedException();
+			default:
+				throw new InvalidOperationException("Only chart and ini metadata can be mapped.");
 		}
 	}
 

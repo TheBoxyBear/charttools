@@ -29,11 +29,11 @@ internal class IniParser(Metadata? existing = null)
 				break;
 			case IniFormatting.AlbumTrack:
 				ParseAlbumTrack(in value);
-				result.Formatting.AlbumTrackKey |= AlbumTrackKey.AlbumTrack;
+				result.Formatting.AlbumTrackKey |= AlbumTrackKeys.AlbumTrack;
 				break;
 			case IniFormatting.Track:
 				ParseAlbumTrack(in value);
-				result.Formatting.AlbumTrackKey |= AlbumTrackKey.Track;
+				result.Formatting.AlbumTrackKey |= AlbumTrackKeys.Track;
 				break;
 			case IniFormatting.Playlist:
 				result.Playlist = value.ToString();
@@ -52,11 +52,11 @@ internal class IniParser(Metadata? existing = null)
 				break;
 			case IniFormatting.Charter:
 				ParseCharter(in value);
-				result.Formatting.CharterKey |= CharterKey.Charter;
+				result.Formatting.CharterKey |= CharterKeys.Charter;
 				break;
 			case IniFormatting.Frets:
 				ParseCharter(in value);
-				result.Formatting.CharterKey |= CharterKey.Frets;
+				result.Formatting.CharterKey |= CharterKeys.Frets;
 				break;
 			case IniFormatting.Icon:
 				result.Charter.Icon = value.ToString();

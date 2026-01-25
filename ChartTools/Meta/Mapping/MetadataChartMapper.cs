@@ -22,21 +22,19 @@ internal sealed partial class MetadataChartMapper : MetadataMapper
 
 	public override void Set(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value)
 	{
-		if (TrySetFromAttribute(metadata, in key, in value))
-			return;
-
-		switch (key)
-		{
-			case ChartFormatting.Year:
-				metadata.Year = ValueParser.Parse<ushort>(value.TrimStart(','), "year");
-				break;
-			case ChartFormatting.AudioOffset:
-				metadata.AudioOffset = TimeSpan.FromMilliseconds(ValueParser.Parse<float>(value, "audio offset") * 1000);
-				break;
-			default:
-				AddUnidentified(metadata, in key, in value);
-				break;
-		}
+		if (!TrySetFromAttribute(metadata, in key, in value))
+			switch (key)
+			{
+				case ChartFormatting.Year:
+					metadata.Year = ValueParser.Parse<ushort>(value.TrimStart(','), nameof(Metadata.Year));
+					break;
+				case ChartFormatting.AudioOffset:
+					metadata.AudioOffset = TimeSpan.FromMilliseconds(ValueParser.Parse<float>(value, nameof(Metadata.AudioOffset)) * 1000);
+					break;
+				default:
+					AddUnidentified(metadata, in key, in value);
+					break;
+			}
 	}
 
 	public override void Remove(Metadata metadata, in ReadOnlySpan<char> key)
