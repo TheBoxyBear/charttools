@@ -1,4 +1,5 @@
 ﻿using ChartTools.IO;
+using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
 
 using System.Diagnostics.CodeAnalysis;
@@ -33,8 +34,31 @@ internal partial class MetadataIniMapper : MetadataMapper
 			RemoveUnidentified(metadata, in key);
 	}
 
+	public override IEnumerable<TextEntry> GetAll(Metadata metadata)
 	{
-		throw new NotImplementedException();
+		foreach (TextEntry entry in GetAllFromAttributes(metadata))
+			yield return entry;
+
+		if (metadata.AlbumTrack is not null)
+		{
+			if (metadata.Formatting.AlbumTrackKey.HasFlag(AlbumTrackKey.Track))
+				yield return new(IniFormatting.Track, metadata.AlbumTrack.ToString()!);
+
+			if (metadata.Formatting.AlbumTrackKey.HasFlag(AlbumTrackKey.AlbumTrack))
+				yield return new(IniFormatting.AlbumTrack, metadata.AlbumTrack.ToString()!);
+		}
+
+		if (metadata.Charter.Name is not null)
+		{
+			if (metadata.Formatting.CharterKey.HasFlag(CharterKey.Charter))
+				yield return new(IniFormatting.Charter, metadata.Charter.Name);
+
+			if (metadata.Formatting.CharterKey.HasFlag(CharterKey.Frets))
+				yield return new(IniFormatting.Frets, metadata.Charter.Name.ToString());
+		}
+
+		foreach (TextEntry entry in GetAllUnidentified(metadata))
+			yield return entry;
 	}
 
 	private static partial bool TryGetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out string value);

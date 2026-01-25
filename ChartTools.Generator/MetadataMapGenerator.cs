@@ -14,9 +14,12 @@ namespace ChartTools.Generator;
 [Generator]
 internal class MetadataMapGenerator : IIncrementalGenerator
 {
+	private const string MetadataType = "Metadata";
+
 	private record class MetadataProperty(string Name, string Type, string Key, string ContainingType);
 
 	private record class MetadataGroupProperty(string Name, string Type, string ContainingType);
+
 
 	public const string AttributeNamespace = $"{nameof(ChartTools)}.{nameof(Attributes)}.{nameof(Attributes.Metadata)}";
 
@@ -74,7 +77,7 @@ internal class MetadataMapGenerator : IIncrementalGenerator
 				if (paths.ContainsKey(group.Type))
 					continue;
 
-				if (group.ContainingType is "Metadata")
+				if (group.ContainingType is MetadataType)
 					paths[group.Type] = $".{group.Name}";
 				else if (paths.TryGetValue(group.ContainingType, out var path))
 					paths[group.Type] = $"{path}.{group.Name}";
@@ -82,7 +85,7 @@ internal class MetadataMapGenerator : IIncrementalGenerator
 		while (paths.Count < groups.Length);
 
 		// Shorthand to not have to check for root
-		paths["Metadata"] = string.Empty;
+		paths[MetadataType] = string.Empty;
 
 		return paths;
 	}
@@ -129,7 +132,7 @@ internal sealed partial class {{className}}
 		BuildGetAll(builder, in props, paths);
 
 		builder.AppendLine(
-$$"""
+"""
 }
 """);
 
@@ -140,7 +143,7 @@ $$"""
 	{
 		builder.AppendLine(
 $$"""
-	private static partial bool TryGetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, out string value)
+	private static partial bool TryGetFromAttribute({{MetadataType}} metadata, in ReadOnlySpan<char> key, out string value)
 		=> (value = key switch
 		{
 """);
@@ -157,7 +160,7 @@ $"""
 		}
 
 		builder.AppendLine(
-$$"""
+"""
 			_ => null
 		}) is not null;
 """);
@@ -167,7 +170,7 @@ $$"""
 	{
 		builder.AppendLine(
 $$"""
-	private static partial bool TrySetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value)
+	private static partial bool TrySetFromAttribute({{MetadataType}} metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value)
 	{
 		switch (key)
 		{
@@ -188,7 +191,7 @@ $"""
 		}
 
 		builder.AppendLine(
-$$"""
+"""
 			default:
 				return false;
 		}
@@ -200,7 +203,7 @@ $$"""
 	{
 		builder.AppendLine(
 $$"""
-	private static partial bool TryRemoveFromAttribute(Metadata metadata, in ReadOnlySpan<char> key)
+	private static partial bool TryRemoveFromAttribute({{MetadataType}} metadata, in ReadOnlySpan<char> key)
 	{
 		switch (key)
 		{
@@ -217,7 +220,7 @@ $"""
 		}
 
 		builder.AppendLine(
-$$"""
+"""
 			default:
 				return false;
 		}
@@ -229,11 +232,11 @@ $$"""
 	{
 		builder.AppendLine(
 $$"""
-	private static partial IEnumerable<TextEntry> GetAllFromAttributes(Metadata metadata)
+	private static partial IEnumerable<TextEntry> GetAllFromAttributes({{MetadataType}} metadata)
 	{
 """);
 
-		foreach (var prop in props)
+		foreach (MetadataProperty prop in props)
 		{
 			string
 				path = $"metadata{paths![prop.ContainingType]}.{prop.Name}",
@@ -241,14 +244,14 @@ $$"""
 					? string.Empty : ".ToString()";
 
 			builder.AppendLine(
-$$"""
-		if ({{path}} is not null)
-			yield return new("{{prop.Key}}".AsMemory(), {{path}}{{toStringSuffix}}.AsMemory());
+$"""
+		if ({path} is not null)
+			yield return new("{prop.Key}", {path}{toStringSuffix});
 """);
 		}
 
 		builder.AppendLine(
-$$"""
+"""
 	}
 """);
 	}
