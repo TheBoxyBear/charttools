@@ -20,6 +20,7 @@ internal class MetadataKeyAttribute(FileType fileType, string key)
 	public bool ValueMappable = true;
 
 	public bool Equals(MetadataKeyAttribute other) =>
+		ReferenceEquals(other, this) ||
 		other.FileType == FileType &&
 		other.Key == Key &&
 		other.ValueMappable == ValueMappable;
