@@ -32,7 +32,7 @@ public sealed class FormattingRules
 	[MetadataKey(FileType.Chart, ChartFormatting.Resolution)]
 	public uint? Resolution { get; set; }
 
-	public uint TrueResolution => Resolution ?? 480;
+	public uint EffectiveResolution => Resolution ?? 480;
 
 	/// <summary>
 	/// Overrides the default sustain cutoff threshold with the specified number of ticks.
@@ -46,7 +46,7 @@ public sealed class FormattingRules
 	[MetadataKey(FileType.Ini, IniFormatting.HopoFrequency)]
 	public uint? HopoFrequency { get; set; }
 
-	internal uint ChartHopoFrequency => (uint)(65 / 192f * TrueResolution);
+	internal uint ChartHopoFrequency => (uint)(65 / 192f * EffectiveResolution);
 
 	#region Star power
 	/// <summary>
@@ -61,7 +61,7 @@ public sealed class FormattingRules
 	[MetadataKey(FileType.Ini, IniFormatting.StarPowerNote)]
 	public byte? StarPowerNote { get; set; }
 
-	public byte? TrueStarPowerNote => StarPowerNote ?? MultiplierNote;
+	public byte? EffectiveStarPowerNote => StarPowerNote ?? MultiplierNote;
 	#endregion
 
 	#region SysEx
