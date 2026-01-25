@@ -6,6 +6,7 @@
 [Flags]
 public enum AlbumTrackKeys : byte
 {
+	Default,
     /// <summary>
     /// Use <see cref="Ini.IniFormatting.AlbumTrack"/>
     /// </summary>
@@ -22,6 +23,7 @@ public enum AlbumTrackKeys : byte
 [Flags]
 public enum CharterKeys : byte
 {
+	Default,
     /// <summary>
     /// Use <see cref="Ini.IniFormatting.Charter"/>
     /// </summary>

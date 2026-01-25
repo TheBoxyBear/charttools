@@ -10,21 +10,59 @@ namespace ChartTools.IO.Formatting;
 /// <remarks>Property summaries provided by Nathan Hurst.</remarks>
 public sealed class FormattingRules
 {
-	public AlbumTrackKeys AlbumTrackKey
+	public AlbumTrackKeys AlbumTrackKeys
 	{
 		get;
-		set => field = value == 0 ? DefaultAlbumTrackKey : value;
-	}
+		set
+		{
+			Validator.ValidateEnum(value);
+			field = value;
+		}
+	} = AlbumTrackKeys.Default;
 
-	public AlbumTrackKeys DefaultAlbumTrackKey => AlbumTrackKeys.Track;
-
-	public CharterKeys CharterKey
+	public static AlbumTrackKeys DefaultAlbumTrackKeys
 	{
 		get;
-		set => field = value == 0 ? DefaultCharterKey : value;
+		set
+		{
+			Validator.ValidateEnum(value);
+
+			if (value is AlbumTrackKeys.Default)
+				throw new ArgumentException($"Default {nameof(AlbumTrackKeys)} must be non-default.", nameof(value));
+
+			field = value;
+		}
+	} = AlbumTrackKeys.Track;
+
+	public AlbumTrackKeys EffectiveAlbumTrackKeys
+		=> AlbumTrackKeys is AlbumTrackKeys.Default ? DefaultAlbumTrackKeys : AlbumTrackKeys;
+
+	public CharterKeys CharterKeys
+	{
+		get;
+		set
+		{
+			Validator.ValidateEnum(value);
+			field = value;
+		}
+	} = CharterKeys.Default;
+
+	public static CharterKeys DefaultCharterKey
+	{
+		get;
+		set
+		{
+			Validator.ValidateEnum(value);
+
+			if (value is CharterKeys.Default)
+				throw new ArgumentException($"Default {nameof(CharterKeys)} must be non-default.", nameof(value));
+
+			field = value;
+		}
 	}
 
-	public CharterKeys DefaultCharterKey => CharterKeys.Charter;
+	public CharterKeys EffectiveCharterKeys
+		=> CharterKeys is CharterKeys.Default ? DefaultCharterKey : CharterKeys;
 
 	/// <summary>
 	/// Number of <see cref="ITrackObject.Position"/> values per beat
