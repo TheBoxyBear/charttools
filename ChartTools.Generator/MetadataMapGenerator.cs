@@ -19,8 +19,9 @@ public class MetadataMapGenerator : IIncrementalGenerator
 		MapperNamespace    = $"{nameof(ChartTools)}.{nameof(Meta)}.Mapping",
 		AttributeNamespace = $"{nameof(ChartTools)}.{nameof(Meta)}";
 
-	private record class MetadataProperty
-		(string Name, string Type, string ContainingType, MetadataKeyAttribute Attribute);
+	private record class MetadataProperty(string Name, string Type, string ContainingType);
+
+	private record class MetadataKeyBind(MetadataProperty Property, MetadataKeyAttribute Attribute);
 
 	private record class MetadataGroupProperty(string Name, string Type, string ContainingType);
 
@@ -42,44 +43,48 @@ public class MetadataMapGenerator : IIncrementalGenerator
 				ContainingType: context.TargetSymbol.ContainingType.Name))
 			.Collect();
 
-		IncrementalValuesProvider<MetadataProperty> provider =
+		IncrementalValuesProvider<MetadataKeyBind> provider =
 			context.SyntaxProvider.ForAttributeWithMetadataName($"{AttributeNamespace}.{nameof(MetadataKeyAttribute)}",
 				predicate: static (node, _) => node is PropertyDeclarationSyntax,
 				transform: static (context, _) =>
 				{
 					IPropertySymbol target = (IPropertySymbol)context.TargetSymbol;
-					AttributeData attribute = context.Attributes[0];
 
-					KeyValuePair<string, TypedConstant> mappable =
-						attribute.NamedArguments
-							.FirstOrDefault(static arg => arg.Key == nameof(MetadataKeyAttribute.Mappable));
-
-					FileType attFileType = (FileType)attribute.ConstructorArguments[0].Value!;
-					string attKey = (string)attribute.ConstructorArguments[1].Value!;
-
-					return new MetadataProperty(
+					MetadataProperty property = new(
 						Name: target.Name,
 						Type: target.Type.TypeKind == TypeKind.Class
 						? target.Type.Name
 						// Extract the underlying type from Nullable<T>
 						: (target.Type as INamedTypeSymbol)!.TypeArguments[0].Name,
-						Attribute: mappable.Key is null
-							? new(attFileType, attKey)
-							: new(attFileType, attKey) { Mappable = (bool)mappable.Value.Value! },
 						ContainingType: target.ContainingType.Name);
-				});
+
+					return context.Attributes.Select(
+						attribute =>
+						{
+							KeyValuePair<string, TypedConstant> mappable =
+								attribute.NamedArguments
+									.FirstOrDefault(static arg => arg.Key == nameof(MetadataKeyAttribute.Mappable));
+
+							FileType attFileType = (FileType)attribute.ConstructorArguments[0].Value!;
+							string attKey = (string)attribute.ConstructorArguments[1].Value!;
+
+							return new MetadataKeyBind(property, mappable.Key is null
+								? new(attFileType, attKey)
+								: new(attFileType, attKey) { Mappable = (bool)mappable.Value.Value! });
+						}).ToImmutableArray();
+				}).SelectMany(static (binds, _) => binds);
 
 		RegisterMapper("MetadataChartMapper", FileType.Chart);
 		RegisterMapper("MetadataIniMapper", FileType.Ini);
 
 		void RegisterMapper(string mapperType, FileType fileType)
 		{
-			IncrementalValuesProvider<MetadataProperty> fileTypeProvider = provider
-				.Where(prop => prop.Attribute.FileType == fileType);
+			IncrementalValuesProvider<MetadataKeyBind> fileTypeProvider = provider
+				.Where(bind => bind.Attribute.FileType == fileType);
 
 			context.RegisterImplementationSourceOutput(
 			   fileTypeProvider
-				   .Where(static prop => prop.Attribute.Mappable).Collect()
+				   .Where(static bind => bind.Attribute.Mappable).Collect()
 			   .Combine(groups),
 			   (ctx, tuple) => GenerateMapMethods(mapperType, in ctx, tuple));
 
@@ -113,9 +118,9 @@ public class MetadataMapGenerator : IIncrementalGenerator
 
 	private static void GenerateMapMethods
 		(string className, in SourceProductionContext context,
-		(ImmutableArray<MetadataProperty>, ImmutableArray<MetadataGroupProperty>) tuple)
+		(ImmutableArray<MetadataKeyBind>, ImmutableArray<MetadataGroupProperty>) tuple)
 	{
-		var (props, groups) = tuple;
+		var (binds, groups) = tuple;
 
 		Dictionary<string, string> paths = GetGroupPaths(in groups);
 
@@ -135,12 +140,12 @@ internal sealed partial class {{className}}
 		if (context.CancellationToken.IsCancellationRequested)
 			return;
 
-		BuildTryGet(builder, in props, paths);
+		BuildTryGet(builder, in binds, paths);
 
 		if (context.CancellationToken.IsCancellationRequested)
 			return;
 
-		BuildTrySet(builder, in props, paths);
+		BuildTrySet(builder, in binds, paths);
 
 		builder.AppendLine(
 """
@@ -155,9 +160,9 @@ internal sealed partial class {{className}}
 
 	private static void GenerateNonMapMethods
 	(string className, in SourceProductionContext context,
-	(ImmutableArray<MetadataProperty>, ImmutableArray<MetadataGroupProperty>) tuple)
+	(ImmutableArray<MetadataKeyBind>, ImmutableArray<MetadataGroupProperty>) tuple)
 	{
-		var (props, groups) = tuple;
+		var (binds, groups) = tuple;
 
 		Dictionary<string, string> paths = GetGroupPaths(in groups);
 
@@ -177,12 +182,12 @@ internal sealed partial class {{className}}
 		if (context.CancellationToken.IsCancellationRequested)
 			return;
 
-		BuildTryRemove(builder, in props, paths);
+		BuildTryRemove(builder, in binds, paths);
 
 		if (context.CancellationToken.IsCancellationRequested)
 			return;
 
-		BuildGetAll(builder, in props, paths);
+		BuildGetAll(builder, in binds, paths);
 
 		builder.AppendLine(
 """
@@ -195,7 +200,7 @@ internal sealed partial class {{className}}
 		context.AddSource($"{className}_Misc.g.cs", builder.ToString());
 	}
 
-	private static void BuildTryGet(StringBuilder builder, in ImmutableArray<MetadataProperty> props, Dictionary<string, string> paths)
+	private static void BuildTryGet(StringBuilder builder, in ImmutableArray<MetadataKeyBind> binds, Dictionary<string, string> paths)
 	{
 		builder.AppendLine(
 $$"""
@@ -204,14 +209,14 @@ $$"""
 		{
 """);
 
-		foreach (MetadataProperty prop in props)
+		foreach (MetadataKeyBind bind in binds)
 		{
-			string toStringSuffix = prop.Type is "String"
+			string toStringSuffix = bind.Property.Type is "String"
 				? string.Empty : "?.ToString()";
 
 			builder.AppendLine(
 $"""
-			"{prop.Attribute.Key}" => metadata{paths![prop.ContainingType]}.{prop.Name}{toStringSuffix},
+			"{bind.Attribute.Key}" => metadata{paths![bind.Property.ContainingType]}.{bind.Property.Name}{toStringSuffix},
 """);
 		}
 
@@ -222,7 +227,7 @@ $"""
 """);
 	}
 
-	private static void BuildTrySet(StringBuilder builder, in ImmutableArray<MetadataProperty> props, Dictionary<string, string> paths)
+	private static void BuildTrySet(StringBuilder builder, in ImmutableArray<MetadataKeyBind> binds, Dictionary<string, string> paths)
 	{
 		builder.AppendLine(
 $$"""
@@ -232,16 +237,16 @@ $$"""
 		{
 """);
 
-		foreach (MetadataProperty prop in props)
+		foreach (MetadataKeyBind bind in binds)
 		{
-			string setCode = prop.Type == "String"
+			string setCode = bind.Property.Type == "String"
 				? "value.ToString()"
-				: $"ValueParser.Parse<{prop.Type}>(in value, \"{prop.Name}\")";
+				: $"ValueParser.Parse<{bind.Property.Type}>(in value, \"{bind.Property.Name}\")";
 
 			builder.AppendLine(
 $"""
-			case "{prop.Attribute.Key}":
-				metadata{paths![prop.ContainingType]}.{prop.Name} = {setCode};
+			case "{bind.Attribute.Key}":
+				metadata{paths![bind.Property.ContainingType]}.{bind.Property.Name} = {setCode};
 				return true;
 """);
 		}
@@ -255,7 +260,7 @@ $"""
 """);
 	}
 
-	private static void BuildTryRemove(StringBuilder builder, in ImmutableArray<MetadataProperty> props, Dictionary<string, string> paths)
+	private static void BuildTryRemove(StringBuilder builder, in ImmutableArray<MetadataKeyBind> binds, Dictionary<string, string> paths)
 	{
 		builder.AppendLine(
 $$"""
@@ -265,12 +270,12 @@ $$"""
 		{
 """);
 
-		foreach (MetadataProperty prop in props)
+		foreach (MetadataKeyBind bind in binds)
 		{
 			builder.AppendLine(
 $"""
-			case "{prop.Attribute.Key}":
-				metadata{paths![prop.ContainingType]}.{prop.Name} = null;
+			case "{bind.Attribute.Key}":
+				metadata{paths![bind.Property.ContainingType]}.{bind.Property.Name} = null;
 				return true;
 """);
 		}
@@ -284,7 +289,7 @@ $"""
 """);
 	}
 
-	private static void BuildGetAll(StringBuilder builder, in ImmutableArray<MetadataProperty> props, Dictionary<string, string> paths)
+	private static void BuildGetAll(StringBuilder builder, in ImmutableArray<MetadataKeyBind> binds, Dictionary<string, string> paths)
 	{
 		builder.AppendLine(
 $$"""
@@ -293,7 +298,7 @@ $$"""
 		string value;
 """);
 
-		if (props.Length == 0)
+		if (binds.Length == 0)
 		{
 			builder.AppendLine(
 """
@@ -303,12 +308,12 @@ $$"""
 			return;
 		}
 
-		foreach (MetadataProperty prop in props)
+		foreach (MetadataKeyBind bind in binds)
 		{
 			builder.AppendLine(
 $"""
-		if ((value = Get(metadata, "{prop.Attribute.Key}")) is not null)
-			yield return new("{prop.Attribute.Key}", value);
+		if ((value = Get(metadata, "{bind.Attribute.Key}")) is not null)
+			yield return new("{bind.Attribute.Key}", value);
 """);
 		}
 
