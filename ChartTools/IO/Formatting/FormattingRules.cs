@@ -10,6 +10,7 @@ namespace ChartTools.IO.Formatting;
 /// <remarks>Property summaries provided by Nathan Hurst.</remarks>
 public sealed class FormattingRules
 {
+	#region Album track
 	public AlbumTrackKeys AlbumTrackKeys
 	{
 		get;
@@ -36,7 +37,9 @@ public sealed class FormattingRules
 
 	public AlbumTrackKeys EffectiveAlbumTrackKeys
 		=> AlbumTrackKeys is AlbumTrackKeys.Default ? DefaultAlbumTrackKeys : AlbumTrackKeys;
+	#endregion
 
+	#region Charter
 	public CharterKeys CharterKeys
 	{
 		get;
@@ -63,6 +66,7 @@ public sealed class FormattingRules
 
 	public CharterKeys EffectiveCharterKeys
 		=> CharterKeys is CharterKeys.Default ? DefaultCharterKey : CharterKeys;
+	#endregion
 
 	/// <summary>
 	/// Number of <see cref="ITrackObject.Position"/> values per beat
