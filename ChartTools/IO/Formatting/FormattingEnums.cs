@@ -1,10 +1,10 @@
 ﻿namespace ChartTools.IO.Formatting;
 
 /// <summary>
-/// Key used to serialize <see cref="Meta.Metadata.AlbumTrack"/>
+/// Keys used to serialize <see cref="Meta.Metadata.AlbumTrack"/>
 /// </summary>
 [Flags]
-public enum AlbumTrackKey : byte
+public enum AlbumTrackKeys : byte
 {
     /// <summary>
     /// Use <see cref="Ini.IniFormatting.AlbumTrack"/>
@@ -17,10 +17,10 @@ public enum AlbumTrackKey : byte
 }
 
 /// <summary>
-/// Key used to serialize <see cref="Meta.Charter.Name"/>
+/// Keys used to serialize <see cref="Meta.Charter.Name"/>
 /// </summary>
 [Flags]
-public enum CharterKey : byte
+public enum CharterKeys : byte
 {
     /// <summary>
     /// Use <see cref="Ini.IniFormatting.Charter"/>
@@ -31,4 +31,3 @@ public enum CharterKey : byte
     /// </summary>
     Frets
 }
-

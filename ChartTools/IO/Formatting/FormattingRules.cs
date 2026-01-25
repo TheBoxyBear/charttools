@@ -10,9 +10,21 @@ namespace ChartTools.IO.Formatting;
 /// <remarks>Property summaries provided by Nathan Hurst.</remarks>
 public sealed class FormattingRules
 {
-	public AlbumTrackKey AlbumTrackKey { get; set; }
+	public AlbumTrackKeys AlbumTrackKey
+	{
+		get;
+		set => field = value == 0 ? DefaultAlbumTrackKey : value;
+	}
 
-	public CharterKey CharterKey { get; set; }
+	public AlbumTrackKeys DefaultAlbumTrackKey => AlbumTrackKeys.Track;
+
+	public CharterKeys CharterKey
+	{
+		get;
+		set => field = value == 0 ? DefaultCharterKey : value;
+	}
+
+	public CharterKeys DefaultCharterKey => CharterKeys.Charter;
 
 	/// <summary>
 	/// Number of <see cref="ITrackObject.Position"/> values per beat
