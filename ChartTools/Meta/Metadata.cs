@@ -3,7 +3,6 @@ using ChartTools.IO;
 using ChartTools.IO.Chart;
 using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
-using ChartTools.Attributes.Metadata;
 using ChartTools.Meta.Mapping;
 
 namespace ChartTools.Meta;
@@ -11,28 +10,28 @@ namespace ChartTools.Meta;
 /// <summary>
 /// Set of miscellaneous information about a <see cref="Song"/>
 /// </summary>
-public class Metadata
+public sealed class Metadata
 {
 	#region Properties
 	/// <summary>
 	/// Title of the <see cref="Song"/>
 	/// </summary>
-	[MetadataChartKey(ChartFormatting.Title)]
-	[MetadataIniKey(IniFormatting.Title)]
+	[MetadataKey(FileType.Chart, ChartFormatting.Title)]
+	[MetadataKey(FileType.Ini, IniFormatting.Title)]
 	public string? Title { get; set; }
 
 	/// <summary>
 	/// Artist or band behind the <see cref="Song"/>
 	/// </summary>
-	[MetadataChartKey(ChartFormatting.Artist)]
-	[MetadataIniKey(IniFormatting.Artist)]
+	[MetadataKey(FileType.Chart, ChartFormatting.Artist)]
+	[MetadataKey(FileType.Ini, IniFormatting.Artist)]
 	public string? Artist { get; set; }
 
 	/// <summary>
 	/// Album featuring the <see cref="Song"/>
 	/// </summary>
-	[MetadataChartKey(ChartFormatting.Album)]
-	[MetadataIniKey(IniFormatting.Album)]
+	[MetadataKey(FileType.Chart, ChartFormatting.Album)]
+	[MetadataKey(FileType.Ini, IniFormatting.Album)]
 	public string? Album { get; set; }
 
 	/// <summary>
@@ -43,32 +42,33 @@ public class Metadata
 	/// <summary>
 	/// Playlist that the song should show up in
 	/// </summary>
-	[MetadataIniKey(IniFormatting.Playlist)]
+	[MetadataKey(FileType.Ini, IniFormatting.Playlist)]
 	public string? Playlist { get; set; }
 
 	/// <summary>
 	/// Sub-playlist that the song should show up in
 	/// </summary>
-	[MetadataIniKey(IniFormatting.SubPlaylist)]
+	[MetadataKey(FileType.Ini, IniFormatting.SubPlaylist)]
 	public string? SubPlaylist { get; set; }
 
 	/// <summary>
 	/// Track number of the song within the playlist/setlist
 	/// </summary>
-	[MetadataIniKey(IniFormatting.PlaylistTrack)]
+	[MetadataKey(FileType.Ini, IniFormatting.PlaylistTrack)]
 	public ushort? PlaylistTrack { get; set; }
 
 	/// <summary>
 	/// Year of release
 	/// </summary>
-	[MetadataIniKey(IniFormatting.Year)]
+	[MetadataKey(FileType.Chart, ChartFormatting.Year, ValueMappable = false)]
+	[MetadataKey(FileType.Ini, IniFormatting.Year)]
 	public ushort? Year { get; set; }
 
 	/// <summary>
 	/// Genre of the <see cref="Song"/>
 	/// </summary>
-	[MetadataChartKey(ChartFormatting.Genre)]
-	[MetadataIniKey(IniFormatting.Genre)]
+	[MetadataKey(FileType.Chart, ChartFormatting.Genre)]
+	[MetadataKey(FileType.Ini, IniFormatting.Genre)]
 	public string? Genre { get; set; }
 
 	/// <summary>
@@ -88,21 +88,21 @@ public class Metadata
 	/// <summary>
 	/// The song contains explicit lyrics
 	/// </summary>
-	[MetadataIniKey(IniFormatting.Explicit)]
+	[MetadataKey(FileType.Ini, IniFormatting.Explicit)]
 	public bool? Explicit { get; set; }
 
 	/// <summary>
 	/// Start time in milliseconds of the preview in the Clone Hero song browser
 	/// </summary>
-	[MetadataChartKey(ChartFormatting.PreviewStart)]
-	[MetadataIniKey(IniFormatting.PreviewStart)]
+	[MetadataKey(FileType.Chart, ChartFormatting.PreviewStart)]
+	[MetadataKey(FileType.Ini, IniFormatting.PreviewStart)]
 	public uint? PreviewStart { get; set; }
 
 	/// <summary>
 	/// End time in milliseconds of the preview in the Clone Hero song browser
 	/// </summary>
-	[MetadataChartKey(ChartFormatting.PreviewEnd)]
-	[MetadataIniKey(IniFormatting.PreviewEnd)]
+	[MetadataKey(FileType.Chart, ChartFormatting.PreviewEnd)]
+	[MetadataKey(FileType.Ini, IniFormatting.PreviewEnd)]
 	public uint? PreviewEnd { get; set; }
 
 	/// <summary>
@@ -122,8 +122,8 @@ public class Metadata
 	/// <summary>
 	/// Overall difficulty of the song
 	/// </summary>
-	[MetadataChartKey(ChartFormatting.Difficulty)]
-	[MetadataIniKey(IniFormatting.Difficulties.Global)]
+	[MetadataKey(FileType.Chart, ChartFormatting.Difficulty)]
+	[MetadataKey(FileType.Ini, IniFormatting.Difficulties.Global)]
 	public sbyte? Difficulty { get; set; }
 
 	/// <inheritdoc cref="InstrumentDifficultySet"/>
@@ -141,12 +141,14 @@ public class Metadata
 	/// <summary>
 	/// Type of media the audio track comes from
 	/// </summary>
-	[MetadataChartKey(ChartFormatting.MediaType)]
+	[MetadataKey(FileType.Chart, ChartFormatting.MediaType)]
 	public string? MediaType { get; set; }
 
 	/// <summary>
 	/// Offset of the audio track. A higher value makes the audio start sooner.
 	/// </summary>
+	[MetadataKey(FileType.Chart, ChartFormatting.AudioOffset, ValueMappable = false)]
+	[MetadataKey(FileType.Ini, IniFormatting.AudioOffset, ValueMappable = false)]
 	public TimeSpan? AudioOffset { get; set; }
 
 	/// <summary>
@@ -166,23 +168,25 @@ public class Metadata
 	/// <summary>
 	/// Offset of the background video. A higher value makes the video start sooner.
 	/// </summary>
+	[MetadataKey(FileType.Ini, IniFormatting.VideoOffset, ValueMappable = false)]
 	public TimeSpan? VideoOffset { get; set; }
 
 	/// <summary>
 	/// Length of the song in milliseconds
 	/// </summary>
-	[MetadataIniKey(IniFormatting.Length)]
+	[MetadataKey(FileType.Ini, IniFormatting.Length)]
 	public uint? Length { get; set; }
 
 	/// <summary>
 	/// Text to be displayed on the load screen
 	/// </summary>
-	[MetadataIniKey(IniFormatting.LoadingText)]
+	[MetadataKey(FileType.Ini, IniFormatting.LoadingText)]
 	public string? LoadingText { get; set; }
 
 	/// <summary>
 	/// The song is a modchart
 	/// </summary>
+	[MetadataKey(FileType.Ini, IniFormatting.Modchart, ValueMappable = false)]
 	public bool? IsModchart { get; set; }
 
 	/// <inheritdoc cref="FormattingRules"/>
@@ -197,7 +201,7 @@ public class Metadata
 	/// Unrecognized metadata
 	/// </summary>
 	/// <remarks>When writing, these will only be written if the target format matches the origin</remarks>
-	public HashSet<UnidentifiedMetadata> UnidentifiedData { get; } =
+	internal HashSet<UnidentifiedMetadata> UnidentifiedData { get; } =
 		new(new FuncEqualityComparer<UnidentifiedMetadata>(static (a, b) => a.Key == b.Key && a.Origin == b.Origin));
 	#endregion
 

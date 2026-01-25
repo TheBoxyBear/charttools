@@ -67,7 +67,7 @@ internal partial class MetadataIniMapper : MetadataMapper
 
 	private static partial bool TryRemoveFromAttribute(Metadata metadata, in ReadOnlySpan<char> key);
 
-	private static partial IEnumerable<TextEntry> GetAllFromAttributes(Metadata metadata);
+	private partial IEnumerable<TextEntry> GetAllFromAttributes(Metadata metadata);
 
 	private MetadataIniMapper() { }
 }

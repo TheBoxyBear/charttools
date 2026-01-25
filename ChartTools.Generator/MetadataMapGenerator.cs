@@ -7,21 +7,22 @@ using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Text;
 
-using ChartTools.Attributes.Metadata;
+using System.Linq;
 
 namespace ChartTools.Generator;
 
 [Generator]
-internal class MetadataMapGenerator : IIncrementalGenerator
+public class MetadataMapGenerator : IIncrementalGenerator
 {
-	private const string MetadataType = "Metadata";
+	private const string
+		MetadataType       = "Metadata",
+		MapperNamespace    = $"{nameof(ChartTools)}.{nameof(Meta)}.Mapping",
+		AttributeNamespace = $"{nameof(ChartTools)}.{nameof(Meta)}";
 
-	private record class MetadataProperty(string Name, string Type, string Key, string ContainingType);
+	private record class MetadataProperty
+		(string Name, string Type, string ContainingType, MetadataKeyAttribute Attribute);
 
 	private record class MetadataGroupProperty(string Name, string Type, string ContainingType);
-
-
-	public const string AttributeNamespace = $"{nameof(ChartTools)}.{nameof(Attributes)}.{nameof(Attributes.Metadata)}";
 
 	public void Initialize(IncrementalGeneratorInitializationContext context)
 	{
@@ -31,41 +32,61 @@ internal class MetadataMapGenerator : IIncrementalGenerator
 			//Debugger.Launch();
 		}
 
-		var chartProvider = CreatePropertyProvider(nameof(MetadataChartKeyAttribute), in context);
-		var iniProvider   = CreatePropertyProvider(nameof(MetadataIniKeyAttribute), in context);
+		IncrementalValueProvider<ImmutableArray<MetadataGroupProperty>> groups =
+			context.SyntaxProvider.ForAttributeWithMetadataName(
+				$"{AttributeNamespace}.{nameof(MetadataGroupAttribute)}",
+				predicate: static (node, _) => node is PropertyDeclarationSyntax,
+				transform: static (context, _) => new MetadataGroupProperty(
+				Name: context.TargetSymbol.Name,
+				Type: (context.TargetSymbol as IPropertySymbol)!.Type.Name,
+				ContainingType: context.TargetSymbol.ContainingType.Name))
+			.Collect();
 
-		var groupProvider = context.SyntaxProvider.ForAttributeWithMetadataName(
-			$"{AttributeNamespace}.{nameof(MetadataGroupAttribute)}",
-			predicate: static (node, _) => node is PropertyDeclarationSyntax,
-			transform: static (context, _) => new MetadataGroupProperty(
-			Name: context.TargetSymbol.Name,
-			Type: (context.TargetSymbol as IPropertySymbol)!.Type.Name,
-			ContainingType: context.TargetSymbol.ContainingType.Name));
+		IncrementalValuesProvider<MetadataProperty> provider =
+			context.SyntaxProvider.ForAttributeWithMetadataName($"{AttributeNamespace}.{nameof(MetadataKeyAttribute)}",
+				predicate: static (node, _) => node is PropertyDeclarationSyntax,
+				transform: static (context, _) =>
+				{
+					IPropertySymbol target = (IPropertySymbol)context.TargetSymbol;
+					AttributeData attribute = context.Attributes[0];
 
-		context.RegisterImplementationSourceOutput(chartProvider.Collect().Combine(groupProvider.Collect()),
-			static (ctx, tuple) => GenerateMapMethods("MetadataChartMapper", in ctx, tuple));
+					KeyValuePair<string, TypedConstant> mappable =
+						attribute.NamedArguments
+							.FirstOrDefault(static arg => arg.Key == nameof(MetadataKeyAttribute.Mappable));
 
-		context.RegisterImplementationSourceOutput(iniProvider.Collect().Combine(groupProvider.Collect()),
-			static (ctx, tuple) => GenerateMapMethods("MetadataIniMapper", in ctx, tuple));
+					FileType attFileType = (FileType)attribute.ConstructorArguments[0].Value!;
+					string attKey = (string)attribute.ConstructorArguments[1].Value!;
+
+					return new MetadataProperty(
+						Name: target.Name,
+						Type: target.Type.TypeKind == TypeKind.Class
+						? target.Type.Name
+						// Extract the underlying type from Nullable<T>
+						: (target.Type as INamedTypeSymbol)!.TypeArguments[0].Name,
+						Attribute: mappable.Key is null
+							? new(attFileType, attKey)
+							: new(attFileType, attKey) { Mappable = (bool)mappable.Value.Value! },
+						ContainingType: target.ContainingType.Name);
+				});
+
+		RegisterMapper("MetadataChartMapper", FileType.Chart);
+		RegisterMapper("MetadataIniMapper", FileType.Ini);
+
+		void RegisterMapper(string mapperType, FileType fileType)
+		{
+			IncrementalValuesProvider<MetadataProperty> fileTypeProvider = provider
+				.Where(prop => true);
+
+			context.RegisterImplementationSourceOutput(
+			   fileTypeProvider
+				   .Where(static prop => prop.Attribute.Mappable).Collect()
+			   .Combine(groups),
+			   (ctx, tuple) => GenerateMapMethods(mapperType, in ctx, tuple));
+
+			context.RegisterImplementationSourceOutput(provider.Collect().Combine(groups),
+				(ctx, tuple) => GenerateNonMapMethods(mapperType, in ctx, tuple));
+		}
 	}
-
-	private static IncrementalValuesProvider<MetadataProperty> CreatePropertyProvider
-		(string attributeClass, in IncrementalGeneratorInitializationContext context)
-		=> context.SyntaxProvider.ForAttributeWithMetadataName($"{AttributeNamespace}.{attributeClass}",
-			predicate: static (node, _) => node is PropertyDeclarationSyntax,
-			transform: static (context, _) =>
-			{
-				IPropertySymbol target = (IPropertySymbol)context.TargetSymbol;
-
-				return new MetadataProperty(
-					Name: target.Name,
-					Type: target.Type.TypeKind == TypeKind.Class
-					? target.Type.Name
-					// Extract the underlying type from Nullable<T>
-					: (target.Type as INamedTypeSymbol)!.TypeArguments[0].Name,
-					Key: context.Attributes[0].ConstructorArguments[0].Value!.ToString(),
-					ContainingType: target.ContainingType.Name);
-			});
 
 	private static Dictionary<string, string> GetGroupPaths(in ImmutableArray<MetadataGroupProperty> groups)
 	{
@@ -104,7 +125,7 @@ $$"""
 
 using ChartTools.IO;
 
-namespace ChartTools.Meta.Mapping;
+namespace {{MapperNamespace}};
 
 internal sealed partial class {{className}}
 {
@@ -121,6 +142,38 @@ internal sealed partial class {{className}}
 
 		BuildTrySet(builder, in props, paths);
 
+		builder.AppendLine(
+"""
+}
+""");
+
+		if (context.CancellationToken.IsCancellationRequested)
+			return;
+
+		context.AddSource($"{className}_Map.g.cs", builder.ToString());
+	}
+
+	private static void GenerateNonMapMethods
+	(string className, in SourceProductionContext context,
+	(ImmutableArray<MetadataProperty>, ImmutableArray<MetadataGroupProperty>) tuple)
+	{
+		var (props, groups) = tuple;
+
+		Dictionary<string, string> paths = GetGroupPaths(in groups);
+
+		StringBuilder builder = new(
+$$"""
+// <auto-generated/>
+
+using ChartTools.IO;
+
+namespace {{MapperNamespace}};
+
+internal sealed partial class {{className}}
+{
+
+""");
+
 		if (context.CancellationToken.IsCancellationRequested)
 			return;
 
@@ -136,7 +189,10 @@ internal sealed partial class {{className}}
 }
 """);
 
-		context.AddSource($"{className}.g.cs", builder.ToString());
+		if (context.CancellationToken.IsCancellationRequested)
+			return;
+
+		context.AddSource($"{className}_Misc.g.cs", builder.ToString());
 	}
 
 	private static void BuildTryGet(StringBuilder builder, in ImmutableArray<MetadataProperty> props, Dictionary<string, string> paths)
@@ -155,7 +211,7 @@ $$"""
 
 			builder.AppendLine(
 $"""
-			"{prop.Key}" => metadata{paths![prop.ContainingType]}.{prop.Name}{toStringSuffix},
+			"{prop.Attribute.Key}" => metadata{paths![prop.ContainingType]}.{prop.Name}{toStringSuffix},
 """);
 		}
 
@@ -184,7 +240,7 @@ $$"""
 
 			builder.AppendLine(
 $"""
-			case "{prop.Key}":
+			case "{prop.Attribute.Key}":
 				metadata{paths![prop.ContainingType]}.{prop.Name} = {setCode};
 				return true;
 """);
@@ -213,7 +269,7 @@ $$"""
 		{
 			builder.AppendLine(
 $"""
-			case "{prop.Key}":
+			case "{prop.Attribute.Key}":
 				metadata{paths![prop.ContainingType]}.{prop.Name} = null;
 				return true;
 """);
@@ -232,21 +288,27 @@ $"""
 	{
 		builder.AppendLine(
 $$"""
-	private static partial IEnumerable<TextEntry> GetAllFromAttributes({{MetadataType}} metadata)
+	private partial IEnumerable<TextEntry> GetAllFromAttributes({{MetadataType}} metadata)
 	{
+		string value;
 """);
+
+		if (props.Length == 0)
+		{
+			builder.AppendLine(
+"""
+		return Eumerable.Empty<TextEntry>();
+""");
+
+			return;
+		}
 
 		foreach (MetadataProperty prop in props)
 		{
-			string
-				path = $"metadata{paths![prop.ContainingType]}.{prop.Name}",
-				toStringSuffix = prop.Type == "String"
-					? string.Empty : ".ToString()";
-
 			builder.AppendLine(
 $"""
-		if ({path} is not null)
-			yield return new("{prop.Key}", {path}{toStringSuffix});
+		if ((value = Get(metadata, "{prop.Attribute.Key}")) is not null)
+			yield return new("{prop.Attribute.Key}", value);
 """);
 		}
 

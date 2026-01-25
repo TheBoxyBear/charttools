@@ -78,7 +78,6 @@ public enum DrumsLane : byte
 	/// <remarks>In Clone Hero, double kicks are enabled with the "2x Kick" modifier and are not limited to a single difficulty.</remarks>
 	DoubleKick
 }
-public enum FileType : byte { Chart, Ini, MIDI }
 
 /// <summary>
 /// Modifier that affects how a <see cref="GHLChord"/> can be played

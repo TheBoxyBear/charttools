@@ -1,5 +1,6 @@
 ﻿using System;
-namespace ChartTools.Attributes.Metadata;
+
+namespace ChartTools.Generator;
 
 [AttributeUsage(AttributeTargets.Property)]
 internal class MetadataGroupAttribute : Attribute { }

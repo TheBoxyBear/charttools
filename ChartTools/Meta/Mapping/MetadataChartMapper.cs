@@ -46,16 +46,7 @@ internal sealed partial class MetadataChartMapper : MetadataMapper
 	}
 
 	public override IEnumerable<TextEntry> GetAll(Metadata metadata)
-	{
-		foreach (TextEntry entry in GetAllFromAttributes(metadata))
-			yield return entry;
-
-		if (metadata.Year is not null)
-			yield return new(ChartFormatting.Year, Get(metadata, ChartFormatting.Year)!);
-
-		foreach (TextEntry entry in GetAllUnidentified(metadata))
-			yield return entry;
-	}
+		=> GetAllFromAttributes(metadata).Concat(GetAllUnidentified(metadata));
 
 	private static partial bool TryGetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out string value);
 
@@ -63,7 +54,7 @@ internal sealed partial class MetadataChartMapper : MetadataMapper
 
 	private static partial bool TryRemoveFromAttribute(Metadata metadata, in ReadOnlySpan<char> key);
 
-	private static partial IEnumerable<TextEntry> GetAllFromAttributes(Metadata metadata);
+	private partial IEnumerable<TextEntry> GetAllFromAttributes(Metadata metadata);
 
 	private MetadataChartMapper() { }
 }
