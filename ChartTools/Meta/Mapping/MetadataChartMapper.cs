@@ -51,7 +51,7 @@ internal sealed partial class MetadataChartMapper : MetadataMapper
 			yield return entry;
 
 		if (metadata.Year is not null)
-			yield return new("Year".AsMemory(), Get(metadata, "Year").AsMemory());
+			yield return new(ChartFormatting.Year, Get(metadata, ChartFormatting.Year)!);
 
 		foreach (TextEntry entry in GetAllUnidentified(metadata))
 			yield return entry;

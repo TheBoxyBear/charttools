@@ -7,6 +7,6 @@ internal class MetadataSerializer(Metadata content)
 	: Serializer<Metadata, string>(ChartFormatting.MetadataHeader, content)
 {
 	public override IEnumerable<string> Serialize()
-		=> MetadataChartMapper.Shared.GetAll().Select(static entry
+		=> MetadataChartMapper.Shared.GetAll(Content).Select(static entry
 			=> ChartFormatting.Line(entry.Key.Span, $"\"{entry.Value}\""));
 }
