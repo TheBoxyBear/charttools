@@ -157,10 +157,15 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 		return note is null ? null : new NoteProxy<TNote, TLane>(lane, this);
 	}
 
-	public IEnumerable<NoteProxy<TNote, TLane>> ProxyAll()
+	public NoteProxy<TNote, TLane>[] ProxyAll()
 	{
-		foreach (ref readonly TNote note in AsSpan())
-			yield return new NoteProxy<TNote, TLane>(note.Lane, this);
+		ReadOnlySpan<TNote> span = AsSpan();
+		NoteProxy<TNote, TLane>[] proxies = new NoteProxy<TNote, TLane>[Count];
+
+		for (int i = 0; i < Count; i++)
+			proxies[i] = new NoteProxy<TNote, TLane>(span[i].Lane, this);
+
+		return proxies;
 	}
 
 	/// <summary>
