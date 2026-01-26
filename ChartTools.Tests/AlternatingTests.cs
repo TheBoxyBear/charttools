@@ -12,7 +12,8 @@ public class SerialAlternatingTests
 		testArrayB = [ 3, 5, 6 ],
 		expected   = [ 1, 3, 6, 5, 2, 6 ];
 
-	[TestMethod] public void CreateEnumerableEmpty()
+	[TestMethod, TestCategory(nameof(Exception))]
+	public void CreateEnumerableEmpty()
 		=> Assert.ThrowsException<ArgumentException>(() => new SerialAlternatingEnumerable<byte>());
 
 	[TestMethod] public void Enumerate()
@@ -27,15 +28,18 @@ public class OrderedAlternatingTests
 	static readonly byte[]
 		testArrayA = [ 1, 6, 2 ],
 		testArrayB = [ 3, 5, 6 ],
-		expected   = [ 1, 3, 5, 6, 2, 6 ] ;
+		expected   = [ 1, 3, 5, 6, 2, 6 ];
 
-	[TestMethod] public void CreateEnumerableNullKeyGetter()
+	[TestMethod, TestCategory(nameof(Exception))]
+	public void CreateEnumerableNullKeyGetter()
 		=> Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<byte, byte>(null!));
 
-	[TestMethod] public void CreateEnumerableNullEnumerables()
+	[TestMethod, TestCategory(nameof(Exception))]
+	public void CreateEnumerableNullEnumerables()
 		=> Assert.ThrowsException<ArgumentNullException>(() => new OrderedAlternatingEnumerable<byte, byte>(null!));
 
-	[TestMethod] public void CreateEnumerableEmptyEnumerables()
+	[TestMethod, TestCategory(nameof(Exception))]
+	public void CreateEnumerableEmptyEnumerables()
 		=> Assert.ThrowsException<ArgumentException>(() => new OrderedAlternatingEnumerable<byte, byte>(keyGetter));
 
 	[TestMethod] public void Enumerate()

@@ -9,11 +9,11 @@ public class SystemExtensionsTests
 	static readonly bool[] trueArray = [true, true];
 	static readonly bool[] falseArray = [false, false];
 
-	[TestMethod, TestCategory(nameof(EnumerableExtensions.FirstOrDefault))]
-	public void FirstOrDefaultNullPredicate()
+	[TestMethod, TestCategory(nameof(EnumerableExtensions.FirstOrDefault)), TestCategory(nameof(Exception))]
+	public void FirstOrDefault_NullPredicate()
 		=> Assert.ThrowsException<ArgumentNullException>(() => trueArray.FirstOrDefault(null!, false));
 
-	[TestMethod, TestCategory(nameof(EnumerableExtensions.FirstOrDefault))]
+	[TestMethod, TestCategory(nameof(EnumerableExtensions.FirstOrDefault)), TestCategory(nameof(Exception))]
 	public void OutFirstOrDefaultNullPredicate()
 		=> Assert.ThrowsException<ArgumentNullException>(() => trueArray.FirstOrDefault(null!, false, out bool returnedDefault));
 
@@ -39,7 +39,7 @@ public class SystemExtensionsTests
 		Assert.IsTrue(returnedDefault);
 	}
 
-	[TestMethod, TestCategory(nameof(EnumerableExtensions.TryGetFirst))]
+	[TestMethod, TestCategory(nameof(EnumerableExtensions.TryGetFirst)), TestCategory(nameof(Exception))]
 	public void TryGetFirstNullPredicate()
 		=> Assert.ThrowsException<ArgumentNullException>(() => trueArray.TryGetFirst(null!, out bool b));
 
@@ -64,7 +64,7 @@ public class SystemExtensionsTests
 		Assert.AreEqual(true, item);
 	}
 
-	[TestMethod, TestCategory(nameof(EnumerableExtensions.Replace))]
+	[TestMethod, TestCategory(nameof(EnumerableExtensions.Replace)), TestCategory(nameof(Exception))]
 	public void ReplaceNullPredicate()
 		=> Assert.ThrowsException<ArgumentNullException>(() => trueArray.Replace(null!, false).ToArray());
 
@@ -83,11 +83,11 @@ public class SystemExtensionsTests
 		Assert.IsTrue(expected.SequenceEqual(numbers.Replace(n => n > 5, 0)));
 	}
 
-	[TestMethod, TestCategory(nameof(EnumerableExtensions.ReplaceSection))]
+	[TestMethod, TestCategory(nameof(EnumerableExtensions.ReplaceSection)), TestCategory(nameof(Exception))]
 	public void ReplaceSectionNullStartReplace()
 		=> Assert.ThrowsException<NullReferenceException>(() => trueArray.ReplaceSection(new([], null!, b => true, true)).ToArray());
 
-	[TestMethod, TestCategory(nameof(EnumerableExtensions.ReplaceSection))]
+	[TestMethod, TestCategory(nameof(EnumerableExtensions.ReplaceSection)), TestCategory(nameof(Exception))]
 	public void ReplaceSectionNullEndReplace()
 		=> Assert.ThrowsException<NullReferenceException>(() => trueArray.ReplaceSection(new([], b => true, null!, true)).ToArray());
 
