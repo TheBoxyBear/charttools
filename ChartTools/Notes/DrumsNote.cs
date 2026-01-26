@@ -18,9 +18,7 @@ public readonly record struct DrumsNote : IDefinedLaneNote<DrumsLane>
 		get;
 		init
 		{
-			if ((Lane == DrumsLane.Red || Lane == DrumsLane.Green5Lane) && value)
-				throw new InvalidOperationException("Red and 5-lane green notes cannot be cymbal.");
-
+			ValidateCymbal(Lane, value);
 			field = value;
 		}
 	} = false;
@@ -38,6 +36,8 @@ public readonly record struct DrumsNote : IDefinedLaneNote<DrumsLane>
 		init
 		{
 			Validator.ValidateEnum(value);
+			ValidateCymbal(value, IsCymbal);
+
 			field = value;
 		}
 	}
@@ -46,4 +46,10 @@ public readonly record struct DrumsNote : IDefinedLaneNote<DrumsLane>
 
 	public DrumsNote(DrumsLane lane)
 		=> Lane = lane;
+
+	private static void ValidateCymbal(DrumsLane lane, bool isCymbal)
+	{
+		if (lane is DrumsLane.Red or DrumsLane.Green5Lane && isCymbal)
+			throw new InvalidOperationException("Red and 5-lane green notes cannot be cymbal.");
+	}
 }
