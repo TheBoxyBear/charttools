@@ -19,8 +19,4 @@
     <ProjectReference Include="..\ChartTools.Common\ChartTools.Common.csproj" OutputItemType="Analyzer" PackagePath="analyzers/dotnet/cs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Metadata\" />
-  </ItemGroup>
-
 </Project>
