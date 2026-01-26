@@ -183,7 +183,12 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 		get
 		{
 			Validator.ValidateEnum(lane);
-			return m_notes.FirstOrDefault(n => n.Lane.Equals(lane));
+
+			foreach (ref readonly TNote note in AsSpan())
+				if (note.Lane.Equals(lane))
+					return note;
+
+			return null;
 		}
 	}
 
