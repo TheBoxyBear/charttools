@@ -7,7 +7,7 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	ICollection<TNote>,
 	IReadOnlyList<TNote>
 	where TNote : struct, IDefinedLaneNote<TLane>
-	where TLane : Enum
+	where TLane : struct, Enum
 {
 	public bool OpenExclusivity { get; } = TNote.OpenExclusivity;
 
@@ -34,6 +34,8 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	/// <param name="note">Note to add</param>
 	public void Add(in TNote note)
 	{
+		Validator.ValidateEnum(note.Lane);
+
 		if (OpenExclusivity && (note.Index == 0 || Count == 1 && AsSpan()[0].Index == 0)) // An open note is present and needs to be removed
 			Clear();
 

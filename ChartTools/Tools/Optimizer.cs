@@ -21,7 +21,7 @@ public static class Optimizer
 	public static void CutSustains<TChord, TNote, TLane>(this IEnumerable<TChord> chords, bool preOrdered = false)
 		where TChord : Chord<TNote, TLane>
 		where TNote : struct, IDefinedLaneNote<TLane>
-		where TLane : Enum
+		where TLane : struct, Enum
 	{
 		Dictionary<byte, (uint, NoteProxy<TNote, TLane>)> ongoingSustains = [];
 

@@ -50,7 +50,7 @@ public static class TempoRescaler
 	public static void Rescale<TChord, TNote, TLane>(this TChord chord, float scale)
 		where TChord : Chord<TNote, TLane>
 		where TNote : struct, IDefinedLaneNote<TLane>
-		where TLane : Enum
+		where TLane : struct, Enum
 	{
 		chord.Position = (uint)(chord.Position * scale);
 
@@ -67,7 +67,7 @@ public static class TempoRescaler
 	/// <param name="scale">Positive number where 1 is the current scale.</param>
 	public static void Rescale<TNote, TLane>(this NoteProxy<TNote, TLane> proxy, float scale)
 		where TNote : struct, IDefinedLaneNote<TLane>
-		where TLane : Enum
+		where TLane : struct, Enum
 	{
 		ref readonly TNote note = ref proxy.GetUnsafe();
 

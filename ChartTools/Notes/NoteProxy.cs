@@ -10,7 +10,7 @@
 /// <typeparam name="TLane">The enumeration type that identifies lanes within the collection.</typeparam>
 public struct NoteProxy<TNote, TLane>(TLane lane, LaneNoteCollection<TNote, TLane> source)
 	where TNote : struct, IDefinedLaneNote<TLane>
-	where TLane : Enum
+	where TLane : struct, Enum
 {
 	private int m_index = -1;
 

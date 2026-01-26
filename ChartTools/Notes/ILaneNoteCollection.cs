@@ -2,9 +2,9 @@
 
 public interface ILaneNoteCollection
 {
-	 /// <summary>
-	 /// If <see langword="true"/>, trying to combine an open note with other notes will remove the current ones.
-	 /// </summary>
+	/// <summary>
+	/// If <see langword="true"/>, trying to combine an open note with other notes will remove the current ones.
+	/// </summary>
 	public bool OpenExclusivity { get; }
 
 	public bool Contains(byte index);
