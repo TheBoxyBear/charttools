@@ -7,12 +7,8 @@ namespace ChartTools;
 /// <summary>
 /// Set of notes played simultaneously by a Guitar Hero Live instrument
 /// </summary>
-public sealed class GHLChord : Chord<LaneNote<GHLLane>, GHLLane, GHLChordModifiers>
+public sealed class GHLChord : Chord<GHLNote, GHLLane, GHLChordModifiers>
 {
-    /// <inheritdoc cref="Chord.OpenExclusivity"/>"/>
-    /// <remarks>Always <see langword="true"/> for <see cref="GHLChord"/></remarks>
-	public override bool OpenExclusivity => true;
-
 	internal override GHLChordModifiers DefaultModifiers => GHLChordModifiers.None;
 
 	internal override bool ChartSupportedModifiers => !Modifiers.HasFlag(GHLChordModifiers.ExplicitHopo);
@@ -33,7 +29,7 @@ public sealed class GHLChord : Chord<LaneNote<GHLLane>, GHLLane, GHLChordModifie
     /// </summary>
     /// <param name="position">Position of the chord</param>
     /// <param name="notes">Set of notes to add</param>
-    public GHLChord(uint position, params ReadOnlySpan<LaneNote<GHLLane>> notes) : base(position)
+    public GHLChord(uint position, params ReadOnlySpan<GHLNote> notes) : base(position)
 		=> Notes.AddRange(notes);
 
     /// <summary>

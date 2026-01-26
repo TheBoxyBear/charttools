@@ -77,10 +77,12 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 	protected abstract void HandleNoteEntry(TChord chord, in NoteData data);
 
 	protected bool CanAddNote(byte index)
-		=> Session.HandleDuplicate(currentChord!.Position, "note", () => currentChord.Notes.Any(n => n.Index == index));
+		=> Session.HandleDuplicate(currentChord!.Position, "note",
+			() => currentChord.Notes.AsEnumerable().Any(n => n.Index == index));
 
 	protected bool CanAddModifier(Enum existingModifier, Enum modifier)
-		=> Session.HandleDuplicate(currentChord!.Position, "chord modifier", () => existingModifier.HasFlag(modifier));
+		=> Session.HandleDuplicate(currentChord!.Position, "chord modifier",
+			() => existingModifier.HasFlag(modifier));
 
 	protected override void FinalizeParse()
 	{

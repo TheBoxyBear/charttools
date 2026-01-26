@@ -49,10 +49,11 @@ public static class TempoRescaler
 	/// <param name="scale">Positive number where 1 is the current scale.</param>
 	public static void Rescale(this Chord chord, float scale)
 	{
-		chord.Position = (uint)(chord.Position * scale);
+		throw new NotImplementedException();
+		//chord.Position = (uint)(chord.Position * scale);
 
-		foreach (INote note in chord.Notes)
-			note.Rescale(scale);
+		//foreach (INote note in chord.Notes)
+		//	note.Rescale(scale);
 	}
 
 	/// <summary>

@@ -18,29 +18,35 @@ public static class Optimizer
 	/// </summary>
 	/// <param name="chords">Chords to cut the sustains of</param>
 	/// <param name="preOrdered">Skip ordering of chords by position</param>
-	public static void CutSustains<T>(this IEnumerable<T> chords, bool preOrdered = false)
-		where T : Chord
+	public static void CutSustains<TChord, TNote, TLane, TModifiers>(this IEnumerable<TChord> chords, bool preOrdered = false)
+		where TChord : Chord<TNote, TLane, TModifiers>
+		where TNote : struct, IDefinedLaneNote<TLane>
+		where TLane : Enum
+		where TModifiers : Enum
 	{
-		Dictionary<byte, (uint, LaneNote)> ongoingSustains = [];
+		Dictionary<byte, (uint, NoteProxy<TNote, TLane>)> ongoingSustains = [];
 
-		foreach (T chord in GetOrdered(chords, preOrdered))
+		foreach (TChord chord in GetOrdered(chords, preOrdered))
 		{
-			using IEnumerator<LaneNote> noteEnumerator = chord.Notes.GetEnumerator();
-
-			if (!noteEnumerator.MoveNext())
+			if (chord.Notes.Count == 0)
 				continue;
 
-			LaneNote note = noteEnumerator.Current;
+			ReadOnlySpan<TNote> noteSpan = chord.Notes.AsSpan();
+			int index = 0;
 
-			if (chord.OpenExclusivity)
+			ref readonly TNote note = ref noteSpan[index];
+
+			if (TNote.OpenExclusivity)
 			{
-				if (noteEnumerator.Current.Index == 0) // Open stops all sustains
-					foreach ((uint position, LaneNote sustained) in ongoingSustains.Values)
+				if (note.Index == 0) // Open stops all sustains
+					foreach ((uint position, NoteProxy<TNote, TLane> proxy) in ongoingSustains.Values)
 					{
-						if (position + sustained.Sustain > chord.Position)
-							sustained.Sustain = chord.Position;
+						ref readonly TNote sustained = ref proxy.GetUnsafe();
 
-						ongoingSustains.Remove(noteEnumerator.Current.Index);
+						if (position + sustained.Sustain > chord.Position)
+							proxy.Set(sustained with { Sustain = chord.Position });
+
+						ongoingSustains.Remove(note.Index);
 					}
 				else
 					RemoveSustain(0); // Non-opens stops open sustain
@@ -49,27 +55,29 @@ public static class Optimizer
 				// New note stops ongoing sustain on the same lane
 				RemoveSustain(note.Index);
 
-			AddSustain();
+			AddSustain(note);
 
-			while (noteEnumerator.MoveNext())
+			while (++index < noteSpan.Length)
 			{
-				note = noteEnumerator.Current;
+				note = ref noteSpan[index];
 
 				RemoveSustain(note.Index);
-				AddSustain();
+				AddSustain(note);
 			}
 
-			void AddSustain()
+			void AddSustain(in TNote note)
 			{
-				if (noteEnumerator.Current.Sustain > 0)
-					ongoingSustains[noteEnumerator.Current.Index] = (chord.Position, noteEnumerator.Current);
+				if (note.Sustain > 0)
+					ongoingSustains[note.Index] = (chord.Position, chord.Notes.Proxy(note.Lane)!.Value);
 			}
 
 			void RemoveSustain(byte index)
 			{
-				if (ongoingSustains.TryGetValue(index, out (uint _, LaneNote note) sustain))
+				if (ongoingSustains.TryGetValue(index, out (uint _, NoteProxy<TNote, TLane> proxy) sustain))
 				{
-					sustain.note.Sustain = chord.Position;
+					ref readonly TNote note = ref sustain.proxy.GetUnsafe();
+
+					sustain.proxy.Set(note with { Sustain = chord.Position });
 					ongoingSustains.Remove(index);
 				}
 			}

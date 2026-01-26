@@ -9,12 +9,6 @@ namespace ChartTools;
 /// </summary>
 public sealed class DrumsChord : Chord<DrumsNote, DrumsLane, DrumsChordModifiers>
 {
-    /// <summary>
-    /// <inheritdoc cref="Chord.OpenExclusivity"/>
-    /// </summary>
-    /// <remarks>Always <see langword="true"/> for <see cref="DrumsChord"/></remarks>
-    public override bool OpenExclusivity => false;
-
 	internal override DrumsChordModifiers DefaultModifiers => DrumsChordModifiers.None;
 
 	internal override bool ChartSupportedModifiers => true;
