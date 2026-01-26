@@ -224,7 +224,7 @@ public sealed class Metadata
 				MetadataIniMapper.Shared.Set(this, key, value);
 				break;
 			default:
-				throw new InvalidOperationException("Only chart and ini metadata can be mapped.");
+				throw new ArgumentException("Only chart and ini metadata can be mapped.", nameof(fileType));
 		}
 	}
 
@@ -239,7 +239,7 @@ public sealed class Metadata
 				MetadataIniMapper.Shared.Remove(this, key);
 				break;
 			default:
-				throw new InvalidOperationException("Only chart and ini metadata can be mapped.");
+				throw new ArgumentException("Only chart and ini metadata can be mapped.", nameof(fileType));
 		}
 	}
 
