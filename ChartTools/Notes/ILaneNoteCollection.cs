@@ -11,7 +11,7 @@ public interface ILaneNoteCollection
 
 	public bool Remove(byte index);
 
-	public ILaneNote? this[byte index] { get; }
+	public ILaneNote? this[byte laneIndex] { get; }
 
 	public void Clear();
 

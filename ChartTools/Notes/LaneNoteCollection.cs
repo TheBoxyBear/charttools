@@ -127,7 +127,10 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	/// </summary>
 	/// <returns><see langword="true"/> if a matching note was found.</returns>
 	public bool Remove(TLane lane)
-		=> Remove((in note) => note.Lane.Equals(lane));
+	{
+		Validator.ValidateEnum(lane);
+		return Remove((in note) => note.Lane.Equals(lane));
+	}
 
 	bool ILaneNoteCollection.Remove(byte index)
 		=> Remove((in note) => note.Index == index);
@@ -176,10 +179,16 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	/// <param name="lane">Lane of the note</param>
 	/// <returns>Note with the lane if present, otherwise <see langword="null"/>.</returns>
 	public TNote? this[TLane lane]
-		=> m_notes.FirstOrDefault(n => n.Lane.Equals(lane));
+	{
+		get
+		{
+			Validator.ValidateEnum(lane);
+			return m_notes.FirstOrDefault(n => n.Lane.Equals(lane));
+		}
+	}
 
-	ILaneNote? ILaneNoteCollection.this[byte index]
-		=> m_notes.FirstOrDefault(n => n.Lane.Equals(index));
+	ILaneNote? ILaneNoteCollection.this[byte laneIndex]
+		=> m_notes.FirstOrDefault(n => n.Lane.Equals(laneIndex));
 
 	TNote IReadOnlyList<TNote>.this[int index]
 		=> m_notes[index];
