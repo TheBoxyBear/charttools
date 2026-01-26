@@ -24,4 +24,7 @@ internal class MetadataKeyAttribute(FileType fileType, string key)
 		other.FileType == FileType &&
 		other.Key == Key &&
 		other.ValueMappable == ValueMappable;
+
+	public override bool Equals(object obj)
+		=> obj is MetadataKeyAttribute other && Equals(other);
 }
