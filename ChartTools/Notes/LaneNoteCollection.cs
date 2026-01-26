@@ -157,6 +157,12 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 		return note is null ? null : new NoteProxy<TNote, TLane>(lane, this);
 	}
 
+	public IEnumerable<NoteProxy<TNote, TLane>> ProxyAll()
+	{
+		foreach (ref readonly TNote note in AsSpan())
+			yield return new NoteProxy<TNote, TLane>(note.Lane, this);
+	}
+
 	/// <summary>
 	/// Gets the note matching a given lane.
 	/// </summary>
