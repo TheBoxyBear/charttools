@@ -76,7 +76,7 @@ public abstract record Instrument : IEmptyVerifiable
 	/// <summary>
 	/// Gets the track matching a difficulty.
 	/// </summary>
-	public abstract Track? GetTrack(DiffEnum difficulty);
+	public abstract Track? GetTrack(ValidatedEnum<Difficulty> difficulty);
 
 	protected abstract Track? GetEasy();
 	protected abstract Track? GetMedium();
@@ -87,13 +87,13 @@ public abstract record Instrument : IEmptyVerifiable
 	/// Creates a track
 	/// </summary>
 	/// <param name="difficulty">Difficulty of the track</param>
-	public abstract Track CreateTrack(DiffEnum difficulty);
+	public abstract Track CreateTrack(ValidatedEnum<Difficulty> difficulty);
 
 	/// <summary>
 	/// Removes a track.
 	/// </summary>
 	/// <param name="difficulty">Difficulty of the target track</param>
-	public abstract bool RemoveTrack(DiffEnum difficulty);
+	public abstract bool RemoveTrack(ValidatedEnum<Difficulty> difficulty);
 
 
 	/// <summary>
@@ -191,7 +191,7 @@ public abstract record Instrument<TChord> : Instrument
     /// <summary>
     /// Gets the <see cref="Track{TChord}"/> that matches a <see cref="DiffEnum"/>
     /// </summary>
-    public override Track<TChord>? GetTrack(DiffEnum difficulty) => difficulty switch
+    public override Track<TChord>? GetTrack(ValidatedEnum<Difficulty> difficulty) => difficulty.Value switch
 	{
         DiffEnum.Easy => Easy,
         DiffEnum.Medium => Medium,
@@ -200,8 +200,8 @@ public abstract record Instrument<TChord> : Instrument
 		_ => throw new UndefinedEnumException(difficulty)
 	};
 
-    /// <inheritdoc cref="Instrument.CreateTrack(DiffEnum)"/>
-    public override Track<TChord> CreateTrack(DiffEnum difficulty) => difficulty switch
+    /// <inheritdoc cref="Instrument.CreateTrack(ValidatedEnum{Difficulty})"/>
+    public override Track<TChord> CreateTrack(ValidatedEnum<Difficulty> difficulty) => difficulty.Value switch
 	{
         DiffEnum.Easy => Easy = new(),
         DiffEnum.Medium => Medium = new(),
@@ -209,12 +209,12 @@ public abstract record Instrument<TChord> : Instrument
         DiffEnum.Expert => Expert = new(),
 		_ => throw new UndefinedEnumException(difficulty)
 	};
-    /// <inheritdoc cref="Instrument.RemoveTrack(DiffEnum)"/>
-    public override bool RemoveTrack(DiffEnum difficulty)
+    /// <inheritdoc cref="Instrument.RemoveTrack(ValidatedEnum{Difficulty})"/>
+    public override bool RemoveTrack(ValidatedEnum<Difficulty> difficulty)
 	{
 		bool found;
 
-		switch (difficulty)
+		switch (difficulty.Value)
 		{
 			case DiffEnum.Easy:
 				found = m_easy is not null;
@@ -269,7 +269,7 @@ public abstract record Instrument<TChord> : Instrument
 	/// <exception cref="UndefinedEnumException"/>
 	public Track<TChord> SetTrack(Track<TChord> track) => track is null
 		? throw new ArgumentNullException(nameof(track))
-		: track.Difficulty switch
+		: track.Difficulty.Value switch
 		{
             DiffEnum.Easy => m_easy = track with { ParentInstrument = this },
             DiffEnum.Medium => m_medium = track with { ParentInstrument = this },

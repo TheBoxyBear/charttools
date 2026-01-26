@@ -16,7 +16,7 @@ public abstract record Track : IEmptyVerifiable
 	/// <summary>
 	/// Difficulty of the track
 	/// </summary>
-	public Difficulty Difficulty { get; init; }
+	public ValidatedEnum<Difficulty> Difficulty { get; init; }
 
 	/// <summary>
 	/// Instrument containing the track
