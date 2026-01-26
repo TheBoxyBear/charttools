@@ -19,8 +19,18 @@ internal partial class MetadataIniMapper : MetadataMapper
 				IniFormatting.AudioOffset => metadata.AudioOffset?.TotalMilliseconds.ToString(),
 				IniFormatting.VideoOffset => metadata.VideoOffset?.TotalMilliseconds.ToString(),
 				IniFormatting.Modchart    => metadata.IsModchart.HasValue ? (metadata.IsModchart.Value ? "1" : "0") : null,
-				IniFormatting.Track   or IniFormatting.AlbumTrack => metadata.AlbumTrack?.ToString(),
-				IniFormatting.Charter or IniFormatting.Frets      => metadata.Charter.Name,
+				IniFormatting.Track
+					when metadata.Formatting.AlbumTrackKeys.HasFlag(AlbumTrackKeys.Track)
+					=> metadata.AlbumTrack?.ToString(),
+				IniFormatting.AlbumTrack
+					when metadata.Formatting.AlbumTrackKeys.HasFlag(AlbumTrackKeys.AlbumTrack)
+					=> metadata.AlbumTrack?.ToString(),
+				IniFormatting.Charter
+					when metadata.Formatting.CharterKeys.HasFlag(CharterKeys.Charter)
+					=> metadata.Charter.Name,
+				IniFormatting.Frets
+					when metadata.Formatting.CharterKeys.HasFlag(CharterKeys.Frets)
+					=> metadata.Charter.Name,
 				_ => FindUndentified(metadata, key)
 			};
 
@@ -31,19 +41,19 @@ internal partial class MetadataIniMapper : MetadataMapper
 			{
 				case IniFormatting.AlbumTrack:
 					metadata.AlbumTrack = ValueParser.Parse<byte>(in value, nameof(Metadata.AlbumTrack));
-					metadata.Formatting.AlbumTrackKey |= AlbumTrackKeys.AlbumTrack;
+					metadata.Formatting.AlbumTrackKeys |= AlbumTrackKeys.AlbumTrack;
 					break;
 				case IniFormatting.Track:
 					metadata.AlbumTrack = ValueParser.Parse<byte>(in value, nameof(Metadata.AlbumTrack));
-					metadata.Formatting.AlbumTrackKey |= AlbumTrackKeys.Track;
+					metadata.Formatting.AlbumTrackKeys |= AlbumTrackKeys.Track;
 					break;
 				case IniFormatting.Charter:
 					metadata.Charter.Name = value.ToString();
-					metadata.Formatting.CharterKey |= CharterKeys.Charter;
+					metadata.Formatting.CharterKeys |= CharterKeys.Charter;
 					break;
 				case IniFormatting.Frets:
 					metadata.Charter.Name = value.ToString();
-					metadata.Formatting.CharterKey |= CharterKeys.Frets;
+					metadata.Formatting.CharterKeys |= CharterKeys.Frets;
 					break;
 				default:
 					AddUnidentified(metadata, in key, in value);
@@ -56,18 +66,22 @@ internal partial class MetadataIniMapper : MetadataMapper
 		if (!TryRemoveFromAttribute(metadata, in key));
 			switch (key)
 			{
-				case IniFormatting.AlbumTrack:
-					metadata.Formatting.AlbumTrackKey &= ~AlbumTrackKeys.AlbumTrack;
-					break;
 				case IniFormatting.Track:
-					metadata.Formatting.AlbumTrackKey &= ~AlbumTrackKeys.Track;
+					if ((metadata.Formatting.AlbumTrackKeys &= ~AlbumTrackKeys.Track) == AlbumTrackKeys.Default)
+						metadata.AlbumTrack = null;
+					break;
+				case IniFormatting.AlbumTrack:
+					if ((metadata.Formatting.AlbumTrackKeys &= ~AlbumTrackKeys.AlbumTrack) == AlbumTrackKeys.Default)
+						metadata.AlbumTrack = null;
 					break;
 				case IniFormatting.Charter:
-					metadata.Formatting.CharterKey &= ~CharterKeys.Charter;
+					if ((metadata.Formatting.CharterKeys &= ~CharterKeys.Charter) == CharterKeys.Default)
+						metadata.Charter.Name = null;
 					break;
 				case IniFormatting.Frets:
-					metadata.Formatting.CharterKey &= ~CharterKeys.Frets;
-					break;
+					if ((metadata.Formatting.CharterKeys &= ~CharterKeys.Frets) == CharterKeys.Default)
+						metadata.Charter.Name = null;
+				break;
 				default:
 					RemoveUnidentified(metadata, in key);
 					break;
@@ -81,19 +95,19 @@ internal partial class MetadataIniMapper : MetadataMapper
 
 		if (metadata.AlbumTrack is not null)
 		{
-			if (metadata.Formatting.AlbumTrackKey.HasFlag(AlbumTrackKeys.Track))
+			if (metadata.Formatting.EffectiveAlbumTrackKeys.HasFlag(AlbumTrackKeys.Track))
 				yield return new(IniFormatting.Track, metadata.AlbumTrack.ToString()!);
 
-			if (metadata.Formatting.AlbumTrackKey.HasFlag(AlbumTrackKeys.AlbumTrack))
+			if (metadata.Formatting.EffectiveAlbumTrackKeys.HasFlag(AlbumTrackKeys.AlbumTrack))
 				yield return new(IniFormatting.AlbumTrack, metadata.AlbumTrack.ToString()!);
 		}
 
 		if (metadata.Charter.Name is not null)
 		{
-			if (metadata.Formatting.CharterKey.HasFlag(CharterKeys.Charter))
+			if (metadata.Formatting.EffectiveCharterKeys.HasFlag(CharterKeys.Charter))
 				yield return new(IniFormatting.Charter, metadata.Charter.Name);
 
-			if (metadata.Formatting.CharterKey.HasFlag(CharterKeys.Frets))
+			if (metadata.Formatting.EffectiveCharterKeys.HasFlag(CharterKeys.Frets))
 				yield return new(IniFormatting.Frets, metadata.Charter.Name.ToString());
 		}
 
