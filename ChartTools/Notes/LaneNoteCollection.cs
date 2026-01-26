@@ -153,7 +153,8 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 
 	public NoteProxy<TNote, TLane>? Proxy(TLane lane)
 	{
-		throw new NotImplementedException();
+		TNote? note = this[lane];
+		return note is null ? null : new NoteProxy<TNote, TLane>(lane, this);
 	}
 
 	/// <summary>
