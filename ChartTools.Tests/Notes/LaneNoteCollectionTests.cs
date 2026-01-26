@@ -77,7 +77,7 @@ public class LaneNoteCollectionTests
 		Assert.AreEqual(second, secondAdded.Lane);
 	}
 
-	[TestMethod, TestCategory(nameof(NoteCollection.Add))]
+	[TestMethod, TestCategory("Init")]
 	public void Init_Note_Adds()
 	{
 		const Lane lane = Lane.Green;
@@ -90,7 +90,7 @@ public class LaneNoteCollectionTests
 		Assert.AreEqual(lane, added.Lane);
 	}
 
-	[TestMethod, TestCategory(nameof(NoteCollection.AddRange))]
+	[TestMethod, TestCategory("InitRange")]
 	public void InitRange_Note_Adds()
 	{
 		const Lane
