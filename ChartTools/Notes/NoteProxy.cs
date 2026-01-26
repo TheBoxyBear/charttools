@@ -8,15 +8,24 @@
 /// lane.</remarks>
 /// <typeparam name="TNote">The value type representing a note associated with a lane. Must implement <see cref="ILaneNote{TLane}"/>.</typeparam>
 /// <typeparam name="TLane">The enumeration type that identifies lanes within the collection.</typeparam>
-public struct NoteProxy<TNote, TLane>(TLane lane, LaneNoteCollection<TNote, TLane> source)
+public struct NoteProxy<TNote, TLane>
 	where TNote : struct, IDefinedLaneNote<TLane>
 	where TLane : struct, Enum
 {
 	private int m_index = -1;
 
-	public TLane Lane { get; } = lane;
+	public TLane Lane { get; }
 
-	public LaneNoteCollection<TNote, TLane> Source { get; } = source;
+	public LaneNoteCollection<TNote, TLane> Source { get; }
+
+	public NoteProxy(TLane lane, LaneNoteCollection<TNote, TLane> source)
+	{
+		Validator.ValidateEnum(lane);
+		ArgumentNullException.ThrowIfNull(source);
+
+		Lane   = lane;
+		Source = source;
+	}
 
 	public TNote? Get()
 		=> Source[Lane];
