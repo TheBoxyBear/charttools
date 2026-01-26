@@ -55,7 +55,7 @@ internal abstract class TextFileReader(ReadingDataSource source) : FileReader<st
 			do
 				if (!AdvanceSection())
 				{
-					FinishSection(cancellationToken);
+					FinishSection(in cancellationToken);
 					return;
 				}
 			while (!IsSectionStart(line));
@@ -69,12 +69,12 @@ internal abstract class TextFileReader(ReadingDataSource source) : FileReader<st
 
 				if (!AdvanceSection())
 				{
-					FinishSection(cancellationToken);
+					FinishSection(in cancellationToken);
 					return;
 				}
 			}
 
-			FinishSection(cancellationToken);
+			FinishSection(in cancellationToken);
 
 			void FinishSection(in CancellationToken cancellationToken)
 			{
