@@ -236,7 +236,8 @@ public sealed class Metadata
 				MetadataChartMapper.Shared.Remove(this, key);
 				break;
 			case FileType.Ini:
-				throw new NotImplementedException();
+				MetadataIniMapper.Shared.Remove(this, key);
+				break;
 			default:
 				throw new InvalidOperationException("Only chart and ini metadata can be mapped.");
 		}
