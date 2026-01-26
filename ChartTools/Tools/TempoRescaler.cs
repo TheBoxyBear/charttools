@@ -47,13 +47,34 @@ public static class TempoRescaler
 	/// </summary>
 	/// <param name="chord">Chord to rescale</param>
 	/// <param name="scale">Positive number where 1 is the current scale.</param>
-	public static void Rescale(this Chord chord, float scale)
+	public static void Rescale<TChord, TNote, TLane>(this TChord chord, float scale)
+		where TChord : Chord<TNote, TLane>
+		where TNote : struct, IDefinedLaneNote<TLane>
+		where TLane : Enum
 	{
-		throw new NotImplementedException();
-		//chord.Position = (uint)(chord.Position * scale);
+		chord.Position = (uint)(chord.Position * scale);
 
-		//foreach (INote note in chord.Notes)
-		//	note.Rescale(scale);
+		foreach (NoteProxy<TNote, TLane> proxy in chord.Notes.ProxyAll())
+			proxy.Rescale(scale);
+	}
+
+	/// <summary>
+	/// Rescales the sustain value of the note represented by the specified proxy.
+	/// </summary>
+	/// <typeparam name="TNote">Note type</typeparam>
+	/// <typeparam name="TLane">Lane type</typeparam>
+	/// <param name="proxy">The note proxy whose sustain value will be rescaled.</param>
+	/// <param name="scale">The scale factor to apply to the sustain value. Must be a non-negative floating-point number.</param>
+	public static void Rescale<TNote, TLane>(this NoteProxy<TNote, TLane> proxy, float scale)
+		where TNote : struct, IDefinedLaneNote<TLane>
+		where TLane : Enum
+	{
+		ref readonly TNote note = ref proxy.GetUnsafe();
+
+		proxy.Set(note with
+		{
+			Sustain = (uint)(note.Sustain * scale)
+		});
 	}
 
 	/// <summary>
