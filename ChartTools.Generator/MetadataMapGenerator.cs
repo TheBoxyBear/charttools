@@ -1,13 +1,14 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using ChartTools.Meta;
+
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
-using System.Text;
-
 using System.Linq;
+using System.Text;
 
 namespace ChartTools.Generator;
 
@@ -63,14 +64,14 @@ public class MetadataMapGenerator : IIncrementalGenerator
 						{
 							KeyValuePair<string, TypedConstant> mappable =
 								attribute.NamedArguments
-									.FirstOrDefault(static arg => arg.Key == nameof(MetadataKeyAttribute.Mappable));
+									.FirstOrDefault(static arg => arg.Key == nameof(MetadataKeyAttribute.ValueMappable));
 
 							FileType attFileType = (FileType)attribute.ConstructorArguments[0].Value!;
 							string attKey = (string)attribute.ConstructorArguments[1].Value!;
 
 							return new MetadataKeyBind(property, mappable.Key is null
 								? new(attFileType, attKey)
-								: new(attFileType, attKey) { Mappable = (bool)mappable.Value.Value! });
+								: new(attFileType, attKey) { ValueMappable = (bool)mappable.Value.Value! });
 						}).ToImmutableArray();
 				}).SelectMany(static (binds, _) => binds);
 
@@ -84,7 +85,7 @@ public class MetadataMapGenerator : IIncrementalGenerator
 
 			context.RegisterImplementationSourceOutput(
 			   fileTypeProvider
-				   .Where(static bind => bind.Attribute.Mappable).Collect()
+				   .Where(static bind => bind.Attribute.ValueMappable).Collect()
 			   .Combine(groups),
 			   (ctx, tuple) => GenerateMapMethods(mapperType, in ctx, tuple));
 
