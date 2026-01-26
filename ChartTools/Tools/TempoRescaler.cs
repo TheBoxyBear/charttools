@@ -63,8 +63,8 @@ public static class TempoRescaler
 	/// </summary>
 	/// <typeparam name="TNote">Note type</typeparam>
 	/// <typeparam name="TLane">Lane type</typeparam>
-	/// <param name="proxy">The note proxy whose sustain value will be rescaled.</param>
-	/// <param name="scale">The scale factor to apply to the sustain value. Must be a non-negative floating-point number.</param>
+	/// <param name="proxy">Proxy representing the note</param>
+	/// <param name="scale">Positive number where 1 is the current scale.</param>
 	public static void Rescale<TNote, TLane>(this NoteProxy<TNote, TLane> proxy, float scale)
 		where TNote : struct, IDefinedLaneNote<TLane>
 		where TLane : Enum
