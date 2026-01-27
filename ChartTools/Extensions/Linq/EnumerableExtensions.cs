@@ -193,10 +193,11 @@ public static class EnumerableExtensions
 	/// <param name="replacements">Set of definitions of section replacements</param>
 	/// <returns>Items with the specified section replaced</returns>
 	/// <remarks>Items that match <see cref="SectionReplacement{T}.StartReplace"/> or <see cref="SectionReplacement{T}.EndReplace"/> are not included in the output.</remarks>
-	public static IEnumerable<T> ReplaceSections<T>(this IEnumerable<T> source, IEnumerable<SectionReplacement<T>> replacements)
+	public static IEnumerable<T> ReplaceSections<T>(this IEnumerable<T> source, params List<SectionReplacement<T>> replacements)
 	{
-		if (replacements is null || !replacements.Any())
 		ArgumentNullException.ThrowIfNull(source);
+
+		if (replacements is null || replacements.Count is 0)
 		{
 			foreach (T item in source)
 				yield return item;
@@ -216,7 +217,7 @@ public static class EnumerableExtensions
 		do
 		{
 			// Find a matching replacement start
-			if (replacementList.TryGetFirst(r => r.StartReplace(itemsEnumerator.Current), out SectionReplacement<T> replacement))
+			if (replacements.TryGetFirst(r => r.StartReplace(itemsEnumerator.Current), out SectionReplacement<T> replacement))
 			{
 				// Move to the end of the section to replace
 				do
@@ -232,7 +233,7 @@ public static class EnumerableExtensions
 				foreach (T item in replacement.Replacement)
 					yield return item;
 
-				replacementList.Remove(replacement);
+				replacements.Remove(replacement);
 			}
 			else
 			{
@@ -247,7 +248,7 @@ public static class EnumerableExtensions
 			}
 		}
 		// Continue until all replacements are applied
-		while (replacementList.Count > 0);
+		while (replacements.Count > 0);
 
 		// Return the rest of the items
 		while (itemsEnumerator.MoveNext())
