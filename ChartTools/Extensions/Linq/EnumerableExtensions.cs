@@ -186,9 +186,11 @@ public static class EnumerableExtensions
 	/// <param name="replacements">Set of definitions of section replacements</param>
 	/// <returns>Items with the specified section replaced</returns>
 	/// <remarks>Items that match <see cref="SectionReplacement{T}.StartReplace"/> or <see cref="SectionReplacement{T}.EndReplace"/> are not included in the output.</remarks>
-	public static IEnumerable<T> ReplaceSections<T>(this IEnumerable<T> source, IEnumerable<SectionReplacement<T>> replacements)
+	public static IEnumerable<T> ReplaceSections<T>(this IEnumerable<T> source, params ReadOnlySpan<SectionReplacement<T>> replacements)
 	{
-		if (replacements is null || !replacements.Any())
+		ArgumentNullException.ThrowIfNull(source);
+
+		if (!replacements.IsEmpty)
 		{
 			foreach (T item in source)
 				yield return item;
@@ -202,7 +204,6 @@ public static class EnumerableExtensions
 		{
 			foreach (T item in AddMissing())
 				yield return item;
-
 			yield break;
 		}
 
