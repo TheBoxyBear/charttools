@@ -5,24 +5,21 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ChartTools.Tests.Extensions;
 
 [TestClass]
-public class SystemExtensionsTests
+public class EnumerableExtensionsTests
 {
 	static readonly bool[]
 		trueArray  = [true, true],
 		falseArray = [false, false];
 
 	[TestMethod, TestCategory(nameof(EnumerableExtensions.FirstOrDefault)), TestCategory(nameof(Exception))]
+	public void FirstOrDefault_NullSource_Throws()
+	=> Assert.ThrowsException<ArgumentNullException>(
+		() => EnumerableExtensions.FirstOrDefault(null!, b => b, false, out bool returnedDefault));
+
+	[TestMethod, TestCategory(nameof(EnumerableExtensions.FirstOrDefault)), TestCategory(nameof(Exception))]
 	public void FirstOrDefault_NullPredicate_Throws()
 		=> Assert.ThrowsException<ArgumentNullException>(
-			() => trueArray.FirstOrDefault(null!, false, out bool returnedDefault));
-
-	[TestMethod, TestCategory(nameof(EnumerableExtensions.FirstOrDefault))]
-	public void FirstOrDefaultOut_NoItems_ReturnsDefault()
-		=> Assert.AreEqual(false, Array.Empty<bool>().FirstOrDefault(b => b, false));
-
-	[TestMethod, TestCategory(nameof(EnumerableExtensions.FirstOrDefault))]
-	public void FirstOrDefaultOut_ExistingItem_ReturnsItem()
-		=> Assert.AreEqual(true, trueArray.FirstOrDefault(b => b, false));
+			() => EnumerableExtensions.FirstOrDefault( trueArray, null!, false, out bool returnedDefault));
 
 	[TestMethod, TestCategory(nameof(EnumerableExtensions.FirstOrDefault))]
 	public void FirstOrDefault_ExistingItem_ReturnsItem()
@@ -97,10 +94,4 @@ public class SystemExtensionsTests
 	[TestMethod, TestCategory(nameof(EnumerableExtensions.ReplaceSection))]
 	public void ReplaceSection_NeverStarts_ReturnsSource()
 		=> Assert.IsTrue(trueArray.SequenceEqual(trueArray.ReplaceSection(new(falseArray, b => false, b => true, false))));
-
-	[TestMethod, TestCategory(nameof(EnumerableExtensions.ReplaceSections))]
-	public void foo()
-	{
-
-	}
 }
