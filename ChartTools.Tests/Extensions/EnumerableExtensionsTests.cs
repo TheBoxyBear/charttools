@@ -97,4 +97,10 @@ public class SystemExtensionsTests
 	[TestMethod, TestCategory(nameof(EnumerableExtensions.ReplaceSection))]
 	public void ReplaceSection_NeverStarts_ReturnsSource()
 		=> Assert.IsTrue(trueArray.SequenceEqual(trueArray.ReplaceSection(new(falseArray, b => false, b => true, false))));
+
+	[TestMethod, TestCategory(nameof(EnumerableExtensions.ReplaceSections))]
+	public void foo()
+	{
+
+	}
 }
