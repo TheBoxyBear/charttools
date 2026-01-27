@@ -1,4 +1,5 @@
 ﻿using ChartTools.Extensions.Collections.Alternating;
+
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 
@@ -20,6 +21,7 @@ public static class EnumerableExtensions
 	/// <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
 	public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue, out bool returnedDefault)
 	{
+		ArgumentNullException.ThrowIfNull(source);
 		ArgumentNullException.ThrowIfNull(predicate);
 
 		foreach (T item in source)
@@ -44,6 +46,7 @@ public static class EnumerableExtensions
 	public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, [NotNullWhen(true)] out T? item)
 		where T : notnull
 	{
+		ArgumentNullException.ThrowIfNull(source);
 		ArgumentNullException.ThrowIfNull(predicate);
 
 		foreach (T t in source)
@@ -66,6 +69,8 @@ public static class EnumerableExtensions
     /// <returns><see langword="true"/> if an item was found</returns>
     public static bool TryGetFirst<T>(this IEnumerable<T> source, [MaybeNullWhen(false)] out T result)
 	{
+		ArgumentNullException.ThrowIfNull(source);
+
 		using IEnumerator<T> enumerator = source.GetEnumerator();
 		bool success = enumerator.MoveNext();
 
@@ -99,6 +104,8 @@ public static class EnumerableExtensions
 	/// <returns>Set of the nullable values unwrapped to the underlying type with <see langword="null"/> items excluded.</returns>
 	public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) where T : struct
 	{
+		ArgumentNullException.ThrowIfNull(source);
+
 		foreach (T? item in source)
 			if (item is not null)
 				yield return item.Value;
@@ -189,13 +196,13 @@ public static class EnumerableExtensions
 	public static IEnumerable<T> ReplaceSections<T>(this IEnumerable<T> source, IEnumerable<SectionReplacement<T>> replacements)
 	{
 		if (replacements is null || !replacements.Any())
+		ArgumentNullException.ThrowIfNull(source);
 		{
 			foreach (T item in source)
 				yield return item;
 			yield break;
 		}
 
-		List<SectionReplacement<T>> replacementList = [.. replacements];
 		using IEnumerator<T> itemsEnumerator = source.GetEnumerator();
 
 		if (!itemsEnumerator.MoveNext())
@@ -249,7 +256,7 @@ public static class EnumerableExtensions
 		IEnumerable<T> AddMissing()
 		{
 			// Return remaining replacements
-			foreach (SectionReplacement<T> replacement in replacementList.Where(r => r.AddIfMissing))
+			foreach (SectionReplacement<T> replacement in replacements.Where(r => r.AddIfMissing))
 				// Return the replacement
 				foreach (T item in replacement.Replacement)
 					yield return item;
@@ -310,6 +317,8 @@ public static class EnumerableExtensions
 
 	internal static IEnumerable<(T previous, T current)> RelativeLoopSkipFirst<T>(this IEnumerable<T> source)
 	{
+		ArgumentNullException.ThrowIfNull(source);
+
 		using IEnumerator<T> enumerator = source.GetEnumerator();
 
 		if (enumerator.MoveNext())
