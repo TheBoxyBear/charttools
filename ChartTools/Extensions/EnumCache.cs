@@ -1,4 +1,6 @@
-﻿namespace ChartTools.Extensions;
+﻿using System.Collections.Immutable;
+
+namespace ChartTools.Extensions;
 
 /// <summary>
 /// Holds a cache of defined values for an enum where <see cref="Enum.GetValues{TEnum}()"/> is to be called frequently.
@@ -10,8 +12,17 @@ public static class EnumCache<T> where T : struct, Enum
 	/// Cached values
 	/// </summary>
 	/// <remarks>Generates the cache on first call.</remarks>
-	public static T[] Values => _values ??= [.. Enum.GetValues<T>()];
-	private static T[]? _values;
+	public static ImmutableArray<T> Values
+	{
+		get
+		{
+			if (field.Length == 0)
+				field = [.. Enum.GetValues<T>()];
+
+			return field;
+		}
+		private set;
+	}
 
 	/// <summary>
 	/// Clears the cache.
