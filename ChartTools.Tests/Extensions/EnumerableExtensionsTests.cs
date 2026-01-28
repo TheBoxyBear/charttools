@@ -19,7 +19,14 @@ public class EnumerableExtensionsTests
 	[TestMethod, TestCategory(nameof(EnumerableExtensions.FirstOrDefault)), TestCategory(nameof(Exception))]
 	public void FirstOrDefault_NullPredicate_Throws()
 		=> Assert.ThrowsException<ArgumentNullException>(
-			() => EnumerableExtensions.FirstOrDefault( trueArray, null!, false, out bool returnedDefault));
+			() => EnumerableExtensions.FirstOrDefault(trueArray, null!, false, out bool returnedDefault));
+
+	[TestMethod, TestCategory(nameof(EnumerableExtensions.FirstOrDefault))]
+	public void FirstOrDefault_NoItems_ReturnsTrueDefault()
+	{
+		Assert.AreEqual(false, EnumerableExtensions.FirstOrDefault([], b => b, false, out bool returnedDefault));
+		Assert.IsTrue(returnedDefault);
+	}
 
 	[TestMethod, TestCategory(nameof(EnumerableExtensions.FirstOrDefault))]
 	public void FirstOrDefault_Match_ReturnsFalseItem()
@@ -47,6 +54,16 @@ public class EnumerableExtensionsTests
 		Assert.AreEqual(default, item);
 	}
 
+	[TestMethod, TestCategory(nameof(EnumerableExtensions.TryGetFirst)), TestCategory(nameof(Exception))]
+	public void TryGetFirstPredicate_NullSource_Throws()
+		=> Assert.ThrowsException<ArgumentNullException>(
+			() => EnumerableExtensions.TryGetFirst(null!, b => b, out bool b));
+
+	[TestMethod, TestCategory(nameof(EnumerableExtensions.TryGetFirst)), TestCategory(nameof(Exception))]
+	public void TryGetFirstPredicate_NullPredicate_Throws()
+		=> Assert.ThrowsException<ArgumentNullException>(
+			() => EnumerableExtensions.TryGetFirst(trueArray, null!, out bool b));
+
 	[TestMethod, TestCategory(nameof(EnumerableExtensions.TryGetFirst))]
 	public void TryGetFirstPredicate_NoItems_ReturnsFalseDefault()
 	{
@@ -61,14 +78,49 @@ public class EnumerableExtensionsTests
 		Assert.AreEqual(true, item);
 	}
 
+	[TestMethod, TestCategory(nameof(EnumerableExtensions.TryGetFirst))]
+	public void TryGetFirstPredicate_NoMatch_ReturnsFalseDefault()
+	{
+		Assert.IsFalse(EnumerableExtensions.TryGetFirst(falseArray, b => b, out bool item));
+		Assert.AreEqual(default, item);
+	}
+
+	[TestMethod, TestCategory(nameof(EnumerableExtensions.TryGetFirstOfType)), TestCategory(nameof(Exception))]
+	public void TryGetFirstOfType_NullSource_Throws()
+		=> Assert.ThrowsException<ArgumentNullException>(
+			() => EnumerableExtensions.TryGetFirstOfType<object>(null!, out object? obj));
+
+	[TestMethod, TestCategory(nameof(EnumerableExtensions.TryGetFirstOfType))]
+	public void TryGetFirstOfType_NoItems_ReturnsFalseNull()
+	{
+		Assert.IsFalse(EnumerableExtensions.TryGetFirstOfType<object>(Enumerable.Empty<object>(), out object? obj));
+		Assert.AreEqual(null, obj);
+	}
+
+	[TestMethod, TestCategory(nameof(EnumerableExtensions.TryGetFirstOfType))]
+	public void TryGetFirstOfType_Match_ReturnsTrueItem()
+	{
+		Assert.IsTrue(EnumerableExtensions.TryGetFirstOfType(trueArray, out bool value));
+		Assert.AreEqual(true, value);
+	}
+
+
+	[TestMethod, TestCategory(nameof(EnumerableExtensions.TryGetFirstOfType))]
+	public void TryGetFirstOfType_NoMatch_ReturnsFalseDefault()
+	{
+		Assert.IsFalse(EnumerableExtensions.TryGetFirstOfType(trueArray, out int value));
+		Assert.AreEqual(default, value);
+	}
+
 	[TestMethod, TestCategory(nameof(EnumerableExtensions.Replace)), TestCategory(nameof(Exception))]
 	public void Replace_NullSource_Throws()
 		=> Assert.ThrowsException<ArgumentNullException>(
 			() => EnumerableExtensions.Replace(null!, b => b, false).ToArray());
 
-	[TestMethod, TestCategory(nameof(EnumerableExtensions.Replace))]
-	public void Replace_NoMatch_ReturnsSource()
-		=> Assert.IsTrue(falseArray.SequenceEqual(falseArray.Replace(b => b, true)));
+	[TestMethod, TestCategory(nameof(EnumerableExtensions.Replace)), TestCategory(nameof(Exception))]
+	public void Replace_NullPredicate_Throws()
+		=> Assert.ThrowsException<ArgumentNullException>(
+			() => EnumerableExtensions.Replace(trueArray, null!, false).ToArray());
 
 	[TestMethod, TestCategory(nameof(EnumerableExtensions.Replace))]
 	public void Replace_Match_Replaces()
@@ -79,6 +131,15 @@ public class EnumerableExtensionsTests
 
 		Assert.IsTrue(expected.SequenceEqual(EnumerableExtensions.Replace(numbers, n => n > 5, 0)));
 	}
+
+	[TestMethod, TestCategory(nameof(EnumerableExtensions.Replace))]
+	public void Replace_NoMatch_ReturnsSource()
+		=> Assert.IsTrue(falseArray.SequenceEqual(EnumerableExtensions.Replace(falseArray, b => b, true)));
+
+	[TestMethod, TestCategory(nameof(EnumerableExtensions.ReplaceSection))]
+	public void ReplaceSection_NullSource_Throws()
+		=> Assert.ThrowsException<NullReferenceException>(
+			() => EnumerableExtensions.ReplaceSection<bool>(null!, new([], null!, b => true, true)).ToArray());
 
 	[TestMethod, TestCategory(nameof(EnumerableExtensions.ReplaceSection))]
 	public void ReplaceSection_NullStartReplace_Throws()
