@@ -1,7 +1,6 @@
 ﻿using ChartTools.Extensions.Collections.Alternating;
 
 using System.Collections;
-using System.Diagnostics.CodeAnalysis;
 
 namespace ChartTools.Extensions.Linq;
 
@@ -36,6 +35,24 @@ public static class EnumerableExtensions
 	}
 
 	/// <summary>
+	/// Tries to get the first element of a collection.
+	/// </summary>
+	/// <typeparam name="T">Type of items in the collection</typeparam>
+	/// <param name="source">Source of items</param>
+	/// <param name="result">Found item</param>
+	/// <returns><see langword="true"/> if an item was found</returns>
+	public static bool TryGetFirst<T>(this IEnumerable<T> source, out T? result)
+	{
+		ArgumentNullException.ThrowIfNull(source);
+
+		using IEnumerator<T> enumerator = source.GetEnumerator();
+		bool success = enumerator.MoveNext();
+
+		result = success ? enumerator.Current : default;
+		return success;
+	}
+
+	/// <summary>
 	/// Tries to get the first item that meets a condition from a collection.
 	/// </summary>
 	/// <typeparam name="T">Type of items in the collection</typeparam>
@@ -58,24 +75,6 @@ public static class EnumerableExtensions
 
 		item = default;
 		return false;
-	}
-
-    /// <summary>
-    /// Tries to get the first element of a collection.
-    /// </summary>
-    /// <typeparam name="T">Type of items in the collection</typeparam>
-    /// <param name="source">Source of items</param>
-    /// <param name="result">Found item</param>
-    /// <returns><see langword="true"/> if an item was found</returns>
-    public static bool TryGetFirst<T>(this IEnumerable<T> source, [MaybeNullWhen(false)] out T result)
-	{
-		ArgumentNullException.ThrowIfNull(source);
-
-		using IEnumerator<T> enumerator = source.GetEnumerator();
-		bool success = enumerator.MoveNext();
-
-		result = success ? enumerator.Current : default;
-		return success;
 	}
 
 	/// <summary>
@@ -102,7 +101,8 @@ public static class EnumerableExtensions
 	/// <typeparam name="T">Underlying value type</typeparam>
 	/// <param name="source">Set of values wrapped in <see cref="Nullable{T}"/></param>
 	/// <returns>Set of the nullable values unwrapped to the underlying type with <see langword="null"/> items excluded.</returns>
-	public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source) where T : struct
+	public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source)
+		where T : struct
 	{
 		ArgumentNullException.ThrowIfNull(source);
 
@@ -121,6 +121,7 @@ public static class EnumerableExtensions
 	/// <param name="replacement">The item to replace items with</param>
 	public static IEnumerable<T> Replace<T>(this IEnumerable<T> source, Predicate<T> predicate, T replacement)
 	{
+		ArgumentNullException.ThrowIfNull(source);
 		ArgumentNullException.ThrowIfNull(predicate);
 
 		foreach (T item in source)
@@ -363,6 +364,8 @@ public static class EnumerableExtensions
 	private static IEnumerable<T> ManyMinMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector, Func<TKey, TKey, bool> comparison)
 		where TKey : IComparable<TKey>
 	{
+		ArgumentNullException.ThrowIfNull(source);
+
 		TKey minMaxKey;
 
 		using (IEnumerator<T> enumerator = source.GetEnumerator())
