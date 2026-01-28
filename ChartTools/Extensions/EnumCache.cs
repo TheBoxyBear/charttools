@@ -16,5 +16,6 @@ internal static class EnumCache<T> where T : struct, Enum
 	/// <summary>
 	/// Clears the cache.
 	/// </summary>
-	public static void Clear() => _values = null;
+	public static void Clear()
+		=> Values = [];
 }

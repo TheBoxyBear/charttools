@@ -79,8 +79,11 @@ public abstract record Instrument : IEmptyVerifiable
 	public abstract Track? GetTrack(DiffEnum difficulty);
 
 	protected abstract Track? GetEasy();
+
 	protected abstract Track? GetMedium();
+
 	protected abstract Track? GetHard();
+
 	protected abstract Track? GetExpert();
 
 	/// <summary>
@@ -193,9 +196,9 @@ public abstract record Instrument<TChord> : Instrument
     /// </summary>
     public override Track<TChord>? GetTrack(DiffEnum difficulty) => difficulty switch
 	{
-        DiffEnum.Easy => Easy,
+        DiffEnum.Easy   => Easy,
         DiffEnum.Medium => Medium,
-        DiffEnum.Hard => Hard,
+        DiffEnum.Hard   => Hard,
         DiffEnum.Expert => Expert,
 		_ => throw new UndefinedEnumException(difficulty)
 	};
@@ -203,9 +206,9 @@ public abstract record Instrument<TChord> : Instrument
     /// <inheritdoc cref="Instrument.CreateTrack(DiffEnum)"/>
     public override Track<TChord> CreateTrack(DiffEnum difficulty) => difficulty switch
 	{
-        DiffEnum.Easy => Easy = new(),
+        DiffEnum.Easy   => Easy = new(),
         DiffEnum.Medium => Medium = new(),
-        DiffEnum.Hard => Hard = new(),
+        DiffEnum.Hard   => Hard = new(),
         DiffEnum.Expert => Expert = new(),
 		_ => throw new UndefinedEnumException(difficulty)
 	};
@@ -271,9 +274,9 @@ public abstract record Instrument<TChord> : Instrument
 		? throw new ArgumentNullException(nameof(track))
 		: track.Difficulty switch
 		{
-            DiffEnum.Easy => m_easy = track with { ParentInstrument = this },
+            DiffEnum.Easy   => m_easy = track with { ParentInstrument = this },
             DiffEnum.Medium => m_medium = track with { ParentInstrument = this },
-            DiffEnum.Hard => m_hard = track with { ParentInstrument = this },
+            DiffEnum.Hard   => m_hard = track with { ParentInstrument = this },
             DiffEnum.Expert => m_expert = track with { ParentInstrument = this },
 			_ => throw new UndefinedEnumException(track.Difficulty)
 		};
