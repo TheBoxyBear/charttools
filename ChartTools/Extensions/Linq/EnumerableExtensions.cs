@@ -60,7 +60,7 @@ public static class EnumerableExtensions
 	/// <param name="predicate">Method that returns <see langword="true"/> if a given item meets the condition</param>
 	/// <param name="item">Found item</param>
 	/// <returns><see langword="true"/> if an item was found</returns>
-	public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, [NotNullWhen(true)] out T? item)
+	public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, out T? item)
 		where T : notnull
 	{
 		ArgumentNullException.ThrowIfNull(source);
@@ -84,7 +84,7 @@ public static class EnumerableExtensions
 	/// <param name="source">Source of items</param>
 	/// <param name="result">Found item</param>
 	/// <returns><see langword="true"/> if an item was found</returns>
-	public static bool TryGetFirstOfType<TResult>(this IEnumerable source, [MaybeNullWhen(false)] out TResult result)
+	public static bool TryGetFirstOfType<TResult>(this IEnumerable source, out TResult result)
 		=> source.OfType<TResult>().TryGetFirst(out result);
 	#endregion
 
