@@ -4,82 +4,80 @@ namespace ChartTools;
 /// Wrapper struct for enum values that automatically validates on set.
 /// </summary>
 /// <typeparam name="T">enum type to wrap</typeparam>
-public readonly struct ValidatedEnum<T> : IEquatable<ValidatedEnum<T>> where T : struct, Enum
+public readonly struct SafeEnum<T> : IEquatable<SafeEnum<T>> where T : struct, Enum
 {
-    private readonly T _value;
-
     /// <summary>
-    /// Gets or sets the enum value with validation on set
+    /// Gets or sets the enum value with validation on set (field-backed property).
     /// </summary>
     public T Value
     {
-        get => _value;
+        get => field;
         init
         {
             Validator.ValidateEnum(value);
-            _value = value;
+            field = value;
         }
     }
 
     /// <summary>
-    /// Initializes a new instance with enum value post validation
+    /// Initializes a new instance with enum value post validation.
     /// </summary>
-    public ValidatedEnum(T value)
+    public SafeEnum(T value)
     {
         Validator.ValidateEnum(value);
-        _value = value;
+        Value = value;
     }
 
     /// <summary>
-    /// Implicit operator for conversion from T ValidatedEnum (Useful for assignments)
+    /// Implicit operator for conversion from T SafeEnum (Useful for assignments).
     /// </summary>
-    public static implicit operator ValidatedEnum<T>(T value) => new(value);
+    public static implicit operator SafeEnum<T>(T value) => new(value);
 
     /// <summary>
-    /// Implicit operator for conversion from ValidatedEnum -> T (Useful for dereference/usage)
+    /// Implicit operator for conversion from SafeEnum -> T (Useful for dereference/usage).
     /// </summary>
-    public static implicit operator T(ValidatedEnum<T> wrapper) => wrapper._value;
+    public static implicit operator T(SafeEnum<T> wrapper) => wrapper.Value;
 
     /// <summary>
     /// Determines if two validated enums are equal or not.
     /// </summary>
-    public bool Equals(ValidatedEnum<T> other)
+    public bool Equals(SafeEnum<T> other)
     {
-        return _value.Equals(other._value);
+        return Value.Equals(other.Value);
     }
 
     /// <summary>
-    /// Determines if a generic object is of type ValidatedEnum and enum value is equal to the caller.
+    /// Determines if a generic object is of type SafeEnum and enum value is equal to the caller.
     /// </summary>
     public override bool Equals(object? obj)
     {
-        return obj is ValidatedEnum<T> other && Equals(other);
+        return obj is SafeEnum<T> other && Equals(other);
     }
 
     /// <summary>
     /// Gets HashCode of the enum value.
     /// </summary>
-	public override int GetHashCode()
+    public override int GetHashCode()
     {
-        return _value.GetHashCode();
+        return Value.GetHashCode();
     }
 
     /// <summary>
-    /// Equality operator for ValidatedEnum type.
+    /// Equality operator for SafeEnum type.
     /// </summary>
-    public static bool operator ==(ValidatedEnum<T> lhs, ValidatedEnum<T> rhs) => lhs.Equals(rhs);
+    public static bool operator ==(SafeEnum<T> lhs, SafeEnum<T> rhs) => lhs.Equals(rhs);
 
     /// <summary>
-    /// Inequality operator for ValidatedEnum type.
+    /// Inequality operator for SafeEnum type.
     /// </summary>
-    public static bool operator !=(ValidatedEnum<T> lhs, ValidatedEnum<T> rhs) => !lhs.Equals(rhs);
+    public static bool operator !=(SafeEnum<T> lhs, SafeEnum<T> rhs) => !lhs.Equals(rhs);
 
     /// <summary>
-    /// ToString() implementation of ValidatedEnum.
+    /// ToString() implementation of SafeEnum.
     /// </summary>
-	public override string ToString()
-	{
-		return _value.ToString();
-	}
+    public override string ToString()
+    {
+        return Value.ToString();
+    }
 
 }
