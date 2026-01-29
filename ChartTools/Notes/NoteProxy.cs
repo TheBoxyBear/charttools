@@ -16,13 +16,20 @@ public struct NoteProxy<TNote, TLane>
 {
 	private int m_index = -1;
 
-	public TLane Lane { get; }
+	public SafeEnum<TLane> Lane
+	{
+		get;
+		set
+		{
+			m_index = -1;
+			field = value;
+		}
+	}
 
 	public LaneNoteCollection<TNote, TLane> Source { get; }
 
 	public NoteProxy(TLane lane, LaneNoteCollection<TNote, TLane> source)
 	{
-		lane.Validate();
 		ArgumentNullException.ThrowIfNull(source);
 
 		Lane   = lane;
@@ -52,7 +59,12 @@ public struct NoteProxy<TNote, TLane>
 	}
 
 	public void Set(in TNote note)
-		=> Source.Add(in note);
+	{
+		if (!note.Lane.Equals(Lane))
+			Lane = note.Lane;
+
+		Source.Add(in note);
+	}
 
 	public static implicit operator TNote?(NoteProxy<TNote, TLane> proxy)
 		=> proxy.Get();

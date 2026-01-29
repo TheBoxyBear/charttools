@@ -243,6 +243,8 @@ public static class EnumExtensions
 		return value;
 	}
 
+	// TODO Add deprecated empty SafeEnum overload to bypass check
+
 	public static bool Equals<T>(this T value, T other)
 		where T : Enum
 		=> EqualityComparer<T>.Default.Equals(value, other);
