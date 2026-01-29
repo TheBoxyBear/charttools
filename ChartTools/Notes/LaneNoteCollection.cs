@@ -24,7 +24,7 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	public ReadOnlySpan<TNote> AsSpan()
 		=> CollectionsMarshal.AsSpan(m_notes);
 
-	public void Add(TLane lane)
+	public void Add(SafeEnum<TLane> lane)
 		=> Add(new TNote { Lane = lane });
 
 	/// <summary>
@@ -72,11 +72,11 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 			Add(in note);
 	}
 
-	public void AddRange(params ReadOnlySpan<TLane> notes)
+	public void AddRange(params ReadOnlySpan<SafeEnum<TLane>> notes)
 	{
 		m_notes.Capacity += notes.Length;
 
-		foreach (ref readonly TLane lane in notes)
+		foreach (ref readonly SafeEnum<TLane> lane in notes)
 			Add(new TNote { Lane = lane });
 	}
 
@@ -105,7 +105,7 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	/// <summary>
 	/// Determines if any note matches a given lane.
 	/// </summary>
-	public bool Contains(TLane lane)
+	public bool Contains(SafeEnum<TLane> lane)
 		=> m_notes.Any(note => note.Lane == lane);
 
 	bool ILaneNoteCollection.Contains(byte index)
@@ -128,11 +128,8 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	/// Removes the note that matches a given lane.
 	/// </summary>
 	/// <returns><see langword="true"/> if a matching note was found.</returns>
-	public bool Remove(TLane lane)
-	{
-		lane.Validate()
-		return Remove((in note) => note.Lane == lane);
-	}
+	public bool Remove(SafeEnum<TLane> lane)
+		=> Remove((in note) => note.Lane == lane);
 
 	bool ILaneNoteCollection.Remove(byte index)
 		=> Remove((in note) => note.Index == index);
@@ -158,7 +155,7 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 		return true;
 	}
 
-	public NoteProxy<TNote, TLane>? Proxy(TLane lane)
+	public NoteProxy<TNote, TLane>? Proxy(SafeEnum<TLane> lane)
 	{
 		TNote? note = this[lane];
 		return note is null ? null : new NoteProxy<TNote, TLane>(lane, this);
@@ -180,12 +177,10 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	/// </summary>
 	/// <param name="lane">Lane of the note</param>
 	/// <returns>Note with the lane if present, otherwise <see langword="null"/>.</returns>
-	public TNote? this[TLane lane]
+	public TNote? this[SafeEnum<TLane> lane]
 	{
 		get
 		{
-			lane.Validate();
-
 			foreach (ref readonly TNote note in AsSpan())
 				if (note.Lane == lane)
 					return note;
