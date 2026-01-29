@@ -4,7 +4,7 @@ namespace ChartTools;
 /// Wrapper struct for enum values that automatically validates on set.
 /// </summary>
 /// <typeparam name="T">enum type to wrap</typeparam>
-public readonly struct SafeEnum<T> : IEquatable<SafeEnum<T>> where T : struct, Enum
+public struct SafeEnum<T> : IEquatable<SafeEnum<T>> where T : struct, Enum
 {
     /// <summary>
     /// Gets or sets the enum value with validation on set (field-backed property).
@@ -12,7 +12,7 @@ public readonly struct SafeEnum<T> : IEquatable<SafeEnum<T>> where T : struct, E
     public T Value
     {
         get => field;
-        init
+        set
         {
             Validator.ValidateEnum(value);
             field = value;
