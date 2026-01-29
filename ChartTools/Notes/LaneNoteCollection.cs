@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Runtime.InteropServices;
 
+using ChartTools.Extensions.Enums;
+
 namespace ChartTools;
 
 public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
@@ -34,7 +36,7 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	/// <param name="note">Note to add</param>
 	public void Add(in TNote note)
 	{
-		Validator.ValidateEnum(note.Lane);
+		note.Lane.Validate();
 
 		if (OpenExclusivity && (note.Index == 0 || Count == 1 && AsSpan()[0].Index == 0)) // An open note is present and needs to be removed
 			Clear();
@@ -46,7 +48,7 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 		{
 			ref TNote thisNote = ref span[i];
 
-			if (thisNote.Lane.Equals(note.Lane))
+			if (thisNote.Lane == note.Lane)
 			{
 				thisNote = note;
 				return;
@@ -91,7 +93,7 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	public bool Contains(in TNote note)
 	{
 		foreach (ref readonly TNote thisNote in AsSpan())
-			if (thisNote.Lane.Equals(note.Lane))
+			if (thisNote.Lane == note.Lane)
 				return true;
 
 		return false;
@@ -104,7 +106,7 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	/// Determines if any note matches a given lane.
 	/// </summary>
 	public bool Contains(TLane lane)
-		=> m_notes.Any(note => note.Lane.Equals(lane));
+		=> m_notes.Any(note => note.Lane == lane);
 
 	bool ILaneNoteCollection.Contains(byte index)
 		=> m_notes.Any(note => note.Index == index);
@@ -128,8 +130,8 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	/// <returns><see langword="true"/> if a matching note was found.</returns>
 	public bool Remove(TLane lane)
 	{
-		Validator.ValidateEnum(lane);
-		return Remove((in note) => note.Lane.Equals(lane));
+		lane.Validate()
+		return Remove((in note) => note.Lane == lane);
 	}
 
 	bool ILaneNoteCollection.Remove(byte index)
@@ -182,10 +184,10 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	{
 		get
 		{
-			Validator.ValidateEnum(lane);
+			lane.Validate();
 
 			foreach (ref readonly TNote note in AsSpan())
-				if (note.Lane.Equals(lane))
+				if (note.Lane == lane)
 					return note;
 
 			return null;
@@ -193,7 +195,7 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	}
 
 	ILaneNote? ILaneNoteCollection.this[byte laneIndex]
-		=> m_notes.FirstOrDefault(n => n.Lane.Equals(laneIndex));
+		=> m_notes.FirstOrDefault(n => n.Lane.As<TLane, byte>() == laneIndex);
 
 	TNote IReadOnlyList<TNote>.this[int index]
 		=> m_notes[index];

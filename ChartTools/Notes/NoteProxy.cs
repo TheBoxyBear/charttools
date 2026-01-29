@@ -1,4 +1,6 @@
-﻿namespace ChartTools;
+﻿using ChartTools.Extensions.Enums;
+
+namespace ChartTools;
 
 /// <summary>
 /// Provides a proxy for accessing and modifying a note within a specific lane in a lane note collection.
@@ -20,7 +22,7 @@ public struct NoteProxy<TNote, TLane>
 
 	public NoteProxy(TLane lane, LaneNoteCollection<TNote, TLane> source)
 	{
-		Validator.ValidateEnum(lane);
+		lane.Validate();
 		ArgumentNullException.ThrowIfNull(source);
 
 		Lane   = lane;
@@ -37,7 +39,7 @@ public struct NoteProxy<TNote, TLane>
 		if (m_index == -1)
 		{
 			for (int i = 0; i < span.Length; i++)
-				if (span[i].Lane.Equals(Lane))
+				if (span[i].Lane == Lane)
 				{
 					m_index = i;
 					return ref span[i];
