@@ -10,9 +10,11 @@ internal abstract class TextFileWriter(WritingDataSource source, IEnumerable<str
 	public WritingDataSource Source { get; } = source;
 
 	protected virtual string? PreSerializerContent => null;
+
 	protected virtual string? PostSerializerContent => null;
 
 	private readonly List<Serializer<string>> serializers = [..serializers];
+
 	private readonly IEnumerable<string>? removedHeaders = removedHeaders;
 
 	private IEnumerable<string> Wrap(string header, IEnumerable<string> lines)
@@ -96,7 +98,7 @@ internal abstract class TextFileWriter(WritingDataSource source, IEnumerable<str
 				replacements = replacements.Concat(removedHeaders
 					.Select(header => new SectionReplacement<string>([], line => line == header, EndReplace, false)));
 
-			return existing.ReplaceSections(replacements);
+			return existing.ReplaceSections([..replacements]);
 		}
 		else
 			return serializers.SelectMany(serializer => Wrap(serializer.Header, getSerializerLines(serializer)));
