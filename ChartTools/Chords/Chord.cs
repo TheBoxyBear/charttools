@@ -18,6 +18,7 @@ public abstract class Chord(uint position) : ITrackObject
 	public abstract LaneNote CreateNote(byte index, uint length);
 
 	internal abstract IEnumerable<TrackObjectEntry> GetChartNoteData();
+
 	internal abstract IEnumerable<TrackObjectEntry> GetChartModifierData(Chord? previous, ChartWritingSession session);
 }
 

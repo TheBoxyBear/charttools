@@ -1,4 +1,6 @@
-﻿namespace ChartTools.IO.Components;
+﻿using ChartTools.Extensions.Enums;
+
+namespace ChartTools.IO.Components;
 
 /// <summary>
 /// Flag-based version of the <see cref="Difficulty"/> enum for use in <see cref="InstrumentComponentList"/>
@@ -160,12 +162,7 @@ public record InstrumentComponentList()
 	/// <param name="difficulties">Tracks to include for the instrument</param>
 	/// <exception cref="UndefinedEnumException"/>
 	public InstrumentComponentList(InstrumentIdentity identity, DifficultySet difficulties = DifficultySet.All) : this()
-	{
-		Validator.ValidateEnum(identity);
-		Validator.ValidateEnum(difficulties);
-
-		Map(identity) = difficulties;
-	}
+		=> Map(identity.Validate()) = difficulties.Validate();
 
 	/// <summary>
 	/// Creates a new <see cref="InstrumentComponentList"/> for a single standard instrument with the specified difficulties.
@@ -174,12 +171,7 @@ public record InstrumentComponentList()
 	/// <param name="difficulties">Tracks to include for the instrument</param>
 	/// <exception cref="UndefinedEnumException"/>
 	public InstrumentComponentList(StandardInstrumentIdentity identity, DifficultySet difficulties = DifficultySet.All) : this()
-	{
-		Validator.ValidateEnum(identity);
-		Validator.ValidateEnum(difficulties);
-
-		Map((InstrumentIdentity)identity) = difficulties;
-	}
+		=> Map((InstrumentIdentity)identity.Validate()) = difficulties.Validate();
 
 	/// <summary>
 	/// Creates a new <see cref="InstrumentComponentList"/> for a single Guitar Hero Live instrument with the specified difficulties.
@@ -188,12 +180,7 @@ public record InstrumentComponentList()
 	/// <param name="difficulties">Tracks to include for the instrument</param>
 	/// <exception cref="UndefinedEnumException"/>
 	public InstrumentComponentList(GHLInstrumentIdentity identity, DifficultySet difficulties = DifficultySet.All) : this()
-	{
-		Validator.ValidateEnum(identity);
-		Validator.ValidateEnum(difficulties);
-
-		Map((InstrumentIdentity)identity) = difficulties;
-	}
+		=> Map((InstrumentIdentity)identity.Validate()) = difficulties.Validate();
 
 	/// <summary>
 	/// Maps a instrument to its included tracks by reference.
@@ -236,10 +223,7 @@ public record InstrumentComponentList()
 	/// <param name="instrument"></param>
 	/// <exception cref="UndefinedEnumException"></exception>
 	public ref DifficultySet Map(StandardInstrumentIdentity instrument)
-	{
-		Validator.ValidateEnum(instrument);
-		return ref Map((InstrumentIdentity)instrument);
-	}
+		=> ref Map((InstrumentIdentity)instrument.Validate());
 
 	/// <summary>
 	/// Maps a Guitar Hero Live instrument to its included tracks by reference.
@@ -247,8 +231,5 @@ public record InstrumentComponentList()
 	/// <param name="instrument"></param>
 	/// <exception cref="UndefinedEnumException"></exception>
 	public ref DifficultySet Map(GHLInstrumentIdentity instrument)
-	{
-		Validator.ValidateEnum(instrument);
-		return ref Map((InstrumentIdentity)instrument);
-	}
+		=> ref Map((InstrumentIdentity)instrument.Validate());
 }
