@@ -236,6 +236,28 @@ public class LaneNoteCollectionTests
 		=> Assert.ThrowsException<UndefinedEnumException>(
 			static () => new NoteCollection().Remove((Lane)10));
 
+	[TestMethod, TestCategory(nameof(NoteCollection.Remove))]
+	public void Remove_Match_RemovesReturnsTrue()
+	{
+		const Lane lane = Lane.Green;
+
+		NoteCollection collection = [new Note(lane)];
+
+		Assert.IsTrue(collection.Remove(Lane.Green));
+		Assert.AreEqual(0, collection.Count);
+	}
+
+	[TestMethod, TestCategory(nameof(NoteCollection.Remove))]
+	public void Remove_NoMatch_NoRemoveReturnsFalse()
+	{
+		const Lane lane = Lane.Green;
+
+		NoteCollection collection = [new Note(lane)];
+
+		Assert.IsFalse(collection.Remove(Lane.Red));
+		Assert.AreEqual(1, collection.Count);
+	}
+
 	[TestMethod, TestCategory("Indexer"), TestCategory(nameof(Exception))]
 	public void Indexer_InvalidLane_Throws()
 		=> Assert.ThrowsException<UndefinedEnumException>(
