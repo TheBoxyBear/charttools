@@ -1,4 +1,4 @@
-﻿using ChartTools.Extensions.Enums;
+﻿using System.Runtime.CompilerServices;
 
 namespace ChartTools;
 
@@ -10,23 +10,15 @@ namespace ChartTools;
 /// lane.</remarks>
 /// <typeparam name="TNote">The value type representing a note associated with a lane. Must implement <see cref="ILaneNote{TLane}"/>.</typeparam>
 /// <typeparam name="TLane">The enumeration type that identifies lanes within the collection.</typeparam>
-public struct NoteProxy<TNote, TLane>
+public readonly struct NoteProxy<TNote, TLane>
 	where TNote : struct, IDefinedLaneNote<TLane>
 	where TLane : struct, Enum
 {
-	private int m_index = -1;
+	private readonly int m_index = -1;
 
-	public SafeEnum<TLane> Lane
-	{
-		get;
-		set
-		{
-			m_index = -1;
-			field = value;
-		}
-	}
+	public readonly SafeEnum<TLane> Lane { get; }
 
-	public LaneNoteCollection<TNote, TLane> Source { get; }
+	public readonly LaneNoteCollection<TNote, TLane> Source { get; }
 
 	public NoteProxy(TLane lane, LaneNoteCollection<TNote, TLane> source)
 	{
@@ -36,10 +28,10 @@ public struct NoteProxy<TNote, TLane>
 		Source = source;
 	}
 
-	public TNote? Get()
+	public readonly TNote? Get()
 		=> Source[Lane];
 
-	public ref readonly TNote GetUnsafe()
+	public readonly ref readonly TNote GetUnsafe()
 	{
 		ReadOnlySpan<TNote> span = Source.AsSpan();
 
@@ -48,7 +40,7 @@ public struct NoteProxy<TNote, TLane>
 			for (int i = 0; i < span.Length; i++)
 				if (span[i].Lane == Lane)
 				{
-					m_index = i;
+					Unsafe.AsRef(in m_index) = i;
 					return ref span[i];
 				}
 
@@ -58,14 +50,14 @@ public struct NoteProxy<TNote, TLane>
 		return ref span[m_index];
 	}
 
-	public void Set(in TNote note)
+	public readonly void Set(in TNote note)
 	{
 		if (!note.Lane.Equals(Lane))
-			Lane = note.Lane;
+			throw new InvalidOperationException("The lane of the note does not match the proxy's lane.");
 
 		Source.Add(in note);
 	}
 
-	public static implicit operator TNote?(NoteProxy<TNote, TLane> proxy)
+	public static implicit operator TNote?(in NoteProxy<TNote, TLane> proxy)
 		=> proxy.Get();
 }
