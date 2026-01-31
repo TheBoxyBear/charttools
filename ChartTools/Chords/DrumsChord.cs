@@ -24,7 +24,7 @@ public sealed class DrumsChord : Chord<DrumsNote, DrumsLane, DrumsChordModifiers
 		=> Notes.AddRange(notes);
 
 	/// <inheritdoc cref="DrumsChord(uint, ReadOnlySpan{DrumsNote})"/>
-	public DrumsChord(uint position, params ReadOnlySpan<DrumsLane> notes) : base(position)
+	public DrumsChord(uint position, params ReadOnlySpan<SafeEnum<DrumsLane>> notes) : base(position)
 		=> Notes.AddRange(notes);
 
 	internal override IEnumerable<TrackObjectEntry> GetChartNoteData()

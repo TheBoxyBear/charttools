@@ -37,7 +37,7 @@ public sealed class GHLChord : Chord<GHLNote, GHLLane, GHLChordModifiers>
     /// </summary>
     /// <param name="position">Position of the chord</param>
     /// <param name="notes">Set of notes to add by lane</param>
-	public GHLChord(uint position, params ReadOnlySpan<GHLLane> notes) : base(position)
+	public GHLChord(uint position, params ReadOnlySpan<SafeEnum<GHLLane>> notes) : base(position)
 		=> Notes.AddRange(notes);
 
 	internal override IEnumerable<TrackObjectEntry> GetChartNoteData()

@@ -20,7 +20,7 @@ public class StandardChord : Chord<StandardNote, StandardLane, StandardChordModi
 	public StandardChord(uint position, params ReadOnlySpan<StandardNote> notes) : this(position)
 		=> Notes.AddRange(notes);
 
-	public StandardChord(uint position, params ReadOnlySpan<StandardLane> notes) : this(position)
+	public StandardChord(uint position, params ReadOnlySpan<SafeEnum<StandardLane>> notes) : this(position)
 		=> Notes.AddRange(notes);
 
 	internal override IEnumerable<TrackObjectEntry> GetChartNoteData()
