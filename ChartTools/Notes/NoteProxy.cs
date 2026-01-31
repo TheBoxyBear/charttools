@@ -10,7 +10,7 @@ namespace ChartTools;
 /// lane.</remarks>
 /// <typeparam name="TNote">The value type representing a note associated with a lane. Must implement <see cref="ILaneNote{TLane}"/>.</typeparam>
 /// <typeparam name="TLane">The enumeration type that identifies lanes within the collection.</typeparam>
-public readonly struct NoteProxy<TNote, TLane>
+public struct NoteProxy<TNote, TLane>
 	where TNote : struct, IDefinedLaneNote<TLane>
 	where TLane : struct, Enum
 {
@@ -50,7 +50,7 @@ public readonly struct NoteProxy<TNote, TLane>
 		return ref span[m_index];
 	}
 
-	public readonly void Set(in TNote note)
+	public void Set(in TNote note)
 	{
 		if (!note.Lane.Equals(Lane))
 			throw new InvalidOperationException("The lane of the note does not match the proxy's lane.");
