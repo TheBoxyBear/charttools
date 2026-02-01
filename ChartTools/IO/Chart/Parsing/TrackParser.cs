@@ -13,11 +13,11 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 	public Difficulty Difficulty { get; } = difficulty;
 
 	public override Track<TChord> Result
-		=> GetResult(result);
+		=> GetResult(m_result);
 
-	private readonly Track<TChord> result = new() { Difficulty = difficulty };
+	private readonly Track<TChord> m_result = new() { Difficulty = difficulty };
 
-	private TChord? currentChord;
+	private TChord? m_currentChord;
 
 	protected override void HandleItem(in ReadOnlyMemory<char> line)
 	{
@@ -28,40 +28,40 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 		{
 			// Local event
 			case "E":
-				result.LocalEvents.Add(new(entry.Position, entry.Data.ToString()));
+				m_result.LocalEvents.Add(new(entry.Position, entry.Data.ToString()));
 				break;
 			// Note or chord modifier
 			case "N":
 				// Find the parent chord or create it
-				if (currentChord is null) // First chord
+				if (m_currentChord is null) // First chord
 				{
-					currentChord = new() { Position = entry.Position };
-					result.Chords.Add(currentChord);
+					m_currentChord = new() { Position = entry.Position };
+					m_result.Chords.Add(m_currentChord);
 				}
 				// Start of a new chord or the note belonging to an existing chord is misplaced
-				else if (entry.Position != currentChord.Position)
+				else if (entry.Position != m_currentChord.Position)
 				{
 					// Notes are typically in order of position, not requiring a search for an existing chord
-					if (entry.Position > result.Chords[^1].Position) // New chord
+					if (entry.Position > m_result.Chords[^1].Position) // New chord
 					{
-						currentChord = new() { Position = entry.Position };
-						result.Chords.Add(currentChord);
+						m_currentChord = new() { Position = entry.Position };
+						m_result.Chords.Add(m_currentChord);
 					}
 					else // Misplaced note - Requires search for the parent chord
 					{
-						int index = result.Chords.BinarySearchIndex(entry.Position, static c => c.Position, out bool exactMatch);
+						int index = m_result.Chords.BinarySearchIndex(entry.Position, static c => c.Position, out bool exactMatch);
 
 						if (exactMatch)
-							currentChord = result.Chords[index];
+							m_currentChord = m_result.Chords[index];
 						else
 						{
-							currentChord = new() { Position = entry.Position };
-							result.Chords.Insert(index, currentChord);
+							m_currentChord = new() { Position = entry.Position };
+							m_result.Chords.Insert(index, m_currentChord);
 						}
 					}
 				}
 
-				HandleNoteEntry(currentChord, new(entry.Data.Span));
+				HandleNoteEntry(m_currentChord, new(entry.Data.Span));
 
 				break;
 			// Special phrase
@@ -72,7 +72,7 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 				byte typeCode = ValueParser.Parse<byte>(in a, "type code");
 				uint length   = ValueParser.Parse<uint>(in b, "length");
 
-				result.SpecialPhrases.Add(new(entry.Position, typeCode, length));
+				m_result.SpecialPhrases.Add(new(entry.Position, typeCode, length));
 				break;
 		}
 	}
@@ -80,20 +80,20 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 	protected abstract void HandleNoteEntry(TChord chord, in NoteData data);
 
 	protected bool CanAddNote(byte index)
-		=> Session.HandleDuplicate(currentChord!.Position, "note",
-			() => currentChord.Notes.AsEnumerable().Any(n => n.Index == index));
+		=> Session.HandleDuplicate(m_currentChord!.Position, "note",
+			() => m_currentChord.Notes.AsEnumerable().Any(n => n.Index == index));
 
 	protected bool CanAddModifier(Enum existingModifier, Enum modifier)
-		=> Session.HandleDuplicate(currentChord!.Position, "chord modifier",
+		=> Session.HandleDuplicate(m_currentChord!.Position, "chord modifier",
 			() => existingModifier.HasFlag(modifier));
 
 	protected override void FinalizeParse()
 	{
 		if (Session.Configuration.SoloNoStarPowerPolicy is SoloNoStarPowerPolicy.Convert
-			&& !result.SpecialPhrases.Any(sp => sp.Type is TrackSpecialPhraseType.StarPowerGain))
-			result.SpecialPhrases.AddRange(result.SoloToStarPower(true));
+			&& !m_result.SpecialPhrases.Any(sp => sp.Type is TrackSpecialPhraseType.StarPowerGain))
+			m_result.SpecialPhrases.AddRange(m_result.SoloToStarPower(true));
 
-		ApplyOverlappingSpecialPhrasePolicy(result.SpecialPhrases, Session.Configuration.OverlappingStarPowerPolicy);
+		ApplyOverlappingSpecialPhrasePolicy(m_result.SpecialPhrases, Session.Configuration.OverlappingStarPowerPolicy);
 		base.FinalizeParse();
 	}
 

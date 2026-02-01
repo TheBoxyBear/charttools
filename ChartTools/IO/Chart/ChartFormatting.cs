@@ -94,7 +94,7 @@ internal static class ChartFormatting
 	/// <summary>
 	/// Gets the written data for a note.
 	/// </summary>
-	/// <param name="position">Position of the parent <see cref="LaneChord"/></param>
+	/// <param name="position">Position of the parent <see cref="Chord"/></param>
 	/// <param name="index">Value of <see cref="INote.Index"/></param>
 	/// <param name="sustain">Value of <see cref="ILaneNote.Sustain"/></param>
 	public static TrackObjectEntry NoteEntry(uint position, byte index, uint sustain)

@@ -5,11 +5,11 @@ using ChartTools.IO.Sources;
 namespace ChartTools.IO;
 
 internal abstract class TextFileReader(ReadingDataSource source)
-	: FileReader<string, TextParser>(source)
+	: FileReader<ReadOnlyMemory<char>, TextParser>(source)
 {
 	public virtual bool DefinedSectionEnd { get; } = false;
 
-	protected bool _disposeReader = false;
+	protected bool m_disposeReader = false;
 
 	protected override void ReadBase(bool async, in CancellationToken cancellationToken)
 	{
@@ -21,8 +21,9 @@ internal abstract class TextFileReader(ReadingDataSource source)
 			contentStr = reader.ReadToEnd();
 		}
 
-		ReadOnlyMemory<char> content = contentStr.AsMemory();
-		ReadOnlyMemory<char> line    = string.Empty.AsMemory();
+		ReadOnlyMemory<char>
+			content = contentStr.AsMemory(),
+			line    = string.Empty.AsMemory();
 
 		ParserContentGroup? currentGroup = null;
 
@@ -46,7 +47,7 @@ internal abstract class TextFileReader(ReadingDataSource source)
 			{
 				DelayedEnumerableSource<ReadOnlyMemory<char>> source = new();
 
-				parserGroups.Add(currentGroup = new(parser, source));
+				m_parserGroups.Add(currentGroup = new(parser, source));
 
 				if (async)
 				{
@@ -56,7 +57,7 @@ internal abstract class TextFileReader(ReadingDataSource source)
 						return;
 					}
 
-					parseTasks.Add(parser.StartAsyncParse(source.Enumerable));
+					m_parseTasks.Add(parser.StartAsyncParse(source.Enumerable));
 				}
 			}
 

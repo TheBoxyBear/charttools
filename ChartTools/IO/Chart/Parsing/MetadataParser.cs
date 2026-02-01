@@ -15,5 +15,6 @@ internal class MetadataParser(Metadata? existing = null)
 		MetadataChartMapper.Shared.Set(m_result, entry.Key.Span, entry.Value.Span.Trim('"'));
 	}
 
-	public override void ApplyToSong(Song song) => song.Metadata = Result;
+	public override void ApplyToSong(Song song)
+		=> song.Metadata = Result;
 }

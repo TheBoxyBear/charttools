@@ -7,13 +7,13 @@ internal class UnknownSectionParser(ChartReadingSession session, in ReadOnlyMemo
 	: ChartParser(session, in header)
 {
 	public override Section<string> Result
-	=> GetResult(result);
-	
-	private readonly Section<string> result = new(header.ToString());
+	=> GetResult(m_result);
+
+	private readonly Section<string> m_result = new(header.ToString());
 
 	public override void ApplyToSong(Song song)
 		=> (song.UnknownChartSections ??= []).Add(Result);
 
 	protected override void HandleItem(in ReadOnlyMemory<char> item)
-		=> result.Add(item.ToString());
+		=> m_result.Add(item.ToString());
 }

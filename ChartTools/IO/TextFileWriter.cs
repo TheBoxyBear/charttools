@@ -14,9 +14,9 @@ internal abstract class TextFileWriter(
 
 	protected virtual string? PostSerializerContent => null;
 
-	private readonly List<Serializer<string>> serializers = [..serializers];
+	private readonly List<Serializer<string>> m_serializers = [.. serializers];
 
-	private readonly IEnumerable<string>? removedHeaders = removedHeaders;
+	private readonly IEnumerable<string>? m_removedHeaders = removedHeaders;
 
 	private IEnumerable<string> Wrap(string header, IEnumerable<string> lines)
 	{
@@ -34,7 +34,7 @@ internal abstract class TextFileWriter(
 
 	public void Write()
 	{
-		foreach (Serializer<string> serializer in serializers)
+		foreach (Serializer<string> serializer in m_serializers)
 			serializer.Serialize();
 
 		using StreamWriter writer = new(Source.Stream, leaveOpen: true);
@@ -48,8 +48,8 @@ internal abstract class TextFileWriter(
 	public async Task WriteAsync(CancellationToken cancellationToken)
 	{
 		using StreamWriter writer = new(Source.Stream, leaveOpen: true);
-		
-		Dictionary<Serializer<string>, EagerEnumerable<string>> serializerResults = serializers.ToDictionary(
+
+		Dictionary<Serializer<string>, EagerEnumerable<string>> serializerResults = m_serializers.ToDictionary(
 			static ser => ser, static ser => new EagerEnumerable<string>(ser.SerializeAsync()));
 
 		foreach (string line in GetLinesToWrite(ser => serializerResults[ser]))
@@ -93,19 +93,19 @@ internal abstract class TextFileWriter(
 
 		if (existing?.Count > 0)
 		{
-			IEnumerable<SectionReplacement<string>> replacements = from serializer in serializers
-							   select new SectionReplacement<string>(
-								   Wrap(serializer.Header, getSerializerLines(serializer)),
-								   line => line == serializer.Header, EndReplace, true);
+			IEnumerable<SectionReplacement<string>> replacements = from serializer in m_serializers
+																   select new SectionReplacement<string>(
+																	   Wrap(serializer.Header, getSerializerLines(serializer)),
+																	   line => line == serializer.Header, EndReplace, true);
 
-			if (removedHeaders is not null)
-				replacements = replacements.Concat(removedHeaders
+			if (m_removedHeaders is not null)
+				replacements = replacements.Concat(m_removedHeaders
 					.Select(header => new SectionReplacement<string>([], line => line == header, EndReplace, false)));
 
-			return existing.ReplaceSections([..replacements]);
+			return existing.ReplaceSections([.. replacements]);
 		}
 		else
-			return serializers.SelectMany(serializer => Wrap(serializer.Header, getSerializerLines(serializer)));
+			return m_serializers.SelectMany(serializer => Wrap(serializer.Header, getSerializerLines(serializer)));
 	}
 
 	protected abstract bool EndReplace(string line);
