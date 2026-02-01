@@ -290,4 +290,47 @@ public class LaneNoteCollectionTests
 
 		Assert.IsNull(note);
 	}
+
+	[TestMethod, TestCategory(nameof(NoteCollection.Proxy)), TestCategory(nameof(Exception))]
+	public void Proxy_InvalidLane_Throws()
+		=> Assert.ThrowsException<UndefinedEnumException>(
+			static () => new NoteCollection().Proxy((Lane)10));
+
+	[TestMethod, TestCategory(nameof(NoteCollection.Proxy))]
+	public void Proxy_NoMatch_ReturnsNull()
+		=> Assert.IsNull(new NoteCollection().Proxy(Lane.Green));
+
+	[TestMethod, TestCategory(nameof(NoteCollection.Proxy))]
+	public void Proxy_Match_ReturnsProxy()
+	{
+		const Lane lane = Lane.Green;
+
+		NoteCollection collection = [new Note(lane)];
+		NoteProxy<Note, Lane>? proxy = collection.Proxy(lane);
+
+		Assert.IsNotNull(proxy);
+		Assert.AreEqual(collection, proxy.Value.Source);
+		Assert.AreEqual(lane, proxy.Value.Lane.Value);
+	}
+
+	[TestMethod, TestCategory(nameof(NoteCollection.ProxyAll))]
+	public void ProxyAll_Empty_ReturnsEmpty()
+		=> Assert.AreEqual(0, new NoteCollection().ProxyAll().Length);
+
+	[TestMethod, TestCategory(nameof(NoteCollection.ProxyAll))]
+	public void ProxyAll_ReturnsProxies()
+	{
+		ReadOnlySpan<Lane> lanes = [Lane.Green, Lane.Red];
+
+		NoteCollection collection = [new Note(Lane.Green), new Note(Lane.Red)];
+		NoteProxy<Note, Lane>[] proxies = collection.ProxyAll();
+
+		Assert.AreEqual(lanes.Length, proxies.Length);
+
+		for (int i = 0; i < lanes.Length; i++)
+		{
+			Assert.AreEqual(collection, proxies[i].Source);
+			Assert.AreEqual(lanes[i], proxies[i].Lane.Value);
+		}
+	}
 }
