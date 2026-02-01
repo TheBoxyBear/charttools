@@ -27,7 +27,7 @@ internal readonly ref struct NoteData
 		if (split.Length < 2)
 			throw new EntryException();
 
-		Index         = ValueParser.ParseByte(split[0], "note index");
-		SustainLength = ValueParser.ParseUint(split[1], "sustain length");
+		Index         = ValueParser.Parse<byte>(split[0], "note index");
+		SustainLength = ValueParser.Parse<uint>(split[1], "sustain length");
 	}
 }

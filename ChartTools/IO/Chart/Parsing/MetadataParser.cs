@@ -25,19 +25,19 @@ internal class MetadataParser(Metadata? existing = null) : ChartParser(null! /* 
 				result.Album = value;
 				break;
 			case ChartFormatting.Year:
-				result.Year = ValueParser.ParseUshort(value?.TrimStart(','), "year");
+				result.Year = ValueParser.Parse<ushort>(value?.TrimStart(','), "year");
 				break;
 			case ChartFormatting.AudioOffset:
-				result.AudioOffset = TimeSpan.FromMilliseconds(ValueParser.ParseFloat(value, "audio offset") * 1000);
+				result.AudioOffset = TimeSpan.FromMilliseconds(ValueParser.Parse<float>(value, "audio offset") * 1000);
 				break;
 			case ChartFormatting.Difficulty:
-				result.Difficulty = ValueParser.ParseSbyte(value, "difficulty");
+				result.Difficulty = ValueParser.Parse<sbyte>(value, "difficulty");
 				break;
 			case ChartFormatting.PreviewStart:
-				result.PreviewStart = ValueParser.ParseUint(value, "preview start");
+				result.PreviewStart = ValueParser.Parse<uint>(value, "preview start");
 				break;
 			case ChartFormatting.PreviewEnd:
-				result.PreviewEnd = ValueParser.ParseUint(value, "preview end");
+				result.PreviewEnd = ValueParser.Parse<uint>(value, "preview end");
 				break;
 			case ChartFormatting.Genre:
 				result.Genre = value;
