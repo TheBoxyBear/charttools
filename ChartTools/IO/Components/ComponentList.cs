@@ -28,7 +28,7 @@ public record ComponentList()
 	};
 
 	/// <summary>
-	/// Include the <see cref="ChartTools.Meta"/>
+	/// Include the <see cref="Meta.Metadata"/>
 	/// </summary>
 	public bool Metadata { get; set; }
 
@@ -38,12 +38,12 @@ public record ComponentList()
 	public bool SyncTrack { get; set; }
 
 	/// <summary>
-	/// Include the set of <see cref="ChartTools.Events.GlobalEvent"/>
+	/// Include the set of <see cref="Events.GlobalEvent"/>
 	/// </summary>
 	public bool GlobalEvents { get; set; }
 
 	/// <summary>
-	/// Include the <see cref="ChartTools.Lyrics.Vocals"/> track
+	/// Include the <see cref="Lyrics.Vocals"/> track
 	/// </summary>
 	public bool Vocals { get; set; }
 
