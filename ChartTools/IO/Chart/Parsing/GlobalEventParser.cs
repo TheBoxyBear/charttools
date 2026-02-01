@@ -4,17 +4,18 @@ using ChartTools.IO.Chart.Entries;
 
 namespace ChartTools.IO.Chart.Parsing;
 
-internal class GlobalEventParser(ChartReadingSession session) : ChartParser(session, ChartFormatting.GlobalEventHeader)
+internal class GlobalEventParser(ChartReadingSession session)
+	: ChartParser(session, ChartFormatting.GlobalEventHeader.AsMemory())
 {
 	public override List<GlobalEvent> Result
-		=> GetResult(result);
+		=> GetResult(m_result);
 
-	private readonly List<GlobalEvent> result = [];
+	private readonly List<GlobalEvent> m_result = [];
 
-	protected override void HandleItem(string line)
+	protected override void HandleItem(in ReadOnlyMemory<char> line)
 	{
 		TrackObjectEntry entry = new(line);
-		result.Add(new(entry.Position, entry.Data.Trim('"')));
+		m_result.Add(new(entry.Position, entry.Data.Trim('"').ToString()));
 	}
 
 	public override void ApplyToSong(Song song)

@@ -88,13 +88,13 @@ internal static class ChartFormatting
 		=> Header(difficulty.ToString() + instrumentName);
 	public static string Header(string name) => $"[{name}]";
 
-	public static string Line(string header, string? value)
-		=> value is null ? string.Empty : $"  {header} = {value}";
+	public static string Line(in ReadOnlySpan<char> header, in ReadOnlySpan<char> value)
+		=> $"  {header} = {value}";
 
 	/// <summary>
 	/// Gets the written data for a note.
 	/// </summary>
-	/// <param name="position">Position of the parent <see cref="LaneChord"/></param>
+	/// <param name="position">Position of the parent <see cref="Chord"/></param>
 	/// <param name="index">Value of <see cref="INote.Index"/></param>
 	/// <param name="sustain">Value of <see cref="ILaneNote.Sustain"/></param>
 	public static TrackObjectEntry NoteEntry(uint position, byte index, uint sustain)
@@ -107,13 +107,22 @@ internal static class ChartFormatting
 	public static string Float(float value)
 		=> ((int)(value * 1000)).ToString().Replace(".", "").Replace(",", "");
 
-	public static bool IsSectionEnd(string line)
-		=> line == "}";
+	public static bool IsSectionEnd(in ReadOnlySpan<char> line)
+		=> line is "}";
 
-	/// <summary>
-	/// Splits the data of an entry.
-	/// </summary>
-	/// <param name="data">Data portion of a <see cref="TrackObjectEntry"/></param>
-	internal static string[] SplitData(string data)
-		=> data.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
+	internal static void SplitData(ReadOnlySpan<char> line, out ReadOnlySpan<char> a, out ReadOnlySpan<char> b)
+	{
+		int spaceIndex = line.IndexOf(' ');
+
+		if (spaceIndex == -1)
+		{
+			a = line;
+			b = [];
+		}
+		else
+		{
+			a = line[..spaceIndex];
+			b = line[(spaceIndex + 1)..];
+		}
+	}
 }

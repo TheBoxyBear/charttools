@@ -186,7 +186,7 @@ public static class PhraseExtensions
 		   ToGlobalEvents(markers, notes)
 		];
 
-		return collections.AlternateBy(e => e.Position);
+		return collections.AlternateBy(static e => e.Position);
 	}
 
 	/// <summary>
@@ -204,7 +204,7 @@ public static class PhraseExtensions
 			phrases.ToGlobalEvents()
 		];
 
-		return collections.AlternateBy(e => e.Position);
+		return collections.AlternateBy(static e => e.Position);
 	}
 
 	/// <summary>
