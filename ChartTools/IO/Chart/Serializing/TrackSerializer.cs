@@ -21,7 +21,8 @@ internal class TrackSerializer(Track content, ChartWritingSession session)
 		ApplyOverlappingSpecialPhrasePolicy(Content.SpecialPhrases, Session.Configuration.OverlappingStarPowerPolicy);
 
 		// Convert solo and soloend events into star power
-		if (Session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert && Content.SpecialPhrases.Count == 0 && Content.LocalEvents is not null)
+		if (Session.Configuration.SoloNoStarPowerPolicy is SoloNoStarPowerPolicy.Convert &&
+			Content.SpecialPhrases.Count == 0 && Content.LocalEvents is not null)
 		{
 			TrackSpecialPhrase? starPower = null;
 
@@ -46,7 +47,7 @@ internal class TrackSerializer(Track content, ChartWritingSession session)
 						break;
 				}
 
-			Content.LocalEvents.RemoveWhere(e => e.IsSoloEvent);
+			Content.LocalEvents.RemoveWhere(static e => e.IsSoloEvent);
 		}
 
 		return

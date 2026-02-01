@@ -3,8 +3,9 @@ using ChartTools.IO.Chart.Entries;
 
 namespace ChartTools.IO.Chart.Parsing;
 
-internal class GHLTrackParser(Difficulty difficulty, GHLInstrumentIdentity instrument, ChartReadingSession session, string header)
-	: VariableInstrumentTrackParser<GHLChord, GHLInstrumentIdentity>(difficulty, instrument, session, header)
+internal class GHLTrackParser(
+	Difficulty difficulty, GHLInstrumentIdentity instrument, ChartReadingSession session, in ReadOnlyMemory<char> header)
+	: VariableInstrumentTrackParser<GHLChord, GHLInstrumentIdentity>(difficulty, instrument, session, in header)
 {
 	public override void ApplyToSong(Song song)
 	{

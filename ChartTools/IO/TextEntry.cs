@@ -8,27 +8,30 @@ internal readonly struct TextEntry
 	/// <summary>
 	/// Text before the equal sign
 	/// </summary>
-	public string Key { get; }
+	public ReadOnlyMemory<char> Key { get; }
 
 	/// <summary>
 	/// Text after the equal sign
 	/// </summary>
-	public string? Value { get; }
+	public ReadOnlyMemory<char> Value { get; }
 
 	public TextEntry(string key, string value)
+		: this(key.AsMemory(), value.AsMemory()) { }
+
+	public TextEntry(in ReadOnlyMemory<char> key, in ReadOnlyMemory<char> value)
 	{
-		Key = key;
+		Key   = key;
 		Value = value;
 	}
 
-	public TextEntry(string line)
+	public TextEntry(in ReadOnlyMemory<char> line)
 	{
-		string[] split = line.Split('=', 2, StringSplitOptions.RemoveEmptyEntries);
+		int separatorIndex = line.Span.IndexOf('=');
 
-		if (split.Length < 1)
+		if (separatorIndex == -1)
 			throw new EntryException();
 
-		Key = split[0].Trim();
-		Value = split.Length < 2 ? null : split[1].Trim();
+		Key   = line[0..separatorIndex].Trim();
+		Value = line[(separatorIndex + 1)..].Trim();
 	}
 }

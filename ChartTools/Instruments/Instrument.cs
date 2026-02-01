@@ -3,7 +3,6 @@ using ChartTools.Extensions.Linq;
 using ChartTools.IO.Configuration;
 
 using System.Diagnostics;
-using System.Dynamic;
 
 namespace ChartTools;
 
@@ -283,10 +282,10 @@ public abstract record Instrument<TChord> : Instrument
 		? throw new ArgumentNullException(nameof(track))
 		: track.Difficulty.Value switch
 			{
-				Difficulty.Easy   => m_easy   = track with { ParentInstrument = this },
-				Difficulty.Medium => m_medium = track with { ParentInstrument = this },
-				Difficulty.Hard   => m_hard   = track with { ParentInstrument = this },
-				Difficulty.Expert => m_expert = track with { ParentInstrument = this },
+				Difficulty.Easy   => Easy   = track with { ParentInstrument = this },
+				Difficulty.Medium => Medium = track with { ParentInstrument = this },
+				Difficulty.Hard   => Hard   = track with { ParentInstrument = this },
+				Difficulty.Expert => Expert = track with { ParentInstrument = this },
 				_               => throw new UndefinedEnumException(track.Difficulty)
 			};
 }

@@ -4,8 +4,8 @@ using ChartTools.IO.Chart.Entries;
 
 namespace ChartTools.IO.Chart.Parsing;
 
-internal class DrumsTrackParser(Difficulty difficulty, ChartReadingSession session, string header)
-	: TrackParser<DrumsChord>(difficulty, session, header)
+internal class DrumsTrackParser(Difficulty difficulty, ChartReadingSession session, in ReadOnlyMemory<char> header)
+	: TrackParser<DrumsChord>(difficulty, session, in header)
 {
 	public override void ApplyToSong(Song song)
 	{

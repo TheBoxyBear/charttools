@@ -20,14 +20,15 @@ internal readonly ref struct NoteData
 	/// </summary>
 	/// <param name="data">Data section of the line in the file</param>
 	/// <exception cref="FormatException"/>
-	internal NoteData(string data)
+	internal NoteData(in ReadOnlySpan<char> data)
 	{
-		string[] split = data.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
+		ReadOnlySpan<char> a, b;
+		ChartFormatting.SplitData(data, out a, out b);
 
-		if (split.Length < 2)
+		if (b.IsEmpty)
 			throw new EntryException();
 
-		Index         = ValueParser.Parse<byte>(split[0], "note index");
-		SustainLength = ValueParser.Parse<uint>(split[1], "sustain length");
+		Index         = ValueParser.Parse<byte>(in a, "note index");
+		SustainLength = ValueParser.Parse<uint>(in b, "sustain length");
 	}
 }

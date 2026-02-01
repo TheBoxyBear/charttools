@@ -125,7 +125,7 @@ public static class Optimizer
 	/// <remarks>If some markers may be anchored, use the overload with a resolution.</remarks>
 	public static void RemoveUnneeded(this ICollection<Tempo> markers, bool preOrdered = false)
 	{
-		if (markers.TryGetFirst(m => !m.PositionSynced, out Tempo? marker))
+		if (markers.TryGetFirst(static m => !m.PositionSynced, out Tempo? marker))
 			throw new DesynchronizedAnchorException(marker.Anchor!.Value,
 				$"Collection contains a desynchronized anchored tempo at {marker.Anchor}. Resolution needed to synchronize anchors.");
 

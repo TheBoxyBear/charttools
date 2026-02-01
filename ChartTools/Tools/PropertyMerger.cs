@@ -39,7 +39,7 @@ public static class PropertyMerger
 			}
 			else if (value is null || overwriteNonNull)
 			{
-				object? newVal = newValues.FirstOrDefault(newVal => newVal is not null);
+				object? newVal = newValues.FirstOrDefault(static newVal => newVal is not null);
 
 				if (newVal is not null)
 					prop.SetValue(source, newVal);
