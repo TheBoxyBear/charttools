@@ -43,4 +43,10 @@ internal abstract class MetadataMapper
 		foreach (UnidentifiedMetadata data in metadata.UnidentifiedData.Where(data => data.Origin == FileType))
 			yield return new(data.Key.AsMemory(), data.Value.AsMemory());
 	}
+
+	protected static void ValidateKey(in ReadOnlySpan<char> key)
+	{
+		if (key.IsEmpty)
+			throw new ArgumentException("Key cannot be empty.", nameof(key));
+	}
 }

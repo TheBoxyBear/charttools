@@ -13,12 +13,15 @@ internal partial class MetadataIniMapper : MetadataMapper
 	public override FileType FileType => FileType.Ini;
 
 	public override string? Get(Metadata metadata, in ReadOnlySpan<char> key)
-		=> TryGetFromAttribute(metadata, key, out var value)
+	{
+		ValidateKey(in key);
+
+		return TryGetFromAttribute(metadata, key, out var value)
 			? value : key switch
 			{
 				IniFormatting.AudioOffset => metadata.AudioOffset?.TotalMilliseconds.ToString(),
 				IniFormatting.VideoOffset => metadata.VideoOffset?.TotalMilliseconds.ToString(),
-				IniFormatting.Modchart    => metadata.IsModchart.HasValue ? (metadata.IsModchart.Value ? "1" : "0") : null,
+				IniFormatting.Modchart => metadata.IsModchart.HasValue ? (metadata.IsModchart.Value ? "1" : "0") : null,
 				IniFormatting.Track
 					when metadata.Formatting.AlbumTrackKeys.HasFlag(AlbumTrackKeys.Track)
 					=> metadata.AlbumTrack?.ToString(),
@@ -33,9 +36,12 @@ internal partial class MetadataIniMapper : MetadataMapper
 					=> metadata.Charter.Name,
 				_ => FindUndentified(metadata, key)
 			};
+	}
 
 	public override void Set(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value)
 	{
+		ValidateKey(in key);
+
 		if (!TrySetFromAttribute(metadata, in key, in value))
 			switch (key)
 			{
@@ -63,6 +69,8 @@ internal partial class MetadataIniMapper : MetadataMapper
 
 	public override void Remove(Metadata metadata, in ReadOnlySpan<char> key)
 	{
+		ValidateKey(in key);
+
 		if (!TryRemoveFromAttribute(metadata, in key));
 			switch (key)
 			{

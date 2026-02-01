@@ -1,5 +1,4 @@
 ﻿using ChartTools.IO.Chart.Configuration.Sessions;
-using ChartTools.IO.Parsing;
 
 namespace ChartTools.IO.Chart.Parsing;
 

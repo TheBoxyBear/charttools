@@ -1,5 +1,4 @@
-﻿using ChartTools.IO.Parsing;
-using ChartTools.IO.Sources;
+﻿using ChartTools.IO.Sources;
 using ChartTools.Meta;
 
 namespace ChartTools.IO.Ini;

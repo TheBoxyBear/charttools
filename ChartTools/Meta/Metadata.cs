@@ -211,7 +211,7 @@ public sealed class Metadata
 	{
 		FileType.Chart => MetadataChartMapper.Shared.Get(this, key),
 		FileType.Ini   => MetadataIniMapper.Shared.Get(this, key),
-		_ => throw new InvalidOperationException("Only chart and ini metadata can be mapped.")
+		_ => throw new ArgumentException("Only chart and ini metadata can be mapped.", nameof(fileType))
 	};
 
 	public void Set(FileType fileType, string key, string value)

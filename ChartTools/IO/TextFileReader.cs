@@ -1,5 +1,4 @@
 ﻿using ChartTools.Extensions.Collections;
-using ChartTools.IO.Parsing;
 using ChartTools.IO.Sources;
 
 namespace ChartTools.IO;

@@ -1,4 +1,5 @@
-﻿using ChartTools.IO.Chart;
+﻿using ChartTools.IO;
+using ChartTools.IO.Chart;
 using ChartTools.Meta;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -94,7 +95,7 @@ public class MetadataTests
 	}
 
 	[TestMethod, TestCategory(nameof(Metadata.Get))]
-	public void Get_Year_Formats()
+	public void Get_ChartYear_Formats()
 	{
 		const ushort expected = 2000;
 
@@ -102,6 +103,56 @@ public class MetadataTests
 
 		Assert.AreEqual($"\", {expected}\"", metadata.Get(FileType.Chart, ChartFormatting.Year));
 	}
+
+	[TestMethod, TestCategory(nameof(Metadata.Set))]
+	public void Set_ChartYear_Formats()
+	{
+		const ushort expected = 2000;
+
+		Metadata metadata = new();
+		metadata.Set(FileType.Chart, ChartFormatting.Year, $"\", {expected}\"");
+
+		Assert.AreEqual(expected, metadata.Year);
+	}
+
+	[TestMethod, TestCategory(nameof(Metadata.Set)), TestCategory(nameof(Exception))]
+	public void Set_ChartYearInvalid_Exception()
+		=> Assert.ThrowsException<ParseException>(() =>
+		{
+			Metadata metadata = new();
+			metadata.Set(FileType.Chart, ChartFormatting.Year, "InvalidYear");
+		});
+
+	[TestMethod, TestCategory(nameof(Metadata.Get))]
+	public void Get_ChartAudioOffet_Formats()
+	{
+		TimeSpan offset = TimeSpan.FromSeconds(1);
+		string expected = offset.TotalSeconds.ToString();
+
+		Metadata metadata = new() { AudioOffset = offset };
+
+		Assert.AreEqual(expected, metadata.Get(FileType.Chart, ChartFormatting.AudioOffset));
+	}
+
+	[TestMethod, TestCategory(nameof(Metadata.Set))]
+	public void Set_ChartAudioOffet_Formats()
+	{
+		TimeSpan expected = TimeSpan.FromSeconds(1);
+		string offset = expected.TotalSeconds.ToString();
+
+		Metadata metadata = new();
+		metadata.Set(FileType.Chart, ChartFormatting.AudioOffset, offset);
+
+		Assert.AreEqual(expected, metadata.AudioOffset);
+	}
+
+	[TestMethod, TestCategory(nameof(Metadata.Set)), TestCategory(nameof(Exception))]
+	public void Set_ChartAudioOffsetInvalid_Exception()
+		=> Assert.ThrowsException<ParseException>(() =>
+		{
+			Metadata metadata = new();
+			metadata.Set(FileType.Chart, ChartFormatting.Year, "InvalidOffset");
+		});
 
 	[TestMethod, TestCategory(nameof(Metadata.Get)), TestCategory(nameof(Metadata.Set))]
 	[DataRow(FileType.Chart)]

@@ -1,5 +1,4 @@
-﻿using ChartTools.IO.Parsing;
-using ChartTools.Meta;
+﻿using ChartTools.Meta;
 using ChartTools.Meta.Mapping;
 using ChartTools.Tools;
 
@@ -11,10 +10,12 @@ internal class IniParser(Metadata? existing = null)
 	public override Metadata Result
 		=> GetResult(m_result);
 
+	private readonly Metadata m_result = existing ?? new();
+
 	protected override void HandleItem(in ReadOnlyMemory<char> line)
 	{
 		TextEntry entry = new(line);
-		MetadataIniMapper.Shared.Set(result, entry.Key.Span, entry.Value.Span.Trim('"'));
+		MetadataIniMapper.Shared.Set(m_result, entry.Key.Span, entry.Value.Span.Trim('"'));
 	}
 
 	protected override Exception GetHandleException(in ReadOnlyMemory<char> item, Exception innerException)
