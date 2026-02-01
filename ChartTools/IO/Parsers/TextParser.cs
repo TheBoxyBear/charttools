@@ -1,4 +1,4 @@
-﻿namespace ChartTools.IO.Parsing;
+﻿using System.Reflection.PortableExecutable;
 
 internal abstract class TextParser(in ReadOnlyMemory<char> header)
 	: FileParser<ReadOnlyMemory<char>>

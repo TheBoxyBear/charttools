@@ -30,7 +30,8 @@ internal class DelayedEnumerator<T>(DelayedEnumerableSource<T> source) : IEnumer
 		return true;
 	}
 
-	void IEnumerator.Reset() => throw new InvalidOperationException();
+	void IEnumerator.Reset()
+		=> throw new InvalidOperationException();
 
 	void IDisposable.Dispose() { }
 }

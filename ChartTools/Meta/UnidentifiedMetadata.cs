@@ -1,4 +1,4 @@
-﻿namespace ChartTools;
+﻿namespace ChartTools.Meta;
 
 public struct UnidentifiedMetadata
 {

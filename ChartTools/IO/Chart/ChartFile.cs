@@ -10,6 +10,7 @@ using ChartTools.IO.Configuration;
 using ChartTools.IO.Formatting;
 using ChartTools.IO.Sources;
 using ChartTools.Lyrics;
+using ChartTools.Meta;
 
 namespace ChartTools.IO.Chart;
 
@@ -516,7 +517,7 @@ public static class ChartFile
 		=> new(source, null, new MetadataSerializer(metadata));
 
 	/// <summary>
-	/// Replaces the <see cref="Metadata"/> in a chart target.
+	/// Replaces the <see cref="Meta"/> in a chart target.
 	/// </summary>
 	/// <param name="source">File path or stream to write to</param>
 	/// <param name="metadata">Metadata to write</param>
@@ -527,7 +528,7 @@ public static class ChartFile
 	}
 
 	/// <summary>
-	/// Replaces the <see cref="Metadata"/> in a chart target asynchronously.
+	/// Replaces the <see cref="Meta"/> in a chart target asynchronously.
 	/// </summary>
 	/// <param name="source">File path or stream to write to</param>
 	/// <param name="metadata">Metadata to write</param>

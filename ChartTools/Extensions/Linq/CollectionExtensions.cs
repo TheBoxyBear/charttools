@@ -3,7 +3,7 @@
 public static class CollectionExtensions
 {
 	public static int BinarySearchIndex<T, TKey>(this IList<T> source, TKey target, Func<T, TKey> keySelector, out bool exactMatch)
-			where TKey : notnull, IComparable<TKey>
+		where TKey : notnull, IComparable<TKey>
 	{
 		int
 			left  = 0,

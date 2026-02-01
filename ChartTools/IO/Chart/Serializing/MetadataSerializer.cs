@@ -1,4 +1,6 @@
-﻿namespace ChartTools.IO.Chart.Serializing;
+﻿using ChartTools.Meta;
+
+namespace ChartTools.IO.Chart.Serializing;
 
 internal class MetadataSerializer(Metadata content) : Serializer<Metadata, string>(ChartFormatting.MetadataHeader, content)
 {
@@ -19,7 +21,7 @@ internal class MetadataSerializer(Metadata content) : Serializer<Metadata, strin
 		if (Content.Year is not null)
 			yield return ChartFormatting.Line("Year", $"\", {Content.Year}\"");
 
-		foreach (UnidentifiedMetadata data in Content.UnidentifiedData.Where(d => d.Origin == FileType.Chart))
+		foreach (UnidentifiedMetadata data in Content.UnidentifiedData.Where(d => d.Origin is FileType.Chart))
 			yield return ChartFormatting.Line(data.Key, data.Value);
 	}
 }

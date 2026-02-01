@@ -4,8 +4,9 @@ using ChartTools.IO.Chart;
 using ChartTools.IO.Chart.Serializing;
 using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
+using ChartTools.Meta.Mapping;
 
-namespace ChartTools;
+namespace ChartTools.Meta;
 
 /// <summary>
 /// Set of miscellaneous information about a <see cref="Song"/>
@@ -75,10 +76,13 @@ public class Metadata
 	/// </summary>
 	public Charter Charter
 	{
-		get => m_charter;
-		set => m_charter = value ?? throw new ArgumentNullException(nameof(value));
-	}
-	private Charter m_charter = new();
+		get;
+		set
+		{
+			ArgumentNullException.ThrowIfNull(value);
+			field = value;
+		}
+	} = new();
 
 	/// <summary>
 	/// The song contains explicit lyrics
@@ -124,10 +128,13 @@ public class Metadata
 	/// <inheritdoc cref="InstrumentDifficultySet"/>
 	public InstrumentDifficultySet InstrumentDifficulties
 	{
-		get => m_instrumentDifficulties;
-		set => m_instrumentDifficulties = value ?? throw new ArgumentNullException(nameof(value));
-	}
-	private InstrumentDifficultySet m_instrumentDifficulties = new();
+		get;
+		set
+		{
+			ArgumentNullException.ThrowIfNull(value);
+			field = value;
+		}
+	} = new();
 
 	/// <summary>
 	/// Type of media the audio track comes from
@@ -147,10 +154,13 @@ public class Metadata
 	/// </summary>
 	public StreamCollection Streams
 	{
-		get => m_streams;
-		set => m_streams = value ?? throw new ArgumentNullException(nameof(value));
-	}
-	private StreamCollection m_streams = new();
+		get;
+		set
+		{
+			ArgumentNullException.ThrowIfNull(value);
+			field = value;
+		}
+	} = new();
 
 	/// <summary>
 	/// Offset of the background video. A higher value makes the video start sooner.
@@ -173,16 +183,14 @@ public class Metadata
 	/// The song is a modchart
 	/// </summary>
 	[IniKeySerializable(IniFormatting.Modchart)]
-	public bool IsModchart { get; set; }
+	public bool? IsModchart { get; set; }
 
-
-	private FormattingRules m_formatting = new();
 	/// <inheritdoc cref="FormattingRules"/>
 	public FormattingRules Formatting
 	{
-		get => m_formatting;
-		set => m_formatting = value ?? throw new ArgumentNullException(nameof(value));
-	}
+		get;
+		set => field = value ?? throw new ArgumentNullException(nameof(value));
+	} = new();
 
 	/// <summary>
 	/// Unrecognized metadata
@@ -192,6 +200,38 @@ public class Metadata
 		new(new FuncEqualityComparer<UnidentifiedMetadata>(
 			static (a, b) => a.Key == b.Key && a.Origin == b.Origin));
 	#endregion
+
+	public string? Get(FileType fileType, string key)
+		=> fileType switch
+	{
+		FileType.Chart => MetadataChartMapper.Get(this, key),
+		FileType.Ini   => MetadataIniMapper.Get(this, key)
+	};
+
+	public void Set(FileType fileType, string key, string value)
+	{
+		switch (fileType)
+		{
+			case FileType.Chart:
+				MetadataChartMapper.Set(this, key, value);
+				break;
+			case FileType.Ini:
+				MetadataIniMapper.Set(this, key, value);
+				break;
+		}
+	}
+
+	public void Remove(FileType fileType, string key)
+	{
+		switch (fileType)
+		{
+			case FileType.Chart:
+				MetadataChartMapper.Remove(this, key);
+				break;
+			case FileType.Ini:
+				throw new NotImplementedException();
+		}
+	}
 
 	/// <summary>
 	/// Appends the metadata from another file.

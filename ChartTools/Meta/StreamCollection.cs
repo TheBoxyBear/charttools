@@ -1,7 +1,7 @@
 ﻿using ChartTools.IO.Chart;
 using ChartTools.IO.Chart.Serializing;
 
-namespace ChartTools;
+namespace ChartTools.Meta;
 
 /// <summary>
 /// Set of audio files to play and mute during gameplay

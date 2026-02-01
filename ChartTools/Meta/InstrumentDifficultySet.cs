@@ -1,6 +1,6 @@
 ﻿using ChartTools.IO.Ini;
 
-namespace ChartTools;
+namespace ChartTools.Meta;
 
 /// <summary>
 /// Stores the estimated difficulties for instruments

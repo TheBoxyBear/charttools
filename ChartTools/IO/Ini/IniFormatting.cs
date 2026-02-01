@@ -11,59 +11,59 @@ public static class IniFormatting
 	public const string Header = "[song]";
 
 	/// <summary>
-	/// Value of <see cref="Metadata.Title"/>
+	/// Value of <see cref="Meta.Title"/>
 	/// </summary>
 	public const string Title = "name";
 
 	/// <summary>
-	/// Value of <see cref="Metadata.Artist"/>
+	/// Value of <see cref="Meta.Artist"/>
 	/// </summary>
 	public const string Artist = "artist";
 
 	/// <summary>
-	/// Value of <see cref="Metadata.Album"/>
+	/// Value of <see cref="Meta.Album"/>
 	/// </summary>
 	public const string Album = "album";
 
 	/// <summary>
-	/// Value of <see cref="Metadata.AlbumTrack"/>
+	/// Value of <see cref="Meta.AlbumTrack"/>
 	/// </summary>
 	/// <remarks>Alternate key to <see cref="Track"/></remarks>
 	public const string AlbumTrack = "album_track";
 
 	/// <summary>
-	/// Value of <see cref="Metadata.AlbumTrack"/>
+	/// Value of <see cref="Meta.AlbumTrack"/>
 	/// </summary>
 	/// <remarks>Alternate key to <see cref="AlbumTrack"/></remarks>
 	public const string Track = "track";
 
 	/// <summary>
-	/// Value of <see cref="Metadata.Playlist"/>
+	/// Value of <see cref="Meta.Playlist"/>
 	/// </summary>
 	public const string Playlist = "playlist";
 
 	/// <summary>
-	/// Value of <see cref="Metadata.SubPlaylist"/>
+	/// Value of <see cref="Meta.SubPlaylist"/>
 	/// </summary>
 	public const string SubPlaylist = "sub_playlist";
 
 	/// <summary>
-	/// Value of <see cref="Metadata.PlaylistTrack"/>
+	/// Value of <see cref="Meta.PlaylistTrack"/>
 	/// </summary>
 	public const string PlaylistTrack = "playlist_track";
 
 	/// <summary>
-	/// Value of <see cref="Metadata.Genre"/>
+	/// Value of <see cref="Meta.Genre"/>
 	/// </summary>
 	public const string Genre = "genre";
 
 	/// <summary>
-	/// Value of <see cref="Metadata.Explicit"/>
+	/// Value of <see cref="Meta.Explicit"/>
 	/// </summary>
 	public const string Explicit = "explicit_lyrics";
 
 	/// <summary>
-	/// Value of <see cref="Metadata.Year"/>
+	/// Value of <see cref="Meta.Year"/>
 	/// </summary>
 	public const string Year = "year";
 

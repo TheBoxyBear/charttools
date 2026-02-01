@@ -1,4 +1,5 @@
-﻿namespace ChartTools.IO.Chart.Parsing;
+﻿using ChartTools.Meta;
+using ChartTools.Meta.Mapping;
 
 internal class MetadataParser(Metadata? existing = null)
 	: ChartParser(null! /* Session not used */, ChartFormatting.MetadataHeader.AsMemory())
