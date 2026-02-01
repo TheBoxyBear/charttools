@@ -62,7 +62,7 @@ internal abstract class FileReader<T, TParser>(ReadingDataSource source) : FileR
 		IsReading = false;
 	}
 
-	protected abstract void ReadBase(bool async, CancellationToken cancellationToken);
+	protected abstract void ReadBase(bool async, in CancellationToken cancellationToken);
 
 	public override void Dispose()
 	{

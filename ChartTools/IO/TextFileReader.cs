@@ -10,7 +10,7 @@ internal abstract class TextFileReader(ReadingDataSource source) : FileReader<st
 
 	protected bool _disposeReader = false;
 
-	protected override void ReadBase(bool async, CancellationToken cancellationToken)
+	protected override void ReadBase(bool async, in CancellationToken cancellationToken)
 	{
 		using StreamReader reader = new(Source.Stream, leaveOpen: true);
 
@@ -55,7 +55,7 @@ internal abstract class TextFileReader(ReadingDataSource source) : FileReader<st
 			do
 				if (!AdvanceSection())
 				{
-					FinishSection();
+					FinishSection(in cancellationToken);
 					return;
 				}
 			while (!IsSectionStart(line));
@@ -69,14 +69,14 @@ internal abstract class TextFileReader(ReadingDataSource source) : FileReader<st
 
 				if (!AdvanceSection())
 				{
-					FinishSection();
+					FinishSection(in cancellationToken);
 					return;
 				}
 			}
 
-			FinishSection();
+			FinishSection(in cancellationToken);
 
-			void FinishSection()
+			void FinishSection(in CancellationToken cancellationToken)
 			{
 				if (cancellationToken.IsCancellationRequested)
 				{

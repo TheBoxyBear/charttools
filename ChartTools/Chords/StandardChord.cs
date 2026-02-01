@@ -7,14 +7,8 @@ namespace ChartTools;
 /// <summary>
 /// Set of notes played simultaneously by a standard five-fret instrument
 /// </summary>
-public class StandardChord : Chord<LaneNote<StandardLane>, StandardLane, StandardChordModifiers>
+public class StandardChord : Chord<StandardNote, StandardLane, StandardChordModifiers>
 {
-    /// <summary>
-    /// <inheritdoc cref="Chord.OpenExclusivity"/>
-    /// </summary>
-    /// <remarks>Always <see langword="true"/> for <see cref="StandardChord"/></remarks>
-	public override bool OpenExclusivity => true;
-
 	internal override StandardChordModifiers DefaultModifiers => StandardChordModifiers.None;
 
 	internal override bool ChartSupportedModifiers => !Modifiers.HasFlag(StandardChordModifiers.ExplicitHopo);
@@ -23,10 +17,10 @@ public class StandardChord : Chord<LaneNote<StandardLane>, StandardLane, Standar
 
 	public StandardChord(uint position) : base(position) { }
 
-    public StandardChord(uint position, params ReadOnlySpan<LaneNote<StandardLane>> notes) : this(position)
+	public StandardChord(uint position, params ReadOnlySpan<StandardNote> notes) : this(position)
 		=> Notes.AddRange(notes);
 
-	public StandardChord(uint position, params ReadOnlySpan<StandardLane> notes) : this(position)
+	public StandardChord(uint position, params ReadOnlySpan<SafeEnum<StandardLane>> notes) : this(position)
 		=> Notes.AddRange(notes);
 
 	internal override IEnumerable<TrackObjectEntry> GetChartNoteData()

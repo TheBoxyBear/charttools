@@ -22,11 +22,11 @@ internal class GHLTrackParser(Difficulty difficulty, GHLInstrumentIdentity instr
 		{
 			// White notes
 			case < 3:
-				AddNote(new LaneNote<GHLLane>((GHLLane)(data.Index + 4)) { Sustain = data.SustainLength });
+				AddNote(new GHLNote((GHLLane)(data.Index + 4)) { Sustain = data.SustainLength });
 				break;
 			// Black 1 and 2
 			case < 5:
-				AddNote(new LaneNote<GHLLane>((GHLLane)(data.Index - 2)) { Sustain = data.SustainLength });
+				AddNote(new GHLNote((GHLLane)(data.Index - 2)) { Sustain = data.SustainLength });
 				break;
 			case 5:
 				AddModifier(GHLChordModifiers.HopoInvert);
@@ -35,14 +35,14 @@ internal class GHLTrackParser(Difficulty difficulty, GHLInstrumentIdentity instr
 				AddModifier(GHLChordModifiers.Tap);
 				return;
 			case 7:
-				AddNote(new LaneNote<GHLLane>(GHLLane.Open) { Sustain = data.SustainLength });
+				AddNote(new GHLNote(GHLLane.Open) { Sustain = data.SustainLength });
 				break;
 			case 8:
-				AddNote(new LaneNote<GHLLane>(GHLLane.Black3) { Sustain = data.SustainLength });
+				AddNote(new GHLNote(GHLLane.Black3) { Sustain = data.SustainLength });
 				break;
 		}
 
-		void AddNote(LaneNote<GHLLane> note)
+		void AddNote(in GHLNote note)
 		{
 			if (CanAddNote(note.Index))
 				chord.Notes.Add(note);

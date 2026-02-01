@@ -79,5 +79,4 @@ public struct SafeEnum<T> : IEquatable<SafeEnum<T>> where T : struct, Enum
     {
         return Value.ToString();
     }
-
 }

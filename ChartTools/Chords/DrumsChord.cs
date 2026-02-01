@@ -9,12 +9,6 @@ namespace ChartTools;
 /// </summary>
 public sealed class DrumsChord : Chord<DrumsNote, DrumsLane, DrumsChordModifiers>
 {
-    /// <summary>
-    /// <inheritdoc cref="Chord.OpenExclusivity"/>
-    /// </summary>
-    /// <remarks>Always <see langword="true"/> for <see cref="DrumsChord"/></remarks>
-    public override bool OpenExclusivity => false;
-
 	internal override DrumsChordModifiers DefaultModifiers => DrumsChordModifiers.None;
 
 	internal override bool ChartSupportedModifiers => true;
@@ -30,7 +24,7 @@ public sealed class DrumsChord : Chord<DrumsNote, DrumsLane, DrumsChordModifiers
 		=> Notes.AddRange(notes);
 
 	/// <inheritdoc cref="DrumsChord(uint, ReadOnlySpan{DrumsNote})"/>
-	public DrumsChord(uint position, params ReadOnlySpan<DrumsLane> notes) : base(position)
+	public DrumsChord(uint position, params ReadOnlySpan<SafeEnum<DrumsLane>> notes) : base(position)
 		=> Notes.AddRange(notes);
 
 	internal override IEnumerable<TrackObjectEntry> GetChartNoteData()
