@@ -3,6 +3,7 @@ using ChartTools.Extensions.Linq;
 using ChartTools.IO.Configuration;
 
 using System.Diagnostics;
+using System.Dynamic;
 
 namespace ChartTools;
 
@@ -122,7 +123,7 @@ public abstract record Instrument : IEmptyVerifiable
 	/// Gives all tracks the same special phrases.
 	/// </summary>
 	public SpecialPhrase[] ShareSpecial(TrackObjectSource source)
-		=> ShareEventsSpecial(source, track => track.SpecialPhrases);
+		=> ShareEventsSpecial(source, static track => track.SpecialPhrases);
 
 	private T[] ShareEventsSpecial<T>(TrackObjectSource source, Func<Track, List<T>> collectionGetter)
 		where T : ITrackObject
@@ -160,44 +161,40 @@ public abstract record Instrument<TChord> : Instrument
 	/// </summary>
 	public new Track<TChord>? Easy
 	{
-		get => m_easy;
-		set => m_easy = value is null ? null
+		get;
+		set => field = value is null ? null
 			: value with { Difficulty = Difficulty.Easy, ParentInstrument = this };
 	}
-	private Track<TChord>? m_easy;
 
 	/// <summary>
 	/// Medium track
 	/// </summary>
 	public new Track<TChord>? Medium
 	{
-		get => m_medium;
-		set => m_medium = value is null ? null
+		get;
+		set => field = value is null ? null
 			: value with { Difficulty = Difficulty.Medium, ParentInstrument = this };
 	}
-	private Track<TChord>? m_medium;
 
 	/// <summary>
 	/// Hard track
 	/// </summary>
 	public new Track<TChord>? Hard
 	{
-		get => m_hard;
-		set => m_hard = value is null ? null
+		get;
+		set => field = value is null ? null
 			: value with { Difficulty = Difficulty.Hard, ParentInstrument = this };
 	}
-	private Track<TChord>? m_hard;
 
 	/// <summary>
 	/// Expert track
 	/// </summary>
 	public new Track<TChord>? Expert
 	{
-		get => m_expert;
-		set => m_expert = value is null ? null
+		get;
+		set => field = value is null ? null
 			: value with { Difficulty = Difficulty.Expert, ParentInstrument = this };
 	}
-	private Track<TChord>? m_expert;
 
 	/// <summary>
 	/// Gets the <see cref="Track{TChord}"/> that matches a <see cref="DiffEnum"/>
@@ -230,20 +227,20 @@ public abstract record Instrument<TChord> : Instrument
 		switch (difficulty.Value)
 		{
 			case Difficulty.Easy:
-				found = m_easy is not null;
-				m_easy = null;
+				found = Easy is not null;
+				Easy  = null;
 				return found;
 			case Difficulty.Medium:
-				found = m_medium is not null;
-				m_medium = null;
+				found  = Medium is not null;
+				Medium = null;
 				return found;
 			case Difficulty.Hard:
-				found = m_hard is not null;
-				m_hard = null;
+				found = Hard is not null;
+				Hard  = null;
 				return found;
 			case Difficulty.Expert:
-				found = m_expert is not null;
-				m_expert = null;
+				found  = Expert is not null;
+				Expert = null;
 				return found;
 			default:
 				throw new UndefinedEnumException(difficulty);
