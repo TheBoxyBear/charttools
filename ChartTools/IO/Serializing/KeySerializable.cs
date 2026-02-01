@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace ChartTools.IO;
+namespace ChartTools.IO.Serializing;
 
 /// <summary>
 /// Indicates that a property should be serialized with a specific key in a specific file format

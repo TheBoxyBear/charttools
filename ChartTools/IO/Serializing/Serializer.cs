@@ -1,4 +1,4 @@
-﻿namespace ChartTools.IO;
+﻿namespace ChartTools.IO.Serializing;
 
 internal abstract class Serializer<TResult>(string header)
 {

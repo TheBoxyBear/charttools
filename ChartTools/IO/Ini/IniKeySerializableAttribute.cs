@@ -1,4 +1,6 @@
-﻿namespace ChartTools.IO.Ini;
+﻿using ChartTools.IO.Serializing;
+
+namespace ChartTools.IO.Ini;
 
 public class IniKeySerializableAttribute(string key) : KeySerializableAttribute(key)
 {

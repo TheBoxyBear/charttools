@@ -1,4 +1,6 @@
-﻿namespace ChartTools.IO.Chart.Serializing;
+﻿using ChartTools.IO.Serializing;
+
+namespace ChartTools.IO.Chart.Serializing;
 
 public class ChartKeySerializableAttribute(string key) : KeySerializableAttribute(key)
 {
