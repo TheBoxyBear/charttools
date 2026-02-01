@@ -1,7 +1,6 @@
 ﻿using ChartTools.Events;
 using ChartTools.Extensions.Linq;
 using ChartTools.IO.Configuration;
-using ChartTools.Meta;
 
 using System.Diagnostics;
 
