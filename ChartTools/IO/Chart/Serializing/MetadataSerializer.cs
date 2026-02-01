@@ -1,5 +1,6 @@
 using ChartTools.IO.Serializing;
 using ChartTools.Meta;
+using ChartTools.Meta.Mapping;
 
 namespace ChartTools.IO.Chart.Serializing;
 
