@@ -4,7 +4,8 @@ using ChartTools.IO.Sources;
 
 namespace ChartTools.IO;
 
-internal abstract class TextFileReader(ReadingDataSource source) : FileReader<string, TextParser>(source)
+internal abstract class TextFileReader(ReadingDataSource source)
+	: FileReader<string, TextParser>(source)
 {
 	public virtual bool DefinedSectionEnd { get; } = false;
 

@@ -12,7 +12,9 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 {
 	public Difficulty Difficulty { get; } = difficulty;
 
-	public override Track<TChord> Result => GetResult(result);
+	public override Track<TChord> Result
+		=> GetResult(result);
+
 	private readonly Track<TChord> result = new() { Difficulty = difficulty };
 
 	private TChord? currentChord;
@@ -21,7 +23,7 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 	{
 		TrackObjectEntry entry = new(line);
 
-        // Can be optimized by switching on the single char
+		// Can be optimized by switching on the single char
 		switch (entry.Type)
 		{
 			// Local event
@@ -86,11 +88,11 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 
 	protected override void FinalizeParse()
 	{
-        if (Session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert
-            && !result.SpecialPhrases.Any(sp => sp.Type is TrackSpecialPhraseType.StarPowerGain))
-            result.SpecialPhrases.AddRange(result.SoloToStarPower(true));
+		if (Session.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert
+			&& !result.SpecialPhrases.Any(sp => sp.Type is TrackSpecialPhraseType.StarPowerGain))
+			result.SpecialPhrases.AddRange(result.SoloToStarPower(true));
 
-        ApplyOverlappingSpecialPhrasePolicy(result.SpecialPhrases, Session.Configuration.OverlappingStarPowerPolicy);
+		ApplyOverlappingSpecialPhrasePolicy(result.SpecialPhrases, Session.Configuration.OverlappingStarPowerPolicy);
 		base.FinalizeParse();
 	}
 

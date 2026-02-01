@@ -79,55 +79,55 @@ public static class IniFormatting
 	/// <remarks>Alternate key to <see cref="Charter"/></remarks>
 	public const string Frets = "frets";
 
-    /// <summary>
-    /// Value of <see cref="Charter.Icon"/>
-    /// </summary>
+	/// <summary>
+	/// Value of <see cref="Charter.Icon"/>
+	/// </summary>
 	public const string Icon = "icon";
 
-    /// <summary>
-    /// Value of <see cref="Metadata.PreviewStart"/>
-    /// </summary>
+	/// <summary>
+	/// Value of <see cref="Metadata.PreviewStart"/>
+	/// </summary>
 	public const string PreviewStart = "preview_start_time";
 
-    /// <summary>
-    /// Value of <see cref="Metadata.PreviewEnd"/>
-    /// </summary>
+	/// <summary>
+	/// Value of <see cref="Metadata.PreviewEnd"/>
+	/// </summary>
 	public const string PreviewEnd = "preview_end_time";
 
-    /// <summary>
-    /// Value of <see cref="Metadata.AudioOffset"/>
-    /// </summary>
+	/// <summary>
+	/// Value of <see cref="Metadata.AudioOffset"/>
+	/// </summary>
 	public const string AudioOffset = "delay";
 
-    /// <summary>
-    /// Value of <see cref="Metadata.VideoOffset"/>
-    /// </summary>
+	/// <summary>
+	/// Value of <see cref="Metadata.VideoOffset"/>
+	/// </summary>
 	public const string VideoOffset = "video_start_time";
 
-    /// <summary>
-    /// Value of <see cref="Metadata.Length"/>
-    /// </summary>
+	/// <summary>
+	/// Value of <see cref="Metadata.Length"/>
+	/// </summary>
 	public const string Length = "song_length";
 
-    /// <summary>
-    /// Value of <see cref="Metadata.LoadingText"/>
-    /// </summary>
-    public const string LoadingText = "loading_text";
+	/// <summary>
+	/// Value of <see cref="Metadata.LoadingText"/>
+	/// </summary>
+	public const string LoadingText = "loading_text";
 
-    /// <summary>
-    /// Value of <see cref="Metadata.IsModchart"/>
-    /// </summary>
-    public const string Modchart = "modchart";
+	/// <summary>
+	/// Value of <see cref="Metadata.IsModchart"/>
+	/// </summary>
+	public const string Modchart = "modchart";
 
-    /// <summary>
-    /// Value of <see cref="Formatting.FormattingRules.SustainCutoff"/>
-    /// </summary>
-    public const string SustainCutoff = "sustain_cutoff_threshold";
+	/// <summary>
+	/// Value of <see cref="Formatting.FormattingRules.SustainCutoff"/>
+	/// </summary>
+	public const string SustainCutoff = "sustain_cutoff_threshold";
 
-    /// <summary>
-    /// Value of <see cref="Formatting.FormattingRules.HopoFrequency"/>
-    /// </summary>
-    public const string HopoFrequency = "hopo_frequency";
+	/// <summary>
+	/// Value of <see cref="Formatting.FormattingRules.HopoFrequency"/>
+	/// </summary>
+	public const string HopoFrequency = "hopo_frequency";
 
 	public const string MultiplierNote = "multiplier_note";
 	public const string StarPowerNote = "star_power_note";
@@ -137,68 +137,68 @@ public static class IniFormatting
 	public const string SysExOpenBass = "sysex_open_bass";
 	public const string SysExProSlide = "sysex_pro_slide";
 
-    /// <summary>
-    /// Value of <see cref="InstrumentDifficultySet.GHLCoopGuitar"/>
-    /// </summary>
-    public const string GHLCoopGuitarDifficulty = "diff_guitar_coop_ghl";
+	/// <summary>
+	/// Value of <see cref="InstrumentDifficultySet.GHLCoopGuitar"/>
+	/// </summary>
+	public const string GHLCoopGuitarDifficulty = "diff_guitar_coop_ghl";
 
 	public static string Line(string key, string? value) => $"{key} = {value}";
 
-    public class Difficulties
-    {
-        /// <summary>
-        /// Value of <see cref="Metadata.Difficulty"/>
-        /// </summary>
-        public const string Global = "diff_band";
+	public class Difficulties
+	{
+		/// <summary>
+		/// Value of <see cref="Metadata.Difficulty"/>
+		/// </summary>
+		public const string Global = "diff_band";
 
-        /// <summary>
-        /// Value of <see cref="InstrumentDifficultySet.StandardLeadGuitar"/>
-        /// </summary>
-        public const string StandardLeadGuitar = "diff_guitar";
+		/// <summary>
+		/// Value of <see cref="InstrumentDifficultySet.StandardLeadGuitar"/>
+		/// </summary>
+		public const string StandardLeadGuitar = "diff_guitar";
 
-        /// <summary>
-        /// Value of <see cref="InstrumentDifficultySet.StandardRhythmGuitar"/>
-        /// </summary>
-        public const string StandardRhythmGuitar = "diff_rhythm";
+		/// <summary>
+		/// Value of <see cref="InstrumentDifficultySet.StandardRhythmGuitar"/>
+		/// </summary>
+		public const string StandardRhythmGuitar = "diff_rhythm";
 
-        /// <summary>
-        /// Value of <see cref="InstrumentDifficultySet.StandardCoopGuitar"/>
-        /// </summary>
-        public const string StandardCoopGuitar = "diff_guitar_coop";
+		/// <summary>
+		/// Value of <see cref="InstrumentDifficultySet.StandardCoopGuitar"/>
+		/// </summary>
+		public const string StandardCoopGuitar = "diff_guitar_coop";
 
-        /// <summary>
-        /// Value of <see cref="InstrumentDifficultySet.StandardBass"/>
-        /// </summary>
-        public const string StandardBass = "diff_bass";
+		/// <summary>
+		/// Value of <see cref="InstrumentDifficultySet.StandardBass"/>
+		/// </summary>
+		public const string StandardBass = "diff_bass";
 
-        /// <summary>
-        /// Value of <see cref="InstrumentDifficultySet.Drums"/>
-        /// </summary>
-        public const string Drums = "diff_drums";
+		/// <summary>
+		/// Value of <see cref="InstrumentDifficultySet.Drums"/>
+		/// </summary>
+		public const string Drums = "diff_drums";
 
-        /// <summary>
-        /// Value of <see cref="InstrumentDifficultySet.StandardKeys"/>
-        /// </summary>
-        public const string StandardKeys = "diff_keys";
+		/// <summary>
+		/// Value of <see cref="InstrumentDifficultySet.StandardKeys"/>
+		/// </summary>
+		public const string StandardKeys = "diff_keys";
 
-        /// <summary>
-        /// Value of <see cref="InstrumentDifficultySet.GHLLeadGuitar"/>
-        /// </summary>
-        public const string GHLLeadGuitar = "diff_guitarghl";
+		/// <summary>
+		/// Value of <see cref="InstrumentDifficultySet.GHLLeadGuitar"/>
+		/// </summary>
+		public const string GHLLeadGuitar = "diff_guitarghl";
 
-        /// <summary>
-        /// Value of <see cref="InstrumentDifficultySet.GHLRhythmGuitar"/>
-        /// </summary>
-        public const string GHLRhythmGuitar = "diff_rhythm_ghl";
+		/// <summary>
+		/// Value of <see cref="InstrumentDifficultySet.GHLRhythmGuitar"/>
+		/// </summary>
+		public const string GHLRhythmGuitar = "diff_rhythm_ghl";
 
-        /// <summary>
-        /// Value of <see cref="InstrumentDifficultySet.GHLCoopGuitar"/>
-        /// </summary>
-        public const string GHLCoopGuitar = "diff_guitar_coop_ghl";
+		/// <summary>
+		/// Value of <see cref="InstrumentDifficultySet.GHLCoopGuitar"/>
+		/// </summary>
+		public const string GHLCoopGuitar = "diff_guitar_coop_ghl";
 
-        /// <summary>
-        /// Value of <see cref="InstrumentDifficultySet.GHLBass"/>
-        /// </summary>
-        public const string GHLBass = "diff_bassghl";
-    }
+		/// <summary>
+		/// Value of <see cref="InstrumentDifficultySet.GHLBass"/>
+		/// </summary>
+		public const string GHLBass = "diff_bassghl";
+	}
 }

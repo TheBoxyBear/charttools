@@ -11,7 +11,8 @@ namespace ChartTools;
 public abstract record Track : IEmptyVerifiable
 {
 	/// <inheritdoc cref="IEmptyVerifiable.IsEmpty"/>
-	public bool IsEmpty => Chords.Count == 0 && LocalEvents.Count == 0 && SpecialPhrases.Count == 0;
+	public bool IsEmpty
+		=> Chords.Count == 0 && LocalEvents.Count == 0 && SpecialPhrases.Count == 0;
 
 	/// <summary>
 	/// Difficulty of the track
@@ -21,7 +22,8 @@ public abstract record Track : IEmptyVerifiable
 	/// <summary>
 	/// Instrument containing the track
 	/// </summary>
-	public Instrument? ParentInstrument => GetInstrument();
+	public Instrument? ParentInstrument
+		=> GetInstrument();
 
 	/// <summary>
 	/// Events specific to the <see cref="Track"/>
@@ -45,7 +47,7 @@ public abstract record Track : IEmptyVerifiable
 		if (LocalEvents is null)
 			yield break;
 
-		foreach (LocalEvent e in LocalEvents.OrderBy(e => e.Position))
+		foreach (LocalEvent e in LocalEvents.OrderBy(static e => e.Position))
 		{
 			TrackSpecialPhrase? phrase = null;
 
@@ -66,7 +68,7 @@ public abstract record Track : IEmptyVerifiable
 		}
 
 		if (removeEvents)
-			LocalEvents.RemoveAll(e => e.IsSoloEvent);
+			LocalEvents.RemoveAll(static e => e.IsSoloEvent);
 	}
 
 	protected abstract Instrument? GetInstrument();
@@ -83,10 +85,10 @@ public record Track<TChord> : Track
 	/// </summary>
 	public override List<TChord> Chords { get; } = [];
 
-    /// <summary>
-    /// Instrument the track is held in.
-    /// </summary>
-    public new Instrument<TChord>? ParentInstrument { get; init; }
+	/// <summary>
+	/// Instrument the track is held in.
+	/// </summary>
+	public new Instrument<TChord>? ParentInstrument { get; init; }
 
 	/// <summary>
 	/// Gets the chords as a read-only list of the base interface.

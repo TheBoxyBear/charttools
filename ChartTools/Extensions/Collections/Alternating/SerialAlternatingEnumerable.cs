@@ -26,10 +26,12 @@ public class SerialAlternatingEnumerable<T> : IEnumerable<T>
 	}
 
 	/// <inheritdoc/>
-	public IEnumerator<T> GetEnumerator() => new Enumerator([.. Enumerables.Select(e => e.GetEnumerator())])!;
+	public IEnumerator<T> GetEnumerator()
+		=> new Enumerator([.. Enumerables.Select(static e => e.GetEnumerator())])!;
 
 	/// <inheritdoc/>
-	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+	IEnumerator IEnumerable.GetEnumerator()
+		=> GetEnumerator();
 
 	/// <summary>
 	/// Enumerator that yields <typeparamref name="T"/> items by alternating through a set of enumerators

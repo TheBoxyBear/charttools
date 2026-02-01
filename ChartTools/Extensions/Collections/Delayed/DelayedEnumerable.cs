@@ -14,7 +14,7 @@ public class DelayedEnumerable<T> : IEnumerable<T>
 
 	internal DelayedEnumerable(DelayedEnumerableSource<T> source)
 	{
-		m_source = source;
+		m_source     = source;
 		m_enumerator = new(source);
 	}
 

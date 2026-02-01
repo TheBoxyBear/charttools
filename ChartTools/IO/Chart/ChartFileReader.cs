@@ -13,7 +13,8 @@ internal class ChartFileReader(ReadingDataSource source, ChartReadingSession ses
 {
 	public ChartReadingSession Session { get; } = session;
 
-	public override IEnumerable<ChartParser> Parsers => base.Parsers.Cast<ChartParser>();
+	public override IEnumerable<ChartParser> Parsers
+		=> base.Parsers.Cast<ChartParser>();
 
 	public override bool DefinedSectionEnd => true;
 
@@ -49,6 +50,9 @@ internal class ChartFileReader(ReadingDataSource source, ChartReadingSession ses
 		}
 	}
 
-	protected override bool IsSectionStart(string line) => line == "{";
-	protected override bool IsSectionEnd(string line) => ChartFormatting.IsSectionEnd(line);
+	protected override bool IsSectionStart(string line)
+		=> line == "{";
+
+	protected override bool IsSectionEnd(string line)
+		=> ChartFormatting.IsSectionEnd(line);
 }

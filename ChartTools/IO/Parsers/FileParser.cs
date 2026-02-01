@@ -12,6 +12,7 @@ internal abstract class FileParser<T>
 		try { FinalizeParse(); }
 		catch (Exception e) { throw GetFinalizeException(e); }
 	}
+
 	public void Parse(IEnumerable<T> items)
 	{
 		ParseBase(items);
@@ -19,6 +20,7 @@ internal abstract class FileParser<T>
 		try { FinalizeParse(); }
 		catch (Exception e) { throw GetFinalizeException(e); }
 	}
+
 	private void ParseBase(IEnumerable<T> items)
 	{
 		foreach (T item in items)

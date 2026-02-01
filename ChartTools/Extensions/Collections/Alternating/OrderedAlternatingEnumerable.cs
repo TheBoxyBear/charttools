@@ -7,7 +7,8 @@ namespace ChartTools.Extensions.Collections.Alternating;
 /// </summary>
 /// <typeparam name="T">Type of the enumerated items</typeparam>
 /// <typeparam name="TKey">Type of the key used to determine the order</typeparam>
-public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey : IComparable<TKey>
+public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T>
+	where TKey : IComparable<TKey>
 {
 	/// <summary>
 	/// Enumerables to alternate between
@@ -33,15 +34,17 @@ public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T> where TKey :
 		if (enumerables.Length == 0)
 			throw new ArgumentException("No enumerables provided.");
 
-		KeyGetter = keyGetter;
+		KeyGetter   = keyGetter;
 		Enumerables = [..enumerables];
 	}
 
 	/// <inheritdoc/>
-	public IEnumerator<T> GetEnumerator() => new Enumerator(KeyGetter, [.. Enumerables.Select(e => e.GetEnumerator())]);
+	public IEnumerator<T> GetEnumerator()
+		=> new Enumerator(KeyGetter, [.. Enumerables.Select(static e => e.GetEnumerator())]);
 
 	/// <inheritdoc/>
-	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+	IEnumerator IEnumerable.GetEnumerator()
+		=> GetEnumerator();
 
 	/// <summary>
 	/// Enumerator that yields <typeparamref name="T"/> items from a set of enumerators in order using a <typeparamref name="TKey"/> key

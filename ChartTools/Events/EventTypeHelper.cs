@@ -10,8 +10,9 @@ public static class EventTypeHelper
 	/// </summary>
 	public static class Common
 	{
-		public const string ToggleOn  = "on";
-		public const string ToggleOff = "off";
+		public const string
+			ToggleOn  = "on",
+			ToggleOff = "off";
 	}
 
 	/// <summary>

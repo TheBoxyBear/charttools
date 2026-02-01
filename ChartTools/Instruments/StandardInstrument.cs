@@ -9,20 +9,21 @@ public record StandardInstrument : Instrument<StandardChord>
 	/// </summary>
 	public MidiInstrumentOrigin MidiOrigin
 	{
-		get => m_midiOrigin;
+		get;
 		set
 		{
 			if (value is MidiInstrumentOrigin.GuitarHero1 && InstrumentIdentity is not StandardInstrumentIdentity.LeadGuitar)
 				throw new ArgumentException($"{InstrumentIdentity} is not supported by Guitar Hero 1.", nameof(value));
 
-			m_midiOrigin = value;
+			field = value;
 		}
 	}
-	private MidiInstrumentOrigin m_midiOrigin;
 
 	public StandardInstrument() { }
 
-	public StandardInstrument(StandardInstrumentIdentity identity) => InstrumentIdentity = identity;
+	public StandardInstrument(StandardInstrumentIdentity identity)
+		=> InstrumentIdentity = identity;
 
-	protected override InstrumentIdentity GetIdentity() => (InstrumentIdentity)InstrumentIdentity;
+	protected override InstrumentIdentity GetIdentity()
+		=> (InstrumentIdentity)InstrumentIdentity;
 }

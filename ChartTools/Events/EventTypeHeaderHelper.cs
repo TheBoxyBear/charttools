@@ -5,9 +5,9 @@
 /// </summary>
 public static class EventTypeHeaderHelper
 {
-    /// <summary>
-    /// Helpers for <see cref="GlobalEvent"/>
-    /// </summary>
+	/// <summary>
+	/// Helpers for <see cref="GlobalEvent"/>
+	/// </summary>
 	public static class Global
 	{
 		public const string
@@ -23,9 +23,9 @@ public static class EventTypeHeaderHelper
 			Sync              = "sync_";
 	}
 
-    /// <summary>
-    /// Helpers for <see cref="LocalEvent"/>
-    /// </summary>
+	/// <summary>
+	/// Helpers for <see cref="LocalEvent"/>
+	/// </summary>
 	public static class Local
 	{
 		public const string

@@ -17,5 +17,6 @@ internal class EagerEnumerable<T>(Task<IEnumerable<T>> source) : IEnumerable<T>
 		return m_items.GetEnumerator();
 	}
 
-	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+	IEnumerator IEnumerable.GetEnumerator()
+		=> GetEnumerator();
 }

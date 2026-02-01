@@ -24,7 +24,7 @@ public class StandardChord : Chord<StandardNote, StandardLane, StandardChordModi
 		=> Notes.AddRange(notes);
 
 	internal override IEnumerable<TrackObjectEntry> GetChartNoteData()
-		=> Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane == StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Sustain));
+		=> Notes.Select(note => ChartFormatting.NoteEntry(Position, note.Lane is StandardLane.Open ? (byte)7 : (byte)(note.Lane - 1), note.Sustain));
 
 	internal override IEnumerable<TrackObjectEntry> GetChartModifierData(Chord? previous, ChartWritingSession session)
 	{

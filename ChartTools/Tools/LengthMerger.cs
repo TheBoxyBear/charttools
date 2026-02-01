@@ -6,8 +6,8 @@ public static class LengthMerger
 		where T : class, ILongTrackObject
 	{
 		uint
-			start = objects.Min(o => o.Position),
-			end   = objects.Max(o => o.EndPosition);
+			start = objects.Min(static o => o.Position),
+			end   = objects.Max(static o => o.EndPosition);
 
 		target ??= objects.First();
 

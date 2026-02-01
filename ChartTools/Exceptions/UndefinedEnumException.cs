@@ -3,7 +3,8 @@
 /// <summary>
 /// Exception thrown when using an <see cref="Enum"/> value that is not defined
 /// </summary>
-public class UndefinedEnumException(Enum value) : ArgumentException($"{value.GetType().Name} \"{value}\" is not defined.")
+public class UndefinedEnumException(Enum value)
+	: ArgumentException($"{value.GetType().Name} \"{value}\" is not defined.")
 {
 	/// <summary>
 	/// Value used

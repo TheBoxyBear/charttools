@@ -104,13 +104,16 @@ internal static class ChartFormatting
 	/// Gets the written value of a float.
 	/// </summary>
 	/// <param name="value">Value to get the written equivalent of</param>
-	public static string Float(float value) => ((int)(value * 1000)).ToString().Replace(".", "").Replace(",", "");
+	public static string Float(float value)
+		=> ((int)(value * 1000)).ToString().Replace(".", "").Replace(",", "");
 
-	public static bool IsSectionEnd(string line) => line == "}";
+	public static bool IsSectionEnd(string line)
+		=> line == "}";
 
 	/// <summary>
 	/// Splits the data of an entry.
 	/// </summary>
 	/// <param name="data">Data portion of a <see cref="TrackObjectEntry"/></param>
-	internal static string[] SplitData(string data) => data.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
+	internal static string[] SplitData(string data)
+		=> data.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
 }

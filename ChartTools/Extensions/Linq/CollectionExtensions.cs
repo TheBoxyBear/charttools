@@ -2,7 +2,8 @@
 
 public static class CollectionExtensions
 {
-	public static int BinarySearchIndex<T, TKey>(this IList<T> source, TKey target, Func<T, TKey> keySelector, out bool exactMatch) where TKey : notnull, IComparable<TKey>
+	public static int BinarySearchIndex<T, TKey>(this IList<T> source, TKey target, Func<T, TKey> keySelector, out bool exactMatch)
+			where TKey : notnull, IComparable<TKey>
 	{
 		int
 			left  = 0,
@@ -32,8 +33,9 @@ public static class CollectionExtensions
 		return index;
 	}
 
-	public static int BinarySearchIndex<T>(this IList<T> source, T target, out bool exactMatch) where T : notnull, IComparable<T>
-		=> BinarySearchIndex(source, target, t => t, out exactMatch);
+	public static int BinarySearchIndex<T>(this IList<T> source, T target, out bool exactMatch)
+		where T : notnull, IComparable<T>
+		=> BinarySearchIndex(source, target, static t => t, out exactMatch);
 
 	/// <summary>
 	/// Removes all items in a <see cref="ICollection{T}"/> that meet a condition

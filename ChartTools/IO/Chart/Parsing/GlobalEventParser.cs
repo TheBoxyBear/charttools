@@ -6,7 +6,9 @@ namespace ChartTools.IO.Chart.Parsing;
 
 internal class GlobalEventParser(ChartReadingSession session) : ChartParser(session, ChartFormatting.GlobalEventHeader)
 {
-	public override List<GlobalEvent> Result => GetResult(result);
+	public override List<GlobalEvent> Result
+		=> GetResult(result);
+
 	private readonly List<GlobalEvent> result = [];
 
 	protected override void HandleItem(string line)
@@ -15,5 +17,6 @@ internal class GlobalEventParser(ChartReadingSession session) : ChartParser(sess
 		result.Add(new(entry.Position, entry.Data.Trim('"')));
 	}
 
-	public override void ApplyToSong(Song song) => song.GlobalEvents = Result;
+	public override void ApplyToSong(Song song)
+		=> song.GlobalEvents = Result;
 }

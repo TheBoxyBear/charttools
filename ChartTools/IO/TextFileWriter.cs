@@ -38,7 +38,7 @@ internal abstract class TextFileWriter(WritingDataSource source, IEnumerable<str
 
 		using StreamWriter writer = new(Source.Stream, leaveOpen: true);
 
-		foreach (string line in GetLinesToWrite(serializer => serializer.Serialize()))
+		foreach (string line in GetLinesToWrite(static serializer => serializer.Serialize()))
 			writer.WriteLine(line);
 
 		EndFile();
@@ -47,7 +47,8 @@ internal abstract class TextFileWriter(WritingDataSource source, IEnumerable<str
 	public async Task WriteAsync(CancellationToken cancellationToken)
 	{
 		using StreamWriter writer = new(Source.Stream, leaveOpen: true);
-		Dictionary<Serializer<string>, EagerEnumerable<string>> serializerResults = serializers.ToDictionary(ser => ser, ser => new EagerEnumerable<string>(ser.SerializeAsync()));
+		Dictionary<Serializer<string>, EagerEnumerable<string>> serializerResults = serializers.ToDictionary(
+			static ser => ser, static ser => new EagerEnumerable<string>(ser.SerializeAsync()));
 
 		foreach (string line in GetLinesToWrite(ser => serializerResults[ser]))
 		{
@@ -60,7 +61,8 @@ internal abstract class TextFileWriter(WritingDataSource source, IEnumerable<str
 		EndFile();
 	}
 
-	private void EndFile() => Source.Stream.SetLength(Source.Stream.Position);
+	private void EndFile()
+		=> Source.Stream.SetLength(Source.Stream.Position);
 
 	private List<string>? GetExistingLines()
 	{
@@ -106,5 +108,6 @@ internal abstract class TextFileWriter(WritingDataSource source, IEnumerable<str
 
 	protected abstract bool EndReplace(string line);
 
-	public void Dispose() => Source.Dispose();
+	public void Dispose()
+		=> Source.Dispose();
 }

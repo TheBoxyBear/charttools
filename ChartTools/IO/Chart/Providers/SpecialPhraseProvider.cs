@@ -6,5 +6,5 @@ namespace ChartTools.IO.Chart.Providers;
 internal class SpeicalPhraseProvider : ISerializerDataProvider<TrackSpecialPhrase, TrackObjectEntry, ChartWritingSession>
 {
 	public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<TrackSpecialPhrase> source, ChartWritingSession session)
-		=> source.Select(sp => new TrackObjectEntry(sp.Position, "S", $"{sp.TypeCode} {sp.Length}"));
+		=> source.Select(static sp => new TrackObjectEntry(sp.Position, "S", $"{sp.TypeCode} {sp.Length}"));
 }

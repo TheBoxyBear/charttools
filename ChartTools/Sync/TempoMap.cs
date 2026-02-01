@@ -7,15 +7,18 @@ namespace ChartTools;
 /// </summary>
 public class TempoMap : IList<Tempo>
 {
-	private readonly List<Tempo> m_items = [];
-	private readonly List<Tempo> m_anchors = [];
+	private readonly List<Tempo>
+		m_items   = [],
+		m_anchors = [];
 
 	public Tempo this[int index]
 	{
 		get => m_items[index];
 		set => m_items[index] = value;
 	}
-	public int Count => m_items.Count;
+
+	public int Count
+		=> m_items.Count;
 
 	bool ICollection<Tempo>.IsReadOnly => false;
 
@@ -53,7 +56,8 @@ public class TempoMap : IList<Tempo>
 		Desync();
 	}
 
-	public void Clear() => m_items.Clear();
+	public void Clear()
+		=> m_items.Clear();
 
 	public void Clear(bool detachMap)
 	{
@@ -64,11 +68,14 @@ public class TempoMap : IList<Tempo>
 		m_items.Clear();
 	}
 
-	public bool Contains(Tempo item) => m_items.Contains(item);
+	public bool Contains(Tempo item)
+		=> m_items.Contains(item);
 
-	public void CopyTo(Tempo[] array, int arrayIndex) => m_items.CopyTo(array, arrayIndex);
+	public void CopyTo(Tempo[] array, int arrayIndex)
+		=> m_items.CopyTo(array, arrayIndex);
 
-	public int IndexOf(Tempo item) => m_items.IndexOf(item);
+	public int IndexOf(Tempo item)
+		=> m_items.IndexOf(item);
 
 	public void Insert(int index, Tempo item)
 	{
@@ -89,7 +96,8 @@ public class TempoMap : IList<Tempo>
 		Desync();
 	}
 
-	public bool Remove(Tempo item) => Remove(item, false);
+	public bool Remove(Tempo item)
+		=> Remove(item, false);
 
 	public bool Remove(Tempo item, bool detachMap)
 	{
@@ -134,9 +142,11 @@ public class TempoMap : IList<Tempo>
 		Desync();
 	}
 
-	public IEnumerator<Tempo> GetEnumerator() => m_items.GetEnumerator();
+	public IEnumerator<Tempo> GetEnumerator()
+		=> m_items.GetEnumerator();
 
-	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+	IEnumerator IEnumerable.GetEnumerator()
+		=> GetEnumerator();
 
 	/// <summary>
 	/// Synchronizes anchored markers by calculating their tick position.
@@ -169,12 +179,13 @@ public class TempoMap : IList<Tempo>
 		if (desynced.Count == 0)
 			return;
 
-		using IEnumerator<Tempo> syncedEnumerator = (desyncedPreOrdered ? (IEnumerable<Tempo>)synced : synced.OrderBy(t => t.Position)).GetEnumerator();
+		using IEnumerator<Tempo> syncedEnumerator = (desyncedPreOrdered
+			? (IEnumerable<Tempo>)synced : synced.OrderBy(static t => t.Position)).GetEnumerator();
 
 		if (!syncedEnumerator.MoveNext() || syncedEnumerator.Current.Position != 0)
 			throw new Exception("A tempo marker at position or anchor zero is required to sync anchors.");
 
-		using IEnumerator<Tempo> desyncedEnumerator = desynced.OrderBy(t => t.Anchor).GetEnumerator();
+		using IEnumerator<Tempo> desyncedEnumerator = desynced.OrderBy(static t => t.Anchor).GetEnumerator();
 
 		syncedEnumerator.MoveNext();
 		desyncedEnumerator.MoveNext();
@@ -221,7 +232,9 @@ public class TempoMap : IList<Tempo>
 		Synchronized = false;
 	}
 
-	internal void AddAnchor(Tempo item) => m_anchors.Add(item);
+	internal void AddAnchor(Tempo item)
+		=> m_anchors.Add(item);
 
-	internal void RemoveAnchor(Tempo item) => m_anchors.Remove(item);
+	internal void RemoveAnchor(Tempo item)
+		=> m_anchors.Remove(item);
 }

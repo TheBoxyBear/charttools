@@ -15,9 +15,11 @@ public class DelayedEnumerableSource<T> : IDisposable
 	~DelayedEnumerableSource()
 		=> Dispose();
 
-	public void Add(T item) => Buffer.Enqueue(item);
+	public void Add(T item)
+		=> Buffer.Enqueue(item);
 
-	public void EndAwait() => AwaitingItems = false;
+	public void EndAwait()
+		=> AwaitingItems = false;
 
 	public void Dispose()
 	{
