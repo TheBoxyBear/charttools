@@ -1,4 +1,5 @@
-﻿using ChartTools.Extensions.Linq;
+﻿using ChartTools.Extensions.Enums;
+using ChartTools.Extensions.Linq;
 
 using System.Collections;
 
@@ -126,7 +127,7 @@ public class InstrumentSet : IEnumerable<Instrument>
 	/// <exception cref="UndefinedEnumException"/>
 	public GHLInstrument? Get(GHLInstrumentIdentity instrument)
 	{
-		Validator.ValidateEnum(instrument);
+		instrument.Validate();
 		return Get((InstrumentIdentity)instrument) as GHLInstrument;
 	}
 
@@ -138,7 +139,7 @@ public class InstrumentSet : IEnumerable<Instrument>
 	/// <exception cref="UndefinedEnumException"/>
 	public StandardInstrument? Get(StandardInstrumentIdentity instrument)
 	{
-		Validator.ValidateEnum(instrument);
+		instrument.Validate();
 		return Get((InstrumentIdentity)instrument) as StandardInstrument;
 	}
 

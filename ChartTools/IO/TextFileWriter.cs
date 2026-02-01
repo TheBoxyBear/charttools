@@ -101,7 +101,7 @@ internal abstract class TextFileWriter(
 				replacements = replacements.Concat(removedHeaders
 					.Select(header => new SectionReplacement<string>([], line => line == header, EndReplace, false)));
 
-			return existing.ReplaceSections(replacements);
+			return existing.ReplaceSections([..replacements]);
 		}
 		else
 			return serializers.SelectMany(serializer => Wrap(serializer.Header, getSerializerLines(serializer)));

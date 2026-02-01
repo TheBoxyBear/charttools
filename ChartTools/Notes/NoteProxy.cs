@@ -1,4 +1,6 @@
-﻿namespace ChartTools;
+﻿using System.Runtime.CompilerServices;
+
+namespace ChartTools;
 
 /// <summary>
 /// Provides a proxy for accessing and modifying a note within a specific lane in a lane note collection.
@@ -8,29 +10,37 @@
 /// lane.</remarks>
 /// <typeparam name="TNote">The value type representing a note associated with a lane. Must implement <see cref="ILaneNote{TLane}"/>.</typeparam>
 /// <typeparam name="TLane">The enumeration type that identifies lanes within the collection.</typeparam>
-public struct NoteProxy<TNote, TLane>(TLane lane, LaneNoteCollection<TNote, TLane> source)
+public struct NoteProxy<TNote, TLane>
 	where TNote : struct, IDefinedLaneNote<TLane>
-	where TLane : Enum
+	where TLane : struct, Enum
 {
-	private int m_index = -1;
+	private readonly int m_index = -1;
 
-	public TLane Lane { get; } = lane;
+	public readonly SafeEnum<TLane> Lane { get; }
 
-	public LaneNoteCollection<TNote, TLane> Source { get; } = source;
+	public readonly LaneNoteCollection<TNote, TLane> Source { get; }
 
-	public TNote? Get()
+	public NoteProxy(TLane lane, LaneNoteCollection<TNote, TLane> source)
+	{
+		ArgumentNullException.ThrowIfNull(source);
+
+		Lane   = lane;
+		Source = source;
+	}
+
+	public readonly TNote? Get()
 		=> Source[Lane];
 
-	public ref readonly TNote GetUnsafe()
+	public readonly ref readonly TNote GetUnsafe()
 	{
 		ReadOnlySpan<TNote> span = Source.AsSpan();
 
 		if (m_index == -1)
 		{
 			for (int i = 0; i < span.Length; i++)
-				if (span[i].Lane.Equals(Lane))
+				if (span[i].Lane == Lane)
 				{
-					m_index = i;
+					Unsafe.AsRef(in m_index) = i;
 					return ref span[i];
 				}
 
@@ -41,8 +51,13 @@ public struct NoteProxy<TNote, TLane>(TLane lane, LaneNoteCollection<TNote, TLan
 	}
 
 	public void Set(in TNote note)
-		=> Source.Add(in note);
+	{
+		if (!note.Lane.Equals(Lane))
+			throw new InvalidOperationException("The lane of the note does not match the proxy's lane.");
 
-	public static implicit operator TNote?(NoteProxy<TNote, TLane> proxy)
+		Source.Add(in note);
+	}
+
+	public static implicit operator TNote?(in NoteProxy<TNote, TLane> proxy)
 		=> proxy.Get();
 }

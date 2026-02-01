@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Runtime.InteropServices;
 
+using ChartTools.Extensions.Enums;
+
 namespace ChartTools;
 
 public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	ICollection<TNote>,
 	IReadOnlyList<TNote>
 	where TNote : struct, IDefinedLaneNote<TLane>
-	where TLane : Enum
+	where TLane : struct, Enum
 {
 	public bool OpenExclusivity { get; } = TNote.OpenExclusivity;
 
@@ -22,7 +24,7 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	public ReadOnlySpan<TNote> AsSpan()
 		=> CollectionsMarshal.AsSpan(m_notes);
 
-	public void Add(TLane lane)
+	public void Add(SafeEnum<TLane> lane)
 		=> Add(new TNote { Lane = lane });
 
 	/// <summary>
@@ -34,6 +36,8 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	/// <param name="note">Note to add</param>
 	public void Add(in TNote note)
 	{
+		note.Lane.Validate();
+
 		if (OpenExclusivity && (note.Index == 0 || Count == 1 && AsSpan()[0].Index == 0)) // An open note is present and needs to be removed
 			Clear();
 
@@ -44,7 +48,7 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 		{
 			ref TNote thisNote = ref span[i];
 
-			if (thisNote.Lane.Equals(note.Lane))
+			if (thisNote.Lane == note.Lane)
 			{
 				thisNote = note;
 				return;
@@ -68,11 +72,11 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 			Add(in note);
 	}
 
-	public void AddRange(params ReadOnlySpan<TLane> notes)
+	public void AddRange(params ReadOnlySpan<SafeEnum<TLane>> notes)
 	{
 		m_notes.Capacity += notes.Length;
 
-		foreach (ref readonly TLane lane in notes)
+		foreach (ref readonly SafeEnum<TLane> lane in notes)
 			Add(new TNote { Lane = lane });
 	}
 
@@ -89,7 +93,7 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	public bool Contains(in TNote note)
 	{
 		foreach (ref readonly TNote thisNote in AsSpan())
-			if (thisNote.Lane.Equals(note.Lane))
+			if (thisNote.Lane == note.Lane)
 				return true;
 
 		return false;
@@ -101,8 +105,8 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	/// <summary>
 	/// Determines if any note matches a given lane.
 	/// </summary>
-	public bool Contains(TLane lane)
-		=> m_notes.Any(note => note.Lane.Equals(lane));
+	public bool Contains(SafeEnum<TLane> lane)
+		=> m_notes.Any(note => note.Lane == lane);
 
 	bool ILaneNoteCollection.Contains(byte index)
 		=> m_notes.Any(note => note.Index == index);
@@ -124,8 +128,8 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	/// Removes the note that matches a given lane.
 	/// </summary>
 	/// <returns><see langword="true"/> if a matching note was found.</returns>
-	public bool Remove(TLane lane)
-		=> Remove((in note) => note.Lane.Equals(lane));
+	public bool Remove(SafeEnum<TLane> lane)
+		=> Remove((in note) => note.Lane == lane);
 
 	bool ILaneNoteCollection.Remove(byte index)
 		=> Remove((in note) => note.Index == index);
@@ -151,9 +155,21 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 		return true;
 	}
 
-	public NoteProxy<TNote, TLane>? Proxy(TLane lane)
+	public NoteProxy<TNote, TLane>? Proxy(SafeEnum<TLane> lane)
 	{
-		throw new NotImplementedException();
+		TNote? note = this[lane];
+		return note is null ? null : new NoteProxy<TNote, TLane>(lane, this);
+	}
+
+	public NoteProxy<TNote, TLane>[] ProxyAll()
+	{
+		ReadOnlySpan<TNote> span = AsSpan();
+		NoteProxy<TNote, TLane>[] proxies = new NoteProxy<TNote, TLane>[Count];
+
+		for (int i = 0; i < Count; i++)
+			proxies[i] = new NoteProxy<TNote, TLane>(span[i].Lane, this);
+
+		return proxies;
 	}
 
 	/// <summary>
@@ -161,11 +177,20 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	/// </summary>
 	/// <param name="lane">Lane of the note</param>
 	/// <returns>Note with the lane if present, otherwise <see langword="null"/>.</returns>
-	public TNote? this[TLane lane]
-		=> m_notes.FirstOrDefault(n => n.Lane.Equals(lane));
+	public TNote? this[SafeEnum<TLane> lane]
+	{
+		get
+		{
+			foreach (ref readonly TNote note in AsSpan())
+				if (note.Lane == lane)
+					return note;
 
-	ILaneNote? ILaneNoteCollection.this[byte index]
-		=> m_notes.FirstOrDefault(n => n.Lane.Equals(index));
+			return null;
+		}
+	}
+
+	ILaneNote? ILaneNoteCollection.this[byte laneIndex]
+		=> m_notes.FirstOrDefault(n => n.Lane.As<TLane, byte>() == laneIndex);
 
 	TNote IReadOnlyList<TNote>.this[int index]
 		=> m_notes[index];

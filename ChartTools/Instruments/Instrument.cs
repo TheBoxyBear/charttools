@@ -68,24 +68,27 @@ public abstract record Instrument : IEmptyVerifiable
 	/// <summary>
 	/// Gets the track matching a difficulty.
 	/// </summary>
-	public abstract Track? GetTrack(DiffEnum difficulty);
+	public abstract Track? GetTrack(SafeEnum<Difficulty> difficulty);
 
 	protected abstract Track? GetEasy();
+
 	protected abstract Track? GetMedium();
+
 	protected abstract Track? GetHard();
+
 	protected abstract Track? GetExpert();
 
 	/// <summary>
 	/// Creates a track
 	/// </summary>
 	/// <param name="difficulty">Difficulty of the track</param>
-	public abstract Track CreateTrack(DiffEnum difficulty);
+	public abstract Track CreateTrack(SafeEnum<Difficulty> difficulty);
 
 	/// <summary>
 	/// Removes a track.
 	/// </summary>
 	/// <param name="difficulty">Difficulty of the target track</param>
-	public abstract bool RemoveTrack(DiffEnum difficulty);
+	public abstract bool RemoveTrack(SafeEnum<Difficulty> difficulty);
 
 
 	/// <summary>
@@ -183,34 +186,34 @@ public abstract record Instrument<TChord> : Instrument
 			: value with { Difficulty = DiffEnum.Expert, ParentInstrument = this };
 	}
 
-	/// <summary>
-	/// Gets the <see cref="Track{TChord}"/> that matches a <see cref="DiffEnum"/>
-	/// </summary>
-	public override Track<TChord>? GetTrack(DiffEnum difficulty) => difficulty switch
+    /// <summary>
+    /// Gets the <see cref="Track{TChord}"/> that matches a <see cref="DiffEnum"/>
+    /// </summary>
+    public override Track<TChord>? GetTrack(SafeEnum<Difficulty> difficulty) => difficulty.Value switch
 	{
-		DiffEnum.Easy   => Easy,
-		DiffEnum.Medium => Medium,
-		DiffEnum.Hard   => Hard,
-		DiffEnum.Expert => Expert,
+        DiffEnum.Easy   => Easy,
+        DiffEnum.Medium => Medium,
+        DiffEnum.Hard   => Hard,
+        DiffEnum.Expert => Expert,
 		_ => throw new UndefinedEnumException(difficulty)
 	};
 
-	/// <inheritdoc cref="Instrument.CreateTrack(DiffEnum)"/>
-	public override Track<TChord> CreateTrack(DiffEnum difficulty) => difficulty switch
+    /// <inheritdoc cref="Instrument.CreateTrack(SafeEnum{Difficulty})"/>
+    public override Track<TChord> CreateTrack(SafeEnum<Difficulty> difficulty) => difficulty.Value switch
 	{
-		DiffEnum.Easy   => Easy   = new(),
-		DiffEnum.Medium => Medium = new(),
-		DiffEnum.Hard   => Hard   = new(),
-		DiffEnum.Expert => Expert = new(),
+        DiffEnum.Easy   => Easy = new(),
+        DiffEnum.Medium => Medium = new(),
+        DiffEnum.Hard   => Hard = new(),
+        DiffEnum.Expert => Expert = new(),
 		_ => throw new UndefinedEnumException(difficulty)
 	};
-
-	/// <inheritdoc cref="Instrument.RemoveTrack(DiffEnum)"/>
-	public override bool RemoveTrack(DiffEnum difficulty)
+	
+    /// <inheritdoc cref="Instrument.RemoveTrack(SafeEnum{Difficulty})"/>
+    public override bool RemoveTrack(SafeEnum<Difficulty> difficulty)
 	{
 		bool found;
 
-		switch (difficulty)
+		switch (difficulty.Value)
 		{
 			case DiffEnum.Easy:
 				found = Easy is not null;
@@ -264,17 +267,14 @@ public abstract record Instrument<TChord> : Instrument
 	/// <returns>Track instance assigned to the instrument. Changed made to the passed reference will not be reflected in the instrument.</returns>
 	/// <exception cref="ArgumentNullException"/>
 	/// <exception cref="UndefinedEnumException"/>
-	public Track<TChord> SetTrack(Track<TChord> track)
-	{
-		ArgumentNullException.ThrowIfNull(track);
-
-		return track.Difficulty switch
+	public Track<TChord> SetTrack(Track<TChord> track) => track is null
+		? throw new ArgumentNullException(nameof(track))
+		: track.Difficulty.Value switch
 		{
-			DiffEnum.Easy => Easy = track,
-			DiffEnum.Medium => Medium = track,
-			DiffEnum.Hard => Hard = track,
-			DiffEnum.Expert => Expert = track,
+            DiffEnum.Easy   => m_easy = track with { ParentInstrument = this },
+            DiffEnum.Medium => m_medium = track with { ParentInstrument = this },
+            DiffEnum.Hard   => m_hard = track with { ParentInstrument = this },
+            DiffEnum.Expert => m_expert = track with { ParentInstrument = this },
 			_ => throw new UndefinedEnumException(track.Difficulty)
 		};
-	}
 }

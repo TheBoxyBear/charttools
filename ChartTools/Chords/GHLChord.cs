@@ -32,12 +32,12 @@ public sealed class GHLChord : Chord<GHLNote, GHLLane, GHLChordModifiers>
 	public GHLChord(uint position, params ReadOnlySpan<GHLNote> notes) : base(position)
 		=> Notes.AddRange(notes);
 
-	/// <summary>
-	/// Creates an instance of <see cref="GHLChord"/> with a specified position and notes.
-	/// </summary>
-	/// <param name="position">Position of the chord</param>
-	/// <param name="notes">Set of notes to add by lane</param>
-	public GHLChord(uint position, params ReadOnlySpan<GHLLane> notes) : base(position)
+    /// <summary>
+    /// Creates an instance of <see cref="GHLChord"/> with a specified position and notes.
+    /// </summary>
+    /// <param name="position">Position of the chord</param>
+    /// <param name="notes">Set of notes to add by lane</param>
+	public GHLChord(uint position, params ReadOnlySpan<SafeEnum<GHLLane>> notes) : base(position)
 		=> Notes.AddRange(notes);
 
 	internal override IEnumerable<TrackObjectEntry> GetChartNoteData()

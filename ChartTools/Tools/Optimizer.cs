@@ -18,11 +18,10 @@ public static class Optimizer
 	/// </summary>
 	/// <param name="chords">Chords to cut the sustains of</param>
 	/// <param name="preOrdered">Skip ordering of chords by position</param>
-	public static void CutSustains<TChord, TNote, TLane, TModifiers>(this IEnumerable<TChord> chords, bool preOrdered = false)
-		where TChord : Chord<TNote, TLane, TModifiers>
+	public static void CutSustains<TChord, TNote, TLane>(this IEnumerable<TChord> chords, bool preOrdered = false)
+		where TChord : Chord<TNote, TLane>
 		where TNote : struct, IDefinedLaneNote<TLane>
-		where TLane : Enum
-		where TModifiers : Enum
+		where TLane : struct, Enum
 	{
 		Dictionary<byte, (uint, NoteProxy<TNote, TLane>)> ongoingSustains = [];
 
