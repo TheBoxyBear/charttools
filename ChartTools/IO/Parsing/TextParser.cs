@@ -1,4 +1,4 @@
-﻿using ChartTools.IO;
+namespace ChartTools.IO.Parsing;
 
 internal abstract class TextParser(in ReadOnlyMemory<char> header)
 	: FileParser<ReadOnlyMemory<char>>

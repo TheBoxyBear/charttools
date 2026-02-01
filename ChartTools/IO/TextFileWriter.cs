@@ -1,6 +1,7 @@
 ﻿using ChartTools.Extensions.Linq;
 using ChartTools.Internal.Collections;
 using ChartTools.IO.Sources;
+using ChartTools.IO.Serializing;
 
 namespace ChartTools.IO;
 

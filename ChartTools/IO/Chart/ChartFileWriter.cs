@@ -1,4 +1,5 @@
-﻿using ChartTools.IO.Sources;
+﻿using ChartTools.IO.Serializing;
+using ChartTools.IO.Sources;
 
 namespace ChartTools.IO.Chart;
 
@@ -6,6 +7,7 @@ internal class ChartFileWriter(WritingDataSource source, IEnumerable<string>? re
 	: TextFileWriter(source, removedHeaders, serializers)
 {
 	protected override string? PreSerializerContent => "{";
+
 	protected override string? PostSerializerContent => "}";
 
 	protected override bool EndReplace(string line) => line.StartsWith('[');

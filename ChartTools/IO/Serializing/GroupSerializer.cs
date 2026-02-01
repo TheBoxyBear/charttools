@@ -1,4 +1,4 @@
-﻿namespace ChartTools.IO;
+﻿namespace ChartTools.IO.Serializing;
 
 internal abstract class GroupSerializer<TContent, TResult, TProviderResult>(string header, TContent content)
 	: Serializer<TContent, TResult>(header, content)

@@ -1,4 +1,4 @@
-﻿namespace ChartTools.IO;
+﻿namespace ChartTools.IO.Parsing;
 
 internal abstract class FileParser<T>
 {

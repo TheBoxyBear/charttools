@@ -8,6 +8,7 @@ using ChartTools.IO.Chart.Serializing;
 using ChartTools.IO.Components;
 using ChartTools.IO.Configuration;
 using ChartTools.IO.Formatting;
+using ChartTools.IO.Serializing;
 using ChartTools.IO.Sources;
 using ChartTools.Lyrics;
 using ChartTools.Meta;
