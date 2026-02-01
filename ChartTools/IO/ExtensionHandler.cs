@@ -68,8 +68,7 @@ internal static class ExtensionHandler
 		string extension = Path.GetExtension(path);
 		(string extension, Read<T> readMethod) reader = readers.FirstOrDefault(r => r.extension == extension);
 
-		return reader == default
-			? throw GetException(extension, readers.Select(static r => r.extension)) : reader.readMethod(path);
+		return reader == default ? throw GetException(extension, readers.Select(static r => r.extension)) : reader.readMethod(path);
 	}
 
 	public static async Task<T> ReadAsync<T>(string path, params IEnumerable<(string extension, AsyncRead<T> readMethod)> readers)

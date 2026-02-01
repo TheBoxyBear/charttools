@@ -56,7 +56,8 @@ public abstract class SectionSet<T> : IList<Section<T>>
 	public IEnumerator<Section<T>> GetEnumerator()
 		=> m_sections.GetEnumerator();
 
-	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+	IEnumerator IEnumerable.GetEnumerator()
+		=> GetEnumerator();
 	#endregion
 
 	public Section<T>? Get(string header)

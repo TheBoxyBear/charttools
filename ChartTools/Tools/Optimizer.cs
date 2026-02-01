@@ -93,7 +93,9 @@ public static class Optimizer
 	public static List<T>[] CutSpecialLengths<T>(IEnumerable<T> phrases, bool preOrdered = false)
 		where T : SpecialPhrase
 	{
-		List<T>[] output = [.. phrases.GroupBy(p => p.TypeCode).Select(g => g.ToList())];
+		List<T>[] output = [.. phrases
+			.GroupBy(static p => p.TypeCode)
+			.Select(static g  => g.ToList())];
 
 		foreach (List<T> grouping in output)
 			grouping.CutLengths(preOrdered);
@@ -142,9 +144,7 @@ public static class Optimizer
 	{
 		markers.Synchronize(resolution, desyncedPreOrdered);
 
-		foreach ((Tempo previous, Tempo current) in markers
-			.OrderBy(static m => m.Position)
-			.RelativeLoopSkipFirst())
+		foreach ((Tempo previous, Tempo current) in markers.OrderBy(static m => m.Position).RelativeLoopSkipFirst())
 			if (current.Value == previous.Value)
 				markers.Remove(current);
 	}

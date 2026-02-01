@@ -39,7 +39,7 @@ internal abstract class TextFileWriter(
 
 		using StreamWriter writer = new(Source.Stream, leaveOpen: true);
 
-		foreach (string line in GetLinesToWrite(serializer => serializer.Serialize()))
+		foreach (string line in GetLinesToWrite(static serializer => serializer.Serialize()))
 			writer.WriteLine(line);
 
 		EndFile();
@@ -48,8 +48,9 @@ internal abstract class TextFileWriter(
 	public async Task WriteAsync(CancellationToken cancellationToken)
 	{
 		using StreamWriter writer = new(Source.Stream, leaveOpen: true);
-		Dictionary<Serializer<string>, EagerEnumerable<string>> serializerResults = serializers
-			.ToDictionary(static ser => ser, static ser => new EagerEnumerable<string>(ser.SerializeAsync()));
+		
+		Dictionary<Serializer<string>, EagerEnumerable<string>> serializerResults = serializers.ToDictionary(
+			static ser => ser, static ser => new EagerEnumerable<string>(ser.SerializeAsync()));
 
 		foreach (string line in GetLinesToWrite(ser => serializerResults[ser]))
 		{
@@ -109,5 +110,6 @@ internal abstract class TextFileWriter(
 
 	protected abstract bool EndReplace(string line);
 
-	public void Dispose() => Source.Dispose();
+	public void Dispose()
+		=> Source.Dispose();
 }

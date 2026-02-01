@@ -3,8 +3,8 @@ using ChartTools.IO.Parsing;
 
 namespace ChartTools.IO.Chart.Parsing;
 
-internal abstract class ChartParser(ChartReadingSession session, in ReadOnlyMemory<char> header)
-	: TextParser(in header), ISongAppliable
+internal abstract class ChartParser(ChartReadingSession session, string header)
+	: TextParser(header), ISongAppliable
 {
 	public ChartReadingSession Session { get; } = session;
 

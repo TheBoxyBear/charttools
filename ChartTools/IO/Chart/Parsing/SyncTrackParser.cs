@@ -9,7 +9,9 @@ namespace ChartTools.IO.Chart.Parsing;
 internal class SyncTrackParser(ChartReadingSession session)
 	: ChartParser(session, ChartFormatting.SyncTrackHeader.AsMemory())
 {
-	public override SyncTrack Result => GetResult(result);
+	public override SyncTrack Result
+		=> GetResult(result);
+
 	private readonly SyncTrack result = new();
 
 	private readonly List<Tempo> tempos = [], orderedTempos = [];

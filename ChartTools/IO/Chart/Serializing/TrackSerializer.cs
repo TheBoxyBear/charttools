@@ -13,8 +13,8 @@ internal class TrackSerializer(Track content, ChartWritingSession session)
 {
 	public override IEnumerable<string> Serialize()
 		=> LaunchProviders()
-		.AlternateBy(static entry => entry.Position)
-		.Select(static entry => entry.ToString());
+			.AlternateBy(entry => entry.Position)
+			.Select(entry => entry.ToString());
 
 	protected override IEnumerable<TrackObjectEntry>[] LaunchProviders()
 	{

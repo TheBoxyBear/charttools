@@ -12,6 +12,7 @@ internal abstract class FileReader<T>(ReadingDataSource source) : IDisposable
 	public abstract IEnumerable<FileParser<T>> Parsers { get; }
 
 	public abstract void Read();
+
 	public abstract Task ReadAsync(CancellationToken cancellationToken);
 
 	protected void CheckBusy()
@@ -28,9 +29,11 @@ internal abstract class FileReader<T, TParser>(ReadingDataSource source) : FileR
 {
 	public record ParserContentGroup(TParser Parser, DelayedEnumerableSource<T> Source);
 
-	public override IEnumerable<TParser> Parsers => parserGroups.Select(static g => g.Parser);
+	public override IEnumerable<TParser> Parsers
+		=> parserGroups.Select(static g => g.Parser);
 
 	protected readonly List<ParserContentGroup> parserGroups = [];
+
 	protected readonly List<Task> parseTasks = [];
 
 	protected abstract TParser? GetParser(in T header);

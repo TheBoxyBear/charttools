@@ -32,11 +32,11 @@ public sealed class GHLChord : Chord<GHLNote, GHLLane, GHLChordModifiers>
 	public GHLChord(uint position, params ReadOnlySpan<GHLNote> notes) : base(position)
 		=> Notes.AddRange(notes);
 
-    /// <summary>
-    /// Creates an instance of <see cref="GHLChord"/> with a specified position and notes.
-    /// </summary>
-    /// <param name="position">Position of the chord</param>
-    /// <param name="notes">Set of notes to add by lane</param>
+	/// <summary>
+	/// Creates an instance of <see cref="GHLChord"/> with a specified position and notes.
+	/// </summary>
+	/// <param name="position">Position of the chord</param>
+	/// <param name="notes">Set of notes to add by lane</param>
 	public GHLChord(uint position, params ReadOnlySpan<SafeEnum<GHLLane>> notes) : base(position)
 		=> Notes.AddRange(notes);
 

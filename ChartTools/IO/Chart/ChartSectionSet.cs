@@ -55,8 +55,8 @@ public class ChartSection : SectionSet<string>
 		};
 
 		headers.AddRange(instrumentSources.SelectMany(static pair =>
-		from diff in EnumCache<Difficulty>.Values
-		select new ReservedSectionHeader(ChartFormatting.Header(pair.Value, diff), $"{pair.Value}.{diff}")));
+			from diff in EnumCache<Difficulty>.Values
+			select new ReservedSectionHeader(ChartFormatting.Header(pair.Value, diff), $"{pair.Value}.{diff}")));
 
 		DefaultReservedHeaders = new(headers);
 	}

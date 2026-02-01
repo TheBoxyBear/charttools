@@ -34,7 +34,7 @@ public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T>
 		if (enumerables.Length == 0)
 			throw new ArgumentException("No enumerables provided.");
 
-		KeyGetter = keyGetter;
+		KeyGetter   = keyGetter;
 		Enumerables = [..enumerables];
 	}
 
@@ -43,7 +43,8 @@ public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T>
 		=> new Enumerator(KeyGetter, [.. Enumerables.Select(static e => e.GetEnumerator())]);
 
 	/// <inheritdoc/>
-	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+	IEnumerator IEnumerable.GetEnumerator()
+		=> GetEnumerator();
 
 	/// <summary>
 	/// Enumerator that yields <typeparamref name="T"/> items from a set of enumerators in order using a <typeparamref name="TKey"/> key

@@ -31,8 +31,7 @@ public static class PropertyMerger
 			object? value = prop.GetValue(source);
 
 			if (deepMerge && !prop.PropertyType.IsPrimitive &&
-				prop.PropertyType != stringType &&
-				Nullable.GetUnderlyingType(prop.PropertyType) is null)
+				prop.PropertyType != stringType && Nullable.GetUnderlyingType(prop.PropertyType) is null)
 			{
 				if (value is not null)
 					foreach (PropertyInfo deepProp in GetProperties(prop.PropertyType))
@@ -48,7 +47,7 @@ public static class PropertyMerger
 		}
 
 		IEnumerable<PropertyInfo> GetProperties(Type type)
-			=> type.GetProperties().Where(i => i.CanWrite);
+			=> type.GetProperties().Where(static i => i.CanWrite);
 
 		IEnumerable<object> GetValues(IEnumerable<object> sources, PropertyInfo prop)
 			=> sources.Select(prop.GetValue).NonNull();

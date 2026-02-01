@@ -11,6 +11,6 @@ internal abstract class TrackObjectGroupSerializer<T>(string header, T content, 
 
 	protected override IEnumerable<string> CombineProviderResults(IEnumerable<TrackObjectEntry>[] results)
 		=> results
-		.AlternateBy(static entry => entry.Position)
-		.Select(static entry => entry.ToString());
+			.AlternateBy(static entry => entry.Position)
+			.Select(static entry => entry.ToString());
 }

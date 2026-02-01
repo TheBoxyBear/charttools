@@ -39,15 +39,18 @@ public class Phrase(PhraseMarker marker, IReadOnlyList<VocalsNote>? notes = null
 	/// <summary>
 	/// Concatenated raw text of all notes in the phrase, separated by spaces.
 	/// </summary>
-	public string RawText => BuildText(static n => n.RawText);
+	public string RawText
+		=> BuildText(n => n.RawText);
 
 	/// <summary>
 	/// Phrase text assembled to its in-game appearance
 	/// </summary>
-	public string DisplayedText => BuildText(static n => n.DisplayedText);
+	public string DisplayedText
+		=> BuildText(static n => n.DisplayedText);
 
 	private string BuildText(Func<VocalsNote, string> textSelector)
-		=> string.Concat(Notes.Select(n => n.IsWordEnd ? textSelector(n) + ' ' : textSelector(n)));
+		=> string.Concat(
+			Notes.Select(n => n.IsWordEnd ? textSelector(n) + ' ' : textSelector(n)));
 
 	/// <summary>
 	/// Converts the phrase to a set of global events representing the lyric data.
@@ -76,7 +79,7 @@ public static class PhraseExtensions
 		PhraseMarker? phrase = null;
 
 		phrases = [];
-		notes = [];
+		notes   = [];
 
 		foreach (GlobalEvent e in events.OrderBy(static e => e.Position))
 		{
@@ -90,8 +93,7 @@ public static class PhraseExtensions
 					notes.Add(new(e.Position, VocalsPitchValue.None, e.Argument));
 					break;
 				case EventTypeHelper.Global.PhraseEnd:
-					if (phrase is not null)
-						phrase.Length = e.Position - phrase.Position;
+					phrase?.Length = e.Position - phrase.Position;
 					break;
 			}
 		}
@@ -100,15 +102,13 @@ public static class PhraseExtensions
 	public static IEnumerable<Phrase> GetLyrics(IEnumerable<PhraseMarker> phrases, IEnumerable<VocalsNote> notes)
 	{
 		using IEnumerator<PhraseMarker> phraseEnumerator = phrases
-			.OrderBy(static p => p.Position)
-			.GetEnumerator();
+			.OrderBy(static p => p.Position).GetEnumerator();
 
 		if (!phraseEnumerator.MoveNext())
 			yield break;
 
 		using IEnumerator<VocalsNote> notesEnumerator = notes
-			.OrderBy(static n => n.Position)
-			.GetEnumerator();
+			.OrderBy(static n => n.Position).GetEnumerator();
 
 		notesEnumerator.MoveNext(); // Initialize prematurely to simplify the loop flow
 

@@ -20,84 +20,84 @@ public class InstrumentSet : IEnumerable<Instrument>
 	/// </summary>
 	public GHLInstrument? GHLLeadGuitar
 	{
-		get => m_ghlLeadGuitar;
-		set => m_ghlLeadGuitar = value is null ? value : value with { InstrumentIdentity = GHLInstrumentIdentity.LeadGuitar };
+		get;
+		set => field = value?.InstrumentIdentity is null or GHLInstrumentIdentity.LeadGuitar ? value
+			: value with { InstrumentIdentity = GHLInstrumentIdentity.LeadGuitar };
 	}
-	private GHLInstrument? m_ghlLeadGuitar;
 
 	/// <summary>
 	/// Set of Guitar Hero Live bass tracks
 	/// </summary>
 	public GHLInstrument? GHLBass
 	{
-		get => m_ghlBass;
-		set => m_ghlBass = value is null ? value : value with { InstrumentIdentity = GHLInstrumentIdentity.Bass };
+		get;
+		set => field = value?.InstrumentIdentity is null or GHLInstrumentIdentity.Bass ? value
+			: value with { InstrumentIdentity = GHLInstrumentIdentity.Bass };
 	}
-	private GHLInstrument? m_ghlBass;
 
 	public GHLInstrument? GHLRhythmGuitar
 	{
-		get => m_ghlRhythmGuitar;
-		set => m_ghlRhythmGuitar = value is null ? value : value with { InstrumentIdentity = GHLInstrumentIdentity.RhythmGuitar };
+		get;
+		set => field = value?.InstrumentIdentity is null or GHLInstrumentIdentity.RhythmGuitar ? value
+			: value with { InstrumentIdentity = GHLInstrumentIdentity.RhythmGuitar };
 	}
-	private GHLInstrument? m_ghlRhythmGuitar;
 
 	public GHLInstrument? GHLCoopGuitar
 	{
-		get => m_ghlCoopGuitar;
-		set => m_ghlCoopGuitar = value is null ? value : value with { InstrumentIdentity = GHLInstrumentIdentity.CoopGuitar };
+		get;
+		set => field = value?.InstrumentIdentity is null or GHLInstrumentIdentity.CoopGuitar ? value
+			: value with { InstrumentIdentity = GHLInstrumentIdentity.CoopGuitar };
 	}
-	private GHLInstrument? m_ghlCoopGuitar;
 
 	/// <summary>
 	/// Set of lead guitar tracks
 	/// </summary>
 	public StandardInstrument? StandardLeadGuitar
 	{
-		get => m_standardLeadGuitar;
-		set => m_standardLeadGuitar = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.LeadGuitar };
+		get;
+		set => field = value?.InstrumentIdentity is null or StandardInstrumentIdentity.LeadGuitar ? value
+			: value with { InstrumentIdentity = StandardInstrumentIdentity.LeadGuitar };
 	}
-	private StandardInstrument? m_standardLeadGuitar;
 
 	/// <summary>
 	/// Set of rhythm guitar tracks
 	/// </summary>
 	public StandardInstrument? StandardRhythmGuitar
 	{
-		get => m_standardRhythmGuitar;
-		set => m_standardRhythmGuitar = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.RhythmGuitar };
+		get;
+		set => field = value?.InstrumentIdentity is null or StandardInstrumentIdentity.RhythmGuitar ? value
+			: value with { InstrumentIdentity = StandardInstrumentIdentity.RhythmGuitar };
 	}
-	private StandardInstrument? m_standardRhythmGuitar;
 
 	/// <summary>
 	/// Set of coop guitar tracks
 	/// </summary>
 	public StandardInstrument? StandardCoopGuitar
 	{
-		get => m_standardCoopGuitar;
-		set => m_standardCoopGuitar = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.CoopGuitar };
+		get;
+		set => field = value?.InstrumentIdentity is null or StandardInstrumentIdentity.CoopGuitar ? value
+			: value with { InstrumentIdentity = StandardInstrumentIdentity.CoopGuitar };
 	}
-	private StandardInstrument? m_standardCoopGuitar;
 
 	/// <summary>
 	/// Set of bass tracks
 	/// </summary>
 	public StandardInstrument? StandardBass
 	{
-		get => m_standardBass;
-		set => m_standardBass = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.Bass };
+		get;
+		set => field = value?.InstrumentIdentity is null or StandardInstrumentIdentity.Bass ? value
+			: value with { InstrumentIdentity = StandardInstrumentIdentity.Bass };
 	}
-	private StandardInstrument? m_standardBass;
 
 	/// <summary>
 	/// Set of keyboard tracks
 	/// </summary>
 	public StandardInstrument? StandardKeys
 	{
-		get => m_standardKeys;
-		set => m_standardKeys = value is null ? value : value with { InstrumentIdentity = StandardInstrumentIdentity.Keys };
+		get;
+		set => field = value?.InstrumentIdentity is null or StandardInstrumentIdentity.Keys ? value
+			: value with { InstrumentIdentity = StandardInstrumentIdentity.Keys };
 	}
-	private StandardInstrument? m_standardKeys;
 
 	/// <summary>
 	/// Gets property value for an <see cref="Instrument"/> from a <see cref="InstrumentIdentity"/> <see langword="enum"/> value.
@@ -144,7 +144,7 @@ public class InstrumentSet : IEnumerable<Instrument>
 	}
 
 	public IEnumerable<Instrument> Existing()
-		=> this.NonNull().Where(instrument => !instrument.IsEmpty);
+		=> this.NonNull().Where(static instrument => !instrument.IsEmpty);
 
 	public void Set(Instrument instrument)
 	{
@@ -155,31 +155,31 @@ public class InstrumentSet : IEnumerable<Instrument>
 				break;
 			// Instruments must be set by field as calling the setter replaces the record instance
 			case InstrumentIdentity.StandardLeadGuitar:
-				m_standardLeadGuitar   = (StandardInstrument)instrument;
+				StandardLeadGuitar   = (StandardInstrument)instrument;
 				break;
 			case InstrumentIdentity.StandardRhythmGuitar:
-				m_standardRhythmGuitar = (StandardInstrument)instrument;
+				StandardRhythmGuitar = (StandardInstrument)instrument;
 				break;
 			case InstrumentIdentity.StandardCoopGuitar:
-				m_standardCoopGuitar   = (StandardInstrument)instrument;
+				StandardCoopGuitar   = (StandardInstrument)instrument;
 				break;
 			case InstrumentIdentity.StandardBass:
-				m_standardBass         = (StandardInstrument)instrument;
+				StandardBass         = (StandardInstrument)instrument;
 				break;
 			case InstrumentIdentity.StandardKeys:
-				m_standardKeys         = (StandardInstrument)instrument;
+				StandardKeys         = (StandardInstrument)instrument;
 				break;
 			case InstrumentIdentity.GHLLeadGuitar:
-				m_ghlLeadGuitar        = (GHLInstrument)instrument;
+				GHLLeadGuitar        = (GHLInstrument)instrument;
 				break;
 			case InstrumentIdentity.GHLBass:
-				m_ghlBass              = (GHLInstrument)instrument;
+				GHLBass              = (GHLInstrument)instrument;
 				break;
 			case InstrumentIdentity.GHLRhythmGuitar:
-				m_ghlRhythmGuitar      = (GHLInstrument)instrument;
+				GHLRhythmGuitar      = (GHLInstrument)instrument;
 				break;
 			case InstrumentIdentity.GHLCoopGuitar:
-				m_ghlCoopGuitar        = (GHLInstrument)instrument;
+				GHLCoopGuitar        = (GHLInstrument)instrument;
 				break;
 			default:
 				throw new UndefinedEnumException(instrument.InstrumentIdentity);
@@ -191,15 +191,8 @@ public class InstrumentSet : IEnumerable<Instrument>
 		=> new Instrument?[]
 		{
 			Drums,
-			GHLLeadGuitar,
-			GHLBass,
-			GHLRhythmGuitar,
-			GHLCoopGuitar,
-			StandardLeadGuitar,
-			StandardRhythmGuitar,
-			StandardCoopGuitar,
-			StandardBass,
-			StandardKeys
+			GHLLeadGuitar, GHLBass, GHLRhythmGuitar, GHLCoopGuitar,
+			StandardLeadGuitar, StandardRhythmGuitar, StandardCoopGuitar, StandardBass, StandardKeys
 		}
 		.NonNull().GetEnumerator();
 

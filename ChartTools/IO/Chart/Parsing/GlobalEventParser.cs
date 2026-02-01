@@ -8,13 +8,14 @@ internal class GlobalEventParser(ChartReadingSession session)
 	: ChartParser(session, ChartFormatting.GlobalEventHeader.AsMemory())
 {
 	public override List<GlobalEvent> Result
-		=> GetResult(result);
-	private readonly List<GlobalEvent> result = [];
+		=> GetResult(m_result);
+
+	private readonly List<GlobalEvent> m_result = [];
 
 	protected override void HandleItem(in ReadOnlyMemory<char> line)
 	{
 		TrackObjectEntry entry = new(line);
-		result.Add(new(entry.Position, entry.Data.Trim('"').ToString()));
+		m_result.Add(new(entry.Position, entry.Data.Trim('"').ToString()));
 	}
 
 	public override void ApplyToSong(Song song)
