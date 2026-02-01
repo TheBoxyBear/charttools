@@ -2,27 +2,28 @@
 using ChartTools.IO.Parsing;
 using ChartTools.IO.Sources;
 
-using System;
-
 namespace ChartTools.IO;
 
-internal abstract class TextFileReader(ReadingDataSource source) : FileReader<ReadOnlyMemory<char>, TextParser>(source)
+internal abstract class TextFileReader(ReadingDataSource source)
+	: FileReader<ReadOnlyMemory<char>, TextParser>(source)
 {
 	public virtual bool DefinedSectionEnd { get; } = false;
 
-	protected bool _disposeReader = false;
+	protected bool m_disposeReader = false;
 
 	protected override void ReadBase(bool async, in CancellationToken cancellationToken)
 	{
 		string contentStr;
 
-		using (StreamReader reader = new(Source.Stream, leaveOpen: true))
+		using (Source.Stream)
 		{
+			using StreamReader reader = new(Source.Stream, leaveOpen: true);
 			contentStr = reader.ReadToEnd();
 		}
 
-		ReadOnlyMemory<char> content = contentStr.AsMemory();
-		ReadOnlyMemory<char> line    = string.Empty.AsMemory();
+		ReadOnlyMemory<char>
+			content = contentStr.AsMemory(),
+			line    = string.Empty.AsMemory();
 
 		ParserContentGroup? currentGroup = null;
 
@@ -46,7 +47,7 @@ internal abstract class TextFileReader(ReadingDataSource source) : FileReader<Re
 			{
 				DelayedEnumerableSource<ReadOnlyMemory<char>> source = new();
 
-				parserGroups.Add(currentGroup = new(parser, source));
+				m_parserGroups.Add(currentGroup = new(parser, source));
 
 				if (async)
 				{
@@ -56,7 +57,7 @@ internal abstract class TextFileReader(ReadingDataSource source) : FileReader<Re
 						return;
 					}
 
-					parseTasks.Add(parser.StartAsyncParse(source.Enumerable));
+					m_parseTasks.Add(parser.StartAsyncParse(source.Enumerable));
 				}
 			}
 
@@ -64,7 +65,7 @@ internal abstract class TextFileReader(ReadingDataSource source) : FileReader<Re
 			do
 				if (!AdvanceSection())
 				{
-					FinishSection(cancellationToken);
+					FinishSection(in cancellationToken);
 					return;
 				}
 			while (!IsSectionStart(line.Span));
@@ -78,12 +79,12 @@ internal abstract class TextFileReader(ReadingDataSource source) : FileReader<Re
 
 				if (!AdvanceSection())
 				{
-					FinishSection(cancellationToken);
+					FinishSection(in cancellationToken);
 					return;
 				}
 			}
 
-			FinishSection(cancellationToken);
+			FinishSection(in cancellationToken);
 
 			void FinishSection(in CancellationToken cancellationToken)
 			{

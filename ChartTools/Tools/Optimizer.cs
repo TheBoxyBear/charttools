@@ -18,11 +18,10 @@ public static class Optimizer
 	/// </summary>
 	/// <param name="chords">Chords to cut the sustains of</param>
 	/// <param name="preOrdered">Skip ordering of chords by position</param>
-	public static void CutSustains<TChord, TNote, TLane, TModifiers>(this IEnumerable<TChord> chords, bool preOrdered = false)
-		where TChord : Chord<TNote, TLane, TModifiers>
+	public static void CutSustains<TChord, TNote, TLane>(this IEnumerable<TChord> chords, bool preOrdered = false)
+		where TChord : Chord<TNote, TLane>
 		where TNote : struct, IDefinedLaneNote<TLane>
-		where TLane : Enum
-		where TModifiers : Enum
+		where TLane : struct, Enum
 	{
 		Dictionary<byte, (uint, NoteProxy<TNote, TLane>)> ongoingSustains = [];
 
@@ -94,7 +93,9 @@ public static class Optimizer
 	public static List<T>[] CutSpecialLengths<T>(IEnumerable<T> phrases, bool preOrdered = false)
 		where T : SpecialPhrase
 	{
-		List<T>[] output = [.. phrases.GroupBy(p => p.TypeCode).Select(g => g.ToList())];
+		List<T>[] output = [.. phrases
+			.GroupBy(static p => p.TypeCode)
+			.Select(static g  => g.ToList())];
 
 		foreach (List<T> grouping in output)
 			grouping.CutLengths(preOrdered);
@@ -124,7 +125,7 @@ public static class Optimizer
 	/// <remarks>If some markers may be anchored, use the overload with a resolution.</remarks>
 	public static void RemoveUnneeded(this ICollection<Tempo> markers, bool preOrdered = false)
 	{
-		if (markers.TryGetFirst(m => !m.PositionSynced, out Tempo? marker))
+		if (markers.TryGetFirst(static m => !m.PositionSynced, out Tempo? marker))
 			throw new DesynchronizedAnchorException(marker.Anchor!.Value,
 				$"Collection contains a desynchronized anchored tempo at {marker.Anchor}. Resolution needed to synchronize anchors.");
 
@@ -143,7 +144,7 @@ public static class Optimizer
 	{
 		markers.Synchronize(resolution, desyncedPreOrdered);
 
-		foreach ((Tempo previous, Tempo current) in markers.OrderBy(m => m.Position).RelativeLoopSkipFirst())
+		foreach ((Tempo previous, Tempo current) in markers.OrderBy(static m => m.Position).RelativeLoopSkipFirst())
 			if (current.Value == previous.Value)
 				markers.Remove(current);
 	}
@@ -163,5 +164,5 @@ public static class Optimizer
 
 	private static IEnumerable<T> GetOrdered<T>(IEnumerable<T> items, bool preOredered)
 		where T : ITrackObject
-		=> preOredered ? items : items.OrderBy(i => i.Position);
+		=> preOredered ? items : items.OrderBy(static i => i.Position);
 }

@@ -121,7 +121,7 @@ public class Song
 	public void ToFile(string path, WritingConfiguration? config = default, FormattingRules? formatting = default)
 		=> ExtensionHandler.Write(path, this,
 			(".chart", (path, song) => ChartFile.WriteSong(path, song, config?.Chart)),
-			(".ini", (path, song) =>
+			(".ini", static (path, song) =>
 			{
 				if (song.Metadata is not null)
 					IniFile.WriteMetadata(path, song.Metadata);

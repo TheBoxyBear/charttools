@@ -88,13 +88,13 @@ internal static class ChartFormatting
 		=> Header(difficulty.ToString() + instrumentName);
 	public static string Header(string name) => $"[{name}]";
 
-	public static string Line(string header, string? value)
-		=> value is null ? string.Empty : $"  {header} = {value}";
+	public static string Line(in ReadOnlySpan<char> header, in ReadOnlySpan<char> value)
+		=> $"  {header} = {value}";
 
 	/// <summary>
 	/// Gets the written data for a note.
 	/// </summary>
-	/// <param name="position">Position of the parent <see cref="LaneChord"/></param>
+	/// <param name="position">Position of the parent <see cref="Chord"/></param>
 	/// <param name="index">Value of <see cref="INote.Index"/></param>
 	/// <param name="sustain">Value of <see cref="ILaneNote.Sustain"/></param>
 	public static TrackObjectEntry NoteEntry(uint position, byte index, uint sustain)

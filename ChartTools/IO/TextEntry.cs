@@ -15,6 +15,9 @@ internal readonly struct TextEntry
 	/// </summary>
 	public ReadOnlyMemory<char> Value { get; }
 
+	public TextEntry(string key, string value)
+		: this(key.AsMemory(), value.AsMemory()) { }
+
 	public TextEntry(in ReadOnlyMemory<char> key, in ReadOnlyMemory<char> value)
 	{
 		Key   = key;

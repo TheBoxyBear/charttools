@@ -54,7 +54,7 @@ internal static class ExtensionHandler
 		(string extension, VoidRead readMethod) reader = readers.FirstOrDefault(r => r.extension == extension);
 
 		if (reader == default)
-			throw GetException(extension, readers.Select(r => r.extension));
+			throw GetException(extension, readers.Select(static r => r.extension));
 
 		reader.readMethod(path);
 	}
@@ -70,7 +70,7 @@ internal static class ExtensionHandler
 		string extension = Path.GetExtension(path);
 		(string extension, Read<T> readMethod) reader = readers.FirstOrDefault(r => r.extension == extension);
 
-		return reader == default ? throw GetException(extension, readers.Select(r => r.extension)) : reader.readMethod(path);
+		return reader == default ? throw GetException(extension, readers.Select(static r => r.extension)) : reader.readMethod(path);
 	}
 
 	public static async Task<T> ReadAsync<T>(string path, params IEnumerable<(string extension, AsyncRead<T> readMethod)> readers)
@@ -79,7 +79,7 @@ internal static class ExtensionHandler
 		(string extension, AsyncRead<T> readMethod) reader = readers.FirstOrDefault(r => r.extension == extension);
 
 		return reader == default
-			? throw GetException(extension, readers.Select(r => r.extension))
+			? throw GetException(extension, readers.Select(static r => r.extension))
 			: await reader.readMethod(path).ConfigureAwait(false);
 	}
 	#endregion
@@ -98,7 +98,7 @@ internal static class ExtensionHandler
 		(string extension, Write<T> writeMethod) writer = writers.FirstOrDefault(w => w.extension == extension);
 
 		if (writer == default)
-			throw GetException(extension, writers.Select(w => w.extension));
+			throw GetException(extension, writers.Select(static w => w.extension));
 
 		writer.writeMethod(path, content);
 	}
@@ -109,7 +109,7 @@ internal static class ExtensionHandler
 		(string extension, AsyncWrite<T> writeMethod) writer = writers.FirstOrDefault(w => w.extension == extension);
 
 		if (writer == default)
-			throw GetException(extension, writers.Select(w => w.extension));
+			throw GetException(extension, writers.Select(static w => w.extension));
 
 		await writer.writeMethod(path, content).ConfigureAwait(false);
 	}

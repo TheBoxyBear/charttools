@@ -12,6 +12,7 @@ internal abstract class FileReader<T>(ReadingDataSource source) : IDisposable
 	public abstract IEnumerable<FileParser<T>> Parsers { get; }
 
 	public abstract void Read();
+
 	public abstract Task ReadAsync(CancellationToken cancellationToken);
 
 	protected void CheckBusy()
@@ -20,7 +21,8 @@ internal abstract class FileReader<T>(ReadingDataSource source) : IDisposable
 			throw new InvalidOperationException("Cannot start read operation while the reader is busy.");
 	}
 
-	public virtual void Dispose() => Source.Dispose();
+	public virtual void Dispose()
+		=> Source.Dispose();
 }
 
 internal abstract class FileReader<T, TParser>(ReadingDataSource source) : FileReader<T>(source)
@@ -28,10 +30,12 @@ internal abstract class FileReader<T, TParser>(ReadingDataSource source) : FileR
 {
 	public record ParserContentGroup(TParser Parser, DelayedEnumerableSource<T> Source);
 
-	public override IEnumerable<TParser> Parsers => parserGroups.Select(g => g.Parser);
+	public override IEnumerable<TParser> Parsers
+		=> m_parserGroups.Select(static g => g.Parser);
 
-	protected readonly List<ParserContentGroup> parserGroups = [];
-	protected readonly List<Task> parseTasks = [];
+	protected readonly List<ParserContentGroup> m_parserGroups = [];
+
+	protected readonly List<Task> m_parseTasks = [];
 
 	protected abstract TParser? GetParser(in T header);
 
@@ -40,12 +44,12 @@ internal abstract class FileReader<T, TParser>(ReadingDataSource source) : FileR
 		CheckBusy();
 		IsReading = true;
 
-		parserGroups.Clear();
-		parseTasks.Clear();
+		m_parserGroups.Clear();
+		m_parseTasks.Clear();
 
 		ReadBase(false, CancellationToken.None);
 
-		foreach (ParserContentGroup group in parserGroups)
+		foreach (ParserContentGroup group in m_parserGroups)
 			group.Parser.Parse(group.Source.Enumerable.EnumerateSynchronously());
 
 		IsReading = false;
@@ -57,7 +61,7 @@ internal abstract class FileReader<T, TParser>(ReadingDataSource source) : FileR
 		IsReading = true;
 
 		ReadBase(true, cancellationToken);
-		await Task.WhenAll(parseTasks).ConfigureAwait(false);
+		await Task.WhenAll(m_parseTasks).ConfigureAwait(false);
 
 		IsReading = false;
 	}
@@ -66,10 +70,10 @@ internal abstract class FileReader<T, TParser>(ReadingDataSource source) : FileR
 
 	public override void Dispose()
 	{
-		foreach (ParserContentGroup group in parserGroups)
+		foreach (ParserContentGroup group in m_parserGroups)
 			group.Source.Dispose();
 
-		foreach (Task task in parseTasks)
+		foreach (Task task in m_parseTasks)
 			task.Dispose();
 	}
 }

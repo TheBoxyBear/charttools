@@ -12,14 +12,17 @@ internal class TrackSerializer(Track content, ChartWritingSession session)
 	: TrackObjectGroupSerializer<Track>(ChartFormatting.Header(content.ParentInstrument!.InstrumentIdentity, content.Difficulty), content, session)
 {
 	public override IEnumerable<string> Serialize()
-		=> LaunchProviders().AlternateBy(entry => entry.Position).Select(entry => entry.ToString());
+		=> LaunchProviders()
+			.AlternateBy(entry => entry.Position)
+			.Select(entry => entry.ToString());
 
 	protected override IEnumerable<TrackObjectEntry>[] LaunchProviders()
 	{
 		ApplyOverlappingSpecialPhrasePolicy(Content.SpecialPhrases, Session.Configuration.OverlappingStarPowerPolicy);
 
 		// Convert solo and soloend events into star power
-		if (Session.Configuration.SoloNoStarPowerPolicy is SoloNoStarPowerPolicy.Convert && Content.SpecialPhrases.Count == 0 && Content.LocalEvents is not null)
+		if (Session.Configuration.SoloNoStarPowerPolicy is SoloNoStarPowerPolicy.Convert &&
+			Content.SpecialPhrases.Count is 0 && Content.LocalEvents is not null)
 		{
 			TrackSpecialPhrase? starPower = null;
 
@@ -44,7 +47,7 @@ internal class TrackSerializer(Track content, ChartWritingSession session)
 						break;
 				}
 
-			Content.LocalEvents.RemoveWhere(e => e.IsSoloEvent);
+			Content.LocalEvents.RemoveWhere(static e => e.IsSoloEvent);
 		}
 
 		return

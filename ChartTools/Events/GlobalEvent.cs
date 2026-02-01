@@ -80,7 +80,7 @@ public class GlobalEvent : Event
 	/// </summary>
 	/// <param name="path">Path of the file to read from</param>
 	public static IEnumerable<GlobalEvent> FromFile(string path)
-		=> ExtensionHandler.Read<IEnumerable<GlobalEvent>>(path, (".chart", p => ChartFile.ReadGlobalEvents(p)));
+		=> ExtensionHandler.Read<IEnumerable<GlobalEvent>>(path, (".chart", static p => ChartFile.ReadGlobalEvents(p)));
 
 	/// <summary>
 	/// Reads the set of <see cref="GlobalEvent"/> from a file asynchronously.
@@ -103,7 +103,7 @@ public static class GlobalEventExtensions
 	/// <param name="events">Set of events to write</param>
 	/// <param name="path">Path of the file to write to</param>
 	public static void ToFile(this IEnumerable<GlobalEvent> events, string path)
-		=> ExtensionHandler.Write(path, events, (".chart", (p, e) => ChartFile.ReplaceGlobalEvents(p, e)));
+		=> ExtensionHandler.Write(path, events, (".chart", static (p, e) => ChartFile.ReplaceGlobalEvents(p, e)));
 
 	/// <summary>
 	/// Replaces the set of <see cref="GlobalEvent"/> in a file asynchronously.

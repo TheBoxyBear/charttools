@@ -23,7 +23,8 @@ public abstract class SectionSet<T> : IList<Section<T>>
 		}
 	}
 
-	public int IndexOf(Section<T> item) => m_sections.IndexOf(item);
+	public int IndexOf(Section<T> item)
+		=> m_sections.IndexOf(item);
 
 	public void Insert(int index, Section<T> item)
 	{
@@ -31,7 +32,8 @@ public abstract class SectionSet<T> : IList<Section<T>>
 		m_sections.Insert(index, item);
 	}
 
-	public void RemoveAt(int index) => m_sections.RemoveAt(index);
+	public void RemoveAt(int index)
+		=> m_sections.RemoveAt(index);
 
 	public void Add(Section<T> item)
 	{
@@ -39,17 +41,23 @@ public abstract class SectionSet<T> : IList<Section<T>>
 		m_sections.Add(item);
 	}
 
-	public void Clear() => m_sections.Clear();
+	public void Clear()
+		=> m_sections.Clear();
 
-	public bool Contains(Section<T> item) => m_sections.Contains(item);
+	public bool Contains(Section<T> item)
+		=> m_sections.Contains(item);
 
-	public void CopyTo(Section<T>[] array, int arrayIndex) => m_sections.CopyTo(array, arrayIndex);
+	public void CopyTo(Section<T>[] array, int arrayIndex)
+		=> m_sections.CopyTo(array, arrayIndex);
 
-	public bool Remove(Section<T> item) => m_sections.Remove(item);
+	public bool Remove(Section<T> item)
+		=> m_sections.Remove(item);
 
-	public IEnumerator<Section<T>> GetEnumerator() => m_sections.GetEnumerator();
+	public IEnumerator<Section<T>> GetEnumerator()
+		=> m_sections.GetEnumerator();
 
-	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+	IEnumerator IEnumerable.GetEnumerator()
+		=> GetEnumerator();
 	#endregion
 
 	public Section<T>? Get(string header)

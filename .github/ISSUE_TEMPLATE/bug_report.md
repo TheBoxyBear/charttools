@@ -27,7 +27,9 @@ A clear and concise description of what you expected to happen.
 Add any other context about the problem here.
 
 **Chart link**
-[Link to download a chart showcasing the bug. (Cloud service or Chorus Encore). Copyrighted audio should be avoided.](url here)
+[Link to download a chart showcasing the bug.](url here)
 
 **Screenshot (Optional)**
 Paste an image here to embed it as an `![image]`
+
+- [ ] I acknowledge any linked chart does not incldue any copyrighted content, including audio, images or videos.
