@@ -6,107 +6,118 @@ using ChartTools.Tools;
 
 namespace ChartTools.IO.Chart.Parsing;
 
-internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingSession session, string header)
-    : ChartParser(session, header), IInstrumentAppliable<TChord> where TChord : IChord, new()
+internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingSession session, in ReadOnlyMemory<char> header)
+	: ChartParser(session, in header), IInstrumentAppliable<TChord>
+	where TChord : Chord, new()
 {
-    public Difficulty Difficulty { get; } = difficulty;
+	public Difficulty Difficulty { get; } = difficulty;
 
-    public override Track<TChord> Result => GetResult(result);
-    private readonly Track<TChord> result = new() { Difficulty = difficulty };
+	public override Track<TChord> Result
+		=> GetResult(m_result);
 
-    private TChord? currentChord;
+	private readonly Track<TChord> m_result = new() { Difficulty = difficulty };
 
-    protected override void HandleItem(string line)
-    {
-        TrackObjectEntry entry = new(line);
+	private TChord? m_currentChord;
 
-        switch (entry.Type)
-        {
-            // Local event
-            case "E":
-                result.LocalEvents.Add(new(entry.Position, entry.Data));
-                break;
-            // Note or chord modifier
-            case "N":
-                // Find the parent chord or create it
-                if (currentChord is null) // First chord
-                {
-                    currentChord = new() { Position = entry.Position };
-                    result.Chords.Add(currentChord!);
-                }
-                // Start of a new chord or the note belonging to an existing chord is misplaced
-                else if (entry.Position != currentChord.Position)
-                {
-                    // Notes are typically in order of position, not requiring a search for an existing chord
-                    if (entry.Position > result.Chords[^1].Position) // New chord
-                    {
-                        currentChord = new() { Position = entry.Position };
-                        result.Chords.Add(currentChord!);
-                    }
-                    else // Misplaced note - Requires search for the parent chord
-                    {
-                        var index = result.Chords.BinarySearchIndex(entry.Position, c => c.Position, out bool exactMatch);
+	protected override void HandleItem(in ReadOnlyMemory<char> line)
+	{
+		TrackObjectEntry entry = new(line);
 
-                        if (exactMatch)
-                            currentChord = result.Chords[index];
-                        else
-                        {
-                            currentChord = new() { Position = entry.Position };
-                            result.Chords.Insert(index, currentChord!);
-                        }
-                    }
-                }
+		// Can be optimized by switching on the single char
+		switch (entry.Type.Span)
+		{
+			// Local event
+			case "E":
+				m_result.LocalEvents.Add(new(entry.Position, entry.Data.ToString()));
+				break;
+			// Note or chord modifier
+			case "N":
+				// Find the parent chord or create it
+				if (m_currentChord is null) // First chord
+				{
+					m_currentChord = new() { Position = entry.Position };
+					m_result.Chords.Add(m_currentChord);
+				}
+				// Start of a new chord or the note belonging to an existing chord is misplaced
+				else if (entry.Position != m_currentChord.Position)
+				{
+					// Notes are typically in order of position, not requiring a search for an existing chord
+					if (entry.Position > m_result.Chords[^1].Position) // New chord
+					{
+						m_currentChord = new() { Position = entry.Position };
+						m_result.Chords.Add(m_currentChord);
+					}
+					else // Misplaced note - Requires search for the parent chord
+					{
+						int index = m_result.Chords.BinarySearchIndex(entry.Position, static c => c.Position, out bool exactMatch);
 
-                HandleNoteEntry(currentChord!, new(entry.Data));
+						if (exactMatch)
+							m_currentChord = m_result.Chords[index];
+						else
+						{
+							m_currentChord = new() { Position = entry.Position };
+							m_result.Chords.Insert(index, m_currentChord);
+						}
+					}
+				}
 
-                break;
-            // Star power
-            case "S":
-                var split = ChartFormatting.SplitData(entry.Data);
+				HandleNoteEntry(m_currentChord, new(entry.Data.Span));
 
-                var typeCode = ValueParser.ParseByte(split[0], "type code");
-                var length = ValueParser.ParseUint(split[1], "length");
+				break;
+			// Special phrase
+			case "S":
+				ReadOnlySpan<char> a, b;
+				ChartFormatting.SplitData(entry.Data.Span, out a, out b);
 
-                result.SpecialPhrases.Add(new(entry.Position, typeCode, length));
-                break;
-        }
+				byte typeCode = ValueParser.Parse<byte>(in a, "type code");
+				uint length   = ValueParser.Parse<uint>(in b, "length");
 
-        if (session!.Configuration.SoloNoStarPowerPolicy == SoloNoStarPowerPolicy.Convert)
-            result.SpecialPhrases.AddRange(result.SoloToStarPower(true));
-    }
+				m_result.SpecialPhrases.Add(new(entry.Position, typeCode, length));
+				break;
+		}
+	}
 
-    protected abstract void HandleNoteEntry(TChord chord, NoteData data);
-    protected void HandleAddNote(INote note, Action add)
-    {
-        if (session.HandleDuplicate(currentChord!.Position, "note", () => currentChord!.Notes.Any(n => n.Index == note.Index)))
-            add();
-    }
-    protected void HandleAddModifier(Enum existingModifier, Enum modifier, Action add)
-    {
-        if (session.HandleDuplicate(currentChord!.Position, "chord modifier", () => existingModifier.HasFlag(modifier)))
-            add();
-    }
+	protected abstract void HandleNoteEntry(TChord chord, in NoteData data);
 
     protected override void FinaliseParse()
     {
         ApplyOverlappingSpecialPhrasePolicy(result.SpecialPhrases, session!.Configuration.OverlappingSpecialPhrasePolicy);
         base.FinaliseParse();
     }
+	
+	protected bool CanAddNote(byte index)
+		=> Session.HandleDuplicate(m_currentChord!.Position, "note",
+			() => m_currentChord.Notes.AsEnumerable().Any(n => n.Index == index));
 
-    public void ApplyToInstrument(Instrument<TChord> instrument) => instrument.SetTrack(Result);
+	protected bool CanAddModifier(Enum existingModifier, Enum modifier)
+		=> Session.HandleDuplicate(m_currentChord!.Position, "chord modifier",
+			() => existingModifier.HasFlag(modifier));
 
-    private static void ApplyOverlappingSpecialPhrasePolicy(IEnumerable<TrackSpecialPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
-    {
-        switch (policy)
-        {
-            case OverlappingSpecialPhrasePolicy.Cut:
-                specialPhrases.CutLengths();
-                break;
-            case OverlappingSpecialPhrasePolicy.ThrowException:
-                foreach ((var previous, var current) in specialPhrases.RelativeLoopSkipFirst())
-                    if (Optimizer.LengthNeedsCut(previous, current))
-                        throw new Exception($"Overlapping star power phrases at position {current!.Position}. Consider using {nameof(OverlappingSpecialPhrasePolicy.Cut)} to avoid this error.");
-                break;
-        }
-    }
+	protected override void FinalizeParse()
+	{
+		if (Session.Configuration.SoloNoStarPowerPolicy is SoloNoStarPowerPolicy.Convert
+			&& !m_result.SpecialPhrases.Any(sp => sp.Type is TrackSpecialPhraseType.StarPowerGain))
+			m_result.SpecialPhrases.AddRange(m_result.SoloToStarPower(true));
+
+		ApplyOverlappingSpecialPhrasePolicy(m_result.SpecialPhrases, Session.Configuration.OverlappingStarPowerPolicy);
+		base.FinalizeParse();
+	}
+
+	public void ApplyToInstrument(Instrument<TChord> instrument)
+		=> instrument.SetTrack(Result);
+
+	private static void ApplyOverlappingSpecialPhrasePolicy(IEnumerable<TrackSpecialPhrase> specialPhrases, OverlappingSpecialPhrasePolicy policy)
+	{
+		switch (policy)
+		{
+			case OverlappingSpecialPhrasePolicy.Cut:
+				specialPhrases.CutLengths();
+				break;
+			case OverlappingSpecialPhrasePolicy.ThrowException:
+				foreach ((TrackSpecialPhrase previous, TrackSpecialPhrase current) in specialPhrases.RelativeLoopSkipFirst())
+					if (Optimizer.LengthNeedsCut(previous, current))
+						throw new Exception($"Overlapping star power phrases at position {current.Position}. Consider using {nameof(OverlappingSpecialPhrasePolicy.Cut)} to avoid this error.");
+				break;
+		}
+	}
 }

@@ -1,160 +1,235 @@
-﻿namespace ChartTools.IO.Components;
+﻿using ChartTools.Extensions.Enums;
 
+namespace ChartTools.IO.Components;
+
+/// <summary>
+/// Flag-based version of the <see cref="Difficulty"/> enum for use in <see cref="InstrumentComponentList"/>
+/// </summary>
 [Flags]
 public enum DifficultySet : byte
 {
-    None = 0,
-    Easy = 1 << 0,
-    Medium = 1 << 1,
-    Hard = 1 << 2,
-    Expert = 1 << 3,
-    All = Easy | Medium | Hard | Expert
+	None   = 0,
+	Easy   = 1 << 0,
+	Medium = 1 << 1,
+	Hard   = 1 << 2,
+	Expert = 1 << 3,
+	All    = Easy | Medium | Hard | Expert
 };
 
-
+/// <summary>
+/// Provides extension methods to the <see cref="Difficulty"/> and <see cref="DifficultySet"/> enums.
+/// </summary>
 public static class DifficultyExtensions
 {
-    public static DifficultySet ToSet(this Difficulty difficulty) => (DifficultySet)(1 << (int)difficulty);
+	/// <summary>
+	/// Converts a <see cref="Difficulty"/> value to a <see cref="DifficultySet"/>.
+	/// </summary>
+	/// <param name="difficulty">Difficulty value to convert</param>
+	/// <returns><see cref="DifficultySet"/> where the matching flag of the original value is set</returns>
+	public static DifficultySet ToSet(this Difficulty difficulty) => (DifficultySet)(1 << (int)difficulty);
 }
 
+/// <summary>
+/// Set of instruments and tracks to include in a read/write operation
+/// </summary>
 public record InstrumentComponentList()
 {
-    public static InstrumentComponentList Full() => new()
-    {
-        Drums       = DifficultySet.All,
-        LeadGuitar  = DifficultySet.All,
-        CoopGuitar  = DifficultySet.All,
-        RythmGuitar = DifficultySet.All,
-        Bass        = DifficultySet.All,
-        GHLGuitar   = DifficultySet.All,
-        GHLBass     = DifficultySet.All,
-        Keys        = DifficultySet.All,
-        Vocals      = DifficultySet.All
-    };
+	/// <summary>
+	/// Creates a new <see cref="InstrumentComponentList"/> with all instruments and tracks included.
+	/// </summary>
+	public static InstrumentComponentList Full() => new()
+	{
+		Drums                = DifficultySet.All,
+		StandardLeadGuitar   = DifficultySet.All,
+		StandardCoopGuitar   = DifficultySet.All,
+		StandardRhythmGuitar = DifficultySet.All,
+		StandardBass         = DifficultySet.All,
+		GHLLeadGuitar        = DifficultySet.All,
+		GHLRhythmGuitar      = DifficultySet.All,
+		GHLCoopGuitar        = DifficultySet.All,
+		GHLBass              = DifficultySet.All,
+		StandardKeys         = DifficultySet.All,
+	};
 
-    public DifficultySet Drums
-    {
-        get => _drums;
-        set => _drums = value;
-    }
-    private DifficultySet _drums;
+	#region Instruments
+	// Manually defining backing field to return by reference
 
-    public DifficultySet LeadGuitar
-    {
-        get => _leadGuitar;
-        set => _leadGuitar = value;
-    }
-    private DifficultySet _leadGuitar;
+	/// <summary>
+	/// Tracks to include for <see cref="InstrumentSet.Drums"/>
+	/// </summary>
+	public DifficultySet Drums
+	{
+		get => m_drums;
+		set => m_drums = value;
+	}
+	private DifficultySet m_drums;
 
-    public DifficultySet CoopGuitar
-    {
-        get => _coopGuitar;
-        set => _coopGuitar = value;
-    }
-    private DifficultySet _coopGuitar;
+	/// <summary>
+	/// Tracks to include for <see cref="InstrumentSet.StandardLeadGuitar"/>
+	/// </summary>
+	public DifficultySet StandardLeadGuitar
+	{
+		get => m_standardLeadGuitar;
+		set => m_standardLeadGuitar = value;
+	}
+	private DifficultySet m_standardLeadGuitar;
 
-    public DifficultySet RythmGuitar
-    {
-        get => _rythmGuitar;
-        set => _rythmGuitar = value;
-    }
-    private DifficultySet _rythmGuitar;
+	/// <summary>
+	/// Tracks to include for <see cref="InstrumentSet.StandardCoopGuitar"/>
+	/// </summary>
+	public DifficultySet StandardCoopGuitar
+	{
+		get => m_standardCoopGuitar;
+		set => m_standardCoopGuitar = value;
+	}
+	private DifficultySet m_standardCoopGuitar;
 
-    public DifficultySet Bass
-    {
-        get => _bass;
-        set => _bass = value;
-    }
-    private DifficultySet _bass;
+	/// <summary>
+	/// Tracks to include for <see cref="InstrumentSet.StandardRhythmGuitar"/>
+	/// </summary>
+	public DifficultySet StandardRhythmGuitar
+	{
+		get => m_standardRhythmGuitar;
+		set => m_standardRhythmGuitar = value;
+	}
+	private DifficultySet m_standardRhythmGuitar;
 
-    public DifficultySet GHLGuitar
-    {
-        get => _ghlGuitar;
-        set => _ghlGuitar = value;
-    }
-    private DifficultySet _ghlGuitar;
+	/// <summary>
+	/// Tracks to include for <see cref="InstrumentSet.StandardBass"/>
+	/// </summary>
+	public DifficultySet StandardBass
+	{
+		get => m_standardBass;
+		set => m_standardBass = value;
+	}
+	private DifficultySet m_standardBass;
 
-    public DifficultySet GHLBass
-    {
-        get => _ghlBass;
-        set => _ghlBass = value;
-    }
-    private DifficultySet _ghlBass;
+	/// <summary>
+	/// Tracks to include for <see cref="InstrumentSet.StandardKeys"/>
+	/// </summary>
+	public DifficultySet StandardKeys
+	{
+		get => m_standardKeys;
+		set => m_standardKeys = value;
+	}
+	private DifficultySet m_standardKeys;
 
-    public DifficultySet Keys
-    {
-        get => _keys;
-        set => _keys = value;
-    }
-    private DifficultySet _keys;
+	/// <summary>
+	/// Tracks to include for <see cref="InstrumentSet.GHLLeadGuitar"/>
+	/// </summary>
+	public DifficultySet GHLLeadGuitar
+	{
+		get => m_ghlLeadGuitar;
+		set => m_ghlLeadGuitar = value;
+	}
+	private DifficultySet m_ghlLeadGuitar;
 
-    public DifficultySet Vocals
-    {
-        get => _vocals;
-        set => _vocals = value;
-    }
-    private DifficultySet _vocals;
+	/// <summary>
+	/// Tracks to include for <see cref="InstrumentSet.GHLRhythmGuitar"/>
+	/// </summary>
+	public DifficultySet GHLRhythmGuitar
+	{
+		get => m_ghlRhythmGuitar;
+		set => m_ghlRhythmGuitar = value;
+	}
+	private DifficultySet m_ghlRhythmGuitar;
 
-    public InstrumentComponentList(InstrumentIdentity identity, DifficultySet difficulties = DifficultySet.All) : this()
-    {
-        Validator.ValidateEnum(identity);
-        Validator.ValidateEnum(difficulties);
+	/// <summary>
+	/// Tracks to include for <see cref="InstrumentSet.GHLCoopGuitar"/>
+	/// </summary>
+	public DifficultySet GHLCoopGuitar
+	{
+		get => m_ghlCoopGuitar;
+		set => m_ghlCoopGuitar = value;
+	}
+	private DifficultySet m_ghlCoopGuitar;
 
-        Map(identity) = difficulties;
-    }
+	/// <summary>
+	/// Tracks to include for <see cref="InstrumentSet.GHLBass"/>
+	/// </summary>
+	public DifficultySet GHLBass
+	{
+		get => m_ghlBass;
+		set => m_ghlBass = value;
+	}
+	private DifficultySet m_ghlBass;
+	#endregion
 
-    public InstrumentComponentList(StandardInstrumentIdentity identity, DifficultySet difficulties = DifficultySet.All) : this()
-    {
-        Validator.ValidateEnum(identity);
-        Validator.ValidateEnum(difficulties);
+	/// <summary>
+	/// Creates a new <see cref="InstrumentComponentList"/> for a single instrument with the specified difficulties.
+	/// </summary>
+	/// <param name="identity">Instrument to include</param>
+	/// <param name="difficulties">Tracks to include for the instrument</param>
+	/// <exception cref="UndefinedEnumException"/>
+	public InstrumentComponentList(InstrumentIdentity identity, DifficultySet difficulties = DifficultySet.All) : this()
+		=> Map(identity.Validate()) = difficulties.Validate();
 
-        Map((InstrumentIdentity)identity) = difficulties;
-    }
+	/// <summary>
+	/// Creates a new <see cref="InstrumentComponentList"/> for a single standard instrument with the specified difficulties.
+	/// </summary>
+	/// <param name="identity">Instrument to include</param>
+	/// <param name="difficulties">Tracks to include for the instrument</param>
+	/// <exception cref="UndefinedEnumException"/>
+	public InstrumentComponentList(StandardInstrumentIdentity identity, DifficultySet difficulties = DifficultySet.All) : this()
+		=> Map((InstrumentIdentity)identity.Validate()) = difficulties.Validate();
 
-    public InstrumentComponentList(GHLInstrumentIdentity identity, DifficultySet difficulties = DifficultySet.All) : this()
-    {
-        Validator.ValidateEnum(identity);
-        Validator.ValidateEnum(difficulties);
+	/// <summary>
+	/// Creates a new <see cref="InstrumentComponentList"/> for a single Guitar Hero Live instrument with the specified difficulties.
+	/// </summary>
+	/// <param name="identity">Instrument to include</param>
+	/// <param name="difficulties">Tracks to include for the instrument</param>
+	/// <exception cref="UndefinedEnumException"/>
+	public InstrumentComponentList(GHLInstrumentIdentity identity, DifficultySet difficulties = DifficultySet.All) : this()
+		=> Map((InstrumentIdentity)identity.Validate()) = difficulties.Validate();
 
-        Map((InstrumentIdentity)identity) = difficulties;
-    }
+	/// <summary>
+	/// Maps a instrument to its included tracks by reference.
+	/// </summary>
+	/// <param name="instrument"></param>
+	/// <returns></returns>
+	/// <exception cref="UndefinedEnumException"></exception>
+	public ref DifficultySet Map(InstrumentIdentity instrument)
+	{
+		switch (instrument)
+		{
+			case InstrumentIdentity.Drums:
+				return ref m_drums;
+			case InstrumentIdentity.StandardLeadGuitar:
+				return ref m_standardLeadGuitar;
+			case InstrumentIdentity.StandardCoopGuitar:
+				return ref m_standardCoopGuitar;
+			case InstrumentIdentity.StandardRhythmGuitar:
+				return ref m_standardRhythmGuitar;
+			case InstrumentIdentity.StandardBass:
+				return ref m_standardBass;
+			case InstrumentIdentity.GHLLeadGuitar:
+				return ref m_ghlLeadGuitar;
+			case InstrumentIdentity.GHLBass:
+				return ref m_ghlBass;
+			case InstrumentIdentity.GHLRhythmGuitar:
+				return ref m_ghlRhythmGuitar;
+			case InstrumentIdentity.GHLCoopGuitar:
+				return ref m_ghlCoopGuitar;
+			case InstrumentIdentity.StandardKeys:
+				return ref m_standardKeys;
+			default:
+				throw new UndefinedEnumException(instrument);
+		}
+	}
 
-    public ref DifficultySet Map(InstrumentIdentity instrument)
-    {
-        switch (instrument)
-        {
-            case InstrumentIdentity.Drums:
-                return ref _drums;
-            case InstrumentIdentity.LeadGuitar:
-                return ref _leadGuitar;
-            case InstrumentIdentity.CoopGuitar:
-                return ref _coopGuitar;
-            case InstrumentIdentity.RhythmGuitar:
-                return ref _rythmGuitar;
-            case InstrumentIdentity.Bass:
-                return ref _bass;
-            case InstrumentIdentity.GHLGuitar:
-                return ref _ghlGuitar;
-            case InstrumentIdentity.GHLBass:
-                return ref _ghlBass;
-            case InstrumentIdentity.Keys:
-                return ref _keys;
-            case InstrumentIdentity.Vocals:
-                return ref _vocals;
-            default:
-                throw new UndefinedEnumException(instrument);
-        }
-    }
+	/// <summary>
+	/// Maps a standard instrument to its included tracks by reference.
+	/// </summary>
+	/// <param name="instrument"></param>
+	/// <exception cref="UndefinedEnumException"></exception>
+	public ref DifficultySet Map(StandardInstrumentIdentity instrument)
+		=> ref Map((InstrumentIdentity)instrument.Validate());
 
-    public ref DifficultySet Map(StandardInstrumentIdentity instrument)
-    {
-        Validator.ValidateEnum(instrument);
-        return ref Map((InstrumentIdentity)(instrument));
-    }
-
-    public ref DifficultySet Map(GHLInstrumentIdentity instrument)
-    {
-        Validator.ValidateEnum(instrument);
-        return ref Map((InstrumentIdentity)(instrument));
-    }
+	/// <summary>
+	/// Maps a Guitar Hero Live instrument to its included tracks by reference.
+	/// </summary>
+	/// <param name="instrument"></param>
+	/// <exception cref="UndefinedEnumException"></exception>
+	public ref DifficultySet Map(GHLInstrumentIdentity instrument)
+		=> ref Map((InstrumentIdentity)instrument.Validate());
 }

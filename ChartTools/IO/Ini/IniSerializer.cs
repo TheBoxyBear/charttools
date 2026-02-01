@@ -1,34 +1,42 @@
 ﻿using ChartTools.IO.Formatting;
+using ChartTools.Meta;
 
 namespace ChartTools.IO.Ini;
 
-internal class IniSerializer : Serializer<Metadata, string>
+internal class IniSerializer(Metadata content) : Serializer<Metadata, string>(IniFormatting.Header, content)
 {
-    public IniSerializer(Metadata content) : base(IniFormatting.Header, content) { }
+	public override IEnumerable<string> Serialize()
+	{
+		if (Content is null)
+			yield break;
 
-    public override IEnumerable<string> Serialize()
-    {
-        if (Content is null)
-            yield break;
+		IEnumerable<(string key, string value)> props = IniKeySerializableAttribute.GetSerializable(Content)
+			.Concat(IniKeySerializableAttribute.GetSerializable(Content.Formatting))
+			.Concat(IniKeySerializableAttribute.GetSerializable(Content.Charter)
+			.Concat(IniKeySerializableAttribute.GetSerializable(Content.InstrumentDifficulties)));
 
-        var props = IniKeySerializableAttribute.GetSerializable(Content)
-            .Concat(IniKeySerializableAttribute.GetSerializable(Content.Formatting))
-            .Concat(IniKeySerializableAttribute.GetSerializable(Content.Charter)
-            .Concat(IniKeySerializableAttribute.GetSerializable(Content.InstrumentDifficulties)));
+		foreach ((string key, string value) in props)
+			yield return IniFormatting.Line(key, value.ToString());
 
-        foreach ((var key, var value) in props)
-            yield return IniFormatting.Line(key, value.ToString());
+		foreach (UnidentifiedMetadata data in Content.UnidentifiedData.Where(x => x.Origin is FileType.Ini))
+			yield return IniFormatting.Line(data.Key, data.Value);
 
-        foreach (var data in Content.UnidentifiedData)
-            yield return IniFormatting.Line(data.Key, data.Value);
+		if (Content.AlbumTrack is not null)
+		{
+			if (Content.Formatting.AlbumTrackKey.HasFlag(AlbumTrackKey.Track))
+				yield return IniFormatting.Line(IniFormatting.Track, Content.AlbumTrack.ToString());
 
-        if (Content.AlbumTrack is not null)
-        {
-            if (Content.Formatting.AlbumTrackKey.HasFlag(AlbumTrackKey.Track))
-                yield return IniFormatting.Line(IniFormatting.Track, Content.AlbumTrack.ToString()!);
+			if (Content.Formatting.AlbumTrackKey.HasFlag(AlbumTrackKey.AlbumTrack))
+				yield return IniFormatting.Line(IniFormatting.AlbumTrack, Content.AlbumTrack.ToString());
+		}
 
-            if (Content.Formatting.AlbumTrackKey.HasFlag(AlbumTrackKey.AlbumTrack))
-                yield return IniFormatting.Line(IniFormatting.AlbumTrack, Content.AlbumTrack.ToString()!);
-        }
-    }
+		if (Content.Charter is not null)
+		{
+			if (Content.Formatting.CharterKey.HasFlag(CharterKey.Charter))
+				yield return IniFormatting.Line(IniFormatting.Charter, Content.Charter.Name?.ToString());
+
+			if (Content.Formatting.CharterKey.HasFlag(CharterKey.Frets))
+				yield return IniFormatting.Line(IniFormatting.Frets, Content.Charter.Name?.ToString());
+		}
+	}
 }

@@ -2,36 +2,36 @@
 
 namespace ChartTools.Extensions.Collections;
 
-internal class DelayedEnumerator<T> : IEnumerator<T>
+internal class DelayedEnumerator<T>(DelayedEnumerableSource<T> source) : IEnumerator<T?>
 {
-    public T Current { get; private set; }
-    object? IEnumerator.Current => Current;
-    public bool AwaitingItems => source.AwaitingItems;
+	public T? Current { get; private set; }
+	object? IEnumerator.Current => Current;
+	public bool AwaitingItems => source.AwaitingItems;
 
-    private readonly DelayedEnumerableSource<T> source;
+	private bool WaitForItems()
+	{
+		while (source.Buffer.IsEmpty)
+			if (!AwaitingItems && source.Buffer.IsEmpty)
+				return false;
 
-    internal DelayedEnumerator(DelayedEnumerableSource<T> source) => this.source = source;
+		return true;
+	}
 
-    private bool WaitForItems()
-    {
-        while (source.Buffer.IsEmpty)
-            if (!AwaitingItems && source.Buffer.IsEmpty)
-                return false;
+	public bool MoveNext()
+	{
+		if (!WaitForItems())
+			return false;
 
-        return true;
-    }
-    public bool MoveNext()
-    {
-        if (!WaitForItems())
-            return false;
+		if (!source.Buffer.TryDequeue(out T? item))
+			return false;
 
-        source.Buffer.TryDequeue(out T? item);
-        Current = item!;
+		Current = item;
 
-        return true;
-    }
+		return true;
+	}
 
-    public void Dispose() => GC.SuppressFinalize(this);
+	void IEnumerator.Reset()
+		=> throw new InvalidOperationException();
 
-    public void Reset() => throw new InvalidOperationException();
+	void IDisposable.Dispose() { }
 }

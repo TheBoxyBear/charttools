@@ -8,62 +8,72 @@ namespace ChartTools.IO.Sections;
 /// <typeparam name="T">Type of content in the sections depending on the file type</typeparam>
 public abstract class SectionSet<T> : IList<Section<T>>
 {
-    private readonly List<Section<T>> _sections = new();
-    /// <summary>
-    /// Headers used by the model
-    /// </summary>
-    /// <remarks>Using a reserved header will cause an <see cref="Exception"/>.</remarks>
-    public abstract ReservedSectionHeaderSet ReservedHeaders { get; }
+	private readonly List<Section<T>> m_sections = [];
 
-    #region IList implementation
-    public int Count => _sections.Count;
-    public bool IsReadOnly => false;
+	public abstract ReservedSectionHeaderSet ReservedHeaders { get; }
 
-public Section<T> this[int index]
-{
-    get => _sections[index];
-    set
-    {
-        CheckHeader(value.Header);
-        _sections[index] = value;
-    }
-}
+	#region IList
+	public int Count => m_sections.Count;
 
-public int IndexOf(Section<T> item) => _sections.IndexOf(item);
-public void Insert(int index, Section<T> item)
-{
-    CheckHeader(item.Header);
-    _sections.Insert(index, item);
-}
-public void RemoveAt(int index) => _sections.RemoveAt(index);
-public void Add(Section<T> item)
-{
-    CheckHeader(item.Header);
-    _sections.Add(item);
-}
-public void Clear() => _sections.Clear();
-public bool Contains(Section<T> item) => _sections.Contains(item);
-public void CopyTo(Section<T>[] array, int arrayIndex) => _sections.CopyTo(array, arrayIndex);
-public bool Remove(Section<T> item) => _sections.Remove(item);
-public IEnumerator<Section<T>> GetEnumerator() => _sections.GetEnumerator();
-IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-#endregion
+	public bool IsReadOnly => false;
 
-    /// <summary>
-    /// Gets a section based on its header
-    /// </summary>
-    /// <param name="header">Header of the section to search</param>
-    /// <returns>Section with the matching header. <see langword="null"/> if none found.</returns>
-    public Section<T>? Get(string header)
-    {
-        CheckHeader(header);
-        return _sections.FirstOrDefault(s => s.Header == header);
-    }
+	public Section<T> this[int index]
+	{
+		get => m_sections[index];
+		set
+		{
+			CheckHeader(value.Header);
+			m_sections[index] = value;
+		}
+	}
 
-private void CheckHeader(string header)
-{
-    foreach (var reserved in ReservedHeaders)
-        if (reserved.Header == header)
-            throw new Exception($"Header {header} is already modeled under {reserved.DataSource}");
-}
+	public int IndexOf(Section<T> item)
+		=> m_sections.IndexOf(item);
+
+	public void Insert(int index, Section<T> item)
+	{
+		CheckHeader(item.Header);
+		m_sections.Insert(index, item);
+	}
+
+	public void RemoveAt(int index)
+		=> m_sections.RemoveAt(index);
+
+	public void Add(Section<T> item)
+	{
+		CheckHeader(item.Header);
+		m_sections.Add(item);
+	}
+
+	public void Clear()
+		=> m_sections.Clear();
+
+	public bool Contains(Section<T> item)
+		=> m_sections.Contains(item);
+
+	public void CopyTo(Section<T>[] array, int arrayIndex)
+		=> m_sections.CopyTo(array, arrayIndex);
+
+	public bool Remove(Section<T> item)
+		=> m_sections.Remove(item);
+
+	public IEnumerator<Section<T>> GetEnumerator()
+		=> m_sections.GetEnumerator();
+
+	IEnumerator IEnumerable.GetEnumerator()
+		=> GetEnumerator();
+	#endregion
+
+	public Section<T>? Get(string header)
+	{
+		CheckHeader(header);
+		return m_sections.FirstOrDefault(s => s.Header == header);
+	}
+
+	private void CheckHeader(string header)
+	{
+		foreach (ReservedSectionHeader reserved in ReservedHeaders)
+			if (reserved.Header == header)
+				throw new Exception($"Header {header} is already modeled under {reserved.DataSource}");
+	}
 }

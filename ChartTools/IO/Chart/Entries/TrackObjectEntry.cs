@@ -5,47 +5,57 @@
 /// </summary>
 internal readonly struct TrackObjectEntry : IReadOnlyTrackObject
 {
-    /// <summary>
-    /// Value of <see cref="ITrackObject.Position"/>
-    /// </summary>
-    public uint Position { get; }
-    /// <summary>
-    /// Type code of <see cref="ITrackObject"/>
-    /// </summary>
-    public string Type { get; }
-    /// <summary>
-    /// Additional data
-    /// </summary>
-    public string Data { get; }
+	/// <summary>
+	/// Value of <see cref="ITrackObject.Position"/>
+	/// </summary>
+	public uint Position { get; }
 
-/// <summary>
-/// Creates an instance of see<see cref="TrackObjectEntry"/>.
-/// </summary>
-/// <param name="line">Line in the file</param>
-/// <exception cref="LineException"/>
-public TrackObjectEntry(string line)
-{
-    TextEntry entry = new(line);
+	/// <summary>
+	/// Type code of <see cref="ITrackObject"/>
+	/// </summary>
+	public ReadOnlyMemory<char> Type { get; }
 
-    if (entry.Value is null)
-        throw new LineException(line, new FormatException("Line has no object data."));
+	/// <summary>
+	/// Additional data
+	/// </summary>
+	public ReadOnlyMemory<char> Data { get; }
 
-    string[] split = entry.Value.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
+	public TrackObjectEntry(string line)
+		: this(line.AsMemory()) { }
 
-    if (split.Length < 2)
-        throw new LineException(line, new EntryException());
+	/// <summary>
+	/// Creates an instance of see<see cref="TrackObjectEntry"/>.
+	/// </summary>
+	/// <param name="line">Line in the file</param>
+	/// <exception cref="LineException"/>
+	public TrackObjectEntry(in ReadOnlyMemory<char> line)
+	{
+		TextEntry entry = new(line);
 
-    Type = split[0];
-    Data = split[1];
+		if (entry.Value.IsEmpty)
+			throw new LineException(line.ToString(), new FormatException("Line has no object data."));
 
-    Position = ValueParser.ParseUint(entry.Key, "position");
-}
-public TrackObjectEntry(uint position, string type, string data)
-{
-    Position = position;
-    Type = type;
-    Data = data;
-}
+		int spaceIndex = entry.Value.Span.IndexOf(' ');
 
-public override string ToString() => ChartFormatting.Line(Position.ToString(), $"{Type} {Data}");
+		if (spaceIndex == -1)
+			throw new LineException(line.ToString(), new EntryException());
+
+		Type = entry.Value[0..spaceIndex];
+		Data = entry.Value[(spaceIndex + 1)..];
+
+		Position = ValueParser.Parse<uint>(entry.Key.Span, "position");
+	}
+
+	public TrackObjectEntry(uint position, string type, string data)
+		: this(position, type.AsMemory(), data.AsMemory()) { }
+
+	public TrackObjectEntry(uint position, in ReadOnlyMemory<char> type, in ReadOnlyMemory<char> data)
+	{
+		Position = position;
+		Type     = type;
+		Data     = data;
+	}
+
+	public override string ToString()
+		=> ChartFormatting.Line(Position.ToString(), $"{Type} {Data}");
 }

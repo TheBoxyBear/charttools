@@ -3,206 +3,239 @@
 namespace ChartTools;
 
 /// <summary>
-/// Set of tempo markers that handles synchronism of anchored tempos.
+/// Set of tempo markers that handles synchronism of anchored tempos
 /// </summary>
 public class TempoMap : IList<Tempo>
 {
-    private readonly List<Tempo> _items = new();
-    private readonly List<Tempo> _anchors = new();
+	private readonly List<Tempo>
+		m_items   = [],
+		m_anchors = [];
 
-    public Tempo this[int index]
-    {
-        get => _items[index];
-        set => _items[index] = value;
-    }
-    public int Count => _items.Count;
-    bool ICollection<Tempo>.IsReadOnly => false;
-    /// <summary>
-    /// Indicates if all anchored markers are synchronized.
-    /// </summary>
-    public bool Synchronized { get; private set; }
+	public Tempo this[int index]
+	{
+		get => m_items[index];
+		set => m_items[index] = value;
+	}
 
-    private void AddBase(Tempo item)
-    {
-        item.Map = this;
+	public int Count
+		=> m_items.Count;
 
-        if (item.Anchor is not null)
-            _anchors.Add(item);
-    }
-    public void Add(Tempo item)
-    {
-        if (item is null)
-            throw new ArgumentNullException(nameof(item));
+	bool ICollection<Tempo>.IsReadOnly => false;
 
-        _items.Add(item);
+	/// <summary>
+	/// Indicates if all anchored markers are synchronized.
+	/// </summary>
+	public bool Synchronized { get; private set; }
 
-        AddBase(item);
-        Desync();
-    }
-    public void AddRange(IEnumerable<Tempo> items)
-    {
-        foreach (var item in items)
-        {
-            _items.Add(item);
-            AddBase(item);
-        }
+	private void AddBase(Tempo item)
+	{
+		item.Map = this;
 
-        Desync();
-    }
-    public void Clear() => _items.Clear();
-    public void Clear(bool detachMap)
-    {
-        if (detachMap)
-            foreach (var tempo in _items)
-                tempo.Map = null;
+		if (item.Anchor is not null)
+			m_anchors.Add(item);
+	}
 
-        _items.Clear();
-    }
-    public bool Contains(Tempo item) => _items.Contains(item);
-    public void CopyTo(Tempo[] array, int arrayIndex) => _items.CopyTo(array, arrayIndex);
-    public int IndexOf(Tempo item) => _items.IndexOf(item);
-    public void Insert(int index, Tempo item)
-    {
-        _items.Insert(index, item);
+	public void Add(Tempo item)
+	{
+		ArgumentNullException.ThrowIfNull(item);
 
-        AddBase(item);
-        Desync();
-    }
-    public void InsertRange(int index, IEnumerable<Tempo> items)
-    {
-        foreach (var item in items)
-        {
-            _items.Insert(index, item);
-            AddBase(item);
-        }
+		m_items.Add(item);
 
-        Desync();
-    }
-    public bool Remove(Tempo item) => Remove(item, false);
-    public bool Remove(Tempo item, bool detachMap)
-    {
-        if (detachMap)
-            item.Map = null;
+		AddBase(item);
+		Desync();
+	}
 
-        if (item.Anchor is not null)
-            _anchors.Remove(item);
+	public void AddRange(IEnumerable<Tempo> items)
+	{
+		foreach (Tempo item in items)
+		{
+			m_items.Add(item);
+			AddBase(item);
+		}
 
-        var found = _items.Remove(item);
-        Desync();
-        return found;
-    }
-    public void RemoveAt(int index)
-    {
-        _items.RemoveAt(index);
+		Desync();
+	}
 
-        var item = _items[index];
-        if (item.Anchor is not null)
-            _anchors.Remove(item);
+	public void Clear()
+		=> m_items.Clear();
 
-        Desync();
-    }
-    public void RemoveAt(int index, bool detachMap)
-    {
-        if (detachMap)
-        {
-            var tempo = _items[index];
-            tempo.Map = null;
-        }
+	public void Clear(bool detachMap)
+	{
+		if (detachMap)
+			foreach (Tempo tempo in m_items)
+				tempo.Map = null;
 
-        _items.RemoveAt(index);
+		m_items.Clear();
+	}
 
-        var item = _items[index];
-        if (item.Anchor is not null)
-            _anchors.Remove(item);
+	public bool Contains(Tempo item)
+		=> m_items.Contains(item);
 
-        Desync();
-    }
+	public void CopyTo(Tempo[] array, int arrayIndex)
+		=> m_items.CopyTo(array, arrayIndex);
 
-    public IEnumerator<Tempo> GetEnumerator() => _items.GetEnumerator();
-    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+	public int IndexOf(Tempo item)
+		=> m_items.IndexOf(item);
 
-    /// <summary>
-    /// Synchronizes anchored markers by calculating their tick position.
-    /// </summary>
-    /// <param name="resolution"></param>
-    /// <param name="desyncedPreOrdered"></param>
-    /// <exception cref="Exception"></exception>
-    public void Synchronize(uint resolution, bool desyncedPreOrdered = false)
-    {
-        if (Synchronized)
-            return;
+	public void Insert(int index, Tempo item)
+	{
+		m_items.Insert(index, item);
 
-        List<Tempo> synced = new();
-        List<Tempo> desynced = new();
+		AddBase(item);
+		Desync();
+	}
 
-        // Split synced and desynced. Sync 0 anchors.
-        foreach (var tempo in _items)
-        {
-            if (tempo.PositionSynced)
-                synced.Add(tempo);
-            else if (tempo.Anchor!.Value == TimeSpan.Zero)
-            {
-                tempo.SyncPosition(0);
-                synced.Add(tempo);
-            }
-            else
-                desynced.Add(tempo);
-        }
+	public void InsertRange(int index, IEnumerable<Tempo> items)
+	{
+		foreach (Tempo item in items)
+		{
+			m_items.Insert(index, item);
+			AddBase(item);
+		}
 
-        if (desynced.Count == 0)
-            return;
+		Desync();
+	}
 
-        using var syncedEnumerator = (desyncedPreOrdered ? (IEnumerable<Tempo>)synced : synced.OrderBy(t => t.Position)).GetEnumerator();
+	public bool Remove(Tempo item)
+		=> Remove(item, false);
 
-        if (!syncedEnumerator.MoveNext() || syncedEnumerator.Current.Position != 0)
-            throw new Exception("A tempo marker at position or anchor zero is required to sync anchors.");
+	public bool Remove(Tempo item, bool detachMap)
+	{
+		if (detachMap)
+			item.Map = null;
 
-        using var desyncedEnumerator = desynced.OrderBy(t => t.Anchor).GetEnumerator();
+		if (item.Anchor is not null)
+			m_anchors.Remove(item);
 
-        syncedEnumerator.MoveNext();
-        desyncedEnumerator.MoveNext();
+		bool found = m_items.Remove(item);
 
-        var previous = syncedEnumerator.Current;
-        var previousMs = 0ul;
+		Desync();
+		return found;
+	}
 
-        while (syncedEnumerator.MoveNext())
-            while (TryInsertDesynced(syncedEnumerator.Current))
-                if (!desyncedEnumerator.MoveNext())
-                    return;
+	public void RemoveAt(int index)
+	{
+		m_items.RemoveAt(index);
 
-        while (desyncedEnumerator.MoveNext())
-            SyncAnchor();
-        return;
+		Tempo item = m_items[index];
 
-        bool TryInsertDesynced(Tempo next)
-        {
-            var deltaMs = previous.Value * 50 / 3 * ((next.Position - previous.Position) / resolution);
+		if (item.Anchor is not null)
+			m_anchors.Remove(item);
 
-            if (desyncedEnumerator.Current.Anchor!.Value.TotalMilliseconds - previousMs <= deltaMs)
-            {
-                SyncAnchor();
-                return true;
-            }
+		Desync();
+	}
+	public void RemoveAt(int index, bool detachMap)
+	{
+		if (detachMap)
+		{
+			Tempo tempo = m_items[index];
+			tempo.Map = null;
+		}
 
-            previous = next;
-            return false;
-        }
-        void SyncAnchor()
-        {
-            var desynced = desyncedEnumerator.Current;
-            desynced.SyncPosition((uint)((desynced.Anchor!.Value.TotalMilliseconds - previousMs) * previous.Value * resolution / 240000));
+		m_items.RemoveAt(index);
 
-            previous = desynced;
-        }
-    }
-    internal void Desync()
-    {
-        foreach (var tempo in _anchors)
-            tempo.DesyncPosition();
+		Tempo item = m_items[index];
 
-        Synchronized = false;
-    }
+		if (item.Anchor is not null)
+			m_anchors.Remove(item);
 
-    internal void AddAnchor(Tempo item) => _anchors.Add(item);
-    internal void RemoveAnchor(Tempo item) => _anchors.Remove(item);
+		Desync();
+	}
+
+	public IEnumerator<Tempo> GetEnumerator()
+		=> m_items.GetEnumerator();
+
+	IEnumerator IEnumerable.GetEnumerator()
+		=> GetEnumerator();
+
+	/// <summary>
+	/// Synchronizes anchored markers by calculating their tick position.
+	/// </summary>
+	/// <param name="resolution"></param>
+	/// <param name="desyncedPreOrdered"></param>
+	/// <exception cref="Exception"></exception>
+	public void Synchronize(uint resolution, bool desyncedPreOrdered = false)
+	{
+		if (Synchronized)
+			return;
+
+		List<Tempo>
+			synced   = [],
+			desynced = [];
+
+		// Split synced and desynced. Sync 0 anchors.
+		foreach (Tempo tempo in m_items)
+		{
+			if (tempo.PositionSynced)
+				synced.Add(tempo);
+			else if (tempo.Anchor!.Value == TimeSpan.Zero)
+			{
+				tempo.SyncPosition(0);
+				synced.Add(tempo);
+			}
+			else
+				desynced.Add(tempo);
+		}
+
+		if (desynced.Count == 0)
+			return;
+
+		using IEnumerator<Tempo> syncedEnumerator = (desyncedPreOrdered
+			? (IEnumerable<Tempo>)synced : synced.OrderBy(static t => t.Position)).GetEnumerator();
+
+		if (!syncedEnumerator.MoveNext() || syncedEnumerator.Current.Position != 0)
+			throw new Exception("A tempo marker at position or anchor zero is required to sync anchors.");
+
+		using IEnumerator<Tempo> desyncedEnumerator = desynced.OrderBy(static t => t.Anchor).GetEnumerator();
+
+		syncedEnumerator.MoveNext();
+		desyncedEnumerator.MoveNext();
+
+		Tempo previous = syncedEnumerator.Current;
+		ulong previousMs = 0ul;
+
+		while (syncedEnumerator.MoveNext())
+			while (TryInsertDesynced(syncedEnumerator.Current))
+				if (!desyncedEnumerator.MoveNext())
+					return;
+
+		while (desyncedEnumerator.MoveNext())
+			SyncAnchor();
+
+		bool TryInsertDesynced(Tempo next)
+		{
+			float deltaMs = previous.Value * 50 / 3 * ((next.Position - previous.Position) / resolution);
+
+			if (desyncedEnumerator.Current.Anchor!.Value.TotalMilliseconds - previousMs <= deltaMs)
+			{
+				SyncAnchor();
+				return true;
+			}
+
+			previous = next;
+			return false;
+		}
+
+		void SyncAnchor()
+		{
+			Tempo desynced = desyncedEnumerator.Current;
+			desynced.SyncPosition((uint)((desynced.Anchor!.Value.TotalMilliseconds - previousMs) * previous.Value * resolution / 240000));
+
+			previous = desynced;
+		}
+	}
+
+	internal void Desync()
+	{
+		foreach (Tempo tempo in m_anchors)
+			tempo.DesyncPosition();
+
+		Synchronized = false;
+	}
+
+	internal void AddAnchor(Tempo item)
+		=> m_anchors.Add(item);
+
+	internal void RemoveAnchor(Tempo item)
+		=> m_anchors.Remove(item);
 }

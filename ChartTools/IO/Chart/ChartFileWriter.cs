@@ -2,11 +2,11 @@
 
 namespace ChartTools.IO.Chart;
 
-internal class ChartFileWriter(WritingDataSource source, IEnumerable<string>? removedHeaders, params Serializer<string>[] serializers)
-    : TextFileWriter(source, removedHeaders, serializers)
+internal class ChartFileWriter(WritingDataSource source, IEnumerable<string>? removedHeaders, params ReadOnlySpan<Serializer<string>> serializers)
+	: TextFileWriter(source, removedHeaders, serializers)
 {
-    protected override string? PreSerializerContent => "{";
-    protected override string? PostSerializerContent => "}";
+	protected override string? PreSerializerContent => "{";
+	protected override string? PostSerializerContent => "}";
 
-    protected override bool EndReplace(string line) => line.StartsWith('[');
+	protected override bool EndReplace(string line) => line.StartsWith('[');
 }

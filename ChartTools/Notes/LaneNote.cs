@@ -1,19 +1,29 @@
-﻿namespace ChartTools;
+﻿global using StandardNote = ChartTools.LaneNote<ChartTools.StandardLane>;
+global using GHLNote = ChartTools.LaneNote<ChartTools.GHLLane>;
 
-public abstract class LaneNote : INote
+namespace ChartTools;
+
+public readonly record struct LaneNote<TLane> : IDefinedLaneNote<TLane>
+	where TLane : struct, Enum
 {
-    public abstract byte Index { get; }
+	public static bool OpenExclusivity => true;
 
-    /// <summary>
-    /// Maximum length the note can be held for extra points
-    /// </summary>
-    public uint Sustain { get; set; }
-    uint ILongObject.Length
-    {
-        get => Sustain;
-        set => Sustain = value;
-    }
-    uint IReadOnlyLongObject.Length => Sustain;
+	public static byte MaxLanes => 6;
 
-    public LaneNote() { }
+	public uint Sustain { get; init; }
+
+	public TLane Lane
+	{
+		get;
+		init
+		{
+			Validator.ValidateEnum(value);
+			field = value;
+		}
+	}
+
+	public LaneNote(TLane lane)
+		=> Lane = lane;
+
+	public byte Index => Convert.ToByte(Lane);
 }

@@ -1,7 +1,6 @@
 ﻿namespace ChartTools.IO.Sections;
 
-public class Section<T> : List<T>
+public class Section<T>(string header) : List<T>
 {
-    public string Header { get; }
-    public Section(string header) => Header = header;
+	public string Header { get; } = header;
 }

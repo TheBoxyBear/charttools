@@ -6,7 +6,8 @@ using ChartTools.IO.Chart.Providers;
 namespace ChartTools.IO.Chart.Serialization;
 
 internal class GlobalEventSerializer(IEnumerable<GlobalEvent> content, ChartWritingSession session)
-    : TrackObjectGroupSerializer<IEnumerable<GlobalEvent>>(ChartFormatting.GlobalEventHeader, content, session)
+	: TrackObjectGroupSerializer<IEnumerable<GlobalEvent>>(ChartFormatting.GlobalEventHeader, content, session)
 {
-    protected override IEnumerable<TrackObjectEntry>[] LaunchProviders() => new IEnumerable<TrackObjectEntry>[] { new EventProvider().ProvideFor(Content, session!) };
+	protected override IEnumerable<TrackObjectEntry>[] LaunchProviders()
+		=> [ new EventProvider().ProvideFor(Content, Session) ];
 }

@@ -5,70 +5,75 @@ namespace ChartTools.IO;
 
 internal abstract class FileReader<T>(ReadingDataSource source) : IDisposable
 {
-    public DataSource Source { get; } = source;
+	public DataSource Source { get; } = source;
 
-    public bool IsReading { get; protected set; }
+	public bool IsReading { get; protected set; }
 
-    public abstract IEnumerable<FileParser<T>> Parsers { get; }
+	public abstract IEnumerable<FileParser<T>> Parsers { get; }
 
-    public abstract void Read();
-    public abstract Task ReadAsync(CancellationToken cancellationToken);
+	public abstract void Read();
 
-    protected void CheckBusy()
-    {
-        if (IsReading)
-            throw new InvalidOperationException("Cannot start read operation while the reader is busy.");
-    }
+	public abstract Task ReadAsync(CancellationToken cancellationToken);
 
-    public virtual void Dispose() => Source.Dispose();
+	protected void CheckBusy()
+	{
+		if (IsReading)
+			throw new InvalidOperationException("Cannot start read operation while the reader is busy.");
+	}
+
+	public virtual void Dispose()
+		=> Source.Dispose();
 }
 
-internal abstract class FileReader<T, TParser>(ReadingDataSource source) : FileReader<T>(source) where TParser : FileParser<T>
+internal abstract class FileReader<T, TParser>(ReadingDataSource source) : FileReader<T>(source)
+    where TParser : FileParser<T>
 {
-    public record ParserContentGroup(TParser Parser, DelayedEnumerableSource<T> Source);
+	public record ParserContentGroup(TParser Parser, DelayedEnumerableSource<T> Source);
 
-    public override IEnumerable<TParser> Parsers => parserGroups.Select(g => g.Parser);
+	public override IEnumerable<TParser> Parsers
+		=> m_parserGroups.Select(static g => g.Parser);
 
-    protected readonly List<ParserContentGroup> parserGroups = [];
-    protected readonly List<Task> parseTasks = [];
+	protected readonly List<ParserContentGroup> m_parserGroups = [];
 
-    protected abstract TParser? GetParser(string header);
+	protected readonly List<Task> m_parseTasks = [];
 
-    public override void Read()
-    {
-        CheckBusy();
-        IsReading = true;
+	protected abstract TParser? GetParser(in T header);
 
-        parserGroups.Clear();
-        parseTasks.Clear();
+	public override void Read()
+	{
+		CheckBusy();
+		IsReading = true;
 
-        ReadBase(false, CancellationToken.None);
+		m_parserGroups.Clear();
+		m_parseTasks.Clear();
 
-        foreach (var group in parserGroups)
-            group.Parser.Parse(group.Source.Enumerable.EnumerateSynchronously());
+		ReadBase(false, CancellationToken.None);
 
-        IsReading = false;
-    }
+		foreach (ParserContentGroup group in m_parserGroups)
+			group.Parser.Parse(group.Source.Enumerable.EnumerateSynchronously());
 
-    public override async Task ReadAsync(CancellationToken cancellationToken)
-    {
-        CheckBusy();
-        IsReading = true;
+		IsReading = false;
+	}
 
-        ReadBase(true, cancellationToken);
-        await Task.WhenAll(parseTasks);
+	public override async Task ReadAsync(CancellationToken cancellationToken)
+	{
+		CheckBusy();
+		IsReading = true;
 
-        IsReading = false;
-    }
+		ReadBase(true, cancellationToken);
+		await Task.WhenAll(m_parseTasks).ConfigureAwait(false);
 
-    protected abstract void ReadBase(bool async, CancellationToken cancellationToken);
+		IsReading = false;
+	}
 
-    public override void Dispose()
-    {
-        foreach (var group in parserGroups)
-            group.Source.Dispose();
+	protected abstract void ReadBase(bool async, in CancellationToken cancellationToken);
 
-        foreach (var task in parseTasks)
-            task.Dispose();
-    }
+	public override void Dispose()
+	{
+		foreach (ParserContentGroup group in m_parserGroups)
+			group.Source.Dispose();
+
+		foreach (Task task in m_parseTasks)
+			task.Dispose();
+	}
 }

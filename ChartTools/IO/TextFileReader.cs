@@ -4,106 +4,126 @@ using ChartTools.IO.Sources;
 
 namespace ChartTools.IO;
 
-internal abstract class TextFileReader(ReadingDataSource source) : FileReader<string, TextParser>(source)
+internal abstract class TextFileReader(ReadingDataSource source)
+	: FileReader<ReadOnlyMemory<char>, TextParser>(source)
 {
-    public virtual bool DefinedSectionEnd { get; } = false;
+	public virtual bool DefinedSectionEnd { get; } = false;
 
-    protected bool _disposeReader = false;
+	protected bool m_disposeReader = false;
 
-    protected override void ReadBase(bool async, CancellationToken cancellationToken)
-    {
-        using var reader = new StreamReader(Source.Stream, leaveOpen: true);
+	protected override void ReadBase(bool async, in CancellationToken cancellationToken)
+	{
+		string contentStr;
 
-        ParserContentGroup? currentGroup = null;
-        string line = string.Empty;
+		using (Source.Stream)
+		{
+			using StreamReader reader = new(Source.Stream, leaveOpen: true);
+			contentStr = reader.ReadToEnd();
+		}
 
-        while (ReadLine())
-        {
-            // Find section
-            while (!line.StartsWith('['))
-                if (!ReadLine())
-                    return;
+		ReadOnlyMemory<char>
+			content = contentStr.AsMemory(),
+			line    = string.Empty.AsMemory();
 
-            if (async && cancellationToken.IsCancellationRequested)
-            {
-                Dispose();
-                return;
-            }
+		ParserContentGroup? currentGroup = null;
 
-            var header = line;
-            var parser = GetParser(header);
+		while (ReadLine(ref content, ref line))
+		{
+			// Find section
+			while (!line.Span.StartsWith('['))
+				if (!ReadLine(ref content, ref line))
+					return;
 
-            if (parser is not null)
-            {
-                var source = new DelayedEnumerableSource<string>();
+			if (async && cancellationToken.IsCancellationRequested)
+			{
+				Dispose();
+				return;
+			}
 
-                parserGroups.Add(currentGroup = new(parser, source));
+			ReadOnlyMemory<char> header = line;
+			TextParser? parser = GetParser(header);
 
-                if (async)
-                {
-                    if (cancellationToken.IsCancellationRequested)
-                    {
-                        Dispose();
-                        return;
-                    }
+			if (parser is not null)
+			{
+				DelayedEnumerableSource<ReadOnlyMemory<char>> source = new();
 
-                    parseTasks.Add(parser.StartAsyncParse(source.Enumerable));
-                }
-            }
+				m_parserGroups.Add(currentGroup = new(parser, source));
 
-            // Move to the start of the entries
-            do
-                if (!AdvanceSection())
-                {
-                    FinishSection();
-                    return;
-                }
-            while (!IsSectionStart(line));
+				if (async)
+				{
+					if (cancellationToken.IsCancellationRequested)
+					{
+						Dispose();
+						return;
+					}
 
-            AdvanceSection();
+					m_parseTasks.Add(parser.StartAsyncParse(source.Enumerable));
+				}
+			}
 
-            // Read until end
-            while (!IsSectionEnd(line))
-            {
-                currentGroup?.Source.Add(line);
+			// Move to the start of the entries
+			do
+				if (!AdvanceSection())
+				{
+					FinishSection(in cancellationToken);
+					return;
+				}
+			while (!IsSectionStart(line.Span));
 
-                if (!AdvanceSection())
-                {
-                    FinishSection();
-                    return;
-                }
-            }
+			AdvanceSection();
 
-            FinishSection();
+			// Read until end
+			while (!IsSectionEnd(line.Span))
+			{
+				currentGroup?.Source.Add(line);
 
-            void FinishSection()
-            {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    Dispose();
-                    return;
-                }
+				if (!AdvanceSection())
+				{
+					FinishSection(in cancellationToken);
+					return;
+				}
+			}
 
-                currentGroup?.Source.EndAwait();
-            }
+			FinishSection(in cancellationToken);
 
-            bool AdvanceSection() => ReadLine() || (DefinedSectionEnd ? throw SectionException.EarlyEnd(header) : false);
-        }
+			void FinishSection(in CancellationToken cancellationToken)
+			{
+				if (cancellationToken.IsCancellationRequested)
+				{
+					Dispose();
+					return;
+				}
 
-        bool ReadLine()
-        {
-            string? newLine;
+				currentGroup?.Source.EndAwait();
+			}
 
-            while ((newLine = reader.ReadLine()) == string.Empty) ;
+			bool AdvanceSection() => ReadLine(ref content, ref line) || (DefinedSectionEnd ? throw SectionException.EarlyEnd(header.ToString()) : false);
+		}
 
-            if (newLine is null)
-                return false;
+		bool ReadLine(ref ReadOnlyMemory<char> content, ref ReadOnlyMemory<char> line)
+		{
+			while (true)
+			{
+				int newLineIndex = content.Span.IndexOf('\n');
 
-            line = newLine.Trim();
-            return true;
-        }
-    }
+				if (newLineIndex == -1)
+				{
+					line = content.Trim();
+					return false;
+				}
 
-    protected abstract bool IsSectionStart(string line);
-    protected virtual bool IsSectionEnd(string line) => false;
+				line    = content[..newLineIndex].Trim();
+				content = content[(newLineIndex + 1)..];
+
+				if (line.Length > 0)
+					break;
+			}
+
+			return true;
+		}
+	}
+
+	protected abstract bool IsSectionStart(in ReadOnlySpan<char> line);
+
+	protected virtual bool IsSectionEnd(in ReadOnlySpan<char> line) => false;
 }

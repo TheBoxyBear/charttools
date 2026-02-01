@@ -6,39 +6,30 @@ using ChartTools.IO.Configuration;
 
 namespace ChartTools.IO.Chart.Providers;
 
-internal class ChordProvider : ISerializerDataProvider<LaneChord, TrackObjectEntry, ChartWritingSession>
+internal class ChordProvider : ISerializerDataProvider<Chord, TrackObjectEntry, ChartWritingSession>
 {
-    public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<LaneChord> source, ChartWritingSession session)
-    {
-        List<uint> orderedPositions = [];
-        LaneChord? previousChord = null;
+	public IEnumerable<TrackObjectEntry> ProvideFor(IEnumerable<Chord> source, ChartWritingSession session)
+	{
+		List<uint> orderedPositions = [];
+		Chord? previousChord = null;
 
-        foreach (var chord in source)
-        {
-            if (session.HandleDuplicate(chord.Position, "chord", () =>
-            {
-                var index = orderedPositions.BinarySearchIndex(chord.Position, out bool exactMatch);
+		foreach (Chord chord in source)
+		{
+			if (session.HandleDuplicate(chord.Position, "chord", () =>
+			{
+				int index = orderedPositions.BinarySearchIndex(chord.Position, out bool exactMatch);
 
-                if (!exactMatch)
-                    orderedPositions.Insert(index, chord.Position);
+				if (!exactMatch)
+					orderedPositions.Insert(index, chord.Position);
 
-                return exactMatch;
-            }))
-            {
-                var flags = chord.ChartSupportedModifiers
-                    ? ChordDataFlags.Chord | ChordDataFlags.Modifiers
-                    : ICommonWritingConfiguration.GetUnsupportedModifierChordFlags(chord.Position, session.Configuration.UnsupportedModifiersPolicy);
+				return exactMatch;
+			}))
+				foreach (TrackObjectEntry entry in (chord.ChartSupportedModifiers
+					? chord.GetChartModifierData(previousChord, session)
+					: session.GetUnsupportedModifierChordEntries(previousChord, chord)).Concat(chord.GetChartNoteData()))
+					yield return entry;
 
-                if (flags.HasFlag(ChordDataFlags.Chord))
-                    foreach (var entry in chord.GetChartNoteData())
-                        yield return entry;
-
-                if (flags.HasFlag(ChordDataFlags.Modifiers))
-                    foreach (var entry in chord.GetChartModifierData(previousChord, session.Formatting))
-                        yield return entry;
-            }
-
-            previousChord = chord;
-        }
-    }
+			previousChord = chord;
+		}
+	}
 }

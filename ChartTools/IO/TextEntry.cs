@@ -1,33 +1,37 @@
-﻿namespace ChartTools.IO
+﻿namespace ChartTools.IO;
+
+/// <summary>
+/// Line of text file data
+/// </summary>
+internal readonly struct TextEntry
 {
-    /// <summary>
-    /// Line of text file data
-    /// </summary>
-    internal readonly struct TextEntry
-    {
-        /// <summary>
-        /// Text before the equal sign
-        /// </summary>
-        public string Key { get; }
-        /// <summary>
-        /// Text after the equal sign
-        /// </summary>
-        public string? Value { get; }
+	/// <summary>
+	/// Text before the equal sign
+	/// </summary>
+	public ReadOnlyMemory<char> Key { get; }
 
-        public TextEntry(string key, string value)
-        {
-            Key = key;
-            Value = value;
-        }
-        public TextEntry(string line)
-        {
-            string[] split = line.Split('=', 2, StringSplitOptions.RemoveEmptyEntries);
+	/// <summary>
+	/// Text after the equal sign
+	/// </summary>
+	public ReadOnlyMemory<char> Value { get; }
 
-            if (split.Length < 1)
-                throw new EntryException();
+	public TextEntry(string key, string value)
+		: this(key.AsMemory(), value.AsMemory()) { }
 
-            Key = split[0].Trim();
-            Value = split.Length < 2 ? null : split[1].Trim();
-        }
-    }
+	public TextEntry(in ReadOnlyMemory<char> key, in ReadOnlyMemory<char> value)
+	{
+		Key   = key;
+		Value = value;
+	}
+
+	public TextEntry(in ReadOnlyMemory<char> line)
+	{
+		int separatorIndex = line.Span.IndexOf('=');
+
+		if (separatorIndex == -1)
+			throw new EntryException();
+
+		Key   = line[0..separatorIndex].Trim();
+		Value = line[(separatorIndex + 1)..].Trim();
+	}
 }

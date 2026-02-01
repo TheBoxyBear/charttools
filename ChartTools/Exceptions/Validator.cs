@@ -2,17 +2,17 @@
 
 internal static class Validator
 {
-    /// <summary>
-    /// Validates that an <see cref="Enum"/> value is defined.
-    /// </summary>
-    /// <param name="value">Value to validate</param>
-    /// <exception cref="UndefinedEnumException"></exception>
-    public static void ValidateEnum(Enum value)
-    {
-        if (!Enum.IsDefined(value.GetType(), value))
-            throw new UndefinedEnumException(value);
-    }
-    /// <summary>
+	/// <summary>
+	/// Validates that an <see cref="Enum"/> value is defined.
+	/// </summary>
+	/// <exception cref="UndefinedEnumException"></exception>
+	public static void ValidateEnum<T>(T value)
+		where T : struct, Enum
+	{
+		if (!Enum.IsDefined(value))
+			throw new UndefinedEnumException(value);
+	}
+
     /// Validates that a track is attached to an instrument.
     /// </summary>
     /// <param name="track">Track to validate</param>

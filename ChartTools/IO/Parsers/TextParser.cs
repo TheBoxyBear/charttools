@@ -1,6 +1,13 @@
-﻿namespace ChartTools.IO.Parsing;
+﻿using System.Reflection.PortableExecutable;
 
-internal abstract class TextParser(string header) : SectionParser<string>(header)
+internal abstract class TextParser(in ReadOnlyMemory<char> header)
+	: FileParser<ReadOnlyMemory<char>>
 {
-    protected override Exception GetHandleInnerException(string item, Exception innerException) => new LineException(item, innerException);
+	public ReadOnlyMemory<char> Header { get; } = header;
+
+	protected override Exception GetFinalizeException(Exception innerException)
+		=> new SectionException(Header.ToString(), innerException);
+
+	protected static Exception GetHandleInnerException(in ReadOnlyMemory<char> item, Exception innerException)
+		=> new LineException(item.ToString(), innerException);
 }

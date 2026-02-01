@@ -2,30 +2,29 @@
 
 namespace ChartTools.Extensions.Collections;
 
-public class DelayedEnumerable<T> : IEnumerable<T>, IDisposable
+public class DelayedEnumerable<T> : IEnumerable<T>
 {
-    private readonly DelayedEnumerator<T> enumerator;
-    private readonly DelayedEnumerableSource<T> source;
+	private readonly DelayedEnumerator<T> m_enumerator;
+	private readonly DelayedEnumerableSource<T> m_source;
 
-    /// <summary>
-    /// <see langword="true"/> if there are more items to be received
-    /// </summary>
-    public bool AwaitingItems => source.AwaitingItems;
+	/// <summary>
+	/// <see langword="true"/> if there are more items to be received
+	/// </summary>
+	public bool AwaitingItems => m_source.AwaitingItems;
 
-    internal DelayedEnumerable(DelayedEnumerableSource<T> source)
-    {
-        this.source = source;
-        enumerator = new(source);
-    }
+	internal DelayedEnumerable(DelayedEnumerableSource<T> source)
+	{
+		m_source     = source;
+		m_enumerator = new(source);
+	}
 
-    public IEnumerable<T> EnumerateSynchronously()
-    {
-        while (AwaitingItems);
-        return source.Buffer;
-    }
+	public IEnumerable<T> EnumerateSynchronously()
+	{
+		while (AwaitingItems);
+		return m_source.Buffer;
+	}
 
-    public IEnumerator<T> GetEnumerator() => enumerator;
-    IEnumerator IEnumerable.GetEnumerator() => enumerator;
+	public IEnumerator<T> GetEnumerator() => m_enumerator;
 
-    public void Dispose() => enumerator.Dispose();
+	IEnumerator IEnumerable.GetEnumerator() => m_enumerator;
 }

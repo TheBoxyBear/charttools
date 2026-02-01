@@ -5,9 +5,12 @@ using ChartTools.IO.Chart.Entries;
 namespace ChartTools.IO.Chart.Serialization;
 
 internal abstract class TrackObjectGroupSerializer<T>(string header, T content, ChartWritingSession session)
-    : GroupSerializer<T, string, TrackObjectEntry>(header, content)
+	: GroupSerializer<T, string, TrackObjectEntry>(header, content)
 {
-    public ChartWritingSession Session { get; } = session;
+	public ChartWritingSession Session { get; } = session;
 
-    protected override IEnumerable<string> CombineProviderResults(IEnumerable<TrackObjectEntry>[] results) => results.AlternateBy(entry => entry.Position).Select(entry => entry.ToString());
+	protected override IEnumerable<string> CombineProviderResults(IEnumerable<TrackObjectEntry>[] results)
+		=> results
+			.AlternateBy(static entry => entry.Position)
+			.Select(static entry => entry.ToString());
 }

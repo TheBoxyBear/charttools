@@ -4,34 +4,26 @@ namespace ChartTools.Extensions.Collections;
 
 public class DelayedEnumerableSource<T> : IDisposable
 {
-    private bool disposed;
+	public ConcurrentQueue<T> Buffer { get; } = new();
 
-    public ConcurrentQueue<T> Buffer { get; } = new();
-    public DelayedEnumerable<T> Enumerable { get; }
-    public bool AwaitingItems { get; private set; } = true;
+	public DelayedEnumerable<T> Enumerable { get; }
 
-    public DelayedEnumerableSource() => Enumerable = new(this);
+	public bool AwaitingItems { get; private set; } = true;
 
-    public void Add(T item) => Buffer.Enqueue(item);
-    public void EndAwait() => AwaitingItems = false;
+	public DelayedEnumerableSource() => Enumerable = new(this);
 
-    protected virtual void Dispose(bool disposing)
-    {
-        if (!disposed)
-        {
-            if (disposing)
-                AwaitingItems = false;
+	~DelayedEnumerableSource()
+		=> Dispose();
 
-            Enumerable.Dispose();
-            disposed = true;
-        }
-    }
+	public void Add(T item)
+		=> Buffer.Enqueue(item);
 
-    ~DelayedEnumerableSource() => Dispose(false);
+	public void EndAwait()
+		=> AwaitingItems = false;
 
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
+	public void Dispose()
+	{
+		AwaitingItems = false;
+		GC.SuppressFinalize(this);
+	}
 }

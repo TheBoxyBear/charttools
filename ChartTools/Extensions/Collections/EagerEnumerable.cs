@@ -2,22 +2,21 @@
 
 namespace ChartTools.Collections;
 
-internal class EagerEnumerable<T> : IEnumerable<T>
+internal class EagerEnumerable<T>(Task<IEnumerable<T>> source) : IEnumerable<T>
 {
-    private IEnumerable<T>? items;
-    private readonly Task<IEnumerable<T>> source;
+	private IEnumerable<T>? m_items;
 
-    public EagerEnumerable(Task<IEnumerable<T>> source) => this.source = source;
+	public IEnumerator<T> GetEnumerator()
+	{
+		if (m_items is null)
+		{
+			source.Wait();
+			m_items = source.Result;
+		}
 
-    public IEnumerator<T> GetEnumerator()
-    {
-        if (items is null)
-        {
-            source.Wait();
-            items = source.Result;
-        }
+		return m_items.GetEnumerator();
+	}
 
-        return items.GetEnumerator();
-    }
-    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+	IEnumerator IEnumerable.GetEnumerator()
+		=> GetEnumerator();
 }

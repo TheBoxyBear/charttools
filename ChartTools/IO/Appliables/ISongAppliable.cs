@@ -2,5 +2,5 @@
 
 internal interface ISongAppliable
 {
-    public void ApplyToSong(Song song);
+	public void ApplyToSong(Song song);
 }

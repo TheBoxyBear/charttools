@@ -7,8 +7,8 @@ namespace ChartTools.IO.Configuration;
 
 public class WritingConfiguration
 {
-    public static readonly WritingConfiguration Default = new();
+	public static readonly WritingConfiguration Default = new();
 
     public ChartWritingConfiguration Chart { get; set; } = ChartFile.DefaultWriteConfig;
-    public MidiWritingConfiguration Midi { get; set; } = MidiFile.DefaultWriteConfig;
+    public MidiWritingConfiguration Midi   { get; set; } = MidiFile.DefaultWriteConfig;
 }

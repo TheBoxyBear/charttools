@@ -1,95 +1,209 @@
 ﻿using System.Collections;
+using System.Runtime.InteropServices;
+
+using ChartTools.Extensions.Enums;
 
 namespace ChartTools;
 
-public class LaneNoteCollection<TNote, TLane> : ICollection<TNote>, IReadOnlyList<TNote> where TNote : LaneNote<TLane>, new() where TLane : struct, Enum
+public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
+	ICollection<TNote>,
+	IReadOnlyList<TNote>
+	where TNote : struct, IDefinedLaneNote<TLane>
+	where TLane : struct, Enum
 {
-    private readonly List<TNote> _notes = new();
+	public bool OpenExclusivity { get; } = TNote.OpenExclusivity;
 
-    /// <summary>
-    /// If <see langword="true"/>, trying to combine an open note with other notes will remove the current ones.
-    /// </summary>
-    public bool OpenExclusivity { get; }
-    public int Count => _notes.Count;
-    bool ICollection<TNote>.IsReadOnly => false;
+	private readonly List<TNote> m_notes = [];
 
-    public LaneNoteCollection(bool openExclusivity) => OpenExclusivity = openExclusivity;
+	public int Count
+		=> m_notes.Count;
 
-    public void Add(TLane lane) => AddNonNull(new TNote() { Lane = lane });
-    /// <summary>
-    /// Adds a note to the <see cref="LaneNoteCollection{TNote, TLane}"/>.
-    /// </summary>
-    /// <remarks>Adding a note that already exists will overwrite the existing note.
-    ///     <para>If <see cref="OpenExclusivity"/> is <see langword="true"/>, combining an open note with other notes will remove the current ones.</para>
-    /// </remarks>
-    /// <param name="note">Note to add</param>
-    public void Add(TNote note) => AddNonNull(note ?? throw new ArgumentNullException(nameof(note)));
-    private void AddNonNull(TNote note)
-    {
-        if (OpenExclusivity && (note.Index == 0 || Count == 1 && this[0].Index == 0)) // An open note is present and needs to be removed
-            Clear();
+	bool ICollection<TNote>.IsReadOnly
+		=> false;
 
-        _notes.Add(note);
-    }
+	public ReadOnlySpan<TNote> AsSpan()
+		=> CollectionsMarshal.AsSpan(m_notes);
 
-    public void Clear() => _notes.Clear();
+	public void Add(SafeEnum<TLane> lane)
+		=> Add(new TNote { Lane = lane });
 
-    /// <summary>
-    /// Determines if any note matches the lane of a given note.
-    /// </summary>
-    /// <exception cref="ArgumentNullException"/>
-    public bool Contains(TNote note) => note is null ? throw new ArgumentNullException(nameof(note)) : Contains(note.Lane);
-    /// <summary>
-    /// Determines if any note matches a given lane.
-    /// </summary>
-    public bool Contains(TLane lane) => _notes.Any(note => note.Lane.Equals(lane));
-    /// <summary>
-    /// Determines if any note matches a given index.
-    /// </summary>
-    public bool Contains(byte index) => _notes.Any(note => note.Index == index);
+	/// <summary>
+	/// Adds a note to the <see cref="LaneNoteCollection{TNote, TLane}"/>.
+	/// </summary>
+	/// <remarks>Adding a note that already exists will overwrite the existing note.
+	///     <para>If <see cref="OpenExclusivity"/> is <see langword="true"/>, combining an open note with other notes will remove the current ones.</para>
+	/// </remarks>
+	/// <param name="note">Note to add</param>
+	public void Add(in TNote note)
+	{
+		note.Lane.Validate();
 
-    public void CopyTo(TNote[] array, int arrayIndex) => _notes.CopyTo(array, arrayIndex);
+		if (OpenExclusivity && (note.Index == 0 || Count == 1 && AsSpan()[0].Index == 0)) // An open note is present and needs to be removed
+			Clear();
 
-    /// <summary>
-    /// Removes the note that matches the lane of a given note.
-    /// </summary>
-    /// <returns><see langword="true"/> if a matching note was found.</returns>
-    public bool Remove(TNote note) => Remove(note.Lane);
-    /// <summary>
-    /// Removes the note that matches a given lane.
-    /// </summary>
-    /// <returns><see langword="true"/> if a matching note was found.</returns>
-    public bool Remove(TLane lane) => Remove(n => n.Lane.Equals(lane));
-    /// <summary>
-    /// Removes the note that matches a given index.
-    /// </summary>
-    /// <returns><see langword="true"/> if a matching note was found.</returns>
-    public bool Remove(byte index) => Remove(n => n.Index == index);
-    private bool Remove(Predicate<TNote> match)
-    {
-        var index = _notes.FindIndex(match);
+		Span<TNote> span = CollectionsMarshal.AsSpan(m_notes);
 
-        if (index is -1)
-            return false;
+		// Try to find and replace existing note
+		for (int i = 0; i < m_notes.Count; i++)
+		{
+			ref TNote thisNote = ref span[i];
 
-        _notes.RemoveAt(index);
-        return true;
-    }
+			if (thisNote.Lane == note.Lane)
+			{
+				thisNote = note;
+				return;
+			}
+		}
 
-    /// <summary>
-    /// Gets the note matching a given lane.
-    /// </summary>
-    /// <param name="lane">Lane of the note</param>
-    /// <returns>Note with the lane if present, otherwise <see langword="null"/>.</returns>
-    public TNote? this[TLane lane] => _notes.FirstOrDefault(n => n.Lane.Equals(lane));
-    /// <summary>
-    /// Gets the note at a given index based on order or addition.
-    /// </summary>
-    /// <param name="index">Index of the note in the collection, not to be confused with <see cref="INote.Index"/>.</param>
-    /// <returns>Note at the index</returns>
-    /// <exception cref="ArgumentOutOfRangeException"/>
-    public TNote this[int index] => _notes[index];
+		m_notes.Add(note);
 
-    public IEnumerator<TNote> GetEnumerator() => _notes.GetEnumerator();
-    IEnumerator IEnumerable.GetEnumerator() => _notes.GetEnumerator();
+		if (m_notes.Capacity > TNote.MaxLanes)
+			m_notes.Capacity = TNote.MaxLanes;
+	}
+
+	void ICollection<TNote>.Add(TNote note)
+		=> Add(note);
+
+	public void AddRange(params ReadOnlySpan<TNote> notes)
+	{
+		m_notes.Capacity += notes.Length;
+
+		foreach (ref readonly TNote note in notes)
+			Add(in note);
+	}
+
+	public void AddRange(params ReadOnlySpan<SafeEnum<TLane>> notes)
+	{
+		m_notes.Capacity += notes.Length;
+
+		foreach (ref readonly SafeEnum<TLane> lane in notes)
+			Add(new TNote { Lane = lane });
+	}
+
+	/// <summary>
+	/// Removes all notes from the <see cref="LaneNoteCollection{TNote, TLane}"/>.
+	/// </summary>
+	public void Clear()
+		=> m_notes.Clear();
+
+	/// <summary>
+	/// Determines if any note matches the lane of a given note.
+	/// </summary>
+	/// <exception cref="ArgumentNullException"/>
+	public bool Contains(in TNote note)
+	{
+		foreach (ref readonly TNote thisNote in AsSpan())
+			if (thisNote.Lane == note.Lane)
+				return true;
+
+		return false;
+	}
+
+	bool ICollection<TNote>.Contains(TNote note)
+		=> Contains(in note);
+
+	/// <summary>
+	/// Determines if any note matches a given lane.
+	/// </summary>
+	public bool Contains(SafeEnum<TLane> lane)
+		=> m_notes.Any(note => note.Lane == lane);
+
+	bool ILaneNoteCollection.Contains(byte index)
+		=> m_notes.Any(note => note.Index == index);
+
+	public void CopyTo(TNote[] array, int arrayIndex)
+		=> m_notes.CopyTo(array, arrayIndex);
+
+	/// <summary>
+	/// Removes the note that matches the lane of a given note.
+	/// </summary>
+	/// <returns><see langword="true"/> if a matching note was found.</returns>
+	public bool Remove(in TNote note)
+		=> Remove(note.Lane);
+
+	bool ICollection<TNote>.Remove(TNote note)
+		=> Remove(note.Lane);
+
+	/// <summary>
+	/// Removes the note that matches a given lane.
+	/// </summary>
+	/// <returns><see langword="true"/> if a matching note was found.</returns>
+	public bool Remove(SafeEnum<TLane> lane)
+		=> Remove((in note) => note.Lane == lane);
+
+	bool ILaneNoteCollection.Remove(byte index)
+		=> Remove((in note) => note.Index == index);
+
+	private delegate bool Match(in TNote note);
+
+	private bool Remove(Match match)
+	{
+		int removeIndex = -1;
+
+		{
+			ReadOnlySpan<TNote> span = AsSpan();
+
+			for (int i = 0; i < span.Length; i++)
+				if (match(in span[i]))
+					removeIndex = i;
+		}
+
+		if (removeIndex is -1)
+			return false;
+
+		m_notes.RemoveAt(removeIndex);
+		return true;
+	}
+
+	public NoteProxy<TNote, TLane>? Proxy(SafeEnum<TLane> lane)
+	{
+		TNote? note = this[lane];
+		return note is null ? null : new NoteProxy<TNote, TLane>(lane, this);
+	}
+
+	public NoteProxy<TNote, TLane>[] ProxyAll()
+	{
+		ReadOnlySpan<TNote> span = AsSpan();
+		NoteProxy<TNote, TLane>[] proxies = new NoteProxy<TNote, TLane>[Count];
+
+		for (int i = 0; i < Count; i++)
+			proxies[i] = new NoteProxy<TNote, TLane>(span[i].Lane, this);
+
+		return proxies;
+	}
+
+	/// <summary>
+	/// Gets the note matching a given lane.
+	/// </summary>
+	/// <param name="lane">Lane of the note</param>
+	/// <returns>Note with the lane if present, otherwise <see langword="null"/>.</returns>
+	public TNote? this[SafeEnum<TLane> lane]
+	{
+		get
+		{
+			foreach (ref readonly TNote note in AsSpan())
+				if (note.Lane == lane)
+					return note;
+
+			return null;
+		}
+	}
+
+	ILaneNote? ILaneNoteCollection.this[byte laneIndex]
+		=> m_notes.FirstOrDefault(n => n.Lane.As<TLane, byte>() == laneIndex);
+
+	TNote IReadOnlyList<TNote>.this[int index]
+		=> m_notes[index];
+
+	public IEnumerator<TNote> GetEnumerator()
+		=> m_notes.GetEnumerator();
+
+	IEnumerator IEnumerable.GetEnumerator()
+		=> m_notes.GetEnumerator();
+
+	IEnumerator<ILaneNote> ILaneNoteCollection.GetEnumerator()
+		=> m_notes.Cast<ILaneNote>().GetEnumerator();
+
+	IEnumerable<ILaneNote> ILaneNoteCollection.AsEnumerable()
+		=> m_notes.Cast<ILaneNote>();
 }

@@ -27,20 +27,36 @@ public record StandardInstrument : Instrument<StandardChord>
                 Error("Guitar Hero 2");
 
             void Error(string origin) => throw new ArgumentException($"{InstrumentIdentity} is not supported by {origin}.", nameof(value));
-
-            midiOrigin = value;
         }
     }
-    private MidiInstrumentOrigin midiOrigin;
+    
+	public new StandardInstrumentIdentity InstrumentIdentity { get; init; }
 
-    public StandardInstrument() { }
+	/// <summary>
+	/// Format of lead guitar and bass. Not applicable to other instruments.
+	/// </summary>
+	public MidiInstrumentOrigin MidiOrigin
+	{
+		get;
+		set
+		{
+			if (value is MidiInstrumentOrigin.GuitarHero1 && InstrumentIdentity is not StandardInstrumentIdentity.LeadGuitar)
+				throw new ArgumentException($"{InstrumentIdentity} is not supported by Guitar Hero 1.", nameof(value));
+
+			field = value;
+		}
+	}
+
+	public StandardInstrument() { }
+
     public StandardInstrument(StandardInstrumentIdentity identity)
     {
         Validator.ValidateEnum(identity);
         InstrumentIdentity = identity;
     }
 
-    protected override InstrumentIdentity GetIdentity() => (InstrumentIdentity)InstrumentIdentity;
+    protected override InstrumentIdentity GetIdentity()
+        => (InstrumentIdentity)InstrumentIdentity;
 
     internal override InstrumentMapper<StandardChord> GetMidiMapper(MidiWritingSession session, AnimationSet animations)
     {
