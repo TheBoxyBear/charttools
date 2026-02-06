@@ -9,8 +9,17 @@ using Docfx.Dotnet;
 
 // If localhost returns 404, try running `dotnet tool restore` from the project directory.
 
+const string siteDirEnv = "SiteDir";
+
+string? siteDir = Environment.GetEnvironmentVariable(siteDirEnv);
+
+if (string.IsNullOrEmpty(siteDir))
+{
+	Console.WriteLine($"Required environment variable `{siteDirEnv}` is misconfigured in launchsettings.json");
+	return -1;
+}
+
 string
-	siteDir      = Environment.GetEnvironmentVariable("SiteDir")!,
 	configPath   = siteDir + "docfx.json",
 	siteBuildDir = siteDir + "_site";
 
@@ -57,6 +66,8 @@ while ((line = cmd.StandardOutput.ReadLine()) is not null)
 	Console.WriteLine(line);
 
 cmd.WaitForExit();
+
+return 0;
 
 static void PrintStatus(string status)
 {
