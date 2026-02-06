@@ -11,6 +11,7 @@ using Docfx.Dotnet;
 
 const string siteDirEnv = "SiteDir";
 
+#region Initialize
 string? siteDir = Environment.GetEnvironmentVariable(siteDirEnv);
 
 if (string.IsNullOrEmpty(siteDir))
@@ -36,7 +37,9 @@ if (Directory.Exists(siteBuildDir))
 	PrintStatus("Purging files from previous build");
 	Directory.Delete(siteBuildDir, true);
 }
+#endregion
 
+#region Analyze
 PrintStatus("Analysing assembly with DocFx");
 
 // TODO Only build api if the assembly is more recent than the last site build
@@ -50,7 +53,9 @@ catch (Exception ex)
 }
 
 PrintStatus("Analysis done");
+#endregion
 
+#region Build
 PrintStatus("Building site with DocFx");
 
 try { await Docset.Build(configPath); }
@@ -63,7 +68,9 @@ catch (Exception ex)
 }
 
 PrintStatus("Build done");
+#endregion
 
+#region Serve
 using Process cmd = new()
 {
 	StartInfo = new("dotnet ", @$"docfx serve {siteBuildDir}")
@@ -88,6 +95,7 @@ while ((line = cmd.StandardOutput.ReadLine()) is not null)
 	Console.WriteLine(line);
 
 cmd.WaitForExit();
+#endregion
 
 return 0;
 
