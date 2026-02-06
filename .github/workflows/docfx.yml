@@ -1,22 +1,44 @@
-jobs:
-  generate_and_publish_docs:
-    runs-on: ubuntu-latest
-    name: Generate and publish the docs
-    steps:
-    - uses: actions/checkout@v1
-      name: Checkout code
-    - uses: nunit/docfx-action@v4.1.0
-      name: Build Documentation
-      with:
-        args: Docs/docfx.json --debug
-    - uses: maxheld83/ghpages@master
-      name: Publish Documentation on GitHub Pages
-      env:
-        BUILD_DIR: Docs/_site # docfx's default output directory is _site
-        GH_PAT: ${{ secrets.GH_PAT }} # See https://github.com/maxheld83/ghpages
-
-name: DocFx Clone, Build And Push
+# Your GitHub workflow file under .github/workflows/
+# Trigger the action on push to main
 on:
   push:
     branches:
       - stable
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  actions: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+  
+jobs:
+  publish-docs:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Dotnet Setup
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 10-.x
+
+    - run: dotnet tool update -g docfx
+    - run: docfx Docs/docfx.json
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        # Upload entire repository
+        path: 'Docs/_site'
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
