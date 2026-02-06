@@ -23,6 +23,14 @@ string
 	configPath   = siteDir + "docfx.json",
 	siteBuildDir = siteDir + "_site";
 
+if (!File.Exists(configPath))
+{
+	Console.WriteLine($"Required file `{configPath}` is missing");
+	return -1;
+}
+#endregion
+
+#region Purge
 if (Directory.Exists(siteBuildDir))
 {
 	PrintStatus("Purging files from previous build");
