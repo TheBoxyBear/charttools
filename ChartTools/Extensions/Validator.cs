@@ -1,4 +1,4 @@
-﻿namespace ChartTools;
+﻿namespace ChartTools.Extensions;
 
 internal static class Validator
 {
@@ -6,7 +6,6 @@ internal static class Validator
 	/// Validates that an <see cref="Enum"/> value is defined.
 	/// </summary>
 	/// <exception cref="UndefinedEnumException"></exception>
-	[Obsolete]
 	public static void ValidateEnum<T>(T value)
 		where T : struct, Enum
 	{
