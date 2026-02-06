@@ -9,8 +9,10 @@ using Docfx.Dotnet;
 
 // If localhost returns 404, try running `dotnet tool restore` from the project directory.
 
-string? dir = Environment.GetEnvironmentVariable("SiteDir");
-string? config = dir + @"\docfx.json";
+string
+	dir    = Environment.GetEnvironmentVariable("SiteDir")!,
+	config = dir + "docfx.json",
+	site   = dir + "_site";
 
 var content = File.ReadAllText(config);
 
@@ -26,12 +28,11 @@ Console.WriteLine();
 
 using Process cmd = new()
 {
-	StartInfo = new("dotnet", @$"docfx serve {dir}\_site")
+	StartInfo = new("docfx", @$"serve {site}")
 	{
-		RedirectStandardInput = true,
+		RedirectStandardInput  = true,
 		RedirectStandardOutput = true,
-		CreateNoWindow = true,
-		UseShellExecute = false
+		UseShellExecute        = false
 	}
 };
 
