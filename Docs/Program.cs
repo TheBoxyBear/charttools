@@ -10,31 +10,32 @@ using Docfx.Dotnet;
 // If localhost returns 404, try running `dotnet tool restore` from the project directory.
 
 string
-	dir    = Environment.GetEnvironmentVariable("SiteDir")!,
-	config = dir + "docfx.json",
-	site   = dir + "_site";
+	siteDir      = Environment.GetEnvironmentVariable("SiteDir")!,
+	configPath   = siteDir + "docfx.json",
+	siteBuildDir = siteDir + "_site";
 
-if (Directory.Exists(site))
+if (Directory.Exists(siteBuildDir))
 {
-	Console.WriteLine("------- Purging files from previous build -------");
-	Console.WriteLine();
-
-	Directory.Delete(site, true);
+	PrintStatus("Purging files from previous build");
+	Directory.Delete(siteBuildDir, true);
 }
 
-Console.WriteLine("------- Building site with DocFx -------");
+PrintStatus("Analysing assembly with DocFx");
 
 // TODO Only build api if the assembly is more recent than the last site build
-await DotnetApiCatalog.GenerateManagedReferenceYamlFiles(config);
+await DotnetApiCatalog.GenerateManagedReferenceYamlFiles(configPath);
 
-await Docset.Build(config);
+PrintStatus("Analysis done");
 
-Console.WriteLine("------- Build done -------");
-Console.WriteLine();
+PrintStatus("Building site with DocFx");
+
+await Docset.Build(configPath);
+
+PrintStatus("Build done");
 
 using Process cmd = new()
 {
-	StartInfo = new("dotnet ", @$"docfx serve {site}")
+	StartInfo = new("dotnet ", @$"docfx serve {siteBuildDir}")
 	{
 		RedirectStandardInput  = true,
 		RedirectStandardOutput = true,
@@ -56,3 +57,9 @@ while ((line = cmd.StandardOutput.ReadLine()) is not null)
 	Console.WriteLine(line);
 
 cmd.WaitForExit();
+
+static void PrintStatus(string status)
+{
+	Console.WriteLine($"------- {status} -------");
+	Console.WriteLine();
+}
