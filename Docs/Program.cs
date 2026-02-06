@@ -34,7 +34,7 @@ Console.WriteLine();
 
 using Process cmd = new()
 {
-	StartInfo = new("docfx", @$"serve {site}")
+	StartInfo = new("dotnet ", @$"docfx serve {site}")
 	{
 		RedirectStandardInput  = true,
 		RedirectStandardOutput = true,
