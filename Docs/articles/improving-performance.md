@@ -2,7 +2,7 @@
 This guide will cover alternate techniques that will improve performance when using ChartTools.
 
 ## Configuration
-By default, IO operations make multiple integrity checks to resolve errors. These checks can be configured or skipped by using a [Readingconfiguration](~/api/ChartTools.IO.Configuration.ReadingConfiguration) or [WritingConfiguration](~/api/ChartTools.IO.Configuration.WritingConfiguration) object. [Learn more about configuring IO operations](~/articles/configuration).
+By default, IO operations make multiple integrity checks to resolve errors. These checks can be configured or skipped by using a [Readingconfiguration](~/api/ChartTools.IO.Configuration.ReadingConfiguration.yml) or [WritingConfiguration](~/api/ChartTools.IO.Configuration.WritingConfiguration.yml) object. [Learn more about configuring IO operations](~/articles/configuration.yml).
 
 The following example reads a song while bypassing checks for duplicate track objects:
 
@@ -13,7 +13,7 @@ Song.FromFile("notes.chart", new ReadingConfiguration { Chart = new() { Duplicat
 ```
 
 ## Targeted formats
-By default, the target format of an IO operation is determined by the file extension. You can bypass the extension check by using the respective file class located under [ChartTools.IO](~/api/ChartTools.IO).
+By default, the target format of an IO operation is determined by the file extension. You can bypass the extension check by using the respective file class located under [ChartTools.IO](~/api/ChartTools.IO.yml).
 
 ```csharp
 using ChartTools.IO.Chart;
@@ -39,7 +39,7 @@ SyncTrack guitar = ChartFile.ReadSyncTrack("notes.chart");
 ```
 
 ### Component lists
-If multiple components are needed, they can be combined in a single operation using a [ComponentList](~/api/ChartTools.IO.Components.ComponentList).
+If multiple components are needed, they can be combined in a single operation using a [ComponentList](~/api/ChartTools.IO.Components.ComponentList.yml).
 
 ```csharp
 using ChartTools.IO.Chart;

@@ -4,7 +4,7 @@ ChartTools includes multiple utility methods for performing common operations on
 Fun fact: The name ChartTools comes from the original purpose of the library of only providing utility methods for charts.
 
 ## Accessing tools
-To start using tools, add the [ChartTools.Tools](~/api/ChartTools.Tools) namespace to your usings. Once added, tools can be called from their respective static class or as extension methods.
+To start using tools, add the [ChartTools.Tools](~/api/ChartTools.Tools.yml) namespace to your usings. Once added, tools can be called from their respective static class or as extension methods.
 
 ```csharp
 using ChartTools.Tools;
@@ -14,7 +14,7 @@ song.AwesomeTool();
 ```
 
 ## Merging lengths
-Some track objects define a length, such as special phrases and vocal phrases. [LengthMerger](~/api/ChartTools.Tools.LengthMerger) takes a set of such objects and sets the first object in the sequence to cover the entire duration from the start position of the earliest object to the end position of the last.
+Some track objects define a length, such as special phrases and vocal phrases. [LengthMerger](~/api/ChartTools.Tools.LengthMerger.yml) takes a set of such objects and sets the first object in the sequence to cover the entire duration from the start position of the earliest object to the end position of the last.
 
 ```csharp
 // T is the type of objects in the collection.
@@ -49,14 +49,14 @@ Groups phrases by special type before applying the cutting to each group individ
 > **NOTE**: Due to the grouping being based on the numeric value of the special type, only collections of instruments and track special phrases are supported. Using an `IEnumerable<SpecialPhrase>` will result in an exception.
 
 ### Cutting other long track objects
-When the type of long objects is not known, a base method using the [ILongTrackObject](~/api/ChartTools.ILongTrackObject) interface can be used. This method only applies the base logic, treating each object equally compared to how note sustains and special phrase lengths which are grouped by their respective methods, returning the objects ordered by length.
+When the type of long objects is not known, a base method using the [ILongTrackObject](~/api/ChartTools.ILongTrackObject.yml) interface can be used. This method only applies the base logic, treating each object equally compared to how note sustains and special phrase lengths which are grouped by their respective methods, returning the objects ordered by length.
 
 ```csharp
 List<ILongTrackObject> oredredObjects = Optimizer.CutLenghts<ILongTrackObject>(objects, <skipOrdering>);
 ```
 
 ## Removing redundant sync track markers
-The [Optimizer](~/api/ChartTools.Tools.Optimizer) class provides methods for removing tempo and time signature markers that have no effect on gameplay. Like with length cutting, the objects are ordered by position and provided as a return value. The ordering can also be skipped with an optional parameter.
+The [Optimizer](~/api/ChartTools.Tools.Optimizer.yml) class provides methods for removing tempo and time signature markers that have no effect on gameplay. Like with length cutting, the objects are ordered by position and provided as a return value. The ordering can also be skipped with an optional parameter.
 
 ```csharp
 List<TimeSignature> orderedSignatures = Optimizer.RemoveUneeded(tempoMarkers, <skipOrdering>);
@@ -71,7 +71,7 @@ List<Tempo> orderedMarkers = Optimizer.RemoveUneeded(tempoMap, resolution, <skip
 ```
 
 ## Tempo rescaling
-The [TempoRescaler](~/api/ChartTools.Tools.TempoRescaler) class provides scaling methods for various groups of track objects.
+The [TempoRescaler](~/api/ChartTools.Tools.TempoRescaler.yml) class provides scaling methods for various groups of track objects.
 
 ```csharp
 TempoRescaler.Rescale(longObject, scale);
