@@ -40,13 +40,27 @@ if (Directory.Exists(siteBuildDir))
 PrintStatus("Analysing assembly with DocFx");
 
 // TODO Only build api if the assembly is more recent than the last site build
-await DotnetApiCatalog.GenerateManagedReferenceYamlFiles(configPath);
+try { await DotnetApiCatalog.GenerateManagedReferenceYamlFiles(configPath); }
+catch (Exception ex)
+{
+	Console.WriteLine("Analysis error:");
+	Console.WriteLine(ex);
+
+	return -1;
+}
 
 PrintStatus("Analysis done");
 
 PrintStatus("Building site with DocFx");
 
-await Docset.Build(configPath);
+try { await Docset.Build(configPath); }
+catch (Exception ex)
+{
+	Console.WriteLine("Build error:");
+	Console.Write(ex);
+
+	return -1;
+}
 
 PrintStatus("Build done");
 
