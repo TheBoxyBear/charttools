@@ -5,7 +5,7 @@
         {
           "src": "../ChartTools",
           "files": [
-            "ChartTools.csproj"
+            "bin/Debug/net10.0/ChartTools.dll"
           ]
         }
       ],

@@ -2,7 +2,7 @@
 
 Read and write operations in ChartTools feature customizable behavior for how they handle various error cases. These behaviors can be defines throguh the use of configuration objects.
 
-The following snippet uses a [ChartReadingConfiguration](~/api/ChartTools.IO.Chart.Configuration.ChartReadingConfiguration) to only include the first of duplicate [track objects](~/api/ChartTools.ITrackObject):
+The following snippet uses a [ChartReadingConfiguration](~/api/ChartTools.IO.Chart.Configuration.ChartReadingConfiguration.yml) to only include the first of duplicate [track objects](~/api/ChartTools.ITrackObject):
 
 ```csharp
 using ChartTools.IO.Chart.Configuration;
@@ -13,7 +13,7 @@ Song song = ChartFile.ReadSong("notes.chart", new ChartReadingConfiguration()
 });
 ```
 
-When working with a non-specified file format, a [ReadingConfiguration](~/api/ChartTools.IO.Configuration.ReadingConfiguration) or [WritingConfiguration](~/api/ChartTools.IO.Configuration.WritingConfiguration) is used instead. These configuration envelop multiple configurations for the various file formats.
+When working with a non-specified file format, a [ReadingConfiguration](~/api/ChartTools.IO.Configuration.ReadingConfiguration.yml) or [WritingConfiguration](~/api/ChartTools.IO.Configuration.WritingConfiguration.yml) is used instead. These configuration envelop multiple configurations for the various file formats.
 
 Here is the same example as above, but using a `Song.FromFile`:
 
