@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Text.Json;
 
 using Docfx;
 using Docfx.Dotnet;
@@ -9,19 +10,23 @@ using Docfx.Dotnet;
 
 // If localhost returns 404, try running `dotnet tool restore` from the project directory.
 
-const string siteDirEnv = "SiteDir";
+const string
+	siteDirEnv = "SiteDir",
+	libPathEnv = "LibPath";
 
 #region Initialize
-string? siteDir = Environment.GetEnvironmentVariable(siteDirEnv);
+string?
+	siteDir = Environment.GetEnvironmentVariable(siteDirEnv),
+	libPath = Environment.GetEnvironmentVariable(libPathEnv);
 
-if (string.IsNullOrEmpty(siteDir))
-{
-	Console.WriteLine($"Required environment variable `{siteDirEnv}` is misconfigured in launchsettings.json");
+if (!ValidateEnv(siteDirEnv, siteDir))
 	return -1;
-}
+
+if (!ValidateEnv(siteDirEnv, siteDir))
+	return -1;
 
 string
-	configPath   = siteDir + "docfx.json",
+	configPath	 = siteDir + "docfx.json",
 	siteBuildDir = siteDir + "_site";
 
 if (!File.Exists(configPath))
@@ -40,19 +45,64 @@ if (Directory.Exists(siteBuildDir))
 #endregion
 
 #region Analyze
-PrintStatus("Analysing assembly with DocFx");
-
-// TODO Only build api if the assembly is more recent than the last site build
-try { await DotnetApiCatalog.GenerateManagedReferenceYamlFiles(configPath); }
-catch (Exception ex)
+if (!File.Exists(libPath))
 {
-	Console.WriteLine("Analysis error:");
-	Console.WriteLine(ex);
-
+	// Shouldn't happen - Docs is configured to depend on the lib
+	Console.WriteLine($"Assembly `{libPath}` missng.");
 	return -1;
 }
 
-PrintStatus("Analysis done");
+string cachePath         = "cache.json";
+bool shouldAnalyze       = true;
+DateTime libLastModified = File.GetLastWriteTime(libPath);
+
+if (File.Exists(cachePath))
+{
+	string json;
+
+	try { json = File.ReadAllText(cachePath); }
+	catch (Exception ex)
+	{
+		Console.WriteLine("Error reading build cache:");
+		Console.WriteLine(ex);
+
+		return -1;
+	}
+
+	BuildCache? cache;
+
+	try { cache = JsonSerializer.Deserialize<BuildCache>(File.ReadAllText(cachePath)); }
+	catch (Exception ex)
+	{
+		Console.WriteLine("Error parsing build cache:");
+		Console.WriteLine(ex);
+
+		return -1;
+	}
+
+	if (cache is not null && cache.LibLastModified >= libLastModified)
+		shouldAnalyze = false;
+}
+
+if (shouldAnalyze)
+{
+	File.WriteAllText(cachePath, JsonSerializer.Serialize(new BuildCache(libLastModified)));
+
+	PrintStatus("Analysing assembly with DocFx");
+
+	try { await DotnetApiCatalog.GenerateManagedReferenceYamlFiles(configPath); }
+	catch (Exception ex)
+	{
+		Console.WriteLine("Analysis error:");
+		Console.WriteLine(ex);
+
+		return -1;
+	}
+
+	PrintStatus("Analysis done");
+}
+else
+	PrintStatus("Assembly unchanged since last build, skipping analysis");
 #endregion
 
 #region Build
@@ -104,3 +154,16 @@ static void PrintStatus(string status)
 	Console.WriteLine($"------- {status} -------");
 	Console.WriteLine();
 }
+
+static bool ValidateEnv(string env, string? value)
+{
+	if (string.IsNullOrEmpty(value))
+	{
+		Console.WriteLine($"Required environment variable `{env}` is misconfigured in launchsettings.json");
+		return false;
+	}
+
+	return true;
+}
+
+record class BuildCache(DateTime LibLastModified);
