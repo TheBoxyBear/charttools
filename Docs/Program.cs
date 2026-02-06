@@ -14,7 +14,13 @@ string
 	config = dir + "docfx.json",
 	site   = dir + "_site";
 
-var content = File.ReadAllText(config);
+if (Directory.Exists(site))
+{
+	Console.WriteLine("------- Purging files from previous build -------");
+	Console.WriteLine();
+
+	Directory.Delete(site, true);
+}
 
 Console.WriteLine("------- Building site with DocFx -------");
 
