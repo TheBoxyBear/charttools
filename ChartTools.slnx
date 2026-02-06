@@ -1,5 +1,7 @@
 <Solution>
   <Project Path="ChartTools.Tests/ChartTools.Tests.csproj" />
   <Project Path="ChartTools/ChartTools.csproj" />
-  <Project Path="Docs/Docs.csproj" />
+  <Project Path="Docs/Docs.csproj">
+    <BuildDependency Project="ChartTools/ChartTools.csproj" />
+  </Project>
 </Solution>
