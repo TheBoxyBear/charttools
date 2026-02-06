@@ -1,4 +1,6 @@
-﻿namespace ChartTools;
+﻿using ChartTools.Extensions;
+
+namespace ChartTools;
 
 /// <summary>
 /// Note played by drums

@@ -1,6 +1,8 @@
 ﻿global using StandardNote = ChartTools.LaneNote<ChartTools.StandardLane>;
 global using GHLNote = ChartTools.LaneNote<ChartTools.GHLLane>;
 
+using ChartTools.Extensions;
+
 namespace ChartTools;
 
 public readonly record struct LaneNote<TLane> : IDefinedLaneNote<TLane>

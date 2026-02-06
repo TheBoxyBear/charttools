@@ -1,3 +1,5 @@
+using ChartTools.Extensions;
+
 namespace ChartTools;
 
 /// <summary>

@@ -22,9 +22,6 @@
   <ItemGroup>
     <PackageReference Include="Docfx.App" Version="2.78.4" />
     <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="4.14.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.14.0" />
-
-    <!--Transitive package requiring an explicit version bump for compatibility with the Generator project-->
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
