@@ -11,7 +11,7 @@ For an overview on installation and taking your first steps with ChartTools, see
 ## Contributing
 If you like to contribute to the development of ChartTools, feel free to comment on an issue, submit a pull request or submit your own issues.
 
-To test your code, copy the solution file and rename it to `ChartTools_Debug.sln`. From that solution, you can add new projects under the `Debug` directory. The debug solution and all its additional projects will automatically be git-ignored.
+To test your code, copy the solution file and rename it to `ChartTools_Debug.slnx`. From that solution, you can add new projects under the `Debug` directory. The debug solution and all its additional projects will automatically be git-ignored.
 
 ### Documentation
 The solution includes a `Docs` project that can be executed to build and deploy locally on port 8080. Remember to terminate the local server with `Ctrl+C` before closing as it can prevent later executions from using the port. If this occurs, run
