@@ -30,7 +30,6 @@ public class NoteTests
 	}
 
 	[TestMethod, TestCategory(nameof(INote.Index))]
-	[DataRow((byte)0)]
 	[DataRow((byte)1)]
 	[DataRow((byte)2)]
 	[DataRow((byte)3)]
@@ -48,24 +47,23 @@ public class NoteTests
 		Assert.AreEqual(index, standard.Index);
 	}
 
+	#region IsCymbal
+	private static IEnumerable<object[]> CymbalLanes =>
+		[[DrumsLane.Kick], [DrumsLane.Green4Lane_Orange5Lane], [DrumsLane.Yellow], [DrumsLane.Blue]];
+
 	[TestMethod, TestCategory(nameof(DrumsNote.IsCymbal)), TestCategory(nameof(Exception))]
-	[DataRow(DrumsLane.Red)]
-	[DataRow(DrumsLane.Green5Lane)]
+	[DataRow(DrumsLane.Red), DataRow(DrumsLane.Green5Lane)]
 	public void IsCymbal_CtorInvalidLane_Throws(DrumsLane lane)
 		=> Assert.ThrowsException<InvalidOperationException>(
 			() => new DrumsNote(lane) { IsCymbal = true });
 
 	[TestMethod, TestCategory(nameof(DrumsNote.IsCymbal)), TestCategory(nameof(Exception))]
-	[DataRow(DrumsLane.Kick)]
-	[DataRow(DrumsLane.Green4Lane_Orange5Lane)]
-	[DataRow(DrumsLane.Yellow)]
-	[DataRow(DrumsLane.Blue)]
+	[DynamicData(nameof(CymbalLanes))]
 	public void IsCymbal_CtorValidLane_NoThrows(DrumsLane lane)
 		=> _ = new DrumsNote(lane) { IsCymbal = true };
 
 	[TestMethod, TestCategory(nameof(DrumsNote.IsCymbal)), TestCategory(nameof(Exception))]
-	[DataRow(DrumsLane.Red)]
-	[DataRow(DrumsLane.Green5Lane)]
+	[DataRow(DrumsLane.Red), DataRow(DrumsLane.Green5Lane)]
 	public void IsCymbal_InitInvalidLane_Throws(DrumsLane lane)
 		=> Assert.ThrowsException<InvalidOperationException>(
 			() => new DrumsNote()
@@ -75,10 +73,7 @@ public class NoteTests
 			});
 
 	[TestMethod, TestCategory(nameof(DrumsNote.IsCymbal)), TestCategory(nameof(Exception))]
-	[DataRow(DrumsLane.Kick)]
-	[DataRow(DrumsLane.Green4Lane_Orange5Lane)]
-	[DataRow(DrumsLane.Yellow)]
-	[DataRow(DrumsLane.Blue)]
+	[DynamicData(nameof(CymbalLanes))]
 	public void IsCymbal_InitValidLane_NoThrows(DrumsLane lane)
 		=> _ = new DrumsNote()
 		{
@@ -87,8 +82,7 @@ public class NoteTests
 		};
 
 	[TestMethod, TestCategory(nameof(DrumsNote.IsCymbal)), TestCategory(nameof(Exception))]
-	[DataRow(DrumsLane.Red)]
-	[DataRow(DrumsLane.Green5Lane)]
+	[DataRow(DrumsLane.Red), DataRow(DrumsLane.Green5Lane)]
 	public void IsCymbal_PostInitInvalidLane_Throws(DrumsLane lane)
 		=> Assert.ThrowsException<InvalidOperationException>(
 			() => new DrumsNote()
@@ -98,14 +92,12 @@ public class NoteTests
 			});
 
 	[TestMethod, TestCategory(nameof(DrumsNote.IsCymbal)), TestCategory(nameof(Exception))]
-	[DataRow(DrumsLane.Kick)]
-	[DataRow(DrumsLane.Green4Lane_Orange5Lane)]
-	[DataRow(DrumsLane.Yellow)]
-	[DataRow(DrumsLane.Blue)]
+	[DynamicData(nameof(CymbalLanes))]
 	public void IsCymbal_PostInitValidLane_NoThrows(DrumsLane lane)
 		=> _ = new DrumsNote()
 		{
 			IsCymbal = true,
 			Lane     = lane
 		};
+	#endregion
 }

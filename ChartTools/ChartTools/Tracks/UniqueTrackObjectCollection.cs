@@ -5,7 +5,8 @@ namespace ChartTools.Extensions.Collections;
 /// <summary>
 /// Set of track objects where each one must have a different position
 /// </summary>
-public class UniqueTrackObjectCollection<T>(IEnumerable<T>? items = null) : ICollection<T>
+public class UniqueTrackObjectCollection<T>(IEnumerable<T>? items = null)
+	: ICollection<T>
 	where T : ITrackObject
 {
 	private readonly Dictionary<uint, T> items = items is null

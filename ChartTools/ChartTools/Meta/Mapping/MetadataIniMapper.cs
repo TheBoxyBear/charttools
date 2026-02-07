@@ -1,61 +1,177 @@
 ﻿using ChartTools.IO;
-using ChartTools.IO.Chart;
+using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
+
+using System.Diagnostics.CodeAnalysis;
 
 namespace ChartTools.Meta.Mapping;
 
-internal class MetadataIniMapper : IMetadataMapper
+internal partial class MetadataIniMapper : MetadataMapper
 {
-	public static FileType FileType => FileType.Ini;
+	public static MetadataIniMapper Shared { get; } = new();
 
-	public static string? Get(Metadata metadata, in ReadOnlySpan<char> key)
-		=> key switch
-	{
-		IniFormatting.Title                             => metadata.Title,
-		IniFormatting.Artist                            => metadata.Artist,
-		IniFormatting.Album                             => metadata.Charter.Name,
-		IniFormatting.AlbumTrack                        => metadata.AlbumTrack?.ToString(),
-		IniFormatting.Track                             => metadata.AlbumTrack?.ToString(),
-		IniFormatting.Playlist                          => metadata.Playlist,
-		IniFormatting.SubPlaylist                       => metadata.SubPlaylist,
-		IniFormatting.PlaylistTrack                     => metadata.PlaylistTrack?.ToString(),
-		IniFormatting.Year                              => metadata.Year?.ToString(),
-		IniFormatting.Genre                             => metadata.Genre,
-		IniFormatting.Charter                           => metadata.Charter.Name,
-		IniFormatting.Frets                             => metadata.Charter.Name,
-		IniFormatting.Icon                              => metadata.Charter.Icon,
-		IniFormatting.PreviewStart                      => metadata.PreviewStart?.ToString(),
-		IniFormatting.PreviewEnd                        => metadata.PreviewEnd?.ToString(),
-		IniFormatting.AudioOffset                       => metadata.AudioOffset?.TotalMilliseconds.ToString(),
-		IniFormatting.VideoOffset                       => metadata.VideoOffset?.TotalMilliseconds.ToString(),
-		IniFormatting.Length                            => metadata.Length?.ToString(),
-		IniFormatting.LoadingText                       => metadata.LoadingText,
-		IniFormatting.Modchart                          => metadata.IsModchart.HasValue ? (metadata.IsModchart.Value ? "1" : "0") : null,
-		IniFormatting.Explicit                          => metadata.Explicit?.ToString(),
-		IniFormatting.Difficulties.Global               => metadata.Difficulty?.ToString(),
-		IniFormatting.Difficulties.StandardLeadGuitar   => metadata.InstrumentDifficulties.StandardLeadGuitar?.ToString(),
-		IniFormatting.Difficulties.StandardRhythmGuitar => metadata.InstrumentDifficulties.StandardRhythmGuitar?.ToString(),
-		IniFormatting.Difficulties.StandardCoopGuitar   => metadata.InstrumentDifficulties.StandardCoopGuitar?.ToString(),
-		IniFormatting.Difficulties.StandardBass         => metadata.InstrumentDifficulties.StandardBass?.ToString(),
-		IniFormatting.Difficulties.Drums                => metadata.InstrumentDifficulties.Drums?.ToString(),
-		IniFormatting.Difficulties.StandardKeys         => metadata.InstrumentDifficulties.StandardKeys?.ToString(),
-		IniFormatting.Difficulties.GHLLeadGuitar        => metadata.InstrumentDifficulties.GHLLeadGuitar?.ToString(),
-		IniFormatting.Difficulties.GHLRhythmGuitar      => metadata.InstrumentDifficulties.GHLRhythmGuitar?.ToString(),
-		IniFormatting.Difficulties.GHLCoopGuitar        => metadata.InstrumentDifficulties.GHLCoopGuitar?.ToString(),
-		IniFormatting.Difficulties.GHLBass              => metadata.InstrumentDifficulties.GHLBass?.ToString(),
-		IniFormatting.SustainCutoff                     => metadata.Formatting.SustainCutoff?.ToString(),
-		IniFormatting.HopoFrequency                     => metadata.Formatting.HopoFrequency?.ToString(),
-		_                                               => IMetadataMapper.FindUndentified(metadata, FileType.Ini, key)
-	};
+	public override FileType FileType => FileType.Ini;
 
-	public static void Set(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value)
+	public override string? Get(Metadata metadata, in ReadOnlySpan<char> key)
 	{
-		// TODO Implement with source generation
-		throw new NotImplementedException();
+		ValidateKey(in key);
+
+		return TryGetFromAttribute(metadata, key, out var value)
+			? value : key switch
+			{
+				IniFormatting.AudioOffset => metadata.AudioOffset?.TotalMilliseconds.ToString(),
+				IniFormatting.VideoOffset => metadata.VideoOffset?.TotalMilliseconds.ToString(),
+				IniFormatting.Modchart    => metadata.IsModchart is null ? null : metadata.IsModchart.Value ? "1" : "0",
+				IniFormatting.Track when metadata.Formatting.AlbumTrackKeys.HasFlag(AlbumTrackKeys.Track)
+					=> metadata.AlbumTrack?.ToString(),
+				IniFormatting.AlbumTrack when metadata.Formatting.AlbumTrackKeys.HasFlag(AlbumTrackKeys.AlbumTrack)
+					=> metadata.AlbumTrack?.ToString(),
+				IniFormatting.Charter when metadata.Formatting.CharterKeys.HasFlag(CharterKeys.Charter)
+					=> metadata.Charter.Name,
+				IniFormatting.Frets when metadata.Formatting.CharterKeys.HasFlag(CharterKeys.Frets)
+					=> metadata.Charter.Name,
+				_ => FindUndentified(metadata, key)
+			};
 	}
 
-	public static void Remove(Metadata metadata, in ReadOnlySpan<char> key)
-		=> IMetadataMapper.Remove(metadata, FileType.Ini, in key);
+	public override void Set(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value)
+	{
+		ValidateKey(in key);
+
+		if (!TrySetFromAttribute(metadata, in key, in value))
+			switch (key)
+			{
+				case IniFormatting.AudioOffset:
+					metadata.AudioOffset = TimeSpan.FromMilliseconds(ValueParser.Parse<float>(value, nameof(Metadata.AudioOffset)));
+					break;
+				case IniFormatting.VideoOffset:
+					metadata.VideoOffset = TimeSpan.FromMilliseconds(ValueParser.Parse<float>(value, nameof(Metadata.VideoOffset)));
+					break;
+				case IniFormatting.Modchart:
+					metadata.IsModchart = ValueParser.Parse<bool>(value, nameof(Metadata.IsModchart));
+					break;
+				case IniFormatting.AlbumTrack:
+					metadata.AlbumTrack = ValueParser.Parse<byte>(in value, nameof(Metadata.AlbumTrack));
+					metadata.Formatting.AlbumTrackKeys |= AlbumTrackKeys.AlbumTrack;
+					break;
+				case IniFormatting.Track:
+					metadata.AlbumTrack = ValueParser.Parse<byte>(in value, nameof(Metadata.AlbumTrack));
+					metadata.Formatting.AlbumTrackKeys |= AlbumTrackKeys.Track;
+					break;
+				case IniFormatting.Charter:
+					metadata.Charter.Name = value.ToString();
+					metadata.Formatting.CharterKeys |= CharterKeys.Charter;
+					break;
+				case IniFormatting.Frets:
+					metadata.Charter.Name = value.ToString();
+					metadata.Formatting.CharterKeys |= CharterKeys.Frets;
+					break;
+				default:
+					AddUnidentified(metadata, in key, in value);
+					break;
+			}
+	}
+
+	public override void Remove(Metadata metadata, in ReadOnlySpan<char> key)
+	{
+		ValidateKey(in key);
+
+		if (!TryRemoveFromAttribute(metadata, in key));
+			switch (key)
+			{
+				case IniFormatting.Track:
+					if ((metadata.Formatting.AlbumTrackKeys &= ~AlbumTrackKeys.Track) == AlbumTrackKeys.None)
+						metadata.AlbumTrack = null;
+					break;
+				case IniFormatting.AlbumTrack:
+					if ((metadata.Formatting.AlbumTrackKeys &= ~AlbumTrackKeys.AlbumTrack) == AlbumTrackKeys.None)
+						metadata.AlbumTrack = null;
+					break;
+				case IniFormatting.Charter:
+					if ((metadata.Formatting.CharterKeys &= ~CharterKeys.Charter) == CharterKeys.None)
+						metadata.Charter.Name = null;
+					break;
+				case IniFormatting.Frets:
+					if ((metadata.Formatting.CharterKeys &= ~CharterKeys.Frets) == CharterKeys.None)
+						metadata.Charter.Name = null;
+				break;
+				default:
+					RemoveUnidentified(metadata, in key);
+					break;
+			}
+	}
+
+
+	public override bool Contains(Metadata metadata, in ReadOnlySpan<char> key)
+	{
+		ValidateKey(in key);
+
+		return TryContainsFromAttribute(metadata, in key) ?? key switch
+		{
+			IniFormatting.AudioOffset => metadata.AudioOffset is not null,
+			IniFormatting.VideoOffset => metadata.VideoOffset is not null,
+			IniFormatting.Modchart    => metadata.IsModchart is not null,
+			IniFormatting.Track when metadata.Formatting.AlbumTrackKeys.HasFlag(AlbumTrackKeys.Track)
+				=> metadata.AlbumTrack is not null,
+			IniFormatting.AlbumTrack when metadata.Formatting.AlbumTrackKeys.HasFlag(AlbumTrackKeys.AlbumTrack)
+				=> metadata.AlbumTrack is not null,
+			IniFormatting.Charter when metadata.Formatting.CharterKeys.HasFlag(CharterKeys.Charter)
+				=> metadata.Charter.Name is not null,
+			IniFormatting.Frets when metadata.Formatting.CharterKeys.HasFlag(CharterKeys.Frets)
+				=> metadata.Charter.Name is not null,
+			_ => ContainsUnidentified(metadata, in key)
+		};
+	}
+
+	public override IEnumerable<TextEntry> GetAll(Metadata metadata)
+	{
+		foreach (TextEntry entry in GetAllFromAttributes(metadata))
+			yield return entry;
+
+		foreach (string key in new string[] { IniFormatting.AudioOffset, IniFormatting.VideoOffset, IniFormatting.Modchart })
+		{
+			string? value = Get(metadata, key);
+
+			if (value is not null)
+				yield return new(key, value);
+		}
+
+		string? audioOffset = Get(metadata, IniFormatting.AudioOffset);
+
+		if (audioOffset is not null)
+			yield return new(IniFormatting.AudioOffset, audioOffset);
+
+		if (metadata.AlbumTrack is not null)
+		{
+			if (metadata.Formatting.EffectiveAlbumTrackKeys.HasFlag(AlbumTrackKeys.Track))
+				yield return new(IniFormatting.Track, metadata.AlbumTrack.ToString()!);
+
+			if (metadata.Formatting.EffectiveAlbumTrackKeys.HasFlag(AlbumTrackKeys.AlbumTrack))
+				yield return new(IniFormatting.AlbumTrack, metadata.AlbumTrack.ToString()!);
+		}
+
+		if (metadata.Charter.Name is not null)
+		{
+			if (metadata.Formatting.EffectiveCharterKeys.HasFlag(CharterKeys.Charter))
+				yield return new(IniFormatting.Charter, metadata.Charter.Name);
+
+			if (metadata.Formatting.EffectiveCharterKeys.HasFlag(CharterKeys.Frets))
+				yield return new(IniFormatting.Frets, metadata.Charter.Name.ToString());
+		}
+
+		foreach (TextEntry entry in GetAllUnidentified(metadata))
+			yield return entry;
+	}
+
+	private static partial bool TryGetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out string value);
+
+	private static partial bool TrySetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value);
+
+	private static partial bool TryRemoveFromAttribute(Metadata metadata, in ReadOnlySpan<char> key);
+
+	private static partial bool? TryContainsFromAttribute(Metadata metadata, in ReadOnlySpan<char> key);
+
+	private partial IEnumerable<TextEntry> GetAllFromAttributes(Metadata metadata);
 
 	private MetadataIniMapper() { }
 }

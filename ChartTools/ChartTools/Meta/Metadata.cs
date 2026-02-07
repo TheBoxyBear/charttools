@@ -1,38 +1,39 @@
 ﻿using ChartTools.Extensions;
 using ChartTools.IO;
 using ChartTools.IO.Chart;
-using ChartTools.IO.Chart.Serializing;
 using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
 using ChartTools.Meta.Mapping;
+
+using System.Diagnostics.CodeAnalysis;
 
 namespace ChartTools.Meta;
 
 /// <summary>
 /// Set of miscellaneous information about a <see cref="Song"/>
 /// </summary>
-public class Metadata
+public sealed class Metadata
 {
 	#region Properties
 	/// <summary>
 	/// Title of the <see cref="Song"/>
 	/// </summary>
-	[ChartKeySerializable(ChartFormatting.Title)]
-	[IniKeySerializable(IniFormatting.Title)]
+	[MetadataKey(FileType.Chart, ChartFormatting.Title)]
+	[MetadataKey(FileType.Ini, IniFormatting.Title)]
 	public string? Title { get; set; }
 
 	/// <summary>
 	/// Artist or band behind the <see cref="Song"/>
 	/// </summary>
-	[ChartKeySerializable(ChartFormatting.Artist)]
-	[IniKeySerializable(IniFormatting.Artist)]
+	[MetadataKey(FileType.Chart, ChartFormatting.Artist)]
+	[MetadataKey(FileType.Ini, IniFormatting.Artist)]
 	public string? Artist { get; set; }
 
 	/// <summary>
 	/// Album featuring the <see cref="Song"/>
 	/// </summary>
-	[ChartKeySerializable(ChartFormatting.Album)]
-	[IniKeySerializable(IniFormatting.Album)]
+	[MetadataKey(FileType.Chart, ChartFormatting.Album)]
+	[MetadataKey(FileType.Ini, IniFormatting.Album)]
 	public string? Album { get; set; }
 
 	/// <summary>
@@ -43,37 +44,39 @@ public class Metadata
 	/// <summary>
 	/// Playlist that the song should show up in
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Playlist)]
+	[MetadataKey(FileType.Ini, IniFormatting.Playlist)]
 	public string? Playlist { get; set; }
 
 	/// <summary>
 	/// Sub-playlist that the song should show up in
 	/// </summary>
-	[IniKeySerializable(IniFormatting.SubPlaylist)]
+	[MetadataKey(FileType.Ini, IniFormatting.SubPlaylist)]
 	public string? SubPlaylist { get; set; }
 
 	/// <summary>
 	/// Track number of the song within the playlist/setlist
 	/// </summary>
-	[IniKeySerializable(IniFormatting.PlaylistTrack)]
+	[MetadataKey(FileType.Ini, IniFormatting.PlaylistTrack)]
 	public ushort? PlaylistTrack { get; set; }
 
 	/// <summary>
 	/// Year of release
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Year)]
+	[MetadataKey(FileType.Chart, ChartFormatting.Year, ValueMappable = false)]
+	[MetadataKey(FileType.Ini, IniFormatting.Year)]
 	public ushort? Year { get; set; }
 
 	/// <summary>
 	/// Genre of the <see cref="Song"/>
 	/// </summary>
-	[ChartKeySerializable(ChartFormatting.Genre)]
-	[IniKeySerializable(IniFormatting.Genre)]
+	[MetadataKey(FileType.Chart, ChartFormatting.Genre)]
+	[MetadataKey(FileType.Ini, IniFormatting.Genre)]
 	public string? Genre { get; set; }
 
 	/// <summary>
 	/// Creator of the chart
 	/// </summary>
+	[MetadataGroup]
 	public Charter Charter
 	{
 		get;
@@ -87,21 +90,21 @@ public class Metadata
 	/// <summary>
 	/// The song contains explicit lyrics
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Explicit)]
+	[MetadataKey(FileType.Ini, IniFormatting.Explicit)]
 	public bool? Explicit { get; set; }
 
 	/// <summary>
 	/// Start time in milliseconds of the preview in the Clone Hero song browser
 	/// </summary>
-	[ChartKeySerializable(ChartFormatting.PreviewStart)]
-	[IniKeySerializable(IniFormatting.PreviewStart)]
+	[MetadataKey(FileType.Chart, ChartFormatting.PreviewStart)]
+	[MetadataKey(FileType.Ini, IniFormatting.PreviewStart)]
 	public uint? PreviewStart { get; set; }
 
 	/// <summary>
 	/// End time in milliseconds of the preview in the Clone Hero song browser
 	/// </summary>
-	[ChartKeySerializable(ChartFormatting.PreviewEnd)]
-	[IniKeySerializable(IniFormatting.PreviewEnd)]
+	[MetadataKey(FileType.Chart, ChartFormatting.PreviewEnd)]
+	[MetadataKey(FileType.Ini, IniFormatting.PreviewEnd)]
 	public uint? PreviewEnd { get; set; }
 
 	/// <summary>
@@ -121,11 +124,12 @@ public class Metadata
 	/// <summary>
 	/// Overall difficulty of the song
 	/// </summary>
-	[ChartKeySerializable(ChartFormatting.Difficulty)]
-	[IniKeySerializable(IniFormatting.Difficulties.Global)]
+	[MetadataKey(FileType.Chart, ChartFormatting.Difficulty)]
+	[MetadataKey(FileType.Ini, IniFormatting.Difficulties.Global)]
 	public sbyte? Difficulty { get; set; }
 
 	/// <inheritdoc cref="InstrumentDifficultySet"/>
+	[MetadataGroup]
 	public InstrumentDifficultySet InstrumentDifficulties
 	{
 		get;
@@ -139,19 +143,20 @@ public class Metadata
 	/// <summary>
 	/// Type of media the audio track comes from
 	/// </summary>
-	[ChartKeySerializable(ChartFormatting.MediaType)]
+	[MetadataKey(FileType.Chart, ChartFormatting.MediaType)]
 	public string? MediaType { get; set; }
 
 	/// <summary>
 	/// Offset of the audio track. A higher value makes the audio start sooner.
 	/// </summary>
-	[ChartKeySerializable(ChartFormatting.AudioOffset)]
-	[IniKeySerializable(IniFormatting.AudioOffset)]
+	[MetadataKey(FileType.Chart, ChartFormatting.AudioOffset, ValueMappable = false)]
+	[MetadataKey(FileType.Ini, IniFormatting.AudioOffset, ValueMappable = false)]
 	public TimeSpan? AudioOffset { get; set; }
 
 	/// <summary>
 	/// Paths of audio files
 	/// </summary>
+	[MetadataGroup]
 	public StreamCollection Streams
 	{
 		get;
@@ -165,27 +170,29 @@ public class Metadata
 	/// <summary>
 	/// Offset of the background video. A higher value makes the video start sooner.
 	/// </summary>
+	[MetadataKey(FileType.Ini, IniFormatting.VideoOffset, ValueMappable = false)]
 	public TimeSpan? VideoOffset { get; set; }
 
 	/// <summary>
 	/// Length of the song in milliseconds
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Length)]
+	[MetadataKey(FileType.Ini, IniFormatting.Length)]
 	public uint? Length { get; set; }
 
 	/// <summary>
 	/// Text to be displayed on the load screen
 	/// </summary>
-	[IniKeySerializable(IniFormatting.LoadingText)]
+	[MetadataKey(FileType.Ini, IniFormatting.LoadingText)]
 	public string? LoadingText { get; set; }
 
 	/// <summary>
 	/// The song is a modchart
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Modchart)]
+	[MetadataKey(FileType.Ini, IniFormatting.Modchart, ValueMappable = false)]
 	public bool? IsModchart { get; set; }
 
 	/// <inheritdoc cref="FormattingRules"/>
+	[MetadataGroup]
 	public FormattingRules Formatting
 	{
 		get;
@@ -201,23 +208,34 @@ public class Metadata
 			static (a, b) => a.Key == b.Key && a.Origin == b.Origin));
 	#endregion
 
+	public bool TryGet(FileType fileType, string key, [MaybeNullWhen(false)] out string value)
+		=> fileType switch
+		{
+			FileType.Chart => MetadataChartMapper.Shared.TryGet(this, key, out value),
+			FileType.Ini   => MetadataIniMapper.Shared.TryGet(this, key, out value),
+			_ => throw InvalidFormatException(fileType)
+		};
+
 	public string? Get(FileType fileType, string key)
 		=> fileType switch
-	{
-		FileType.Chart => MetadataChartMapper.Get(this, key),
-		FileType.Ini   => MetadataIniMapper.Get(this, key)
-	};
+		{
+			FileType.Chart => MetadataChartMapper.Shared.Get(this, key),
+			FileType.Ini   => MetadataIniMapper.Shared.Get(this, key),
+			_ => throw InvalidFormatException(fileType)
+		};
 
 	public void Set(FileType fileType, string key, string value)
 	{
 		switch (fileType)
 		{
 			case FileType.Chart:
-				MetadataChartMapper.Set(this, key, value);
+				MetadataChartMapper.Shared.Set(this, key, value);
 				break;
 			case FileType.Ini:
-				MetadataIniMapper.Set(this, key, value);
+				MetadataIniMapper.Shared.Set(this, key, value);
 				break;
+			default:
+				throw InvalidFormatException(fileType);
 		}
 	}
 
@@ -226,12 +244,26 @@ public class Metadata
 		switch (fileType)
 		{
 			case FileType.Chart:
-				MetadataChartMapper.Remove(this, key);
+				MetadataChartMapper.Shared.Remove(this, key);
 				break;
 			case FileType.Ini:
-				throw new NotImplementedException();
+				MetadataIniMapper.Shared.Remove(this, key);
+				break;
+			default:
+				throw InvalidFormatException(fileType);
 		}
 	}
+
+	public bool Contains(FileType fileType, string key)
+		=> fileType switch
+		{
+			FileType.Chart => MetadataChartMapper.Shared.Contains(this, key),
+			FileType.Ini   => MetadataIniMapper.Shared.Contains(this, key),
+			_ => throw InvalidFormatException(fileType),
+		};
+
+	private static Exception InvalidFormatException(FileType fileType)
+		=> throw new ArgumentException($"Only chart and ini metadata can be mapped, not {fileType}.", nameof(fileType));
 
 	/// <summary>
 	/// Appends the metadata from another file.

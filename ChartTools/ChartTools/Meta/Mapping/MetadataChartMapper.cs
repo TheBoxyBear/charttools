@@ -1,123 +1,80 @@
-﻿using ChartTools.IO;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using ChartTools.IO;
 using ChartTools.IO.Chart;
 
 namespace ChartTools.Meta.Mapping;
 
-internal class MetadataChartMapper : IMetadataMapper
+internal sealed partial class MetadataChartMapper : MetadataMapper
 {
-	public static FileType FileType => FileType.Chart;
+	public static MetadataChartMapper Shared { get; } = new();
 
-	public static string? Get(Metadata metadata, in ReadOnlySpan<char> key)
-		=> key switch
-		{
-			ChartFormatting.Title        => metadata.Title,
-			ChartFormatting.Artist       => metadata.Artist,
-			ChartFormatting.Charter      => metadata.Charter.Name,
-			ChartFormatting.Album        => metadata.Album,
-			ChartFormatting.Year         => metadata.Year is null ? null : $"\", {metadata.Year}\"",
-			ChartFormatting.AudioOffset  => metadata.AudioOffset?.TotalMilliseconds.ToString(),
-			ChartFormatting.Difficulty   => metadata.Difficulty?.ToString(),
-			ChartFormatting.PreviewStart => metadata.PreviewStart?.ToString(),
-			ChartFormatting.PreviewEnd   => metadata.PreviewEnd?.ToString(),
-			ChartFormatting.Genre        => metadata.Genre,
-			ChartFormatting.MediaType    => metadata.MediaType,
-			ChartFormatting.MusicStream  => metadata.Streams.Music,
-			ChartFormatting.GuitarStream => metadata.Streams.Guitar,
-			ChartFormatting.BassStream   => metadata.Streams.Bass,
-			ChartFormatting.RhythmStream => metadata.Streams.Rhythm,
-			ChartFormatting.KeysStream   => metadata.Streams.Keys,
-			ChartFormatting.DrumStream   => metadata.Streams.Drum,
-			ChartFormatting.Drum2Stream  => metadata.Streams.Drum2,
-			ChartFormatting.Drum3Stream  => metadata.Streams.Drum3,
-			ChartFormatting.Drum4Stream  => metadata.Streams.Drum4,
-			ChartFormatting.VocalStream  => metadata.Streams.Vocals,
-			ChartFormatting.CrowdStream  => metadata.Streams.Crowd,
-			_ => IMetadataMapper.FindUndentified(metadata, FileType.Chart, key)
-		};
+	public override FileType FileType => FileType.Chart;
 
-	public static void Set(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value)
+	public override string? Get(Metadata metadata, in ReadOnlySpan<char> key)
 	{
-		switch (key)
-		{
-			case ChartFormatting.Title:
-				metadata.Title = value.ToString();
-				break;
-			case ChartFormatting.Artist:
-				metadata.Artist = value.ToString();
-				break;
-			case ChartFormatting.Charter:
-				metadata.Charter.Name = value.ToString();
-				break;
-			case ChartFormatting.Album:
-				metadata.Album = value.ToString();
-				break;
-			case ChartFormatting.Year:
-				metadata.Year = ValueParser.Parse<ushort>(value.TrimStart(','), "year");
-				break;
-			case ChartFormatting.AudioOffset:
-				metadata.AudioOffset = TimeSpan.FromMilliseconds(ValueParser.Parse<float>(value, "audio offset") * 1000);
-				break;
-			case ChartFormatting.Difficulty:
-				metadata.Difficulty = ValueParser.Parse<sbyte>(value, "difficulty");
-				break;
-			case ChartFormatting.PreviewStart:
-				metadata.PreviewStart = ValueParser.Parse<uint>(value, "preview start");
-				break;
-			case ChartFormatting.PreviewEnd:
-				metadata.PreviewEnd = ValueParser.Parse<uint>(value, "preview end");
-				break;
-			case ChartFormatting.Genre:
-				metadata.Genre = value.ToString();
-				break;
-			case ChartFormatting.MediaType:
-				metadata.MediaType = value.ToString();
-				break;
-			case ChartFormatting.MusicStream:
-				metadata.Streams.Music = value.ToString();
-				break;
-			case ChartFormatting.GuitarStream:
-				metadata.Streams.Guitar = value.ToString();
-				break;
-			case ChartFormatting.BassStream:
-				metadata.Streams.Bass = value.ToString();
-				break;
-			case ChartFormatting.RhythmStream:
-				metadata.Streams.Rhythm = value.ToString();
-				break;
-			case ChartFormatting.KeysStream:
-				metadata.Streams.Keys = value.ToString();
-				break;
-			case ChartFormatting.DrumStream:
-				metadata.Streams.Drum = value.ToString();
-				break;
-			case ChartFormatting.Drum2Stream:
-				metadata.Streams.Drum2 = value.ToString();
-				break;
-			case ChartFormatting.Drum3Stream:
-				metadata.Streams.Drum3 = value.ToString();
-				break;
-			case ChartFormatting.Drum4Stream:
-				metadata.Streams.Drum4 = value.ToString();
-				break;
-			case ChartFormatting.VocalStream:
-				metadata.Streams.Vocals = value.ToString();
-				break;
-			case ChartFormatting.CrowdStream:
-				metadata.Streams.Crowd = value.ToString();
-				break;
-			default:
-				metadata.UnidentifiedData.Add(new()
-				{
-					Key    = key.ToString(),
-					Value  = value.ToString(),
-					Origin = FileType.Chart
-				});
-				break;
-		}
+		ValidateKey(in key);
+
+		return TryGetFromAttribute(metadata, key, out var value)
+			? value : key switch
+			{
+				ChartFormatting.Year        => metadata.Year is null ? null : $"\", {metadata.Year}\"",
+				ChartFormatting.AudioOffset => metadata.AudioOffset?.TotalSeconds.ToString(),
+				_ => FindUndentified(metadata, in key)
+			};
 	}
 
-	public static void Remove(Metadata metadata, in ReadOnlySpan<char> key)
-		=> IMetadataMapper.Remove(metadata, FileType.Chart, in key);
+	public override void Set(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value)
+	{
+		ValidateKey(in key);
+
+		if (!TrySetFromAttribute(metadata, in key, in value))
+			switch (key)
+			{
+				case ChartFormatting.Year:
+					metadata.Year = ValueParser.Parse<ushort>(value.Trim('"').TrimStart(','), nameof(Metadata.Year));
+					break;
+				case ChartFormatting.AudioOffset:
+					metadata.AudioOffset = TimeSpan.FromSeconds(ValueParser.Parse<float>(value, nameof(Metadata.AudioOffset)));
+					break;
+				default:
+					AddUnidentified(metadata, in key, in value);
+					break;
+			}
+	}
+
+	public override void Remove(Metadata metadata, in ReadOnlySpan<char> key)
+	{
+		ValidateKey(in key);
+
+		if (!TryRemoveFromAttribute(metadata, in key))
+			RemoveUnidentified(metadata, in key);
+	}
+
+	public override bool Contains(Metadata metadata, in ReadOnlySpan<char> key)
+	{
+		ValidateKey(in key);
+
+		return TryContainsFromAttribute(metadata, in key) ?? key switch
+		{
+			ChartFormatting.Year        => metadata.Year is not null,
+			ChartFormatting.AudioOffset => metadata.AudioOffset is not null,
+			_ => ContainsUnidentified(metadata, in key)
+		};
+	}
+
+	public override IEnumerable<TextEntry> GetAll(Metadata metadata)
+		=> GetAllFromAttributes(metadata).Concat(GetAllUnidentified(metadata));
+
+	private static partial bool TryGetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out string value);
+
+	private static partial bool TrySetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value);
+
+	private static partial bool TryRemoveFromAttribute(Metadata metadata, in ReadOnlySpan<char> key);
+
+	private static partial bool? TryContainsFromAttribute(Metadata metadata, in ReadOnlySpan<char> key);
+
+	private partial IEnumerable<TextEntry> GetAllFromAttributes(Metadata metadata);
 
 	private MetadataChartMapper() { }
 }

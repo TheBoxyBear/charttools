@@ -1,34 +1,40 @@
-﻿namespace ChartTools.IO.Formatting;
+﻿using ChartTools.IO.Ini;
+using ChartTools.Meta;
+
+namespace ChartTools.IO.Formatting;
 
 /// <summary>
-/// Key used to serialize <see cref="Meta.AlbumTrack"/>
+/// Keys used to serialize <see cref="Metadata.AlbumTrack"/>
 /// </summary>
 [Flags]
-public enum AlbumTrackKey : byte
+public enum AlbumTrackKeys : byte
 {
+	None = 0,
     /// <summary>
-    /// Use <see cref="Ini.IniFormatting.AlbumTrack"/>
+    /// Use <see cref="IniFormatting.AlbumTrack"/>
     /// </summary>
-    AlbumTrack,
+    AlbumTrack = 1 << 0,
     /// <summary>
-    /// Use <see cref="Ini.IniFormatting.Track"/>
+    /// Use <see cref="IniFormatting.Track"/>
     /// </summary>
-    Track
+    Track = 1 << 1,
+	All = AlbumTrack | Track
 }
 
 /// <summary>
-/// Key used to serialize <see cref="Charter.Name"/>
+/// Keys used to serialize <see cref="Charter.Name"/>
 /// </summary>
 [Flags]
-public enum CharterKey : byte
+public enum CharterKeys : byte
 {
+	None = 0,
     /// <summary>
-    /// Use <see cref="Ini.IniFormatting.Charter"/>
+    /// Use <see cref="IniFormatting.Charter"/>
     /// </summary>
-    Charter,
+    Charter = 1 << 0,
     /// <summary>
-    /// Use <see cref="Ini.IniFormatting.Frets"/>
+    /// Use <see cref="IniFormatting.Frets"/>
     /// </summary>
-    Frets
+    Frets = 1 << 1,
+	All = Charter | Frets
 }
-

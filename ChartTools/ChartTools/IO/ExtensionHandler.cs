@@ -1,4 +1,5 @@
 ﻿using ChartTools.Extensions;
+using ChartTools.IO.Sources;
 
 namespace ChartTools.IO;
 
@@ -11,21 +12,18 @@ public delegate void VoidRead(string path);
 /// <summary>
 /// Read method that generates an object of the target type
 /// </summary>
-/// <param name="path">File path</param>
 public delegate T Read<T>(string path);
 
 /// <summary>
 /// Asynchronous read method that generates an object of the target type
 /// </summary>
 /// <typeparam name="T">Output type</typeparam>
-/// <param name="path">File path</param>
 public delegate Task<T> AsyncRead<T>(string path);
 
 /// <summary>
 /// Write method hat takes an object of a target type
 /// </summary>
 /// <typeparam name="T">Target type</typeparam>
-/// <param name="path">File path</param>
 /// <param name="content">Object to write</param>
 public delegate void Write<T>(string path, T content);
 

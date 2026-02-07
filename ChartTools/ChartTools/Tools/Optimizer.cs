@@ -138,7 +138,7 @@ public static class Optimizer
 	/// Removes redundant tempo markers by syncing the position of anchored markers.
 	/// </summary>
 	/// <param name="markers">Set of markers</param>
-	/// <param name="resolution">Resolution from <see cref="FormattingRules.TrueResolution"/></param>
+	/// <param name="resolution">Resolution from <see cref="FormattingRules.EffectiveResolution"/></param>
 	/// <param name="desyncedPreOrdered">Skip ordering of desynced markers by position</param>
 	public static void RemoveUnneeded(this TempoMap markers, uint resolution, bool desyncedPreOrdered = false)
 	{

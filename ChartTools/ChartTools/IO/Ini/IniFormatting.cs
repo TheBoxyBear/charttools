@@ -1,4 +1,6 @@
-﻿namespace ChartTools.IO.Ini;
+﻿using ChartTools.Meta;
+
+namespace ChartTools.IO.Ini;
 
 /// <summary>
 /// Provides a set of helper strings for working with Ini files
@@ -11,59 +13,59 @@ public static class IniFormatting
 	public const string Header = "[song]";
 
 	/// <summary>
-	/// Value of <see cref="Meta.Title"/>
+	/// Value of <see cref="Metadata.Title"/>
 	/// </summary>
 	public const string Title = "name";
 
 	/// <summary>
-	/// Value of <see cref="Meta.Artist"/>
+	/// Value of <see cref="Metadata.Artist"/>
 	/// </summary>
 	public const string Artist = "artist";
 
 	/// <summary>
-	/// Value of <see cref="Meta.Album"/>
+	/// Value of <see cref="Metadata.Album"/>
 	/// </summary>
 	public const string Album = "album";
 
 	/// <summary>
-	/// Value of <see cref="Meta.AlbumTrack"/>
+	/// Value of <see cref="Metadata.AlbumTrack"/>
 	/// </summary>
 	/// <remarks>Alternate key to <see cref="Track"/></remarks>
 	public const string AlbumTrack = "album_track";
 
 	/// <summary>
-	/// Value of <see cref="Meta.AlbumTrack"/>
+	/// Value of <see cref="Metadata.AlbumTrack"/>
 	/// </summary>
 	/// <remarks>Alternate key to <see cref="AlbumTrack"/></remarks>
 	public const string Track = "track";
 
 	/// <summary>
-	/// Value of <see cref="Meta.Playlist"/>
+	/// Value of <see cref="Metadata.Playlist"/>
 	/// </summary>
 	public const string Playlist = "playlist";
 
 	/// <summary>
-	/// Value of <see cref="Meta.SubPlaylist"/>
+	/// Value of <see cref="Metadata.SubPlaylist"/>
 	/// </summary>
 	public const string SubPlaylist = "sub_playlist";
 
 	/// <summary>
-	/// Value of <see cref="Meta.PlaylistTrack"/>
+	/// Value of <see cref="Metadata.PlaylistTrack"/>
 	/// </summary>
 	public const string PlaylistTrack = "playlist_track";
 
 	/// <summary>
-	/// Value of <see cref="Meta.Genre"/>
+	/// Value of <see cref="Metadata.Genre"/>
 	/// </summary>
 	public const string Genre = "genre";
 
 	/// <summary>
-	/// Value of <see cref="Meta.Explicit"/>
+	/// Value of <see cref="Metadata.Explicit"/>
 	/// </summary>
 	public const string Explicit = "explicit_lyrics";
 
 	/// <summary>
-	/// Value of <see cref="Meta.Year"/>
+	/// Value of <see cref="Metadata.Year"/>
 	/// </summary>
 	public const string Year = "year";
 

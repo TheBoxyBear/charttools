@@ -11,6 +11,7 @@ public class EnumerableExtensionsTests
 		trueArray  = [true, true],
 		falseArray = [false, false];
 
+	#region FirstOrDefault
 	[TestMethod, TestCategory(nameof(EnumerableExtensions.FirstOrDefault)), TestCategory(nameof(Exception))]
 	public void FirstOrDefault_NullSource_Throws()
 		=> Assert.ThrowsException<ArgumentNullException>(
@@ -41,7 +42,9 @@ public class EnumerableExtensionsTests
 		Assert.AreEqual(true, EnumerableExtensions.FirstOrDefault(trueArray, b => !b, true, out bool returnedDefault));
 		Assert.IsTrue(returnedDefault);
 	}
+	#endregion
 
+	#region TryGetFirst
 	[TestMethod, TestCategory(nameof(EnumerableExtensions.TryGetFirst)), TestCategory(nameof(Exception))]
 	public void TryGetFirst_NullSource_Throws()
 	=> Assert.ThrowsException<ArgumentNullException>(
@@ -84,7 +87,9 @@ public class EnumerableExtensionsTests
 		Assert.IsFalse(EnumerableExtensions.TryGetFirst(falseArray, b => b, out bool item));
 		Assert.AreEqual(default, item);
 	}
+	#endregion
 
+	#region TryGetFirstOfType
 	[TestMethod, TestCategory(nameof(EnumerableExtensions.TryGetFirstOfType)), TestCategory(nameof(Exception))]
 	public void TryGetFirstOfType_NullSource_Throws()
 		=> Assert.ThrowsException<ArgumentNullException>(
@@ -104,14 +109,15 @@ public class EnumerableExtensionsTests
 		Assert.AreEqual(true, value);
 	}
 
-
 	[TestMethod, TestCategory(nameof(EnumerableExtensions.TryGetFirstOfType))]
 	public void TryGetFirstOfType_NoMatch_ReturnsFalseDefault()
 	{
 		Assert.IsFalse(EnumerableExtensions.TryGetFirstOfType(trueArray, out int value));
 		Assert.AreEqual(default, value);
 	}
+	#endregion
 
+	#region Replace
 	[TestMethod, TestCategory(nameof(EnumerableExtensions.Replace)), TestCategory(nameof(Exception))]
 	public void Replace_NullSource_Throws()
 		=> Assert.ThrowsException<ArgumentNullException>(
@@ -135,7 +141,9 @@ public class EnumerableExtensionsTests
 	[TestMethod, TestCategory(nameof(EnumerableExtensions.Replace))]
 	public void Replace_NoMatch_ReturnsSource()
 		=> Assert.IsTrue(falseArray.SequenceEqual(EnumerableExtensions.Replace(falseArray, b => b, true)));
+	#endregion
 
+	#region ReplaceSection
 	[TestMethod, TestCategory(nameof(EnumerableExtensions.ReplaceSection))]
 	public void ReplaceSection_NullSource_Throws()
 		=> Assert.ThrowsException<NullReferenceException>(
@@ -154,4 +162,5 @@ public class EnumerableExtensionsTests
 	[TestMethod, TestCategory(nameof(EnumerableExtensions.ReplaceSection))]
 	public void ReplaceSection_NeverStarts_ReturnsSource()
 		=> Assert.IsTrue(trueArray.SequenceEqual(EnumerableExtensions.ReplaceSection(trueArray, new(falseArray, b => false, b => true, false))));
+	#endregion
 }

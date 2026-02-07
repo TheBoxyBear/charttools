@@ -5,12 +5,12 @@ namespace ChartTools.Meta;
 /// <summary>
 /// Stores the estimated difficulties for instruments
 /// </summary>
-public class InstrumentDifficultySet
+public sealed class InstrumentDifficultySet
 {
 	/// <summary>
 	/// Difficulty of <see cref="InstrumentIdentity.StandardLeadGuitar"/>
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Difficulties.StandardLeadGuitar)]
+	[MetadataKey(FileType.Ini, IniFormatting.Difficulties.StandardLeadGuitar)]
 	public sbyte? StandardLeadGuitar
 	{
 		get => m_standardLeadGuitar;
@@ -21,7 +21,7 @@ public class InstrumentDifficultySet
 	/// <summary>
 	/// Difficulty of <see cref="InstrumentIdentity.StandardRhythmGuitar"/>
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Difficulties.StandardRhythmGuitar)]
+	[MetadataKey(FileType.Ini, IniFormatting.Difficulties.StandardRhythmGuitar)]
 	public sbyte? StandardRhythmGuitar
 	{
 		get => m_standardRhythmGuitar;
@@ -32,7 +32,7 @@ public class InstrumentDifficultySet
 	/// <summary>
 	/// Difficulty of <see cref="InstrumentIdentity.StandardCoopGuitar"/>
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Difficulties.StandardCoopGuitar)]
+	[MetadataKey(FileType.Ini, IniFormatting.Difficulties.StandardCoopGuitar)]
 	public sbyte? StandardCoopGuitar
 	{
 		get => m_standardCoopGuitar;
@@ -43,7 +43,7 @@ public class InstrumentDifficultySet
 	/// <summary>
 	/// Difficulty of <see cref="InstrumentIdentity.StandardBass"/>
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Difficulties.StandardBass)]
+	[MetadataKey(FileType.Ini, IniFormatting.Difficulties.StandardBass)]
 	public sbyte? StandardBass
 	{
 		get => m_standardBass;
@@ -54,7 +54,7 @@ public class InstrumentDifficultySet
 	/// <summary>
 	/// Difficulty of <see cref="InstrumentIdentity.Drums"/>
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Difficulties.Drums)]
+	[MetadataKey(FileType.Ini, IniFormatting.Difficulties.Drums)]
 	public sbyte? Drums
 	{
 		get => m_drums;
@@ -65,7 +65,7 @@ public class InstrumentDifficultySet
 	/// <summary>
 	/// Difficulty of <see cref="InstrumentIdentity.StandardKeys"/>
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Difficulties.StandardKeys)]
+	[MetadataKey(FileType.Ini, IniFormatting.Difficulties.StandardKeys)]
 	public sbyte? StandardKeys
 	{
 		get => m_standardKeys;
@@ -76,7 +76,7 @@ public class InstrumentDifficultySet
 	/// <summary>
 	/// Difficulty of <see cref="InstrumentIdentity.GHLLeadGuitar"/>
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Difficulties.GHLLeadGuitar)]
+	[MetadataKey(FileType.Ini, IniFormatting.Difficulties.GHLLeadGuitar)]
 	public sbyte? GHLLeadGuitar
 	{
 		get => m_ghlLeadGuitar;
@@ -87,7 +87,7 @@ public class InstrumentDifficultySet
 	/// <summary>
 	/// Difficulty of <see cref="InstrumentIdentity.GHLRhythmGuitar"/>
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Difficulties.GHLRhythmGuitar)]
+	[MetadataKey(FileType.Ini, IniFormatting.Difficulties.GHLRhythmGuitar)]
 	public sbyte? GHLRhythmGuitar
 	{
 		get => m_ghlRhythmGuitar;
@@ -98,7 +98,7 @@ public class InstrumentDifficultySet
 	/// <summary>
 	/// Difficulty of <see cref="InstrumentIdentity.GHLCoopGuitar"/>
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Difficulties.GHLCoopGuitar)]
+	[MetadataKey(FileType.Ini, IniFormatting.Difficulties.GHLCoopGuitar)]
 	public sbyte? GHLCoopGuitar
 	{
 		get => m_ghlCoopGuitar;
@@ -109,7 +109,7 @@ public class InstrumentDifficultySet
 	/// <summary>
 	/// Difficulty of <see cref="InstrumentIdentity.GHLBass"/>
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Difficulties.GHLBass)]
+	[MetadataKey(FileType.Ini, IniFormatting.Difficulties.GHLBass)]
 	public sbyte? GHLBass
 	{
 		get => m_ghlBass;

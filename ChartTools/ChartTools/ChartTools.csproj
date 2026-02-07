@@ -16,6 +16,7 @@
     <NeutralLanguage>en-CA</NeutralLanguage>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <Company>TheBoxyBear</Company>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
 
@@ -28,6 +29,11 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ChartTools.Common\ChartTools.Common.csproj" />
+    <ProjectReference Include="..\ChartTools.Generator\ChartTools.Generator.csproj" OutputItemType="Analyzer" />
   </ItemGroup>
 
   <Target Name="CopyDataFiles" AfterTargets="PostBuildEvent">

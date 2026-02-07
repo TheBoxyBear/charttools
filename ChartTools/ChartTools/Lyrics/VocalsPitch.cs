@@ -7,7 +7,8 @@
 /// Creates a pitch from a raw pitch value.
 /// </remarks>
 /// <param name="value"></param>
-public readonly struct VocalsPitch(VocalsPitchValue value) : IEquatable<VocalsPitch>, IEquatable<VocalsPitchValue>
+public readonly struct VocalsPitch(VocalsPitchValue value)
+	: IEquatable<VocalsPitch>, IEquatable<VocalsPitchValue>
 {
 	/// <summary>
 	/// Pitch value

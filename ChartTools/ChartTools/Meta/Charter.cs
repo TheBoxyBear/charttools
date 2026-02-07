@@ -1,5 +1,4 @@
 ﻿using ChartTools.IO.Chart;
-using ChartTools.IO.Chart.Serializing;
 using ChartTools.IO.Ini;
 
 namespace ChartTools.Meta;
@@ -12,13 +11,13 @@ public class Charter
 	/// <summary>
 	/// Name of the creator
 	/// </summary>
-	[ChartKeySerializable(ChartFormatting.Charter)]
+	[MetadataKey(FileType.Chart, ChartFormatting.Charter)]
 	public string? Name { get; set; }
 
 	/// <summary>
 	/// Location of the image file to use as an icon in the Clone Hero song browser
 	/// </summary>
-	[IniKeySerializable(IniFormatting.Icon)]
+	[MetadataKey(FileType.Ini, IniFormatting.Icon)]
 	public string? Icon { get; set; }
 
 	public override string ToString() => Name ?? string.Empty;

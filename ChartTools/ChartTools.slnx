@@ -1,4 +1,6 @@
 <Solution>
+  <Project Path="ChartTools.Common/ChartTools.Common.csproj" />
+  <Project Path="ChartTools.Generator/ChartTools.Generator.csproj" />
   <Project Path="ChartTools.Tests/ChartTools.Tests.csproj" />
   <Project Path="ChartTools/ChartTools.csproj" />
   <Project Path="Docs/Docs.csproj">

@@ -2,7 +2,8 @@
 
 namespace ChartTools.IO.Sections;
 
-public class ReservedSectionHeaderSet(IEnumerable<ReservedSectionHeader> headers) : IEnumerable<ReservedSectionHeader>
+public class ReservedSectionHeaderSet(IEnumerable<ReservedSectionHeader> headers)
+	: IEnumerable<ReservedSectionHeader>
 {
 	public IEnumerator<ReservedSectionHeader> GetEnumerator()
 		=> headers.GetEnumerator();
