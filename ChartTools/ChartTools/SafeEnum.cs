@@ -1,5 +1,4 @@
 using ChartTools.Extensions;
-using ChartTools.Extensions.Enums;
 
 namespace ChartTools;
 
@@ -7,7 +6,7 @@ namespace ChartTools;
 /// Wrapper struct for enum values that automatically validates on set.
 /// </summary>
 /// <typeparam name="T">enum type to wrap</typeparam>
-public struct SafeEnum<T> : IEquatable<SafeEnum<T>>
+public record struct SafeEnum<T>
 	where T : struct, Enum
 {
     /// <summary>
@@ -45,34 +44,10 @@ public struct SafeEnum<T> : IEquatable<SafeEnum<T>>
 		=> wrapper.Value;
 
     /// <summary>
-    /// Determines if two validated enums are equal or not.
-    /// </summary>
-    public readonly bool Equals(SafeEnum<T> other)
-		=> Value == other.Value;
-
-    /// <summary>
-    /// Determines if a generic object is of type SafeEnum and enum value is equal to the caller.
-    /// </summary>
-    public override readonly bool Equals(object? obj)
-		=> obj is SafeEnum<T> other && Equals(other);
-
-    /// <summary>
     /// Gets HashCode of the enum value.
     /// </summary>
     public override readonly int GetHashCode()
 		=> Value.GetHashCode();
-
-    /// <summary>
-    /// Equality operator for SafeEnum type.
-    /// </summary>
-    public static bool operator ==(SafeEnum<T> lhs, SafeEnum<T> rhs)
-		=> lhs.Equals(rhs);
-
-    /// <summary>
-    /// Inequality operator for SafeEnum type.
-    /// </summary>
-    public static bool operator !=(SafeEnum<T> lhs, SafeEnum<T> rhs)
-		=> !lhs.Equals(rhs);
 
     /// <summary>
     /// ToString() implementation of SafeEnum.
