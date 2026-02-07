@@ -1,6 +1,6 @@
 - name: Articles
   href: articles/
 - name: Api Documentation
-  href: api/
+  href: api/ChartTools
 - name: Repository
   href: https://github.com/theboxybear/charttools
