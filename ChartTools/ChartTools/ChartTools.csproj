@@ -36,7 +36,6 @@
     <ProjectReference Include="..\ChartTools.Generator\ChartTools.Generator.csproj" OutputItemType="Analyzer" />
   </ItemGroup>
 
-</Project>
   <Target Name="CopyDataFiles" AfterTargets="PostBuildEvent">
     <ItemGroup>
       <DataFiles Include="$(OutDir)ChartTools.dll" />
