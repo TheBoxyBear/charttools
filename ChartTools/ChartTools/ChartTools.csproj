@@ -11,17 +11,16 @@
     <Description>Library for editing Clone Hero song files in .NET</Description>
     <PackageProjectUrl></PackageProjectUrl>
     <PackageReadmeFile>$(SolutionDir)/../README.md</PackageReadmeFile>
+    <PackageLicenseFile>$(SolutionDir)/../LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/TheBoxyBear/charttools</RepositoryUrl>
     <NeutralLanguage>en-CA</NeutralLanguage>
-    <PackageLicenseFile>$(SolutionDir)/../LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <Company>TheBoxyBear</Company>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <PackageLicenseFile>$(SolutionDir)/../LICENSE</PackageLicenseFile>
-    <PackageReadmeFile>$(SolutionDir)/../README.md</PackageReadmeFile>
-  </PropertyGroup>
-
+  <ItemGroup>
+    <None Include="$(SolutionDir)/../LICENSE" Pack="true" PackagePath="" />
+    <None Include="$(SolutionDir)/../README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
 
 </Project>
