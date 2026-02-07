@@ -13,7 +13,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/TheBoxyBear/charttools</RepositoryUrl>
     <NeutralLanguage>en-CA</NeutralLanguage>
-    <PackageLicenseFile>../LICENSE</PackageLicenseFile>
+    <PackageLicenseFile>$(SolutionDir)/../LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <Company>TheBoxyBear</Company>
   </PropertyGroup>
