@@ -1,5 +1,3 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using Lane  = ChartTools.StandardLane;
 using Note  = ChartTools.LaneNote<ChartTools.StandardLane>;
 using Proxy = ChartTools.NoteProxy<ChartTools.LaneNote<ChartTools.StandardLane>, ChartTools.StandardLane>;
@@ -12,12 +10,12 @@ public class NoteProxyTests
 {
 	[TestMethod, TestCategory("Ctor"), TestCategory(nameof(Exception))]
 	public void Ctor_InvalidLane_Throws()
-		=> Assert.ThrowsException<UndefinedEnumException>(
+		=> Assert.Throws<UndefinedEnumException>(
 			static () => new Proxy((Lane)10, []));
 
 	[TestMethod, TestCategory("Ctor"), TestCategory(nameof(Exception))]
 	public void Ctor_NullCollection_Throws()
-		=> Assert.ThrowsException<ArgumentNullException>(
+		=> Assert.Throws<ArgumentNullException>(
 			static () => new Proxy(Lane.Green, null!));
 
 	[TestMethod, TestCategory(nameof(Proxy.Get))]
