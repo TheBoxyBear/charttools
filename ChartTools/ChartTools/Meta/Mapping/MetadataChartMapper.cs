@@ -51,6 +51,14 @@ internal sealed partial class MetadataChartMapper : MetadataMapper
 			RemoveUnidentified(metadata, in key);
 	}
 
+	public override bool Contains(Metadata metadata, in ReadOnlySpan<char> key)
+		=> TryContainsFromAttribute(metadata, in key) ?? key switch
+		{
+			ChartFormatting.Year        => metadata.Year is not null,
+			ChartFormatting.AudioOffset => metadata.AudioOffset is not null,
+			_ => ContainsUnidentified(metadata, in key)
+		};
+
 	public override IEnumerable<TextEntry> GetAll(Metadata metadata)
 		=> GetAllFromAttributes(metadata).Concat(GetAllUnidentified(metadata));
 
@@ -59,6 +67,8 @@ internal sealed partial class MetadataChartMapper : MetadataMapper
 	private static partial bool TrySetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value);
 
 	private static partial bool TryRemoveFromAttribute(Metadata metadata, in ReadOnlySpan<char> key);
+
+	private static partial bool? TryContainsFromAttribute(Metadata metadata, in ReadOnlySpan<char> key);
 
 	private partial IEnumerable<TextEntry> GetAllFromAttributes(Metadata metadata);
 

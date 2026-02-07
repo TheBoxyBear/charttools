@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ChartTools.Common\ChartTools.Common.csproj" OutputItemType="Analyzer" PackagePath="analyzers/dotnet/cs" />
+    <ProjectReference Include="..\ChartTools.Common\ChartTools.Common.csproj" OutputItemType="Analyzer" />
   </ItemGroup>
 
 </Project>

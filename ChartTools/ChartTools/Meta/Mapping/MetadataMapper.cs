@@ -12,6 +12,8 @@ internal abstract class MetadataMapper
 
 	public abstract void Remove(Metadata metadata, in ReadOnlySpan<char> key);
 
+	public abstract bool Contains(Metadata metadata, in ReadOnlySpan<char> key);
+
 	public abstract IEnumerable<TextEntry> GetAll(Metadata metadata);
 
 	protected string? FindUndentified(Metadata metadata, in ReadOnlySpan<char> key)
@@ -35,6 +37,13 @@ internal abstract class MetadataMapper
 		=> metadata.UnidentifiedData.Remove(new()
 		{
 			Key    = key.ToString(),
+			Origin = FileType
+		});
+
+	protected bool ContainsUnidentified(Metadata metadata, in ReadOnlySpan<char> key)
+		=> metadata.UnidentifiedData.Contains(new()
+		{
+			Key = key.ToString(),
 			Origin = FileType
 		});
 

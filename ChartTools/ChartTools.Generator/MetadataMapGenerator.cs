@@ -188,6 +188,11 @@ internal sealed partial class {{className}}
 		if (context.CancellationToken.IsCancellationRequested)
 			return;
 
+		BuildTryContains(builder, in binds, paths);
+
+		if (context.CancellationToken.IsCancellationRequested)
+			return;
+
 		BuildGetAll(builder, in binds, paths);
 
 		builder.AppendLine(
@@ -287,6 +292,30 @@ $"""
 				return false;
 		}
 	}
+""");
+	}
+
+	private static void BuildTryContains(StringBuilder builder, in ImmutableArray<MetadataKeyBind> binds, Dictionary<string, string> paths)
+	{
+		builder.AppendLine(
+$$"""
+	private static partial bool? TryContainsFromAttribute({{MetadataType}} metadata, in ReadOnlySpan<char> key)
+		=> key switch
+		{
+""");
+
+		foreach (MetadataKeyBind bind in binds)
+		{
+			builder.AppendLine(
+$"""
+			"{bind.Attribute.Key}" => metadata{paths![bind.Property.ContainingType]}.{bind.Property.Name} is not null,
+""");
+		}
+
+		builder.AppendLine(
+"""
+			_ => null
+		};
 """);
 	}
 

@@ -1,4 +1,5 @@
 ﻿using ChartTools.IO;
+using ChartTools.IO.Chart;
 using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
 
@@ -22,17 +23,13 @@ internal partial class MetadataIniMapper : MetadataMapper
 				IniFormatting.AudioOffset => metadata.AudioOffset?.TotalMilliseconds.ToString(),
 				IniFormatting.VideoOffset => metadata.VideoOffset?.TotalMilliseconds.ToString(),
 				IniFormatting.Modchart => metadata.IsModchart.HasValue ? (metadata.IsModchart.Value ? "1" : "0") : null,
-				IniFormatting.Track
-					when metadata.Formatting.AlbumTrackKeys.HasFlag(AlbumTrackKeys.Track)
+				IniFormatting.Track when metadata.Formatting.AlbumTrackKeys.HasFlag(AlbumTrackKeys.Track)
 					=> metadata.AlbumTrack?.ToString(),
-				IniFormatting.AlbumTrack
-					when metadata.Formatting.AlbumTrackKeys.HasFlag(AlbumTrackKeys.AlbumTrack)
+				IniFormatting.AlbumTrack when metadata.Formatting.AlbumTrackKeys.HasFlag(AlbumTrackKeys.AlbumTrack)
 					=> metadata.AlbumTrack?.ToString(),
-				IniFormatting.Charter
-					when metadata.Formatting.CharterKeys.HasFlag(CharterKeys.Charter)
+				IniFormatting.Charter when metadata.Formatting.CharterKeys.HasFlag(CharterKeys.Charter)
 					=> metadata.Charter.Name,
-				IniFormatting.Frets
-					when metadata.Formatting.CharterKeys.HasFlag(CharterKeys.Frets)
+				IniFormatting.Frets when metadata.Formatting.CharterKeys.HasFlag(CharterKeys.Frets)
 					=> metadata.Charter.Name,
 				_ => FindUndentified(metadata, key)
 			};
@@ -96,6 +93,20 @@ internal partial class MetadataIniMapper : MetadataMapper
 			}
 	}
 
+	public override bool Contains(Metadata metadata, in ReadOnlySpan<char> key)
+		=> TryContainsFromAttribute(metadata, in key) ?? key switch
+		{
+			IniFormatting.Track when metadata.Formatting.AlbumTrackKeys.HasFlag(AlbumTrackKeys.Track)
+				=> metadata.AlbumTrack is not null,
+			IniFormatting.AlbumTrack when metadata.Formatting.AlbumTrackKeys.HasFlag(AlbumTrackKeys.AlbumTrack)
+				=> metadata.AlbumTrack is not null,
+			IniFormatting.Charter when metadata.Formatting.CharterKeys.HasFlag(CharterKeys.Charter)
+				=> metadata.Charter.Name is not null,
+			IniFormatting.Frets when metadata.Formatting.CharterKeys.HasFlag(CharterKeys.Frets)
+				=> metadata.Charter.Name is not null,
+			_ => ContainsUnidentified(metadata, in key)
+		};
+
 	public override IEnumerable<TextEntry> GetAll(Metadata metadata)
 	{
 		foreach (TextEntry entry in GetAllFromAttributes(metadata))
@@ -128,6 +139,8 @@ internal partial class MetadataIniMapper : MetadataMapper
 	private static partial bool TrySetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value);
 
 	private static partial bool TryRemoveFromAttribute(Metadata metadata, in ReadOnlySpan<char> key);
+
+	private static partial bool? TryContainsFromAttribute(Metadata metadata, in ReadOnlySpan<char> key);
 
 	private partial IEnumerable<TextEntry> GetAllFromAttributes(Metadata metadata);
 
