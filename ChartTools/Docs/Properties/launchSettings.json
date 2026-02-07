@@ -4,7 +4,7 @@
       "commandName": "Project",
       "environmentVariables": {
         "SiteDir": "$(ProjectDir)",
-        "LibPath": "$(SolutionDir)ChartTools\\bin\\$(Configuration)\\net10.0\\ChartTools.dll"
+        "LibPath": "$(SolutionDir)ChartTools\\artifacts\\ChartTools.dll"
       }
     }
   }

@@ -21,7 +21,7 @@ The dynamic syntax uses three enums to get instruments:
 Drums do not an enum for their chord types as they are the only instrument using their respective chords.
 
 ## Generic vs. non-generic
-When an instrument is obtained dynamically using the [InstrumentIdentity](~/api/ChartTools.InstrumentIdentity.yml) enum, the returned object is of type [Instrument](~/api/ChartTools.Instrument.yml). When a track is obtained from a non-generic instrument, either dynamically or explicitly through a property, the track will be of type [Track](~/api/ChartTools.Trac.yml). This concept extends to chords and notes.
+When an instrument is obtained dynamically using the [InstrumentIdentity](~/api/ChartTools.InstrumentIdentity.yml) enum, the returned object is of type [Instrument](~/api/ChartTools.Instrument.yml). When a track is obtained from a non-generic instrument, either dynamically or explicitly through a property, the track will be of type [Track](~/api/ChartTools.Track.yml). This concept extends to chords and notes.
 
 When working with a non-generic track, the following rules apply:
 - Chords cannot be added or removed. The position of existing chords can be modified.
