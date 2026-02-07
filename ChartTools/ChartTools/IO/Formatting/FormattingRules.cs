@@ -20,7 +20,7 @@ public sealed class FormattingRules
 			Validator.ValidateEnum(value);
 			field = value;
 		}
-	} = AlbumTrackKeys.Default;
+	} = AlbumTrackKeys.None;
 
 	public static AlbumTrackKeys DefaultAlbumTrackKeys
 	{
@@ -29,15 +29,15 @@ public sealed class FormattingRules
 		{
 			Validator.ValidateEnum(value);
 
-			if (value is AlbumTrackKeys.Default)
-				throw new ArgumentException($"Default {nameof(AlbumTrackKeys)} must be non-default.", nameof(value));
+			if (value is AlbumTrackKeys.None)
+				throw new ArgumentException($"Default {nameof(AlbumTrackKeys)} must have a flag.", nameof(value));
 
 			field = value;
 		}
 	} = AlbumTrackKeys.Track;
 
 	public AlbumTrackKeys EffectiveAlbumTrackKeys
-		=> AlbumTrackKeys is AlbumTrackKeys.Default ? DefaultAlbumTrackKeys : AlbumTrackKeys;
+		=> AlbumTrackKeys is AlbumTrackKeys.None ? DefaultAlbumTrackKeys : AlbumTrackKeys;
 	#endregion
 
 	#region Charter
@@ -49,7 +49,7 @@ public sealed class FormattingRules
 			Validator.ValidateEnum(value);
 			field = value;
 		}
-	} = CharterKeys.Default;
+	} = CharterKeys.None;
 
 	public static CharterKeys DefaultCharterKey
 	{
@@ -58,15 +58,15 @@ public sealed class FormattingRules
 		{
 			Validator.ValidateEnum(value);
 
-			if (value is CharterKeys.Default)
-				throw new ArgumentException($"Default {nameof(CharterKeys)} must be non-default.", nameof(value));
+			if (value is CharterKeys.None)
+				throw new ArgumentException($"Default {nameof(CharterKeys)} must have a flag.", nameof(value));
 
 			field = value;
 		}
 	}
 
 	public CharterKeys EffectiveCharterKeys
-		=> CharterKeys is CharterKeys.Default ? DefaultCharterKey : CharterKeys;
+		=> CharterKeys is CharterKeys.None ? DefaultCharterKey : CharterKeys;
 	#endregion
 
 	/// <summary>
