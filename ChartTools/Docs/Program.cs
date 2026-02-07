@@ -74,7 +74,7 @@ switch (CanSkipAnalyse())
 #endregion
 
 #region Build
-PrintStatus("Building site with DocFx");
+PrintStatus("Building site with docfx");
 
 try { await Docset.Build(configPath); }
 catch (Exception ex)
