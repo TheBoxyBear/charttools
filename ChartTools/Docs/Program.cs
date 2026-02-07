@@ -11,20 +11,19 @@ using System.Text.Json;
 // If localhost returns 404, try running `dotnet tool restore` from the project directory.
 
 const string
-	siteDirEnv = "SiteDir";
+	siteDirEnv = "SiteDir",
+	libPathEnv = "LibPath";
 
 #region Initialize
-string? siteDir = Environment.GetEnvironmentVariable(siteDirEnv);
+string?
+	siteDir = Environment.GetEnvironmentVariable(siteDirEnv),
+	libPath = Environment.GetEnvironmentVariable(libPathEnv);
 
-if (string.IsNullOrEmpty(siteDir))
-{
-	Console.WriteLine($"Required environment variable `{siteDirEnv}` is misconfigured in launchsettings.json");
-	return -1;
-}
+ValidateEnv(siteDirEnv, siteDir);
+ValidateEnv(libPathEnv, siteDir);
 
 string
 	configPath	 = siteDir + "docfx.json",
-	libPath		 = siteDir + @"bin\ChartTools.dll",
 	siteBuildDir = siteDir + "_site";
 
 if (!File.Exists(configPath))
@@ -46,61 +45,32 @@ if (Directory.Exists(siteBuildDir))
 if (!File.Exists(libPath))
 {
 	// Shouldn't happen - Docs is configured to depend on the lib
-	Console.WriteLine($"Assembly `{libPath}` missng.");
+	Console.WriteLine($"Assembly `{libPath}` missng. Rebuild the project.");
 	return -1;
 }
 
-string cachePath         = "cache.json";
-bool shouldAnalyze       = true;
-DateTime libLastModified = File.GetLastWriteTime(libPath);
-
-if (File.Exists(cachePath))
+switch (CanSkipAnalyse())
 {
-	string json;
-
-	try { json = File.ReadAllText(cachePath); }
-	catch (Exception ex)
-	{
-		Console.WriteLine("Error reading build cache:");
-		Console.WriteLine(ex);
-
+	case -1:
 		return -1;
-	}
+	case 0:
+		PrintStatus("Analyzing assembly with DocFx");
 
-	BuildCache? cache;
+		try { await DotnetApiCatalog.GenerateManagedReferenceYamlFiles(configPath); }
+		catch (Exception ex)
+		{
+			Console.WriteLine("Analysis error:");
+			Console.WriteLine(ex);
 
-	try { cache = JsonSerializer.Deserialize<BuildCache>(File.ReadAllText(cachePath)); }
-	catch (Exception ex)
-	{
-		Console.WriteLine("Error parsing build cache:");
-		Console.WriteLine(ex);
+			return -1;
+		}
 
-		return -1;
-	}
-
-	if (cache is not null && cache.LibLastModified >= libLastModified)
-		shouldAnalyze = false;
+		PrintStatus("Analysis done");
+		break;
+	case 1:
+		PrintStatus("Assembly unchanged since last build, skipping analysis");
+		break;
 }
-
-if (shouldAnalyze)
-{
-	File.WriteAllText(cachePath, JsonSerializer.Serialize(new BuildCache(libLastModified)));
-
-	PrintStatus("Analysing assembly with DocFx");
-
-	try { await DotnetApiCatalog.GenerateManagedReferenceYamlFiles(configPath); }
-	catch (Exception ex)
-	{
-		Console.WriteLine("Analysis error:");
-		Console.WriteLine(ex);
-
-		return -1;
-	}
-
-	PrintStatus("Analysis done");
-}
-else
-	PrintStatus("Assembly unchanged since last build, skipping analysis");
 #endregion
 
 #region Build
@@ -146,6 +116,63 @@ cmd.WaitForExit();
 #endregion
 
 return 0;
+
+int CanSkipAnalyse()
+{
+	string cachePath = "cache.json";
+	DateTime libLastModified = File.GetLastWriteTime(libPath);
+
+	if (!Directory.Exists(siteDir + "articles"))
+	{
+		WriteCache();
+		return 0;
+	}
+
+	if (File.Exists(cachePath))
+	{
+		string json;
+
+		try { json = File.ReadAllText(cachePath); }
+		catch (Exception ex)
+		{
+			Console.WriteLine("Error reading build cache:");
+			Console.WriteLine(ex);
+
+			return -1;
+		}
+
+		BuildCache? cache;
+
+		try { cache = JsonSerializer.Deserialize<BuildCache>(File.ReadAllText(cachePath)); }
+		catch (Exception ex)
+		{
+			Console.WriteLine("Error parsing build cache:");
+			Console.WriteLine(ex);
+
+			return -1;
+		}
+
+		if (cache is not null && cache.LibLastModified >= libLastModified)
+			return 1;
+	}
+
+	WriteCache();
+	return 0;
+
+	void WriteCache()
+		=> File.WriteAllText(cachePath, JsonSerializer.Serialize(new BuildCache(libLastModified)));
+}
+
+bool ValidateEnv(string env, string? value)
+{
+	if (string.IsNullOrEmpty(value))
+	{
+		Console.WriteLine($"Required environment variable `{env}` is misconfigured in launchsettings.json");
+		return false;
+	}
+
+	return true;
+}
 
 static void PrintStatus(string status)
 {

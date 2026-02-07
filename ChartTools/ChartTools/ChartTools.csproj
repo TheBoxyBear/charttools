@@ -34,7 +34,7 @@
     <ItemGroup>
       <DataFiles Include="$(OutDir)ChartTools.dll" />
     </ItemGroup>
-    <Copy SourceFiles="@(DataFiles)" DestinationFolder="$(SolutionDir)Docs/bin" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(DataFiles)" DestinationFolder="$(ProjectDir)artifacts" SkipUnchangedFiles="true" />
   </Target>
 
 </Project>

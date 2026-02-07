@@ -3,7 +3,8 @@
     "Docs": {
       "commandName": "Project",
       "environmentVariables": {
-        "SiteDir": "$(ProjectDir)"
+        "SiteDir": "$(ProjectDir)",
+        "LibPath": "$(SolutionDir)ChartTools\\artifacts\\ChartTools.dll"
       }
     }
   }

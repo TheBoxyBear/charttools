@@ -1,7 +1,14 @@
 {
   "metadata": [
     {
-      "src": "bin/ChartTools.dll",
+      "src": [
+        {
+          "src": "../ChartTools",
+          "files": [
+            "artifacts/ChartTools.dll"
+          ]
+        }
+      ],
       "dest": "api"
     }
   ],
