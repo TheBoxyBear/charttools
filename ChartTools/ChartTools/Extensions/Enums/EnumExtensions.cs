@@ -146,18 +146,6 @@ public static class EnumExtensions
 			T2 value = left.As<T1, T2>() - right;
 			return Unsafe.As<T2, T1>(ref value);
 		}
-
-		public static T1 operator *(T1 left, T2 right)
-		{
-			T2 value = left.As<T1, T2>() + right;
-			return Unsafe.As<T2, T1>(ref value);
-		}
-
-		public static T1 operator /(T1 left, T2 right)
-		{
-			T2 value = left.As<T1, T2>() + right;
-			return Unsafe.As<T2, T1>(ref value);
-		}
 	}
 
 	extension<T>(ref T value)
