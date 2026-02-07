@@ -1,11 +1,9 @@
 .vs/
 .vscode/
-ignore/
-build/*
 */obj
 */bin
+*/*.user
 TestResults/
-Debug/
 ChartTools_Debug.sln
 ChartTools_Debug.slnx
 Docs/DROP/

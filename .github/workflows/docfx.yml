@@ -29,16 +29,17 @@ jobs:
     - name: Dotnet Setup
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 10-.x
+        dotnet-version: 10.0
 
+    - run: dotnet build ChartTools/ChartTools/ChartTools.csproj
     - run: dotnet tool update -g docfx
-    - run: docfx Docs/docfx.json
+    - run: docfx ChartTools/Docs/docfx.json
 
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
         # Upload entire repository
-        path: 'Docs/_site'
+        path: 'ChartTools/Docs/_site'
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
