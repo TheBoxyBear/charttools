@@ -244,6 +244,21 @@ public sealed class Metadata
 		}
 	}
 
+	public void Contains(FileType fileType, string key)
+	{
+		switch (fileType)
+		{
+			case FileType.Chart:
+				MetadataChartMapper.Shared.Contains(this, key);
+				break;
+			case FileType.Ini:
+				MetadataIniMapper.Shared.Contains(this, key);
+				break;
+			default:
+				throw new ArgumentException("Only chart and ini metadata can be mapped.", nameof(fileType));
+		}
+	}
+
 	/// <summary>
 	/// Appends the metadata from another file.
 	/// </summary>
