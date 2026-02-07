@@ -54,7 +54,7 @@ switch (CanSkipAnalyse())
 	case -1:
 		return -1;
 	case 0:
-		PrintStatus("Analyzing assembly with DocFx");
+		PrintStatus("Analyzing assembly with docfx");
 
 		try { await DotnetApiCatalog.GenerateManagedReferenceYamlFiles(configPath); }
 		catch (Exception ex)
