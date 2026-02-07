@@ -1,4 +1,5 @@
 ﻿using ChartTools.IO.Chart;
+using ChartTools.Extensions;
 using ChartTools.IO.Ini;
 using ChartTools.Meta;
 
