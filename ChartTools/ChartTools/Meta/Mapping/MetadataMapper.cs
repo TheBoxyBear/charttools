@@ -1,5 +1,7 @@
 ﻿using ChartTools.IO;
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace ChartTools.Meta.Mapping;
 
 internal abstract class MetadataMapper
@@ -15,6 +17,12 @@ internal abstract class MetadataMapper
 	public abstract bool Contains(Metadata metadata, in ReadOnlySpan<char> key);
 
 	public abstract IEnumerable<TextEntry> GetAll(Metadata metadata);
+
+	public bool TryGet(Metadata metadata, in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out string value)
+	{
+		value = Get(metadata, in key);
+		return value is not null;
+	}
 
 	protected string? FindUndentified(Metadata metadata, in ReadOnlySpan<char> key)
 		=> metadata.UnidentifiedData.TryGetValue(new()

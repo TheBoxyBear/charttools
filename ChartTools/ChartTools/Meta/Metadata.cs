@@ -5,6 +5,8 @@ using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
 using ChartTools.Meta.Mapping;
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace ChartTools.Meta;
 
 /// <summary>
@@ -206,13 +208,21 @@ public sealed class Metadata
 			static (a, b) => a.Key == b.Key && a.Origin == b.Origin));
 	#endregion
 
+	public bool TryGet(FileType fileType, string key, [MaybeNullWhen(false)] out string value)
+		=> fileType switch
+		{
+			FileType.Chart => MetadataChartMapper.Shared.TryGet(this, key, out value),
+			FileType.Ini   => MetadataIniMapper.Shared.TryGet(this, key, out value),
+			_ => throw InvalidFormatException(fileType)
+		};
+
 	public string? Get(FileType fileType, string key)
 		=> fileType switch
-	{
-		FileType.Chart => MetadataChartMapper.Shared.Get(this, key),
-		FileType.Ini   => MetadataIniMapper.Shared.Get(this, key),
-		_ => throw new ArgumentException("Only chart and ini metadata can be mapped.", nameof(fileType))
-	};
+		{
+			FileType.Chart => MetadataChartMapper.Shared.Get(this, key),
+			FileType.Ini   => MetadataIniMapper.Shared.Get(this, key),
+			_ => throw InvalidFormatException(fileType)
+		};
 
 	public void Set(FileType fileType, string key, string value)
 	{
@@ -225,7 +235,7 @@ public sealed class Metadata
 				MetadataIniMapper.Shared.Set(this, key, value);
 				break;
 			default:
-				throw new ArgumentException("Only chart and ini metadata can be mapped.", nameof(fileType));
+				throw InvalidFormatException(fileType);
 		}
 	}
 
@@ -240,24 +250,20 @@ public sealed class Metadata
 				MetadataIniMapper.Shared.Remove(this, key);
 				break;
 			default:
-				throw new ArgumentException("Only chart and ini metadata can be mapped.", nameof(fileType));
+				throw InvalidFormatException(fileType);
 		}
 	}
 
-	public void Contains(FileType fileType, string key)
-	{
-		switch (fileType)
+	public bool Contains(FileType fileType, string key)
+		=> fileType switch
 		{
-			case FileType.Chart:
-				MetadataChartMapper.Shared.Contains(this, key);
-				break;
-			case FileType.Ini:
-				MetadataIniMapper.Shared.Contains(this, key);
-				break;
-			default:
-				throw new ArgumentException("Only chart and ini metadata can be mapped.", nameof(fileType));
-		}
-	}
+			FileType.Chart => MetadataChartMapper.Shared.Contains(this, key),
+			FileType.Ini   => MetadataIniMapper.Shared.Contains(this, key),
+			_ => throw InvalidFormatException(fileType),
+		};
+
+	private static Exception InvalidFormatException(FileType fileType)
+		=> throw new ArgumentException($"Only chart and ini metadata can be mapped, not {fileType}.", nameof(fileType));
 
 	/// <summary>
 	/// Appends the metadata from another file.

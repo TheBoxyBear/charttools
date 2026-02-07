@@ -1,5 +1,4 @@
 ﻿using ChartTools.IO;
-using ChartTools.IO.Chart;
 using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
 
@@ -94,7 +93,10 @@ internal partial class MetadataIniMapper : MetadataMapper
 	}
 
 	public override bool Contains(Metadata metadata, in ReadOnlySpan<char> key)
-		=> TryContainsFromAttribute(metadata, in key) ?? key switch
+	{
+		ValidateKey(in key);
+
+		return TryContainsFromAttribute(metadata, in key) ?? key switch
 		{
 			IniFormatting.Track when metadata.Formatting.AlbumTrackKeys.HasFlag(AlbumTrackKeys.Track)
 				=> metadata.AlbumTrack is not null,
@@ -106,6 +108,7 @@ internal partial class MetadataIniMapper : MetadataMapper
 				=> metadata.Charter.Name is not null,
 			_ => ContainsUnidentified(metadata, in key)
 		};
+	}
 
 	public override IEnumerable<TextEntry> GetAll(Metadata metadata)
 	{

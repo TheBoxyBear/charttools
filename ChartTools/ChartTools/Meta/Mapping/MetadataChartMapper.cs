@@ -52,12 +52,16 @@ internal sealed partial class MetadataChartMapper : MetadataMapper
 	}
 
 	public override bool Contains(Metadata metadata, in ReadOnlySpan<char> key)
-		=> TryContainsFromAttribute(metadata, in key) ?? key switch
+	{
+		ValidateKey(in key);
+
+		return TryContainsFromAttribute(metadata, in key) ?? key switch
 		{
-			ChartFormatting.Year        => metadata.Year is not null,
+			ChartFormatting.Year => metadata.Year is not null,
 			ChartFormatting.AudioOffset => metadata.AudioOffset is not null,
 			_ => ContainsUnidentified(metadata, in key)
 		};
+	}
 
 	public override IEnumerable<TextEntry> GetAll(Metadata metadata)
 		=> GetAllFromAttributes(metadata).Concat(GetAllUnidentified(metadata));
