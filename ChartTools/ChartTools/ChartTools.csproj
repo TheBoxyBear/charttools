@@ -1,4 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -10,8 +11,8 @@
     <SignAssembly>False</SignAssembly>
     <Description>Library for editing Clone Hero song files in .NET</Description>
     <PackageProjectUrl></PackageProjectUrl>
-    <PackageReadmeFile>$(ProjectDir)../../README.md</PackageReadmeFile>
-    <PackageLicenseFile>$(ProjectDir)../../LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/TheBoxyBear/charttools</RepositoryUrl>
     <NeutralLanguage>en-CA</NeutralLanguage>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
@@ -19,8 +20,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="$(ProjectDir)../../README.md" Pack="true" PackagePath="" />
-    <None Include="$(ProjectDir)../..//LICENSE" Pack="true" PackagePath="" />
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
