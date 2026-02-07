@@ -1,12 +1,10 @@
-using ChartTools.Extensions;
-
-namespace ChartTools;
+namespace ChartTools.Extensions.Enums;
 
 /// <summary>
 /// Wrapper struct for enum values that automatically validates on set.
 /// </summary>
 /// <typeparam name="T">enum type to wrap</typeparam>
-public record struct SafeEnum<T>
+public record struct SafeEnum<T> : IEquatable<T>, IEquatable<T?>
 	where T : struct, Enum
 {
     /// <summary>
@@ -43,10 +41,16 @@ public record struct SafeEnum<T>
     public static implicit operator T(SafeEnum<T> wrapper)
 		=> wrapper.Value;
 
-    /// <summary>
-    /// Gets HashCode of the enum value.
-    /// </summary>
-    public override readonly int GetHashCode()
+	public readonly bool Equals(T value)
+		=> Value == value;
+
+	public readonly bool Equals(T? nullable)
+		=> nullable is T value && Value == value;
+
+	/// <summary>
+	/// Gets HashCode of the enum value.
+	/// </summary>
+	public override readonly int GetHashCode()
 		=> Value.GetHashCode();
 
     /// <summary>
