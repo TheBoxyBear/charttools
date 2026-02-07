@@ -18,7 +18,7 @@ internal sealed partial class MetadataChartMapper : MetadataMapper
 		return TryGetFromAttribute(metadata, key, out var value)
 			? value : key switch
 			{
-				ChartFormatting.Year => metadata.Year is null ? null : $"\", {metadata.Year}\"",
+				ChartFormatting.Year        => metadata.Year is null ? null : $"\", {metadata.Year}\"",
 				ChartFormatting.AudioOffset => metadata.AudioOffset?.TotalSeconds.ToString(),
 				_ => FindUndentified(metadata, in key)
 			};
@@ -57,7 +57,7 @@ internal sealed partial class MetadataChartMapper : MetadataMapper
 
 		return TryContainsFromAttribute(metadata, in key) ?? key switch
 		{
-			ChartFormatting.Year => metadata.Year is not null,
+			ChartFormatting.Year        => metadata.Year is not null,
 			ChartFormatting.AudioOffset => metadata.AudioOffset is not null,
 			_ => ContainsUnidentified(metadata, in key)
 		};

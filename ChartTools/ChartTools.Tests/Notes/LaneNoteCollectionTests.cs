@@ -9,6 +9,7 @@ namespace ChartTools.Tests.Notes;
 [TestClass]
 public class LaneNoteCollectionTests
 {
+	#region Add
 	[TestMethod, TestCategory(nameof(NoteCollection.Add)), TestCategory(nameof(Exception))]
 	public void Add_InvalidLane_Throws()
 		=> Assert.ThrowsException<UndefinedEnumException>(
@@ -54,7 +55,6 @@ public class LaneNoteCollectionTests
 		Assert.AreNotEqual(sustain, replaced.Sustain);
 	}
 
-
 	[TestMethod, TestCategory(nameof(NoteCollection.Add))]
 	public void Add_NoteMatch_Replaces()
 	{
@@ -71,7 +71,9 @@ public class LaneNoteCollectionTests
 		Assert.AreEqual(lane, replaced.Lane);
 		Assert.AreNotEqual(sustain, replaced.Sustain);
 	}
+	#endregion
 
+	#region AddRange
 	[TestMethod, TestCategory(nameof(NoteCollection.AddRange)), TestCategory(nameof(Exception))]
 	public void AddRange_InvalidLane_Throws()
 		=> Assert.ThrowsException<UndefinedEnumException>(
@@ -107,7 +109,6 @@ public class LaneNoteCollectionTests
 		for (int i = 0; i < lanes.Length; i++)
 			Assert.AreEqual(lanes[i], added[i].Lane);
 	}
-
 
 	[TestMethod, TestCategory(nameof(NoteCollection.AddRange))]
 	public void AddRange_LaneMatchReplaces()
@@ -160,7 +161,9 @@ public class LaneNoteCollectionTests
 			Assert.AreNotEqual(sustain, replaced[i].Sustain);
 		}
 	}
+	#endregion
 
+	#region Init
 	[TestMethod, TestCategory("Init")]
 	public void Init_Note_Adds()
 	{
@@ -198,6 +201,7 @@ public class LaneNoteCollectionTests
 			Assert.AreEqual(sustain, addedNotes[i].Sustain);
 		}
 	}
+	#endregion
 
 	[TestMethod, TestCategory(nameof(NoteCollection.Clear))]
 	public void Clear_Empties()
@@ -208,6 +212,7 @@ public class LaneNoteCollectionTests
 		Assert.AreEqual(0, collection.Count);
 	}
 
+	#region Contains
 	[TestMethod, TestCategory(nameof(NoteCollection.Contains)), TestCategory(nameof(Exception))]
 	public void Contains_InvalidLane_Throws()
 		=> Assert.ThrowsException<UndefinedEnumException>(
@@ -235,7 +240,9 @@ public class LaneNoteCollectionTests
 		Assert.IsTrue(collection.Contains(lane));
 		Assert.IsTrue(collection.Contains(new Note(lane)));
 	}
+	#endregion
 
+	#region Remove
 	[TestMethod, TestCategory(nameof(NoteCollection.Remove)), TestCategory(nameof(Exception))]
 	public void Remove_InvalidLane_Throws()
 		=> Assert.ThrowsException<UndefinedEnumException>(
@@ -262,7 +269,9 @@ public class LaneNoteCollectionTests
 		Assert.IsFalse(collection.Remove(Lane.Red));
 		Assert.AreEqual(1, collection.Count);
 	}
+	#endregion
 
+	#region Indexer
 	[TestMethod, TestCategory("Indexer"), TestCategory(nameof(Exception))]
 	public void Indexer_InvalidLane_Throws()
 	=> Assert.ThrowsException<UndefinedEnumException>(
@@ -290,7 +299,9 @@ public class LaneNoteCollectionTests
 
 		Assert.IsNull(note);
 	}
+	#endregion
 
+	#region Proxy
 	[TestMethod, TestCategory(nameof(NoteCollection.Proxy)), TestCategory(nameof(Exception))]
 	public void Proxy_InvalidLane_Throws()
 		=> Assert.ThrowsException<UndefinedEnumException>(
@@ -312,7 +323,9 @@ public class LaneNoteCollectionTests
 		Assert.AreEqual(collection, proxy.Value.Source);
 		Assert.AreEqual(lane, proxy.Value.Lane.Value);
 	}
+	#endregion
 
+	#region ProxyAll
 	[TestMethod, TestCategory(nameof(NoteCollection.ProxyAll))]
 	public void ProxyAll_Empty_ReturnsEmpty()
 		=> Assert.AreEqual(0, new NoteCollection().ProxyAll().Length);
@@ -333,4 +346,5 @@ public class LaneNoteCollectionTests
 			Assert.AreEqual(lanes[i], proxies[i].Lane.Value);
 		}
 	}
+	#endregion
 }

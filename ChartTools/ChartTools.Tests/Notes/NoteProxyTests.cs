@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Lane = ChartTools.StandardLane;
-using Note = ChartTools.LaneNote<ChartTools.StandardLane>;
-using NoteCollection = ChartTools.LaneNoteCollection<ChartTools.LaneNote<ChartTools.StandardLane>, ChartTools.StandardLane>;
+using Lane  = ChartTools.StandardLane;
+using Note  = ChartTools.LaneNote<ChartTools.StandardLane>;
 using Proxy = ChartTools.NoteProxy<ChartTools.LaneNote<ChartTools.StandardLane>, ChartTools.StandardLane>;
+using NoteCollection = ChartTools.LaneNoteCollection<ChartTools.LaneNote<ChartTools.StandardLane>, ChartTools.StandardLane>;
 
 namespace ChartTools.Tests.Notes;
 
@@ -38,7 +38,7 @@ public class NoteProxyTests
 	public void Get_NoMatch_ReturnsNull()
 	{
 		Proxy proxy = new(Lane.Green, []);
-		Note? note = proxy.Get();
+		Note? note  = proxy.Get();
 
 		Assert.IsNull(note);
 	}
@@ -82,20 +82,4 @@ public class NoteProxyTests
 		Assert.AreEqual(lane, added.Lane);
 		Assert.AreEqual(sustain, added.Sustain);
 	}
-
-	//[TestMethod, TestCategory(nameof(Proxy.Set))]
-	//public void Set_Replaces()
-	//{
-	//	const Lane lane = Lane.Green;
-	//	const uint sustain = 100;
-
-	//	NoteCollection collection = [ new Note(lane) ];
-
-	//	Proxy proxy = new(lane, collection);
-	//	proxy.Set(new Note(lane) { Sustain = sustain });
-
-	//	Note? note = proxy.Get();
-
-	//	Assert.IsNotNull(note);
-	//}
 }
