@@ -42,7 +42,7 @@ VocalsPitchValue value = pitch;
 > ```
 
 ## Lyrics in chart files
-As the `.chart` format does not formaly support playable vocals, lyrics are represented trough [global events](~/articles/events.yml) rather than notes. When reading from a `.chart` file, lyric data will only be read if either the [GlobalEvents](~/api/ChartTools.IO.Components.ComponentList#ChartTools_IO_Components_ComponentList_GlobalEvents.yml) or [Vocals](~/api/ChartTools.IO.Components.ComponentList#ChartTools_IO_Components_ComponentList_Vocals.yml) component is enabled, after which the data will be stored in the corresponding location(s) in the song object. If accessed through vocals, notes will have the special pitch value of [None](~/api/ChartTools.Lyrics.VocalsPitchValue.yml#ChartTools_Lyrics_VocalsPitchValue_None.yml), as global events do not define pitch.
+As the `.chart` format does not formaly support playable vocals, lyrics are represented trough [global events](~/articles/events.md) rather than notes. When reading from a `.chart` file, lyric data will only be read if either the [GlobalEvents](~/api/ChartTools.IO.Components.ComponentList#ChartTools_IO_Components_ComponentList_GlobalEvents.yml) or [Vocals](~/api/ChartTools.IO.Components.ComponentList#ChartTools_IO_Components_ComponentList_Vocals.yml) component is enabled, after which the data will be stored in the corresponding location(s) in the song object. If accessed through vocals, notes will have the special pitch value of [None](~/api/ChartTools.Lyrics.VocalsPitchValue.yml#ChartTools_Lyrics_VocalsPitchValue_None.yml), as global events do not define pitch.
 
 Lyrics can also be converted to and from global events.
 

@@ -2,7 +2,7 @@
 This guide will cover alternate techniques that will improve performance when using ChartTools.
 
 ## Configuration
-By default, IO operations make multiple integrity checks to resolve errors. These checks can be configured or skipped by using a [Readingconfiguration](~/api/ChartTools.IO.Configuration.ReadingConfiguration.yml) or [WritingConfiguration](~/api/ChartTools.IO.Configuration.WritingConfiguration.yml) object. [Learn more about configuring IO operations](~/articles/configuration.yml).
+By default, IO operations make multiple integrity checks to resolve errors. These checks can be configured or skipped by using a [Readingconfiguration](~/api/ChartTools.IO.Configuration.ReadingConfiguration.yml) or [WritingConfiguration](~/api/ChartTools.IO.Configuration.WritingConfiguration.yml) object. [Learn more about configuring IO operations](~/articles/configuration.md).
 
 The following example reads a song while bypassing checks for duplicate track objects:
 
