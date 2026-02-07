@@ -17,6 +17,7 @@
     <NeutralLanguage>en-CA</NeutralLanguage>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <Company>TheBoxyBear</Company>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,5 +30,9 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy /Y &quot;$(OutDir)ChartTools.dll&quot; &quot;$(SolutionDir)Docs/bin/ChartTools.dll&quot;" />
+  </Target>
 
 </Project>

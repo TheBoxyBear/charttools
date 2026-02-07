@@ -1,8 +1,8 @@
-﻿using System.Diagnostics;
-using System.Text.Json;
-
-using Docfx;
+﻿using Docfx;
 using Docfx.Dotnet;
+
+using System.Diagnostics;
+using System.Text.Json;
 
 // Run this project to build and deploy the documentation website to preview on localhost. Website generated with DocFX https://dotnet.github.io/docfx/
 // The API reference section is defined by yaml files in the /api directory - These files are generated from XML documentation in the code and should not be manually modified! (therefore are gitignored)
@@ -11,22 +11,20 @@ using Docfx.Dotnet;
 // If localhost returns 404, try running `dotnet tool restore` from the project directory.
 
 const string
-	siteDirEnv = "SiteDir",
-	libPathEnv = "LibPath";
+	siteDirEnv = "SiteDir";
 
 #region Initialize
-string?
-	siteDir = Environment.GetEnvironmentVariable(siteDirEnv),
-	libPath = Environment.GetEnvironmentVariable(libPathEnv);
+string? siteDir = Environment.GetEnvironmentVariable(siteDirEnv);
 
-if (!ValidateEnv(siteDirEnv, siteDir))
+if (string.IsNullOrEmpty(siteDir))
+{
+	Console.WriteLine($"Required environment variable `{siteDirEnv}` is misconfigured in launchsettings.json");
 	return -1;
-
-if (!ValidateEnv(siteDirEnv, siteDir))
-	return -1;
+}
 
 string
 	configPath	 = siteDir + "docfx.json",
+	libPath		 = siteDir + @"bin\ChartTools.dll",
 	siteBuildDir = siteDir + "_site";
 
 if (!File.Exists(configPath))
@@ -153,17 +151,6 @@ static void PrintStatus(string status)
 {
 	Console.WriteLine($"------- {status} -------");
 	Console.WriteLine();
-}
-
-static bool ValidateEnv(string env, string? value)
-{
-	if (string.IsNullOrEmpty(value))
-	{
-		Console.WriteLine($"Required environment variable `{env}` is misconfigured in launchsettings.json");
-		return false;
-	}
-
-	return true;
 }
 
 record class BuildCache(DateTime LibLastModified);
