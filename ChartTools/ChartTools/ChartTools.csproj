@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /Y &quot;$(OutDir)ChartTools.dll&quot; &quot;$(SolutionDir)Docs/bin/ChartTools.dll&quot;" />
+    <Exec Command="echo f | xcopy &quot;$(OutDir)ChartTools.dll&quot; &quot;$(SolutionDir)Docs/bin/ChartTools.dll&quot;" />
   </Target>
 
 </Project>
