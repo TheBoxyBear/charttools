@@ -5,8 +5,6 @@ using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
 using ChartTools.Meta;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using System.Reflection;
 
 namespace ChartTools.Tests.Meta;
@@ -14,33 +12,33 @@ namespace ChartTools.Tests.Meta;
 [TestClass]
 public class MetadataTests
 {
-	private readonly Metadata invalidDummy = new();
+	private static readonly Metadata s_invalidDummy = new();
 
 	#region Invalid format
 	[TestMethod, TestCategory(nameof(Metadata)), TestCategory(nameof(Exception))]
 	public void TryGet_InvalidFormat_Throws()
-	=> Assert.ThrowsException<ArgumentException>(
-		() => invalidDummy.TryGet(FileType.Midi, "Dummy", out _));
+		=> Assert.Throws<ArgumentException>(
+			static () => s_invalidDummy.TryGet(FileType.Midi, "Dummy", out _));
 
 	[TestMethod, TestCategory(nameof(Metadata.Get)), TestCategory(nameof(Exception))]
 	public void Get_InvalidFormat_Throws()
-		=> Assert.ThrowsException<ArgumentException>(
-			() => invalidDummy.Get(FileType.Midi, "Dummy"));
+		=> Assert.Throws<ArgumentException>(
+			static () => s_invalidDummy.Get(FileType.Midi, "Dummy"));
 
 	[TestMethod, TestCategory(nameof(Metadata.Set)), TestCategory(nameof(Exception))]
 	public void Set_InvalidFormat_Throws()
-		=> Assert.ThrowsException<ArgumentException>(
-			() => invalidDummy.Set(FileType.Midi, string.Empty, string.Empty));
+		=> Assert.Throws<ArgumentException>(
+			static () => s_invalidDummy.Set(FileType.Midi, string.Empty, string.Empty));
 
 	[TestMethod, TestCategory(nameof(Metadata.Remove)), TestCategory(nameof(Exception))]
 	public void Remove_InvalidFormat_Throws()
-		=> Assert.ThrowsException<ArgumentException>(
-			() => invalidDummy.Remove(FileType.Midi, "Dummy"));
+		=> Assert.Throws<ArgumentException>(
+			static () => s_invalidDummy.Remove(FileType.Midi, "Dummy"));
 
 	[TestMethod, TestCategory(nameof(Metadata.Remove)), TestCategory(nameof(Exception))]
 	public void Contains_InvalidFormat_Throws()
-		=> Assert.ThrowsException<ArgumentException>(
-			() => invalidDummy.Contains(FileType.Midi, "Dummy"));
+		=> Assert.Throws<ArgumentException>(
+			static () => s_invalidDummy.Contains(FileType.Midi, "Dummy"));
 	#endregion
 
 	#region Empty key
@@ -48,29 +46,29 @@ public class MetadataTests
 	[TestCategory(nameof(FileType.Chart)), TestCategory(nameof(FileType.Ini))]
 	[DataRow(FileType.Chart), DataRow(FileType.Ini)]
 	public void Get_EmptyKey_Throws(FileType fileType)
-		=> Assert.ThrowsException<ArgumentException>(
-			() => invalidDummy.Get(fileType, string.Empty));
+		=> Assert.Throws<ArgumentException>(
+			() => s_invalidDummy.Get(fileType, string.Empty));
 
 	[TestMethod, TestCategory(nameof(Metadata.Set)),
 		TestCategory(nameof(FileType.Chart)), TestCategory(nameof(FileType.Ini))]
 	[DataRow(FileType.Chart), DataRow(FileType.Ini)]
 	public void Set_EmptyKey_Throws(FileType fileType)
-	   => Assert.ThrowsException<ArgumentException>(
-		   () => invalidDummy.Set(fileType, string.Empty, "Dummy"));
+	   => Assert.Throws<ArgumentException>(
+		   () => s_invalidDummy.Set(fileType, string.Empty, "Dummy"));
 
 	[TestMethod, TestCategory(nameof(Metadata.Remove))]
 	[TestCategory(nameof(FileType.Chart)), TestCategory(nameof(FileType.Ini))]
 	[DataRow(FileType.Chart), DataRow(FileType.Ini)]
 	public void Remove_EmptyKey_Throws(FileType fileType)
-		=> Assert.ThrowsException<ArgumentException>(
-			() => invalidDummy.Remove(fileType, string.Empty));
+		=> Assert.Throws<ArgumentException>(
+			() => s_invalidDummy.Remove(fileType, string.Empty));
 
 	[TestMethod, TestCategory(nameof(Metadata.Contains))]
 	[TestCategory(nameof(FileType.Chart)), TestCategory(nameof(FileType.Ini))]
 	[DataRow(FileType.Chart), DataRow(FileType.Ini)]
 	public void Contains_EmptyKey_Throws(FileType fileType)
-		=> Assert.ThrowsException<ArgumentException>(
-			() => invalidDummy.Contains(fileType, string.Empty));
+		=> Assert.Throws<ArgumentException>(
+			() => s_invalidDummy.Contains(fileType, string.Empty));
 	#endregion
 
 	#region FromAttribute
@@ -165,11 +163,8 @@ public class MetadataTests
 	[DataRow(FileType.Chart, ChartFormatting.AudioOffset)]
 	[DataRow(FileType.Ini,	 IniFormatting.AudioOffset)]
 	public void Set_AudioOffsetInvalid_Throws(FileType fileType, string key)
-		=> Assert.ThrowsException<ParseException>(() =>
-		{
-			Metadata metadata = new();
-			metadata.Set(fileType, key, "InvalidOffset");
-		});
+		=> Assert.Throws<ParseException>(
+			() => new Metadata().Set(fileType, key, "InvalidOffset"));
 	#endregion
 
 	#region Chart year
@@ -178,7 +173,7 @@ public class MetadataTests
 	public void Get_ChartYear_Formats()
 	{
 		const ushort year = 2000;
-		string expected = $"\", {year}\"";
+		string expected   = $"\", {year}\"";
 
 		Metadata metadata = new() { Year = year };
 
@@ -190,7 +185,7 @@ public class MetadataTests
 	public void Set_ChartYear_Formats()
 	{
 		const ushort expected = 2000;
-		string formatted = $"\", {expected}\"";
+		string formatted      = $"\", {expected}\"";
 
 		Metadata metadata = new();
 		metadata.Set(FileType.Chart, ChartFormatting.Year, formatted);
@@ -201,11 +196,8 @@ public class MetadataTests
 	[TestMethod, TestCategory(nameof(Exception)), TestCategory(nameof(FileType.Chart))]
 	[TestCategory(nameof(Metadata.Set)), TestCategory(nameof(Metadata.Year))]
 	public void Set_ChartYearInvalid_Throws()
-		=> Assert.ThrowsException<ParseException>(() =>
-		{
-			Metadata metadata = new();
-			metadata.Set(FileType.Chart, ChartFormatting.Year, "InvalidYear");
-		});
+		=> Assert.Throws<ParseException>(
+			static () => new Metadata().Set(FileType.Chart, ChartFormatting.Year, "InvalidYear"));
 	#endregion
 
 	#region Ini
@@ -240,11 +232,8 @@ public class MetadataTests
 	[TestMethod, TestCategory(nameof(Exception)), TestCategory(nameof(FileType.Ini))]
 	[TestCategory(nameof(Metadata.Set)), TestCategory(nameof(Metadata.VideoOffset))]
 	public void Set_IniVideoOffsetInvalid_Throws()
-		=> Assert.ThrowsException<ParseException>(() =>
-		{
-			Metadata metadata = new();
-			metadata.Set(FileType.Ini, IniFormatting.VideoOffset, "InvalidOffet");
-		});
+		=> Assert.Throws<ParseException>(
+			static () => new Metadata().Set(FileType.Ini, IniFormatting.VideoOffset, "InvalidOffet"));
 	#endregion
 
 	#region Modchart
@@ -252,10 +241,8 @@ public class MetadataTests
 	[TestCategory(nameof(Metadata.Get)), TestCategory(nameof(Metadata.IsModchart))]
 	[DataRow(false, "0"), DataRow(true, "1")]
 	public void Get_IniModChart_Formats(bool value, string expected)
-	{
-		Metadata metadata = new() { IsModchart = value };
-		Assert.AreEqual(expected, metadata.Get(FileType.Ini, IniFormatting.Modchart));
-	}
+		=> Assert.AreEqual(expected, new Metadata { IsModchart = value }
+			.Get(FileType.Ini, IniFormatting.Modchart));
 
 	[TestMethod, TestCategory(nameof(FileType.Ini))]
 	[TestCategory(nameof(Metadata.Set)), TestCategory(nameof(Metadata.IsModchart))]
@@ -271,11 +258,8 @@ public class MetadataTests
 	[TestMethod, TestCategory(nameof(Exception)), TestCategory(nameof(FileType.Ini))]
 	[TestCategory(nameof(Metadata.Set)), TestCategory(nameof(Metadata.IsModchart))]
 	public void Set_IniModChartInvalid_Throws()
-		=> Assert.ThrowsException<ParseException>(() =>
-		{
-			Metadata metadata = new();
-			metadata.Set(FileType.Ini, IniFormatting.Modchart, "InvalidBool");
-		});
+		=> Assert.Throws<ParseException>(
+			static () => new Metadata().Set(FileType.Ini, IniFormatting.Modchart, "InvalidBool"));
 	#endregion
 
 	#region Album track
@@ -339,7 +323,7 @@ public class MetadataTests
 	[TestMethod, TestCategory(nameof(Exception)), TestCategory(nameof(FileType.Ini))]
 	[TestCategory(nameof(Metadata.Set)), TestCategory(nameof(Metadata.AlbumTrack))]
 	public void Set_IniTrackInvalid_Throws()
-		=> Assert.ThrowsException<ParseException>(
+		=> Assert.Throws<ParseException>(
 			() => new Metadata { Formatting = new() { AlbumTrackKeys = AlbumTrackKeys.Track } }
 			.Set(FileType.Ini, IniFormatting.Track, "InvalidTrack"));
 

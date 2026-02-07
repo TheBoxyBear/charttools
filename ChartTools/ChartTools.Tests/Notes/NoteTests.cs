@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace ChartTools.Tests.Notes;
+﻿namespace ChartTools.Tests.Notes;
 
 [TestClass]
 public class NoteTests
@@ -8,25 +6,25 @@ public class NoteTests
 	[TestMethod, TestCategory("Ctor"), TestCategory(nameof(Exception))]
 	public void Ctor_InvalidLane_Throws()
 	{
-		Assert.ThrowsException<UndefinedEnumException>(() => new LaneNote<StandardLane>((StandardLane)10));
-		Assert.ThrowsException<UndefinedEnumException>(() => new LaneNote<GHLLane>((GHLLane)10));
-		Assert.ThrowsException<UndefinedEnumException>(() => new DrumsNote((DrumsLane)10));
+		Assert.Throws<UndefinedEnumException>(static () => new LaneNote<StandardLane>((StandardLane)10));
+		Assert.Throws<UndefinedEnumException>(static () => new LaneNote<GHLLane>((GHLLane)10));
+		Assert.Throws<UndefinedEnumException>(static () => new DrumsNote((DrumsLane)10));
 	}
 
 	[TestMethod, TestCategory("Init"), TestCategory(nameof(Exception))]
 	public void Init_InvalidLane_Throws()
 	{
-		Assert.ThrowsException<UndefinedEnumException>(() => new LaneNote<StandardLane>() { Lane = (StandardLane)10 });
-		Assert.ThrowsException<UndefinedEnumException>(() => new LaneNote<GHLLane>() { Lane = (GHLLane)10 });
-		Assert.ThrowsException<UndefinedEnumException>(() => new DrumsNote() { Lane = (DrumsLane)10 });
+		Assert.Throws<UndefinedEnumException>(static () => new LaneNote<StandardLane>() { Lane = (StandardLane)10 });
+		Assert.Throws<UndefinedEnumException>(static () => new LaneNote<GHLLane>() { Lane = (GHLLane)10 });
+		Assert.Throws<UndefinedEnumException>(static () => new DrumsNote() { Lane = (DrumsLane)10 });
 	}
 
 	[TestMethod, TestCategory("Cast"), TestCategory(nameof(Exception))]
 	public void Cast_Long_Throws()
 	{
-		Assert.ThrowsException<InvalidCastException>(() => (ILongObject)(object)new LaneNote<StandardLane>());
-		Assert.ThrowsException<InvalidCastException>(() => (ILongObject)(object)new LaneNote<GHLLane>());
-		Assert.ThrowsException<InvalidCastException>(() => (ILongObject)(object)new DrumsNote());
+		Assert.Throws<InvalidCastException>(static () => (ILongObject)(object)new LaneNote<StandardLane>());
+		Assert.Throws<InvalidCastException>(static () => (ILongObject)(object)new LaneNote<GHLLane>());
+		Assert.Throws<InvalidCastException>(static () => (ILongObject)(object)new DrumsNote());
 	}
 
 	[TestMethod, TestCategory(nameof(INote.Index))]
@@ -54,7 +52,7 @@ public class NoteTests
 	[TestMethod, TestCategory(nameof(DrumsNote.IsCymbal)), TestCategory(nameof(Exception))]
 	[DataRow(DrumsLane.Red), DataRow(DrumsLane.Green5Lane)]
 	public void IsCymbal_CtorInvalidLane_Throws(DrumsLane lane)
-		=> Assert.ThrowsException<InvalidOperationException>(
+		=> Assert.Throws<InvalidOperationException>(
 			() => new DrumsNote(lane) { IsCymbal = true });
 
 	[TestMethod, TestCategory(nameof(DrumsNote.IsCymbal)), TestCategory(nameof(Exception))]
@@ -65,7 +63,7 @@ public class NoteTests
 	[TestMethod, TestCategory(nameof(DrumsNote.IsCymbal)), TestCategory(nameof(Exception))]
 	[DataRow(DrumsLane.Red), DataRow(DrumsLane.Green5Lane)]
 	public void IsCymbal_InitInvalidLane_Throws(DrumsLane lane)
-		=> Assert.ThrowsException<InvalidOperationException>(
+		=> Assert.Throws<InvalidOperationException>(
 			() => new DrumsNote()
 			{
 				Lane     = lane,
@@ -84,7 +82,7 @@ public class NoteTests
 	[TestMethod, TestCategory(nameof(DrumsNote.IsCymbal)), TestCategory(nameof(Exception))]
 	[DataRow(DrumsLane.Red), DataRow(DrumsLane.Green5Lane)]
 	public void IsCymbal_PostInitInvalidLane_Throws(DrumsLane lane)
-		=> Assert.ThrowsException<InvalidOperationException>(
+		=> Assert.Throws<InvalidOperationException>(
 			() => new DrumsNote()
 			{
 				IsCymbal = true,
