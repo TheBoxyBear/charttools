@@ -2,6 +2,7 @@
 .vscode/
 */obj
 */bin
+*/*.user
 TestResults/
 ChartTools_Debug.sln
 ChartTools_Debug.slnx
