@@ -1,9 +1,7 @@
 ﻿using System.Numerics;
 using System.Runtime.CompilerServices;
 
-#pragma warning disable IDE0130 // Namespace does not match folder structure
 namespace ChartTools.Extensions.Enums;
-#pragma warning restore IDE0130 // Namespace does not match folder structure
 
 public static class EnumExtensions
 {
