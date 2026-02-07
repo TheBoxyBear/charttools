@@ -16,8 +16,8 @@ public class SerialAlternatingTests
 
 	[TestMethod, TestCategory("Ctor"), TestCategory(nameof(Exception))]
 	public void Ctor_NoEnumerables_Throws()
-		=> Assert.ThrowsException<ArgumentException>(
-			() => new SerialAlternatingEnumerable<byte>());
+		=> Assert.Throws<ArgumentException>(
+			static () => new SerialAlternatingEnumerable<byte>());
 
 	[TestMethod, TestCategory(nameof(IEnumerable.GetEnumerator))]
 	public void Enumerate_SequenceEquals()

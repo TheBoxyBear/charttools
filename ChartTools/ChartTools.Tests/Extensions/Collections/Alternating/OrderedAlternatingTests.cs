@@ -1,7 +1,5 @@
 using ChartTools.Extensions.Collections.Alternating;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using System.Collections;
 
 namespace ChartTools.Tests.Extensions.Collections.Alternating;
@@ -9,7 +7,7 @@ namespace ChartTools.Tests.Extensions.Collections.Alternating;
 [TestClass]
 public class OrderedAlternatingTests
 {
-	static readonly Func<byte, byte> keyGetter = n => n;
+	static readonly Func<byte, byte> keyGetter = static n => n;
 
 	static readonly byte[]
 		testArrayA = [1, 6, 2],
@@ -18,13 +16,13 @@ public class OrderedAlternatingTests
 
 	[TestMethod, TestCategory("Ctor"), TestCategory(nameof(Exception))]
 	public void Ctor_NullKeyGetter_Throws()
-		=> Assert.ThrowsException<ArgumentNullException>(
-			() => new OrderedAlternatingEnumerable<byte, byte>(null!, []));
+		=> Assert.Throws<ArgumentNullException>(
+			static () => new OrderedAlternatingEnumerable<byte, byte>(null!, []));
 
 	[TestMethod, TestCategory("Ctor"), TestCategory(nameof(Exception))]
 	public void Ctor_NoEnumerables_Throws()
-		=> Assert.ThrowsException<ArgumentException>(
-			() => new OrderedAlternatingEnumerable<byte, byte>(keyGetter));
+		=> Assert.Throws<ArgumentException>(
+			static () => new OrderedAlternatingEnumerable<byte, byte>(keyGetter));
 
 	[TestMethod, TestCategory(nameof(IEnumerable.GetEnumerator))]
 	public void Enumerate_SequenceEquals()

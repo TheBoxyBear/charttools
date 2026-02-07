@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using Lane = ChartTools.StandardLane;
+﻿using Lane = ChartTools.StandardLane;
 using Note = ChartTools.LaneNote<ChartTools.StandardLane>;
 using NoteCollection = ChartTools.LaneNoteCollection<ChartTools.LaneNote<ChartTools.StandardLane>, ChartTools.StandardLane>;
 
@@ -12,7 +10,7 @@ public class LaneNoteCollectionTests
 	#region Add
 	[TestMethod, TestCategory(nameof(NoteCollection.Add)), TestCategory(nameof(Exception))]
 	public void Add_InvalidLane_Throws()
-		=> Assert.ThrowsException<UndefinedEnumException>(
+		=> Assert.Throws<UndefinedEnumException>(
 			static () => new NoteCollection().Add((Lane)10));
 
 	[TestMethod, TestCategory(nameof(NoteCollection.Add))]
@@ -58,7 +56,7 @@ public class LaneNoteCollectionTests
 	[TestMethod, TestCategory(nameof(NoteCollection.Add))]
 	public void Add_NoteMatch_Replaces()
 	{
-		const Lane lane = Lane.Green;
+		const Lane lane    = Lane.Green;
 		const uint sustain = 100;
 
 		NoteCollection collection = [new Note(lane) { Sustain = sustain }];
@@ -76,7 +74,7 @@ public class LaneNoteCollectionTests
 	#region AddRange
 	[TestMethod, TestCategory(nameof(NoteCollection.AddRange)), TestCategory(nameof(Exception))]
 	public void AddRange_InvalidLane_Throws()
-		=> Assert.ThrowsException<UndefinedEnumException>(
+		=> Assert.Throws<UndefinedEnumException>(
 			() => new NoteCollection().AddRange((Lane)10, (Lane)11));
 
 	[TestMethod, TestCategory(nameof(NoteCollection.AddRange))]
@@ -167,7 +165,7 @@ public class LaneNoteCollectionTests
 	[TestMethod, TestCategory("Init")]
 	public void Init_Note_Adds()
 	{
-		const Lane lane = Lane.Green;
+		const Lane lane    = Lane.Green;
 		const uint sustain = 100;
 
 		NoteCollection collection = [new Note(lane) { Sustain = sustain }];
@@ -215,7 +213,7 @@ public class LaneNoteCollectionTests
 	#region Contains
 	[TestMethod, TestCategory(nameof(NoteCollection.Contains)), TestCategory(nameof(Exception))]
 	public void Contains_InvalidLane_Throws()
-		=> Assert.ThrowsException<UndefinedEnumException>(
+		=> Assert.Throws<UndefinedEnumException>(
 			() => new NoteCollection().Contains((Lane)10));
 
 	[TestMethod, TestCategory(nameof(NoteCollection.Contains))]
@@ -245,7 +243,7 @@ public class LaneNoteCollectionTests
 	#region Remove
 	[TestMethod, TestCategory(nameof(NoteCollection.Remove)), TestCategory(nameof(Exception))]
 	public void Remove_InvalidLane_Throws()
-		=> Assert.ThrowsException<UndefinedEnumException>(
+		=> Assert.Throws<UndefinedEnumException>(
 			static () => new NoteCollection().Remove((Lane)10));
 
 	[TestMethod, TestCategory(nameof(NoteCollection.Remove))]
@@ -274,8 +272,8 @@ public class LaneNoteCollectionTests
 	#region Indexer
 	[TestMethod, TestCategory("Indexer"), TestCategory(nameof(Exception))]
 	public void Indexer_InvalidLane_Throws()
-	=> Assert.ThrowsException<UndefinedEnumException>(
-		static () => _ = new NoteCollection()[(Lane)10]);
+		=> Assert.Throws<UndefinedEnumException>(
+			static () => _ = new NoteCollection()[(Lane)10]);
 
 	[TestMethod, TestCategory("Indexer")]
 	public void Indexer_Match_ReturnsNote()
@@ -304,7 +302,7 @@ public class LaneNoteCollectionTests
 	#region Proxy
 	[TestMethod, TestCategory(nameof(NoteCollection.Proxy)), TestCategory(nameof(Exception))]
 	public void Proxy_InvalidLane_Throws()
-		=> Assert.ThrowsException<UndefinedEnumException>(
+		=> Assert.Throws<UndefinedEnumException>(
 			static () => new NoteCollection().Proxy((Lane)10));
 
 	[TestMethod, TestCategory(nameof(NoteCollection.Proxy))]
@@ -328,7 +326,7 @@ public class LaneNoteCollectionTests
 	#region ProxyAll
 	[TestMethod, TestCategory(nameof(NoteCollection.ProxyAll))]
 	public void ProxyAll_Empty_ReturnsEmpty()
-		=> Assert.AreEqual(0, new NoteCollection().ProxyAll().Length);
+		=> Assert.IsEmpty(new NoteCollection().ProxyAll());
 
 	[TestMethod, TestCategory(nameof(NoteCollection.ProxyAll))]
 	public void ProxyAll_ReturnsProxies()
@@ -338,7 +336,7 @@ public class LaneNoteCollectionTests
 		NoteCollection collection = [new Note(Lane.Green), new Note(Lane.Red)];
 		NoteProxy<Note, Lane>[] proxies = collection.ProxyAll();
 
-		Assert.AreEqual(lanes.Length, proxies.Length);
+		Assert.HasCount(lanes.Length, proxies);
 
 		for (int i = 0; i < lanes.Length; i++)
 		{
