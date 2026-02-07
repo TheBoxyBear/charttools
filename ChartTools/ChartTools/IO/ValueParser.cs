@@ -1,11 +1,24 @@
-﻿namespace ChartTools.IO;
+﻿using ChartTools.Extensions;
+
+namespace ChartTools.IO;
 
 internal static class ValueParser
 {
 	public static T Parse<T>(in ReadOnlySpan<char> value, string target)
-			where T : ISpanParsable<T>
-			=> T.TryParse(value, null, out T? result) ? result
-		: throw new ParseException(value.ToString(), target, typeof(T));
+		where T : ISpanParsable<T>
+	{
+		if (typeof(T) == typeof(bool))
+			switch (value)
+			{
+				case "0":
+					return UnsafeExtensions.AsReadonly<bool, T>(false);
+				case "1":
+					return UnsafeExtensions.AsReadonly<bool, T>(true);
+			}
+
+		return T.TryParse(value, null, out T? result) ? result
+			: throw new ParseException(value.ToString(), target, typeof(T));
+	}
 
 	[Obsolete("Use Parse<bool> instead.")]
 	public static bool ParseBool(in ReadOnlySpan<char> value, string target)
