@@ -234,7 +234,7 @@ public static class EnumExtensions
 
 	public static T RemoveFlags<T>(this T value, T flags)
 		where T : Enum
-		=> value &= ~flags;
+		=> value & ~flags;
 
 	public static T Validate<T>(this T value)
 		where T : struct, Enum
