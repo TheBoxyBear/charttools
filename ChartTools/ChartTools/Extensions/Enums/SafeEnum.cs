@@ -4,7 +4,7 @@ namespace ChartTools.Extensions.Enums;
 /// Wrapper struct for enum values that automatically validates on set.
 /// </summary>
 /// <typeparam name="T">Enum type to wrap</typeparam>
-public record struct SafeEnum<T> : IEnumWrapper<SafeEnum<T>>, IEnumWrapper<SafeEnum<T>, T>
+public record struct SafeEnum<T> : IEnumWrapper<SafeEnum<T>, T>
 	where T : struct, Enum
 {
 	/// <summary>
