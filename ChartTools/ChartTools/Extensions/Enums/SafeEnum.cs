@@ -1,3 +1,7 @@
+using System.ComponentModel;
+using System.Numerics;
+using System.Runtime.CompilerServices;
+
 namespace ChartTools.Extensions.Enums;
 
 /// <summary>
@@ -102,4 +106,19 @@ public record struct SafeEnum<T> : IEnumWrapper<SafeEnum<T>, T>
 	public static T operator ^(SafeEnum<T> left, SafeEnum<T> right)
 		=> left.Value ^ right.Value;
 	#endregion
+}
+
+[EditorBrowsable(EditorBrowsableState.Never)]
+public static class SafeEnumExtenxions
+{
+	extension<T1, T2>(SafeEnum<T1>)
+	where T1 : struct, Enum
+	where T2 : unmanaged, IBinaryInteger<T2>
+	{
+		public static T1 operator +(SafeEnum<T1> left, T2 right)
+			=> left.Value + right;
+
+		public static T1 operator -(SafeEnum<T1> left, T2 right)
+			=> left.Value - right;
+	}
 }

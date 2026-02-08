@@ -11,7 +11,8 @@ public interface IEnumWrapper<TSelf> :
 { }
 
 public interface IEnumWrapper<TSelf, TEnum> : IEnumWrapper<TSelf>,
-	IBitwiseOperators<TSelf, TSelf, TEnum>, IShiftOperators<TSelf, int, TEnum>
+	IBitwiseOperators<TSelf, TSelf, TEnum>,
+	IShiftOperators<TSelf, int, TEnum>
 	where TSelf : struct, IEnumWrapper<TSelf, TEnum>
 	where TEnum : struct, Enum
 {
