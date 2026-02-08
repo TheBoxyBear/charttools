@@ -152,6 +152,25 @@ public static class EnumExtensions
 				where TTarget : IShiftOperators<TTarget, int, TTarget>
 				=> UnsafeExtensions.AsReadonly<TTarget, T>(Unsafe.As<T, TTarget>(ref value) >> shift);
 		}
+
+		public static T operator >>>(T value, int shift)
+		{
+			return Type.GetTypeCode(typeof(T)) switch
+			{
+				TypeCode.Byte   => Apply<byte>(),
+				TypeCode.SByte  => Apply<sbyte>(),
+				TypeCode.Int16  => Apply<short>(),
+				TypeCode.UInt16 => Apply<ushort>(),
+				TypeCode.Int32  => Apply<int>(),
+				TypeCode.UInt32 => Apply<uint>(),
+				TypeCode.Int64  => Apply<long>(),
+				TypeCode.UInt64 => Apply<ulong>(),
+			};
+
+			T Apply<TTarget>()
+				where TTarget : IShiftOperators<TTarget, int, TTarget>
+				=> UnsafeExtensions.AsReadonly<TTarget, T>(Unsafe.As<T, TTarget>(ref value) >>> shift);
+		}
 	}
 
 	extension<T1, T2>(T1)
