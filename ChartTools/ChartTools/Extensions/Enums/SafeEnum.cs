@@ -1,5 +1,3 @@
-using ChartTools.IO;
-
 using System.ComponentModel;
 using System.Numerics;
 

@@ -1,7 +1,9 @@
-﻿namespace ChartTools.Lyrics;
+﻿using ChartTools.Extensions.Enums;
+
+namespace ChartTools.Lyrics;
 
 /// <summary>
-/// Keys making up <see cref="VocalsPitchValue"/> without the octave
+/// Keys making up <see cref="VocalsPitch"/> without the octave
 /// </summary>
 public enum VocalsKey : byte
 {
@@ -75,10 +77,7 @@ public enum VocalsKey : byte
 	B
 }
 
-/// <summary>
-/// Pitch values for <see cref="VocalsPitch"/>
-/// </summary>
-public enum VocalsPitchValue : byte
+public enum VocalsPitch : byte
 {
 	/// <summary>
 	/// No pitch
@@ -356,4 +355,37 @@ public enum VocalsPitchValue : byte
 	/// Sixth C (highest pitch)
 	/// </summary>
 	C6 = 0x60 | VocalsKey.C
+}
+
+public static class VocalsPitchExtensions
+{
+	extension(VocalsPitch pitch)
+	{
+		/// <summary>
+		/// Key excluding the octave
+		/// </summary>
+		public VocalsKey Key
+			=> (VocalsKey)((int)pitch & 0x0F);
+
+		/// <summary>
+		/// Octave number
+		/// </summary>
+		public byte Octave
+			=> (byte)(((int)pitch & 0xF0) >> 4);
+	}
+
+	extension(SafeEnum<VocalsPitch> pitch)
+	{
+		/// <summary>
+		/// Key excluding the octave
+		/// </summary>
+		public VocalsKey Key
+			=> pitch.Value.Key;
+
+		/// <summary>
+		/// Octave number
+		/// </summary>
+		public byte Octave
+			=> pitch.Value.Octave;
+	}
 }

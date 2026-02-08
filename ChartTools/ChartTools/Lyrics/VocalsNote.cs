@@ -1,24 +1,23 @@
-﻿namespace ChartTools.Lyrics;
+﻿using ChartTools.Extensions.Enums;
+
+namespace ChartTools.Lyrics;
 
 /// <summary>
 /// Note of a vocals track defining the pitch and displayed text of a single syllable.
 /// </summary>
-public class VocalsNote(uint position, VocalsPitch pitch, string? text = null)
+public class VocalsNote(uint position, VocalsPitch pitch = VocalsPitch.None, string? text = null)
 	: INote, ILongTrackObject
 {
-	public VocalsNote(uint position, VocalsPitchValue pitch = VocalsPitchValue.None, string? text = null)
-		: this(position, new VocalsPitch(pitch), text) { }
-
 	public uint Position { get; set; } = position;
 
 	public uint Length { get; set; }
 
-	public VocalsPitch Pitch { get; set; } = pitch;
+	public SafeEnum<VocalsPitch> Pitch { get; set; } = pitch;
 
 	public byte Index
 	{
 		get => (byte)Pitch.Value;
-		set => Pitch = (VocalsPitchValue)value;
+		set => Pitch = (VocalsPitch)value;
 	}
 
 	/// <summary>
