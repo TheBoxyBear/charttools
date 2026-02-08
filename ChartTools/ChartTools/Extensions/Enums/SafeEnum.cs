@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using System.Numerics;
-using System.Runtime.CompilerServices;
 
 namespace ChartTools.Extensions.Enums;
 
@@ -8,7 +7,12 @@ namespace ChartTools.Extensions.Enums;
 /// Wrapper struct for enum values that automatically validates on set.
 /// </summary>
 /// <typeparam name="T">Enum type to wrap</typeparam>
-public record struct SafeEnum<T> : IEnumWrapper<SafeEnum<T>, T>
+public record struct SafeEnum<T> : IEnumWrapper<SafeEnum<T>, T>,
+	IEquatable<T>, IEquatable<T?>,
+	IComparable<T>,
+	IEqualityOperators<SafeEnum<T>, T, bool>, IEqualityOperators<SafeEnum<T>, T?, bool>,
+	IComparisonOperators<SafeEnum<T>, T, bool>,
+	IBitwiseOperators<SafeEnum<T>, T, T>
 	where T : struct, Enum
 {
 	/// <summary>
@@ -70,20 +74,68 @@ public record struct SafeEnum<T> : IEnumWrapper<SafeEnum<T>, T>
 	public static bool operator ==(SafeEnum<T> left, SafeEnum<T>? right)
 		=> right.HasValue && left == right.Value;
 
+	public static bool operator ==(SafeEnum<T> left, T right)
+		=> left.Value == right;
+
+	public static bool operator ==(SafeEnum<T> left, T? right)
+		=> right.HasValue && left.Value == right.Value;
+
 	public static bool operator !=(SafeEnum<T> left, SafeEnum<T>? right)
-		=> right.HasValue && left == right.Value;
+		=> right.HasValue && left != right.Value;
+
+	public static bool operator !=(SafeEnum<T> left, T right)
+		=> left.Value != right;
+
+	public static bool operator !=(SafeEnum<T> left, T? right)
+		=> right.HasValue && left.Value != right.Value;
 
 	public static bool operator >(SafeEnum<T> left, SafeEnum<T> right)
-		=> left.Value > right.Value;
+	=> left.Value > right.Value;
+
+	public static bool operator >(SafeEnum<T> left, SafeEnum<T>? right)
+		=> right.HasValue && left > right.Value;
+
+	public static bool operator >(SafeEnum<T> left, T right)
+		=> left.Value > right;
+
+	public static bool operator >(SafeEnum<T> left, T? right)
+		=> right.HasValue && left.Value > right.Value;
 
 	public static bool operator >=(SafeEnum<T> left, SafeEnum<T> right)
 		=> left.Value >= right.Value;
 
+	public static bool operator >=(SafeEnum<T> left, SafeEnum<T>? right)
+		=> right.HasValue && left >= right.Value;
+
+	public static bool operator >=(SafeEnum<T> left, T right)
+		=> left.Value >= right;
+
+	public static bool operator >=(SafeEnum<T> left, T? right)
+		=> right.HasValue && left.Value >= right.Value;
+
 	public static bool operator <(SafeEnum<T> left, SafeEnum<T> right)
 		=> left.Value < right.Value;
 
+	public static bool operator <(SafeEnum<T> left, SafeEnum<T>? right)
+		=> right.HasValue && left < right.Value;
+
+	public static bool operator <(SafeEnum<T> left, T right)
+		=> left.Value < right;
+
+	public static bool operator <(SafeEnum<T> left, T? right)
+		=> right.HasValue && left.Value < right.Value;
+
 	public static bool operator <=(SafeEnum<T> left, SafeEnum<T> right)
 		=> left.Value <= right.Value;
+
+	public static bool operator <=(SafeEnum<T> left, SafeEnum<T>? right)
+		=> right.HasValue && left <= right.Value;
+
+	public static bool operator <=(SafeEnum<T> left, T right)
+		=> left.Value <= right;
+
+	public static bool operator <=(SafeEnum<T> left, T? right)
+		=> right.HasValue && left.Value <= right.Value;
 
 	public static T operator ~(SafeEnum<T> value)
 		=> ~value.Value;
@@ -100,11 +152,20 @@ public record struct SafeEnum<T> : IEnumWrapper<SafeEnum<T>, T>
 	public static T operator &(SafeEnum<T> left, SafeEnum<T> right)
 		=> left.Value & right.Value;
 
+	public static T operator &(SafeEnum<T> left, T right)
+		=> left.Value & right;
+
 	public static T operator |(SafeEnum<T> left, SafeEnum<T> right)
 		=> left.Value | right.Value;
 
+	public static T operator |(SafeEnum<T> left, T right)
+		=> left.Value | right;
+
 	public static T operator ^(SafeEnum<T> left, SafeEnum<T> right)
 		=> left.Value ^ right.Value;
+
+	public static T operator ^(SafeEnum<T> left, T right)
+		=> left.Value ^ right;
 	#endregion
 }
 

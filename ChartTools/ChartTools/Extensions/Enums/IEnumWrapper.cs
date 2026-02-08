@@ -10,10 +10,13 @@ public interface IEnumWrapper<TSelf> :
 	where TSelf : struct, IEnumWrapper<TSelf>
 { }
 
-public interface IEnumWrapper<TSelf, TEnum> : IEnumWrapper<TSelf>,
-	IBitwiseOperators<TSelf, TSelf, TEnum>,
-	IShiftOperators<TSelf, int, TEnum>
-	where TSelf : struct, IEnumWrapper<TSelf, TEnum>
+public interface IEnumWrapper<TSelf, TEnum> : IEnumWrapper<TSelf>
+	where TSelf : struct, IEnumWrapper<TSelf, TEnum>,
+	IEquatable<TEnum>, IEquatable<TEnum?>,
+	IComparable<TEnum>,
+	IEqualityOperators<TSelf, TEnum, bool>, IEqualityOperators<TSelf, TEnum?, bool>,
+	IComparisonOperators<TSelf, TSelf, bool>,
+	IBitwiseOperators<TSelf, TEnum, TEnum>
 	where TEnum : struct, Enum
 {
 	TEnum Value { get; }
