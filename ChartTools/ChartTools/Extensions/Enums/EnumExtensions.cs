@@ -8,8 +8,14 @@ public static class EnumExtensions
 	extension<T>(T)
 		where T : struct, Enum
 	{
+		public static T Parse(string value, bool ignoreCase = false)
+			=> Enum.Parse<T>(value, ignoreCase);
+
 		public static T Parse(in ReadOnlySpan<char> value, bool ignoreCase = false)
 			=> Enum.Parse<T>(value, ignoreCase);
+
+		public static bool TryParse(string value, out T enumValue, bool ignoreCase = false)
+			=> Enum.TryParse(value, ignoreCase, out enumValue);
 
 		public static bool TryParse(in ReadOnlySpan<char> value, out T enumValue, bool ignoreCase = false)
 			=> Enum.TryParse(value, ignoreCase, out enumValue);

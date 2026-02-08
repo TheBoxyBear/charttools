@@ -1,3 +1,5 @@
+using ChartTools.IO;
+
 using System.ComponentModel;
 using System.Numerics;
 
@@ -63,6 +65,18 @@ public record struct SafeEnum<T> : IEnumWrapper<SafeEnum<T>, T>,
 
 	public int CompareTo(T other)
 		=> Value.CompareTo<T>(other);
+
+	static SafeEnum<T> IParsable<SafeEnum<T>>.Parse(string s, IFormatProvider? _)
+		=> Enum.Parse<T>(s);
+
+	static bool IParsable<SafeEnum<T>>.TryParse(string s, IFormatProvider? _, out SafeEnum<T> result)
+		=> Enum.TryParse(s, out result);
+
+	static SafeEnum<T> ISpanParsable<SafeEnum<T>>.Parse(ReadOnlySpan<char> s, IFormatProvider? _)
+		=> Enum.Parse<T>(s);
+
+	static bool ISpanParsable<SafeEnum<T>>.TryParse(ReadOnlySpan<char> s, IFormatProvider? _, out SafeEnum<T> result)
+		=> Enum.TryParse(s, out result);
 
 	public static implicit operator T(SafeEnum<T> wrapper)
 		=> wrapper.Value;

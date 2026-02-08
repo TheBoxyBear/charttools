@@ -6,7 +6,8 @@ public interface IEnumWrapper<TSelf> :
 	IEquatable<TSelf>, IEquatable<TSelf?>,
 	IComparable<TSelf>,
 	IEqualityOperators<TSelf, TSelf, bool>, IEqualityOperators<TSelf, TSelf?, bool>,
-	IComparisonOperators<TSelf, TSelf, bool>
+	IComparisonOperators<TSelf, TSelf, bool>,
+	IParsable<TSelf>, ISpanParsable<TSelf>
 	where TSelf : struct, IEnumWrapper<TSelf>
 { }
 
