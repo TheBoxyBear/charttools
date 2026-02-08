@@ -90,7 +90,7 @@ public static class PhraseExtensions
 					phrases.Add(phrase);
 					break;
 				case EventTypeHelper.Global.Lyric:
-					notes.Add(new(e.Position, VocalsPitchValue.None, e.Argument));
+					notes.Add(new(e.Position, VocalsPitch.None, e.Argument));
 					break;
 				case EventTypeHelper.Global.PhraseEnd:
 					phrase?.Length = e.Position - phrase.Position;
