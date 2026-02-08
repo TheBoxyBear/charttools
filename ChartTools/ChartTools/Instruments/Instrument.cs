@@ -1,4 +1,5 @@
 ﻿using ChartTools.Events;
+using ChartTools.Extensions.Enums;
 using ChartTools.Extensions.Linq;
 using ChartTools.IO.Configuration;
 using ChartTools.Meta;

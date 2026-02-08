@@ -1,4 +1,5 @@
-﻿using ChartTools.IO.Chart;
+﻿using ChartTools.Extensions.Enums;
+using ChartTools.IO.Chart;
 using ChartTools.IO.Chart.Configuration.Sessions;
 using ChartTools.IO.Chart.Entries;
 

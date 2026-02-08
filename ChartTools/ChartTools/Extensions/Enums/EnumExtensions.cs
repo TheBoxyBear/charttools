@@ -1,17 +1,21 @@
 ﻿using System.Numerics;
 using System.Runtime.CompilerServices;
 
-#pragma warning disable IDE0130 // Namespace does not match folder structure
 namespace ChartTools.Extensions.Enums;
-#pragma warning restore IDE0130 // Namespace does not match folder structure
 
 public static class EnumExtensions
 {
 	extension<T>(T)
 		where T : struct, Enum
 	{
+		public static T Parse(string value, bool ignoreCase = false)
+			=> Enum.Parse<T>(value, ignoreCase);
+
 		public static T Parse(in ReadOnlySpan<char> value, bool ignoreCase = false)
 			=> Enum.Parse<T>(value, ignoreCase);
+
+		public static bool TryParse(string value, out T enumValue, bool ignoreCase = false)
+			=> Enum.TryParse(value, ignoreCase, out enumValue);
 
 		public static bool TryParse(in ReadOnlySpan<char> value, out T enumValue, bool ignoreCase = false)
 			=> Enum.TryParse(value, ignoreCase, out enumValue);
@@ -41,9 +45,6 @@ public static class EnumExtensions
 		public static bool operator >=(T left, T right)
 			=> Comparer<T>.Default.Compare(left, right) >= 0;
 
-		public static int operator -(T left, T right)
-			=> Unsafe.As<T, int>(ref left) - Unsafe.As<T, int>(ref right);
-
 		public static T operator|(T left, T right)
 		{
 			return Type.GetTypeCode(typeof(T)) switch
@@ -60,10 +61,7 @@ public static class EnumExtensions
 
 			T Apply<TTarget>()
 				where TTarget : IBitwiseOperators<TTarget, TTarget, TTarget>
-			{
-				TTarget result = Unsafe.As<T, TTarget>(ref left) | Unsafe.As<T, TTarget>(ref right);
-				return Unsafe.As<TTarget, T>(ref result);
-			}
+				=> UnsafeExtensions.AsReadonly<TTarget, T>(Unsafe.As<T, TTarget>(ref left) | Unsafe.As<T, TTarget>(ref right));
 		}
 
 		public static T operator &(T left, T right)
@@ -82,10 +80,7 @@ public static class EnumExtensions
 
 			T Apply<TTarget>()
 				where TTarget : IBitwiseOperators<TTarget, TTarget, TTarget>
-			{
-				TTarget result = Unsafe.As<T, TTarget>(ref left) & Unsafe.As<T, TTarget>(ref right);
-				return Unsafe.As<TTarget, T>(ref result);
-			}
+				=> UnsafeExtensions.AsReadonly<TTarget, T>(Unsafe.As<T, TTarget>(ref left) & Unsafe.As<T, TTarget>(ref right));
 		}
 
 		public static T operator ^(T left, T right)
@@ -104,10 +99,7 @@ public static class EnumExtensions
 
 			T Apply<TTarget>()
 				where TTarget : IBitwiseOperators<TTarget, TTarget, TTarget>
-			{
-				TTarget result = Unsafe.As<T, TTarget>(ref left) ^ Unsafe.As<T, TTarget>(ref right);
-				return Unsafe.As<TTarget, T>(ref result);
-			}
+				=> UnsafeExtensions.AsReadonly<TTarget, T>(Unsafe.As<T, TTarget>(ref left) ^ Unsafe.As<T, TTarget>(ref right));
 		}
 
 		public static T operator~(T value)
@@ -126,10 +118,64 @@ public static class EnumExtensions
 
 			T Apply<TTarget>()
 				where TTarget : IBitwiseOperators<TTarget, TTarget, TTarget>
+				=> UnsafeExtensions.AsReadonly<TTarget, T>(~Unsafe.As<T, TTarget>(ref value));
+		}
+
+		public static T operator <<(T value, int shift)
+		{
+			return Type.GetTypeCode(typeof(T)) switch
 			{
-				TTarget result = ~Unsafe.As<T, TTarget>(ref value);
-				return Unsafe.As<TTarget, T>(ref result);
-			}
+				TypeCode.Byte   => Apply<byte>(),
+				TypeCode.SByte  => Apply<sbyte>(),
+				TypeCode.Int16  => Apply<short>(),
+				TypeCode.UInt16 => Apply<ushort>(),
+				TypeCode.Int32  => Apply<int>(),
+				TypeCode.UInt32 => Apply<uint>(),
+				TypeCode.Int64  => Apply<long>(),
+				TypeCode.UInt64 => Apply<ulong>(),
+			};
+
+			T Apply<TTarget>()
+				where TTarget : IShiftOperators<TTarget, int, TTarget>
+				=> UnsafeExtensions.AsReadonly<TTarget, T>(Unsafe.As<T, TTarget>(ref value) << shift);
+		}
+
+		public static T operator >>(T value, int shift)
+		{
+			return Type.GetTypeCode(typeof(T)) switch
+			{
+				TypeCode.Byte   => Apply<byte>(),
+				TypeCode.SByte  => Apply<sbyte>(),
+				TypeCode.Int16  => Apply<short>(),
+				TypeCode.UInt16 => Apply<ushort>(),
+				TypeCode.Int32  => Apply<int>(),
+				TypeCode.UInt32 => Apply<uint>(),
+				TypeCode.Int64  => Apply<long>(),
+				TypeCode.UInt64 => Apply<ulong>(),
+			};
+
+			T Apply<TTarget>()
+				where TTarget : IShiftOperators<TTarget, int, TTarget>
+				=> UnsafeExtensions.AsReadonly<TTarget, T>(Unsafe.As<T, TTarget>(ref value) >> shift);
+		}
+
+		public static T operator >>>(T value, int shift)
+		{
+			return Type.GetTypeCode(typeof(T)) switch
+			{
+				TypeCode.Byte   => Apply<byte>(),
+				TypeCode.SByte  => Apply<sbyte>(),
+				TypeCode.Int16  => Apply<short>(),
+				TypeCode.UInt16 => Apply<ushort>(),
+				TypeCode.Int32  => Apply<int>(),
+				TypeCode.UInt32 => Apply<uint>(),
+				TypeCode.Int64  => Apply<long>(),
+				TypeCode.UInt64 => Apply<ulong>(),
+			};
+
+			T Apply<TTarget>()
+				where TTarget : IShiftOperators<TTarget, int, TTarget>
+				=> UnsafeExtensions.AsReadonly<TTarget, T>(Unsafe.As<T, TTarget>(ref value) >>> shift);
 		}
 	}
 
@@ -137,7 +183,7 @@ public static class EnumExtensions
 		where T1 : Enum
 		where T2 : unmanaged, IBinaryInteger<T2>
 	{
-		public static T1 operator+(T1 left, T2 right)
+		public static T1 operator +(T1 left, T2 right)
 		{
 			T2 value = left.As<T1, T2>() + right;
 			return Unsafe.As<T2, T1>(ref value);
@@ -146,18 +192,6 @@ public static class EnumExtensions
 		public static T1 operator -(T1 left, T2 right)
 		{
 			T2 value = left.As<T1, T2>() - right;
-			return Unsafe.As<T2, T1>(ref value);
-		}
-
-		public static T1 operator *(T1 left, T2 right)
-		{
-			T2 value = left.As<T1, T2>() + right;
-			return Unsafe.As<T2, T1>(ref value);
-		}
-
-		public static T1 operator /(T1 left, T2 right)
-		{
-			T2 value = left.As<T1, T2>() + right;
 			return Unsafe.As<T2, T1>(ref value);
 		}
 	}

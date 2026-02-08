@@ -1,5 +1,5 @@
 ﻿using ChartTools.Events;
-using ChartTools.Extensions;
+using ChartTools.Extensions.Enums;
 using ChartTools.Extensions.Linq;
 using ChartTools.IO.Chart.Configuration;
 using ChartTools.IO.Chart.Configuration.Sessions;

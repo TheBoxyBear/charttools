@@ -1,4 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿using ChartTools.Extensions.Enums;
+
+using System.Runtime.CompilerServices;
 
 namespace ChartTools;
 

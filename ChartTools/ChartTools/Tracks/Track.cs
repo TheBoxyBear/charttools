@@ -1,4 +1,5 @@
 ﻿using ChartTools.Events;
+using ChartTools.Extensions.Enums;
 
 using System.Diagnostics;
 

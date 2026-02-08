@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace ChartTools.Extensions;
+namespace ChartTools.Extensions.Enums;
 
 /// <summary>
 /// Holds a cache of defined values for an enum where <see cref="Enum.GetValues{TEnum}()"/> is to be called frequently.
