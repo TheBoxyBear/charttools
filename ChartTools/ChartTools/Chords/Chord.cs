@@ -16,17 +16,16 @@ public abstract class Chord(uint position) : ITrackObject
 	internal abstract IEnumerable<TrackObjectEntry> GetChartModifierData(Chord? previous, ChartWritingSession session);
 }
 
-public abstract class Chord<TNote, TLane> : Chord
+public abstract class Chord<TNote, TLane>(uint position)
+	: Chord(position)
 	where TNote : struct, IDefinedLaneNote<TLane>
 	where TLane : struct, Enum
 {
-	public override LaneNoteCollection<TNote, TLane> Notes { get; }
-
-	public Chord(uint position) : base(position)
-		=> Notes = [];
+	public override LaneNoteCollection<TNote, TLane> Notes { get; } = [];
 }
 
-public abstract class Chord<TNote, TLane, TModifiers> : Chord<TNote, TLane>
+public abstract class Chord<TNote, TLane, TModifiers>(uint position)
+	: Chord<TNote, TLane>(position)
 	where TNote : struct, IDefinedLaneNote<TLane>
 	where TLane : struct, Enum
 	where TModifiers : Enum
@@ -34,7 +33,4 @@ public abstract class Chord<TNote, TLane, TModifiers> : Chord<TNote, TLane>
 	public TModifiers Modifiers { get; set; }
 
 	internal abstract TModifiers DefaultModifiers { get; }
-
-	public Chord(uint position)
-		: base(position) { }
 }

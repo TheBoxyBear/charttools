@@ -22,8 +22,7 @@ internal readonly ref struct NoteData
 	/// <exception cref="FormatException"/>
 	internal NoteData(in ReadOnlySpan<char> data)
 	{
-		ReadOnlySpan<char> a, b;
-		ChartFormatting.SplitData(data, out a, out b);
+		ChartFormatting.SplitData(data, out ReadOnlySpan<char> a, out ReadOnlySpan<char> b);
 
 		if (b.IsEmpty)
 			throw new EntryException();
