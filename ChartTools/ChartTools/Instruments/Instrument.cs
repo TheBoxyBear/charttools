@@ -78,7 +78,14 @@ public abstract record Instrument : IEmptyVerifiable
 	/// <summary>
 	/// Gets the track matching a difficulty.
 	/// </summary>
+#if NET5_0_OR_GREATER
 	public abstract Track? GetTrack(SafeEnum<Difficulty> difficulty);
+#else
+	public Track? GetTrack(SafeEnum<Difficulty> difficulty)
+		=> GetTrackBase(difficulty);
+
+	protected abstract Track? GetTrackBase(Difficulty difficulty);
+#endif
 
 	protected abstract Track? GetEasy();
 
@@ -92,7 +99,14 @@ public abstract record Instrument : IEmptyVerifiable
 	/// Creates a track
 	/// </summary>
 	/// <param name="difficulty">Difficulty of the track</param>
+#if NET5_0_OR_GREATER
 	public abstract Track CreateTrack(SafeEnum<Difficulty> difficulty);
+#else
+	public Track CreateTrack(SafeEnum<Difficulty> difficulty)
+		=> CreateTrackBase(difficulty);
+
+	protected abstract Track CreateTrackBase(Difficulty difficulty);
+#endif
 
 	/// <summary>
 	/// Removes a track.
@@ -103,14 +117,27 @@ public abstract record Instrument : IEmptyVerifiable
 	/// <summary>
 	/// Creates an array containing all tracks.
 	/// </summary>
-	public virtual Track?[] GetTracks()
-		=> [Easy, Medium, Hard, Expert];
+#if NET5_0_OR_GREATER
+	public abstract Track?[] GetTracks();
+#else
+	public Track?[] GetTracks()
+		=> GetTracksBase();
+
+	protected abstract Track?[] GetTracksBase();
+#endif
 
 	/// <summary>
 	/// Creates an array containing all tracks with data.
 	/// </summary>
+#if NET5_0_OR_GREATER
 	public virtual IEnumerable<Track> GetExistingTracks()
 		=> GetTracks().NonNull().Where(static t => !t.IsEmpty);
+#else
+	public IEnumerable<Track> GetExistingTracks()
+		=> GetExistingTracksBase();
+
+	protected abstract IEnumerable<Track> GetExistingTracksBase();
+#endif
 
 	protected abstract InstrumentIdentity GetIdentity();
 
@@ -200,17 +227,31 @@ public abstract record Instrument<TChord> : Instrument
 	/// <summary>
 	/// Gets the <see cref="Track{TChord}"/> that matches a <see cref="Difficulty"/>
 	/// </summary>
-	public override Track<TChord>? GetTrack(SafeEnum<Difficulty> difficulty) => difficulty.Value switch
-	{
-		Difficulty.Easy   => Easy,
-		Difficulty.Medium => Medium,
-		Difficulty.Hard   => Hard,
-		Difficulty.Expert => Expert,
-		_ => throw new UndefinedEnumException(difficulty)
-	};
+#if NET5_0_OR_GREATER
+	public override Track<TChord>? GetTrack(SafeEnum<Difficulty> difficulty)
+#else
+	public new Track<TChord>? GetTrack(SafeEnum<Difficulty> difficulty)
+#endif
+	=> difficulty.Value switch
+		{
+			Difficulty.Easy   => Easy,
+			Difficulty.Medium => Medium,
+			Difficulty.Hard   => Hard,
+			Difficulty.Expert => Expert,
+			_ => throw new UndefinedEnumException(difficulty)
+		};
+
+#if !NET5_0_OR_GREATER
+	protected override Track? GetTrackBase(Difficulty difficulty)
+		=> GetTrack(difficulty);
+#endif
 
 	/// <inheritdoc cref="Instrument.CreateTrack(SafeEnum{Difficulty})"/>
+#if NET5_0_OR_GREATER
 	public override Track<TChord> CreateTrack(SafeEnum<Difficulty> difficulty)
+#else
+	public new Track<TChord> CreateTrack(SafeEnum<Difficulty> difficulty)
+#endif
 		=> difficulty.Value switch
 		{
 			Difficulty.Easy   => Easy   = new(),
@@ -219,6 +260,11 @@ public abstract record Instrument<TChord> : Instrument
 			Difficulty.Expert => Expert = new(),
 			_ => throw new UndefinedEnumException(difficulty)
 		};
+
+#if !NET5_0_OR_GREATER
+	protected override Track CreateTrackBase(Difficulty difficulty)
+		=> CreateTrack(difficulty);
+#endif
 
 	/// <inheritdoc cref="Instrument.RemoveTrack(SafeEnum{Difficulty})"/>
 	public override bool RemoveTrack(SafeEnum<Difficulty> difficulty)
@@ -251,28 +297,44 @@ public abstract record Instrument<TChord> : Instrument
 	/// <summary>
 	/// Exposes the <see cref="Easy"/> track to the base class.
 	/// </summary>
-	protected override Track<TChord>? GetEasy() => Easy;
+	protected override Track? GetEasy() => Easy;
 
 	/// <summary>
 	/// Exposes the <see cref="Medium"/> track to the base class.
 	/// </summary>
-	protected override Track<TChord>? GetMedium() => Medium;
+	protected override Track? GetMedium() => Medium;
 
 	/// <summary>
 	/// Exposes the <see cref="Hard"/> track to the base class.
 	/// </summary>
-	protected override Track<TChord>? GetHard() => Hard;
+	protected override Track? GetHard() => Hard;
 
 	/// <summary>
 	/// Exposes the <see cref="Expert"/> track to the base class.
 	/// </summary>
-	protected override Track<TChord>? GetExpert() => Expert;
+	protected override Track? GetExpert() => Expert;
 
+#if NET5_0_OR_GREATER
 	public override Track<TChord>?[] GetTracks()
 		=> [Easy, Medium, Hard, Expert];
+#else
+	public new Track<TChord>?[] GetTracks()
+		=> [Easy, Medium, Hard, Expert];
 
+	protected override Track?[] GetTracksBase()
+		=> [Easy, Medium, Hard, Expert];
+#endif
+
+#if NET5_0_OR_GREATER
 	public override IEnumerable<Track<TChord>> GetExistingTracks()
 		=> base.GetExistingTracks().Cast<Track<TChord>>();
+#else
+	public new IEnumerable<Track<TChord>> GetExistingTracks()
+		=> base.GetExistingTracks().Cast<Track<TChord>>();
+
+	protected override IEnumerable<Track> GetExistingTracksBase()
+		=> GetExistingTracks();
+#endif
 
 	/// <summary>
 	/// Sets a track for a given <see cref="Difficulty"/>.

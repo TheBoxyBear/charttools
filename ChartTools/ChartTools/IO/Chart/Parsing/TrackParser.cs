@@ -12,8 +12,16 @@ internal abstract class TrackParser<TChord>(Difficulty difficulty, ChartReadingS
 {
 	public Difficulty Difficulty { get; } = difficulty;
 
+#if NET5_0_OR_GREATER
 	public override Track<TChord> Result
-		=> GetResult(m_result);
+		=> GetResultIfReady(m_result);
+#else
+	public new Track<TChord> Result
+		=> GetResultIfReady(m_result);
+
+	protected override object? GetResult()
+		=> Result;
+#endif
 
 	private readonly Track<TChord> m_result = new() { Difficulty = difficulty };
 

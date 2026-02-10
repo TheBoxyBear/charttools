@@ -8,7 +8,14 @@ internal class ChartReadingSession(ComponentList components, ChartReadingConfigu
 {
 	public ComponentList Components { get; set; } = components;
 
+#if NET5_0_OR_GREATER
 	public override ChartReadingConfiguration Configuration { get; } = config ?? ChartFile.DefaultReadConfig;
+#else
+	public new ChartReadingConfiguration Configuration { get; } = config ?? ChartFile.DefaultReadConfig;
+
+	protected override IO.Configuration.Common.ICommonConfiguration GetCommonConfiguration()
+		=> Configuration;
+#endif
 
 	public bool HandleTempolessAnchor(Anchor anchor)
 		=> Configuration.TempolessAnchorPolicy switch

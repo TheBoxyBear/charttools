@@ -39,8 +39,13 @@ public abstract record Track : IEmptyVerifiable
 	/// <summary>
 	/// Groups of notes of the same position
 	/// </summary>
+#if NET5_0_OR_GREATER
 	public abstract IReadOnlyList<Chord> Chords { get; }
+#else
+	public IReadOnlyList<Chord> Chords
+		=> GetChords();
 	protected abstract IReadOnlyList<Chord> GetChords();
+#endif
 
 	internal IEnumerable<TrackSpecialPhrase> SoloToStarPower(bool removeEvents)
 	{
@@ -83,18 +88,18 @@ public record Track<TChord> : Track
 	/// <summary>
 	/// Chords making up the difficulty track.
 	/// </summary>
+#if NET5_0_OR_GREATER
 	public override List<TChord> Chords { get; } = [];
+#else
+	public new List<TChord> Chords { get; } = [];
+
+	protected override IReadOnlyList<Chord> GetChords() => Chords;
+#endif
 
 	/// <summary>
 	/// Instrument the track is held in.
 	/// </summary>
 	public new Instrument<TChord>? ParentInstrument { get; init; }
-
-	/// <summary>
-	/// Gets the chords as a read-only list of the base interface.
-	/// </summary>
-	/// <returns></returns>
-	protected override IReadOnlyList<TChord> GetChords() => Chords;
 
 	/// <summary>
 	/// Gets the parent instrument as an instance of the base type.

@@ -8,8 +8,16 @@ namespace ChartTools.IO.Ini;
 internal class IniParser(Metadata? existing = null)
 	: TextParser(IniFormatting.Header.AsMemory()), ISongAppliable
 {
+#if NET5_0_OR_GREATER
 	public override Metadata Result
-		=> GetResult(m_result);
+		=> GetResultIfReady(m_result);
+#else
+	public new Metadata Result
+		=> GetResultIfReady(m_result);
+
+	protected override object? GetResult()
+		=> Result;
+#endif
 
 	private readonly Metadata m_result = existing ?? new();
 

@@ -15,6 +15,8 @@ internal abstract class TextFileReader(ReadingDataSource source)
 
 	protected bool m_disposeReader = false;
 
+	protected abstract TextParser? GetParser(in ReadOnlyMemory<char> header);
+
 	protected override void ReadBase(bool async, in CancellationToken cancellationToken)
 	{
 		string contentStr;

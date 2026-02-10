@@ -9,8 +9,15 @@ namespace ChartTools.IO.Chart.Parsing;
 internal class SyncTrackParser(ChartReadingSession session)
 	: ChartParser(session, ChartFormatting.SyncTrackHeader.AsMemory())
 {
+#if NET5_0_OR_GREATER
 	public override SyncTrack Result
-		=> GetResult(m_result);
+		=> GetResultIfReady(m_result);
+#else
+	public new SyncTrack Result
+		=> GetResultIfReady(m_result);
+	protected override object? GetResult()
+		=> Result;
+#endif
 
 	private readonly SyncTrack m_result = new();
 
