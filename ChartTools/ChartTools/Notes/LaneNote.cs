@@ -24,8 +24,5 @@ public readonly record struct LaneNote<TLane> : IDefinedLaneNote<TLane>
 		}
 	}
 
-	public LaneNote(TLane lane)
-		=> Lane = lane;
-
-	public byte Index => Convert.ToByte(Lane);
+	public byte Index => Lane.As<TLane, byte>();
 }
