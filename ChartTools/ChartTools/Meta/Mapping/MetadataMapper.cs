@@ -1,7 +1,5 @@
 ﻿using ChartTools.IO;
 
-using System.Diagnostics.CodeAnalysis;
-
 namespace ChartTools.Meta.Mapping;
 
 internal abstract class MetadataMapper
@@ -18,9 +16,14 @@ internal abstract class MetadataMapper
 
 	public abstract IEnumerable<TextEntry> GetAll(Metadata metadata);
 
-	public bool TryGet(Metadata metadata, in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out string value)
+	public bool TryGet(Metadata metadata, in ReadOnlySpan<char> key,
+#if NETCOREAPP3_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+		[System.Diagnostics.CodeAnalysis.MaybeNullWhen(false)] out string value)
+#else
+		out string value)
+#endif
 	{
-		value = Get(metadata, in key);
+		value = Get(metadata, in key)!;
 		return value is not null;
 	}
 
