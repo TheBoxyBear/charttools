@@ -359,9 +359,9 @@ public static class EnumerableExtensions
 	private static bool Unique<T>(this IEnumerable<T> source)
 		=> UniqueFromDistinct(source.Distinct());
 
-	[Obsolete("Maintained for future internal use")]
-	private static bool UniqueBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector)
-		=> UniqueFromDistinct(source.DistinctBy(selector));
+	//[Obsolete("Maintained for future internal use")]
+	//private static bool UniqueBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector)
+	//	=> UniqueFromDistinct(source.DistinctBy(selector));
 
 	private static bool UniqueFromDistinct<T>(IEnumerable<T> distinct)
 		=> !distinct.Skip(1).Any();
@@ -463,12 +463,12 @@ public static class EnumerableExtensions
 		=> ManyMinMaxBy(source, selector, (key, mmkey) => key.CompareTo(mmkey) > 0);
 	#endregion
 
-	[Obsolete("Maintained for future internal use")]
-	private static async IAsyncEnumerable<T> ToAsyncEnumerable<T>(this IEnumerable<T> source)
-	{
-		foreach (var item in source)
-			yield return await Task.FromResult(item).ConfigureAwait(false);
-	}
+	//[Obsolete("Maintained for future internal use")]
+	//private static async IAsyncEnumerable<T> ToAsyncEnumerable<T>(this IEnumerable<T> source)
+	//{
+	//	foreach (var item in source)
+	//		yield return await Task.FromResult(item).ConfigureAwait(false);
+	//}
 
 	#region Collections
 	/// <summary>
