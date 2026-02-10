@@ -36,6 +36,12 @@
     <ProjectReference Include="..\ChartTools.Generator\ChartTools.Generator.csproj" OutputItemType="Analyzer" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netstandard2.1'">
+    <Reference Include="Bcl.CollectionsMarshal">
+      <HintPath>..\Dependencies\bin\$(TargetFramework)\Bcl.CollectionsMarshal.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
   <Target Name="CopyDataFiles" AfterTargets="PostBuildEvent">
     <ItemGroup>
       <DataFiles Include="$(OutDir)ChartTools.dll" />
