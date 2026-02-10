@@ -25,13 +25,13 @@ internal abstract class MetadataMapper
 	}
 
 	protected string? FindUndentified(Metadata metadata, in ReadOnlySpan<char> key)
-		=> metadata.UnidentifiedData.TryGetValue(new()
-		{
-			Key    = key.ToString(),
-			Origin = FileType
-		}, out UnidentifiedMetadata found)
-			? found.Value
-			: null;
+	{
+		foreach (UnidentifiedMetadata data in metadata.UnidentifiedData)
+			if (data.Origin == FileType && data.Key == key.ToString())
+				return data.Value;
+
+		return null;
+	}
 
 	protected void AddUnidentified(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value)
 		=> metadata.UnidentifiedData.Add(new()
