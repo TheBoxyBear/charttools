@@ -82,7 +82,9 @@ public sealed class Metadata
 		get;
 		set
 		{
-			ArgumentNullException.ThrowIfNull(value);
+			if (value is null)
+				throw new ArgumentNullException(nameof(value));
+
 			field = value;
 		}
 	} = new();
@@ -135,7 +137,9 @@ public sealed class Metadata
 		get;
 		set
 		{
-			ArgumentNullException.ThrowIfNull(value);
+			if (value is null)
+				throw new ArgumentNullException(nameof(value));
+
 			field = value;
 		}
 	} = new();
@@ -162,7 +166,9 @@ public sealed class Metadata
 		get;
 		set
 		{
-			ArgumentNullException.ThrowIfNull(value);
+			if (value is null)
+				throw new ArgumentNullException(nameof(value));
+
 			field = value;
 		}
 	} = new();

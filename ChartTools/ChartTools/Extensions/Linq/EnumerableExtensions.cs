@@ -20,8 +20,11 @@ public static class EnumerableExtensions
 	/// <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
 	public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue, out bool returnedDefault)
 	{
-		ArgumentNullException.ThrowIfNull(source);
-		ArgumentNullException.ThrowIfNull(predicate);
+		if (source is null)
+			throw new ArgumentNullException(nameof(source));
+
+		if (predicate is null)
+			throw new ArgumentNullException(nameof(predicate));
 
 		foreach (T item in source)
 			if (predicate(item))
@@ -43,7 +46,8 @@ public static class EnumerableExtensions
 	/// <returns><see langword="true"/> if an item was found</returns>
 	public static bool TryGetFirst<T>(this IEnumerable<T> source, out T? result)
 	{
-		ArgumentNullException.ThrowIfNull(source);
+		if (source is null)
+			throw new ArgumentNullException(nameof(source));
 
 		using IEnumerator<T> enumerator = source.GetEnumerator();
 		bool success = enumerator.MoveNext();
@@ -63,8 +67,11 @@ public static class EnumerableExtensions
 	public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, out T? item)
 		where T : notnull
 	{
-		ArgumentNullException.ThrowIfNull(source);
-		ArgumentNullException.ThrowIfNull(predicate);
+		if (source is null)
+			throw new ArgumentNullException(nameof(source));
+
+		if (predicate is null)
+			throw new ArgumentNullException(nameof(predicate));
 
 		foreach (T t in source)
 			if (predicate(t))
@@ -104,7 +111,8 @@ public static class EnumerableExtensions
 	public static IEnumerable<T> NonNull<T>(this IEnumerable<T?> source)
 		where T : struct
 	{
-		ArgumentNullException.ThrowIfNull(source);
+		if (source is null)
+			throw new ArgumentNullException(nameof(source));
 
 		foreach (T? item in source)
 			if (item is not null)
@@ -121,8 +129,11 @@ public static class EnumerableExtensions
 	/// <param name="replacement">The item to replace items with</param>
 	public static IEnumerable<T> Replace<T>(this IEnumerable<T> source, Predicate<T> predicate, T replacement)
 	{
-		ArgumentNullException.ThrowIfNull(source);
-		ArgumentNullException.ThrowIfNull(predicate);
+		if (source is null)
+			throw new ArgumentNullException(nameof(source));
+
+		if (source is null)
+			throw new ArgumentNullException(nameof(predicate));
 
 		foreach (T item in source)
 			yield return predicate(item) ? replacement : item;
@@ -196,7 +207,8 @@ public static class EnumerableExtensions
 	/// <remarks>Items that match <see cref="SectionReplacement{T}.StartReplace"/> or <see cref="SectionReplacement{T}.EndReplace"/> are not included in the output.</remarks>
 	public static IEnumerable<T> ReplaceSections<T>(this IEnumerable<T> source, params List<SectionReplacement<T>> replacements)
 	{
-		ArgumentNullException.ThrowIfNull(source);
+		if (source is null)
+			throw new ArgumentNullException(nameof(source));
 
 		if (replacements is null || replacements.Count is 0)
 		{
@@ -319,7 +331,8 @@ public static class EnumerableExtensions
 
 	internal static IEnumerable<(T previous, T current)> RelativeLoopSkipFirst<T>(this IEnumerable<T> source)
 	{
-		ArgumentNullException.ThrowIfNull(source);
+		if (source is null)
+			throw new ArgumentNullException(nameof(source));
 
 		using IEnumerator<T> enumerator = source.GetEnumerator();
 
@@ -364,7 +377,8 @@ public static class EnumerableExtensions
 	private static IEnumerable<T> ManyMinMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector, Func<TKey, TKey, bool> comparison)
 		where TKey : IComparable<TKey>
 	{
-		ArgumentNullException.ThrowIfNull(source);
+		if (source is null)
+			throw new ArgumentNullException(nameof(source));
 
 		TKey minMaxKey;
 

@@ -29,7 +29,8 @@ public class OrderedAlternatingEnumerable<T, TKey> : IEnumerable<T>
 	/// <exception cref="ArgumentNullException"/>
 	public OrderedAlternatingEnumerable(Func<T, TKey> keyGetter, params ReadOnlySpan<IEnumerable<T>> enumerables)
 	{
-		ArgumentNullException.ThrowIfNull(keyGetter);
+		if (keyGetter is null)
+			throw new ArgumentNullException(nameof(keyGetter));
 
 		if (enumerables.Length == 0)
 			throw new ArgumentException("No enumerables provided.");
