@@ -89,7 +89,7 @@ internal static class ChartFormatting
 	public static string Header(string name) => $"[{name}]";
 
 	public static string Line(in ReadOnlySpan<char> header, in ReadOnlySpan<char> value)
-		=> $"  {header} = {value}";
+		=> $"  {header.ToString()} = {header.ToString()}";
 
 	/// <summary>
 	/// Gets the written data for a note.

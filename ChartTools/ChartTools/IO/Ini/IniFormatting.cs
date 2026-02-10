@@ -146,7 +146,7 @@ public static class IniFormatting
 	public const string GHLCoopGuitarDifficulty = "diff_guitar_coop_ghl";
 
 	public static string Line(in ReadOnlySpan<char> key, ReadOnlySpan<char> value)
-		=> $"{key} = {value}";
+		=> $"{key.ToString()} = {value.ToString()}";
 
 	public class Difficulties
 	{
