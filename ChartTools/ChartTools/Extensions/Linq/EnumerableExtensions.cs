@@ -132,7 +132,7 @@ public static class EnumerableExtensions
 		if (source is null)
 			throw new ArgumentNullException(nameof(source));
 
-		if (source is null)
+		if (predicate is null)
 			throw new ArgumentNullException(nameof(predicate));
 
 		foreach (T item in source)
