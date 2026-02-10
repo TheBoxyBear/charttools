@@ -1,4 +1,6 @@
-﻿namespace ChartTools;
+﻿using ChartTools.Extensions.Enums;
+
+namespace ChartTools;
 
 /// <summary>
 /// Phrase related to an instrument that triggers an in-game event.
@@ -13,7 +15,7 @@ public class InstrumentSpecialPhrase : SpecialPhrase
 		get
 		{
 			InstrumentSpecialPhraseType typeEnum = (InstrumentSpecialPhraseType)TypeCode;
-			return Enum.IsDefined(typeEnum) ? typeEnum : InstrumentSpecialPhraseType.Unknown;
+			return EnumExtensions.IsDefined(typeEnum) ? typeEnum : InstrumentSpecialPhraseType.Unknown;
 		}
 		set => TypeCode = value is InstrumentSpecialPhraseType.Unknown
 			? throw new ArgumentException($"{InstrumentSpecialPhraseType.Unknown} is not a valid explicit value.", nameof(value))

@@ -1,4 +1,6 @@
-﻿namespace ChartTools;
+﻿using ChartTools.Extensions.Enums;
+
+namespace ChartTools;
 
 /// <summary>
 /// Phrase related to a track that triggers an in-game event.
@@ -13,7 +15,7 @@ public class TrackSpecialPhrase : SpecialPhrase
 		get
 		{
 			TrackSpecialPhraseType typeEnum = (TrackSpecialPhraseType)TypeCode;
-			return Enum.IsDefined(typeEnum) ? typeEnum : TrackSpecialPhraseType.Unknown;
+			return EnumExtensions.IsDefined(typeEnum) ? typeEnum : TrackSpecialPhraseType.Unknown;
 		}
 		set => TypeCode = value is TrackSpecialPhraseType.Unknown
 			? throw new ArgumentException($"{TrackSpecialPhraseType.Unknown} is not a valid explicit value.", nameof(value))
