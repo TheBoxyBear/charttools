@@ -11,7 +11,12 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	where TNote : struct, IDefinedLaneNote<TLane>
 	where TLane : struct, Enum
 {
-	public bool OpenExclusivity { get; } = TNote.OpenExclusivity;
+	public bool OpenExclusivity { get; }
+#if NET7_0_OR_GREATER
+		= TNote.OpenExclusivity;
+#else
+		= default(TNote).OpenExclusivity;
+#endif
 
 	private readonly List<TNote> m_notes = [];
 
@@ -57,8 +62,15 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 
 		m_notes.Add(note);
 
+#if NET7_0_OR_GREATER
 		if (m_notes.Capacity > TNote.MaxLanes)
 			m_notes.Capacity = TNote.MaxLanes;
+#else
+		TNote dummy = default;
+
+		if (m_notes.Capacity > dummy.MaxLanes)
+			m_notes.Capacity = dummy.MaxLanes;
+#endif
 	}
 
 	void ICollection<TNote>.Add(TNote note)

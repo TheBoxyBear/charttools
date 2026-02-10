@@ -7,9 +7,15 @@ namespace ChartTools;
 /// </summary>
 public readonly record struct DrumsNote : IDefinedLaneNote<DrumsLane>
 {
+#if NET7_0_OR_GREATER
 	public static bool OpenExclusivity => false;
 
 	public static byte MaxLanes => 6;
+#else
+	public bool OpenExclusivity => false;
+
+	public byte MaxLanes => 6;
+#endif
 
 	/// <summary>
 	/// <see langword="true"/> if the cymbal must be hit instead of the pad on supported drum sets
