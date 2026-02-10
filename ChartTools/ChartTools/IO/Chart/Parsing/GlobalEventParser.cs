@@ -1,5 +1,8 @@
-﻿using ChartTools.Events;
+﻿#if !NETCOREAPP3_0_OR_GREATER
+using static ChartTools.Extensions.MemoryExtensions;
 #endif
+
+using ChartTools.Events;
 using ChartTools.IO.Chart.Configuration.Sessions;
 using ChartTools.IO.Chart.Entries;
 
