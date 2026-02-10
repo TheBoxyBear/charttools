@@ -22,4 +22,8 @@ public abstract class SpecialPhrase(uint position, byte typeCode, uint length = 
 	/// Duration of the phrase in ticks
 	/// </summary>
 	public uint Length { get; set; } = length;
+
+#if !NETCOREAPP3_0_OR_GREATER
+	uint ILongTrackObject.EndPosition => Position + Length;
+#endif
 }

@@ -39,6 +39,10 @@ public readonly record struct DrumsNote : IDefinedLaneNote<DrumsLane>
 
 	public uint Sustain { get; init; }
 
+#if !NETCOREAPP3_0_OR_GREATER
+	uint IReadOnlyLongObject.Length => Sustain;
+#endif
+
 	public DrumsLane Lane
 	{
 		get;
