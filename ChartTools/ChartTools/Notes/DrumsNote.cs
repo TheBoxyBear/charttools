@@ -28,7 +28,8 @@ public readonly record struct DrumsNote : IDefinedLaneNote<DrumsLane>
 	/// <summary>
 	/// Determines if the note is played by kicking
 	/// </summary>
-	public bool IsKick => Lane is DrumsLane.Kick or DrumsLane.DoubleKick;
+	public bool IsKick
+		=> Lane is DrumsLane.Kick or DrumsLane.DoubleKick;
 
 	public uint Sustain { get; init; }
 

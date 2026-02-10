@@ -14,7 +14,8 @@ internal class IniFileReader(ReadingDataSource source, Metadata? existing) : Tex
 		=> base.Parsers.Cast<IniParser>();
 
 	protected override TextParser? GetParser(in ReadOnlyMemory<char> header)
-		=> header.Span.Equals(IniFormatting.Header, StringComparison.OrdinalIgnoreCase) ? new IniParser(existing) : null;
+		=> header.Span.Equals(IniFormatting.Header, StringComparison.OrdinalIgnoreCase)
+			? new IniParser(existing) : null;
 
 	protected override bool IsSectionStart(in ReadOnlySpan<char> line)
 		=> !line.StartsWith('[');

@@ -198,7 +198,7 @@ public abstract record Instrument<TChord> : Instrument
 	}
 
 	/// <summary>
-	/// Gets the <see cref="Track{TChord}"/> that matches a <see cref="DiffEnum"/>
+	/// Gets the <see cref="Track{TChord}"/> that matches a <see cref="Difficulty"/>
 	/// </summary>
 	public override Track<TChord>? GetTrack(SafeEnum<Difficulty> difficulty) => difficulty.Value switch
 	{
@@ -283,11 +283,11 @@ public abstract record Instrument<TChord> : Instrument
 	public Track<TChord> SetTrack(Track<TChord> track) => track is null
 		? throw new ArgumentNullException(nameof(track))
 		: track.Difficulty.Value switch
-			{
-				Difficulty.Easy   => Easy   = track with { ParentInstrument = this },
-				Difficulty.Medium => Medium = track with { ParentInstrument = this },
-				Difficulty.Hard   => Hard   = track with { ParentInstrument = this },
-				Difficulty.Expert => Expert = track with { ParentInstrument = this },
-				_               => throw new UndefinedEnumException(track.Difficulty)
-			};
+		{
+			Difficulty.Easy   => Easy   = track with { ParentInstrument = this },
+			Difficulty.Medium => Medium = track with { ParentInstrument = this },
+			Difficulty.Hard   => Hard   = track with { ParentInstrument = this },
+			Difficulty.Expert => Expert = track with { ParentInstrument = this },
+			_  => throw new UndefinedEnumException(track.Difficulty)
+		};
 }

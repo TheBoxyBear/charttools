@@ -101,7 +101,9 @@ internal abstract class TextFileReader(ReadingDataSource source)
 				currentGroup?.Source.EndAwait();
 			}
 
-			bool AdvanceSection() => ReadLine(ref content, ref line) || (DefinedSectionEnd ? throw SectionException.EarlyEnd(header.ToString()) : false);
+			bool AdvanceSection()
+				=> ReadLine(ref content, ref line) ||
+					(DefinedSectionEnd ? throw SectionException.EarlyEnd(header.ToString()) : false);
 		}
 
 		bool ReadLine(ref ReadOnlyMemory<char> content, ref ReadOnlyMemory<char> line)

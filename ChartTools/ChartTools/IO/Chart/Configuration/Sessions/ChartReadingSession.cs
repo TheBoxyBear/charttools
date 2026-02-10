@@ -3,7 +3,8 @@ using ChartTools.IO.Configuration;
 
 namespace ChartTools.IO.Chart.Configuration.Sessions;
 
-internal class ChartReadingSession(ComponentList components, ChartReadingConfiguration? config) : ChartSession(null)
+internal class ChartReadingSession(ComponentList components, ChartReadingConfiguration? config)
+	: ChartSession(null)
 {
 	public ComponentList Components { get; set; } = components;
 

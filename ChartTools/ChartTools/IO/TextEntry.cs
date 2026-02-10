@@ -35,7 +35,7 @@ internal readonly struct TextEntry
 		if (separatorIndex == -1)
 			throw new EntryException();
 
-		Key   = line[0..separatorIndex].Trim();
+		Key   = line[..separatorIndex].Trim();
 		Value = line[(separatorIndex + 1)..].Trim();
 	}
 }

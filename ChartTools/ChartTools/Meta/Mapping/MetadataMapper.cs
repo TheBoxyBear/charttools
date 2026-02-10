@@ -56,10 +56,9 @@ internal abstract class MetadataMapper
 		});
 
 	protected IEnumerable<TextEntry> GetAllUnidentified(Metadata metadata)
-	{
-		foreach (UnidentifiedMetadata data in metadata.UnidentifiedData.Where(data => data.Origin == FileType))
-			yield return new(data.Key.AsMemory(), data.Value.AsMemory());
-	}
+		=> metadata.UnidentifiedData
+			.Where(data => data.Origin == FileType)
+			.Select(data => new TextEntry(data.Key.AsMemory(), data.Value.AsMemory()));
 
 	protected static void ValidateKey(in ReadOnlySpan<char> key)
 	{

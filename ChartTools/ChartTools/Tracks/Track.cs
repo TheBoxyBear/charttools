@@ -40,7 +40,6 @@ public abstract record Track : IEmptyVerifiable
 	/// Groups of notes of the same position
 	/// </summary>
 	public abstract IReadOnlyList<Chord> Chords { get; }
-
 	protected abstract IReadOnlyList<Chord> GetChords();
 
 	internal IEnumerable<TrackSpecialPhrase> SoloToStarPower(bool removeEvents)

@@ -10,7 +10,8 @@ namespace ChartTools.IO.Chart;
 /// <summary>
 /// Reader of text file that sends read lines to subscribers of its events.
 /// </summary>
-internal class ChartFileReader(ReadingDataSource source, ChartReadingSession session) : TextFileReader(source)
+internal class ChartFileReader(ReadingDataSource source, ChartReadingSession session)
+	: TextFileReader(source)
 {
 	public ChartReadingSession Session { get; } = session;
 

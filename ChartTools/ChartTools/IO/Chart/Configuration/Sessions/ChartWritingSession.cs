@@ -4,7 +4,8 @@ using ChartTools.IO.Formatting;
 
 namespace ChartTools.IO.Chart.Configuration.Sessions;
 
-internal class ChartWritingSession(ChartWritingConfiguration? config, FormattingRules? formatting) : ChartSession(formatting)
+internal class ChartWritingSession(ChartWritingConfiguration? config, FormattingRules? formatting)
+	: ChartSession(formatting)
 {
 	public override ChartWritingConfiguration Configuration { get; } = config ?? ChartFile.DefaultWriteConfig;
 
