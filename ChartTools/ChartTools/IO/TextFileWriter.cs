@@ -1,7 +1,7 @@
 ﻿using ChartTools.Extensions.Linq;
 using ChartTools.Internal.Collections;
-using ChartTools.IO.Sources;
 using ChartTools.IO.Serializing;
+using ChartTools.IO.Sources;
 
 namespace ChartTools.IO;
 
@@ -38,7 +38,7 @@ internal abstract class TextFileWriter(
 		foreach (Serializer<string> serializer in m_serializers)
 			serializer.Serialize();
 
-		using StreamWriter writer = new(Source.Stream, leaveOpen: true);
+		using StreamWriter writer = CreateWriter(Source);
 
 		foreach (string line in GetLinesToWrite(static serializer => serializer.Serialize()))
 			writer.WriteLine(line);
@@ -48,7 +48,7 @@ internal abstract class TextFileWriter(
 
 	public async Task WriteAsync(CancellationToken cancellationToken)
 	{
-		using StreamWriter writer = new(Source.Stream, leaveOpen: true);
+		using StreamWriter writer = CreateWriter(Source);
 
 		Dictionary<Serializer<string>, EagerEnumerable<string>> serializerResults = m_serializers.ToDictionary(
 			static ser => ser, static ser => new EagerEnumerable<string>(ser.SerializeAsync()));
@@ -75,7 +75,8 @@ internal abstract class TextFileWriter(
 		List<string> lines = [];
 		string? line;
 
-		using StreamReader reader = new(Source.Existing.Stream, leaveOpen: true);
+		using StreamReader reader = CreateReader(Source);
+
 		string content = reader.ReadToEnd();
 
 		while ((line = reader.ReadLine()) is not null)
@@ -113,4 +114,17 @@ internal abstract class TextFileWriter(
 
 	public void Dispose()
 		=> Source.Dispose();
+
+	private static StreamReader CreateReader(WritingDataSource source)
+		=> new(source.Stream,
+			encoding: null,
+			detectEncodingFromByteOrderMarks: true,
+			bufferSize: -1,
+			leaveOpen: true);
+
+	private static StreamWriter CreateWriter(WritingDataSource source)
+		=> new(source.Stream,
+			encoding: null,
+			bufferSize: -1,
+			leaveOpen: true);
 }

@@ -23,7 +23,12 @@ internal abstract class TextFileReader(ReadingDataSource source)
 
 		using (Source.Stream)
 		{
-			using StreamReader reader = new(Source.Stream, leaveOpen: true);
+			using StreamReader reader = new(Source.Stream,
+				encoding: null,
+				detectEncodingFromByteOrderMarks: true,
+				bufferSize: -1,
+				leaveOpen: true);
+
 			contentStr = reader.ReadToEnd();
 		}
 
