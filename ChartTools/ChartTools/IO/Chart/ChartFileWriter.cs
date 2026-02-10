@@ -1,4 +1,8 @@
-﻿using ChartTools.IO.Serializing;
+﻿#if !NET8_0_OR_GREATER
+using static ChartTools.Extensions.MemoryExtensions;
+#endif
+
+using ChartTools.IO.Serializing;
 using ChartTools.IO.Sources;
 
 namespace ChartTools.IO.Chart;

@@ -1,4 +1,8 @@
-﻿using ChartTools.IO.Parsing;
+﻿#if !NET9_0_OR_GREATER
+using static ChartTools.Extensions.MemoryExtensions;
+#endif
+
+using ChartTools.IO.Parsing;
 using ChartTools.IO.Sources;
 using ChartTools.Meta;
 
