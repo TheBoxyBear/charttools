@@ -63,14 +63,14 @@ internal static class ChartFormatting
 	/// Headers for GHL tracks
 	/// </summary>
 	public static readonly IReadOnlyDictionary<string, (Difficulty, GHLInstrumentIdentity)> GHLTrackHeaders =
-		GetTrackCombinations(Enum.GetValues<GHLInstrumentIdentity>())
+		GetTrackCombinations(EnumCache<GHLInstrumentIdentity>.Values)
 		.ToDictionary(tuple => Header(tuple.instrument, tuple.difficulty));
 
 	/// <summary>
 	/// Headers for standard tracks
 	/// </summary>
 	public static readonly Dictionary<string, (Difficulty, StandardInstrumentIdentity)> StandardTrackHeaders =
-		GetTrackCombinations(Enum.GetValues<StandardInstrumentIdentity>())
+		GetTrackCombinations(EnumCache<StandardInstrumentIdentity>.Values)
 		.ToDictionary(tuple => Header((InstrumentIdentity)tuple.instrument, tuple.difficulty));
 
 	/// <summary>
