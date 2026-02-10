@@ -1,4 +1,8 @@
-﻿namespace ChartTools.IO;
+﻿#if !NET8_0_OR_GREATER
+using static ChartTools.Extensions.MemoryExtensions;
+#endif
+
+namespace ChartTools.IO;
 
 /// <summary>
 /// Line of text file data
@@ -31,7 +35,7 @@ internal readonly struct TextEntry
 		if (separatorIndex == -1)
 			throw new EntryException();
 
-		Key   = line[0..separatorIndex].Trim();
+		Key   = line[..separatorIndex].Trim();
 		Value = line[(separatorIndex + 1)..].Trim();
 	}
 }

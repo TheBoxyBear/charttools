@@ -131,13 +131,14 @@ public static class IniFormatting
 	/// </summary>
 	public const string HopoFrequency = "hopo_frequency";
 
-	public const string MultiplierNote = "multiplier_note";
-	public const string StarPowerNote = "star_power_note";
-	public const string SysExSliders = "sysex_slider";
-	public const string SysExHighHat = "sysex_high_hat_ctrl";
-	public const string Rimshot = "sysex_rimshot";
-	public const string SysExOpenBass = "sysex_open_bass";
-	public const string SysExProSlide = "sysex_pro_slide";
+	public const string
+		MultiplierNote  = "multiplier_note",
+		StarPowerNote   = "star_power_note",
+		SysExSliders    = "sysex_slider",
+		SysExHighHat    = "sysex_high_hat_ctrl",
+		Rimshot         = "sysex_rimshot",
+		SysExOpenBass   = "sysex_open_bass",
+		SysExProSlide   = "sysex_pro_slide";
 
 	/// <summary>
 	/// Value of <see cref="InstrumentDifficultySet.GHLCoopGuitar"/>
@@ -145,7 +146,7 @@ public static class IniFormatting
 	public const string GHLCoopGuitarDifficulty = "diff_guitar_coop_ghl";
 
 	public static string Line(in ReadOnlySpan<char> key, ReadOnlySpan<char> value)
-		=> $"{key} = {value}";
+		=> $"{key.ToString()} = {value.ToString()}";
 
 	public class Difficulties
 	{

@@ -5,8 +5,6 @@ using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
 using ChartTools.Meta.Mapping;
 
-using System.Diagnostics.CodeAnalysis;
-
 namespace ChartTools.Meta;
 
 /// <summary>
@@ -82,7 +80,9 @@ public sealed class Metadata
 		get;
 		set
 		{
-			ArgumentNullException.ThrowIfNull(value);
+			if (value is null)
+				throw new ArgumentNullException(nameof(value));
+
 			field = value;
 		}
 	} = new();
@@ -135,7 +135,9 @@ public sealed class Metadata
 		get;
 		set
 		{
-			ArgumentNullException.ThrowIfNull(value);
+			if (value is null)
+				throw new ArgumentNullException(nameof(value));
+
 			field = value;
 		}
 	} = new();
@@ -162,7 +164,9 @@ public sealed class Metadata
 		get;
 		set
 		{
-			ArgumentNullException.ThrowIfNull(value);
+			if (value is null)
+				throw new ArgumentNullException(nameof(value));
+
 			field = value;
 		}
 	} = new();
@@ -208,7 +212,12 @@ public sealed class Metadata
 			static (a, b) => a.Key == b.Key && a.Origin == b.Origin));
 	#endregion
 
-	public bool TryGet(FileType fileType, string key, [MaybeNullWhen(false)] out string value)
+	public bool TryGet(FileType fileType, string key,
+#if NETCOREAPP3_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+		[System.Diagnostics.CodeAnalysis.MaybeNullWhen(false)] out string value)
+#else
+		out string value)
+#endif
 		=> fileType switch
 		{
 			FileType.Chart => MetadataChartMapper.Shared.TryGet(this, key, out value),

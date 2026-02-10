@@ -1,6 +1,5 @@
 ﻿namespace ChartTools;
 
-
 /// <summary>
 /// Interface for objects with a defined length in ticks where the length is read-only
 /// </summary>

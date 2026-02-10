@@ -7,7 +7,9 @@ public interface ILaneNote : INote
 	/// </summary>
 	public uint Sustain { get; init; }
 
+#if NETCOREAPP3_0_OR_GREATER
 	uint IReadOnlyLongObject.Length => Sustain;
+#endif
 }
 
 public interface ILaneNote<TLane> : ILaneNote
@@ -19,7 +21,13 @@ public interface ILaneNote<TLane> : ILaneNote
 public interface IDefinedLaneNote<TLane> : ILaneNote<TLane>
 	where TLane : Enum
 {
+#if NET7_0_OR_GREATER
 	public static abstract bool OpenExclusivity { get; }
 
 	public static abstract byte MaxLanes { get; }
+#else
+	public bool OpenExclusivity { get; }
+
+	public byte MaxLanes { get; }
+#endif
 }

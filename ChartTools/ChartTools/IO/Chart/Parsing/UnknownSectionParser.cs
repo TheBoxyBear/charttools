@@ -6,8 +6,16 @@ namespace ChartTools.IO.Chart.Parsing;
 internal class UnknownSectionParser(ChartReadingSession session, in ReadOnlyMemory<char> header)
 	: ChartParser(session, in header)
 {
+#if NET5_0_OR_GREATER
 	public override Section<string> Result
-	=> GetResult(m_result);
+		=> GetResultIfReady(m_result);
+#else
+	public new Section<string> Result
+		=> GetResultIfReady(m_result);
+
+	protected override object? GetResult()
+		=> Result;
+#endif
 
 	private readonly Section<string> m_result = new(header.ToString());
 

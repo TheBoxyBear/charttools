@@ -1,4 +1,8 @@
-﻿using ChartTools.Extensions.Collections;
+﻿#if !NET9_0_OR_GREATER
+using static ChartTools.Extensions.MemoryExtensions;
+#endif
+
+using ChartTools.Extensions.Collections;
 using ChartTools.IO.Parsing;
 using ChartTools.IO.Sources;
 
@@ -11,13 +15,20 @@ internal abstract class TextFileReader(ReadingDataSource source)
 
 	protected bool m_disposeReader = false;
 
+	protected abstract TextParser? GetParser(in ReadOnlyMemory<char> header);
+
 	protected override void ReadBase(bool async, in CancellationToken cancellationToken)
 	{
 		string contentStr;
 
 		using (Source.Stream)
 		{
-			using StreamReader reader = new(Source.Stream, leaveOpen: true);
+			using StreamReader reader = new(Source.Stream,
+				encoding: null,
+				detectEncodingFromByteOrderMarks: true,
+				bufferSize: -1,
+				leaveOpen: true);
+
 			contentStr = reader.ReadToEnd();
 		}
 
@@ -97,7 +108,9 @@ internal abstract class TextFileReader(ReadingDataSource source)
 				currentGroup?.Source.EndAwait();
 			}
 
-			bool AdvanceSection() => ReadLine(ref content, ref line) || (DefinedSectionEnd ? throw SectionException.EarlyEnd(header.ToString()) : false);
+			bool AdvanceSection()
+				=> ReadLine(ref content, ref line) ||
+					(DefinedSectionEnd ? throw SectionException.EarlyEnd(header.ToString()) : false);
 		}
 
 		bool ReadLine(ref ReadOnlyMemory<char> content, ref ReadOnlyMemory<char> line)

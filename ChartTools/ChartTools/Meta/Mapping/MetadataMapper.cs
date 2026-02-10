@@ -1,7 +1,5 @@
 ﻿using ChartTools.IO;
 
-using System.Diagnostics.CodeAnalysis;
-
 namespace ChartTools.Meta.Mapping;
 
 internal abstract class MetadataMapper
@@ -18,20 +16,25 @@ internal abstract class MetadataMapper
 
 	public abstract IEnumerable<TextEntry> GetAll(Metadata metadata);
 
-	public bool TryGet(Metadata metadata, in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out string value)
+	public bool TryGet(Metadata metadata, in ReadOnlySpan<char> key,
+#if NETCOREAPP3_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+		[System.Diagnostics.CodeAnalysis.MaybeNullWhen(false)] out string value)
+#else
+		out string value)
+#endif
 	{
-		value = Get(metadata, in key);
+		value = Get(metadata, in key)!;
 		return value is not null;
 	}
 
 	protected string? FindUndentified(Metadata metadata, in ReadOnlySpan<char> key)
-		=> metadata.UnidentifiedData.TryGetValue(new()
-		{
-			Key    = key.ToString(),
-			Origin = FileType
-		}, out UnidentifiedMetadata found)
-			? found.Value
-			: null;
+	{
+		foreach (UnidentifiedMetadata data in metadata.UnidentifiedData)
+			if (data.Origin == FileType && data.Key == key.ToString())
+				return data.Value;
+
+		return null;
+	}
 
 	protected void AddUnidentified(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value)
 		=> metadata.UnidentifiedData.Add(new()
@@ -56,10 +59,9 @@ internal abstract class MetadataMapper
 		});
 
 	protected IEnumerable<TextEntry> GetAllUnidentified(Metadata metadata)
-	{
-		foreach (UnidentifiedMetadata data in metadata.UnidentifiedData.Where(data => data.Origin == FileType))
-			yield return new(data.Key.AsMemory(), data.Value.AsMemory());
-	}
+		=> metadata.UnidentifiedData
+			.Where(data => data.Origin == FileType)
+			.Select(data => new TextEntry(data.Key.AsMemory(), data.Value.AsMemory()));
 
 	protected static void ValidateKey(in ReadOnlySpan<char> key)
 	{

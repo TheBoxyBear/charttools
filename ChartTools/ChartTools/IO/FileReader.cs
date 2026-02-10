@@ -10,7 +10,14 @@ internal abstract class FileReader<T>(ReadingDataSource source) : IDisposable
 
 	public bool IsReading { get; protected set; }
 
+#if NET5_0_OR_GREATER
 	public abstract IEnumerable<FileParser<T>> Parsers { get; }
+#else
+	public IEnumerable<FileParser<T>> Parsers
+		=> GetFileParsers();
+
+	protected abstract IEnumerable<FileParser<T>> GetFileParsers();
+#endif
 
 	public abstract void Read();
 
@@ -31,14 +38,20 @@ internal abstract class FileReader<T, TParser>(ReadingDataSource source) : FileR
 {
 	public record ParserContentGroup(TParser Parser, DelayedEnumerableSource<T> Source);
 
+#if NET5_0_OR_GREATER
 	public override IEnumerable<TParser> Parsers
 		=> m_parserGroups.Select(static g => g.Parser);
+#else
+	public new IEnumerable<TParser> Parsers
+		=> m_parserGroups.Select(static g => g.Parser);
+
+	protected override IEnumerable<FileParser<T>> GetFileParsers()
+		=> Parsers;
+#endif
 
 	protected readonly List<ParserContentGroup> m_parserGroups = [];
 
 	protected readonly List<Task> m_parseTasks = [];
-
-	protected abstract TParser? GetParser(in T header);
 
 	public override void Read()
 	{

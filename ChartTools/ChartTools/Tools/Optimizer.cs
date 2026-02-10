@@ -1,8 +1,6 @@
 ﻿using ChartTools.Extensions.Linq;
 using ChartTools.IO.Formatting;
 
-using System.Data;
-
 namespace ChartTools.Tools;
 
 /// <summary>
@@ -35,7 +33,11 @@ public static class Optimizer
 
 			ref readonly TNote note = ref noteSpan[index];
 
+#if NET7_0_OR_GREATER
 			if (TNote.OpenExclusivity)
+#else
+			if (default(TNote).OpenExclusivity)
+#endif
 			{
 				if (note.Index == 0) // Open stops all sustains
 					foreach ((uint position, NoteProxy<TNote, TLane> proxy) in ongoingSustains.Values)

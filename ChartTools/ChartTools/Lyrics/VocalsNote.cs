@@ -12,6 +12,10 @@ public class VocalsNote(uint position, VocalsPitch pitch = VocalsPitch.None, str
 
 	public uint Length { get; set; }
 
+#if !NETCOREAPP3_0_OR_GREATER
+	uint ILongTrackObject.EndPosition => Position + Length;
+#endif
+
 	public SafeEnum<VocalsPitch> Pitch { get; set; } = pitch;
 
 	public byte Index

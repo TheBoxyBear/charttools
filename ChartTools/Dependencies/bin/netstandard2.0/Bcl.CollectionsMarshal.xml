@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Bcl.CollectionsMarshal</name>
+    </assembly>
+    <members>
+        <member name="T:System.Runtime.InteropServices.CollectionsMarshal">
+            <summary>
+            An unsafe class that provides a set of methods to access the underlying data representations of collections.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.InteropServices.CollectionsMarshal.AsSpan``1(System.Collections.Generic.List{``0})">
+            <summary>
+            Get a <see cref="T:System.Span`1"/> view over a <see cref="T:System.Collections.Generic.List`1"/>'s data.
+            Items should not be added or removed from the <see cref="T:System.Collections.Generic.List`1"/> while the <see cref="T:System.Span`1"/> is in use.
+            </summary>
+            <param name="list">The list to get the data view over.</param>
+        </member>
+        <member name="M:System.Runtime.InteropServices.CollectionsMarshal.GetValueRefOrNullRef``2(System.Collections.Generic.Dictionary{``0,``1},``0)">
+            <summary>
+            Gets either a ref to a <typeparamref name="TValue"/> in the <see cref="T:System.Collections.Generic.Dictionary`2"/> or a ref null if it does not exist in the <paramref name="dictionary"/>.
+            </summary>
+            <param name="dictionary">The dictionary to get the ref to <typeparamref name="TValue"/> from.</param>
+            <param name="key">The key used for lookup.</param>
+            <typeparam name="TKey">The type of the keys in the dictionary.</typeparam>
+            <typeparam name="TValue">The type of the values in the dictionary.</typeparam>
+            <remarks>
+            Items should not be added or removed from the <see cref="T:System.Collections.Generic.Dictionary`2"/> while the ref <typeparamref name="TValue"/> is in use.
+            The ref null can be detected using System.Runtime.CompilerServices.Unsafe.IsNullRef
+            </remarks>
+        </member>
+        <member name="M:System.Runtime.InteropServices.CollectionsMarshal.GetValueRefOrAddDefault``2(System.Collections.Generic.Dictionary{``0,``1},``0,System.Boolean@)">
+            <summary>
+            Gets a ref to a <typeparamref name="TValue"/> in the <see cref="T:System.Collections.Generic.Dictionary`2"/>, adding a new entry with a default value if it does not exist in the <paramref name="dictionary"/>.
+            </summary>
+            <param name="dictionary">The dictionary to get the ref to <typeparamref name="TValue"/> from.</param>
+            <param name="key">The key used for lookup.</param>
+            <param name="exists">Whether or not a new entry for the given key was added to the dictionary.</param>
+            <typeparam name="TKey">The type of the keys in the dictionary.</typeparam>
+            <typeparam name="TValue">The type of the values in the dictionary.</typeparam>
+            <remarks>Items should not be added to or removed from the <see cref="T:System.Collections.Generic.Dictionary`2"/> while the ref <typeparamref name="TValue"/> is in use.</remarks>
+        </member>
+        <member name="M:System.Runtime.InteropServices.CollectionsMarshal.SetCount``1(System.Collections.Generic.List{``0},System.Int32)">
+            <summary>
+            Sets the count of the <see cref="T:System.Collections.Generic.List`1"/> to the specified value.
+            </summary>
+            <param name="list">The list to set the count of.</param>
+            <param name="count">The value to set the list's count to.</param>
+            <typeparam name="T">The type of the elements in the list.</typeparam>
+            <exception cref="T:System.NullReferenceException">
+            <paramref name="list"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            <paramref name="count"/> is negative.
+            </exception>
+            <remarks>
+            When increasing the count, uninitialized data is being exposed.
+            </remarks>
+        </member>
+    </members>
+</doc>

@@ -1,5 +1,7 @@
+#if NET7_0_OR_GREATER
 using System.ComponentModel;
 using System.Numerics;
+#endif
 
 namespace ChartTools.Extensions.Enums;
 
@@ -9,10 +11,12 @@ namespace ChartTools.Extensions.Enums;
 /// <typeparam name="T">Enum type to wrap</typeparam>
 public record struct SafeEnum<T> : IEnumWrapper<SafeEnum<T>, T>,
 	IEquatable<T>, IEquatable<T?>,
-	IComparable<T>,
-	IEqualityOperators<SafeEnum<T>, T, bool>, IEqualityOperators<SafeEnum<T>, T?, bool>,
+	IComparable<T>
+#if NET7_0_OR_GREATER
+	,IEqualityOperators<SafeEnum<T>, T, bool>, IEqualityOperators<SafeEnum<T>, T?, bool>,
 	IComparisonOperators<SafeEnum<T>, T, bool>,
 	IBitwiseOperators<SafeEnum<T>, T, T>
+#endif
 	where T : struct, Enum
 {
 	/// <summary>
@@ -49,32 +53,56 @@ public record struct SafeEnum<T> : IEnumWrapper<SafeEnum<T>, T>,
 	public override readonly string ToString()
 		=> Value.ToString();
 
-	public bool Equals(SafeEnum<T>? nullable)
+	public readonly bool Equals(SafeEnum<T>? nullable)
 		=> nullable is T value && Value == value;
 
-	public bool Equals(T other)
+	public readonly bool Equals(T other)
 		=> Value == other;
 
-	public bool Equals(T? nullable)
+	public readonly bool Equals(T? nullable)
 		=> nullable is T value && Value == value;
 
-	public int CompareTo(SafeEnum<T> other)
+	public readonly int CompareTo(SafeEnum<T> other)
 		=> Value.CompareTo<T>(other.Value);
 
-	public int CompareTo(T other)
+	public readonly int CompareTo(T other)
 		=> Value.CompareTo<T>(other);
 
+	public static SafeEnum<T> Parse(string value)
+		=> EnumExtensions.Parse<T>(value);
+
+	public static SafeEnum<T> Parse(in ReadOnlySpan<char> value)
+		=> EnumExtensions.Parse<T>(value);
+
+	public static bool TryParse(string value, out SafeEnum<T> result)
+	{
+		bool success = EnumExtensions.TryParse(value, out T enumResult);
+		result = enumResult;
+
+		return success;
+	}
+
+	public static bool TryParse(in ReadOnlySpan<char> value, out SafeEnum<T> result)
+	{
+		bool success = EnumExtensions.TryParse(in value, out T enumResult);
+		result = enumResult;
+
+		return success;
+	}
+
+	#if NET7_0_OR_GREATER
 	static SafeEnum<T> IParsable<SafeEnum<T>>.Parse(string s, IFormatProvider? _)
-		=> Enum.Parse<T>(s);
+		=> Parse(s);
 
 	static bool IParsable<SafeEnum<T>>.TryParse(string s, IFormatProvider? _, out SafeEnum<T> result)
-		=> Enum.TryParse(s, out result);
+		=> TryParse(s, out result);
 
 	static SafeEnum<T> ISpanParsable<SafeEnum<T>>.Parse(ReadOnlySpan<char> s, IFormatProvider? _)
-		=> Enum.Parse<T>(s);
+		=> Parse(s);
 
 	static bool ISpanParsable<SafeEnum<T>>.TryParse(ReadOnlySpan<char> s, IFormatProvider? _, out SafeEnum<T> result)
-		=> Enum.TryParse(s, out result);
+		=> TryParse(in s, out result);
+#endif
 
 	public static implicit operator T(SafeEnum<T> wrapper)
 		=> wrapper.Value;
@@ -181,6 +209,7 @@ public record struct SafeEnum<T> : IEnumWrapper<SafeEnum<T>, T>,
 	#endregion
 }
 
+#if NET7_0_OR_GREATER
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static class SafeEnumExtenxions
 {
@@ -195,3 +224,4 @@ public static class SafeEnumExtenxions
 			=> left.Value - right;
 	}
 }
+#endif

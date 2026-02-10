@@ -339,7 +339,7 @@ public static class ChartFile
 
 	#region Writing
 	private static void FillInstrumentsWriterData(
-		InstrumentSet set, InstrumentComponentList components, ChartWritingSession session, ICollection<Serializer<string>> serializers, ICollection<string> removedHeaders)
+		InstrumentSet set, InstrumentComponentList components, ChartWritingSession session, List<Serializer<string>> serializers, List<string> removedHeaders)
 	{
 		foreach (InstrumentIdentity identity in
 			EnumCache<StandardInstrumentIdentity>.Values.Cast<InstrumentIdentity>()

@@ -10,16 +10,15 @@ public class Tempo(uint position, float value) : ITrackObject
 	/// </summary>
 	public TempoMap? Map
 	{
-		get => m_map;
+		get;
 		internal set
 		{
 			if (value is not null)
 				PositionSynced = false;
 
-			m_map = value;
+			field = value;
 		}
 	}
-	private TempoMap? m_map;
 
 	/// <inheritdoc cref="ITrackObject.Position" path="/summary"/>
 	/// <remarks>Only refer to the position if <see cref="PositionSynced"/> is <see langword="true"/>.</remarks>
@@ -46,24 +45,23 @@ public class Tempo(uint position, float value) : ITrackObject
 	/// </summary>
 	public TimeSpan? Anchor
 	{
-		get => m_anchor;
+		get;
 		set
 		{
 			bool valueNull = value is null;
 
 			if (valueNull)
 			{
-				if (m_anchor is not null)
+				if (field is not null)
 					Map?.RemoveAnchor(this);
 			}
-			else if (m_anchor is null)
-					Map?.AddAnchor(this);
+			else if (field is null)
+				Map?.AddAnchor(this);
 
-			m_anchor = value;
+			field = value;
 			PositionSynced = valueNull;
 		}
 	}
-	private TimeSpan? m_anchor;
 
 	/// <summary>
 	/// Indicates if the tick position is up to date with <see cref="Anchor"/>.
@@ -71,7 +69,8 @@ public class Tempo(uint position, float value) : ITrackObject
 	/// <remarks><see langword="true"/> if the marker has no anchor.</remarks>
 	public bool PositionSynced { get; private set; } = true;
 
-	public Tempo(TimeSpan anchor, float value) : this(0, value) => Anchor = anchor;
+	public Tempo(TimeSpan anchor, float value) : this(0, value)
+		=> Anchor = anchor;
 
 	internal void SyncPosition(uint position)
 	{
@@ -79,5 +78,6 @@ public class Tempo(uint position, float value) : ITrackObject
 		PositionSynced = true;
 	}
 
-	internal void DesyncPosition() => PositionSynced = false;
+	internal void DesyncPosition()
+		=> PositionSynced = false;
 }

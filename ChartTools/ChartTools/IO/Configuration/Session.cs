@@ -5,7 +5,14 @@ namespace ChartTools.IO.Configuration;
 
 internal abstract class Session(FormattingRules? formatting)
 {
+#if NET5_0_OR_GREATER
 	public abstract ICommonConfiguration Configuration { get; }
+#else
+	public ICommonConfiguration Configuration
+		=> GetCommonConfiguration();
+
+	protected abstract ICommonConfiguration GetCommonConfiguration();
+#endif
 
 	public FormattingRules Formatting { get; set; } = formatting ?? new();
 

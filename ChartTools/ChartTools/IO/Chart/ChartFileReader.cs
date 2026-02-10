@@ -2,6 +2,7 @@
 using ChartTools.IO.Chart.Parsing;
 using ChartTools.IO.Components;
 using ChartTools.IO.Configuration;
+using ChartTools.IO.Parsing;
 using ChartTools.IO.Sources;
 using ChartTools.Meta;
 
@@ -10,18 +11,23 @@ namespace ChartTools.IO.Chart;
 /// <summary>
 /// Reader of text file that sends read lines to subscribers of its events.
 /// </summary>
-internal class ChartFileReader(ReadingDataSource source, ChartReadingSession session) : TextFileReader(source)
+internal class ChartFileReader(ReadingDataSource source, ChartReadingSession session)
+	: TextFileReader(source)
 {
 	public ChartReadingSession Session { get; } = session;
 
+#if NET5_0_OR_GREATER
 	public override IEnumerable<ChartParser> Parsers
+#else
+	public new IEnumerable<ChartParser> Parsers
+#endif
 		=> base.Parsers.Cast<ChartParser>();
 
 	public override bool DefinedSectionEnd => true;
 
 	public Metadata? ExistingMetadata { get; set; }
 
-	protected override ChartParser? GetParser(in ReadOnlyMemory<char> header)
+	protected override TextParser? GetParser(in ReadOnlyMemory<char> header)
 	{
 		string headerString = header.ToString();
 

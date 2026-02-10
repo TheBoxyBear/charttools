@@ -36,15 +36,19 @@ public abstract class Event(uint position) : ITrackObject
 	/// </summary>
 	public string EventData
 	{
-		get => Argument == string.Empty ? EventType : string.Join(' ', EventType, Argument);
+		get => Argument == string.Empty ? EventType :
+#if NET9_0_OR_GREATER
+			string.Join(' ', EventType, Argument);
+#else
+			string.Join(" ", EventType, Argument);
+#endif
 		set
 		{
-			// Can possibly be optimized with a stack array
-			string[] split = value.Split(' ', 2);
+			int separatorIndex = value.IndexOf('=');
 
-
-			EventType = split[0];
-			Argument = split.Length > 1 ? split[1] : string.Empty;
+			(EventType, Argument) = separatorIndex is -1
+				? (value.Trim(), string.Empty)
+				: (value[..separatorIndex].Trim(), value[(separatorIndex + 1)..].Trim());
 		}
 	}
 

@@ -4,7 +4,14 @@ internal abstract class FileParser<T>
 {
 	public bool ResultReady { get; private set; }
 
+#if NET5_0_OR_GREATER
 	public abstract object? Result { get; }
+#else
+	public object? Result
+		=> GetResult();
+
+	protected abstract object? GetResult();
+#endif
 
 	public async Task StartAsyncParse(IEnumerable<T> items)
 	{
@@ -34,7 +41,7 @@ internal abstract class FileParser<T>
 	protected virtual void FinalizeParse()
 		=> ResultReady = true;
 
-	protected TResult GetResult<TResult>(TResult result)
+	protected TResult GetResultIfReady<TResult>(TResult result)
 		=> ResultReady ? result : throw new Exception("Result is not ready.");
 
 	protected abstract Exception GetHandleException(in T item, Exception innerException);

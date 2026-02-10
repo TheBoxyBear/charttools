@@ -20,6 +20,6 @@ internal static class StringExtensions
 			0 => string.Empty, // ""
 			1 => items[0], // "Item1"
 			2 => $"{items[0]} {lastItemPreceder} {items[1]}", // "Item1 lastItemPreceder Item2"
-			_ => $"{string.Join(", ", items[..^2])} {lastItemPreceder} {items[^1]}" // "Item1, Item2 lastItemPreceder Item3"
+			_ => $"{string.Join(", ", items[..^2].ToString())} {lastItemPreceder} {items[^1]}" // "Item1, Item2 lastItemPreceder Item3"
 		};
 }

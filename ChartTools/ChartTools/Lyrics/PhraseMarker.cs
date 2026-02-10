@@ -11,4 +11,8 @@ public class PhraseMarker(uint position) : TrackObjectBase(position), ILongTrack
 	/// </summary>
 	/// <remarks>A value of 0 defines the length to be up to the next phrase start.</remarks>
 	public uint Length { get; set; }
+
+#if !NETCOREAPP3_0_OR_GREATER
+	uint ILongTrackObject.EndPosition => Position + Length;
+#endif
 }

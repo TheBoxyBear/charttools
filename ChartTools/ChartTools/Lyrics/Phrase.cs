@@ -36,6 +36,10 @@ public class Phrase(PhraseMarker marker, IReadOnlyList<VocalsNote>? notes = null
 		set => PhraseMarker.Length = value;
 	}
 
+#if !NETCOREAPP3_0_OR_GREATER
+	uint ILongTrackObject.EndPosition => Position + Length;
+#endif
+
 	/// <summary>
 	/// Concatenated raw text of all notes in the phrase, separated by spaces.
 	/// </summary>

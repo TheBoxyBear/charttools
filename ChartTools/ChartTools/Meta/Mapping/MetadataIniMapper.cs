@@ -2,8 +2,6 @@
 using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
 
-using System.Diagnostics.CodeAnalysis;
-
 namespace ChartTools.Meta.Mapping;
 
 internal partial class MetadataIniMapper : MetadataMapper
@@ -163,7 +161,7 @@ internal partial class MetadataIniMapper : MetadataMapper
 			yield return entry;
 	}
 
-	private static partial bool TryGetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, [MaybeNullWhen(false)] out string value);
+	private static partial bool TryGetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, out string value);
 
 	private static partial bool TrySetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value);
 

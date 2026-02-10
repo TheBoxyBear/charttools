@@ -1,4 +1,6 @@
-﻿namespace ChartTools.Extensions;
+﻿using ChartTools.Extensions.Enums;
+
+namespace ChartTools.Extensions;
 
 internal static class Validator
 {
@@ -9,7 +11,7 @@ internal static class Validator
 	public static void ValidateEnum<T>(T value)
 		where T : struct, Enum
 	{
-		if (!Enum.IsDefined(value))
+		if (!EnumExtensions.IsDefined(value))
 			throw new UndefinedEnumException(value);
 	}
 }

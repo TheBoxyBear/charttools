@@ -1,4 +1,8 @@
-﻿using ChartTools.Events;
+﻿#if !NETCOREAPP3_0_OR_GREATER
+using static ChartTools.Extensions.MemoryExtensions;
+#endif
+
+using ChartTools.Events;
 using ChartTools.IO.Chart.Configuration.Sessions;
 using ChartTools.IO.Chart.Entries;
 
@@ -7,8 +11,16 @@ namespace ChartTools.IO.Chart.Parsing;
 internal class GlobalEventParser(ChartReadingSession session)
 	: ChartParser(session, ChartFormatting.GlobalEventHeader.AsMemory())
 {
+#if NET5_0_OR_GREATER
 	public override List<GlobalEvent> Result
-		=> GetResult(m_result);
+		=> GetResultIfReady(m_result);
+#else
+	public new List<GlobalEvent> Result
+		=> GetResultIfReady(m_result);
+
+	protected override object? GetResult()
+		=> Result;
+#endif
 
 	private readonly List<GlobalEvent> m_result = [];
 
