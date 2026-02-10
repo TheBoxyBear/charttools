@@ -49,16 +49,16 @@ public record struct SafeEnum<T> : IEnumWrapper<SafeEnum<T>, T>,
 	public override readonly string ToString()
 		=> Value.ToString();
 
-	public bool Equals(SafeEnum<T>? nullable)
+	public readonly bool Equals(SafeEnum<T>? nullable)
 		=> nullable is T value && Value == value;
 
-	public bool Equals(T other)
+	public readonly bool Equals(T other)
 		=> Value == other;
 
-	public bool Equals(T? nullable)
+	public readonly bool Equals(T? nullable)
 		=> nullable is T value && Value == value;
 
-	public int CompareTo(SafeEnum<T> other)
+	public readonly int CompareTo(SafeEnum<T> other)
 		=> Value.CompareTo<T>(other.Value);
 
 	public int CompareTo(T other)
