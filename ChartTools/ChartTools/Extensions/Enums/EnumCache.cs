@@ -12,21 +12,23 @@ public static class EnumCache<T> where T : struct, Enum
 	/// Cached values
 	/// </summary>
 	/// <remarks>Generates the cache on first call.</remarks>
-	public static ImmutableArray<T> Values
-	{
-		get
-		{
-			if (field.Length == 0)
-				field = [.. Enum.GetValues<T>()];
+	public static ImmutableArray<T> Values => s_values ??=
+#if NET5_0_OR_GREATER
+		[.. Enum.GetValues<T>()];
+#else
+		[.. Enum.GetValues(typeof(T)).Cast<T>()];
+#endif
 
-			return field;
-		}
-		private set;
-	}
+	private static ImmutableArray<T>? s_values;
+
+	public static TypeCode UnderlyingTypeCode
+		=> s_typeCode ??= Type.GetTypeCode(Enum.GetUnderlyingType(typeof(T)));
+
+	private static TypeCode? s_typeCode;
 
 	/// <summary>
 	/// Clears the cache.
 	/// </summary>
 	public static void Clear()
-		=> Values = [];
+		=> s_values = null;
 }
