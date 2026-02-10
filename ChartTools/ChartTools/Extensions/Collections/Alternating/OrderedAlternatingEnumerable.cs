@@ -1,5 +1,9 @@
 ﻿using System.Collections;
 
+#if !NET6_0_OR_GREATER
+using ChartTools.Extensions.Linq;
+#endif
+
 namespace ChartTools.Extensions.Collections.Alternating;
 
 /// <summary>
