@@ -5,6 +5,8 @@ If you find any bugs, you can report them in the [Issues section](https://github
 
 As this project is in development, it should only be used with charts with a backup available. **I am not responsible for damages to charts!**
 
+Although not planned for the initial release, a lot of work towards Midi support is already complete and can be found in the [beta-midi](https://github.com/TheBoxyBear/charttools/tree/beta-midi) branch. There are also plans for supporting **.sng** files as well as consideration for the upcoming *Stage Tour* game.
+
 ## Getting Started
 For an overview on installation and taking your first steps with ChartTools, see [Getting Started](Docs/articles/getting-started.md). A GitHub Pages website is available with detailed articles and API documentation.
 
