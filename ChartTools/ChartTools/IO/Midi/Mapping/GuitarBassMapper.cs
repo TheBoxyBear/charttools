@@ -8,13 +8,13 @@ internal class GuitarBassMapper : StandardInstrumentMapper, IAnimationContainer<
 {
 	public override byte BigRockCount => 5;
 
-	public override MidiInstrumentOrigin Format => _format;
+	public override MidiInstrumentOrigin Format => m_format;
+
+	private MidiInstrumentOrigin m_format = MidiInstrumentOrigin.NA;
 
 	public IEnumerable<HandPositionEvent> AnimationEvents => animations;
 
 	private readonly List<HandPositionEvent> animations = [];
-
-	private MidiInstrumentOrigin _format = MidiInstrumentOrigin.NA;
 
 	public GuitarBassMapper(MidiReadingSession session)
 		: base(session) { }
@@ -23,9 +23,9 @@ internal class GuitarBassMapper : StandardInstrumentMapper, IAnimationContainer<
 		: base(session)
 	{
 		if (writingFormat is not MidiInstrumentOrigin.GuitarHero2 or MidiInstrumentOrigin.RockBand)
-			throw new NotSupportedException($"Cannot use {nameof(GuitarBassMapper)} to write in format {_format}");
+			throw new NotSupportedException($"Cannot use {nameof(GuitarBassMapper)} to write in format {m_format}");
 
-		_format = writingFormat;
+		m_format = writingFormat;
 		animations = handAnimations.ToList();
 	}
 
@@ -74,17 +74,17 @@ internal class GuitarBassMapper : StandardInstrumentMapper, IAnimationContainer<
 			yield break;
 		}
 
-		(var difficulty, var adjusted) = byteNumber switch
+		(Difficulty? difficulty, int adjusted) = byteNumber switch
 		{
 			> 59 and < 71  => (Difficulty.Easy, byteNumber - 59),
 			> 71 and < 83  => (Difficulty.Medium, byteNumber - 71),
 			> 83 and < 95  => (Difficulty.Hard, byteNumber - 83),
 			> 95 and < 107 => (Difficulty.Expert, byteNumber - 95),
-			110            => (default(Difficulty?), byteNumber),
+			110            => (null, byteNumber),
 			_              => HandleInvalidMidiEvent<(Difficulty?, int)>(position, e)
 		};
 
-		(var type, var newAdjusted) = adjusted switch
+		(MappingType type, int newAdjusted) = adjusted switch
 		{
 			6   => (MappingType.Modifier, (int)StandardChordModifiers.ForcedHopo),
 			7   => (MappingType.Modifier, (int)StandardChordModifiers.ForcedStrum),
@@ -112,7 +112,7 @@ internal class GuitarBassMapper : StandardInstrumentMapper, IAnimationContainer<
 		void ApplyFormat(MidiInstrumentOrigin format)
 		{
 			if (format is MidiInstrumentOrigin.Unknown)
-				_format = format;
+				m_format = format;
 		}
 	}
 

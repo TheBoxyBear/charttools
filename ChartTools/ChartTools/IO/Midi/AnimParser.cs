@@ -10,6 +10,7 @@ namespace ChartTools.IO.Midi;
 internal class AnimParser(MidiReadingSession session) : MidiParser(session)
 {
 	public override HandPositionAnimationTrack Result => GetResult(result);
+
 	private readonly HandPositionAnimationTrack result = new(HandPositionAnimationTrackIdentity.Guitar);
 
 	public override void ApplyToSong(Song song) => song.Animations.Guitar = Result;

@@ -29,9 +29,9 @@ internal class GHGemsMapper : StandardInstrumentMapper, IAnimationContainer<Voca
 			yield break;
 		}
 
-		var byteNumber = (byte)e.NoteNumber;
+		byte byteNumber = (byte)e.NoteNumber;
 
-		(var difficulty, var adjusted) = byteNumber switch
+		(Difficulty? difficulty, int adjusted) = byteNumber switch
 		{
 			> 59 and < 71 => (Difficulty.Easy, byteNumber - 59),
 			> 71 and < 83 => (Difficulty.Medium, byteNumber - 71),
@@ -40,12 +40,12 @@ internal class GHGemsMapper : StandardInstrumentMapper, IAnimationContainer<Voca
 			_ => HandleInvalidMidiEvent<(Difficulty?, int)>(position, e)
 		};
 
-		(var type, var newAdjusted) = adjusted switch
+		(MappingType type, int newAdjusted) = adjusted switch
 		{
-			8 => (MappingType.Special, (int)TrackSpecialPhraseType.StarPowerGain),
+			8  => (MappingType.Special, (int)TrackSpecialPhraseType.StarPowerGain),
 			10 => (MappingType.Special, (int)TrackSpecialPhraseType.Player1FaceOff),
 			11 => (MappingType.Special, (int)TrackSpecialPhraseType.Player2FaceOff),
-			_ => (MappingType.Note, adjusted)
+			_  => (MappingType.Note, adjusted)
 		};
 
 		if (newAdjusted > 5)
@@ -56,13 +56,13 @@ internal class GHGemsMapper : StandardInstrumentMapper, IAnimationContainer<Voca
 
 	public override IEnumerable<NoteMapping> Map(Instrument<StandardChord> instrument)
 	{
-		foreach (var track in instrument.GetExistingTracks())
+		foreach (Track<StandardChord> track in instrument.GetExistingTracks())
 		{
-			var offset = track.Difficulty switch
+			int offset = track.Difficulty.Value switch
 			{
-				Difficulty.Easy => 60,
+				Difficulty.Easy   => 60,
 				Difficulty.Medium => 72,
-				Difficulty.Hard => 84,
+				Difficulty.Hard   => 84,
 				Difficulty.Expert => 96,
 				_ => throw new UndefinedEnumException(track.Difficulty)
 			};
@@ -76,7 +76,7 @@ internal class GHGemsMapper : StandardInstrumentMapper, IAnimationContainer<Voca
 					yield return new(chord.Position + note.Sustain, NoteState.Close, sevenBitIndex);
 				}
 
-			foreach (var special in track.SpecialPhrases)
+			foreach (TrackSpecialPhrase special in track.SpecialPhrases)
 			{
 				var index = special.Type switch
 				{

@@ -19,7 +19,7 @@ internal abstract class LaneInstrumentParser<TChord, TLane, TModifier>(ILaneInst
 
 internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : InstrumentParser<TChord>
 	where TChord : Chord<TNote, TLane, TModifier>, new()
-	where TNote : LaneNote<TLane>, new()
+	where TNote : struct, IDefinedLaneNote<TLane>
 	where TLane : struct, Enum
 	where TModifier : struct, Enum
 {
@@ -199,7 +199,7 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
 
 	protected virtual void HandleNote(NoteEventMapping mapping)
 	{
-		var track = GetOrCreateTrack(mapping.Difficulty);
+		Track<TChord>? track = GetOrCreateTrack(mapping.Difficulty);
 
 		if (track is null)
 			return;
@@ -242,7 +242,7 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
 		if (BigRockCount == 0)
 			return;
 
-		var openedBigRockPosition = openedBigRockPositions[mapping.Index];
+		uint? openedBigRockPosition = openedBigRockPositions[mapping.Index];
 
 		switch (mapping.State)
 		{

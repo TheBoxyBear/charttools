@@ -35,6 +35,8 @@ public class Song
 	/// <inheritdoc cref="InstrumentSet"/>
 	public InstrumentSet Instruments { get; set; } = new();
 
+	public AnimationSet Animations { get; set; } = new();
+
 	public Vocals? Vocals { get; set; }
 
 	public ChartSection? UnknownChartSections { get; set; } = [];
