@@ -1,0 +1,3 @@
+[submodule "ChartTools/Dependencies/Bcl.CollectionsMarshal"]
+	path = ChartTools/Dependencies/Bcl.CollectionsMarshal
+	url = https://github.com/DaZombieKiller/Bcl.CollectionsMarshal
