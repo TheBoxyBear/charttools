@@ -1,0 +1,16 @@
+.vs/
+.vscode/
+*/obj
+*/bin
+*/*.user
+TestResults/
+ChartTools_Debug.sln
+ChartTools_Debug.slnx
+Docs/DROP/
+Docs/TEMP/
+Docs/packages/
+Docs/_site/*
+Docs/log.txt
+Docs/api/*.yml
+Docs/api/.manifest
+.idea/

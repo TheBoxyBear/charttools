@@ -1,0 +1,7 @@
+DROP/
+TEMP/
+packages/
+_site/
+log.txt
+api/*.yml
+api/.manifest

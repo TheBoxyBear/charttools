@@ -1,0 +1,42 @@
+﻿using ChartTools.IO.Formatting;
+using ChartTools.IO.Ini;
+using ChartTools.Meta;
+
+namespace ChartTools.IO;
+
+public record DirectoryResult<T>(T Result, Metadata Metadata);
+
+internal static class DirectoryHandler
+{
+	public static DirectoryResult<T?> FromDirectory<T>(string directory, Func<string, FormattingRules, T> read)
+	{
+		string
+			iniPath   = directory + @"\song.ini",
+			chartPath = directory + @"\notes.chart";
+
+		Metadata iniMetadata = File.Exists(iniPath) ? IniFile.ReadMetadata(iniPath) : new();
+
+		T? value = default;
+
+		if (File.Exists(chartPath))
+			value = read(chartPath, iniMetadata.Formatting);
+
+		return new(value, iniMetadata);
+	}
+	public static async Task<DirectoryResult<T?>> FromDirectoryAsync<T>(
+		string directory, Func<string, FormattingRules, Task<T>> read, CancellationToken cancellationToken)
+	{
+		string
+			iniPath   = directory + @"\song.ini",
+			chartPath = directory + @"\notes.chart";
+
+		Metadata iniMetadata = File.Exists(iniPath) ? await IniFile.ReadMetadataAsync(iniPath, null, cancellationToken) : new();
+
+		T? value = default;
+
+		if (File.Exists(chartPath))
+			value = await read(chartPath, iniMetadata.Formatting).ConfigureAwait(false);
+
+		return new(value, iniMetadata);
+	}
+}

@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Docs": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "SiteDir": "$(ProjectDir)",
+        "LibPath": "$(SolutionDir)ChartTools\\artifacts\\ChartTools.dll"
+      }
+    }
+  }
+}
