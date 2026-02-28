@@ -21,7 +21,7 @@ internal abstract class InstrumentParser<TChord>(MidiReadingSession session) : M
 
 	protected uint GetSustain(uint start, uint end)
 	{
-		var length = end - start;
+		uint length = end - start;
 		return length < session.Formatting?.SustainCutoff ? 0 : length;
 	}
 }

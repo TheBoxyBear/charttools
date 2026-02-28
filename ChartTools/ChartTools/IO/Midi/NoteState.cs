@@ -1,3 +1,3 @@
-﻿namespace ChartTools.IO.Midi.Mapping;
+﻿namespace ChartTools.IO.Midi;
 
 internal enum NoteState : byte { Open, Close }

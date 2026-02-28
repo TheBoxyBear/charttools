@@ -1,6 +1,7 @@
 ﻿using ChartTools.Animations;
 using ChartTools.IO.Configuration.Common;
 using ChartTools.IO.Midi.Configuration.Sessions;
+
 using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Core;
 

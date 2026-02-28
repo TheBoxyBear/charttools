@@ -6,13 +6,13 @@ internal static class MidiFormatting
 {
 	private static readonly Dictionary<InstrumentIdentity, string> InstrumentSequenceNames = new()
 	{
-		{ InstrumentIdentity.LeadGuitar, LeadGuitarHeader },
-		{ InstrumentIdentity.CoopGuitar, CoopGuitarHeader },
-		{ InstrumentIdentity.Bass, BassHeader },
-		{ InstrumentIdentity.RhythmGuitar, RhythmGuitarHeader },
-		{ InstrumentIdentity.Keys, KeysHeader },
+		{ InstrumentIdentity.StandardLeadGuitar, LeadGuitarHeader },
+		{ InstrumentIdentity.StandardCoopGuitar, CoopGuitarHeader },
+		{ InstrumentIdentity.StandardBass, BassHeader },
+		{ InstrumentIdentity.StandardRhythmGuitar, RhythmGuitarHeader },
+		{ InstrumentIdentity.StandardKeys, KeysHeader },
 		{ InstrumentIdentity.Drums, DrumsHeader },
-		{ InstrumentIdentity.GHLGuitar, GHLGuitarHeader },
+		{ InstrumentIdentity.GHLLeadGuitar, GHLGuitarHeader },
 		{ InstrumentIdentity.GHLBass, GHLBassHeader },
 		{ InstrumentIdentity.Vocals, VocalsHeader }
 	};
@@ -37,11 +37,11 @@ internal static class MidiFormatting
 	{
 		switch (identity)
 		{
-			case InstrumentIdentity.LeadGuitar:
+			case InstrumentIdentity.StandardLeadGuitar:
 				yield return GHGemsHeader;
 				yield return LeadGuitarHeader;
 				break;
-			case InstrumentIdentity.Bass:
+			case InstrumentIdentity.StandardBass:
 				yield return BassHeader;
 				break;
 		}
@@ -49,9 +49,9 @@ internal static class MidiFormatting
 
 	public static bool FindChunk(IEnumerable<TrackChunk> chunks, Predicate<string> match, [NotNullWhen(true)] out string? header, [NotNullWhen(true)] out IEnumerator<MidiEvent>? enumerator)
 	{
-		foreach (var events in chunks.Select(c => c.Events))
+		foreach (EventsCollection events in chunks.Select(c => c.Events))
 		{
-			using var eventsEnumerator = events.GetEnumerator();
+			using IEnumerator<MidiEvent> eventsEnumerator = events.GetEnumerator();
 
 			if (eventsEnumerator.MoveNext())
 				continue;

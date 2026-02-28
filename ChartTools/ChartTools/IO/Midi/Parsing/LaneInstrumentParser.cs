@@ -1,5 +1,5 @@
 ﻿using ChartTools.Animations;
-using ChartTools.Extensions;
+using ChartTools.Extensions.Enums;
 using ChartTools.Extensions.Linq;
 using ChartTools.IO.Midi.Configuration.Sessions;
 using ChartTools.IO.Midi.Mapping;
@@ -12,13 +12,13 @@ namespace ChartTools.IO.Midi.Parsing;
 
 internal abstract class LaneInstrumentParser<TChord, TLane, TModifier>(ILaneInstrumentReadMapper mapper, MidiReadingSession session)
 	: LaneInstrumentParser<TChord, LaneNote<TLane>, TLane, TModifier>(mapper, session)
-	where TChord : LaneChord<LaneNote<TLane>, TLane, TModifier>, new()
+	where TChord : Chord<LaneNote<TLane>, TLane, TModifier>, new()
 	where TLane : struct, Enum
 	where TModifier : struct, Enum
 { }
 
 internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : InstrumentParser<TChord>
-	where TChord : LaneChord<TNote, TLane, TModifier>, new()
+	where TChord : Chord<TNote, TLane, TModifier>, new()
 	where TNote : LaneNote<TLane>, new()
 	where TLane : struct, Enum
 	where TModifier : struct, Enum
@@ -99,9 +99,10 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
 
 	protected virtual void HandleSpecial(NoteEventMapping mapping)
 	{
-		var track = GetOrCreateTrack(mapping.Difficulty);
-		var type = (TrackSpecialPhraseType)mapping.Index;
-		var openedPosition = track is null ? openedSharedTrackSpecialPositions[type] : openedSpecialPositions[track.Difficulty][type];
+		Track<TChord>? track = GetOrCreateTrack(mapping.Difficulty);
+
+		TrackSpecialPhraseType type = (TrackSpecialPhraseType)mapping.Index;
+		uint? openedPosition = track is null ? openedSharedTrackSpecialPositions[type] : openedSpecialPositions[track.Difficulty][type];
 
 		switch (mapping.State)
 		{
@@ -171,17 +172,20 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
 				break;
 		}
 
-		void CloseSpecial(Track<TChord> track) => track.SpecialPhrases.Add(new(openedPosition.Value, type, GetSustain(openedPosition!.Value, mapping.Position)));
+		void CloseSpecial(Track<TChord> track)
+			=> track.SpecialPhrases.Add(new(openedPosition.Value, type, GetSustain(openedPosition!.Value, mapping.Position)));
+
 		void InitTracks()
 		{
 			for (int i = 0; i < tracks.Length; i++)
 				tracks[i] ??= new() { Difficulty = (Difficulty)i };
 		}
 	}
+
 	protected virtual void HandleModifier(NoteEventMapping mapping)
 	{
-		var track = GetOrCreateTrack(mapping.Difficulty);
-		var modifierIndex = mapping.Index;
+		Track<TChord>? track = GetOrCreateTrack(mapping.Difficulty);
+		byte modifierIndex = mapping.Index;
 
 		if (track is null)
 			foreach (var t in tracks)
@@ -189,8 +193,10 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
 		else
 			ApplyModifier(track);
 
-		void ApplyModifier(Track<TChord> track) => AddModifier(GetOrCreateChord(mapping.Position, track), modifierIndex);
+		void ApplyModifier(Track<TChord> track)
+			=> AddModifier(GetOrCreateChord(mapping.Position, track), modifierIndex);
 	}
+
 	protected virtual void HandleNote(NoteEventMapping mapping)
 	{
 		var track = GetOrCreateTrack(mapping.Difficulty);
@@ -198,9 +204,9 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
 		if (track is null)
 			return;
 
-		var index = mapping.Index;
-		var lane = Unsafe.As<byte, TLane>(ref index);
-		var openedSource = openedNoteSources[track.Difficulty][lane];
+		byte index = mapping.Index;
+		TLane lane = Unsafe.As<byte, TLane>(ref index);
+		TChord? openedSource = openedNoteSources[track.Difficulty][lane];
 
 		switch (mapping.State)
 		{
@@ -281,6 +287,7 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
 	}
 
 	protected virtual bool CustomHandle(NoteEvent note) => false;
+
 	protected virtual bool CustomTextHandle(TextEvent text) => false;
 
 	protected override void FinaliseParse()
@@ -290,7 +297,7 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
 			if (bigRockEndings.Count < BigRockCount && !Session.HandleMissingBigRock())
 				return;
 
-			var ending = bigRockEndings.UniqueBy(e => e.Position) || !bigRockEndings.UniqueBy(e => e.Length)
+			InstrumentSpecialPhrase ending = bigRockEndings.UniqueBy(e => e.Position) || !bigRockEndings.UniqueBy(e => e.Length)
 				? bigRockEndings.First()
 				: Session.HandleMisalignedBigRock(bigRockEndings);
 
@@ -302,7 +309,10 @@ internal abstract class LaneInstrumentParser<TChord, TNote, TLane, TModifier> : 
 	}
 
 	protected abstract TChord CreateChord(uint position);
-	protected Track<TChord>? GetOrCreateTrack(Difficulty? difficulty) => difficulty is null ? null : (tracks[(int)difficulty] ??= new() { Difficulty = difficulty.Value });
+
+	protected Track<TChord>? GetOrCreateTrack(Difficulty? difficulty)
+		=> difficulty is null ? null : tracks[(int)difficulty] ??= new() { Difficulty = difficulty.Value };
+
 	protected abstract void AddModifier(TChord chord, byte modifierIndex);
 
 	public override void ApplyToSong(Song song)

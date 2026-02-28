@@ -14,7 +14,7 @@ internal readonly struct NoteMapping(uint position, NoteState state, SevenBitNum
 
 	public MidiEvent ToMidiEvent(uint delta)
 	{
-		var e = State switch
+		NoteOnEvent e = State switch
 		{
 			NoteState.Open => new NoteOnEvent(),
 			NoteState.Close => new NoteOnEvent(),
