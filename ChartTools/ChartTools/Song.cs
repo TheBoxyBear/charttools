@@ -93,7 +93,7 @@ public class Song
 	/// </summary>
 	/// <param name="directory">Path of the directory to read from</param>
 	/// <param name="config">Optional read config</param>
-	/// /// <param name="cancellationToken">Token used for cancellation</param>
+	/// <param name="cancellationToken">Token used for cancellation</param>
 	/// <remarks>Uses multi-threading to parse song components.</remarks>
 	public static async Task<Song> FromDirectoryAsync(
 		string directory, ReadingConfiguration? config = default, CancellationToken cancellationToken = default)
