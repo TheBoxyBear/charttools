@@ -5,7 +5,7 @@
         {
           "src": "../ChartTools",
           "files": [
-            "artifacts/ChartTools.dll"
+            "artifacts/*.dll"
           ]
         }
       ],
