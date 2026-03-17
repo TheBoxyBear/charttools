@@ -11,9 +11,7 @@ using System.Text;
 
 namespace ChartTools.Generator;
 
-/// <summary>
-/// Generates mapping methods between <see cref="Metadata"/> properties and their corresponding keys in different file formats, as defined by <see cref="MetadataKeyAttribute"/>
-/// </summary>
+/// <exclude />
 [Generator]
 public class MetadataMapGenerator : IIncrementalGenerator
 {

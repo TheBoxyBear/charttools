@@ -10,7 +10,7 @@
         }
       ],
       "dest": "api",
-      "namespaceLayout":  "nested"
+      "namespaceLayout": "nested"
     }
   ],
   "build": {
@@ -21,10 +21,12 @@
         ],
         "exclude": [
           "_site/**",
-          "obj/**"
+          "obj/**",
+          "apidocs/**"
         ]
       }
     ],
+    "overwrite": "apidocs/*.md",
     "resource": [
       {
         "files": [
