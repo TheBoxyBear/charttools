@@ -353,7 +353,7 @@ public static class ChartFile
 			{
 				Track? track = set.Get(identity)?.GetTrack(diff);
 
-				if (track?.IsEmpty is not null or false)
+				if (track?.IsEmpty is not (null or false))
 					serializers.Add(new TrackSerializer(track, session));
 				else // No track data for the instrument and difficulty
 					removedHeaders.Add(ChartFormatting.Header(identity, diff));

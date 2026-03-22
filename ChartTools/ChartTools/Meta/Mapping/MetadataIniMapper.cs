@@ -4,12 +4,9 @@ using ChartTools.IO.Ini;
 
 namespace ChartTools.Meta.Mapping;
 
+[MetadataMapper(FileType.Ini)]
 internal partial class MetadataIniMapper : MetadataMapper
 {
-	public static MetadataIniMapper Shared { get; } = new();
-
-	public override FileType FileType => FileType.Ini;
-
 	public override string? Get(Metadata metadata, in ReadOnlySpan<char> key)
 	{
 		ValidateKey(in key);
@@ -160,16 +157,4 @@ internal partial class MetadataIniMapper : MetadataMapper
 		foreach (TextEntry entry in GetAllUnidentified(metadata))
 			yield return entry;
 	}
-
-	private static partial bool TryGetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, out string value);
-
-	private static partial bool TrySetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value);
-
-	private static partial bool TryRemoveFromAttribute(Metadata metadata, in ReadOnlySpan<char> key);
-
-	private static partial bool? TryContainsFromAttribute(Metadata metadata, in ReadOnlySpan<char> key);
-
-	private partial IEnumerable<TextEntry> GetAllFromAttributes(Metadata metadata);
-
-	private MetadataIniMapper() { }
 }

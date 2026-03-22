@@ -119,9 +119,7 @@ internal class CodeBuilder(StringBuilder? builder = default)
 
 	public override string ToString()
 	{
-		if (m_contextStack.Count > 0)
-			throw new InvalidOperationException("Buidler has unclosed contexts.");
-
+		EndAllContexts();
 		return StringBuilder.ToString();
 	}
 

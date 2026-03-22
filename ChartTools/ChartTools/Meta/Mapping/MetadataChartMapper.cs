@@ -3,12 +3,9 @@ using ChartTools.IO.Chart;
 
 namespace ChartTools.Meta.Mapping;
 
+[MetadataMapper(FileType.Chart)]
 internal sealed partial class MetadataChartMapper : MetadataMapper
 {
-	public static MetadataChartMapper Shared { get; } = new();
-
-	public override FileType FileType => FileType.Chart;
-
 	public override string? Get(Metadata metadata, in ReadOnlySpan<char> key)
 	{
 		ValidateKey(in key);
@@ -63,16 +60,4 @@ internal sealed partial class MetadataChartMapper : MetadataMapper
 
 	public override IEnumerable<TextEntry> GetAll(Metadata metadata)
 		=> GetAllFromAttributes(metadata).Concat(GetAllUnidentified(metadata));
-
-	private static partial bool TryGetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, out string value);
-
-	private static partial bool TrySetFromAttribute(Metadata metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value);
-
-	private static partial bool TryRemoveFromAttribute(Metadata metadata, in ReadOnlySpan<char> key);
-
-	private static partial bool? TryContainsFromAttribute(Metadata metadata, in ReadOnlySpan<char> key);
-
-	private partial IEnumerable<TextEntry> GetAllFromAttributes(Metadata metadata);
-
-	private MetadataChartMapper() { }
 }
