@@ -6,6 +6,13 @@ namespace ChartTools.Generator;
 
 internal class CodeBuilder(StringBuilder? builder = default)
 {
+	public CodeBuilder(CodeBuilder? builder = default)
+		: this(new StringBuilder(builder?.ToString() ?? null))
+	{
+		m_contextStack = builder?.m_contextStack ?? [];
+		m_indent = builder?.m_indent ?? string.Empty;
+	}
+
 	public CodeBuilder(string value)
 		: this(new StringBuilder(value)) { }
 
@@ -23,15 +30,16 @@ internal class CodeBuilder(StringBuilder? builder = default)
 		{ '(', ')' },
 		{ '{', '}' },
 		{ '[', ']' },
+		{ '<', '>' },
 		{ '"', '"' }
 	};
 
 	public CodeBuilder StartContext(char openChar, bool newLine = true)
 	{
+		StringBuilder.Append(m_indent + openChar);
+
 		if (newLine)
-			StringBuilder.AppendLine(m_indent + openChar);
-		else
-			StringBuilder.Append(m_indent + openChar);
+			StringBuilder.AppendLine();
 
 		m_contextStack.Push(openChar);
 		m_indent += '\t';
@@ -49,19 +57,27 @@ internal class CodeBuilder(StringBuilder? builder = default)
 		if (!m_contextClosers.TryGetValue(openChar, out char closeChar))
 			throw new InvalidOperationException($"No closing character defined for '{openChar}'.");
 
-		m_indent = m_indent.Substring(0, m_indent.Length - 2);
+		m_indent = m_indent[..^1];
+
+		StringBuilder.Append(m_indent + closeChar);
 
 		if (newLine)
-			StringBuilder.AppendLine(m_indent + closeChar);
-		else
-			StringBuilder.Append(m_indent + closeChar);
+			StringBuilder.AppendLine();
 
 		return this;
 	}
 
-	public CodeBuilder AppendLine(string line)
+	public CodeBuilder EndAllContexts(bool newLine = true)
 	{
-		StringBuilder.AppendLine(m_indent + line);
+		while (m_contextStack.Count > 0)
+			EndContext(newLine);
+
+		return this;
+	}
+
+	public CodeBuilder AppendLine(in ReadOnlySpan<char> line)
+	{
+		StringBuilder.AppendLine(m_indent + line.ToString());
 		return this;
 	}
 
@@ -71,14 +87,43 @@ internal class CodeBuilder(StringBuilder? builder = default)
 		return this;
 	}
 
-	public CodeBuilder Append(string text)
+	public CodeBuilder AppendLines(ReadOnlySpan<char> lines)
 	{
-		StringBuilder.Append(m_indent + text);
+		int breakIndex;
+
+		while ((breakIndex = lines.IndexOf('\n')) != -1)
+		{
+			ReadOnlySpan<char> line = lines[..breakIndex];
+
+			Append(line);
+			lines = lines[(breakIndex + 1)..];
+		}
+
+		if (lines.Length > 0)
+			AppendLine(lines);
+
+		return this;
+	}
+
+	public CodeBuilder Append(in ReadOnlySpan<char> text)
+	{
+		StringBuilder.Append(m_indent + text.ToString());
+		return this;
+	}
+
+	public CodeBuilder AppendInstruction(in ReadOnlySpan<char> instruction)
+	{
+		StringBuilder.AppendLine(m_indent + instruction.ToString() + ';');
 		return this;
 	}
 
 	public override string ToString()
-		=> StringBuilder.ToString();
+	{
+		if (m_contextStack.Count > 0)
+			throw new InvalidOperationException("Buidler has unclosed contexts.");
+
+		return StringBuilder.ToString();
+	}
 
 	public static implicit operator StringBuilder(CodeBuilder builder)
 		=> builder.StringBuilder;
