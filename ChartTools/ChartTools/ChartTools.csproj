@@ -33,10 +33,14 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\ChartTools.Common\ChartTools.Common.csproj" />
-		<ProjectReference Include="..\ChartTools.Generator\ChartTools.Generator.csproj" OutputItemType="Analyzer" />
 	</ItemGroup>
 
+  <ItemGroup Condition="'$(ProduceOnlyReferenceAssembly)' != 'true'">
+    <ProjectReference Include="..\ChartTools.Generator\ChartTools.Generator.csproj" OutputItemType="Analyzer" />
+  </ItemGroup>
+
 	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netstandard2.1'">
+    <PackageReference Include="System.Collections.Immutable" Version="9.0.0" />
 		<Reference Include="Bcl.CollectionsMarshal">
 			<HintPath>..\Dependencies\bin\$(TargetFramework)\Bcl.CollectionsMarshal.dll</HintPath>
 		</Reference>
@@ -44,12 +48,9 @@
 
 	<Target Name="CopyDataFiles" AfterTargets="PostBuildEvent">
 		<ItemGroup>
-			<Files Include="$(OutDir)ChartTools*.dll;$(OutDir)ChartTools*.xml"/>
+			<Files Include="$(OutDir)ChartTools*.dll;$(OutDir)ChartTools*.xml" />
 		</ItemGroup>
-		<Copy
-			SourceFiles="@(Files)"
-			DestinationFolder="$(ProjectDir)artifacts"
-			SkipUnchangedFiles="true" />
+		<Copy SourceFiles="@(Files)" DestinationFolder="$(ProjectDir)artifacts" SkipUnchangedFiles="true" />
 	</Target>
 
 </Project>

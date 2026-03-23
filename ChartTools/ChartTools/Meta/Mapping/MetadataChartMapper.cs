@@ -6,6 +6,12 @@ namespace ChartTools.Meta.Mapping;
 [MetadataMapper(FileType.Chart)]
 internal sealed partial class MetadataChartMapper : MetadataMapper
 {
+	private MetadataChartMapper() { }
+
+	public static MetadataChartMapper Shared { get; } = new();
+
+	public override FileType FileType => FileType.Chart;
+
 	public override string? Get(Metadata metadata, in ReadOnlySpan<char> key)
 	{
 		ValidateKey(in key);

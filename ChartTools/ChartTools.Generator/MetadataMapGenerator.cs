@@ -110,9 +110,6 @@ public class MetadataMapGenerator : IIncrementalGenerator
 				(ctx, mapper) =>
 				{
 					CodeBuilder builder = OpenPartialMapperClass(mapper)
-						.AppendLine($"public static {mapper.Name} Shared {{ get; }} = new();")
-						.AppendLine($"public override FileType FileType => FileType.{mapper.FileType};")
-						.AppendLine($"private {mapper.Name}() {{ }}")
 						.AppendInstruction(TryGetSignature)
 						.AppendInstruction(TrySetSignature)
 						.AppendInstruction(TryRemoveSignature)

@@ -7,6 +7,12 @@ namespace ChartTools.Meta.Mapping;
 [MetadataMapper(FileType.Ini)]
 internal partial class MetadataIniMapper : MetadataMapper
 {
+	private MetadataIniMapper() { }
+
+	public static MetadataIniMapper Shared { get; } = new();
+
+	public override FileType FileType => FileType.Ini;
+
 	public override string? Get(Metadata metadata, in ReadOnlySpan<char> key)
 	{
 		ValidateKey(in key);
