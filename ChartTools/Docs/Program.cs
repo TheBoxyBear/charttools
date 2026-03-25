@@ -120,47 +120,69 @@ return 0;
 int CanSkipAnalyse()
 {
 	string cachePath = "cache.json";
-	DateTime libLastModified = File.GetLastWriteTime(libPath);
 
-	if (!Directory.Exists(siteDir + "articles"))
+	DateTime
+		libLastModified = File.GetLastWriteTime(libPath),
+		docfxJsonLastModified = File.GetLastWriteTime(configPath);
+
+	if (!Directory.Exists(siteDir + "api"))
 	{
 		WriteCache();
 		return 0;
 	}
 
-	if (File.Exists(cachePath))
+	if (!File.Exists(cachePath))
 	{
-		string json;
-
-		try { json = File.ReadAllText(cachePath); }
-		catch (Exception ex)
-		{
-			Console.WriteLine("Error reading build cache:");
-			Console.WriteLine(ex);
-
-			return -1;
-		}
-
-		BuildCache? cache;
-
-		try { cache = JsonSerializer.Deserialize<BuildCache>(File.ReadAllText(cachePath)); }
-		catch (Exception ex)
-		{
-			Console.WriteLine("Error parsing build cache:");
-			Console.WriteLine(ex);
-
-			return -1;
-		}
-
-		if (cache is not null && cache.LibLastModified >= libLastModified)
-			return 1;
+		WriteCache();
+		return 0;
 	}
 
-	WriteCache();
-	return 0;
+	string json;
+
+	try { json = File.ReadAllText(cachePath); }
+	catch (Exception ex)
+	{
+		Console.WriteLine("Error reading build cache:");
+		Console.WriteLine(ex);
+
+		return -1;
+	}
+
+	BuildCache? cache;
+
+	try { cache = JsonSerializer.Deserialize<BuildCache>(File.ReadAllText(cachePath)); }
+	catch (Exception ex)
+	{
+		Console.WriteLine("Error parsing build cache:");
+		Console.WriteLine(ex);
+
+		return -1;
+	}
+
+	if (cache is null)
+	{
+		WriteCache();
+		return 0;
+	}
+
+	if (libLastModified > cache.LibLastModified)
+	{
+		WriteCache();
+		return 0;
+	}
+
+	if (docfxJsonLastModified > cache.DocfxJsonLastModified)
+	{
+		WriteCache();
+		return 0;
+	}
+
+	return 1;
 
 	void WriteCache()
-		=> File.WriteAllText(cachePath, JsonSerializer.Serialize(new BuildCache(libLastModified)));
+		=> File.WriteAllText(cachePath, JsonSerializer.Serialize(new BuildCache(
+			LibLastModified: libLastModified,
+			DocfxJsonLastModified: docfxJsonLastModified)));
 }
 
 bool ValidateEnv(string env, string? value)
@@ -180,4 +202,4 @@ static void PrintStatus(string status)
 	Console.WriteLine();
 }
 
-record class BuildCache(DateTime LibLastModified);
+record class BuildCache(DateTime LibLastModified, DateTime DocfxJsonLastModified);
