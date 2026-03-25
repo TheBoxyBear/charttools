@@ -26,7 +26,7 @@ When an instrument is obtained dynamically using the [InstrumentIdentity](~/api/
 When working with a non-generic track, the following rules apply:
 - Chords cannot be added or removed. The position of existing chords can be modified.
 - Notes can be created using `CreateNote`
-- A note's identity can be obtained through the read-only [Index](~/api/ChartTools.INote#ChartTools_INote_Index.yml) property.
+- A note's identity can be obtained through the read-only [Index](~/api/ChartTools.INote.yml#ChartTools_INote_Index) property.
 - A note's sustain can be modified.
 - Local events and special phrases have no restrictions.
 
@@ -56,5 +56,5 @@ song.Instruments.Set(guitar with { InstrumentIdentity = StandardInstrumentIdenti
 song.Instruments.StandardLeadGuitar.SetTrack(new() { Difficulty = Difficulty.Easy });
 ```
 
-When setting an instrument, the target is determined by the [InstrumentIdentity](~/api/ChartTools.Instrument#ChartTools_Instrument_InstrumentIdentity.yml) property of the new instrument, which can be overridden using a `with` statement. Similarly, the target difficulty when setting a track is determined by the track's [Difficulty](~/api/ChartTools.Track#ChartTools_Track_Difficulty.yml) property, also overridable through `with`. 
+When setting an instrument, the target is determined by the [InstrumentIdentity](~/api/ChartTools.Instrument.yml#ChartTools_Instrument_InstrumentIdentity) property of the new instrument, which can be overridden using a `with` statement. Similarly, the target difficulty when setting a track is determined by the track's [Difficulty](~/api/ChartTools.Track.yml#ChartTools_Track_Difficulty) property, also overridable through `with`. 
 

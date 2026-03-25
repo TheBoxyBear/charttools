@@ -2,7 +2,7 @@
 This document will go over the basics of parsing and saving a chart using ChartTools.
 
 ## Installation
-To add ChartTools to your project, you must first build the ChartTools project. This will generate the dll under `ChartTools/bin/[Debug][Release]`.
+To add ChartTools to your project, you must first build the ChartTools project. This will generate the dll under `ChartTools/ChartTools/artifacts`.
 
 Visual Studio: Right-click on your project from the solution explorer and select "Add Project References...". Click on "Browse" and select `ChartTools.dll` that was generated. If the dll file is moved, also move `ChartTools.xml` to the new directory for XML documentation.
 
@@ -41,7 +41,7 @@ Song song = Song.FromDirectory(path, <ReadingConfiguration>);
 
 A song contains four main components:
 
-- [Metadata](~/api/ChartTools.Metadata.yml) - Miscellaneous info about the song, such as title, album, charter etc.
+- [Metadata](~/api/ChartTools.Meta.Metadata.yml) - Miscellaneous info about the song, such as title, album, charter etc.
 - [Sync track](~/api/ChartTools.SyncTrack.yml) - Markers that define time signature and tempo
 - [Global events](~/articles/events.md) - Events not tied to an instrument or track
 - [Instruments](~/api/ChartTools.InstrumentSet.yml) - Instruments, tracks and notes
@@ -52,7 +52,7 @@ A song contains four main components:
 
 
 ### Metadata
-Similar to reading a song, [Metadata](~/api/ChartTools.Metadata.yml) can be read from a file:
+Similar to reading a song, [Metadata](~/api/ChartTools.Meta.Metadata.yml) can be read from a file:
 
 ```csharp
 Metadata metadata = Metadata.FromFile(path);
@@ -93,7 +93,7 @@ A track can be retrieved from a song as such:
 Track<StandardChord> track = song.Instruments.StandardLeadGuitar.Expert;
 ```
 
-Notice the use of [StandardChord](~/api/ChartTools.StandardChord) as a generic type. Instruments are divided into four categories based on the type of chords they use. These categories are:
+Notice the use of [StandardChord](~/api/ChartTools.StandardChord.yml) as a generic type. Instruments are divided into four categories based on the type of chords they use. These categories are:
 
 - Standard - Five colored notes
 - Drums - Five colored notes with support for double kick and cymbal flags
@@ -108,7 +108,7 @@ A track is composed of three components:
 Instruments can also be obtained dynamically from a song, regardless of the type. [Learn more about the dynamic syntax](~/articles/dynamic-syntax.md).
 
 ### Chords and Notes
-A chord is a set of notes played at the same time. For readability, most chords and notes have specific classes for each instrument type, deriving from [Chord<TNote, TLane, TModifiers>](~/api/ChartTools.Chord-3) and [LaneNode\<TLane\>](~/api/ChartTools.LaneNote-1).
+A chord is a set of notes played at the same time. For readability, most chords and notes have specific classes for each instrument type, deriving from [Chord<TNote, TLane, TModifiers>](~/api/ChartTools.Chord-3.yml) and [LaneNode\<TLane\>](~/api/ChartTools.LaneNote-1.yml).
 
 The following snippet adds an orange note to every chord on a track:
 

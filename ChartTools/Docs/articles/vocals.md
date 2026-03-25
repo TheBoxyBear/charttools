@@ -1,5 +1,5 @@
-﻿# Lyrics
-ChartTools supports lyrics in the form of the [Vocals](~/api/ChartTools.Lyrics.Vocals.yml) component. This component is split into tracks for standard vocals and harmonics, although only standard vocals are currently supported. Unlike other instruments, vocals are not split into tracks based on difficulty. Rather, all difficulties use the same note data, with difficulty being driven by how each game registers a note being sung correctly. Additionally, as vocals have no concept of chords, notes are instead defined as collections of pitches grouped in phrases.
+﻿# Vocals
+ChartTools supports vocals in the form of the [Vocals](~/api/ChartTools.Lyrics.Vocals.yml) component. This component is split into tracks for standard vocals and harmonics, although only standard vocals are currently supported. Unlike other instruments, vocals are not split into tracks based on difficulty. Rather, all difficulties use the same note data, with difficulty being driven by how each game registers a note being sung correctly. Additionally, as vocals have no concept of chords, notes are instead defined as collections of pitches grouped in phrases.
 
 ## Vocals notes
 Unlike other note types, vocals notes are defined by a position, pitch, and length.
@@ -42,7 +42,7 @@ VocalsPitchValue value = pitch;
 > ```
 
 ## Lyrics in chart files
-As the `.chart` format does not formaly support playable vocals, lyrics are represented trough [global events](~/articles/events.md) rather than notes. When reading from a `.chart` file, lyric data will only be read if either the [GlobalEvents](~/api/ChartTools.IO.Components.ComponentList#ChartTools_IO_Components_ComponentList_GlobalEvents.yml) or [Vocals](~/api/ChartTools.IO.Components.ComponentList#ChartTools_IO_Components_ComponentList_Vocals.yml) component is enabled, after which the data will be stored in the corresponding location(s) in the song object. If accessed through vocals, notes will have the special pitch value of [None](~/api/ChartTools.Lyrics.VocalsPitchValue.yml#ChartTools_Lyrics_VocalsPitchValue_None.yml), as global events do not define pitch.
+As the `.chart` format does not formaly support playable vocals, lyrics are represented trough [global events](~/articles/events.md) rather than notes. When reading from a `.chart` file, lyric data will only be read if either the [GlobalEvents](~/api/ChartTools.IO.Components.ComponentList.yml#ChartTools_IO_Components_ComponentList_GlobalEvents) or [Vocals](~/api/ChartTools.IO.Components.ComponentList.yml#ChartTools_IO_Components_ComponentList_Vocals) component is enabled, after which the data will be stored in the corresponding location(s) in the song object. If accessed through vocals, notes will have the special pitch value of [None](~/api/ChartTools.Lyrics.VocalsPitchValue.yml#ChartTools_Lyrics_VocalsPitchValue_None), as global events do not define pitch.
 
 Lyrics can also be converted to and from global events.
 
@@ -62,7 +62,7 @@ events = [..track.ToGlobalEvents()];
 > When writing to a `.chart` file with both components enabled, any global event related to lyrics will be removed and replaced with the data from vocals.
 
 ## Phrases
-Because certain lyric tracks share [phrase markers](~/api/ChartTools.Lyrics/PhraseMarker.yml), notes and phrase markers are stored as separate collections rather than grouping notes under phrases. To simplify working with lyrics, these collections can be promoted to a set of [phrases](~/api/ChartTools.Lyrics.Phrase.yml).
+Because certain lyric tracks share [phrase markers](~/api/ChartTools.Lyrics.PhraseMarker.yml), notes and phrase markers are stored as separate collections rather than grouping notes under phrases. To simplify working with lyrics, these collections can be promoted to a set of [phrases](~/api/ChartTools.Lyrics.Phrase.yml).
 
 The following snippet uses phrases to print the lyrics to a song:
 

@@ -2,9 +2,9 @@
 Events are track objects with custom data that drive various elements of gameplay. This guide will cover how to use events as well as the helpers provided by ChartTools.
 
 ## Class structure
-Events are stored using [Event](~/api/ChartTools.Events.Event.yml) as a base class, containing the position, event type and an optional argument. The type and argument can also be set simultaneously through the [EventData](~/api/ChartTools.Events.Event#ChartTools_Events_Event_EventData.yml) property.
+Events are stored using [Event](~/api/ChartTools.Events.Event.yml) as a base class, containing the position, event type and an optional argument. The type and argument can also be set simultaneously through the [EventData](~/api/ChartTools.Events.Event.yml#ChartTools_Events_Event_EventData) property.
 
-ChartTools distinguishes between global events (stored under [Song](~/api/ChartTools.Song.yml)) and local events (stored under [Track](~/api/ChartTools.Track.yml)) using the respective [GlobalEvent](~/api/ChartTools.Events.GlobalEvent.yml) and [LocalEvent](~/api/ChartTools.Events.LocalEvent.yml) classes, both deriving from [Event](~/api/ChartTools.Events.Event.yml). This allows for better type safety and for the classes to provide helper properties for some complex event types.
+ChartTools distinguishes between global events (stored under [Song](~/api/ChartTools.Song.yml) and local events (stored under [Track](~/api/ChartTools.Track.yml) using the respective [GlobalEvent](~/api/ChartTools.Events.GlobalEvent.yml) and [LocalEvent](~/api/ChartTools.Events.LocalEvent.yml) classes, both deriving from [Event](~/api/ChartTools.Events.Event.yml). This allows for better type safety and for the classes to provide helper properties for some complex event types.
 
 ## Event helpers
 Event types and arguments are stored as `string`, allowing for future-proofing and supporting custom events from sources that are not officially supported.
