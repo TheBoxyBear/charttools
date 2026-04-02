@@ -1,24 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
+  <PropertyGroup>
     <RefTargetFramework>net10.0</RefTargetFramework>
-		<LangVersion>14.0</LangVersion>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<SignAssembly>False</SignAssembly>
-		<Description>Library for editing Clone Hero song files in .NET</Description>
-		<PackageProjectUrl></PackageProjectUrl>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<RepositoryUrl>https://github.com/TheBoxyBear/charttools</RepositoryUrl>
-		<NeutralLanguage>en-CA</NeutralLanguage>
-		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-		<Company>TheBoxyBear</Company>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-	</PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <SignAssembly>False</SignAssembly>
+    <Description>Library for editing Clone Hero song files in .NET</Description>
+    <PackageProjectUrl></PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/TheBoxyBear/charttools</RepositoryUrl>
+    <NeutralLanguage>en-CA</NeutralLanguage>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <Company>TheBoxyBear</Company>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <PolyPublic>true</PolyPublic>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Ref'">
     <TargetFramework>$(RefTargetFramework)</TargetFramework>
@@ -29,37 +30,38 @@
     <ProduceOnlyReferenceAssembly>false</ProduceOnlyReferenceAssembly>
   </PropertyGroup>
 
-	<ItemGroup>
-		<None Include="..\..\LICENSE">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-		<None Include="..\..\README.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-	</ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\ChartTools.Common\ChartTools.Common.csproj" />
-	</ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netstandard2.1'">
+    <Reference Include="Bcl.CollectionsMarshal">
+      <HintPath>..\Dependencies\bin\$(TargetFramework)\Bcl.CollectionsMarshal.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ChartTools.Common\ChartTools.Common.csproj" Properties="TargetFramework=$(TargetFramework)" />
+    <Using Include="Polyfills" />
+    <Using Include="ChartTools.Extensions.MemoryExtensions" Static="true"/>
+  </ItemGroup>
 
   <ItemGroup Condition="'$(ProduceOnlyReferenceAssembly)' != 'true'">
     <ProjectReference Include="..\ChartTools.Generator\ChartTools.Generator.csproj" OutputItemType="Analyzer" />
   </ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netstandard2.1'">
-    <PackageReference Include="System.Collections.Immutable" Version="9.0.0" />
-		<Reference Include="Bcl.CollectionsMarshal">
-			<HintPath>..\Dependencies\bin\$(TargetFramework)\Bcl.CollectionsMarshal.dll</HintPath>
-		</Reference>
-	</ItemGroup>
-
-	<Target Name="CopyDataFiles" AfterTargets="PostBuildEvent" Condition="'$(TargetFramework)' == '$(RefTargetFramework)'">
-		<ItemGroup>
-			<Files Include="$(OutDir)ChartTools*.dll;$(OutDir)ChartTools*.xml" />
-		</ItemGroup>
-		<Copy SourceFiles="@(Files)" DestinationFolder="$(ProjectDir)artifacts" SkipUnchangedFiles="true" />
-	</Target>
+  <Target Name="CopyDataFiles" AfterTargets="PostBuildEvent" Condition="'$(TargetFramework)' == '$(RefTargetFramework)'">
+    <ItemGroup>
+      <Files Include="$(OutDir)ChartTools*.dll;$(OutDir)ChartTools*.xml" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Files)" DestinationFolder="$(ProjectDir)artifacts" SkipUnchangedFiles="true" />
+  </Target>
 
 </Project>

@@ -1,8 +1,4 @@
-﻿#if !NET8_0_OR_GREATER
-using static ChartTools.Extensions.MemoryExtensions;
-#endif
-
-namespace ChartTools.IO;
+﻿namespace ChartTools.IO;
 
 /// <summary>
 /// Line of text file data

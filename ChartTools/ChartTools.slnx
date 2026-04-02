@@ -1,9 +1,9 @@
 <Solution>
   <Folder Name="/Tests/">
     <Project Path="ChartTools.Tests/ChartTools.Tests.shproj" Id="d46d93ff-7758-4681-abb2-1f8f41f2a554" />
-    <Project Path="ChartTools.Tests/Net10.0.csproj" />
     <Project Path="ChartTools.Tests/Net8.0.csproj" />
     <Project Path="ChartTools.Tests/Net9.0.csproj" />
+	<Project Path="ChartTools.Tests/Net10.0.csproj" />
     <Project Path="ChartTools.Tests/NetStandard2.0.csproj" />
     <Project Path="ChartTools.Tests/NetStandard2.1.csproj" />
   </Folder>

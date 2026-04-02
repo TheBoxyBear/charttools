@@ -13,11 +13,7 @@ public static class EnumCache<T> where T : struct, Enum
 	/// </summary>
 	/// <remarks>Generates the cache on first call.</remarks>
 	public static ImmutableArray<T> Values => s_values ??=
-#if NET5_0_OR_GREATER
 		[.. Enum.GetValues<T>()];
-#else
-		[.. Enum.GetValues(typeof(T)).Cast<T>()];
-#endif
 
 	private static ImmutableArray<T>? s_values;
 

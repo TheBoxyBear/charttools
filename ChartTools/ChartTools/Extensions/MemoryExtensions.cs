@@ -1,7 +1,4 @@
-﻿#if !NET9_0_OR_GREATER
-using System.Runtime.CompilerServices;
-
-namespace ChartTools.Extensions;
+﻿namespace ChartTools.Extensions;
 
 internal static class MemoryExtensions
 {
@@ -123,17 +120,4 @@ internal static class MemoryExtensions
 		return end - start + 1;
 	}
 #endif
-
-	/// <summary>
-	/// Determines whether the specified value appears at the start of the span.
-	/// </summary>
-	/// <param name="span">The span to search.</param>
-	/// <param name="value">The value to compare.</param>
-	/// <typeparam name="T">The type of elements in the span.</typeparam>
-	/// <returns><see langword="true" /> if <paramref name="value" /> matches the beginning of <paramref name="span" />; otherwise, <see langword="false" />.</returns>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static bool StartsWith<T>(this ReadOnlySpan<T> span, T value)
-		where T : IEquatable<T>?
-		=> span.Length != 0 && (span[0]?.Equals(value) ?? (object?)value is null);
 }
-#endif

@@ -37,11 +37,7 @@ public abstract class Event(uint position) : ITrackObject
 	public string EventData
 	{
 		get => Argument == string.Empty ? EventType :
-#if NET9_0_OR_GREATER
 			string.Join(' ', EventType, Argument);
-#else
-			string.Join(" ", EventType, Argument);
-#endif
 		set
 		{
 			int separatorIndex = value.IndexOf('=');

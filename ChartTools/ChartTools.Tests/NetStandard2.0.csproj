@@ -1,32 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <RootNamespace>ChartTools.Tests</RootNamespace>
-    <LangVersion>latest</LangVersion>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <StartupObject></StartupObject>
-    <AssemblyName>ChartTools.Tests-NetStandard2.0</AssemblyName>
-    <BaseOutputPath>bin\netstandard2.0</BaseOutputPath>
+    <TestTargetFramework>netstandard2.0</TestTargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="bin\**" />
-    <EmbeddedResource Remove="bin\**" />
-    <None Remove="bin\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="MSTest" Version="4.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\ChartTools\ChartTools.csproj" Properties="TargetFramework=netstandard2.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
-  </ItemGroup>
 
 </Project>

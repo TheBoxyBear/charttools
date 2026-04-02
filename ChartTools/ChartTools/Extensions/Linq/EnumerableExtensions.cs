@@ -20,11 +20,8 @@ public static class EnumerableExtensions
 	/// <param name="returnedDefault"><see langword="true"/> if no items meeting the condition were found</param>
 	public static T? FirstOrDefault<T>(this IEnumerable<T> source, Predicate<T> predicate, T? defaultValue, out bool returnedDefault)
 	{
-		if (source is null)
-			throw new ArgumentNullException(nameof(source));
-
-		if (predicate is null)
-			throw new ArgumentNullException(nameof(predicate));
+		ArgumentNullException.ThrowIfNull(source);
+		ArgumentNullException.ThrowIfNull(predicate);
 
 		foreach (T item in source)
 			if (predicate(item))
@@ -46,8 +43,7 @@ public static class EnumerableExtensions
 	/// <returns><see langword="true"/> if an item was found</returns>
 	public static bool TryGetFirst<T>(this IEnumerable<T> source, out T? result)
 	{
-		if (source is null)
-			throw new ArgumentNullException(nameof(source));
+		ArgumentNullException.ThrowIfNull(source);
 
 		using IEnumerator<T> enumerator = source.GetEnumerator();
 		bool success = enumerator.MoveNext();
@@ -67,11 +63,8 @@ public static class EnumerableExtensions
 	public static bool TryGetFirst<T>(this IEnumerable<T> source, Predicate<T> predicate, out T? item)
 		where T : notnull
 	{
-		if (source is null)
-			throw new ArgumentNullException(nameof(source));
-
-		if (predicate is null)
-			throw new ArgumentNullException(nameof(predicate));
+		ArgumentNullException.ThrowIfNull(source);
+		ArgumentNullException.ThrowIfNull(predicate);
 
 		foreach (T t in source)
 			if (predicate(t))
@@ -331,8 +324,7 @@ public static class EnumerableExtensions
 
 	internal static IEnumerable<(T previous, T current)> RelativeLoopSkipFirst<T>(this IEnumerable<T> source)
 	{
-		if (source is null)
-			throw new ArgumentNullException(nameof(source));
+		ArgumentNullException.ThrowIfNull(source);
 
 		using IEnumerator<T> enumerator = source.GetEnumerator();
 
@@ -368,48 +360,6 @@ public static class EnumerableExtensions
 	#endregion
 
 	#region MinMax
-#if !NET6_0_OR_GREATER
-	public static T MinBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector)
-		where TKey : IComparable<TKey>
-		=> MinMaxBy(source, selector, static (key, mmkey) => key.CompareTo(mmkey) < 0);
-
-	public static T MaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector)
-		where TKey : IComparable<TKey>
-		=> MinMaxBy(source, selector, static (key, mmkey) => key.CompareTo(mmkey) > 0);
-
-	private static T MinMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector, Func<TKey, TKey, bool> comparison)
-		where TKey : IComparable<TKey>
-	{
-		if (source is null)
-			throw new ArgumentNullException(nameof(source));
-
-		if (selector is null)
-			throw new ArgumentNullException(nameof(selector));
-
-		using IEnumerator<T> enumerator = source.GetEnumerator();
-
-		if (!enumerator.MoveNext())
-			throw new ArgumentException("The enumerable has no items.", nameof(source));
-
-		T minMaxItem   = enumerator.Current;
-		TKey minMaxKey = selector(minMaxItem);
-
-		while (enumerator.MoveNext())
-		{
-			T item   = enumerator.Current;
-			TKey key = selector(item);
-
-			if (comparison(key, minMaxKey))
-			{
-				minMaxItem = item;
-				minMaxKey  = key;
-			}
-		}
-
-		return minMaxItem;
-	}
-#endif
-
 	/// <summary>
 	/// Finds the items for which a function returns the smallest or greatest value based on a comparison.
 	/// </summary>
@@ -419,8 +369,7 @@ public static class EnumerableExtensions
 	private static IEnumerable<T> ManyMinMaxBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector, Func<TKey, TKey, bool> comparison)
 		where TKey : IComparable<TKey>
 	{
-		if (source is null)
-			throw new ArgumentNullException(nameof(source));
+		ArgumentNullException.ThrowIfNull(source);
 
 		TKey minMaxKey;
 

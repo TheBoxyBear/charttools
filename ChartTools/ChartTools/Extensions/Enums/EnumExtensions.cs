@@ -13,11 +13,7 @@ public static class EnumExtensions
 		where T : struct, Enum
 	{
 		public static T Parse(string value, bool ignoreCase = false)
-#if NETSTANDARD2_0
-			=> (T)Enum.Parse(typeof(T), value, ignoreCase);
-#else
 			=> Enum.Parse<T>(value, ignoreCase);
-#endif
 
 		public static T Parse(in ReadOnlySpan<char> value, bool ignoreCase = false)
 #if NETSTANDARD2_0
@@ -39,11 +35,7 @@ public static class EnumExtensions
 #endif
 
 		public static bool IsDefined(T value)
-#if NET5_0_OR_GREATER
 			=> Enum.IsDefined(value);
-#else
-			=> Enum.IsDefined(typeof(T), value);
-#endif
 
 		public static bool operator ==(T left, T right)
 			=> EqualityComparer<T>.Default.Equals(left, right);

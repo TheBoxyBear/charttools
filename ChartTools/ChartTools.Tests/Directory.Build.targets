@@ -1,0 +1,14 @@
+<Project>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ChartTools.Common\ChartTools.Common.csproj" Properties="TargetFramework=$(TestTargetFramework)" />
+    <ProjectReference Include="..\ChartTools\ChartTools.csproj" Properties="TargetFramework=$(TestTargetFramework)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="bin\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <None Remove="bin\**" />
+  </ItemGroup>
+
+</Project>

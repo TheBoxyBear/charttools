@@ -220,7 +220,7 @@ public class MetadataTests
 	[DataRow(0), DataRow(1), DataRow(-1), DataRow(1000), DataRow(-1000)]
 	public void Set_IniVideoOffset_Formats(double milliseconds)
 	{
-		TimeSpan expected = TimeSpan.FromMicroseconds(milliseconds);
+		TimeSpan expected = TimeSpan.FromMilliseconds(milliseconds);
 		string value      = expected.TotalMilliseconds.ToString();
 
 		Metadata metadata = new();
