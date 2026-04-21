@@ -125,7 +125,9 @@ int CanSkipAnalyse()
 		libLastModified = File.GetLastWriteTime(libPath),
 		docfxJsonLastModified = File.GetLastWriteTime(configPath);
 
-	if (!Directory.Exists(siteDir + "api"))
+	string apiPath = siteDir + "api";
+
+	if (!Directory.Exists(apiPath) || !Directory.EnumerateFiles(apiPath).Any())
 	{
 		WriteCache();
 		return 0;
