@@ -1,12 +1,11 @@
 ﻿using ChartTools.IO.Parsing;
 using ChartTools.Meta;
 using ChartTools.Meta.Mapping;
-using ChartTools.Tools;
 
 namespace ChartTools.IO.Ini;
 
 internal class IniParser(Metadata? existing = null)
-	: TextParser(IniFormatting.Header.AsMemory()), ISongAppliable
+	: TextParser(IniFormatting.Header.AsMemory())
 {
 #if NET5_0_OR_GREATER
 	public override Metadata Result
@@ -29,12 +28,4 @@ internal class IniParser(Metadata? existing = null)
 
 	protected override Exception GetHandleException(in ReadOnlyMemory<char> item, Exception innerException)
 		=> new SectionException(IniFormatting.Header, GetHandleInnerException(item, innerException));
-
-	public void ApplyToSong(Song song)
-	{
-		if (song.Metadata is null)
-			song.Metadata = Result;
-		else
-			PropertyMerger.Merge(song.Metadata, false, true, Result);
-	}
 }
