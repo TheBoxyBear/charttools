@@ -23,6 +23,7 @@ internal static class DirectoryHandler
 
 		return new(value, iniMetadata);
 	}
+
 	public static async Task<DirectoryResult<T?>> FromDirectoryAsync<T>(
 		string directory, Func<string, FormattingRules, Task<T>> read, CancellationToken cancellationToken)
 	{

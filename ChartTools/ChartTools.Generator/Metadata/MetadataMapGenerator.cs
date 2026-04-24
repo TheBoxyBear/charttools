@@ -1,4 +1,6 @@
-﻿using ChartTools.Meta;
+﻿using static ChartTools.Generator.Metadata.MetadataHelper;
+
+using ChartTools.Meta;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -8,15 +10,13 @@ using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Linq;
 
-namespace ChartTools.Generator;
+namespace ChartTools.Generator.Metadata;
 
 /// <exclude />
 [Generator]
 public class MetadataMapGenerator : IIncrementalGenerator
 {
 	private const string
-		MetadataType         = "Metadata",
-		AttributeNamespace   = $"{nameof(ChartTools)}.{nameof(Meta)}",
 		TryGetSignature      = $"public static partial bool TryGetFromAttribute({MetadataType} metadata, in ReadOnlySpan<char> key, out string value)",
 		TrySetSignature      = $"private static partial bool TrySetFromAttribute({MetadataType} metadata, in ReadOnlySpan<char> key, in ReadOnlySpan<char> value)",
 		TryRemoveSignature   = $"private static partial bool TryRemoveFromAttribute({MetadataType} metadata, in ReadOnlySpan<char> key)",
@@ -25,11 +25,7 @@ public class MetadataMapGenerator : IIncrementalGenerator
 
 	private record class MetatadaMapperClass(string Name, string Namespace, FileType FileType);
 
-	private record class MetadataProperty(string Name, string Type, string ContainingType);
-
 	private record class MetadataKeyBind(MetadataProperty Property, MetadataKeyAttribute Attribute);
-
-	private record class MetadataGroupProperty(string Name, string Type, string ContainingType);
 
 	public void Initialize(IncrementalGeneratorInitializationContext context)
 	{
@@ -147,29 +143,6 @@ internal sealed partial class {{mapper.Name}}
 
 """)
 .StartContext('{');
-
-	private static Dictionary<string, string> GetGroupPaths(in ImmutableArray<MetadataGroupProperty> groups)
-	{
-		Dictionary<string, string> paths = new(groups.Length);
-
-		do
-			foreach (MetadataGroupProperty group in groups)
-			{
-				if (paths.ContainsKey(group.Type))
-					continue;
-
-				if (group.ContainingType is MetadataType)
-					paths[group.Type] = $".{group.Name}";
-				else if (paths.TryGetValue(group.ContainingType, out var path))
-					paths[group.Type] = $"{path}.{group.Name}";
-			}
-		while (paths.Count < groups.Length);
-
-		// Shorthand to not have to check for root
-		paths[MetadataType] = string.Empty;
-
-		return paths;
-	}
 
 	private static void GenerateMapMethods
 		(MetatadaMapperClass mapper, in SourceProductionContext context,
