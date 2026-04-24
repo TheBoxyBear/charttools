@@ -13,22 +13,6 @@ AwesomeUtility.AwesomeTool(song);
 song.AwesomeTool();
 ```
 
-## Merging lengths
-Some track objects define a length, such as special phrases and vocal phrases. [LengthMerger](~/api/ChartTools.Tools.LengthMerger.yml) takes a set of such objects and sets the first object in the sequence to cover the entire duration from the start position of the earliest object to the end position of the last.
-
-```csharp
-// T is the type of objects in the collection.
-T modified = LengthMerger.MergeLengths<T>(longTrackObjects);
-```
-
-The object to modify can be changed by providing it as a target.
-
-```csharp
-target = LengthMerger.MergeLengths<T>(longTrackObjects, target);
-```
-
-If a sequence has an object covering positions 10-20 and another covering 22-30, the resulting object will have a start position of 10 and end position of 30.
-
 ## Cutting lengths and sustains
 In some cases, tracks may be in a broken state where objects define lengths going part the start of the next matching objects. The Optimizer class provides methods for fixing such overlaps by cutting short lengths going past the start of certain objects. This process involves ordering the objects by position, the result of which is provided as a return value. If the objects are known to already be in order, the ordering can be skipped with an optional parameter.
 
