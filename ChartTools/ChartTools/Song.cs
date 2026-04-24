@@ -82,10 +82,13 @@ public class Song
 
 		song ??= new();
 
-		if (song.Metadata is null)
+		if (metadata is not null)
+		{
+			if (song.Metadata is not null)
+				metadata.Merge(song.Metadata);
+
 			song.Metadata = metadata;
-		else
-			song.Metadata.Merge(metadata);
+		}
 
 		return song;
 	}
@@ -107,10 +110,13 @@ public class Song
 
 		song ??= new();
 
-		if (song.Metadata is null)
+		if (metadata is not null)
+		{
+			if (song.Metadata is not null)
+				metadata.Merge(song.Metadata);
+
 			song.Metadata = metadata;
-		else
-			song.Metadata.Merge(metadata);
+		}
 
 		return song;
 	}
