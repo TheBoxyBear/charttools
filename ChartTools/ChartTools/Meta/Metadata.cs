@@ -5,12 +5,14 @@ using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
 using ChartTools.Meta.Mapping;
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace ChartTools.Meta;
 
 /// <summary>
 /// Set of miscellaneous information about a <see cref="Song"/>
 /// </summary>
-public sealed class Metadata
+public sealed partial class Metadata
 {
 	#region Properties
 	/// <summary>
@@ -78,13 +80,7 @@ public sealed class Metadata
 	public Charter Charter
 	{
 		get;
-		set
-		{
-			if (value is null)
-				throw new ArgumentNullException(nameof(value));
-
-			field = value;
-		}
+		set => field = value ?? throw new ArgumentNullException(nameof(value));
 	} = new();
 
 	/// <summary>
@@ -133,13 +129,7 @@ public sealed class Metadata
 	public InstrumentDifficultySet InstrumentDifficulties
 	{
 		get;
-		set
-		{
-			if (value is null)
-				throw new ArgumentNullException(nameof(value));
-
-			field = value;
-		}
+		set => field = value ?? throw new ArgumentNullException(nameof(value));
 	} = new();
 
 	/// <summary>
@@ -162,13 +152,7 @@ public sealed class Metadata
 	public StreamCollection Streams
 	{
 		get;
-		set
-		{
-			if (value is null)
-				throw new ArgumentNullException(nameof(value));
-
-			field = value;
-		}
+		set => field = value ?? throw new ArgumentNullException(nameof(value));
 	} = new();
 
 	/// <summary>
@@ -212,12 +196,7 @@ public sealed class Metadata
 			static (a, b) => a.Key == b.Key && a.Origin == b.Origin));
 	#endregion
 
-	public bool TryGet(FileType fileType, string key,
-#if NETCOREAPP3_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-		[System.Diagnostics.CodeAnalysis.MaybeNullWhen(false)] out string value)
-#else
-		out string value)
-#endif
+	public bool TryGet(FileType fileType, string key, [MaybeNullWhen(false)] out string value)
 		=> fileType switch
 		{
 			FileType.Chart => MetadataChartMapper.Shared.TryGet(this, key, out value),
@@ -270,6 +249,8 @@ public sealed class Metadata
 			FileType.Ini   => MetadataIniMapper.Shared.Contains(this, key),
 			_ => throw InvalidFormatException(fileType),
 		};
+
+	public partial void Merge(params IEnumerable<Metadata> metadata);
 
 	private static Exception InvalidFormatException(FileType fileType)
 		=> throw new ArgumentException($"Only chart and ini metadata can be mapped, not {fileType}.", nameof(fileType));

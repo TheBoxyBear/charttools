@@ -7,7 +7,6 @@ using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
 using ChartTools.Lyrics;
 using ChartTools.Meta;
-using ChartTools.Tools;
 
 namespace ChartTools;
 
@@ -83,7 +82,10 @@ public class Song
 
 		song ??= new();
 
-		PropertyMerger.Merge(song.Metadata, true, true, metadata);
+		if (song.Metadata is null)
+			song.Metadata = metadata;
+		else
+			song.Metadata.Merge(metadata);
 
 		return song;
 	}
@@ -105,7 +107,10 @@ public class Song
 
 		song ??= new();
 
-		PropertyMerger.Merge(song.Metadata, true, true, metadata);
+		if (song.Metadata is null)
+			song.Metadata = metadata;
+		else
+			song.Metadata.Merge(metadata);
 
 		return song;
 	}
