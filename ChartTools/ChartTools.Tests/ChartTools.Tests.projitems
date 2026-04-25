@@ -17,7 +17,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Notes\LaneNoteCollectionTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\NoteProxyTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Notes\NoteTests.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)tools\LengthMergerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Tools\" />

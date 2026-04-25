@@ -7,7 +7,6 @@ using ChartTools.IO.Formatting;
 using ChartTools.IO.Ini;
 using ChartTools.Lyrics;
 using ChartTools.Meta;
-using ChartTools.Tools;
 
 namespace ChartTools;
 
@@ -82,8 +81,7 @@ public class Song
 			(path, formatting) => FromFile(path, config, formatting));
 
 		song ??= new();
-
-		PropertyMerger.Merge(song.Metadata, true, true, metadata);
+		song.MergeMetadata(metadata);
 
 		return song;
 	}
@@ -104,10 +102,20 @@ public class Song
 			.ConfigureAwait(false);
 
 		song ??= new();
-
-		PropertyMerger.Merge(song.Metadata, true, true, metadata);
+		song.MergeMetadata(metadata);
 
 		return song;
+	}
+
+	private void MergeMetadata(Metadata? iniMetadata)
+	{
+		if (iniMetadata is null)
+			return;
+
+		if (Metadata is not null)
+			iniMetadata.Merge(Metadata);
+
+		Metadata = iniMetadata;
 	}
 	#endregion
 
