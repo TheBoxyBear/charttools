@@ -81,14 +81,7 @@ public class Song
 			(path, formatting) => FromFile(path, config, formatting));
 
 		song ??= new();
-
-		if (metadata is not null)
-		{
-			if (song.Metadata is not null)
-				metadata.Merge(song.Metadata);
-
-			song.Metadata = metadata;
-		}
+		song.MergeMetadata(metadata);
 
 		return song;
 	}
@@ -109,16 +102,20 @@ public class Song
 			.ConfigureAwait(false);
 
 		song ??= new();
-
-		if (metadata is not null)
-		{
-			if (song.Metadata is not null)
-				metadata.Merge(song.Metadata);
-
-			song.Metadata = metadata;
-		}
+		song.MergeMetadata(metadata);
 
 		return song;
+	}
+
+	private void MergeMetadata(Metadata? iniMetadata)
+	{
+		if (iniMetadata is null)
+			return;
+
+		if (Metadata is not null)
+			iniMetadata.Merge(Metadata);
+
+		Metadata = iniMetadata;
 	}
 	#endregion
 
