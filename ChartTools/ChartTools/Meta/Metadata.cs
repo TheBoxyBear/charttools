@@ -250,7 +250,11 @@ public sealed partial class Metadata
 			_ => throw InvalidFormatException(fileType),
 		};
 
-	public partial void Merge(params IEnumerable<Metadata> metadata);
+	public void Merge(params IEnumerable<Metadata> metadata)
+		=> Merge_Impl(metadata);
+
+	// Generated implementation as separate method to generate the reference assembly without dependency on the generator
+	partial void Merge_Impl(params IEnumerable<Metadata> metadata);
 
 	private static Exception InvalidFormatException(FileType fileType)
 		=> throw new ArgumentException($"Only chart and ini metadata can be mapped, not {fileType}.", nameof(fileType));
