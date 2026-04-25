@@ -24,8 +24,7 @@ public readonly struct NoteProxy<TNote, TLane>
 
 	public NoteProxy(TLane lane, LaneNoteCollection<TNote, TLane> source)
 	{
-		if (source is null)
-			throw new ArgumentNullException(nameof(source));
+		ArgumentNullException.ThrowIfNull(source);
 
 		Lane   = lane;
 		Source = source;
