@@ -74,13 +74,13 @@ public static class Optimizer
 
 			void RemoveSustain(byte index)
 			{
-				if (ongoingSustains.TryGetValue(index, out (uint _, NoteProxy<TNote, TLane> proxy) sustain))
-				{
-					ref readonly TNote note = ref sustain.proxy.GetUnsafe();
+				if (!ongoingSustains.TryGetValue(index, out (uint, NoteProxy<TNote, TLane> proxy) sustain))
+					return;
 
-					sustain.proxy.Set(note with { Sustain = chord.Position });
-					ongoingSustains.Remove(index);
-				}
+				ref readonly TNote note = ref sustain.proxy.GetUnsafe();
+
+				sustain.proxy.Set(note with { Sustain = chord.Position });
+				ongoingSustains.Remove(index);
 			}
 		}
 	}
@@ -92,14 +92,14 @@ public static class Optimizer
 	/// <param name="preOrdered">Skip ordering of phrases by position</param>
 	/// <returns>Passed phrases ordered by position and grouped by type</returns>
 	/// <exception cref="InvalidOperationException"/>
-	public static List<T>[] CutSpecialLengths<T>(IEnumerable<T> phrases, bool preOrdered = false)
+	public static T[][] CutSpecialLengths<T>(IEnumerable<T> phrases, bool preOrdered = false)
 		where T : SpecialPhrase
 	{
-		List<T>[] output = [.. phrases
+		T[][] output = [.. phrases
 			.GroupBy(static p => p.TypeCode)
-			.Select(static g  => g.ToList())];
+			.Select(static g  => g.ToArray())];
 
-		foreach (List<T> grouping in output)
+		foreach (IEnumerable<T> grouping in output)
 			grouping.CutLengths(preOrdered);
 
 		return output;
@@ -146,7 +146,8 @@ public static class Optimizer
 	{
 		markers.Synchronize(resolution, desyncedPreOrdered);
 
-		foreach ((Tempo previous, Tempo current) in markers.OrderBy(static m => m.Position).RelativeLoopSkipFirst())
+		foreach ((Tempo previous, Tempo current) in markers
+			.OrderBy(static m => m.Position).RelativeLoopSkipFirst())
 			if (current.Value == previous.Value)
 				markers.Remove(current);
 	}
