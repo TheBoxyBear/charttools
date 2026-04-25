@@ -41,7 +41,7 @@ public class NoteProxyTests
 		Assert.IsNull(note);
 	}
 
-	[TestMethod, TestCategory(nameof(Proxy.Set))]
+	[TestMethod, TestCategory(nameof(Proxy.AddOrSet))]
 	public void Set_NoMatch_Adds()
 	{
 		const Lane lane    = Lane.Green;
@@ -51,7 +51,7 @@ public class NoteProxyTests
 		Proxy proxy = new(lane, collection);
 		Note  note  = new(lane) { Sustain = sustain };
 
-		proxy.Set(in note);
+		proxy.AddOrSet(in note);
 
 		Assert.AreEqual(1, collection.Count);
 
@@ -61,7 +61,7 @@ public class NoteProxyTests
 		Assert.AreEqual(sustain, added.Sustain);
 	}
 
-	[TestMethod, TestCategory(nameof(Proxy.Set))]
+	[TestMethod, TestCategory(nameof(Proxy.AddOrSet))]
 	public void Set_Match_Replaces()
 	{
 		const Lane lane    = Lane.Green;
@@ -71,7 +71,7 @@ public class NoteProxyTests
 		NoteCollection collection = [note];
 		Proxy proxy = new(lane, collection);
 
-		proxy.Set(note with { Sustain = sustain});
+		proxy.AddOrSet(note with { Sustain = sustain});
 
 		Assert.AreEqual(1, collection.Count);
 

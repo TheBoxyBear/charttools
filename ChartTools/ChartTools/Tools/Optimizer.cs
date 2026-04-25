@@ -45,7 +45,7 @@ public static class Optimizer
 						ref readonly TNote sustained = ref proxy.GetUnsafe();
 
 						if (position + sustained.Sustain > chord.Position)
-							proxy.Set(sustained with { Sustain = chord.Position });
+							proxy.AddOrSet(sustained with { Sustain = chord.Position });
 
 						ongoingSustains.Remove(note.Index);
 					}
@@ -79,7 +79,7 @@ public static class Optimizer
 
 				ref readonly TNote note = ref sustain.proxy.GetUnsafe();
 
-				sustain.proxy.Set(note with { Sustain = chord.Position });
+				sustain.proxy.AddOrSet(note with { Sustain = chord.Position });
 				ongoingSustains.Remove(index);
 			}
 		}

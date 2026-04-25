@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Runtime.InteropServices;
-
+﻿using ChartTools.Extensions;
 using ChartTools.Extensions.Enums;
+
+using System.Collections;
+using System.Runtime.InteropServices;
 
 namespace ChartTools;
 
@@ -29,8 +30,15 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	public ReadOnlySpan<TNote> AsSpan()
 		=> CollectionsMarshal.AsSpan(m_notes);
 
-	public void Add(SafeEnum<TLane> lane)
-		=> Add(new TNote { Lane = lane });
+	public void Add(SafeEnum<TLane> lane, uint sustain = 0)
+		=> Add(new TNote
+		{
+			Lane = lane,
+			Sustain = sustain
+		});
+
+	public void Add(byte laneIndex, uint sustain = 0)
+		=> Add(UnsafeExtensions.AsReadonly<byte, TLane>(laneIndex), sustain);
 
 	/// <summary>
 	/// Adds a note to the <see cref="LaneNoteCollection{TNote, TLane}"/>.
@@ -120,8 +128,8 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	public bool Contains(SafeEnum<TLane> lane)
 		=> m_notes.Any(note => note.Lane == lane);
 
-	bool ILaneNoteCollection.Contains(byte index)
-		=> m_notes.Any(note => note.Index == index);
+	bool ILaneNoteCollection.Contains(byte laneIndex)
+		=> m_notes.Any(note => note.Index == laneIndex);
 
 	public void CopyTo(TNote[] array, int arrayIndex)
 		=> m_notes.CopyTo(array, arrayIndex);
@@ -143,8 +151,8 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	public bool Remove(SafeEnum<TLane> lane)
 		=> Remove((in note) => note.Lane == lane);
 
-	bool ILaneNoteCollection.Remove(byte index)
-		=> Remove((in note) => note.Index == index);
+	bool ILaneNoteCollection.Remove(byte laneIndex)
+		=> Remove((in note) => note.Index == laneIndex);
 
 	private delegate bool Match(in TNote note);
 
@@ -173,7 +181,10 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 		return note is null ? null : new NoteProxy<TNote, TLane>(lane, this);
 	}
 
-	public NoteProxy<TNote, TLane>[] ProxyAll()
+	NoteProxy? ILaneNoteCollection.Proxy(byte laneIndex)
+		=> Proxy(UnsafeExtensions.AsReadonly<byte, TLane>(laneIndex));
+
+	public IEnumerable<NoteProxy<TNote, TLane>> ProxyAll()
 	{
 		ReadOnlySpan<TNote> span = AsSpan();
 		NoteProxy<TNote, TLane>[] proxies = new NoteProxy<TNote, TLane>[Count];
@@ -183,6 +194,9 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 
 		return proxies;
 	}
+
+	IEnumerable<NoteProxy> ILaneNoteCollection.ProxyAll()
+		=> ProxyAll().Select(static proxy => (NoteProxy)proxy);
 
 	/// <summary>
 	/// Gets the note matching a given lane.

@@ -4,6 +4,27 @@ using System.Runtime.CompilerServices;
 
 namespace ChartTools;
 
+public readonly struct NoteProxy : INoteProxy
+{
+	public readonly byte LaneIndex { get; }
+
+	public readonly ILaneNoteCollection Source { get; }
+
+	public NoteProxy(byte laneIndex, ILaneNoteCollection source)
+	{
+		ArgumentNullException.ThrowIfNull(source);
+
+		LaneIndex = laneIndex;
+		Source = source;
+	}
+
+	public readonly ILaneNote? Get()
+		=> Source[LaneIndex];
+
+	public void AddOrSet(uint sustain = 0)
+		=> Source.Add(LaneIndex, sustain);
+}
+
 /// <summary>
 /// Provides a proxy for accessing and modifying a note within a specific lane in a lane note collection.
 /// </summary>
@@ -12,7 +33,7 @@ namespace ChartTools;
 /// lane.</remarks>
 /// <typeparam name="TNote">The value type representing a note associated with a lane. Must implement <see cref="ILaneNote{TLane}"/>.</typeparam>
 /// <typeparam name="TLane">The enumeration type that identifies lanes within the collection.</typeparam>
-public readonly struct NoteProxy<TNote, TLane>
+public readonly struct NoteProxy<TNote, TLane> : INoteProxy
 	where TNote : struct, IDefinedLaneNote<TLane>
 	where TLane : struct, Enum
 {
@@ -20,7 +41,11 @@ public readonly struct NoteProxy<TNote, TLane>
 
 	public readonly SafeEnum<TLane> Lane { get; }
 
+	public readonly byte LaneIndex => Lane.Value.As<TLane, byte>();
+
 	public readonly LaneNoteCollection<TNote, TLane> Source { get; }
+
+	ILaneNoteCollection INoteProxy.Source => Source;
 
 	public NoteProxy(TLane lane, LaneNoteCollection<TNote, TLane> source)
 	{
@@ -32,6 +57,8 @@ public readonly struct NoteProxy<TNote, TLane>
 
 	public readonly TNote? Get()
 		=> Source[Lane];
+
+	ILaneNote? INoteProxy.Get() => Get();
 
 	public readonly ref readonly TNote GetUnsafe()
 	{
@@ -52,7 +79,7 @@ public readonly struct NoteProxy<TNote, TLane>
 		return ref span[m_index];
 	}
 
-	public void Set(in TNote note)
+	public void AddOrSet(in TNote note)
 	{
 		if (note.Lane != Lane)
 			throw new InvalidOperationException("The lane of the note does not match the proxy's lane.");
@@ -60,6 +87,12 @@ public readonly struct NoteProxy<TNote, TLane>
 		Source.Add(in note);
 	}
 
+	public void AddOrSet(uint sustain = 0)
+		=> Source.Add(Lane, sustain);
+
 	public static implicit operator TNote?(in NoteProxy<TNote, TLane> proxy)
 		=> proxy.Get();
+
+	public static implicit operator NoteProxy(in NoteProxy<TNote, TLane> proxy)
+		=> new(proxy.LaneIndex, proxy.Source);
 }

@@ -7,13 +7,21 @@ public interface ILaneNoteCollection
 	/// </summary>
 	public bool OpenExclusivity { get; }
 
-	public bool Contains(byte index);
+	public int Count { get; }
 
-	public bool Remove(byte index);
+	public void Add(byte laneIndex, uint sustain = 0);
+
+	public bool Contains(byte laneIndex);
+
+	public bool Remove(byte laneIndex);
 
 	public ILaneNote? this[byte laneIndex] { get; }
 
 	public void Clear();
+
+	public NoteProxy? Proxy(byte laneIndex);
+
+	public IEnumerable<NoteProxy> ProxyAll();
 
 	public IEnumerable<ILaneNote> AsEnumerable();
 
