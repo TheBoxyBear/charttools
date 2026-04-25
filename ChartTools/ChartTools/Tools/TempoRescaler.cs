@@ -47,33 +47,27 @@ public static class TempoRescaler
 	/// </summary>
 	/// <param name="chord">Chord to rescale</param>
 	/// <param name="scale">Positive number where 1 is the current scale.</param>
-	public static void Rescale<TNote, TLane>(this Chord<TNote, TLane> chord, float scale)
-		where TNote : struct, IDefinedLaneNote<TLane>
-		where TLane : struct, Enum
+	public static void Rescale(this Chord chord, float scale)
 	{
 		chord.Position = (uint)(chord.Position * scale);
 
-		foreach (NoteProxy<TNote, TLane> proxy in chord.Notes.ProxyAll())
+		foreach (NoteProxy proxy in chord.Notes.ProxyAll())
 			proxy.Rescale(scale);
 	}
 
 	/// <summary>
 	/// Rescales the sustain value of the note represented by the specified proxy.
 	/// </summary>
-	/// <typeparam name="TNote">Note type</typeparam>
-	/// <typeparam name="TLane">Lane type</typeparam>
 	/// <param name="proxy">Proxy representing the note</param>
 	/// <param name="scale">Positive number where 1 is the current scale.</param>
-	public static void Rescale<TNote, TLane>(this in NoteProxy<TNote, TLane> proxy, float scale)
-		where TNote : struct, IDefinedLaneNote<TLane>
-		where TLane : struct, Enum
+	public static void Rescale(this in NoteProxy proxy, float scale)
 	{
-		ref readonly TNote note = ref proxy.GetUnsafe();
+		ILaneNote? note = proxy.Get();
 
-		proxy.Set(note with
-		{
-			Sustain = (uint)(note.Sustain * scale)
-		});
+		if (note is null)
+			return;
+
+		proxy.AddOrSet((uint)(note.Sustain * scale));
 	}
 
 	/// <summary>
@@ -81,12 +75,9 @@ public static class TempoRescaler
 	/// </summary>
 	/// <param name="track">Source of chords</param>
 	/// <param name="scale">Positive number where 1 is the current scale.</param>
-	public static void Rescale<TChord, TNote, TLane>(this Track<TChord> track, float scale)
-		where TChord : Chord<TNote, TLane>
-		where TNote : struct, IDefinedLaneNote<TLane>
-		where TLane : struct, Enum
+	public static void Rescale(this Track track, float scale)
 	{
-		foreach (TChord chord in track.Chords)
+		foreach (Chord chord in track.Chords)
 			Rescale(chord, scale);
 
 		if (track.LocalEvents is not null)
@@ -99,13 +90,10 @@ public static class TempoRescaler
 	/// </summary>
 	/// <param name="instrument">Source of the tracks</param>
 	/// <param name="scale">Positive number where 1 is the current scale.</param>
-	public static void Rescale<TChord, TNote, TLane>(this Instrument<TChord> instrument, float scale)
-		where TChord : Chord<TNote, TLane>
-		where TNote : struct, IDefinedLaneNote<TLane>
-		where TLane : struct, Enum
+	public static void Rescale(this Instrument instrument, float scale)
 	{
-		foreach (Track<TChord> track in instrument.GetExistingTracks())
-			track.Rescale<TChord, TNote, TLane>(scale);
+		foreach (Track track in instrument.GetExistingTracks())
+			track.Rescale(scale);
 	}
 
 	/// <summary>
@@ -129,13 +117,8 @@ public static class TempoRescaler
 	/// <param name="scale">Positive number where 1 is the current scale.</param>
 	public static void Rescale(this Song song, float scale)
 	{
-		song.Instruments.Drums?.Rescale<DrumsChord, DrumsNote, DrumsLane>(scale);
-
-		foreach (StandardInstrument instrument in song.Instruments.OfType<StandardInstrument>())
-			instrument.Rescale<StandardChord, StandardNote, StandardLane>(scale);
-
-		foreach (GHLInstrument instrument in song.Instruments.OfType<GHLInstrument>())
-			instrument.Rescale<GHLChord, GHLNote, GHLLane>(scale);
+		foreach (Instrument instrument in song.Instruments.Existing())
+			instrument.Rescale(scale);
 
 		song.SyncTrack?.Rescale(scale);
 
