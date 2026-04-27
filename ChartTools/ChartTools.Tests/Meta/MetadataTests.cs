@@ -345,7 +345,7 @@ public class MetadataTests
 
 		metadata.Remove(FileType.Ini, keyString);
 
-		Assert.AreEqual(expected, metadata.Formatting.AlbumTrackKeys);
+		Assert.AreEqual(expected, metadata.Formatting.AlbumTrackKeys.Value);
 	}
 
 	[TestMethod, TestCategory(nameof(FileType.Ini))]
@@ -466,7 +466,7 @@ public class MetadataTests
 
 		metadata.Remove(FileType.Ini, keyString);
 
-		Assert.AreEqual(expected, metadata.Formatting.CharterKeys);
+		Assert.AreEqual(expected, metadata.Formatting.CharterKeys.Value);
 	}
 
 	[TestMethod, TestCategory(nameof(FileType.Ini))]

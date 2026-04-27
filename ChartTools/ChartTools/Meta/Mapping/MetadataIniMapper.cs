@@ -77,7 +77,7 @@ internal partial class MetadataIniMapper : MetadataMapper
 	{
 		ValidateKey(in key);
 
-		if (!TryRemoveFromAttribute(metadata, in key));
+		if (!TryRemoveFromAttribute(metadata, in key))
 			switch (key)
 			{
 				case IniFormatting.Track:

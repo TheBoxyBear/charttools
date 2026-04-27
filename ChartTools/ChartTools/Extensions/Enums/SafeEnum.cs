@@ -60,6 +60,10 @@ public record struct SafeEnum<T> : IEnumWrapper<SafeEnum<T>, T>,
 	public static SafeEnum<T> Unsafe(T value)
 		=> UnsafeExtensions.AsReadonly<T, SafeEnum<T>>(in value);
 
+	/// <inheritdoc cref="Enum.HasFlag(Enum)"/>
+	public bool HasFlag(T flag)
+		=> Value.HasFlag(flag);
+
 	/// <summary>
 	/// Gets HashCode of the enum value.
 	/// </summary>

@@ -54,7 +54,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(ProduceOnlyReferenceAssembly)' != 'true'">
-    <ProjectReference Include="..\ChartTools.Generator\ChartTools.Generator.csproj" OutputItemType="Analyzer" />
+    <ProjectReference Include="..\ChartTools.Generator\ChartTools.Generator.csproj" OutputItemType="Analyzer"/>
   </ItemGroup>
 
   <Target Name="CopyDataFiles" AfterTargets="PostBuildEvent" Condition="'$(TargetFramework)' == '$(RefTargetFramework)'">
