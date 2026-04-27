@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace ChartTools;
 
-public readonly struct NoteProxy : INoteProxy
+public readonly struct NoteProxy
 {
 	public readonly byte LaneIndex { get; }
 
@@ -33,7 +33,7 @@ public readonly struct NoteProxy : INoteProxy
 /// lane.</remarks>
 /// <typeparam name="TNote">The value type representing a note associated with a lane. Must implement <see cref="ILaneNote{TLane}"/>.</typeparam>
 /// <typeparam name="TLane">The enumeration type that identifies lanes within the collection.</typeparam>
-public readonly struct NoteProxy<TNote, TLane> : INoteProxy
+public readonly struct NoteProxy<TNote, TLane>
 	where TNote : struct, IDefinedLaneNote<TLane>
 	where TLane : struct, Enum
 {
@@ -45,8 +45,6 @@ public readonly struct NoteProxy<TNote, TLane> : INoteProxy
 
 	public readonly LaneNoteCollection<TNote, TLane> Source { get; }
 
-	ILaneNoteCollection INoteProxy.Source => Source;
-
 	public NoteProxy(TLane lane, LaneNoteCollection<TNote, TLane> source)
 	{
 		ArgumentNullException.ThrowIfNull(source);
@@ -57,8 +55,6 @@ public readonly struct NoteProxy<TNote, TLane> : INoteProxy
 
 	public readonly TNote? Get()
 		=> Source[Lane];
-
-	ILaneNote? INoteProxy.Get() => Get();
 
 	public readonly ref readonly TNote GetUnsafe()
 	{

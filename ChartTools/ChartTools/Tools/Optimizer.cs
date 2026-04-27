@@ -69,7 +69,7 @@ public static class Optimizer
 			void AddSustain(in TNote note)
 			{
 				if (note.Sustain > 0)
-					ongoingSustains[note.Index] = (chord.Position, chord.Notes.Proxy(note.Lane)!.Value);
+					ongoingSustains[note.Index] = (chord.Position, chord.Notes.Proxy(note.Lane));
 			}
 
 			void RemoveSustain(byte index)

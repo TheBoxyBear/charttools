@@ -19,9 +19,12 @@ public interface ILaneNoteCollection
 
 	public void Clear();
 
-	public NoteProxy? Proxy(byte laneIndex);
+	public NoteProxy Proxy(byte laneIndex);
 
-	public IEnumerable<NoteProxy> ProxyAll();
+	public NoteProxy[] ProxyAll();
+
+	public void ProxyAll(Span<NoteProxy> destination);
+
 
 	public IEnumerable<ILaneNote> AsEnumerable();
 

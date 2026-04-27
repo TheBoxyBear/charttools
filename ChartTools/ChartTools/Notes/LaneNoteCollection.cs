@@ -19,6 +19,10 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 		= default(TNote).OpenExclusivity;
 #endif
 
+	// Intetional use of list over a dictionary
+	// Very small number of items expected - Slightly faster lookup
+	// Can manually set capacity to avoid exceeding the max number of lanes
+	// Sequential allocation - Allows for ref access through a span
 	private readonly List<TNote> m_notes = [];
 
 	public int Count
@@ -49,9 +53,8 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 	/// <param name="note">Note to add</param>
 	public void Add(in TNote note)
 	{
-		note.Lane.Validate();
-
-		if (OpenExclusivity && (note.Index == 0 || Count == 1 && AsSpan()[0].Index == 0)) // An open note is present and needs to be removed
+		// An open note is present and needs to be removed
+		if (OpenExclusivity && (note.Index == 0 || Count == 1 && AsSpan()[0].Index == 0))
 			Clear();
 
 		Span<TNote> span = CollectionsMarshal.AsSpan(m_notes);
@@ -86,7 +89,7 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 
 	public void AddRange(params ReadOnlySpan<TNote> notes)
 	{
-		m_notes.Capacity += notes.Length;
+		m_notes.EnsureCapacity(m_notes.Count + notes.Length);
 
 		foreach (ref readonly TNote note in notes)
 			Add(in note);
@@ -94,7 +97,7 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 
 	public void AddRange(params ReadOnlySpan<SafeEnum<TLane>> notes)
 	{
-		m_notes.Capacity += notes.Length;
+		m_notes.EnsureCapacity(m_notes.Count + notes.Length);
 
 		foreach (ref readonly SafeEnum<TLane> lane in notes)
 			Add(new TNote { Lane = lane });
@@ -175,28 +178,47 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 		return true;
 	}
 
-	public NoteProxy<TNote, TLane>? Proxy(SafeEnum<TLane> lane)
+	public NoteProxy<TNote, TLane> Proxy(SafeEnum<TLane> lane)
+		=> new(lane, this);
+
+	NoteProxy ILaneNoteCollection.Proxy(byte laneIndex)
+		=> new(laneIndex, this);
+
+	public NoteProxy<TNote, TLane>[] ProxyAll()
 	{
-		TNote? note = this[lane];
-		return note is null ? null : new NoteProxy<TNote, TLane>(lane, this);
+		NoteProxy<TNote, TLane>[] buffer = new NoteProxy<TNote, TLane>[Count];
+		ProxyAll(buffer.AsSpan());
+		return buffer;
 	}
 
-	NoteProxy? ILaneNoteCollection.Proxy(byte laneIndex)
-		=> Proxy(UnsafeExtensions.AsReadonly<byte, TLane>(laneIndex));
-
-	public IEnumerable<NoteProxy<TNote, TLane>> ProxyAll()
+	public void ProxyAll(in Span<NoteProxy<TNote, TLane>> destination)
 	{
+		if (destination.Length < Count)
+			throw new ArgumentException($"Destination length must be at least {Count}.", nameof(destination));
+
 		ReadOnlySpan<TNote> span = AsSpan();
-		NoteProxy<TNote, TLane>[] proxies = new NoteProxy<TNote, TLane>[Count];
 
 		for (int i = 0; i < Count; i++)
-			proxies[i] = new NoteProxy<TNote, TLane>(span[i].Lane, this);
-
-		return proxies;
+			destination[i] = new NoteProxy<TNote, TLane>(span[i].Lane, this);
 	}
 
-	IEnumerable<NoteProxy> ILaneNoteCollection.ProxyAll()
-		=> ProxyAll().Select(static proxy => (NoteProxy)proxy);
+	NoteProxy[] ILaneNoteCollection.ProxyAll()
+	{
+		NoteProxy[] buffer = new NoteProxy[Count];
+		(this as ILaneNoteCollection).ProxyAll(buffer.AsSpan());
+		return buffer;
+	}
+
+	void ILaneNoteCollection.ProxyAll(Span<NoteProxy> destination)
+	{
+		if (destination.Length < Count)
+			throw new ArgumentException($"Destination length must be at least {Count}.", nameof(destination));
+
+		ReadOnlySpan<TNote> span = AsSpan();
+
+		for (int i = 0; i < Count; i++)
+			destination[i] = new NoteProxy(span[i].Index, this);
+	}
 
 	/// <summary>
 	/// Gets the note matching a given lane.
@@ -225,7 +247,7 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 		=> m_notes.GetEnumerator();
 
 	IEnumerator IEnumerable.GetEnumerator()
-		=> m_notes.GetEnumerator();
+		=> GetEnumerator();
 
 	IEnumerator<ILaneNote> ILaneNoteCollection.GetEnumerator()
 		=> m_notes.Cast<ILaneNote>().GetEnumerator();

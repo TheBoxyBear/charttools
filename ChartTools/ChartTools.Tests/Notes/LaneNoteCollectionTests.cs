@@ -306,11 +306,7 @@ public class LaneNoteCollectionTests
 			static () => new NoteCollection().Proxy((Lane)10));
 
 	[TestMethod, TestCategory(nameof(NoteCollection.Proxy))]
-	public void Proxy_NoMatch_ReturnsNull()
-		=> Assert.IsNull(new NoteCollection().Proxy(Lane.Green));
-
-	[TestMethod, TestCategory(nameof(NoteCollection.Proxy))]
-	public void Proxy_Match_ReturnsProxy()
+	public void Proxy_ReturnsProxy()
 	{
 		const Lane lane = Lane.Green;
 
@@ -334,14 +330,18 @@ public class LaneNoteCollectionTests
 		ReadOnlySpan<Lane> lanes = [Lane.Green, Lane.Red];
 
 		NoteCollection collection = [new Note(Lane.Green), new Note(Lane.Red)];
-		NoteProxy<Note, Lane>[] proxies = collection.ProxyAll();
+		IEnumerable<NoteProxy<Note, Lane>> proxies = collection.ProxyAll();
 
 		Assert.HasCount(lanes.Length, proxies);
 
-		for (int i = 0; i < lanes.Length; i++)
+		int index = 0;
+
+		foreach (NoteProxy<Note, Lane> proxy in proxies)
 		{
-			Assert.AreEqual(collection, proxies[i].Source);
-			Assert.AreEqual(lanes[i], proxies[i].Lane.Value);
+			Assert.AreEqual(collection, proxy.Source);
+			Assert.AreEqual(lanes[index], proxy.Lane.Value);
+
+			index++;
 		}
 	}
 	#endregion
