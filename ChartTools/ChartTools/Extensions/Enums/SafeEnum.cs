@@ -5,6 +5,17 @@ using System.Numerics;
 
 namespace ChartTools.Extensions.Enums;
 
+public static class SafeEnum
+{
+	public static SafeEnum<T> Unsafe<T>(T value)
+		where T : struct, Enum
+		=> SafeEnum<T>.Unsafe(value);
+
+	public static SafeEnum<T> Unsafe<T>(SafeEnum<T> value)
+		where T : struct, Enum
+		=> value;
+}
+
 /// <summary>
 /// Wrapper struct for enum values that automatically validates on set.
 /// </summary>
@@ -40,6 +51,9 @@ public record struct SafeEnum<T> : IEnumWrapper<SafeEnum<T>, T>,
 		Validator.ValidateEnum(value);
 		Value = value;
 	}
+
+	public static SafeEnum<T> Unsafe(T value)
+		=> UnsafeExtensions.AsReadonly<T, SafeEnum<T>>(in value);
 
 	/// <summary>
 	/// Gets HashCode of the enum value.

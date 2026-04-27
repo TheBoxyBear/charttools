@@ -1,7 +1,7 @@
 ﻿using ChartTools.IO.Chart;
-using ChartTools.Extensions;
 using ChartTools.IO.Ini;
 using ChartTools.Meta;
+using ChartTools.Extensions.Enums;
 
 namespace ChartTools.IO.Formatting;
 
@@ -12,61 +12,43 @@ namespace ChartTools.IO.Formatting;
 public sealed class FormattingRules
 {
 	#region Album track
-	public AlbumTrackKeys AlbumTrackKeys
+	public SafeEnum<AlbumTrackKeys> AlbumTrackKeys { get; set; }
+		= SafeEnum.Unsafe(Formatting.AlbumTrackKeys.None);
+
+	public static SafeEnum<AlbumTrackKeys> DefaultAlbumTrackKeys
 	{
 		get;
 		set
 		{
-			Validator.ValidateEnum(value);
-			field = value;
-		}
-	} = AlbumTrackKeys.None;
-
-	public static AlbumTrackKeys DefaultAlbumTrackKeys
-	{
-		get;
-		set
-		{
-			Validator.ValidateEnum(value);
-
-			if (value is AlbumTrackKeys.None)
+			if (value == Formatting.AlbumTrackKeys.None)
 				throw new ArgumentException($"Default {nameof(AlbumTrackKeys)} must have a flag.", nameof(value));
 
 			field = value;
 		}
-	} = AlbumTrackKeys.Track;
+	} = SafeEnum.Unsafe(Formatting.AlbumTrackKeys.Track);
 
-	public AlbumTrackKeys EffectiveAlbumTrackKeys
-		=> AlbumTrackKeys is AlbumTrackKeys.None ? DefaultAlbumTrackKeys : AlbumTrackKeys;
+	public SafeEnum<AlbumTrackKeys> EffectiveAlbumTrackKeys
+		=> AlbumTrackKeys == Formatting.AlbumTrackKeys.None ? DefaultAlbumTrackKeys : AlbumTrackKeys;
 	#endregion
 
 	#region Charter
-	public CharterKeys CharterKeys
+	public SafeEnum<CharterKeys> CharterKeys { get; set; }
+		= SafeEnum.Unsafe(Formatting.CharterKeys.None);
+
+	public static SafeEnum<CharterKeys> DefaultCharterKey
 	{
 		get;
 		set
 		{
-			Validator.ValidateEnum(value);
-			field = value;
-		}
-	} = CharterKeys.None;
-
-	public static CharterKeys DefaultCharterKey
-	{
-		get;
-		set
-		{
-			Validator.ValidateEnum(value);
-
-			if (value is CharterKeys.None)
+			if (value == Formatting.CharterKeys.None)
 				throw new ArgumentException($"Default {nameof(CharterKeys)} must have a flag.", nameof(value));
 
 			field = value;
 		}
-	}
+	} = SafeEnum.Unsafe(Formatting.CharterKeys.Charter);
 
-	public CharterKeys EffectiveCharterKeys
-		=> CharterKeys is CharterKeys.None ? DefaultCharterKey : CharterKeys;
+	public SafeEnum<CharterKeys> EffectiveCharterKeys
+		=> CharterKeys == Formatting.CharterKeys.None ? DefaultCharterKey : CharterKeys;
 	#endregion
 
 	/// <summary>
