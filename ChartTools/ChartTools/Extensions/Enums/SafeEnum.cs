@@ -47,8 +47,13 @@ public record struct SafeEnum<T> : IEnumWrapper<SafeEnum<T>, T>,
 	/// Initializes a new instance with enum value post validation.
 	/// </summary>
 	public SafeEnum(T value)
+		: this(value, false) { }
+
+	private SafeEnum(T value, bool skipValidate)
 	{
-		Validator.ValidateEnum(value);
+		if (!skipValidate)
+			Validator.ValidateEnum(value);
+
 		Value = value;
 	}
 
