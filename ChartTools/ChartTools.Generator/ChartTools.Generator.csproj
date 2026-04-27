@@ -13,10 +13,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\ChartTools.Common\ChartTools.Common.csproj" OutputItemType="Analyzer" />
+    <Reference Include="ChartTools.Common">
+      <HintPath>$(SolutionDir)/ChartTools.Common/bin/$(Configuration)/$(TargetFramework)/ChartTools.Common.dll</HintPath>
+    </Reference>
+    <Using Include="Polyfills" />
   </ItemGroup>
 
 </Project>
