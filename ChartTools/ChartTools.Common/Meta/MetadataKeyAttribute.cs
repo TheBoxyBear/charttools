@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ChartTools.Meta;
+﻿namespace ChartTools.Meta;
 
 /// <summary>
 /// Indicates that a property should be serialized with a specific key in a specific file format

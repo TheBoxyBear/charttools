@@ -76,7 +76,6 @@ public sealed partial class Metadata
 	/// <summary>
 	/// Creator of the chart
 	/// </summary>
-	[MetadataGroup]
 	public Charter Charter
 	{
 		get;
@@ -125,7 +124,6 @@ public sealed partial class Metadata
 	public sbyte? Difficulty { get; set; }
 
 	/// <inheritdoc cref="InstrumentDifficultySet"/>
-	[MetadataGroup]
 	public InstrumentDifficultySet InstrumentDifficulties
 	{
 		get;
@@ -148,7 +146,6 @@ public sealed partial class Metadata
 	/// <summary>
 	/// Paths of audio files
 	/// </summary>
-	[MetadataGroup]
 	public StreamCollection Streams
 	{
 		get;
@@ -180,7 +177,6 @@ public sealed partial class Metadata
 	public bool? IsModchart { get; set; }
 
 	/// <inheritdoc cref="FormattingRules"/>
-	[MetadataGroup]
 	public FormattingRules Formatting
 	{
 		get;

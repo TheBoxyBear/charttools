@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ChartTools.Meta;
+﻿namespace ChartTools.Meta;
 
 [AttributeUsage(AttributeTargets.Class)]
 internal class MetadataMapperAttribute(FileType fileType) : Attribute

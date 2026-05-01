@@ -2,9 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,10 +11,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
-    <Reference Include="ChartTools.Common">
-      <HintPath>$(SolutionDir)/ChartTools.Common/bin/$(Configuration)/$(TargetFramework)/ChartTools.Common.dll</HintPath>
-    </Reference>
-    <Using Include="Polyfills" />
+    <ProjectReference Include="$(SolutionDir)\ChartTools.Common\ChartTools.Common.csproj" TargetFramework="$(TargetFramework)" OutputItemType="Analyzer" />
   </ItemGroup>
+
+
 
 </Project>

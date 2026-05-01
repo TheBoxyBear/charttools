@@ -2,20 +2,13 @@
 
   <PropertyGroup>
     <RefTargetFramework>net10.0</RefTargetFramework>
-    <LangVersion>latest</LangVersion>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <SignAssembly>False</SignAssembly>
     <Description>Library for editing Clone Hero song files in .NET</Description>
     <PackageProjectUrl></PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <RepositoryUrl>https://github.com/TheBoxyBear/charttools</RepositoryUrl>
-    <NeutralLanguage>en-CA</NeutralLanguage>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <Company>TheBoxyBear</Company>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
     <PolyPublic>true</PolyPublic>
@@ -49,7 +42,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ChartTools.Common\ChartTools.Common.csproj" Properties="TargetFramework=$(TargetFramework)" />
-    <Using Include="Polyfills" />
     <Using Include="ChartTools.Extensions.MemoryExtensions" Static="true"/>
   </ItemGroup>
 

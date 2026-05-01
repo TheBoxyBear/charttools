@@ -1,0 +1,15 @@
+<Project>
+  <PropertyGroup>
+    <Company>TheBoxyBear</Company>
+    <RepositoryUrl>https://github.com/TheBoxyBear/charttools</RepositoryUrl>
+    <NeutralLanguage>en-CA</NeutralLanguage>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Using Include="Polyfills" />
+  </ItemGroup>
+</Project>

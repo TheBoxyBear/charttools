@@ -17,6 +17,7 @@
     <EmbeddedResource Remove="_site\**" />
     <None Remove="api\**" />
     <None Remove="_site\**" />
+    <Using Remove="Polyfills"/>
   </ItemGroup>
 
   <ItemGroup>

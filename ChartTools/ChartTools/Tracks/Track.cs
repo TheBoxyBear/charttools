@@ -44,6 +44,7 @@ public abstract record Track : IEmptyVerifiable
 #else
 	public IReadOnlyList<Chord> Chords
 		=> GetChords();
+
 	protected abstract IReadOnlyList<Chord> GetChords();
 #endif
 

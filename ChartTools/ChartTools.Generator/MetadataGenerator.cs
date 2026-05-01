@@ -3,10 +3,8 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
 
 namespace ChartTools.Generator;
@@ -59,40 +57,41 @@ public class MetadataGenerator : IIncrementalGenerator
 
 							string path = $"{prefix}.{prop.Name}";
 
-							AttributeData[] mappings = [.. prop.GetAttributes().Where(attr => attr.AttributeClass?.Name == nameof(MetadataKeyAttribute))];
+							var mappingAttributes = prop.GetAttributes().Where(attr => attr.AttributeClass?.Name == "MetadataKeyAttribute").ToArray();
 
-							if (mappings.Length > 0 || prop.Type.SpecialType == SpecialType.System_String || prop.Type.IsValueType)
+							if (mappingAttributes.Length > 0 || prop.Type.SpecialType == SpecialType.System_String || prop.Type.IsValueType)
 							{
-								MetadataKeyAttribute[] keys = new MetadataKeyAttribute[mappings.Length];
+								MetadataKeyAttribute[] keys = new MetadataKeyAttribute[mappingAttributes.Length];
 
-								for (int i = 0; i < mappings.Length; i++)
+								for (int i = 0; i < mappingAttributes.Length; i++)
 								{
-									ref readonly AttributeData mapping = ref mappings[i];
-									ref MetadataKeyAttribute key = ref keys[i];
+									var mapping = mappingAttributes[i];
 
 									KeyValuePair<string, TypedConstant> mappable = mapping.NamedArguments
-										.FirstOrDefault(static arg => arg.Key == nameof(MetadataKeyAttribute.ValueMappable));
-
-									FileType attFileType = (FileType)mapping.ConstructorArguments[0].Value!;
-									string attKey = (string)mapping.ConstructorArguments[1].Value!;
+										.FirstOrDefault(static arg => arg.Key == "ValueMappable");
 
 									keys[i] = new MetadataKeyAttribute(
 										fileType: (FileType)mapping.ConstructorArguments[0].Value!,
-										key: (string)mapping.ConstructorArguments[1].Value!);
+										key: (string)mapping.ConstructorArguments[1].Value!)
+										{ ValueMappable = mappable.Key != null ? (bool)mappable.Value.Value! : false };
 								}
 
-								yield return new(
+								yield return new MetadataProperty(
 									Name: prop.Name,
 									Type: prop.Type.ToDisplayString(),
 									ParseType: prop.Type.Name == "Nullable"
-									  ? (prop.Type as INamedTypeSymbol)!.TypeArguments[0].ToDisplayString()
+									  ? ((INamedTypeSymbol)prop.Type).TypeArguments[0].ToDisplayString()
 									  : prop.Type.ToDisplayString(),
 									Path: path,
-									Keys: [.. keys]);
+									Keys: keys.ToImmutableArray());
 							}
 							else
+							{
 								foreach (MetadataProperty subProp in GetProps(prop.Type, path))
+								{
 									yield return subProp;
+								}
+							}
 						}
 					}
 				}).SelectMany(static (props, _) => props).Collect();
