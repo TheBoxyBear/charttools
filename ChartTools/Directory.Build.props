@@ -1,4 +1,5 @@
 <Project>
+
   <PropertyGroup>
     <Company>TheBoxyBear</Company>
     <RepositoryUrl>https://github.com/TheBoxyBear/charttools</RepositoryUrl>
@@ -7,9 +8,18 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <MultiTargetFrameworks>netstandard2.0;netstandard2.1;net8.0;net9.0;net10.0</MultiTargetFrameworks>
+    <TestAssemblies>
+      ChartTools.Tests-NetStandard2.0;
+      ChartTools.Tests-NetStandard2.1;
+      ChartTools.Tests-Net8.0;
+      ChartTools.Tests-Net9.0;
+      ChartTools.Tests-Net10.0
+    </TestAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
     <Using Include="Polyfills" />
   </ItemGroup>
+
 </Project>

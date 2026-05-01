@@ -124,6 +124,7 @@ public class TempoMap : IList<Tempo>
 
 		Desync();
 	}
+
 	public void RemoveAt(int index, bool detachMap)
 	{
 		if (detachMap)
