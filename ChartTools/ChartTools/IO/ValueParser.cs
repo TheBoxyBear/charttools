@@ -51,6 +51,7 @@ internal static class ValueParser
 			TypeCode.Single  => Parse<float>(float.TryParse),
 			TypeCode.Double  => Parse<double>(double.TryParse),
 			TypeCode.Decimal => Parse<decimal>(decimal.TryParse),
+			TypeCode.String => UnsafeExtensions.AsReadonly<string, T>(value),
 			_ => throw new ParseException(value.ToString(), target, typeof(T))
 		};
 
