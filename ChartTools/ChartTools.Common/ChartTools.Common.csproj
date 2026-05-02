@@ -3,18 +3,11 @@
   <PropertyGroup>
     <TargetFrameworks>$(MultiTargetFrameworks)</TargetFrameworks>
     <RootNamespace>ChartTools</RootNamespace>
+	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Polyfill" Version="9.23.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <InternalsVisibleTo Include="ChartTools;ChartTools.Generator;$(TestAssemblies)"/>
+    <InternalsVisibleTo Include="ChartTools;ChartTools.Generator;$(TestAssemblies)" />
   </ItemGroup>
-
-  <PropertyGroup>
-    <PolyArgumentExceptions>true</PolyArgumentExceptions>
-  </PropertyGroup>
 
 </Project>

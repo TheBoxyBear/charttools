@@ -10,8 +10,9 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <PolyPublic>true</PolyPublic>
+    <PolyArgumentExceptions>true</PolyArgumentExceptions>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Ref'">
@@ -32,23 +33,24 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <InternalsVisibleTo Include="$(TestAssemblies)"/>
+    <ProjectReference Include="../ChartTools.Common/ChartTools.Common.csproj" TargetFramework="$(TargetFramework)" />
+    <InternalsVisibleTo Include="$(TestAssemblies)" />
+    <Using Include="ChartTools.Extensions.MemoryExtensions" Static="true"/>
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netstandard2.1'">
+    <PackageReference Include="System.Collections.Immutable" Version="9.0.0" />
+    <PackageReference Include="System.Memory" Version="4.6.3" />
     <Reference Include="Bcl.CollectionsMarshal">
       <HintPath>..\Dependencies\bin\$(TargetFramework)\Bcl.CollectionsMarshal.dll</HintPath>
     </Reference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ChartTools.Common\ChartTools.Common.csproj" Properties="TargetFramework=$(TargetFramework)" />
-    <Using Include="ChartTools.Extensions.MemoryExtensions" Static="true"/>
+  <ItemGroup Condition="'$(ProduceOnlyReferenceAssembly)' != 'true'">
+    <ProjectReference Include="..\ChartTools.Generator\ChartTools.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(ProduceOnlyReferenceAssembly)' != 'true'">
-    <ProjectReference Include="..\ChartTools.Generator\ChartTools.Generator.csproj" OutputItemType="Analyzer"/>
-  </ItemGroup>
+  <Import Project="../Polyfill.props"  Condition="'$(ProduceOnlyReferenceAssembly)' != 'true'"/>
 
   <Target Name="CopyDataFiles" AfterTargets="PostBuildEvent" Condition="'$(TargetFramework)' == '$(RefTargetFramework)'">
     <ItemGroup>

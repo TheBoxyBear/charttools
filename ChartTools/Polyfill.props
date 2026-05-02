@@ -1,0 +1,14 @@
+<Project>
+
+  <PropertyGroup>
+    <PolyPublic>true</PolyPublic>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Polyfill" Version="10.3.0" PrivateAssets="all">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <Using Include="Polyfills"/>
+  </ItemGroup>
+
+</Project>

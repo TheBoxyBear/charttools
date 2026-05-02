@@ -11,7 +11,7 @@ namespace ChartTools.Generator;
 
 /// <exclude />
 [Generator]
-public class MetadataGenerator : IIncrementalGenerator
+internal class MetadataGenerator : IIncrementalGenerator
 {
 	private const string
 		MetadataType         = "Metadata",
@@ -42,7 +42,7 @@ public class MetadataGenerator : IIncrementalGenerator
 				transform: static (context, ctx) =>
 				{
 					return context.SemanticModel.GetDeclaredSymbol(context.Node) is not ITypeSymbol rootSymbol
-					? [] : GetProps(rootSymbol, string.Empty);
+						? [] : GetProps(rootSymbol, string.Empty);
 
 					IEnumerable<MetadataProperty> GetProps(ITypeSymbol classSymbol, string prefix)
 					{
