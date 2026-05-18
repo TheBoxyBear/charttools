@@ -21,7 +21,7 @@
   <ItemGroup>
     <CleanupFiles
       Include="$(SolutionDir)artifacts/**/$(MSBuildProjectName)/**"
-      Exclude="$(SolutionDir)artifacts/obj/$(MSBuildProjectName)/*"/>
+      Exclude="$(SolutionDir)artifacts/obj/$(MSBuildProjectName)/**"/>
   </ItemGroup>
 
 </Project>

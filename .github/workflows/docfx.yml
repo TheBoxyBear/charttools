@@ -31,6 +31,7 @@ jobs:
       with:
         dotnet-version: 10.0
 
+    - run: dotnet restore ChartTools/ChartTools/ChartTools.csproj
     - run: dotnet build ChartTools/ChartTools/ChartTools.csproj -c Ref
     - run: dotnet tool update -g docfx
     - run: docfx ChartTools/Docs/docfx.json
