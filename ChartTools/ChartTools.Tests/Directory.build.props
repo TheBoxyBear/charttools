@@ -8,14 +8,12 @@
     <AssemblyName>ChartTools.Tests-$(MSBuildProjectName)</AssemblyName>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <BaseOutputPath>bin\$(MSBuildProjectName)\</BaseOutputPath>
-    <IntermediateOutputPath>obj\$(MSBuildProjectName)\</IntermediateOutputPath>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MSTest" Version="4.1.0" />
-    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+    <PackageReference Include="MSTest" Version="4.1.0"/>
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting"/>
   </ItemGroup>
 
 </Project>

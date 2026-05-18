@@ -15,6 +15,13 @@
       ChartTools.Tests-Net9.0;
       ChartTools.Tests-Net10.0
     </TestAssemblies>
+    <UseArtifactsOutput>true</UseArtifactsOutput>
   </PropertyGroup>
+
+  <ItemGroup>
+    <CleanupFiles
+      Include="$(SolutionDir)artifacts/**/$(MSBuildProjectName)/**"
+      Exclude="$(SolutionDir)artifacts/obj/$(MSBuildProjectName)/*"/>
+  </ItemGroup>
 
 </Project>

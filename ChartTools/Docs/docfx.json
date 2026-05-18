@@ -3,9 +3,9 @@
     {
       "src": [
         {
-          "src": "../ChartTools",
+          "src": "../artifacts/ref",
           "files": [
-            "artifacts/*.dll"
+            "*.dll"
           ]
         }
       ],

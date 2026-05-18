@@ -10,7 +10,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
     <PolyArgumentExceptions>true</PolyArgumentExceptions>
   </PropertyGroup>
@@ -25,38 +25,38 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\LICENSE">
+    <None Include="$(SolutionDir)/../LICENSE">
       <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
+      <PackagePath>/</PackagePath>
     </None>
-    <None Include="..\..\README.md">
+    <None Include="$(SolutionDir)/../README.md">
       <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
+      <PackagePath>/</PackagePath>
     </None>
-    <ProjectReference Include="../ChartTools.Common/ChartTools.Common.csproj" TargetFramework="$(TargetFramework)" />
-    <InternalsVisibleTo Include="$(TestAssemblies)" />
+    <ProjectReference Include="$(SolutionDir)/ChartTools.Common/ChartTools.Common.csproj" TargetFramework="$(TargetFramework)"/>
+    <InternalsVisibleTo Include="$(TestAssemblies)"/>
     <Using Include="ChartTools.Extensions.MemoryExtensions" Static="true"/>
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netstandard2.1'">
-    <PackageReference Include="System.Collections.Immutable" Version="9.0.0" />
-    <PackageReference Include="System.Memory" Version="4.6.3" />
+    <PackageReference Include="System.Collections.Immutable" Version="9.0.0"/>
+    <PackageReference Include="System.Memory" Version="4.6.3"/>
     <Reference Include="Bcl.CollectionsMarshal">
-      <HintPath>..\Dependencies\bin\$(TargetFramework)\Bcl.CollectionsMarshal.dll</HintPath>
+      <HintPath>$(SolutionDir)/Dependencies/bin/$(TargetFramework)/Bcl.CollectionsMarshal.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <ItemGroup Condition="'$(ProduceOnlyReferenceAssembly)' != 'true'">
-    <ProjectReference Include="..\ChartTools.Generator\ChartTools.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="$(SolutionDir)/ChartTools.Generator/ChartTools.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
   </ItemGroup>
 
-  <Import Project="../Polyfill.props"  Condition="'$(ProduceOnlyReferenceAssembly)' != 'true'"/>
+  <Import Project="$(SolutionDir)/Polyfill.props" Condition="'$(ProduceOnlyReferenceAssembly)' != 'true'"/>
 
   <Target Name="CopyDataFiles" AfterTargets="PostBuildEvent" Condition="'$(TargetFramework)' == '$(RefTargetFramework)'">
     <ItemGroup>
-      <Files Include="$(OutDir)ChartTools*.dll;$(OutDir)ChartTools*.xml" />
+      <Files Include="ChartTools*.dll;ChartTools*.xml"/>
     </ItemGroup>
-    <Copy SourceFiles="@(Files)" DestinationFolder="$(ProjectDir)artifacts" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(Files)" DestinationFolder="$(SolutionDir)artifacts/ref/" SkipUnchangedFiles="true"/>
   </Target>
 
 </Project>
