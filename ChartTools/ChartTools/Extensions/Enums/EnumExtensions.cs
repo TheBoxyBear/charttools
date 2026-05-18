@@ -1,12 +1,13 @@
 ﻿#if NET7_0_OR_GREATER
 using System.Numerics;
 #endif
-using System.Runtime.CompilerServices;
 
-using UnsafeEx = ChartTools.Extensions.UnsafeExtensions;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace ChartTools.Extensions.Enums;
 
+[EditorBrowsable(EditorBrowsableState.Never)]
 public static class EnumExtensions
 {
 	extension<T>(T)
@@ -59,92 +60,92 @@ public static class EnumExtensions
 		public static T operator|(T left, T right)
 			=> EnumCache<T>.UnderlyingTypeCode switch
 			{
-				TypeCode.Byte   => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, byte>(ref left)    | Unsafe.As<T, byte>(ref right)),
-				TypeCode.SByte  => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, sbyte>(ref left)   | Unsafe.As<T, sbyte>(ref right)),
-				TypeCode.Int16  => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, short>(ref left)   | Unsafe.As<T, short>(ref right)),
-				TypeCode.UInt16 => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, ushort>(ref left)  | Unsafe.As<T, ushort>(ref right)),
-				TypeCode.Int32  => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, int>(ref left)	   | Unsafe.As<T, int>(ref right)),
-				TypeCode.UInt32 => UnsafeEx.AsReadonly<uint, T>(Unsafe.As<T, uint>(ref left)   | Unsafe.As<T, uint>(ref right)),
-				TypeCode.Int64  => UnsafeEx.AsReadonly<long, T>(Unsafe.As<T, long>(ref left)   | Unsafe.As<T, long>(ref right)),
-				TypeCode.UInt64 => UnsafeEx.AsReadonly<ulong, T>(Unsafe.As<T, ulong>(ref left) | Unsafe.As<T, ulong>(ref right))
+				TypeCode.Byte   => Unsafe.As<int, T>(Unsafe.As<T, byte>(left)    | Unsafe.As<T, byte>(right)),
+				TypeCode.SByte  => Unsafe.As<int, T>(Unsafe.As<T, sbyte>(left)   | Unsafe.As<T, sbyte>(right)),
+				TypeCode.Int16  => Unsafe.As<int, T>(Unsafe.As<T, short>(left)   | Unsafe.As<T, short>(right)),
+				TypeCode.UInt16 => Unsafe.As<int, T>(Unsafe.As<T, ushort>(left)  | Unsafe.As<T, ushort>(right)),
+				TypeCode.Int32  => Unsafe.As<int, T>(Unsafe.As<T, int>(left)	 | Unsafe.As<T, int>(right)),
+				TypeCode.UInt32 => Unsafe.As<uint, T>(Unsafe.As<T, uint>(left)   | Unsafe.As<T, uint>(right)),
+				TypeCode.Int64  => Unsafe.As<long, T>(Unsafe.As<T, long>(left)   | Unsafe.As<T, long>(right)),
+				TypeCode.UInt64 => Unsafe.As<ulong, T>(Unsafe.As<T, ulong>(left) | Unsafe.As<T, ulong>(right))
 			};
 
 		public static T operator &(T left, T right)
 			=> EnumCache<T>.UnderlyingTypeCode switch
 			{
-				TypeCode.Byte   => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, byte>(ref left)	   & Unsafe.As<T, byte>(ref right)),
-				TypeCode.SByte  => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, sbyte>(ref left)   & Unsafe.As<T, sbyte>(ref right)),
-				TypeCode.Int16  => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, short>(ref left)   & Unsafe.As<T, short>(ref right)),
-				TypeCode.UInt16 => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, ushort>(ref left)  & Unsafe.As<T, ushort>(ref right)),
-				TypeCode.Int32  => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, int>(ref left)	   & Unsafe.As<T, int>(ref right)),
-				TypeCode.UInt32 => UnsafeEx.AsReadonly<uint, T>(Unsafe.As<T, uint>(ref left)   & Unsafe.As<T, uint>(ref right)),
-				TypeCode.Int64  => UnsafeEx.AsReadonly<long, T>(Unsafe.As<T, long>(ref left)   & Unsafe.As<T, long>(ref right)),
-				TypeCode.UInt64 => UnsafeEx.AsReadonly<ulong, T>(Unsafe.As<T, ulong>(ref left) & Unsafe.As<T, ulong>(ref right))
+				TypeCode.Byte   => Unsafe.As<int, T>(Unsafe.As<T, byte>(left)	 & Unsafe.As<T, byte>(right)),
+				TypeCode.SByte  => Unsafe.As<int, T>(Unsafe.As<T, sbyte>(left)   & Unsafe.As<T, sbyte>(right)),
+				TypeCode.Int16  => Unsafe.As<int, T>(Unsafe.As<T, short>(left)   & Unsafe.As<T, short>(right)),
+				TypeCode.UInt16 => Unsafe.As<int, T>(Unsafe.As<T, ushort>(left)  & Unsafe.As<T, ushort>(right)),
+				TypeCode.Int32  => Unsafe.As<int, T>(Unsafe.As<T, int>(left)	 & Unsafe.As<T, int>(right)),
+				TypeCode.UInt32 => Unsafe.As<uint, T>(Unsafe.As<T, uint>(left)   & Unsafe.As<T, uint>(right)),
+				TypeCode.Int64  => Unsafe.As<long, T>(Unsafe.As<T, long>(left)   & Unsafe.As<T, long>(right)),
+				TypeCode.UInt64 => Unsafe.As<ulong, T>(Unsafe.As<T, ulong>(left) & Unsafe.As<T, ulong>(right))
 			};
 
 		public static T operator ^(T left, T right)
 			=> EnumCache<T>.UnderlyingTypeCode switch
 			{
-				TypeCode.Byte   => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, byte>(ref left)    ^ Unsafe.As<T, byte>(ref right)),
-				TypeCode.SByte  => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, sbyte>(ref left)   ^ Unsafe.As<T, sbyte>(ref right)),
-				TypeCode.Int16  => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, short>(ref left)   ^ Unsafe.As<T, short>(ref right)),
-				TypeCode.UInt16 => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, ushort>(ref left)  ^ Unsafe.As<T, ushort>(ref right)),
-				TypeCode.Int32  => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, int>(ref left)	   ^ Unsafe.As<T, int>(ref right)),
-				TypeCode.UInt32 => UnsafeEx.AsReadonly<uint, T>(Unsafe.As<T, uint>(ref left)   ^ Unsafe.As<T, uint>(ref right)),
-				TypeCode.Int64  => UnsafeEx.AsReadonly<long, T>(Unsafe.As<T, long>(ref left)   ^ Unsafe.As<T, long>(ref right)),
-				TypeCode.UInt64 => UnsafeEx.AsReadonly<ulong, T>(Unsafe.As<T, ulong>(ref left) ^ Unsafe.As<T, ulong>(ref right)),
+				TypeCode.Byte   => Unsafe.As<int, T>(Unsafe.As<T, byte>(left)    ^ Unsafe.As<T, byte>(right)),
+				TypeCode.SByte  => Unsafe.As<int, T>(Unsafe.As<T, sbyte>(left)   ^ Unsafe.As<T, sbyte>(right)),
+				TypeCode.Int16  => Unsafe.As<int, T>(Unsafe.As<T, short>(left)   ^ Unsafe.As<T, short>(right)),
+				TypeCode.UInt16 => Unsafe.As<int, T>(Unsafe.As<T, ushort>(left)  ^ Unsafe.As<T, ushort>(right)),
+				TypeCode.Int32  => Unsafe.As<int, T>(Unsafe.As<T, int>(left)	 ^ Unsafe.As<T, int>(right)),
+				TypeCode.UInt32 => Unsafe.As<uint, T>(Unsafe.As<T, uint>(left)   ^ Unsafe.As<T, uint>(right)),
+				TypeCode.Int64  => Unsafe.As<long, T>(Unsafe.As<T, long>(left)   ^ Unsafe.As<T, long>(right)),
+				TypeCode.UInt64 => Unsafe.As<ulong, T>(Unsafe.As<T, ulong>(left) ^ Unsafe.As<T, ulong>(right)),
 			};
 
 		public static T operator ~(T value)
 			=> EnumCache<T>.UnderlyingTypeCode switch
 			{
-				TypeCode.Byte   => UnsafeEx.AsReadonly<int, T>(~Unsafe.As<T, byte>(ref value)),
-				TypeCode.SByte  => UnsafeEx.AsReadonly<int, T>(~Unsafe.As<T, sbyte>(ref value)),
-				TypeCode.Int16  => UnsafeEx.AsReadonly<int, T>(~Unsafe.As<T, short>(ref value)),
-				TypeCode.UInt16 => UnsafeEx.AsReadonly<int, T>(~Unsafe.As<T, ushort>(ref value)),
-				TypeCode.Int32  => UnsafeEx.AsReadonly<int, T>(~Unsafe.As<T, int>(ref value)),
-				TypeCode.UInt32 => UnsafeEx.AsReadonly<uint, T>(~Unsafe.As<T, uint>(ref value)),
-				TypeCode.Int64  => UnsafeEx.AsReadonly<long, T>(~Unsafe.As<T, long>(ref value)),
-				TypeCode.UInt64 => UnsafeEx.AsReadonly<ulong, T>(~Unsafe.As<T, ulong>(ref value)),
+				TypeCode.Byte   => Unsafe.As<int, T>(~Unsafe.As<T, byte>(value)),
+				TypeCode.SByte  => Unsafe.As<int, T>(~Unsafe.As<T, sbyte>(value)),
+				TypeCode.Int16  => Unsafe.As<int, T>(~Unsafe.As<T, short>(value)),
+				TypeCode.UInt16 => Unsafe.As<int, T>(~Unsafe.As<T, ushort>(value)),
+				TypeCode.Int32  => Unsafe.As<int, T>(~Unsafe.As<T, int>(value)),
+				TypeCode.UInt32 => Unsafe.As<uint, T>(~Unsafe.As<T, uint>(value)),
+				TypeCode.Int64  => Unsafe.As<long, T>(~Unsafe.As<T, long>(value)),
+				TypeCode.UInt64 => Unsafe.As<ulong, T>(~Unsafe.As<T, ulong>(value)),
 			};
 
 		public static T operator <<(T left, int shift)
 			=> EnumCache<T>.UnderlyingTypeCode switch
 			{
-				TypeCode.Byte   => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, byte>(ref left)	   << shift),
-				TypeCode.SByte  => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, sbyte>(ref left)   << shift),
-				TypeCode.Int16  => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, short>(ref left)   << shift),
-				TypeCode.UInt16 => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, ushort>(ref left)  << shift),
-				TypeCode.Int32  => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, int>(ref left)	   << shift),
-				TypeCode.UInt32 => UnsafeEx.AsReadonly<uint, T>(Unsafe.As<T, uint>(ref left)   << shift),
-				TypeCode.Int64  => UnsafeEx.AsReadonly<long, T>(Unsafe.As<T, long>(ref left)   << shift),
-				TypeCode.UInt64 => UnsafeEx.AsReadonly<ulong, T>(Unsafe.As<T, ulong>(ref left) << shift),
+				TypeCode.Byte   => Unsafe.As<int, T>(Unsafe.As<T, byte>(left)	 << shift),
+				TypeCode.SByte  => Unsafe.As<int, T>(Unsafe.As<T, sbyte>(left)   << shift),
+				TypeCode.Int16  => Unsafe.As<int, T>(Unsafe.As<T, short>(left)   << shift),
+				TypeCode.UInt16 => Unsafe.As<int, T>(Unsafe.As<T, ushort>(left)  << shift),
+				TypeCode.Int32  => Unsafe.As<int, T>(Unsafe.As<T, int>(left)	 << shift),
+				TypeCode.UInt32 => Unsafe.As<uint, T>(Unsafe.As<T, uint>(left)   << shift),
+				TypeCode.Int64  => Unsafe.As<long, T>(Unsafe.As<T, long>(left)   << shift),
+				TypeCode.UInt64 => Unsafe.As<ulong, T>(Unsafe.As<T, ulong>(left) << shift),
 			};
 
 		public static T operator >>(T left, int shift)
 			=> EnumCache<T>.UnderlyingTypeCode switch
 			{
-				TypeCode.Byte   => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, byte>(ref left)    >> shift),
-				TypeCode.SByte  => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, sbyte>(ref left)   >> shift),
-				TypeCode.Int16  => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, short>(ref left)   >> shift),
-				TypeCode.UInt16 => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, ushort>(ref left)  >> shift),
-				TypeCode.Int32  => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, int>(ref left)     >> shift),
-				TypeCode.UInt32 => UnsafeEx.AsReadonly<uint, T>(Unsafe.As<T, uint>(ref left)   >> shift),
-				TypeCode.Int64  => UnsafeEx.AsReadonly<long, T>(Unsafe.As<T, long>(ref left)   >> shift),
-				TypeCode.UInt64 => UnsafeEx.AsReadonly<ulong, T>(Unsafe.As<T, ulong>(ref left) >> shift),
+				TypeCode.Byte   => Unsafe.As<int, T>(Unsafe.As<T, byte>(left)    >> shift),
+				TypeCode.SByte  => Unsafe.As<int, T>(Unsafe.As<T, sbyte>(left)   >> shift),
+				TypeCode.Int16  => Unsafe.As<int, T>(Unsafe.As<T, short>(left)   >> shift),
+				TypeCode.UInt16 => Unsafe.As<int, T>(Unsafe.As<T, ushort>(left)  >> shift),
+				TypeCode.Int32  => Unsafe.As<int, T>(Unsafe.As<T, int>(left)     >> shift),
+				TypeCode.UInt32 => Unsafe.As<uint, T>(Unsafe.As<T, uint>(left)   >> shift),
+				TypeCode.Int64  => Unsafe.As<long, T>(Unsafe.As<T, long>(left)   >> shift),
+				TypeCode.UInt64 => Unsafe.As<ulong, T>(Unsafe.As<T, ulong>(left) >> shift),
 			};
 
 		public static T operator >>>(T left, int shift)
 			=> EnumCache<T>.UnderlyingTypeCode switch
 			{
-				TypeCode.Byte   => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, byte>(ref left)    >>> shift),
-				TypeCode.SByte  => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, sbyte>(ref left)   >>> shift),
-				TypeCode.Int16  => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, short>(ref left)   >>> shift),
-				TypeCode.UInt16 => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, ushort>(ref left)  >>> shift),
-				TypeCode.Int32  => UnsafeEx.AsReadonly<int, T>(Unsafe.As<T, int>(ref left)	   >>> shift),
-				TypeCode.UInt32 => UnsafeEx.AsReadonly<uint, T>(Unsafe.As<T, uint>(ref left)   >>> shift),
-				TypeCode.Int64  => UnsafeEx.AsReadonly<long, T>(Unsafe.As<T, long>(ref left)   >>> shift),
-				TypeCode.UInt64 => UnsafeEx.AsReadonly<ulong, T>(Unsafe.As<T, ulong>(ref left) >>> shift),
+				TypeCode.Byte   => Unsafe.As<int, T>(Unsafe.As<T, byte>(left)    >>> shift),
+				TypeCode.SByte  => Unsafe.As<int, T>(Unsafe.As<T, sbyte>(left)   >>> shift),
+				TypeCode.Int16  => Unsafe.As<int, T>(Unsafe.As<T, short>(left)   >>> shift),
+				TypeCode.UInt16 => Unsafe.As<int, T>(Unsafe.As<T, ushort>(left)  >>> shift),
+				TypeCode.Int32  => Unsafe.As<int, T>(Unsafe.As<T, int>(left)	 >>> shift),
+				TypeCode.UInt32 => Unsafe.As<uint, T>(Unsafe.As<T, uint>(left)   >>> shift),
+				TypeCode.Int64  => Unsafe.As<long, T>(Unsafe.As<T, long>(left)   >>> shift),
+				TypeCode.UInt64 => Unsafe.As<ulong, T>(Unsafe.As<T, ulong>(left) >>> shift),
 			};
 	}
 
@@ -159,19 +160,19 @@ public static class EnumExtensions
 		{
 #if NET5_0_OR_GREATER
 			T2 value = left.As<T1, T2>() + right;
-			return Unsafe.As<T2, T1>(ref value);
+			return Unsafe.As<T2, T1>(value);
 #else
 			return Type.GetTypeCode(typeof(T2)) switch
 			{
-				TypeCode.Byte   => UnsafeEx.AsReadonly<int, T1>(Unsafe.As<T1, byte>(ref left)	 + Unsafe.As<T2, byte>(ref right)),
-				TypeCode.SByte  => UnsafeEx.AsReadonly<int, T1>(Unsafe.As<T1, byte>(ref left)	 + Unsafe.As<T2, byte>(ref right)),
-				TypeCode.Int16  => UnsafeEx.AsReadonly<int, T1>(Unsafe.As<T1, short>(ref left)	 + Unsafe.As<T2, short>(ref right)),
-				TypeCode.UInt16 => UnsafeEx.AsReadonly<int, T1>(Unsafe.As<T1, ushort>(ref left)  + Unsafe.As<T2, ushort>(ref right)),
-				TypeCode.Int32  => UnsafeEx.AsReadonly<int, T1>(Unsafe.As<T1, int>(ref left)	 + Unsafe.As<T2, int>(ref right)),
-				TypeCode.UInt32 => UnsafeEx.AsReadonly<uint, T1>(Unsafe.As<T1, uint>(ref left)	 + Unsafe.As<T2, uint>(ref right)),
-				TypeCode.Int64  => UnsafeEx.AsReadonly<long, T1>(Unsafe.As<T1, long>(ref left)	 + Unsafe.As<T2, long>(ref right)),
-				TypeCode.UInt64 => UnsafeEx.AsReadonly<ulong, T1>(Unsafe.As<T1, ulong>(ref left) + Unsafe.As<T2, ulong>(ref right)),
-				_ => throw new NotSupportedException($"Underlying type of {typeof(T1)} is not supported."),
+				TypeCode.Byte   => Unsafe.As<int, T1>(Unsafe.As<T1, byte>(left)	   + Unsafe.As<T2, byte>(right)),
+				TypeCode.SByte  => Unsafe.As<int, T1>(Unsafe.As<T1, sbyte>(left)   + Unsafe.As<T2, sbyte>(right)),
+				TypeCode.Int16  => Unsafe.As<int, T1>(Unsafe.As<T1, short>(left)   + Unsafe.As<T2, short>(right)),
+				TypeCode.UInt16 => Unsafe.As<int, T1>(Unsafe.As<T1, ushort>(left)  + Unsafe.As<T2, ushort>(right)),
+				TypeCode.Int32  => Unsafe.As<int, T1>(Unsafe.As<T1, int>(left)	   + Unsafe.As<T2, int>(right)),
+				TypeCode.UInt32 => Unsafe.As<uint, T1>(Unsafe.As<T1, uint>(left)   + Unsafe.As<T2, uint>(right)),
+				TypeCode.Int64  => Unsafe.As<long, T1>(Unsafe.As<T1, long>(left)   + Unsafe.As<T2, long>(right)),
+				TypeCode.UInt64 => Unsafe.As<ulong, T1>(Unsafe.As<T1, ulong>(left) + Unsafe.As<T2, ulong>(right)),
+				_ => throw new NotSupportedException($"Underlying type of {typeof(T1)} is not supported.")
 			};
 #endif
 		}
@@ -180,18 +181,18 @@ public static class EnumExtensions
 		{
 #if NET5_0_OR_GREATER
 			T2 value = left.As<T1, T2>() - right;
-			return Unsafe.As<T2, T1>(ref value);
+			return Unsafe.As<T2, T1>(value);
 #else
 			return Type.GetTypeCode(typeof(T2)) switch
 			{
-				TypeCode.Byte   => UnsafeEx.AsReadonly<int, T1>(Unsafe.As<T1, byte>(ref left)	 - Unsafe.As<T2, byte>(ref right)),
-				TypeCode.SByte  => UnsafeEx.AsReadonly<int, T1>(Unsafe.As<T1, byte>(ref left)    - Unsafe.As<T2, byte>(ref right)),
-				TypeCode.Int16  => UnsafeEx.AsReadonly<int, T1>(Unsafe.As<T1, short>(ref left)   - Unsafe.As<T2, short>(ref right)),
-				TypeCode.UInt16 => UnsafeEx.AsReadonly<int, T1>(Unsafe.As<T1, ushort>(ref left)  - Unsafe.As<T2, ushort>(ref right)),
-				TypeCode.Int32  => UnsafeEx.AsReadonly<int, T1>(Unsafe.As<T1, int>(ref left)	 - Unsafe.As<T2, int>(ref right)),
-				TypeCode.UInt32 => UnsafeEx.AsReadonly<uint, T1>(Unsafe.As<T1, uint>(ref left)   - Unsafe.As<T2, uint>(ref right)),
-				TypeCode.Int64  => UnsafeEx.AsReadonly<long, T1>(Unsafe.As<T1, long>(ref left)   - Unsafe.As<T2, long>(ref right)),
-				TypeCode.UInt64 => UnsafeEx.AsReadonly<ulong, T1>(Unsafe.As<T1, ulong>(ref left) - Unsafe.As<T2, ulong>(ref right)),
+				TypeCode.Byte   => Unsafe.As<int, T1>(Unsafe.As<T1, byte>(left)	   - Unsafe.As<T2, byte>(right)),
+				TypeCode.SByte  => Unsafe.As<int, T1>(Unsafe.As<T1, sbyte>(left)   - Unsafe.As<T2, sbyte>(right)),
+				TypeCode.Int16  => Unsafe.As<int, T1>(Unsafe.As<T1, short>(left)   - Unsafe.As<T2, short>(right)),
+				TypeCode.UInt16 => Unsafe.As<int, T1>(Unsafe.As<T1, ushort>(left)  - Unsafe.As<T2, ushort>(right)),
+				TypeCode.Int32  => Unsafe.As<int, T1>(Unsafe.As<T1, int>(left)	   - Unsafe.As<T2, int>(right)),
+				TypeCode.UInt32 => Unsafe.As<uint, T1>(Unsafe.As<T1, uint>(left)   - Unsafe.As<T2, uint>(right)),
+				TypeCode.Int64  => Unsafe.As<long, T1>(Unsafe.As<T1, long>(left)   - Unsafe.As<T2, long>(right)),
+				TypeCode.UInt64 => Unsafe.As<ulong, T1>(Unsafe.As<T1, ulong>(left) - Unsafe.As<T2, ulong>(right)),
 				_ => throw new NotSupportedException($"Underlying type of {typeof(T1)} is not supported."),
 			};
 #endif
@@ -290,35 +291,23 @@ public static class EnumExtensions
 		=> Comparer<T>.Default.Compare(value, other);
 
 	public static TAs As<T, TAs>(this T value)
-		where T : struct, Enum
+		where T : struct, Enum, IConvertible
 		where TAs : unmanaged
 #if NET5_0_OR_GREATER
 			, IBinaryInteger<TAs>
 #endif
 	{
-		Type underlyingType = typeof(T).GetEnumUnderlyingType();
-
 		return Type.GetTypeCode(typeof(TAs)) switch
 		{
-			// Using this lambda syntax over a delegate taking object in case .net eventually adds a generic overload for IConvertible
-			TypeCode.Byte   => ConvertValue(() => Convert.ToByte(value)),
-			TypeCode.SByte  => ConvertValue(() => Convert.ToSByte(value)),
-			TypeCode.Int16  => ConvertValue(() => Convert.ToInt16(value)),
-			TypeCode.UInt16 => ConvertValue(() => Convert.ToUInt16(value)),
-			TypeCode.Int32  => ConvertValue(() => Convert.ToInt32(value)),
-			TypeCode.UInt32 => ConvertValue(() => Convert.ToUInt32(value)),
-			TypeCode.Int64  => ConvertValue(() => Convert.ToInt64(value)),
-			TypeCode.UInt64 => ConvertValue(() => Convert.ToUInt64(value)),
+			TypeCode.Byte   => Unsafe.As<byte, TAs>(value.ToByte(null)),
+			TypeCode.SByte  => Unsafe.As<sbyte, TAs>(value.ToSByte(null)),
+			TypeCode.Int16  => Unsafe.As<short, TAs>(value.ToInt16(null)),
+			TypeCode.UInt16 => Unsafe.As<ushort, TAs>(value.ToUInt16(null)),
+			TypeCode.Int32  => Unsafe.As<int, TAs>(value.ToInt32(null)),
+			TypeCode.UInt32 => Unsafe.As<uint, TAs>(value.ToUInt32(null)),
+			TypeCode.Int64  => Unsafe.As<long, TAs>(value.ToInt64(null)),
+			TypeCode.UInt64 => Unsafe.As<ulong, TAs>(value.ToUInt64(null)),
 			_ => throw new NotSupportedException($"Target type {typeof(TAs)} is not supported."),
 		};
-
-		TAs ConvertValue<TTarget>(Func<TTarget> convert)
-		{
-			if (typeof(TTarget) == underlyingType)
-				return Unsafe.As<T, TAs>(ref value);
-
-			TTarget targetValue = convert();
-			return Unsafe.As<TTarget, TAs>(ref targetValue);
-		}
 	}
 }

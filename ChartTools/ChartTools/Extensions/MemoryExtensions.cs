@@ -1,5 +1,8 @@
-﻿namespace ChartTools.Extensions;
+﻿using System.ComponentModel;
 
+namespace ChartTools.Extensions;
+
+[EditorBrowsable(EditorBrowsableState.Never)]
 internal static class MemoryExtensions
 {
 #if !NETCOREAPP3_0_OR_GREATER

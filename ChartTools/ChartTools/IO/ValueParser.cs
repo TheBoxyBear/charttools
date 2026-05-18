@@ -1,5 +1,7 @@
 ﻿using ChartTools.Extensions;
 
+using System.Runtime.CompilerServices;
+
 namespace ChartTools.IO;
 
 internal static class ValueParser
@@ -17,9 +19,9 @@ internal static class ValueParser
 			switch (value)
 			{
 				case "0":
-					return UnsafeExtensions.AsReadonly<bool, T>(false);
+					return Unsafe.As<bool, T>(false);
 				case "1":
-					return UnsafeExtensions.AsReadonly<bool, T>(true);
+					return Unsafe.As<bool, T>(true);
 			}
 
 		return T.TryParse(value, null, out T? result) ? result
@@ -36,8 +38,8 @@ internal static class ValueParser
 		{
 			TypeCode.Boolean => value switch
 			{
-				"0" => UnsafeExtensions.AsReadonly<bool, T>(false),
-				"1" => UnsafeExtensions.AsReadonly<bool, T>(true),
+				"0" => Unsafe.As<bool, T>(false),
+				"1" => Unsafe.As<bool, T>(true),
 				_ => Parse<bool>(bool.TryParse)
 			},
 			TypeCode.Byte    => Parse<byte>(byte.TryParse),
@@ -51,13 +53,13 @@ internal static class ValueParser
 			TypeCode.Single  => Parse<float>(float.TryParse),
 			TypeCode.Double  => Parse<double>(double.TryParse),
 			TypeCode.Decimal => Parse<decimal>(decimal.TryParse),
-			TypeCode.String => UnsafeExtensions.AsReadonly<string, T>(value),
+			TypeCode.String => Unsafe.As<string, T>(value),
 			_ => throw new ParseException(value.ToString(), target, typeof(T))
 		};
 
 		T Parse<TIn>(TryParseString<TIn> parseFunc)
 			=> parseFunc(value, out TIn result)
-				? UnsafeExtensions.AsReadonly<TIn, T>(result)
+				? Unsafe.As<TIn, T>(result)
 				: throw new ParseException(value.ToString(), target, typeof(T));
 	}
 #endif
@@ -70,9 +72,9 @@ internal static class ValueParser
 			switch (value)
 			{
 				case "0":
-					return UnsafeExtensions.AsReadonly<bool, T>(false);
+					return Unsafe.As<bool, T>(false);
 				case "1":
-					return UnsafeExtensions.AsReadonly<bool, T>(true);
+					return Unsafe.As<bool, T>(true);
 			}
 
 		return T.TryParse(value, null, out T? result) ? result
@@ -81,36 +83,4 @@ internal static class ValueParser
 #else
 		=> Parse<T>(value.ToString(), target);
 #endif
-
-	[Obsolete("Use Parse<bool> instead.")]
-	public static bool ParseBool(in ReadOnlySpan<char> value, string target)
-		=> Parse<bool>(value, target);
-
-	[Obsolete("Use Parse<byte> instead.")]
-	public static byte ParseByte(in ReadOnlySpan<char> value, string target)
-		=> Parse<byte>(value, target);
-
-	[Obsolete("Use Parse<sbyte> instead.")]
-	public static sbyte ParseSbyte(in ReadOnlySpan<char> value, string target)
-		=> Parse<sbyte>(value, target);
-
-	[Obsolete("Use Parse<short> instead.")]
-	public static short ParseShort(in ReadOnlySpan<char> value, string target)
-		=> Parse<short>(value, target);
-
-	[Obsolete("Use Parse<ushort> instead.")]
-	public static ushort ParseUshort(in ReadOnlySpan<char> value, string target)
-		=> Parse<ushort>(value, target);
-
-	[Obsolete("Use Parse<int> instead.")]
-	public static int ParseInt(in ReadOnlySpan<char> value, string target)
-		=> Parse<int>(value, target);
-
-	[Obsolete("Use Parse<uint> instead.")]
-	public static uint ParseUint(in ReadOnlySpan<char> value, string target)
-		=> Parse<uint>(value, target);
-
-	[Obsolete("Use Parse<float> instead.")]
-	public static float ParseFloat(in ReadOnlySpan<char> value, string target)
-		=> Parse<float>(value, target);
 }

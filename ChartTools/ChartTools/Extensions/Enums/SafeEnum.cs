@@ -58,7 +58,7 @@ public record struct SafeEnum<T> : IEnumWrapper<SafeEnum<T>, T>,
 	}
 
 	public static SafeEnum<T> Unsafe(T value)
-		=> UnsafeExtensions.AsReadonly<T, SafeEnum<T>>(in value);
+		=> System.Runtime.CompilerServices.Unsafe.As<T, SafeEnum<T>>(in value);
 
 	/// <inheritdoc cref="Enum.HasFlag(Enum)"/>
 	public bool HasFlag(T flag)

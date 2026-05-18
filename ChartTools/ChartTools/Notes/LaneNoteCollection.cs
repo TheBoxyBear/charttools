@@ -2,6 +2,7 @@
 using ChartTools.Extensions.Enums;
 
 using System.Collections;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ChartTools;
@@ -42,7 +43,7 @@ public class LaneNoteCollection<TNote, TLane> : ILaneNoteCollection,
 		});
 
 	public void Add(byte laneIndex, uint sustain = 0)
-		=> Add(UnsafeExtensions.AsReadonly<byte, TLane>(laneIndex), sustain);
+		=> Add(Unsafe.As<byte, TLane>(laneIndex), sustain);
 
 	/// <summary>
 	/// Adds a note to the <see cref="LaneNoteCollection{TNote, TLane}"/>.
